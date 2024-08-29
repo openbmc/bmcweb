@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a3bee71_234089b0",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-29T16:32:48Z",
+      "side": 1,
+      "message": "I was thinking about the same. But that makes another if check while creating the PasswordData. For eg: in pamAuthenticateUser function. The current implementation will take care of both case.",
+      "parentUuid": "62284b1d_8f83d539",
+      "range": {
+        "startLine": 12,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 78
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e19f5a9_1398c8e3",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 12
@@ -72,6 +96,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9af42b9e_31d97ac1",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-29T16:32:48Z",
+      "side": 1,
+      "message": "you mean value_or(\"\").data() is error? or strdup(promptDataIter-\u003esecond.data()); is error? \na quick check on std::string_view(\"\").length() gave me zero.\nThis code is need to silent the clang-tidy",
+      "parentUuid": "45ce9fae_e2b98aef",
+      "range": {
+        "startLine": 42,
+        "startChar": 67,
+        "endLine": 42,
+        "endChar": 71
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4883d97c_455bb892",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-29T16:32:48Z",
+      "side": 1,
+      "message": "with out this cland-tidy was throwing error. It was a strange error. The has_value check is already there , but clang-tidy still complains.",
+      "parentUuid": "8e19f5a9_1398c8e3",
+      "range": {
+        "startLine": 42,
+        "startChar": 54,
+        "endLine": 42,
+        "endChar": 66
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f98498b_1d40aaf2",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 12
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "879d85ff_00325a22",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-29T16:32:48Z",
+      "side": 1,
+      "message": "just to improve the readability. will make it inline if you want.",
+      "parentUuid": "2f98498b_1d40aaf2",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 9
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7da5a7f4_60a9d520",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 12
@@ -106,6 +202,30 @@
       "writtenOn": "2024-08-29T15:38:10Z",
       "side": 1,
       "message": "Why do we need PasswordData::KVPair on one constructor and not the other?",
+      "range": {
+        "startLine": 127,
+        "startChar": 23,
+        "endLine": 127,
+        "endChar": 43
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "895c54ff_a7a536d3",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-08-29T16:32:48Z",
+      "side": 1,
+      "message": "std::string(password) would have done the trick. I will change it back. \nCompiler just need a hint to deduce the type of pair.",
+      "parentUuid": "7da5a7f4_60a9d520",
       "range": {
         "startLine": 127,
         "startChar": 23,
