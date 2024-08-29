@@ -47,5 +47,42 @@ TEST(GetSensorId, Success)
     EXPECT_EQ(sensorId, "temperature_temp2");
 }
 
+TEST(ChassisSubNodeToString, Success)
+{
+    std::string subNodeStr;
+
+    subNodeStr = chassisSubNodeToString(ChassisSubNode::powerNode);
+    EXPECT_EQ(subNodeStr, "Power");
+
+    subNodeStr = chassisSubNodeToString(ChassisSubNode::sensorsNode);
+    EXPECT_EQ(subNodeStr, "Sensors");
+
+    subNodeStr = chassisSubNodeToString(ChassisSubNode::thermalNode);
+    EXPECT_EQ(subNodeStr, "Thermal");
+
+    subNodeStr = chassisSubNodeToString(ChassisSubNode::unknownNode);
+    EXPECT_EQ(subNodeStr, "");
+}
+
+TEST(ChassisSubNodeFromString, Success)
+{
+    ChassisSubNode subNode = ChassisSubNode::unknownNode;
+
+    subNode = chassisSubNodeFromString("Power");
+    EXPECT_EQ(subNode, ChassisSubNode::powerNode);
+
+    subNode = chassisSubNodeFromString("Sensors");
+    EXPECT_EQ(subNode, ChassisSubNode::sensorsNode);
+
+    subNode = chassisSubNodeFromString("Thermal");
+    EXPECT_EQ(subNode, ChassisSubNode::thermalNode);
+
+    subNode = chassisSubNodeFromString("BadNode");
+    EXPECT_EQ(subNode, ChassisSubNode::unknownNode);
+
+    subNode = chassisSubNodeFromString("");
+    EXPECT_EQ(subNode, ChassisSubNode::unknownNode);
+}
+
 } // namespace
 } // namespace redfish::sensor_utils
