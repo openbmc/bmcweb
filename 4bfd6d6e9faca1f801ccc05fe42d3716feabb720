@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "828f8b21_779aa0b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T17:48:58Z",
+      "side": 1,
+      "message": "I\u0027m not really sure where you got that advice, but generally we wouldn\u0027t use pam for this kind of thing.",
+      "parentUuid": "3f8733fa_fe92d5ae",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 26
+      },
+      "revId": "4bfd6d6e9faca1f801ccc05fe42d3716feabb720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9dabda8_b302b586",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 7
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "if the Totp verify method goes to user-manager then we don\u0027t need this function in bmcweb.",
       "parentUuid": "a9dabda8_b302b586",
+      "revId": "4bfd6d6e9faca1f801ccc05fe42d3716feabb720",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4a68aec_a3b1dd9c",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-29T17:48:58Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "a3df1164_031a92e6",
       "revId": "4bfd6d6e9faca1f801ccc05fe42d3716feabb720",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
