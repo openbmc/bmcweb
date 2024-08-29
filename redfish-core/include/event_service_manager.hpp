@@ -162,6 +162,8 @@ inline int getEventLogParams(const std::string& logEntry,
     size_t space = logEntry.find_first_of(' ');
     if (space == std::string::npos)
     {
+        BMCWEB_LOG_ERROR("EventLog Params: could not find first space: {}",
+                         logEntry);
         return -EINVAL;
     }
     timestamp = logEntry.substr(0, space);
@@ -169,6 +171,8 @@ inline int getEventLogParams(const std::string& logEntry,
     size_t entryStart = logEntry.find_first_not_of(' ', space);
     if (entryStart == std::string::npos)
     {
+        BMCWEB_LOG_ERROR("EventLog Params: could not find log contents: {}",
+                         logEntry);
         return -EINVAL;
     }
     std::string_view entry(logEntry);
@@ -179,6 +183,8 @@ inline int getEventLogParams(const std::string& logEntry,
     // We need at least a MessageId to be valid
     if (logEntryFields.empty())
     {
+        BMCWEB_LOG_ERROR("EventLog Params: could not find entry fields: {}",
+                         logEntry);
         return -EINVAL;
     }
     messageID = logEntryFields[0];
@@ -336,6 +342,7 @@ class Subscription : public persistent_data::UserSubscription
             auto eventJson = eventMessage.find("MessageId");
             if (eventJson == eventMessage.end())
             {
+                BMCWEB_LOG_DEBUG("'MessageId' not present");
                 return false;
             }
 
@@ -352,9 +359,16 @@ class Subscription : public persistent_data::UserSubscription
             event_log::getRegistryAndMessageKey(*messageId, registry,
                                                 messageKey);
 
+            BMCWEB_LOG_DEBUG("extracted registry {}", registry);
+            BMCWEB_LOG_DEBUG("extracted message key {}", messageKey);
+
             auto obj = std::ranges::find(registryMsgIds, registry);
             if (obj == registryMsgIds.end())
             {
+                BMCWEB_LOG_DEBUG("did not find registry {} in registryMsgIds",
+                                 registry);
+                BMCWEB_LOG_DEBUG("registryMsgIds has {} entries",
+                                 registryMsgIds.size());
                 return false;
             }
         }
@@ -418,6 +432,8 @@ class Subscription : public persistent_data::UserSubscription
 
             if (!eventMatchesFilter(bmcLogEntry, ""))
             {
+                BMCWEB_LOG_DEBUG("Event {} did not match the filter",
+                                 nlohmann::json(bmcLogEntry).dump());
                 continue;
             }
 
@@ -1117,17 +1133,24 @@ class EventServiceManager
 
         std::string logEntry;
 
+        BMCWEB_LOG_DEBUG("Redfish log file: seek to {}",
+                         static_cast<int>(redfishLogFilePosition));
+
         // Get the read pointer to the next log to be read.
         logStream.seekg(redfishLogFilePosition);
 
         while (std::getline(logStream, logEntry))
         {
+            BMCWEB_LOG_DEBUG("Redfish log file: found new event log entry");
             // Update Pointer position
             redfishLogFilePosition = logStream.tellg();
 
             std::string idStr;
             if (!event_log::getUniqueEntryID(logEntry, idStr))
             {
+                BMCWEB_LOG_DEBUG(
+                    "Redfish log file: could not get unique entry id for {}",
+                    logEntry);
                 continue;
             }
 
@@ -1136,6 +1159,8 @@ class EventServiceManager
                 // If Service is not enabled, no need to compute
                 // the remaining items below.
                 // But, Loop must continue to keep track of Timestamp
+                BMCWEB_LOG_DEBUG(
+                    "Redfish log file: no subscribers / event service not enabled");
                 continue;
             }
 
@@ -1145,7 +1170,8 @@ class EventServiceManager
             if (event_log::getEventLogParams(logEntry, timestamp, messageID,
                                              messageArgs) != 0)
             {
-                BMCWEB_LOG_DEBUG("Read eventLog entry params failed");
+                BMCWEB_LOG_DEBUG("Read eventLog entry params failed for {}",
+                                 logEntry);
                 continue;
             }
 
@@ -1179,6 +1205,7 @@ class EventServiceManager
     {
         if (!inotifyConn)
         {
+            BMCWEB_LOG_ERROR("inotify Connection is not present");
             return;
         }
 
@@ -1198,6 +1225,9 @@ class EventServiceManager
                     BMCWEB_LOG_ERROR("Callback Error: {}", ec.message());
                     return;
                 }
+
+                BMCWEB_LOG_DEBUG("reading {} via inotify", bytesTransferred);
+
                 std::size_t index = 0;
                 while ((index + iEventSize) <= bytesTransferred)
                 {
@@ -1277,6 +1307,8 @@ class EventServiceManager
 
     static int startEventLogMonitor(boost::asio::io_context& ioc)
     {
+        BMCWEB_LOG_DEBUG("starting Event Log Monitor");
+
         inotifyConn.emplace(ioc);
         inotifyFd = inotify_init1(IN_NONBLOCK);
         if (inotifyFd == -1)
