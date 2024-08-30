@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d1c6392_e7f250b9",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-30T21:01:58Z",
+      "side": 1,
+      "message": "I like this API better.\n\nCan we:\n\n1. make addPrompt take 2 args, so we\u0027re not having to construct the pair at the call site.\n2. Make the constructor take no args so we\u0027re consistently calling addPrompt for each prompt we want to handle?",
+      "range": {
+        "startLine": 129,
+        "startChar": 13,
+        "endLine": 129,
+        "endChar": 22
+      },
+      "revId": "07140323077bb2fcee55a01f79a500ddae7b3089",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

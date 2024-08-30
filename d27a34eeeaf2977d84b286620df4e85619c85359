@@ -286,6 +286,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d189372_782a50c8",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-30T21:01:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b7fb311_10283454",
+      "range": {
+        "startLine": 42,
+        "startChar": 54,
+        "endLine": 42,
+        "endChar": 66
+      },
+      "revId": "d27a34eeeaf2977d84b286620df4e85619c85359",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f98498b_1d40aaf2",
