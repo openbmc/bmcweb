@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c6b57d2_7a4bb1ce",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-30T21:04:47Z",
+      "side": 1,
+      "message": "Should we return an error here?",
+      "revId": "07140323077bb2fcee55a01f79a500ddae7b3089",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60498698_adda4da9",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-30T21:04:47Z",
+      "side": 1,
+      "message": "nit, for consistency use size().\n\nThis is doing a different check than we were before.  This is checking the message we got is below a size, we need to check the response is below a size.\n\nIn addition, now that we have addPrompt, we should enforce the length check there, as we can return an error faster that way.",
+      "range": {
+        "startLine": 40,
+        "startChar": 27,
+        "endLine": 40,
+        "endChar": 33
+      },
+      "revId": "07140323077bb2fcee55a01f79a500ddae7b3089",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d1c6392_e7f250b9",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 16
