@@ -140,11 +140,14 @@ def main():
     filepaths = []
     for root, dirs, files in os.walk(REDFISH_SCHEMA_DIR):
         for csdl_file in files:
+            filepath = os.path.join(root, csdl_file)
+            if os.path.islink(filepath):
+                continue
             if csdl_file.endswith(".xml"):
-                filepaths.append(os.path.join(root, csdl_file))
+                filepaths.append(filepath)
     print(filepaths)
     enum_list = []
-
+    filepaths.sort()
     for filepath in filepaths:
         out = parse_file(filepath)
         enum_list.extend(out)

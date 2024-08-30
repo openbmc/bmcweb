@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Circuit v1.8.0                                                      -->
+<!--# Redfish Schema:  Circuit v1.8.1                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -156,28 +156,28 @@
 
       <EnumType Name="PhaseWiringType">
         <Member Name="OnePhase3Wire">
-          <Annotation Term="OData.Description" String="Single-phase / 3-Wire (Line1, Neutral, Protective Earth)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent a Single-phase / 3-Wire (Line1, Neutral, Protective Earth) wiring."/>
+          <Annotation Term="OData.Description" String="Single-phase / 3-wire (Line1, Neutral, Protective Earth)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a single-phase / 3-wire (Line1, Neutral, Protective Earth) wiring."/>
         </Member>
         <Member Name="TwoPhase3Wire">
-          <Annotation Term="OData.Description" String="Two-phase / 3-Wire (Line1, Line2, Protective Earth)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent a Two-phase / 3-Wire (Line1, Line2, Protective Earth) wiring."/>
+          <Annotation Term="OData.Description" String="Two-phase / 3-wire (Line1, Line2, Protective Earth)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a two-phase / 3-wire (Line1, Line2, Protective Earth) wiring."/>
         </Member>
         <Member Name="OneOrTwoPhase3Wire">
-          <Annotation Term="OData.Description" String="Single or Two-Phase / 3-Wire (Line1, Line2 or Neutral, Protective Earth)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent a Single or Two-Phase / 3-Wire (Line1, Line2 or Neutral, Protective Earth) wiring.  This value shall be used when both phase configurations are supported.  This is most common where detachable cordsets are used."/>
+          <Annotation Term="OData.Description" String="Single or two-phase / 3-wire (Line1, Line2 or Neutral, Protective Earth)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a single or two-phase / 3-wire (Line1, Line2 or Neutral, Protective Earth) wiring.  This value shall be used when both phase configurations are supported.  This is most common where detachable cordsets are used.  If poly-phase properties such as `PolyPhaseVoltage` are supported, the service should populate the measurements as if the circuit is wired as Line1, Neutral, and Protective Earth."/>
         </Member>
         <Member Name="TwoPhase4Wire">
-          <Annotation Term="OData.Description" String="Two-phase / 4-Wire (Line1, Line2, Neutral, Protective Earth)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent a Two-phase / 4-Wire (Line1, Line2, Neutral, Protective Earth) wiring."/>
+          <Annotation Term="OData.Description" String="Two-phase / 4-wire (Line1, Line2, Neutral, Protective Earth)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a two-phase / 4-wire (Line1, Line2, Neutral, Protective Earth) wiring."/>
         </Member>
         <Member Name="ThreePhase4Wire">
-          <Annotation Term="OData.Description" String="Three-phase / 4-Wire (Line1, Line2, Line3, Protective Earth)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent a Three-phase / 4-Wire (Line1, Line2, Line3, Protective Earth) wiring."/>
+          <Annotation Term="OData.Description" String="Three-phase / 4-wire (Line1, Line2, Line3, Protective Earth)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a three-phase / 4-wire (Line1, Line2, Line3, Protective Earth) wiring."/>
         </Member>
         <Member Name="ThreePhase5Wire">
-          <Annotation Term="OData.Description" String="Three-phase / 5-Wire (Line1, Line2, Line3, Neutral, Protective Earth)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent a Three-phase / 5-Wire (Line1, Line2, Line3, Neutral, Protective Earth) wiring."/>
+          <Annotation Term="OData.Description" String="Three-phase / 5-wire (Line1, Line2, Line3, Neutral, Protective Earth)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a three-phase / 5-wire (Line1, Line2, Line3, Neutral, Protective Earth) wiring."/>
         </Member>
       </EnumType>
 
@@ -419,7 +419,7 @@
         </Member>
         <Member Name="California_CS8265">
           <Annotation Term="OData.Description" String="California Standard CS8265 (Single-phase 250V; 50A; 2P3W)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent a plug that matches the 'California Standard' CS8265 style plug (Three-phase 250V; 50A; 3P4W)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent a plug that matches the 'California Standard' CS8265 style plug (Single-phase 250V; 50A; 2P3W)."/>
         </Member>
         <Member Name="California_CS8365">
           <Annotation Term="OData.Description" String="California Standard CS8365 (Three-phase 250V; 50A; 3P4W)."/>
@@ -583,13 +583,13 @@
         </Property>
         <NavigationProperty Name="Voltage" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
-          <Annotation Term="OData.Description" String="The voltage (V) for this single-phase circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage, in volt units, for this single-phase circuit.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not appear in resource instances representing poly-phase circuits."/>
+          <Annotation Term="OData.Description" String="The voltage (V) for this circuit."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage, in volt units, for this circuit.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if `PhaseWiringType` contains a value that indicates a 4-wire or greater configuration, such as `TwoPhase4Wire`."/>
         </NavigationProperty>
         <NavigationProperty Name="CurrentAmps" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
-          <Annotation Term="OData.Description" String="The current (A) for this single-phase circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the current, in ampere units, for this single-phase circuit.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not appear in resource instances representing poly-phase circuits."/>
+          <Annotation Term="OData.Description" String="The current (A) for this circuit."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current, in ampere units, for this circuit.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not be present if `PhaseWiringType` contains a value that indicates a 4-wire or greater configuration, such as `TwoPhase4Wire`."/>
         </NavigationProperty>
         <NavigationProperty Name="PowerWatts" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
@@ -608,19 +608,19 @@
         </NavigationProperty>
         <Property Name="PolyPhaseVoltage" Type="Circuit.v1_0_0.VoltageSensors">
           <Annotation Term="OData.Description" String="The voltage readings for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage sensors for this circuit.  For single-phase circuits, this property shall contain a duplicate copy of the voltage sensor referenced in the `Voltage` property, if present.  For poly-phase circuits, this property should contain multiple voltage sensor readings used to fully describe the circuit."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage sensors for this circuit.  For 3-wire circuits, this property shall contain a duplicate copy of the voltage sensor referenced in the `Voltage` property, if present.  For other circuits, this property should contain multiple voltage sensor readings used to fully describe the circuit."/>
         </Property>
         <Property Name="PolyPhaseCurrentAmps" Type="Circuit.v1_0_0.CurrentSensors">
           <Annotation Term="OData.Description" String="The current readings for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the current sensors for this circuit.  For single-phase circuits, this property shall contain a duplicate copy of the current sensor referenced in the `CurrentAmps` property, if present.  For poly-phase circuits, this property should contain multiple current sensor readings used to fully describe the circuit."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current sensors for this circuit.  For 3-wire circuits, this property shall contain a duplicate copy of the current sensor referenced in the `CurrentAmps` property, if present.  For other circuits, this property should contain multiple current sensor readings used to fully describe the circuit."/>
         </Property>
         <Property Name="PolyPhasePowerWatts" Type="Circuit.v1_0_0.PowerSensors">
           <Annotation Term="OData.Description" String="The power readings for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the power sensors for this circuit.  For single-phase circuits, this property shall contain a duplicate copy of the power sensor referenced in the `PowerWatts` property, if present.  For poly-phase circuits, this property should contain multiple power sensor readings used to fully describe the circuit."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the power sensors for this circuit.  For 3-wire circuits, this property shall contain a duplicate copy of the power sensor referenced in the `PowerWatts` property, if present.  For other circuits, this property should contain multiple power sensor readings used to fully describe the circuit."/>
         </Property>
         <Property Name="PolyPhaseEnergykWh" Type="Circuit.v1_0_0.EnergySensors">
           <Annotation Term="OData.Description" String="The energy readings for this circuit."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the energy sensors for this circuit.  For single-phase circuits, this property shall contain a duplicate copy of the energy sensor referenced in the `EnergykWh` property, if present.  For poly-phase circuits, this property should contain multiple energy sensor readings used to fully describe the circuit."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the energy sensors for this circuit.  For 3-wire circuits, this property shall contain a duplicate copy of the energy sensor referenced in the `EnergykWh` property, if present.  For other circuits, this property should contain multiple energy sensor readings used to fully describe the circuit."/>
         </Property>
         <Property Name="Links" Type="Circuit.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
@@ -865,6 +865,12 @@
       <EntityType Name="Circuit" BaseType="Circuit.v1_0_4.Circuit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_0_5.Circuit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -903,6 +909,12 @@
       <EntityType Name="Circuit" BaseType="Circuit.v1_1_3.Circuit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_1_4.Circuit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -927,6 +939,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Circuit" BaseType="Circuit.v1_2_2.Circuit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_2_3.Circuit"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_3_0">
@@ -958,6 +976,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Circuit" BaseType="Circuit.v1_3_2.Circuit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_3_3.Circuit"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_4_0">
@@ -1028,6 +1052,12 @@
       <EntityType Name="Circuit" BaseType="Circuit.v1_4_2.Circuit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_4_3.Circuit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -1074,6 +1104,12 @@
       <EntityType Name="Circuit" BaseType="Circuit.v1_5_1.Circuit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_5_2.Circuit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1092,6 +1128,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Circuit" BaseType="Circuit.v1_6_1.Circuit"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_6_2.Circuit"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_7_0">
@@ -1114,6 +1156,12 @@
       <EntityType Name="Circuit" BaseType="Circuit.v1_7_1.Circuit"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_7_2.Circuit"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
@@ -1125,6 +1173,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the nominal frequency for this circuit, in hertz units."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Circuit.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Circuit" BaseType="Circuit.v1_8_0.Circuit"/>
     </Schema>
 
   </edmx:DataServices>

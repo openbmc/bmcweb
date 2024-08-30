@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MemoryRegion v1.0.2                                                 -->
+<!--# Redfish Schema:  MemoryRegion v1.0.3                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -159,7 +159,7 @@
         </Property>
         <Property Name="Tag" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The user-assigned tag of this memory extent."/>
+          <Annotation Term="OData.Description" String="The tag of this memory extent."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an opaque context attached to each extent to track usage of each extent or map extent to specific processes, transactions, or workloads on the host."/>
         </Property>
         <Property Name="SequenceNumber" Type="Edm.Int64">
@@ -222,6 +222,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="MemoryRegion" BaseType="MemoryRegion.v1_0_1.MemoryRegion"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryRegion.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the defintion of the `Tag` property."/>
+      <EntityType Name="MemoryRegion" BaseType="MemoryRegion.v1_0_2.MemoryRegion"/>
     </Schema>
 
   </edmx:DataServices>

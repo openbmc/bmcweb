@@ -54,6 +54,10 @@ enum class PhysicalContext{
     Transceiver,
     Battery,
     Pump,
+    Filter,
+    Reservoir,
+    Switch,
+    Manager,
 };
 
 enum class PhysicalSubContext{
@@ -121,6 +125,10 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PhysicalContext, {
     {PhysicalContext::Transceiver, "Transceiver"},
     {PhysicalContext::Battery, "Battery"},
     {PhysicalContext::Pump, "Pump"},
+    {PhysicalContext::Filter, "Filter"},
+    {PhysicalContext::Reservoir, "Reservoir"},
+    {PhysicalContext::Switch, "Switch"},
+    {PhysicalContext::Manager, "Manager"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(PhysicalSubContext, {

@@ -385,6 +385,50 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="Filter">
+          <Annotation Term="OData.Description" String="A filter."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2024.2"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Reservoir">
+          <Annotation Term="OData.Description" String="A reservoir."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2024.2"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Switch">
+          <Annotation Term="OData.Description" String="A switch device."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2024.2"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Manager">
+          <Annotation Term="OData.Description" String="A management controller, such as a BMC (baseboard management controller)."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2024.2"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="PhysicalSubContext">

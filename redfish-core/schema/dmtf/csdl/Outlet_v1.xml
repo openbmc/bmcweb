@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Outlet v1.4.3                                                       -->
+<!--# Redfish Schema:  Outlet v1.4.4                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -274,13 +274,13 @@
         </Property>
         <NavigationProperty Name="Voltage" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
-          <Annotation Term="OData.Description" String="The voltage (V) for this single-phase outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage, in volt units, for this single-phase outlet.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not appear in resource instances representing poly-phase outlets."/>
+          <Annotation Term="OData.Description" String="The voltage (V) for this outlet."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage, in volt units, for this outlet.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`.  This property shall not be present if `PhaseWiringType` contains a value that indicates a 4-wire or greater configuration, such as `TwoPhase4Wire`."/>
         </NavigationProperty>
         <NavigationProperty Name="CurrentAmps" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
-          <Annotation Term="OData.Description" String="The current (A) for this single-phase outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the current, in ampere units, for this single-phase outlet.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not appear in resource instances representing poly-phase outlets."/>
+          <Annotation Term="OData.Description" String="The current (A) for this outlet."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current, in ampere units, for this outlet.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`.  This property shall not be present if `PhaseWiringType` contains a value that indicates a 4-wire or greater configuration, such as `TwoPhase4Wire`."/>
         </NavigationProperty>
         <NavigationProperty Name="PowerWatts" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy" String="Power"/>
@@ -300,11 +300,11 @@
 
         <Property Name="PolyPhaseVoltage" Type="Outlet.v1_0_0.VoltageSensors">
           <Annotation Term="OData.Description" String="The voltage readings for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage readings for this outlet.  For single-phase outlets, this property shall contain a duplicate copy of the voltage sensor referenced in the `Voltage` property, if present.  For poly-phase outlets, this property should contain multiple voltage sensor readings used to fully describe the outlet."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage readings for this outlet.  For 3-wire outlets, this property shall contain a duplicate copy of the voltage sensor referenced in the `Voltage` property, if present.  For other outlets, this property should contain multiple voltage sensor readings used to fully describe the outlet."/>
         </Property>
         <Property Name="PolyPhaseCurrentAmps" Type="Outlet.v1_0_0.CurrentSensors">
           <Annotation Term="OData.Description" String="The current readings for this outlet."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the current readings for this outlet.  For single-phase outlets, this property shall contain a duplicate copy of the current sensor referenced in the `CurrentAmps` property, if present.  For poly-phase outlets, this property should contain multiple current sensor readings used to fully describe the outlet."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current readings for this outlet.  For 3-wire outlets, this property shall contain a duplicate copy of the current sensor referenced in the `CurrentAmps` property, if present.  For other outlets, this property should contain multiple current sensor readings used to fully describe the outlet."/>
         </Property>
 
         <Property Name="Links" Type="Outlet.v1_0_0.Links" Nullable="false">
@@ -452,6 +452,12 @@
       <EntityType Name="Outlet" BaseType="Outlet.v1_0_5.Outlet"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_0_6.Outlet"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -496,6 +502,12 @@
       <EntityType Name="Outlet" BaseType="Outlet.v1_1_4.Outlet"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_1_5.Outlet"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -531,6 +543,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_2_3.Outlet"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_2_4.Outlet"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_3_0">
@@ -596,6 +614,12 @@
       <EntityType Name="Outlet" BaseType="Outlet.v1_3_3.Outlet"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_3_4.Outlet"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -636,6 +660,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Outlet" BaseType="Outlet.v1_4_2.Outlet"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Outlet.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions to explain voltage and current sensor properties in terms of the `PhaseWiringType`.  It was also created to correct various typographic errors and for consistent style."/>
+      <EntityType Name="Outlet" BaseType="Outlet.v1_4_3.Outlet"/>
     </Schema>
 
   </edmx:DataServices>

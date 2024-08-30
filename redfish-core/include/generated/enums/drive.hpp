@@ -89,6 +89,19 @@ enum class ConfigurationLock{
     Partial,
 };
 
+enum class TargetConfigurationLockLevel{
+    Invalid,
+    Baseline,
+};
+
+enum class ConfigLockOptions{
+    Invalid,
+    Unlocked,
+    Locked,
+    LockdownUnsupported,
+    CommandUnsupported,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(MediaType, {
     {MediaType::Invalid, "Invalid"},
     {MediaType::HDD, "HDD"},
@@ -171,6 +184,19 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConfigurationLock, {
     {ConfigurationLock::Enabled, "Enabled"},
     {ConfigurationLock::Disabled, "Disabled"},
     {ConfigurationLock::Partial, "Partial"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(TargetConfigurationLockLevel, {
+    {TargetConfigurationLockLevel::Invalid, "Invalid"},
+    {TargetConfigurationLockLevel::Baseline, "Baseline"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ConfigLockOptions, {
+    {ConfigLockOptions::Invalid, "Invalid"},
+    {ConfigLockOptions::Unlocked, "Unlocked"},
+    {ConfigLockOptions::Locked, "Locked"},
+    {ConfigLockOptions::LockdownUnsupported, "LockdownUnsupported"},
+    {ConfigLockOptions::CommandUnsupported, "CommandUnsupported"},
 });
 
 }

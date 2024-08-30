@@ -269,13 +269,13 @@
         <Property Name="CertificateString" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The string for the certificate."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the certificate, and the format shall follow the requirements specified by the `CertificateType` property value.  If the certificate contains any private keys, they shall be removed from the string in responses.  If the service does not know the private key for the certificate and is needed to use the certificate, the client shall provide the private key as part of the string in the `POST` request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the certificate, and the format shall follow the requirements specified by the `CertificateType` property value.  If the certificate contains any private keys, they shall be removed from the string in responses.  If the service does not know the private key for the certificate and is needed to use the certificate, the client shall provide the private key as part of the string in the `POST` request.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
         </Property>
         <Property Name="CertificateType" Type="Certificate.CertificateType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The format of the certificate."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the format type for the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the format type for the certificate.  For additional property requirements, see the corresponding definition in the Redfish Data Model Specification."/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
         </Property>
         <Property Name="Issuer" Type="Certificate.v1_0_0.Identifier" Nullable="false">
@@ -408,6 +408,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_0_6.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_0_7.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -488,6 +494,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_1_5.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_1_6.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -537,6 +549,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_2_5.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_2_6.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -583,6 +601,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_3_2.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_3_3.Certificate"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_4_0">
@@ -702,6 +726,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_4_2.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_4_3.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -741,6 +771,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_5_2.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_5_3.Certificate"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_6_0">
@@ -785,6 +821,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_6_1.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_6_2.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -812,6 +854,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_7_1.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_7_2.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -830,6 +878,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_8_1.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_8_2.Certificate"/>
     </Schema>
 
   </edmx:DataServices>

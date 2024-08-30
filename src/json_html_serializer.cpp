@@ -556,11 +556,11 @@ void dumpHtml(std::string& out, const nlohmann::json& json)
     out += "<html>\n"
            "<head>\n"
            "<title>Redfish API</title>\n"
-           "<link href=\"/redfish.css\" rel=\"stylesheet\">\n"
+           "<link href=\"/styles/redfish.css\" rel=\"stylesheet\">\n"
            "</head>\n"
            "<body>\n"
            "<div class=\"container\">\n"
-           "<img src=\"/DMTF_Redfish_logo_2017.svg\" alt=\"redfish\" "
+           "<img src=\"/images/DMTF_Redfish_logo_2017.svg\" alt=\"redfish\" "
            "height=\"406px\" "
            "width=\"576px\">\n"
            "<div class=\"content\">\n";

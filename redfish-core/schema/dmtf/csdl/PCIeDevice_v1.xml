@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.14.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.15.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1118,6 +1118,26 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates whether temporary throughput reduction is enabled."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the CXL Specification-defined 'Temporary Throughput Reduction' mechanism is enabled on this device."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_15_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.2"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_14_0.PCIeDevice"/>
+
+      <ComplexType Name="PCIeErrors" BaseType="PCIeDevice.v1_13_0.PCIeErrors">
+        <Property Name="BadTLPCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Bad TLPs issued on the PCIe link by the receiver."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Bad TLPs issued on the PCIe link by the receiver.  A Bad TLP in the context of PCIe communication is a packet that cannot be properly processed due to errors at the transaction layer.  These errors could include corrupted data, incorrect packet formatting, invalid header information, or a mismatched checksum."/>
+        </Property>
+        <Property Name="BadDLLPCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Bad DLLPs issued on the PCIe link by the receiver."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Bad DLLPs issued on the PCIe link by the receiver.  A Bad DLLP in the context of PCIe communication is a packet that has encountered errors at the data link layer.  When a DLLP is considered bad, it means it has been corrupted or is incorrectly formatted, potentially due to transmission errors, hardware failures, or other issues that affect its integrity."/>
         </Property>
       </ComplexType>
     </Schema>

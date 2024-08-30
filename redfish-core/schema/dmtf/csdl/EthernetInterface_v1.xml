@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface v1.12.1                                           -->
+<!--# Redfish Schema:  EthernetInterface v1.12.2                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -148,7 +148,7 @@
         <Property Name="HostName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The DNS host name, without any domain information."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the DNS host name for this interface.  Modifying this property may modify the `HostName` in one or more `EthernetInterface` resources that belong to the same system, manager, or other device.  If this interface is subordinate to a `ComputerSystem` resource, modifying this property may modify the `HostName` of the `ComputerSystem` resource that contains this interface.  If this interface is subordinate to a `Manager` resource, modifying this property may modify the `HostName` of the `ManagerNetworkProtocol` resource of the `Manager` resource that contains this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the DNS host name for this interface.  Modifying this property may modify the `HostName` in one or more `EthernetInterface` resources that belong to the same system, manager, or other device.  If this interface is subordinate to a `ComputerSystem` resource, modifying this property may modify the `HostName` of the `ComputerSystem` resource that contains this interface.  If this interface is subordinate to a `Manager` resource, modifying this property may modify the `HostName` of the `ManagerNetworkProtocol` resource of the `Manager` resource that contains this interface.  Services should ignore this property in modification requests if `FQDN` is also provided in the same request."/>
         </Property>
         <Property Name="FQDN" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -329,6 +329,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_15.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_16.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -454,6 +460,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_13.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_14.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -546,6 +558,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_12.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_13.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_0">
@@ -655,6 +673,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_11.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_12.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_0">
@@ -884,6 +908,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_10.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_11.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -966,6 +996,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_8.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_9.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_0">
@@ -1052,6 +1088,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_6.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_6_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_6_7.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1087,6 +1129,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_2.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_7_3.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1111,6 +1159,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_2.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_8_3.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_0">
@@ -1187,6 +1241,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_2.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_9_3.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -1213,6 +1273,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_10_1.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_10_2.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_11_0">
@@ -1259,6 +1325,12 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_11_1.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_11_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_11_2.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -1276,6 +1348,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_12_0.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_12_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend ignoring `HostName` in modification requests if `FQDN` is also in the same modification request."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_12_1.EthernetInterface"/>
     </Schema>
 
   </edmx:DataServices>

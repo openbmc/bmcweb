@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricReport v1.5.1                                                 -->
+<!--# Redfish Schema:  MetricReport v1.5.2                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -111,7 +111,7 @@
         <Property Name="MetricValue" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The metric value, as a string."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the metric value, as a string."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the metric value, as a string.  For numeric metrics, the service shall convert the number to a string representation of the number.  For array metrics, the service shall convert the array to an RFC8259-defined JSON string.  For boolean metrics, this property shall contain the strings `true` or `false`.  If the metric value is `null`, this property shall contain `null`."/>
         </Property>
         <Property Name="Timestamp" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -212,6 +212,12 @@
       <EntityType Name="MetricReport" BaseType="MetricReport.v1_0_8.MetricReport"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the `MetricValue` property to describe encoding behaviors for non-string metrics."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_0_9.MetricReport"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -273,6 +279,12 @@
       <EntityType Name="MetricReport" BaseType="MetricReport.v1_1_7.MetricReport"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the `MetricValue` property to describe encoding behaviors for non-string metrics."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_1_8.MetricReport"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -323,6 +335,12 @@
       <EntityType Name="MetricReport" BaseType="MetricReport.v1_2_5.MetricReport"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the `MetricValue` property to describe encoding behaviors for non-string metrics."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_2_6.MetricReport"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -359,6 +377,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="MetricReport" BaseType="MetricReport.v1_3_5.MetricReport"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the `MetricValue` property to describe encoding behaviors for non-string metrics."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_3_6.MetricReport"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_4_0">
@@ -398,6 +422,12 @@
       <EntityType Name="MetricReport" BaseType="MetricReport.v1_4_3.MetricReport"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the `MetricValue` property to describe encoding behaviors for non-string metrics."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_4_4.MetricReport"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -410,6 +440,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="MetricReport" BaseType="MetricReport.v1_5_0.MetricReport"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the `MetricValue` property to describe encoding behaviors for non-string metrics."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_5_1.MetricReport"/>
     </Schema>
 
   </edmx:DataServices>
