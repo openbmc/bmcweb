@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a39460b6_a84fec45",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-30T21:06:37Z",
+      "side": 1,
+      "message": "Can we make this a real class?\n\nstruct PromptResponse {\n    std::string_view prompt;\n    std::string_view response;\n}",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 60
+      },
+      "revId": "07140323077bb2fcee55a01f79a500ddae7b3089",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b137966_1ad9d992",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-30T21:06:37Z",
+      "side": 1,
+      "message": "Should we just use std::vector here?  The additional malloc doesn\u0027t concern me, and it would make the push code simpler.",
+      "range": {
+        "startLine": 15,
+        "startChar": 23,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "07140323077bb2fcee55a01f79a500ddae7b3089",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c6b57d2_7a4bb1ce",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 16
