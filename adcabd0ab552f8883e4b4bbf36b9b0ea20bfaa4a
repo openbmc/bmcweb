@@ -108,6 +108,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5e7373c_69897fd9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-08-31T03:09:21Z",
+      "side": 1,
+      "message": "I add it because there is ProductionDate in PowerSupply Schemas.",
+      "parentUuid": "de9ec83b_43976bb4",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "99b66c8e_376c2129",
@@ -193,6 +211,24 @@
       "side": 1,
       "message": "Those two documents match expectations, so I\u0027m not sure I understand how you came to be here, but it\u0027s expected you test the code you add.  This means that at MINIMUM, you\u0027ve executed the golden path.  Do not add code to your patchsets that you haven\u0027t tested;  If you can\u0027t test the code paths, please discuss with maintainers.",
       "parentUuid": "2c5c0607_297827c9",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f45f00f_44df4734",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-08-31T03:09:21Z",
+      "side": 1,
+      "message": "As you can see in the first commit, I added codes for Systems/Manager/Chassis schemas and I have aldeady run the Redfish Service Validator and see the errors\n```\nERROR - ProductionDate not defined in schema ComputerSystem.v1_19_0 (check version, spelling and casing)\nERROR - ProductionDate not defined in schema Chassis.v1_21_0 (check version, spelling and casing)\nERROR - ProductionDate not defined in schema Manager.v1_14_0 (check version, spelling and casing)\n```\nOur system has support ProductionDate for Systems/Manager/Chassis so I keep it in internal.\nFor PowerSupply, our system does not support it but I see it in the PowerSupply schema, that why I keep support it in upstream code.",
+      "parentUuid": "6d097a94_66156bb4",
       "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
