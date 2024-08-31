@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b5cf5a4_b5d80977",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-31T16:21:48Z",
+      "side": 1,
+      "message": "Pretty minor updates to this, then this patch should be good to go.",
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b790f64_13d7f49c",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-31T16:21:48Z",
+      "side": 1,
+      "message": "I don\u0027t think this is true anymore.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 70
+      },
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e17a7cd1_d41c8ccf",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-31T16:21:48Z",
+      "side": 1,
+      "message": "Remove the using declaration here.  Responses isn\u0027t used anywhere else, and std::vector\u003cResponse\u003e isn\u0027t that much longer of a declaration than Response",
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dcf7aca_668e6841",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-31T16:21:48Z",
+      "side": 1,
+      "message": "Should be !\u003d PAM_SUCCESS",
+      "range": {
+        "startLine": 125,
+        "startChar": 47,
+        "endLine": 125,
+        "endChar": 62
+      },
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef52ad42_c667d08a",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-31T16:21:48Z",
+      "side": 1,
+      "message": "We should return whatever error code was given here.",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 28
+      },
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01a89e02_9ba25572",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-31T16:21:48Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 170,
+        "startChar": 47,
+        "endLine": 170,
+        "endChar": 62
+      },
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
