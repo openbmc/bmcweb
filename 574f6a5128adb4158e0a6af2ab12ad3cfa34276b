@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e8d1ccd_da209271",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-31T16:32:09Z",
+      "side": 1,
+      "message": "This function isn\u0027t really an appropriate conversion.  Lets use dateStringToEpoch to parse this into a value, then use getDateTimeUint to convert it to a Redfish value.  That\u0027s likely less code, and will verify that we\u0027re producing the value correctly.\n\nFor example\n\n19991399\n\nWould parse correctly here, but produce an incorrect Redfish result.",
+      "revId": "574f6a5128adb4158e0a6af2ab12ad3cfa34276b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12bc5dc7_4177cded",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-31T16:32:09Z",
+      "side": 1,
+      "message": "We shouldn\u0027t be producing two different strings for a single type.",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 0
+      },
+      "revId": "574f6a5128adb4158e0a6af2ab12ad3cfa34276b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

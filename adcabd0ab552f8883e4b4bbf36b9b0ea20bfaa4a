@@ -235,6 +235,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5feca7d5_5e588144",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-08-31T16:32:09Z",
+      "side": 1,
+      "message": "You say here that you see the errors, but your commit message states \"Redfish Validator passes\".  Can you see how someone could be confused?",
+      "parentUuid": "6f45f00f_44df4734",
+      "revId": "adcabd0ab552f8883e4b4bbf36b9b0ea20bfaa4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91766d51_1caa0f1d",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 6
