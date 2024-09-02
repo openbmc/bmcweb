@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc751001_a966442e",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-02T15:39:40Z",
+      "side": 1,
+      "message": "Is it ok to allow dbus access before authenticating the user?",
+      "revId": "afa4c3ac65950c725d2ae5eabcd80a26304b6315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2323400_65ce5219",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-02T15:39:40Z",
+      "side": 1,
+      "message": "is this recommended way to pass unencrypted password over dbus? Alternately, using file IO with unencrypted password is recommended? If not I guess the better alternative would be to use https.",
+      "revId": "afa4c3ac65950c725d2ae5eabcd80a26304b6315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
