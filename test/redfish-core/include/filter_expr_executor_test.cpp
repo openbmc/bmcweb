@@ -2,10 +2,12 @@
 #include "filter_expr_parser_ast.hpp"
 #include "filter_expr_printer.hpp"
 
+#include <nlohmann/json.hpp>
+
 #include <optional>
 #include <string_view>
 
-#include "gmock/gmock.h"
+#include <gtest/gtest.h>
 
 namespace redfish
 {
