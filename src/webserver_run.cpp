@@ -25,7 +25,10 @@
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/asio/object_server.hpp>
 
+#include <algorithm>
 #include <memory>
+#include <string>
+#include <string_view>
 
 static void setLogLevel(const std::string& logLevel)
 {

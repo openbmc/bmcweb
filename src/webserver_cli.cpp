@@ -4,8 +4,8 @@
 #include <CLI/CLI.hpp>
 #include <boost/asio/io_context.hpp>
 #include <sdbusplus/asio/connection.hpp>
-#include <sdbusplus/bus.hpp>
 
+#include <memory>
 #include <string>
 
 // Override default log option:
