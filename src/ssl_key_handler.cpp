@@ -4,21 +4,35 @@
 
 #include "logging.hpp"
 #include "ossl_random.hpp"
-#include "persistent_data.hpp"
+#include "sessions.hpp"
 
+#include <openssl/asn1.h>
+#include <openssl/ec.h>
+#include <openssl/obj_mac.h>
+#include <openssl/tls1.h>
+#include <openssl/types.h>
+#include <openssl/x509.h>
+#include <openssl/x509_vfy.h>
+#include <openssl/x509v3.h>
+
+#include <boost/asio/buffer.hpp>
+#include <boost/asio/ssl/verify_mode.hpp>
+#include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
+
+#include <bit>
+#include <cstddef>
+#include <limits>
+#include <system_error>
+#include <utility>
 
 extern "C"
 {
 #include <nghttp2/nghttp2.h>
 #include <openssl/bio.h>
-#include <openssl/dh.h>
-#include <openssl/dsa.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
 #include <openssl/pem.h>
-#include <openssl/rand.h>
-#include <openssl/rsa.h>
 #include <openssl/ssl.h>
 }
 

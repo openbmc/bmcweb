@@ -1,5 +1,17 @@
 #include "mutual_tls.hpp"
 
+#include "sessions.hpp"
+
+#include <openssl/obj_mac.h>
+#include <openssl/types.h>
+#include <openssl/x509.h>
+#include <openssl/x509v3.h>
+
+#include <cstddef>
+#include <cstdint>
+#include <optional>
+#include <string>
+
 extern "C"
 {
 #include <openssl/x509_vfy.h>
@@ -7,7 +19,6 @@ extern "C"
 
 #include "logging.hpp"
 #include "mutual_tls_meta.hpp"
-#include "persistent_data.hpp"
 
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ssl/verify_context.hpp>

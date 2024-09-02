@@ -2,6 +2,7 @@
 #include "http_body.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "boost_formatters.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/steady_timer.hpp>
