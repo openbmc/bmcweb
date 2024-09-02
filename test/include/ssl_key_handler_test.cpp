@@ -1,7 +1,8 @@
 #include "file_test_utilities.hpp"
 #include "ssl_key_handler.hpp"
 
-#include <gmock/gmock.h>
+#include <string>
+
 #include <gtest/gtest.h>
 
 namespace ensuressl
