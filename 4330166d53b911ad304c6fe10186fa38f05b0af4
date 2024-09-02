@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "568c739e_53959346",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-02T21:48:45Z",
+      "side": 1,
+      "message": "\u003e Since there are two functions I\u0027d rather not have them in two places.\n\nI would prefer them in two places.\n\nOut of trying to understand your previous comment, why is it a problem if they\u0027re in two places?\n\n\u003e What about if I put them into an \"internal\" namespace instead?\n\nNo thank you, please just inline them.  It makes the code more clear, and these fixed strings haven\u0027t changed since they were written 6 years ago, and won\u0027t change in the future unless there\u0027s a Redfish 2.0.  Lets optimize for readability here.\n\n\u003e \n\u003e The compiler wouldn\u0027t prevent them being used, but the name would be a red-flag on them being used outside.\n\nAgreed, internal is certainly better.  IMO the ideal is just to not expose them externally at all and put them in the two scopes where they\u0027re used.",
+      "parentUuid": "a6b6487a_563aa145",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 61
+      },
+      "revId": "4330166d53b911ad304c6fe10186fa38f05b0af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4927769e_a3791a48",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 1
