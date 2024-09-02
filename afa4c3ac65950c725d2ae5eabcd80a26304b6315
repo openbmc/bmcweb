@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b48cea4f_5169dc32",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-02T15:50:25Z",
+      "side": 1,
+      "message": "because that would be a much larger patch.  certainly something we could discuss, but outside this patch.",
+      "parentUuid": "82d819f2_fc810b2c",
+      "revId": "afa4c3ac65950c725d2ae5eabcd80a26304b6315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc751001_a966442e",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 8
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3275a974_5895b45c",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-02T15:50:25Z",
+      "side": 1,
+      "message": "excellent question that we should answer as part of this.",
+      "parentUuid": "cc751001_a966442e",
+      "revId": "afa4c3ac65950c725d2ae5eabcd80a26304b6315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2323400_65ce5219",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 8
@@ -48,6 +84,24 @@
       "writtenOn": "2024-09-02T15:39:40Z",
       "side": 1,
       "message": "is this recommended way to pass unencrypted password over dbus? Alternately, using file IO with unencrypted password is recommended? If not I guess the better alternative would be to use https.",
+      "revId": "afa4c3ac65950c725d2ae5eabcd80a26304b6315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd24a191_87f44526",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-02T15:50:25Z",
+      "side": 1,
+      "message": "see other discussion on this.  in part, that’s why this is still WIP.",
+      "parentUuid": "f2323400_65ce5219",
       "revId": "afa4c3ac65950c725d2ae5eabcd80a26304b6315",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
