@@ -1,4 +1,5 @@
 #pragma once
+#include "boost_formatters.hpp"
 #include "http_body.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
