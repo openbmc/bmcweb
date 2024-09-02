@@ -267,6 +267,7 @@ cppcoreguidelines-special-member-functions,
 google-explicit-constructor,
 misc-coroutine-hostile-raii,
 misc-header-include-cycle,
+misc-include-cleaner,
 misc-misleading-bidirectional,
 misc-misleading-identifier,
 misc-misplaced-const,
@@ -384,4 +385,4 @@ CheckOptions:
   - { key: readability-identifier-naming.StructIgnoredRegexp,  value: (BMCWEB_LOG_DEBUG|BMCWEB_LOG_INFO|BMCWEB_LOG_WARNING|BMCWEB_LOG_ERROR|BMCWEB_LOG_CRITICAL) }
   - { key: cppcoreguidelines-macro-usage.AllowedRegexp, value: DEBUG*|NLOHMANN_JSON_SERIALIZE_ENUM }
   - { key: cppcoreguidelines-rvalue-reference-param-not-moved.IgnoreUnnamedParams, value: true }
-  - { key: misc-include-cleaner.IgnoreHeaders, value: ((nlohmann/json_fwd.hpp)|(boost/.*/src.hpp)|(boost/.*/detail/.*)|(nlohmann/detail/.*)|(stdio.h)|(ranges)|(bits/.*)|(boost/system/error_code.hpp)) }
+  - { key: misc-include-cleaner.IgnoreHeaders, value: ((nlohmann/json_fwd.hpp)|(boost/.*/src.hpp)|(boost/.*/detail/.*)|(nlohmann/detail/.*)|(stdio.h)|(ranges)|(bits/.*)|(boost/system/error_code.hpp)|(boost_formatters.hpp)) }

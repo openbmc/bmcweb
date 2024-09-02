@@ -6,6 +6,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include <cstddef>
 #include <memory>
 
 #include <gmock/gmock.h> // IWYU pragma: keep
