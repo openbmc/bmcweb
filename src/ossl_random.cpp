@@ -1,5 +1,11 @@
 #include "ossl_random.hpp"
 
+#include "logging.hpp"
+
+#include <cstddef>
+#include <cstdint>
+#include <string_view>
+
 extern "C"
 {
 #include <openssl/crypto.h>
