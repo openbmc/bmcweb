@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82d819f2_fc810b2c",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-02T15:47:58Z",
+      "side": 1,
+      "message": "why don\u0027t we delegate the session/auth token creation to the new service?",
+      "revId": "afa4c3ac65950c725d2ae5eabcd80a26304b6315",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc751001_a966442e",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 8
