@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e598dd38_abedb6f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-03T18:05:16Z",
+      "side": 1,
+      "message": "Yeah, need some more explanation here, now that we understand more",
+      "parentUuid": "9922218e_7cc2304f",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "deae0bcb_0c7ce4e2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
@@ -73,6 +97,24 @@
       "side": 1,
       "message": "My worry is that now we have two \"reading\" params that expose the exact same data, and I can\u0027t think of a way to write a correct reader that\u0027s simpler than just looking for Reading and units.  At the very least it\u0027s duplicating information, which makes EnvironmentalMetrics harder to implement (because it needs both parameters).\n\nWhat I expect is that Sensors are supposed to have Reading OR SpeedRPM, not both in the intent of the standard.\n\nIf we want to add this under an experimental option flag, I\u0027m fine with it and we can get it on as we get more information, but given how much the sensor subsystem is used (by basically everyone) I\u0027m worried about making API changes for all platforms without a full understanding of why.",
       "parentUuid": "1fe28ea6_c11aaeb1",
+      "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9839b89b_a1d6dc97",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-03T18:05:16Z",
+      "side": 1,
+      "message": "\u003e My worry is that now we have two \"reading\" params that expose the exact same data \n\nRedfish was not concerned here with two \"reading\" params that expose the exact same data (let me know if you interrupted differently.. I am thinking of early in the discussion), but overall, the direction of Redfish is a Fan Sensor Reading should be a percentage (not an RPM).\n\nRedfish is going to update its spec, stating a fan should be a percentage. \nRedfish is also going to better explain these excerpts. \n\n\u003e What I expect is that Sensors are supposed to have Reading OR SpeedRPM, not both in the intent of the standard.\n\nI think Redfish thinks you should probably have a Reading but not required (and probably a SpeedRPM but again not required). Redfish mentioned you could just have a SpeedRPM (not a Reading or DataSourceUri). Going by mockups, it is have both Reading and SpeedRPM but the spec doesn\u0027t require that. \n\n\u003e I\u0027m worried about making API changes for all platforms without a full understanding of why.\n\nThe why here is so we will always a property with the RPM, if/when we move sensors over to Percentage. \nThis way a client (e.g. webui-vue) could look for this property",
+      "parentUuid": "6c82ec39_09f1cc2d",
       "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
