@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb53c408_d1d96c4f",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-03T14:48:47Z",
+      "side": 1,
+      "message": "can\u0027t we just do\n\nstd::string(value) here?",
+      "range": {
+        "startLine": 28,
+        "startChar": 46,
+        "endLine": 28,
+        "endChar": 72
+      },
+      "revId": "148d4644d96ad4a4b902f97788a05fc009c2d557",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f714b0bf_9c7524ad",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-03T14:48:47Z",
+      "side": 1,
+      "message": "This looks like it was added?  Why?  Should we do that in its own commit?",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 5
+      },
+      "revId": "148d4644d96ad4a4b902f97788a05fc009c2d557",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
