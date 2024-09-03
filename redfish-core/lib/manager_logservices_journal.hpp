@@ -429,7 +429,7 @@ inline void handleManagersJournalLogEntryCollectionGet(
 
     // Get the last sequence number
     uint64_t endSeqNum = 0;
-#if SYSTEMD_VERSION >= 254
+#if LIBSYSTEMD_VERSION >= 254
     {
         if (sd_journal_get_seqnum(journal.get(), &endSeqNum, nullptr) < 0)
         {
@@ -455,7 +455,7 @@ inline void handleManagersJournalLogEntryCollectionGet(
 
     // Get the first sequence number
     uint64_t startSeqNum = 0;
-#if SYSTEMD_VERSION >= 254
+#if LIBSYSTEMD_VERSION >= 254
     {
         if (sd_journal_get_seqnum(journal.get(), &startSeqNum, nullptr) < 0)
         {
@@ -500,7 +500,7 @@ inline void handleManagersJournalLogEntryCollectionGet(
         }
 
         uint64_t endChunkSeqNum = 0;
-#if SYSTEMD_VERSION >= 254
+#if LIBSYSTEMD_VERSION >= 254
         {
             if (sd_journal_get_seqnum(journal.get(), &endChunkSeqNum, nullptr) <
                 0)
@@ -525,7 +525,7 @@ inline void handleManagersJournalLogEntryCollectionGet(
             return;
         }
         uint64_t startChunkSeqNum = 0;
-#if SYSTEMD_VERSION >= 254
+#if LIBSYSTEMD_VERSION >= 254
         {
             if (sd_journal_get_seqnum(journal.get(), &startChunkSeqNum,
                                       nullptr) < 0)
