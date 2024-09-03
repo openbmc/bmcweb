@@ -16,6 +16,24 @@
       "message": "@ed@tanous.net @clabrado@google.com The CI failed. Is there any way to rerun the workflow without having to enroll in the Jenkins project? Because it requires more permissions than needed, e.g. access to private project boards, that makes me not willing to do it.",
       "revId": "4912735adb43c7ad421ff782a36617da65ea18ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e811d33b_d6b25b11",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-09-03T19:53:25Z",
+      "side": 1,
+      "message": "The CI is now passing",
+      "parentUuid": "c439bcdf_8c8a69de",
+      "revId": "4912735adb43c7ad421ff782a36617da65ea18ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

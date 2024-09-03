@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06584e25_28271100",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-09-03T19:53:25Z",
+      "side": 1,
+      "message": "I recall handling trailing \"/\" with top level collections was a bit wonky.\n\nThis was likely trying to deal with a similar edge case when I expanded the search to support finding URIs like `/redfish/v1` which are uptree from top level collections.\n\nThe tests still pass w/o this section of code.  Either this patch removes the need for this patch or it was never actually needed in the first place.\n\nI\u0027ve removed it.",
+      "parentUuid": "c30105d5_b7d67446",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 5
+      },
+      "revId": "f71eb21bac5d5a20a38535d8fe795b4e8f7ae887",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ef8167c_a513a600",
