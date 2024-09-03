@@ -284,6 +284,30 @@
       },
       "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aa6ac8c_3f2955b4",
+        "filename": "src/pam_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-03T04:53:10Z",
+      "side": 1,
+      "message": "depends on the length of validity of the secret.  this probably isn’t a discussion for this review, but something we can discuss further once the code works",
+      "parentUuid": "634c4872_7b783a40",
+      "range": {
+        "startLine": 166,
+        "startChar": 36,
+        "endLine": 166,
+        "endChar": 63
+      },
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
