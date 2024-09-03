@@ -565,6 +565,7 @@ Fields common to all schemas
 - IPv6Addresses
 - IPv6DefaultGateway
 - IPv6StaticAddresses
+- IPv6StaticDefaultGateways
 - InterfaceEnabled
 - Links/RelatedInterfaces
 - LinkStatus
