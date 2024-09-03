@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25820a71_0b6e98ca",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-03T20:35:17Z",
+      "side": 1,
+      "message": "No.  systemd dependency is used later on for installation paths for service files, etc.",
+      "parentUuid": "788e492a_ef814439",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 259,
+        "endChar": 31
+      },
+      "revId": "a16115884a671e980dcd5163f55acff440c04411",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8c0d581_9a6de48c",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-03T20:17:44Z",
       "side": 1,
       "message": "should be libsystemd.version() ?",
+      "range": {
+        "startLine": 261,
+        "startChar": 45,
+        "endLine": 261,
+        "endChar": 52
+      },
+      "revId": "a16115884a671e980dcd5163f55acff440c04411",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31f9e0d5_684652db",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-03T20:35:17Z",
+      "side": 1,
+      "message": "After code inspection, looks like yes.",
+      "parentUuid": "a8c0d581_9a6de48c",
       "range": {
         "startLine": 261,
         "startChar": 45,
