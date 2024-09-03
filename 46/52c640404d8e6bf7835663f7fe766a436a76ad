@@ -1,0 +1,10 @@
+Code-Review+1: Ed Tanous <ed@tanous.net>
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Code-Review+1: Ravi Teja <raviteja28031990@gmail.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Asmitha Karunanithi <asmitk01@in.ibm.com>
+Submitted-at: Tue, 03 Sep 2024 15:25:13 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/73196
+Comments-Total: 12
+Project: openbmc/bmcweb
+Branch: refs/heads/master
