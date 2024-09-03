@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "760b1119_d84ce49b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-03T15:34:59Z",
+      "side": 1,
+      "message": "I know that this is still WIP, but to save you time I should probably point out that this function already exists.  I would really prefer we don\u0027t recreate it, even if the existing one needs some refactoring to separate out the Response object from the call api.  We\u0027ve already seen cases where having multiple versions of these things creates drift over time when properties get added to one and not the other, so making sure we\u0027re generating the same object from the same code seems like a good idea.\n\nhttps://github.com/openbmc/bmcweb/blob/f056d96a7c4d54f3e7d5ef92bd501f8cd6edb432/redfish-core/lib/log_services.hpp#L1416",
+      "revId": "9eb13965e507fda23aad18b9d276c735c677946b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
