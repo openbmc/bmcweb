@@ -16,6 +16,24 @@
       "message": "@Carson, any other changes you want to make here?  If not, I\u0027ll get this merged.",
       "revId": "00c47a28f5b2b558a39225ba5467c0f4666c4f53",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7a7ea6d_4585d663",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-09-03T20:28:01Z",
+      "side": 1,
+      "message": "I\u0027m good with merging it.  I hit https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74261 while investigating this patch, but it\u0027s not a dependency.",
+      "parentUuid": "5d215375_9e4a35bb",
+      "revId": "00c47a28f5b2b558a39225ba5467c0f4666c4f53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

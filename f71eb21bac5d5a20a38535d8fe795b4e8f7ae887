@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "247473f8_52e125f4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-09-03T20:28:01Z",
+      "side": 1,
+      "message": "Well multiple trailing slashes would reach this point because the aggregation flow is hooked into every BMCWEB_ROUTE handler before we actually determine if the requested URI is valid.  That\u0027s kind of unavoidable though and not much of a concern.\n\nI checked through the CL that added the check and it\u0027s not mentioned in the comments https://gerrit.openbmc.org/c/openbmc/bmcweb/+/59969.\n\nI\u0027d need to do some further investigation to see if it was ever needed at some point.  That\u0027s not a blocker though since it\u0027s for sure no longer needed.",
+      "parentUuid": "5e47346f_fae8a87e",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 5
+      },
+      "revId": "f71eb21bac5d5a20a38535d8fe795b4e8f7ae887",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ef8167c_a513a600",
