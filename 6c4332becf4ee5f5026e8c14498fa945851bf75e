@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ccec4f3_ae187838",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-03T13:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b790f64_13d7f49c",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 70
+      },
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e17a7cd1_d41c8ccf",
@@ -58,6 +82,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de79ef04_e45c10c6",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-03T13:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e17a7cd1_d41c8ccf",
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dcf7aca_668e6841",
@@ -71,6 +113,30 @@
       "writtenOn": "2024-08-31T16:21:48Z",
       "side": 1,
       "message": "Should be !\u003d PAM_SUCCESS",
+      "range": {
+        "startLine": 125,
+        "startChar": 47,
+        "endLine": 125,
+        "endChar": 62
+      },
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f0f95cd_24d29b01",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-03T13:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dcf7aca_668e6841",
       "range": {
         "startLine": 125,
         "startChar": 47,
@@ -104,6 +170,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "060b9af5_137a52ad",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-03T13:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef52ad42_c667d08a",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 28
+      },
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01a89e02_9ba25572",
@@ -117,6 +207,30 @@
       "writtenOn": "2024-08-31T16:21:48Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 170,
+        "startChar": 47,
+        "endLine": 170,
+        "endChar": 62
+      },
+      "revId": "6c4332becf4ee5f5026e8c14498fa945851bf75e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11778bbc_3a370b6d",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-03T13:25:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01a89e02_9ba25572",
       "range": {
         "startLine": 170,
         "startChar": 47,
