@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e47346f_fae8a87e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-03T19:59:26Z",
+      "side": 1,
+      "message": "Yep, I remember dealing with a single trailing slash at the end, which is well defined and pretty standard to handle.  This code is dealing with multiple trailing slashes both at the end and in the middle (/redfish/v1//Chassis).  If we\u0027re getting those at this level, that seems broken somewhere else, and we should just return an error.\n\nAnywho, it\u0027s removed now, so rock on.",
+      "parentUuid": "06584e25_28271100",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 5
+      },
+      "revId": "f71eb21bac5d5a20a38535d8fe795b4e8f7ae887",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ef8167c_a513a600",
