@@ -121,6 +121,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d971728_70eb74c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-03T19:31:37Z",
+      "side": 1,
+      "message": "\u003e \u003e My worry is that now we have two \"reading\" params that expose the exact same data \n\u003e \n\u003e Redfish was not concerned here with two \"reading\" params that expose the exact same data (let me know if you interrupted differently.. I am thinking of early in the discussion), but overall, the direction of Redfish is a Fan Sensor Reading should be a percentage (not an RPM).\n\nto be clear, redfish doesn\u0027t care because we implemented the Reading property for RPM \"Wrong\", so in terms of if we had followed the spec, this isn\u0027t a problem.\n\n\u003e \n\u003e Redfish is going to update its spec, stating a fan should be a percentage. \n\u003e Redfish is also going to better explain these excerpts. \n\u003e \n\u003e \u003e What I expect is that Sensors are supposed to have Reading OR SpeedRPM, not both in the intent of the standard.\n\u003e \n\u003e I think Redfish thinks you should probably have a Reading but not required (and probably a SpeedRPM but again not required). Redfish mentioned you could just have a SpeedRPM (not a Reading or DataSourceUri). Going by mockups, it is have both Reading and SpeedRPM but the spec doesn\u0027t require that. \n\nYep, after the DMTF discussion I would change to say you should have Reading as a percentage and SpeedRPM.  I\u0027m ok with this patch.\n\n\u003e \n\u003e \u003e I\u0027m worried about making API changes for all platforms without a full understanding of why.\n\u003e \n\u003e The why here is so we will always a property with the RPM, if/when we move sensors over to Percentage. \n\u003e This way a client (e.g. webui-vue) could look for this property\n\nYep.  That explaination makes more sense than what\u0027s in the commit message, which talks about SensorFanArrayExcerpt.  Lets get the commit message updates with the above, and this should be good to go.",
+      "parentUuid": "9839b89b_a1d6dc97",
+      "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "791260a9_2d9fa314",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
