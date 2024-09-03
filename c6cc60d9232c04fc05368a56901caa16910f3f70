@@ -260,6 +260,30 @@
       },
       "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "634c4872_7b783a40",
+        "filename": "src/pam_main.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-03T04:50:15Z",
+      "side": 1,
+      "message": "If that is the case why should we worry too much about passing secrets as method parameters over a dbus call? If these are not stored anywhere( as a property or file)  we don\u0027t have problem right?",
+      "parentUuid": "a3c53cd8_67f710e7",
+      "range": {
+        "startLine": 166,
+        "startChar": 36,
+        "endLine": 166,
+        "endChar": 63
+      },
+      "revId": "c6cc60d9232c04fc05368a56901caa16910f3f70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
