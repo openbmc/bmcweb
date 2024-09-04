@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7955a957_6c83afda",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-09-04T18:14:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6d6d4f47_425ec59b",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "8e53e898d1568b3fe3acaadf264adb1ef1db5ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2b279a6d_0b2581c0",
         "filename": "src/webserver_cli.cpp",
         "patchSetId": 7
@@ -78,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a4e80e80_b94bfe9a",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-09-04T18:14:55Z",
+      "side": 1,
+      "message": "I\u0027m applying a transform here, does std::string\u0026 work instead? Updated in current patch",
+      "parentUuid": "2b279a6d_0b2581c0",
+      "revId": "8e53e898d1568b3fe3acaadf264adb1ef1db5ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4202e616_54b52eab",
         "filename": "src/webserver_cli.cpp",
         "patchSetId": 7
@@ -89,6 +131,30 @@
       "writtenOn": "2024-08-30T15:48:41Z",
       "side": 1,
       "message": "Can this just be a normal function?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 5
+      },
+      "revId": "8e53e898d1568b3fe3acaadf264adb1ef1db5ec8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74912914_0a6883ae",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002169
+      },
+      "writtenOn": "2024-09-04T18:14:55Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4202e616_54b52eab",
       "range": {
         "startLine": 22,
         "startChar": 0,
