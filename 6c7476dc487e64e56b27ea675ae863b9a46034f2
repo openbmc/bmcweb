@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d28f7f4_ccabb4c5",
+        "filename": "redfish-core/lib/systems_logservices_hostlogger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-04T18:46:04Z",
+      "side": 1,
+      "message": "Should really be getLogEntryCollection. Note: makes no difference to the privilege\n\nCan fix later",
+      "range": {
+        "startLine": 230,
+        "startChar": 41,
+        "endLine": 230,
+        "endChar": 52
+      },
+      "revId": "6c7476dc487e64e56b27ea675ae863b9a46034f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
