@@ -168,6 +168,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06c2056f_29c40472",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-09-04T23:25:50Z",
+      "side": 1,
+      "message": "The test case was just /redfish/v1// but it should\u0027ve failed if I tried similar URIs like /redfish/v1/TelemetryService//.\n\nAgree that realistically a client should never query a URI with am empty segment.\n\nThe only real benefit of the check was it would let us determine the URI was invalid. Otherwise we\u0027d forward it to the satellite BMC and then that BMC would determine the URI is invalid and return a 404.\n\nIt was just an optimization for an edge case that shouldn\u0027t get hit 😄",
+      "parentUuid": "05075941_0c0783ee",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 5
+      },
+      "revId": "f71eb21bac5d5a20a38535d8fe795b4e8f7ae887",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ef8167c_a513a600",
