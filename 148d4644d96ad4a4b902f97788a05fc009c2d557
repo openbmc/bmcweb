@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47265a66_115f2e6f",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-04T02:38:48Z",
+      "side": 1,
+      "message": "That makes it same old issue , string_view need not end with \u0027\\0\u0027. What we need to is substring represented by string_view. So is the need of size()",
+      "parentUuid": "eb53c408_d1d96c4f",
+      "range": {
+        "startLine": 28,
+        "startChar": 46,
+        "endLine": 28,
+        "endChar": 72
+      },
+      "revId": "148d4644d96ad4a4b902f97788a05fc009c2d557",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f714b0bf_9c7524ad",
         "filename": "include/pam_authenticate.hpp",
         "patchSetId": 22
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-03T14:48:47Z",
       "side": 1,
       "message": "This looks like it was added?  Why?  Should we do that in its own commit?",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 5
+      },
+      "revId": "148d4644d96ad4a4b902f97788a05fc009c2d557",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8356a46a_7a7ef5b5",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-04T02:38:48Z",
+      "side": 1,
+      "message": "This is required ,These prompts are from password change . I believe your older commit faced with regression due to same reason when you tried to reuse same pam conv function.",
+      "parentUuid": "f714b0bf_9c7524ad",
       "range": {
         "startLine": 174,
         "startChar": 0,
