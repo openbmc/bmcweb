@@ -144,7 +144,8 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         {
             res.result(boost::beast::http::status::accepted);
             std::string strIdx = std::to_string(index);
-            std::string uri = "/redfish/v1/TaskService/Tasks/" + strIdx;
+            boost::urls::url uri =
+                boost::urls::format("/redfish/v1/TaskService/Tasks/{}", strIdx);
 
             res.jsonValue["@odata.id"] = uri;
             res.jsonValue["@odata.type"] = "#Task.v1_4_3.Task";
@@ -152,8 +153,11 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             res.jsonValue["TaskState"] = state;
             res.jsonValue["TaskStatus"] = status;
 
+            boost::urls::url taskMonitor = boost::urls::format(
+                "/redfish/v1/TaskService/TaskMonitors/{}", strIdx);
+
             res.addHeader(boost::beast::http::field::location,
-                          uri + "/Monitor");
+                          taskMonitor.buffer());
             res.addHeader(boost::beast::http::field::retry_after,
                           std::to_string(retryAfterSeconds));
         }
@@ -199,9 +203,6 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
     static void sendTaskEvent(std::string_view state, size_t index)
     {
-        std::string origin = "/redfish/v1/TaskService/Tasks/" +
-                             std::to_string(index);
-        std::string resType = "Task";
         // TaskState enums which should send out an event are:
         // "Starting" = taskResumed
         // "Running" = taskStarted
@@ -213,60 +214,50 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         // "Killed" = taskRemoved
         // "Exception" = taskCompletedWarning
         // "Cancelled" = taskCancelled
+        nlohmann::json event;
+        std::string indexStr = std::to_string(index);
         if (state == "Starting")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskResumed(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskResumed(indexStr);
         }
         else if (state == "Running")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskStarted(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskStarted(indexStr);
         }
         else if ((state == "Suspended") || (state == "Interrupted") ||
                  (state == "Pending"))
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskPaused(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskPaused(indexStr);
         }
         else if (state == "Stopping")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskAborted(std::to_string(index), "None",
-                                               "None", "None"),
-                origin, resType);
+            event = redfish::messages::taskAborted(indexStr);
         }
         else if (state == "Completed")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCompletedOK(std::to_string(index)),
-                origin, resType);
+            event = redfish::messages::taskCompletedOK(indexStr);
         }
         else if (state == "Killed")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskRemoved(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskRemoved(indexStr);
         }
         else if (state == "Exception")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCompletedWarning(std::to_string(index)),
-                origin, resType);
+            event = redfish::messages::taskCompletedWarning(indexStr);
         }
         else if (state == "Cancelled")
         {
-            redfish::EventServiceManager::getInstance().sendEvent(
-                redfish::messages::taskCancelled(std::to_string(index)), origin,
-                resType);
+            event = redfish::messages::taskCancelled(indexStr);
         }
         else
         {
             BMCWEB_LOG_INFO("sendTaskEvent: No events to send");
+            return;
         }
+        boost::urls::url origin =
+            boost::urls::format("/redfish/v1/TaskService/Tasks/{}", index);
+        EventServiceManager::getInstance().sendEvent(event, origin.buffer(),
+                                                     "Task");
     }
 
     void startTimer(const std::chrono::seconds& timeout)
@@ -326,7 +317,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
 inline void requestRoutesTaskMonitor(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/Monitor/")
+    BMCWEB_ROUTE(app, "/redfish/v1/TaskService/TaskMonitors/<str>/")
         .privileges(redfish::privileges::getTask)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
@@ -415,8 +406,8 @@ inline void requestRoutesTask(App& app)
             boost::urls::format("/redfish/v1/TaskService/Tasks/{}", strParam);
         if (!ptr->gave204)
         {
-            asyncResp->res.jsonValue["TaskMonitor"] =
-                "/redfish/v1/TaskService/Tasks/" + strParam + "/Monitor";
+            asyncResp->res.jsonValue["TaskMonitor"] = boost::urls::format(
+                "/redfish/v1/TaskService/TaskMonitors/{}", strParam);
         }
 
         asyncResp->res.jsonValue["HidePayload"] = !ptr->payload;
@@ -429,7 +420,7 @@ inline void requestRoutesTask(App& app)
                 p.httpOperation;
             asyncResp->res.jsonValue["Payload"]["HttpHeaders"] = p.httpHeaders;
             asyncResp->res.jsonValue["Payload"]["JsonBody"] = p.jsonBody.dump(
-                2, ' ', true, nlohmann::json::error_handler_t::replace);
+                -1, ' ', true, nlohmann::json::error_handler_t::replace);
         }
         asyncResp->res.jsonValue["PercentComplete"] = ptr->percentComplete;
     });

@@ -72,6 +72,7 @@ if (cxx.get_id() == 'clang')
         '-Wformat=2',
         '-Wno-c++98-compat-pedantic',
         '-Wno-c++98-compat',
+        '-Wno-c++20-extensions',
         '-Wno-documentation-unknown-command',
         '-Wno-documentation',
         '-Wno-exit-time-destructors',
@@ -84,6 +85,7 @@ if (cxx.get_id() == 'clang')
         '-Wno-switch-enum',
         '-Wno-unused-macros',
         '-Wno-covered-switch-default',
+        '-Wno-disabled-macro-expansion',
         language: 'cpp',
     )
 endif
@@ -169,6 +171,7 @@ add_project_arguments(
             '-DBOOST_EXCEPTION_DISABLE',
             '-DBOOST_NO_EXCEPTIONS',
             '-DBOOST_URL_NO_SOURCE_LOCATION',
+            '-DBOOST_SPIRIT_X3_NO_RTTI',
             '-DJSON_NOEXCEPTION',
             '-DOPENSSL_NO_FILENAMES',
             '-DSDBUSPLUS_DISABLE_BOOST_COROUTINES',
@@ -259,32 +262,30 @@ if boost.found()
 else
     cmake = import('cmake')
     opt = cmake.subproject_options()
+    boost_libs = [
+        'asio',
+        'beast',
+        'circular_buffer',
+        'callable_traits',
+        'headers',
+        'process',
+        'type_index',
+        'url',
+        'uuid',
+        'spirit',
+    ]
     opt.add_cmake_defines(
         {
-            'BOOST_INCLUDE_LIBRARIES': 'asio;beast;callable_traits;headers;process;type_index;url;uuid',
+            'BOOST_INCLUDE_LIBRARIES': ';'.join(boost_libs),
             'BUILD_SHARED_LIBS': 'OFF',
         },
     )
 
     boost = cmake.subproject('boost', required: true, options: opt)
-    boost_asio = boost.dependency('boost_asio').as_system()
-    boost_beast = boost.dependency('boost_beast').as_system()
-    boost_callable_traits = boost.dependency('boost_callable_traits').as_system()
-    boost_headers = boost.dependency('boost_headers').as_system()
-    boost_process = boost.dependency('boost_process').as_system()
-    boost_type_index = boost.dependency('boost_type_index').as_system()
-    boost_url = boost.dependency('boost_url').as_system()
-    boost_uuid = boost.dependency('boost_uuid').as_system()
-    bmcweb_dependencies += [
-        boost_asio,
-        boost_beast,
-        boost_callable_traits,
-        boost_headers,
-        boost_process,
-        boost_type_index,
-        boost_url,
-        boost_uuid,
-    ]
+    foreach boost_lib : boost_libs
+        boost_lib_instance = boost.dependency('boost_' + boost_lib).as_system()
+        bmcweb_dependencies += [boost_lib_instance]
+    endforeach
 endif
 
 if get_option('tests').allowed()
@@ -333,10 +334,13 @@ srcfiles_bmcweb = files(
 
     'redfish-core/src/error_messages.cpp',
     # Begin large files, should be at the beginning
+    'redfish-core/src/filter_expr_executor.cpp',
+    'redfish-core/src/filter_expr_printer.cpp',
     'redfish-core/src/redfish.cpp',
     'redfish-core/src/registries.cpp',
-    'redfish-core/src/utils/json_utils.cpp',
+    'redfish-core/src/utils/dbus_utils.cpp',
     'redfish-core/src/utils/time_utils.cpp',
+    'redfish-core/src/utils/json_utils.cpp',
     'src/boost_asio.cpp',
     'src/boost_asio_ssl.cpp',
     'src/boost_beast.cpp',
@@ -366,7 +370,7 @@ executable(
 )
 
 srcfiles_unittest = files(
-    'test/http/crow_getroutes_test.cpp',
+   'test/http/crow_getroutes_test.cpp',
     'test/http/http2_connection_test.cpp',
     'test/http/http_body_test.cpp',
     'test/http/http_connection_test.cpp',
@@ -390,12 +394,16 @@ srcfiles_unittest = files(
     'test/include/multipart_test.cpp',
     'test/include/openbmc_dbus_rest_test.cpp',
     'test/include/ossl_random.cpp',
+    'test/include/ssl_key_handler_test.cpp',
     'test/include/str_utility_test.cpp',
     'test/redfish-core/include/privileges_test.cpp',
+    'test/redfish-core/include/filter_expr_executor_test.cpp',
+    'test/redfish-core/include/filter_expr_parser_test.cpp',
     'test/redfish-core/include/redfish_aggregator_test.cpp',
     'test/redfish-core/include/registries_test.cpp',
     'test/redfish-core/include/utils/hex_utils_test.cpp',
-    'test/redfish-core/include/utils/ip_utils_test.cpp',
+    'test/redfish-core/include/utils/dbus_utils.cpp',
+   'test/redfish-core/include/utils/ip_utils_test.cpp',
     'test/redfish-core/include/utils/json_utils_test.cpp',
     'test/redfish-core/include/utils/query_param_test.cpp',
     'test/redfish-core/include/utils/stl_utils_test.cpp',

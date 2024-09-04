@@ -28,15 +28,20 @@ TEST(ServerSentEvent, SseWorks)
     boost::beast::test::stream out(io);
     stream.connect(out);
 
+    Request req;
+
     bool openCalled = false;
-    auto openHandler = [&openCalled](Connection&) { openCalled = true; };
+    auto openHandler = [&openCalled](Connection&,
+                                     const Request& /*handedReq*/) {
+        openCalled = true;
+    };
     bool closeCalled = false;
     auto closeHandler = [&closeCalled](Connection&) { closeCalled = true; };
 
     std::shared_ptr<ConnectionImpl<boost::beast::test::stream>> conn =
         std::make_shared<ConnectionImpl<boost::beast::test::stream>>(
             std::move(stream), openHandler, closeHandler);
-    conn->start();
+    conn->start(req);
     // Connect
     {
         constexpr std::string_view expected =

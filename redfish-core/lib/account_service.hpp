@@ -19,7 +19,6 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/account_service.hpp"
-#include "openbmc_dbus_rest.hpp"
 #include "persistent_data.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -272,19 +271,9 @@ inline void
         // logged.
         return;
     }
-
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
-        dbusObjectPath, "xyz.openbmc_project.User.Attributes", "UserGroups",
-        updatedUserGroups, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        messages::success(asyncResp->res);
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
+                    dbusObjectPath, "xyz.openbmc_project.User.Attributes",
+                    "UserGroups", "AccountTypes", updatedUserGroups);
 }
 
 inline void userErrorMessageHandler(
@@ -445,71 +434,23 @@ inline void handleRoleMapPatch(
                 // If "RemoteGroup" info is provided
                 if (remoteGroup)
                 {
-                    sdbusplus::asio::setProperty(
-                        *crow::connections::systemBus, ldapDbusService,
-                        roleMapObjData[index].first,
+                    setDbusProperty(
+                        asyncResp, ldapDbusService, roleMapObjData[index].first,
                         "xyz.openbmc_project.User.PrivilegeMapperEntry",
-                        "GroupName", *remoteGroup,
-                        [asyncResp, roleMapObjData, serverType, index,
-                         remoteGroup](const boost::system::error_code& ec,
-                                      const sdbusplus::message_t& msg) {
-                        if (ec)
-                        {
-                            const sd_bus_error* dbusError = msg.get_error();
-                            if ((dbusError != nullptr) &&
-                                (dbusError->name ==
-                                 std::string_view(
-                                     "xyz.openbmc_project.Common.Error.InvalidArgument")))
-                            {
-                                BMCWEB_LOG_WARNING("DBUS response error: {}",
-                                                   ec);
-                                messages::propertyValueIncorrect(asyncResp->res,
-                                                                 "RemoteGroup",
-                                                                 *remoteGroup);
-                                return;
-                            }
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res
-                            .jsonValue[serverType]["RemoteRoleMapping"][index]
-                                      ["RemoteGroup"] = *remoteGroup;
-                    });
+                        "GroupName",
+                        std::format("RemoteRoleMapping/{}/RemoteGroup", index),
+                        *remoteGroup);
                 }
 
                 // If "LocalRole" info is provided
                 if (localRole)
                 {
-                    sdbusplus::asio::setProperty(
-                        *crow::connections::systemBus, ldapDbusService,
-                        roleMapObjData[index].first,
+                    setDbusProperty(
+                        asyncResp, ldapDbusService, roleMapObjData[index].first,
                         "xyz.openbmc_project.User.PrivilegeMapperEntry",
                         "Privilege",
-                        getPrivilegeFromRoleId(std::move(*localRole)),
-                        [asyncResp, roleMapObjData, serverType, index,
-                         localRole](const boost::system::error_code& ec,
-                                    const sdbusplus::message_t& msg) {
-                        if (ec)
-                        {
-                            const sd_bus_error* dbusError = msg.get_error();
-                            if ((dbusError != nullptr) &&
-                                (dbusError->name ==
-                                 std::string_view(
-                                     "xyz.openbmc_project.Common.Error.InvalidArgument")))
-                            {
-                                BMCWEB_LOG_WARNING("DBUS response error: {}",
-                                                   ec);
-                                messages::propertyValueIncorrect(
-                                    asyncResp->res, "LocalRole", *localRole);
-                                return;
-                            }
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res
-                            .jsonValue[serverType]["RemoteRoleMapping"][index]
-                                      ["LocalRole"] = *localRole;
-                    });
+                        std::format("RemoteRoleMapping/{}/LocalRole", index),
+                        *localRole);
                 }
             }
             // Create a new RoleMapping Object.
@@ -819,40 +760,10 @@ inline void handleServiceAddressPatch(
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
 {
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, ldapDbusService, ldapConfigObject,
-        ldapConfigInterface, "LDAPServerURI", serviceAddressList.front(),
-        [asyncResp, ldapServerElementName, serviceAddressList](
-            const boost::system::error_code& ec, sdbusplus::message_t& msg) {
-        if (ec)
-        {
-            const sd_bus_error* dbusError = msg.get_error();
-            if ((dbusError != nullptr) &&
-                (dbusError->name ==
-                 std::string_view(
-                     "xyz.openbmc_project.Common.Error.InvalidArgument")))
-            {
-                BMCWEB_LOG_WARNING(
-                    "Error Occurred in updating the service address");
-                messages::propertyValueIncorrect(asyncResp->res,
-                                                 "ServiceAddresses",
-                                                 serviceAddressList.front());
-                return;
-            }
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        std::vector<std::string> modifiedserviceAddressList = {
-            serviceAddressList.front()};
-        asyncResp->res.jsonValue[ldapServerElementName]["ServiceAddresses"] =
-            modifiedserviceAddressList;
-        if ((serviceAddressList).size() > 1)
-        {
-            messages::propertyValueModified(asyncResp->res, "ServiceAddresses",
-                                            serviceAddressList.front());
-        }
-        BMCWEB_LOG_DEBUG("Updated the service address");
-    });
+    setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
+                    ldapConfigInterface, "LDAPServerURI",
+                    ldapServerElementName + "/ServiceAddress",
+                    serviceAddressList.front());
 }
 /**
  * @brief updates the LDAP Bind DN and updates the
@@ -869,21 +780,10 @@ inline void
                         const std::string& ldapServerElementName,
                         const std::string& ldapConfigObject)
 {
-    sdbusplus::asio::setProperty(*crow::connections::systemBus, ldapDbusService,
-                                 ldapConfigObject, ldapConfigInterface,
-                                 "LDAPBindDN", username,
-                                 [asyncResp, username, ldapServerElementName](
-                                     const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG("Error occurred in updating the username");
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        asyncResp->res.jsonValue[ldapServerElementName]["Authentication"]
-                                ["Username"] = username;
-        BMCWEB_LOG_DEBUG("Updated the username");
-    });
+    setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
+                    ldapConfigInterface, "LDAPBindDN",
+                    ldapServerElementName + "/Authentication/Username",
+                    username);
 }
 
 /**
@@ -900,21 +800,10 @@ inline void
                         const std::string& ldapServerElementName,
                         const std::string& ldapConfigObject)
 {
-    sdbusplus::asio::setProperty(*crow::connections::systemBus, ldapDbusService,
-                                 ldapConfigObject, ldapConfigInterface,
-                                 "LDAPBindDNPassword", password,
-                                 [asyncResp, password, ldapServerElementName](
-                                     const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG("Error occurred in updating the password");
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        asyncResp->res.jsonValue[ldapServerElementName]["Authentication"]
-                                ["Password"] = "";
-        BMCWEB_LOG_DEBUG("Updated the password");
-    });
+    setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
+                    ldapConfigInterface, "LDAPBindDNPassword",
+                    ldapServerElementName + "/Authentication/Password",
+                    password);
 }
 
 /**
@@ -932,41 +821,11 @@ inline void
                       const std::string& ldapServerElementName,
                       const std::string& ldapConfigObject)
 {
-    sdbusplus::asio::setProperty(*crow::connections::systemBus, ldapDbusService,
-                                 ldapConfigObject, ldapConfigInterface,
-                                 "LDAPBaseDN", baseDNList.front(),
-                                 [asyncResp, baseDNList, ldapServerElementName](
-                                     const boost::system::error_code& ec,
-                                     const sdbusplus::message_t& msg) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG("Error Occurred in Updating the base DN");
-            const sd_bus_error* dbusError = msg.get_error();
-            if ((dbusError != nullptr) &&
-                (dbusError->name ==
-                 std::string_view(
-                     "xyz.openbmc_project.Common.Error.InvalidArgument")))
-            {
-                messages::propertyValueIncorrect(asyncResp->res,
-                                                 "BaseDistinguishedNames",
-                                                 baseDNList.front());
-                return;
-            }
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        auto& serverTypeJson = asyncResp->res.jsonValue[ldapServerElementName];
-        auto& searchSettingsJson =
-            serverTypeJson["LDAPService"]["SearchSettings"];
-        std::vector<std::string> modifiedBaseDNList = {baseDNList.front()};
-        searchSettingsJson["BaseDistinguishedNames"] = modifiedBaseDNList;
-        if (baseDNList.size() > 1)
-        {
-            messages::propertyValueModified(
-                asyncResp->res, "BaseDistinguishedNames", baseDNList.front());
-        }
-        BMCWEB_LOG_DEBUG("Updated the base DN");
-    });
+    setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
+                    ldapConfigInterface, "LDAPBaseDN",
+                    ldapServerElementName +
+                        "/LDAPService/SearchSettings/BaseDistinguishedNames",
+                    baseDNList.front());
 }
 /**
  * @brief updates the LDAP user name attribute and updates the
@@ -983,24 +842,11 @@ inline void
                             const std::string& ldapServerElementName,
                             const std::string& ldapConfigObject)
 {
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, ldapDbusService, ldapConfigObject,
-        ldapConfigInterface, "UserNameAttribute", userNameAttribute,
-        [asyncResp, userNameAttribute,
-         ldapServerElementName](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG("Error Occurred in Updating the "
-                             "username attribute");
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        auto& serverTypeJson = asyncResp->res.jsonValue[ldapServerElementName];
-        auto& searchSettingsJson =
-            serverTypeJson["LDAPService"]["SearchSettings"];
-        searchSettingsJson["UsernameAttribute"] = userNameAttribute;
-        BMCWEB_LOG_DEBUG("Updated the user name attr.");
-    });
+    setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
+                    ldapConfigInterface, "UserNameAttribute",
+                    ldapServerElementName +
+                        "LDAPService/SearchSettings/UsernameAttribute",
+                    userNameAttribute);
 }
 
 inline void setPropertyAllowUnauthACFUpload(
@@ -1148,24 +994,11 @@ inline void handleGroupNameAttrPatch(
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
 {
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, ldapDbusService, ldapConfigObject,
-        ldapConfigInterface, "GroupNameAttribute", groupsAttribute,
-        [asyncResp, groupsAttribute,
-         ldapServerElementName](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG("Error Occurred in Updating the "
-                             "groupname attribute");
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        auto& serverTypeJson = asyncResp->res.jsonValue[ldapServerElementName];
-        auto& searchSettingsJson =
-            serverTypeJson["LDAPService"]["SearchSettings"];
-        searchSettingsJson["GroupsAttribute"] = groupsAttribute;
-        BMCWEB_LOG_DEBUG("Updated the groupname attr");
-    });
+    setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
+                    ldapConfigInterface, "GroupNameAttribute",
+                    ldapServerElementName +
+                        "/LDAPService/SearchSettings/GroupsAttribute",
+                    groupsAttribute);
 }
 /**
  * @brief updates the LDAP service enable and updates the
@@ -1181,21 +1014,9 @@ inline void handleServiceEnablePatch(
     const std::string& ldapServerElementName,
     const std::string& ldapConfigObject)
 {
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, ldapDbusService, ldapConfigObject,
-        ldapEnableInterface, "Enabled", serviceEnabled,
-        [asyncResp, serviceEnabled,
-         ldapServerElementName](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG("Error Occurred in Updating the service enable");
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        asyncResp->res.jsonValue[ldapServerElementName]["ServiceEnabled"] =
-            serviceEnabled;
-        BMCWEB_LOG_DEBUG("Updated Service enable = {}", serviceEnabled);
-    });
+    setDbusProperty(asyncResp, ldapDbusService, ldapConfigObject,
+                    ldapEnableInterface, "Enabled",
+                    ldapServerElementName + "/ServiceEnabled", serviceEnabled);
 }
 
 inline void
@@ -1514,19 +1335,10 @@ inline void updateUserProperties(
 
         if (enabled)
         {
-            sdbusplus::asio::setProperty(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                "xyz.openbmc_project.User.Attributes", "UserEnabled", *enabled,
-                [asyncResp](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                messages::success(asyncResp->res);
-            });
+            setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
+                            dbusObjectPath,
+                            "xyz.openbmc_project.User.Attributes",
+                            "UserEnabled", "Enabled", *enabled);
         }
 
         if (roleId)
@@ -1538,20 +1350,10 @@ inline void updateUserProperties(
                                                  "Locked");
                 return;
             }
-
-            sdbusplus::asio::setProperty(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                "xyz.openbmc_project.User.Attributes", "UserPrivilege", priv,
-                [asyncResp](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                messages::success(asyncResp->res);
-            });
+            setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
+                            dbusObjectPath,
+                            "xyz.openbmc_project.User.Attributes",
+                            "UserPrivilege", "RoleId", priv);
         }
 
         if (locked)
@@ -1565,21 +1367,10 @@ inline void updateUserProperties(
                                                  "Locked");
                 return;
             }
-
-            sdbusplus::asio::setProperty(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                "xyz.openbmc_project.User.Attributes",
-                "UserLockedForFailedAttempt", *locked,
-                [asyncResp](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                messages::success(asyncResp->res);
-            });
+            setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
+                            dbusObjectPath,
+                            "xyz.openbmc_project.User.Attributes",
+                            "UserLockedForFailedAttempt", "Locked", *locked);
         }
 
         if (accountTypes)
@@ -1890,19 +1681,11 @@ inline void handleAccountServicePatch(
 
     if (minPasswordLength)
     {
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
-            "/xyz/openbmc_project/user",
+        setDbusProperty(
+            asyncResp, "xyz.openbmc_project.User.Manager",
+            sdbusplus::message::object_path("/xyz/openbmc_project/user"),
             "xyz.openbmc_project.User.AccountPolicy", "MinPasswordLength",
-            *minPasswordLength,
-            [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
-        });
+            "MinPasswordLength", *minPasswordLength);
     }
 
     if (maxPasswordLength)
@@ -1938,34 +1721,20 @@ inline void handleAccountServicePatch(
 
     if (unlockTimeout)
     {
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
-            "/xyz/openbmc_project/user",
+        setDbusProperty(
+            asyncResp, "xyz.openbmc_project.User.Manager",
+            sdbusplus::message::object_path("/xyz/openbmc_project/user"),
             "xyz.openbmc_project.User.AccountPolicy", "AccountUnlockTimeout",
-            *unlockTimeout, [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
-        });
+            "AccountLockoutDuration", *unlockTimeout);
     }
     if (lockoutThreshold)
     {
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
-            "/xyz/openbmc_project/user",
+        setDbusProperty(
+            asyncResp, "xyz.openbmc_project.User.Manager",
+            sdbusplus::message::object_path("/xyz/openbmc_project/user"),
             "xyz.openbmc_project.User.AccountPolicy",
-            "MaxLoginAttemptBeforeLockout", *lockoutThreshold,
-            [asyncResp](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            messages::success(asyncResp->res);
-        });
+            "MaxLoginAttemptBeforeLockout", "AccountLockoutThreshold",
+            *lockoutThreshold);
     }
 }
 

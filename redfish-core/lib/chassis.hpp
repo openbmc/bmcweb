@@ -80,8 +80,9 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
 
             nlohmann::json::object_t storage;
-            storage["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Systems/system/Storage/{}", id);
+            storage["@odata.id"] =
+                boost::urls::format("/redfish/v1/Systems/{}/Storage/{}",
+                                    BMCWEB_REDFISH_SYSTEM_URI_NAME, id);
             storages.emplace_back(std::move(storage));
         }
         asyncResp->res.jsonValue["Links"]["Storage@odata.count"] =
@@ -341,14 +342,16 @@ inline void handleDecoratorAssetProperties(
 
     nlohmann::json::array_t computerSystems;
     nlohmann::json::object_t system;
-    system["@odata.id"] = "/redfish/v1/Systems/system";
+    system["@odata.id"] = std::format("/redfish/v1/Systems/{}",
+                                      BMCWEB_REDFISH_SYSTEM_URI_NAME);
     computerSystems.emplace_back(std::move(system));
     asyncResp->res.jsonValue["Links"]["ComputerSystems"] =
         std::move(computerSystems);
 
     nlohmann::json::array_t managedBy;
     nlohmann::json::object_t manager;
-    manager["@odata.id"] = "/redfish/v1/Managers/bmc";
+    manager["@odata.id"] = boost::urls::format("/redfish/v1/Managers/{}",
+                                               BMCWEB_REDFISH_MANAGER_URI_NAME);
     managedBy.emplace_back(std::move(manager));
     asyncResp->res.jsonValue["Links"]["ManagedBy"] = std::move(managedBy);
     getChassisState(asyncResp);
@@ -740,36 +743,6 @@ inline void requestRoutesChassis(App& app)
             std::bind_front(handleChassisPatch, std::ref(app)));
 }
 
-/**
- * Handle error responses from d-bus for chassis power cycles
- */
-inline void handleChassisPowerCycleError(const boost::system::error_code& ec,
-                                         const sdbusplus::message_t& eMsg,
-                                         crow::Response& res)
-{
-    if (eMsg.get_error() == nullptr)
-    {
-        BMCWEB_LOG_ERROR("D-Bus response error: {}", ec);
-        messages::internalError(res);
-        return;
-    }
-    std::string_view errorMessage = eMsg.get_error()->name;
-
-    // If operation failed due to BMC not being in Ready state, tell
-    // user to retry in a bit
-    if (errorMessage ==
-        std::string_view("xyz.openbmc_project.State.Chassis.Error.BMCNotReady"))
-    {
-        BMCWEB_LOG_DEBUG("BMC not ready, operation not allowed right now");
-        messages::serviceTemporarilyUnavailable(res, "10");
-        return;
-    }
-
-    BMCWEB_LOG_ERROR("Chassis Power Cycle fail {} sdbusplus:{}", ec,
-                     errorMessage);
-    messages::internalError(res);
-}
-
 inline void
     doChassisPowerCycle(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -805,21 +778,8 @@ inline void
             objectPath = "/xyz/openbmc_project/state/chassis0";
         }
 
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, processName, objectPath,
-            interfaceName, destProperty, propertyValue,
-            [asyncResp](const boost::system::error_code& ec2,
-                        sdbusplus::message_t& sdbusErrMsg) {
-            // Use "Set" method to set the property value.
-            if (ec2)
-            {
-                handleChassisPowerCycleError(ec2, sdbusErrMsg, asyncResp->res);
-
-                return;
-            }
-
-            messages::success(asyncResp->res);
-        });
+        setDbusProperty(asyncResp, processName, objectPath, interfaceName,
+                        destProperty, "ResetType", propertyValue);
     });
 }
 

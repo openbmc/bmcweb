@@ -428,7 +428,7 @@ inline void
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -519,7 +519,7 @@ inline void handleFabricAdapterCollectionGet(
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -555,7 +555,7 @@ inline void handleFabricAdapterCollectionHead(
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
@@ -614,7 +614,7 @@ inline void
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);

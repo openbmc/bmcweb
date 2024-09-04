@@ -8,6 +8,7 @@
 #include "utils/sw_utils.hpp"
 
 #include <boost/lexical_cast.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/asio/property.hpp>
 
 #include <array>
@@ -171,19 +172,22 @@ inline void
                                    systemName);
         return;
     }
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
         return;
     }
-    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Bios";
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/Bios", BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
     asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
     asyncResp->res.jsonValue["Description"] = "BIOS Configuration Service";
     asyncResp->res.jsonValue["Id"] = "BIOS";
     asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
-        {"target", "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
+        {"target",
+         std::format("/redfish/v1/Systems/{}/Bios/Actions/Bios.ResetBios",
+                     BMCWEB_REDFISH_SYSTEM_URI_NAME)}};
 
     // Get the ActiveSoftwareImage and SoftwareImages
     sw_util::populateSoftwareInformation(asyncResp, sw_util::biosPurpose, "",
@@ -882,7 +886,7 @@ inline void
         return;
     }
 
-    if (systemName != "system")
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);

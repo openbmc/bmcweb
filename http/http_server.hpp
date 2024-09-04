@@ -18,6 +18,7 @@
 #include <filesystem>
 #include <future>
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -84,27 +85,9 @@ class Server
         {
             return;
         }
-        namespace fs = std::filesystem;
-        // Cleanup older certificate file existing in the system
-        fs::path oldCert = "/home/root/server.pem";
-        if (fs::exists(oldCert))
-        {
-            fs::remove("/home/root/server.pem");
-        }
-        fs::path certPath = "/etc/ssl/certs/https/";
-        // if path does not exist create the path so that
-        // self signed certificate can be created in the
-        // path
-        if (!fs::exists(certPath))
-        {
-            fs::create_directories(certPath);
-        }
-        fs::path certFile = certPath / "server.pem";
-        BMCWEB_LOG_INFO("Building SSL Context file={}", certFile.string());
-        std::string sslPemFile(certFile);
-        ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
-        std::shared_ptr<boost::asio::ssl::context> sslContext =
-            ensuressl::getSslContext(sslPemFile);
+
+        auto sslContext = ensuressl::getSslServerContext();
+
         adaptorCtx = sslContext;
         handler->ssl(std::move(sslContext));
     }
@@ -173,7 +156,7 @@ class Server
             if (adaptorCtx == nullptr)
             {
                 BMCWEB_LOG_CRITICAL(
-                    "Asked to lauch TLS socket but no context available");
+                    "Asked to launch TLS socket but no context available");
                 return;
             }
             connection = std::make_shared<Connection<Adaptor, Handler>>(

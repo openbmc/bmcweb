@@ -278,6 +278,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
         }
         std::string destUrl;
         std::string protocol;
+        std::optional<bool> verifyCertificate;
         std::optional<std::string> context;
         std::optional<std::string> subscriptionType;
         std::optional<std::string> eventFormatType2;
@@ -285,8 +286,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
         std::optional<std::vector<std::string>> msgIds;
         std::optional<std::vector<std::string>> regPrefixes;
         std::optional<std::vector<std::string>> resTypes;
-        std::optional<std::vector<nlohmann::json>> headers;
-        std::optional<std::vector<nlohmann::json>> mrdJsonArray;
+        std::optional<std::vector<nlohmann::json::object_t>> headers;
+        std::optional<std::vector<nlohmann::json::object_t>> mrdJsonArray;
 
         if (!json_util::readJsonPatch(
                 req, asyncResp->res, "Destination", destUrl, "Context", context,
@@ -294,7 +295,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 "EventFormatType", eventFormatType2, "HttpHeaders", headers,
                 "RegistryPrefixes", regPrefixes, "MessageIds", msgIds,
                 "DeliveryRetryPolicy", retryPolicy, "MetricReportDefinitions",
-                mrdJsonArray, "ResourceTypes", resTypes))
+                mrdJsonArray, "ResourceTypes", resTypes, "VerifyCertificate",
+                verifyCertificate))
         {
             return;
         }
@@ -477,6 +479,11 @@ inline void requestRoutesEventDestinationCollection(App& app)
         }
         subValue->protocol = protocol;
 
+        if (verifyCertificate)
+        {
+            subValue->verifyCertificate = *verifyCertificate;
+        }
+
         if (eventFormatType2)
         {
             if (std::ranges::find(supportedEvtFormatTypes, *eventFormatType2) ==
@@ -511,32 +518,33 @@ inline void requestRoutesEventDestinationCollection(App& app)
         {
             size_t cumulativeLen = 0;
 
-            for (const nlohmann::json& headerChunk : *headers)
+            for (const nlohmann::json::object_t& headerChunk : *headers)
             {
-                std::string hdr{headerChunk.dump(
-                    -1, ' ', true, nlohmann::json::error_handler_t::replace)};
-                cumulativeLen += hdr.length();
-
-                // This value is selected to mirror http_connection.hpp
-                constexpr const uint16_t maxHeaderSizeED = 8096;
-                if (cumulativeLen > maxHeaderSizeED)
-                {
-                    messages::arraySizeTooLong(asyncResp->res, "HttpHeaders",
-                                               maxHeaderSizeED);
-                    return;
-                }
-                for (const auto& item : headerChunk.items())
+                for (const auto& item : headerChunk)
                 {
                     const std::string* value =
-                        item.value().get_ptr<const std::string*>();
+                        item.second.get_ptr<const std::string*>();
                     if (value == nullptr)
                     {
                         messages::propertyValueFormatError(
-                            asyncResp->res, item.value(),
-                            "HttpHeaders/" + item.key());
+                            asyncResp->res, item.second,
+                            "HttpHeaders/" + item.first);
                         return;
                     }
-                    subValue->httpHeaders.set(item.key(), *value);
+                    // Adding a new json value is the size of the key, +
+                    // the size of the value + 2 * 2 quotes for each, +
+                    // the colon and space between. example:
+                    // "key": "value"
+                    cumulativeLen += item.first.size() + value->size() + 6;
+                    // This value is selected to mirror http_connection.hpp
+                    constexpr const uint16_t maxHeaderSizeED = 8096;
+                    if (cumulativeLen > maxHeaderSizeED)
+                    {
+                        messages::arraySizeTooLong(
+                            asyncResp->res, "HttpHeaders", maxHeaderSizeED);
+                        return;
+                    }
+                    subValue->httpHeaders.set(item.first, *value);
                 }
             }
         }
@@ -640,12 +648,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
         if (mrdJsonArray)
         {
-            for (nlohmann::json& mrdObj : *mrdJsonArray)
+            for (nlohmann::json::object_t& mrdObj : *mrdJsonArray)
             {
                 std::string mrdUri;
 
-                if (!json_util::readJson(mrdObj, asyncResp->res, "@odata.id",
-                                         mrdUri))
+                if (!json_util::readJsonObject(mrdObj, asyncResp->res,
+                                               "@odata.id", mrdUri))
 
                 {
                     return;
@@ -655,7 +663,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
         }
 
         std::string id =
-            EventServiceManager::getInstance().addSubscription(subValue);
+            EventServiceManager::getInstance().addPushSubscription(subValue);
         if (id.empty())
         {
             messages::internalError(asyncResp->res);
@@ -715,6 +723,8 @@ inline void requestRoutesEventDestination(App& app)
 
         asyncResp->res.jsonValue["MessageIds"] = subValue->registryMsgIds;
         asyncResp->res.jsonValue["DeliveryRetryPolicy"] = subValue->retryPolicy;
+        asyncResp->res.jsonValue["VerifyCertificate"] =
+            subValue->verifyCertificate;
 
         nlohmann::json::array_t mrdJsonArray;
         for (const auto& mdrUri : subValue->metricReportDefinitions)
@@ -749,9 +759,11 @@ inline void requestRoutesEventDestination(App& app)
 
         std::optional<std::string> context;
         std::optional<std::string> retryPolicy;
-        std::optional<std::vector<nlohmann::json>> headers;
+        std::optional<bool> verifyCertificate;
+        std::optional<std::vector<nlohmann::json::object_t>> headers;
 
         if (!json_util::readJsonPatch(req, asyncResp->res, "Context", context,
+                                      "VerifyCertificate", verifyCertificate,
                                       "DeliveryRetryPolicy", retryPolicy,
                                       "HttpHeaders", headers))
         {
@@ -766,23 +778,23 @@ inline void requestRoutesEventDestination(App& app)
         if (headers)
         {
             boost::beast::http::fields fields;
-            for (const nlohmann::json& headerChunk : *headers)
+            for (const nlohmann::json::object_t& headerChunk : *headers)
             {
-                for (const auto& it : headerChunk.items())
+                for (const auto& it : headerChunk)
                 {
                     const std::string* value =
-                        it.value().get_ptr<const std::string*>();
+                        it.second.get_ptr<const std::string*>();
                     if (value == nullptr)
                     {
                         messages::propertyValueFormatError(
-                            asyncResp->res, it.value(),
-                            "HttpHeaders/" + it.key());
+                            asyncResp->res, it.second,
+                            "HttpHeaders/" + it.first);
                         return;
                     }
-                    fields.set(it.key(), *value);
+                    fields.set(it.first, *value);
                 }
             }
-            subValue->httpHeaders = fields;
+            subValue->httpHeaders = std::move(fields);
         }
 
         if (retryPolicy)
@@ -795,6 +807,11 @@ inline void requestRoutesEventDestination(App& app)
                 return;
             }
             subValue->retryPolicy = *retryPolicy;
+        }
+
+        if (verifyCertificate)
+        {
+            subValue->verifyCertificate = *verifyCertificate;
         }
 
         EventServiceManager::getInstance().updateSubscriptionData();

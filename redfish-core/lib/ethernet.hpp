@@ -711,18 +711,12 @@ inline void updateIPv4DefaultGateway(
     const std::string& ifaceId, const std::string& gateway,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
+            ifaceId,
         "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway",
-        gateway, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        asyncResp->res.result(boost::beast::http::status::no_content);
-    });
+        "Gateway", gateway);
 }
 /**
  * @brief Creates a static IPv4 entry
@@ -1208,33 +1202,22 @@ inline void
                                            "HostName");
         return;
     }
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/config",
-        "xyz.openbmc_project.Network.SystemConfiguration", "HostName", hostname,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-    });
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network/config"),
+        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+        "HostName", hostname);
 }
 
 inline void
     handleMTUSizePatch(const std::string& ifaceId, const size_t mtuSize,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    sdbusplus::message::object_path objPath = "/xyz/openbmc_project/network/" +
-                                              ifaceId;
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network", objPath,
-        "xyz.openbmc_project.Network.EthernetInterface", "MTU", mtuSize,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-    });
+    sdbusplus::message::object_path objPath("/xyz/openbmc_project/network");
+    objPath /= ifaceId;
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Network", objPath,
+                    "xyz.openbmc_project.Network.EthernetInterface", "MTU",
+                    "MTUSize", mtuSize);
 }
 
 inline void
@@ -1243,16 +1226,12 @@ inline void
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::vector<std::string> vectorDomainname = {domainname};
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", "DomainName",
-        vectorDomainname, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-    });
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
+            ifaceId,
+        "xyz.openbmc_project.Network.EthernetInterface", "DomainName", "FQDN",
+        vectorDomainname);
 }
 
 inline bool isHostnameValid(const std::string& hostname)
@@ -1319,32 +1298,12 @@ inline void
                           const std::string& macAddress,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    static constexpr std::string_view dbusNotAllowedError =
-        "xyz.openbmc_project.Common.Error.NotAllowed";
-
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
-        "xyz.openbmc_project.Network.MACAddress", "MACAddress", macAddress,
-        [asyncResp](const boost::system::error_code& ec,
-                    const sdbusplus::message_t& msg) {
-        if (ec)
-        {
-            const sd_bus_error* err = msg.get_error();
-            if (err == nullptr)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            if (err->name == dbusNotAllowedError)
-            {
-                messages::propertyNotWritable(asyncResp->res, "MACAddress");
-                return;
-            }
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
+            ifaceId,
+        "xyz.openbmc_project.Network.MACAddress", "MACAddress", "MACAddress",
+        macAddress);
 }
 
 inline void setDHCPEnabled(const std::string& ifaceId,
@@ -1353,37 +1312,12 @@ inline void setDHCPEnabled(const std::string& ifaceId,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const std::string dhcp = getDhcpEnabledEnumeration(v4Value, v6Value);
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", propertyName, dhcp,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        messages::success(asyncResp->res);
-    });
-}
-
-inline void setEthernetInterfaceBoolProperty(
-    const std::string& ifaceId, const std::string& propertyName,
-    const bool& value, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", propertyName, value,
-        [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
+            ifaceId,
+        "xyz.openbmc_project.Network.EthernetInterface", propertyName, "DHCPv4",
+        dhcp);
 }
 
 enum class NetworkType
@@ -1857,8 +1791,9 @@ inline void
 {
     nlohmann::json& jsonResponse = asyncResp->res.jsonValue;
     jsonResponse["Id"] = ifaceId;
-    jsonResponse["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Managers/bmc/EthernetInterfaces/{}", ifaceId);
+    jsonResponse["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces/{}",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME, ifaceId);
     jsonResponse["InterfaceEnabled"] = ethData.nicEnabled;
 
     if (ethData.nicEnabled)
@@ -2048,27 +1983,36 @@ inline void afterVlanCreate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    const boost::urls::url vlanInterfaceUri = boost::urls::format(
-        "/redfish/v1/Managers/bmc/EthernetInterfaces/{}", vlanInterface);
+    const boost::urls::url vlanInterfaceUri =
+        boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces/{}",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME, vlanInterface);
     asyncResp->res.addHeader("Location", vlanInterfaceUri.buffer());
 }
 
 inline void requestEthernetInterfacesRoutes(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
         .privileges(redfish::privileges::getEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& managerId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+
+        if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "Manager", managerId);
             return;
         }
 
         asyncResp->res.jsonValue["@odata.type"] =
             "#EthernetInterfaceCollection.EthernetInterfaceCollection";
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Managers/bmc/EthernetInterfaces";
+            boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces",
+                                BMCWEB_REDFISH_MANAGER_URI_NAME);
         asyncResp->res.jsonValue["Name"] =
             "Ethernet Network Interface Collection";
         asyncResp->res.jsonValue["Description"] =
@@ -2091,24 +2035,32 @@ inline void requestEthernetInterfacesRoutes(App& app)
             {
                 nlohmann::json::object_t iface;
                 iface["@odata.id"] = boost::urls::format(
-                    "/redfish/v1/Managers/bmc/EthernetInterfaces/{}",
-                    ifaceItem);
+                    "/redfish/v1/Managers/{}/EthernetInterfaces/{}",
+                    BMCWEB_REDFISH_MANAGER_URI_NAME, ifaceItem);
                 ifaceArray.push_back(std::move(iface));
             }
 
             asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Managers/bmc/EthernetInterfaces";
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Managers/{}/EthernetInterfaces",
+                BMCWEB_REDFISH_MANAGER_URI_NAME);
         });
     });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
         .privileges(redfish::privileges::postEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& managerId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
+            return;
+        }
+
+        if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "Manager", managerId);
             return;
         }
 
@@ -2186,16 +2138,23 @@ inline void requestEthernetInterfacesRoutes(App& app)
             vlanId);
     });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::getEthernetInterface)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& ifaceId) {
+                   const std::string& managerId, const std::string& ifaceId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
+
+        if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+            return;
+        }
+
         getEthernetIfaceData(
             ifaceId,
             [asyncResp,
@@ -2223,16 +2182,23 @@ inline void requestEthernetInterfacesRoutes(App& app)
         });
     });
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/")
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::patchEthernetInterface)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& ifaceId) {
+                   const std::string& managerId, const std::string& ifaceId) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
+
+        if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+            return;
+        }
+
         std::optional<std::string> hostname;
         std::optional<std::string> fqdn;
         std::optional<std::string> macAddress;
@@ -2389,8 +2355,13 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             if (interfaceEnabled)
             {
-                setEthernetInterfaceBoolProperty(ifaceId, "NICEnabled",
-                                                 *interfaceEnabled, asyncResp);
+                setDbusProperty(asyncResp, "xyz.openbmc_project.Network",
+                                sdbusplus::message::object_path(
+                                    "/xyz/openbmc_project/network") /
+                                    ifaceId,
+                                "xyz.openbmc_project.Network.EthernetInterface",
+                                "NICEnabled", "InterfaceEnabled",
+                                *interfaceEnabled);
             }
 
             if (mtuSize)

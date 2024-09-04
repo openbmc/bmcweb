@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cookies.hpp"
 #include "forward_unauthorized.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
@@ -17,20 +18,6 @@ namespace crow
 
 namespace authentication
 {
-
-inline void cleanupTempSession(const Request& req)
-{
-    // TODO(ed) THis should really be handled by the persistent data
-    // middleware, but because it is upstream, it doesn't have access to the
-    // session information.  Should the data middleware persist the current
-    // user session?
-    if (req.session != nullptr &&
-        req.session->persistence ==
-            persistent_data::PersistenceType::SINGLE_REQUEST)
-    {
-        persistent_data::SessionStore::getInstance().removeSession(req.session);
-    }
-}
 
 inline std::shared_ptr<persistent_data::UserSession>
     performBasicAuth(const boost::asio::ip::address& clientIp,
@@ -75,15 +62,29 @@ inline std::shared_ptr<persistent_data::UserSession>
         return nullptr;
     }
 
-    // TODO(ed) generateUserSession is a little expensive for basic
-    // auth, as it generates some random identifiers that will never be
-    // used.  This should have a "fast" path for when user tokens aren't
-    // needed.
-    // This whole flow needs to be revisited anyway, as we can't be
-    // calling directly into pam for every request
+    // Attempt to locate an existing Basic Auth session from the same ip address
+    // and user
+    for (auto& session :
+         persistent_data::SessionStore::getInstance().getSessions())
+    {
+        if (session->sessionType != persistent_data::SessionType::Basic)
+        {
+            continue;
+        }
+        if (session->clientIp != redfish::ip_util::toString(clientIp))
+        {
+            continue;
+        }
+        if (session->username != user)
+        {
+            continue;
+        }
+        return session;
+    }
+
     return persistent_data::SessionStore::getInstance().generateUserSession(
-        user, clientIp, std::nullopt,
-        persistent_data::PersistenceType::SINGLE_REQUEST, isConfigureSelfOnly);
+        user, clientIp, std::nullopt, persistent_data::SessionType::Basic,
+        isConfigureSelfOnly);
 }
 
 inline std::shared_ptr<persistent_data::UserSession>
@@ -197,12 +198,7 @@ inline std::shared_ptr<persistent_data::UserSession>
             return sp;
         }
         // TODO: change this to not switch to cookie auth
-        res.addHeader(boost::beast::http::field::set_cookie,
-                      "XSRF-TOKEN=" + sp->csrfToken +
-                          "; SameSite=Strict; Secure");
-        res.addHeader(boost::beast::http::field::set_cookie,
-                      "SESSION=" + sp->sessionToken +
-                          "; SameSite=Strict; Secure; HttpOnly");
+        bmcweb::setSessionCookies(res, *sp);
         res.addHeader(boost::beast::http::field::set_cookie,
                       "IsAuthenticated=true; Secure");
         BMCWEB_LOG_DEBUG(
@@ -216,6 +212,12 @@ inline std::shared_ptr<persistent_data::UserSession>
 // checks if request can be forwarded without authentication
 inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
 {
+    // Handle the case where the router registers routes as both ending with /
+    // and not.
+    if (url.ends_with('/') && url != "/")
+    {
+        url.remove_suffix(1);
+    }
     if (boost::beast::http::verb::get == method)
     {
         if (url == "/redfish/v1" || url == "/redfish/v1/" ||

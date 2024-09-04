@@ -12,20 +12,17 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <memory>
+#include <string>
+#include <utility>
 #include <vector>
 
 namespace crow
 {
 // Populate session with user information.
 inline bool
-    populateUserInfo(Request& req,
+    populateUserInfo(persistent_data::UserSession& session,
                      const dbus::utility::DBusPropertiesMap& userInfoMap)
 {
-    if (req.session == nullptr)
-    {
-        return false;
-    }
-
     std::string userRole;
     bool remoteUser = false;
     std::optional<bool> passwordExpired;
@@ -49,19 +46,18 @@ inline bool
         return false;
     }
 
-    req.session->userRole = userRole;
-    BMCWEB_LOG_DEBUG("userName = {} userRole = {}", req.session->username,
-                     userRole);
+    session.userRole = userRole;
+    BMCWEB_LOG_DEBUG("userName = {} userRole = {}", session.username, userRole);
 
     // Set isConfigureSelfOnly based on D-Bus results.  This
     // ignores the results from both pamAuthenticateUser and the
     // value from any previous use of this session.
-    req.session->isConfigureSelfOnly = passwordExpired.value_or(false);
+    session.isConfigureSelfOnly = passwordExpired.value_or(false);
 
-    req.session->userGroups.clear();
+    session.userGroups.clear();
     if (userGroups)
     {
-        req.session->userGroups.swap(*userGroups);
+        session.userGroups.swap(*userGroups);
     }
 
     return true;
@@ -106,21 +102,11 @@ inline bool
     return true;
 }
 
-inline bool
-    afterGetUserInfo(Request& req,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     BaseRule& rule, const boost::system::error_code& ec,
-                     const dbus::utility::DBusPropertiesMap& userInfoMap)
+inline bool afterGetUserInfoValidate(
+    Request& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    BaseRule& rule, const dbus::utility::DBusPropertiesMap& userInfoMap)
 {
-    if (ec)
-    {
-        BMCWEB_LOG_ERROR("GetUserInfo failed...");
-        asyncResp->res.result(
-            boost::beast::http::status::internal_server_error);
-        return false;
-    }
-
-    if (!populateUserInfo(req, userInfoMap))
+    if (req.session == nullptr || !populateUserInfo(*req.session, userInfoMap))
     {
         BMCWEB_LOG_ERROR("Failed to populate user information");
         asyncResp->res.result(
@@ -140,6 +126,28 @@ inline bool
 }
 
 template <typename CallbackFn>
+void requestUserInfo(const std::string& username,
+                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     CallbackFn&& callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, callback = std::forward<CallbackFn>(callback)](
+            const boost::system::error_code& ec,
+            const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("GetUserInfo failed...");
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+        callback(userInfoMap);
+    },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
+}
+
+template <typename CallbackFn>
 void validatePrivilege(const std::shared_ptr<Request>& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        BaseRule& rule, CallbackFn&& callback)
@@ -148,18 +156,37 @@ void validatePrivilege(const std::shared_ptr<Request>& req,
     {
         return;
     }
-    std::string username = req->session->username;
-    crow::connections::systemBus->async_method_call(
+
+    requestUserInfo(
+        req->session->username, asyncResp,
         [req, asyncResp, &rule, callback = std::forward<CallbackFn>(callback)](
-            const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
-        if (afterGetUserInfo(*req, asyncResp, rule, ec, userInfoMap))
+        if (afterGetUserInfoValidate(*req, asyncResp, rule, userInfoMap))
         {
             callback();
         }
-    },
-        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-        "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
+    });
+}
+
+template <typename CallbackFn>
+void getUserInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                 const std::string& username,
+                 std::shared_ptr<persistent_data::UserSession>& session,
+                 CallbackFn&& callback)
+{
+    requestUserInfo(
+        username, asyncResp,
+        [asyncResp, session, callback = std::forward<CallbackFn>(callback)](
+            const dbus::utility::DBusPropertiesMap& userInfoMap) {
+        if (!populateUserInfo(*session, userInfoMap))
+        {
+            BMCWEB_LOG_ERROR("Failed to populate user information");
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+        callback();
+    });
 }
 
 } // namespace crow

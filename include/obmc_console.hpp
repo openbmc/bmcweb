@@ -7,6 +7,12 @@
 
 #include <boost/asio/local/stream_protocol.hpp>
 #include <boost/container/flat_map.hpp>
+#include <boost/system/error_code.hpp>
+
+#include <array>
+#include <memory>
+#include <string>
+#include <string_view>
 
 namespace crow
 {

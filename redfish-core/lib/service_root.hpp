@@ -267,7 +267,8 @@ inline void handleServiceRootGetImpl(
             "/redfish/v1/LicenseService";
     }
     asyncResp->res.jsonValue["Links"]["ManagerProvidingService"]["@odata.id"] =
-        "/redfish/v1/Managers/bmc";
+        boost::urls::format("/redfish/v1/Managers/{}",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
 
     nlohmann::json& protocolFeatures =
         asyncResp->res.jsonValue["ProtocolFeaturesSupported"];
@@ -286,7 +287,7 @@ inline void handleServiceRootGetImpl(
         BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
     protocolFeatures["ExpandQuery"]["NoLinks"] =
         BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
-    protocolFeatures["FilterQuery"] = false;
+    protocolFeatures["FilterQuery"] = BMCWEB_INSECURE_ENABLE_REDFISH_QUERY;
     protocolFeatures["OnlyMemberQuery"] = true;
     protocolFeatures["SelectQuery"] = true;
     protocolFeatures["DeepOperations"]["DeepPOST"] = false;

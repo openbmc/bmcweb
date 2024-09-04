@@ -248,7 +248,7 @@ class Connection :
             return;
         }
         req->session = userSession;
-
+        accept = req->getHeaderValue("Accept");
         // Fetch the client IP address
         req->ipAddress = ip;
 
@@ -441,7 +441,7 @@ class Connection :
             }
         }
 
-        completeResponseFields(*req, res);
+        completeResponseFields(accept, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
         doWrite();
@@ -492,7 +492,7 @@ class Connection :
     {
         if (!parser)
         {
-            BMCWEB_LOG_CRITICAL("Paser was null");
+            BMCWEB_LOG_CRITICAL("Parser was null");
             return false;
         }
         const boost::optional<uint64_t> contentLength =
@@ -682,11 +682,17 @@ class Connection :
                       const boost::system::error_code& ec,
                       std::size_t bytesTransferred)
     {
-        BMCWEB_LOG_DEBUG("{} async_write wrote {} bytes, ec=", logPtr(this),
+        BMCWEB_LOG_DEBUG("{} async_write wrote {} bytes, ec={}", logPtr(this),
                          bytesTransferred, ec);
 
         cancelDeadlineTimer();
 
+        if (ec == boost::system::errc::operation_would_block ||
+            ec == boost::system::errc::resource_unavailable_try_again)
+        {
+            doWrite();
+            return;
+        }
         if (ec)
         {
             BMCWEB_LOG_DEBUG("{} from write(2)", logPtr(this));
@@ -804,6 +810,8 @@ class Connection :
     boost::beast::flat_static_buffer<8192> buffer;
 
     std::shared_ptr<crow::Request> req;
+    std::string accept;
+
     crow::Response res;
 
     std::shared_ptr<persistent_data::UserSession> userSession;

@@ -739,20 +739,11 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    // Set the requested image apply time value
-    sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/software/apply_time",
-        "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
-        applyTimeNewVal, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        messages::success(asyncResp->res);
-    });
+    setDbusProperty(asyncResp, "xyz.openbmc_project.Settings",
+                    sdbusplus::message::object_path(
+                        "/xyz/openbmc_project/software/apply_time"),
+                    "xyz.openbmc_project.Software.ApplyTime",
+                    "RequestedApplyTime", "ApplyTime", applyTimeNewVal);
 }
 
 inline void
@@ -1074,7 +1065,8 @@ inline static void
     {
         nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
         nlohmann::json::object_t item;
-        item["@odata.id"] = "/redfish/v1/Managers/bmc";
+        item["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
         relatedItem.emplace_back(std::move(item));
         asyncResp->res.jsonValue["RelatedItem@odata.count"] =
             relatedItem.size();
@@ -1083,7 +1075,8 @@ inline static void
     {
         nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
         nlohmann::json::object_t item;
-        item["@odata.id"] = "/redfish/v1/Systems/system/Bios";
+        item["@odata.id"] = std::format("/redfish/v1/Systems/{}/Bios",
+                                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
         relatedItem.emplace_back(std::move(item));
         asyncResp->res.jsonValue["RelatedItem@odata.count"] =
             relatedItem.size();

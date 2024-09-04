@@ -38,9 +38,10 @@ template <typename Adaptor>
 class ConnectionImpl : public Connection
 {
   public:
-    ConnectionImpl(Adaptor&& adaptorIn,
-                   std::function<void(Connection&)> openHandlerIn,
-                   std::function<void(Connection&)> closeHandlerIn) :
+    ConnectionImpl(
+        Adaptor&& adaptorIn,
+        std::function<void(Connection&, const Request&)> openHandlerIn,
+        std::function<void(Connection&)> closeHandlerIn) :
         adaptor(std::move(adaptorIn)),
         timer(static_cast<boost::asio::io_context&>(
             adaptor.get_executor().context())),
@@ -67,14 +68,14 @@ class ConnectionImpl : public Connection
             adaptor.get_executor().context());
     }
 
-    void start()
+    void start(const Request& req)
     {
         if (!openHandler)
         {
             BMCWEB_LOG_CRITICAL("No open handler???");
             return;
         }
-        openHandler(*this);
+        openHandler(*this, req);
         sendSSEHeader();
     }
 
@@ -281,7 +282,7 @@ class ConnectionImpl : public Connection
     boost::asio::steady_timer timer;
     bool doingWrite = false;
 
-    std::function<void(Connection&)> openHandler;
+    std::function<void(Connection&, const Request&)> openHandler;
     std::function<void(Connection&)> closeHandler;
 };
 } // namespace sse_socket

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "filter_expr_executor.hpp"
 #include "privileges.hpp"
 #include "registries/privilege_registry.hpp"
 
@@ -12,7 +13,8 @@
 namespace redfish
 {
 
-inline void createSubscription(crow::sse_socket::Connection& conn)
+inline void createSubscription(crow::sse_socket::Connection& conn,
+                               const crow::Request& req)
 {
     EventServiceManager& manager =
         EventServiceManager::getInstance(&conn.getIoContext());
@@ -23,6 +25,25 @@ inline void createSubscription(crow::sse_socket::Connection& conn)
         conn.close("Max SSE subscriptions reached");
         return;
     }
+
+    std::optional<filter_ast::LogicalAnd> filter;
+
+    boost::urls::params_base::iterator filterIt =
+        req.url().params().find("$filter");
+
+    if (filterIt != req.url().params().end())
+    {
+        std::string_view filterValue = (*filterIt).value;
+        filter = parseFilter(filterValue);
+        if (!filter)
+        {
+            conn.close(std::format("Bad $filter param: {}", filterValue));
+            return;
+        }
+    }
+
+    std::string lastEventId(req.getHeaderValue("Last-Event-Id"));
+
     std::shared_ptr<redfish::Subscription> subValue =
         std::make_shared<redfish::Subscription>(conn);
 
@@ -32,8 +53,9 @@ inline void createSubscription(crow::sse_socket::Connection& conn)
     subValue->protocol = "Redfish";
     subValue->retryPolicy = "TerminateAfterRetries";
     subValue->eventFormatType = "Event";
+    subValue->filter = filter;
 
-    std::string id = manager.addSubscription(subValue, false);
+    std::string id = manager.addSSESubscription(subValue, lastEventId);
     if (id.empty())
     {
         conn.close("Internal Error");

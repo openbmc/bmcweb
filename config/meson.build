@@ -50,6 +50,8 @@ feature_options = [
 string_options = [
     'dns-resolver',
     'mutual-tls-common-name-parsing',
+    'redfish-manager-uri-name',
+    'redfish-system-uri-name',
 ]
 
 int_options = [

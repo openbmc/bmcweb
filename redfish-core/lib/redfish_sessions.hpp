@@ -17,6 +17,7 @@
 
 #include "app.hpp"
 #include "audit_events.hpp"
+#include "cookies.hpp"
 #include "error_messages.hpp"
 #include "http/utility.hpp"
 #include "persistent_data.hpp"
@@ -25,6 +26,9 @@
 #include "utils/json_utils.hpp"
 
 #include <boost/url/format.hpp>
+
+#include <string>
+#include <vector>
 
 namespace redfish
 {
@@ -122,21 +126,25 @@ inline void
         }
     }
 
+    if (session->cookieAuth)
+    {
+        bmcweb::clearSessionCookies(asyncResp->res);
+    }
+
     persistent_data::SessionStore::getInstance().removeSession(session);
     messages::success(asyncResp->res);
 }
 
 inline nlohmann::json getSessionCollectionMembers()
 {
-    std::vector<const std::string*> sessionIds =
-        persistent_data::SessionStore::getInstance().getUniqueIds(
-            false, persistent_data::PersistenceType::TIMEOUT);
+    std::vector<std::string> sessionIds =
+        persistent_data::SessionStore::getInstance().getAllUniqueIds();
     nlohmann::json ret = nlohmann::json::array();
-    for (const std::string* uid : sessionIds)
+    for (const std::string& uid : sessionIds)
     {
         nlohmann::json::object_t session;
         session["@odata.id"] =
-            boost::urls::format("/redfish/v1/SessionService/Sessions/{}", *uid);
+            boost::urls::format("/redfish/v1/SessionService/Sessions/{}", uid);
         ret.emplace_back(std::move(session));
     }
     return ret;
@@ -240,14 +248,25 @@ inline void handleSessionCollectionPost(
     std::shared_ptr<persistent_data::UserSession> session =
         persistent_data::SessionStore::getInstance().generateUserSession(
             username, req.ipAddress, clientId,
-            persistent_data::PersistenceType::TIMEOUT, isConfigureSelfOnly);
+            persistent_data::SessionType::Session, isConfigureSelfOnly);
     if (session == nullptr)
     {
         messages::internalError(asyncResp->res);
         return;
     }
 
-    asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+    // When session is created by webui-vue give it session cookies as a
+    // non-standard Redfish extension. This is needed for authentication for
+    // WebSockets-based functionality.
+    if (!req.getHeaderValue("X-Requested-With").empty())
+    {
+        bmcweb::setSessionCookies(asyncResp->res, *session);
+    }
+    else
+    {
+        asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+    }
+
     asyncResp->res.addHeader(
         "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
     asyncResp->res.result(boost::beast::http::status::created);
@@ -265,7 +284,9 @@ inline void handleSessionCollectionPost(
                                 session->username));
     }
 
-    fillSessionObject(asyncResp->res, *session);
+    crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
+        fillSessionObject(asyncResp->res, *session);
+    });
 }
 inline void handleSessionServiceHead(
     crow::App& app, const crow::Request& req,

@@ -859,6 +859,21 @@ void actionParameterValueTypeError(crow::Response& res,
                                    std::string_view arg3);
 
 /**
+ * @brief Formats ActionParameterValueError message into JSON
+ * Message body: "Indicates that a parameter was given an invalid value."
+ *  The value for the parameter %1 in the action %2 is invalid.
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ *
+ * @returns Message ActionParameterValueError formatted to JSON */
+nlohmann::json actionParameterValueError(const nlohmann::json& arg1,
+                                         std::string_view arg2);
+
+void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1,
+                               std::string_view arg2);
+
+/**
  * @brief Formats SessionLimitExceeded message into JSON
  * Message body: "The session establishment failed due to the number of
  * simultaneous sessions exceeding the limit of the implementation."
@@ -932,6 +947,17 @@ void queryNotSupportedOnOperation(crow::Response& res);
 nlohmann::json queryCombinationInvalid();
 
 void queryCombinationInvalid(crow::Response& res);
+
+/**
+ * @brief Formats EventBufferExceeded message into JSON
+ * Message body: "Indicates undelivered events may have been lost due to a lack
+ * of buffer space in the service."
+ *
+ *
+ * @returns Message QueryCombinationInvalid formatted to JSON */
+nlohmann::json eventBufferExceeded();
+
+void eventBufferExceeded(crow::Response& res);
 
 /**
  * @brief Formats InsufficientPrivilege message into JSON

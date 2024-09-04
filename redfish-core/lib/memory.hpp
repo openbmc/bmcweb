@@ -1050,7 +1050,7 @@ inline void requestRoutesMemoryCollection(App& app)
                                        systemName);
             return;
         }
-        if (systemName != "system")
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
         {
             messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                        systemName);
@@ -1060,13 +1060,15 @@ inline void requestRoutesMemoryCollection(App& app)
         asyncResp->res.jsonValue["@odata.type"] =
             "#MemoryCollection.MemoryCollection";
         asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Memory";
+        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/Memory", BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
         constexpr std::array<std::string_view, 1> interfaces{
             "xyz.openbmc_project.Inventory.Item.Dimm"};
         collection_util::getCollectionMembers(
-            asyncResp, boost::urls::url("/redfish/v1/Systems/system/Memory"),
+            asyncResp,
+            boost::urls::format("/redfish/v1/Systems/{}/Memory",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME),
             interfaces, "/xyz/openbmc_project/inventory");
     });
 }
