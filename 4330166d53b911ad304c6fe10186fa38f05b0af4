@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e18f4b43_99aa2ee8",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-04T21:13:04Z",
+      "side": 1,
+      "message": "\u003e My hesitation is just lessons learned from other code bases. I\u0027ve seen similar duplication of code where places were missed when things changed causing odd bugs.\n\nThese are strings defined in a spec.  They by definition never change.  I understand other codebases that aren\u0027t tied to a specification.\n\n\u003e I generally like to define things in a single shared header file that gets used by all users.\n\nCertainly happy to discuss that kind of design outside of this code review.  For the moment, bmcweb doesn\u0027t use a shared header file for non configurable strings, because they should basically never be changing.  If there\u0027s a case where we think they might change or need to be configurable, happy to have that discussion about moving them to the config header, but I don\u0027t think this hits either of those.\n\n\u003e \n\u003e I see your point that in this case the duplication isn\u0027t really an issue. I\u0027ll change as you originally suggested.",
+      "parentUuid": "09e42ae6_ade7d7fb",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 61
+      },
+      "revId": "4330166d53b911ad304c6fe10186fa38f05b0af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4927769e_a3791a48",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 1
