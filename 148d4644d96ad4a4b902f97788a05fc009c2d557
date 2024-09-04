@@ -141,6 +141,30 @@
       },
       "revId": "148d4644d96ad4a4b902f97788a05fc009c2d557",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9560192_8a7e3aba",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-04T05:59:43Z",
+      "side": 1,
+      "message": "I am it testing on Romulus emulator.\n\n I don\u0027t recall there ever being a reply for \"Retype new password\"\n \n This was not needed before because before we were having single data (password) and for any prompt request pam_conv function returns the single data. After we introduced multiple data (like totp token) we started checking for the prompt string to figure out the proper data to be returned.",
+      "parentUuid": "0f5ee1c0_0a75b643",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 5
+      },
+      "revId": "148d4644d96ad4a4b902f97788a05fc009c2d557",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
