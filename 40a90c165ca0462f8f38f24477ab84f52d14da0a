@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63104e16_d1fb3ec8",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-04T18:42:47Z",
+      "side": 0,
+      "message": "This comment got removed. I am good with that. \nGetPostCodesWithTimeStamp is the actual interface, we don\u0027t do this elsewhere",
+      "revId": "40a90c165ca0462f8f38f24477ab84f52d14da0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
