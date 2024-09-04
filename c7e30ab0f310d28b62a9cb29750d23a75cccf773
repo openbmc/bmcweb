@@ -51,6 +51,24 @@
       "parentUuid": "7a72dbd8_82e56bb8",
       "revId": "c7e30ab0f310d28b62a9cb29750d23a75cccf773",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d68171fe_41841f24",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-04T20:23:11Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74301/1",
+      "parentUuid": "c3ead6d3_4e4dfd94",
+      "revId": "c7e30ab0f310d28b62a9cb29750d23a75cccf773",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
