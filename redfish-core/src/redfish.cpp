@@ -39,6 +39,7 @@
 #include "service_root.hpp"
 #include "storage.hpp"
 #include "systems.hpp"
+#include "systems_logservices_hostlogger.hpp"
 #include "systems_logservices_postcodes.hpp"
 #include "task.hpp"
 #include "telemetry_service.hpp"
@@ -183,9 +184,7 @@ RedfishService::RedfishService(App& app)
 
     if constexpr (BMCWEB_REDFISH_HOST_LOGGER)
     {
-        requestRoutesSystemHostLogger(app);
-        requestRoutesSystemHostLoggerCollection(app);
-        requestRoutesSystemHostLoggerLogEntry(app);
+        requestRoutesSystemsLogServiceHostlogger(app);
     }
 
     requestRoutesMessageRegistryFileCollection(app);
