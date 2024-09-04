@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59a79e91_1aab8356",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2024-09-04T16:20:48Z",
+      "side": 1,
+      "message": "Just want to close the loop on this question.  I confirmed that this check was in fact previously needed and it\u0027s not the case that something was broken.\n\nI reset to HEAD before this patch was applied and just removed this check from the original version of `searchCollectionsArray()`.\n\nI ran the tests and `/redfish/v1//` was incorrectly identified as a URI that was uptree from a top level collection.\n\nIt turns out that the changes made in this patch to filter out the query parameters also handle this edge case and that\u0027s why the check is no longer needed.",
+      "parentUuid": "247473f8_52e125f4",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 5
+      },
+      "revId": "f71eb21bac5d5a20a38535d8fe795b4e8f7ae887",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ef8167c_a513a600",
