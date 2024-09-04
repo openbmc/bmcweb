@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09e42ae6_ade7d7fb",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-04T20:46:59Z",
+      "side": 1,
+      "message": "My hesitation is just lessons learned from other code bases. I\u0027ve seen similar duplication of code where places were missed when things changed causing odd bugs. I generally like to define things in a single shared header file that gets used by all users.\n\nI see your point that in this case the duplication isn\u0027t really an issue. I\u0027ll change as you originally suggested.",
+      "parentUuid": "568c739e_53959346",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 61
+      },
+      "revId": "4330166d53b911ad304c6fe10186fa38f05b0af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4927769e_a3791a48",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 1
@@ -171,6 +195,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "310d9f41_9d61903e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-04T20:46:59Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "3f0a9baa_d71558d4",
+      "revId": "4330166d53b911ad304c6fe10186fa38f05b0af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cd0d0f0_b52367b4",
@@ -184,6 +226,30 @@
       "writtenOn": "2024-08-29T21:18:33Z",
       "side": 1,
       "message": "This branch doesn\u0027t actually do anything. subNode is already set to unknownNode",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 5
+      },
+      "revId": "4330166d53b911ad304c6fe10186fa38f05b0af4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6625709_978f38cd",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-04T20:46:59Z",
+      "side": 1,
+      "message": "Good point, I\u0027ve removed it.",
+      "parentUuid": "6cd0d0f0_b52367b4",
       "range": {
         "startLine": 60,
         "startChar": 0,
