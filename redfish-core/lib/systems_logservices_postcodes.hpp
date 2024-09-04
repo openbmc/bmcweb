@@ -15,114 +15,96 @@
 
 namespace redfish
 {
-/****************************************************
- * Redfish PostCode interfaces
- * using DBUS interface: getPostCodesTS
- ******************************************************/
-inline void requestRoutesPostCodesLogService(App& app)
+
+inline void handleSystemsLogServicesPostCodesGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/PostCodes/")
-        .privileges(redfish::privileges::getLogService)
-        .methods(
-            boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& systemName) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-            {
-                return;
-            }
-            if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-            {
-                // Option currently returns no systems.  TBD
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
-            }
-            if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-            {
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
-            }
-            asyncResp->res.jsonValue["@odata.id"] =
-                std::format("/redfish/v1/Systems/{}/LogServices/PostCodes",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogService.v1_2_0.LogService";
-            asyncResp->res.jsonValue["Name"] = "POST Code Log Service";
-            asyncResp->res.jsonValue["Description"] = "POST Code Log Service";
-            asyncResp->res.jsonValue["Id"] = "PostCodes";
-            asyncResp->res.jsonValue["OverWritePolicy"] =
-                log_service::OverWritePolicy::WrapsWhenFull;
-            asyncResp->res.jsonValue["Entries"]["@odata.id"] = std::format(
-                "/redfish/v1/Systems/{}/LogServices/PostCodes/Entries",
-                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    asyncResp->res.jsonValue["@odata.id"] =
+        std::format("/redfish/v1/Systems/{}/LogServices/PostCodes",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
+    asyncResp->res.jsonValue["Name"] = "POST Code Log Service";
+    asyncResp->res.jsonValue["Description"] = "POST Code Log Service";
+    asyncResp->res.jsonValue["Id"] = "PostCodes";
+    asyncResp->res.jsonValue["OverWritePolicy"] =
+        log_service::OverWritePolicy::WrapsWhenFull;
+    asyncResp->res.jsonValue["Entries"]["@odata.id"] =
+        std::format("/redfish/v1/Systems/{}/LogServices/PostCodes/Entries",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
-            std::pair<std::string, std::string> redfishDateTimeOffset =
-                redfish::time_utils::getDateTimeOffsetNow();
-            asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
-            asyncResp->res.jsonValue["DateTimeLocalOffset"] =
-                redfishDateTimeOffset.second;
+    std::pair<std::string, std::string> redfishDateTimeOffset =
+        redfish::time_utils::getDateTimeOffsetNow();
+    asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
+    asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+        redfishDateTimeOffset.second;
 
-            asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]
-                                    ["target"] = std::format(
-                "/redfish/v1/Systems/{}/LogServices/PostCodes/Actions/LogService.ClearLog",
-                BMCWEB_REDFISH_SYSTEM_URI_NAME);
-        });
+    asyncResp->res
+        .jsonValue["Actions"]["#LogService.ClearLog"]["target"] = std::format(
+        "/redfish/v1/Systems/{}/LogServices/PostCodes/Actions/LogService.ClearLog",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME);
 }
 
-inline void requestRoutesPostCodesClear(App& app)
+inline void handleSystemsLogServicesPostCodesPost(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
 {
-    BMCWEB_ROUTE(
-        app,
-        "/redfish/v1/Systems/<str>/LogServices/PostCodes/Actions/LogService.ClearLog/")
-        // The following privilege is incorrect;  It should be ConfigureManager
-        //.privileges(redfish::privileges::postLogService)
-        .privileges({{"ConfigureComponents"}})
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-                {
-                    // Option currently returns no systems.  TBD
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
-                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
-                BMCWEB_LOG_DEBUG("Do delete all postcodes entries.");
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    BMCWEB_LOG_DEBUG("Do delete all postcodes entries.");
 
-                // Make call to post-code service to request clear all
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code& ec) {
-                        if (ec)
-                        {
-                            // TODO Handle for specific error code
-                            BMCWEB_LOG_ERROR(
-                                "doClearPostCodes resp_handler got error {}",
-                                ec);
-                            asyncResp->res.result(boost::beast::http::status::
-                                                      internal_server_error);
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        messages::success(asyncResp->res);
-                    },
-                    "xyz.openbmc_project.State.Boot.PostCode0",
-                    "/xyz/openbmc_project/State/Boot/PostCode0",
-                    "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
-            });
+    // Make call to post-code service to request clear all
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                // TODO Handle for specific error code
+                BMCWEB_LOG_ERROR("doClearPostCodes resp_handler got error {}",
+                                 ec);
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+        },
+        "xyz.openbmc_project.State.Boot.PostCode0",
+        "/xyz/openbmc_project/State/Boot/PostCode0",
+        "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
 
 /**
@@ -304,7 +286,7 @@ static bool fillPostCodeEntry(
     return false;
 }
 
-static void
+inline void
     getPostCodeForEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& entryId)
 {
@@ -355,7 +337,7 @@ static void
         bootIndex);
 }
 
-static void
+inline void
     getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const uint16_t bootIndex, const uint16_t bootCount,
                        const uint64_t entryCount, size_t skip, size_t top)
@@ -414,7 +396,7 @@ static void
         bootIndex);
 }
 
-static void
+inline void
     getCurrentBootNumber(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          size_t skip, size_t top)
 {
@@ -436,194 +418,198 @@ static void
         });
 }
 
-inline void requestRoutesPostCodesEntryCollection(App& app)
+inline void handleSystemsLogServicesPostCodesEntriesGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
 {
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
-                query_param::QueryCapabilities capabilities = {
-                    .canDelegateTop = true,
-                    .canDelegateSkip = true,
-                };
-                query_param::Query delegatedQuery;
-                if (!redfish::setUpRedfishRouteWithDelegation(
-                        app, req, asyncResp, delegatedQuery, capabilities))
-                {
-                    return;
-                }
-                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-                {
-                    // Option currently returns no systems.  TBD
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
+    query_param::QueryCapabilities capabilities = {
+        .canDelegateTop = true,
+        .canDelegateSkip = true,
+    };
+    query_param::Query delegatedQuery;
+    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
+                                                  delegatedQuery, capabilities))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
 
-                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#LogEntryCollection.LogEntryCollection";
-                asyncResp->res.jsonValue["@odata.id"] = std::format(
-                    "/redfish/v1/Systems/{}/LogServices/PostCodes/Entries",
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#LogEntryCollection.LogEntryCollection";
+    asyncResp->res.jsonValue["@odata.id"] =
+        std::format("/redfish/v1/Systems/{}/LogServices/PostCodes/Entries",
                     BMCWEB_REDFISH_SYSTEM_URI_NAME);
-                asyncResp->res.jsonValue["Name"] = "BIOS POST Code Log Entries";
-                asyncResp->res.jsonValue["Description"] =
-                    "Collection of POST Code Log Entries";
-                asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
-                asyncResp->res.jsonValue["Members@odata.count"] = 0;
-                size_t skip = delegatedQuery.skip.value_or(0);
-                size_t top =
-                    delegatedQuery.top.value_or(query_param::Query::maxTop);
-                getCurrentBootNumber(asyncResp, skip, top);
-            });
+    asyncResp->res.jsonValue["Name"] = "BIOS POST Code Log Entries";
+    asyncResp->res.jsonValue["Description"] =
+        "Collection of POST Code Log Entries";
+    asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+    asyncResp->res.jsonValue["Members@odata.count"] = 0;
+    size_t skip = delegatedQuery.skip.value_or(0);
+    size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
+    getCurrentBootNumber(asyncResp, skip, top);
 }
 
-inline void requestRoutesPostCodesEntryAdditionalData(App& app)
+inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& postCodeID)
 {
-    BMCWEB_ROUTE(
-        app,
-        "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/<str>/attachment/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(
-            boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& systemName,
-                            const std::string& postCodeID) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-            {
-                return;
-            }
-            if (!http_helpers::isContentTypeAllowed(
-                    req.getHeaderValue("Accept"),
-                    http_helpers::ContentType::OctetStream, true))
-            {
-                asyncResp->res.result(boost::beast::http::status::bad_request);
-                return;
-            }
-            if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-            {
-                // Option currently returns no systems.  TBD
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
-            }
-            if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-            {
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
-            }
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (!http_helpers::isContentTypeAllowed(
+            req.getHeaderValue("Accept"),
+            http_helpers::ContentType::OctetStream, true))
+    {
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
 
-            uint64_t currentValue = 0;
-            uint16_t index = 0;
-            if (!parsePostCode(postCodeID, currentValue, index))
+    uint64_t currentValue = 0;
+    uint16_t index = 0;
+    if (!parsePostCode(postCodeID, currentValue, index))
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", postCodeID);
+        return;
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, postCodeID, currentValue](
+            const boost::system::error_code& ec,
+            const std::vector<std::tuple<uint64_t, std::vector<uint8_t>>>&
+                postcodes) {
+            if (ec.value() == EBADR)
             {
                 messages::resourceNotFound(asyncResp->res, "LogEntry",
                                            postCodeID);
                 return;
             }
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
 
-            crow::connections::systemBus->async_method_call(
-                [asyncResp, postCodeID, currentValue](
-                    const boost::system::error_code& ec,
-                    const std::vector<std::tuple<
-                        uint64_t, std::vector<uint8_t>>>& postcodes) {
-                    if (ec.value() == EBADR)
-                    {
-                        messages::resourceNotFound(asyncResp->res, "LogEntry",
-                                                   postCodeID);
-                        return;
-                    }
-                    if (ec)
-                    {
-                        BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
+            size_t value = static_cast<size_t>(currentValue) - 1;
+            if (value == std::string::npos || postcodes.size() < currentValue)
+            {
+                BMCWEB_LOG_WARNING("Wrong currentValue value");
+                messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                           postCodeID);
+                return;
+            }
 
-                    size_t value = static_cast<size_t>(currentValue) - 1;
-                    if (value == std::string::npos ||
-                        postcodes.size() < currentValue)
-                    {
-                        BMCWEB_LOG_WARNING("Wrong currentValue value");
-                        messages::resourceNotFound(asyncResp->res, "LogEntry",
-                                                   postCodeID);
-                        return;
-                    }
+            const auto& [tID, c] = postcodes[value];
+            if (c.empty())
+            {
+                BMCWEB_LOG_WARNING("No found post code data");
+                messages::resourceNotFound(asyncResp->res, "LogEntry",
+                                           postCodeID);
+                return;
+            }
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+            const char* d = reinterpret_cast<const char*>(c.data());
+            std::string_view strData(d, c.size());
 
-                    const auto& [tID, c] = postcodes[value];
-                    if (c.empty())
-                    {
-                        BMCWEB_LOG_WARNING("No found post code data");
-                        messages::resourceNotFound(asyncResp->res, "LogEntry",
-                                                   postCodeID);
-                        return;
-                    }
-                    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-                    const char* d = reinterpret_cast<const char*>(c.data());
-                    std::string_view strData(d, c.size());
-
-                    asyncResp->res.addHeader(
-                        boost::beast::http::field::content_type,
-                        "application/octet-stream");
-                    asyncResp->res.addHeader(
-                        boost::beast::http::field::content_transfer_encoding,
-                        "Base64");
-                    asyncResp->res.write(crow::utility::base64encode(strData));
-                },
-                "xyz.openbmc_project.State.Boot.PostCode0",
-                "/xyz/openbmc_project/State/Boot/PostCode0",
-                "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodes",
-                index);
-        });
+            asyncResp->res.addHeader(boost::beast::http::field::content_type,
+                                     "application/octet-stream");
+            asyncResp->res.addHeader(
+                boost::beast::http::field::content_transfer_encoding, "Base64");
+            asyncResp->res.write(crow::utility::base64encode(strData));
+        },
+        "xyz.openbmc_project.State.Boot.PostCode0",
+        "/xyz/openbmc_project/State/Boot/PostCode0",
+        "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodes", index);
 }
 
-inline void requestRoutesPostCodesEntry(App& app)
+inline void handleSystemsLogServicesPostCodesEntriesEntryGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& targetID)
 {
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName, const std::string& targetID) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-                {
-                    // Option currently returns no systems.  TBD
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
-                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
 
-                getPostCodeForEntry(asyncResp, targetID);
-            });
+    getPostCodeForEntry(asyncResp, targetID);
 }
 
 inline void requestRoutesSystemsLogServicesPostCode(App& app)
 {
-    requestRoutesPostCodesClear(app);
-    requestRoutesPostCodesEntry(app);
-    requestRoutesPostCodesEntryAdditionalData(app);
-    requestRoutesPostCodesEntryCollection(app);
-    requestRoutesPostCodesLogService(app);
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/PostCodes/")
+        .privileges(redfish::privileges::getLogService)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleSystemsLogServicesPostCodesGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/LogServices/PostCodes/Actions/LogService.ClearLog/")
+        // The following privilege is incorrect;  It should be ConfigureManager
+        //.privileges(redfish::privileges::postLogService)
+        .privileges({{"ConfigureComponents"}})
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleSystemsLogServicesPostCodesPost, std::ref(app)));
+
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/")
+        .privileges(redfish::privileges::getLogEntryCollection)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleSystemsLogServicesPostCodesEntriesGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app, "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/<str>/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleSystemsLogServicesPostCodesEntriesEntryGet, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/<str>/attachment/")
+        .privileges(redfish::privileges::getLogEntry)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet,
+            std::ref(app)));
 }
 } // namespace redfish
