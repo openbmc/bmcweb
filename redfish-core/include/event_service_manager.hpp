@@ -336,6 +336,60 @@ class Subscription : public persistent_data::UserSubscription
                              resType);
         }
 
+        // If registryPrefixes list is empty, don't filter events
+        // send everything.
+        if (!registryPrefixes.empty())
+        {
+            auto eventJson = eventMessage.find("MessageId");
+            if (eventJson == eventMessage.end())
+            {
+                return false;
+            }
+
+            const std::string* messageId =
+                eventJson->second.get_ptr<const std::string*>();
+            if (messageId == nullptr)
+            {
+                BMCWEB_LOG_ERROR("EventType wasn't a string???");
+                return false;
+            }
+
+            std::string registry;
+            std::string messageKey;
+            event_log::getRegistryAndMessageKey(*messageId, registry,
+                                                messageKey);
+
+            auto obj = std::ranges::find(registryPrefixes, registry);
+            if (obj == registryPrefixes.end())
+            {
+                return false;
+            }
+        }
+
+        if (!originResources.empty())
+        {
+            auto eventJson = eventMessage.find("OriginOfCondition");
+            if (eventJson == eventMessage.end())
+            {
+                return false;
+            }
+
+            const std::string* originOfCondition =
+                eventJson->second.get_ptr<const std::string*>();
+            if (originOfCondition == nullptr)
+            {
+                BMCWEB_LOG_ERROR("EventType wasn't a string???");
+                return false;
+            }
+
+            auto obj = std::ranges::find(originResources, *originOfCondition);
+
+            if (obj == originResources.end())
+            {
+                return false;
+            }
+        }
+
         // If registryMsgIds list is empty, assume all
         if (!registryMsgIds.empty())
         {
@@ -359,10 +413,15 @@ class Subscription : public persistent_data::UserSubscription
             event_log::getRegistryAndMessageKey(*messageId, registry,
                                                 messageKey);
 
+<<<<<<< PATCH SET (81c5d1 Add extra subscription params support)
+            auto obj = std::ranges::find(
+                registryMsgIds, std::format("{}.{}", registry, messageKey));
+=======
             BMCWEB_LOG_DEBUG("extracted registry {}", registry);
             BMCWEB_LOG_DEBUG("extracted message key {}", messageKey);
 
             auto obj = std::ranges::find(registryMsgIds, registry);
+>>>>>>> BASE      (6d799e Rename sendEvent)
             if (obj == registryMsgIds.end())
             {
                 BMCWEB_LOG_DEBUG("did not find registry {} in registryMsgIds",
@@ -648,6 +707,7 @@ class EventServiceManager
             subValue->resourceTypes = newSub->resourceTypes;
             subValue->httpHeaders = newSub->httpHeaders;
             subValue->metricReportDefinitions = newSub->metricReportDefinitions;
+            subValue->originResources = newSub->originResources;
 
             if (subValue->id.empty())
             {
@@ -909,6 +969,8 @@ class EventServiceManager
         newSub->resourceTypes = subValue->resourceTypes;
         newSub->httpHeaders = subValue->httpHeaders;
         newSub->metricReportDefinitions = subValue->metricReportDefinitions;
+        newSub->originResources = subValue->originResources;
+
         persistent_data::EventServiceStore::getInstance()
             .subscriptionsConfigMap.emplace(newSub->id, newSub);
 
