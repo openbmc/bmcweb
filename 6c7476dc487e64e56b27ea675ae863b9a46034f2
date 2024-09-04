@@ -46,6 +46,30 @@
       },
       "revId": "6c7476dc487e64e56b27ea675ae863b9a46034f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d8c3aa5_21bcc995",
+        "filename": "redfish-core/lib/systems_logservices_hostlogger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-04T20:13:37Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74300",
+      "parentUuid": "892214bc_f19f0b3d",
+      "range": {
+        "startLine": 230,
+        "startChar": 41,
+        "endLine": 230,
+        "endChar": 52
+      },
+      "revId": "6c7476dc487e64e56b27ea675ae863b9a46034f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
