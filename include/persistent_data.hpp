@@ -373,6 +373,7 @@ class ConfigFile
             subscription["MessageIds"] = subValue.registryMsgIds;
             subscription["Protocol"] = subValue.protocol;
             subscription["RegistryPrefixes"] = subValue.registryPrefixes;
+            subscription["OriginResources"] = subValue.originResources;
             subscription["ResourceTypes"] = subValue.resourceTypes;
             subscription["SubscriptionType"] = subValue.subscriptionType;
             subscription["MetricReportDefinitions"] =

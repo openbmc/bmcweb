@@ -25,6 +25,7 @@ struct UserSubscription
     std::vector<std::string> resourceTypes;
     boost::beast::http::fields httpHeaders;
     std::vector<std::string> metricReportDefinitions;
+    std::vector<std::string> originResources;
 
     static std::shared_ptr<UserSubscription>
         fromJson(const nlohmann::json::object_t& j,
@@ -214,6 +215,25 @@ struct UserSubscription
                         continue;
                     }
                     subvalue->metricReportDefinitions.emplace_back(*value);
+                }
+            }
+            else if (element.first == "OriginResources")
+            {
+                const nlohmann::json::array_t* obj =
+                    element.second.get_ptr<const nlohmann::json::array_t*>();
+                if (obj == nullptr)
+                {
+                    continue;
+                }
+                for (const auto& val : *obj)
+                {
+                    const std::string* value =
+                        val.get_ptr<const std::string*>();
+                    if (value == nullptr)
+                    {
+                        continue;
+                    }
+                    subvalue->originResources.emplace_back(*value);
                 }
             }
             else

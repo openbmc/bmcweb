@@ -34,6 +34,7 @@
 #include <ranges>
 #include <span>
 #include <string>
+#include <vector>
 
 namespace redfish
 {
@@ -286,6 +287,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
         std::optional<std::string> retryPolicy;
         std::optional<std::vector<std::string>> msgIds;
         std::optional<std::vector<std::string>> regPrefixes;
+        std::optional<std::vector<std::string>> originResources;
         std::optional<std::vector<std::string>> resTypes;
         std::optional<std::vector<nlohmann::json::object_t>> headers;
         std::optional<std::vector<nlohmann::json::object_t>> mrdJsonArray;
@@ -294,7 +296,9 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 req, asyncResp->res, "Destination", destUrl, "Context", context,
                 "Protocol", protocol, "SubscriptionType", subscriptionType,
                 "EventFormatType", eventFormatType2, "HttpHeaders", headers,
-                "RegistryPrefixes", regPrefixes, "MessageIds", msgIds,
+                "RegistryPrefixes", regPrefixes, "OriginResources",
+                originResources, "MessageIds", msgIds,
+
                 "DeliveryRetryPolicy", retryPolicy, "MetricReportDefinitions",
                 mrdJsonArray, "ResourceTypes", resTypes, "VerifyCertificate",
                 verifyCertificate))
@@ -563,6 +567,11 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 }
             }
             subValue->registryPrefixes = *regPrefixes;
+        }
+
+        if (originResources)
+        {
+            subValue->originResources = *originResources;
         }
 
         if (resTypes)
