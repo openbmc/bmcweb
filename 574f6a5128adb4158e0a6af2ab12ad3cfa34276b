@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4118fea1_a7caf815",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-09-04T10:01:48Z",
+      "side": 1,
+      "message": "Acknowledged\nI will update it.",
+      "parentUuid": "7e8d1ccd_da209271",
+      "revId": "574f6a5128adb4158e0a6af2ab12ad3cfa34276b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12bc5dc7_4177cded",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-08-31T16:32:09Z",
       "side": 1,
       "message": "We shouldn\u0027t be producing two different strings for a single type.",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 0
+      },
+      "revId": "574f6a5128adb4158e0a6af2ab12ad3cfa34276b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5f247a5_b787be59",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-09-04T10:01:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "12bc5dc7_4177cded",
       "range": {
         "startLine": 400,
         "startChar": 0,
