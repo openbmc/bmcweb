@@ -227,7 +227,7 @@ inline void requestRoutesSystemsLogServiceHostlogger(App& app)
             handleSystemsLogServicesHostloggerGet, std::ref(app)));
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/<str>/LogServices/HostLogger/Entries/")
-        .privileges(redfish::privileges::getLogEntry)
+        .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsLogServicesHostloggerEntriesGet, std::ref(app)));
 
