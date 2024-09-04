@@ -33,6 +33,24 @@
       "message": "This comment is not correct. ConfigureComponents is correct. We just don\u0027t have the overwrites done correctly. \n\n      {\n            \"Entity\": \"LogEntryCollection\",\n            \"OperationMap\": {\n                \"GET\": [\n                    {\n                        \"Privilege\": [\n                            \"Login\"\n                        ]\n                    }\n                ],\n                \"HEAD\": [\n                    {\n                        \"Privilege\": [\n                            \"Login\"\n                        ]\n                    }\n                ],\n                \"PATCH\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureManager\"\n                        ]\n                    }\n                ],\n                \"PUT\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureManager\"\n                        ]\n                    }\n                ],\n                \"DELETE\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureManager\"\n                        ]\n                    }\n                ],\n                \"POST\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureManager\"\n                        ]\n                    }\n                ]\n            },\n            \"SubordinateOverrides\": [\n                {\n                    \"Targets\": [\n                        \"ComputerSystem\",\n                        \"LogServiceCollection\",\n                        \"LogService\"\n                    ],\n                    \"OperationMap\": {\n                        \"PATCH\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"\n                                ]\n                            }\n                        ],\n                        \"PUT\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"\n                                ]\n                            }\n                        ],\n                        \"DELETE\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"\n                                ]\n                            }\n                        ],\n                        \"POST\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"\n                                ]\n                            }\n                        ]\n                    }\n                },\n\n\nWe can deal with this later",
       "revId": "c7e30ab0f310d28b62a9cb29750d23a75cccf773",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3ead6d3_4e4dfd94",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-04T19:33:45Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "7a72dbd8_82e56bb8",
+      "revId": "c7e30ab0f310d28b62a9cb29750d23a75cccf773",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
