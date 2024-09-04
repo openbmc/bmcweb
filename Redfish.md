@@ -478,6 +478,7 @@ Fields common to all schemas
 - EventTypes
 - Context
 - OriginResources
+- RegistryPrefixes
 - Protocol
 
 ### /redfish/v1/JsonSchemas/
