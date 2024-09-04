@@ -39,6 +39,7 @@
 #include "service_root.hpp"
 #include "storage.hpp"
 #include "systems.hpp"
+#include "systems_logservices_postcodes.hpp"
 #include "task.hpp"
 #include "telemetry_service.hpp"
 #include "thermal.hpp"
@@ -108,12 +109,8 @@ RedfishService::RedfishService(App& app)
 
     requestRoutesSystemLogServiceCollection(app);
     requestRoutesEventLogService(app);
-    requestRoutesPostCodesEntryAdditionalData(app);
 
-    requestRoutesPostCodesLogService(app);
-    requestRoutesPostCodesClear(app);
-    requestRoutesPostCodesEntry(app);
-    requestRoutesPostCodesEntryCollection(app);
+    requestRoutesSystemsLogServicesPostCode(app);
 
     if constexpr (BMCWEB_REDFISH_DUMP_LOG)
     {
