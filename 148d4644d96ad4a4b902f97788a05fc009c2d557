@@ -189,6 +189,30 @@
       },
       "revId": "148d4644d96ad4a4b902f97788a05fc009c2d557",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc9e7c37_9ee252c2",
+        "filename": "include/pam_authenticate.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-04T06:05:24Z",
+      "side": 1,
+      "message": "I was talking about this regression fix https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74028/9 . Which is not needed if we do this change",
+      "parentUuid": "9a2d4c0a_62e70489",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 5
+      },
+      "revId": "148d4644d96ad4a4b902f97788a05fc009c2d557",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
