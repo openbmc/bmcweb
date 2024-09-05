@@ -23,7 +23,7 @@
             <Annotation Term="OData.Description" String="OpenBMC extensions to the standard account service."/>
             <Annotation Term="Redfish.Uris">
             <Collection>
-                <String>/redfish/v1/Systems/{SystemId}#/OpeBMC/OpenBMCAccountService</String>
+                <String>/redfish/v1/Systems/{SystemId}#/OpenBMCComputerSystem</String>
             </Collection>
             </Annotation>
         </Schema>
