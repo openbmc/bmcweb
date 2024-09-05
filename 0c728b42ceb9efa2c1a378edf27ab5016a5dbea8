@@ -39,6 +39,46 @@
       },
       "revId": "0c728b42ceb9efa2c1a378edf27ab5016a5dbea8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c3c8881_ad36fa5f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-05T23:37:21Z",
+      "side": 0,
+      "message": "FWIW, this return looks incorrect.  We should keep looping with continue here.",
+      "range": {
+        "startLine": 1050,
+        "startChar": 0,
+        "endLine": 1050,
+        "endChar": 19
+      },
+      "revId": "0c728b42ceb9efa2c1a378edf27ab5016a5dbea8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70fa47e6_2816f3a5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-05T23:37:21Z",
+      "side": 0,
+      "message": "Same thing at the end of this branch, we should continue, rather than trying to parse the empty object",
+      "revId": "0c728b42ceb9efa2c1a378edf27ab5016a5dbea8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
