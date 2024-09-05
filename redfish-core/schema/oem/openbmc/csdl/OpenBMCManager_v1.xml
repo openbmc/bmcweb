@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
-    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData" />
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
@@ -18,9 +18,7 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Chassis_v1.xml">
     <edmx:Include Namespace="Chassis"/>
   </edmx:Reference>
-
   <edmx:DataServices>
-
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCManager">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
       <Annotation Term="OData.Description" String="OpenBMC extensions to the standard manager."/>
@@ -31,21 +29,19 @@
         </Collection>
       </Annotation>
     </Schema>
-
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCManager.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
       <ComplexType Name="Manager" BaseType="Resource.OemObject">
-        <Annotation Term="OData.AdditionalProperties" Bool="false" />
-        <Annotation Term="OData.Description" String="OpenBMCManager Oem properties." />
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="OpenBMCManager Oem properties."/>
         <Property Name="Fan" Type="OpenBMCManager.v1_0_0.Fan">
           <Annotation Term="OData.Description" String="OpenBMC fan configuration."/>
           <Annotation Term="OData.LongDescription" String="OpenBMC fan configuration."/>
         </Property>
       </ComplexType>
-
       <ComplexType Name="Fan">
-        <Annotation Term="OData.AdditionalProperties" Bool="false" />
-        <Annotation Term="OData.Description" String="OpenBmc oem fan properties." />
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="OpenBmc oem fan properties."/>
         <Annotation Term="OData.LongDescription" String="OpenBMC oem fan properties."/>
         <Annotation Term="OData.AutoExpand"/>
         <Property Name="FanControllers" Type="OpenBMCManager.v1_0_0.FanControllers">
@@ -67,161 +63,155 @@
         <Property Name="Profile" Type="Edm.String">
           <Annotation Term="OData.Description" String="Current thermal profile."/>
           <Annotation Term="OData.LongDescription" String="Current thermal profile."/>
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
       </ComplexType>
-
       <ComplexType Name="FanControllers">
-        <Annotation Term="OData.AdditionalProperties" Bool="true" />
-        <Annotation Term="OData.Description" String="OpenBmc FanControllers." />
-        <Annotation Term="OData.LongDescription" String="Container for OpenBmc fan controllers." />
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="OpenBmc FanControllers."/>
+        <Annotation Term="OData.LongDescription" String="Container for OpenBmc fan controllers."/>
         <Annotation Term="Redfish.DynamicPropertyPatterns">
           <Collection>
             <Record>
-              <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
-              <PropertyValue Property="Type" String="OpenBMCManager.v1_0_0.FanController" />
+              <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+"/>
+              <PropertyValue Property="Type" String="OpenBMCManager.v1_0_0.FanController"/>
             </Record>
           </Collection>
         </Annotation>
       </ComplexType>
-
       <ComplexType Name="PidControllers">
-        <Annotation Term="OData.AdditionalProperties" Bool="true" />
-        <Annotation Term="OData.Description" String="OpenBmc PidControllers." />
-        <Annotation Term="OData.LongDescription" String="Container for OpenBmc pid controllers." />
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="OpenBmc PidControllers."/>
+        <Annotation Term="OData.LongDescription" String="Container for OpenBmc pid controllers."/>
         <Annotation Term="Redfish.DynamicPropertyPatterns">
           <Collection>
             <Record>
-              <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
-              <PropertyValue Property="Type" String="OpenBMCManager.v1_0_0.PidController" />
+              <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+"/>
+              <PropertyValue Property="Type" String="OpenBMCManager.v1_0_0.PidController"/>
             </Record>
           </Collection>
         </Annotation>
       </ComplexType>
-
       <ComplexType Name="StepwiseControllers">
-        <Annotation Term="OData.AdditionalProperties" Bool="true" />
-        <Annotation Term="OData.Description" String="OpenBmc StepwiseControllers." />
-        <Annotation Term="OData.LongDescription" String="Container for OpenBmc Stepwise controllers." />
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="OpenBmc StepwiseControllers."/>
+        <Annotation Term="OData.LongDescription" String="Container for OpenBmc Stepwise controllers."/>
         <Annotation Term="Redfish.DynamicPropertyPatterns">
           <Collection>
             <Record>
-              <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
-              <PropertyValue Property="Type" String="OpenBMCManager.v1_0_0.StepwiseController" />
+              <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+"/>
+              <PropertyValue Property="Type" String="OpenBMCManager.v1_0_0.StepwiseController"/>
             </Record>
           </Collection>
         </Annotation>
       </ComplexType>
-
       <ComplexType Name="FanZones">
-        <Annotation Term="OData.AdditionalProperties" Bool="true" />
-        <Annotation Term="OData.Description" String="OpenBmc FanZones." />
-        <Annotation Term="OData.LongDescription" String="Container for OpenBmc fan zones." />
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="OpenBmc FanZones."/>
+        <Annotation Term="OData.LongDescription" String="Container for OpenBmc fan zones."/>
         <Annotation Term="Redfish.DynamicPropertyPatterns">
           <Collection>
             <Record>
-              <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
-              <PropertyValue Property="Type" String="OpenBMCManager.v1_0_0.FanZone" />
+              <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+"/>
+              <PropertyValue Property="Type" String="OpenBMCManager.v1_0_0.FanZone"/>
             </Record>
           </Collection>
         </Annotation>
       </ComplexType>
-
       <ComplexType Name="FanController">
-        <Annotation Term="OData.AdditionalProperties" Bool="false" />
-        <Annotation Term="OData.Description" String="Configuration data for Fan Controllers." />
-        <Annotation Term="OData.LongDescription" String="Configuration data for Fan Controllers." />
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Configuration data for Fan Controllers."/>
+        <Annotation Term="OData.LongDescription" String="Configuration data for Fan Controllers."/>
         <Property Name="FFGainCoefficient" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Feed forward gain coefficient for the PID." />
-          <Annotation Term="OData.LongDescription" String="Feed forward gain coefficient for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Feed forward gain coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Feed forward gain coefficient for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="FFOffCoefficient" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Feed forward offset coefficient for the PID." />
-          <Annotation Term="OData.LongDescription" String="Feed forward offset coefficient for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Feed forward offset coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Feed forward offset coefficient for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="ICoefficient" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Integral Coefficient for the PID." />
-          <Annotation Term="OData.LongDescription" String="Integral Coefficient for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Integral Coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Integral Coefficient for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="ILimitMax" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Integral limit maximum for the PID." />
-          <Annotation Term="OData.LongDescription" String="Integral limit maximum for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Integral limit maximum for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Integral limit maximum for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="ILimitMin" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Integral limit minimum for the PID." />
-          <Annotation Term="OData.LongDescription" String="Integral limit minimum for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Integral limit minimum for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Integral limit minimum for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="Inputs" Type="Collection(Edm.String)">
           <Annotation Term="OData.Description" String="Input sensors to the PID controller."/>
           <Annotation Term="OData.LongDescription" String="Input sensors to the PID controller."/>
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="OutLimitMax" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Output limit maximum for the pwm." />
-          <Annotation Term="OData.LongDescription" String="Output limit maximum for the pwm." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Output limit maximum for the pwm."/>
+          <Annotation Term="OData.LongDescription" String="Output limit maximum for the pwm."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="OutLimitMin" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Output limit minimum for the pwm." />
-          <Annotation Term="OData.LongDescription" String="Output limit minimum for the pwm." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Output limit minimum for the pwm."/>
+          <Annotation Term="OData.LongDescription" String="Output limit minimum for the pwm."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="NegativeHysteresis" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Negative hysteresis for the controller." />
-          <Annotation Term="OData.LongDescription" String="Negative hysteresis for the controller." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
-         </Property>
+          <Annotation Term="OData.Description" String="Negative hysteresis for the controller."/>
+          <Annotation Term="OData.LongDescription" String="Negative hysteresis for the controller."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
         <Property Name="PositiveHysteresis" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Positive hysteresis for the controller." />
-          <Annotation Term="OData.LongDescription" String="Positive hysteresis for the controller." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
-         </Property>
+          <Annotation Term="OData.Description" String="Positive hysteresis for the controller."/>
+          <Annotation Term="OData.LongDescription" String="Positive hysteresis for the controller."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
         <Property Name="Outputs" Type="Collection(Edm.String)">
           <Annotation Term="OData.Description" String="Output sensors to the PID controller."/>
           <Annotation Term="OData.LongDescription" String="Output sensors to the PID controller."/>
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="PCoefficient" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Polynomial coefficient for the PID." />
-          <Annotation Term="OData.LongDescription" String="Polynomial coefficient for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Polynomial coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Polynomial coefficient for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="SlewNeg" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Negative slew rate for the PID." />
-          <Annotation Term="OData.LongDescription" String="Negative slew rate for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Negative slew rate for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Negative slew rate for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="SlewPos" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Positive slew rate for the PID." />
-          <Annotation Term="OData.LongDescription" String="Positive slew rate for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Positive slew rate for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Positive slew rate for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <NavigationProperty Name="Zones" Type="Collection(OpenBMCManager.v1_0_0.FanZone)">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read" />
-          <Annotation Term="OData.Description" String="Contains the Zones that this PID contributes to." />
-          <Annotation Term="OData.LongDescription" String="Contains the Zones that this PID contributes to." />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Contains the Zones that this PID contributes to."/>
+          <Annotation Term="OData.LongDescription" String="Contains the Zones that this PID contributes to."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
-
       <ComplexType Name="FanZone">
-        <Annotation Term="OData.AdditionalProperties" Bool="false" />
-        <Annotation Term="OData.Description" String="Configuration data for Fan Controllers." />
-        <Annotation Term="OData.LongDescription" String="Configuration data for Fan Controllers." />
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Configuration data for Fan Controllers."/>
+        <Annotation Term="OData.LongDescription" String="Configuration data for Fan Controllers."/>
         <Property Name="FailSafePercent" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="If the sensors are in fail-safe mode, this is the percentage to use." />
-          <Annotation Term="OData.LongDescription" String="If the sensors are in fail-safe mode, this is the percentage to use." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="If the sensors are in fail-safe mode, this is the percentage to use."/>
+          <Annotation Term="OData.LongDescription" String="If the sensors are in fail-safe mode, this is the percentage to use."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="MinThermalOutput" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Minimum thermal RPM that can be set in this Zone." />
-          <Annotation Term="OData.LongDescription" String="Minimum thermal RPM that can be set in this Zone." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Minimum thermal RPM that can be set in this Zone."/>
+          <Annotation Term="OData.LongDescription" String="Minimum thermal RPM that can be set in this Zone."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <NavigationProperty Name="Chassis" Type="Chassis.Chassis">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -230,144 +220,141 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
-
       <ComplexType Name="PidController">
-        <Annotation Term="OData.AdditionalProperties" Bool="false" />
-        <Annotation Term="OData.Description" String="Configuration data for Fan Controllers." />
-        <Annotation Term="OData.LongDescription" String="Configuration data for Fan Controllers." />
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Configuration data for Fan Controllers."/>
+        <Annotation Term="OData.LongDescription" String="Configuration data for Fan Controllers."/>
         <Property Name="FFGainCoefficient" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Feed forward gain coefficient for the PID." />
-          <Annotation Term="OData.LongDescription" String="Feed forward gain coefficient for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Feed forward gain coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Feed forward gain coefficient for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="FFOffCoefficient" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Feed forward offset coefficient for the PID." />
-          <Annotation Term="OData.LongDescription" String="Feed forward offset coefficient for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Feed forward offset coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Feed forward offset coefficient for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="ICoefficient" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Integral Coefficient for the PID." />
-          <Annotation Term="OData.LongDescription" String="Integral Coefficient for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Integral Coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Integral Coefficient for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="ILimitMax" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Integral limit maximum for the PID." />
-          <Annotation Term="OData.LongDescription" String="Integral limit maximum for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Integral limit maximum for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Integral limit maximum for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="ILimitMin" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Integral limit minimum for the PID." />
-          <Annotation Term="OData.LongDescription" String="Integral limit minimum for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Integral limit minimum for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Integral limit minimum for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="Inputs" Type="Collection(Edm.String)">
           <Annotation Term="OData.Description" String="Input sensors to the PID controller."/>
           <Annotation Term="OData.LongDescription" String="Input sensors to the PID controller."/>
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="OutLimitMax" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Output limit maximum for the pwm." />
-          <Annotation Term="OData.LongDescription" String="Output limit maximum for the pwm." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Output limit maximum for the pwm."/>
+          <Annotation Term="OData.LongDescription" String="Output limit maximum for the pwm."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="OutLimitMin" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Output limit minimum for the pwm." />
-          <Annotation Term="OData.LongDescription" String="Output limit minimum for the pwm." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Output limit minimum for the pwm."/>
+          <Annotation Term="OData.LongDescription" String="Output limit minimum for the pwm."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="NegativeHysteresis" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Negative hysteresis for the controller." />
-          <Annotation Term="OData.LongDescription" String="Negative hysteresis for the controller." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
-         </Property>
-        <Property Name="PositiveHysteresis" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Positive hysteresis for the controller." />
-          <Annotation Term="OData.LongDescription" String="Positive hysteresis for the controller." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
-         </Property>
-        <Property Name="PCoefficient" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Polynomial coefficient for the PID." />
-          <Annotation Term="OData.LongDescription" String="Polynomial coefficient for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Negative hysteresis for the controller."/>
+          <Annotation Term="OData.LongDescription" String="Negative hysteresis for the controller."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
-         <Property Name="SetPoint" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Setpoint for the PID." />
-          <Annotation Term="OData.LongDescription" String="Setpoint for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+        <Property Name="PositiveHysteresis" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Description" String="Positive hysteresis for the controller."/>
+          <Annotation Term="OData.LongDescription" String="Positive hysteresis for the controller."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="PCoefficient" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Description" String="Polynomial coefficient for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Polynomial coefficient for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+        </Property>
+        <Property Name="SetPoint" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Description" String="Setpoint for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Setpoint for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="SetPointOffset" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="Threshold to take value from and apply to setpoint." />
-          <Annotation Term="OData.LongDescription" String="Threshold to take value from and apply to setpoint. Valid threshold names are supported." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Threshold to take value from and apply to setpoint."/>
+          <Annotation Term="OData.LongDescription" String="Threshold to take value from and apply to setpoint. Valid threshold names are supported."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="SlewNeg" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Negative slew rate for the PID." />
-          <Annotation Term="OData.LongDescription" String="Negative slew rate for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Negative slew rate for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Negative slew rate for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="SlewPos" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Positive slew rate for the PID." />
-          <Annotation Term="OData.LongDescription" String="Positive slew rate for the PID." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Positive slew rate for the PID."/>
+          <Annotation Term="OData.LongDescription" String="Positive slew rate for the PID."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <NavigationProperty Name="Zones" Type="Collection(OpenBMCManager.v1_0_0.FanZone)">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read" />
-          <Annotation Term="OData.Description" String="Contains the Zones that this PID contributes to." />
-          <Annotation Term="OData.LongDescription" String="Contains the Zones that this PID contributes to." />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Contains the Zones that this PID contributes to."/>
+          <Annotation Term="OData.LongDescription" String="Contains the Zones that this PID contributes to."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
-
       <ComplexType Name="StepwiseController">
-        <Annotation Term="OData.AdditionalProperties" Bool="false" />
-        <Annotation Term="OData.Description" String="Configuration data for Stepwise Controllers." />
-        <Annotation Term="OData.LongDescription" String="Configuration data for Stepwise Controllers." />
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Configuration data for Stepwise Controllers."/>
+        <Annotation Term="OData.LongDescription" String="Configuration data for Stepwise Controllers."/>
         <Property Name="Inputs" Type="Collection(Edm.String)">
           <Annotation Term="OData.Description" String="Input sensors to the Stepwise controller."/>
           <Annotation Term="OData.LongDescription" String="Input sensors to the Stepwise controller."/>
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="NegativeHysteresis" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Negative Hysteresis for the stepwise controller." />
-          <Annotation Term="OData.LongDescription" String="Negative Hysteresis for the stepwise controller." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Negative Hysteresis for the stepwise controller."/>
+          <Annotation Term="OData.LongDescription" String="Negative Hysteresis for the stepwise controller."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="PositiveHysteresis" Type="Edm.Decimal" Nullable="false">
-          <Annotation Term="OData.Description" String="Positive Hysteresis for the stepwise controller." />
-          <Annotation Term="OData.LongDescription" String="Positive Hysteresis for the stepwise controller." />
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Description" String="Positive Hysteresis for the stepwise controller."/>
+          <Annotation Term="OData.LongDescription" String="Positive Hysteresis for the stepwise controller."/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="Steps" Type="Collection(OpenBMCManager.v1_0_0.StepwiseSteps)">
-          <Annotation Term="OData.Description" String="Temperature vs RPM steps for the stepwise controller." />
-          <Annotation Term="OData.LongDescription" String="Temperature vs RPM steps for the stepwise controller." />
+          <Annotation Term="OData.Description" String="Temperature vs RPM steps for the stepwise controller."/>
+          <Annotation Term="OData.LongDescription" String="Temperature vs RPM steps for the stepwise controller."/>
           <Annotation Term="OData.AutoExpand"/>
         </Property>
         <Property Name="Direction" Type="Edm.String">
           <Annotation Term="OData.Description" String="Direction that the stepwise controller applies."/>
           <Annotation Term="OData.LongDescription" String="Direction that the stepwise controller applies. Options include Ceiling and Floor."/>
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <NavigationProperty Name="Zones" Type="Collection(OpenBMCManager.v1_0_0.FanZone)">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read" />
-          <Annotation Term="OData.Description" String="Contains the Zones that this controller contributes to." />
-          <Annotation Term="OData.LongDescription" String="Contains the Zones that this controller contributes to." />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Contains the Zones that this controller contributes to."/>
+          <Annotation Term="OData.LongDescription" String="Contains the Zones that this controller contributes to."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
-
       <ComplexType Name="StepwiseSteps">
-        <Annotation Term="OData.AdditionalProperties" Bool="false" />
-        <Annotation Term="OData.Description" String="Single stepwise step pair." />
-        <Annotation Term="OData.LongDescription" String="Single stepwise step pair." />
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Single stepwise step pair."/>
+        <Annotation Term="OData.LongDescription" String="Single stepwise step pair."/>
         <Property Name="Target" Type="Edm.Decimal" Nullable="false">
           <Annotation Term="OData.Description" String="Input sensor reading for step."/>
           <Annotation Term="OData.LongDescription" String="Input sensor reading for step."/>
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
         <Property Name="Output" Type="Edm.Decimal" Nullable="false">
           <Annotation Term="OData.Description" String="Fan speed setting for step."/>
           <Annotation Term="OData.LongDescription" String="Fan speed setting for step."/>
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite" />
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
       </ComplexType>
     </Schema>

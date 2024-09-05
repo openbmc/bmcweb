@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
-
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
@@ -18,25 +17,21 @@
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
   </edmx:Reference>
-
   <edmx:DataServices>
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMPCIeDevice">
       <Annotation Term="Redfish.OwningEntity" String="IBM"/>
     </Schema>
-
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMPCIeDevice.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="IBM"/>
-
       <ComplexType Name="Oem" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
         <Annotation Term="OData.Description" String="IBMPCIeDevice Oem properties."/>
         <Annotation Term="OData.AutoExpand"/>
         <Property Name="IBM" Type="IBMPCIeDevice.v1_0_0.IBM"/>
       </ComplexType>
-
       <ComplexType Name="IBM" BaseType="Resource.OemObject">
-        <Annotation Term="OData.AdditionalProperties" Bool="true" />
-        <Annotation Term="OData.Description" String="Oem properties for IBM." />
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="Oem properties for IBM."/>
         <Annotation Term="OData.AutoExpand"/>
         <Property Name="LinkReset" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -44,7 +39,6 @@
           <Annotation Term="OData.LongDescription" String="A true value resets the PCIe Link."/>
         </Property>
       </ComplexType>
-
       <ComplexType Name="PCIeLinks" BaseType="Resource.OemObject">
         <Property Name="PCIeSlot" Type="Resource.Resource">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -53,6 +47,5 @@
         </Property>
       </ComplexType>
     </Schema>
-
   </edmx:DataServices>
 </edmx:Edmx>

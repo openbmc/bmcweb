@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
-
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
@@ -10,22 +9,18 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
-    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ServiceRoot_v1.xml">
-        <edmx:Include Namespace="ServiceRoot"/>
-        <edmx:Include Namespace="ServiceRoot.v1_12_0"/>
-    </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ServiceRoot_v1.xml">
+    <edmx:Include Namespace="ServiceRoot"/>
+    <edmx:Include Namespace="ServiceRoot.v1_12_0"/>
+  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
   </edmx:Reference>
-
   <edmx:DataServices>
-
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMServiceRoot">
       <Annotation Term="Redfish.OwningEntity" String="IBM"/>
     </Schema>
-
-
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMServiceRoot.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="IBM"/>
       <ComplexType Name="Oem" BaseType="Resource.OemObject">
@@ -34,10 +29,9 @@
         <Annotation Term="OData.AutoExpand"/>
         <Property Name="IBM" Type="IBMServiceRoot.IBM"/>
       </ComplexType>
-
       <ComplexType Name="IBM" BaseType="Resource.OemObject">
-        <Annotation Term="OData.AdditionalProperties" Bool="true" />
-        <Annotation Term="OData.Description" String="Oem properties for IBM." />
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="Oem properties for IBM."/>
         <Annotation Term="OData.AutoExpand"/>
         <Property Name="Model" Type="IBMServiceRoot.IBM">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -65,8 +59,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate if the time window for an unauthorized agent to upload an ACF is active."/>
         </Property>
       </ComplexType>
-
     </Schema>
-
   </edmx:DataServices>
 </edmx:Edmx>
