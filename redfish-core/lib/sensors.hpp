@@ -964,7 +964,7 @@ inline void storeInventoryItemData(
  * in recursive calls to this function.
  */
 template <typename Callback>
-static void getInventoryItemsData(
+void getInventoryItemsData(
     std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
     std::shared_ptr<std::set<std::string>> invConnections, Callback&& callback,
@@ -1053,7 +1053,7 @@ static void getInventoryItemsData(
  * @param callback Callback to invoke when connections have been obtained.
  */
 template <typename Callback>
-static void getInventoryItemsConnections(
+void getInventoryItemsConnections(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
     Callback&& callback)
@@ -1136,7 +1136,7 @@ static void getInventoryItemsConnections(
  * @param callback Callback to invoke when inventory items have been obtained.
  */
 template <typename Callback>
-static void getInventoryItemAssociations(
+void getInventoryItemAssociations(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
     const std::shared_ptr<std::set<std::string>>& sensorNames,
     Callback&& callback)
@@ -1668,7 +1668,7 @@ void getPowerSupplyAttributes(
  * @param callback Callback to invoke when inventory items have been obtained.
  */
 template <typename Callback>
-static void
+inline void
     getInventoryItems(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
                       const std::shared_ptr<std::set<std::string>> sensorNames,
                       Callback&& callback)

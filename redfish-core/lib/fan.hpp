@@ -167,7 +167,7 @@ inline bool checkFanId(const std::string& fanPath, const std::string& fanId)
     return !(fanName.empty() || fanName != fanId);
 }
 
-static inline void handleFanPath(
+inline void handleFanPath(
     const std::string& fanId,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const dbus::utility::MapperGetSubTreePathsResponse& fanPaths,

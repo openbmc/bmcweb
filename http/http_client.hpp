@@ -80,8 +80,7 @@ enum class ConnState
     retry
 };
 
-static inline boost::system::error_code
-    defaultRetryHandler(unsigned int respCode)
+inline boost::system::error_code defaultRetryHandler(unsigned int respCode)
 {
     // As a default, assume 200X is alright
     BMCWEB_LOG_DEBUG("Using default check for response code validity");
