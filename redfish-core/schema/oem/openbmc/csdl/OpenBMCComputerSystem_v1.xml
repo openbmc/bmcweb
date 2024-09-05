@@ -1,79 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
-    <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
-        <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData" />
-    </edmx:Reference>
-    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
-        <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
-        <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
-    </edmx:Reference>
-    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ComputerSystem_v1.xml">
-        <edmx:Include Namespace="ComputerSystem"/>
-        <edmx:Include Namespace="ComputerSystem.v1_4_0"/>
-    </edmx:Reference>
-    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
-        <edmx:Include Namespace="Resource"/>
-        <edmx:Include Namespace="Resource.v1_0_0"/>
-    </edmx:Reference>
-
-    <edmx:DataServices>
-
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCComputerSystem">
-            <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
-            <Annotation Term="OData.Description" String="OpenBMC extensions to the standard account service."/>
-            <Annotation Term="Redfish.Uris">
-            <Collection>
-                <String>/redfish/v1/Systems/{SystemId}#/Oem/OpenBMC/OpenBMCComputerSystem</String>
-            </Collection>
-            </Annotation>
-        </Schema>
-    
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCComputerSystem.v1_0_0">
-            <ComplexType Name="Oem" BaseType="Resource.OemObject">
-                <Annotation Term="OData.AdditionalProperties" Bool="true" />
-                <Annotation Term="OData.Description" String="OpenBMCComputerSystem Oem properties." />
-                <Annotation Term="OData.AutoExpand"/>
-                <Property Name="OpenBmc" Type="OpenBMCComputerSystem.OpenBmc"/>
-            </ComplexType>
-
-            <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
-                <Annotation Term="OData.AdditionalProperties" Bool="true" />
-                <Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
-                <Annotation Term="Redfish.DynamicPropertyPatterns">
-                    <Collection>
-                        <NavigationProperty Type="OpenBMCComputerSystem.FirmwareProvisioning">
-                            <Annotation Term="OData.AutoExpand"/>
-                            <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
-                            <PropertyValue Property="Type" String="OpenBMCComputerSystem.FirmwareProvisioning" />
-                        </NavigationProperty>
-                    </Collection>
-                </Annotation>
-            </ComplexType>
-
-            <ComplexType Name="FirmwareProvisioning" BaseType="Resource.OemObject">
-                <Annotation Term="OData.AdditionalProperties" Bool="false" />
-                <Annotation Term="OData.Description" String="Configuration data for platform firmware provisioning." />
-                <Property Name="ProvisioningStatus" Type="OpenBMCComputerSystem.FirmwareProvisioningStatus">
-                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-                    <Annotation Term="OData.Description" String="This indicates platform firmware provisioning state."/>
-                    <Annotation Term="OData.LongDescription" String="The value of this property indicating provisioning status of platform firmware."/>
-                </Property>
-            </ComplexType>
-
-            <EnumType Name="FirmwareProvisioningStatus">
-                <Member Name="NotProvisioned">
-                    <Annotation Term="OData.Description" String="Platform firmware is not provisioned."/>
-                    <Annotation Term="OData.LongDescription" String="Platform firmware is not provisioned."/>
-                </Member>
-                <Member Name="ProvisionedButNotLocked">
-                    <Annotation Term="OData.Description" String="Platform firmware is provisioned but not locked."/>
-                    <Annotation Term="OData.LongDescription" String="Platform firmware is provisioned but not locked. So re-provisioning is allowed in this state."/>
-                </Member>
-                <Member Name="ProvisionedAndLocked">
-                    <Annotation Term="OData.Description" String="Platform firmware is provisioned and locked."/>
-                    <Annotation Term="OData.LongDescription" String="Platform firmware is provisioned and locked. So re-provisioning is not allowed in this state."/>
-                </Member>
-            </EnumType>
-        </Schema>
-    </edmx:DataServices>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ComputerSystem_v1.xml">
+    <edmx:Include Namespace="ComputerSystem"/>
+    <edmx:Include Namespace="ComputerSystem.v1_4_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCComputerSystem">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+      <Annotation Term="OData.Description" String="OpenBMC extensions to the standard account service."/>
+      <Annotation Term="Redfish.Uris">
+        <Collection>
+          <String>/redfish/v1/Systems/{SystemId}#/Oem/OpenBMC/OpenBMCComputerSystem</String>
+        </Collection>
+      </Annotation>
+    </Schema>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCComputerSystem.v1_0_0">
+      <ComplexType Name="Oem" BaseType="Resource.OemObject">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="OpenBMCComputerSystem Oem properties."/>
+        <Annotation Term="OData.AutoExpand"/>
+        <Property Name="OpenBmc" Type="OpenBMCComputerSystem.OpenBmc"/>
+      </ComplexType>
+      <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="Oem properties for OpenBmc."/>
+        <Annotation Term="Redfish.DynamicPropertyPatterns">
+          <Collection>
+            <NavigationProperty Type="OpenBMCComputerSystem.FirmwareProvisioning">
+              <Annotation Term="OData.AutoExpand"/>
+              <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+"/>
+              <PropertyValue Property="Type" String="OpenBMCComputerSystem.FirmwareProvisioning"/>
+            </NavigationProperty>
+          </Collection>
+        </Annotation>
+      </ComplexType>
+      <ComplexType Name="FirmwareProvisioning" BaseType="Resource.OemObject">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Configuration data for platform firmware provisioning."/>
+        <Property Name="ProvisioningStatus" Type="OpenBMCComputerSystem.FirmwareProvisioningStatus">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This indicates platform firmware provisioning state."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property indicating provisioning status of platform firmware."/>
+        </Property>
+      </ComplexType>
+      <EnumType Name="FirmwareProvisioningStatus">
+        <Member Name="NotProvisioned">
+          <Annotation Term="OData.Description" String="Platform firmware is not provisioned."/>
+          <Annotation Term="OData.LongDescription" String="Platform firmware is not provisioned."/>
+        </Member>
+        <Member Name="ProvisionedButNotLocked">
+          <Annotation Term="OData.Description" String="Platform firmware is provisioned but not locked."/>
+          <Annotation Term="OData.LongDescription" String="Platform firmware is provisioned but not locked. So re-provisioning is allowed in this state."/>
+        </Member>
+        <Member Name="ProvisionedAndLocked">
+          <Annotation Term="OData.Description" String="Platform firmware is provisioned and locked."/>
+          <Annotation Term="OData.LongDescription" String="Platform firmware is provisioned and locked. So re-provisioning is not allowed in this state."/>
+        </Member>
+      </EnumType>
+    </Schema>
+  </edmx:DataServices>
 </edmx:Edmx>
