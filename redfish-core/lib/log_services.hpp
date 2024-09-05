@@ -164,7 +164,7 @@ inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
     return true;
 }
 
-static bool
+inline bool
     getRedfishLogFiles(std::vector<std::filesystem::path>& redfishLogFiles)
 {
     static const std::filesystem::path redfishLogDir = "/var/log";
@@ -2960,7 +2960,7 @@ void inline requestRoutesCrashdumpClear(App& app)
             });
 }
 
-static void
+inline void
     logCrashdumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& logID, nlohmann::json& logEntryJson)
 {
@@ -3622,7 +3622,7 @@ inline bool parsePostCode(std::string_view postCodeID, uint64_t& currentValue,
     return ptrValue == postCodeIndex.end() && ecValue == std::errc();
 }
 
-static bool fillPostCodeEntry(
+inline bool fillPostCodeEntry(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::container::flat_map<
         uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>& postcode,
@@ -3757,7 +3757,7 @@ static bool fillPostCodeEntry(
     return false;
 }
 
-static void
+inline void
     getPostCodeForEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& entryId)
 {
@@ -3808,7 +3808,7 @@ static void
         bootIndex);
 }
 
-static void
+inline void
     getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const uint16_t bootIndex, const uint16_t bootCount,
                        const uint64_t entryCount, size_t skip, size_t top)
@@ -3867,7 +3867,7 @@ static void
         bootIndex);
 }
 
-static void
+inline void
     getCurrentBootNumber(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          size_t skip, size_t top)
 {

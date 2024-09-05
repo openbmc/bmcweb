@@ -148,7 +148,7 @@ class CertificateFile
  * @param[in] type Issuer/Subject
  * @return None
  */
-static void updateCertIssuerOrSubject(nlohmann::json& out,
+inline void updateCertIssuerOrSubject(nlohmann::json& out,
                                       std::string_view value)
 {
     // example: O=openbmc-project.xyz,CN=localhost
@@ -213,7 +213,7 @@ static void updateCertIssuerOrSubject(nlohmann::json& out,
  * @param[in] countPtr Json pointer to the count in asyncResp
  * @return None
  */
-static void getCertificateList(
+inline void getCertificateList(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& basePath, const nlohmann::json::json_pointer& listPtr,
     const nlohmann::json::json_pointer& countPtr)
@@ -289,7 +289,7 @@ static void getCertificateList(
  * @param[in] name  name of the certificate
  * @return None
  */
-static void getCertificateProperties(
+inline void getCertificateProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& objectPath, const std::string& service,
     const std::string& certId, const boost::urls::url& certURL,
@@ -379,7 +379,7 @@ static void getCertificateProperties(
         });
 }
 
-static void
+inline void
     deleteCertificate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& service,
                       const sdbusplus::message::object_path& objectPath)
@@ -585,7 +585,7 @@ static std::unique_ptr<sdbusplus::bus::match_t> csrMatcher;
  * @param[in] csrObjPath CSR D-Bus object path
  * @return None
  */
-static void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+inline void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& certURI, const std::string& service,
                    const std::string& certObjPath,
                    const std::string& csrObjPath)

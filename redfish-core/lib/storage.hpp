@@ -605,7 +605,7 @@ inline void getDriveItemProperties(
         });
 }
 
-static void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+inline void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& connectionName,
                             const std::string& path,
                             const std::vector<std::string>& interfaces)

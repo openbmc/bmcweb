@@ -41,7 +41,7 @@ static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
 static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
     "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
 
-static inline void handlePCIeDevicePath(
+inline void handlePCIeDevicePath(
     const std::string& pcieDeviceId,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const dbus::utility::MapperGetSubTreePathsResponse& pcieDevicePaths,
@@ -78,7 +78,7 @@ static inline void handlePCIeDevicePath(
     messages::resourceNotFound(asyncResp->res, "PCIeDevice", pcieDeviceId);
 }
 
-static inline void getValidPCIeDevicePath(
+inline void getValidPCIeDevicePath(
     const std::string& pcieDeviceId,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::function<void(const std::string& pcieDevicePath,
@@ -102,7 +102,7 @@ static inline void getValidPCIeDevicePath(
         });
 }
 
-static inline void handlePCIeDeviceCollectionGet(
+inline void handlePCIeDeviceCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
