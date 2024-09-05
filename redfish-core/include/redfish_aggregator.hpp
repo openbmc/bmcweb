@@ -163,8 +163,8 @@ inline bool isPropertyUri(std::string_view propertyName)
                               propertyName);
 }
 
-static inline void addPrefixToStringItem(std::string& strValue,
-                                         std::string_view prefix)
+inline void addPrefixToStringItem(std::string& strValue,
+                                  std::string_view prefix)
 {
     // Make sure the value is a properly formatted URI
     auto parsed = boost::urls::parse_relative_ref(strValue);
@@ -246,8 +246,7 @@ static inline void addPrefixToStringItem(std::string& strValue,
     }
 }
 
-static inline void addPrefixToItem(nlohmann::json& item,
-                                   std::string_view prefix)
+inline void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
 {
     std::string* strValue = item.get_ptr<std::string*>();
     if (strValue == nullptr)
@@ -262,9 +261,9 @@ static inline void addPrefixToItem(nlohmann::json& item,
     item = *strValue;
 }
 
-static inline void addAggregatedHeaders(crow::Response& asyncResp,
-                                        const crow::Response& resp,
-                                        std::string_view prefix)
+inline void addAggregatedHeaders(crow::Response& asyncResp,
+                                 const crow::Response& resp,
+                                 std::string_view prefix)
 {
     if (!resp.getHeaderValue("Content-Type").empty())
     {
@@ -292,8 +291,8 @@ static inline void addAggregatedHeaders(crow::Response& asyncResp,
 }
 
 // Fix HTTP headers which appear in responses from Task resources among others
-static inline void
-    addPrefixToHeadersInResp(nlohmann::json& json, std::string_view prefix)
+inline void addPrefixToHeadersInResp(nlohmann::json& json,
+                                     std::string_view prefix)
 {
     // The passed in "HttpHeaders" should be an array of headers
     nlohmann::json::array_t* array = json.get_ptr<nlohmann::json::array_t*>();
@@ -325,7 +324,7 @@ static inline void
 
 // Search the json for all URIs and add the supplied prefix if the URI is for
 // an aggregated resource.
-static inline void addPrefixes(nlohmann::json& json, std::string_view prefix)
+inline void addPrefixes(nlohmann::json& json, std::string_view prefix)
 {
     nlohmann::json::object_t* object =
         json.get_ptr<nlohmann::json::object_t*>();
