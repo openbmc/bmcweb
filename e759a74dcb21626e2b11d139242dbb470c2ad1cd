@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "533112c4_c9fcef0a",
+        "filename": "meson.options",
+        "patchSetId": 4
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-05T17:51:27Z",
+      "side": 1,
+      "message": "\u003e We have already refactored the dbus interface \u0026 all the applications twice now.\n\nI\u0027d point out that the last time we refactored this, we were under the impression that all post codes would fit in a 64 bit uint.  Clearly we were wrong.",
+      "parentUuid": "a851ba43_7b73ecbf",
+      "revId": "e759a74dcb21626e2b11d139242dbb470c2ad1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f4f7a7cd_f4e1abf7",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
@@ -120,6 +138,30 @@
       "writtenOn": "2024-08-28T12:47:00Z",
       "side": 1,
       "message": "How about:\n\n```\nif (auto\u0026 secondary \u003d std::get\u003c1\u003e(code.second); !secondary.empty())\n{\n    hexCode \u003c\u003c bytesToHexString(secondary);\n}\n```",
+      "range": {
+        "startLine": 3691,
+        "startChar": 0,
+        "endLine": 3694,
+        "endChar": 9
+      },
+      "revId": "e759a74dcb21626e2b11d139242dbb470c2ad1cd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "235ecac6_82fd7b0b",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3694,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-05T17:51:27Z",
+      "side": 1,
+      "message": "\u003e How about:\n\u003e \n\u003e ```\n\u003e if (auto\u0026 secondary \u003d std::get\u003c1\u003e(code.second); !secondary.empty())\n\u003e {\n\u003e     hexCode \u003c\u003c bytesToHexString(secondary);\n\u003e }\n\u003e ```\n\nI think that still breaks IBM systems, they have a secondary that\u0027s populated, but isn\u0027t what they want as their \"primary\".\n\nI\u0027m still pretty certain that this needs an interface change.  If we can\u0027t represent what we need in the \"primary\" property,",
+      "parentUuid": "f4f7a7cd_f4e1abf7",
       "range": {
         "startLine": 3691,
         "startChar": 0,

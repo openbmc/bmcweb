@@ -163,6 +163,24 @@
       "parentUuid": "531fda38_1f922765",
       "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01e7b933_83a4fc2a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3708,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-05T17:51:27Z",
+      "side": 1,
+      "message": "At the very least,\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/522846cf10edf2bee60aa6867594db1efd8cd585/yaml/xyz/openbmc_project/State/Boot/Raw.interface.yaml#L8\n\nNeeds more description if we\u0027re going to start making switching statements based on whether or not the second arg is empty.\n\nI\u0027ve pushed the changes I think as a WIP here.  They remove the struct, break the field into properties, and give descriptions that call out architectures instead of leaving it undefined.\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/74338\n\nWe need to pull up the ARM schema supplement to figure out what is expected in Redfish for ARM processors specifically, and make sure this matches, but this should be an ok start.",
+      "parentUuid": "5ab25fe0_eeda8629",
+      "revId": "44a17df8ac205f964eaf8f7af398091fd5082a2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
