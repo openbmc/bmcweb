@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19822cbd_be3e6bb6",
+        "filename": "redfish-core/schema/oem/openbmc/csdl/OpenBMCComputerSystem_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-05T14:53:49Z",
+      "side": 1,
+      "message": "Neither URI looks correct\n\nShould be \n\n/redfish/v1/Systems/{SystemId}#/Oem/OpenBMC/OpenBMCComputerSystem",
+      "range": {
+        "startLine": 26,
+        "startChar": 56,
+        "endLine": 26,
+        "endChar": 77
+      },
+      "revId": "fb82b369c113943670ba6b4435a5461df4d87deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
