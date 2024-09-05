@@ -17,16 +17,16 @@
     
     <edmx:DataServices>
 
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemAssembly">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCAssembly">
             <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
         </Schema>
 
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemAssembly.v1_0_0">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCAssembly.v1_0_0">
             <ComplexType Name="Oem" BaseType="Resource.OemObject">
                 <Annotation Term="OData.AdditionalProperties" Bool="true" />
-                <Annotation Term="OData.Description" String="OemAssembly Oem properties." />
+                <Annotation Term="OData.Description" String="OpenBMCAssembly Oem properties." />
                 <Annotation Term="OData.AutoExpand" />
-                <Property Name="OpenBMC" Type="OemAssembly.v1_0_0.OpenBMC" />
+                <Property Name="OpenBMC" Type="OpenBMCAssembly.v1_0_0.OpenBMC" />
             </ComplexType>
 
             <ComplexType Name="OpenBMC" BaseType="Resource.OemObject">

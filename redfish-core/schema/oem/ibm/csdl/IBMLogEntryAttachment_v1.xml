@@ -10,10 +10,6 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
-    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeDevice_v1.xml">
-        <edmx:Include Namespace="PCIeDevice"/>
-        <edmx:Include Namespace="PCIeDevice.v1_9_0"/>
-    </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
@@ -21,32 +17,34 @@
 
   <edmx:DataServices>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemFabricAdapter">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMLogEntryAttachment">
       <Annotation Term="Redfish.OwningEntity" String="IBM"/>
     </Schema>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemFabricAdapter.v1_0_0">
-      <Annotation Term="Redfish.OwningEntity" String="IBM"/>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMLogEntryAttachment.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <ComplexType Name="Oem" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="OemFabricAdapter Oem properties."/>
+        <Annotation Term="OData.Description" String="IBMLogEntryAttachment Oem properties."/>
         <Annotation Term="OData.AutoExpand"/>
-        <Property Name="IBM" Type="OemFabricAdapter.IBM"/>
+        <Property Name="IBM" Type="IBMLogEntryAttachment.v1_0_0.IBM"/>
       </ComplexType>
 
       <ComplexType Name="IBM" BaseType="Resource.OemObject">
-        <Annotation Term="OData.AdditionalProperties" Bool="true" />
+        <Annotation Term="OData.AdditionalProperties" Bool="false" />
         <Annotation Term="OData.Description" String="Oem properties for IBM." />
         <Annotation Term="OData.AutoExpand"/>
-
-        <Property Name="Slots" Type="Resource.Resource">
+        <Property Name="PelJson" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="PCIe Slots"/>
-         <Annotation Term="OData.LongDescription" String="Represent PCIe Slots contained by the adapter"/>
+          <Annotation Term="OData.Description" String="PEL in Json format."/>
+        </Property>
+        <Property Name="AdditionalDataFullAuditLogURI" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Audit Log in Json format."/>
         </Property>
       </ComplexType>
-
     </Schema>
 
   </edmx:DataServices>

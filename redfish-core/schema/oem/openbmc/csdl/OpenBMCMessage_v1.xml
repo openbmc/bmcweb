@@ -17,18 +17,18 @@
   </edmx:Reference>
 
   <edmx:DataServices>
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemMessage">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCMessage">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
     </Schema>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemMessage.v1_0_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCMessage.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
 
       <ComplexType Name="Oem" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="OemMessage Oem properties."/>
+        <Annotation Term="OData.Description" String="OpenBMCMessage Oem properties."/>
         <Annotation Term="OData.AutoExpand"/>
-        <Property Name="OpenBMC" Type="OemMessage.OpenBMC"/>
+        <Property Name="OpenBMC" Type="OpenBMCMessage.OpenBMC"/>
       </ComplexType>
 
       <ComplexType Name="OpenBMC">

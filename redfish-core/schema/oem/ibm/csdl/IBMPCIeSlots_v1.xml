@@ -24,26 +24,26 @@
 
   <edmx:DataServices>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemPCIeSlots">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMPCIeSlots">
       <Annotation Term="Redfish.OwningEntity" String="IBM"/>
     </Schema>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemPCIeSlots.v1_0_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMPCIeSlots.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="IBM"/>
 
       <ComplexType Name="Oem" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="OemPCIeSlots Oem properties."/>
+        <Annotation Term="OData.Description" String="IBMPCIeSlots Oem properties."/>
         <Annotation Term="OData.AutoExpand"/>
-        <Property Name="IBM" Type="OemPCIeSlots.v1_0_0.IBM"/>
+        <Property Name="IBM" Type="IBMPCIeSlots.v1_0_0.IBM"/>
       </ComplexType>
 
       <ComplexType Name="IBM" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="true" />
         <Annotation Term="OData.Description" String="Oem properties for IBM." />
         <Annotation Term="OData.AutoExpand"/>
-        <Property Name="PCIeSlot" Type="OemPCIeSlots.v1_0_0.PCIeSlot"/>
-        <Property Name="PCIeLinks" Type="OemPCIeSlots.v1_0_0.PCIeLinks"/>
+        <Property Name="PCIeSlot" Type="IBMPCIeSlots.v1_0_0.PCIeSlot"/>
+        <Property Name="PCIeLinks" Type="IBMPCIeSlots.v1_0_0.PCIeLinks"/>
       </ComplexType>
 
       <ComplexType Name="PCIeSlot" BaseType="Resource.OemObject">

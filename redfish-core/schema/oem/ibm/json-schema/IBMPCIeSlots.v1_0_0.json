@@ -1,11 +1,11 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/OemPCIeDevice.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/IBMPCIeSlots.v1_0_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Oem": {
             "additionalProperties": true,
-            "description": "OemPCIeDevice Oem properties.",
+            "description": "IBMPCIeSlots Oem properties.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -36,7 +36,7 @@
         },
         "IBM": {
             "additionalProperties": true,
-            "description": "OemPCIeDevice Oem properties for IBM.",
+            "description": "Oem properties for IBM.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -52,11 +52,41 @@
                 }
             },
             "properties": {
-                "LinkReset": {
-                    "description": "Reset the PCIe Link",
-                    "longDescription": "A true value resets the PCIe Link.",
-                    "readonly": false,
-                    "type": "boolean"
+                "PCIeSlot": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/PCIeSlot"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "PCIeSlot": {
+            "additionalProperties": true,
+            "description": "Oem properties for IBM.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "LinkId": {
+                    "description": "An identifier to detect the PCIe bus linked to the slot.",
+                    "readonly": true,
+                    "type": "integer"
                 }
             },
             "type": "object"
@@ -79,11 +109,22 @@
                 }
             },
             "properties": {
-                "PCIeSlot": {
-                    "description": "PCIe Slot Link",
-                    "longDescription": "Represent PCIe Slot Link which has all PCIe device list.",
+                "AssociatedAssembly": {
+                    "description": "Represent association slot with assembly.",
                     "readonly": true,
-                    "type": "object"
+                    "type": ["object", "null"]
+                },
+                "UpstreamFabricAdapters": {
+                    "description": "The upstream fabric adapters.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/FabricAdapter.json#/definitions/FabricAdapter"
+                    },
+                    "longDescription": "This property shall contain an array of links to the upstream fabric adapters.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "UpstreamFabricAdapters@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -91,5 +132,5 @@
     },
     "owningEntity": "IBM",
     "release": "1.0",
-    "title": "#OemPCIeDevice.v1_0_0"
+    "title": "#IBMPCIeSlots.v1_0_0"
 }

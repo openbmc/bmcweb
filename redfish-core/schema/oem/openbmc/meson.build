@@ -24,9 +24,9 @@ endforeach
 
 # Additional IBM schemas that should be installed
 ibm_schemas = [
-    'OemAssembly',
-    'OemLogEntry',
-    'OemMessage',
+    'OpenBMCAssembly',
+    'OpenBMCLogEntry',
+    'OpenBMCMessage',
 ]
 
 foreach schema : ibm_schemas

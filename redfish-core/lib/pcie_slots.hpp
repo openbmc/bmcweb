@@ -58,7 +58,7 @@ inline void afterAddLinkedFabricAdapter(
 
     // Add a link to FabricAdapter
     nlohmann::json::object_t linkOemIbm;
-    linkOemIbm["@odata.type"] = "#OemPCIeSlots.v1_0_0.PCIeLinks";
+    linkOemIbm["@odata.type"] = "#IBMPCIeSlots.v1_0_0.PCIeLinks";
     nlohmann::json& fabricArray = linkOemIbm["UpstreamFabricAdapters"];
     for (const auto& fabricAdapterPath : fabricAdapterPaths)
     {
@@ -115,7 +115,7 @@ inline void doLinkAssociatedDiskBackplaneToChassis(
         std::to_string(it - assemblyList.begin()));
 
     asyncResp->res.jsonValue["Slots"][index]["Links"]["Oem"]["IBM"]
-                            ["@odata.type"] = "#OemPCIeSlots.v1_0_0.PCIeLinks";
+                            ["@odata.type"] = "#IBMPCIeSlots.v1_0_0.PCIeLinks";
     asyncResp->res.jsonValue["Slots"][index]["Links"]["Oem"]["IBM"]
                             ["AssociatedAssembly"] = std::move(item);
 }
@@ -402,7 +402,7 @@ inline void
 
     if (busId != nullptr)
     {
-        slot["Oem"]["IBM"]["@odata.type"] = "#OemPCIeSlots.v1_0_0.PCIeSlot";
+        slot["Oem"]["IBM"]["@odata.type"] = "#IBMPCIeSlots.v1_0_0.PCIeSlot";
         slot["Oem"]["IBM"]["LinkId"] = *busId;
     }
 

@@ -21,45 +21,45 @@
 
   <edmx:DataServices>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemServiceRoot">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMServiceRoot">
       <Annotation Term="Redfish.OwningEntity" String="IBM"/>
     </Schema>
 
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemServiceRoot.v1_0_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMServiceRoot.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="IBM"/>
       <ComplexType Name="Oem" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="OemServiceRoot Oem properties."/>
+        <Annotation Term="OData.Description" String="IBMServiceRoot Oem properties."/>
         <Annotation Term="OData.AutoExpand"/>
-        <Property Name="IBM" Type="OemServiceRoot.IBM"/>
+        <Property Name="IBM" Type="IBMServiceRoot.IBM"/>
       </ComplexType>
 
       <ComplexType Name="IBM" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="true" />
         <Annotation Term="OData.Description" String="Oem properties for IBM." />
         <Annotation Term="OData.AutoExpand"/>
-        <Property Name="Model" Type="OemServiceRoot.IBM">
+        <Property Name="Model" Type="IBMServiceRoot.IBM">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The product name for this system, without the manufacturer name."/>
           <Annotation Term="OData.LongDescription" String="This property shall describe how the manufacturer refers to this system.  Typically, this value is the product name for this system without the manufacturer name."/>
         </Property>
-        <Property Name="SerialNumber" Type="OemServiceRoot.IBM">
+        <Property Name="SerialNumber" Type="IBMServiceRoot.IBM">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The serial number for this system."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the serial number for the system."/>
         </Property>
-        <Property Name="DateTime" Type="OemServiceRoot.IBM">
+        <Property Name="DateTime" Type="IBMServiceRoot.IBM">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The current date and time with UTC offset of the manager."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the current date and time with UTC offset of the manager."/>
         </Property>
-        <Property Name="DateTimeLocalOffset" Type="OemServiceRoot.IBM">
+        <Property Name="DateTimeLocalOffset" Type="IBMServiceRoot.IBM">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The time offset from UTC that the DateTime property is in `+HH:MM` format."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the offset from UTC time that the DateTime property contains.  If both DateTime and DateTimeLocalOffset are provided in modification requests, services shall apply DateTimeLocalOffset after DateTime is applied."/>
         </Property>
-        <Property Name="ACFWindowActive" Type="OemServiceRoot.IBM">
+        <Property Name="ACFWindowActive" Type="IBMServiceRoot.IBM">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether the time window for an unauthorized agent to upload an ACF is active."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate if the time window for an unauthorized agent to upload an ACF is active."/>

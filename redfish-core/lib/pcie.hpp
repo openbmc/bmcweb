@@ -228,7 +228,7 @@ inline void
     std::string chassisName = path.filename();
 
     asyncResp->res.jsonValue["Links"]["Oem"]["IBM"]["@odata.type"] =
-        "#OemPCIeDevice.v1_0_0.PCIeLinks";
+        "#IBMPCIeDevice.v1_0_0.PCIeLinks";
     asyncResp->res.jsonValue["Links"]["Oem"]["IBM"]["PCIeSlot"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots", chassisName);
 }
@@ -331,7 +331,7 @@ inline void addPCIeSlotLinkResetProperties(
     {
         asyncResp->res.jsonValue["Oem"]["IBM"]["LinkReset"] = *linkReset;
         asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
-            "#OemPCIeDevice.v1_0_0.IBM";
+            "#IBMPCIeDevice.v1_0_0.IBM";
     }
 }
 

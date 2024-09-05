@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/OemAssembly.v1_0_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/OpenBMCAssembly.v1_0_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -34,6 +34,5 @@
         }
     },
     "OwningEntity": "OpenBMC",
-    "release": "1.0",
-    "title": "#OemAssembly.v1_0_0"
+    "title": "#OpenBMCAssembly.v1_0_0"
 }

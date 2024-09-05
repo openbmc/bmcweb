@@ -17,23 +17,23 @@
     </edmx:Reference>
 
 	<edmx:DataServices>
-       <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemManagerAccount">
+       <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMManagerAccount">
           <Annotation Term="Redfish.OwningEntity" String="IBM"/>
       </Schema>
 
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemManagerAccount.v1_0_0">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IBMManagerAccount.v1_0_0">
 			<ComplexType Name="Oem" BaseType="Resource.OemObject">
 				<Annotation Term="OData.AdditionalProperties" Bool="true" />
-                <Annotation Term="OData.Description" String="OemManagerAccount Oem properties." />
+                <Annotation Term="OData.Description" String="IBMManagerAccount Oem properties." />
                 <Annotation Term="OData.AutoExpand"/>
-				<Property Name="IBM" Type="OemManagerAccount.v1_0_0.IBM"/>
+				<Property Name="IBM" Type="IBMManagerAccount.v1_0_0.IBM"/>
 			</ComplexType>
 
             <ComplexType Name="IBM">
                 <Annotation Term="OData.AdditionalProperties" Bool="true" />
                 <Annotation Term="OData.Description" String="Oem properties for IBM." />
                 <Annotation Term="OData.AutoExpand"/>
-                <Property Name="ACF" Type="OemManagerAccount.v1_0_0.ACF"/>
+                <Property Name="ACF" Type="IBMManagerAccount.v1_0_0.ACF"/>
             </ComplexType>
 
 			<ComplexType Name="ACF">
