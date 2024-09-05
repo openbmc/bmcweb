@@ -2281,11 +2281,8 @@ inline void getChapData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
         if (ec)
         {
-            if (ec.value() != EBADR)
-            {
-                BMCWEB_LOG_ERROR("Get ChapData D-bus error: {}", ec.value());
-                messages::internalError(asyncResp->res);
-            }
+            // ChapData isn't that important. Ignore all errors.
+            BMCWEB_LOG_DEBUG("Get ChapData D-bus error: {}", ec.value());
             return;
         }
 
