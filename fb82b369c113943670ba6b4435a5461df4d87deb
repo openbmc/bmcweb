@@ -22,6 +22,30 @@
       },
       "revId": "fb82b369c113943670ba6b4435a5461df4d87deb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fb6bc09_d96416b6",
+        "filename": "redfish-core/schema/oem/openbmc/csdl/OpenBMCComputerSystem_v1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-05T15:17:55Z",
+      "side": 1,
+      "message": "Thanks for correcting this.",
+      "parentUuid": "19822cbd_be3e6bb6",
+      "range": {
+        "startLine": 26,
+        "startChar": 56,
+        "endLine": 26,
+        "endChar": 77
+      },
+      "revId": "fb82b369c113943670ba6b4435a5461df4d87deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
