@@ -687,8 +687,7 @@ inline void requestRoutesUpdateServiceActionsSimpleUpdate(App& app)
             {
                 BMCWEB_LOG_DEBUG("Call to DownloaViaTFTP Success");
             }
-        },
-            "xyz.openbmc_project.Software.Download",
+        }, "xyz.openbmc_project.Software.Download",
             "/xyz/openbmc_project/software", "xyz.openbmc_project.Common.TFTP",
             "DownloadViaTFTP", ret->fwFile, ret->tftpServer);
 

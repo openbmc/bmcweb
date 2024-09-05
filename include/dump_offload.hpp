@@ -45,9 +45,8 @@ class Handler : public std::enable_shared_from_this<Handler>
     Handler(boost::asio::io_context& ios, const std::string& entryIDIn,
             const std::string& dumpTypeIn,
             const std::string& unixSocketPathIn) :
-        entryID(entryIDIn),
-        dumpType(dumpTypeIn), unixSocketPath(unixSocketPathIn), unixSocket(ios),
-        waitTimer(ios)
+        entryID(entryIDIn), dumpType(dumpTypeIn),
+        unixSocketPath(unixSocketPathIn), unixSocket(ios), waitTimer(ios)
     {}
 
     /**

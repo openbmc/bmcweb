@@ -35,8 +35,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     // By default populate status to "/Status" of |asyncResp->res.jsonValue|.
     explicit HealthPopulate(
         const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn) :
-        asyncResp(asyncRespIn),
-        statusPtr("/Status")
+        asyncResp(asyncRespIn), statusPtr("/Status")
     {}
 
     // Takes a JSON pointer rather than a reference. This is pretty useful when
@@ -44,8 +43,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     // array.
     HealthPopulate(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
                    const nlohmann::json::json_pointer& ptr) :
-        asyncResp(asyncRespIn),
-        statusPtr(ptr)
+        asyncResp(asyncRespIn), statusPtr(ptr)
     {}
 
     HealthPopulate(const HealthPopulate&) = delete;

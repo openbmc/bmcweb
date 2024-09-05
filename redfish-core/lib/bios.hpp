@@ -901,8 +901,7 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-    },
-        "org.open_power.Software.Host.Updater", "/xyz/openbmc_project/software",
+    }, "org.open_power.Software.Host.Updater", "/xyz/openbmc_project/software",
         "xyz.openbmc_project.Common.FactoryReset", "Reset");
 }
 

@@ -232,8 +232,7 @@ static void resetLicenseActivationStatus(
             return;
         }
         getLicenseActivationStatusMatch() = nullptr;
-    },
-        "com.ibm.License.Manager", "/com/ibm/license",
+    }, "com.ibm.License.Manager", "/com/ibm/license",
         "org.freedesktop.DBus.Properties", "Set",
         "com.ibm.License.LicenseManager", "LicenseActivationStatus",
         std::variant<std::string>(value));
@@ -254,8 +253,7 @@ static void
             return;
         }
         resetLicenseActivationStatus(asyncResp);
-    },
-        "com.ibm.License.Manager", "/com/ibm/license",
+    }, "com.ibm.License.Manager", "/com/ibm/license",
         "org.freedesktop.DBus.Properties", "Set",
         "com.ibm.License.LicenseManager", "LicenseString",
         std::variant<std::string>(value));

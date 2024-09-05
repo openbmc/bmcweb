@@ -498,8 +498,7 @@ inline void
             return;
         }
         messages::success(asyncResp->res);
-    },
-        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+    }, "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", method,
         "xyz.openbmc_project.adcsensor.service", "replace");
 }
@@ -741,8 +740,7 @@ inline void setAssemblyLocationIndicators(
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                },
-                    "com.ibm.VPD.Manager", "/com/ibm/VPD/Manager",
+                }, "com.ibm.VPD.Manager", "/com/ibm/VPD/Manager",
                     "com.ibm.VPD.Manager", action,
                     sdbusplus::message::object_path(assembly));
             }

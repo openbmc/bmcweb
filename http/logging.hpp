@@ -173,21 +173,21 @@ struct BMCWEB_LOG_DEBUG
 };
 
 template <typename... Args>
-BMCWEB_LOG_CRITICAL(std::format_string<Args...>, Args&&...)
-    -> BMCWEB_LOG_CRITICAL<Args...>;
+BMCWEB_LOG_CRITICAL(std::format_string<Args...>,
+                    Args&&...) -> BMCWEB_LOG_CRITICAL<Args...>;
 
 template <typename... Args>
-BMCWEB_LOG_ERROR(std::format_string<Args...>, Args&&...)
-    -> BMCWEB_LOG_ERROR<Args...>;
+BMCWEB_LOG_ERROR(std::format_string<Args...>,
+                 Args&&...) -> BMCWEB_LOG_ERROR<Args...>;
 
 template <typename... Args>
-BMCWEB_LOG_WARNING(std::format_string<Args...>, Args&&...)
-    -> BMCWEB_LOG_WARNING<Args...>;
+BMCWEB_LOG_WARNING(std::format_string<Args...>,
+                   Args&&...) -> BMCWEB_LOG_WARNING<Args...>;
 
 template <typename... Args>
-BMCWEB_LOG_INFO(std::format_string<Args...>, Args&&...)
-    -> BMCWEB_LOG_INFO<Args...>;
+BMCWEB_LOG_INFO(std::format_string<Args...>,
+                Args&&...) -> BMCWEB_LOG_INFO<Args...>;
 
 template <typename... Args>
-BMCWEB_LOG_DEBUG(std::format_string<Args...>, Args&&...)
-    -> BMCWEB_LOG_DEBUG<Args...>;
+BMCWEB_LOG_DEBUG(std::format_string<Args...>,
+                 Args&&...) -> BMCWEB_LOG_DEBUG<Args...>;

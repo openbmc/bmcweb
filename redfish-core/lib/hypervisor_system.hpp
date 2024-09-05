@@ -499,8 +499,7 @@ inline void
         redfish::EventServiceManager::getInstance().sendEvent(
             redfish::messages::resourceChanged(), eventOrigin,
             "EthernetInterface");
-    },
-        "xyz.openbmc_project.Network.Hypervisor",
+    }, "xyz.openbmc_project.Network.Hypervisor",
         std::format("/xyz/openbmc_project/network/hypervisor/{}/{}/addr0",
                     ifaceId, protocol),
         "xyz.openbmc_project.Object.Delete", "Delete");
@@ -806,8 +805,7 @@ inline void
 
             return;
         }
-    },
-        "xyz.openbmc_project.Network.Hypervisor",
+    }, "xyz.openbmc_project.Network.Hypervisor",
         "/xyz/openbmc_project/network/hypervisor/" + ifaceId,
         "xyz.openbmc_project.Network.IP.Create", "IP", protocol, address,
         prefixLength, gateway);

@@ -701,8 +701,7 @@ inline void deleteIPAddress(const std::string& ifaceId,
         {
             messages::internalError(asyncResp->res);
         }
-    },
-        "xyz.openbmc_project.Network",
+    }, "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId + ipHash,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
@@ -791,8 +790,7 @@ inline void deleteAndCreateIPAddress(
             {
                 messages::internalError(asyncResp->res);
             }
-        },
-            "xyz.openbmc_project.Network",
+        }, "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network/" + ifaceId,
             "xyz.openbmc_project.Network.IP.Create", "IP", protocol, address,
             prefixLength, gateway);
@@ -904,9 +902,8 @@ inline void
         {
             messages::internalError(asyncResp->res);
         }
-    },
-        "xyz.openbmc_project.Network", path,
-        "xyz.openbmc_project.Object.Delete", "Delete");
+    }, "xyz.openbmc_project.Network", path, "xyz.openbmc_project.Object.Delete",
+        "Delete");
 }
 
 /**

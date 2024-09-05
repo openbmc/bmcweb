@@ -27,8 +27,7 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
   public:
     ConsoleHandler(boost::asio::io_context& ioc,
                    crow::websocket::Connection& connIn) :
-        hostSocket(ioc),
-        conn(connIn)
+        hostSocket(ioc), conn(connIn)
     {}
 
     ~ConsoleHandler() = default;

@@ -236,8 +236,7 @@ inline void
             return;
         }
         messages::success(asyncResp->res);
-    },
-        "xyz.openbmc_project.Network.SNMP", static_cast<std::string>(snmpPath),
+    }, "xyz.openbmc_project.Network.SNMP", static_cast<std::string>(snmpPath),
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
