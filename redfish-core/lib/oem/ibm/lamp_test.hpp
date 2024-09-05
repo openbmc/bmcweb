@@ -115,8 +115,7 @@ inline void
                     messages::internalError(asyncResp->res);
                     return;
                 }
-            },
-                "com.ibm.PanelApp", "/com/ibm/panel_app", "com.ibm.panel",
+            }, "com.ibm.PanelApp", "/com/ibm/panel_app", "com.ibm.panel",
                 "TriggerPanelLampTest", state);
         });
     });

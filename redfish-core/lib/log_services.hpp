@@ -1474,8 +1474,7 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             messages::internalError(asyncResp->res);
             return;
         }
-    },
-        "xyz.openbmc_project.Dump.Manager", getDumpPath(dumpType),
+    }, "xyz.openbmc_project.Dump.Manager", getDumpPath(dumpType),
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
 
@@ -1788,8 +1787,7 @@ inline void requestRoutesJournalEventLogClear(App& app)
             }
 
             messages::success(asyncResp->res);
-        },
-            "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+        }, "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
             "org.freedesktop.systemd1.Manager", "ReloadUnit", "rsyslog.service",
             "replace");
     });
@@ -5250,8 +5248,7 @@ inline void requestRoutesPostCodesClear(App& app)
                 return;
             }
             messages::success(asyncResp->res);
-        },
-            "xyz.openbmc_project.State.Boot.PostCode0",
+        }, "xyz.openbmc_project.State.Boot.PostCode0",
             "/xyz/openbmc_project/State/Boot/PostCode0",
             "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
     });
@@ -7350,8 +7347,7 @@ inline void postSystemHardwareIsolationLogServiceClearLog(
                 return;
             }
             messages::success(asyncResp->res);
-        },
-            objType[0].first, "/xyz/openbmc_project/hardware_isolation",
+        }, objType[0].first, "/xyz/openbmc_project/hardware_isolation",
             "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
     },
         "xyz.openbmc_project.ObjectMapper",

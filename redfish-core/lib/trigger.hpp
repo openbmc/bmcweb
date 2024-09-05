@@ -1050,9 +1050,8 @@ inline void requestRoutesTrigger(App& app)
             }
 
             asyncResp->res.result(boost::beast::http::status::no_content);
-        },
-            telemetry::service, triggerPath,
-            "xyz.openbmc_project.Object.Delete", "Delete");
+        }, telemetry::service, triggerPath, "xyz.openbmc_project.Object.Delete",
+            "Delete");
     });
 }
 

@@ -54,9 +54,8 @@ class ConnectionImpl : public Connection
                    std::function<void(Connection&, bool&)> closeHandlerIn,
                    std::function<void(Connection&)> errorHandlerIn) :
 
-        Connection(reqIn),
-        adaptor(std::move(adaptorIn)), waitTimer(*reqIn.ioService),
-        openHandler(std::move(openHandlerIn)),
+        Connection(reqIn), adaptor(std::move(adaptorIn)),
+        waitTimer(*reqIn.ioService), openHandler(std::move(openHandlerIn)),
         messageHandler(std::move(messageHandlerIn)),
         closeHandler(std::move(closeHandlerIn)),
         errorHandler(std::move(errorHandlerIn))

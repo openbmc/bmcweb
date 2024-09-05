@@ -155,8 +155,7 @@ class HttpBody::writer
   public:
     template <bool IsRequest, class Fields>
     writer(boost::beast::http::header<IsRequest, Fields>& /*header*/,
-           value_type& bodyIn) :
-        body(bodyIn)
+           value_type& bodyIn) : body(bodyIn)
     {}
 
     static void init(boost::beast::error_code& ec)
@@ -234,8 +233,7 @@ class HttpBody::reader
   public:
     template <bool IsRequest, class Fields>
     reader(boost::beast::http::header<IsRequest, Fields>& /*headers*/,
-           value_type& body) :
-        value(body)
+           value_type& body) : value(body)
     {}
 
     void init(const boost::optional<std::uint64_t>& contentLength,

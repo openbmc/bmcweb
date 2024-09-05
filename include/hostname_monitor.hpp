@@ -33,8 +33,7 @@ inline void installCertificate(const std::filesystem::path& certPath)
         {
             BMCWEB_LOG_ERROR("Failed to remove certificate");
         }
-    },
-        "xyz.openbmc_project.Certs.Manager.Server.Https",
+    }, "xyz.openbmc_project.Certs.Manager.Server.Https",
         "/xyz/openbmc_project/certs/server/https/1",
         "xyz.openbmc_project.Certs.Replace", "Replace", certPath.string());
 }

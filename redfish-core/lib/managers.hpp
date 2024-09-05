@@ -293,8 +293,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
             // Factory Reset doesn't actually happen until a reboot
             // Can't erase what the BMC is running on
             doBMCGracefulRestart(asyncResp);
-        },
-            "xyz.openbmc_project.Software.BMC.Updater",
+        }, "xyz.openbmc_project.Software.BMC.Updater",
             "/xyz/openbmc_project/software",
             "xyz.openbmc_project.Common.FactoryReset", "Reset");
     });
@@ -897,8 +896,7 @@ inline CreatePIDRet createPidInterface(
                 return;
             }
             messages::success(response->res);
-        },
-            "xyz.openbmc_project.EntityManager", path, iface, "Delete");
+        }, "xyz.openbmc_project.EntityManager", path, iface, "Delete");
         return CreatePIDRet::del;
     }
 
@@ -1403,8 +1401,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             std::pair<std::string, std::optional<nlohmann::json::object_t>>>&&
             configurationsIn,
         std::optional<std::string>& profileIn) :
-        asyncResp(asyncRespIn),
-        configuration(std::move(configurationsIn)),
+        asyncResp(asyncRespIn), configuration(std::move(configurationsIn)),
         profile(std::move(profileIn))
     {}
 
@@ -1715,8 +1712,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                             return;
                         }
                         messages::success(response->res);
-                    },
-                        "xyz.openbmc_project.EntityManager", chassis,
+                    }, "xyz.openbmc_project.EntityManager", chassis,
                         "xyz.openbmc_project.AddObject", "AddObject", output);
                 }
             }

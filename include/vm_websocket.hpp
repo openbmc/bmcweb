@@ -187,8 +187,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     NbdProxyServer(crow::websocket::Connection& connIn,
                    const std::string& socketIdIn,
                    const std::string& endpointIdIn, const std::string& pathIn) :
-        socketId(socketIdIn),
-        endpointId(endpointIdIn), path(pathIn),
+        socketId(socketIdIn), endpointId(endpointIdIn), path(pathIn),
 
         peerSocket(connIn.getIoContext()),
         acceptor(connIn.getIoContext(), stream_protocol::endpoint(socketId)),

@@ -835,8 +835,7 @@ inline void
             messages::internalError(asyncResp->res);
             return;
         }
-    },
-        service, objectPath, "xyz.openbmc_project.Certs.CSR.Create",
+    }, service, objectPath, "xyz.openbmc_project.Certs.CSR.Create",
         "GenerateCSR", *optAlternativeNames, *optChallengePassword, city,
         commonName, *optContactPerson, country, *optEmail, *optGivenName,
         *optInitials, *optKeyBitLength, *optKeyCurveId, *optKeyPairAlgorithm,

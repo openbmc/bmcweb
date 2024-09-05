@@ -1866,8 +1866,7 @@ inline void processAfterCreateUser(
             // If password is invalid
             messages::propertyValueFormatError(asyncResp->res, nullptr,
                                                "Password");
-        },
-            "xyz.openbmc_project.User.Manager", userPath,
+        }, "xyz.openbmc_project.User.Manager", userPath,
             "xyz.openbmc_project.Object.Delete", "Delete");
 
         BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
@@ -2295,8 +2294,7 @@ inline void
         }
 
         messages::accountRemoved(asyncResp->res);
-    },
-        "xyz.openbmc_project.User.Manager", userPath,
+    }, "xyz.openbmc_project.User.Manager", userPath,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 

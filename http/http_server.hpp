@@ -32,8 +32,7 @@ class Server
     Server(Handler* handlerIn, boost::asio::ip::tcp::acceptor&& acceptorIn,
            std::shared_ptr<boost::asio::ssl::context> adaptorCtxIn,
            std::shared_ptr<boost::asio::io_context> io) :
-        ioService(std::move(io)),
-        acceptor(std::move(acceptorIn)),
+        ioService(std::move(io)), acceptor(std::move(acceptorIn)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
         adaptorCtx(std::move(adaptorCtxIn))
     {
