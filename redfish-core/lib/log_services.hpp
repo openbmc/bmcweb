@@ -164,7 +164,7 @@ inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
     return true;
 }
 
-static bool
+inline bool
     getRedfishLogFiles(std::vector<std::filesystem::path>& redfishLogFiles)
 {
     static const std::filesystem::path redfishLogDir = "/var/log";
@@ -2736,7 +2736,7 @@ void inline requestRoutesCrashdumpClear(App& app)
             });
 }
 
-static void
+inline void
     logCrashdumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& logID, nlohmann::json& logEntryJson)
 {
