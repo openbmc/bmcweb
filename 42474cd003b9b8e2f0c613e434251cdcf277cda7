@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26edf979_848a072a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-05T22:03:26Z",
+      "side": 1,
+      "message": "Why was this changed.  The previous type was more correct, and required less handling of special cases.",
+      "range": {
+        "startLine": 1012,
+        "startChar": 32,
+        "endLine": 1012,
+        "endChar": 62
+      },
+      "revId": "42474cd003b9b8e2f0c613e434251cdcf277cda7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
