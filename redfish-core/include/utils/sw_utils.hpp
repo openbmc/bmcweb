@@ -341,6 +341,184 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 /**
+ * @brief Put status of input swId into json response
+ *
+ * This function will put the appropriate Redfish state of the input
+ * VR Bundle firmware info to "VRBundle": ["FirmwareID", "FirmwareVersion"
+ * "HealthStatus", "Processor", "SlaveAddress"] within the json response
+ *
+ * @param[i,o] aResp    Async response object
+ * @param[i]   swId     The software ID to get status for
+ * @param[i]   dbusSvc  The dbus service implementing the software object
+ *
+ * @return void
+ */
+inline void getVRBundleFw(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::shared_ptr<std::string>& swId,
+                        const std::string& dbusSvc)
+{
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp,
+         swId](const boost::system::error_code errorCode,
+               const boost::container::flat_map< std::string,
+                  std::variant<std::string, std::vector<std::string>>>& propertiesList) {
+            if (errorCode)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            std::vector<std::string> FirmwareIDs;
+            std::vector<std::string> Processors;
+            std::vector<std::string> SlaveAddress;
+            std::vector<std::string> Status;
+            std::vector<std::string> Versions;
+            std::vector<std::string> Checksum;
+
+            boost::container::flat_map< std::string,
+                   std::variant<std::string, std::vector<std::string>>>::const_iterator it = propertiesList.find("FirmwareID");
+            // first check if required property exist
+            if (it == propertiesList.end())
+            {
+                BMCWEB_LOG_DEBUG("Can't find property FirmwareID");
+                messages::propertyMissing(asyncResp->res, "FirmwareID");
+                return;
+            }
+            it = propertiesList.find("Processor");
+            if (it == propertiesList.end())
+            {
+                BMCWEB_LOG_DEBUG("Can't find property Processor");
+                messages::propertyMissing(asyncResp->res, "Processor");
+                return;
+            }
+            it = propertiesList.find("SlaveAddress");
+            if (it == propertiesList.end())
+            {
+                BMCWEB_LOG_DEBUG("Can't find property SlaveAddress");
+                messages::propertyMissing(asyncResp->res, "SlaveAddress");
+                return;
+            }
+            it = propertiesList.find("Status");
+            if (it == propertiesList.end())
+            {
+                BMCWEB_LOG_DEBUG("Can't find property Status");
+                messages::propertyMissing(asyncResp->res, "Status");
+                return;
+            }
+            it = propertiesList.find("Versions");
+            if (it == propertiesList.end())
+            {
+                BMCWEB_LOG_DEBUG("Can't find property Versions");
+                messages::propertyMissing(asyncResp->res, "Versions");
+                return;
+            }
+            it = propertiesList.find("Checksum");
+            if (it == propertiesList.end())
+            {
+                BMCWEB_LOG_DEBUG("Can't find property Versions");
+                messages::propertyMissing(asyncResp->res, "Versions");
+                return;
+            }
+            //retrieve all the values
+            for (const auto& propertyPair : propertiesList)
+            {
+               if (propertyPair.first == "FirmwareID")
+               {
+                  const std::vector<std::string>* fwvalue =
+                                std::get_if<std::vector<std::string>>(
+                                    &propertyPair.second);
+                  if (fwvalue == nullptr)
+                  {
+                     return;
+                  }
+                  FirmwareIDs = *fwvalue;
+               }
+               else if (propertyPair.first == "Processor")
+               {
+                   const std::vector<std::string>* procvalue =
+                                 std::get_if<std::vector<std::string>>(
+                                     &propertyPair.second);
+                  if (procvalue == nullptr)
+                  {
+                     return;
+                  }
+                  Processors = *procvalue;
+               }
+               else if (propertyPair.first == "SlaveAddress")
+               {
+                   const std::vector<std::string>* slavevalue =
+                                 std::get_if<std::vector<std::string>>(
+                                     &propertyPair.second);
+                  if (slavevalue == nullptr)
+                  {
+                     return;
+                  }
+                  SlaveAddress = *slavevalue;
+               }
+               else if (propertyPair.first == "Status")
+               {
+                   const std::vector<std::string>* statusvalue =
+                                 std::get_if<std::vector<std::string>>(
+                                     &propertyPair.second);
+                  if (statusvalue == nullptr)
+                  {
+                     return;
+                  }
+                  Status = *statusvalue;
+               }
+               else if (propertyPair.first == "Versions")
+               {
+                   const std::vector<std::string>* vervalue =
+                                 std::get_if<std::vector<std::string>>(
+                                     &propertyPair.second);
+                  if (vervalue == nullptr)
+                  {
+                     return;
+                  }
+                  Versions = *vervalue;
+               }
+               else if (propertyPair.first == "Checksum")
+               {
+                   const std::vector<std::string>* chksumvalue =
+                                 std::get_if<std::vector<std::string>>(
+                                     &propertyPair.second);
+                  if (chksumvalue == nullptr)
+                  {
+                     return;
+                  }
+                  Checksum = *chksumvalue;
+               }
+           }//end of for loop
+           // now process all the property values
+           if (((FirmwareIDs.size() == Processors.size())
+               == (SlaveAddress.size() == Status.size()))
+               == (Versions.size() == Checksum.size()))
+           {
+               for (unsigned i = 0; i < FirmwareIDs.size(); i++ )
+               {
+                   nlohmann::json& members = asyncResp->res.jsonValue["VRBundle"];
+                   members.push_back({
+                     {"SlaveAddress", SlaveAddress.at(i)},
+                     {"FirmwareID", FirmwareIDs.at(i)},
+                     {"FirmwareVersion", Versions.at(i)},
+                     {"Processor", Processors.at(i)},
+                     {"HealthStatus", Status.at(i)},
+                     {"Checksum", Checksum.at(i)},
+                  });
+               }
+           }
+           else
+           {
+               BMCWEB_LOG_DEBUG("Unknown VR bundle firmware");
+           }
+        },
+        dbusSvc, "/xyz/openbmc_project/software/" + *swId,
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Software.BundleVersion");
+}
+
+
+/**
  * @brief Updates programmable status of input swId into json response
  *
  * This function checks whether software inventory component
