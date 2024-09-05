@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b0da0fe_46310370",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-05T20:48:27Z",
+      "side": 0,
+      "message": "Not sure why you removed this? Oh well, doesn\u0027t help much",
+      "revId": "0c728b42ceb9efa2c1a378edf27ab5016a5dbea8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03827998_646d7002",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-05T20:48:27Z",
+      "side": 0,
+      "message": "you don\u0027t have this check or error any more..",
+      "range": {
+        "startLine": 1044,
+        "startChar": 0,
+        "endLine": 1047,
+        "endChar": 23
+      },
+      "revId": "0c728b42ceb9efa2c1a378edf27ab5016a5dbea8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
