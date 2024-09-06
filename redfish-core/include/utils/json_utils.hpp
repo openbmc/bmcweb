@@ -561,7 +561,7 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
 
             result =
                 std::visit(
-                    [&item, &unpackSpec, &res](auto&& val) {
+                    [&item, &unpackSpec, &res](auto& val) {
                         using ContainedT =
                             std::remove_pointer_t<std::decay_t<decltype(val)>>;
                         return details::unpackValue<ContainedT>(
@@ -586,7 +586,7 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
         if (!perUnpack.complete)
         {
             bool isOptional = std::visit(
-                [](auto&& val) {
+                [](auto& val) {
                     using ContainedType =
                         std::remove_pointer_t<std::decay_t<decltype(val)>>;
                     return details::IsOptional<ContainedType>::value;
@@ -621,7 +621,7 @@ inline void packVariant(std::span<PerUnpack> /*toPack*/) {}
 
 template <typename FirstType, typename... UnpackTypes>
 void packVariant(std::span<PerUnpack> toPack, std::string_view key,
-                 FirstType& first, UnpackTypes&&... in)
+                 FirstType&& first, UnpackTypes&&... in)
 {
     if (toPack.empty())
     {
@@ -640,7 +640,8 @@ bool readJsonObject(nlohmann::json::object_t& jsonRequest, crow::Response& res,
 {
     const std::size_t n = sizeof...(UnpackTypes) + 2;
     std::array<PerUnpack, n / 2> toUnpack2;
-    packVariant(toUnpack2, key, first, std::forward<UnpackTypes&&>(in)...);
+    packVariant(toUnpack2, key, std::move(first),
+                std::forward<UnpackTypes&&>(in)...);
     return readJsonHelperObject(jsonRequest, res, toUnpack2);
 }
 
