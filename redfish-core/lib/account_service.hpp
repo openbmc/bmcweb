@@ -1911,7 +1911,7 @@ inline void handleAccountCollectionPost(
                        const std::vector<std::string>& allGroupsList) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG("ERROR with async_method_call");
+                BMCWEB_LOG_ERROR("D-BUS response error {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
