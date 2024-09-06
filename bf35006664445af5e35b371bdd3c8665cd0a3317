@@ -98,6 +98,30 @@
       },
       "revId": "bf35006664445af5e35b371bdd3c8665cd0a3317",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94f3587e_91cc71e2",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-09-06T16:43:21Z",
+      "side": 1,
+      "message": "yeah we can make this as std::optional and allow PrefixLength redfish property and if we allow PrefixLength redfish property then need to populate PrefixLength with default value",
+      "parentUuid": "94551d9c_97b0618c",
+      "range": {
+        "startLine": 1041,
+        "startChar": 0,
+        "endLine": 1043,
+        "endChar": 0
+      },
+      "revId": "bf35006664445af5e35b371bdd3c8665cd0a3317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
