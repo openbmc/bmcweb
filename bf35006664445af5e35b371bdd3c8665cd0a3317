@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "229942cc_39a0da18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-09-06T16:36:53Z",
+      "side": 1,
+      "message": "yes here is networkd commit \nhttps://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/63033",
+      "parentUuid": "bdb1ba70_5c9b296d",
+      "revId": "bf35006664445af5e35b371bdd3c8665cd0a3317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e1c94859_4a3f695b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 10
@@ -48,6 +66,30 @@
       "writtenOn": "2024-09-06T15:09:55Z",
       "side": 1,
       "message": "This is changing behavior.  Previously we accepted a PrefixLength property;  Even if we don\u0027t use it in the final interface, we should accept it as a std::optional, like we did before so that implementations that worked before continue to work.",
+      "range": {
+        "startLine": 1041,
+        "startChar": 0,
+        "endLine": 1043,
+        "endChar": 0
+      },
+      "revId": "bf35006664445af5e35b371bdd3c8665cd0a3317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94551d9c_97b0618c",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-09-06T16:36:53Z",
+      "side": 1,
+      "message": "ok, that can be done, but it won\u0027t have any useful since backend does not consume this prefix value",
+      "parentUuid": "cedf4294_ba7b5b57",
       "range": {
         "startLine": 1041,
         "startChar": 0,
