@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f3d67c0_cc09cf30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-06T00:35:07Z",
+      "side": 1,
+      "message": "This is ready for reviewe as the dependent commits are merged,",
+      "parentUuid": "9a1f1e98_46a74fc6",
+      "revId": "3b53fd7eaee481eaa1935f296e7641ce9fdd737f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71be2db8_deacc2af",
