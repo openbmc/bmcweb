@@ -16,6 +16,7 @@
 #pragma once
 
 #include "app.hpp"
+#include "boost_formatters.hpp"
 #include "certificate_service.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
@@ -1911,7 +1912,7 @@ inline void handleAccountCollectionPost(
                        const std::vector<std::string>& allGroupsList) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG("ERROR with async_method_call");
+                BMCWEB_LOG_ERROR("D-Bus response error {}", ec);
                 messages::internalError(asyncResp->res);
                 return;
             }
