@@ -33,6 +33,29 @@
       "message": "In this loop there\u0027s 3 conditions that need handled on each entry of the array:\n1. null\n  Should delete the entry, or return an error if the entry doesn\u0027t exist.\n2. empty object\n  Should return an error if the entry doesn\u0027t exist, otherwise make no changes\n3. Object populated with fields\n  if we\u0027re past the end of existing gateways, create a new gateway.\n  if we\u0027re not past the end of existing gateways, should update the gateway appropriately with whatever fields are present.\n\n\n\nI would like to see those 3 conditions as top level branches, which is what they were before, and makes the logic a lot less confusing.  I could certainly see some cleanups warranted here (I think I saw a couple bugs in the review of the old code)\n\nBut having conditions like:\n\nif (obj !\u003d nullptr \u0026\u0026 !obj-\u003eempty())\n\nAre a bit confusing, and much harder to read the logic of.  FWIW, changing the types here to a std::variant helped quite a bit to make it clear it was in one of two conditions.  Lets not take a step backwards in complexity.",
       "revId": "bf35006664445af5e35b371bdd3c8665cd0a3317",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cedf4294_ba7b5b57",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-06T15:09:55Z",
+      "side": 1,
+      "message": "This is changing behavior.  Previously we accepted a PrefixLength property;  Even if we don\u0027t use it in the final interface, we should accept it as a std::optional, like we did before so that implementations that worked before continue to work.",
+      "range": {
+        "startLine": 1041,
+        "startChar": 0,
+        "endLine": 1043,
+        "endChar": 0
+      },
+      "revId": "bf35006664445af5e35b371bdd3c8665cd0a3317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
