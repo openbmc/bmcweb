@@ -122,6 +122,30 @@
       },
       "revId": "bf35006664445af5e35b371bdd3c8665cd0a3317",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84f4777d_a28fb942",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-06T17:01:18Z",
+      "side": 1,
+      "message": "I\u0027m fine if we completely ignore the parameter.  I\u0027m not really sure what it would\u0027ve done anyway, because this isn\u0027t a subnet, but commands that worked before should continue to work, so we need to keep it in the API.  Please also add a comment to that effect in the code.",
+      "parentUuid": "94f3587e_91cc71e2",
+      "range": {
+        "startLine": 1041,
+        "startChar": 0,
+        "endLine": 1043,
+        "endChar": 0
+      },
+      "revId": "bf35006664445af5e35b371bdd3c8665cd0a3317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
