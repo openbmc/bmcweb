@@ -124,9 +124,9 @@ class SensorsAsyncResp
 
     struct SensorData
     {
-        const std::string name;
+        std::string name;
         std::string uri;
-        const std::string dbusPath;
+        std::string dbusPath;
     };
 
     SensorsAsyncResp(const std::shared_ptr<bmcweb::AsyncResp>& asyncRespIn,
