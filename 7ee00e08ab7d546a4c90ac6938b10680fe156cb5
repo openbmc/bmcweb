@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32d31eaa_e3f56572",
+        "filename": "redfish-core/schema/oem/openbmc/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-07T00:10:41Z",
+      "side": 1,
+      "message": "We need the starting / here, right?",
+      "revId": "7ee00e08ab7d546a4c90ac6938b10680fe156cb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
