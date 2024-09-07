@@ -258,7 +258,10 @@ bmcweb_dependencies += tinyxml
 
 systemd = dependency('systemd')
 libsystemd = dependency('libsystemd')
-add_project_arguments('-DLIBSYSTEMD_VERSION=' + libsystemd.version(), language: 'cpp')
+add_project_arguments(
+    '-DLIBSYSTEMD_VERSION=' + libsystemd.version(),
+    language: 'cpp',
+)
 
 zlib = dependency('zlib')
 bmcweb_dependencies += [libsystemd, zlib]
@@ -310,24 +313,6 @@ else
         bmcweb_dependencies += [boost_lib_instance]
         bmcweb_cli_dependencies += [boost_lib_instance]
     endforeach
-endif
-
-if get_option('tests').allowed()
-    gtest = dependency(
-        'gtest',
-        main: true,
-        version: '>=1.14.0',
-        disabler: true,
-        required: false,
-    )
-    gmock = dependency('gmock', required: false)
-    if not gtest.found() and get_option('tests').allowed()
-        gtest_proj = subproject('gtest', required: true)
-        gtest = gtest_proj.get_variable('gtest_main_dep')
-        gmock = gtest_proj.get_variable('gmock_dep')
-    endif
-    gtest = gtest.as_system('system')
-    gmock = gmock.as_system('system')
 endif
 
 systemd_system_unit_dir = systemd.get_variable('systemdsystemunitdir')
@@ -457,6 +442,21 @@ srcfiles_unittest = files(
 )
 
 if (get_option('tests').allowed())
+    gtest = dependency(
+        'gtest_main',
+        main: true,
+        version: '>=1.15.0',
+        required: true,
+    )
+    gmock = dependency('gmock', required: true)
+    gtestlib = static_library('gtestlib', dependencies: [gtest, gmock])
+    gtestdep = declare_dependency(
+        link_with: gtestlib,
+        dependencies: [
+            gtest.partial_dependency(includes: true),
+            gmock.partial_dependency(includes: true),
+        ],
+    )
     # generate the test executable
     foreach test_src : srcfiles_unittest
         test_bin = executable(
@@ -465,8 +465,8 @@ if (get_option('tests').allowed())
             link_with: bmcweblib,
             include_directories: incdir,
             install_dir: bindir,
-            dependencies: bmcweb_dependencies + [gtest, gmock],
+            dependencies: bmcweb_dependencies + [gtestdep],
         )
-        test(fs.stem(test_src), test_bin)
+        test(fs.stem(test_src), test_bin, protocol: 'gtest')
     endforeach
 endif
