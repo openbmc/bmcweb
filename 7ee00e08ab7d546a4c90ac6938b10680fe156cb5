@@ -16,6 +16,24 @@
       "message": "We need the starting / here, right?",
       "revId": "7ee00e08ab7d546a4c90ac6938b10680fe156cb5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65738a58_82b80b1e",
+        "filename": "redfish-core/schema/oem/openbmc/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-07T15:20:11Z",
+      "side": 1,
+      "message": "I think it needs to be relative, and the similar one is https://github.com/openbmc/bmcweb/blob/a0735a4e58454950b3f7c17711fa1eaa6372d6b9/redfish-core/schema/dmtf/meson.build#L3\n\nIn fact, using the absolute path like `/share/www/redfish/v1/schema` causes `do_package()` failure like\n\n```\nERROR: bmcweb-1.0+git-r0 do_package: QA Issue: bmcweb: Files/directories were installed but not shipped in any package:\n  /share\n  ...\n  /share/www/redfish/v1/JsonSchemas/OpenBMCComputerSystem.v1_0_0.json\nPlease set FILES such that these items are packaged. Alternatively if they are unneeded, avoid installing them or delete them within do_install.\nbmcweb: 12 installed and not shipped files. [installed-vs-shipped]\nERROR: bmcweb-1.0+git-r0 do_package: Fatal QA errors were found, failing task.\n```",
+      "parentUuid": "32d31eaa_e3f56572",
+      "revId": "7ee00e08ab7d546a4c90ac6938b10680fe156cb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
