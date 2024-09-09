@@ -1935,6 +1935,16 @@ inline void processAfterGetAllGroups(
             }
             continue;
         }
+
+        // Remove the ipmi group.  Also Remove "ssh" if the new
+        // user is not an Administrator.
+        if ((grp == "ipmi") || ((grp == "ssh") && (roleId != "priv-admin")))
+
+        {
+            BMCWEB_LOG_DEBUG("group skipped {}", grp);
+            continue;
+        }
+
         userGroups.emplace_back(grp);
     }
 
@@ -2006,26 +2016,12 @@ inline void handleAccountCollectionPost(
                        const std::vector<std::string>& allGroupsList) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG("ERROR with async_method_call");
+            BMCWEB_LOG_ERROR("ERROR with async_method_call {}", ec);
             messages::internalError(asyncResp->res);
             return;
         }
 
-        // Create (modified) modGroupsList from allGroupsList.
-        // Remove the ipmi group.  Also Remove "ssh" if the new
-        // user is not an Administrator.
-        std::vector<std::string> modGroupsList;
-
-        for (const auto& group : allGroupsList)
-        {
-            if ((group != "ipmi") &&
-                ((group != "ssh") || (roleId == "Administrator")))
-            {
-                modGroupsList.push_back(group);
-            }
-        }
-
-        if (modGroupsList.empty())
+        if (allGroupsList.empty())
         {
             messages::internalError(asyncResp->res);
             return;
