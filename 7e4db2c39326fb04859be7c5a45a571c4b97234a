@@ -228,6 +228,24 @@
       "parentUuid": "48d9eec8_698417d0",
       "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca650220_4ade9648",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-09T15:55:12Z",
+      "side": 1,
+      "message": "\u003e In order to revive the discussion, I will answer your question on the dbus usage (the other two questions I have already answered): \n\u003e For context, on single-host we typically know three things ahead of the request: the dbus interface, service name and object path. I.e:\n\u003e \n\u003e iface:   xyz.openbmc_project.State.Host \n\u003e service: xyz.openbmc_project.State.Host \n\u003e path:   /xyz/openbmc_project/state/host0 \n\u003e \n\u003e On multi-host we only know the interface ahead of the request. Dbus service name is unclear what it is called exactly (we could assume it is xyz.openbmc_project.State.Host$idx, but then we would end up with constructing service names by appending indices, also I am not sure if it is guaranteed that this works for other services aswell).\n\u003e Same for object paths, we could construct them manually, i.e /xyz/openbmc_project/state/host + $idx, which was the initial approach but as I understood, is not the method we are looking for.\n\u003e So we end up with getting all the missing dbus resources via dbus calls. The complexity mainly comes from the fact that service name and object path to the requested interface are unknown ahead of the request, when we are on multi-host. \n\u003e On top of that, before we can find any of those, we need to retrieve the HostIndex property, so we can do the mapping correctly.\n\n\nGenerally we use the mapper to find service names and object paths to make any sort of URL construction moot.\n\nSomething like:\nGetSubtreePaths(\"xyz.openbmc_project.State.Host\", \"/xyz/openbmc_project/state\", 0);\n\nWhich would return you all the paths that have state interfaces.  The catch is that because the ManagedHost is an inventory item, and you\u0027re using that to build the collection, you need an association to determine \"this is the correct power object for this managed host\".  I suspect we\u0027ll need to come up with a \"power control for\" association to be able to identify which power controller to use for which managed host.  The interface name could be made more generic possibly, but that\u0027s something we should discuss in a PDI review.\n\nAs this patchset stands, you\u0027re proposing doing a lot of that using path manipulation, and relying on things following a preset naming pattern (integer indexes at the end, filename{} of the dbus path matches between inventory and state namespace) that aren\u0027t well defined in our current DBus specs.",
+      "parentUuid": "048fff58_0703fefd",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
