@@ -146,6 +146,30 @@
       },
       "revId": "bf35006664445af5e35b371bdd3c8665cd0a3317",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27563734_b0d24fe9",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1043,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-09T19:04:33Z",
+      "side": 1,
+      "message": "To follow up on discord, this interface never worked, there\u0027s no reason to keep the old parameters.  CLosing this thread as resolved.",
+      "parentUuid": "84f4777d_a28fb942",
+      "range": {
+        "startLine": 1041,
+        "startChar": 0,
+        "endLine": 1043,
+        "endChar": 0
+      },
+      "revId": "bf35006664445af5e35b371bdd3c8665cd0a3317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
