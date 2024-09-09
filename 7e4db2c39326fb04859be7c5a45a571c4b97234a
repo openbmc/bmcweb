@@ -210,6 +210,24 @@
       "parentUuid": "c6b6676c_dd9290a5",
       "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "048fff58_0703fefd",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2024-09-09T11:29:49Z",
+      "side": 1,
+      "message": "In order to revive the discussion, I will answer your question on the dbus usage (the other two questions I have already answered): \nFor context, on single-host we typically know three things ahead of the request: the dbus interface, service name and object path. I.e:\n\niface:   xyz.openbmc_project.State.Host \nservice: xyz.openbmc_project.State.Host \npath:   /xyz/openbmc_project/state/host0 \n\nOn multi-host we only know the interface ahead of the request. Dbus service name is unclear what it is called exactly (we could assume it is xyz.openbmc_project.State.Host$idx, but then we would end up with constructing service names by appending indices, also I am not sure if it is guaranteed that this works for other services aswell). Same for object paths, we could construct them manually, i.e /xyz/openbmc_project/state/host + $idx, which was the initial approach but as I understood, is not the method we are looking for. So we end up with getting all the missing dbus resources via dbus calls. The complexity mainly comes from the fact that service name and object path to the requested interface are unknown ahead of the request, when we are on multi-host. \nOn top of that, before we can find any of those, we need to retrieve the HostIndex property, so we can do the mapping correctly.",
+      "parentUuid": "48d9eec8_698417d0",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
