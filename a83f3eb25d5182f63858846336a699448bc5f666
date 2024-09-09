@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "a83f3eb25d5182f63858846336a699448bc5f666",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b41d4ff_74ebb77e",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-09T18:57:28Z",
+      "side": 1,
+      "message": "Are these really LOG_ERROR level? LOG_DEBUG instead?\n\nIt looks like below, we just skip if we can\u0027t READ here?\n\n            if (event_log::getEventLogParams(logEntry, timestamp, messageID,\n                                             messageArgs) !\u003d 0)\n            {\n                BMCWEB_LOG_DEBUG(\"Read eventLog entry params failed for {}\",\n                                 logEntry);\n                continue;\n            }",
+      "revId": "a83f3eb25d5182f63858846336a699448bc5f666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
