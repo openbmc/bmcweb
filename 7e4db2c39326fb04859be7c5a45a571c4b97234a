@@ -246,6 +246,24 @@
       "parentUuid": "048fff58_0703fefd",
       "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30da95db_c7837dc9",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-09T22:44:19Z",
+      "side": 1,
+      "message": "FYI, here\u0027s an example of doing a similar lookup for Inventory -\u003e Sensor\nhttps://github.com/openbmc/bmcweb/blob/e3142e80dc05632d04a1cc4c9539225afa4ab391/redfish-core/lib/sensors.hpp#L454",
+      "parentUuid": "ca650220_4ade9648",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
