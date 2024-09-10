@@ -51,6 +51,24 @@
       "parentUuid": "3b41d4ff_74ebb77e",
       "revId": "a83f3eb25d5182f63858846336a699448bc5f666",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ed82e3b_59a7e349",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-09-10T14:18:42Z",
+      "side": 1,
+      "message": "The alternative is silently ignoring an entry with wrong format.\n\nThe whole thing is internal to bmcweb and the rsyslog setup so these error logs should almost never appear unless something went wrong and the file is corrupted in some way.",
+      "parentUuid": "3c003f45_e1b685ed",
+      "revId": "a83f3eb25d5182f63858846336a699448bc5f666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
