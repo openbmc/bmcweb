@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
 #include "google/google_service_root.hpp"
 #include "http_request.hpp"

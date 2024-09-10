@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "utils/ip_utils.hpp"
 
 #include <boost/asio/ip/address.hpp>
