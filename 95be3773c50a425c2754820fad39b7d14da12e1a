@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19e62c3_908b070b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-10T20:28:45Z",
+      "side": 1,
+      "message": "Yep, I started a discussion on discord about this.  Regardless, we can avoid the duplicate comment, which is all this commit is about.",
+      "parentUuid": "939c20b6_fbbb0979",
+      "revId": "95be3773c50a425c2754820fad39b7d14da12e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e5f5d35c_88c5b05a",
