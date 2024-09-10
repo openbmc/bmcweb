@@ -10,7 +10,8 @@
 import os
 import xml.etree.ElementTree as ET
 
-WARNING = """/****************************************************************
+WARNING = """
+/****************************************************************
  *                 READ THIS WARNING FIRST
  * This is an auto-generated header which contains definitions
  * for Redfish DMTF defined schemas.
@@ -272,6 +273,8 @@ def generate_top_collections():
     TOTAL = len(top_collections)
     with open(CPP_OUTFILE, "w") as hpp_file:
         hpp_file.write(
+            "// SPDX-License-Identifier: Apache-2.0\n"
+            "// SPDX-FileCopyrightText: Copyright OpenBMC Authors\n"
             "#pragma once\n"
             "{WARNING}\n"
             "// clang-format off\n"
