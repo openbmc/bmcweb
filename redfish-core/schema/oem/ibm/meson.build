@@ -1,6 +1,7 @@
 # IBM schemas that should be installed
 schemas = [
     'IBMManager',
+    'IBMComputerSystem',
     'OemFabricAdapter',
     'OemLogEntryAttachment',
     'OemManagerAccount',
