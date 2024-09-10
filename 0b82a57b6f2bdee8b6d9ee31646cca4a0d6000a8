@@ -22,6 +22,30 @@
       },
       "revId": "0b82a57b6f2bdee8b6d9ee31646cca4a0d6000a8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "440dc49b_886b216a",
+        "filename": "Redfish.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-09-10T17:44:11Z",
+      "side": 1,
+      "message": "ok I followed same existing format of IPv6StaticAddresses.\nSure will fix it next commit",
+      "parentUuid": "035de6a5_0d11b786",
+      "range": {
+        "startLine": 568,
+        "startChar": 2,
+        "endLine": 568,
+        "endChar": 27
+      },
+      "revId": "0b82a57b6f2bdee8b6d9ee31646cca4a0d6000a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
