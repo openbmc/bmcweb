@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4490e934_244420b2",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-10T23:40:19Z",
+      "side": 1,
+      "message": "Why are we searching for Led Group here?  SHouldn\u0027t we be searching for an LED?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "6e57917f321f9dba14eafc9b5421c622a21dd7e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fad05244_650dd5df",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 45
