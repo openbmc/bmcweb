@@ -16,6 +16,24 @@
       "message": "I don\u0027t see this case handled anymore in your code",
       "revId": "4652c640404d8e6bf7835663f7fe766a436a76ad",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e716a9a1_b758d9d7",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-10T17:37:58Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "1d11ac81_57c0dd2f",
+      "revId": "4652c640404d8e6bf7835663f7fe766a436a76ad",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
