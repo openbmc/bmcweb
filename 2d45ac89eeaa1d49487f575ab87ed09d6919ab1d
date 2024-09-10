@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f385d9e_b6662b5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-10T19:20:14Z",
+      "side": 1,
+      "message": "Most of these copyrights are from Intel.  Adding Jason just for info, but I can\u0027t imagine how this changes anything functionally.",
+      "revId": "2d45ac89eeaa1d49487f575ab87ed09d6919ab1d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
