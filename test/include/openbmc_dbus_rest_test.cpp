@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "openbmc_dbus_rest.hpp"
 
 #include <gmock/gmock.h>
