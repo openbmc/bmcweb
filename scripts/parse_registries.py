@@ -19,10 +19,11 @@ WARNING = """/****************************************************************
  * github organization.
  ***************************************************************/"""
 
-REGISTRY_HEADER = (
-    PRAGMA_ONCE
-    + WARNING
-    + """
+COPYRIGHT = """// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: Copyright OpenBMC Authors
+"""
+
+INCLUDES = """
 #include "registries.hpp"
 
 #include <array>
@@ -32,7 +33,8 @@ REGISTRY_HEADER = (
 namespace redfish::registries::{}
 {{
 """
-)
+
+REGISTRY_HEADER = f"{COPYRIGHT}{PRAGMA_ONCE}{WARNING}{INCLUDES}"
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -172,7 +174,8 @@ def get_variable_name_for_privilege_set(privilege_list):
 
 
 PRIVILEGE_HEADER = (
-    PRAGMA_ONCE
+    COPYRIGHT
+    + PRAGMA_ONCE
     + WARNING
     + """
 #include "privileges.hpp"
