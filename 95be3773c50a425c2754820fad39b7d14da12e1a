@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "939c20b6_fbbb0979",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-10T19:58:27Z",
+      "side": 1,
+      "message": "We don\u0027t have these in all the files. \nAs I understand it, these are meaningless because of the CCLA and the LICENSE file  \n\nCough, cough, I wish someone from Intel (and one from amphere) would remove. E.g.  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/41139",
+      "revId": "95be3773c50a425c2754820fad39b7d14da12e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5f5d35c_88c5b05a",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-10T19:58:27Z",
+      "side": 1,
+      "message": "remvoe the // ?",
+      "revId": "95be3773c50a425c2754820fad39b7d14da12e1a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
