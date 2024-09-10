@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "ssl_key_handler.hpp"
 
 #include "bmcweb_config.h"

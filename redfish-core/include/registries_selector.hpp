@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"

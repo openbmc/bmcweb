@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 #include "boost_formatters.hpp"
 #include "http_body.hpp"

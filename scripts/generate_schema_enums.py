@@ -70,6 +70,8 @@ def camel_to_snake(name):
 
 def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
     redfish_defs_file.write(
+        "SPDX-License-Identifier: Apache-2.0\n"
+        "SPDX-FileCopyrightText: Copyright OpenBMC Authors\n"
         "#pragma once\n"
         "#include <nlohmann/json.hpp>\n\n"
         "namespace {}\n"
