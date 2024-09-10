@@ -1,4 +1,7 @@
+// SPDX-License-Identifier: Apache-2.0
+// SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
+
 /****************************************************************
  *                 READ THIS WARNING FIRST
  * This is an auto-generated header which contains definitions
