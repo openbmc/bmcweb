@@ -266,7 +266,7 @@ option(
     value: 'enabled',
     description: '''Enables Redfish OEM fan data on the manager resource.
                     This includes PID and Stepwise controller data. See
-                    OemManager schema for more detail.''',
+                    OpenBMCManager schema for more detail.''',
 )
 
 option(
