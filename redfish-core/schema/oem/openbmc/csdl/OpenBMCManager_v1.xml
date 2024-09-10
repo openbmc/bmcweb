@@ -34,18 +34,6 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMCManager.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
-
-      <ComplexType Name="IBM" BaseType="Resource.OemObject">
-          <Annotation Term="OData.AdditionalProperties" Bool="true" />
-          <Annotation Term="OData.Description" String="Oem properties for IBM." />
-          <Annotation Term="OData.AutoExpand"/>
-          <Property Name="USBCodeUpdateEnabled" Type="Edm.Boolean" Nullable="false">
-              <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-              <Annotation Term="OData.Description" String="An indication of whether the USB code update is enabled."/>
-              <Annotation Term="OData.LongDescription" String="An indication of whether the USB code update is enabled."/>
-          </Property>
-      </ComplexType>
-
       <ComplexType Name="Manager" BaseType="Resource.OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="false" />
         <Annotation Term="OData.Description" String="OpenBMCManager Oem properties." />
