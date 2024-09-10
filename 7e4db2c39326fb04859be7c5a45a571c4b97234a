@@ -282,6 +282,24 @@
       "parentUuid": "30da95db_c7837dc9",
       "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6c9556d_55d20c6b",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-10T15:14:45Z",
+      "side": 1,
+      "message": "I don\u0027t really think we want to add associations at this point for all of these operations.  It requires every daemon to now understand how their states are related to the inventory, which might be \"better\" but it isn\u0027t how we\u0027ve already done things and it is quite a bit of extra code to put in every other daemon.\n\nThere was already a number of pre-existing design documentation that suggests \"fooN means it is related to hostN\", so we\u0027re leveraging that with the ManagedHost inventory decorator to make it easier for `bmcweb` (as had been previously requested).\n\nIt seems to me, asking for every other daemon to be re-written to incorporate [currently undefined] associations is way outside the scope here and yet another \"go in a different direction now that the code is here\".",
+      "parentUuid": "bd47caff_b2bd6dad",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
