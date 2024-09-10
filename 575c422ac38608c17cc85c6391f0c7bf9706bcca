@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93e7c181_2460e435",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-10T22:49:28Z",
+      "side": 1,
+      "message": "Any error means not found now?  I suspect a specific error should be not found?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "575c422ac38608c17cc85c6391f0c7bf9706bcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
