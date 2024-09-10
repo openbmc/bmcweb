@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "035de6a5_0d11b786",
+        "filename": "Redfish.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-10T17:38:56Z",
+      "side": 1,
+      "message": "Nit, doesn\u0027t need done on this patch, but ideally we\u0027d call these out with specific properties, so this would be\n\nIPv6StaticDefaultGateways[]/Gateway\nIPv6StaticDefaultGateways[]/ProtocolType\n\nbut that\u0027s a problem for another commit.  There\u0027s lots more in this that would need fixed.",
+      "range": {
+        "startLine": 568,
+        "startChar": 2,
+        "endLine": 568,
+        "endChar": 27
+      },
+      "revId": "0b82a57b6f2bdee8b6d9ee31646cca4a0d6000a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
