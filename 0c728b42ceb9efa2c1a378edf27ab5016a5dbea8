@@ -150,6 +150,30 @@
       },
       "revId": "0c728b42ceb9efa2c1a378edf27ab5016a5dbea8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d417464_06142f8e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1964,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-09-10T17:35:40Z",
+      "side": 0,
+      "message": "prefix property was not mentioned in Redfish.md\nactually need to update \"IPv6StaticDefaultGateways\" in Redfish.md",
+      "parentUuid": "5fa1ace7_5fd8cc7a",
+      "range": {
+        "startLine": 1964,
+        "startChar": 21,
+        "endLine": 1964,
+        "endChar": 33
+      },
+      "revId": "0c728b42ceb9efa2c1a378edf27ab5016a5dbea8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
