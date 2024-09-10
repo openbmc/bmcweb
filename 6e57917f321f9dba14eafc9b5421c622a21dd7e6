@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fad05244_650dd5df",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-10T23:39:41Z",
+      "side": 1,
+      "message": "pass these by move please.  Needs fixed everywhere.",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 67
+      },
+      "revId": "6e57917f321f9dba14eafc9b5421c622a21dd7e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27162ff6_125c1acb",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-10T23:39:41Z",
+      "side": 1,
+      "message": "Why is this \"groups\"?  I would expect the search to just be in the LED namespace.",
+      "range": {
+        "startLine": 302,
+        "startChar": 34,
+        "endLine": 302,
+        "endChar": 40
+      },
+      "revId": "6e57917f321f9dba14eafc9b5421c622a21dd7e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
