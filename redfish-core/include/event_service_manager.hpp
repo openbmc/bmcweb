@@ -289,7 +289,7 @@ class Subscription : public persistent_data::UserSubscription
 
     ~Subscription() = default;
 
-    bool sendEvent(std::string&& msg)
+    bool sendEventToSubscriber(std::string&& msg)
     {
         persistent_data::EventServiceConfig eventServiceConfig =
             persistent_data::EventServiceStore::getInstance()
@@ -311,7 +311,7 @@ class Subscription : public persistent_data::UserSubscription
         if (sseConn != nullptr)
         {
             eventSeqNum++;
-            sseConn->sendEvent(std::to_string(eventSeqNum), msg);
+            sseConn->sendSseEvent(std::to_string(eventSeqNum), msg);
         }
         return true;
     }
@@ -409,7 +409,7 @@ class Subscription : public persistent_data::UserSubscription
 
         std::string strMsg =
             msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
-        return sendEvent(std::move(strMsg));
+        return sendEventToSubscriber(std::move(strMsg));
     }
 
     void filterAndSendEventLogs(
@@ -453,7 +453,7 @@ class Subscription : public persistent_data::UserSubscription
         msg["Events"] = std::move(logEntryArray);
         std::string strMsg =
             msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
-        sendEvent(std::move(strMsg));
+        sendEventToSubscriber(std::move(strMsg));
         eventSeqNum++;
     }
 
@@ -492,7 +492,7 @@ class Subscription : public persistent_data::UserSubscription
 
         std::string strMsg =
             msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
-        sendEvent(std::move(strMsg));
+        sendEventToSubscriber(std::move(strMsg));
     }
 
     void updateRetryConfig(uint32_t retryAttempts,
@@ -950,7 +950,7 @@ class EventServiceManager
             {
                 nlohmann::json msg = messages::eventBufferExceeded();
                 // If the buffer overloaded, send all messages.
-                subValue->sendEvent(msg);
+                subValue->sendEventToSubscriber(msg);
                 lastEvent = messages.begin();
             }
             else
@@ -963,7 +963,7 @@ class EventServiceManager
                      lastEvent;
                  lastEvent != messages.end(); lastEvent++)
             {
-                subValue->sendEvent(event->message);
+                subValue->sendEventToSubscriber(event->message);
             }
         }
         return id;
@@ -1091,7 +1091,7 @@ class EventServiceManager
 
             std::string strMsg = msgJson.dump(
                 2, ' ', true, nlohmann::json::error_handler_t::replace);
-            entry->sendEvent(std::move(strMsg));
+            entry->sendEventToSubscriber(std::move(strMsg));
             eventId++; // increment the eventId
         }
     }

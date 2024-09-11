@@ -32,7 +32,7 @@ struct Connection : public std::enable_shared_from_this<Connection>
 
     virtual boost::asio::io_context& getIoContext() = 0;
     virtual void close(std::string_view msg = "quit") = 0;
-    virtual void sendEvent(std::string_view id, std::string_view msg) = 0;
+    virtual void sendSseEvent(std::string_view id, std::string_view msg) = 0;
 };
 
 template <typename Adaptor>
@@ -189,7 +189,7 @@ class ConnectionImpl : public Connection
         doWrite();
     }
 
-    void sendEvent(std::string_view id, std::string_view msg) override
+    void sendSseEvent(std::string_view id, std::string_view msg) override
     {
         if (msg.empty())
         {
