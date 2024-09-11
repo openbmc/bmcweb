@@ -354,6 +354,24 @@
       "parentUuid": "c2992b03_bbf8fd6e",
       "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fac2207_2e89b504",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-11T17:43:21Z",
+      "side": 1,
+      "message": "From that discussion in PDI commit:\n\n\u003e Ideally they\u0027d be an association look up but until we can get a handle around all the missing associations, we\u0027d use this index.\n\nI thought we were previously aligned through earlier renditions of this commit and that discussion that the use of any kind of Index isn\u0027t intended to be the ideal long-term solution, but enough to be able to gauge what all the work is on the other existing daemons (by a series of commits like this one showing up using the index).\n\n\u003e The way Refish works as a tree, you can\u0027t have one mechanism for determining the \"hosts\" at the ComputerSystemCollection level, then have a different mechanism for determining hosts deeper down the tree. It would be good to see at least one example of each slots, inventory associations, and fixed naming working in tandem under a dbus-owned ComputerSystem.\n\nI\u0027m not understanding what this is referring to.  Everything that isn\u0027t supported with associations today (ie. everything outside inventory and _maybe_ sensors) uses an index-based identifier for the host.\n\n\u003e we\u0027re using 3 mechanisms\n\nMaybe I mis-worded something.  It should only be \"static paths + index\" or \"associations\".  The firmware update design talks to \"slots\" because it also has to handle dual flash banks, CPLDs, etc. but when it comes to the host firmware entities I believe they\u0027re all index based in the current implementation.",
+      "parentUuid": "855eadff_0de30bea",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
