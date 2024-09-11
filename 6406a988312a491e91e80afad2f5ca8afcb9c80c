@@ -139,6 +139,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b557b20_0e9e9031",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-11T16:23:43Z",
+      "side": 1,
+      "message": "It\u0027s been a week for what I would hope would be a pretty simple commit message change.  Can we get this change made and this patch rebased so we can get it on master?",
+      "revId": "6406a988312a491e91e80afad2f5ca8afcb9c80c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "791260a9_2d9fa314",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 4
