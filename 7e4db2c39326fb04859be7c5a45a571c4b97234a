@@ -336,6 +336,24 @@
       "parentUuid": "a26db894_0f636d2c",
       "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "855eadff_0de30bea",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-11T16:56:32Z",
+      "side": 1,
+      "message": "\u003e \u003e Going back to relying on known dbus object paths, names, or path hiearchy was discussed during https://github.com/openbmc/technical-oversight-forum/issues/18\n\u003e \n\u003e I was not thinking that far back in time.  I was thinking in terms of the earlier versions of this patch set.  https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/72414 was added to satisfy your earlier concerns, and you +1\u0027d the dbus interface.  Now that we\u0027re trying to use it, you want yet another direction...\n\u003e \n\nThis issue was pointed out in that review.  To quote myself:\n```I\u0027m not sure bmcweb needs this parameter, it\u0027s going to rely on the dbus path to build unique references similar to how we handle sensors and other inventory, but if it\u0027s useful to other systems, rock on.```\n\nIt looks like that comment series was closed the same day that thread was opened without anyone responding to the fact that this isn\u0027t how bmcweb deals with dbus, so I had assumed I was heard.  Seems like a simple miscommunication, nbd.  Lets try to improve on that in the future, but I like to think I made this clear in that review, and I was surprised to see this patch show up in its current form.\n\n\u003e Issue 18 was specifically scoped to inventory because nobody signed up to fix all the other daemons.\n\nACK, true, it was related to inventory, but changing Redfish ComputerSystem does deal with Inventory, which is why I assumed it was related.\n\n\u003e \n\u003e `ComputerSystem.Reset` is handled by this approach.\n\u003e `Bios.ResetBios` only works on IBM systems anyhow and the software design already has architecture around \"slots\".\n\u003e Most of the elements you posted are Inventory related, which probably work with associations per the issue#18 you posted.\n\u003e `Crashdump` design doesn\u0027t handle multi-host at all yet so it is hard to reason about.\n\u003e `EventLog` design internals also do not explicitly handle multi-host; there is one big log for the BMC.\n\u003e `PostCodes` is handled by this approach.\n\u003e `HostLogger` is handled by this approach.\n\u003e \n\u003e So, it seems to me like this approach covers most of the necessary end-points beyond just \"state management\".\n\n\nThe above is exactly the point I\u0027m making.  We\u0027re going to do 1 thing for power control, and something completely different for inventory tracking, and we have to make a 6 bullet item list to determine which resource is using which method.  That flow wasn\u0027t documented anywhere that i\u0027m aware of, nor was the idea of ignoring some of them in porting over the ComputerSystem object.  If that 6 bullet item list is truly what we\u0027re trying to design generally, and we\u0027re using 3 mechanisms, slots, associations, and fixed dbus path naming, lets get that mapped out somewhere which things are using which, and lets see what needs to live behind an option flag, because I\u0027m confused how that would work between existing hosts and multi-host.\n\nThe way Refish works as a tree, you can\u0027t have one mechanism for determining the \"hosts\" at the ComputerSystemCollection level, then have a different mechanism for determining hosts deeper down the tree.  It would be good to see at least one example of each slots, inventory associations, and fixed naming working in tandem under a dbus-owned ComputerSystem.",
+      "parentUuid": "c2992b03_bbf8fd6e",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
