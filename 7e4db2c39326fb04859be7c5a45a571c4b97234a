@@ -318,6 +318,24 @@
       "parentUuid": "f6c9556d_55d20c6b",
       "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2992b03_bbf8fd6e",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-09-11T16:31:10Z",
+      "side": 1,
+      "message": "\u003e Going back to relying on known dbus object paths, names, or path hiearchy was discussed during https://github.com/openbmc/technical-oversight-forum/issues/18\n\nI was not thinking that far back in time.  I was thinking in terms of the earlier versions of this patch set.  https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/72414 was added to satisfy your earlier concerns, and you +1\u0027d the dbus interface.  Now that we\u0027re trying to use it, you want yet another direction...\n\nIssue 18 was specifically scoped to inventory because nobody signed up to fix all the other daemons.\n\n`ComputerSystem.Reset` is handled by this approach.\n`Bios.ResetBios` only works on IBM systems anyhow and the software design already has architecture around \"slots\".\nMost of the elements you posted are Inventory related, which probably work with associations per the issue#18 you posted.\n`Crashdump` design doesn\u0027t handle multi-host at all yet so it is hard to reason about.\n`EventLog` design internals also do not explicitly handle multi-host; there is one big log for the BMC.\n`PostCodes` is handled by this approach.\n`HostLogger` is handled by this approach.\n\nSo, it seems to me like this approach covers most of the necessary end-points beyond just \"state management\".",
+      "parentUuid": "a26db894_0f636d2c",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
