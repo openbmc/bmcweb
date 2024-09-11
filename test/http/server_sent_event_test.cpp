@@ -65,7 +65,7 @@ TEST(ServerSentEvent, SseWorks)
     }
     // Send one event
     {
-        conn->sendEvent("TestEventId", "TestEventContent");
+        conn->sendSseEvent("TestEventId", "TestEventContent");
         std::string_view expected = "id: TestEventId\n"
                                     "data: TestEventContent\n"
                                     "\n";
@@ -85,7 +85,7 @@ TEST(ServerSentEvent, SseWorks)
     }
     // Send second event
     {
-        conn->sendEvent("TestEventId2", "TestEvent\nContent2");
+        conn->sendSseEvent("TestEventId2", "TestEvent\nContent2");
         constexpr std::string_view expected = "id: TestEventId2\n"
                                               "data: TestEvent\n"
                                               "data: Content2\n"
