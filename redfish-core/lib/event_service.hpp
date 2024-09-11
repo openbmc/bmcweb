@@ -706,7 +706,7 @@ inline void requestRoutesEventDestination(App& app)
         const std::string& id = param;
 
         asyncResp->res.jsonValue["@odata.type"] =
-            "#EventDestination.v1_8_0.EventDestination";
+            "#EventDestination.v1_14_1.EventDestination";
         asyncResp->res.jsonValue["Protocol"] =
             event_destination::EventDestinationProtocol::Redfish;
         asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
