@@ -372,6 +372,24 @@
       "parentUuid": "855eadff_0de30bea",
       "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b508087_685166de",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-11T17:55:53Z",
+      "side": 1,
+      "message": "\u003e From that discussion in PDI commit:\n\u003e \n\u003e \u003e Ideally they\u0027d be an association look up but until we can get a handle around all the missing associations, we\u0027d use this index.\n\u003e \n\u003e I thought we were previously aligned through earlier renditions of this commit and that discussion that the use of any kind of Index isn\u0027t intended to be the ideal long-term solution, but enough to be able to gauge what all the work is on the other existing daemons (by a series of commits like this one showing up using the index).\n\nI\u0027m fine with that so long as we don\u0027t break the existing single-host systems.  Right now, there\u0027s not enough implemented in the backend daemons, so this series currently breaks single-host systems.  If we need to use the existing experimental option flag as a crutch longer than it was intended to make progress, I\u0027m happy to have that discussion.\n\n\u003e \n\u003e \u003e The way Refish works as a tree, you can\u0027t have one mechanism for determining the \"hosts\" at the ComputerSystemCollection level, then have a different mechanism for determining hosts deeper down the tree. It would be good to see at least one example of each slots, inventory associations, and fixed naming working in tandem under a dbus-owned ComputerSystem.\n\u003e \n\u003e I\u0027m not understanding what this is referring to.  Everything that isn\u0027t supported with associations today (ie. everything outside inventory and _maybe_ sensors) uses an index-based identifier for the host.\n\nI don\u0027t think there\u0027s an association for \"this component belongs to ManagedHost X\".  Maybe I missed it in the reviews?\n\n\u003e \n\u003e \u003e we\u0027re using 3 mechanisms\n\u003e \n\u003e Maybe I mis-worded something.  It should only be \"static paths + index\" or \"associations\".  The firmware update design talks to \"slots\" because it also has to handle dual flash banks, CPLDs, etc. but when it comes to the host firmware entities I believe they\u0027re all index based in the current implementation.\n\nAH, that\u0027s what slots meant.  Ok.  So we\u0027re down to 2, index and association.  Lets get examples of both in this series and I think the technical issues will be things that we can solve over time.\n\nLong term, I think we\u0027re in agreement that everything related to a \"host\" needs an association?\n\n@Oliver, if you\u0027re on discord, we can probably uplevel some of this chat there and get faster response times.",
+      "parentUuid": "6fac2207_2e89b504",
+      "revId": "7e4db2c39326fb04859be7c5a45a571c4b97234a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
