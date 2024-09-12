@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19bc6db_e7a4c6bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-12T22:19:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebc935e0_a3c4866a",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 3
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4deaa36e_03393c2f",
@@ -85,6 +109,30 @@
       "writtenOn": "2024-02-05T17:01:17Z",
       "side": 1,
       "message": "nit, just declare as nlohmann::json::object_t",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ea8c9ca_e71d0b3c",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-12T22:19:24Z",
+      "side": 1,
+      "message": "I\u0027ve changed how the properties are being gathered. It is now using a common function which expects a nlohmann::json type. So I\u0027m leaving the declaration the same since changing it to an object requires casting to send to the common function. I feel that is less clear.",
+      "parentUuid": "4deaa36e_03393c2f",
       "range": {
         "startLine": 37,
         "startChar": 4,
@@ -226,6 +274,30 @@
       "writtenOn": "2024-02-05T17:01:17Z",
       "side": 1,
       "message": "there\u0027s nothing checking that the other end of this is a sensor.  In this case, maybe we don\u0027t need to?  I\u0027m not sure on that one, but given that\u0027s a problem on a bunch of the other patches, it\u0027s worth discussing.",
+      "range": {
+        "startLine": 97,
+        "startChar": 19,
+        "endLine": 97,
+        "endChar": 39
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac42ec6d_bac2833e",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-12T22:19:24Z",
+      "side": 1,
+      "message": "I\u0027m not sure either whether the check is necessary. I added a check just in case. On a mismatch the object will be skipped for adding to the TemperatureReadingsCelsius array but not treated as an error.",
+      "parentUuid": "94939e43_9b46a632",
       "range": {
         "startLine": 97,
         "startChar": 19,

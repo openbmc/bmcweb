@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e73ed50_dc1fed2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-12T22:19:24Z",
+      "side": 1,
+      "message": "The afterGetTemperatureValue() function calls emplace_back to add each entry to the TemperatureReadingsCelsius array.\nAdditionally getTemperatureReadingsCelsius() now creates the empty TemperatureReadingsCelsius array.\n\nI\u0027ve tested with hardware simulator for Rainier hardware.\n\nThe Redfish validator does not validate the DataSourceUri. This was reported and I\u0027ve updated the issue to indicate ThermalMetrics path has similar issue.\nhttps://github.com/DMTF/Redfish-Service-Validator/issues/598\n\nI\u0027ve manually checked the DataSourceUri being produced.",
+      "parentUuid": "4ff7cfb0_f8033fa2",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0f765b4_07592c81",
         "filename": "/COMMIT_MSG",
         "patchSetId": 7
@@ -334,6 +352,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18e60906_306ba310",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-12T22:19:24Z",
+      "side": 1,
+      "message": "I\u0027ve changed the way DataSourceUri is being built for these entries. I have confirmed the corrected link matches the full sensor and can be retrieved using curl.",
+      "parentUuid": "d6a8a747_19cbd739",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 68
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d61da51a_4363da5c",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 7
@@ -429,6 +471,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6dfdb8e_a8fd2ee0",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-12T22:19:24Z",
+      "side": 1,
+      "message": "Changed DataSourceUri to be built using redfish::sensor_utils::getSensorId().",
+      "parentUuid": "0a2d1fd0_d3c4fbea",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "124c6042_066e39d5",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 7
@@ -512,6 +578,24 @@
       "side": 1,
       "message": "\u003e How to implement `TemperatureReadingsCelsius` in `handleSensorGet` method?\n\nAdd a method call arg called excerpt, that here is true, and in the other code is false.  Then, within that code, branch where appropriate such that the \"excerpt\" of the sensor is produced.\n\n\u003e \n\u003e Yes, they do have similarities, but the properties they expose are completely different. Why use this method instead?\n\nThey\u0027re based on the same schema.  What do you mean the properties they produce are completely different?\n\n\u003e \n\u003e If there is a problem with the current logic, please point it out. At least for now, handleSensorGet is not a universal method.\n\nI\u0027m avoiding pointing out the logic errors, because it will miss the fact that we\u0027ve completely rewritten something that produces the same schema.  if we agree that we should write completely new code for this, at that point in time I will start pointing out the issues in this patchset, but given that it will likely all be condensed into sensor.hpp and associated sensor utils, that seems like a waste of effort.",
       "parentUuid": "f68b3a4e_ddffb5ce",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "222d8658_dd838c56",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-12T22:19:24Z",
+      "side": 1,
+      "message": "I\u0027ve modified this to use a common function. I didn\u0027t use the handleSensorGet() function as the common function since it expects to put the response directly into the asyncResp. Since here we need to build an array I have different wrappers.\n\nThe objectPropertiesToJson() function where the properties for the sensor are filled in is common for the handleSensorGet() path and this path as well. It understands if a chassisSubNode is an excerpt and limits what properties are built for the excerpts.\n\nRight now mostly this is just skipping things, but I\u0027m expecting when other sensor excerpts are implemented that some of the other properties may be added for excerpts as well. I\u0027m expecting the combination of the chassisSubNode and the sensorType will be used to determine which properties are included for a particular call to build a sensor Json representation.",
+      "parentUuid": "3d0871a0_9520cc8e",
       "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
