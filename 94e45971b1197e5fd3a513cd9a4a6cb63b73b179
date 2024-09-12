@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef7dcf82_7971849d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000276
+      },
+      "writtenOn": "2024-09-12T20:58:25Z",
+      "side": 1,
+      "message": "Lots of files, but I glanced at a few with an Intel header, and the change looks good to me.  I Assume all files are done in the same way, so giving +1.",
+      "revId": "94e45971b1197e5fd3a513cd9a4a6cb63b73b179",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
