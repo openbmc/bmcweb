@@ -70,6 +70,30 @@
       },
       "revId": "575c422ac38608c17cc85c6391f0c7bf9706bcca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a3f8cc4_d31cecf6",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-12T17:34:04Z",
+      "side": 1,
+      "message": "Isn\u0027t objmgr `getSubTreePathsById()` implemented differently from `getSubTreePaths()` [which returns the empty collection rather than error] - https://github.com/openbmc/phosphor-objmgr/blob/c363323e7ee9e42817922346b1f1ce6adc872d1b/src/handler.cpp#L207\n\nThen, we may need to do change\n- phosphor-objmgr `getSubTreePathsById()` to return the empty collection\n- Also change this as like what Gunnar suggests.\n\nI\u0027ll take an action if there are no objections.",
+      "parentUuid": "0a5f7730_77ce2eb8",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "575c422ac38608c17cc85c6391f0c7bf9706bcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
