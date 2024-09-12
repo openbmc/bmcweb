@@ -310,7 +310,7 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         [asyncResp](const std::string& chassisName,
                     const dbus::utility::MapperEndPoints& /*pcieSlotPaths*/) {
         asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
-            "#OemFabricAdapter.v1_0_0.IBM";
+            "#IBMFabricAdapter.v1_0_0.IBM";
         asyncResp->res.jsonValue["Oem"]["IBM"]["Slots"]["@odata.id"] =
             boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots",
                                 chassisName);

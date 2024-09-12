@@ -60,7 +60,7 @@ inline void
             }
 
             asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
-                "#OemManager.IBM";
+                "#IBMManager.v1_0_0.IBM";
             asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.id"] =
                 "/redfish/v1/Managers/bmc#/Oem/IBM";
             asyncResp->res.jsonValue["Oem"]["IBM"]["USBCodeUpdateEnabled"] =

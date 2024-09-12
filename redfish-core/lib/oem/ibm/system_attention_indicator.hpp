@@ -69,7 +69,7 @@ inline void getSAI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
 
             nlohmann::json& oemSAI = asyncResp->res.jsonValue["Oem"]["IBM"];
-            oemSAI["@odata.type"] = "#OemComputerSystem.v1_0_0.IBM";
+            oemSAI["@odata.type"] = "#IBMComputerSystem.v1_0_0.IBM";
             if (propertyValue == "PartitionSystemAttentionIndicator")
             {
                 oemSAI["PartitionSystemAttentionIndicator"] = assert;

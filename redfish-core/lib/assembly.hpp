@@ -229,7 +229,7 @@ inline void afterGetReadyToRemoveOfTodBattery(
             // running.
             nlohmann::json& oemOpenBMC =
                 assemblyArray.at(assemblyIndex)["Oem"]["OpenBMC"];
-            oemOpenBMC["@odata.type"] = "#OemAssembly.v1_0_0.OpenBMC";
+            oemOpenBMC["@odata.type"] = "#OpenBMCAssembly.v1_0_0.OpenBMC";
             oemOpenBMC["ReadyToRemove"] = true;
             return;
         }
@@ -239,7 +239,7 @@ inline void afterGetReadyToRemoveOfTodBattery(
     }
     nlohmann::json& oemOpenBMC =
         assemblyArray.at(assemblyIndex)["Oem"]["OpenBMC"];
-    oemOpenBMC["@odata.type"] = "#OemAssembly.v1_0_0.OpenBMC";
+    oemOpenBMC["@odata.type"] = "#OpenBMCAssembly.v1_0_0.OpenBMC";
     oemOpenBMC["ReadyToRemove"] = false;
 }
 
@@ -286,7 +286,7 @@ void getAssemblyPresence(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             if (fru == "panel0" || fru == "panel1")
             {
                 data["Oem"]["OpenBMC"]["@odata.type"] =
-                    "#OemAssembly.v1_0_0.Assembly";
+                    "#OpenBMCAssembly.v1_0_0.Assembly";
 
                 // if panel is not present, implies it is already removed or can
                 // be placed.

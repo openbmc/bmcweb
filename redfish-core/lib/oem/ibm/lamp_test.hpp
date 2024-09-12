@@ -57,7 +57,7 @@ inline void
             }
 
             asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
-                "#OemComputerSystem.v1_0_0.IBM";
+                "#IBMComputerSystem.v1_0_0.IBM";
             asyncResp->res.jsonValue["Oem"]["IBM"]["LampTest"] = assert;
         });
     });

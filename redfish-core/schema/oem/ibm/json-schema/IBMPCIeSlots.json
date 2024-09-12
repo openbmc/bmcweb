@@ -1,0 +1,8 @@
+{
+    "$id": "https://github.com/ibm-openbmc/bmcweb/tree/HEAD/redfish-core/schema/oem/ibm/json-schema/IBMPCIeSlots.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2024 OpenBMC.",
+    "definitions": {},
+    "owningEntity": "IBM",
+    "title": "#IBMPCIeSlots"
+}

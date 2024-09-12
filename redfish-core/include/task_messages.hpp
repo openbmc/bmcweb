@@ -50,7 +50,7 @@ inline nlohmann::json taskAborted(const std::string& arg1,
         {"Resolution", "None."},
         {"Oem",
          {{"OpenBMC",
-           {{"@odata.type", "#OemMessage.v1_0_0.Message"},
+           {{"@odata.type", "#OpenBMCMessage.v1_0_0.Message"},
             {"AbortReason", arg2},
             {"AdditionalData", arg3},
             {"EventId", arg4}}}}}};

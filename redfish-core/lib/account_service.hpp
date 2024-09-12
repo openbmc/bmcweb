@@ -880,9 +880,9 @@ inline void getAcfProperties(
     const std::tuple<std::vector<uint8_t>, bool, std::string>& messageFDbus)
 {
     asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
-        "#OemManagerAccount.v1_0_0.IBM";
+        "#IBMManagerAccount.v1_0_0.IBM";
     asyncResp->res.jsonValue["Oem"]["IBM"]["ACF"]["@odata.type"] =
-        "#OemManagerAccount.v1_0_0.ACF";
+        "#IBMManagerAccount.v1_0_0.ACF";
     // Get messages from call to InstallACF and add values to json
     std::vector<uint8_t> acfFile = std::get<0>(messageFDbus);
     std::string decodeACFFile(acfFile.begin(), acfFile.end());

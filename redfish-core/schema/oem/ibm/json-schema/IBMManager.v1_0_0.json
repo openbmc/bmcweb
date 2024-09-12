@@ -1,0 +1,34 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
+    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "IBM": {
+            "additionalProperties": true,
+            "description": "Oem properties for IBM.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "USBCodeUpdateEnabled": {
+                    "description": "An indication of whether the USB code update is enabled.",
+                    "longDescription": "An indication of whether the USB code update is enabled.",
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "IBM",
+    "title": "#IBMManager.v1_0_0"
+}

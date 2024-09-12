@@ -1,0 +1,38 @@
+{
+    "$id": "https://github.com/openbmc/bmcweb/tree/master/redfish-core/schema/oem/openbmc/json-schema/OpenBMCVirtualMedia.v1_0_0.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2024 OpenBMC.",
+    "definitions": {
+        "VirtualMedia": {
+            "additionalProperties": false,
+            "description": "OEM Extension for VirtualMedia",
+            "longDescription": "OEM Extension for VirtualMedia to support Proxy mode.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "WebSocketEndpoint": {
+                    "description": "Indicates endpoint socket name and location.",
+                    "longDescription": "The value of this property shall be a structure ring indicating location and name of the socket used to communicate with nbd server.",
+                    "readonly": true,
+                    "type": ["string", "null"]
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "OpenBMC",
+    "release": "1.0",
+    "title": "#OpenBMCVirtualMedia.v1_0_0"
+}
