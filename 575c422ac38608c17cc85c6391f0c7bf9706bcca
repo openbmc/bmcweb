@@ -46,6 +46,30 @@
       },
       "revId": "575c422ac38608c17cc85c6391f0c7bf9706bcca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a5f7730_77ce2eb8",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001633
+      },
+      "writtenOn": "2024-09-12T15:58:52Z",
+      "side": 1,
+      "message": "Looks like no associated powersupplies is giving resource not found error.\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-objmgr/+/70699/14/src/handler.cpp#395",
+      "parentUuid": "ed134c6a_abecbe71",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "575c422ac38608c17cc85c6391f0c7bf9706bcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
