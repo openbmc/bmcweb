@@ -211,8 +211,6 @@ inline void
             boost::beast::http::status::internal_server_error);
         return;
     }
-
-    messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
 }
 
 inline void requestRoutesRedfish(App& app)
