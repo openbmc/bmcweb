@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36c43641_e2b16c66",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-12T20:29:41Z",
+      "side": 1,
+      "message": "https://xxxxx/redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.v1_99_1.json gives back a 500. So this check doesn\u0027t work. Oh well, a different problem.\n\nMaybe just needs to be\n\nif (filepath.is_relative() || !filepath.exists) \n \n?",
+      "revId": "fe37ddaf26abcf67e3861e2af3177333b09204f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
