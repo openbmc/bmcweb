@@ -22,6 +22,30 @@
       },
       "revId": "575c422ac38608c17cc85c6391f0c7bf9706bcca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed134c6a_abecbe71",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-12T15:50:45Z",
+      "side": 1,
+      "message": "What was wrong with \n\n            if (ec)\n            {\n                if (ec.value() !\u003d EBADR)\n                {\n                    BMCWEB_LOG_ERROR(\"DBUS response error{}\", ec.value());\n                    messages::internalError(asyncResp-\u003eres);\n                }\n                return;\n            }\n\nIf you don\u0027t any associated powersupplies, the collection should just be empty",
+      "parentUuid": "93e7c181_2460e435",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "575c422ac38608c17cc85c6391f0c7bf9706bcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
