@@ -1759,6 +1759,16 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
                 for (const std::string& interface : interfaceNames)
                 {
+                    static constexpr std::array<std::string_view, 3>
+                        interfacesToSkip{"org.freedesktop.DBus.Introspectable",
+                                         "org.freedesktop.DBus.Peer",
+                                         "org.freedesktop.DBus.Properties"};
+                    if (std::find(interfacesToSkip.begin(),
+                                  interfacesToSkip.end(), interface) !=
+                        interfacesToSkip.end())
+                    {
+                        continue;
+                    }
                     sdbusplus::message_t m =
                         crow::connections::systemBus->new_method_call(
                             connection.first.c_str(), path->c_str(),
