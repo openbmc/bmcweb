@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dcd59a1a_f2decda4",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-13T15:25:06Z",
+      "side": 1,
+      "message": "Good point. We may need to find an alternate way of `std::filesystem::exists()`",
+      "parentUuid": "b5969e28_4a51928f",
+      "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bcec4d6_9377d364",
         "filename": "redfish-core/lib/redfish_v1.hpp",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "writtenOn": "2024-09-13T15:21:59Z",
       "side": 1,
       "message": "openFile is a bool, improve it to return an rc? \nOr you saying in here, do an additional check?\nI prefer the noexcept exists above I think.",
+      "parentUuid": "0bcec4d6_9377d364",
+      "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "591ee1b2_02be701c",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-13T15:25:06Z",
+      "side": 1,
+      "message": "To avoid the use of `std::filesystem::exists()`, I think we can modify `asyncResp-\u003eres.openFile(filepath)` to return `ec` something like\n\n```\n\n    if (!asyncResp-\u003eres.openFile(filepath, ec))\n    {\n       if(ec \u003d\u003d \u003cNOT_FOUND\u003e)\n       {\n           messages::resourceNotFound(asyncResp-\u003eres, \"JsonSchemaFile\", schema);\n           return;\n       }\n       ...\n    }\n```\n\nI\u0027ll investigate more related to `openFile()` and resume this.",
       "parentUuid": "0bcec4d6_9377d364",
       "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
