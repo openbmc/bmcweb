@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ceb36d5_7e06d198",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-13T15:21:59Z",
+      "side": 1,
+      "message": "Or use the noexcept like we do a few places?\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20std%3A%3Afilesystem%3A%3Aexists\u0026type\u003dcode\n\n```\nstd::error_code ec;\nbool fileExists \u003d std::filesystem::exists(filepath, ec);\n\nif (ec)\n{\n        BMCWEB_LOG_ERROR(\"FileSystem Exists failed: {}\", ec);\n        asyncResp-\u003eres.result(\n            boost::beast::http::status::internal_server_error);\n\n}\n\nif (filepath.is_relative() || !fileExists) \n{\n        messages::resourceNotFound(asyncResp-\u003eres, \"JsonSchemaFile\", schema);\n        return;\n}\n\n```",
+      "parentUuid": "b5969e28_4a51928f",
+      "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bcec4d6_9377d364",
         "filename": "redfish-core/lib/redfish_v1.hpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2024-09-13T15:05:49Z",
       "side": 1,
       "message": "should we just check as part of this error?",
+      "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58c147a3_a91d97e2",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-13T15:21:59Z",
+      "side": 1,
+      "message": "openFile is a bool, improve it to return an rc? \nOr you saying in here, do an additional check?\nI prefer the noexcept exists above I think.",
+      "parentUuid": "0bcec4d6_9377d364",
       "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
