@@ -198,7 +198,7 @@ inline void
     }
     std::filesystem::path filepath("/usr/share/www/redfish/v1/JsonSchemas");
     filepath /= schemaFile;
-    if (filepath.is_relative())
+    if (filepath.is_relative() || !std::filesystem::exists(filepath))
     {
         messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
         return;
