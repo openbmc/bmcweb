@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1692d0c_5515237a",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T19:17:03Z",
+      "side": 1,
+      "message": "Directly passing the error code out is a little messy in terms of the API, and makes the API dependent on boost (which ideally we\u0027d avoid).\n\nCould we instead do something like\n\nenum class OpenCode {\n    Success,\n    FileDoesNotExist,\n    InternalError,\n};\n\nOpenCode openFile(...)\n\n\nthat way it\u0027s very clear which codes can be returned from the API, and we don\u0027t have to rely on boost docs to determine what ways this can fail.",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 47
+      },
+      "revId": "e08e7b1b0f94bb979ed7a7d33da90714cc9fe451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
