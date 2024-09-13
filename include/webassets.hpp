@@ -100,7 +100,8 @@ inline void handleStaticAsset(
         }
     }
 
-    if (!asyncResp->res.openFile(file.absolutePath))
+    boost::beast::error_code ec;
+    if (asyncResp->res.openFile(file.absolutePath) != crow::OpenCode::Success)
     {
         BMCWEB_LOG_DEBUG("failed to read file");
         asyncResp->res.result(
