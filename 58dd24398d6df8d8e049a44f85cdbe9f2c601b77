@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5969e28_4a51928f",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T15:05:49Z",
+      "side": 1,
+      "message": "this throws an exception.",
+      "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bcec4d6_9377d364",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T15:05:49Z",
+      "side": 1,
+      "message": "should we just check as part of this error?",
+      "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
