@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9ed1eff_e990cfb4",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T15:32:47Z",
+      "side": 1,
+      "message": "there’s no need to look if a file exists before you open it.  if it doesn’t exist, the call will return an error\n\nwe might need to update the return code of open file to propagate that code, but it should be there.",
+      "parentUuid": "dcd59a1a_f2decda4",
+      "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0bcec4d6_9377d364",
         "filename": "redfish-core/lib/redfish_v1.hpp",
         "patchSetId": 1
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "To avoid the use of `std::filesystem::exists()`, I think we can modify `asyncResp-\u003eres.openFile(filepath)` to return `ec` something like\n\n```\n\n    if (!asyncResp-\u003eres.openFile(filepath, ec))\n    {\n       if(ec \u003d\u003d \u003cNOT_FOUND\u003e)\n       {\n           messages::resourceNotFound(asyncResp-\u003eres, \"JsonSchemaFile\", schema);\n           return;\n       }\n       ...\n    }\n```\n\nI\u0027ll investigate more related to `openFile()` and resume this.",
       "parentUuid": "0bcec4d6_9377d364",
+      "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f47c941_834a9ed6",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T15:32:47Z",
+      "side": 1,
+      "message": "yep.  exactly",
+      "parentUuid": "591ee1b2_02be701c",
       "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
