@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b27e5ad3_65f1239e",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-13T19:24:29Z",
+      "side": 1,
+      "message": "That would be clearer. I\u0027ll do",
+      "parentUuid": "d1692d0c_5515237a",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 47
+      },
+      "revId": "e08e7b1b0f94bb979ed7a7d33da90714cc9fe451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1bdf8480_0ac8f629",
         "filename": "redfish-core/lib/redfish_v1.hpp",
         "patchSetId": 3
@@ -37,6 +61,24 @@
       "writtenOn": "2024-09-13T19:18:29Z",
       "side": 1,
       "message": "This should probably be messages::internalError().",
+      "revId": "e08e7b1b0f94bb979ed7a7d33da90714cc9fe451",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa27e6da_887229d1",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-13T19:24:29Z",
+      "side": 1,
+      "message": "I\u0027ll change it.",
+      "parentUuid": "1bdf8480_0ac8f629",
       "revId": "e08e7b1b0f94bb979ed7a7d33da90714cc9fe451",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
