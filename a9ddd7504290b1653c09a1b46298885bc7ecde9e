@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0f737cd_3e8c14d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "I\u0027m still not sure how we can create an array without calling push_back, but this patchset has changed that this commit is probably invalid now.",
+      "parentUuid": "9e73ed50_dc1fed2c",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0f765b4_07592c81",
@@ -493,6 +511,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72f554a1_24991a4f",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6dfdb8e_a8fd2ee0",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "124c6042_066e39d5",
@@ -596,6 +638,24 @@
       "side": 1,
       "message": "I\u0027ve modified this to use a common function. I didn\u0027t use the handleSensorGet() function as the common function since it expects to put the response directly into the asyncResp. Since here we need to build an array I have different wrappers.\n\nThe objectPropertiesToJson() function where the properties for the sensor are filled in is common for the handleSensorGet() path and this path as well. It understands if a chassisSubNode is an excerpt and limits what properties are built for the excerpts.\n\nRight now mostly this is just skipping things, but I\u0027m expecting when other sensor excerpts are implemented that some of the other properties may be added for excerpts as well. I\u0027m expecting the combination of the chassisSubNode and the sensorType will be used to determine which properties are included for a particular call to build a sensor Json representation.",
       "parentUuid": "3d0871a0_9520cc8e",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26c03b2_a4d9ff5d",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "\u003e I\u0027ve modified this to use a common function. I didn\u0027t use the handleSensorGet() function as the common function since it expects to put the response directly into the asyncResp. Since here we need to build an array I have different wrappers.\n\nWe can modify handleSensorGet to do whatever we need it to.  What I don\u0027t want is the same keys declared in two places, and I want to make it obvious when changes are made to sensor, that the excerpt version is corrected as well.\n\n\u003e \n\u003e The objectPropertiesToJson() function where the properties for the sensor are filled in is common for the handleSensorGet() path and this path as well. It understands if a chassisSubNode is an excerpt and limits what properties are built for the excerpts.\n\u003e \n\u003e Right now mostly this is just skipping things, but I\u0027m expecting when other sensor excerpts are implemented that some of the other properties may be added for excerpts as well. I\u0027m expecting the combination of the chassisSubNode and the sensorType will be used to determine which properties are included for a particular call to build a sensor Json representation.",
+      "parentUuid": "222d8658_dd838c56",
       "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

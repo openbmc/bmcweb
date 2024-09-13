@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35e47d75_38834f30",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "In the future, please leave un-resolved threads open.  It helps maintainers track what\u0027s been fixed, versus what the author has agreed to but might not have fixed yet.",
+      "parentUuid": "a5141dc7_8685118e",
+      "revId": "fa7f23a0d60a65a6abb66163b6de70ae161b2286",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df4d8e2f_da1582eb",

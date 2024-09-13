@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d185ca8_dd36ed68",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "Agreed.  Arguably we should\u0027ve used object_t in the Response class.",
+      "parentUuid": "6ea8c9ca_e71d0b3c",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "7f8cc2b88d1d5be6ae299c8f53d35dd04c0908ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e52903cb_b44d6547",

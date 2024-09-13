@@ -1,0 +1,285 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18df16dd_719f3fdc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "This is looking much closer.  Thank you for continuing to push on it.",
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cc3cb78_f4caadb5",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "Maybe we should wrap this in something like\n\nbool needPowerParameters \u003d sensorType \u003d\u003d power \u0026\u0026 chassisSubNode \u003d\u003d powerNode;\n\nthen we could use the same bool on line 561",
+      "range": {
+        "startLine": 409,
+        "startChar": 17,
+        "endLine": 409,
+        "endChar": 38
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0efd0ed_42dc48f0",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "I don\u0027t think isExcerptNode helps with complexity here given how simple it is, and how we\u0027re already doing compares here..  I keep having to refer to it to figure out which branches get hit;  Especially here, where we do isExcerptNode, then immediately check chassisSubNode !\u003d ChassisSubNode::thermalMetricsNode, which seems like it\u0027s the same compare just done twice?  I\u0027m not positive on that, but I suspect just inlining that helper would make this more clear.",
+      "range": {
+        "startLine": 445,
+        "startChar": 8,
+        "endLine": 445,
+        "endChar": 21
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44f5f76_ad23af14",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "are we certain that Excerpt properties don\u0027t contain a type?",
+      "range": {
+        "startLine": 450,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 64
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cca3c60f_8cb194cc",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "I suspect here is where the\n\nif (chassisSubNode !\u003d ChassisSubNode::thermalMetricsNode){\n\nshould go.",
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e2be1a1_d6fbf105",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "Reading is marked\n\u003cAnnotation Term\u003d\"Redfish.Excerpt\"/\u003e\n\nIn the spec.  That means it\u0027s required to be included in excerpt mode, right?",
+      "range": {
+        "startLine": 485,
+        "startChar": 17,
+        "endLine": 485,
+        "endChar": 24
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed7c2d43_6277c60f",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "if I\u0027m reading this logic right, this seems like a very complex way of just creating an else branch that does nothing?\n\nI suspect just adding the (sensorType !\u003d \"power\" \u0026\u0026 !excerpt).\n\n\nI still think excerpt as a bool would make more sense, even if it\u0027s not passed in as an arg.",
+      "range": {
+        "startLine": 542,
+        "startChar": 0,
+        "endLine": 546,
+        "endChar": 9
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df8d1538_1bed4a6f",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "Why does this need to be an argument at this point?  It\u0027s only ever ThermalSubsystem",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 34
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b69a8ea3_2e19ad0e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "I\u0027m not following why this code needs to exist?  We\u0027re just verifying that the patch functions work by computing things twice?",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 695,
+        "endChar": 5
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6707c87_034703c1",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "pass callbacks by std::move and \u0026\u0026 please",
+      "range": {
+        "startLine": 715,
+        "startChar": 4,
+        "endLine": 715,
+        "endChar": 64
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e87fe3e5_683954e3",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "The general rule is that callbacks should always be called.  If there was a processing error, return the error.  That allows callbacks to handle errors generically.",
+      "range": {
+        "startLine": 727,
+        "startChar": 0,
+        "endLine": 727,
+        "endChar": 15
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcd044f0_7ff103a9",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 747,
+        "startChar": 0,
+        "endLine": 747,
+        "endChar": 64
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca128ed0_7408c45f",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-13T22:25:25Z",
+      "side": 1,
+      "message": "We\u0027re initting this and count a little early here;  We should only init after we know the mapper hasn\u0027t errored, otherwise we\u0027ll return an empty array when really we should\u0027ve returned an error only (no empty array).",
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
