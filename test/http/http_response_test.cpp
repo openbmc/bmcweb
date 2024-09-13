@@ -4,6 +4,7 @@
 #include "utility.hpp"
 
 #include <boost/beast/core/buffers_to_string.hpp>
+#include <boost/beast/core/error.hpp>
 #include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
 #include <boost/beast/http/message.hpp>
@@ -82,9 +83,10 @@ TEST(HttpResponse, StringBody)
 TEST(HttpResponse, HttpBody)
 {
     crow::Response res;
+    boost::beast::error_code ec;
     addHeaders(res);
     TemporaryFileHandle temporaryFile("sample text");
-    res.openFile(temporaryFile.stringPath);
+    res.openFile(temporaryFile.stringPath, ec);
 
     verifyHeaders(res);
 }
@@ -114,9 +116,10 @@ TEST(HttpResponse, Base64HttpBodyWithFd)
 TEST(HttpResponse, BodyTransitions)
 {
     crow::Response res;
+    boost::beast::error_code ec;
     addHeaders(res);
     TemporaryFileHandle temporaryFile("sample text");
-    res.openFile(temporaryFile.stringPath);
+    res.openFile(temporaryFile.stringPath, ec);
 
     verifyHeaders(res);
     res.write("body text");

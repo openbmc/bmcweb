@@ -2995,7 +2995,8 @@ inline void requestRoutesCrashdumpFile(App& app)
                             return;
                         }
 
-                        if (!asyncResp->res.openFile(dbusFilepath))
+                        boost::beast::error_code ec1;
+                        if (!asyncResp->res.openFile(dbusFilepath, ec1))
                         {
                             messages::resourceNotFound(asyncResp->res,
                                                        "LogEntry", logID);
