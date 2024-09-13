@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4964bc54_7e086678",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-13T17:36:20Z",
+      "side": 1,
+      "message": "I take the approach to return `ec` from `openFile()`.",
+      "parentUuid": "f9ed1eff_e990cfb4",
+      "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bcec4d6_9377d364",
@@ -139,6 +157,24 @@
       "side": 1,
       "message": "yep.  exactly",
       "parentUuid": "591ee1b2_02be701c",
+      "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b49a4e8_31762590",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-13T17:36:20Z",
+      "side": 1,
+      "message": "As suggested, I modified `openFile()` to return `ec`, and check the condition for 404 status.",
+      "parentUuid": "9f47c941_834a9ed6",
       "revId": "58dd24398d6df8d8e049a44f85cdbe9f2c601b77",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
