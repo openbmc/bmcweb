@@ -204,11 +204,16 @@ inline void
         return;
     }
 
-    if (!asyncResp->res.openFile(filepath))
+    crow::OpenCode ec = asyncResp->res.openFile(filepath);
+    if (ec == crow::OpenCode::FileDoesNotExist)
+    {
+        messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
+        return;
+    }
+    if (ec == crow::OpenCode::InternalError)
     {
         BMCWEB_LOG_DEBUG("failed to read file");
-        asyncResp->res.result(
-            boost::beast::http::status::internal_server_error);
+        messages::internalError(asyncResp->res);
         return;
     }
 }
