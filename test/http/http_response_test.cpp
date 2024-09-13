@@ -82,9 +82,10 @@ TEST(HttpResponse, StringBody)
 TEST(HttpResponse, HttpBody)
 {
     crow::Response res;
+    boost::beast::error_code ec;
     addHeaders(res);
     TemporaryFileHandle temporaryFile("sample text");
-    res.openFile(temporaryFile.stringPath);
+    res.openFile(temporaryFile.stringPath, ec);
 
     verifyHeaders(res);
 }
@@ -114,9 +115,10 @@ TEST(HttpResponse, Base64HttpBodyWithFd)
 TEST(HttpResponse, BodyTransitions)
 {
     crow::Response res;
+    boost::beast::error_code ec;
     addHeaders(res);
     TemporaryFileHandle temporaryFile("sample text");
-    res.openFile(temporaryFile.stringPath);
+    res.openFile(temporaryFile.stringPath, ec);
 
     verifyHeaders(res);
     res.write("body text");

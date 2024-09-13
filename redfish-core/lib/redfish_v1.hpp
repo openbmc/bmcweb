@@ -204,8 +204,16 @@ inline void
         return;
     }
 
-    if (!asyncResp->res.openFile(filepath))
+    boost::beast::error_code ec;
+    if (!asyncResp->res.openFile(filepath, ec))
     {
+        if (ec.value() == boost::system::errc::no_such_file_or_directory)
+        {
+            messages::resourceNotFound(asyncResp->res, "JsonSchemaFile",
+                                       schema);
+            return;
+        }
+
         BMCWEB_LOG_DEBUG("failed to read file");
         asyncResp->res.result(
             boost::beast::http::status::internal_server_error);

@@ -289,14 +289,15 @@ struct Response
     }
 
     bool openFile(const std::filesystem::path& path,
+                  boost::beast::error_code& ec,
                   bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
     {
-        boost::beast::error_code ec;
         response.body().open(path.c_str(), boost::beast::file_mode::read, ec);
         response.body().encodingType = enc;
         if (ec)
         {
-            BMCWEB_LOG_ERROR("Failed to open file {}", path.c_str());
+            BMCWEB_LOG_ERROR("Failed to open file {}, ec={}", path.c_str(),
+                             ec.value());
             return false;
         }
         return true;

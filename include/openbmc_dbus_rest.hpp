@@ -2620,7 +2620,8 @@ inline void requestRoutes(App& app)
 
                 for (const auto& file : files)
                 {
-                    if (!asyncResp->res.openFile(file))
+                    boost::beast::error_code ec;
+                    if (!asyncResp->res.openFile(file, ec))
                     {
                         continue;
                     }
