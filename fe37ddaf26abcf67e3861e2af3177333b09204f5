@@ -70,6 +70,24 @@
       "parentUuid": "8d018282_6c673522",
       "revId": "fe37ddaf26abcf67e3861e2af3177333b09204f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd9195c3_f69e2c2e",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-13T12:22:29Z",
+      "side": 1,
+      "message": "No problem. Thanks",
+      "parentUuid": "aa6a8051_5a7ceefb",
+      "revId": "fe37ddaf26abcf67e3861e2af3177333b09204f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
