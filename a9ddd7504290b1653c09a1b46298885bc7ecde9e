@@ -660,6 +660,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eef04e21_964abf15",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-15T16:46:08Z",
+      "side": 1,
+      "message": "Looks like you did this in the way i\u0027d expect, so we should be good.",
+      "parentUuid": "e26c03b2_a4d9ff5d",
+      "revId": "a9ddd7504290b1653c09a1b46298885bc7ecde9e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f38c48b6_6d33168b",
