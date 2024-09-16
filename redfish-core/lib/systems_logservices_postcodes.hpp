@@ -154,7 +154,8 @@ inline bool parsePostCode(std::string_view postCodeID, uint64_t& currentValue,
 static bool fillPostCodeEntry(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::container::flat_map<
-        uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>& postcode,
+        uint64_t, std::tuple<std::vector<uint8_t>, std::vector<uint8_t>>>&
+        postcode,
     const uint16_t bootIndex, const uint64_t codeIndex = 0,
     const uint64_t skip = 0, const uint64_t top = 0)
 {
@@ -168,8 +169,9 @@ static bool fillPostCodeEntry(
     }
     uint64_t currentCodeIndex = 0;
     uint64_t firstCodeTimeUs = 0;
-    for (const std::pair<uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
-             code : postcode)
+    for (const std::pair<uint64_t, std::tuple<std::vector<uint8_t>,
+                                              std::vector<uint8_t>>>& code :
+         postcode)
     {
         currentCodeIndex++;
         std::string postcodeEntryID =
@@ -214,9 +216,6 @@ static bool fillPostCodeEntry(
         entryTimeStr = redfish::time_utils::getDateTimeUintUs(usecSinceEpoch);
 
         // assemble messageArgs: BootIndex, TimeOffset(100us), PostCode(hex)
-        std::ostringstream hexCode;
-        hexCode << "0x" << std::setfill('0') << std::setw(2) << std::hex
-                << std::get<0>(code.second);
         std::ostringstream timeOffsetStr;
         // Set Fixed -Point Notation
         timeOffsetStr << std::fixed;
@@ -227,7 +226,8 @@ static bool fillPostCodeEntry(
 
         std::string bootIndexStr = std::to_string(bootIndex);
         std::string timeOffsetString = timeOffsetStr.str();
-        std::string hexCodeStr = hexCode.str();
+        std::string hexCodeStr =
+            "0x" + bytesToHexString(std::get<0>(code.second));
 
         std::array<std::string_view, 3> messageArgs = {
             bootIndexStr, timeOffsetString, hexCodeStr};
@@ -261,7 +261,7 @@ static bool fillPostCodeEntry(
         bmcLogEntry["EntryType"] = "Event";
         bmcLogEntry["Severity"] = std::move(severity);
         bmcLogEntry["Created"] = entryTimeStr;
-        if (!std::get<std::vector<uint8_t>>(code.second).empty())
+        if (!std::get<1>(code.second).empty())
         {
             bmcLogEntry["AdditionalDataURI"] =
                 std::format(
@@ -310,8 +310,8 @@ inline void
         [asyncResp, entryId, bootIndex,
          codeIndex](const boost::system::error_code& ec,
                     const boost::container::flat_map<
-                        uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
-                        postcode) {
+                        uint64_t, std::tuple<std::vector<uint8_t>,
+                                             std::vector<uint8_t>>>& postcode) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG("DBUS POST CODE PostCode response error");
@@ -346,8 +346,8 @@ inline void
         [asyncResp, bootIndex, bootCount, entryCount, skip,
          top](const boost::system::error_code& ec,
               const boost::container::flat_map<
-                  uint64_t, std::tuple<uint64_t, std::vector<uint8_t>>>&
-                  postcode) {
+                  uint64_t, std::tuple<std::vector<uint8_t>,
+                                       std::vector<uint8_t>>>& postcode) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG("DBUS POST CODE PostCode response error");
