@@ -972,8 +972,8 @@ inline void handleHypervisorIPv6StaticPatch(
             return;
         }
 
-        BMCWEB_LOG_ERROR(
-            "INFO: Static ip configuration request from client: {} - IP Address: {}, Gateway: {}, Prefix Length: {}",
+        BMCWEB_LOG_INFO(
+            "Static ip configuration request from client: {} - IP Address: {}, Gateway: {}, Prefix Length: {}",
             req.session->clientIp, *address, *gateway,
             static_cast<int64_t>(*prefixLen));
         // Set the DHCPEnabled to false since the Static IPv6 is set
