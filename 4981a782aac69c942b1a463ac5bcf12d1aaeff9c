@@ -49,6 +49,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e605e8f1_5711b6f7",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-17T18:33:57Z",
+      "side": 1,
+      "message": "include optional",
+      "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7486bb3f_8521ebff",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-17T18:33:57Z",
+      "side": 1,
+      "message": "include memory",
+      "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7141acf4_83736eff",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 1
@@ -66,6 +100,40 @@
         "endLine": 60,
         "endChar": 57
       },
+      "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffe065f4_de131bf3",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-17T18:33:57Z",
+      "side": 1,
+      "message": "#include \u003cutility\u003e, #include \u003cboost/system/error_code.hpp\u003e",
+      "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a46f12a_cc7f055e",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-17T18:33:57Z",
+      "side": 1,
+      "message": "#include \u003cformat\u003e",
       "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
