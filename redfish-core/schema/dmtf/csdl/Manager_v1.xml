@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.19.1                                                     -->
+<!--# Redfish Schema:  Manager v1.19.2                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -260,12 +260,12 @@
           </Annotation>
         </Property>
         <Property Name="CommandShell" Type="Manager.v1_0_0.CommandShell" Nullable="false">
-          <Annotation Term="OData.Description" String="The command shell service that this manager provides."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain information about the command shell service of this manager."/>
+          <Annotation Term="OData.Description" String="The manager's command line user interface or command shell service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe a command line user interface or command shell service provided by this manager.  The command shell refers to an interface used to interact with the manager itself, not a dedicated console session redirected from a host operating system.  For redirected serial or host operating system consoles, see the `SerialConsole` property in the `ComputerSystem` resource."/>
         </Property>
         <Property Name="GraphicalConsole" Type="Manager.v1_0_0.GraphicalConsole" Nullable="false">
-          <Annotation Term="OData.Description" String="The information about the graphical console service of this manager."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the graphical console (KVM-IP) service of this manager.  This property should be used to describe a service for the manager's console or operating system, not a service provided on behalf of a host operating system.  Implementations representing host OS consoles, known generally as a KVM-IP feature, should use the `GraphicalConsole` property in ComputerSystem."/>
+          <Annotation Term="OData.Description" String="The manager's graphical console service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the graphical console (KVM-IP) service of this manager.  This property should be used to describe a service for the manager's console or operating system, not a service provided on behalf of a host operating system.  Implementations representing host OS consoles, known generally as a KVM-IP feature, should use the `GraphicalConsole` property in the `ComputerSystem` resource."/>
         </Property>
         <Property Name="Actions" Type="Manager.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -541,6 +541,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_0_17.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_19">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_0_18.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -653,6 +659,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_1_15.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_1_16.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -762,6 +774,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_2_15.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_2_16.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -866,6 +884,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_3_14.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_3_15.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -960,6 +984,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_4_11.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_4_12.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -1046,6 +1076,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_5_10.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_5_11.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1114,6 +1150,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_6_7.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_6_8.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_0">
@@ -1187,6 +1229,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_7_7.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_7_8.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1247,6 +1295,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_8_6.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_8_7.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_0">
@@ -1313,6 +1367,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_9_5.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_9_6.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1355,6 +1415,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_10_4.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_10_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_10_5.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_11_0">
@@ -1403,6 +1469,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_11_3.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_11_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_11_4.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -1431,6 +1503,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_12_2.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_12_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_12_3.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_13_0">
@@ -1472,6 +1550,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_13_1.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_13_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_13_2.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -1496,6 +1580,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_14_1.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_14_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_14_2.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_15_0">
@@ -1525,6 +1615,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_15_1.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_15_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_15_2.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_16_0">
@@ -1560,6 +1656,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_16_1.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_16_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_16_2.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -1583,6 +1685,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_17_1.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_17_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_17_2.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_18_0">
@@ -1610,6 +1718,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_18_1.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_18_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_18_2.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_19_0">
@@ -1654,6 +1768,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Manager" BaseType="Manager.v1_19_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_19_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_19_1.Manager"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LeakDetection v1.0.1                                                -->
+<!--# Redfish Schema:  LeakDetection v1.1.0                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -135,6 +135,21 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="LeakDetection" BaseType="LeakDetection.v1_0_0.LeakDetection"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetection.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+
+      <EntityType Name="LeakDetection" BaseType="LeakDetection.v1_0_1.LeakDetection"/>
+
+      <ComplexType Name="LeakDetectorGroup" BaseType="LeakDetection.v1_0_0.LeakDetectorGroup">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Event v1.10.1                                                       -->
+<!--# Redfish Schema:  Event v1.11.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -975,6 +975,26 @@
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Event" BaseType="Event.v1_10_0.Event"/>
       <EntityType Name="EventRecord" BaseType="Event.v1_10_0.EventRecord"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+
+      <EntityType Name="Event" BaseType="Event.v1_10_1.Event"/>
+
+      <EntityType Name="EventRecord" BaseType="Event.v1_10_1.EventRecord">
+        <Property Name="Username" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The username of the account associated with the event record."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the username of the account associated with the event record.  This should be used for events that result from a user action."/>
+        </Property>
+        <Property Name="UserAuthenticationSource" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The source of authentication for the username property associated with the event record."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URL to the authentication service that is associated with the username property.  This should be used for events that result from a user action."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

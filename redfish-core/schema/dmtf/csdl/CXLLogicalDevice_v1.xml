@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CXLLogicalDevice v1.2.0                                             -->
+<!--# Redfish Schema:  CXLLogicalDevice v1.2.1                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -108,8 +108,8 @@
         </Property>
         <Property Name="MemorySizeMiB" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The memory region size defined in this CXL logical device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region size defined in this CXL logical device in mebibytes (MiB)."/>
+          <Annotation Term="OData.Description" String="The total memory capacity currently available in this CXL logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total memory capacity currently available in this CXL logical device in mebibytes (MiB).  This value shall equate to the sum of the dynamic capacity extents and the static capacity assigned to this logical device."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="QoSTelemetryCapabilities" Type="CXLLogicalDevice.v1_0_0.QoSTelemetryCapabilities" Nullable="false">
@@ -254,6 +254,12 @@
       <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_0_2.CXLLogicalDevice"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of `MemorySizeMiB`."/>
+      <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_0_3.CXLLogicalDevice"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -280,12 +286,24 @@
       <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_1_1.CXLLogicalDevice"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of `MemorySizeMiB`."/>
+      <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_1_2.CXLLogicalDevice"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
       <Annotation Term="OData.Description" String="This version was created to deprecate `TemporaryThroughputReductionSupported` in favor of `TemporaryThroughputReductionSupported` in `PCIeDevice`."/>
 
       <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_1_2.CXLLogicalDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of `MemorySizeMiB`."/>
+      <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_2_0.CXLLogicalDevice"/>
     </Schema>
 
   </edmx:DataServices>

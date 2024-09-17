@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ExternalAccountProvider v1.7.2                                      -->
+<!--# Redfish Schema:  ExternalAccountProvider v1.8.0                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -30,6 +30,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AccountService_v1.xml">
     <edmx:Include Namespace="AccountService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ManagerAccount_v1.xml">
+    <edmx:Include Namespace="ManagerAccount"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -733,6 +736,26 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_7_1.ExternalAccountProvider"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_8_0">
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_7_2.ExternalAccountProvider"/>
+
+      <ComplexType Name="RoleMapping" BaseType="ExternalAccountProvider.v1_5_0.RoleMapping">
+        <Property Name="LocalAccountTypes" Type="Collection(ManagerAccount.AccountTypes)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The list of local services in the manager that the remote user or group is allowed to access."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the various local manager services that the remote user or group is allowed to access.  This shall not include functionality for receiving events or other notifications.  If this property is not supported, the value shall be assumed to be an array that contains the value `Redfish`."/>
+        </Property>
+        <Property Name="LocalOEMAccountTypes" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The OEM account types for the remote user or group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the OEM account types for the remote user or group when `LocalAccountTypes` contains `OEM`."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

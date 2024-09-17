@@ -226,7 +226,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryRegion.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the defintion of the `Tag` property."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the definition of the `Tag` property."/>
       <EntityType Name="MemoryRegion" BaseType="MemoryRegion.v1_0_2.MemoryRegion"/>
     </Schema>
 

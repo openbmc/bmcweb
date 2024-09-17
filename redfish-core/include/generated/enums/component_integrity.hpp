@@ -9,6 +9,8 @@ enum class ComponentIntegrityType{
     Invalid,
     SPDM,
     TPM,
+    TCM,
+    TPCM,
     OEM,
 };
 
@@ -51,6 +53,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ComponentIntegrityType, {
     {ComponentIntegrityType::Invalid, "Invalid"},
     {ComponentIntegrityType::SPDM, "SPDM"},
     {ComponentIntegrityType::TPM, "TPM"},
+    {ComponentIntegrityType::TCM, "TCM"},
+    {ComponentIntegrityType::TPCM, "TPCM"},
     {ComponentIntegrityType::OEM, "OEM"},
 });
 

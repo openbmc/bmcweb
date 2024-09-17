@@ -959,9 +959,8 @@ inline void deleteAndCreateIPv6DefaultGateway(
             return;
         }
         createIPv6DefaultGateway(ifaceId, gateway, asyncResp);
-    },
-        "xyz.openbmc_project.Network", path,
-        "xyz.openbmc_project.Object.Delete", "Delete");
+    }, "xyz.openbmc_project.Network", path, "xyz.openbmc_project.Object.Delete",
+        "Delete");
 }
 
 /**

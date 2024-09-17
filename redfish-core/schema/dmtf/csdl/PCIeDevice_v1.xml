@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.15.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.16.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -123,6 +123,17 @@
         </Member>
         <Member Name="Gen5">
           <Annotation Term="OData.Description" String="A PCIe v5.0 slot."/>
+        </Member>
+        <Member Name="Gen6">
+          <Annotation Term="OData.Description" String="A PCIe v6.0 slot."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_16_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -1140,6 +1151,13 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Bad DLLPs issued on the PCIe link by the receiver.  A Bad DLLP in the context of PCIe communication is a packet that has encountered errors at the data link layer.  When a DLLP is considered bad, it means it has been corrupted or is incorrectly formatted, potentially due to transmission errors, hardware failures, or other issues that affect its integrity."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_16_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_15_0.PCIeDevice"/>
     </Schema>
 
   </edmx:DataServices>

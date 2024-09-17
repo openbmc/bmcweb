@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LeakDetector v1.1.0                                                 -->
+<!--# Redfish Schema:  LeakDetector v1.2.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -97,7 +97,7 @@
         <Property Name="DetectorState" Type="Resource.Health">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The state of the leak detector."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the leak detector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the leak detector.  The value of this property should equate the value of `Health` in `Status`, and was created primarily for use in excerpts of this resource."/>
           <Annotation Term="Redfish.Excerpt"/>
         </Property>
         <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext">
@@ -195,6 +195,12 @@
       <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_0_1.LeakDetector"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that the value of `DetectorState` should reflect the `Health` of the detector."/>
+      <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_0_2.LeakDetector"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
@@ -204,6 +210,27 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="A user-assigned label."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a user-assigned label used to identify this resource.  If a value has not been assigned by a user, the value of this property shall be an empty string."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that the value of `DetectorState` should reflect the `Health` of the detector."/>
+      <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_0_3.LeakDetector"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+
+      <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_1_1.LeakDetector">
+        <Property Name="DeviceName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The name of the device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the device associated with this leak detector.  If the device is represented by a resource, the value shall contain the value of the `Name` property of the associated resource."/>
+          <Annotation Term="Redfish.Excerpt" String="Array"/>
+          <Annotation Term="Redfish.ExcerptCopyOnly"/>
         </Property>
       </EntityType>
     </Schema>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AccountService v1.15.1                                              -->
+<!--# Redfish Schema:  AccountService v1.16.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -107,28 +107,40 @@
         </Member>
         <Member Name="SecurID">
           <Annotation Term="OData.Description" String="Bypass RSA SecurID."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass RSA SecurID."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass RSA SecurID.  Authentication with RSA SecurID is configured with the `SecurID` property."/>
         </Member>
         <Member Name="GoogleAuthenticator">
           <Annotation Term="OData.Description" String="Bypass Google Authenticator."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass Google Authenticator."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass Google Authenticator.  Authentication with Google Authenticator is configured with the `GoogleAuthenticator` property."/>
         </Member>
         <Member Name="MicrosoftAuthenticator">
           <Annotation Term="OData.Description" String="Bypass Microsoft Authenticator."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass Microsoft Authenticator."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass Microsoft Authenticator.  Authentication with Microsoft Authenticator is configured with the `MicrosoftAuthenticator` property."/>
         </Member>
         <Member Name="ClientCertificate">
           <Annotation Term="OData.Description" String="Bypass client certificate authentication."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass client certificate authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass client certificate authentication.  Authentication with client certificates is configured with the `ClientCertificate` property."/>
         </Member>
         <Member Name="OneTimePasscode">
           <Annotation Term="OData.Description" String="Bypass one-time passcode authentication."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass one-time passcode authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass one-time passcode authentication.  Authentication with a one-time passcode is configured with the `OneTimePasscode` property."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_14_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="TimeBasedOneTimePassword">
+          <Annotation Term="OData.Description" String="Bypass Time-based One-Time Password (TOTP) authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an account or role mapping can bypass RFC6238-defined Time-based One-Time Password (TOTP) authentication.  Authentication with a Time-based One-Time Password is configured with the `TimeBasedOneTimePassword` property."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_16_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1508,11 +1520,11 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the settings related to RSA SecurID multi-factor authentication."/>
         </Property>
         <Property Name="GoogleAuthenticator" Type="AccountService.v1_12_0.GoogleAuthenticator">
-          <Annotation Term="OData.Description" String="The settings related to Google Authenticator multi-factor authentication."/>
+          <Annotation Term="OData.Description" String="The settings related to Google Authenticator multi-factor authentication.  For generic Time-Based One-Time Password (TOTP) multi-factor authentication, use the `TimeBasedOneTimePassword` property."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the settings related to Google Authenticator multi-factor authentication."/>
         </Property>
         <Property Name="MicrosoftAuthenticator" Type="AccountService.v1_12_0.MicrosoftAuthenticator">
-          <Annotation Term="OData.Description" String="The settings related to Microsoft Authenticator multi-factor authentication."/>
+          <Annotation Term="OData.Description" String="The settings related to Microsoft Authenticator multi-factor authentication.  For generic Time-Based One-Time Password (TOTP) multi-factor authentication, use the `TimeBasedOneTimePassword` property."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the settings related to Microsoft Authenticator multi-factor authentication."/>
         </Property>
         <Property Name="ClientCertificate" Type="AccountService.v1_12_0.ClientCertificate">
@@ -1755,6 +1767,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_14_0">
       <Annotation Term="Redfish.Release" String="2023.2"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add `OneTimePasscode` to `BypassTypes` for multi-factor authentication configurations."/>
 
       <EntityType Name="AccountService" BaseType="AccountService.v1_13_1.AccountService">
         <Property Name="RequireChangePasswordAction" Type="Edm.Boolean">
@@ -1839,6 +1852,51 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_15_0.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_16_0">
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add `TimeBasedOneTimePassword` to `BypassTypes` for multi-factor authentication configurations."/>
+
+      <EntityType Name="AccountService" BaseType="AccountService.v1_15_1.AccountService"/>
+
+      <ComplexType Name="RoleMapping" BaseType="AccountService.v1_12_0.RoleMapping">
+        <Property Name="LocalAccountTypes" Type="Collection(ManagerAccount.AccountTypes)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The list of local services in the manager that the remote user or group is allowed to access."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the various local manager services that the remote user or group is allowed to access.  This shall not include functionality for receiving events or other notifications.  If this property is not supported, the value shall be assumed to be an array that contains the value `Redfish`."/>
+        </Property>
+        <Property Name="LocalOEMAccountTypes" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The OEM account types for the remote user or group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the OEM account types for the remote user or group when `LocalAccountTypes` contains `OEM`."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="MultiFactorAuth" BaseType="AccountService.v1_14_0.MultiFactorAuth">
+        <Property Name="TimeBasedOneTimePassword" Type="AccountService.v1_16_0.TimeBasedOneTimePassword">
+          <Annotation Term="OData.Description" String="The settings related to Time-based One-Time Password (TOTP) multi-factor authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the settings related to RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="TimeBasedOneTimePassword">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Various settings for Time-based One-Time Password (TOTP) multi-factor authentication."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain settings for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication."/>
+        <Property Name="Enabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether multi-factor authentication with a Time-based One-Time Password (TOTP) is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether multi-factor authentication with an RFC6238-defined Time-based One-Time Password (TOTP) is enabled."/>
+        </Property>
+        <Property Name="TimeStepSeconds" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The time step, in seconds, for calculating the one-time password."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the RFC6238-defined time step, in seconds, for calculating the one-time password.  If this property is not supported by the service, it shall be assumed to be `30`."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>
