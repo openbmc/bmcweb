@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.22.2                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.23.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -833,6 +833,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_22.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_24">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_23.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -1080,6 +1086,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_20.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_22">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_21.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -1317,6 +1329,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_19.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_21">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_20.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -1475,6 +1493,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_18.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_20">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_19.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -1607,6 +1631,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_17.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_19">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_18.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
@@ -1849,6 +1879,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_16.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_17.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1988,6 +2024,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_14.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_16">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_15.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -2096,6 +2138,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_13.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_14.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -2187,6 +2235,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_12.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_13.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
@@ -2283,6 +2337,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_12.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_13.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -2368,6 +2428,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_11.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_12.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_0">
@@ -2478,10 +2544,15 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_10.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_11.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add LastResetTime."/>
 
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_11_1.ComputerSystem">
         <Property Name="LastResetTime" Type="Edm.DateTimeOffset" Nullable="false">
@@ -2550,6 +2621,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_9.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_12_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_12_10.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_0">
@@ -2847,6 +2924,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_8.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_9.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -2948,6 +3031,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_7.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_8.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_0">
@@ -3096,6 +3185,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_6.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_7.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -3242,6 +3337,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_7.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_8.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -3299,6 +3400,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_6.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_7.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_0">
@@ -3383,6 +3490,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_5.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_6.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -3434,6 +3547,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_5.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_6.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_0">
@@ -3493,6 +3612,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_4.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_5.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_0">
@@ -3574,6 +3699,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_21_2.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_21_3.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_22_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -3592,6 +3723,68 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_22_1.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_22_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_22_2.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_23_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_22_3.ComputerSystem">
+        <Property Name="LastResetCause" Type="ComputerSystem.v1_23_0.LastResetCauses" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The last reset cause of the system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the cause when the system last came out of a reset or was rebooted."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="LastResetCauses">
+        <Member Name="PowerButtonPress">
+          <Annotation Term="OData.Description" String="System start or restart via a power button press."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system start or restart was due to a power button press."/>
+        </Member>
+        <Member Name="ManagementCommand">
+          <Annotation Term="OData.Description" String="System start or restart via an external command to the management controller or BMC."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system start or restart was due to an external command to the management controller or BMC.  Examples include the Redfish `Reset` action for the `ComputerSystem` resource or the IPMI 'Chassis Control' command."/>
+        </Member>
+        <Member Name="PowerRestorePolicy">
+          <Annotation Term="OData.Description" String="System start or restart due to the power restore policy."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system automatically powered-up on AC being applied due the `PowerRestorePolicy` property containing `AlwaysOn` or `LastState`."/>
+        </Member>
+        <Member Name="RTCWakeup">
+          <Annotation Term="OData.Description" String="System power-up via an RTC (system real time clock) wakeup."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system powered-up via an RTC (system real time clock) wakeup."/>
+        </Member>
+        <Member Name="WatchdogExpiration">
+          <Annotation Term="OData.Description" String="System start or restart caused by a watchdog expiration."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system start or restart was caused by a watchdog expiration."/>
+        </Member>
+        <Member Name="OSSoftRestart">
+          <Annotation Term="OData.Description" String="System start or restart via an OS soft restart."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system start or restart was due to an OS soft restart.  Examples include 'CTRL-ALT-DEL', 'init 6', or 'reboot'."/>
+        </Member>
+        <Member Name="SystemCrash">
+          <Annotation Term="OData.Description" String="System start or restart caused by a system crash."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system start or restart was caused by a system crash.  Examples include an OS panic, hardware fault, or firmware fault."/>
+        </Member>
+        <Member Name="ThermalEvent">
+          <Annotation Term="OData.Description" String="System start or restart caused by a thermal event triggering a system shutdown."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system start or restart was caused by a thermal event triggering a system shutdown."/>
+        </Member>
+        <Member Name="PowerEvent">
+          <Annotation Term="OData.Description" String="System start or restart caused by a power event triggering a system shutdown."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system start or restart was caused by a power event triggering a system shutdown."/>
+        </Member>
+        <Member Name="Unknown">
+          <Annotation Term="OData.Description" String="System start or restart detected, but the cause is unknown."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the system start or restart cause is unknown."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

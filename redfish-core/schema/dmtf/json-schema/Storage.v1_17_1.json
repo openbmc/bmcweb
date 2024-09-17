@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_17_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_17_1.json",
     "$ref": "#/definitions/Storage",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -1323,5 +1323,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2024.2",
-    "title": "#Storage.v1_17_0.Storage"
+    "title": "#Storage.v1_17_1.Storage"
 }

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/CXLLogicalDevice.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/CXLLogicalDevice.v1_2_1.json",
     "$ref": "#/definitions/CXLLogicalDevice",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -109,8 +109,8 @@
                     "versionAdded": "v1_1_0"
                 },
                 "MemorySizeMiB": {
-                    "description": "The memory region size defined in this CXL logical device.",
-                    "longDescription": "This property shall contain the memory region size defined in this CXL logical device in mebibytes (MiB).",
+                    "description": "The total memory capacity currently available in this CXL logical device.",
+                    "longDescription": "This property shall contain the total memory capacity currently available in this CXL logical device in mebibytes (MiB).  This value shall equate to the sum of the dynamic capacity extents and the static capacity assigned to this logical device.",
                     "readonly": true,
                     "type": "integer",
                     "units": "MiBy"
@@ -363,5 +363,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2024.1",
-    "title": "#CXLLogicalDevice.v1_2_0.CXLLogicalDevice"
+    "title": "#CXLLogicalDevice.v1_2_1.CXLLogicalDevice"
 }

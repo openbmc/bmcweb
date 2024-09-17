@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_13_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_14_0.json",
     "$ref": "#/definitions/Port",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -2062,6 +2062,16 @@
                 }
             },
             "properties": {
+                "DateCode": {
+                    "description": "The manufacturing date code for this SFP.",
+                    "longDescription": "This property shall contain the manufacturing date code for this SFP as determined by the vendor or supplier.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_14_0"
+                },
                 "FiberConnectionType": {
                     "anyOf": [
                         {
@@ -2232,6 +2242,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.2",
-    "title": "#Port.v1_13_0.Port"
+    "release": "2024.3",
+    "title": "#Port.v1_14_0.Port"
 }

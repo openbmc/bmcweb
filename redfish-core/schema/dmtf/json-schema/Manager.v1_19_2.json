@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_19_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_19_2.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -437,8 +437,8 @@
                 },
                 "CommandShell": {
                     "$ref": "#/definitions/CommandShell",
-                    "description": "The command shell service that this manager provides.",
-                    "longDescription": "This property shall contain information about the command shell service of this manager."
+                    "description": "The manager's command line user interface or command shell service.",
+                    "longDescription": "This property shall describe a command line user interface or command shell service provided by this manager.  The command shell refers to an interface used to interact with the manager itself, not a dedicated console session redirected from a host operating system.  For redirected serial or host operating system consoles, see the `SerialConsole` property in the `ComputerSystem` resource."
                 },
                 "DateTime": {
                     "description": "The current date and time with UTC offset of the manager.",
@@ -500,8 +500,8 @@
                 },
                 "GraphicalConsole": {
                     "$ref": "#/definitions/GraphicalConsole",
-                    "description": "The information about the graphical console service of this manager.",
-                    "longDescription": "This property shall contain the information about the graphical console (KVM-IP) service of this manager.  This property should be used to describe a service for the manager's console or operating system, not a service provided on behalf of a host operating system.  Implementations representing host OS consoles, known generally as a KVM-IP feature, should use the `GraphicalConsole` property in ComputerSystem."
+                    "description": "The manager's graphical console service.",
+                    "longDescription": "This property shall contain the information about the graphical console (KVM-IP) service of this manager.  This property should be used to describe a service for the manager's console or operating system, not a service provided on behalf of a host operating system.  Implementations representing host OS consoles, known generally as a KVM-IP feature, should use the `GraphicalConsole` property in the `ComputerSystem` resource."
                 },
                 "HostInterfaces": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/HostInterfaceCollection.json#/definitions/HostInterfaceCollection",
@@ -1082,5 +1082,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2023.3",
-    "title": "#Manager.v1_19_1.Manager"
+    "title": "#Manager.v1_19_2.Manager"
 }

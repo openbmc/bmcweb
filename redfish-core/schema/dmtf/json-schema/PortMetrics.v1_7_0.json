@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PortMetrics.v1_6_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PortMetrics.v1_7_0.json",
     "$ref": "#/definitions/PortMetrics",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -1059,6 +1059,17 @@
                     ],
                     "units": "mW",
                     "versionAdded": "v1_1_0"
+                },
+                "WavelengthNanometers": {
+                    "description": "The laser wavelength, in nanometers, for a small form-factor pluggable (SFP) transceiver.",
+                    "longDescription": "This property shall contain the laser wavelength, in nanometers, for a small form-factor pluggable (SFP) transceiver.  This property shall not be present for non-optic SFP mediums.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "units": "nm",
+                    "versionAdded": "v1_7_0"
                 }
             },
             "type": "object"
@@ -1066,6 +1077,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.1",
-    "title": "#PortMetrics.v1_6_1.PortMetrics"
+    "release": "2024.3",
+    "title": "#PortMetrics.v1_7_0.PortMetrics"
 }

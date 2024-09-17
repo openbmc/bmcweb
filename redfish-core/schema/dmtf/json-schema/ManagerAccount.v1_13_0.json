@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_12_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_13_0.json",
     "$ref": "#/definitions/ManagerAccount",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -25,6 +25,15 @@
             "properties": {
                 "#ManagerAccount.ChangePassword": {
                     "$ref": "#/definitions/ChangePassword"
+                },
+                "#ManagerAccount.ClearSecretKey": {
+                    "$ref": "#/definitions/ClearSecretKey"
+                },
+                "#ManagerAccount.GenerateSecretKey": {
+                    "$ref": "#/definitions/GenerateSecretKey"
+                },
+                "#ManagerAccount.VerifyTimeBasedOneTimePassword": {
+                    "$ref": "#/definitions/VerifyTimeBasedOneTimePassword"
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
@@ -80,6 +89,104 @@
             },
             "type": "object",
             "versionAdded": "v1_11_0"
+        },
+        "ClearSecretKey": {
+            "additionalProperties": false,
+            "description": "This action clears the secret key for Time-based One-Time Password (TOTP) multi-factor authentication for this account.",
+            "longDescription": "This action shall clear the secret key for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication for this account.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_13_0"
+        },
+        "GenerateSecretKey": {
+            "actionResponse": {
+                "$ref": "#/definitions/GenerateSecretKeyResponse"
+            },
+            "additionalProperties": false,
+            "description": "This action randomly generates a new secret key for Time-based One-Time Password (TOTP) multi-factor authentication for this account.",
+            "longDescription": "This action shall randomly generate a new secret key for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication for this account.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_13_0"
+        },
+        "GenerateSecretKeyResponse": {
+            "additionalProperties": false,
+            "description": "The response body for the `GenerateSecretKey` action.",
+            "longDescription": "This type shall contain the properties found in the response body for the `GenerateSecretKey` action.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "SecretKey": {
+                    "description": "The secret key generated for Time-based One-Time Password (TOTP) multi-factor authentication.",
+                    "longDescription": "This property shall contain secret key generated for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication.  Clients shall retain the value of this property to generate tokens for future session creation requests.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_13_0"
+                }
+            },
+            "type": "object"
         },
         "Links": {
             "additionalProperties": false,
@@ -347,6 +454,13 @@
                     "longDescription": "This property shall contain the SNMP settings for this account when `AccountTypes` contains `SNMP`.",
                     "versionAdded": "v1_4_0"
                 },
+                "SecretKeySet": {
+                    "description": "Indicates if the secret key for Time-based One-Time Password (TOTP) multi-factor authentication is set.",
+                    "longDescription": "This property shall indicate if the secret key for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication is set.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_13_0"
+                },
                 "StrictAccountTypes": {
                     "description": "Indicates if the service needs to use the account types exactly as specified when the account is created or updated.",
                     "longDescription": "This property shall indicate if the service needs to use the value of `AccountTypes` and `OEMAccountTypes` values exactly as specified.  A `true` value shall indicate the service needs to either accept the value without changes or reject the request.  A `false` value shall indicate the service may add additional `AccountTypes` and `OEMAccountTypes` values as needed to support limitations it has in separately controlling access to individual services.  If this property is not present, the value shall be assumed to be `false`.  An update of the service can cause account types to be added to or removed from the `AccountTypes` and `OEMAccountTypes` properties, regardless of the value of this property.  After a service update, clients should inspect all accounts where the value of this property is `true` and perform maintenance as needed.",
@@ -484,8 +598,8 @@
             "properties": {
                 "AuthenticationKey": {
                     "description": "The secret authentication key for SNMPv3.",
-                    "longDescription": "This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
-                    "pattern": "(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\\*+$)",
+                    "longDescription": "This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.",
+                    "pattern": "(^[ -~]+$)|(^Passphrase:[ -~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\\*+$)",
                     "readonly": false,
                     "type": [
                         "string",
@@ -517,8 +631,8 @@
                 },
                 "EncryptionKey": {
                     "description": "The secret encryption key used in SNMPv3.",
-                    "longDescription": "This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
-                    "pattern": "(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{32})|(^\\*+$)",
+                    "longDescription": "This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.",
+                    "pattern": "(^[ -~]+$)|(^Passphrase:[ -~]+$)|(^Hex:[0-9A-Fa-f]{16,64}$)|(^\\*+$)",
                     "readonly": false,
                     "type": [
                         "string",
@@ -550,10 +664,50 @@
                 }
             },
             "type": "object"
+        },
+        "VerifyTimeBasedOneTimePassword": {
+            "additionalProperties": false,
+            "description": "This action verifies a user-provided Time-based One-Time Password (TOTP).  This is to ensure the client's copy of the secret key is aligned with the secret key stored by the service.",
+            "longDescription": "This action shall verify a user-provided RFC6238-defined Time-based One-Time Password (TOTP).",
+            "parameters": {
+                "TimeBasedOneTimePassword": {
+                    "description": "The Time-based One-Time Password (TOTP) to verify.",
+                    "longDescription": "This parameter shall contain the Time-based One-Time Password (TOTP) to verify.  If the Time-based One-Time Password (TOTP) is not valid, the service shall return the HTTP `400 Bad Request` status code.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_13_0"
         }
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.3",
-    "title": "#ManagerAccount.v1_12_1.ManagerAccount"
+    "release": "2024.3",
+    "title": "#ManagerAccount.v1_13_0.ManagerAccount"
 }

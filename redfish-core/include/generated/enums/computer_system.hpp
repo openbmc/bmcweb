@@ -198,6 +198,20 @@ enum class DecommissionType{
     Logs,
 };
 
+enum class LastResetCauses{
+    Invalid,
+    PowerButtonPress,
+    ManagementCommand,
+    PowerRestorePolicy,
+    RTCWakeup,
+    WatchdogExpiration,
+    OSSoftRestart,
+    SystemCrash,
+    ThermalEvent,
+    PowerEvent,
+    Unknown,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BootSource, {
     {BootSource::Invalid, "Invalid"},
     {BootSource::None, "None"},
@@ -389,6 +403,20 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DecommissionType, {
     {DecommissionType::NetworkConfig, "NetworkConfig"},
     {DecommissionType::StorageConfig, "StorageConfig"},
     {DecommissionType::Logs, "Logs"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(LastResetCauses, {
+    {LastResetCauses::Invalid, "Invalid"},
+    {LastResetCauses::PowerButtonPress, "PowerButtonPress"},
+    {LastResetCauses::ManagementCommand, "ManagementCommand"},
+    {LastResetCauses::PowerRestorePolicy, "PowerRestorePolicy"},
+    {LastResetCauses::RTCWakeup, "RTCWakeup"},
+    {LastResetCauses::WatchdogExpiration, "WatchdogExpiration"},
+    {LastResetCauses::OSSoftRestart, "OSSoftRestart"},
+    {LastResetCauses::SystemCrash, "SystemCrash"},
+    {LastResetCauses::ThermalEvent, "ThermalEvent"},
+    {LastResetCauses::PowerEvent, "PowerEvent"},
+    {LastResetCauses::Unknown, "Unknown"},
 });
 
 }

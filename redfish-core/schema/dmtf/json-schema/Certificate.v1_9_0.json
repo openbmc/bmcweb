@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_8_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_9_0.json",
     "$ref": "#/definitions/Certificate",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -253,11 +253,13 @@
                 "IDevID",
                 "LDevID",
                 "IAK",
-                "LAK"
+                "LAK",
+                "EK"
             ],
             "enumDescriptions": {
                 "BIOS": "This certificate is a BIOS certificate like those associated with UEFI.",
                 "Device": "This certificate is a device type certificate like those associated with SPDM and other standards.",
+                "EK": "This certificate is an EK certificate like those associated with TCG TPMs.",
                 "IAK": "This certificate is an IAK certificate like those associated with TCG TPMs.",
                 "IDevID": "This certificate is an IDevID certificate like those associated with TCG TPMs.",
                 "LAK": "This certificate is an LAK certificate like those associated with TCG TPMs.",
@@ -268,6 +270,7 @@
                 "Web": "This certificate is a web or HTTPS certificate like those used for event destinations."
             },
             "enumVersionAdded": {
+                "EK": "v1_9_0",
                 "IAK": "v1_8_0",
                 "IDevID": "v1_8_0",
                 "LAK": "v1_8_0",
@@ -693,6 +696,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#Certificate.v1_8_3.Certificate"
+    "release": "2024.3",
+    "title": "#Certificate.v1_9_0.Certificate"
 }

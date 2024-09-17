@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.16.2                                                    -->
+<!--# Redfish Schema:  LogEntry v1.17.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1966,6 +1966,24 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that `RelatedLogEntries` should be used to link log entries that describe the initial condition from the log entry that describes the resolved condition."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_16_1.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_17_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_16_2.LogEntry">
+        <Property Name="Username" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The username of the account associated with the log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the username of the account associated with the log entry.  This should be used for audit logs that result from a user action."/>
+        </Property>
+        <Property Name="UserAuthenticationSource" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The source of authentication for the username property associated with the log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URL to the authentication service that is associated with the username property.  This should be used for audit logs that result from a user action."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

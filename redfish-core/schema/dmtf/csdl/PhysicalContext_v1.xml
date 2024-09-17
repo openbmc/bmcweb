@@ -167,23 +167,51 @@
         <Member Name="StorageDevice">
           <Annotation Term="OData.Description" String="A storage device."/>
         </Member>
+        <Member Name="StorageSubsystem">
+          <Annotation Term="OData.Description" String="A storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a storage subsystem, which may consist of one or more storage controllers, storage devices, or related components."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2024.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="NetworkingDevice">
           <Annotation Term="OData.Description" String="A networking device."/>
         </Member>
+        <Member Name="ExpansionSubsystem">
+          <Annotation Term="OData.Description" String="A group of expansion bays."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a group of expansion bays and the devices installed in those bays."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2024.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="ComputeBay">
-          <Annotation Term="OData.Description" String="Within a compute bay."/>
+          <Annotation Term="OData.Description" String="A compute bay."/>
         </Member>
         <Member Name="StorageBay">
-          <Annotation Term="OData.Description" String="Within a storage bay."/>
+          <Annotation Term="OData.Description" String="A storage bay."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a location that provides for the expansion of storage functionality of a system, by the addition of storage devices."/>
         </Member>
         <Member Name="NetworkBay">
-          <Annotation Term="OData.Description" String="Within a networking bay."/>
+          <Annotation Term="OData.Description" String="A networking bay."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a location that provides for the expansion of networking functionality of a system, by the addition of networking devices."/>
         </Member>
         <Member Name="ExpansionBay">
-          <Annotation Term="OData.Description" String="Within an expansion bay."/>
+          <Annotation Term="OData.Description" String="An expansion bay."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a location that provides for the expansion of functionality of a system, such as a PCIe slot that can accept an option card."/>
         </Member>
         <Member Name="PowerSupplyBay">
-          <Annotation Term="OData.Description" String="Within a power supply bay."/>
+          <Annotation Term="OData.Description" String="A power supply bay."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a location that provides for the installation of a power supply or similar devices."/>
         </Member>
         <Member Name="Memory">
           <Annotation Term="OData.Description" String="A memory device."/>
@@ -263,7 +291,8 @@
           </Annotation>
         </Member>
         <Member Name="ACUtilityInput">
-          <Annotation Term="OData.Description" String="An AC utility input."/>
+          <Annotation Term="OData.Description" String="An AC electrical utility input."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an electrical input, where the source is an electrical utility as opposed to a backup or locally-generated power source.  This value is intended to differentiate multiple electrical inputs between utility, maintenance bypass, or static bypass values.  For general purpose usage, the value of `ACInput` is preferred."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -274,7 +303,7 @@
           </Annotation>
         </Member>
         <Member Name="ACStaticBypassInput">
-          <Annotation Term="OData.Description" String="An AC static bypass input."/>
+          <Annotation Term="OData.Description" String="An AC electrical static bypass input."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -285,7 +314,7 @@
           </Annotation>
         </Member>
         <Member Name="ACMaintenanceBypassInput">
-          <Annotation Term="OData.Description" String="An AC maintenance bypass input."/>
+          <Annotation Term="OData.Description" String="An AC electrical maintenance bypass input."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -296,7 +325,7 @@
           </Annotation>
         </Member>
         <Member Name="DCBus">
-          <Annotation Term="OData.Description" String="A DC bus."/>
+          <Annotation Term="OData.Description" String="A DC electrical bus."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -307,7 +336,8 @@
           </Annotation>
         </Member>
         <Member Name="ACOutput">
-          <Annotation Term="OData.Description" String="An AC output."/>
+          <Annotation Term="OData.Description" String="An AC electrical output or output-related circuit."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an electrical output or an output-related circuit, such as a branch output, which is not terminated as a power outlet."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -318,12 +348,24 @@
           </Annotation>
         </Member>
         <Member Name="ACInput">
-          <Annotation Term="OData.Description" String="An AC input."/>
+          <Annotation Term="OData.Description" String="An AC electrical input or input-related circuit."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="2018.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="PowerOutlet">
+          <Annotation Term="OData.Description" String="An electrical outlet."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an electrical outlet or receptacle."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2024.3"/>
               </Record>
             </Collection>
           </Annotation>

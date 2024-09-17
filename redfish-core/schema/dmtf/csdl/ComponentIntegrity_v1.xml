@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComponentIntegrity v1.2.3                                           -->
+<!--# Redfish Schema:  ComponentIntegrity v1.3.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -193,6 +193,30 @@
         <Member Name="TPM">
           <Annotation Term="OData.Description" String="Trusted Platform Module (TPM)."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the integrity information is related to a Trusted Platform Module (TPM) as defined by the Trusted Computing Group (TCG)."/>
+        </Member>
+        <Member Name="TCM">
+          <Annotation Term="OData.Description" String="Trusted Cryptography Module (TCM)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the integrity information is related to a Trusted Cryptography Module (TCM) as defined by the China TCM Union (TCMU)."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="TPCM">
+          <Annotation Term="OData.Description" String="Trusted Platform Control Module (TPCM)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the integrity information is related to a Trusted Platform Control Module (TPCM) as defined by the Zhongguancun Trusted Computing Industry Alliance (ZTCIA)."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="OEM-specific."/>
@@ -657,6 +681,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_2_2.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `TCM` and `TPCM` to `ComponentIntegrityType`."/>
+
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_2_3.ComponentIntegrity"/>
     </Schema>
 
   </edmx:DataServices>

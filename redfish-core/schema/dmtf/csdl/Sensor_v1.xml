@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.10.0                                                      -->
+<!--# Redfish Schema:  Sensor v1.10.1                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -216,8 +216,8 @@
         </Property>
         <Property Name="ReadingUnits" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The units of the reading and thresholds."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the units of the sensor's reading and thresholds."/>
+          <Annotation Term="OData.Description" String="The units of the reading, thresholds, and other reading-related properties in UCUM c/s format."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the units of the sensor's reading, thresholds, and other reading-related properties.  The value shall follow the case-sensitive symbol format defined by the Unified Code for Units of Measure (UCUM), as specified by the 'Units of measure annotation' clause of the Redfish Specification."/>
         </Property>
         <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -737,6 +737,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_0_10.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_0_11.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -835,6 +841,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_1_6.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_1_7.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -913,6 +925,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_2_4.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_2_5.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -958,6 +976,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_3_4.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_3_5.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_0">
@@ -1040,6 +1064,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_4_3.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_4_4.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -1089,6 +1119,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_5_2.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_5_3.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -1113,6 +1149,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_6_2.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_6_3.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_7_0">
@@ -1169,6 +1211,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_7_1.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_7_2.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -1193,6 +1241,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_8_1.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_8_2.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_9_0">
@@ -1243,6 +1297,12 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_9_0.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.2"/>
@@ -1251,9 +1311,15 @@
         <Property Name="Enabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates whether the sensor is enabled and provides a reading."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the sensor is enabled and provides a `Reading`.  The value `true` shall indicate the sensor is enabled and returns the `Reading` property with a valid value.  The value `false` shall indicate the sensor is disabled, and shall not return the `Reading` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the sensor is enabled and provides a `Reading`.  The value `true` shall indicate the sensor is enabled and returns the `Reading` property with a valid value.  The value `false` shall indicate the sensor is disabled, shall not return the `Reading` property, and shall not trigger events, logging, or other functionality.  This property allows a user to disable a faulty sensor or to otherwise remove it from use."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `ReadingUnits`.  It was also created to improve the description of the `Enabled` property."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_10_0.Sensor"/>
     </Schema>
 
   </edmx:DataServices>

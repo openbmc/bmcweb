@@ -43,6 +43,7 @@ enum class CertificateUsageType{
     LDevID,
     IAK,
     LAK,
+    EK,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(CertificateType, {
@@ -83,6 +84,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CertificateUsageType, {
     {CertificateUsageType::LDevID, "LDevID"},
     {CertificateUsageType::IAK, "IAK"},
     {CertificateUsageType::LAK, "LAK"},
+    {CertificateUsageType::EK, "EK"},
 });
 
 }

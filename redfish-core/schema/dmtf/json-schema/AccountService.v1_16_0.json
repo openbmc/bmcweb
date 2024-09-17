@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/AccountService.v1_15_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/AccountService.v1_16_0.json",
     "$ref": "#/definitions/AccountService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -1074,7 +1074,7 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The settings related to Google Authenticator multi-factor authentication.",
+                    "description": "The settings related to Google Authenticator multi-factor authentication.  For generic Time-Based One-Time Password (TOTP) multi-factor authentication, use the `TimeBasedOneTimePassword` property.",
                     "longDescription": "This property shall contain the settings related to Google Authenticator multi-factor authentication.",
                     "versionAdded": "v1_12_0"
                 },
@@ -1087,7 +1087,7 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The settings related to Microsoft Authenticator multi-factor authentication.",
+                    "description": "The settings related to Microsoft Authenticator multi-factor authentication.  For generic Time-Based One-Time Password (TOTP) multi-factor authentication, use the `TimeBasedOneTimePassword` property.",
                     "longDescription": "This property shall contain the settings related to Microsoft Authenticator multi-factor authentication.",
                     "versionAdded": "v1_12_0"
                 },
@@ -1116,6 +1116,19 @@
                     "description": "The settings related to RSA SecurID multi-factor authentication.",
                     "longDescription": "This property shall contain the settings related to RSA SecurID multi-factor authentication.",
                     "versionAdded": "v1_12_0"
+                },
+                "TimeBasedOneTimePassword": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TimeBasedOneTimePassword"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The settings related to Time-based One-Time Password (TOTP) multi-factor authentication.",
+                    "longDescription": "This property shall contain the settings related to RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication.",
+                    "versionAdded": "v1_16_0"
                 }
             },
             "type": "object"
@@ -1272,6 +1285,36 @@
                 }
             },
             "properties": {
+                "LocalAccountTypes": {
+                    "description": "The list of local services in the manager that the remote user or group is allowed to access.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.json#/definitions/AccountTypes"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the various local manager services that the remote user or group is allowed to access.  This shall not include functionality for receiving events or other notifications.  If this property is not supported, the value shall be assumed to be an array that contains the value `Redfish`.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_16_0"
+                },
+                "LocalOEMAccountTypes": {
+                    "description": "The OEM account types for the remote user or group.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the OEM account types for the remote user or group when `LocalAccountTypes` contains `OEM`.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_16_0"
+                },
                 "LocalRole": {
                     "description": "The name of the local Redfish role to which to map the remote user or group.",
                     "longDescription": "This property shall contain the `RoleId` property value within a role resource on this Redfish service to which to map the remote user or group.",
@@ -1486,10 +1529,53 @@
                 }
             },
             "type": "object"
+        },
+        "TimeBasedOneTimePassword": {
+            "additionalProperties": false,
+            "description": "Various settings for Time-based One-Time Password (TOTP) multi-factor authentication.",
+            "longDescription": "This type shall contain settings for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Enabled": {
+                    "description": "An indication of whether multi-factor authentication with a Time-based One-Time Password (TOTP) is enabled.",
+                    "longDescription": "This property shall indicate whether multi-factor authentication with an RFC6238-defined Time-based One-Time Password (TOTP) is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
+                },
+                "TimeStepSeconds": {
+                    "description": "The time step, in seconds, for calculating the one-time password.",
+                    "longDescription": "This property shall contain the RFC6238-defined time step, in seconds, for calculating the one-time password.  If this property is not supported by the service, it shall be assumed to be `30`.",
+                    "minimum": 1,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
+                }
+            },
+            "type": "object"
         }
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.3",
-    "title": "#AccountService.v1_15_1.AccountService"
+    "release": "2024.3",
+    "title": "#AccountService.v1_16_0.AccountService"
 }
