@@ -173,7 +173,6 @@ endif
 add_project_arguments(
     cxx.get_supported_arguments(
         [
-            '-DBOOST_ASIO_DISABLE_CONCEPTS',
             '-DBOOST_ALL_NO_LIB',
             '-DBOOST_ALLOW_DEPRECATED_HEADERS',
             '-DBOOST_ASIO_DISABLE_THREADS',
