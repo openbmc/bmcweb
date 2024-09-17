@@ -946,7 +946,7 @@ const static auto& deleteManagerCollection = privilegeSetConfigureManager;
 const static auto& getManagerAccount = privilegeSetConfigureManagerOrConfigureUsersOrConfigureSelf;
 const static auto& headManagerAccount = privilegeSetLogin;
 const static auto& patchManagerAccount = privilegeSetConfigureUsers;
-const static auto& postManagerAccount = privilegeSetConfigureUsers;
+const static auto& postManagerAccount = privilegeSetConfigureManagerOrConfigureUsersOrConfigureSelf;
 const static auto& putManagerAccount = privilegeSetConfigureUsers;
 const static auto& deleteManagerAccount = privilegeSetConfigureUsers;
 
