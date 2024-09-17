@@ -66,6 +66,7 @@ Fields common to all schemas
 - MultiFactorAuth/ClientCertificate/CertificateMappingAttribute
 - MultiFactorAuth/ClientCertificate/Enabled
 - MultiFactorAuth/ClientCertificate/RespondToUnauthenticatedClients
+- MultiFactorAuth/GoogleAuthenticator/Enabled
 - Oem/OpenBMC/AuthMethods/BasicAuth
 - Oem/OpenBMC/AuthMethods/Cookie
 - Oem/OpenBMC/AuthMethods/SessionToken
@@ -139,6 +140,7 @@ Fields common to all schemas
 - Links/Role
 - Locked
 - `Locked@Redfish.AllowableValues`
+- MFABypass/BypassTypes
 - Password
 - PasswordChangeRequired
 - RoleId
