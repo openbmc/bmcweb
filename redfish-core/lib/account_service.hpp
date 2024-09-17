@@ -1110,10 +1110,53 @@ struct UserUpdateParams
     std::optional<std::string> roleId;
     std::optional<bool> locked;
     std::optional<std::vector<std::string>> accountTypes;
+    std::optional<std::vector<std::string>> mfaBypass;
     bool userSelf;
     std::shared_ptr<persistent_data::UserSession> session;
     std::string dbusObjectPath;
 };
+
+inline void
+    handleMFABypassUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::vector<std::string>& mfaBypassVectorIn,
+                          const std::string& dbusObjectPath)
+{
+    // Check if the input vector contains just one bypass type:
+    // as there are just two defined in the backend:
+    // GoogleAuthenticator  and None
+    if (mfaBypassVectorIn.size() > 1)
+    {
+        messages::propertyValueIncorrect(asyncResp->res,
+                                         "MFABypass/BypassTypes",
+                                         nlohmann::json(mfaBypassVectorIn));
+        return;
+    }
+    std::string mfaBypassDbusVal;
+    if (mfaBypassVectorIn.empty())
+    {
+        mfaBypassDbusVal =
+            "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.None";
+    }
+    else
+    {
+        const std::string& mfaBypassVal = mfaBypassVectorIn.front();
+        if (mfaBypassVal == "GoogleAuthenticator")
+        {
+            mfaBypassDbusVal =
+                "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+        }
+        else
+        {
+            messages::propertyValueNotInList(asyncResp->res, mfaBypassVal,
+                                             "MFABypass/BypassTypes/1");
+            return;
+        }
+    }
+    setDbusProperty(asyncResp, "MFABypass/BypassTypes/1",
+                    "xyz.openbmc_project.User.Manager", dbusObjectPath,
+                    "xyz.openbmc_project.User.TOTPAuthenticator",
+                    "BypassedProtocol", mfaBypassDbusVal);
+}
 
 inline void afterVerifyUserExists(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1158,6 +1201,12 @@ inline void afterVerifyUserExists(
         }
     }
 
+    if (params.mfaBypass)
+    {
+        handleMFABypassUpdate(asyncResp, *params.mfaBypass,
+                              params.dbusObjectPath);
+    }
+
     if (params.enabled)
     {
         setDbusProperty(
@@ -1171,7 +1220,7 @@ inline void afterVerifyUserExists(
         std::string priv = getPrivilegeFromRoleId(*params.roleId);
         if (priv.empty())
         {
-            messages::propertyValueNotInList(asyncResp->res, true, "Locked");
+            messages::propertyValueNotInList(asyncResp->res, true, "RoleId");
             return;
         }
         setDbusProperty(asyncResp, "RoleId", "xyz.openbmc_project.User.Manager",
@@ -1209,15 +1258,16 @@ inline void updateUserProperties(
     const std::optional<bool>& enabled,
     const std::optional<std::string>& roleId, const std::optional<bool>& locked,
     const std::optional<std::vector<std::string>>& accountTypes, bool userSelf,
+    const std::optional<std::vector<std::string>>& mfaBypass,
     const std::shared_ptr<persistent_data::UserSession>& session)
 {
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
     tempObjPath /= username;
     std::string dbusObjectPath(tempObjPath);
 
-    UserUpdateParams params{username, password, enabled,
-                            roleId,   locked,   accountTypes,
-                            userSelf, session,  dbusObjectPath};
+    UserUpdateParams params{username, password,      enabled,   roleId,
+                            locked,   accountTypes,  mfaBypass, userSelf,
+                            session,  dbusObjectPath};
 
     dbus::utility::checkDbusPathExists(
         dbusObjectPath,
@@ -1348,6 +1398,45 @@ inline CertificateMappingAttribute getCertificateMapping(
         }
         break;
     }
+}
+
+inline void getMultiFactorAuthConfiguration(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
+        "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.MultiFactorAuthConfiguration", "Enabled",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& multiFactorAuthEnabledVal) {
+            if (ec)
+            {
+                if (ec.message().find(
+                        "org.freedesktop.DBus.Error.UnknownInterface") !=
+                    std::string::npos)
+                {
+                    BMCWEB_LOG_WARNING(
+                        "MFA interface not found. Assuming MFA is not enabled.");
+                    asyncResp->res.jsonValue["MultiFactorAuth"]
+                                            ["GoogleAuthenticator"]["Enabled"] =
+                        false;
+                    return;
+                }
+
+                BMCWEB_LOG_ERROR(
+                    "DBUS response error while fetching MultiFactorAuth property. Error: {}",
+                    ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            constexpr std::string_view mfaGoogleAuthDbusVal =
+                "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+            bool googleAuthEnabled =
+                multiFactorAuthEnabledVal == mfaGoogleAuthDbusVal;
+            asyncResp->res.jsonValue["MultiFactorAuth"]["GoogleAuthenticator"]
+                                    ["Enabled"] = googleAuthEnabled;
+        });
 }
 
 inline void handleAccountServiceGet(
@@ -1493,6 +1582,9 @@ inline void handleAccountServiceGet(
             }
         });
 
+    // Get MFA Config
+    getMultiFactorAuthConfiguration(asyncResp);
+
     auto callback = [asyncResp](bool success, const LDAPConfigData& confData,
                                 const std::string& ldapType) {
         if (!success)
@@ -1573,6 +1665,7 @@ inline void handleAccountServicePatch(
     LdapPatchParams activeDirectoryObject;
     AuthMethods auth;
     std::optional<std::string> httpBasicAuth;
+    std::optional<bool> googleAuthenticatorEnabled;
 
     if (!json_util::readJsonPatch(                                         //
             req, asyncResp->res,                                           //
@@ -1691,6 +1784,23 @@ inline void handleAccountServicePatch(
             sdbusplus::message::object_path("/xyz/openbmc_project/user"),
             "xyz.openbmc_project.User.AccountPolicy",
             "MaxLoginAttemptBeforeLockout", *lockoutThreshold);
+    }
+    if (googleAuthenticatorEnabled)
+    {
+        std::string_view mfaType =
+            "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.None";
+        if (*googleAuthenticatorEnabled)
+        {
+            mfaType =
+                "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+        }
+
+        setDbusProperty(
+            asyncResp, "MultiFactorAuth/GoogleAuthenticator/Enabled",
+            "xyz.openbmc_project.User.Manager",
+            sdbusplus::message::object_path("/xyz/openbmc_project/user"),
+            "xyz.openbmc_project.User.MultiFactorAuthConfiguration", "Enabled",
+            std::string(mfaType));
     }
 }
 
@@ -2062,7 +2172,7 @@ inline void handleAccountGet(
             }
 
             asyncResp->res.jsonValue["@odata.type"] =
-                "#ManagerAccount.v1_7_0.ManagerAccount";
+                "#ManagerAccount.v1_13_0.ManagerAccount";
             asyncResp->res.jsonValue["Name"] = "User Account";
             asyncResp->res.jsonValue["Description"] = "User Account";
             asyncResp->res.jsonValue["Password"] = nullptr;
@@ -2155,12 +2265,62 @@ inline void handleAccountGet(
                         return;
                     }
                 }
+                else if (interface.first ==
+                         "xyz.openbmc_project.User.TOTPAuthenticator")
+                {
+                    const std::string* bypassedProtocol = nullptr;
+                    const bool* secretKeySet = nullptr;
+
+                    const bool success = sdbusplus::unpackPropertiesNoThrow(
+                        dbus_utils::UnpackErrorPrinter(), interface.second,
+                        "BypassedProtocol", bypassedProtocol,
+                        "SecretKeyIsValid", secretKeySet);
+                    if (!success)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (bypassedProtocol == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Failed to fetch BypassedProtocol property");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    nlohmann::json& mfaBypassArray =
+                        asyncResp->res.jsonValue["MFABypass"]["BypassTypes"];
+                    mfaBypassArray = nlohmann::json::array();
+
+                    constexpr std::string_view mfaGoogleAuthDbusVal =
+                        "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+                    if (*bypassedProtocol == mfaGoogleAuthDbusVal)
+                    {
+                        mfaBypassArray.push_back("GoogleAuthenticator");
+                    }
+
+                    if (secretKeySet == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Failed to fetch SecretKeyIsValid property");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    asyncResp->res.jsonValue["SecretKeySet"] = *secretKeySet;
+                }
             }
 
             asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
                 "/redfish/v1/AccountService/Accounts/{}", accountName);
             asyncResp->res.jsonValue["Id"] = accountName;
             asyncResp->res.jsonValue["UserName"] = accountName;
+
+            nlohmann::json& actions = asyncResp->res.jsonValue["Actions"];
+
+            actions["#ManagerAccount.GenerateSecretKey"]["target"] =
+                boost::urls::format(
+                    "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.GenerateSecretKey",
+                    accountName);
         });
 }
 
@@ -2220,6 +2380,7 @@ inline void handleAccountPatch(
     std::optional<std::string> roleId;
     std::optional<bool> locked;
     std::optional<std::vector<std::string>> accountTypes;
+    std::optional<std::vector<std::string>> mfaBypass;
 
     if (req.session == nullptr)
     {
@@ -2275,14 +2436,16 @@ inline void handleAccountPatch(
     if (!newUserName || (newUserName.value() == username))
     {
         updateUserProperties(asyncResp, username, password, enabled, roleId,
-                             locked, accountTypes, userSelf, req.session);
+                             locked, accountTypes, userSelf, mfaBypass,
+                             req.session);
         return;
     }
     crow::connections::systemBus->async_method_call(
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
-         locked, userSelf, req, accountTypes(std::move(accountTypes))](
-            const boost::system::error_code& ec, sdbusplus::message_t& m) {
+         locked, userSelf, req, accountTypes(std::move(accountTypes)),
+         mfaBypass](const boost::system::error_code& ec,
+                    sdbusplus::message_t& m) {
             if (ec)
             {
                 userErrorMessageHandler(m.get_error(), asyncResp, newUser,
@@ -2291,11 +2454,109 @@ inline void handleAccountPatch(
             }
 
             updateUserProperties(asyncResp, newUser, password, enabled, roleId,
-                                 locked, accountTypes, userSelf, req.session);
+                                 locked, accountTypes, userSelf, mfaBypass,
+                                 req.session);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,
         *newUserName);
+}
+inline void createSecretKeyUtil(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username, const std::string& userPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, username](const boost::system::error_code& ec,
+                              const std::string& secretKey) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("D-Bus response error: {}", ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#ManagerAccount.v1_13_0.ManagerAccount";
+            asyncResp->res.jsonValue["Name"] = "User Account";
+            asyncResp->res.jsonValue["Description"] = "User Account";
+            asyncResp->res.jsonValue["SecretKey"] = secretKey;
+        },
+        "xyz.openbmc_project.User.Manager", userPath,
+        "xyz.openbmc_project.User.TOTPAuthenticator", "CreateSecretKey");
+}
+
+static void checkAndCreateSecretKey(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username, const std::string& userPath)
+{
+    sdbusplus::message::object_path userObjPath(
+        "/xyz/openbmc_project/user/" + username);
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
+        std::string(userObjPath), "xyz.openbmc_project.User.TOTPAuthenticator",
+        "SecretKeyIsValid",
+        [asyncResp, username,
+         userPath](const boost::system::error_code& ec, bool isSecretKeySet) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("D-Bus response error: {}", ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (isSecretKeySet)
+            {
+                BMCWEB_LOG_WARNING("Secret key is already setup for the user");
+                messages::actionNotSupported(asyncResp->res,
+                                             "GenerateSecretKey");
+                return;
+            }
+
+            // If secret key is not set, then proceed to create it
+            createSecretKeyUtil(asyncResp, username, userPath);
+        });
+}
+
+inline void
+    handleGenerateSecretKey(App& app, const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& username)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        // If authentication is disabled, there are no user accounts
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
+        return;
+    }
+
+    if (req.session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    bool userSelf = (username == req.session->username);
+
+    Privileges effectiveUserPrivileges =
+        redfish::getUserPrivileges(*req.session);
+    Privileges configureUsers = {"ConfigureUsers"};
+    bool userHasConfigureUsers =
+        effectiveUserPrivileges.isSupersetOf(configureUsers);
+
+    if (!userHasConfigureUsers && !userSelf)
+    {
+        BMCWEB_LOG_WARNING("Insufficient Privilege");
+        messages::insufficientPrivilege(asyncResp->res);
+        return;
+    }
+    sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
+    tempObjPath /= username;
+    const std::string userPath(tempObjPath);
+
+    checkAndCreateSecretKey(asyncResp, username, userPath);
 }
 
 inline void requestAccountServiceRoutes(App& app)
@@ -2380,6 +2641,16 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges(redfish::privileges::deleteManagerAccount)
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleAccountDelete, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/AccountService/Accounts/<str>/Actions/ManagerAccount.GenerateSecretKey")
+        // TODO this privilege should be using the generated endpoints, but
+        // because of the special handling of ConfigureSelf, it's not able to
+        // yet
+        .privileges({{"ConfigureUsers"}, {"ConfigureSelf"}})
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleGenerateSecretKey, std::ref(app)));
 }
 
 } // namespace redfish
