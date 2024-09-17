@@ -13,6 +13,7 @@ enum class MFABypassType{
     MicrosoftAuthenticator,
     ClientCertificate,
     OneTimePasscode,
+    TimeBasedOneTimePassword,
     OEM,
 };
 
@@ -79,6 +80,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MFABypassType, {
     {MFABypassType::MicrosoftAuthenticator, "MicrosoftAuthenticator"},
     {MFABypassType::ClientCertificate, "ClientCertificate"},
     {MFABypassType::OneTimePasscode, "OneTimePasscode"},
+    {MFABypassType::TimeBasedOneTimePassword, "TimeBasedOneTimePassword"},
     {MFABypassType::OEM, "OEM"},
 });
 

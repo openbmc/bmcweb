@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_25_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_25_2.json",
     "$ref": "#/definitions/Chassis",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -171,7 +171,7 @@
                 "EnvironmentMetrics": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
                     "description": "The link to the environment metrics for this chassis.",
-                    "longDescription": "This property shall contain a link to a resource of type `EnvironmentMetrics` that specifies the environment metrics for this chassis.",
+                    "longDescription": "This property shall contain a link to a resource of type `EnvironmentMetrics` that specifies the environment metrics for this chassis, all containing chassis, and devices contained by any of these chassis instances.  When determining power and energy readings, care should be taken to ensure any reported values do not overlap or result in double-counting.",
                     "readonly": true,
                     "versionAdded": "v1_15_0"
                 },
@@ -1302,5 +1302,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2023.3",
-    "title": "#Chassis.v1_25_1.Chassis"
+    "title": "#Chassis.v1_25_2.Chassis"
 }

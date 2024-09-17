@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.8.2                                                  -->
+<!--# Redfish Schema:  Certificate v1.9.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -705,6 +705,17 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="EK">
+          <Annotation Term="OData.Description" String="This certificate is an EK certificate like those associated with TCG TPMs."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -884,6 +895,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_8_2.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the value `EK` to `CertificateUsageType` to support TCG TPM certificates."/>
+
+      <EntityType Name="Certificate" BaseType="Certificate.v1_8_3.Certificate"/>
     </Schema>
 
   </edmx:DataServices>

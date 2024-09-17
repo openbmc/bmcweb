@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/AggregationSource.v1_4_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/AggregationSource.v1_4_3.json",
     "$ref": "#/definitions/AggregationSource",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -411,8 +411,8 @@
             "properties": {
                 "AuthenticationKey": {
                     "description": "The secret authentication key for SNMPv3.",
-                    "longDescription": "This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
-                    "pattern": "(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\\*+$)",
+                    "longDescription": "This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.",
+                    "pattern": "(^[ -~]+$)|(^Passphrase:[ -~]+$)|(^Hex:[0-9A-Fa-f]{24,96}$)|(^\\*+$)",
                     "readonly": false,
                     "type": [
                         "string",
@@ -444,8 +444,8 @@
                 },
                 "EncryptionKey": {
                     "description": "The secret authentication key for SNMPv3.",
-                    "longDescription": "This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
-                    "pattern": "(^[A-Za-z0-9]+$)|(^\\*+$)",
+                    "longDescription": "This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.",
+                    "pattern": "(^[ -~]+$)|(^Passphrase:[ -~]+$)|(^Hex:[0-9A-Fa-f]{16,64}$)|(^\\*+$)",
                     "readonly": false,
                     "type": [
                         "string",
@@ -576,5 +576,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2023.3",
-    "title": "#AggregationSource.v1_4_2.AggregationSource"
+    "title": "#AggregationSource.v1_4_3.AggregationSource"
 }

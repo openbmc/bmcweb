@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_10_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_10_1.json",
     "$ref": "#/definitions/Sensor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -474,7 +474,7 @@
                 },
                 "Enabled": {
                     "description": "Indicates whether the sensor is enabled and provides a reading.",
-                    "longDescription": "This property shall indicate whether the sensor is enabled and provides a `Reading`.  The value `true` shall indicate the sensor is enabled and returns the `Reading` property with a valid value.  The value `false` shall indicate the sensor is disabled, and shall not return the `Reading` property.",
+                    "longDescription": "This property shall indicate whether the sensor is enabled and provides a `Reading`.  The value `true` shall indicate the sensor is enabled and returns the `Reading` property with a valid value.  The value `false` shall indicate the sensor is disabled, shall not return the `Reading` property, and shall not trigger events, logging, or other functionality.  This property allows a user to disable a faulty sensor or to otherwise remove it from use.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -804,8 +804,8 @@
                     "readonly": true
                 },
                 "ReadingUnits": {
-                    "description": "The units of the reading and thresholds.",
-                    "longDescription": "This property shall contain the units of the sensor's reading and thresholds.",
+                    "description": "The units of the reading, thresholds, and other reading-related properties in UCUM c/s format.",
+                    "longDescription": "This property shall contain the units of the sensor's reading, thresholds, and other reading-related properties.  The value shall follow the case-sensitive symbol format defined by the Unified Code for Units of Measure (UCUM), as specified by the 'Units of measure annotation' clause of the Redfish Specification.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -1909,5 +1909,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2024.2",
-    "title": "#Sensor.v1_10_0.Sensor"
+    "title": "#Sensor.v1_10_1.Sensor"
 }

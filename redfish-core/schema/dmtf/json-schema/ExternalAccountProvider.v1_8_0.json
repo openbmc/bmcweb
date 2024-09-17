@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.v1_7_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.v1_8_0.json",
     "$ref": "#/definitions/ExternalAccountProvider",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -634,6 +634,36 @@
                 }
             },
             "properties": {
+                "LocalAccountTypes": {
+                    "description": "The list of local services in the manager that the remote user or group is allowed to access.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.json#/definitions/AccountTypes"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the various local manager services that the remote user or group is allowed to access.  This shall not include functionality for receiving events or other notifications.  If this property is not supported, the value shall be assumed to be an array that contains the value `Redfish`.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_8_0"
+                },
+                "LocalOEMAccountTypes": {
+                    "description": "The OEM account types for the remote user or group.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the OEM account types for the remote user or group when `LocalAccountTypes` contains `OEM`.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_8_0"
+                },
                 "LocalRole": {
                     "description": "The name of the local Redfish role to which to map the remote user or group.",
                     "longDescription": "This property shall contain the `RoleId` property value within a role resource on this Redfish service to which to map the remote user or group.",
@@ -771,6 +801,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#ExternalAccountProvider.v1_7_2.ExternalAccountProvider"
+    "release": "2024.3",
+    "title": "#ExternalAccountProvider.v1_8_0.ExternalAccountProvider"
 }

@@ -12,6 +12,7 @@ enum class PCIeTypes{
     Gen3,
     Gen4,
     Gen5,
+    Gen6,
 };
 
 enum class DeviceType{
@@ -64,6 +65,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PCIeTypes, {
     {PCIeTypes::Gen3, "Gen3"},
     {PCIeTypes::Gen4, "Gen4"},
     {PCIeTypes::Gen5, "Gen5"},
+    {PCIeTypes::Gen6, "Gen6"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(DeviceType, {

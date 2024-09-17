@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_14_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_15_0.json",
     "$ref": "#/definitions/EventDestination",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -98,6 +98,20 @@
                     "description": "The available actions for this resource.",
                     "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_2_0"
+                },
+                "BackupDestinations": {
+                    "description": "The backup destination URIs for this event receiver.  Events are sent to these URIs, in array order, when the destination URI is unreachable or returns an error.",
+                    "format": "uri-reference",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of URIs to destination where events are sent if the event receiver specified by `Destination` is unreachable or returns an error.  Events are sent to each of the backup destinations, in array order, until a destination has been reached.  An empty array shall indicate that the service supports backup event receivers, but none have been specified by the user.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_15_0"
                 },
                 "Certificates": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
@@ -664,8 +678,8 @@
             "properties": {
                 "AuthenticationKey": {
                     "description": "The secret authentication key for SNMPv3.",
-                    "longDescription": "This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
-                    "pattern": "(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\\*+$)",
+                    "longDescription": "This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.",
+                    "pattern": "(^[ -~]+$)|(^Passphrase:[ -~]+$)|(^Hex:[0-9A-Fa-f]{24,96}$)|(^\\*+$)",
                     "readonly": false,
                     "type": [
                         "string",
@@ -697,8 +711,8 @@
                 },
                 "EncryptionKey": {
                     "description": "The secret authentication key for SNMPv3.",
-                    "longDescription": "This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark.",
-                    "pattern": "(^[A-Za-z0-9]+$)|(^\\*+$)",
+                    "longDescription": "This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.",
+                    "pattern": "(^[ -~]+$)|(^Passphrase:[ -~]+$)|(^Hex:[0-9A-Fa-f]{16,64}$)|(^\\*+$)",
                     "readonly": false,
                     "type": [
                         "string",
@@ -946,6 +960,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.3",
-    "title": "#EventDestination.v1_14_1.EventDestination"
+    "release": "2024.3",
+    "title": "#EventDestination.v1_15_0.EventDestination"
 }

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LeakDetector.v1_1_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LeakDetector.v1_2_0.json",
     "$ref": "#/definitions/LeakDetector",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -89,7 +89,7 @@
                     ],
                     "description": "The state of the leak detector.",
                     "excerpt": "LeakDetector",
-                    "longDescription": "This property shall contain the state of the leak detector.",
+                    "longDescription": "This property shall contain the state of the leak detector.  The value of this property should equate the value of `Health` in `Status`, and was created primarily for use in excerpts of this resource.",
                     "readonly": true
                 },
                 "Id": {
@@ -277,8 +277,20 @@
                     ],
                     "description": "The state of the leak detector.",
                     "excerpt": "LeakDetector",
-                    "longDescription": "This property shall contain the state of the leak detector.",
+                    "longDescription": "This property shall contain the state of the leak detector.  The value of this property should equate the value of `Health` in `Status`, and was created primarily for use in excerpts of this resource.",
                     "readonly": true
+                },
+                "DeviceName": {
+                    "description": "The name of the device.",
+                    "excerpt": "LeakDetectorArray",
+                    "excerptCopyOnly": true,
+                    "longDescription": "This property shall contain the name of the device associated with this leak detector.  If the device is represented by a resource, the value shall contain the value of the `Name` property of the associated resource.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "PhysicalContext": {
                     "anyOf": [
@@ -353,7 +365,7 @@
                     ],
                     "description": "The state of the leak detector.",
                     "excerpt": "LeakDetector",
-                    "longDescription": "This property shall contain the state of the leak detector.",
+                    "longDescription": "This property shall contain the state of the leak detector.  The value of this property should equate the value of `Health` in `Status`, and was created primarily for use in excerpts of this resource.",
                     "readonly": true
                 }
             },
@@ -394,6 +406,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.1",
-    "title": "#LeakDetector.v1_1_0.LeakDetector"
+    "release": "2024.3",
+    "title": "#LeakDetector.v1_2_0.LeakDetector"
 }

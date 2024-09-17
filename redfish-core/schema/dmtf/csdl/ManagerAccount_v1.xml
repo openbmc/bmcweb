@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerAccount v1.12.1                                              -->
+<!--# Redfish Schema:  ManagerAccount v1.13.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -92,6 +92,53 @@
           <Annotation Term="OData.Description" String="The new account password."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the new password."/>
         </Parameter>
+      </Action>
+
+      <Action Name="GenerateSecretKey" IsBound="true">
+        <Annotation Term="OData.Description" String="This action randomly generates a new secret key for Time-based One-Time Password (TOTP) multi-factor authentication for this account."/>
+        <Annotation Term="OData.LongDescription" String="This action shall randomly generate a new secret key for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication for this account."/>
+        <Parameter Name="ManagerAccount" Type="ManagerAccount.v1_1_0.Actions"/>
+        <ReturnType Type="ManagerAccount.v1_13_0.GenerateSecretKeyResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_13_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="ClearSecretKey" IsBound="true">
+        <Annotation Term="OData.Description" String="This action clears the secret key for Time-based One-Time Password (TOTP) multi-factor authentication for this account."/>
+        <Annotation Term="OData.LongDescription" String="This action shall clear the secret key for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication for this account."/>
+        <Parameter Name="ManagerAccount" Type="ManagerAccount.v1_1_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_13_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="VerifyTimeBasedOneTimePassword" IsBound="true">
+        <Annotation Term="OData.Description" String="This action verifies a user-provided Time-based One-Time Password (TOTP).  This is to ensure the client's copy of the secret key is aligned with the secret key stored by the service."/>
+        <Annotation Term="OData.LongDescription" String="This action shall verify a user-provided RFC6238-defined Time-based One-Time Password (TOTP)."/>
+        <Parameter Name="ManagerAccount" Type="ManagerAccount.v1_1_0.Actions"/>
+        <Parameter Name="TimeBasedOneTimePassword" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The Time-based One-Time Password (TOTP) to verify."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the Time-based One-Time Password (TOTP) to verify.  If the Time-based One-Time Password (TOTP) is not valid, the service shall return the HTTP `400 Bad Request` status code."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_13_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
       <EnumType Name="AccountTypes">
@@ -559,8 +606,8 @@
         <Property Name="AuthenticationKey" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
           <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark."/>
-          <Annotation Term="Validation.Pattern" String="(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\*+$)"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414."/>
+          <Annotation Term="Validation.Pattern" String="(^[ -~]+$)|(^Passphrase:[ -~]+$)|(^Hex:[0-9A-Fa-f]{24,96})|(^\*+$)"/>
         </Property>
         <Property Name="AuthenticationProtocol" Type="ManagerAccount.v1_4_0.SNMPAuthenticationProtocols">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -570,8 +617,8 @@
         <Property Name="EncryptionKey" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
           <Annotation Term="OData.Description" String="The secret encryption key used in SNMPv3."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase can contain any printable characters except for the double quotation mark."/>
-          <Annotation Term="Validation.Pattern" String="(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{32})|(^\*+$)"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414."/>
+          <Annotation Term="Validation.Pattern" String="(^[ -~]+$)|(^Passphrase:[ -~]+$)|(^Hex:[0-9A-Fa-f]{16,64}$)|(^\*+$)"/>
         </Property>
         <Property Name="EncryptionProtocol" Type="ManagerAccount.v1_4_0.SNMPEncryptionProtocols">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -737,6 +784,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_8.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for the SNMP `AuthenticationKey` and `EncryptionKey` properties."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_9.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -805,6 +858,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_7.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for the SNMP `AuthenticationKey` and `EncryptionKey` properties."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_8.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -860,6 +919,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_6.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for the SNMP `AuthenticationKey` and `EncryptionKey` properties."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_6_7.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -904,6 +969,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_4.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_7_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for the SNMP `AuthenticationKey` and `EncryptionKey` properties."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_7_5.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -946,6 +1017,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_3.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_8_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for the SNMP `AuthenticationKey` and `EncryptionKey` properties."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_8_4.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -977,6 +1054,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_9_2.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for the SNMP `AuthenticationKey` and `EncryptionKey` properties."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_9_3.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -999,6 +1082,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_10_1.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for the SNMP `AuthenticationKey` and `EncryptionKey` properties."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_10_2.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_11_0">
@@ -1037,6 +1126,12 @@
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_11_1.ManagerAccount"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_11_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for the SNMP `AuthenticationKey` and `EncryptionKey` properties."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_11_2.ManagerAccount"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -1049,6 +1144,37 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_12_0.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_12_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for the SNMP `AuthenticationKey` and `EncryptionKey` properties."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_12_1.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `GenerateSecretKey`, `ClearSecretKey`, and `VerifyTimeBasedOneTimePassword` actions."/>
+
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_12_2.ManagerAccount">
+        <Property Name="SecretKeySet" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the secret key for Time-based One-Time Password (TOTP) multi-factor authentication is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the secret key for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication is set."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="GenerateSecretKeyResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The response body for the `GenerateSecretKey` action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the properties found in the response body for the `GenerateSecretKey` action."/>
+        <Property Name="SecretKey" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The secret key generated for Time-based One-Time Password (TOTP) multi-factor authentication."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain secret key generated for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication.  Clients shall retain the value of this property to generate tokens for future session creation requests."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

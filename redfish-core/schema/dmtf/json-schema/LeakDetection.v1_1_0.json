@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LeakDetection.v1_0_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LeakDetection.v1_1_0.json",
     "$ref": "#/definitions/LeakDetection",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -168,8 +168,17 @@
                     "description": "Humidity (percent).",
                     "excerptCopy": "SensorExcerpt",
                     "longDescription": "This property shall contain the humidity, in percent units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Humidity`."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
+            "required": [
+                "Status"
+            ],
             "type": "object"
         },
         "OemActions": {
@@ -196,6 +205,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#LeakDetection.v1_0_1.LeakDetection"
+    "release": "2024.3",
+    "title": "#LeakDetection.v1_1_0.LeakDetection"
 }

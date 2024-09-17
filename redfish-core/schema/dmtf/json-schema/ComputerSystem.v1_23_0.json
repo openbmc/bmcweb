@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_22_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_23_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -747,6 +747,13 @@
                     "description": "The key management settings of the computer system.",
                     "longDescription": "This property shall contain the key management settings of the computer system.",
                     "versionAdded": "v1_16_0"
+                },
+                "LastResetCause": {
+                    "$ref": "#/definitions/LastResetCauses",
+                    "description": "The last reset cause of the system.",
+                    "longDescription": "This property shall contain the cause when the system last came out of a reset or was rebooted.",
+                    "readonly": true,
+                    "versionAdded": "v1_23_0"
                 },
                 "LastResetTime": {
                     "description": "The date and time when the system was last reset or rebooted.",
@@ -1647,6 +1654,45 @@
                 }
             },
             "type": "object"
+        },
+        "LastResetCauses": {
+            "enum": [
+                "PowerButtonPress",
+                "ManagementCommand",
+                "PowerRestorePolicy",
+                "RTCWakeup",
+                "WatchdogExpiration",
+                "OSSoftRestart",
+                "SystemCrash",
+                "ThermalEvent",
+                "PowerEvent",
+                "Unknown"
+            ],
+            "enumDescriptions": {
+                "ManagementCommand": "System start or restart via an external command to the management controller or BMC.",
+                "OSSoftRestart": "System start or restart via an OS soft restart.",
+                "PowerButtonPress": "System start or restart via a power button press.",
+                "PowerEvent": "System start or restart caused by a power event triggering a system shutdown.",
+                "PowerRestorePolicy": "System start or restart due to the power restore policy.",
+                "RTCWakeup": "System power-up via an RTC (system real time clock) wakeup.",
+                "SystemCrash": "System start or restart caused by a system crash.",
+                "ThermalEvent": "System start or restart caused by a thermal event triggering a system shutdown.",
+                "Unknown": "System start or restart detected, but the cause is unknown.",
+                "WatchdogExpiration": "System start or restart caused by a watchdog expiration."
+            },
+            "enumLongDescriptions": {
+                "ManagementCommand": "This value shall indicate the system start or restart was due to an external command to the management controller or BMC.  Examples include the Redfish `Reset` action for the `ComputerSystem` resource or the IPMI 'Chassis Control' command.",
+                "OSSoftRestart": "This value shall indicate the system start or restart was due to an OS soft restart.  Examples include 'CTRL-ALT-DEL', 'init 6', or 'reboot'.",
+                "PowerButtonPress": "This value shall indicate the system start or restart was due to a power button press.",
+                "PowerEvent": "This value shall indicate the system start or restart was caused by a power event triggering a system shutdown.",
+                "PowerRestorePolicy": "This value shall indicate the system automatically powered-up on AC being applied due the `PowerRestorePolicy` property containing `AlwaysOn` or `LastState`.",
+                "RTCWakeup": "This value shall indicate the system powered-up via an RTC (system real time clock) wakeup.",
+                "SystemCrash": "This value shall indicate the system start or restart was caused by a system crash.  Examples include an OS panic, hardware fault, or firmware fault.",
+                "ThermalEvent": "This value shall indicate the system start or restart was caused by a thermal event triggering a system shutdown.",
+                "Unknown": "This value shall indicate the system start or restart cause is unknown.",
+                "WatchdogExpiration": "This value shall indicate the system start or restart was caused by a watchdog expiration."
+            },
+            "type": "string"
         },
         "Links": {
             "additionalProperties": false,
@@ -2569,6 +2615,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.3",
-    "title": "#ComputerSystem.v1_22_2.ComputerSystem"
+    "release": "2024.3",
+    "title": "#ComputerSystem.v1_23_0.ComputerSystem"
 }

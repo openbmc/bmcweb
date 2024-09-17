@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_7_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_8_0.json",
     "$ref": "#/definitions/StorageController",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -571,6 +571,17 @@
                     "description": "The type of NVMe controller.",
                     "longDescription": "This property shall contain the type of NVMe controller.",
                     "readonly": true
+                },
+                "MaxAttachedNamespaces": {
+                    "description": "The maximum number of attached namespaces allowed by this NVMe I/O controller.",
+                    "longDescription": "This property shall contain the maximum number of attached namespaces allowed by this NVMe I/O controller.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_8_0"
                 },
                 "MaxQueueSize": {
                     "description": "The maximum individual queue size that an NVMe I/O controller supports.",
@@ -1186,6 +1197,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#StorageController.v1_7_3.StorageController"
+    "release": "2024.3",
+    "title": "#StorageController.v1_8_0.StorageController"
 }

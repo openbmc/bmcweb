@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Message.v1_2_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Message.v1_3_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -86,6 +86,26 @@
                     "readonly": true,
                     "type": "string",
                     "versionDeprecated": "v1_1_0"
+                },
+                "UserAuthenticationSource": {
+                    "description": "The source of authentication for the username property associated with the message.",
+                    "longDescription": "This property shall contain the URL to the authentication service that is associated with the username property.  This should be used for messages that result from a user action.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "Username": {
+                    "description": "The username of the account associated with the message.",
+                    "longDescription": "This property shall contain the username of the account associated with the message.  This should be used for messages that result from a user action.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
                 }
             },
             "required": [
@@ -96,6 +116,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.3",
-    "title": "#Message.v1_2_1"
+    "release": "2024.3",
+    "title": "#Message.v1_3_0"
 }
