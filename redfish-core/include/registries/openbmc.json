@@ -2,7 +2,7 @@
     "@Redfish.Copyright": "Copyright 2024 OpenBMC. All rights reserved.",
     "@odata.type": "#MessageRegistry.v1_4_0.MessageRegistry",
     "Description": "This registry defines the base messages for OpenBMC.",
-    "Id": "OpenBMC.0.5.0",
+    "Id": "OpenBMC.0.6.0",
     "Language": "en",
     "Messages": {
         "ADDDCCorrectable": {

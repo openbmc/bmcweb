@@ -20,7 +20,7 @@ namespace redfish::registries::openbmc
 const Header header = {
     "Copyright 2024 OpenBMC. All rights reserved.",
     "#MessageRegistry.v1_4_0.MessageRegistry",
-    "OpenBMC.0.5.0",
+    "OpenBMC.0.6.0",
     "OpenBMC Message Registry",
     "en",
     "This registry defines the base messages for OpenBMC.",
