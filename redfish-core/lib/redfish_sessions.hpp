@@ -129,7 +129,8 @@ inline void
         }
     }
 
-    if (session->cookieAuth)
+    if (req.session != nullptr && req.session->uniqueId == sessionId &&
+        session->cookieAuth)
     {
         bmcweb::clearSessionCookies(asyncResp->res);
     }
