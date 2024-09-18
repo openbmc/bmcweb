@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "624292df_b711f839",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "I\u0027m hesitant to add additional checking for the ChassisSubNode::thermalNode and ChassisSubNode::powerNode types. Those are deprecated and not used for our hardware so I have trouble regression testing changes there.\n\nAs this was originally coded the following branch could be taken even if (ChassisSubNode \u003d\u003d powerNode). (I.e. The chassisSubNode here was only ever checked for ChassisSubNode::sensorsNode. All other branches were determined by the sensorType instead.)\n\nI\u0027ll try to restructure without changing the existing checks to avoid regressing the deprecated paths.",
+      "parentUuid": "4cc3cb78_f4caadb5",
+      "range": {
+        "startLine": 409,
+        "startChar": 17,
+        "endLine": 409,
+        "endChar": 38
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0efd0ed_42dc48f0",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 15
@@ -54,6 +78,30 @@
       "writtenOn": "2024-09-13T22:25:25Z",
       "side": 1,
       "message": "I don\u0027t think isExcerptNode helps with complexity here given how simple it is, and how we\u0027re already doing compares here..  I keep having to refer to it to figure out which branches get hit;  Especially here, where we do isExcerptNode, then immediately check chassisSubNode !\u003d ChassisSubNode::thermalMetricsNode, which seems like it\u0027s the same compare just done twice?  I\u0027m not positive on that, but I suspect just inlining that helper would make this more clear.",
+      "range": {
+        "startLine": 445,
+        "startChar": 8,
+        "endLine": 445,
+        "endChar": 21
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "111f8a68_80bef85b",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "Yes I see how this code structure is not clear.\n\nI was trying to code this to make it easier in the future if a sensor excerpt later included some of these properties from a sensor. I wanted any of the excerpts to take the same path as the ChassisSubNode::sensorsNode and then do additional checking to control which properties were actually included.\n\nFor ThermalMetrics, TemperatureReadingsCelsius the only property being retrieved for the excerpt is the \"Reading\" value. Most of this function is not needed for this sensor excerpt. (The schema defines other properties which we are not including. Additionally some of the other sensor excerpts define multiple properties.)\n\nI will restructure this to try to make it clearer for what is being done today. If other properties are included for sensor excerpts in the future it can be addressed at that point how best to add them clearly.",
+      "parentUuid": "e0efd0ed_42dc48f0",
       "range": {
         "startLine": 445,
         "startChar": 8,
@@ -89,6 +137,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc832d7f_d9894b1d",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "From my understanding of the schemas involved the excerpt properties don\u0027t contain a type:\n\n- The @odata.type is a defined and required property of ThermalMetrics (https://redfish.dmtf.org/schemas/v1/ThermalMetrics.v1_0_1.json). That is being set in existing function doThermalMetrics().\n\n- The SensorArrayExcerpt properties don\u0027t include @odata.type in the schema (http://redfish.dmtf.org/schemas/v1/Sensor.v1_9_0.json#/definitions/SensorArrayExcerpt).\n\n- One of the mockups which has ThermalMetrics also only show the @odata.type as a property of ThermalMetrics but not the excerpts. (https://redfish.dmtf.org/redfish/mockups/v1/1448  Follow links to -\u003e https://redfish.dmtf.org/redfish/mockups/v1/1448#Chassis--1U--ThermalSubsystem--ThermalMetrics)",
+      "parentUuid": "a44f5f76_ad23af14",
+      "range": {
+        "startLine": 450,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 64
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cca3c60f_8cb194cc",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 15
@@ -100,6 +172,24 @@
       "writtenOn": "2024-09-13T22:25:25Z",
       "side": 1,
       "message": "I suspect here is where the\n\nif (chassisSubNode !\u003d ChassisSubNode::thermalMetricsNode){\n\nshould go.",
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a8d9047_e6446c9a",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "I\u0027ve restructured for clarity. I\u0027ve moved the check for excerpts to the equivalent location for each of these if/else blocks.",
+      "parentUuid": "cca3c60f_8cb194cc",
       "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -176,6 +266,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e725194f_313fa49f",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "This is one of the places I was coding for the future.\n\nThe fan_tach SpeedRPM property is set in here and would also be part of a fan excerpt. (Ignoring the percentage problems for the moment.)\n\nSo I thought for the future it would make sense for the excerpts to take this same branch and then within this branch adjust which properties are being included.\n\nI\u0027m restructuring based on what is needed today and will leave the handling of future excerpts for when those commits are coded.\n\nI\u0027ve added a local bool variable isExcerpt() that is determined from the chassisSubNode. I\u0027d like to keep the isExcerptNode() utility function as it can be unit tested and there should be other excerpt subnode types added in the future.",
+      "parentUuid": "ed7c2d43_6277c60f",
+      "range": {
+        "startLine": 542,
+        "startChar": 0,
+        "endLine": 546,
+        "endChar": 9
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df8d1538_1bed4a6f",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 15
@@ -187,6 +301,30 @@
       "writtenOn": "2024-09-13T22:25:25Z",
       "side": 1,
       "message": "Why does this need to be an argument at this point?  It\u0027s only ever ThermalSubsystem",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 34
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51c68126_35b299e1",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "I was setting this up for more sensor excerpts coming in future commits.\n\nI thought it would be easiest to go ahead and set this function up to be generic so it could handle other ChassisSubNode excerpt types as well. (E.g. EnvironmentMetrics)\n\nOkay with that approach, or would you rather I remove the parameter now and add it when I work on those other commits?",
+      "parentUuid": "df8d1538_1bed4a6f",
       "range": {
         "startLine": 669,
         "startChar": 0,
@@ -222,6 +360,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fb3c7095_c1f8217d",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "For the sensor excerpt paths we have the D-Bus path not the Redfish sensor URI path to the sensor.\n\nThe Redfish schemas for the sensor excerpts define the \"DataSourceUri\" to the Redfish URI for the sensor used to obtain the properties being excerpted.\n\nThe objectPropertiesToJson() function expects sensorType and sensorName rather than the D-Bus path.\n\nSo I decided it would be cleanest to add a wrapper for the sensor excerpts. The goal is to have a common place to set the \"DataSourceUri\" consistently for the excerpts. I also decided to call objectPropertiesToJson() here since it already had to determine the sensorName and sensorType in order to set the \"DataSourceUri\".\n\nI\u0027ll add a bit more to the comments for the function to help clarify.",
+      "parentUuid": "b69a8ea3_2e19ad0e",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 695,
+        "endChar": 5
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6707c87_034703c1",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 15
@@ -233,6 +395,30 @@
       "writtenOn": "2024-09-13T22:25:25Z",
       "side": 1,
       "message": "pass callbacks by std::move and \u0026\u0026 please",
+      "range": {
+        "startLine": 715,
+        "startChar": 4,
+        "endLine": 715,
+        "endChar": 64
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bae4352_66f09de6",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6707c87_034703c1",
       "range": {
         "startLine": 715,
         "startChar": 4,
@@ -268,6 +454,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6376dead_05ad7a9b",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "That makes a lot of sense. I\u0027ve corrected this to follow this rule.",
+      "parentUuid": "e87fe3e5_683954e3",
+      "range": {
+        "startLine": 727,
+        "startChar": 0,
+        "endLine": 727,
+        "endChar": 15
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fcd044f0_7ff103a9",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 15
@@ -291,6 +501,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "898cad13_d42e9f15",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "I\u0027ve changed it although to get it to compile and clang-tidy to not complain I had to get rid of the std::bind_front() here and replace it with a lambda.\n\nclang-tidy complained about the const and std::move() so I removed the const qualifier for the callback as well.",
+      "parentUuid": "fcd044f0_7ff103a9",
+      "range": {
+        "startLine": 747,
+        "startChar": 0,
+        "endLine": 747,
+        "endChar": 64
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ca128ed0_7408c45f",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 15
@@ -302,6 +536,24 @@
       "writtenOn": "2024-09-13T22:25:25Z",
       "side": 1,
       "message": "We\u0027re initting this and count a little early here;  We should only init after we know the mapper hasn\u0027t errored, otherwise we\u0027ll return an empty array when really we should\u0027ve returned an error only (no empty array).",
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e3bbbaf_de21598c",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-18T13:14:25Z",
+      "side": 1,
+      "message": "Good point, I\u0027ve moved this into handleTemperatureReadingsCelsius()",
+      "parentUuid": "ca128ed0_7408c45f",
       "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
