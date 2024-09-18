@@ -34,6 +34,24 @@
       "parentUuid": "33143daa_ee0d5848",
       "revId": "f06dfdb359fa8c92f10d9c85474b74637a819ed5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81bfb999_22c960a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-09-18T03:19:31Z",
+      "side": 1,
+      "message": "The \"default interfaces\" were introduced https://github.com/openbmc/phosphor-objmgr/commit/70461896775208bbe400cc23786ce4d17a0c07f7\n\nI guess it was \"intended behavior\" to add the default interfaces to the parent objects.  @geissonator Do you know why?\n\nBut I agree with @Ed that the default interfaces shall not be added to the parent objects, because such objects do not really implement such interfaces, and cause the issue described here.\n\nAlso + @stwcx, could you weigh in and see if we should remove the default interfaces added in object mapper?",
+      "parentUuid": "36450ba6_fb19778b",
+      "revId": "f06dfdb359fa8c92f10d9c85474b74637a819ed5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
