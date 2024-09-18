@@ -101,7 +101,7 @@ inline void
         }
     }
 
-    if (!asyncResp->res.openFile(file.absolutePath))
+    if (asyncResp->res.openFile(file.absolutePath) != crow::OpenCode::Success)
     {
         BMCWEB_LOG_DEBUG("failed to read file");
         asyncResp->res.result(

@@ -24,6 +24,13 @@ class Connection;
 
 namespace http = boost::beast::http;
 
+enum class OpenCode
+{
+    Success,
+    FileDoesNotExist,
+    InternalError,
+};
+
 struct Response
 {
     template <typename Adaptor, typename Handler>
@@ -291,18 +298,23 @@ struct Response
         expectedHash = hash;
     }
 
-    bool openFile(const std::filesystem::path& path,
-                  bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
+    OpenCode openFile(const std::filesystem::path& path,
+                      bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)
     {
         boost::beast::error_code ec;
         response.body().open(path.c_str(), boost::beast::file_mode::read, ec);
         response.body().encodingType = enc;
         if (ec)
         {
-            BMCWEB_LOG_ERROR("Failed to open file {}", path.c_str());
-            return false;
+            BMCWEB_LOG_ERROR("Failed to open file {}, ec={}", path.c_str(),
+                             ec.value());
+            if (ec.value() == boost::system::errc::no_such_file_or_directory)
+            {
+                return OpenCode::FileDoesNotExist;
+            }
+            return OpenCode::InternalError;
         }
-        return true;
+        return OpenCode::Success;
     }
 
     bool openFd(int fd, bmcweb::EncodingType enc = bmcweb::EncodingType::Raw)

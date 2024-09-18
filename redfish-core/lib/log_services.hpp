@@ -4861,7 +4861,8 @@ inline void requestRoutesCrashdumpFile(App& app)
                 return;
             }
 
-            if (!asyncResp->res.openFile(dbusFilepath))
+            if (asyncResp->res.openFile(dbusFilepath) !=
+                crow::OpenCode::Success)
             {
                 messages::resourceNotFound(asyncResp->res, "LogEntry", logID);
                 return;

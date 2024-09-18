@@ -2564,7 +2564,7 @@ inline void requestRoutes(App& app)
 
         for (const auto& file : files)
         {
-            if (!asyncResp->res.openFile(file))
+            if (asyncResp->res.openFile(file) != crow::OpenCode::Success)
             {
                 continue;
             }
