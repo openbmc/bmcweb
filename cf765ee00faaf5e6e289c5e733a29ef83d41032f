@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a8cfd0a_845438e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:52:19Z",
+      "side": 1,
+      "message": "seems reasonable to me. Some minor comments",
+      "revId": "cf765ee00faaf5e6e289c5e733a29ef83d41032f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "707224eb_f5d0c715",
+        "filename": "Redfish.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:52:19Z",
+      "side": 1,
+      "message": "interesting it was already there.",
+      "revId": "cf765ee00faaf5e6e289c5e733a29ef83d41032f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aef6260_14e5511c",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:52:19Z",
+      "side": 1,
+      "message": "seems like a lot of repeated code here.. Oh well :/",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 67
+      },
+      "revId": "cf765ee00faaf5e6e289c5e733a29ef83d41032f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d714532_03726325",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:52:19Z",
+      "side": 1,
+      "message": "include format",
+      "revId": "cf765ee00faaf5e6e289c5e733a29ef83d41032f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21b0aa46_bfac59ef",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:52:19Z",
+      "side": 1,
+      "message": "include string",
+      "revId": "cf765ee00faaf5e6e289c5e733a29ef83d41032f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d669a610_672943d8",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:52:19Z",
+      "side": 1,
+      "message": "messageId",
+      "range": {
+        "startLine": 353,
+        "startChar": 34,
+        "endLine": 353,
+        "endChar": 44
+      },
+      "revId": "cf765ee00faaf5e6e289c5e733a29ef83d41032f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f40175a0_051b46bf",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:52:19Z",
+      "side": 1,
+      "message": "originOfCondition",
+      "range": {
+        "startLine": 381,
+        "startChar": 34,
+        "endLine": 381,
+        "endChar": 44
+      },
+      "revId": "cf765ee00faaf5e6e289c5e733a29ef83d41032f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78b278a5_4dfa6e97",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:52:19Z",
+      "side": 1,
+      "message": "include vector",
+      "revId": "cf765ee00faaf5e6e289c5e733a29ef83d41032f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
