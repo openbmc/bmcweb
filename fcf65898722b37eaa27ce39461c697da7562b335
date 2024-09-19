@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48813474_33ba5964",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:44:46Z",
+      "side": 1,
+      "message": "Right now, it looks like any user with ConfigureSelf can do this action",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d12146b0_111ecc57",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:44:46Z",
+      "side": 1,
+      "message": "Oh well, this was wrong before. \nWARNING, user error right? propertyValueFormatError is a client error",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6a24c3dc_c32d2dcb",
@@ -14,6 +48,23 @@
       "writtenOn": "2024-09-19T03:18:13Z",
       "side": 1,
       "message": "why don\u0027t you use setDbusProperty? similar to RoleId",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f00ed99c_57bb5498",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1536,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:44:46Z",
+      "side": 1,
+      "message": "add the ec here, otherwise this trace isn\u0027t very valuable",
       "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -48,6 +99,23 @@
       "writtenOn": "2024-09-19T03:18:13Z",
       "side": 1,
       "message": "don\u0027t we implement VerifyTimeBasedOneTimePassword ?",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b41909a_0bde9595",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2591,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-09-19T19:44:46Z",
+      "side": 1,
+      "message": "So we think a user should be able to do this for their account?\n\nDon\u0027t you need all the checking https://github.com/openbmc/bmcweb/blob/8812e8becaf44d810e68ed80692c2797b2f114ac/redfish-core/lib/account_service.hpp#L2168 has?\n\n    bool userSelf \u003d (username \u003d\u003d req.session-\u003eusername);\n\n    Privileges effectiveUserPrivileges \u003d\n        redfish::getUserPrivileges(*req.session);\n    Privileges configureUsers \u003d {\"ConfigureUsers\"};\n    bool userHasConfigureUsers \u003d\n        effectiveUserPrivileges.isSupersetOf(configureUsers);\n    if (userHasConfigureUsers)\n    {\n        // Users with ConfigureUsers can modify for all users\n        if (!json_util::readJsonPatch(\n                req, asyncResp-\u003eres, \"UserName\", newUserName, \"Password\",\n                password, \"RoleId\", roleId, \"Enabled\", enabled, \"Locked\",\n                locked, \"AccountTypes\", accountTypes))\n        {\n            return;\n        }\n    }\n    else\n    {\n        // ConfigureSelf accounts can only modify their own account\n        if (!userSelf)\n        {\n            messages::insufficientPrivilege(asyncResp-\u003eres);\n            return;\n        }",
       "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
