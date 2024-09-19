@@ -34,6 +34,24 @@
       "parentUuid": "600693f2_b3e5d143",
       "revId": "6780929838b0355da7810bed525550a2ee06a364",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df023643_afa4e2c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-19T05:19:50Z",
+      "side": 1,
+      "message": "After git commit --amend \nI kept the vi editor open for long. \nAfter ssh connection timeout , I tried git commit --amend again that created some issue with residues from previous commit. \npush after resolving it created duplicate gerrit id.",
+      "parentUuid": "7d4dcadd_340ee005",
+      "revId": "6780929838b0355da7810bed525550a2ee06a364",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
