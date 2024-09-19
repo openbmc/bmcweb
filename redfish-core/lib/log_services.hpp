@@ -30,6 +30,7 @@ limitations under the License.
 #include "registries/privilege_registry.hpp"
 #include "task.hpp"
 #include "task_messages.hpp"
+#include "utils/dbus_event_log_entry.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
@@ -1418,29 +1419,8 @@ inline void fillEventLogLogEntryFromPropertyMap(
     const dbus::utility::DBusPropertiesMap& resp,
     nlohmann::json& objectToFillOut)
 {
-    uint32_t id = 0;
-    uint64_t timestamp = 0;
-    uint64_t updateTimestamp = 0;
-    std::string severity;
-    std::string message;
-    const std::string* filePath = nullptr;
-    const std::string* resolution = nullptr;
-    bool resolved = false;
-    std::string notify;
-    // clang-format off
-    bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), resp,
-        "Id", id,
-        "Message", message,
-        "Path", filePath,
-        "Resolution", resolution,
-        "Resolved", resolved,
-        "ServiceProviderNotify", notify,
-        "Severity", severity,
-        "Timestamp", timestamp,
-        "UpdateTimestamp", updateTimestamp
-    );
-    // clang-format on
+    DbusEventLogEntry entry;
+    bool success = fillDbusEventLogEntryFromPropertyMap(resp, entry);
 
     if (!success)
     {
@@ -1451,31 +1431,33 @@ inline void fillEventLogLogEntryFromPropertyMap(
     objectToFillOut["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
     objectToFillOut["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(id));
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(entry.Id));
     objectToFillOut["Name"] = "System Event Log Entry";
-    objectToFillOut["Id"] = std::to_string(id);
-    objectToFillOut["Message"] = message;
-    objectToFillOut["Resolved"] = resolved;
-    std::optional<bool> notifyAction = getProviderNotifyAction(notify);
+    objectToFillOut["Id"] = std::to_string(entry.Id);
+    objectToFillOut["Message"] = entry.Message;
+    objectToFillOut["Resolved"] = entry.Resolved;
+    std::optional<bool> notifyAction =
+        getProviderNotifyAction(entry.ServiceProviderNotify);
     if (notifyAction)
     {
         objectToFillOut["ServiceProviderNotified"] = *notifyAction;
     }
-    if ((resolution != nullptr) && !resolution->empty())
+    if ((entry.Resolution != nullptr) && !entry.Resolution->empty())
     {
-        objectToFillOut["Resolution"] = *resolution;
+        objectToFillOut["Resolution"] = *entry.Resolution;
     }
     objectToFillOut["EntryType"] = "Event";
-    objectToFillOut["Severity"] = translateSeverityDbusToRedfish(severity);
+    objectToFillOut["Severity"] =
+        translateSeverityDbusToRedfish(entry.Severity);
     objectToFillOut["Created"] =
-        redfish::time_utils::getDateTimeUintMs(timestamp);
+        redfish::time_utils::getDateTimeUintMs(entry.Timestamp);
     objectToFillOut["Modified"] =
-        redfish::time_utils::getDateTimeUintMs(updateTimestamp);
-    if (filePath != nullptr)
+        redfish::time_utils::getDateTimeUintMs(entry.UpdateTimestamp);
+    if (entry.Path != nullptr)
     {
         objectToFillOut["AdditionalDataURI"] = boost::urls::format(
             "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}/attachment",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(id));
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(entry.Id));
     }
 }
 
