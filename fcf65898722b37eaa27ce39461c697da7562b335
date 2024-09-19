@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a24c3dc_c32d2dcb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-19T03:18:13Z",
+      "side": 1,
+      "message": "why don\u0027t you use setDbusProperty? similar to RoleId",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7fa45f9_f3de8f9a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2461,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-19T03:18:13Z",
+      "side": 1,
+      "message": "This is no more valid. Now Create secret key return secret key. Not file fd.",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "362e7e10_a08ab116",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2505,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-19T03:18:13Z",
+      "side": 1,
+      "message": "don\u0027t we implement VerifyTimeBasedOneTimePassword ?",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
