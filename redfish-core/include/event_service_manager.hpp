@@ -277,6 +277,34 @@ class Subscription
 
     ~Subscription() = default;
 
+    // callback for subscription sendData
+    void resHandler(const crow::Response& res)
+    {
+        BMCWEB_LOG_DEBUG("Response handled with return code: {}",
+                         res.resultInt());
+
+        if (!client)
+        {
+            BMCWEB_LOG_ERROR(
+                "Http client wasn't filled but http client callback was called.");
+            return;
+        }
+
+        if (userSub.retryPolicy != "TerminateAfterRetries")
+        {
+            return;
+        }
+        if (client->isTerminated())
+        {
+            BMCWEB_LOG_INFO("Subscription {} is deleted after MaxRetryAttempts",
+                            userSub.id);
+            if (deleter)
+            {
+                deleter();
+            }
+        }
+    }
+
     bool sendEventToSubscriber(std::string&& msg)
     {
         persistent_data::EventServiceConfig eventServiceConfig =
@@ -289,11 +317,16 @@ class Subscription
 
         if (client)
         {
-            client->sendData(std::move(msg), userSub.destinationUrl,
-                             static_cast<ensuressl::VerifyCertificate>(
-                                 userSub.verifyCertificate),
-                             userSub.httpHeaders,
-                             boost::beast::http::verb::post);
+            auto resEvtHandler = [this](const crow::Response& res) {
+                resHandler(res);
+            };
+
+            client->sendDataWithCallback(
+                std::move(msg), userSub.destinationUrl,
+                static_cast<ensuressl::VerifyCertificate>(
+                    userSub.verifyCertificate),
+                userSub.httpHeaders, boost::beast::http::verb::post,
+                resEvtHandler);
             return true;
         }
 
@@ -476,6 +509,7 @@ class Subscription
     }
 
     persistent_data::UserSubscription userSub;
+    std::function<void()> deleter;
 
   private:
     uint64_t eventSeqNum = 1;
@@ -564,8 +598,12 @@ class EventServiceManager
             }
             std::shared_ptr<Subscription> subValue =
                 std::make_shared<Subscription>(newSub, *url, ioc);
+            std::string id = subValue->userSub.id;
+            subValue->deleter = [id]() {
+                EventServiceManager::getInstance().deleteSubscription(id);
+            };
 
-            subscriptionsMap.insert(std::pair(subValue->userSub.id, subValue));
+            subscriptionsMap.emplace(id, subValue);
 
             updateNoOfSubscribersCount();
 

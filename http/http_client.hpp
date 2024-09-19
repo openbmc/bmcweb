@@ -841,6 +841,27 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         // Initialize the pool with a single connection
         addConnection();
     }
+
+    // Check whether all connections are terminated
+    bool areAllConnectionsTerminated()
+    {
+        if (connections.empty())
+        {
+            BMCWEB_LOG_DEBUG("There are no connections for pool id:{}", id);
+            return false;
+        }
+        for (const auto& conn : connections)
+        {
+            if (conn != nullptr && conn->state != ConnState::terminated)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Not all connections of pool id:{} are terminated", id);
+                return false;
+            }
+        }
+        BMCWEB_LOG_INFO("All connections of pool id:{} are terminated", id);
+        return true;
+    }
 };
 
 class HttpClient
@@ -913,6 +934,23 @@ class HttpClient
         // newly created connection pool
         pool.first->second->sendData(std::move(data), destUrl, httpHeader, verb,
                                      resHandler);
+    }
+
+    // Test whether all connections are terminated (after MaxRetryAttempts)
+    bool isTerminated()
+    {
+        for (const auto& pool : connectionPools)
+        {
+            if (pool.second != nullptr &&
+                !pool.second->areAllConnectionsTerminated())
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Not all of client connections are terminated");
+                return false;
+            }
+        }
+        BMCWEB_LOG_DEBUG("All client connections are terminated");
+        return true;
     }
 };
 } // namespace crow
