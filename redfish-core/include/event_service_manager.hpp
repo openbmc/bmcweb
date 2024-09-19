@@ -265,6 +265,10 @@ inline int formatEventLogEntry(
 
 } // namespace event_log
 
+// forward definition
+static void subscriptionResHandler(const std::string& subId,
+                                   const crow::Response& res);
+
 class Subscription : public persistent_data::UserSubscription
 {
   public:
@@ -289,6 +293,16 @@ class Subscription : public persistent_data::UserSubscription
 
     ~Subscription() = default;
 
+    // Check whether the subscription should be terminated after MaxRetries
+    bool isClientTerminated()
+    {
+        if (client && retryPolicy == "TerminateAfterRetries")
+        {
+            return client->isTerminated();
+        }
+        return false;
+    }
+
     bool sendEventToSubscriber(std::string&& msg)
     {
         persistent_data::EventServiceConfig eventServiceConfig =
@@ -301,10 +315,13 @@ class Subscription : public persistent_data::UserSubscription
 
         if (client)
         {
-            client->sendData(
+            std::function<void(crow::Response&)> cb =
+                std::bind_front(redfish::subscriptionResHandler, subId);
+
+            client->sendDataWithCallback(
                 std::move(msg), destinationUrl,
                 static_cast<ensuressl::VerifyCertificate>(verifyCertificate),
-                httpHeaders, boost::beast::http::verb::post);
+                httpHeaders, boost::beast::http::verb::post, cb);
             return true;
         }
 
@@ -1426,5 +1443,22 @@ class EventServiceManager
             *crow::connections::systemBus, matchStr, getReadingsForReport);
     }
 };
+
+// callback for subscription sendData
+static void subscriptionResHandler(const std::string& subId,
+                                   const crow::Response& res)
+{
+    BMCWEB_LOG_DEBUG("Response handled with return code: {}", res.resultInt());
+
+    std::shared_ptr<Subscription> subValue =
+        EventServiceManager::getInstance().getSubscription(subId);
+    if (subValue != nullptr && subValue->isClientTerminated())
+    {
+        // Q: should this be INFO or CRITICAL?
+        BMCWEB_LOG_ERROR(" Subscription {} is deleted after MaxRetryAttempts",
+                         subId);
+        EventServiceManager::getInstance().deleteSubscription(subId);
+    }
+}
 
 } // namespace redfish
