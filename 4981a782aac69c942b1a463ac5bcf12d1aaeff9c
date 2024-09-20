@@ -114,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3a3226d_c2912944",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-20T05:17:22Z",
+      "side": 1,
+      "message": "Done . No need of it now. Token is removed",
+      "parentUuid": "e605e8f1_5711b6f7",
+      "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7486bb3f_8521ebff",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 1
@@ -125,6 +143,24 @@
       "writtenOn": "2024-09-17T18:33:57Z",
       "side": 1,
       "message": "include memory",
+      "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eaf0690_a50cc1e0",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-20T05:17:22Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "7486bb3f_8521ebff",
       "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -195,6 +231,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4de6c5c3_754e46fd",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-20T05:17:22Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "ffe065f4_de131bf3",
+      "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a46f12a_cc7f055e",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 1
@@ -206,6 +260,24 @@
       "writtenOn": "2024-09-17T18:33:57Z",
       "side": 1,
       "message": "#include \u003cformat\u003e",
+      "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ec0a2cf_397619af",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-20T05:17:22Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "1a46f12a_cc7f055e",
       "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
