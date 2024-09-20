@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "66c41557_0e594638",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-20T15:46:42Z",
+      "side": 1,
+      "message": "Would it make sense to have a unit test for fillEventLogLogEntryFromPropertyMap?",
+      "revId": "a3cdeb5f427e2b68d37255e71e66b4d5b54831f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "36fb020d_f4d5afc1",
