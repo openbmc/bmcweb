@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "af5b9272_c21ff54d",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-20T05:19:07Z",
+      "side": 1,
+      "message": "I was trying function style similar to https://en.cppreference.com/w/cpp/utility/optional. \nChanged the code to bmcweb convention.\ndone",
+      "parentUuid": "f558fca6_0c3c785a",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "4981a782aac69c942b1a463ac5bcf12d1aaeff9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e605e8f1_5711b6f7",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 1
