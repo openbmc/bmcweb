@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bdcb2ab_06bda774",
+        "filename": "redfish-core/include/dbus_event_log_entry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-09-20T08:59:32Z",
+      "side": 1,
+      "message": "moved it there 👍",
+      "parentUuid": "224afc85_7279cc21",
+      "revId": "1b69199242b9742db32426619fbf313096d1bc39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a99994f6_f06d5711",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-09-19T19:33:20Z",
       "side": 1,
       "message": "Why only some of these?\n\n    uint32_t id \u003d 0;\n    uint64_t timestamp \u003d 0;\n    uint64_t updateTimestamp \u003d 0;\n    std::string severity;\n    std::string message;\n    const std::string* filePath \u003d nullptr;\n    const std::string* resolution \u003d nullptr;\n    bool resolved \u003d false;\n    std::string notify;\n\nwas the old code",
+      "revId": "1b69199242b9742db32426619fbf313096d1bc39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58803578_74e0507e",
+        "filename": "redfish-core/include/dbus_event_log_entry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-09-20T08:59:32Z",
+      "side": 1,
+      "message": "Added the initialization for the other struct members where it is required.\nFor the strings it should not be required.",
+      "parentUuid": "a99994f6_f06d5711",
       "revId": "1b69199242b9742db32426619fbf313096d1bc39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
