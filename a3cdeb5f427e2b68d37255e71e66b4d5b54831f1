@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36fb020d_f4d5afc1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-20T15:30:30Z",
+      "side": 1,
+      "message": "Overall looks good.  Just a couple duplicated inits that need cleaned up and a couple minor interface changes then this should be good.",
+      "revId": "a3cdeb5f427e2b68d37255e71e66b4d5b54831f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d0566fb_2818a3ac",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-20T15:30:30Z",
+      "side": 1,
+      "message": "generally we would do \"\u003d 0\" because it\u0027s more clear.\n\nsame thing with the pointers we\u0027d do \u003d nullptr.",
+      "range": {
+        "startLine": 15,
+        "startChar": 15,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "a3cdeb5f427e2b68d37255e71e66b4d5b54831f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "630777eb_c4faf5e2",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-20T15:30:30Z",
+      "side": 1,
+      "message": "Could we instead just return a std::optional\u003cDbusEventLogEntry\u003e ?\n\nI think that avoids a lot of the duplicated variable init below if we do that, because the variables are already initted in the struct itself.",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 26,
+        "endChar": 11
+      },
+      "revId": "a3cdeb5f427e2b68d37255e71e66b4d5b54831f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
