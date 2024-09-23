@@ -2471,6 +2471,66 @@ inline void
         });
 }
 
+inline void handleManagerAccountVerifyTotpAction(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        // If authentication is disabled, there are no user accounts
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
+        return;
+    }
+
+    bool userSelf =
+        (req.session != nullptr && username == req.session->username);
+    if (!userSelf)
+    {
+        messages::insufficientPrivilege(asyncResp->res);
+        return;
+    }
+
+    std::string totp;
+    if (!json_util::readJsonAction(req, asyncResp->res,
+                                   "TimeBasedOneTimePassword", totp))
+    {
+        messages::actionParameterMissing(
+            asyncResp->res, "ManagerAccount.VerifyTimeBasedOneTimePassword",
+            "TimeBasedOneTimePassword");
+        return;
+    }
+    sdbusplus::message::object_path tempObjPath("/xyz/openbmc_project/user/");
+    tempObjPath /= username;
+    const std::string userPath(tempObjPath);
+    crow::connections::systemBus->async_method_call(
+        [asyncResp,
+         username](const boost::system::error_code& ec, bool status) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (!status)
+            {
+                messages::actionParameterValueError(
+                    asyncResp->res,
+                    "ManagerAccount.VerifyTimeBasedOneTimePassword",
+                    "TimeBasedOneTimePassword");
+                return;
+            }
+            messages::success(asyncResp->res);
+            return;
+        },
+        "xyz.openbmc_project.User.Manager", userPath,
+        "xyz.openbmc_project.User.TOTPAuthenticator", "VerifyOTP", totp);
+}
+
 inline void requestAccountServiceRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
@@ -2560,6 +2620,13 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges({{"ConfigureSelf"}})
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleGenerateSecretKey, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/AccountService/Accounts/<str>/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword")
+        .privileges({{"ConfigureSelf"}})
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleManagerAccountVerifyTotpAction, std::ref(app)));
 }
 
 } // namespace redfish
