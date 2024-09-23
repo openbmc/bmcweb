@@ -749,7 +749,7 @@ void resetRequired(crow::Response& res, const boost::urls::url_view_base& arg1,
  */
 nlohmann::json chassisPowerStateOnRequired(std::string_view arg1)
 {
-    return getLog(redfish::registries::base::Index::resetRequired,
+    return getLog(redfish::registries::base::Index::chassisPowerStateOnRequired,
                   std::to_array({arg1}));
 }
 
