@@ -2285,6 +2285,18 @@ inline void
                 "/redfish/v1/AccountService/Accounts/{}", accountName);
             asyncResp->res.jsonValue["Id"] = accountName;
             asyncResp->res.jsonValue["UserName"] = accountName;
+	    asyncResp->res
+                .jsonValue["Actions"]
+                          ["#ManagerAccount.GenerateSecretKey"]
+                          ["target"] = std::format(
+                "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.GenerateSecretKey",
+                accountName);
+            asyncResp->res
+                .jsonValue["Actions"]
+                          ["#ManagerAccount.VerifyTimeBasedOneTimePassword"]
+                          ["target"] = std::format(
+                "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword",
+                accountName);
         });
 }
 
@@ -2541,6 +2553,77 @@ inline void
         });
 }
 
+inline void handleManagerAccountVerifyTotpAction(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        // If authentication is disabled, there are no user accounts
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
+        return;
+    }
+
+    if (req.session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    bool userSelf = (username == req.session->username);
+
+    Privileges effectiveUserPrivileges =
+        redfish::getUserPrivileges(*req.session);
+    Privileges configureUsers = {"ConfigureUsers"};
+    bool userHasConfigureUsers =
+        effectiveUserPrivileges.isSupersetOf(configureUsers);
+
+    if (!userHasConfigureUsers && !userSelf)
+    {
+        messages::insufficientPrivilege(asyncResp->res);
+        return;
+    }
+
+    std::string totp;
+    if (!json_util::readJsonAction(req, asyncResp->res,
+                                   "TimeBasedOneTimePassword", totp))
+    {
+        messages::actionParameterMissing(
+            asyncResp->res, "ManagerAccount.VerifyTimeBasedOneTimePassword",
+            "TimeBasedOneTimePassword");
+        return;
+    }
+    sdbusplus::message::object_path tempObjPath("/xyz/openbmc_project/user/");
+    tempObjPath /= username;
+    const std::string userPath(tempObjPath);
+    crow::connections::systemBus->async_method_call(
+        [asyncResp,
+         username](const boost::system::error_code& ec, bool status) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("D-Bus response error: {}", ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (!status)
+            {
+                messages::actionParameterValueError(
+                    asyncResp->res,
+                    "ManagerAccount.VerifyTimeBasedOneTimePassword",
+                    "TimeBasedOneTimePassword");
+                return;
+            }
+            messages::success(asyncResp->res);
+        },
+        "xyz.openbmc_project.User.Manager", userPath,
+        "xyz.openbmc_project.User.TOTPAuthenticator", "VerifyOTP", totp);
+}
+
 inline void requestAccountServiceRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
@@ -2632,6 +2715,13 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges(redfish::privileges::postManagerAccount)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleGenerateSecretKey, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/AccountService/Accounts/<str>/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword")
+        .privileges(redfish::privileges::postManagerAccount)
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleManagerAccountVerifyTotpAction, std::ref(app)));
 }
 
 } // namespace redfish
