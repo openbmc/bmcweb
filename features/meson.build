@@ -1,0 +1,7 @@
+subdir('google')
+subdir('ibm')
+subdir('kvm')
+subdir('openbmc_rest')
+subdir('serial')
+subdir('virtual_media')
+subdir('webui_login')
