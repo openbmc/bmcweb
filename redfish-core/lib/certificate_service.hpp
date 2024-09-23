@@ -465,6 +465,26 @@ inline void handleCertificateLocationsGet(
                        "/Links/Certificates@odata.count"_json_pointer);
 }
 
+inline void handleError(const std::string_view dbusErrorName,
+                        const std::string& id, const std::string& certificate,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (dbusErrorName == "org.freedesktop.DBus.Error.UnknownObject")
+    {
+        messages::resourceNotFound(asyncResp->res, "Certificate", id);
+    }
+    else if (dbusErrorName ==
+             "xyz.openbmc_project.Certs.Error.InvalidCertificate")
+    {
+        messages::propertyValueIncorrect(asyncResp->res, "Certificate",
+                                         certificate);
+    }
+    else
+    {
+        messages::internalError(asyncResp->res);
+    }
+}
+
 inline void handleReplaceCertificateAction(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -549,25 +569,27 @@ inline void handleReplaceCertificateAction(
     std::shared_ptr<CertificateFile> certFile =
         std::make_shared<CertificateFile>(certificate);
     crow::connections::systemBus->async_method_call(
-        [asyncResp, certFile, objectPath, service, url{*parsedUrl}, id,
-         name](const boost::system::error_code& ec) {
-            if (ec)
+        [asyncResp, certFile, objectPath, service, url{*parsedUrl}, id, name,
+         certificate](const boost::system::error_code& ec,
+                      sdbusplus::message::message& m) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
+            const sd_bus_error* dbusError = m.get_error();
+            if (dbusError && dbusError->name)
             {
-                BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
-                if (ec.value() ==
-                    boost::system::linux_error::bad_request_descriptor)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Certificate",
-                                               id);
-                    return;
-                }
-                messages::internalError(asyncResp->res);
-                return;
+                handleError(dbusError->name, id, certificate, asyncResp);
             }
-            getCertificateProperties(asyncResp, objectPath, service, id, url,
-                                     name);
-            BMCWEB_LOG_DEBUG("HTTPS certificate install file={}",
-                             certFile->getCertFilePath());
+            else
+            {
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+        getCertificateProperties(asyncResp, objectPath, service, id, url,
+                                       name);
+        BMCWEB_LOG_DEBUG("HTTPS certificate install file={}",
+                               certFile->getCertFilePath());
         },
         service, objectPath, certs::certReplaceIntf, "Replace",
         certFile->getCertFilePath());
