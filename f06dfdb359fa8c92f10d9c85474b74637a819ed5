@@ -70,6 +70,24 @@
       "parentUuid": "81bfb999_22c960a3",
       "revId": "f06dfdb359fa8c92f10d9c85474b74637a819ed5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56a8b514_d5413cb5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-09-23T09:14:28Z",
+      "side": 1,
+      "message": "I tried to remove the \"default interfaces\" in phosphor-objmgr, and it\u0027s found that it may not be the correct way.\n\nHere are the details:\n1. D-Bus does implement the default interfaces on any object path, e.g.\n```bash\n busctl introspect xyz.openbmc_project.Software.BMC.Updater /xyz\nNAME                                TYPE      SIGNATURE RESULT/VALUE FLAGS\norg.freedesktop.DBus.Introspectable interface -         -            -\n.Introspect                         method    -         s            -\norg.freedesktop.DBus.Peer           interface -         -            -\n.GetMachineId                       method    -         s            -\n.Ping                               method    -         -            -\norg.freedesktop.DBus.Properties     interface -         -            -\n.Get                                method    ss        v            -\n.GetAll                             method    s         a{sv}        -\n.Set                                method    ssv       -            -\n.PropertiesChanged                  signal    sa{sv}as  -            -\n```\nIt applies to all the parent object path until `/`.\nThis means the mapper is \"valid\" to add default interfaces in its map.\n\n2. If we do remove the default interfaces in the mapper, this results in the below behavior:\n```bash\n# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetObject sas /xyz/openbmc_project/software/c172a378 0\na{sas} 2 \"xyz.openbmc_project.ObjectMapper\" 0 \"xyz.openbmc_project.Software.BMC.Updater\" 11 \"org.freedesktop.DBus.Introspectable\" \"org.freedesktop.DBus.Peer\" \"org.freedesktop.DBus.Properties\" \"xyz.openbmc_project.Association.Definitions\n\" \"xyz.openbmc_project.Common.FilePath\" \"xyz.openbmc_project.Inventory.Decorator.Compatible\" \"xyz.openbmc_project.Object.Delete\" \"xyz.openbmc_project.Software.Activation\" \"xyz.openbmc_project.Software.ExtendedVersion\" \"xyz.openbmc_proje\nct.Software.RedundancyPriority\" \"xyz.openbmc_project.Software.Version\"\n```\nIt shows that mapper\u0027s `GetObject` method tells that the `xyz.openbmc_project.ObjectMapper` service implements an object /xyz/openbmc_project/software/c172a378, but it has no interfaces.\nThis is considered invalid.\n\n3. The systemd D-Bus does have a weird behavior:\n```bash\n# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/software/c172a378 org.freedesktop.DBus.Peer GetMachineId\ns \"a9af6f883ddf45289683c9583541a5ba\"\n# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/software/c172a378/inventory org.freedesktop.DBus.Properties GetAll s org.freedesktop.DBus.Introspectable\na{sv} 0\n# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/software/c172a378 org.freedesktop.DBus.Properties GetAll s org.freedesktop.DBus.Introspectable\nCall failed: Unknown object \u0027/xyz/openbmc_project/software/c172a378\u0027.\n```\n\n   * The call of `GetAll` works OK if the service creates the object, but fails if the object is a parent.\n   * The call of `GetMachineId` works OK for both objects.\nThis may indicate some unexpected behavior in systemd?",
+      "parentUuid": "cffd6d71_2b5c0171",
+      "revId": "f06dfdb359fa8c92f10d9c85474b74637a819ed5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
