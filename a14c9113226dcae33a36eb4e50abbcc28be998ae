@@ -22,6 +22,30 @@
       },
       "revId": "a14c9113226dcae33a36eb4e50abbcc28be998ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad9d2b45_a7e50ec6",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T20:32:05Z",
+      "side": 0,
+      "message": "nvm, looks like we were handling the wrong message.",
+      "parentUuid": "48241b6e_f17f4d24",
+      "range": {
+        "startLine": 558,
+        "startChar": 20,
+        "endLine": 558,
+        "endChar": 70
+      },
+      "revId": "a14c9113226dcae33a36eb4e50abbcc28be998ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
