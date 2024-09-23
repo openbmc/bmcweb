@@ -118,6 +118,30 @@
       },
       "revId": "f23bdceb1a164e4176c4cbecb49c5a6c0a03eb48",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2787787d_c8b080d9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:03:41Z",
+      "side": 1,
+      "message": "\u003e No, \u003cswid\u003e of BMC is not bmc, its a generated unique id. We cannot use /xyz/openbmc_project/software/bmc because -\n\u003e 1. BMC can have dual flashes and both of these need to exposed to client.\n\nNot sure why this is a problem?  Dual flashes I would expect would be dealt with by the implementation that decides where the update goes.\n\n\u003e 2. Moreover, when the client updates an updatable flash (any number of times), the new interfaces (Version, Activation Status, Activation Progress etc) for the new update needs to show on a new /xyz/openbmc_project/software/\u003cswid\u003e path (whereas the previous path will have its own set of interfaces).\n\nan \"updatable flash\" doesn\u0027t really abstract the implementation away.  from this perspective, the user has asked to update \"the bmc\", regardless of how the internals work, i would expect that the update goes to the bmc.  Maybe there\u0027s staging, and the image goes to other places after that, but the interface itself is \"This bmc\"\n\n\u003e Once this new update succeeds the previous updateable path will be discarded and an updatable association for this new path will be created to /xyz/openbmc_project/software/bmc.\n\nThis is after the reboot?\n\n\u003e \n\u003e NOTE: The association lookup flow will only be used for BMC updates in case user provides /redfish/v1/Managers/bmc as TargetURI, otherwise /redfish/v1/UpdateService/FirmwareInventory/\u003cswId\u003e directly maps to /xyz/openbmc_project/software/\u003cswid\u003e without any association lookup.\n\nUnfortunately using /redfish/v1/Managers/bmc is pretty common.\n\n\u003e We had to support /redfish/v1/Managers/bmc for backwards compatibility reason.",
+      "parentUuid": "5e26476b_61e75583",
+      "range": {
+        "startLine": 953,
+        "startChar": 13,
+        "endLine": 953,
+        "endChar": 57
+      },
+      "revId": "f23bdceb1a164e4176c4cbecb49c5a6c0a03eb48",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
