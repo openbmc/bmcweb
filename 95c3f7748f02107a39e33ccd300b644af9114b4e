@@ -52,6 +52,24 @@
       "parentUuid": "4ebfa1e1_960420ea",
       "revId": "95c3f7748f02107a39e33ccd300b644af9114b4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3fe5133_6bdfe5ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-23T17:53:51Z",
+      "side": 1,
+      "message": "I also think they seem ambiguous between \"deleted” or terminated\".\n\nPerhaps wouldn’t they be indicating the differences what it caused – either by request, or by a result of certain conditions (like retry failures)?\n\nI think if the result of termination may be different from deletion, I would expect that some kind of the indication that tells about the terminated subscription, but there seems no such state field of the subscription.\n\n\n\nI found a few references related to the subscription.\n\n1) DMTF redfish spec - \nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.21.0.html\n\n\u003e Section 12.1.2:\n| Terminate a subscription if the number of delivery errors exceeds pre-configured thresholds.\n…\n| Subsequent requests to subscription resources that have been terminated respond with the HTTP 404 Not Found status code.\n\n2)  The openbmc event service doc - https://github.com/openbmc/docs/blob/377ed14df4913010752ee2faff994a50e12a6316/designs/redfish-eventservice.md?plain\u003d1#L860-L862\n\nIt also says\n\n\u003e ### Push style events (HTTP/HTTPS):\n\n\u003e... If establishing connection fails, it retries for configured\nretry attempts (DeliveryRetryAttempts) and delete the subscription if it reaches\nthreshold limit.\n\nWouldn\u0027t this be implying that the subscription termination will result in the deletion of it?",
+      "parentUuid": "1fb59b3f_03f70ec4",
+      "revId": "95c3f7748f02107a39e33ccd300b644af9114b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
