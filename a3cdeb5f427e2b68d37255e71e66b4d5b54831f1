@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a6ae2bf_5876282a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T14:42:33Z",
+      "side": 1,
+      "message": "\u003e We are just taking the values from the dbus interface. As long as that\u0027s documented in pdi, and the data types match, it should be good.\n\u003e \n\u003e Stuff like this would be a great use-case for generated code. Just generate the code from the dbus interface yaml, boom, typesafe dbus access.\n\nTo my understanding PDI doesn\u0027t support the \"Don\u0027t require that newly added parameters exist on the interface\" support that we need to stay compatible with multiple backends.  Certainly is something we can discuss with Patrick.\n\n\n\u003e \n\u003e So i don\u0027t see much value in a unit test here but taking a dependency on pdi and using the code generation it provides would improve the safety.\n\nWe disagree about the value in unit tests here,. but that\u0027s fine.  We have plenty of other code in here that isn\u0027t unit tested",
+      "parentUuid": "4a5acd32_34fc2272",
+      "revId": "a3cdeb5f427e2b68d37255e71e66b4d5b54831f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "36fb020d_f4d5afc1",
