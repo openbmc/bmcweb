@@ -2311,6 +2311,12 @@ inline void handleAccountGet(
                 boost::urls::format(
                     "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.GenerateSecretKey",
                     accountName);
+
+            actions
+                ["#ManagerAccount.VerifyTimeBasedOneTimePassword"]
+                ["target"] = boost::urls::format(
+                    "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword",
+                    accountName);
         });
 }
 
