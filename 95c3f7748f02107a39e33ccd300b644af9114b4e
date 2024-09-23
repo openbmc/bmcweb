@@ -70,6 +70,24 @@
       "parentUuid": "1fb59b3f_03f70ec4",
       "revId": "95c3f7748f02107a39e33ccd300b644af9114b4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4160777b_11bcd003",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T20:31:24Z",
+      "side": 1,
+      "message": "I think this one is the key:\n``` \nIf establishing connection fails, it retries for configured\nretry attempts (DeliveryRetryAttempts) and delete the subscription if it reaches\nthreshold limit.```\n\n\nMaybe that\u0027s what Appu intended to happen, but that\u0027s never been the behavior so far as I\u0027m aware, and we shouldn\u0027t be quoting OpenBMC docs in regards to Redfish.  We should be quoting DMTF.\n\nIf that\u0027s not clear, we should work with DMTF to get the wording put somewhere on what the correct behavior is here.",
+      "parentUuid": "b3fe5133_6bdfe5ed",
+      "revId": "95c3f7748f02107a39e33ccd300b644af9114b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
