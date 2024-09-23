@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "236c06e9_4869d0a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "Cool.  Sounds like this needs to be marked as WIP until then?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73d797b4_b3a4d87f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "what does this mean?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9df784a3_b0317278",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "Any way to test this without directly creating a dbus entry?  Maybe triggering a real event (like a reboot) instead?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "993d1324_53df132d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "Can you rewrite your test a little to remove the parts that don\u0027t actually effect the outside interface?  For example, \"makes it through the filtering code\" I\u0027m not really sure what that means, and isn\u0027t really relevant to your test.",
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc758e1a_a654e3ff",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "We should really look at breaking this class down a bit to make clear the two backends.",
+      "range": {
+        "startLine": 1321,
+        "startChar": 16,
+        "endLine": 1321,
+        "endChar": 38
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89839570_d511079a",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1352,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "Presumably you meant to return here?",
+      "range": {
+        "startLine": 1352,
+        "startChar": 0,
+        "endLine": 1352,
+        "endChar": 74
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a39c5120_07ebf060",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "More than this can create log entries, right?",
+      "range": {
+        "startLine": 1398,
+        "startChar": 0,
+        "endLine": 1398,
+        "endChar": 52
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

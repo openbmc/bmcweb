@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c1e8149_0e438a56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "\"?\" is certainly not what the redfish spec specifies for message args.",
+      "range": {
+        "startLine": 66,
+        "startChar": 38,
+        "endLine": 66,
+        "endChar": 41
+      },
+      "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdb97016_e9279164",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "why optional and unique_ptr?  What does each represent?",
+      "range": {
+        "startLine": 68,
+        "startChar": 7,
+        "endLine": 68,
+        "endChar": 36
+      },
+      "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1064a5d4_a06317f0",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "This still looks like WIP?",
+      "range": {
+        "startLine": 1335,
+        "startChar": 0,
+        "endLine": 1335,
+        "endChar": 64
+      },
+      "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a96d17f_c10fc6a0",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1371,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "a little text here about what is being printed would be good.  Just printing a value with no context isn\u0027t the best.",
+      "range": {
+        "startLine": 1371,
+        "startChar": 30,
+        "endLine": 1371,
+        "endChar": 32
+      },
+      "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2f5fc27_9a67d8b4",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "Use a string_view here.  string will construct and malloc every loop.\n\nalso, I suspect we could just drop the logEntryInterface variable altogether and we\u0027d save a line.",
+      "range": {
+        "startLine": 1372,
+        "startChar": 18,
+        "endLine": 1372,
+        "endChar": 29
+      },
+      "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bbe60b5_478bdf48",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:12:36Z",
+      "side": 1,
+      "message": "do we need this variable?  Can we just pass dbusEventLogMatchHandler directly?",
+      "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
