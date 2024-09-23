@@ -57,13 +57,15 @@ if (get_option('optimization') == '0')
 endif
 
 # Include Directories
+incdir = [
+    include_directories(
+        'include',
+        'redfish-core/include',
+        'redfish-core/lib',
+        'http',
+    ),
+]
 
-incdir = include_directories(
-    'include',
-    'redfish-core/include',
-    'redfish-core/lib',
-    'http',
-)
 incdir_cli = include_directories('http', 'include')
 
 if (get_option('tests').allowed())
@@ -336,6 +338,9 @@ subdir('config')
 bmcweb_dependencies += conf_h_dep
 bmcweb_cli_dependencies += conf_h_dep
 
+test_sources = []
+subdir('backends')
+
 # Source files
 fs = import('fs')
 
@@ -404,13 +409,10 @@ srcfiles_unittest = files(
     'test/include/async_resolve_test.cpp',
     'test/include/credential_pipe_test.cpp',
     'test/include/dbus_utility_test.cpp',
-    'test/include/google/google_service_root_test.cpp',
     'test/include/http_utility_test.cpp',
     'test/include/human_sort_test.cpp',
-    'test/include/ibm/configfile_test.cpp',
     'test/include/json_html_serializer.cpp',
     'test/include/multipart_test.cpp',
-    'test/include/openbmc_dbus_rest_test.cpp',
     'test/include/ossl_random.cpp',
     'test/include/ssl_key_handler_test.cpp',
     'test/include/str_utility_test.cpp',
@@ -439,7 +441,7 @@ srcfiles_unittest = files(
     'test/redfish-core/lib/systems_logservices_postcode.cpp',
     'test/redfish-core/lib/thermal_subsystem_test.cpp',
     'test/redfish-core/lib/update_service_test.cpp',
-)
+) + test_sources
 
 if (get_option('tests').allowed())
     gtest = dependency(
