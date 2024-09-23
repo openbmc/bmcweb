@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bf0df6b_3672f630",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1177,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-09-23T07:08:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a24c3dc_c32d2dcb",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f00ed99c_57bb5498",
@@ -69,6 +87,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d715957a_3b95b1aa",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1536,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-09-23T07:08:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f00ed99c_57bb5498",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7fa45f9_f3de8f9a",
@@ -82,6 +118,24 @@
       "writtenOn": "2024-09-19T03:18:13Z",
       "side": 1,
       "message": "This is no more valid. Now Create secret key return secret key. Not file fd.",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be3d3a7b_66771b52",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2461,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-09-23T07:08:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7fa45f9_f3de8f9a",
       "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -105,6 +159,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74493d25_f78e8506",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2505,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-09-23T07:08:54Z",
+      "side": 1,
+      "message": "Will add it next in the commit chain",
+      "parentUuid": "362e7e10_a08ab116",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b41909a_0bde9595",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 4
@@ -116,6 +188,24 @@
       "writtenOn": "2024-09-19T19:44:46Z",
       "side": 1,
       "message": "So we think a user should be able to do this for their account?\n\nDon\u0027t you need all the checking https://github.com/openbmc/bmcweb/blob/8812e8becaf44d810e68ed80692c2797b2f114ac/redfish-core/lib/account_service.hpp#L2168 has?\n\n    bool userSelf \u003d (username \u003d\u003d req.session-\u003eusername);\n\n    Privileges effectiveUserPrivileges \u003d\n        redfish::getUserPrivileges(*req.session);\n    Privileges configureUsers \u003d {\"ConfigureUsers\"};\n    bool userHasConfigureUsers \u003d\n        effectiveUserPrivileges.isSupersetOf(configureUsers);\n    if (userHasConfigureUsers)\n    {\n        // Users with ConfigureUsers can modify for all users\n        if (!json_util::readJsonPatch(\n                req, asyncResp-\u003eres, \"UserName\", newUserName, \"Password\",\n                password, \"RoleId\", roleId, \"Enabled\", enabled, \"Locked\",\n                locked, \"AccountTypes\", accountTypes))\n        {\n            return;\n        }\n    }\n    else\n    {\n        // ConfigureSelf accounts can only modify their own account\n        if (!userSelf)\n        {\n            messages::insufficientPrivilege(asyncResp-\u003eres);\n            return;\n        }",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c53be8a3_156d8242",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2591,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-09-23T07:08:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b41909a_0bde9595",
       "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
