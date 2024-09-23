@@ -35,6 +35,7 @@
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -1116,10 +1117,10 @@ struct UserUpdateParams
     std::string dbusObjectPath;
 };
 
-inline void
-    handleMFABypassUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::vector<std::string>& mfaBypassVectorIn,
-                          const std::string& dbusObjectPath)
+inline void handleMFABypassUpdate(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::vector<std::string>& mfaBypassVectorIn,
+    const std::string& dbusObjectPath)
 {
     // Check if the input vector contains just one bypass type:
     // as there are just two defined in the backend:
@@ -2321,6 +2322,12 @@ inline void handleAccountGet(
                 boost::urls::format(
                     "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.GenerateSecretKey",
                     accountName);
+
+            actions
+                ["#ManagerAccount.VerifyTimeBasedOneTimePassword"]
+                ["target"] = boost::urls::format(
+                    "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword",
+                    accountName);
         });
 }
 
@@ -2516,10 +2523,10 @@ static void checkAndCreateSecretKey(
         });
 }
 
-inline void
-    handleGenerateSecretKey(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& username)
+inline void handleGenerateSecretKey(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -2557,6 +2564,130 @@ inline void
     const std::string userPath(tempObjPath);
 
     checkAndCreateSecretKey(asyncResp, username, userPath);
+}
+
+inline void verifyTotpDbusUtil(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& totp, const std::string& userPath,
+    std::function<void(bool)>&& callback)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
+        "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.MultiFactorAuthConfiguration", "Enabled",
+        [asyncResp, totp, userPath, callback = (callback)](
+            const boost::system::error_code& ec,
+            const std::string& multiFactorAuthEnabledVal) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "DBUS response error while fetching MultiFactorAuth property. Error: {}",
+                    ec);
+                messages::internalError(asyncResp->res);
+                callback(false);
+                return;
+            }
+
+            constexpr std::string_view mfaGoogleAuthDbusVal =
+                "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+            bool googleAuthEnabled =
+                (multiFactorAuthEnabledVal == mfaGoogleAuthDbusVal);
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, callback = callback, googleAuthEnabled](
+                    const boost::system::error_code& ec1, bool status) {
+                    if (ec1)
+                    {
+                        BMCWEB_LOG_ERROR("D-Bus response error: {}",
+                                         ec1.value());
+                        messages::internalError(asyncResp->res);
+                        callback(false);
+                        return;
+                    }
+                    if (!status)
+                    {
+                        messages::actionParameterValueError(
+                            asyncResp->res,
+                            "ManagerAccount.VerifyTimeBasedOneTimePassword",
+                            "TimeBasedOneTimePassword");
+                        callback(false);
+                        return;
+                    }
+                    if (googleAuthEnabled)
+                    {
+                        messages::success(asyncResp->res);
+                        callback(true);
+                    }
+                    else
+                    {
+                        messages::success(asyncResp->res);
+                        callback(false);
+                    }
+                },
+                "xyz.openbmc_project.User.Manager", userPath,
+                "xyz.openbmc_project.User.TOTPAuthenticator", "VerifyOTP",
+                totp);
+        });
+}
+
+inline void handleManagerAccountVerifyTotpAction(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        // If authentication is disabled, there are no user accounts
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
+        return;
+    }
+
+    if (req.session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    bool userSelf = (username == req.session->username);
+
+    Privileges effectiveUserPrivileges =
+        redfish::getUserPrivileges(*req.session);
+    Privileges configureUsers = {"ConfigureUsers"};
+    bool userHasConfigureUsers =
+        effectiveUserPrivileges.isSupersetOf(configureUsers);
+
+    if (!userHasConfigureUsers && !userSelf)
+    {
+        messages::insufficientPrivilege(asyncResp->res);
+        return;
+    }
+
+    std::string totp;
+    if (!json_util::readJsonAction(req, asyncResp->res,
+                                   "TimeBasedOneTimePassword", totp))
+    {
+        messages::actionParameterMissing(
+            asyncResp->res, "ManagerAccount.VerifyTimeBasedOneTimePassword",
+            "TimeBasedOneTimePassword");
+        return;
+    }
+    sdbusplus::message::object_path tempObjPath("/xyz/openbmc_project/user/");
+    tempObjPath /= username;
+    const std::string userPath(tempObjPath);
+    auto verifyTotpCallback = [username, req](bool success) {
+        if (success)
+        {
+            // Remove existing sessions of the user
+            persistent_data::SessionStore::getInstance()
+                .removeSessionsByUsernameExceptSession(username, req.session);
+        }
+    };
+    verifyTotpDbusUtil(asyncResp, totp, userPath,
+                       std::move(verifyTotpCallback));
 }
 
 inline void requestAccountServiceRoutes(App& app)
@@ -2651,6 +2782,16 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges({{"ConfigureUsers"}, {"ConfigureSelf"}})
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleGenerateSecretKey, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/AccountService/Accounts/<str>/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword")
+        // TODO this privilege should be using the generated endpoints, but
+        // because of the special handling of ConfigureSelf, it's not able to
+        // yet
+        .privileges({{"ConfigureUsers"}, {"ConfigureSelf"}})
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleManagerAccountVerifyTotpAction, std::ref(app)));
 }
 
 } // namespace redfish
