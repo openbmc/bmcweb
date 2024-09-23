@@ -88,6 +88,24 @@
       "parentUuid": "cffd6d71_2b5c0171",
       "revId": "f06dfdb359fa8c92f10d9c85474b74637a819ed5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd1858f1_37940a8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-23T15:49:48Z",
+      "side": 1,
+      "message": "I\u0027m not following the above.  I\u0027ve read it a couple of times, and I don\u0027t understand what test you did.  Can you push the code somewhere?\n\nFYI, the default interfaces was checked in originally by me, here:\nhttps://github.com/openbmc/phosphor-objmgr/commit/605206314f23710ef8a429745f139c891630588f#diff-34d21af3c614ea3cee120df276c9c4ae95053830d7f1d3deaf009a4625409ad2R145\n\nThat was based on the idea that we should mirror all interfaces, not just the OpenBMC ones.  Realistically, these interfaces shouldn\u0027t really be returned by the mapper ever.  FWIW, this generation is already inconsistent;  If the code takes the Introspect path, the default interfaces will be added.  If the code takes the object manager path, the interfaces will not be added.\n\nThe patch I\u0027d like to see is to simply remove that defaultIfaces struct, and verify that those interfaces no longer respond in queries.\nhttps://github.com/openbmc/phosphor-objmgr/blob/7a93d516522f58b887a05cc93ff27a6674601e5f/src/processing.cpp#L151\n\nIf you\u0027d like me to put up the patch I can, but it\u0027ll take me some time.",
+      "parentUuid": "56a8b514_d5413cb5",
+      "revId": "f06dfdb359fa8c92f10d9c85474b74637a819ed5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
