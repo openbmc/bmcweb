@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "http_response.hpp"
-#include "ibm/management_console_rest.hpp"
+#include "ibm_management_console_rest.hpp"
 
 #include <string>
 
