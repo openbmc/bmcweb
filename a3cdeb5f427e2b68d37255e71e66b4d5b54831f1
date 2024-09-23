@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "4a5acd32_34fc2272",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-09-23T09:42:35Z",
+      "side": 1,
+      "message": "We are just taking the values from the dbus interface. As long as that\u0027s documented in pdi, and the data types match, it should be good.\n\nStuff like this would be a great use-case for generated code. Just generate the code from the dbus interface yaml, boom, typesafe dbus access.\n\nSo i don\u0027t see much value in a unit test here but taking a dependency on pdi and using the code generation it provides would improve the safety.",
+      "parentUuid": "66c41557_0e594638",
+      "revId": "a3cdeb5f427e2b68d37255e71e66b4d5b54831f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "36fb020d_f4d5afc1",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -58,6 +76,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cf10ca1_5301bea2",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-09-23T09:42:35Z",
+      "side": 1,
+      "message": "Agree. \u0027{}\u0027 is just what clang-tidy suggested to me so i assumed that that\u0027s how it should be.",
+      "parentUuid": "2d0566fb_2818a3ac",
+      "range": {
+        "startLine": 15,
+        "startChar": 15,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "a3cdeb5f427e2b68d37255e71e66b4d5b54831f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "630777eb_c4faf5e2",
@@ -71,6 +113,30 @@
       "writtenOn": "2024-09-20T15:30:30Z",
       "side": 1,
       "message": "Could we instead just return a std::optional\u003cDbusEventLogEntry\u003e ?\n\nI think that avoids a lot of the duplicated variable init below if we do that, because the variables are already initted in the struct itself.",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 26,
+        "endChar": 11
+      },
+      "revId": "a3cdeb5f427e2b68d37255e71e66b4d5b54831f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04108f27_f2e1ced1",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-09-23T09:42:35Z",
+      "side": 1,
+      "message": "yes.",
+      "parentUuid": "630777eb_c4faf5e2",
       "range": {
         "startLine": 26,
         "startChar": 7,
