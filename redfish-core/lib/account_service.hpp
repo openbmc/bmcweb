@@ -2110,7 +2110,7 @@ inline void handleAccountHead(
         "</redfish/v1/JsonSchemas/ManagerAccount/ManagerAccount.json>; rel=describedby");
 }
 
-inline void checkAndAddGenerateSecretKeyActionCallback(
+inline void checkAndAddSecretKeyActionsCallback(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& accountName)
 {
@@ -2118,9 +2118,14 @@ inline void checkAndAddGenerateSecretKeyActionCallback(
     actions["#ManagerAccount.GenerateSecretKey"]["target"] = boost::urls::format(
         "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.GenerateSecretKey",
         accountName);
+
+    actions["#ManagerAccount.VerifyTimeBasedOneTimePassword"]["target"] =
+        boost::urls::format(
+            "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword",
+            accountName);
 }
 
-inline void checkAndAddGenerateSecretKeyAction(
+inline void checkAndAddSecretKeyActions(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& accountName)
 {
@@ -2144,7 +2149,7 @@ inline void checkAndAddGenerateSecretKeyAction(
                 BMCWEB_LOG_WARNING("Dbus error: {}", ec.message());
                 return;
             }
-            checkAndAddGenerateSecretKeyActionCallback(asyncResp, accountName);
+            checkAndAddSecretKeyActionsCallback(asyncResp, accountName);
         });
 }
 
@@ -2354,7 +2359,7 @@ inline void handleAccountGet(
             asyncResp->res.jsonValue["Id"] = accountName;
             asyncResp->res.jsonValue["UserName"] = accountName;
 
-            checkAndAddGenerateSecretKeyAction(asyncResp, accountName);
+            checkAndAddSecretKeyActions(asyncResp, accountName);
         });
 }
 
