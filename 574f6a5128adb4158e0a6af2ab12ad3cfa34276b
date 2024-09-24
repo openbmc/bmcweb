@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66a57bcf_f8775236",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T22:17:23Z",
+      "side": 1,
+      "message": "20230531T000000Z doesn\u0027t look like a valid time?  Probably need to add some debug logging if this is truly a correct iso8160 string.  it could be a problem in getDateTimeIso8601, or could be a problem in the string itself.  hard to know which without debugging further.",
+      "parentUuid": "afb23fc9_d2b28b88",
+      "revId": "574f6a5128adb4158e0a6af2ab12ad3cfa34276b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12bc5dc7_4177cded",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 8
