@@ -54,6 +54,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14b35a3d_5efcdb16",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2426,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-24T12:34:06Z",
+      "side": 1,
+      "message": "use callback function in place of non trivial (longer) lambdas.",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35a67f87_d68bcfe4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2447,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-24T12:34:06Z",
+      "side": 1,
+      "message": "The dbus method returns secretkey string",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fb4afa9e_2058cb47",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -65,6 +99,24 @@
       "writtenOn": "2024-09-24T12:18:04Z",
       "side": 1,
       "message": "dont make this call . Just use dbus property to check if secretKey is valid.",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e07cb75b_cf46ef95",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2454,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-24T12:34:06Z",
+      "side": 1,
+      "message": "you have already made the check above for validity of secret key. If secret key generation failed then error_code will be set. So you don\u0027t have make extra check. Just return the secret key string.",
+      "parentUuid": "fb4afa9e_2058cb47",
       "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
