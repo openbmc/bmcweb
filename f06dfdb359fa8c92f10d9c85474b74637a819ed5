@@ -142,6 +142,24 @@
       "parentUuid": "3e7eaa4c_323d04a5",
       "revId": "f06dfdb359fa8c92f10d9c85474b74637a819ed5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0087f850_63fb148d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2024-09-24T02:46:28Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/phosphor-objmgr/+/74832\n\nLet\u0027s discuss phosphor-objmgr changes there.",
+      "parentUuid": "921837a4_1da3f485",
+      "revId": "f06dfdb359fa8c92f10d9c85474b74637a819ed5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
