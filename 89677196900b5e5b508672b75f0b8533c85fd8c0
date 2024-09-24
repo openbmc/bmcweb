@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e42186f_5e4618c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T17:32:01Z",
+      "side": 1,
+      "message": "Needs docs updates, and a longer commit message",
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eadafcd9_e6b5b813",
@@ -20,6 +37,139 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "693d805e_ec32253d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2493,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T17:32:01Z",
+      "side": 1,
+      "message": "setUpRedfishRoute should be called on all redfish routes.  It\u0027s for more than just aggregation.\n\nThe code here is correct.",
+      "parentUuid": "eadafcd9_e6b5b813",
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a01a52ae_1abd7d09",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2505,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T17:32:01Z",
+      "side": 1,
+      "message": "nullptr dereference.",
+      "range": {
+        "startLine": 2505,
+        "startChar": 33,
+        "endLine": 2505,
+        "endChar": 45
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20fb04a6_d4e32790",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2510,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T17:32:01Z",
+      "side": 1,
+      "message": "I thought we had a real privilege for this that we could check?  ConfigureSelf?\n\nAlso, I wouldn\u0027t expect this.  Admins should be allowed to do this for other users, right?",
+      "range": {
+        "startLine": 2506,
+        "startChar": 0,
+        "endLine": 2510,
+        "endChar": 5
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b905927_129872b5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2513,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T17:32:01Z",
+      "side": 1,
+      "message": "this is an action, not a patch.  please use the correct readJson",
+      "range": {
+        "startLine": 2513,
+        "startChar": 20,
+        "endLine": 2513,
+        "endChar": 33
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7d64686_e1515c3c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2521,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T17:32:01Z",
+      "side": 1,
+      "message": "Move this branch to its own line.  if readJson fails, it sets the appropriate error code.  If you want this parameter to be required, don\u0027t declare it as optional, and readJson will just do the right thing.",
+      "range": {
+        "startLine": 2514,
+        "startChar": 67,
+        "endLine": 2521,
+        "endChar": 5
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f27e756_e6bc496c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2522,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T17:32:01Z",
+      "side": 1,
+      "message": "rootUserDbusPath ?",
+      "range": {
+        "startLine": 2522,
+        "startChar": 48,
+        "endLine": 2522,
+        "endChar": 64
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24bd8daa_9aa949c6",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -31,6 +181,29 @@
       "writtenOn": "2024-09-24T17:19:37Z",
       "side": 1,
       "message": "just make it bool. No need for const \u0026",
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10333281_44807960",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2643,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T17:32:01Z",
+      "side": 1,
+      "message": "nit, call this\nhandleManagerAccountVerifyTotPasswordAction",
+      "range": {
+        "startLine": 2643,
+        "startChar": 28,
+        "endLine": 2643,
+        "endChar": 44
+      },
       "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
