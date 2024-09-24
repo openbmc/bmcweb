@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4ed8794_38860a25",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T19:56:14Z",
+      "side": 1,
+      "message": "optional is also an owning template.  Please respond with\n\nwhat does the following 3 states mean\ndbusEventLogMonitor \u003d\u003d nullopt\n*dbusEventLogMonitor \u003d\u003d nullptr\n*dbusEventLogMonitor is populated\n\n\nI suspect the first two states can be combined into one.",
+      "parentUuid": "50b1238d_53eb54f3",
+      "range": {
+        "startLine": 68,
+        "startChar": 7,
+        "endLine": 68,
+        "endChar": 36
+      },
+      "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1064a5d4_a06317f0",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 6
@@ -267,6 +291,24 @@
       "side": 1,
       "message": "i think it\u0027s valuable to convey that this is a callback in the call below.",
       "parentUuid": "3bbe60b5_478bdf48",
+      "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f365a83_3fa4f558",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-24T19:56:14Z",
+      "side": 1,
+      "message": "dbusEventLogMatchHandler is already a callback of the same type.  THere\u0027s no need to have a second local variable of the same type.  If the value is truly in the name \"callback\" then lets rename dbusEventLogMatchHandler -\u003e dbusEventLogMatchCallback\n\nBut making a copy of this possibly large struct doesn\u0027t seem like a good idea.",
+      "parentUuid": "3ce84aee_fc117d92",
       "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
