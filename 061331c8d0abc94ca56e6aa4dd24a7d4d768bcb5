@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "335255bb_52435b4a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000940
+      },
+      "writtenOn": "2024-09-24T07:55:49Z",
+      "side": 1,
+      "message": "Hi Claire,\nAre you still working on this change?",
+      "revId": "061331c8d0abc94ca56e6aa4dd24a7d4d768bcb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
