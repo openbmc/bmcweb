@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e1f94ce_d9bb92a9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1714,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-24T12:26:37Z",
+      "side": 1,
+      "message": "move entire code inside googleAuthericatorEnabled. Then if the optional is valid then decide if we wanted to pass GoogleAuthenticator type or None. If it is false a None should be passed",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fb4afa9e_2058cb47",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
