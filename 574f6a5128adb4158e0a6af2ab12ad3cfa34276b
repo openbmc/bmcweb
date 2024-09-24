@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "afb23fc9_d2b28b88",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-09-24T09:18:06Z",
+      "side": 1,
+      "message": "Hi @Ed,\nI have updated based on your suggestion\n```\ninline std::optional\u003cstd::string\u003e getDateTimeIso8601(std::string_view datetime)\n{\n    BMCWEB_LOG_CRITICAL(\"datetimeStr: {}\", datetime);\n    std::optional\u003credfish::time_utils::usSinceEpoch\u003e us \u003d\n        redfish::time_utils::dateStringToEpoch(datetime);\n    if (!us)\n    {\n        BMCWEB_LOG_CRITICAL(\"Error Here!!!!\");\n        return std::nullopt;\n    }\n    std::string datetimeStr \u003d \n        redfish::time_utils::getDateTimeUint(static_cast\u003cuint64_t\u003e(us-\u003ecount()));\n    return std::make_optional(datetimeStr);\n}\n```\nBut has an issue in \"Error Here!!!!\" line\nThe input datetime value that print out is:\n```\ndatetimeStr: 20230531T000000Z\n```\nDo you have any idea? Does I miss anything?\n\nThanks",
+      "parentUuid": "4118fea1_a7caf815",
+      "revId": "574f6a5128adb4158e0a6af2ab12ad3cfa34276b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12bc5dc7_4177cded",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 8
