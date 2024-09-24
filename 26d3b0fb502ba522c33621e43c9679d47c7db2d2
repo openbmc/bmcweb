@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80805960_ca751a95",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2024-09-24T15:37:02Z",
+      "side": 1,
+      "message": "why are we handling this error, do not think certificate manager is throwing this error.\n\nas per d-bus interface it can throw these error for replace certificate\n- xyz.openbmc_project.Common.Error.InternalFailure\n- xyz.openbmc_project.Certs.Error.InvalidCertificate\n- xyz.openbmc_project.Common.Error.NotAllowed",
+      "revId": "26d3b0fb502ba522c33621e43c9679d47c7db2d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ceeb871_89b51584",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2024-09-24T15:37:02Z",
+      "side": 1,
+      "message": "should we use invalidUpload error message here as we are not replacing property here @gunnar",
+      "revId": "26d3b0fb502ba522c33621e43c9679d47c7db2d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
