@@ -88,6 +88,24 @@
       "parentUuid": "b3fe5133_6bdfe5ed",
       "revId": "95c3f7748f02107a39e33ccd300b644af9114b4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50e9fb7a_ab966641",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-24T12:16:01Z",
+      "side": 1,
+      "message": "Thanks for suggestion.\nI\u0027ve submitted an issue (question) to DMTF/Redfish - https://github.com/DMTF/Redfish/issues/6221",
+      "parentUuid": "4160777b_11bcd003",
+      "revId": "95c3f7748f02107a39e33ccd300b644af9114b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
