@@ -142,6 +142,30 @@
       },
       "revId": "575c422ac38608c17cc85c6391f0c7bf9706bcca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8210d1f7_02afb945",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-25T13:42:35Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/phosphor-objmgr/+/74605 has been merged and the error handling is modified as to the suggestion.\nPlease take a look at this again.",
+      "parentUuid": "1a9ab843_7bdc8822",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 11
+      },
+      "revId": "575c422ac38608c17cc85c6391f0c7bf9706bcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
