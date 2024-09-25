@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "661fc360_17038dbd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-09-25T03:11:25Z",
+      "side": 1,
+      "message": "If list is empty then it should set BypassedProtocol to None right?",
+      "parentUuid": "608d6913_b1789990",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "58d21119_1d2168d6",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2024-09-24T12:22:07Z",
       "side": 1,
       "message": "setDusProperty will handle invlid enums right?",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12cb3ab7_476ec1c4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-09-25T03:11:25Z",
+      "side": 1,
+      "message": "yeah, no need to handle invalid D-bus enums explicitly",
+      "parentUuid": "58d21119_1d2168d6",
       "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -117,6 +153,23 @@
       "side": 1,
       "message": "you have already made the check above for validity of secret key. If secret key generation failed then error_code will be set. So you don\u0027t have make extra check. Just return the secret key string.",
       "parentUuid": "fb4afa9e_2058cb47",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d78af45a_8209799a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2477,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-09-25T03:11:25Z",
+      "side": 1,
+      "message": "remove?",
       "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
