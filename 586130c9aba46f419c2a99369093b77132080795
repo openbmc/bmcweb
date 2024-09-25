@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "03f045ed_06ebc9d2",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:51:35Z",
+      "side": 1,
+      "message": "It is inside L403 if block. That check goes from L403 - L443.\n\n(I turn on the \"All\" setting for \"Ignore Whitespace\" in gerrit for looking at the diffs for this commit. It makes it easier to see where the added if blocks start and end.)",
+      "parentUuid": "c881bf20_82840a60",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "586130c9aba46f419c2a99369093b77132080795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8a904190_bc22620e",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 16
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7de4431d_aee5d0c0",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:51:35Z",
+      "side": 1,
+      "message": "Good catch, that was leftover from my first attempt to restructure this. I\u0027ve removed the extraneous !isExcerpt check here.",
+      "parentUuid": "8a904190_bc22620e",
+      "range": {
+        "startLine": 571,
+        "startChar": 0,
+        "endLine": 571,
+        "endChar": 55
+      },
+      "revId": "586130c9aba46f419c2a99369093b77132080795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e205164a_e24277e7",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 16
@@ -60,6 +108,30 @@
       "writtenOn": "2024-09-25T16:51:11Z",
       "side": 1,
       "message": "Can this put into the same `L547 if(!isExcerpt) {}` block?\n\nIt looks only L541-L545 are for `isExcerpt`, and all others are for `!isExcerpt`. Is it correct?",
+      "range": {
+        "startLine": 586,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 5
+      },
+      "revId": "586130c9aba46f419c2a99369093b77132080795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bd0b5e6_7639993e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:51:35Z",
+      "side": 1,
+      "message": "Good point! That does make this easier to read. I\u0027ve made the change.",
+      "parentUuid": "e205164a_e24277e7",
       "range": {
         "startLine": 586,
         "startChar": 0,
