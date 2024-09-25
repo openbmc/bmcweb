@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c881bf20_82840a60",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-25T16:51:11Z",
+      "side": 1,
+      "message": "Is this inside L403 `if (!isExcerpt){}` block or outside?",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "586130c9aba46f419c2a99369093b77132080795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a904190_bc22620e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-25T16:51:11Z",
+      "side": 1,
+      "message": "This is already inside `L547: if(!isExcerpt)`.\nSo, this can be\n```\n        else if (sensorType !\u003d \"power\")\n```",
+      "range": {
+        "startLine": 571,
+        "startChar": 0,
+        "endLine": 571,
+        "endChar": 55
+      },
+      "revId": "586130c9aba46f419c2a99369093b77132080795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e205164a_e24277e7",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-25T16:51:11Z",
+      "side": 1,
+      "message": "Can this put into the same `L547 if(!isExcerpt) {}` block?\n\nIt looks only L541-L545 are for `isExcerpt`, and all others are for `!isExcerpt`. Is it correct?",
+      "range": {
+        "startLine": 586,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 5
+      },
+      "revId": "586130c9aba46f419c2a99369093b77132080795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
