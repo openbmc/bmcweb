@@ -16,6 +16,7 @@
 #pragma once
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "event_matches_filter.hpp"
 #include "event_service_store.hpp"
 #include "filter_expr_executor.hpp"
 #include "generated/enums/event.hpp"
@@ -198,23 +199,6 @@ inline int getEventLogParams(const std::string& logEntry,
     }
 
     return 0;
-}
-
-inline void getRegistryAndMessageKey(const std::string& messageID,
-                                     std::string& registryName,
-                                     std::string& messageKey)
-{
-    // Redfish MessageIds are in the form
-    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
-    // the right Message
-    std::vector<std::string> fields;
-    fields.reserve(4);
-    bmcweb::split(fields, messageID, '.');
-    if (fields.size() == 4)
-    {
-        registryName = fields[0];
-        messageKey = fields[3];
-    }
 }
 
 inline int formatEventLogEntry(const std::string& logEntryID,
@@ -415,131 +399,6 @@ class Subscription
         return true;
     }
 
-    bool eventMatchesFilter(const nlohmann::json::object_t& eventMessage,
-                            std::string_view resType)
-    {
-        // If resourceTypes list is empty, assume all
-        if (!userSub.resourceTypes.empty())
-        {
-            // Search the resourceTypes list for the subscription.
-            auto resourceTypeIndex = std::ranges::find_if(
-                userSub.resourceTypes, [resType](const std::string& rtEntry) {
-                return rtEntry == resType;
-            });
-            if (resourceTypeIndex == userSub.resourceTypes.end())
-            {
-                BMCWEB_LOG_DEBUG("Not subscribed to this resource");
-                return false;
-            }
-            BMCWEB_LOG_DEBUG("ResourceType {} found in the subscribed list",
-                             resType);
-        }
-
-        // If registryPrefixes list is empty, don't filter events
-        // send everything.
-        if (!userSub.registryPrefixes.empty())
-        {
-            auto eventJson = eventMessage.find("MessageId");
-            if (eventJson == eventMessage.end())
-            {
-                return false;
-            }
-
-            const std::string* messageId =
-                eventJson->second.get_ptr<const std::string*>();
-            if (messageId == nullptr)
-            {
-                BMCWEB_LOG_ERROR("MessageId wasn't a string???");
-                return false;
-            }
-
-            std::string registry;
-            std::string messageKey;
-            event_log::getRegistryAndMessageKey(*messageId, registry,
-                                                messageKey);
-
-            auto obj = std::ranges::find(userSub.registryPrefixes, registry);
-            if (obj == userSub.registryPrefixes.end())
-            {
-                return false;
-            }
-        }
-
-        if (!userSub.originResources.empty())
-        {
-            auto eventJson = eventMessage.find("OriginOfCondition");
-            if (eventJson == eventMessage.end())
-            {
-                return false;
-            }
-
-            const std::string* originOfCondition =
-                eventJson->second.get_ptr<const std::string*>();
-            if (originOfCondition == nullptr)
-            {
-                BMCWEB_LOG_ERROR("OriginOfCondition wasn't a string???");
-                return false;
-            }
-
-            auto obj = std::ranges::find(userSub.originResources,
-                                         *originOfCondition);
-
-            if (obj == userSub.originResources.end())
-            {
-                return false;
-            }
-        }
-
-        // If registryMsgIds list is empty, assume all
-        if (!userSub.registryMsgIds.empty())
-        {
-            auto eventJson = eventMessage.find("MessageId");
-            if (eventJson == eventMessage.end())
-            {
-                return false;
-            }
-
-            const std::string* messageId =
-                eventJson->second.get_ptr<const std::string*>();
-            if (messageId == nullptr)
-            {
-                BMCWEB_LOG_ERROR("EventType wasn't a string???");
-                return false;
-            }
-
-            std::string registry;
-            std::string messageKey;
-            event_log::getRegistryAndMessageKey(*messageId, registry,
-                                                messageKey);
-
-            BMCWEB_LOG_DEBUG("extracted registry {}", registry);
-            BMCWEB_LOG_DEBUG("extracted message key {}", messageKey);
-
-            auto obj =
-                std::ranges::find(userSub.registryMsgIds,
-                                  std::format("{}.{}", registry, messageKey));
-            if (obj == userSub.registryMsgIds.end())
-            {
-                BMCWEB_LOG_DEBUG("did not find registry {} in registryMsgIds",
-                                 registry);
-                BMCWEB_LOG_DEBUG("registryMsgIds has {} entries",
-                                 userSub.registryMsgIds.size());
-                return false;
-            }
-        }
-
-        if (filter)
-        {
-            if (!memberMatches(eventMessage, *filter))
-            {
-                BMCWEB_LOG_DEBUG("Filter didn't match");
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     bool sendTestEventLog()
     {
         nlohmann::json::array_t logEntryArray;
@@ -591,9 +450,18 @@ class Subscription
                 continue;
             }
 
-            if (!eventMatchesFilter(bmcLogEntry, ""))
+            if (!eventMatchesFilter(userSub, bmcLogEntry, ""))
             {
                 continue;
+            }
+
+            if (filter)
+            {
+                if (!memberMatches(bmcLogEntry, *filter))
+                {
+                    BMCWEB_LOG_DEBUG("Filter didn't match");
+                    continue;
+                }
             }
 
             logEntryArray.emplace_back(std::move(bmcLogEntry));
@@ -1217,7 +1085,7 @@ class EventServiceManager
         for (auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription>& entry = it.second;
-            if (!entry->eventMatchesFilter(eventMessage, resourceType))
+            if (!eventMatchesFilter(entry->userSub, eventMessage, resourceType))
             {
                 BMCWEB_LOG_DEBUG("Filter didn't match");
                 continue;
