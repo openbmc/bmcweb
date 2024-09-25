@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f63d3dd1_efa1dfd5",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2024-09-25T14:12:33Z",
+      "side": 1,
+      "message": "The error \"org.freedesktop.DBus.Error.UnknownObject\" is thrown by DBus when I attempt to replace the certificate at the location \"/redfish/v1/Managers/bmc/Truststore/Certificates/1\". However, there was no certificate present at that location before. In the previous error check for the same test case, the condition was:\n\nif (ec.value() \u003d\u003d\nboost::system::linux_error::bad_request_descriptor) which was triggered.",
+      "parentUuid": "80805960_ca751a95",
+      "revId": "26d3b0fb502ba522c33621e43c9679d47c7db2d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ceeb871_89b51584",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 7
