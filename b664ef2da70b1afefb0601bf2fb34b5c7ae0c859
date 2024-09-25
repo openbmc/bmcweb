@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36ab4f58_c8318218",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-25T23:17:36Z",
+      "side": 1,
+      "message": "doesn\u0027t need to be done this patch.",
+      "parentUuid": "c50c66ef_ffb6a320",
+      "range": {
+        "startLine": 540,
+        "startChar": 0,
+        "endLine": 618,
+        "endChar": 5
+      },
+      "revId": "b664ef2da70b1afefb0601bf2fb34b5c7ae0c859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bcff727_be3dd7a9",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 17
