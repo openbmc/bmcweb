@@ -194,6 +194,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d31aff87_6c17738f",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-25T23:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a8d9047_e6446c9a",
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e2be1a1_d6fbf105",
@@ -335,6 +353,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06a57ebf_51233a5b",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-25T23:16:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "51c68126_35b299e1",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 34
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b69a8ea3_2e19ad0e",
@@ -372,6 +414,30 @@
       "side": 1,
       "message": "For the sensor excerpt paths we have the D-Bus path not the Redfish sensor URI path to the sensor.\n\nThe Redfish schemas for the sensor excerpts define the \"DataSourceUri\" to the Redfish URI for the sensor used to obtain the properties being excerpted.\n\nThe objectPropertiesToJson() function expects sensorType and sensorName rather than the D-Bus path.\n\nSo I decided it would be cleanest to add a wrapper for the sensor excerpts. The goal is to have a common place to set the \"DataSourceUri\" consistently for the excerpts. I also decided to call objectPropertiesToJson() here since it already had to determine the sensorName and sensorType in order to set the \"DataSourceUri\".\n\nI\u0027ll add a bit more to the comments for the function to help clarify.",
       "parentUuid": "b69a8ea3_2e19ad0e",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 695,
+        "endChar": 5
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e851063_575e3b8e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-25T23:16:56Z",
+      "side": 1,
+      "message": "\u003e For the sensor excerpt paths we have the D-Bus path not the Redfish sensor URI path to the sensor.\n\u003e \n\u003e The Redfish schemas for the sensor excerpts define the \"DataSourceUri\" to the Redfish URI for the sensor used to obtain the properties being excerpted.\n\u003e \n\u003e The objectPropertiesToJson() function expects sensorType and sensorName rather than the D-Bus path.\n\n\ndbus path is /xyz/openbmc_project/sensors/\u003csensortype\u003e/\u003csensorname\u003e\n\nredfish path is\n/redfish/v1/Chassis/chassis/Sensors/\u003csensortype\u003e_\u003csensorname\u003e\n\nOne is trivially convertible to the other.\n\n\u003e \n\u003e So I decided it would be cleanest to add a wrapper for the sensor excerpts. The goal is to have a common place to set the \"DataSourceUri\" consistently for the excerpts. I also decided to call objectPropertiesToJson() here since it already had to determine the sensorName and sensorType in order to set the \"DataSourceUri\".\n\u003e \n\u003e I\u0027ll add a bit more to the comments for the function to help clarify.\n\nsensorTypeExpected is the part I don\u0027t understand.",
+      "parentUuid": "fb3c7095_c1f8217d",
       "range": {
         "startLine": 681,
         "startChar": 0,
@@ -554,6 +620,24 @@
       "side": 1,
       "message": "Good point, I\u0027ve moved this into handleTemperatureReadingsCelsius()",
       "parentUuid": "ca128ed0_7408c45f",
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3dac1f2a_50a06e3c",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-25T23:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e3bbbaf_de21598c",
       "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
