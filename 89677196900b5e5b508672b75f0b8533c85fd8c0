@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b83454b8_d4f0eace",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2493,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-25T05:57:50Z",
+      "side": 1,
+      "message": "May not be relevant for this commit. Still a question on above. If setUpRedfishRoute is mandatory for all, then why don\u0027t we call it from bmcweb framework before calling the route handlers?",
+      "parentUuid": "693d805e_ec32253d",
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a01a52ae_1abd7d09",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -89,6 +107,30 @@
       "writtenOn": "2024-09-24T17:32:01Z",
       "side": 1,
       "message": "I thought we had a real privilege for this that we could check?  ConfigureSelf?\n\nAlso, I wouldn\u0027t expect this.  Admins should be allowed to do this for other users, right?",
+      "range": {
+        "startLine": 2506,
+        "startChar": 0,
+        "endLine": 2510,
+        "endChar": 5
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ac0be9a_4bd501f4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2510,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-09-25T05:57:50Z",
+      "side": 1,
+      "message": "This api is used by the user while setting up the secret key on his/her mobile device after a createSecretKey call. This happens whenever a user tries to login for the first time after global MFA enablement. Admin calling this for other users means, we are enabling a use case where admin creating secret key for other users and sharing it out of band. Which is an insecure way of sharing.",
+      "parentUuid": "20fb04a6_d4e32790",
       "range": {
         "startLine": 2506,
         "startChar": 0,
