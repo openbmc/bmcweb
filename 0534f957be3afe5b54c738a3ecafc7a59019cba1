@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "4be3e72d_2d821d6b",
         "filename": "redfish-core/lib/environment_metrics.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Need to do a check for  serviceName[0].first.empty()?\nOr connectName.empty() ?",
       "revId": "0534f957be3afe5b54c738a3ecafc7a59019cba1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b6f3344d_1926e287",
         "filename": "redfish-core/lib/environment_metrics.hpp",
@@ -32,10 +33,28 @@
       "message": "Under the premise that the serviceName has a value, it may happen that the connectionName is empty?",
       "parentUuid": "4be3e72d_2d821d6b",
       "revId": "0534f957be3afe5b54c738a3ecafc7a59019cba1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2a049e0_824b8d3f",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "Patch Set 13 changed this to skip the GetSubTree and get the properties directly using the hard-coded path. So the need for this check went away with that change.\n\nDue to other review comments I\u0027m adding back the GetSubTree() call to avoid hard-coding the D-Bus path. In adding this back I\u0027ve added this check as well.",
+      "parentUuid": "b6f3344d_1926e287",
+      "revId": "0534f957be3afe5b54c738a3ecafc7a59019cba1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "16cf1ba9_35fed8b2",
         "filename": "redfish-core/lib/environment_metrics.hpp",
@@ -49,10 +68,10 @@
       "side": 1,
       "message": "I pulled this down, was trying to build this with --buildtype\u003ddebug \\\n\n|   121 |           _M_realloc_insert(end(), std::forward\u003c_Args\u003e(__args)...);\n|       |           ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n| In file included from ../git/redfish-core/include/redfish.hpp:24,\n|                  from ../git/src/webserver_main.cpp:24:\n| ../git/redfish-core/include/../lib/environment_metrics.hpp: In function \u0027void redfish::setPowerControlMode(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026, const string\u0026)\u0027:\n| ../git/redfish-core/include/../lib/environment_metrics.hpp:354:52: error: \u0027powerCapEnable\u0027 may be used uninitialized in this function [-Werror\u003dmaybe-uninitialized]\n|   354 |     crow::connections::systemBus-\u003easync_method_call(\n|       |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n|   355 |         [asyncResp, powerCapEnable](\n|       |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   356 |             const boost::system::error_code ec,\n|       |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   357 |             const std::vector\u003cstd::pair\u003c\n|       |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   358 |                 std::string,\n|       |                 ~~~~~~~~~~~~\n|   359 |                 std::vector\u003cstd::pair\u003cstd::string, std::vector\u003cstd::string\u003e\u003e\u003e\u003e\u003e\u0026\n|       |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   360 |                 powercapsubtree) {\n|       |                 ~~~~~~~~~~~~~~~~~~\n|   361 |             if (ec)\n|       |             ~~~~~~~\n|   362 |             {\n|       |             ~\n|   363 |                 BMCWEB_LOG_DEBUG \u003c\u003c \"D-Bus response error on GetSubTree \" \u003c\u003c ec;\n|       |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   364 |                 messages::internalError(asyncResp-\u003eres);\n|       |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   365 |                 return;\n|       |                 ~~~~~~~\n|   366 |             }\n|       |             ~\n|   367 |\n|       |\n|   368 |             for (const auto\u0026 [objectPath, serviceName] : powercapsubtree)\n|       |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   369 |             {\n|       |             ~\n|   370 |                 if (objectPath.empty() || serviceName.size() !\u003d 1)\n|       |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   371 |                 {\n|       |                 ~\n|   372 |                     BMCWEB_LOG_DEBUG \u003c\u003c \"Error getting D-Bus object!\";\n|       |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   373 |                     messages::internalError(asyncResp-\u003eres);\n|       |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   374 |                     return;\n|       |                     ~~~~~~~\n|   375 |                 }\n|       |                 ~\n|   376 |                 const std::string\u0026 validPath \u003d objectPath;\n|       |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   377 |                 const std::string\u0026 connectionName \u003d serviceName[0].first;\n|       |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   378 |\n|       |\n|   379 |                 crow::connections::systemBus-\u003easync_method_call(\n|       |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   380 |                     [asyncResp](const boost::system::error_code ec) {\n|       |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   381 |                         if (ec)\n|       |                         ~~~~~~~\n|   382 |                         {\n|       |                         ~\n|   383 |                             messages::internalError(asyncResp-\u003eres);\n|       |                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   384 |                             BMCWEB_LOG_ERROR\n|       |                             ~~~~~~~~~~~~~~~~\n|   385 |                                 \u003c\u003c \"powerCapEnable Get handler: Dbus error \"\n|       |                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   386 |                                 \u003c\u003c ec;\n|       |                                 ~~~~~~\n|   387 |                             return;\n|       |                             ~~~~~~~\n|   388 |                         }\n|       |                         ~\n|   389 |                     },\n|       |                     ~~\n|   390 |                     connectionName, validPath,\n|       |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   391 |                     \"org.freedesktop.DBus.Properties\", \"Set\",\n|       |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   392 |                     \"xyz.openbmc_project.Control.Power.Cap\", \"PowerCapEnable\",\n|       |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   393 |                     std::variant\u003cbool\u003e(powerCapEnable));\n|       |                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   394 |             }\n|       |             ~\n|   395 |         },\n|       |         ~~\n|   396 |         \"xyz.openbmc_project.ObjectMapper\",\n|       |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   397 |         \"/xyz/openbmc_project/object_mapper\",\n|       |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   398 |         \"xyz.openbmc_project.ObjectMapper\", \"GetSubTree\", \"/\", 0,\n|       |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n|   399 |         powerCapInterfaces);\n|       |         ~~~~~~~~~~~~~~~~~~~\n| In file included from /tmp/gmills/11-15-ghe/build/tmp/work/armv7ahf-vfpv4d16-openbmc-linux-gnueabi/bmcweb/1.0+gitAUTOINC+392aea9cb2-r0/recipe-sysroot/usr/include/c++/11.2.0/vector:72,",
       "revId": "0534f957be3afe5b54c738a3ecafc7a59019cba1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "aaaf36ff_4e1227c9",
         "filename": "redfish-core/lib/environment_metrics.hpp",
@@ -67,8 +86,7 @@
       "message": "Done",
       "parentUuid": "16cf1ba9_35fed8b2",
       "revId": "0534f957be3afe5b54c738a3ecafc7a59019cba1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

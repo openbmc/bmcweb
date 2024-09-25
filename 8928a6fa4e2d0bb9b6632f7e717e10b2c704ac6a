@@ -105,6 +105,24 @@
       "parentUuid": "5183ecbe_f4efd84c",
       "revId": "8928a6fa4e2d0bb9b6632f7e717e10b2c704ac6a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09cc4fc2_eea669af",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "Looking at the history:\nI see in patch set 2 where Gunnar created this comment the PATCH for these properties was not implemented. \n\nPatch set 3 then added the PATCH implementation.\n\nI don\u0027t interpret Gunnar\u0027s comment as requiring a different commit for adding the PATCH.\n\nIs it acceptable for the GET and PATCH to both be in this same commit?",
+      "parentUuid": "1f3a2f90_07082383",
+      "revId": "8928a6fa4e2d0bb9b6632f7e717e10b2c704ac6a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

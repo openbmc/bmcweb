@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "358dff21_ceffba17",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "I\u0027ve removed the hard-coded path.\n\nI asked Chris Cain about the D-Bus path for the PowerCapEnable property. His explanation: This is a system power cap (for the entire system).  If power exceeds this cap, all the processors in the system will get throttled to bring the power down.",
+      "parentUuid": "ef848f61_2974b1e0",
+      "range": {
+        "startLine": 265,
+        "startChar": 8,
+        "endLine": 265,
+        "endChar": 54
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99540d63_1abc8a24",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 18
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffe8a631_a58fc05f",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "I\u0027ve removed the hardcoded path.\n\nSee comment https://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300/comment/ef848f61_2974b1e0/ about the relation between power_cap and chassis.",
+      "parentUuid": "99540d63_1abc8a24",
+      "range": {
+        "startLine": 286,
+        "startChar": 9,
+        "endLine": 286,
+        "endChar": 53
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c26af4a8_2d77e004",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 18
@@ -77,6 +125,30 @@
       "writtenOn": "2024-02-05T17:17:14Z",
       "side": 1,
       "message": "Please set both of these in one place.  Don\u0027t set it, then later on in the function (like 326) override it.\n\nAlso, behavior wise, if PowerCapEnable doesn\u0027t exist, we just assume it\u0027s enabled?  It looks like PowerCapEnable has been in the schema for 7 years now.  We can just assume it exists (change powerCapEnable  to not be a pointer).",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 24
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e40709ee_8e68078a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c26af4a8_2d77e004",
       "range": {
         "startLine": 298,
         "startChar": 0,
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "977edcb6_5de2648b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "The work to implement Control.Power.CapLimits has been marked WIP for almost two years.\nhttps://gerrit.openbmc.org/c/openbmc/openpower-occ-control/+/58066\n\nI asked Chris Cain about the state of its implementation and it is not actively being worked at this time. \n\nFor bmcweb to support these properties in the near term it needs to use the current implementation. If Control.Power.CapLimits is later implemented the bmcweb implementation would need to be modified. That should also trigger the deprecation of the Control.Power.Cap interface.",
+      "parentUuid": "c6ed055e_3637c7af",
+      "range": {
+        "startLine": 310,
+        "startChar": 56,
+        "endLine": 311,
+        "endChar": 45
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a6b231f1_7c44f5b6",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 18
@@ -123,6 +219,30 @@
       "writtenOn": "2024-02-05T17:17:14Z",
       "side": 1,
       "message": "Lets just return 204, like we do elsewhere on PATCH.  keeping these aligned seems difficult.",
+      "range": {
+        "startLine": 319,
+        "startChar": 0,
+        "endLine": 340,
+        "endChar": 9
+      },
+      "revId": "9b38c0ce401842d651b723b07d22b9dc112bfbb6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37e88303_4d392809",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "I\u0027m not clear on what this change this comment is requesting.\n\nHere for the GET path if any of the PowerLimitWatts properties are not retrieved from the D-Bus that equivalent property in the Json response won\u0027t be filled in. Is that not the behavior that is desired?",
+      "parentUuid": "a6b231f1_7c44f5b6",
       "range": {
         "startLine": 319,
         "startChar": 0,

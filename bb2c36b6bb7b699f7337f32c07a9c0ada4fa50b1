@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "9a701c34_4ece2958",
         "filename": "redfish-core/lib/environment_metrics.hpp",
@@ -14,8 +15,25 @@
       "side": 1,
       "message": "Don\u0027t you need a return? Also I liked this check above like you had it in patchset 9",
       "revId": "bb2c36b6bb7b699f7337f32c07a9c0ada4fa50b1",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb66621c_9decc83e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "Patch set 11 added the return.\n\nI\u0027ve looked at the checks in setPowerControlMode() in Patch set 9 but I\u0027m not seeing any difference with what is in Patch set 10.\n\nI\u0027m not sure what the second part of this comment is referencing. Can you clarify what checks to change? Maybe it was already addressed?",
+      "parentUuid": "9a701c34_4ece2958",
+      "revId": "bb2c36b6bb7b699f7337f32c07a9c0ada4fa50b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

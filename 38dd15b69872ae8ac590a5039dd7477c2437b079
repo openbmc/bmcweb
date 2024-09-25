@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc78e1d8_24b7160c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "I\u0027ve reworded the commit message to reference the relevant Redfish schema and the version where PowerLimitWatts was added.",
+      "parentUuid": "39979ba2_f3762dbc",
+      "range": {
+        "startLine": 9,
+        "startChar": 57,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "38dd15b69872ae8ac590a5039dd7477c2437b079",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b144e837_11af07e6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 12
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-15T02:32:26Z",
       "side": 1,
       "message": "I don\u0027t see AllowableMax/AllowableMin implemented",
+      "range": {
+        "startLine": 13,
+        "startChar": 24,
+        "endLine": 13,
+        "endChar": 53
+      },
+      "revId": "38dd15b69872ae8ac590a5039dd7477c2437b079",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c116653d_50fe92e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "These were implemented as part of Patch set 13.",
+      "parentUuid": "b144e837_11af07e6",
       "range": {
         "startLine": 13,
         "startChar": 24,
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1badfa07_9fa3e0f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "Yes, I\u0027ve updated the commit message to indicate this.",
+      "parentUuid": "2ab27703_727fd094",
+      "revId": "38dd15b69872ae8ac590a5039dd7477c2437b079",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2402d519_22a5c880",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 12
@@ -77,6 +143,24 @@
       "writtenOn": "2022-11-15T02:32:26Z",
       "side": 1,
       "message": "This should be done",
+      "revId": "38dd15b69872ae8ac590a5039dd7477c2437b079",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4224a80_7a45262e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-25T22:05:37Z",
+      "side": 1,
+      "message": "Patch set 13 added the privilege check of redfish::privileges::patchEnvironmentMetrics for the PATCH of these properties.",
+      "parentUuid": "2402d519_22a5c880",
       "revId": "38dd15b69872ae8ac590a5039dd7477c2437b079",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
