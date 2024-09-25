@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4c480a8d_5d2debe4",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-09-25T02:35:14Z",
+      "side": 1,
+      "message": "Hi @Ed,\nPer Dbus interface, the BuildDate format either as YYYYMMDD or YYYYMMDDThhmmssZ https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Decorator/Asset.interface.yaml#L20. So I could say it\u0027s valid time.\nI will add more debug to dateStringToEpoch function.\n\nThanks,",
+      "parentUuid": "66a57bcf_f8775236",
+      "revId": "574f6a5128adb4158e0a6af2ab12ad3cfa34276b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12bc5dc7_4177cded",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 8
