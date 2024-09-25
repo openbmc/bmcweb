@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c215d75_fdc6a290",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-25T19:56:48Z",
+      "side": 1,
+      "message": "In my understanding from https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/Led, there are 2 interfaces related to LED\n- xyz.openbmc_Project.Led.Group\n- xyz.openbmc_Project.Led.Physical\n\nBut here, this is for LedGroup and thus its interface would be `xyz.openbmc_Project.Led.Group`",
+      "parentUuid": "4490e934_244420b2",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "6e57917f321f9dba14eafc9b5421c622a21dd7e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fad05244_650dd5df",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 45
@@ -37,6 +61,30 @@
       "writtenOn": "2024-09-10T23:39:41Z",
       "side": 1,
       "message": "pass these by move please.  Needs fixed everywhere.",
+      "range": {
+        "startLine": 298,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 67
+      },
+      "revId": "6e57917f321f9dba14eafc9b5421c622a21dd7e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cb7b425_7503864d",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-25T19:56:48Z",
+      "side": 1,
+      "message": "If the caller uses `std::bind_front()`, callback seems needed to define as `const`.\nSo, I\u0027ve changed the caller to use a short lambda body and change this function as `\u0026\u0026 callback`.",
+      "parentUuid": "fad05244_650dd5df",
       "range": {
         "startLine": 298,
         "startChar": 0,
@@ -60,6 +108,30 @@
       "writtenOn": "2024-09-10T23:39:41Z",
       "side": 1,
       "message": "Why is this \"groups\"?  I would expect the search to just be in the LED namespace.",
+      "range": {
+        "startLine": 302,
+        "startChar": 34,
+        "endLine": 302,
+        "endChar": 40
+      },
+      "revId": "6e57917f321f9dba14eafc9b5421c622a21dd7e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eca2da8_7490633d",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-09-25T19:56:48Z",
+      "side": 1,
+      "message": "Similar to `getIndicatorLedState()`, this would be under Led.Group interface and its path is like `/xyz/openbmc_project/led/groups/\u003cname\u003e` (described in https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/Led).",
+      "parentUuid": "27162ff6_125c1acb",
       "range": {
         "startLine": 302,
         "startChar": 34,
