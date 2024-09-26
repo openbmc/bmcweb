@@ -685,6 +685,30 @@
       },
       "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4f69e5e_e388705d",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2024-09-26T16:48:37Z",
+      "side": 1,
+      "message": "Hi,\n\nI worked with Ed, James Feist, and Gunnar Mills to define those two association types about 5 years ago.\n\nThey are documented here: https://github.com/openbmc/docs/blob/master/architecture/sensor-architecture.md\n\nThey were reviewed here: https://gerrit.openbmc.org/c/openbmc/docs/+/22976\n\nWe needed two types of associations:\n* One from a chassis to all of its sensors so we could respond properly to Redfish URIs like /redfish/v1/Chassis/{ChassisId}/Sensors\n* One from a low inventory item to its sensors so we could get VPD, health status, etc.\n\nFor example, a fan or PSU sensor is associated with a low level mechanical fan or PSU with VPD and health status.  It is also associated with the higher level chassis (sled, drawer, etc.) so that /redfish/v1/Chassis/{ChassisId}/Sensors will work.\n\nThe \"inventory\" \u003c-\u003e \"sensors\" association is used in bmcweb here: https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensors.hpp#L1140\n\nThese two association types are defined in associations JSON files but are also implemented in C++ code such as the phosphor-voltage-regulators application.  Removing the \"inventory\" \u003c-\u003e \"sensors\" association would require changing several upstream applications and would break current behavior in bmcweb.",
+      "parentUuid": "5691c00c_d25fd2bc",
+      "range": {
+        "startLine": 461,
+        "startChar": 41,
+        "endLine": 461,
+        "endChar": 48
+      },
+      "revId": "80366af9e11ae8efaa81d71a672347c2d6837b07",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
