@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3e07d51_d69ab507",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2493,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-26T18:10:33Z",
+      "side": 1,
+      "message": "because not all routes are redfish tree routes.  bmcweb supports a lot more than just redfish.\n\nAt one point Nan proposed creating a REDFISH_ROUTE handler that would do this call automatically, but it used macros where are technically against the coding standard.  I would still support if someone wanted to do that.",
+      "parentUuid": "b83454b8_d4f0eace",
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a01a52ae_1abd7d09",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -155,6 +173,30 @@
       "side": 1,
       "message": "I second what Abhilash has said.\nIt should be \"ConfigureSelf\" as the user should only setup/configure mfa by verifying the TOTP.",
       "parentUuid": "2ac0be9a_4bd501f4",
+      "range": {
+        "startLine": 2506,
+        "startChar": 0,
+        "endLine": 2510,
+        "endChar": 5
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a4d5b9a_23fc0d21",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2510,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-26T18:10:33Z",
+      "side": 1,
+      "message": "If you dislike the current state of privilege registry, you\u0027re free to go argue with DMTF that produced it.  At the moment, privilege registry states that admins have complete access.\n\nI agree, an admin probably _shouldnt_ set up a secret key for a user, but that\u0027s not something we can argue in this patch..",
+      "parentUuid": "8261a78e_8d18531b",
       "range": {
         "startLine": 2506,
         "startChar": 0,
