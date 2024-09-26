@@ -143,6 +143,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8261a78e_8d18531b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2510,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-09-26T17:24:26Z",
+      "side": 1,
+      "message": "I second what Abhilash has said.\nIt should be \"ConfigureSelf\" as the user should only setup/configure mfa by verifying the TOTP.",
+      "parentUuid": "2ac0be9a_4bd501f4",
+      "range": {
+        "startLine": 2506,
+        "startChar": 0,
+        "endLine": 2510,
+        "endChar": 5
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b905927_129872b5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
