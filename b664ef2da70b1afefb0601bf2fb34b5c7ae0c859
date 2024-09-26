@@ -92,6 +92,30 @@
       },
       "revId": "b664ef2da70b1afefb0601bf2fb34b5c7ae0c859",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfe1c911_e95799ef",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-09-26T19:06:56Z",
+      "side": 1,
+      "message": "I\u0027ve found sortJsonArrayByOData() and the functions it calls. I don\u0027t see any callers of it, but it looks like what you are referencing.\n\n(I\u0027ve also found sortJSONResponse() but that looks like it has the same problem I have here.)\n\nI\u0027m wondering if you would be against me making the ODataObjectLess() and odataObjectCmp() functions more generic so that they would accept the key to be used for the sort as on option?\n\nSo I would have sortJsonArrayByOData() call with \"@odata.id\" as key. Then I would add another function which would pass \"DataSourceUri\" as the key.",
+      "parentUuid": "7bcff727_be3dd7a9",
+      "range": {
+        "startLine": 60,
+        "startChar": 57,
+        "endLine": 61,
+        "endChar": 76
+      },
+      "revId": "b664ef2da70b1afefb0601bf2fb34b5c7ae0c859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
