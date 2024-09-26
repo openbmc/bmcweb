@@ -4,6 +4,7 @@
 #include "generated/enums/metric_definition.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/triggers.hpp"
+#include "metric_report_definition.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utility.hpp"
@@ -219,6 +220,42 @@ struct Context
     std::optional<MetricType> metricType;
     std::optional<std::vector<std::string>> metricProperties;
 };
+
+inline std::string toRedfishTriggerProperty(
+    std::string_view dbusMessage, const TriggerThresholdParams& thresholds)
+{
+    if (dbusMessage == "Id")
+    {
+        return "Id";
+    }
+    if (dbusMessage == "Name")
+    {
+        return "Name";
+    }
+    if (dbusMessage == "Sensors")
+    {
+        return "MetricProperties";
+    }
+    if (dbusMessage == "Reports")
+    {
+        return "Links/MetricReportDefinitions";
+    }
+    if (dbusMessage == "Thresholds")
+    {
+        if (std::holds_alternative<std::vector<DiscreteThresholdParams>>(
+                thresholds))
+        {
+            return "DiscreteTriggers";
+        }
+        if (std::holds_alternative<std::vector<NumericThresholdParams>>(
+                thresholds))
+        {
+            return "NumericThresholds";
+        }
+    }
+
+    return "";
+}
 
 inline std::optional<sdbusplus::message::object_path>
     getReportPathFromReportDefinitionUri(const std::string& uri)
@@ -677,18 +714,51 @@ inline bool parsePostTriggerParams(crow::Response& res,
 }
 
 inline void afterCreateTrigger(
-    const boost::system::error_code& ec, const std::string& dbusPath,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
+    const boost::system::error_code& ec, const sdbusplus::message_t& msg,
+    const std::string& dbusPath,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
+    const TriggerThresholdParams& thresholds)
 {
-    if (ec == boost::system::errc::file_exists)
+    if (ec == boost::system::errc::io_error)
     {
-        messages::resourceAlreadyExists(asyncResp->res, "Trigger", "Id", id);
-        return;
-    }
-    if (ec == boost::system::errc::too_many_files_open)
-    {
-        messages::createLimitReachedForResource(asyncResp->res);
-        return;
+        const sd_bus_error* errorMessage = msg.get_error();
+        if (errorMessage != nullptr)
+        {
+            std::string_view errorName = errorMessage->name;
+            if (errorName == "xyz.openbmc_project.Common.Error.InvalidArgument")
+            {
+                for (const auto& arg :
+                     {"Id", "Name", "Sensors", "Reports", "Thresholds"})
+                {
+                    std::string redfishArg =
+                        toRedfishTriggerProperty(arg, thresholds);
+                    if (redfishArg.empty())
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "{} has no corresponding Redfish property", arg);
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (!handleParamError(asyncResp->res, errorMessage->message,
+                                          arg, redfishArg))
+                    {
+                        return;
+                    }
+                }
+            }
+            if (errorName == "xyz.openbmc_project.Common.Error.NotAllowed")
+            {
+                messages::resourceAlreadyExists(asyncResp->res, "Trigger", "Id",
+                                                id);
+                return;
+            }
+            if (errorName ==
+                "xyz.openbmc_project.Common.Error.TooManyResources")
+            {
+                messages::createLimitReachedForResource(asyncResp->res);
+                return;
+            }
+        }
     }
     if (ec)
     {
@@ -954,9 +1024,10 @@ inline void handleTriggerCollectionPost(
     }
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, id = ctx.id](const boost::system::error_code& ec,
-                                 const std::string& dbusPath) {
-            afterCreateTrigger(ec, dbusPath, asyncResp, id);
+        [asyncResp, id = ctx.id, thresholds = ctx.thresholds](
+            const boost::system::error_code& ec,
+            const sdbusplus::message_t& msg, const std::string& dbusPath) {
+            afterCreateTrigger(ec, msg, dbusPath, asyncResp, id, thresholds);
         },
         service, "/xyz/openbmc_project/Telemetry/Triggers",
         "xyz.openbmc_project.Telemetry.TriggerManager", "AddTrigger",

@@ -76,6 +76,12 @@ void afterSetProperty(
                 messages::resourceInStandby(asyncResp->res);
                 return;
             }
+            if (errorName ==
+                "xyz.openbmc_project.Common.Error.TooManyResources")
+            {
+                messages::createLimitReachedForResource(asyncResp->res);
+                return;
+            }
         }
         BMCWEB_LOG_ERROR("D-Bus error setting Redfish Property {} ec={}",
                          redfishPropertyName, ec);

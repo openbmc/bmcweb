@@ -48,19 +48,6 @@ inline bool verifyCommonErrors(crow::Response& res, const std::string& id,
         return false;
     }
 
-    if (ec == boost::system::errc::file_exists)
-    {
-        messages::resourceAlreadyExists(res, "MetricReportDefinition", "Id",
-                                        id);
-        return false;
-    }
-
-    if (ec == boost::system::errc::too_many_files_open)
-    {
-        messages::createLimitReachedForResource(res);
-        return false;
-    }
-
     if (ec)
     {
         BMCWEB_LOG_ERROR("DBUS response error {}", ec);
@@ -650,7 +637,7 @@ inline bool getChassisSensorNodeFromMetrics(
     return true;
 }
 
-inline std::string toRedfishProperty(std::string_view dbusMessage)
+inline std::string toRedfishReportProperty(std::string_view dbusMessage)
 {
     if (dbusMessage == "Id")
     {
@@ -688,7 +675,8 @@ inline std::string toRedfishProperty(std::string_view dbusMessage)
 }
 
 inline bool handleParamError(crow::Response& res, const char* errorMessage,
-                             std::string_view key)
+                             std::string_view dbusProperty,
+                             std::string_view redfishProperty)
 {
     if (errorMessage == nullptr)
     {
@@ -696,17 +684,8 @@ inline bool handleParamError(crow::Response& res, const char* errorMessage,
         return true;
     }
     std::string_view errorMessageSv(errorMessage);
-    if (errorMessageSv.starts_with(key))
+    if (errorMessageSv.starts_with(dbusProperty))
     {
-        std::string redfishProperty = toRedfishProperty(key);
-        if (redfishProperty.empty())
-        {
-            // Getting here means most possibly that toRedfishProperty has
-            // incomplete implementation. Return internal error for now.
-            BMCWEB_LOG_ERROR("{} has no corresponding Redfish property", key);
-            messages::internalError(res);
-            return false;
-        }
         messages::propertyValueError(res, redfishProperty);
         return false;
     }
@@ -725,20 +704,45 @@ inline void afterAddReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    if (ec == boost::system::errc::invalid_argument)
+    if (ec == boost::system::errc::io_error)
     {
         const sd_bus_error* errorMessage = msg.get_error();
         if (errorMessage != nullptr)
         {
-            for (const auto& arg :
-                 {"Id", "Name", "ReportingType", "AppendLimit", "ReportActions",
-                  "Interval", "ReportUpdates", "ReadingParameters"})
+            std::string_view errorName = errorMessage->name;
+            if (errorName == "xyz.openbmc_project.Common.Error.InvalidArgument")
             {
-                if (!handleParamError(asyncResp->res, errorMessage->message,
-                                      arg))
+                for (const auto& arg :
+                     {"Id", "Name", "ReportingType", "AppendLimit",
+                      "ReportActions", "Interval", "ReportUpdates",
+                      "ReadingParameters"})
                 {
-                    return;
+                    std::string redfishArg = toRedfishReportProperty(arg);
+                    if (redfishArg.empty())
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "{} has no corresponding Redfish property", arg);
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (!handleParamError(asyncResp->res, errorMessage->message,
+                                          arg, redfishArg))
+                    {
+                        return;
+                    }
                 }
+            }
+            if (errorName == "xyz.openbmc_project.Common.Error.NotAllowed")
+            {
+                messages::resourceAlreadyExists(
+                    asyncResp->res, "MetricReportDefinition", "Id", args.id);
+                return;
+            }
+            if (errorName ==
+                "xyz.openbmc_project.Common.Error.TooManyResources")
+            {
+                messages::createLimitReachedForResource(asyncResp->res);
+                return;
             }
         }
     }
@@ -861,38 +865,6 @@ inline std::optional<
     return result;
 }
 
-inline void afterSetReadingParams(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& reportId, const boost::system::error_code& ec,
-    const sdbusplus::message_t& msg)
-{
-    if (!ec)
-    {
-        messages::success(asyncResp->res);
-        return;
-    }
-    if (ec == boost::system::errc::invalid_argument)
-    {
-        const sd_bus_error* errorMessage = msg.get_error();
-        if (errorMessage != nullptr)
-        {
-            for (const auto& arg : {"Id", "ReadingParameters"})
-            {
-                if (!handleParamError(asyncResp->res, errorMessage->message,
-                                      arg))
-                {
-                    return;
-                }
-            }
-        }
-    }
-    if (!verifyCommonErrors(asyncResp->res, reportId, ec))
-    {
-        return;
-    }
-    messages::internalError(asyncResp->res);
-}
-
 inline void setReadingParams(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& reportId, ReadingParameters readingParams,
@@ -925,15 +897,10 @@ inline void setReadingParams(
         }
     }
 
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, reportId](const boost::system::error_code& ec,
-                              const sdbusplus::message_t& msg) {
-            afterSetReadingParams(asyncResp, reportId, ec, msg);
-        },
-        "xyz.openbmc_project.Telemetry", getDbusReportPath(reportId),
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Telemetry.Report", "ReadingParameters",
-        dbus::utility::DbusVariantType{readingParams});
+    setDbusProperty(asyncResp, "Metrics", "xyz.openbmc_project.Telemetry",
+                    getDbusReportPath(reportId),
+                    "xyz.openbmc_project.Telemetry.Report", "ReadingParameters",
+                    readingParams);
 }
 
 class UpdateMetrics
@@ -992,17 +959,9 @@ inline void
     setReportEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      std::string_view id, bool enabled)
 {
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, id = std::string(id)](const boost::system::error_code& ec) {
-            if (!verifyCommonErrors(asyncResp->res, id, ec))
-            {
-                return;
-            }
-        },
-        "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Telemetry.Report", "Enabled",
-        dbus::utility::DbusVariantType{enabled});
+    setDbusProperty(asyncResp, "MetricReportDefinitionEnabled",
+                    "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
+                    "xyz.openbmc_project.Telemetry.Report", "Enabled", enabled);
 }
 
 inline void afterSetReportingProperties(
@@ -1015,17 +974,29 @@ inline void afterSetReportingProperties(
         return;
     }
 
-    if (ec == boost::system::errc::invalid_argument)
+    if (ec == boost::system::errc::io_error)
     {
         const sd_bus_error* errorMessage = msg.get_error();
         if (errorMessage != nullptr)
         {
-            for (const auto& arg : {"Id", "ReportingType", "Interval"})
+            std::string_view errorName = errorMessage->name;
+            if (errorName == "xyz.openbmc_project.Common.Error.InvalidArgument")
             {
-                if (!handleParamError(asyncResp->res, errorMessage->message,
-                                      arg))
+                for (const auto& arg : {"ReportingType", "Interval"})
                 {
-                    return;
+                    std::string redfishArg = toRedfishReportProperty(arg);
+                    if (redfishArg.empty())
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "{} has no corresponding Redfish property", arg);
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (!handleParamError(asyncResp->res, errorMessage->message,
+                                          arg, redfishArg))
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -1079,36 +1050,6 @@ inline void setReportTypeAndInterval(
         dbusReportingType, recurrenceInterval);
 }
 
-inline void afterSetReportUpdates(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
-    const boost::system::error_code& ec, const sdbusplus::message_t& msg)
-{
-    if (!ec)
-    {
-        asyncResp->res.result(boost::beast::http::status::no_content);
-        return;
-    }
-    if (ec == boost::system::errc::invalid_argument)
-    {
-        const sd_bus_error* errorMessage = msg.get_error();
-        if (errorMessage != nullptr)
-        {
-            for (const auto& arg : {"Id", "ReportUpdates"})
-            {
-                if (!handleParamError(asyncResp->res, errorMessage->message,
-                                      arg))
-                {
-                    return;
-                }
-            }
-        }
-    }
-    if (!verifyCommonErrors(asyncResp->res, id, ec))
-    {
-        return;
-    }
-}
-
 inline void
     setReportUpdates(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      std::string_view id, const std::string& reportUpdates)
@@ -1120,43 +1061,10 @@ inline void
                                          "ReportUpdates");
         return;
     }
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, id = std::string(id)](const boost::system::error_code& ec,
-                                          const sdbusplus::message_t& msg) {
-            afterSetReportUpdates(asyncResp, id, ec, msg);
-        },
-        "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Telemetry.Report", "ReportUpdates",
-        dbus::utility::DbusVariantType{dbusReportUpdates});
-}
-
-inline void afterSetReportActions(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
-    const boost::system::error_code& ec, const sdbusplus::message_t& msg)
-{
-    if (ec == boost::system::errc::invalid_argument)
-    {
-        const sd_bus_error* errorMessage = msg.get_error();
-        if (errorMessage != nullptr)
-        {
-            for (const auto& arg : {"Id", "ReportActions"})
-            {
-                if (!handleParamError(asyncResp->res, errorMessage->message,
-                                      arg))
-                {
-                    return;
-                }
-            }
-        }
-    }
-
-    if (!verifyCommonErrors(asyncResp->res, id, ec))
-    {
-        return;
-    }
-
-    messages::internalError(asyncResp->res);
+    setDbusProperty(asyncResp, "ReportUpdates", "xyz.openbmc_project.Telemetry",
+                    getDbusReportPath(id),
+                    "xyz.openbmc_project.Telemetry.Report", "ReportUpdates",
+                    dbusReportUpdates);
 }
 
 inline void setReportActions(
@@ -1169,15 +1077,10 @@ inline void setReportActions(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, id = std::string(id)](const boost::system::error_code& ec,
-                                          const sdbusplus::message_t& msg) {
-            afterSetReportActions(asyncResp, id, ec, msg);
-        },
-        "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Telemetry.Report", "ReportActions",
-        dbus::utility::DbusVariantType{dbusReportActions});
+    setDbusProperty(asyncResp, "ReportActions", "xyz.openbmc_project.Telemetry",
+                    getDbusReportPath(id),
+                    "xyz.openbmc_project.Telemetry.Report", "ReportActions",
+                    dbusReportActions);
 }
 
 inline void setReportMetrics(
