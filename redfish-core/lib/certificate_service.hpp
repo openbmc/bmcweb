@@ -571,7 +571,7 @@ inline void handleReplaceCertificateAction(
     crow::connections::systemBus->async_method_call(
         [asyncResp, certFile, objectPath, service, url{*parsedUrl}, id, name,
          certificate](const boost::system::error_code& ec,
-                      sdbusplus::message::message& m) {
+                      sdbusplus::message_t& m) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
