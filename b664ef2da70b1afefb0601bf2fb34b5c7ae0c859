@@ -140,6 +140,30 @@
       },
       "revId": "b664ef2da70b1afefb0601bf2fb34b5c7ae0c859",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec541608_7865eb2c",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-09-28T00:46:02Z",
+      "side": 1,
+      "message": "looking at sortJsonResponse bugged me, so i fixed it:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/74926\n\nfeel free to use that as a starting point if it helps, or if you\u0027re already doing something, happy to review that as well",
+      "parentUuid": "ee29ad94_84c51846",
+      "range": {
+        "startLine": 60,
+        "startChar": 57,
+        "endLine": 61,
+        "endChar": 76
+      },
+      "revId": "b664ef2da70b1afefb0601bf2fb34b5c7ae0c859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
