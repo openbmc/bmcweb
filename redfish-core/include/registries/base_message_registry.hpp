@@ -1334,6 +1334,18 @@ constexpr std::array registry =
             {},
             "Correct the request body and resubmit the request if it failed.",
         }},
+    MessageEntry{
+        "GenerateSecretKeyRequired",
+        {
+            "Indicates that the Time-based One-Time Password (TOTP) secret key needs to be generated for the account before accessing the service.  The secret key can be generated with a `POST` to the `GenerateSecretKey` action for the `ManagerAccount` resource instance.",
+	    "The Time-based One-Time Password (TOTP) secret key for this account must be generated before access is granted.  Perform the GenerateSecretKey action at URI '%1' and retain the secret key from the response.",
+            "Critical",
+            1,
+            {
+                "string",
+            },
+            "Generate secret key for this account by performing the `GenerateSecretKey` action on the referenced URI and retaining the secret key from the action response to produce a Time-based One-Time Password (TOTP) for the `Token` property in future session creation requests",
+        }},
 
 };
 
@@ -1451,5 +1463,6 @@ enum class Index
     success = 109,
     undeterminedFault = 110,
     unrecognizedRequestBody = 111,
+    generateSecretKeyRequired = 112,
 };
 } // namespace redfish::registries::base

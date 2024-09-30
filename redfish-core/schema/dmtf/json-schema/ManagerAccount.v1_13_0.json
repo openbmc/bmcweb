@@ -2,7 +2,7 @@
     "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_13_0.json",
     "$ref": "#/definitions/ManagerAccount",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -319,6 +319,16 @@
                     "longDescription": "This property shall indicate whether an account is enabled.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in.",
                     "readonly": false,
                     "type": "boolean"
+                },
+                "GenerateSecretKeyRequired": {
+                    "description": "Indicates that the Time-based One-Time Password (TOTP) secret key needs to be generated for the account before accessing the service.  The secret key can be generated with a `POST` to the `GenerateSecretKey` action for the `ManagerAccount` resource instance.",
+                    "longDescription": "This message shall indicate that the RFC6238-defined Time-based One-Time Password (TOTP) secret key needs to be generated for the account before accessing the service.  The secret key can be generated with a `POST` to the `GenerateSecretKey` action for the `ManagerAccount` resource instance.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_13_0"
                 },
                 "HostBootstrapAccount": {
                     "description": "An indication of whether this account is a bootstrap account for the host interface.",
@@ -708,6 +718,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.3",
+    "release": "2019.1",
     "title": "#ManagerAccount.v1_13_0.ManagerAccount"
 }
