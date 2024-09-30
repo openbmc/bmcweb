@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cb5d725_97052242",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001322
+      },
+      "writtenOn": "2024-09-30T17:59:27Z",
+      "side": 1,
+      "message": "how did you make sure if the fan has an associated LED? does false here mean the led is in off state?",
+      "revId": "c5296c457a98d7a62b6e77b6fe9aaed4782bf0ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
