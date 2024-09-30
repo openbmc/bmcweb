@@ -144,7 +144,6 @@ Fields common to all schemas
 - RoleId
 - StrictAccountTypes
 - UserName
-- GenerateSecretKeyRequired
 
 ### /redfish/v1/AccountService/LDAP/Certificates/
 
