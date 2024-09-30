@@ -44,6 +44,7 @@ struct UserSession
     SessionType sessionType{SessionType::None};
     bool cookieAuth = false;
     bool isConfigureSelfOnly = false;
+    bool isGenerateSecretKeyRequired = false;
     std::string userRole;
     std::vector<std::string> userGroups;
 
@@ -289,6 +290,7 @@ class SessionStore
             sessionType,
             false,
             isConfigureSelfOnly,
+            isGenerateSecretKeyRequired,
             "",
             {}});
         auto it = authTokens.emplace(sessionToken, session);
