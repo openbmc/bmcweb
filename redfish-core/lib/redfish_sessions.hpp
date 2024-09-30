@@ -19,6 +19,7 @@ limitations under the License.
 #include "app.hpp"
 #include "cookies.hpp"
 #include "error_messages.hpp"
+#include "google_authenticator.hpp"
 #include "http/utility.hpp"
 #include "persistent_data.hpp"
 #include "query.hpp"
@@ -244,11 +245,31 @@ inline void handleSessionCollectionPost(
         return;
     }
 
+    auto authenticator = std::make_shared<bmcweb::GoogleAuthenticator>();
+    bool generateSecretKeyRequired = false;
+
+    auto handler = [&generateSecretKeyRequired](const boost::system::error_code& ec, bool required)
+    {
+        if (!ec)
+        {
+            generateSecretKeyRequired = required;
+        }
+        else
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+            
+    };
+
+    authenticator->tryMfa(username, handler);
+
     // User is authenticated - create session
     std::shared_ptr<persistent_data::UserSession> session =
         persistent_data::SessionStore::getInstance().generateUserSession(
             username, req.ipAddress, clientId,
-            persistent_data::SessionType::Session, isConfigureSelfOnly);
+            persistent_data::SessionType::Session, isConfigureSelfOnly,
+            generateSecretkeyRequired);
     if (session == nullptr)
     {
         messages::internalError(asyncResp->res);
