@@ -25,8 +25,11 @@ limitations under the License.
 #include "registries/privilege_registry.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
 
+#include <functional>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -243,6 +246,19 @@ inline void processAfterSessionCreation(
                       });
 }
 
+inline void checkGoogleAuthenticatorSecretKeyRequired(
+    const std::string& username,
+    std::function<void(const boost::system::error_code& ec, bool)> callback)
+{
+    sdbusplus::message::object_path userPath("/xyz/openbmc_project/user");
+    crow::connections::systemBus->async_method_call(
+        [callback = std::move(callback)](const boost::system::error_code& ec,
+                                         bool val) { callback(ec, val); },
+        "xyz.openbmc_project.User.Manager", userPath,
+        "xyz.openbmc_project.User.TOTPAuthenticatorManager",
+        "IsGenerateSecretKeyRequired", username);
+}
+
 inline void handleSessionCollectionPost(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -295,7 +311,7 @@ inline void handleSessionCollectionPost(
         std::shared_ptr<persistent_data::UserSession> session =
             persistent_data::SessionStore::getInstance().generateUserSession(
                 username, req.ipAddress, clientId,
-                persistent_data::SessionType::Session, true);
+                persistent_data::SessionType::Session, true, false);
         if (!session)
         {
             messages::internalError(asyncResp->res);
@@ -305,19 +321,31 @@ inline void handleSessionCollectionPost(
         processAfterSessionCreation(asyncResp, req, session, false);
         return;
     }
-
-    std::shared_ptr<persistent_data::UserSession> session =
-        persistent_data::SessionStore::getInstance().generateUserSession(
-            username, req.ipAddress, clientId,
-            persistent_data::SessionType::Session, false);
-    if (!session)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    processAfterSessionCreation(asyncResp, req, session, false);
+    // check if secret key generation is required for the user
+    checkGoogleAuthenticatorSecretKeyRequired(
+        username, [username, asyncResp, req, clientId = std::move(clientId)](
+                      const boost::system::error_code& ec, bool required) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("secretKeyRequired check failed = {}",
+                                 ec.message());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            std::shared_ptr<persistent_data::UserSession> session =
+                persistent_data::SessionStore::getInstance()
+                    .generateUserSession(username, req.ipAddress, clientId,
+                                         persistent_data::SessionType::Session,
+                                         required, required);
+            if (!session)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            processAfterSessionCreation(asyncResp, req, session, required);
+        });
 }
+
 inline void handleSessionServiceHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
