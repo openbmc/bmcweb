@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ade1cb56_db8d450f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2024-09-30T09:29:58Z",
+      "side": 1,
+      "message": "Waiting until dependency (https://gerrit.openbmc.org/c/openbmc/telemetry/+/74890) review completes",
+      "revId": "af3239d59a02153756fdfea5fe105972832828a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
