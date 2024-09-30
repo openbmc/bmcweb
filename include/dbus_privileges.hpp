@@ -76,7 +76,8 @@ inline bool isUserPrivileged(
         redfish::getUserPrivileges(*req.session);
 
     // Modify privileges if isConfigureSelfOnly.
-    if (req.session->isConfigureSelfOnly)
+    if (req.session->isConfigureSelfOnly ||
+        req.session->isGenerateSecretkeyRequired)
     {
         // Remove all privileges except ConfigureSelf
         userPrivileges =
@@ -90,6 +91,13 @@ inline bool isUserPrivileged(
         if (req.session->isConfigureSelfOnly)
         {
             redfish::messages::passwordChangeRequired(
+                asyncResp->res,
+                boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
+                                    req.session->username));
+        }
+        if (req.session->isGenerateSecretkeyRequired)
+        {
+            redfish::messages::generateSecretKeyRequired(
                 asyncResp->res,
                 boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
                                     req.session->username));
