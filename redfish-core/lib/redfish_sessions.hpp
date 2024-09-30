@@ -26,9 +26,13 @@ limitations under the License.
 #include "utils/json_utils.hpp"
 
 #include <boost/url/format.hpp>
+#include <boost/system/error_code.hpp>
 
 #include <string>
 #include <vector>
+#include <memory>
+#include <functional>
+
 
 namespace redfish
 {
@@ -201,6 +205,62 @@ inline void handleSessionCollectionMembersGet(
     asyncResp->res.jsonValue = getSessionCollectionMembers();
 }
 
+inline void processAfterSessionCreation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const crow::Request& req,
+    std::shared_ptr<persistent_data::UserSession> session,
+    bool isGenerateSecretkeyRequired)
+{
+    // When session is created by webui-vue give it session cookies as a
+    // non-standard Redfish extension. This is needed for authentication for
+    // WebSockets-based functionality.
+    if (!req.getHeaderValue("X-Requested-With").empty())
+    {
+        bmcweb::setSessionCookies(asyncResp->res, *session);
+    }
+    else
+    {
+        asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+    }
+
+    boost::urls::url sessionUrl = boost::urls::format(
+        "/redfish/v1/SessionService/Sessions/{}", session->uniqueId);
+    asyncResp->res.addHeader("Location", sessionUrl.buffer());
+    asyncResp->res.result(boost::beast::http::status::created);
+    if (session->isConfigureSelfOnly)
+    {
+        boost::urls::url accountUri = boost::urls::format(
+            "/redfish/v1/AccountService/Accounts/{}", session->username);
+        if (!isGenerateSecretkeyRequired)
+        {
+            messages::passwordChangeRequired(asyncResp->res, accountUri);
+        }
+        else
+        {
+            messages::generateSecretKeyRequired(asyncResp->res, accountUri);
+        }
+    }
+
+    crow::getUserInfo(asyncResp, session->username, session,
+                      [asyncResp, session]() {
+                          fillSessionObject(asyncResp->res, *session);
+                      });
+}
+
+inline void checkGoogleAuthenticatorSecretKeyRequired(
+    const std::string& username,
+    std::function<void(const boost::system::error_code& ec, bool)> callback)
+{
+    sdbusplus::message::object_path userPath("/xyz/openbmc_project/user");
+    userPath /= username;
+    crow::connections::systemBus->async_method_call(
+        [callback = std::move(callback)](const boost::system::error_code& ec,
+                                         bool val) { callback(ec, val); },
+        "xyz.openbmc_project.User.Manager", userPath,
+        "xyz.openbmc_project.User.TOTPAuthenticator",
+        "IsGenerateSecretKeyRequired");
+}
+
 inline void handleSessionCollectionPost(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -248,44 +308,44 @@ inline void handleSessionCollectionPost(
         return;
     }
 
-    // User is authenticated - create session
-    std::shared_ptr<persistent_data::UserSession> session =
-        persistent_data::SessionStore::getInstance().generateUserSession(
-            username, req.ipAddress, clientId,
-            persistent_data::SessionType::Session, isConfigureSelfOnly);
-    if (session == nullptr)
+    if (isConfigureSelfOnly)
     {
-        messages::internalError(asyncResp->res);
+        std::shared_ptr<persistent_data::UserSession> session =
+            persistent_data::SessionStore::getInstance().generateUserSession(
+                username, req.ipAddress, clientId,
+                persistent_data::SessionType::Session, true);
+        if (!session)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        // password change required in this path
+        processAfterSessionCreation(asyncResp, req, session, false);
         return;
     }
-
-    // When session is created by webui-vue give it session cookies as a
-    // non-standard Redfish extension. This is needed for authentication for
-    // WebSockets-based functionality.
-    if (!req.getHeaderValue("X-Requested-With").empty())
-    {
-        bmcweb::setSessionCookies(asyncResp->res, *session);
-    }
-    else
-    {
-        asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
-    }
-
-    asyncResp->res.addHeader(
-        "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
-    asyncResp->res.result(boost::beast::http::status::created);
-    if (session->isConfigureSelfOnly)
-    {
-        messages::passwordChangeRequired(
-            asyncResp->res,
-            boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
-                                session->username));
-    }
-
-    crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
-        fillSessionObject(asyncResp->res, *session);
-    });
+    // check if secret key generation is required for the user
+    checkGoogleAuthenticatorSecretKeyRequired(
+        username, [username, asyncResp, req, clientId = std::move(clientId)](
+                      const boost::system::error_code& ec, bool required) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            std::shared_ptr<persistent_data::UserSession> session =
+                persistent_data::SessionStore::getInstance()
+                    .generateUserSession(username, req.ipAddress, clientId,
+                                         persistent_data::SessionType::Session,
+                                         required);
+            if (!session)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            processAfterSessionCreation(asyncResp, req, session, required);
+        });
 }
+
 inline void handleSessionServiceHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
