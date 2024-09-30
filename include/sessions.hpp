@@ -44,6 +44,7 @@ struct UserSession
     SessionType sessionType{SessionType::None};
     bool cookieAuth = false;
     bool isConfigureSelfOnly = false;
+    bool isGenerateSecretKeyRequired = false;
     std::string userRole;
     std::vector<std::string> userGroups;
 
@@ -263,7 +264,7 @@ class SessionStore
     std::shared_ptr<UserSession> generateUserSession(
         std::string_view username, const boost::asio::ip::address& clientIp,
         const std::optional<std::string>& clientId, SessionType sessionType,
-        bool isConfigureSelfOnly = false)
+        bool isConfigureSelfOnly = false, bool isGenerateSecretKeyRequired = false)
     {
         // Only need csrf tokens for cookie based auth, token doesn't matter
         std::string sessionToken =
@@ -289,6 +290,7 @@ class SessionStore
             sessionType,
             false,
             isConfigureSelfOnly,
+            isGenerateSecretKeyRequired,
             "",
             {}});
         auto it = authTokens.emplace(sessionToken, session);
