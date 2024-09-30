@@ -19,6 +19,7 @@ limitations under the License.
 #include "app.hpp"
 #include "cookies.hpp"
 #include "error_messages.hpp"
+#include "google_authenticator.hpp"
 #include "http/utility.hpp"
 #include "persistent_data.hpp"
 #include "query.hpp"
@@ -244,15 +245,52 @@ inline void handleSessionCollectionPost(
         return;
     }
 
-    // User is authenticated - create session
-    std::shared_ptr<persistent_data::UserSession> session =
-        persistent_data::SessionStore::getInstance().generateUserSession(
-            username, req.ipAddress, clientId,
-            persistent_data::SessionType::Session, isConfigureSelfOnly);
-    if (session == nullptr)
+    std::shared_ptr<persistent_data::UserSession> session = nullptr;
+
+    auto createSession = [&](bool configureSelfOnly, bool required) {
+        session =
+            persistent_data::SessionStore::getInstance().generateUserSession(
+                username, req.ipAddress, clientId,
+                persistent_data::SessionType::Session, configureSelfOnly,
+                required);
+
+        if (session == nullptr)
+        {
+            messages::internalError(asyncResp->res);
+            return false;
+        }
+
+        return true;
+    };
+
+    if (isConfigureSelfOnly)
     {
-        messages::internalError(asyncResp->res);
-        return;
+        if (!createSession(true, false))
+        {
+            return;
+        }
+    }
+    else
+    {
+        auto handler = [username, asyncResp, &req, &clientId, &session,
+                        createSession](const boost::system::error_code& ec,
+                                       bool required) {
+            if (!ec)
+            {
+                if (!createSession(required, required))
+                {
+                    return;
+                }
+            }
+            else
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        };
+
+        bmcweb::GoogleAuthenticator authenticator(username, handler);
+        bmcweb::GoogleAuthenticator::checkMfa(authenticator);
     }
 
     // When session is created by webui-vue give it session cookies as a
@@ -272,10 +310,16 @@ inline void handleSessionCollectionPost(
     asyncResp->res.result(boost::beast::http::status::created);
     if (session->isConfigureSelfOnly)
     {
-        messages::passwordChangeRequired(
-            asyncResp->res,
-            boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
-                                session->username));
+        auto accountUri = boost::urls::format(
+            "/redfish/v1/AccountService/Accounts/{}", session->username);
+        if (!session->isGenerateSecretkeyRequired)
+        {
+            messages::passwordChangeRequired(asyncResp->res, accountUri);
+        }
+        else
+        {
+            messages::generateSecretKeyRequired(asyncResp->res, accountUri);
+        }
     }
 
     crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
