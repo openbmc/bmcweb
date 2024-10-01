@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcf384f0_a6b577b1",
+        "filename": "redfish-core/schema/dmtf/csdl/ManagerAccount_v1.xml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-01T15:28:38Z",
+      "side": 1,
+      "message": "Please update to the latest schema pack, rather than pulling in a file manually.  update_schemas.py will need to pull in the latest.",
+      "revId": "5e32ed236c4814809cdb5f6245a1a9027a62bb55",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
