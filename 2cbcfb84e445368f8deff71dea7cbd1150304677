@@ -16,6 +16,24 @@
       "message": "A little more here always helps. \nI assume you made a 1 line change and ran the script ?\n\nIs this needed for something specific ?",
       "revId": "2cbcfb84e445368f8deff71dea7cbd1150304677",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97d536b1_e537f971",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-01T13:42:17Z",
+      "side": 1,
+      "message": "Upgraded to pull GenerateSecretKeyRequired registry for MFA. Updated the commit message.",
+      "parentUuid": "b6cc8019_e18ac7a3",
+      "revId": "2cbcfb84e445368f8deff71dea7cbd1150304677",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
