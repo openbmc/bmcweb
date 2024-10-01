@@ -22,6 +22,30 @@
       },
       "revId": "40829eca11c3189c16d204067c6cecbb2cbc71eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03b202aa_9154b6a6",
+        "filename": "redfish-core/include/registries/base_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-01T14:39:22Z",
+      "side": 1,
+      "message": "Please review the commit to bump the base registry https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74959",
+      "parentUuid": "b446dc3c_0b5d4a08",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 42
+      },
+      "revId": "40829eca11c3189c16d204067c6cecbb2cbc71eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
