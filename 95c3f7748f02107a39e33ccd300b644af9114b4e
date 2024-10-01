@@ -106,6 +106,24 @@
       "parentUuid": "4160777b_11bcd003",
       "revId": "95c3f7748f02107a39e33ccd300b644af9114b4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0186de39_6aab9b38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-01T17:33:50Z",
+      "side": 1,
+      "message": "I got a response from DMTF.\n\n---\nhttps://github.com/DMTF/Redfish/issues/6221#issuecomment-2386208525\n\n\u003eDoes this subscription termination also mean that the subscription will need to be deleted?\n\nTermination has meant we delete the subscription. This is the reason we added the `DeliveryRetryPolicy` property to allow for the subscription to continue to exist in the service, but in a disabled state.\n\nI can see how this semantic isn\u0027t clear. The closest text I can find is in the Redfish Spec:\n\n\u003eTo terminate the event stream at any time, either the client or the service can delete the subscription.\n\n---",
+      "parentUuid": "50e9fb7a_ab966641",
+      "revId": "95c3f7748f02107a39e33ccd300b644af9114b4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
