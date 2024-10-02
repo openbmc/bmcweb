@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b76090d_ead58b86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-02T00:24:44Z",
+      "side": 1,
+      "message": "minor changes, but otherwise looks good.",
+      "revId": "db73e5de3868fac281146fee863f493b08b08ed7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dac8bad1_706d09d9",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-02T00:24:44Z",
+      "side": 1,
+      "message": "bytesToHexString returns the string directly, you don\u0027t need the std::ostringstream at all anymore.\n\nall you should need now is something like\nstd::string hexCodeStr \u003d \"0x\" + bytesToHexString(std::get\u003c0\u003e(code.second));",
+      "revId": "db73e5de3868fac281146fee863f493b08b08ed7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
