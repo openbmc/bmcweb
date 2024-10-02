@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "092a2d43_65499a86",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-02T12:07:17Z",
+      "side": 1,
+      "message": "Are you saying that instead of encapsulating the username and continuation handler in to an object , just move both of them through all of the asynchronous functions? I can do that. It is just that it will make it a bit more verbose and not easy to maintain in case if any more member needs to be added in future. Yes there is a small cost of increasing the shared counter.",
+      "parentUuid": "e6a02272_86bcae49",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35fd10ce_b778c5fb",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-01T19:47:27Z",
       "side": 1,
       "message": "Why are we checking this?  Isn\u0027t this something that should be enforced by pam/phosphor-user-manager?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32dcb217_992fe2d3",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-02T12:07:17Z",
+      "side": 1,
+      "message": "No, this check here has nothing to do with pam authentication. This is a redfish property. The entire utility is used in the first time TOTP setup of a user. Pam module can not be used for it. This is something similar to how we change the password after the first login.",
+      "parentUuid": "35fd10ce_b778c5fb",
       "range": {
         "startLine": 52,
         "startChar": 0,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8b1a42f_bdc0a15b",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-02T12:07:17Z",
+      "side": 1,
+      "message": "I can change that . But curious to know why it is a problem to use std::format?",
+      "parentUuid": "337b4188_da5f7052",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acb8e76b_03dede33",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
@@ -83,6 +155,30 @@
       "writtenOn": "2024-10-01T19:47:27Z",
       "side": 1,
       "message": "Same as above, this isn\u0027t something bmcweb should be enforcing.  bmcweb just triggers a pam login, and the pam module can enforce whether or not it\u0027s required or not",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 9
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "413f568b_aa17c716",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-02T12:07:17Z",
+      "side": 1,
+      "message": "This is not a pam authentication use case. This is a case where a user who logged in for the first time should be prompted for mandatory creation of secret key or not.",
+      "parentUuid": "acb8e76b_03dede33",
       "range": {
         "startLine": 102,
         "startChar": 0,
