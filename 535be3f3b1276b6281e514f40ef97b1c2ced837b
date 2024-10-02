@@ -16,6 +16,24 @@
       "message": "Thank you for doing this. It is what I had in mind to address the https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65286/comment/7bcff727_be3dd7a9/ review comment.\n\nIs the WIP for the unit tests? Do you have them in-process or should I add them here?",
       "revId": "535be3f3b1276b6281e514f40ef97b1c2ced837b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b877f778_53d2fcfa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-02T14:24:16Z",
+      "side": 1,
+      "message": "WIP is mostly because I haven’t written a commit message yet.",
+      "parentUuid": "01713de9_a6ee6c1c",
+      "revId": "535be3f3b1276b6281e514f40ef97b1c2ced837b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
