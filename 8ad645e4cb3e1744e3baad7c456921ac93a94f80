@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bf0d5d8_c194449e",
+        "filename": "meson.options",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-02T15:41:48Z",
+      "side": 1,
+      "message": "Is this one correct? \n\nBMCWEB_LOGGING_LEVEL?\n\nhttps://github.com/openbmc/bmcweb/blob/b575caefa7f7f58c67cf61c8aa7ba7fb5a43e943/http/logging.hpp#L58\nhttps://github.com/openbmc/bmcweb/blob/b575caefa7f7f58c67cf61c8aa7ba7fb5a43e943/config/meson.build#L81",
+      "revId": "8ad645e4cb3e1744e3baad7c456921ac93a94f80",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
