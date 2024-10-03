@@ -16,6 +16,24 @@
       "message": "Would\u0027ve liked to see those involved push this an an acknowledgement, that they\u0027re taking responsibility, but I guess this is fine.",
       "revId": "dfe1fcae19d48fccc07c788c7b67de3e8c7db6e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bea9b34_2124541d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-03T19:24:39Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "82664be3_8ee9d745",
+      "revId": "dfe1fcae19d48fccc07c788c7b67de3e8c7db6e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
