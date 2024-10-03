@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e868238c_7a66b781",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-03T04:40:33Z",
+      "side": 1,
+      "message": "Or are you saying that remove the shared_ptr and just move the single object instead after making all of them free function? I can do that if we not going for 7 above.",
+      "parentUuid": "d688ad92_8da1520f",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35fd10ce_b778c5fb",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
