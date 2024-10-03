@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c70f288f_fd2144c8",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-03T04:08:20Z",
+      "side": 1,
+      "message": "pam verifies totp if secret key file is generated for the user ,otherwise it ignores the totp verification and prompts/uses the password to authenticate.See https://github.com/google/google-authenticator-libpam/blob/master/src/pam_google_authenticator.c#L2019 \n\nIt does not know about the redfish properties such as bypass, authenticator enabled/disabled etc.",
+      "parentUuid": "75083e3b_780fd755",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "337b4188_da5f7052",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
