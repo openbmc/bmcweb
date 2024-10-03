@@ -16,6 +16,23 @@
       "message": "Waiting until dependency (https://gerrit.openbmc.org/c/openbmc/telemetry/+/74890) review completes",
       "revId": "af3239d59a02153756fdfea5fe105972832828a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "423c1bdf_54e84dc9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-03T18:42:00Z",
+      "side": 1,
+      "message": "Sorry for doing this in a commit, but we need to have a discussion about this interface.  To be clear, I appreciate you trying to make the error behavior correct, and I fully support getting there.\n\nMost of the issues here are because of the way the Telemetry interfaces were modeled;  Rather that a set of properties and known types, they rely on a large dictionaries of key/values;  This requires bmcweb to map things to that map in odd ways, and means that things like PATCH error handling have to be done in special ways.\n\nHave you ever considered using a more conventional dbus interface setup?\n\nSpecifically the parameter here: https://github.com/openbmc/phosphor-dbus-interfaces/blob/5133c7bfa8127e8a4ea339c439675ad018911363/yaml/xyz/openbmc_project/Telemetry/ReportManager.interface.yaml#L48\n\nnormally if we need multiple dbus objects, we\u0027d have multiple dbus objects that point to one another.  We generally wouldn\u0027t try to inline one object in another.",
+      "revId": "af3239d59a02153756fdfea5fe105972832828a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
