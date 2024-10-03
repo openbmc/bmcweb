@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf855e74_5367a528",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-03T03:00:28Z",
+      "side": 1,
+      "message": "I\u0027m saying that putting multiple async ops in an object (and not handling move/forward correctly) causes copies to be made, and code to be more verbose than otherwise.  I\u0027m ok with a class, so long as it\u0027s kept to a single debug flow, although I suspect this flow will become simple enough we won\u0027t need it",
+      "parentUuid": "092a2d43_65499a86",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35fd10ce_b778c5fb",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "Yes, we can move this to phosphor-user-manager, with a new DBus method say isSecretKeyNeeded.",
       "parentUuid": "32dcb217_992fe2d3",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75083e3b_780fd755",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-03T03:00:28Z",
+      "side": 1,
+      "message": "it wouldn\u0027t be a dbus method, it would be a return code from pam, right?  Similar to how the current password needs changed behavior is handled?",
+      "parentUuid": "bf755ab0_b1b3fced",
       "range": {
         "startLine": 52,
         "startChar": 0,
@@ -227,6 +275,30 @@
       "side": 1,
       "message": "I think you are right. Instead doing it in bmcweb, we can move all these check to user-manager. But Needed a new dbus property /method to check if secretKey required.",
       "parentUuid": "413f568b_aa17c716",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 9
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "382ff6ba_205ad064",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-03T03:00:28Z",
+      "side": 1,
+      "message": "Clsoing this one, lets discuss in the thread above.",
+      "parentUuid": "e9b2a5f0_0884a7aa",
       "range": {
         "startLine": 102,
         "startChar": 0,
