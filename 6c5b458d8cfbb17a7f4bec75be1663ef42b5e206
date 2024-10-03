@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d688ad92_8da1520f",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-03T04:24:13Z",
+      "side": 1,
+      "message": "I not sure if I followed you. Here we need three async function to be called before we make any decision on secret key generation required or not. check global mfa, check valid secret present, if not preset check if bypass is enabled or not. I am not sure how are you proposing to make it simpler? \nWhat I see is following options.\n1) Yes if we take out some error paths debug logs, then yes code will be a bit lesser.\n2) Use coroutine to make it look like sync call \n3) Use sync call (don\u0027t know if it is recommended)\n4) Use async call as done here but make it free functions and explicitly move the username and continuation in every async operation.\n5) Use the current implementation with shared pointer, that will make sure that there is no unnecessary copy of values at the cost of a share_ptr.\n6) If there is a batch request possible for multiple properties/methods use it. \n7) Use a single Dbus call to user-manager and let user-manager does needed checks and return the final answer.\n\nI am inclined towards 7 and if that is not possible go for 5 .",
+      "parentUuid": "cf855e74_5367a528",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35fd10ce_b778c5fb",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
