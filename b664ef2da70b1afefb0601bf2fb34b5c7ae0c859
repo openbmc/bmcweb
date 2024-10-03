@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df5cdcb1_4b072273",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-03T19:55:10Z",
+      "side": 1,
+      "message": "Good idea, I\u0027ve moved it. It does make this easier to read.",
+      "parentUuid": "205479d0_0bc4f4ba",
+      "range": {
+        "startLine": 444,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 0
+      },
+      "revId": "b664ef2da70b1afefb0601bf2fb34b5c7ae0c859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c50c66ef_ffb6a320",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 17
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "doesn\u0027t need to be done this patch.",
       "parentUuid": "c50c66ef_ffb6a320",
+      "range": {
+        "startLine": 540,
+        "startChar": 0,
+        "endLine": 618,
+        "endChar": 5
+      },
+      "revId": "b664ef2da70b1afefb0601bf2fb34b5c7ae0c859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd53e1a_4a7899bd",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-03T19:55:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "36ab4f58_c8318218",
       "range": {
         "startLine": 540,
         "startChar": 0,
@@ -156,6 +204,30 @@
       "side": 1,
       "message": "looking at sortJsonResponse bugged me, so i fixed it:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/74926\n\nfeel free to use that as a starting point if it helps, or if you\u0027re already doing something, happy to review that as well",
       "parentUuid": "ee29ad94_84c51846",
+      "range": {
+        "startLine": 60,
+        "startChar": 57,
+        "endLine": 61,
+        "endChar": 76
+      },
+      "revId": "b664ef2da70b1afefb0601bf2fb34b5c7ae0c859",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0829c015_da9b3e10",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-03T19:55:10Z",
+      "side": 1,
+      "message": "Thank you for coding that. I\u0027ve modified to use the new function sortJsonArrayByKey() passing the \"DataSourceUri\" as the key.",
+      "parentUuid": "ec541608_7865eb2c",
       "range": {
         "startLine": 60,
         "startChar": 57,
