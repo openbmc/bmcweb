@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf755ab0_b1b3fced",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-03T02:55:18Z",
+      "side": 1,
+      "message": "Yes, we can move this to phosphor-user-manager, with a new DBus method say isSecretKeyNeeded.",
+      "parentUuid": "32dcb217_992fe2d3",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "337b4188_da5f7052",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "This is not a pam authentication use case. This is a case where a user who logged in for the first time should be prompted for mandatory creation of secret key or not.",
       "parentUuid": "acb8e76b_03dede33",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 9
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9b2a5f0_0884a7aa",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-03T02:55:18Z",
+      "side": 1,
+      "message": "I think you are right. Instead doing it in bmcweb, we can move all these check to user-manager. But Needed a new dbus property /method to check if secretKey required.",
+      "parentUuid": "413f568b_aa17c716",
       "range": {
         "startLine": 102,
         "startChar": 0,
