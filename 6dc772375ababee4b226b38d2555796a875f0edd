@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4531fa22_77dbb3e1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-03T19:31:22Z",
+      "side": 1,
+      "message": "It looks good to me (and with a minor comment)",
+      "revId": "6dc772375ababee4b226b38d2555796a875f0edd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34e62699_41da09e3",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-03T19:31:22Z",
+      "side": 1,
+      "message": "As `sortJsonArrayByKey()` takes a key and this is doing the same with the key \"@odata.id\", can this be written as\n\n```\ninline void sortJsonArrayByOData(nlohmann::json::array_t\u0026 array)\n{\n    sortJsonArrayByKey(array, \"@odata.id\");\n}\n```",
+      "range": {
+        "startLine": 856,
+        "startChar": 0,
+        "endLine": 859,
+        "endChar": 1
+      },
+      "revId": "6dc772375ababee4b226b38d2555796a875f0edd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
