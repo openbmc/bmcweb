@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d2bb8c2_d00bf31c",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-03T19:01:00Z",
+      "side": 1,
+      "message": "\u003e Here we need three async function to be called before we make any decision on secret key generation required or not.\n\nThis sentence describes the root of the problem, there should be ONE API for determining whether a user is authenticated and their user is in good standing.  Today that\u0027s doing a pam_authenticate call and looking at the return code.  You\u0027re trying to make it a significant amount of dbus calls.  It can\u0027t be both.",
+      "parentUuid": "e868238c_7a66b781",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35fd10ce_b778c5fb",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
@@ -229,6 +253,30 @@
       "side": 1,
       "message": "pam verifies totp if secret key file is generated for the user ,otherwise it ignores the totp verification and prompts/uses the password to authenticate.See https://github.com/google/google-authenticator-libpam/blob/master/src/pam_google_authenticator.c#L2019 \n\nIt does not know about the redfish properties such as bypass, authenticator enabled/disabled etc.",
       "parentUuid": "75083e3b_780fd755",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1111f8de_f600119b",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-03T19:01:00Z",
+      "side": 1,
+      "message": "\u003e It does not know about the redfish properties such as bypass, authenticator enabled/disabled etc.\n\nThis sounds like a missing feature in the implementation then.  Keep in mind, all of these are configurable through pam config files, so it\u0027ll depend on what pam config you wrote.",
+      "parentUuid": "c70f288f_fd2144c8",
       "range": {
         "startLine": 52,
         "startChar": 0,
