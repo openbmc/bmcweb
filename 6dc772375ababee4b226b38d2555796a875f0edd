@@ -39,6 +39,30 @@
       },
       "revId": "6dc772375ababee4b226b38d2555796a875f0edd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "774ad791_93be92ee",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-03T19:45:47Z",
+      "side": 1,
+      "message": "Agree that is an alternative. Going to leave as-is for now.",
+      "parentUuid": "34e62699_41da09e3",
+      "range": {
+        "startLine": 856,
+        "startChar": 0,
+        "endLine": 859,
+        "endChar": 1
+      },
+      "revId": "6dc772375ababee4b226b38d2555796a875f0edd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
