@@ -313,6 +313,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "538c42c2_2038dad7",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-04T15:57:00Z",
+      "side": 1,
+      "message": "\u003e Are you saying that google_authenticator have implementation to handle missing secret key file, which can be configured through pam service file? I did not see any (may be I am wrong here will recheck). \n\ngoogle_authenticator might not necessarily implement this, I\u0027ve never looked.  The key is that all these new rules you\u0027re adding need to work across redfish, ssh, and ipmi, so adding them to bmcweb doesn\u0027t help. \n\n\u003e \n\u003e Having said that, our design to make bypass work is based on the fact that the google authenticator will not throw any error when secret key file is not present in home. Instead it proceed to verify just the password for the authentication.We use \u0027nullok\u0027 in pam configuration to do that. With this assumption we can enable user specific bypass option. All we have to do for a bypassed user is just delete the secret key file from the user\u0027s home directory. Don\u0027t you agree on that design?\n\nI\u0027m not a pam expert, nor am I a phosphor-user-manager maintainer, so my opinion here doesn\u0027t really matter, but yes, that sounds like it would work.  The key here is that in bmcweb, the changeset should essentially just be handling an extra error from PAM when the token is rejected, and passing in the token in the first place.  If we\u0027re doing significant business logic in bmcweb, we\u0027re likely missing the point of the authentication APIs, which is to be simple.\n\n\u003e Otherwise I am not sure how we implement runtime enable/disable of MFA and how we bypass pam authentication for a specific user etc.\n\nIt might involve modification of pam files by phosphor-user-manager when MFA is enabled/disabled, or might require another openbmc-specific pam module (like the existing ipmi one).  Not sure how that\u0027s intended to work for runtime changable things.",
+      "parentUuid": "3ebdce5b_e0d23d50",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "337b4188_da5f7052",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
