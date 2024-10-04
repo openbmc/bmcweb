@@ -152,6 +152,13 @@ TEST(Utility, DateStringToEpoch)
     EXPECT_EQ(dateStringToEpoch("2021-11-30T22:41:35"),
               usSinceEpoch{1638312095000000});
 
+    // valid datetime format
+    EXPECT_EQ(dateStringToEpoch("20230531T000000Z"),
+              usSinceEpoch{1685491200000000});
+
+    // valid datetime format
+    EXPECT_EQ(dateStringToEpoch("20230531"), usSinceEpoch{1685491200000000});
+
     // Non zero timezone
     EXPECT_EQ(dateStringToEpoch("2021-11-30T22:41:35.123456+04:00"),
               usSinceEpoch{1638297695123456});
@@ -203,6 +210,12 @@ TEST(Utility, DateStringToEpochWithInvalidDateTimeFormats)
 
     // invalid timezone
     EXPECT_EQ(dateStringToEpoch("2024-07-01T12:00:00X"), std::nullopt);
+
+    // invalid datetime format
+    EXPECT_EQ(dateStringToEpoch("202305"), std::nullopt);
+
+    // invalid month (13), day (99)
+    EXPECT_EQ(dateStringToEpoch("19991399"), std::nullopt);
 }
 
 } // namespace
