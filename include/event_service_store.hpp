@@ -7,6 +7,7 @@
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
 
+#include <limits>
 #include <memory>
 #include <string>
 #include <vector>
@@ -22,6 +23,10 @@ struct UserSubscription
     std::string protocol;
     bool verifyCertificate = true;
     std::string retryPolicy;
+    bool sendHeartbeat = false;
+    // This value of hbIntervalMinutes is just a reasonable default value and
+    // most clients will update it if sendHeartbeat is turned on
+    uint64_t hbIntervalMinutes = 10;
     std::string customText;
     std::string eventFormatType;
     std::string subscriptionType;
@@ -92,6 +97,25 @@ struct UserSubscription
                     continue;
                 }
                 subvalue.retryPolicy = *value;
+            }
+            else if (element.first == "SendHeartbeat")
+            {
+                const bool* value = element.second.get_ptr<const bool*>();
+                if (value == nullptr)
+                {
+                    continue;
+                }
+                subvalue.sendHeartbeat = *value;
+            }
+            else if (element.first == "HeartbeatIntervalMinutes")
+            {
+                const uint64_t* value =
+                    element.second.get_ptr<const uint64_t*>();
+                if (value == nullptr || *value < 1 || *value > 65535)
+                {
+                    continue;
+                }
+                subvalue.hbIntervalMinutes = *value;
             }
             else if (element.first == "Context")
             {
