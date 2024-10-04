@@ -51,6 +51,24 @@
       "parentUuid": "423c1bdf_54e84dc9",
       "revId": "af3239d59a02153756fdfea5fe105972832828a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4e846eb_12b3ba22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-04T16:04:38Z",
+      "side": 1,
+      "message": "\u003e I\u0027m not sure I follow. What key/values?\n\u003e \n\u003e For clarity - here is code-level definition of this parameter https://github.com/openbmc/telemetry/blob/b47b7db48c4f883eb191077848d55d96bd884607/src/types/report_types.hpp#L19\n\u003e \n\u003e I\u0027m curious what do you understand by conventional.\n\nFor dbus interface properties, it\u0027s where where each property is represented by a named property.   Optional properties are either given a \"default\" value, or those values are moved to another interface.\n\nFor dbus interface methods, it\u0027s where each argument is modeled as a argument to the method call, that has a name and a description of the value.\n\n\nFor example, assuming you only had the interface definition:\n```\nArray of metric parameters, which are stored in a way specified\n                in description of ReadingParameters property from Report\n                interface documentation.\n```\n\nwhich parameters are supported?  which parameters have which types?  There\u0027s no way to answer that without looking at the code.  This is part of the problem.  If one of the parameters is wrong, what error gets returned?\n\n\u003e \n\u003e \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\u003e \n\u003e What is more - this \u0027unconventional\u0027 handling is caused by the fact that AddReport is single method which requires complete and coherent definition of report. It then does the validation underneath and returns proper SdBus exception with detailed information about what was wrong.\n\u003e \n\u003e To solve the issue we have 2 options\n\u003e a) move validation to bmcweb side (need syncing on both sides, we could eventually wind up with 500 in case bmcweb and telemetry has different opinions)\n\nNope.  This would mean that nothing else in the system but bmcweb could create a telemetry interface.  THat\u0027s a non starter.\n\n\u003e b) wait for the refined elog\u003c\u003e which will pass provided metadata\n\nLets keep the discussion at a dbus level;  Once we\u0027ve figured out what the dbus interface looks like, then we can focus \n\n\u003e c) redefine interface according to your suggestion (unknown for me as I need more data:))",
+      "parentUuid": "d2c642b6_f4395e07",
+      "revId": "af3239d59a02153756fdfea5fe105972832828a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
