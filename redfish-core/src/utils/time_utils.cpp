@@ -14,7 +14,8 @@ namespace redfish::time_utils
 
 std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime)
 {
-    for (const char* format : std::to_array({"%FT%T%Ez", "%FT%TZ", "%FT%T"}))
+    for (const char* format : std::to_array(
+             {"%FT%T%Ez", "%FT%TZ", "%FT%T", "%Y%m%d", "%Y%m%dT%H%M%SZ"}))
     {
         // Parse using signed so we can detect negative dates
         std::chrono::sys_time<usSinceEpoch> date;
