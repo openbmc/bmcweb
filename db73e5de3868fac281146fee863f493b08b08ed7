@@ -51,6 +51,24 @@
       "parentUuid": "dac8bad1_706d09d9",
       "revId": "db73e5de3868fac281146fee863f493b08b08ed7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aebe33ae_b07dee24",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-04T15:31:54Z",
+      "side": 1,
+      "message": "\u003e Hi @Ed, because I am using array[byte] in new interface, I am not sure that should I add \"0x\" at front? \n\nWe had a 0x before, we shouldn\u0027t change the user facing behavior in the same patch as implementing backend changes.\n\n\u003e \n\u003e Also, if \"0x\" is needed, do I need to invert the array byte order? or just keep the same order in hexCode?\n\nKeep it the same.  We should probably specify this in the PDI definition.\n\n\u003e \n\u003e For example:\n\u003e - original primary postcode\n\u003e array: [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09]\n\u003e - same byte order\n\u003e hexCode: 0x010203040506070809\n\u003e - invert byte order\n\u003e hexCode: 0x090807060504030201\n\n\nFirst one looks correct to me.",
+      "parentUuid": "e7c57b29_ee6c6e78",
+      "revId": "db73e5de3868fac281146fee863f493b08b08ed7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
