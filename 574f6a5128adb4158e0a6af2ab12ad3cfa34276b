@@ -126,6 +126,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb01e318_c48c82f5",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-10-04T10:23:21Z",
+      "side": 1,
+      "message": "Hi @Ed, I have submited https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75080. Please help review.",
+      "parentUuid": "da604ea5_05a8481a",
+      "revId": "574f6a5128adb4158e0a6af2ab12ad3cfa34276b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12bc5dc7_4177cded",
@@ -187,6 +205,30 @@
       "side": 1,
       "message": "Not resolved on the patchset.",
       "parentUuid": "d5f247a5_b787be59",
+      "range": {
+        "startLine": 400,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 0
+      },
+      "revId": "574f6a5128adb4158e0a6af2ab12ad3cfa34276b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5209f47_d5004134",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-10-04T10:23:21Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "72e587a7_9a1a8d5a",
       "range": {
         "startLine": 400,
         "startChar": 0,

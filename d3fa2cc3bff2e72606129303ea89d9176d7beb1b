@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b991e6a_dd7f0ba9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-10-04T10:23:21Z",
+      "side": 1,
+      "message": "Hi @Ed, @Gunnar\n\nOur system has support the `Board Manufacturer Date` on Managers, I have supported code to managers.hpp file and it can show the ProductionDate via /redfish/v1/Managers/bmc. Because there is no ProductionDate in Managers schema so there is no code upstream for managers.hpp at this time. Just verity the codes is work.",
+      "revId": "d3fa2cc3bff2e72606129303ea89d9176d7beb1b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
