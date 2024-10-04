@@ -482,9 +482,11 @@ Fields common to all schemas
 - Destination
 - EventTypes
 - Context
+- HeartbeatIntervalMinutes
 - OriginResources
 - RegistryPrefixes
 - Protocol
+- SendHeartbeat
 
 ### /redfish/v1/JsonSchemas/
 
