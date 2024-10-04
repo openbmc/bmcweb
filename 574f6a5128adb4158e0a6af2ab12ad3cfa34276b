@@ -144,6 +144,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaef6290_1dd30abf",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-04T16:15:27Z",
+      "side": 1,
+      "message": "Reviewed",
+      "parentUuid": "cb01e318_c48c82f5",
+      "revId": "574f6a5128adb4158e0a6af2ab12ad3cfa34276b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12bc5dc7_4177cded",
