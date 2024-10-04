@@ -322,6 +322,12 @@ class ConfigFile
             subscription["Id"] = subValue.id;
             subscription["Context"] = subValue.customText;
             subscription["DeliveryRetryPolicy"] = subValue.retryPolicy;
+            if (subValue.sendHeartbeat)
+            {
+                subscription["SendHeartbeat"] = subValue.sendHeartbeat;
+                subscription["HeartbeatIntervalMinutes"] =
+                    subValue.hbIntervalMinutes;
+            }
             subscription["Destination"] = subValue.destinationUrl;
             subscription["EventFormatType"] = subValue.eventFormatType;
             subscription["HttpHeaders"] = std::move(headers);
