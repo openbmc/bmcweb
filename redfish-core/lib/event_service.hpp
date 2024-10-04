@@ -30,7 +30,9 @@ limitations under the License.
 #include <utils/dbus_utils.hpp>
 
 #include <charconv>
+#include <limits>
 #include <memory>
+#include <optional>
 #include <ranges>
 #include <span>
 #include <string>
@@ -296,6 +298,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
             std::optional<std::string> subscriptionType;
             std::optional<std::string> eventFormatType2;
             std::optional<std::string> retryPolicy;
+            std::optional<bool> sendHeartbeat;
+            std::optional<uint64_t> hbIntervalMinutes;
             std::optional<std::vector<std::string>> msgIds;
             std::optional<std::vector<std::string>> regPrefixes;
             std::optional<std::vector<std::string>> originResources;
@@ -309,6 +313,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     "DeliveryRetryPolicy", retryPolicy, //
                     "Destination", destUrl, //
                     "EventFormatType", eventFormatType2, //
+                    "HeartbeatIntervalMinutes", hbIntervalMinutes, //
                     "HttpHeaders", headers, //
                     "MessageIds", msgIds, //
                     "MetricReportDefinitions", mrdJsonArray, //
@@ -316,13 +321,13 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     "Protocol", protocol, //
                     "RegistryPrefixes", regPrefixes, //
                     "ResourceTypes", resTypes, //
+                    "SendHeartbeat", sendHeartbeat, //
                     "SubscriptionType", subscriptionType, //
                     "VerifyCertificate", verifyCertificate //
                     ))
             {
                 return;
             }
-            // clang-format on
 
             // https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
             static constexpr const uint16_t maxDestinationSize = 2000;
@@ -398,6 +403,18 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 {
                     messages::propertyValueConflict(asyncResp->res,
                                                     "RetryPolicy", "Protocol");
+                    return;
+                }
+                if (sendHeartbeat)
+                {
+                    messages::propertyValueConflict(
+                        asyncResp->res, "SendHeartbeat", "Protocol");
+                    return;
+                }
+                if (hbIntervalMinutes)
+                {
+                    messages::propertyValueConflict(
+                        asyncResp->res, "HeartbeatIntervalMinutes", "Protocol");
                     return;
                 }
                 if (msgIds)
@@ -643,6 +660,22 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 // Default "TerminateAfterRetries"
                 subValue->userSub->retryPolicy = "TerminateAfterRetries";
             }
+            if (sendHeartbeat)
+            {
+                subValue->userSub.sendHeartbeat = *sendHeartbeat;
+            }
+            if (hbIntervalMinutes)
+            {
+                if (*hbIntervalMinutes < 1 ||
+                    *hbIntervalMinutes > std::numeric_limits<uint16_t>::max())
+                {
+                    messages::propertyValueOutOfRange(
+                        asyncResp->res, *hbIntervalMinutes,
+                        "HeartbeatIntervalMinutes");
+                    return;
+                }
+                subValue->userSub.hbIntervalMinutes = *hbIntervalMinutes;
+            }
 
             if (mrdJsonArray)
             {
@@ -727,6 +760,8 @@ inline void requestRoutesEventDestination(App& app)
 
                 jVal["MessageIds"] = userSub.registryMsgIds;
                 jVal["DeliveryRetryPolicy"] = userSub.retryPolicy;
+                jVal["SendHeartbeat"] = userSub.sendHeartbeat;
+                jVal["HeartbeatIntervalMinutes"] = userSub.hbIntervalMinutes;
                 jVal["VerifyCertificate"] = userSub.verifyCertificate;
 
                 nlohmann::json::array_t mrdJsonArray;
@@ -763,6 +798,8 @@ inline void requestRoutesEventDestination(App& app)
 
                 std::optional<std::string> context;
                 std::optional<std::string> retryPolicy;
+                std::optional<bool> sendHeartbeat;
+                std::optional<uint64_t> hbIntervalMinutes;
                 std::optional<bool> verifyCertificate;
                 std::optional<std::vector<nlohmann::json::object_t>> headers;
 
@@ -770,7 +807,9 @@ inline void requestRoutesEventDestination(App& app)
                         req, asyncResp->res, //
                         "Context", context, //
                         "DeliveryRetryPolicy", retryPolicy, //
+                        "HeartbeatIntervalMinutes", hbIntervalMinutes, //
                         "HttpHeaders", headers, //
+                        "SendHeartbeat", sendHeartbeat, //
                         "VerifyCertificate", verifyCertificate //
                         ))
                 {
@@ -816,6 +855,24 @@ inline void requestRoutesEventDestination(App& app)
                         return;
                     }
                     subValue->userSub->retryPolicy = *retryPolicy;
+                }
+
+                if (sendHeartbeat)
+                {
+                    subValue->userSub.sendHeartbeat = *sendHeartbeat;
+                }
+                if (hbIntervalMinutes)
+                {
+                    if (*hbIntervalMinutes < 1 ||
+                        *hbIntervalMinutes >
+                            std::numeric_limits<uint16_t>::max())
+                    {
+                        messages::propertyValueOutOfRange(
+                            asyncResp->res, *hbIntervalMinutes,
+                            "HeartbeatIntervalMinutes");
+                        return;
+                    }
+                    subValue->userSub.hbIntervalMinutes = *hbIntervalMinutes;
                 }
 
                 if (verifyCertificate)

@@ -7,6 +7,7 @@
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
 
+#include <limits>
 #include <memory>
 #include <string>
 #include <vector>
@@ -22,6 +23,10 @@ struct UserSubscription
     std::string protocol;
     bool verifyCertificate = true;
     std::string retryPolicy;
+    bool sendHeartbeat = false;
+    // This value of hbIntervalMinutes is just a reasonable default value and
+    // the most clients would update it if sendHeartbeat is turned on
+    uint64_t hbIntervalMinutes = 10;
     std::string customText;
     std::string eventFormatType;
     std::string subscriptionType;
@@ -92,6 +97,26 @@ struct UserSubscription
                     continue;
                 }
                 subvalue.retryPolicy = *value;
+            }
+            else if (element.first == "SendHeartbeat")
+            {
+                const bool* value = element.second.get_ptr<const bool*>();
+                if (value == nullptr)
+                {
+                    continue;
+                }
+                subvalue.sendHeartbeat = *value;
+            }
+            else if (element.first == "HeartbeatIntervalMinutes")
+            {
+                const uint64_t* value =
+                    element.second.get_ptr<const uint64_t*>();
+                if (value == nullptr ||
+                    *value > std::numeric_limits<uint16_t>::max())
+                {
+                    continue;
+                }
+                subvalue.hbIntervalMinutes = *value;
             }
             else if (element.first == "Context")
             {
@@ -248,10 +273,29 @@ struct UserSubscription
             }
         }
 
-        if ((subvalue.id.empty() && !loadFromOldConfig) ||
-            subvalue.destinationUrl.empty() || subvalue.protocol.empty() ||
-            subvalue.retryPolicy.empty() || subvalue.eventFormatType.empty() ||
-            subvalue.subscriptionType.empty())
+        if (subvalue.sendHeartbeat && subvalue.subscriptionType == "SSE")
+        {
+            BMCWEB_LOG_ERROR(
+                "SubscriptionType {} does not support SendHeartbeat, refusing to restore",
+                subvalue.subscriptionType);
+            return std::nullopt;
+        }
+        if (subvalue.hbIntervalMinutes < 1 ||
+            subvalue.hbIntervalMinutes > std::numeric_limits<uint16_t>::max())
+        {
+            BMCWEB_LOG_ERROR(
+                "HeartbeatIntervalMinutes is out of range, refusing to restore",
+                subvalue.subscriptionType);
+            return std::nullopt;
+        }
+
+        if ((subvalue.id.empty() && !loadFromOldConfig) || //
+            subvalue.destinationUrl.empty() || //
+            subvalue.eventFormatType.empty() || //
+            subvalue.protocol.empty() || //
+            subvalue.retryPolicy.empty() || //
+            subvalue.subscriptionType.empty() //
+        )
         {
             BMCWEB_LOG_ERROR("Subscription missing required field "
                              "information, refusing to restore");
