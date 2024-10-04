@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35bdde4d_f35b323f",
+        "filename": "redfish-core/src/utils/time_utils.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-04T14:16:33Z",
+      "side": 1,
+      "message": "Can we had some unit tests for this?\nhttps://github.com/openbmc/bmcweb/blob/1f1fb4f59de32f4fa46e8820fddc21c83309c47c/test/redfish-core/include/utils/time_utils_test.cpp#L146",
+      "revId": "4364d3212866390a738df07a0259a8649eb1533b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
