@@ -289,6 +289,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3ebdce5b_e0d23d50",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-04T03:32:07Z",
+      "side": 1,
+      "message": "Are you saying that google_authenticator have implementation to handle missing secret key file, which can be configured through pam service file? I did not see any (may be I am wrong here will recheck). \n\nHaving said that, our design to make bypass work is based on the fact that the google authenticator will not throw any error when secret key file is not present in home. Instead it proceed to verify just the password for the authentication.We use \u0027nullok\u0027 in pam configuration to do that. With this assumption we can enable user specific bypass option. All we have to do for a bypassed user is just delete the secret key file from the user\u0027s home directory. Don\u0027t you agree on that design? Otherwise I am not sure how we implement runtime enable/disable of MFA and how we bypass pam authentication for a specific user etc.",
+      "parentUuid": "1111f8de_f600119b",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "337b4188_da5f7052",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
