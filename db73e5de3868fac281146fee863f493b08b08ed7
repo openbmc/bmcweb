@@ -33,6 +33,24 @@
       "message": "bytesToHexString returns the string directly, you don\u0027t need the std::ostringstream at all anymore.\n\nall you should need now is something like\nstd::string hexCodeStr \u003d \"0x\" + bytesToHexString(std::get\u003c0\u003e(code.second));",
       "revId": "db73e5de3868fac281146fee863f493b08b08ed7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7c57b29_ee6c6e78",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001264
+      },
+      "writtenOn": "2024-10-04T09:07:26Z",
+      "side": 1,
+      "message": "Hi @Ed, because I am using array[byte] in new interface, I am not sure that should I add \"0x\" at front? \n\nAlso, if \"0x\" is needed, do I need to invert the array byte order? or just keep the same order in hexCode?\n\nFor example:\n- original primary postcode\narray: [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09]\n- same byte order\nhexCode: 0x010203040506070809\n- invert byte order\nhexCode: 0x090807060504030201",
+      "parentUuid": "dac8bad1_706d09d9",
+      "revId": "db73e5de3868fac281146fee863f493b08b08ed7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
