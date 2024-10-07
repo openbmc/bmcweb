@@ -480,6 +480,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54952ea5_34093991",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-07T21:03:52Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/commit/2dfd18ef79d3b0a2995ba731983479d492be5949\nhttps://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#12-imprecise-matching\n\"When using dbus paths, rely on the methods on sdbusplus::message::object_path\"\nWe do that because object_path is designed to do just this, constancy, and a lot of time the path checking is incorrect.",
+      "parentUuid": "a8b1a42f_bdc0a15b",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acb8e76b_03dede33",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
