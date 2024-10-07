@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d6c46df_7f7f135c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-07T21:26:27Z",
+      "side": 1,
+      "message": "More than 1 is an internalError but 0 an error only on the patch and a 4xx error. \nhttps://github.com/openbmc/bmcweb/blob/352e3b78d5e73ac5c2ee48ad4def6219360613c7/redfish-core/lib/systems.hpp#L1514\nuses propertyValueNotInList, there might be a better error but that seems like a reasonable place to start. \n\n\nI think this is only called on the patch ?\n\n            if (subtree.empty())\n            {\n                messages::propertyValueNotInList(asyncResp-\u003eres,\n                                                 \"EnvironmentMetrics\",\n                                                 \"PowerLimitWatts\");\n                return;\n            }\n\n\n\n            //   This is a system-wide setting. Should be at most one path and service.\n            if (subtree.size() \u003e 1)\n            {\n\n                        internalError;\n            }\n\nor could return empty and check there",
+      "parentUuid": "2151f09d_74d4e36f",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36441284_878f623c",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 19
@@ -31,6 +49,30 @@
       "writtenOn": "2024-10-07T17:28:15Z",
       "side": 1,
       "message": "Perhaps, can this function return a pair\u003c\u003e so that this `clear()` is not needed?\n\n```\ninline std::pair\u003cstd::string, std::string\u003e \ngetPowerLimitsPath(const dbus::utility::MapperGetSubTreeResponse\u0026 subtree,)\n{\n   std::pair\u003cstd::string, std::string\u003e pathAndService;\n   if (subtree.size() !\u003d 1)\n    {\n        return pathAndService;\n   }\n    const auto\u0026 object \u003d subtree[0];\n    pathAndService.first \u003d object.first;\n    const auto\u0026 serviceMap \u003d object.second;\n   ...\n   return pathAndService;\n }\n ```",
+      "range": {
+        "startLine": 29,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "012f1f11_7181625d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-07T21:26:27Z",
+      "side": 1,
+      "message": "Yeah, we shouldn\u0027t need a .clear() here",
+      "parentUuid": "36441284_878f623c",
       "range": {
         "startLine": 29,
         "startChar": 1,
@@ -77,6 +119,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76a6deef_44ff4d43",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-07T21:26:27Z",
+      "side": 1,
+      "message": "On the Patch, we can\u0027t just ignore it if there is an error.\n\nif subtree is empty, that is a 4xx on the Patch \nif subtree.size() \u003e 1, 500 error on the Patch and the Get",
+      "parentUuid": "f4c5daf2_28dd4faf",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55fe683d_34f3825f",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 19
@@ -100,6 +160,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9bdd7acf_9e9b63b5",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-07T21:26:27Z",
+      "side": 1,
+      "message": "include array, include string_view",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7b5a42f2_0006c713",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 19
@@ -111,6 +188,23 @@
       "writtenOn": "2024-10-07T17:28:15Z",
       "side": 1,
       "message": "Should this be `ERROR`?",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc85863b_8a0b7089",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-07T21:26:27Z",
+      "side": 1,
+      "message": "This is a PATCH, need an error here if we aren\u0027t able to do it.",
       "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
