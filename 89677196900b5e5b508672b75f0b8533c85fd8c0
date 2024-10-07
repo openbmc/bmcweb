@@ -112,6 +112,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05f8f827_468bc304",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2505,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T08:01:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a01a52ae_1abd7d09",
+      "range": {
+        "startLine": 2505,
+        "startChar": 33,
+        "endLine": 2505,
+        "endChar": 45
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20fb04a6_d4e32790",
@@ -230,6 +254,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94ce5a57_2a1ad7b4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2513,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T08:01:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b905927_129872b5",
+      "range": {
+        "startLine": 2513,
+        "startChar": 20,
+        "endLine": 2513,
+        "endChar": 33
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7d64686_e1515c3c",
@@ -243,6 +291,30 @@
       "writtenOn": "2024-09-24T17:32:01Z",
       "side": 1,
       "message": "Move this branch to its own line.  if readJson fails, it sets the appropriate error code.  If you want this parameter to be required, don\u0027t declare it as optional, and readJson will just do the right thing.",
+      "range": {
+        "startLine": 2514,
+        "startChar": 67,
+        "endLine": 2521,
+        "endChar": 5
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a697a7_96d51043",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2521,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T08:01:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7d64686_e1515c3c",
       "range": {
         "startLine": 2514,
         "startChar": 67,
@@ -276,6 +348,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aab6308b_e9e9427d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2522,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T08:01:31Z",
+      "side": 1,
+      "message": "It is defined at the top (xyz/openbmc_project/user/)\n\nI guess, here, this name is not the right one.\nDone",
+      "parentUuid": "7f27e756_e6bc496c",
+      "range": {
+        "startLine": 2522,
+        "startChar": 48,
+        "endLine": 2522,
+        "endChar": 64
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24bd8daa_9aa949c6",
@@ -293,6 +389,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56dae24f_7ed30fe7",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2527,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T08:01:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24bd8daa_9aa949c6",
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10333281_44807960",
@@ -306,6 +420,30 @@
       "writtenOn": "2024-09-24T17:32:01Z",
       "side": 1,
       "message": "nit, call this\nhandleManagerAccountVerifyTotPasswordAction",
+      "range": {
+        "startLine": 2643,
+        "startChar": 28,
+        "endLine": 2643,
+        "endChar": 44
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ade6dffe_e5d5fce2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2643,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T08:01:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10333281_44807960",
       "range": {
         "startLine": 2643,
         "startChar": 28,
