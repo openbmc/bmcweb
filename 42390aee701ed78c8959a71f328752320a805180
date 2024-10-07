@@ -34,6 +34,24 @@
       "parentUuid": "9e5187cf_89e758c5",
       "revId": "42390aee701ed78c8959a71f328752320a805180",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c599f39_5660579f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T19:07:40Z",
+      "side": 1,
+      "message": "Closing.  Feel free to reopen if this wasn\u0027t a good enough answer.",
+      "parentUuid": "cea668fd_e3bcb28a",
+      "revId": "42390aee701ed78c8959a71f328752320a805180",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
