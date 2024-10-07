@@ -529,16 +529,23 @@ inline bool getUserParameters(crow::Response& res, const crow::Request& req,
     std::optional<std::vector<std::string>> reportActionsStr;
     std::optional<std::string> scheduleDurationStr;
 
+    // clang-format off
     if (!json_util::readJsonPatch(
-            req, res, "Id", id, "Name", name, "Metrics", metrics,
-            "MetricReportDefinitionType", reportingTypeStr, "ReportUpdates",
-            reportUpdatesStr, "AppendLimit", appendLimit, "ReportActions",
-            reportActionsStr, "Schedule/RecurrenceInterval",
-            scheduleDurationStr, "MetricReportDefinitionEnabled",
-            metricReportDefinitionEnabled))
+            req, res,
+            "AppendLimit", appendLimit,
+            "Id", id,
+            "MetricReportDefinitionEnabled", metricReportDefinitionEnabled,
+            "MetricReportDefinitionType", reportingTypeStr,
+            "Metrics", metrics,
+            "Name", name,
+            "ReportActions", reportActionsStr,
+            "ReportUpdates", reportUpdatesStr,
+            "Schedule/RecurrenceInterval", scheduleDurationStr
+        ))
     {
         return false;
     }
+    // clang-format on
 
     if (id)
     {
@@ -1328,15 +1335,20 @@ inline void handleReportPatch(
     std::optional<std::vector<std::string>> reportActionsStr;
     std::optional<std::string> scheduleDurationStr;
 
+    // clang-format off
     if (!json_util::readJsonPatch(
-            req, asyncResp->res, "Metrics", metrics,
-            "MetricReportDefinitionType", reportingTypeStr, "ReportUpdates",
-            reportUpdatesStr, "ReportActions", reportActionsStr,
+            req, asyncResp->res,
+            "MetricReportDefinitionEnabled", metricReportDefinitionEnabled
+            "MetricReportDefinitionType", reportingTypeStr,
+            "Metrics", metrics,
+            "ReportActions", reportActionsStr,
+            "ReportUpdates", reportUpdatesStr,
             "Schedule/RecurrenceInterval", scheduleDurationStr,
-            "MetricReportDefinitionEnabled", metricReportDefinitionEnabled))
+        ))
     {
         return;
     }
+    // clang-format on
 
     if (metricReportDefinitionEnabled)
     {

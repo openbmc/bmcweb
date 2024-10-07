@@ -417,11 +417,15 @@ inline void handleRoleMapPatch(
             std::optional<std::string> remoteGroup;
             std::optional<std::string> localRole;
 
-            if (!json_util::readJsonObject(*obj, asyncResp->res, "RemoteGroup",
-                                           remoteGroup, "LocalRole", localRole))
+            // clang-format off
+            if (!json_util::readJsonObject(*obj, asyncResp->res,
+                "RemoteGroup", remoteGroup,
+                "LocalRole", localRole
+            ))
             {
                 continue;
             }
+            // clang-format on
 
             // Update existing RoleMapping Object
             if (index < roleMapObjData.size())
@@ -1556,8 +1560,7 @@ inline void handleAccountServicePatch(
             "ActiveDirectory/RemoteRoleMapping", activeDirectoryObject.remoteRoleMapData,
             "ActiveDirectory/ServiceAddresses", activeDirectoryObject.serviceAddressList,
             "ActiveDirectory/ServiceEnabled", activeDirectoryObject.serviceEnabled,
-            "MultiFactorAuth/ClientCertificate/CertificateMappingAttribute", certificateMappingAttribute,
-            "MultiFactorAuth/ClientCertificate/RespondToUnauthenticatedClients", respondToUnauthenticatedClients,
+            "HTTPBasicAuth", httpBasicAuth,
             "LDAP/Authentication/AuthenticationType", ldapObject.authType,
             "LDAP/Authentication/Password", ldapObject.password,
             "LDAP/Authentication/Username", ldapObject.userName,
@@ -1569,12 +1572,14 @@ inline void handleAccountServicePatch(
             "LDAP/ServiceEnabled", ldapObject.serviceEnabled,
             "MaxPasswordLength", maxPasswordLength,
             "MinPasswordLength", minPasswordLength,
+            "MultiFactorAuth/ClientCertificate/CertificateMappingAttribute", certificateMappingAttribute,
+            "MultiFactorAuth/ClientCertificate/RespondToUnauthenticatedClients", respondToUnauthenticatedClients,
             "Oem/OpenBMC/AuthMethods/BasicAuth", auth.basicAuth,
             "Oem/OpenBMC/AuthMethods/Cookie", auth.cookie,
             "Oem/OpenBMC/AuthMethods/SessionToken", auth.sessionToken,
             "Oem/OpenBMC/AuthMethods/TLS", auth.tls,
-            "Oem/OpenBMC/AuthMethods/XToken", auth.xToken,
-            "HTTPBasicAuth", httpBasicAuth))
+            "Oem/OpenBMC/AuthMethods/XToken", auth.xToken
+    ))
     {
         return;
     }
@@ -1883,13 +1888,19 @@ inline void handleAccountCollectionPost(
     std::optional<std::string> roleIdJson;
     std::optional<bool> enabledJson;
     std::optional<std::vector<std::string>> accountTypes;
+    // clang-format off
     if (!json_util::readJsonPatch(
-            req, asyncResp->res, "UserName", username, "Password", password,
-            "RoleId", roleIdJson, "Enabled", enabledJson, "AccountTypes",
-            accountTypes))
+            req, asyncResp->res,
+            "AccountTypes", accountTypes,
+            "Enabled", enabledJson,
+            "Password", password,
+            "RoleId", roleIdJson,
+            "UserName", username
+    ))
     {
         return;
     }
+    // clang-format on
 
     std::string roleId = roleIdJson.value_or("User");
     std::string priv = getPrivilegeFromRoleId(roleId);
@@ -2202,13 +2213,20 @@ inline void
     if (userHasConfigureUsers)
     {
         // Users with ConfigureUsers can modify for all users
+        // clang-format off
         if (!json_util::readJsonPatch(
-                req, asyncResp->res, "UserName", newUserName, "Password",
-                password, "RoleId", roleId, "Enabled", enabled, "Locked",
-                locked, "AccountTypes", accountTypes))
+                req, asyncResp->res,
+                "AccountTypes", accountTypes
+                "Enabled", enabled,
+                "Locked", locked,
+                "Password", password,
+                "RoleId", roleId,
+                "UserName", newUserName,
+        ))
         {
             return;
         }
+        // clang-format on
     }
     else
     {

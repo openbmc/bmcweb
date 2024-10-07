@@ -708,16 +708,21 @@ inline void handleManagersVirtualMediaActionInsertPost(
     InsertMediaActionParams actionParams;
 
     // Read obligatory parameters (url of image)
+    // clang-format off
     if (!json_util::readJsonAction(
-            req, asyncResp->res, "Image", actionParams.imageUrl,
-            "WriteProtected", actionParams.writeProtected, "UserName",
-            actionParams.userName, "Password", actionParams.password,
-            "Inserted", actionParams.inserted, "TransferMethod",
-            actionParams.transferMethod, "TransferProtocolType",
-            actionParams.transferProtocolType))
+            req, asyncResp->res,
+            "Image", actionParams.imageUrl,
+            "Inserted", actionParams.inserted,
+            "Password", actionParams.password,
+            "TransferMethod", actionParams.transferMethod,
+            "TransferProtocolType", actionParams.transferProtocolType,
+            "UserName", actionParams.userName,
+            "WriteProtected", actionParams.writeProtected
+    ))
     {
         return;
     }
+    // clang-format on
 
     dbus::utility::getDbusObject(
         "/xyz/openbmc_project/VirtualMedia", {},

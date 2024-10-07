@@ -598,19 +598,19 @@ inline bool parsePostTriggerParams(crow::Response& res,
     // clang-format off
     if (!json_util::readJsonPatch(
             req, res,
-	    "Id", id,
-            "Name", name,
-	    "MetricType", metricType,
-            "TriggerActions", triggerActions,
+	        "Id", id,
+	        "MetricType", metricType,
             "DiscreteTriggerCondition", discreteTriggerCondition,
             "DiscreteTriggers", discreteTriggers,
+            "Links/MetricReportDefinitions", metricReportDefinitions
+            "MetricProperties", ctx.metricProperties,
+            "Name", name,
+            "NumericThresholds/LowerCritical", thresholds.lowerCritical,
+            "NumericThresholds/LowerWarning", thresholds.lowerWarning,
             "NumericThresholds/UpperCritical", thresholds.upperCritical,
             "NumericThresholds/UpperWarning", thresholds.upperWarning,
-            "NumericThresholds/LowerWarning", thresholds.lowerWarning,
-            "NumericThresholds/LowerCritical", thresholds.lowerCritical,
-            "MetricProperties", ctx.metricProperties,
-            "Links/MetricReportDefinitions", metricReportDefinitions)
-    )
+            "TriggerActions", triggerActions
+        ))
     {
         return false;
     }
