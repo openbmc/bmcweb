@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "799ba94c_019ff9a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T14:55:56Z",
+      "side": 1,
+      "message": "missing redfish.md updates.",
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "658ed521_7730fa27",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1529,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T14:55:56Z",
+      "side": 1,
+      "message": "put into its own method please.",
+      "range": {
+        "startLine": 1512,
+        "startChar": 0,
+        "endLine": 1529,
+        "endChar": 9
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e4e9677_4d8e47a0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1724,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T14:55:56Z",
+      "side": 1,
+      "message": "Please don\u0027t do interface string construction like this:\n\nstd::string_view value \u003d \"xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.None\";\nif (*googleAuthenticatorEnabled){\n   value \u003d \"xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator\"\n}",
+      "range": {
+        "startLine": 1721,
+        "startChar": 0,
+        "endLine": 1724,
+        "endChar": 75
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b30e29f3_17933335",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2216,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T14:55:56Z",
+      "side": 1,
+      "message": "please use the unpackproperty methods for new code.  Ideally the code above would eventually be ported to unpack property methods, but doesn\u0027t need to be in this patch.",
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "090088b5_be7c7d17",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2238,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T14:55:56Z",
+      "side": 1,
+      "message": "?  THis list should never include \"none\" right?",
+      "range": {
+        "startLine": 2238,
+        "startChar": 0,
+        "endLine": 2238,
+        "endChar": 44
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bf9c6bb_201c1e15",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2435,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T14:55:56Z",
+      "side": 1,
+      "message": "Don\u0027t construct dbus methods using strings.",
+      "range": {
+        "startLine": 2435,
+        "startChar": 8,
+        "endLine": 2435,
+        "endChar": 48
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "322c8a4f_ac096e2a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2467,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T14:55:56Z",
+      "side": 1,
+      "message": "This is a two tier lambda, which is definitely not allowed;  The hint here is that this patchset had to rename \"ec\" to \"ec1\" because of -Wshadow issues.",
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

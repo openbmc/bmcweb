@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d5e884d_f9e34b49",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T14:55:56Z",
+      "side": 1,
+      "message": "Please don\u0027t make very long lambdas like this.  I realize this was here before, but we\u0027re now making it longer to where it should be a normal method.",
+      "range": {
+        "startLine": 1104,
+        "startChar": 55,
+        "endLine": 1113,
+        "endChar": 68
+      },
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "608d6913_b1789990",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
