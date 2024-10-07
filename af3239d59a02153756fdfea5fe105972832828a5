@@ -87,6 +87,24 @@
       "parentUuid": "f4e846eb_12b3ba22",
       "revId": "af3239d59a02153756fdfea5fe105972832828a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3307ed23_18583517",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T23:46:56Z",
+      "side": 1,
+      "message": "\u003e \u003e For example, assuming you only had the interface definition:\n\u003e \u003e \n\u003e \u003e ```\n\u003e \u003e Array of metric parameters, which are stored in a way specified\n\u003e \u003e                 in description of ReadingParameters property from Report\n\u003e \u003e                interface documentation.\n\u003e \u003e ```\n\u003e \u003e which parameters are supported? which parameters have which types? There\u0027s no way\n\u003e to answer that without looking at the code. This is part of the problem. If one of the parameters is wrong, what error gets returned?\n\u003e \n\u003e Got it. API was originally described in spec, but text definition was moved by @pmatuszc to have single source of truth in YAML definitions here: https://github.com/openbmc/docs/commit/434ff72789bdb589dfa0d10f9477a0be2601be71\n\u003e \n\nYep, and that\u0027s part of the problem that it needed a separate spec in the first place.\n\n\u003e We have a gap here, which shows that perhaps problem is not within service implementation, but is rather limitation of our current phosphor-dbus-interfaces ? \n\nNot sure i agree.  Phosphor-dbus-interfaces is perfectly capable of holding descriptions, it\u0027s just a matter of someone writing them.\n\n\u003e \n\u003e If your idea for fixing the API would be to make interface work with D-Bus objects we have severe limitations:\n\u003e - method parameters accept only predefined list of types https://dbus.freedesktop.org/doc/dbus-specification.html#id-1.3.8\n\nThese are the same limitations the existing code has, so I\u0027m not sure why a method changes this.\n\n\u003e - we don\u0027t have a way to define this in more detail (other than text) https://github.com/openbmc/phosphor-dbus-interfaces/blob/9d46e5bb0fcad6c4a775dcef781c0ce4b9de1ff5/yaml/xyz/openbmc_project/Telemetry/ReportManager.interface.yaml#L49\n\nNot really true, you have the ability to build interfaces that use individual properties, rather than arbitrary maps.\n\n\u003e \n\u003e If reworking phosphor-dbus-interfaces to work with complex parameters is not favorable, it\u0027s still not clear for me how would you redesign the API to be more \u0027conventional\u0027.\n\nI think we\u0027re missing the point a little, the point is to make the parameters simpler, not to make phosphor-dbus-interfaces support more complex things.\n\n\u003e \n\u003e Do you have ready example of interfaces which is intended to Create D-Bus resources on demand written in the way you like?\n\nIt would look exactly like what\u0027s there, but with the ReadingParameters argument removed, and replaced with arguments that match the values that are in that key.  Even if there\u0027s a large number of arguments, that\u0027s still a lot simpler than what we have now.",
+      "parentUuid": "f89613d5_53112d61",
+      "revId": "af3239d59a02153756fdfea5fe105972832828a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
