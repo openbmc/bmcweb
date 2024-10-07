@@ -858,9 +858,8 @@ inline bool extractIPv6DefaultGatewayData(
             staticGateway.id = objpath.first.filename();
 
             bool success = sdbusplus::unpackPropertiesNoThrow(
-                redfish::dbus_utils::UnpackErrorPrinter(), interface.second,
-                "Gateway", staticGateway.gateway, "ProtocolType",
-                staticGateway.protocol);
+                dbus_utils::UnpackErrorPrinter(), interface.second, "Gateway",
+                staticGateway.gateway, "ProtocolType", staticGateway.protocol);
             if (!success)
             {
                 return false;
@@ -2051,12 +2050,12 @@ inline void afterVlanCreate(
 inline void requestEthernetInterfacesRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
-        .privileges(redfish::privileges::getEthernetInterfaceCollection)
+        .privileges(privileges::getEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2111,12 +2110,12 @@ inline void requestEthernetInterfacesRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
-        .privileges(redfish::privileges::postEthernetInterfaceCollection)
+        .privileges(privileges::postEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2205,12 +2204,12 @@ inline void requestEthernetInterfacesRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::getEthernetInterface)
+        .privileges(privileges::getEthernetInterface)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2252,12 +2251,12 @@ inline void requestEthernetInterfacesRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::patchEthernetInterface)
+        .privileges(privileges::patchEthernetInterface)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2424,12 +2423,12 @@ inline void requestEthernetInterfacesRoutes(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::deleteEthernetInterface)
+        .privileges(privileges::deleteEthernetInterface)
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }

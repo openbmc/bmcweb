@@ -82,12 +82,12 @@ inline void handlePowerSupplyCollectionHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
 
-    redfish::chassis_utils::getValidChassisPath(
+    chassis_utils::getValidChassisPath(
         asyncResp, chassisId,
         [asyncResp,
          chassisId](const std::optional<std::string>& validChassisPath) {
@@ -108,7 +108,7 @@ inline void handlePowerSupplyCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -131,12 +131,12 @@ inline void handlePowerSupplyCollectionGet(
 inline void requestRoutesPowerSupplyCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PowerSubsystem/PowerSupplies/")
-        .privileges(redfish::privileges::headPowerSupplyCollection)
+        .privileges(privileges::headPowerSupplyCollection)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handlePowerSupplyCollectionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PowerSubsystem/PowerSupplies/")
-        .privileges(redfish::privileges::getPowerSupplyCollection)
+        .privileges(privileges::getPowerSupplyCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePowerSupplyCollectionGet, std::ref(app)));
 }
@@ -475,7 +475,7 @@ inline void handlePowerSupplyHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& powerSupplyId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -495,7 +495,7 @@ inline void handlePowerSupplyGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& powerSupplyId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -508,13 +508,13 @@ inline void requestRoutesPowerSupply(App& app)
 {
     BMCWEB_ROUTE(
         app, "/redfish/v1/Chassis/<str>/PowerSubsystem/PowerSupplies/<str>/")
-        .privileges(redfish::privileges::headPowerSupply)
+        .privileges(privileges::headPowerSupply)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handlePowerSupplyHead, std::ref(app)));
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Chassis/<str>/PowerSubsystem/PowerSupplies/<str>/")
-        .privileges(redfish::privileges::getPowerSupply)
+        .privileges(privileges::getPowerSupply)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePowerSupplyGet, std::ref(app)));
 }

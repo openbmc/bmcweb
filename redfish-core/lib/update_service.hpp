@@ -330,7 +330,7 @@ inline void afterAvailbleTimerAsyncWait(
     }
     if (asyncResp)
     {
-        redfish::messages::internalError(asyncResp->res);
+        messages::internalError(asyncResp->res);
     }
 }
 
@@ -340,55 +340,51 @@ inline void
 {
     if (type == "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Invalid archive");
+        messages::invalidUpload(asyncResp->res, url, "Invalid archive");
     }
     else if (type ==
              "xyz.openbmc_project.Software.Image.Error.ManifestFileFailure")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Invalid manifest");
+        messages::invalidUpload(asyncResp->res, url, "Invalid manifest");
     }
     else if (type == "xyz.openbmc_project.Software.Image.Error.ImageFailure")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Invalid image format");
+        messages::invalidUpload(asyncResp->res, url, "Invalid image format");
     }
     else if (type == "xyz.openbmc_project.Software.Version.Error.AlreadyExists")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Image version already exists");
+        messages::invalidUpload(asyncResp->res, url,
+                                "Image version already exists");
 
-        redfish::messages::resourceAlreadyExists(
-            asyncResp->res, "UpdateService", "Version", "uploaded version");
+        messages::resourceAlreadyExists(asyncResp->res, "UpdateService",
+                                        "Version", "uploaded version");
     }
     else if (type == "xyz.openbmc_project.Software.Image.Error.BusyFailure")
     {
-        redfish::messages::resourceExhaustion(asyncResp->res, url);
+        messages::resourceExhaustion(asyncResp->res, url);
     }
     else if (type == "xyz.openbmc_project.Software.Version.Error.Incompatible")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Incompatible image version");
+        messages::invalidUpload(asyncResp->res, url,
+                                "Incompatible image version");
     }
     else if (type ==
              "xyz.openbmc_project.Software.Version.Error.ExpiredAccessKey")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Update Access Key Expired");
+        messages::invalidUpload(asyncResp->res, url,
+                                "Update Access Key Expired");
     }
     else if (type ==
              "xyz.openbmc_project.Software.Version.Error.InvalidSignature")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Invalid image signature");
+        messages::invalidUpload(asyncResp->res, url, "Invalid image signature");
     }
     else if (type ==
                  "xyz.openbmc_project.Software.Image.Error.InternalFailure" ||
              type == "xyz.openbmc_project.Software.Version.Error.HostFile")
     {
         BMCWEB_LOG_ERROR("Software Image Error type={}", type);
-        redfish::messages::internalError(asyncResp->res);
+        messages::internalError(asyncResp->res);
     }
     else
     {
@@ -578,7 +574,7 @@ inline void handleUpdateServiceSimpleUpdateAction(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1042,7 +1038,7 @@ inline void
     handleUpdateServicePost(App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1083,7 +1079,7 @@ inline void
     handleUpdateServiceGet(App& app, const crow::Request& req,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1133,7 +1129,7 @@ inline void handleUpdateServiceFirmwareInventoryCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1145,7 +1141,7 @@ inline void handleUpdateServiceFirmwareInventoryCollectionGet(
     const std::array<const std::string_view, 1> iface = {
         "xyz.openbmc_project.Software.Version"};
 
-    redfish::collection_util::getCollectionMembers(
+    collection_util::getCollectionMembers(
         asyncResp,
         boost::urls::url("/redfish/v1/UpdateService/FirmwareInventory"), iface,
         "/xyz/openbmc_project/software");
@@ -1258,7 +1254,7 @@ inline void handleUpdateServiceFirmwareInventoryGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& param)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1328,27 +1324,27 @@ inline void requestRoutesUpdateService(App& app)
 {
     BMCWEB_ROUTE(
         app, "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
-        .privileges(redfish::privileges::postUpdateService)
+        .privileges(privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleUpdateServiceSimpleUpdateAction, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
-        .privileges(redfish::privileges::getSoftwareInventory)
+        .privileges(privileges::getSoftwareInventory)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleUpdateServiceFirmwareInventoryGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/")
-        .privileges(redfish::privileges::getUpdateService)
+        .privileges(privileges::getUpdateService)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleUpdateServiceGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/update/")
-        .privileges(redfish::privileges::postUpdateService)
+        .privileges(privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleUpdateServicePost, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/")
-        .privileges(redfish::privileges::getSoftwareInventoryCollection)
+        .privileges(privileges::getSoftwareInventoryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleUpdateServiceFirmwareInventoryCollectionGet, std::ref(app)));
 }

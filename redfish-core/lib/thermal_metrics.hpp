@@ -39,12 +39,12 @@ inline void handleThermalMetricsHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
 
-    redfish::chassis_utils::getValidChassisPath(
+    chassis_utils::getValidChassisPath(
         asyncResp, chassisId,
         [asyncResp,
          chassisId](const std::optional<std::string>& validChassisPath) {
@@ -65,12 +65,12 @@ inline void
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
 
-    redfish::chassis_utils::getValidChassisPath(
+    chassis_utils::getValidChassisPath(
         asyncResp, chassisId,
         std::bind_front(doThermalMetrics, asyncResp, chassisId));
 }
@@ -79,13 +79,13 @@ inline void requestRoutesThermalMetrics(App& app)
 {
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Chassis/<str>/ThermalSubsystem/ThermalMetrics/")
-        .privileges(redfish::privileges::headThermalMetrics)
+        .privileges(privileges::headThermalMetrics)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleThermalMetricsHead, std::ref(app)));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Chassis/<str>/ThermalSubsystem/ThermalMetrics/")
-        .privileges(redfish::privileges::getThermalMetrics)
+        .privileges(privileges::getThermalMetrics)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleThermalMetricsGet, std::ref(app)));
 }

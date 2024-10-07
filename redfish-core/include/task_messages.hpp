@@ -22,18 +22,16 @@ limitations under the License.
 namespace redfish::messages
 {
 
-inline nlohmann::json
-    getLogTaskEvent(redfish::registries::task_event::Index name,
-                    std::span<const std::string_view> args)
+inline nlohmann::json getLogTaskEvent(registries::task_event::Index name,
+                                      std::span<const std::string_view> args)
 {
     size_t index = static_cast<size_t>(name);
-    if (index >= redfish::registries::task_event::registry.size())
+    if (index >= registries::task_event::registry.size())
     {
         return {};
     }
-    return getLogFromRegistry(redfish::registries::task_event::header,
-                              redfish::registries::task_event::registry, index,
-                              args);
+    return getLogFromRegistry(registries::task_event::header,
+                              registries::task_event::registry, index, args);
 }
 
 inline nlohmann::json taskAborted(std::string_view arg1)

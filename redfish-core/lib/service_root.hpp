@@ -34,7 +34,7 @@ inline void
     handleServiceRootHead(App& app, const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -119,7 +119,7 @@ inline void
     handleServiceRootGet(App& app, const crow::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -130,11 +130,11 @@ inline void
 inline void requestRoutesServiceRoot(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/")
-        .privileges(redfish::privileges::headServiceRoot)
+        .privileges(privileges::headServiceRoot)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleServiceRootHead, std::ref(app)));
     BMCWEB_ROUTE(app, "/redfish/v1/")
-        .privileges(redfish::privileges::getServiceRoot)
+        .privileges(privileges::getServiceRoot)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleServiceRootGet, std::ref(app)));
 }

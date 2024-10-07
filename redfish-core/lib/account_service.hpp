@@ -1196,7 +1196,7 @@ inline void handleAccountServiceHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1224,7 +1224,7 @@ inline void handleAccountServiceClientCertificatesInstanceHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*id*/)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1238,7 +1238,7 @@ inline void handleAccountServiceClientCertificatesInstanceGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1258,7 +1258,7 @@ inline void handleAccountServiceClientCertificatesHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1272,7 +1272,7 @@ inline void handleAccountServiceClientCertificatesGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1322,7 +1322,7 @@ inline void
     handleAccountServiceGet(App& app, const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1403,8 +1403,7 @@ inline void
     // /redfish/v1/AccountService/LDAP/Certificates is something only
     // ConfigureManager can access then only display when the user has
     // permissions ConfigureManager
-    Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+    Privileges effectiveUserPrivileges = getUserPrivileges(*req.session);
 
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
@@ -1527,7 +1526,7 @@ inline void handleAccountServicePatch(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1653,7 +1652,7 @@ inline void handleAccountCollectionHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1666,7 +1665,7 @@ inline void handleAccountCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1688,8 +1687,7 @@ inline void handleAccountCollectionGet(
     asyncResp->res.jsonValue["Name"] = "Accounts Collection";
     asyncResp->res.jsonValue["Description"] = "BMC User Accounts";
 
-    Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+    Privileges effectiveUserPrivileges = getUserPrivileges(*req.session);
 
     std::string thisUser;
     if (req.session)
@@ -1874,7 +1872,7 @@ inline void handleAccountCollectionPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1933,7 +1931,7 @@ inline void
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& /*accountName*/)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1947,7 +1945,7 @@ inline void
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& accountName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1974,8 +1972,7 @@ inline void
         // modify a user that isn't them.  We need to verify that they
         // have permissions to modify other users, so re-run the auth
         // check with the same permissions, minus ConfigureSelf.
-        Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(*req.session);
+        Privileges effectiveUserPrivileges = getUserPrivileges(*req.session);
         Privileges requiredPermissionsToChangeNonSelf = {"ConfigureUsers",
                                                          "ConfigureManager"};
         if (!effectiveUserPrivileges.isSupersetOf(
@@ -2134,7 +2131,7 @@ inline void
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& username)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -2169,7 +2166,7 @@ inline void
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& username)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -2194,8 +2191,7 @@ inline void
 
     bool userSelf = (username == req.session->username);
 
-    Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+    Privileges effectiveUserPrivileges = getUserPrivileges(*req.session);
     Privileges configureUsers = {"ConfigureUsers"};
     bool userHasConfigureUsers =
         effectiveUserPrivileges.isSupersetOf(configureUsers);
@@ -2261,70 +2257,70 @@ inline void
 inline void requestAccountServiceRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
-        .privileges(redfish::privileges::headAccountService)
+        .privileges(privileges::headAccountService)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleAccountServiceHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
-        .privileges(redfish::privileges::getAccountService)
+        .privileges(privileges::getAccountService)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleAccountServiceGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
-        .privileges(redfish::privileges::patchAccountService)
+        .privileges(privileges::patchAccountService)
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleAccountServicePatch, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates")
-        .privileges(redfish::privileges::headCertificateCollection)
+        .privileges(privileges::headCertificateCollection)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleAccountServiceClientCertificatesHead, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates")
-        .privileges(redfish::privileges::getCertificateCollection)
+        .privileges(privileges::getCertificateCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleAccountServiceClientCertificatesGet, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/<str>")
-        .privileges(redfish::privileges::headCertificate)
+        .privileges(privileges::headCertificate)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleAccountServiceClientCertificatesInstanceHead, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/<str>/")
-        .privileges(redfish::privileges::getCertificate)
+        .privileges(privileges::getCertificate)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleAccountServiceClientCertificatesInstanceGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        .privileges(redfish::privileges::headManagerAccountCollection)
+        .privileges(privileges::headManagerAccountCollection)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleAccountCollectionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        .privileges(redfish::privileges::getManagerAccountCollection)
+        .privileges(privileges::getManagerAccountCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleAccountCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
-        .privileges(redfish::privileges::postManagerAccountCollection)
+        .privileges(privileges::postManagerAccountCollection)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleAccountCollectionPost, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
-        .privileges(redfish::privileges::headManagerAccount)
+        .privileges(privileges::headManagerAccount)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleAccountHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
-        .privileges(redfish::privileges::getManagerAccount)
+        .privileges(privileges::getManagerAccount)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleAccountGet, std::ref(app)));
 
@@ -2337,7 +2333,7 @@ inline void requestAccountServiceRoutes(App& app)
             std::bind_front(handleAccountPatch, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
-        .privileges(redfish::privileges::deleteManagerAccount)
+        .privileges(privileges::deleteManagerAccount)
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleAccountDelete, std::ref(app)));
 }

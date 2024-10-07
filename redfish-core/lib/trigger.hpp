@@ -567,7 +567,7 @@ inline bool parseMetricProperties(crow::Response& res, Context& ctx)
         }
 
         std::pair<std::string, std::string> split =
-            redfish::sensor_utils::splitSensorNameAndType(sensorName);
+            sensor_utils::splitSensorNameAndType(sensorName);
         if (split.first.empty() || split.second.empty())
         {
             messages::propertyValueIncorrect(
@@ -942,7 +942,7 @@ inline void handleTriggerCollectionPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -969,11 +969,11 @@ inline void handleTriggerCollectionPost(
 inline void requestRoutesTriggerCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/")
-        .privileges(redfish::privileges::getTriggersCollection)
+        .privileges(privileges::getTriggersCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -992,7 +992,7 @@ inline void requestRoutesTriggerCollection(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/")
-        .privileges(redfish::privileges::postTriggersCollection)
+        .privileges(privileges::postTriggersCollection)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             telemetry::handleTriggerCollectionPost, std::ref(app)));
 }
@@ -1000,12 +1000,12 @@ inline void requestRoutesTriggerCollection(App& app)
 inline void requestRoutesTrigger(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
-        .privileges(redfish::privileges::getTriggers)
+        .privileges(privileges::getTriggers)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& id) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -1041,12 +1041,12 @@ inline void requestRoutesTrigger(App& app)
             });
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
-        .privileges(redfish::privileges::deleteTriggers)
+        .privileges(privileges::deleteTriggers)
         .methods(boost::beast::http::verb::delete_)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& id) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }

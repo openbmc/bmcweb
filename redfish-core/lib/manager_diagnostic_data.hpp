@@ -232,7 +232,7 @@ inline void handleManagerDiagnosticDataGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -260,7 +260,7 @@ inline void handleManagerDiagnosticDataGet(
 inline void requestRoutesManagerDiagnosticData(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/ManagerDiagnosticData")
-        .privileges(redfish::privileges::getManagerDiagnosticData)
+        .privileges(privileges::getManagerDiagnosticData)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleManagerDiagnosticDataGet, std::ref(app)));
 }

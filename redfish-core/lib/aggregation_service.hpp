@@ -21,7 +21,7 @@ inline void handleAggregationServiceHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -34,7 +34,7 @@ inline void handleAggregationServiceGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -55,11 +55,11 @@ inline void handleAggregationServiceGet(
 inline void requestRoutesAggregationService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AggregationService/")
-        .privileges(redfish::privileges::headAggregationService)
+        .privileges(privileges::headAggregationService)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleAggregationServiceHead, std::ref(app)));
     BMCWEB_ROUTE(app, "/redfish/v1/AggregationService/")
-        .privileges(redfish::privileges::getAggregationService)
+        .privileges(privileges::getAggregationService)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleAggregationServiceGet, std::ref(app)));
 }
@@ -91,7 +91,7 @@ inline void handleAggregationSourceCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -113,7 +113,7 @@ inline void handleAggregationSourceCollectionHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -125,12 +125,12 @@ inline void handleAggregationSourceCollectionHead(
 inline void requestRoutesAggregationSourceCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AggregationService/AggregationSources/")
-        .privileges(redfish::privileges::getAggregationSourceCollection)
+        .privileges(privileges::getAggregationSourceCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleAggregationSourceCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AggregationService/AggregationSources/")
-        .privileges(redfish::privileges::getAggregationSourceCollection)
+        .privileges(privileges::getAggregationSourceCollection)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleAggregationSourceCollectionHead, std::ref(app)));
 }
@@ -185,7 +185,7 @@ inline void handleAggregationSourceGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& aggregationSourceId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -201,7 +201,7 @@ inline void handleAggregationSourceHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& aggregationSourceId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -218,7 +218,7 @@ inline void requestRoutesAggregationSource(App& app)
 {
     BMCWEB_ROUTE(app,
                  "/redfish/v1/AggregationService/AggregationSources/<str>/")
-        .privileges(redfish::privileges::getAggregationSource)
+        .privileges(privileges::getAggregationSource)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleAggregationSourceGet, std::ref(app)));
 }

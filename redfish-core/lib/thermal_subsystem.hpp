@@ -56,7 +56,7 @@ inline void handleThermalSubsystemCollectionHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -72,8 +72,8 @@ inline void handleThermalSubsystemCollectionHead(
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/ThermalSubsystem/ThermalSubsystem.json>; rel=describedby");
     };
-    redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,
-                                                std::bind_front(respHandler));
+    chassis_utils::getValidChassisPath(asyncResp, chassisId,
+                                       std::bind_front(respHandler));
 }
 
 inline void handleThermalSubsystemCollectionGet(
@@ -81,12 +81,12 @@ inline void handleThermalSubsystemCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
 
-    redfish::chassis_utils::getValidChassisPath(
+    chassis_utils::getValidChassisPath(
         asyncResp, chassisId,
         std::bind_front(doThermalSubsystemCollection, asyncResp, chassisId));
 }
@@ -94,12 +94,12 @@ inline void handleThermalSubsystemCollectionGet(
 inline void requestRoutesThermalSubsystem(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/")
-        .privileges(redfish::privileges::headThermalSubsystem)
+        .privileges(privileges::headThermalSubsystem)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleThermalSubsystemCollectionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/")
-        .privileges(redfish::privileges::getThermalSubsystem)
+        .privileges(privileges::getThermalSubsystem)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleThermalSubsystemCollectionGet, std::ref(app)));
 }

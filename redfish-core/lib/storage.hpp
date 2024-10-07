@@ -46,7 +46,7 @@ inline void handleSystemsStorageCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -76,7 +76,7 @@ inline void handleStorageCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -94,11 +94,11 @@ inline void handleStorageCollectionGet(
 inline void requestRoutesStorageCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/")
-        .privileges(redfish::privileges::getStorageCollection)
+        .privileges(privileges::getStorageCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSystemsStorageCollectionGet, std::ref(app)));
     BMCWEB_ROUTE(app, "/redfish/v1/Storage/")
-        .privileges(redfish::privileges::getStorageCollection)
+        .privileges(privileges::getStorageCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleStorageCollectionGet, std::ref(app)));
 }
@@ -192,7 +192,7 @@ inline void handleSystemsStorageGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& storageId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -261,7 +261,7 @@ inline void
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& storageId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         BMCWEB_LOG_DEBUG("requestRoutesStorage setUpRedfishRoute failed");
         return;
@@ -277,12 +277,12 @@ inline void
 inline void requestRoutesStorage(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/<str>/")
-        .privileges(redfish::privileges::getStorage)
+        .privileges(privileges::getStorage)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSystemsStorageGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Storage/<str>/")
-        .privileges(redfish::privileges::getStorage)
+        .privileges(privileges::getStorage)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleStorageGet, std::ref(app)));
 }
@@ -694,7 +694,7 @@ inline void handleSystemsStorageDriveGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& driveId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -724,7 +724,7 @@ inline void handleSystemsStorageDriveGet(
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Drives/<str>/")
-        .privileges(redfish::privileges::getDrive)
+        .privileges(privileges::getDrive)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSystemsStorageDriveGet, std::ref(app)));
 }
@@ -811,7 +811,7 @@ inline void chassisDriveCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -829,7 +829,7 @@ inline void chassisDriveCollectionGet(
 inline void requestRoutesChassisDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/")
-        .privileges(redfish::privileges::getDriveCollection)
+        .privileges(privileges::getDriveCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(chassisDriveCollectionGet, std::ref(app)));
 }
@@ -912,7 +912,7 @@ inline void handleChassisDriveGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& driveName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -970,7 +970,7 @@ inline void handleChassisDriveGet(
 inline void requestRoutesChassisDriveName(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Drives/<str>/")
-        .privileges(redfish::privileges::getChassis)
+        .privileges(privileges::getChassis)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisDriveGet, std::ref(app)));
 }
@@ -1142,7 +1142,7 @@ inline void handleSystemsStorageControllerCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         BMCWEB_LOG_DEBUG(
             "Failed to setup Redfish Route for StorageController Collection");
@@ -1179,7 +1179,7 @@ inline void handleSystemsStorageControllerGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& controllerId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         BMCWEB_LOG_DEBUG("Failed to setup Redfish Route for StorageController");
         return;
@@ -1205,7 +1205,7 @@ inline void handleSystemsStorageControllerGet(
 inline void requestRoutesStorageControllerCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Controllers/")
-        .privileges(redfish::privileges::getStorageControllerCollection)
+        .privileges(privileges::getStorageControllerCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsStorageControllerCollectionGet, std::ref(app)));
 }
@@ -1213,7 +1213,7 @@ inline void requestRoutesStorageControllerCollection(App& app)
 inline void requestRoutesStorageController(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Controllers/<str>")
-        .privileges(redfish::privileges::getStorageController)
+        .privileges(privileges::getStorageController)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSystemsStorageControllerGet, std::ref(app)));
 }

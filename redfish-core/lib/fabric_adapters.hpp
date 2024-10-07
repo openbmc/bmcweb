@@ -261,7 +261,7 @@ inline void handleFabricAdapterGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -288,7 +288,7 @@ inline void handleFabricAdapterCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -329,7 +329,7 @@ inline void handleFabricAdapterCollectionHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -385,7 +385,7 @@ inline void handleFabricAdapterHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -411,12 +411,12 @@ inline void handleFabricAdapterHead(
 inline void requestRoutesFabricAdapterCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/FabricAdapters/")
-        .privileges(redfish::privileges::getFabricAdapterCollection)
+        .privileges(privileges::getFabricAdapterCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleFabricAdapterCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/FabricAdapters/")
-        .privileges(redfish::privileges::headFabricAdapterCollection)
+        .privileges(privileges::headFabricAdapterCollection)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleFabricAdapterCollectionHead, std::ref(app)));
 }
@@ -424,12 +424,12 @@ inline void requestRoutesFabricAdapterCollection(App& app)
 inline void requestRoutesFabricAdapters(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/FabricAdapters/<str>/")
-        .privileges(redfish::privileges::getFabricAdapter)
+        .privileges(privileges::getFabricAdapter)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleFabricAdapterGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/FabricAdapters/<str>/")
-        .privileges(redfish::privileges::headFabricAdapter)
+        .privileges(privileges::headFabricAdapter)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleFabricAdapterHead, std::ref(app)));
 }

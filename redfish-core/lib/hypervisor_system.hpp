@@ -612,7 +612,7 @@ inline void handleHypervisorEthernetInterfaceCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -665,7 +665,7 @@ inline void handleHypervisorEthernetInterfaceGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -717,7 +717,7 @@ inline void handleHypervisorEthernetInterfacePatch(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& ifaceId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -917,19 +917,19 @@ inline void requestRoutesHypervisorSystems(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/")
-        .privileges(redfish::privileges::getEthernetInterfaceCollection)
+        .privileges(privileges::getEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleHypervisorEthernetInterfaceCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::getEthernetInterface)
+        .privileges(privileges::getEthernetInterface)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleHypervisorEthernetInterfaceGet, std::ref(app)));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/")
-        .privileges(redfish::privileges::patchEthernetInterface)
+        .privileges(privileges::patchEthernetInterface)
         .methods(boost::beast::http::verb::patch)(std::bind_front(
             handleHypervisorEthernetInterfacePatch, std::ref(app)));
 }

@@ -21,7 +21,7 @@ inline void handleSystemsLogServicesPostCodesGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -52,7 +52,7 @@ inline void handleSystemsLogServicesPostCodesGet(
                     BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        redfish::time_utils::getDateTimeOffsetNow();
+        time_utils::getDateTimeOffsetNow();
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
         redfishDateTimeOffset.second;
@@ -68,7 +68,7 @@ inline void handleSystemsLogServicesPostCodesPost(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -211,7 +211,7 @@ static bool fillPostCodeEntry(
 
         // Get the Created time from the timestamp
         std::string entryTimeStr;
-        entryTimeStr = redfish::time_utils::getDateTimeUintUs(usecSinceEpoch);
+        entryTimeStr = time_utils::getDateTimeUintUs(usecSinceEpoch);
 
         // assemble messageArgs: BootIndex, TimeOffset(100us), PostCode(hex)
         std::ostringstream hexCode;
@@ -233,7 +233,7 @@ static bool fillPostCodeEntry(
             bootIndexStr, timeOffsetString, hexCodeStr};
 
         std::string msg =
-            redfish::registries::fillMessageArgs(messageArgs, message->message);
+            registries::fillMessageArgs(messageArgs, message->message);
         if (msg.empty())
         {
             messages::internalError(asyncResp->res);
@@ -428,8 +428,8 @@ inline void handleSystemsLogServicesPostCodesEntriesGet(
         .canDelegateSkip = true,
     };
     query_param::Query delegatedQuery;
-    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
-                                                  delegatedQuery, capabilities))
+    if (!setUpRedfishRouteWithDelegation(app, req, asyncResp, delegatedQuery,
+                                         capabilities))
     {
         return;
     }
@@ -467,7 +467,7 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& postCodeID)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -555,7 +555,7 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& targetID)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -579,7 +579,7 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryGet(
 inline void requestRoutesSystemsLogServicesPostCode(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/PostCodes/")
-        .privileges(redfish::privileges::getLogService)
+        .privileges(privileges::getLogService)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsLogServicesPostCodesGet, std::ref(app)));
 
@@ -594,20 +594,20 @@ inline void requestRoutesSystemsLogServicesPostCode(App& app)
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
+        .privileges(privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsLogServicesPostCodesEntriesGet, std::ref(app)));
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
+        .privileges(privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsLogServicesPostCodesEntriesEntryGet, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/LogServices/PostCodes/Entries/<str>/attachment/")
-        .privileges(redfish::privileges::getLogEntry)
+        .privileges(privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet,
             std::ref(app)));

@@ -80,12 +80,12 @@ inline std::optional<nlohmann::json::array_t>
 inline void requestRoutesRoles(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/<str>/")
-        .privileges(redfish::privileges::getRole)
+        .privileges(privileges::getRole)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& roleId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -117,11 +117,11 @@ inline void requestRoutesRoles(App& app)
 inline void requestRoutesRoleCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/")
-        .privileges(redfish::privileges::getRoleCollection)
+        .privileges(privileges::getRoleCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }

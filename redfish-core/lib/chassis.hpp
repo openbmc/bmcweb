@@ -194,7 +194,7 @@ inline void handleChassisCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -321,7 +321,7 @@ inline void getChassisConnectivity(
 inline void requestRoutesChassisCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/")
-        .privileges(redfish::privileges::getChassisCollection)
+        .privileges(privileges::getChassisCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisCollectionGet, std::ref(app)));
 }
@@ -641,7 +641,7 @@ inline void
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -666,7 +666,7 @@ inline void
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& param)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -794,12 +794,12 @@ inline void
 inline void requestRoutesChassis(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/")
-        .privileges(redfish::privileges::getChassis)
+        .privileges(privileges::getChassis)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/")
-        .privileges(redfish::privileges::patchChassis)
+        .privileges(privileges::patchChassis)
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleChassisPatch, std::ref(app)));
 }
@@ -851,7 +851,7 @@ inline void handleChassisResetActionInfoPost(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*chassisId*/)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -885,7 +885,7 @@ inline void handleChassisResetActionInfoPost(
 inline void requestRoutesChassisResetAction(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Actions/Chassis.Reset/")
-        .privileges(redfish::privileges::postChassis)
+        .privileges(privileges::postChassis)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleChassisResetActionInfoPost, std::ref(app)));
 }
@@ -895,7 +895,7 @@ inline void handleChassisResetActionInfoGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -925,7 +925,7 @@ inline void handleChassisResetActionInfoGet(
 inline void requestRoutesChassisResetActionInfo(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
+        .privileges(privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisResetActionInfoGet, std::ref(app)));
 }

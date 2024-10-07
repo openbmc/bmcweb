@@ -48,7 +48,7 @@ inline void handlePowerSubsystemCollectionHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -64,8 +64,8 @@ inline void handlePowerSubsystemCollectionHead(
             boost::beast::http::field::link,
             "</redfish/v1/JsonSchemas/PowerSubsystem/PowerSubsystem.json>; rel=describedby");
     };
-    redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,
-                                                std::move(respHandler));
+    chassis_utils::getValidChassisPath(asyncResp, chassisId,
+                                       std::move(respHandler));
 }
 
 inline void handlePowerSubsystemCollectionGet(
@@ -73,12 +73,12 @@ inline void handlePowerSubsystemCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
 
-    redfish::chassis_utils::getValidChassisPath(
+    chassis_utils::getValidChassisPath(
         asyncResp, chassisId,
         std::bind_front(doPowerSubsystemCollection, asyncResp, chassisId));
 }
@@ -86,12 +86,12 @@ inline void handlePowerSubsystemCollectionGet(
 inline void requestRoutesPowerSubsystem(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PowerSubsystem/")
-        .privileges(redfish::privileges::headPowerSubsystem)
+        .privileges(privileges::headPowerSubsystem)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handlePowerSubsystemCollectionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PowerSubsystem/")
-        .privileges(redfish::privileges::getPowerSubsystem)
+        .privileges(privileges::getPowerSubsystem)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePowerSubsystemCollectionGet, std::ref(app)));
 }

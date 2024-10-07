@@ -122,12 +122,12 @@ inline void requestRoutesManagerResetAction(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/Actions/Manager.Reset/")
-        .privileges(redfish::privileges::postManager)
+        .privileges(privileges::postManager)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -189,14 +189,14 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/<str>/Actions/Manager.ResetToDefaults/")
-        .privileges(redfish::privileges::postManager)
+        .privileges(privileges::postManager)
         .methods(
             boost::beast::http::verb::
                 post)([&app](
                           const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& managerId) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+            if (!setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -270,12 +270,12 @@ inline void requestRoutesManagerResetActionInfo(App& app)
      */
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
+        .privileges(privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -775,8 +775,7 @@ inline bool
     for (auto& odata : config)
     {
         std::string path;
-        if (!redfish::json_util::readJsonObject(odata, response->res,
-                                                "@odata.id", path))
+        if (!json_util::readJsonObject(odata, response->res, "@odata.id", path))
         {
             return false;
         }
@@ -968,7 +967,7 @@ inline CreatePIDRet createPidInterface(
         std::optional<std::vector<std::string>> outputs;
         std::map<std::string, std::optional<double>> doubles;
         std::optional<std::string> setpointOffset;
-        if (!redfish::json_util::readJson(
+        if (!json_util::readJson(
                 jsonValue, response->res, "Inputs", inputs, "Outputs", outputs,
                 "Zones", zones, "FFGainCoefficient",
                 doubles["FFGainCoefficient"], "FFOffCoefficient",
@@ -1069,10 +1068,9 @@ inline CreatePIDRet createPidInterface(
         std::optional<std::string> chassisId;
         std::optional<double> failSafePercent;
         std::optional<double> minThermalOutput;
-        if (!redfish::json_util::readJson(
-                jsonValue, response->res, "Chassis/@odata.id", chassisId,
-                "FailSafePercent", failSafePercent, "MinThermalOutput",
-                minThermalOutput))
+        if (!json_util::readJson(jsonValue, response->res, "Chassis/@odata.id",
+                                 chassisId, "FailSafePercent", failSafePercent,
+                                 "MinThermalOutput", minThermalOutput))
         {
             return CreatePIDRet::fail;
         }
@@ -1108,7 +1106,7 @@ inline CreatePIDRet createPidInterface(
         std::optional<double> positiveHysteresis;
         std::optional<double> negativeHysteresis;
         std::optional<std::string> direction; // upper clipping curve vs lower
-        if (!redfish::json_util::readJson(
+        if (!json_util::readJson(
                 jsonValue, response->res, "Zones", zones, "Steps", steps,
                 "Inputs", inputs, "PositiveHysteresis", positiveHysteresis,
                 "NegativeHysteresis", negativeHysteresis, "Direction",
@@ -1145,8 +1143,8 @@ inline CreatePIDRet createPidInterface(
                 double target = 0.0;
                 double out = 0.0;
 
-                if (!redfish::json_util::readJsonObject(
-                        step, response->res, "Target", target, "Output", out))
+                if (!json_util::readJsonObject(step, response->res, "Target",
+                                               target, "Output", out))
                 {
                     return CreatePIDRet::fail;
                 }
@@ -1784,7 +1782,7 @@ inline void
 
             // Convert to ISO 8601 standard
             asyncResp->res.jsonValue["LastResetTime"] =
-                redfish::time_utils::getDateTimeUint(lastResetTimeStamp);
+                time_utils::getDateTimeUint(lastResetTimeStamp);
         });
 }
 
@@ -1930,8 +1928,8 @@ inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG("Set date time: {}", datetime);
 
-    std::optional<redfish::time_utils::usSinceEpoch> us =
-        redfish::time_utils::dateStringToEpoch(datetime);
+    std::optional<time_utils::usSinceEpoch> us =
+        time_utils::dateStringToEpoch(datetime);
     if (!us)
     {
         messages::propertyValueFormatError(asyncResp->res, datetime,
@@ -1982,14 +1980,14 @@ inline void requestRoutesManager(App& app)
     std::string uuid = persistent_data::getConfig().systemUuid;
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")
-        .privileges(redfish::privileges::getManager)
+        .privileges(privileges::getManager)
         .methods(
             boost::beast::http::verb::
                 get)([&app,
                       uuid](const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& managerId) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+            if (!setUpRedfishRoute(app, req, asyncResp))
             {
                 return;
             }
@@ -2075,7 +2073,7 @@ inline void requestRoutesManager(App& app)
                 nlohmann::json::array_t({"ResetAll"});
 
             std::pair<std::string, std::string> redfishDateTimeOffset =
-                redfish::time_utils::getDateTimeOffsetNow();
+                time_utils::getDateTimeOffsetNow();
 
             asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
             asyncResp->res.jsonValue["DateTimeLocalOffset"] =
@@ -2300,12 +2298,12 @@ inline void requestRoutesManager(App& app)
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")
-        .privileges(redfish::privileges::patchManager)
+        .privileges(privileges::patchManager)
         .methods(boost::beast::http::verb::patch)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -2397,11 +2395,11 @@ inline void requestRoutesManager(App& app)
 inline void requestRoutesManagerCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/")
-        .privileges(redfish::privileges::getManagerCollection)
+        .privileges(privileges::getManagerCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }

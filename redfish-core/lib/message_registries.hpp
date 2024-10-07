@@ -36,7 +36,7 @@ inline void handleMessageRegistryFileCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -68,7 +68,7 @@ inline void requestRoutesMessageRegistryFileCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/")
-        .privileges(redfish::privileges::getMessageRegistryFileCollection)
+        .privileges(privileges::getMessageRegistryFileCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleMessageRegistryFileCollectionGet, std::ref(app)));
 }
@@ -78,7 +78,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& registry)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -148,7 +148,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
 inline void requestRoutesMessageRegistryFile(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/")
-        .privileges(redfish::privileges::getMessageRegistryFile)
+        .privileges(privileges::getMessageRegistryFile)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleMessageRoutesMessageRegistryFileGet, std::ref(app)));
 }
@@ -159,7 +159,7 @@ inline void handleMessageRegistryGet(
     const std::string& registry, const std::string& registryMatch)
 
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -263,7 +263,7 @@ inline void handleMessageRegistryGet(
 inline void requestRoutesMessageRegistry(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/<str>/")
-        .privileges(redfish::privileges::getMessageRegistryFile)
+        .privileges(privileges::getMessageRegistryFile)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleMessageRegistryGet, std::ref(app)));
 }

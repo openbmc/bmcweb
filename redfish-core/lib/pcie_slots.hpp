@@ -213,7 +213,7 @@ inline void handlePCIeSlotCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisID)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -232,7 +232,7 @@ inline void handlePCIeSlotCollectionGet(
 inline void requestRoutesPCIeSlots(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/PCIeSlots/")
-        .privileges(redfish::privileges::getPCIeSlots)
+        .privileges(privileges::getPCIeSlots)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeSlotCollectionGet, std::ref(app)));
 }

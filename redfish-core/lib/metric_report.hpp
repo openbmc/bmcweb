@@ -32,8 +32,7 @@ inline nlohmann::json toMetricValues(const Readings& readings)
         nlohmann::json::object_t metricReport;
         metricReport["MetricProperty"] = metadata;
         metricReport["MetricValue"] = std::to_string(sensorValue);
-        metricReport["Timestamp"] =
-            redfish::time_utils::getDateTimeUintMs(timestamp);
+        metricReport["Timestamp"] = time_utils::getDateTimeUintMs(timestamp);
         metricValues.emplace_back(std::move(metricReport));
     }
 
@@ -52,7 +51,7 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
         "/redfish/v1/TelemetryService/MetricReportDefinitions/{}", id);
 
     const auto& [timestamp, readings] = timestampReadings;
-    json["Timestamp"] = redfish::time_utils::getDateTimeUintMs(timestamp);
+    json["Timestamp"] = time_utils::getDateTimeUintMs(timestamp);
     json["MetricValues"] = toMetricValues(readings);
     return true;
 }
@@ -61,11 +60,11 @@ inline bool fillReport(nlohmann::json& json, const std::string& id,
 inline void requestRoutesMetricReportCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/")
-        .privileges(redfish::privileges::getMetricReportCollection)
+        .privileges(privileges::getMetricReportCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -89,12 +88,12 @@ inline void requestRoutesMetricReportCollection(App& app)
 inline void requestRoutesMetricReport(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
-        .privileges(redfish::privileges::getMetricReport)
+        .privileges(privileges::getMetricReport)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& id) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }

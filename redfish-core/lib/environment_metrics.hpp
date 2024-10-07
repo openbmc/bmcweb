@@ -19,7 +19,7 @@ inline void handleEnvironmentMetricsHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -37,8 +37,8 @@ inline void handleEnvironmentMetricsHead(
             "</redfish/v1/JsonSchemas/EnvironmentMetrics/EnvironmentMetrics.json>; rel=describedby");
     };
 
-    redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,
-                                                std::move(respHandler));
+    chassis_utils::getValidChassisPath(asyncResp, chassisId,
+                                       std::move(respHandler));
 }
 
 inline void handleEnvironmentMetricsGet(
@@ -46,7 +46,7 @@ inline void handleEnvironmentMetricsGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -70,19 +70,19 @@ inline void handleEnvironmentMetricsGet(
             "/redfish/v1/Chassis/{}/EnvironmentMetrics", chassisId);
     };
 
-    redfish::chassis_utils::getValidChassisPath(asyncResp, chassisId,
-                                                std::move(respHandler));
+    chassis_utils::getValidChassisPath(asyncResp, chassisId,
+                                       std::move(respHandler));
 }
 
 inline void requestRoutesEnvironmentMetrics(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/EnvironmentMetrics/")
-        .privileges(redfish::privileges::headEnvironmentMetrics)
+        .privileges(privileges::headEnvironmentMetrics)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleEnvironmentMetricsHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/EnvironmentMetrics/")
-        .privileges(redfish::privileges::getEnvironmentMetrics)
+        .privileges(privileges::getEnvironmentMetrics)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleEnvironmentMetricsGet, std::ref(app)));
 }

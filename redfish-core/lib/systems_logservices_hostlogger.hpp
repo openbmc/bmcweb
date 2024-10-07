@@ -38,7 +38,7 @@ inline void handleSystemsLogServicesHostloggerGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -77,8 +77,8 @@ inline void handleSystemsLogServicesHostloggerEntriesGet(
         .canDelegateSkip = true,
     };
     query_param::Query delegatedQuery;
-    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
-                                                  delegatedQuery, capabilities))
+    if (!setUpRedfishRouteWithDelegation(app, req, asyncResp, delegatedQuery,
+                                         capabilities))
     {
         return;
     }
@@ -159,7 +159,7 @@ inline void handleSystemsLogServicesHostloggerEntriesEntryGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& param)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -222,18 +222,18 @@ inline void handleSystemsLogServicesHostloggerEntriesEntryGet(
 inline void requestRoutesSystemsLogServiceHostlogger(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/HostLogger/")
-        .privileges(redfish::privileges::getLogService)
+        .privileges(privileges::getLogService)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsLogServicesHostloggerGet, std::ref(app)));
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/<str>/LogServices/HostLogger/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
+        .privileges(privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsLogServicesHostloggerEntriesGet, std::ref(app)));
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/HostLogger/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
+        .privileges(privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemsLogServicesHostloggerEntriesEntryGet, std::ref(app)));
 }

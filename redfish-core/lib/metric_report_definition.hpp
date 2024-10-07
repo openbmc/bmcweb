@@ -1276,7 +1276,7 @@ inline void handleMetricReportDefinitionCollectionHead(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1289,7 +1289,7 @@ inline void handleMetricReportDefinitionCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1316,7 +1316,7 @@ inline void handleReportPatch(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view id)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1369,7 +1369,7 @@ inline void handleReportDelete(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view id)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1409,7 +1409,7 @@ inline void handleMetricReportDefinitionsPost(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1443,7 +1443,7 @@ inline void
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& /*id*/)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1456,7 +1456,7 @@ inline void handleMetricReportGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1469,7 +1469,7 @@ inline void handleMetricReportGet(
         telemetry::getDbusReportPath(id), telemetry::reportInterface,
         [asyncResp, id](const boost::system::error_code& ec,
                         const dbus::utility::DBusPropertiesMap& properties) {
-            if (!redfish::telemetry::verifyCommonErrors(asyncResp->res, id, ec))
+            if (!telemetry::verifyCommonErrors(asyncResp->res, id, ec))
             {
                 return;
             }
@@ -1483,7 +1483,7 @@ inline void handleMetricReportDelete(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -1519,19 +1519,19 @@ inline void handleMetricReportDelete(
 inline void requestRoutesMetricReportDefinitionCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
-        .privileges(redfish::privileges::headMetricReportDefinitionCollection)
+        .privileges(privileges::headMetricReportDefinitionCollection)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             telemetry::handleMetricReportDefinitionCollectionHead,
             std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
-        .privileges(redfish::privileges::getMetricReportDefinitionCollection)
+        .privileges(privileges::getMetricReportDefinitionCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             telemetry::handleMetricReportDefinitionCollectionGet,
             std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReportDefinitions/")
-        .privileges(redfish::privileges::postMetricReportDefinitionCollection)
+        .privileges(privileges::postMetricReportDefinitionCollection)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleMetricReportDefinitionsPost, std::ref(app)));
 }
@@ -1540,25 +1540,25 @@ inline void requestRoutesMetricReportDefinition(App& app)
 {
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::getMetricReportDefinition)
+        .privileges(privileges::getMetricReportDefinition)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleMetricReportHead, std::ref(app)));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::getMetricReportDefinition)
+        .privileges(privileges::getMetricReportDefinition)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleMetricReportGet, std::ref(app)));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::deleteMetricReportDefinition)
+        .privileges(privileges::deleteMetricReportDefinition)
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleMetricReportDelete, std::ref(app)));
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/TelemetryService/MetricReportDefinitions/<str>/")
-        .privileges(redfish::privileges::patchMetricReportDefinition)
+        .privileges(privileges::patchMetricReportDefinition)
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(telemetry::handleReportPatch, std::ref(app)));
 }

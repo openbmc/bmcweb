@@ -546,8 +546,7 @@ TEST(QueryParams, ParseParametersExpand)
         {
             return;
         }
-        EXPECT_TRUE(query.value().expandType ==
-                    redfish::query_param::ExpandType::Both);
+        EXPECT_TRUE(query.value().expandType == query_param::ExpandType::Both);
     }
     else
     {

@@ -107,7 +107,7 @@ inline void handlePCIeDeviceCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -145,7 +145,7 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
      * Functions triggers appropriate requests on DBus
      */
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/")
-        .privileges(redfish::privileges::getPCIeDeviceCollection)
+        .privileges(privileges::getPCIeDeviceCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeDeviceCollectionGet, std::ref(app)));
 }
@@ -572,7 +572,7 @@ inline void handlePCIeDeviceGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& pcieDeviceId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -598,7 +598,7 @@ inline void handlePCIeDeviceGet(
 inline void requestRoutesSystemPCIeDevice(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/<str>/")
-        .privileges(redfish::privileges::getPCIeDevice)
+        .privileges(privileges::getPCIeDevice)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeDeviceGet, std::ref(app)));
 }
@@ -646,7 +646,7 @@ inline void handlePCIeFunctionCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& pcieDeviceId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -690,7 +690,7 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
      */
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Systems/<str>/PCIeDevices/<str>/PCIeFunctions/")
-        .privileges(redfish::privileges::getPCIeFunctionCollection)
+        .privileges(privileges::getPCIeFunctionCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeFunctionCollectionGet, std::ref(app)));
 }
@@ -797,7 +797,7 @@ inline void handlePCIeFunctionGet(
     const std::string& systemName, const std::string& pcieDeviceId,
     const std::string& pcieFunctionIdStr)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -846,7 +846,7 @@ inline void requestRoutesSystemPCIeFunction(App& app)
 {
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/PCIeDevices/<str>/PCIeFunctions/<str>/")
-        .privileges(redfish::privileges::getPCIeFunction)
+        .privileges(privileges::getPCIeFunction)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeFunctionGet, std::ref(app)));
 }

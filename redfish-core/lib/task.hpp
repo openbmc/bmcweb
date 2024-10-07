@@ -219,36 +219,36 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         std::string indexStr = std::to_string(index);
         if (state == "Starting")
         {
-            event = redfish::messages::taskResumed(indexStr);
+            event = messages::taskResumed(indexStr);
         }
         else if (state == "Running")
         {
-            event = redfish::messages::taskStarted(indexStr);
+            event = messages::taskStarted(indexStr);
         }
         else if ((state == "Suspended") || (state == "Interrupted") ||
                  (state == "Pending"))
         {
-            event = redfish::messages::taskPaused(indexStr);
+            event = messages::taskPaused(indexStr);
         }
         else if (state == "Stopping")
         {
-            event = redfish::messages::taskAborted(indexStr);
+            event = messages::taskAborted(indexStr);
         }
         else if (state == "Completed")
         {
-            event = redfish::messages::taskCompletedOK(indexStr);
+            event = messages::taskCompletedOK(indexStr);
         }
         else if (state == "Killed")
         {
-            event = redfish::messages::taskRemoved(indexStr);
+            event = messages::taskRemoved(indexStr);
         }
         else if (state == "Exception")
         {
-            event = redfish::messages::taskCompletedWarning(indexStr);
+            event = messages::taskCompletedWarning(indexStr);
         }
         else if (state == "Cancelled")
         {
-            event = redfish::messages::taskCancelled(indexStr);
+            event = messages::taskCancelled(indexStr);
         }
         else
         {
@@ -319,12 +319,12 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 inline void requestRoutesTaskMonitor(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/TaskMonitors/<str>/")
-        .privileges(redfish::privileges::getTask)
+        .privileges(privileges::getTask)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& strParam) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -362,12 +362,12 @@ inline void requestRoutesTaskMonitor(App& app)
 inline void requestRoutesTask(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/")
-        .privileges(redfish::privileges::getTask)
+        .privileges(privileges::getTask)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& strParam) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -398,12 +398,11 @@ inline void requestRoutesTask(App& app)
                 asyncResp->res.jsonValue["Name"] = "Task " + strParam;
                 asyncResp->res.jsonValue["TaskState"] = ptr->state;
                 asyncResp->res.jsonValue["StartTime"] =
-                    redfish::time_utils::getDateTimeStdtime(ptr->startTime);
+                    time_utils::getDateTimeStdtime(ptr->startTime);
                 if (ptr->endTime)
                 {
                     asyncResp->res.jsonValue["EndTime"] =
-                        redfish::time_utils::getDateTimeStdtime(
-                            *(ptr->endTime));
+                        time_utils::getDateTimeStdtime(*(ptr->endTime));
                 }
                 asyncResp->res.jsonValue["TaskStatus"] = ptr->status;
                 asyncResp->res.jsonValue["Messages"] = ptr->messages;
@@ -441,11 +440,11 @@ inline void requestRoutesTask(App& app)
 inline void requestRoutesTaskCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/")
-        .privileges(redfish::privileges::getTaskCollection)
+        .privileges(privileges::getTaskCollection)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -477,11 +476,11 @@ inline void requestRoutesTaskCollection(App& app)
 inline void requestRoutesTaskService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/")
-        .privileges(redfish::privileges::getTaskService)
+        .privileges(privileges::getTaskService)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                if (!setUpRedfishRoute(app, req, asyncResp))
                 {
                     return;
                 }
@@ -492,7 +491,7 @@ inline void requestRoutesTaskService(App& app)
                 asyncResp->res.jsonValue["Name"] = "Task Service";
                 asyncResp->res.jsonValue["Id"] = "TaskService";
                 asyncResp->res.jsonValue["DateTime"] =
-                    redfish::time_utils::getDateTimeOffsetNow().first;
+                    time_utils::getDateTimeOffsetNow().first;
                 asyncResp->res.jsonValue["CompletedTaskOverWritePolicy"] =
                     task_service::OverWritePolicy::Oldest;
 

@@ -19,7 +19,7 @@ namespace redfish
 inline void redfishGet(App& app, const crow::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -34,7 +34,7 @@ inline void redfish404(App& app, const crow::Request& req,
 
     // If we fall to this route, we didn't have a more specific route, so return
     // 404
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -54,7 +54,7 @@ inline void redfish405(App& app, const crow::Request& req,
 {
     // If we fall to this route, we didn't have a more specific route, so return
     // 405
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -75,7 +75,7 @@ inline void
     jsonSchemaIndexGet(App& app, const crow::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -117,7 +117,7 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& schema)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -225,28 +225,28 @@ inline void requestRoutesRedfish(App& app)
             std::bind_front(redfishGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/<str>")
-        .privileges(redfish::privileges::getJsonSchemaFile)
+        .privileges(privileges::getJsonSchemaFile)
         .methods(boost::beast::http::verb::get)(jsonSchemaGetFile);
 
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/<str>/")
-        .privileges(redfish::privileges::getJsonSchemaFileCollection)
+        .privileges(privileges::getJsonSchemaFileCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/")
-        .privileges(redfish::privileges::getJsonSchemaFile)
+        .privileges(privileges::getJsonSchemaFile)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaIndexGet, std::ref(app)));
 
     // Note, this route must always be registered last
     BMCWEB_ROUTE(app, "/redfish/<path>")
         .notFound()
-        .privileges(redfish::privileges::privilegeSetLogin)(
+        .privileges(privileges::privilegeSetLogin)(
             std::bind_front(redfish404, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/<path>")
         .methodNotAllowed()
-        .privileges(redfish::privileges::privilegeSetLogin)(
+        .privileges(privileges::privilegeSetLogin)(
             std::bind_front(redfish405, std::ref(app)));
 }
 

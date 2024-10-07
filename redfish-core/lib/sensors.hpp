@@ -1906,8 +1906,7 @@ inline void getSensorData(
                         !sensorsAsyncResp->efficientExpand)
                     {
                         std::string sensorId =
-                            redfish::sensor_utils::getSensorId(sensorName,
-                                                               sensorType);
+                            sensor_utils::getSensorId(sensorName, sensorType);
 
                         sensorsAsyncResp->asyncResp->res
                             .jsonValue["@odata.id"] = boost::urls::format(
@@ -1997,9 +1996,8 @@ inline void getSensorData(
                         }
                         else if (fieldName == "Members")
                         {
-                            std::string sensorId =
-                                redfish::sensor_utils::getSensorId(sensorName,
-                                                                   sensorType);
+                            std::string sensorId = sensor_utils::getSensorId(
+                                sensorName, sensorType);
 
                             nlohmann::json::object_t member;
                             member["@odata.id"] = boost::urls::format(
@@ -2209,7 +2207,7 @@ inline void setSensorsOverride(
         {
             const auto& sensor = item.first;
             std::pair<std::string, std::string> sensorNameType =
-                redfish::sensor_utils::splitSensorNameAndType(sensor);
+                sensor_utils::splitSensorNameAndType(sensor);
             if (!findSensorNameUsingSensorPath(sensorNameType.second,
                                                *sensorsList, *sensorNames))
             {
@@ -2249,7 +2247,7 @@ inline void setSensorsOverride(
                     messages::internalError(sensorAsyncResp->asyncResp->res);
                     return;
                 }
-                std::string id = redfish::sensor_utils::getSensorId(
+                std::string id = sensor_utils::getSensorId(
                     sensorName, path.parent_path().filename());
 
                 const auto& iterator = overrideMap.find(id);
@@ -2341,7 +2339,7 @@ inline void getChassisCallback(
             return;
         }
         std::string type = path.parent_path().filename();
-        std::string id = redfish::sensor_utils::getSensorId(sensorName, type);
+        std::string id = sensor_utils::getSensorId(sensorName, type);
 
         nlohmann::json::object_t member;
         member["@odata.id"] = boost::urls::format(
@@ -2363,8 +2361,8 @@ inline void handleSensorCollectionGet(
         .canDelegateExpandLevel = 1,
     };
     query_param::Query delegatedQuery;
-    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
-                                                  delegatedQuery, capabilities))
+    if (!setUpRedfishRouteWithDelegation(app, req, asyncResp, delegatedQuery,
+                                         capabilities))
     {
         return;
     }
@@ -2430,12 +2428,12 @@ inline void handleSensorGet(App& app, const crow::Request& req,
                             const std::string& chassisId,
                             const std::string& sensorId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
     std::pair<std::string, std::string> nameType =
-        redfish::sensor_utils::splitSensorNameAndType(sensorId);
+        sensor_utils::splitSensorNameAndType(sensorId);
     if (nameType.first.empty() || nameType.second.empty())
     {
         messages::resourceNotFound(asyncResp->res, sensorId, "Sensor");
@@ -2482,7 +2480,7 @@ inline void handleSensorGet(App& app, const crow::Request& req,
 inline void requestRoutesSensorCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/")
-        .privileges(redfish::privileges::getSensorCollection)
+        .privileges(privileges::getSensorCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(sensors::handleSensorCollectionGet, std::ref(app)));
 }
@@ -2490,7 +2488,7 @@ inline void requestRoutesSensorCollection(App& app)
 inline void requestRoutesSensor(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Sensors/<str>/")
-        .privileges(redfish::privileges::getSensor)
+        .privileges(privileges::getSensor)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(sensors::handleSensorGet, std::ref(app)));
 }

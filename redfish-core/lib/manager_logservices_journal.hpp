@@ -152,7 +152,7 @@ inline bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
         BMCWEB_LOG_ERROR("Failed to read entry timestamp: {}", strerror(-ret));
         return false;
     }
-    entryTimestamp = redfish::time_utils::getDateTimeUintUs(timestamp);
+    entryTimestamp = time_utils::getDateTimeUintUs(timestamp);
     return true;
 }
 
@@ -228,7 +228,7 @@ inline void handleManagersLogServiceJournalGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -249,7 +249,7 @@ inline void handleManagersLogServiceJournalGet(
     asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
-        redfish::time_utils::getDateTimeOffsetNow();
+        time_utils::getDateTimeOffsetNow();
     asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
     asyncResp->res.jsonValue["DateTimeLocalOffset"] =
         redfishDateTimeOffset.second;
@@ -371,8 +371,8 @@ inline void handleManagersJournalLogEntryCollectionGet(
         .canDelegateSkip = true,
     };
     query_param::Query delegatedQuery;
-    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
-                                                  delegatedQuery, capabilities))
+    if (!setUpRedfishRouteWithDelegation(app, req, asyncResp, delegatedQuery,
+                                         capabilities))
     {
         return;
     }
@@ -577,7 +577,7 @@ inline void handleManagersJournalEntriesLogEntryGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& entryID)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -637,18 +637,18 @@ inline void handleManagersJournalEntriesLogEntryGet(
 inline void requestRoutesBMCJournalLogService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/Journal/")
-        .privileges(redfish::privileges::getLogService)
+        .privileges(privileges::getLogService)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleManagersLogServiceJournalGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/Journal/Entries/")
-        .privileges(redfish::privileges::getLogEntryCollection)
+        .privileges(privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleManagersJournalLogEntryCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(
         app, "/redfish/v1/Managers/<str>/LogServices/Journal/Entries/<str>/")
-        .privileges(redfish::privileges::getLogEntry)
+        .privileges(privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleManagersJournalEntriesLogEntryGet, std::ref(app)));
 }

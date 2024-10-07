@@ -240,8 +240,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
     });
 
-    Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+    Privileges effectiveUserPrivileges = getUserPrivileges(*req.session);
 
     // /redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates is
     // something only ConfigureManager can access then only display when
@@ -475,7 +474,7 @@ inline void handleBmcNetworkProtocolHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -489,7 +488,7 @@ inline void handleManagersNetworkProtocolPatch(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -567,7 +566,7 @@ inline void handleManagersNetworkProtocolHead(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -586,7 +585,7 @@ inline void handleManagersNetworkProtocolGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -605,17 +604,17 @@ inline void handleManagersNetworkProtocolGet(
 inline void requestRoutesNetworkProtocol(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/NetworkProtocol/")
-        .privileges(redfish::privileges::patchManagerNetworkProtocol)
+        .privileges(privileges::patchManagerNetworkProtocol)
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleManagersNetworkProtocolPatch, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/NetworkProtocol/")
-        .privileges(redfish::privileges::headManagerNetworkProtocol)
+        .privileges(privileges::headManagerNetworkProtocol)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleManagersNetworkProtocolHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/NetworkProtocol/")
-        .privileges(redfish::privileges::getManagerNetworkProtocol)
+        .privileges(privileges::getManagerNetworkProtocol)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleManagersNetworkProtocolGet, std::ref(app)));
 }

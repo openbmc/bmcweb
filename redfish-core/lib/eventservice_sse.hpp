@@ -44,11 +44,11 @@ inline void createSubscription(crow::sse_socket::Connection& conn,
 
     std::string lastEventId(req.getHeaderValue("Last-Event-Id"));
 
-    std::shared_ptr<redfish::Subscription> subValue =
-        std::make_shared<redfish::Subscription>(conn);
+    std::shared_ptr<Subscription> subValue =
+        std::make_shared<Subscription>(conn);
 
     // GET on this URI means, Its SSE subscriptionType.
-    subValue->subscriptionType = redfish::subscriptionTypeSSE;
+    subValue->subscriptionType = subscriptionTypeSSE;
 
     subValue->protocol = "Redfish";
     subValue->retryPolicy = "TerminateAfterRetries";
@@ -64,7 +64,7 @@ inline void createSubscription(crow::sse_socket::Connection& conn,
 
 inline void deleteSubscription(crow::sse_socket::Connection& conn)
 {
-    redfish::EventServiceManager::getInstance(&conn.getIoContext())
+    EventServiceManager::getInstance(&conn.getIoContext())
         .deleteSseSubscription(conn);
 }
 
@@ -73,7 +73,7 @@ inline void requestRoutesEventServiceSse(App& app)
     // Note, this endpoint is given the same privilege level as creating a
     // subscription, because functionally, that's the operation being done
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/SSE")
-        .privileges(redfish::privileges::postEventDestinationCollection)
+        .privileges(privileges::postEventDestinationCollection)
         .serverSentEvent()
         .onopen(createSubscription)
         .onclose(deleteSubscription);

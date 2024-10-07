@@ -39,7 +39,7 @@ inline void fillSessionObject(crow::Response& res,
     res.jsonValue["Id"] = session.uniqueId;
     res.jsonValue["UserName"] = session.username;
     nlohmann::json::array_t roles;
-    roles.emplace_back(redfish::getRoleIdFromPrivilege(session.userRole));
+    roles.emplace_back(getRoleIdFromPrivilege(session.userRole));
     res.jsonValue["Roles"] = std::move(roles);
     res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/SessionService/Sessions/{}", session.uniqueId);
@@ -58,7 +58,7 @@ inline void
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& /*sessionId*/)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -72,7 +72,7 @@ inline void
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& sessionId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -98,7 +98,7 @@ inline void
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& sessionId)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -119,8 +119,7 @@ inline void
     if (req.session != nullptr && !session->username.empty() &&
         session->username != req.session->username)
     {
-        Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(*req.session);
+        Privileges effectiveUserPrivileges = getUserPrivileges(*req.session);
 
         if (!effectiveUserPrivileges.isSupersetOf({"ConfigureUsers"}))
         {
@@ -158,7 +157,7 @@ inline void handleSessionCollectionHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -171,7 +170,7 @@ inline void handleSessionCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -194,7 +193,7 @@ inline void handleSessionCollectionMembersGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -205,7 +204,7 @@ inline void handleSessionCollectionPost(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -286,7 +285,7 @@ inline void handleSessionServiceHead(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -299,7 +298,7 @@ inline void
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -325,7 +324,7 @@ inline void handleSessionServicePatch(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -362,27 +361,27 @@ inline void handleSessionServicePatch(
 inline void requestRoutesSession(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::headSession)
+        .privileges(privileges::headSession)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleSessionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::getSession)
+        .privileges(privileges::getSession)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSessionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-        .privileges(redfish::privileges::deleteSession)
+        .privileges(privileges::deleteSession)
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleSessionDelete, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
-        .privileges(redfish::privileges::headSessionCollection)
+        .privileges(privileges::headSessionCollection)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleSessionCollectionHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
-        .privileges(redfish::privileges::getSessionCollection)
+        .privileges(privileges::getSessionCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSessionCollectionGet, std::ref(app)));
 
@@ -402,17 +401,17 @@ inline void requestRoutesSession(App& app)
             std::bind_front(handleSessionCollectionPost, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::headSessionService)
+        .privileges(privileges::headSessionService)
         .methods(boost::beast::http::verb::head)(
             std::bind_front(handleSessionServiceHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::getSessionService)
+        .privileges(privileges::getSessionService)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSessionServiceGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/SessionService/")
-        .privileges(redfish::privileges::patchSessionService)
+        .privileges(privileges::patchSessionService)
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleSessionServicePatch, std::ref(app)));
 }

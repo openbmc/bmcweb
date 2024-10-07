@@ -124,7 +124,7 @@ TEST(HandleServiceRootGet, ServiceRootStaticAttributesAreExpected)
 
     shareAsyncResp->res.setCompleteRequestHandler(assertServiceRootGet);
 
-    redfish::handleServiceRootGetImpl(shareAsyncResp);
+    handleServiceRootGetImpl(shareAsyncResp);
 }
 
 } // namespace

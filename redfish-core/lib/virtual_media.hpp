@@ -693,7 +693,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& name, const std::string& resName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -776,7 +776,7 @@ inline void handleManagersVirtualMediaActionEject(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerName, const std::string& resName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -843,7 +843,7 @@ inline void handleManagersVirtualMediaCollectionGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& name)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -883,7 +883,7 @@ inline void
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& name, const std::string& resName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -918,24 +918,24 @@ inline void requestNBDVirtualMediaRoutes(App& app)
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.InsertMedia")
-        .privileges(redfish::privileges::postVirtualMedia)
+        .privileges(privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleManagersVirtualMediaActionInsertPost, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/VirtualMedia.EjectMedia")
-        .privileges(redfish::privileges::postVirtualMedia)
+        .privileges(privileges::postVirtualMedia)
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleManagersVirtualMediaActionEject, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/")
-        .privileges(redfish::privileges::getVirtualMediaCollection)
+        .privileges(privileges::getVirtualMediaCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleManagersVirtualMediaCollectionGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/VirtualMedia/<str>/")
-        .privileges(redfish::privileges::getVirtualMedia)
+        .privileges(privileges::getVirtualMedia)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleVirtualMediaGet, std::ref(app)));
 }

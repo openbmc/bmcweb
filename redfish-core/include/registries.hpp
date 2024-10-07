@@ -91,11 +91,10 @@ inline nlohmann::json::object_t getLogFromRegistry(
     const Header& header, std::span<const MessageEntry> registry, size_t index,
     std::span<const std::string_view> args)
 {
-    const redfish::registries::MessageEntry& entry = registry[index];
+    const registries::MessageEntry& entry = registry[index];
     // Intentionally make a copy of the string, so we can append in the
     // parameters.
-    std::string msg =
-        redfish::registries::fillMessageArgs(args, entry.second.message);
+    std::string msg = registries::fillMessageArgs(args, entry.second.message);
     nlohmann::json jArgs = nlohmann::json::array();
     for (std::string_view arg : args)
     {

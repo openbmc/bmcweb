@@ -19,7 +19,7 @@ inline void handleTelemetryServiceGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    if (!setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
@@ -96,7 +96,7 @@ inline void handleTelemetryServiceGet(
 inline void requestRoutesTelemetryService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/")
-        .privileges(redfish::privileges::getTelemetryService)
+        .privileges(privileges::getTelemetryService)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleTelemetryServiceGet, std::ref(app)));
 }

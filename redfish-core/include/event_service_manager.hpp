@@ -237,7 +237,7 @@ inline int formatEventLogEntry(
     }
 
     std::string msg =
-        redfish::registries::fillMessageArgs(messageArgs, message->message);
+        registries::fillMessageArgs(messageArgs, message->message);
     if (msg.empty())
     {
         return -1;
@@ -455,7 +455,7 @@ class Subscription : public persistent_data::UserSubscription
         logEntryJson["MemberId"] = 0;
         logEntryJson["MessageArgs"] = nlohmann::json::array();
         logEntryJson["EventTimestamp"] =
-            redfish::time_utils::getDateTimeOffsetNow().first;
+            time_utils::getDateTimeOffsetNow().first;
         logEntryJson["Context"] = customText;
 
         nlohmann::json msg;
@@ -1122,7 +1122,7 @@ class EventServiceManager
         eventMessage["EventId"] = eventId;
 
         eventMessage["EventTimestamp"] =
-            redfish::time_utils::getDateTimeOffsetNow().first;
+            time_utils::getDateTimeOffsetNow().first;
         eventMessage["OriginOfCondition"] = origin;
 
         // MemberId is 0 : since we are sending one event record.
