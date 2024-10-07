@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "954b446e_d0a05d2b",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-07T14:40:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "03f045ed_06ebc9d2",
+      "range": {
+        "startLine": 416,
+        "startChar": 0,
+        "endLine": 416,
+        "endChar": 39
+      },
+      "revId": "586130c9aba46f419c2a99369093b77132080795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a904190_bc22620e",
@@ -95,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53389dbe_b1a82176",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-07T14:40:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7de4431d_aee5d0c0",
+      "range": {
+        "startLine": 571,
+        "startChar": 0,
+        "endLine": 571,
+        "endChar": 55
+      },
+      "revId": "586130c9aba46f419c2a99369093b77132080795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e205164a_e24277e7",
@@ -132,6 +180,30 @@
       "side": 1,
       "message": "Good point! That does make this easier to read. I\u0027ve made the change.",
       "parentUuid": "e205164a_e24277e7",
+      "range": {
+        "startLine": 586,
+        "startChar": 0,
+        "endLine": 591,
+        "endChar": 5
+      },
+      "revId": "586130c9aba46f419c2a99369093b77132080795",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "557a0415_1f9d0ede",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-07T14:40:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7bd0b5e6_7639993e",
       "range": {
         "startLine": 586,
         "startChar": 0,
