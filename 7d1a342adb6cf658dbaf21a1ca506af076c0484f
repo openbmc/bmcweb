@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fe87f1a_1eb6d28b",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T15:08:40Z",
+      "side": 1,
+      "message": "This shouldn\u0027t\u0027 be a default parameter, right?  Any time a user logs in this should be provided.  I suspect we should be assigning a privilege level that only allows the actions required, versus making this an explicit bool.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 48
+      },
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c2b68be_408a8e81",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T15:08:40Z",
+      "side": 1,
+      "message": "wildcard reference captures are explicitly called out in the developing guide as disallowed.",
+      "range": {
+        "startLine": 250,
+        "startChar": 26,
+        "endLine": 250,
+        "endChar": 27
+      },
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf8cf216_f3194af2",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T15:08:40Z",
+      "side": 1,
+      "message": "unsafe captures.",
+      "range": {
+        "startLine": 275,
+        "startChar": 44,
+        "endLine": 275,
+        "endChar": 71
+      },
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eff0695b_4dda5bb3",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T15:08:40Z",
+      "side": 1,
+      "message": "this should be outside the isConfigureSelf check.",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 50
+      },
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
