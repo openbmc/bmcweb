@@ -728,13 +728,18 @@ inline void handleHypervisorEthernetInterfacePatch(
     std::optional<std::vector<nlohmann::json::object_t>> ipv4Addresses;
     std::optional<bool> ipv4DHCPEnabled;
 
+    // clang-format off
     if (!json_util::readJsonPatch(
-            req, asyncResp->res, "HostName", hostName, "IPv4StaticAddresses",
-            ipv4StaticAddresses, "IPv4Addresses", ipv4Addresses,
-            "DHCPv4/DHCPEnabled", ipv4DHCPEnabled))
+            req, asyncResp->res,
+            "DHCPv4/DHCPEnabled", ipv4DHCPEnabled,
+            "HostName", hostName,
+            "IPv4Addresses", ipv4Addresses,
+            "IPv4StaticAddresses", ipv4StaticAddresses
+        ))
     {
         return;
     }
+    // clang-format on
 
     if (ipv4Addresses)
     {
