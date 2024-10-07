@@ -1549,14 +1549,18 @@ inline void handleIPv4StaticPatch(
             std::optional<std::string> subnetMask;
             std::optional<std::string> gateway;
 
-            if (!json_util::readJsonObject(*obj, asyncResp->res, "Address",
-                                           address, "SubnetMask", subnetMask,
-                                           "Gateway", gateway))
+            // clang-format off
+            if (!json_util::readJsonObject(*obj, asyncResp->res,
+                "Address", address,
+                "Gateway", gateway,
+                "SubnetMask", subnetMask
+            ))
             {
                 messages::propertyValueFormatError(asyncResp->res, *obj,
                                                    pathString);
                 return;
             }
+            // clang-format on
 
             // Find the address/subnet/gateway values. Any values that are
             // not explicitly provided are assumed to be unmodified from the
@@ -2132,13 +2136,17 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 uint32_t vlanId = 0;
                 std::vector<nlohmann::json::object_t> relatedInterfaces;
 
+                // clang-format off
                 if (!json_util::readJsonPatch(
-                        req, asyncResp->res, "VLAN/VLANEnable", vlanEnable,
-                        "VLAN/VLANId", vlanId, "Links/RelatedInterfaces",
-                        relatedInterfaces))
+                        req, asyncResp->res,
+                        "Links/RelatedInterfaces", relatedInterfaces,
+                        "VLAN/VLANEnable", vlanEnable,
+                        "VLAN/VLANId", vlanId
+                    ))
                 {
                     return;
                 }
+                // clang-format on
 
                 if (relatedInterfaces.size() != 1)
                 {
@@ -2300,11 +2308,11 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 "DHCPv6/UseNTPServers", v6dhcpParms.useNtpServers,
                 "FQDN", fqdn,
                 "HostName", hostname,
+                "InterfaceEnabled", interfaceEnabled,
                 "IPv4StaticAddresses", ipv4StaticAddresses,
                 "IPv6DefaultGateway", ipv6DefaultGateway,
                 "IPv6StaticAddresses", ipv6StaticAddresses,
                 "IPv6StaticDefaultGateways", ipv6StaticDefaultGateways,
-                "InterfaceEnabled", interfaceEnabled,
                 "MACAddress", macAddress,
                 "MTUSize", mtuSize,
                 "StatelessAddressAutoConfig/IPv6AutoConfigEnabled", ipv6AutoConfigEnabled,

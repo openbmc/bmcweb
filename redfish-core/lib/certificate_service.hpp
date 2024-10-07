@@ -66,15 +66,17 @@ inline std::string getCertificateFromReqBody(
     std::string certificate;
     std::optional<std::string> certificateType = "PEM";
 
-    if (!json_util::readJsonPatch(req, asyncResp->res, "CertificateString",
-                                  certificate, "CertificateType",
-                                  certificateType))
+    // clang-format off
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+        "CertificateString", certificate,
+        "CertificateType", certificateType
+        ))
     {
         BMCWEB_LOG_ERROR("Required parameters are missing");
         messages::internalError(asyncResp->res);
         return {};
     }
-
+    // clang-format on
     if (*certificateType != "PEM")
     {
         messages::propertyValueNotInList(asyncResp->res, *certificateType,
@@ -497,13 +499,17 @@ inline void handleReplaceCertificateAction(
     std::string certURI;
     std::optional<std::string> certificateType = "PEM";
 
-    if (!json_util::readJsonAction(req, asyncResp->res, "CertificateString",
-                                   certificate, "CertificateUri/@odata.id",
-                                   certURI, "CertificateType", certificateType))
+    // clang-format off
+    if (!json_util::readJsonAction(req, asyncResp->res,
+        "CertificateString", certificate,
+        "CertificateType", certificateType,
+        "CertificateUri/@odata.id", certURI
+      ))
     {
         BMCWEB_LOG_ERROR("Required parameters are missing");
         return;
     }
+    // clang-format on
 
     if (!certificateType)
     {
@@ -670,21 +676,33 @@ inline void
         std::vector<std::string>();
     std::optional<std::string> optSurname = "";
     std::optional<std::string> optUnstructuredName = "";
+    // clang-format off
     if (!json_util::readJsonAction(
-            req, asyncResp->res, "City", city, "CommonName", commonName,
-            "ContactPerson", optContactPerson, "Country", country,
-            "Organization", organization, "OrganizationalUnit",
-            organizationalUnit, "State", state,
-            "CertificateCollection/@odata.id", certURI, "AlternativeNames",
-            optAlternativeNames, "ChallengePassword", optChallengePassword,
-            "Email", optEmail, "GivenName", optGivenName, "Initials",
-            optInitials, "KeyBitLength", optKeyBitLength, "KeyCurveId",
-            optKeyCurveId, "KeyPairAlgorithm", optKeyPairAlgorithm, "KeyUsage",
-            optKeyUsage, "Surname", optSurname, "UnstructuredName",
-            optUnstructuredName))
+            req, asyncResp->res,
+            "AlternativeNames", optAlternativeNames,
+            "CertificateCollection/@odata.id", certURI,
+            "ChallengePassword", optChallengePassword,
+            "City", city,
+            "CommonName", commonName,
+            "ContactPerson", optContactPerson,
+            "Country", country,
+            "Email", optEmail,
+            "GivenName", optGivenName,
+            "Initials", optInitials,
+            "KeyBitLength", optKeyBitLength,
+            "KeyCurveId", optKeyCurveId,
+            "KeyPairAlgorithm", optKeyPairAlgorithm,
+            "KeyUsage", optKeyUsage,
+            "Organization", organization,
+            "OrganizationalUnit",  organizationalUnit,
+            "State", state,
+            "Surname", optSurname,
+            "UnstructuredName", optUnstructuredName
+    ))
     {
         return;
     }
+    // clang-format on
 
     // bmcweb has no way to store or decode a private key challenge
     // password, which will likely cause bmcweb to crash on startup
