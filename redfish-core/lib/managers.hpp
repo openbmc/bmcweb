@@ -968,22 +968,32 @@ inline CreatePIDRet createPidInterface(
         std::optional<std::vector<std::string>> outputs;
         std::map<std::string, std::optional<double>> doubles;
         std::optional<std::string> setpointOffset;
+
+        // clang-format off
         if (!redfish::json_util::readJson(
-                jsonValue, response->res, "Inputs", inputs, "Outputs", outputs,
-                "Zones", zones, "FFGainCoefficient",
-                doubles["FFGainCoefficient"], "FFOffCoefficient",
-                doubles["FFOffCoefficient"], "ICoefficient",
-                doubles["ICoefficient"], "ILimitMax", doubles["ILimitMax"],
-                "ILimitMin", doubles["ILimitMin"], "OutLimitMax",
-                doubles["OutLimitMax"], "OutLimitMin", doubles["OutLimitMin"],
-                "PCoefficient", doubles["PCoefficient"], "SetPoint",
-                doubles["SetPoint"], "SetPointOffset", setpointOffset,
-                "SlewNeg", doubles["SlewNeg"], "SlewPos", doubles["SlewPos"],
+                jsonValue, response->res,
+                "FFGainCoefficient", doubles["FFGainCoefficient"],
+                "FFOffCoefficient", doubles["FFOffCoefficient"],
+                "ICoefficient", doubles["ICoefficient"],
+                "ILimitMax", doubles["ILimitMax"],
+                "ILimitMin", doubles["ILimitMin"],
+                "Inputs", inputs,
+                "NegativeHysteresis", doubles["NegativeHysteresis"],
+                "OutLimitMax", doubles["OutLimitMax"],
+                "OutLimitMin", doubles["OutLimitMin"],
+                "Outputs", outputs,
+                "PCoefficient", doubles["PCoefficient"],
                 "PositiveHysteresis", doubles["PositiveHysteresis"],
-                "NegativeHysteresis", doubles["NegativeHysteresis"]))
+                "SetPoint", doubles["SetPoint"],
+                "SetPointOffset", setpointOffset,
+                "SlewNeg", doubles["SlewNeg"],
+                "SlewPos", doubles["SlewPos"],
+                "Zones", zones
+            ))
         {
             return CreatePIDRet::fail;
         }
+        // clang-format on
         if (zones)
         {
             std::vector<std::string> zonesStr;

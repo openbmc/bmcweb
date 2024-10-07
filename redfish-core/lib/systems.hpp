@@ -3202,25 +3202,26 @@ inline void handleComputerSystemPatch(
     // clang-format off
     if (!json_util::readJsonPatch(
             req, asyncResp->res,
-            "IndicatorLED", indicatorLed,
-            "LocationIndicatorActive", locationIndicatorActive,
             "AssetTag", assetTag,
-            "PowerRestorePolicy", powerRestorePolicy,
-            "PowerMode", powerMode,
+            "Boot/AutomaticRetryAttempts", bootAutomaticRetryAttempts,
+            "Boot/AutomaticRetryConfig", bootAutomaticRetry,
+            "Boot/BootSourceOverrideEnabled", bootEnable,
+            "Boot/BootSourceOverrideMode", bootType,
+            "Boot/BootSourceOverrideTarget", bootSource,
+            "Boot/StopBootOnFault", stopBootOnFault,
+            "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired,
             "HostWatchdogTimer/FunctionEnabled", wdtEnable,
             "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction,
-            "Boot/BootSourceOverrideTarget", bootSource,
-            "Boot/BootSourceOverrideMode", bootType,
-            "Boot/BootSourceOverrideEnabled", bootEnable,
-            "Boot/AutomaticRetryConfig", bootAutomaticRetry,
-            "Boot/AutomaticRetryAttempts", bootAutomaticRetryAttempts,
-            "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired,
-            "Boot/StopBootOnFault", stopBootOnFault,
             "IdlePowerSaver/Enabled", ipsEnable,
-            "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
             "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,
+            "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,
+            "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime,
             "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,
-            "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime))
+            "IndicatorLED", indicatorLed,
+            "LocationIndicatorActive", locationIndicatorActive,
+            "PowerMode", powerMode,
+            "PowerRestorePolicy", powerRestorePolicy
+    ))
     {
         return;
     }
