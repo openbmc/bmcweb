@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "713b8192_5da32e88",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-07T16:35:57Z",
+      "side": 1,
+      "message": "Yep, thank you for catching that!",
+      "parentUuid": "3e660799_b60c2a35",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 57
+      },
+      "revId": "779feafd55f141da1f21a367d17737cba8c906af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2dc709fe_d016f29a",
         "filename": "redfish-core/lib/thermal_metrics.hpp",
         "patchSetId": 18
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-07T14:40:02Z",
       "side": 1,
       "message": "Could this be done like this?\n```\nnlohmann::json::object_t item;\n```",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 51
+      },
+      "revId": "779feafd55f141da1f21a367d17737cba8c906af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a746cf2_b59f3d65",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-07T16:35:57Z",
+      "side": 1,
+      "message": "I looked at doing this in an earlier patch set. (See comment https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65286/comment/4deaa36e_03393c2f/)\n\nThe common function being called expects a nlohmann::json type. If I make item here a nlohmann::json::object type it requires a cast on the call. I felt it was clearer to leave as-is.",
+      "parentUuid": "2dc709fe_d016f29a",
       "range": {
         "startLine": 35,
         "startChar": 0,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4778e24_ff03d255",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-07T16:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc9f6ee3_f5406dfb",
+      "revId": "779feafd55f141da1f21a367d17737cba8c906af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e709708b_15db0a7d",
@@ -77,6 +143,24 @@
       "writtenOn": "2024-10-07T14:40:02Z",
       "side": 1,
       "message": "include \u003carray\u003e \u0026 \u003cstring_view\u003e",
+      "revId": "779feafd55f141da1f21a367d17737cba8c906af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a7fc8a5_52ca429e",
+        "filename": "redfish-core/lib/thermal_metrics.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-07T16:35:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e709708b_15db0a7d",
       "revId": "779feafd55f141da1f21a367d17737cba8c906af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
