@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e646e40f_ca2cdf6f",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T15:16:28Z",
+      "side": 1,
+      "message": "Please use a std::chrono::duration_cast here to keep the units to what you expect.\n\nIt\u0027s also not clear to me why we\u0027re dividing by 1 million, presumably to get seconds resolution since epoch?",
+      "range": {
+        "startLine": 401,
+        "startChar": 8,
+        "endLine": 401,
+        "endChar": 52
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0d76753_cb8e9784",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T15:16:28Z",
+      "side": 1,
+      "message": "this function is not taking ownership, pass by Response\u0026",
+      "range": {
+        "startLine": 408,
+        "startChar": 31,
+        "endLine": 408,
+        "endChar": 65
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a295b372_ab17d19a",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T15:16:28Z",
+      "side": 1,
+      "message": "pass by reference.",
+      "range": {
+        "startLine": 409,
+        "startChar": 31,
+        "endLine": 409,
+        "endChar": 43
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3898f87a_90d29791",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T15:16:28Z",
+      "side": 1,
+      "message": "remove redfish::  we\u0027re already in the redfish namespace.",
+      "range": {
+        "startLine": 318,
+        "startChar": 16,
+        "endLine": 318,
+        "endChar": 25
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
