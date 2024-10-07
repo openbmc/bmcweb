@@ -213,12 +213,17 @@ inline void handleSessionCollectionPost(
     std::string password;
     std::optional<std::string> clientId;
     std::optional<std::string> token;
-    if (!json_util::readJsonPatch(req, asyncResp->res, "UserName", username,
-                                  "Password", password, "Token", token,
-                                  "Context", clientId))
+    // clang-format off
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+        "Context", clientId,
+        "Password", password,
+        "Token", token,
+        "UserName", username
+        ))
     {
         return;
     }
+    // clang-format on
     if (password.empty() || username.empty() ||
         asyncResp->res.result() != boost::beast::http::status::ok)
     {

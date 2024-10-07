@@ -118,14 +118,17 @@ inline void requestRoutesEventService(App& app)
                 std::optional<bool> serviceEnabled;
                 std::optional<uint32_t> retryAttemps;
                 std::optional<uint32_t> retryInterval;
-
+                // clang-format off
                 if (!json_util::readJsonPatch(
-                        req, asyncResp->res, "ServiceEnabled", serviceEnabled,
+                        req, asyncResp->res,
                         "DeliveryRetryAttempts", retryAttemps,
-                        "DeliveryRetryIntervalSeconds", retryInterval))
+                        "DeliveryRetryIntervalSeconds", retryInterval,
+                        "ServiceEnabled", serviceEnabled
+                ))
                 {
                     return;
                 }
+                // clang-format on
 
                 persistent_data::EventServiceConfig eventServiceConfig =
                     persistent_data::EventServiceStore::getInstance()
@@ -302,18 +305,27 @@ inline void requestRoutesEventDestinationCollection(App& app)
             std::optional<std::vector<nlohmann::json::object_t>> headers;
             std::optional<std::vector<nlohmann::json::object_t>> mrdJsonArray;
 
+            // clang-format off
             if (!json_util::readJsonPatch(
-                    req, asyncResp->res, "Destination", destUrl, "Context",
-                    context, "Protocol", protocol, "SubscriptionType",
-                    subscriptionType, "EventFormatType", eventFormatType2,
-                    "HttpHeaders", headers, "RegistryPrefixes", regPrefixes,
-                    "OriginResources", originResources, "MessageIds", msgIds,
+                    req, asyncResp->res,
+                    "Context", context,
                     "DeliveryRetryPolicy", retryPolicy,
-                    "MetricReportDefinitions", mrdJsonArray, "ResourceTypes",
-                    resTypes, "VerifyCertificate", verifyCertificate))
+                    "Destination", destUrl,
+                    "EventFormatType", eventFormatType2,
+                    "HttpHeaders", headers,
+                    "MessageIds", msgIds,
+                    "MetricReportDefinitions", mrdJsonArray,
+                    "OriginResources", originResources,
+                    "Protocol", protocol,
+                    "RegistryPrefixes", regPrefixes,
+                    "ResourceTypes", resTypes,
+                    "SubscriptionType", subscriptionType,
+                    "VerifyCertificate", verifyCertificate
+            ))
             {
                 return;
             }
+            // clang-format on
 
             // https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers
             static constexpr const uint16_t maxDestinationSize = 2000;
@@ -750,14 +762,18 @@ inline void requestRoutesEventDestination(App& app)
                 std::optional<bool> verifyCertificate;
                 std::optional<std::vector<nlohmann::json::object_t>> headers;
 
+                // clang-format off
                 if (!json_util::readJsonPatch(
-                        req, asyncResp->res, "Context", context,
-                        "VerifyCertificate", verifyCertificate,
-                        "DeliveryRetryPolicy", retryPolicy, "HttpHeaders",
-                        headers))
+                        req, asyncResp->res,
+                        "Context", context,
+                        "DeliveryRetryPolicy", retryPolicy,
+                        "HttpHeaders", headers,
+                        "VerifyCertificate", verifyCertificate
+                ))
                 {
                     return;
                 }
+                // clang-format on
 
                 if (context)
                 {
