@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7dcc4b1f_7bf564a0",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T15:00:26Z",
+      "side": 1,
+      "message": "\u003e \u003e Here we need three async function to be called before we make any decision on secret key generation required or not.\n\u003e \n\u003e This sentence describes the root of the problem, there should be ONE API for determining whether a user is authenticated and their user is in good standing.  Anything else is putting business logic into bmcweb, which we should avoid.\n\nToday that is a call to pam_authenticate call and looking at the return code.  You\u0027re trying to change it to be a significant amount of dbus calls.  It can\u0027t be both.",
+      "parentUuid": "3d2bb8c2_d00bf31c",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35fd10ce_b778c5fb",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
@@ -373,6 +397,30 @@
       "side": 1,
       "message": "\" The key is that all these new rules you\u0027re adding need to work across redfish, ssh, and ipmi, so adding them to bmcweb doesn\u0027t help.\"\n\nI don\u0027t think we need secrete key generation path for all login mechanism\nThis is a redfish way to enable MFA. Once it is enabled for a user then pam module works same for all . All logins for the user requires to give TOTP.\nPrecisely this is the one of the reason for not implementing anything in PAM module for bypass flags.",
       "parentUuid": "2987b072_7bd6c0a3",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39feea56_c3bceeed",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-07T15:00:26Z",
+      "side": 1,
+      "message": "At the core, bmcweb shouldn\u0027t be making \"should this user be allowed to login\" decisions.  That\u0027s owned by phosphor-user-manager.  bmcweb currently calls pam to make this decision.\n\n\u003e Assuming we are not going to modify google_authenticator pam\n\nWhy is this an assumption?\n\n\u003e authentication/authorization responsibility from Bmcweb to user manager. \n\nThis isn\u0027t something bmcweb needs to be involved in.  bmcweb calls pam.  If PUM wants to add a pam module, it\u0027s perfectly capable of doing so.  I\u0027m not really sure why we\u0027re having this discussion in a bmcweb patchset.\n\n\u003e Both of them requires lots of work and long term views on specifications.\n\nYou and I disagree about the amount of effort, but feel free to bring the PUM maintainers into the discussion by opening changes against PUM.",
+      "parentUuid": "44c84c29_9edcb296",
       "range": {
         "startLine": 52,
         "startChar": 0,
