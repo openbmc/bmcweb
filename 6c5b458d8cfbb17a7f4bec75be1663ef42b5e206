@@ -337,6 +337,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2987b072_7bd6c0a3",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-07T04:38:25Z",
+      "side": 1,
+      "message": "\"Not sure how that\u0027s intended to work for runtime changable things.\"\n\nThis is exactly the real concern. The google_authenticator pam module neither know about bypass property nor is able to read it from Dbus. \n\nAs you suggested if we are going with a new pam module implementation, we have following problem to solve with in pam module.\nAssuming we are not going to modify google_authenticator pam\n1) Need to define a new meta data file in users home directory or modify existing .google_authenticator file to add the by pass property(spec change required)\n2) Need to define a new meta data for global level MFA property which is again a runtime configurable thing.\n3) Add a new Pam implementation and stack it on top and bottom of the google authenticator pam with complex interaction pattern. \n\nOr we should wait for google authenticator to do it for us may be by writing a pull request.\n\nAnother option is to move the authentication/authorization  responsibility from Bmcweb to user manager. Make single call to user manager to create token. Define proper responses types between them so that Bmcweb can let the redfish clients know about whether password change /secret key creation needed or not. \n\nBoth of them requires lots of work and long term views on specifications.",
+      "parentUuid": "538c42c2_2038dad7",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "337b4188_da5f7052",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
