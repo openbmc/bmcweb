@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb467c6f_ca1830bd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T07:15:23Z",
+      "side": 1,
+      "message": "Yes, it should be set to None. Done",
+      "parentUuid": "608d6913_b1789990",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58d21119_1d2168d6",
@@ -71,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd2e2876_8b4f0cdf",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T07:15:23Z",
+      "side": 1,
+      "message": "Yes, this will be handled by setDbusProperty itself.",
+      "parentUuid": "58d21119_1d2168d6",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e1f94ce_d9bb92a9",
@@ -84,6 +120,24 @@
       "writtenOn": "2024-09-24T12:26:37Z",
       "side": 1,
       "message": "move entire code inside googleAuthericatorEnabled. Then if the optional is valid then decide if we wanted to pass GoogleAuthenticator type or None. If it is false a None should be passed",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e33a3ab_eb9a4b21",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1714,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T07:15:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e1f94ce_d9bb92a9",
       "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -118,6 +172,24 @@
       "writtenOn": "2024-09-24T12:34:06Z",
       "side": 1,
       "message": "The dbus method returns secretkey string",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "011a6de9_5b962514",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2447,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T07:15:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35a67f87_d68bcfe4",
       "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -157,6 +229,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b317fe0_eff2dab4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2454,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T07:15:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e07cb75b_cf46ef95",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d78af45a_8209799a",
@@ -170,6 +260,24 @@
       "writtenOn": "2024-09-25T03:11:25Z",
       "side": 1,
       "message": "remove?",
+      "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab7fddd_2f16a0b0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2477,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-07T07:15:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d78af45a_8209799a",
       "revId": "0aa693f7f4b8baabaa0b8d5ab5bb9ba6e3dedef4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
