@@ -2326,12 +2326,6 @@ inline void
     std::optional<std::vector<std::string>> accountTypes;
     std::optional<nlohmann::json> oem;
 
-    if (req.session == nullptr)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
     if (!json_util::readJsonPatch(req, asyncResp->res, "UserName", newUserName,
                                   "Password", password, "RoleId", roleId,
                                   "Enabled", enabled, "Locked", locked, "Oem",
