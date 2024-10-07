@@ -361,6 +361,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44c84c29_9edcb296",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-07T04:40:02Z",
+      "side": 1,
+      "message": "\" The key is that all these new rules you\u0027re adding need to work across redfish, ssh, and ipmi, so adding them to bmcweb doesn\u0027t help.\"\n\nI don\u0027t think we need secrete key generation path for all login mechanism\nThis is a redfish way to enable MFA. Once it is enabled for a user then pam module works same for all . All logins for the user requires to give TOTP.\nPrecisely this is the one of the reason for not implementing anything in PAM module for bypass flags.",
+      "parentUuid": "2987b072_7bd6c0a3",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 55
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "337b4188_da5f7052",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
