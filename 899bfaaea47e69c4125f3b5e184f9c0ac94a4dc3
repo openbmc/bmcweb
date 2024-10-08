@@ -37,6 +37,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c77ad31a_769bcfdf",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2418,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-08T15:04:22Z",
+      "side": 1,
+      "message": "warning here",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7fd3944_9462553f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2430,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-08T15:04:22Z",
+      "side": 1,
+      "message": "log the ec1 if you can",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9299fb01_663137ce",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2461,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-08T15:04:22Z",
+      "side": 1,
+      "message": "Can we add a comment that we only allow doing this to your own user? here or on line 2585, line 2585 near the ConfigureSelf probably makes more sense. This isn\u0027t standard but it makes sense that you can only do this for yourself.",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9c251ec_963999e9",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 16
@@ -48,6 +99,23 @@
       "writtenOn": "2024-10-08T14:55:04Z",
       "side": 1,
       "message": "It is useful to print the ec\n\n  BMCWEB_LOG_ERROR(\"D-Bus response error: {}\", ec.value());",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dacc916_cdcbe578",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2487,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-08T15:04:22Z",
+      "side": 1,
+      "message": "warning here since this is a 4xx error",
       "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
