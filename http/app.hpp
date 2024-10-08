@@ -123,7 +123,7 @@ class App
             BMCWEB_LOG_CRITICAL("Couldn't start server");
             return;
         }
-        server.emplace(this, std::move(*acceptor), sslContext, io);
+        server.emplace(this, std::move(*acceptor), io);
         server->run();
     }
 
@@ -142,16 +142,6 @@ class App
     {
         return router.getRoutes(parent);
     }
-
-    App& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
-    {
-        sslContext = std::move(ctx);
-        BMCWEB_LOG_INFO("app::ssl context use_count={}",
-                        sslContext.use_count());
-        return *this;
-    }
-
-    std::shared_ptr<boost::asio::ssl::context> sslContext = nullptr;
 
     boost::asio::io_context& ioContext()
     {
