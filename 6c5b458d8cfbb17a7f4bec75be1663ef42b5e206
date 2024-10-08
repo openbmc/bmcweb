@@ -552,6 +552,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6d05c47_f3fbb430",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T15:38:49Z",
+      "side": 1,
+      "message": "Also, because invalid dbus paths will get the dbus connection closed which is a dos attack vector.",
+      "parentUuid": "54952ea5_34093991",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 23
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acb8e76b_03dede33",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
