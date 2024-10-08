@@ -2524,6 +2524,7 @@ inline bool
     parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const dbus::utility::DBusPropertiesMap& properties)
 {
+    const bool* allowed = nullptr;
     const bool* enabled = nullptr;
     const uint8_t* enterUtilizationPercent = nullptr;
     const uint64_t* enterDwellTime = nullptr;
@@ -2531,47 +2532,55 @@ inline bool
     const uint64_t* exitDwellTime = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), properties, "Enabled", enabled,
-        "EnterUtilizationPercent", enterUtilizationPercent, "EnterDwellTime",
-        enterDwellTime, "ExitUtilizationPercent", exitUtilizationPercent,
-        "ExitDwellTime", exitDwellTime);
+        dbus_utils::UnpackErrorPrinter(), properties, "Allowed", allowed,
+        "Enabled", enabled, "EnterUtilizationPercent", enterUtilizationPercent,
+        "EnterDwellTime", enterDwellTime, "ExitUtilizationPercent",
+        exitUtilizationPercent, "ExitDwellTime", exitDwellTime);
 
     if (!success)
     {
         return false;
     }
 
-    if (enabled != nullptr)
+    if ((allowed == nullptr) || (*allowed))
     {
-        asyncResp->res.jsonValue["IdlePowerSaver"]["Enabled"] = *enabled;
-    }
+        if (enabled != nullptr)
+        {
+            asyncResp->res.jsonValue["IdlePowerSaver"]["Enabled"] = *enabled;
+        }
 
-    if (enterUtilizationPercent != nullptr)
-    {
-        asyncResp->res.jsonValue["IdlePowerSaver"]["EnterUtilizationPercent"] =
-            *enterUtilizationPercent;
-    }
+        if (enterUtilizationPercent != nullptr)
+        {
+            asyncResp->res
+                .jsonValue["IdlePowerSaver"]["EnterUtilizationPercent"] =
+                *enterUtilizationPercent;
+        }
 
-    if (enterDwellTime != nullptr)
-    {
-        const std::chrono::duration<uint64_t, std::milli> ms(*enterDwellTime);
-        asyncResp->res.jsonValue["IdlePowerSaver"]["EnterDwellTimeSeconds"] =
-            std::chrono::duration_cast<std::chrono::duration<uint64_t>>(ms)
-                .count();
-    }
+        if (enterDwellTime != nullptr)
+        {
+            const std::chrono::duration<uint64_t, std::milli> ms(
+                *enterDwellTime);
+            asyncResp->res
+                .jsonValue["IdlePowerSaver"]["EnterDwellTimeSeconds"] =
+                std::chrono::duration_cast<std::chrono::duration<uint64_t>>(ms)
+                    .count();
+        }
 
-    if (exitUtilizationPercent != nullptr)
-    {
-        asyncResp->res.jsonValue["IdlePowerSaver"]["ExitUtilizationPercent"] =
-            *exitUtilizationPercent;
-    }
+        if (exitUtilizationPercent != nullptr)
+        {
+            asyncResp->res
+                .jsonValue["IdlePowerSaver"]["ExitUtilizationPercent"] =
+                *exitUtilizationPercent;
+        }
 
-    if (exitDwellTime != nullptr)
-    {
-        const std::chrono::duration<uint64_t, std::milli> ms(*exitDwellTime);
-        asyncResp->res.jsonValue["IdlePowerSaver"]["ExitDwellTimeSeconds"] =
-            std::chrono::duration_cast<std::chrono::duration<uint64_t>>(ms)
-                .count();
+        if (exitDwellTime != nullptr)
+        {
+            const std::chrono::duration<uint64_t, std::milli> ms(
+                *exitDwellTime);
+            asyncResp->res.jsonValue["IdlePowerSaver"]["ExitDwellTimeSeconds"] =
+                std::chrono::duration_cast<std::chrono::duration<uint64_t>>(ms)
+                    .count();
+        }
     }
 
     return true;
