@@ -32,11 +32,9 @@ class Server
 
   public:
     Server(Handler* handlerIn, boost::asio::ip::tcp::acceptor&& acceptorIn,
-           std::shared_ptr<boost::asio::ssl::context> adaptorCtxIn,
            std::shared_ptr<boost::asio::io_context> io) :
         ioService(std::move(io)), acceptor(std::move(acceptorIn)),
-        signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
-        adaptorCtx(std::move(adaptorCtxIn))
+        signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn)
     {}
 
     void updateDateStr()
@@ -82,10 +80,7 @@ class Server
             return;
         }
 
-        auto sslContext = ensuressl::getSslServerContext();
-
-        adaptorCtx = sslContext;
-        handler->ssl(std::move(sslContext));
+        adaptorCtx = ensuressl::getSslServerContext();
     }
 
     void startAsyncWaitForSignal()
