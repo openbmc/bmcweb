@@ -12,6 +12,7 @@ namespace redfish
 {
 namespace
 {
+using ::testing::EndsWith;
 
 TEST(Redfish, PathsShouldValidate)
 {
@@ -21,6 +22,12 @@ TEST(Redfish, PathsShouldValidate)
     RedfishService redfish(app);
 
     app.validate();
+
+    for (const std::string* route : app.getRoutes())
+    {
+        ASSERT_NE(route, nullptr);
+        EXPECT_THAT(*route, EndsWith("/"));
+    }
 }
 
 } // namespace
