@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f984be44_29bc6683",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-08T06:16:21Z",
+      "side": 1,
+      "message": "I agree on your concern about multiple Dbus calls. I have already asked for a single Dbus method(isSecretKeygenerationRequired) that do the necessary checks and returns the true/false.\n\nBut it seems you wanted this to be handled by PAM module. Right Now google_authenticator does not return any error code saying secrete key file required. \n\nNow we have two options.\n1) Make a single Dbus call to user manager\n2) Modify google_pam_authenticator to return secretKeyFileRequired error based on global MFA property and user lever bypassed property.\n\nIf your answer is 2 then we don\u0027t need this commit for Bmcweb(Upstream).",
+      "parentUuid": "7dcc4b1f_7bf564a0",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35fd10ce_b778c5fb",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
