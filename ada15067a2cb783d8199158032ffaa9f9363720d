@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c73f2b05_bb83cd2c",
+        "filename": "test/redfish-core/include/event_service_manager_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-08T16:42:28Z",
+      "side": 0,
+      "message": "These 2 are basically the same test? Hence why you combined them ?",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 5
+      },
+      "revId": "ada15067a2cb783d8199158032ffaa9f9363720d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
