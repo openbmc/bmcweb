@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ec6c86f_26b10690",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-08T23:53:12Z",
+      "side": 1,
+      "message": "I think - using clang-format off/on macros may potentially cause the undesirable result if clang-format version changes and if the indentation level changes.\n\nWhat I also found that this goal can be achieved by using `//` at the end of each line like this (without using `// clang-format off \u0026 on`)?\n\nFor example,\n\n```\n            if (!json_util::readJsonObject(*obj, \n   asyncResp-\u003eres, \\\\\n       \"RemoteGroup\", remoteGroup, \\\\\n     \"LocalRole\", localRole\n            ))\n```\n\nAnd then run clang-format. This will generate the file like:\n\n```\n+            if (!json_util::readJsonObject(*obj,\n+                                           asyncResp-\u003eres,             //\n+                                           \"RemoteGroup\", remoteGroup, //\n+                                           \"LocalRole\", localRole))\n```\n\n\nCan we do this approach??",
+      "revId": "75712c5bf6652fa31cca05d86cb495dc60611fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50280a85_e4bea3cc",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 5
