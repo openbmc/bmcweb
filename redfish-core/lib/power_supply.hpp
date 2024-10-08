@@ -161,7 +161,7 @@ inline void afterGetValidPowerSupplyPath(
     for (const auto& [objectPath, service] : subtree)
     {
         sdbusplus::message::object_path path(objectPath);
-        if (path == powerSupplyId)
+        if (path.filename() == powerSupplyId)
         {
             callback(path, service.begin()->first);
             return;
