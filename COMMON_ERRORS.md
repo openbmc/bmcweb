@@ -190,6 +190,8 @@ the route ending in slash and the one without. This allows both URLs to be used
 by users. While many specifications do not require this, it resolves a whole
 class of bug that we've seen in the past.
 
+Note, unit tests can now find this for redfish routes.
+
 ## 10. URLs constructed in aggregate
 
 ```cpp
