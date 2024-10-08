@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "0dc94bbe_d575f52a",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Allow HTTP connections and redirects.\n\nFrom your comment on the HTTP redirect design, the new service file, and item 2 below it seems that this commit is intended to allow HTTP connections that will redirect to HTTPS.\n\nOr should it be Enable?",
       "revId": "c87435f635ba181809511608901ea41166d4056f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3ecf24b0_8fe54c22",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "this line should read:\nEnables\n1. HTTPS\n2. HTTPS redirects (over HTTP)\n\nI could see how that phrasing could be confusing.  Do you have a better suggestion for what this line could read?\n\nI\u0027m not following what you mean about \"Enable\".  Could you elaborate?",
       "parentUuid": "0dc94bbe_d575f52a",
       "revId": "c87435f635ba181809511608901ea41166d4056f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "438a024b_e474d613",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "It looks like you agree enable is a better verb choice than allow.  \n\nMy first line was pointing out this is about using HTTP not HTTPS\n\nThe discussion on what I think this is about was the second paragraph.\n\nand then suggested the verb should be enable vs allow, but didn\u0027t clearly state what the alternative was against.\n\nAlso I\u0027ll point out this is the Headline / Commit subject\nso should be 1 line fitting within 50 characters.",
       "parentUuid": "3ecf24b0_8fe54c22",
       "revId": "c87435f635ba181809511608901ea41166d4056f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9f4cb386_1ec74b40",
         "filename": "/COMMIT_MSG",
@@ -68,8 +69,25 @@
       "message": "Ah, I think I understand now.  I\u0027ll attempt to reword with your suggestions.",
       "parentUuid": "438a024b_e474d613",
       "revId": "c87435f635ba181809511608901ea41166d4056f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "161611f2_2aa8dd83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T23:11:36Z",
+      "side": 1,
+      "message": "this is no longer supporting redirects at all.",
+      "parentUuid": "9f4cb386_1ec74b40",
+      "revId": "c87435f635ba181809511608901ea41166d4056f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

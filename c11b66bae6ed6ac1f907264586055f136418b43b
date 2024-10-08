@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "e1ef7a9c_1c5be322",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "The WIP design recommends this feature be compiled out by default.  Perhaps behind an option flag (BMCWEB_ENABLE_HTTP_REDIRECT \"Enables redirection from HTTP to HTTPS\" OFF).  See https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173/4/designs/http-redirect.md#73",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c7de29e3_16e7260a",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "That was my thought too, but I figured I should ask the question.",
       "parentUuid": "e1ef7a9c_1c5be322",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a7b0a826_1fbe80cf",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,28 @@
       "message": "I should also mention, I think we should compile it in by default, and those with a security posture that finds the minimal implementation a problem can shut it off.  There\u0027s nothing implicitly insecure with the BMC side of this, technically the issue is in the client side.",
       "parentUuid": "c7de29e3_16e7260a",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "743141d4_9a97b40a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T23:11:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7b0a826_1fbe80cf",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "b90faeeb_fa73a2da",
         "filename": "/COMMIT_MSG",
@@ -67,10 +86,10 @@
       "side": 1,
       "message": "Would it be possible for a BMC admin to disable this feature as needed to enhance their security posture?  If so, how?  (A) Delete the bmcweb_redirect socket and start bmcweb without it?  (B) Create a dummy bmcweb_redirect socket that has no network connection and restart bmcweb using that socket?\n\nTo clarify, I foresee three configuration states for the redirect feature:\n1. compiled out of the image,\n2. compiled into the image but disabled by the bmc admin, and\n3. compiled into the image and enabled.\n\nThis comment is asking about a technical mechanism to move between states 2 and 3 above.  But I am not asking to provide that feature.",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "beb9b819_a2bc4274",
         "filename": "/COMMIT_MSG",
@@ -85,10 +104,28 @@
       "message": "\"Would it be possible for a BMC admin to disable this feature as needed to enhance their security posture?\"\n\nYes.  This is the intent of service mgr (which I haven\u0027t really followed to see if it made it to mainline).  It is designed to be able to modify socket files to modify ports that services use.\n\nI think all 3 use cases are covered if we add a compile option.  The only part where this gets hairy is with the ENABLE_HTTPS flag.  That flag has been broken for a bit, so I\u0027m wondering if nobody uses it anymore.",
       "parentUuid": "b90faeeb_fa73a2da",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a5033d5_2bf288e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T23:11:36Z",
+      "side": 1,
+      "message": "assuming response was sufficient.",
+      "parentUuid": "beb9b819_a2bc4274",
+      "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "dd229e0d_9050af35",
         "filename": "http/http_connection.h",
@@ -102,10 +139,10 @@
       "side": 1,
       "message": "This code only redirects URI\u003d/.  That seems to satisfy the basic requirement, but note it is different from the awk-based implementation here: https://github.com/openbmc/phosphor-misc/tree/master/http-redirect that redirects any of its explicitly enumerated routes.\nThis code looks okay, but I am not a web server expert.",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "56a569a5_c598d3c0",
         "filename": "http/http_connection.h",
@@ -120,10 +157,10 @@
       "message": "I really worry about that allowing injection attacks, given that you can set any parameter.  Does it also forward POST requests as well as GET?  In the past we had determined that was a really bad idea.\n\nI\u0027m happy to make a mode that provides that functionality, but I question if it\u0027s a good idea security wise.\n\nMaybe we could ignore the incoming url and method, and simply ALWAYS forward the user to https://\u003chost\u003e/  \n\nWhat do you think?",
       "parentUuid": "dd229e0d_9050af35",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3eb5c166_f1d9d83a",
         "filename": "http/http_connection.h",
@@ -138,10 +175,10 @@
       "message": "I had understood that only GET and HEAD requests would be redirected per unapproved WIP design\nhttps://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173/4/designs/http-redirect.md",
       "parentUuid": "56a569a5_c598d3c0",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "13d44f69_1530dab9",
         "filename": "http/http_connection.h",
@@ -156,10 +193,10 @@
       "message": "I didn\u0027t realize we were also forwarding HEAD requests.  Do you remember the thinking behind that?",
       "parentUuid": "3eb5c166_f1d9d83a",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4e952190_dc6cb356",
         "filename": "http/http_connection.h",
@@ -174,10 +211,10 @@
       "message": "Added to latest patch.",
       "parentUuid": "13d44f69_1530dab9",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b768af90_f5afaf03",
         "filename": "http/http_connection.h",
@@ -191,10 +228,10 @@
       "side": 1,
       "message": "This line is redundant.",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "45921f25_b7d5c627",
         "filename": "http/http_connection.h",
@@ -209,10 +246,10 @@
       "message": "Yes it is.  Will fix.",
       "parentUuid": "b768af90_f5afaf03",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5fdbe7c7_314a652d",
         "filename": "http/http_connection.h",
@@ -227,10 +264,10 @@
       "message": "Done",
       "parentUuid": "45921f25_b7d5c627",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0807883e_2628f112",
         "filename": "include/dump_offload.hpp",
@@ -244,10 +281,10 @@
       "side": 1,
       "message": "This has moved to ???",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6d720557_d3d4e7a2",
         "filename": "include/dump_offload.hpp",
@@ -262,10 +299,10 @@
       "message": "See my email on the mailing list about the significant architecture break that Ravi and Appu caused by injecting socket files into the Request object.  I suspect it needs reverted and reworked, but neither has replied to me yet.",
       "parentUuid": "0807883e_2628f112",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "27b28dc5_641f57dc",
         "filename": "include/dump_offload.hpp",
@@ -280,10 +317,10 @@
       "message": "Got it. Thanks!",
       "parentUuid": "6d720557_d3d4e7a2",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cb44184b_3ccede52",
         "filename": "include/dump_offload.hpp",
@@ -298,10 +335,10 @@
       "message": "Once rebased, this should drop off the diff, as this was reverted.",
       "parentUuid": "27b28dc5_641f57dc",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "41b50a10_ca4f7ea2",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -315,10 +352,10 @@
       "side": 1,
       "message": "I don\u0027t understand how this is related to http redirection.",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bb3c60c5_9f2fd4dc",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -333,10 +370,10 @@
       "message": "See my email on the list.  Adding Request::Adaptor breaks a bunch of abstractions (and does it incorrectly to bat) and has some problems.  I detailed them in the email, but it hasn\u0027t gotten a response yet.",
       "parentUuid": "41b50a10_ca4f7ea2",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5fbacb36_b30b0eb2",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -351,10 +388,10 @@
       "message": "Got it.  Thanks!\nI\u0027m not sure anyone other than you fully understands this.",
       "parentUuid": "bb3c60c5_9f2fd4dc",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "908c70ab_7b94bf9a",
         "filename": "redfish-core/lib/event_service.hpp",
@@ -369,8 +406,7 @@
       "message": "I wonder how we can improve that?  All of boost is documented, I only understand it from reading the documentation.  How do you think we can incentivize others to do the same?  Technically the code didn\u0027t compile with all options as it was written, so there were indications that it was incorrect in the type system.  We could document every design decision, but that seems like it would get out of date fast.\n\nSome of this is that the fuzzing hasn\u0027t been set up yet, so it\u0027s really hard to see a breakage to something that doesn\u0027t exist.  I\u0027m working on it though (slowly).  Once I get it turned on, I\u0027m hoping bmcweb development will go much faster and smoother, given that we\u0027ll have automation to catch a lot of things.",
       "parentUuid": "5fbacb36_b30b0eb2",
       "revId": "c11b66bae6ed6ac1f907264586055f136418b43b",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

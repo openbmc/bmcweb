@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "4014fb86_3efe63c9",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "This sounds great, but RFC6769 7.2 says otherwise:\n\nAn HSTS Host MUST NOT include the STS header field in HTTP responses\n   conveyed over non-secure transport.",
       "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "fd62c616_4683164e",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "Interesting.  On other BMC stacks, we\u0027ve had the opposite reported to us as a security bug before, and that for an http server redirecting to https we SHOULD include HSTS headers.  I guess I have some more reading to do and will likely fix if what you say is true.",
       "parentUuid": "4014fb86_3efe63c9",
       "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d5516725_74b8186d",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "Yep, you were totally right.  Latest patch (untested) should implement this correctly.",
       "parentUuid": "fd62c616_4683164e",
       "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "bf0d968e_ee5a2dce",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
       "message": "The client is required to ignore the header when insecure as any MITM can trivally DOS (just pin the wrong credential for unreasonably long expire).",
       "parentUuid": "d5516725_74b8186d",
       "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7bac8ebf_966e0c5a",
         "filename": "/COMMIT_MSG",
@@ -86,10 +87,28 @@
       "message": "Excellent point.  Like I said, the current patch should be fixed now.",
       "parentUuid": "bf0d968e_ee5a2dce",
       "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b6c1355_5bf5ea95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T23:11:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bac8ebf_966e0c5a",
+      "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "af16fa33_13374b90",
         "filename": "/COMMIT_MSG",
@@ -103,10 +122,10 @@
       "side": 1,
       "message": "One thought I had to emphasize the point:\n\nIf we detect the session auth over HTTP revoke the session.\n\nSomething to talk about, probably a separate patch.",
       "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "829199db_27bcca13",
         "filename": "/COMMIT_MSG",
@@ -121,10 +140,28 @@
       "message": "I like the idea, but in practice I don\u0027t think it makes a difference.  We don\u0027t have any login handlers that support login via GET, only via POST, so the GET/POST check I think covers all cases.\n\n\nI thought about putting up a warning page if we detected credentials, something to the effect of \"Hey, you just sent your credentials in the clear\" but some people use bmcweb behind a reverse proxy with something like nxinx sinking the tls, so the logic behind that gets a little hairy.  Still something we could do though, probably not for this patch.  (also, I want to get the static asset whitelist mess sorted before I do that, as it will likely conflict).",
       "parentUuid": "af16fa33_13374b90",
       "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7d7e17a_6ab27c64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T23:11:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "829199db_27bcca13",
+      "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "42e2c423_d1ae01e2",
         "filename": "/COMMIT_MSG",
@@ -138,10 +175,10 @@
       "side": 1,
       "message": "I understand this is WIP and allowing all content via HTTP is an effective tatical choice.\n\nI don\u0027t see any actual redirect.  I\u0027m guessing this is coming later.\nNote that Redfish requires a redirect to validate the validity of the redirect target, probably to combat open relays.\n\nDo you plan to allow the redfish metadata over HTTP as Redfish allows (but doesn\u0027t require)?",
       "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "99854698_1329ef5e",
         "filename": "/COMMIT_MSG",
@@ -156,8 +193,25 @@
       "message": "The redirect is on line 387 of http/http_connection.hpp, and does the aforementioned \"/\" route check and GET check.\n\nMy main use case for this patch was to allow people to type in \u003cmybmc\u003e in the browser window, and be redirected properly.  This is mostly out of self interest, as the number of times I hear \"bmcweb isn\u0027t working\" and it turns out that they forgot to put \"https://\" at the front of their url is a very large number, and annoys me every time :)\n\nMy second use case for this was to clean up all the socket layer stuff so we can actually write unit tests in the future by injecting \"test socket\" types into the construction of the server.  We\u0027re getting close to that, but not quite there.\n\nI never really thought about Redfish, as I think at this point most Redfish implementations go straight to https (or are configured to do that).\n\nAs far as validating the validity of the redirect target, assuming it requires more than just a host check, doesn\u0027t that leak information about the platform without authentication?  I\u0027d have to look into that more, but like I said above, Redfish is out of scope for this patch, but I\u0027m happy to discuss what the right behavior should be.  Once we figure that out, it should be relatively trivial to code up.\n\nNo, Redfish metadata will not be available over http.  A man in the middle attack could possibly inject something nefarious into the metadata that either causes a redirect to an attacker site, or something else that would be bad.",
       "parentUuid": "42e2c423_d1ae01e2",
       "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "027e3d95_b835ca38",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T23:11:36Z",
+      "side": 1,
+      "message": "Haven\u0027t seen a reply for 4 years, so I\u0027m assuming this was sufficient.",
+      "parentUuid": "99854698_1329ef5e",
+      "revId": "f04babc8ad6ef56af34b4d306a51740523843803",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
