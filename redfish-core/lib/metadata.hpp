@@ -115,7 +115,7 @@ inline void
 
 inline void requestRoutesMetadata(App& app)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/$metadata")
+    BMCWEB_ROUTE(app, "/redfish/v1/$metadat/")
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleMetadataGet, std::ref(app)));
 }
