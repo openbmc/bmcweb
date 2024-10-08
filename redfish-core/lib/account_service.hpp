@@ -2277,21 +2277,21 @@ inline void requestAccountServiceRoutes(App& app)
 
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates")
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/")
         .privileges(redfish::privileges::headCertificateCollection)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleAccountServiceClientCertificatesHead, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates")
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/")
         .privileges(redfish::privileges::getCertificateCollection)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleAccountServiceClientCertificatesGet, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
-        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/<str>")
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/<str>/")
         .privileges(redfish::privileges::headCertificate)
         .methods(boost::beast::http::verb::head)(std::bind_front(
             handleAccountServiceClientCertificatesInstanceHead, std::ref(app)));
