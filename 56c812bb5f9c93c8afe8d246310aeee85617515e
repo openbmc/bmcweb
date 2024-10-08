@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e5b1985_dc485191",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-08T16:38:30Z",
+      "side": 1,
+      "message": "You think it is cleaner to have the // clang-format on after the function vs here after just the if ()",
+      "revId": "56c812bb5f9c93c8afe8d246310aeee85617515e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "738bc036_a894f6b9",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-08T16:38:30Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "56c812bb5f9c93c8afe8d246310aeee85617515e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
