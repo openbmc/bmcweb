@@ -2598,10 +2598,21 @@ inline void
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error on Power.IdlePowerSaver GetSubTree {}",
-                    ec);
-                messages::internalError(asyncResp->res);
+                if ((ec.value() ==
+                     boost::system::linux_error::bad_request_descriptor) ||
+                    (ec.value() ==
+                     boost::asio::error::basic_errors::host_unreachable))
+                {
+                    // object not available so just return
+                    BMCWEB_LOG_DEBUG("IdlePowerSaver not available {}", ec);
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR(
+                        "DBUS response error on Power.IdlePowerSaver GetSubTree {}",
+                        ec);
+                    messages::internalError(asyncResp->res);
+                }
                 return;
             }
             if (subtree.empty())
