@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36b6852f_d62bd3ac",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-08T14:55:04Z",
+      "side": 1,
+      "message": "always helpful to log the ec, your call",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0ac4c2f_cb10ef1a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-08T14:55:04Z",
+      "side": 1,
+      "message": "include variant",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9c251ec_963999e9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2481,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-08T14:55:04Z",
+      "side": 1,
+      "message": "It is useful to print the ec\n\n  BMCWEB_LOG_ERROR(\"D-Bus response error: {}\", ec.value());",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
