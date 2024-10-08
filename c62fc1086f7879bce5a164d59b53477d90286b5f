@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "82d14504_9312cab1",
         "filename": "/COMMIT_MSG",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "This has not been true since patch 15 when I pointed out HTTPS pinning is required to not be sent on an insecure connection.\n\nPlease add the exception clause to this statement of the rule.",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e2ebb55c_816259e4",
         "filename": "/COMMIT_MSG",
@@ -32,10 +33,10 @@
       "message": "Will fix.",
       "parentUuid": "82d14504_9312cab1",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "150b6d0b_3bfe3530",
         "filename": "/COMMIT_MSG",
@@ -50,10 +51,10 @@
       "message": "Done",
       "parentUuid": "e2ebb55c_816259e4",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6ef3e462_f5bc3a1d",
         "filename": "/COMMIT_MSG",
@@ -67,10 +68,10 @@
       "side": 1,
       "message": "Both GET and HEAD are now accepted.",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "328e39ab_fdc3e6bb",
         "filename": "/COMMIT_MSG",
@@ -85,10 +86,10 @@
       "message": "Will fix.",
       "parentUuid": "6ef3e462_f5bc3a1d",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "feaf9241_9d5138c9",
         "filename": "/COMMIT_MSG",
@@ -103,10 +104,10 @@
       "message": "Done",
       "parentUuid": "328e39ab_fdc3e6bb",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9931f86d_61390bf6",
         "filename": "CMakeLists.txt",
@@ -120,10 +121,10 @@
       "side": 1,
       "message": "Does this need to interact with BMCWEB_INSECURE_DISABLE_SSL ?",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7e1890b6_4b40e8c5",
         "filename": "CMakeLists.txt",
@@ -138,10 +139,10 @@
       "message": "BMCWEB_INSECURE_DISABLE_SSL Has been functionally broken for about 9 months now, and pulls in ssl regardless of how it\u0027s set.  I plan on fixing it (although given the new dependence on OpenSSL for non-SSL things, I\u0027m not sure how yet) but this patchset makes it no worse (I think).",
       "parentUuid": "9931f86d_61390bf6",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "14b02a73_77945b7c",
         "filename": "bmcweb_redirect.socket",
@@ -155,10 +156,10 @@
       "side": 1,
       "message": "This name should be distinct so the admin can tell what service is being referred to in the journal.",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "495a69c4_106541ee",
         "filename": "bmcweb_redirect.socket",
@@ -173,10 +174,10 @@
       "message": "You mean the description?  The name is determined by the filename, which is distinct.\n\nWill fix the description, although functionally the two sockets are identical, hence why I shared the commit descritpion initially.",
       "parentUuid": "14b02a73_77945b7c",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5e647ca2_1c0367f6",
         "filename": "bmcweb_redirect.socket",
@@ -191,10 +192,10 @@
       "message": "Done",
       "parentUuid": "495a69c4_106541ee",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cd922313_a98ee638",
         "filename": "bmcweb_redirect.socket",
@@ -208,10 +209,10 @@
       "side": 1,
       "message": "I don\u0027t see a separate service file for a new instance, nor do I see a service\u003d line linking this to the base webserver service.\n\nalso:\nhttp://0pointer.de/public/systemd-man/sd_listen_fds.html\n\nIf a daemon receives more than one file descriptor, they will be passed in the same order as configured in the systemd socket unit file\n...\nIf multiple socket units activate the same service the order of the file descriptors passed to its main process is undefined.\n\nWhat if we wanted this redirect service on a non-default port?",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c768f906_c753eadf",
         "filename": "bmcweb_redirect.socket",
@@ -226,10 +227,10 @@
       "message": "\u003e I don\u0027t see a separate service file for a new instance, nor do I see a service\u003d line linking this to the base webserver service.\n\nThere isn\u0027t one.  Two socket files are handled by a single service.\n\n\u003e \n\u003e also:\n\u003e http://0pointer.de/public/systemd-man/sd_listen_fds.html\n\u003e \n\u003e If a daemon receives more than one file descriptor, they will be passed in the same order as configured in the systemd socket unit file\n\u003e ...\n\u003e If multiple socket units activate the same service the order of the file descriptors passed to its main process is undefined.\n\nIf this implementation relied on the order that the descriptors were passed, that would be a problem.  As it stands, it does not, and I don\u0027t believe that modifications in order would change anything in regards to this service.\n\n\u003e \n\u003e What if we wanted this redirect service on a non-default port?\n\nIt would work just fine.  The two sockets are functionally identical, and can be opened on any port as needed.  In addition, one could move the SSL port to a non-standard port, and a redirect would continue to work on that port in all cases which is generally not the case with redirects.",
       "parentUuid": "cd922313_a98ee638",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5a1fabca_27f6c1d6",
         "filename": "bmcweb_redirect.socket",
@@ -244,10 +245,10 @@
       "message": "So how does the admin enforce the redirect service be disabled?",
       "parentUuid": "c768f906_c753eadf",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e6b6d346_085eeec9",
         "filename": "bmcweb_redirect.socket",
@@ -262,10 +263,10 @@
       "message": "\u003e So how does the admin enforce the redirect service be disabled?\n\nBy setting the https-redirect (now in meson) option to false, which avoids installing this file, and therefore doesn\u0027t open a socket on port 80.",
       "parentUuid": "5a1fabca_27f6c1d6",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a03d41cc_2882c4d3",
         "filename": "bmcweb_redirect.socket",
@@ -280,10 +281,10 @@
       "message": "The supplier can compile out the code, but the admin does not build a signed image.\n\nThe admin can adjust which services ports are enabled, but it sounds like an arbitrary connection can still access this code via the url http://bmc.example:443/ am I missing something?\n\nAlso,\n| There isn\u0027t one.  Two socket files are handled by the same service.\nDoesn\u0027t that require the socket files to refer to the service or the service refer to the socket files?   I am not seeing where that link is being established.",
       "parentUuid": "e6b6d346_085eeec9",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "833d92e2_f48e5b90",
         "filename": "bmcweb_redirect.socket",
@@ -298,10 +299,10 @@
       "message": "\u003e The supplier can compile out the code, but the admin does not build a signed image.\n\u003e \n\u003e The admin can adjust which services ports are enabled, but it sounds like an arbitrary connection can still access this code via the url http://bmc.example:443/ am I missing something?\n\nIf bmcweb-enable-redirect/BMCWEB_ENABLE_HTTPS_REDIRECT is disabled, you can\u0027t access the code. Notice how the logic here: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/35265/45/http/http_connection.h#361 prevents the detection routine from even being run if HTTPS redirect support is disabled?  Are you looking for runtime support for adjusting that rather than compile time?  Does runtime modification of redirection work today in the awk stuff?  If so, I wasn\u0027t aware of it.\n\n\u003e \n\u003e Also,\n\u003e | There isn\u0027t one.  Two socket files are handled by the same service.\n\u003e Doesn\u0027t that require the socket files to refer to the service or the service refer to the socket files?   I am not seeing where that link is being established.\n\nYou get an implicit linkage if you use the same name.  With that said, I might be relying on undefined behavior here.  I\u0027ll take a look and see if there\u0027s a way to make this more explicit.",
       "parentUuid": "a03d41cc_2882c4d3",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f6c511bd_af596b75",
         "filename": "bmcweb_redirect.socket",
@@ -316,10 +317,10 @@
       "message": "https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173/4/designs/http-redirect.md#67\n\nIn the awk implementation, the port is shutdown as it is a separate service.\n\nRe the later, yes, the socket can refer to the service or the service can refer to multiple sockets.\n\nI\u0027m assuming you meant the implicit link is same Description not same name (since they document which path takes precedence for same unit file names in different directories).",
       "parentUuid": "833d92e2_f48e5b90",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "120f2d93_1145eefe",
         "filename": "bmcweb_redirect.socket",
@@ -334,10 +335,10 @@
       "message": "\u003e https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173/4/designs/http-redirect.md#67\n\u003e \n\u003e In the awk implementation, the port is shutdown as it is a separate service.\n\nSo there\u0027s an admin API facing administration command for \"shutdown this service\"?  If so, that\u0027s good to know.  That just moves the compile-time http_connection option to runtime.  Not a big deal.  I can look into this if this is already supported today, although I was a big fan of the \"just decide at compile time\" approach.\n\n\u003e \n\u003e Re the later, yes, the socket can refer to the service or the service can refer to multiple sockets.\n\u003e \n\u003e I\u0027m assuming you meant the implicit link is same Description not same name (since they document which path takes precedence for same unit file names in different directories).\n\nI\u0027m saying when names are not exact matches, but starts with.  I intend to look into this some more, and come up with a better solution that doesn\u0027t rely on the implicit linking.",
       "parentUuid": "f6c511bd_af596b75",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d10c34ec_637332aa",
         "filename": "bmcweb_redirect.socket",
@@ -352,10 +353,10 @@
       "message": "\u003e \u003e https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173/4/designs/http-redirect.md#67\n\u003e \u003e \n\u003e \u003e In the awk implementation, the port is shutdown as it is a separate service.\n\u003e \n\u003e So there\u0027s an admin API facing administration command for \"shutdown this service\"?  If so, that\u0027s good to know.  That just moves the compile-time http_connection option to runtime.  Not a big deal.  I can look into this if this is already supported today, although I was a big fan of the \"just decide at compile time\" approach.\n\nIn the latest iteration of this, I\u0027ve moved the HTTP redirector to be both compile time and runtime (still untested).  If a single socket file is detected, the HTTP forwarding behavior is disabled for all sockets, which gives the administrator a way to \"opt out\" at runtime.\n\nLet me know if the logic matches what you were hoping for in this regard.\n\n\u003e \n\u003e \u003e \n\u003e \u003e Re the later, yes, the socket can refer to the service or the service can refer to multiple sockets.\n\u003e \u003e \n\u003e \u003e I\u0027m assuming you meant the implicit link is same Description not same name (since they document which path takes precedence for same unit file names in different directories).\n\u003e \n\u003e I\u0027m saying when names are not exact matches, but starts with.  I intend to look into this some more, and come up with a better solution that doesn\u0027t rely on the implicit linking.\n\nThis still needs looked into.",
       "parentUuid": "120f2d93_1145eefe",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "18df072a_02f237ca",
         "filename": "bmcweb_redirect.socket",
@@ -370,10 +371,10 @@
       "message": "Bump Milton.",
       "parentUuid": "d10c34ec_637332aa",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b100dead_5a44d765",
         "filename": "bmcweb_redirect.socket",
@@ -388,10 +389,10 @@
       "message": "\u003e \nIn the latest iteration of this, I\u0027ve moved the HTTP redirector to be both compile time and runtime (still untested).  If a single socket file is detected, the HTTP forwarding behavior is disabled for all sockets, which gives the administrator a way to \"opt out\" at runtime.\n\nLet me know if the logic matches what you were hoping for in this regard.\n\u003c\n\nIf the \"bump\" was like a ping for this topic, then I guess its acceptable in that it can meet the minimum requirements but needs to be documented.  Its a bit more permissive in that an installation could not, say, allow the http and redirect from some IP addresses but block the port from others with an external firewall.  \n\nThis would need to be well documented for this unusual behaviour, and should probably be reviewed by the security working group.  \n\nEg for example if the 443 port was disabled and the 80 port was enabled, the result would be https traffic accepted on the 80 port.  What happens when a user sends a http request?  Does it disconnect?   (it seems it won\u0027t be an expected 4xx code).",
       "parentUuid": "18df072a_02f237ca",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a07b5c2b_8e003fb9",
         "filename": "bmcweb_redirect.socket",
@@ -406,10 +407,10 @@
       "message": "\u003e \u003e \n\u003e In the latest iteration of this, I\u0027ve moved the HTTP redirector to be both compile time and runtime (still untested).  If a single socket file is detected, the HTTP forwarding behavior is disabled for all sockets, which gives the administrator a way to \"opt out\" at runtime.\n\u003e \n\u003e Let me know if the logic matches what you were hoping for in this regard.\n\u003e \u003c\n\u003e \n\u003e If the \"bump\" was like a ping for this topic, then I guess its acceptable in that it can meet the minimum requirements but needs to be documented.\n\nYes, that was what I was looking for input on.  I can definitely document some of our discussions.\n\n\u003e  Its a bit more permissive in that an installation could not, say, allow the http and redirect from some IP addresses but block the port from others with an external firewall.  \n\nDo any of the existing systems do what you describe?  I don\u0027t see that as being difficult to add later, but is your use case hypothetical, or real?\nIt seems odd to block only redirects from a particular IP range?  You\u0027d think you would want to block them in tandem.\n\n\u003e \n\u003e This would need to be well documented for this unusual behaviour, and should probably be reviewed by the security working group.\n\nI think it\u0027s already been brought up in the security working group.  If you have specific people that you\u0027d like to see added to this review, please let me know, and I can add them to the reviewers list.\n\n\u003e \n\u003e Eg for example if the 443 port was disabled and the 80 port was enabled, the result would be https traffic accepted on the 80 port.\n\nDoes anyone in openbmc do that?  The option of allowing a non-ssl build of bmcweb has been functionally un-buildable for some time.  If someone cares, we could certainly add it back in a similar fashion, and get it fixed to get the behavior that you expect in that case.\n\n\u003e  What happens when a user sends a http request?  Does it disconnect?   (it seems it won\u0027t be an expected 4xx code).\n\nIf you have a single socket set up, it simply rejects the request, the same as the old behavior was.\n\n\nThanks for getting back to me on this.",
       "parentUuid": "b100dead_5a44d765",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e7523eea_d2a9433d",
         "filename": "http/http_connection.h",
@@ -423,10 +424,10 @@
       "side": 1,
       "message": "I don\u0027t know much C++, but I see a lot of return true; from a void function.",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0d49f54a_689fc038",
         "filename": "http/http_connection.h",
@@ -441,10 +442,10 @@
       "message": "I\u0027m not sure how you determined this labmda was a void function.  Please look again, it it returns bool in all cases (and would cause a warning/compile error if it didn\u0027t).",
       "parentUuid": "e7523eea_d2a9433d",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3949ad2c_2fb80801",
         "filename": "http/http_connection.h",
@@ -459,10 +460,10 @@
       "message": "So this is one of those advanced c++ things. I was looking at line 109.\n\nBut I don\u0027t see any returns that are not true either.  they are all just debug log hooks?",
       "parentUuid": "0d49f54a_689fc038",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "22b8c4b1_60f653e8",
         "filename": "http/http_connection.h",
@@ -477,10 +478,10 @@
       "message": "\u003e So this is one of those advanced c++ things. I was looking at line 109.\n\u003e \n\nlambda functions are 9 years old.  Do we call them \"advanced\" if they\u0027re in many examples in the std, I\u0027m not sure, but bmcweb uses them in a lot of cases.  Now that we\u0027re on c++14, we could annotate the return type to make it more clear (ie \n\n[this](bool preverified, boost::asio::ssl::verify_context\u0026 ctx)-\u003ebool\n\nBut thusfar, we haven\u0027t been enforcing this in bmcweb/openbmc, as it is a new feature of the standard.\n\nIt should be noted, I personally dislike this lambda, given it\u0027s giant, and obfuscates intent, but I didn\u0027t write it.  Cleaning it up is outside the scope of this patch (but rest assured, will be cleaned up in a future patch).\n\n\n\u003e But I don\u0027t see any returns that are not true either.  they are all just debug log hooks?\n\nThe return value determines whether or not we should fail the SSL handshake because of a failed client cert.  Because OpenBMC supports other, non Mutual TLS auth mechanisms, we can\u0027t completely close the connection if mtls auth fails.\n\nInterestingly, you\u0027ve found a \"bug\" IMO.  See discussion here:\nhttps://lore.kernel.org/openbmc/CACWQX80QSyf95+ibN24nwiAdNLCtdWOQdsgqaHvVbdEG9b8jbA@mail.gmail.com/\n\nThe fix mention has yet to be submitted to the tree by anyone (it\u0027s on my list).\n\nWith that said, this too is outside the scope of this patchset, this function wasn\u0027t changed, simply moved scopes (hence the changes in indent changes that you\u0027re seeing).",
       "parentUuid": "3949ad2c_2fb80801",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "893c123a_389e0731",
         "filename": "http/http_connection.h",
@@ -494,10 +495,10 @@
       "side": 1,
       "message": "What if the user chose BMCWEB_INSECURE_DISABLE_SSL for bringup testing?",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "677d3e82_ca35064b",
         "filename": "http/http_connection.h",
@@ -512,10 +513,10 @@
       "message": "See previous comment;  BMCWEB_INSECURE_DISABLE_SSL has already been broken prior to this patch (unless someone fixed it that I haven\u0027t seen).  This makes it no worse, and at least makes the feature operate as designed in the golden path.",
       "parentUuid": "893c123a_389e0731",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "e19a2022_294f9b32",
         "filename": "http/http_connection.h",
@@ -529,10 +530,10 @@
       "side": 1,
       "message": "This appears to be existing behavior, but we should handle all HTTP/1.x version requests see https://tools.ietf.org/html/rfc7230#section-2.6.",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8350e8b8_246a8081",
         "filename": "http/http_connection.h",
@@ -547,10 +548,10 @@
       "message": "Feel free to go ahead and implement support for 2.0 and 3.0, if that\u0027s what you\u0027re talking about, but those are huge changes to the protocol, and will require a large rearchitecture of bmcweb.  If you\u0027d like to take that on, I\u0027d be all for it.\n\nIf you\u0027re talking about 1.0, I believe this already does, hence this check for version before requiring a host header.\n\nWas there another protocol version you were referring to?  1.0, 1.1, 2.0 and 3.0 are the only http spec variations I\u0027m aware of.",
       "parentUuid": "e19a2022_294f9b32",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0bb2c05f_01285ee1",
         "filename": "http/http_connection.h",
@@ -565,10 +566,10 @@
       "message": "I was referring to a client claiming some HTTP/1.x for x !\u003d 1.\n\nAs you point out this is only checking that the host header exists, and is relaxing the requrment for 1.0, so is correct from that point.  \n\nShould we assume that 1.2 would keep the requirement in 1.1?  We would still respond with 1.1 compliance.  A minor point.",
       "parentUuid": "8350e8b8_246a8081",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8884326b_0b33cd37",
         "filename": "http/http_connection.h",
@@ -583,10 +584,10 @@
       "message": "It\u0027s unlikely that there will be a 1.2, considering 2.0 and 3.0 have been standardized already, neither of which we support, and both of which require upstream of this file changes (2.0 requires an ALPN header in the SSL request, and 3.0 requires UDP sockets) so it\u0027s unlikely we\u0027d have issues.\n\nWith that said, sure, we could adjust this check to a \u003e\u003d if we felt so inclined.  Probably not something for this patch.",
       "parentUuid": "0bb2c05f_01285ee1",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "20bb9ce7_98c78874",
         "filename": "http/http_connection.h",
@@ -600,10 +601,10 @@
       "side": 1,
       "message": "Agree with placing these where we detect the result.",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "77f0b0cc_159b2481",
         "filename": "http/http_connection.h",
@@ -617,10 +618,10 @@
       "side": 1,
       "message": "so we checked isSecure in this function above but also check the sslStream is set here?",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7642493f_3865ccb2",
         "filename": "http/http_connection.h",
@@ -635,10 +636,10 @@
       "message": "I\u0027m not sure what the question is asking.  a nullptr check here is required to follow secure coding standards.",
       "parentUuid": "77f0b0cc_159b2481",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "30dc4122_55d3256a",
         "filename": "http/http_connection.h",
@@ -653,10 +654,10 @@
       "message": "I was pointing out multiple ways of checking for a condition which would seem to be a place where things get out of sync leading to errors.",
       "parentUuid": "7642493f_3865ccb2",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0e35249e_8c8d5415",
         "filename": "http/http_connection.h",
@@ -671,10 +672,10 @@
       "message": "That\u0027s a fair point.  Without removing the necessary nullptr check here, what change would you suggest to make this more clear?",
       "parentUuid": "30dc4122_55d3256a",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3b3a15bf_a4495ce4",
         "filename": "http/http_connection.h",
@@ -689,10 +690,10 @@
       "message": "The only thing that comes to mind is if the assertion is wrong to immediately cause a failure response.  The current code is conditionally calling a handler then proceeding with some unclear path.",
       "parentUuid": "0e35249e_8c8d5415",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "18ff1f0c_7aea0542",
         "filename": "http/http_connection.h",
@@ -707,10 +708,28 @@
       "message": "Seems reasonable.  Will fix.",
       "parentUuid": "3b3a15bf_a4495ce4",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ddb416a_659eedf0",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T23:20:06Z",
+      "side": 1,
+      "message": "isSecure no longer exists.",
+      "parentUuid": "18ff1f0c_7aea0542",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "130a8e19_20fe4781",
         "filename": "http/http_connection.h",
@@ -724,10 +743,10 @@
       "side": 1,
       "message": "So this is the second place we can set isSecure (the first being the afterDetectSsl hook on line 328.\n\nis this a concern?  Can we negotiate a SSL session in the middle of a request?\n\nThe connection type is determined by the client initiating the connection?",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cd18692f_f768ccd3",
         "filename": "http/http_connection.h",
@@ -742,10 +761,10 @@
       "message": "\u003e So this is the second place we can set isSecure (the first being the afterDetectSsl hook on line 328.\n\u003e \n\u003e is this a concern?  Can we negotiate a SSL session in the middle of a request?\n\nNo, but we clear the request on line 764.  This is transplanting the connection-specific data back into request for the remaining connection handlers.\n\n\u003e \n\u003e The connection type is determined by the client initiating the connection?\n\nThe connection type is determined by the underlying socket;  If it sends an SSL handshake, it\u0027s SSL, if it sends an HTTP request raw, it\u0027s non-ssl.",
       "parentUuid": "130a8e19_20fe4781",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "da69c8c9_36457856",
         "filename": "http/http_connection.h",
@@ -760,10 +779,10 @@
       "message": "That sounds like its what the client sends not what the server requires based on the connecting port.",
       "parentUuid": "cd18692f_f768ccd3",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "48323a6f_9cc02155",
         "filename": "http/http_connection.h",
@@ -778,10 +797,10 @@
       "message": "\u003e That sounds like its what the client sends not what the server requires based on the connecting port.\n\nPart of the point of this patch is that the server doesn\u0027t \"require\" either.  If you ask for non-SSL, it politely (ie 307 redirect) points you to the SSL implementation.  If you ask for SSL, it just works.  \"requiring\" a particular port match a particular protocol would cause the example in the commit message, as well as non-standard ports to no longer forward correctly.  I\u0027ve personally seen this behavior on commercial BMCs non-standard ports, and it\u0027s very annoying when you type in http://\u003cmybmc\u003e:4000 and the redirects fail to work.",
       "parentUuid": "da69c8c9_36457856",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ad89dfd1_28b44a47",
         "filename": "http/http_connection.h",
@@ -796,10 +815,10 @@
       "message": "So is the code in this commit redirecting clients to use https on port 80 ?\n\nIf not how does it decide which port to direct clients toward?",
       "parentUuid": "48323a6f_9cc02155",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c6b6bee6_855ae392",
         "filename": "http/http_connection.h",
@@ -814,10 +833,28 @@
       "message": "\u003e So is the code in this commit redirecting clients to use https on port 80 ?\n\nNo.  In the port 80 case, the location header doesn\u0027t include the port, so changing the protocol is sufficient to redirect to 443.  If the client is using a non-standard port, yes, it would redirect them to use HTTPS on that non-standard port, which is I think the best we can do there (and is explicitly not functional on a lot of BMC implementations I know of).\n\n\u003e \n\u003e If not how does it decide which port to direct clients toward?\n\nIt doesn\u0027t, it either uses the browsers/clients preference (which forwards to 443 correctly) or, if the port is explicit, forwards to the same port, just using the SSL protocol.",
       "parentUuid": "ad89dfd1_28b44a47",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d7b330c_ecc67f14",
+        "filename": "http/http_connection.h",
+        "patchSetId": 43
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T23:20:06Z",
+      "side": 1,
+      "message": "isSecure no longer exists.",
+      "parentUuid": "c6b6bee6_855ae392",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "ce6041a8_8b7c332d",
         "filename": "http/http_connection.h",
@@ -837,10 +874,10 @@
         "endChar": 20
       },
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ac22d77b_cb318d4d",
         "filename": "http/http_connection.h",
@@ -861,10 +898,10 @@
         "endChar": 20
       },
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4c8884d2_e07ea4f0",
         "filename": "src/webserver_main.cpp",
@@ -878,8 +915,25 @@
       "side": 1,
       "message": "Ok this is the systemd multi-listeing server model.",
       "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2524a86d_0699224d",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T23:20:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c8884d2_e07ea4f0",
+      "revId": "c62fc1086f7879bce5a164d59b53477d90286b5f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
