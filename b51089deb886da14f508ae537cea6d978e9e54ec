@@ -64,6 +64,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30960e1a_5c545f2b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1724,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-08T07:45:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4e4e9677_4d8e47a0",
+      "range": {
+        "startLine": 1721,
+        "startChar": 0,
+        "endLine": 1724,
+        "endChar": 75
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b30e29f3_17933335",
@@ -81,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2de6c33_4578a33e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2216,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-08T07:45:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b30e29f3_17933335",
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "090088b5_be7c7d17",
@@ -94,6 +136,30 @@
       "writtenOn": "2024-10-07T14:55:56Z",
       "side": 1,
       "message": "?  THis list should never include \"none\" right?",
+      "range": {
+        "startLine": 2238,
+        "startChar": 0,
+        "endLine": 2238,
+        "endChar": 44
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b7fbed2_747860ab",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2238,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-08T07:45:46Z",
+      "side": 1,
+      "message": "So as per the dbus interface: https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/72987, there are two values: GoogleAuthenticator and None.\n\nAh, but None is not one of the enums defined in the redfish schema. Probably an empty list should do here in case of None i guess..",
+      "parentUuid": "090088b5_be7c7d17",
       "range": {
         "startLine": 2238,
         "startChar": 0,
@@ -140,6 +206,24 @@
       "writtenOn": "2024-10-07T14:55:56Z",
       "side": 1,
       "message": "This is a two tier lambda, which is definitely not allowed;  The hint here is that this patchset had to rename \"ec\" to \"ec1\" because of -Wshadow issues.",
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2baad7d5_3bfec0c3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2467,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-08T07:45:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "322c8a4f_ac096e2a",
       "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
