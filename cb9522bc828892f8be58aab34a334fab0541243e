@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "d2d12a4b_870f11db",
         "filename": "bmcweb_redirect.socket",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Does it need to set Service?\n\nService\u003dbmcweb.service",
       "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9bfd784b_9f488d44",
         "filename": "http/http_connection.hpp",
@@ -37,10 +38,34 @@
         "endChar": 26
       },
       "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d90f3ee_b698cbca",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T21:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bfd784b_9f488d44",
+      "range": {
+        "startLine": 362,
+        "startChar": 12,
+        "endLine": 362,
+        "endChar": 26
+      },
+      "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "c3f4078e_49790030",
         "filename": "http/http_connection.hpp",
@@ -60,10 +85,34 @@
         "endChar": 42
       },
       "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3ffc904_068078ba",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T21:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3f4078e_49790030",
+      "range": {
+        "startLine": 380,
+        "startChar": 26,
+        "endLine": 380,
+        "endChar": 42
+      },
+      "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "4b3945f1_9c2fb913",
         "filename": "http/http_connection.hpp",
@@ -83,10 +132,34 @@
         "endChar": 11
       },
       "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcdb0b61_51a8c1ab",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T21:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b3945f1_9c2fb913",
+      "range": {
+        "startLine": 446,
+        "startChar": 8,
+        "endLine": 448,
+        "endChar": 11
+      },
+      "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "44284ec0_e7074c07",
         "filename": "meson.build",
@@ -106,10 +179,10 @@
         "endChar": 34
       },
       "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "62b6656c_fef26107",
         "filename": "src/webserver_main.cpp",
@@ -123,10 +196,10 @@
       "side": 1,
       "message": "listenFd?",
       "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "205d8cf1_30e1c864",
         "filename": "src/webserver_main.cpp",
@@ -146,8 +219,7 @@
         "endChar": 45
       },
       "revId": "cb9522bc828892f8be58aab34a334fab0541243e",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
