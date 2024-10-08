@@ -34,6 +34,24 @@
       "parentUuid": "93a40024_2ef6a07b",
       "revId": "08ab264fea5a6b7503870311c702deead38136a8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "963e32ae_2bad4e02",
+        "filename": "test/redfish-core/src/redfish_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T23:03:50Z",
+      "side": 1,
+      "message": "got pulled in accidentally.  Technically because we split these directories up I moved the file, but I guess the old one got pulled in in a cherry-pick/checkout.\n\nRemoved this one.",
+      "parentUuid": "8b9b4261_5a345cf9",
+      "revId": "08ab264fea5a6b7503870311c702deead38136a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
