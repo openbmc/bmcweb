@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f7aa5ce_b4c3ec89",
+        "filename": "include/google_authenticator.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-08T15:38:02Z",
+      "side": 1,
+      "message": "\u003e I agree on your concern about multiple Dbus calls. I have already asked for a single Dbus method(isSecretKeygenerationRequired) that do the necessary checks and returns the true/false.\n\nThe api needs to be something like\n\n\"AuthenticateUser(Username, Password, Token)\"\n\n\u003e \n\u003e But it seems you wanted this to be handled by PAM module. Right Now google_authenticator does not return any error code saying secrete key file required. \n\nI have no strong opinions on how you solve it, but what I don\u0027t want is something that\u0027s bifurcated that calls pam to authenticate, but dbus to authorize.  Such a split is difficult to manage.\n\n\u003e \n\u003e Now we have two options.\n\u003e 1) Make a single Dbus call to user manager\n\u003e 2) Modify google_pam_authenticator to return secretKeyFileRequired error based on global MFA property and user lever bypassed property.\n\u003e \n\u003e If your answer is 2 then we don\u0027t need this commit for Bmcweb(Upstream).\n\nSuch is up to you.  Either direction would be fine with me.  FWIW, I\u0027ve started trying to move the pam authenticate stuff into dbus (in the patchset I\u0027ve linked you before), but either would be fine.",
+      "parentUuid": "f984be44_29bc6683",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "6c5b458d8cfbb17a7f4bec75be1663ef42b5e206",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35fd10ce_b778c5fb",
         "filename": "include/google_authenticator.hpp",
         "patchSetId": 9
