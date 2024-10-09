@@ -2185,9 +2185,11 @@ inline void setSensorsOverride(
         }
         for (auto& item : collectionItems.second)
         {
-            if (!json_util::readJsonObject(
-                    item, sensorAsyncResp->asyncResp->res, "MemberId", memberId,
-                    propertyValueName, value))
+            if (!json_util::readJsonObject( //
+                    item, sensorAsyncResp->asyncResp->res, //
+                    "MemberId", memberId, //
+                    propertyValueName, value //
+                    ))
             {
                 return;
             }
