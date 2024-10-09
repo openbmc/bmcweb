@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "82841c25_40644864",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "getPowerLimitsPath() is called for both the GET and PATCH routes.\n\nI\u0027ve restructured to handle the errors at the caller.\n\n- The PATCH callers will check if subtree was empty or not to decide which error to return.\n- The GET caller will just skip if empty in order to avoid causing the entire EnvironmentMetrics request from failing. (Is that correct?)",
+      "parentUuid": "3d6c46df_7f7f135c",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36441284_878f623c",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 19
@@ -85,6 +103,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4875b5ad_54b6d802",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "Good idea. I\u0027ve made this change and agree it makes the error handling cleaner.",
+      "parentUuid": "012f1f11_7181625d",
+      "range": {
+        "startLine": 29,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "06144756_95f41da2",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 19
@@ -96,6 +138,24 @@
       "writtenOn": "2024-10-07T17:28:15Z",
       "side": 1,
       "message": "Should it be an ERROR here or at the caller?",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "811601c0_7b15e796",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "I\u0027ve moved the error handling to the callers who will handle differently based on whether they are a GET or PATCH. I\u0027ve left the BMCWEB_LOG_DEBUG() in this function to help with debugging.",
+      "parentUuid": "06144756_95f41da2",
       "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -137,6 +197,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4db407e5_ee1cb3f9",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "I\u0027ve kept the function but modified its footprint and how the errors are handled.\n\nI\u0027ve corrected here to return propertyValueNotInList() if there was an empty subtree. Any other failure is treated as an internal error.",
+      "parentUuid": "76a6deef_44ff4d43",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "55fe683d_34f3825f",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 19
@@ -148,6 +226,30 @@
       "writtenOn": "2024-10-07T17:28:15Z",
       "side": 1,
       "message": "Would this be `ec1.value()`, or `ec1` (to show both)?",
+      "range": {
+        "startLine": 82,
+        "startChar": 41,
+        "endLine": 82,
+        "endChar": 48
+      },
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6df72c0_0bb1948e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "Changed to ec1 as that seems to be the common case. Looked for other similar cases and changed those as well.",
+      "parentUuid": "55fe683d_34f3825f",
       "range": {
         "startLine": 82,
         "startChar": 41,
@@ -175,6 +277,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba0b0f59_0cc5d14a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bdd7acf_9e9b63b5",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b5a42f2_0006c713",
@@ -188,6 +308,24 @@
       "writtenOn": "2024-10-07T17:28:15Z",
       "side": 1,
       "message": "Should this be `ERROR`?",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dd9049d_73f77b6a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "Good catch! Fixed this one and looked and corrected others with same problem in this file.",
+      "parentUuid": "7b5a42f2_0006c713",
       "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -211,6 +349,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29592f18_6bda4358",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "I\u0027ve corrected here to return propertyValueNotInList() if there was an empty subtree. Any other failure is treated as an internal error.",
+      "parentUuid": "fc85863b_8a0b7089",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e2d83c5_ad800b67",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 19
@@ -228,6 +384,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b66fec5_5ac14bdc",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "Yes, changed to ec1 which seems to be the common usage.",
+      "parentUuid": "2e2d83c5_ad800b67",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8adeb95_33b67ed2",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 19
@@ -239,6 +413,24 @@
       "writtenOn": "2024-10-07T17:28:15Z",
       "side": 1,
       "message": "Should we add `ERROR` before this?",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0e5fc13_a8c6d180",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "Good catch! Added it.",
+      "parentUuid": "f8adeb95_33b67ed2",
       "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -268,6 +460,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84ac7925_dc3355a0",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "An earlier patch set had this as an optional pointer. It was pointed out that this has been here for 7+ years and should just assume it exists.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/47300/comment/c26af4a8_2d77e004/",
+      "parentUuid": "89d9be56_238a932f",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 192,
+        "endChar": 24
+      },
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ef229d52_cf060126",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 19
@@ -279,6 +495,24 @@
       "writtenOn": "2024-10-07T17:28:15Z",
       "side": 1,
       "message": "Would this be `ERROR`?",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a19393e0_ce453132",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T23:06:35Z",
+      "side": 1,
+      "message": "Yes, good catch! Corrected.",
+      "parentUuid": "ef229d52_cf060126",
       "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
