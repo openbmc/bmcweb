@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d50ada7b_15f38855",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T16:01:57Z",
+      "side": 1,
+      "message": "Missing // and newline between these two properties.",
+      "range": {
+        "startLine": 1124,
+        "startChar": 40,
+        "endLine": 1124,
+        "endChar": 41
+      },
+      "revId": "5fe2a6e4ac24f22f44774a95bd4534a55283f3bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
