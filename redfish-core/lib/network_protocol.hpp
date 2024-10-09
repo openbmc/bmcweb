@@ -507,18 +507,17 @@ inline void handleManagersNetworkProtocolPatch(
     std::optional<bool> ipmiEnabled;
     std::optional<bool> sshEnabled;
 
-    // clang-format off
-        if (!json_util::readJsonPatch(
-                req, asyncResp->res,
-                "HostName", newHostName,
-                "NTP/NTPServers", ntpServerObjects,
-                "NTP/ProtocolEnabled", ntpEnabled,
-                "IPMI/ProtocolEnabled", ipmiEnabled,
-                "SSH/ProtocolEnabled", sshEnabled))
-        {
-            return;
-        }
-    // clang-format on
+    if (!json_util::readJsonPatch(
+            req, asyncResp->res,                 //
+            "HostName", newHostName,             //
+            "NTP/NTPServers", ntpServerObjects,  //
+            "NTP/ProtocolEnabled", ntpEnabled,   //
+            "IPMI/ProtocolEnabled", ipmiEnabled, //
+            "SSH/ProtocolEnabled", sshEnabled    //
+            ))
+    {
+        return;
+    }
 
     asyncResp->res.result(boost::beast::http::status::no_content);
     if (newHostName)
