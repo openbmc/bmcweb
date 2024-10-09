@@ -208,8 +208,8 @@ inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
     }
     if (boost::beast::http::verb::get == method)
     {
-        if ((url == "/redfish") ||          //
-            (url == "/redfish/v1") ||       //
+        if ((url == "/redfish") || //
+            (url == "/redfish/v1") || //
             (url == "/redfish/v1/odata") || //
             (url == "/redfish/v1/$metadata"))
         {

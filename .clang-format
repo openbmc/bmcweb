@@ -8,7 +8,7 @@ AlignConsecutiveDeclarations: false
 AlignEscapedNewlines: Right
 AlignOperands:  Align
 AlignTrailingComments:
-  Kind: Always
+  Kind: Never
   OverEmptyLines: 1
 AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortBlocksOnASingleLine: Empty
