@@ -22,6 +22,52 @@
       },
       "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8735fd43_acda09f9",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T14:50:59Z",
+      "side": 1,
+      "message": "Should we make sure these are as far right as we can put them?\n\nhere if I added\n/a/very/long/redfish/key/for/example\n\nAll of these lines would need to change, which defeats the purpose a little.",
+      "range": {
+        "startLine": 510,
+        "startChar": 50,
+        "endLine": 510,
+        "endChar": 51
+      },
+      "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "373424e1_e735806a",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T14:50:59Z",
+      "side": 1,
+      "message": "Should we make sure the last entry in the list still as a // so the )) pushes to the next line?",
+      "range": {
+        "startLine": 516,
+        "startChar": 45,
+        "endLine": 516,
+        "endChar": 47
+      },
+      "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
