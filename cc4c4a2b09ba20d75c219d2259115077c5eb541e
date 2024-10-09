@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0beea443_bfafb0c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-09T14:18:36Z",
+      "side": 1,
+      "message": "Since we have now single IsGenerateSecretKeyRequired Dbus method from PUM we no longer needed this utility class. You can see and review the usage of same here https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74938/23/redfish-core/lib/redfish_sessions.hpp",
+      "revId": "cc4c4a2b09ba20d75c219d2259115077c5eb541e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
