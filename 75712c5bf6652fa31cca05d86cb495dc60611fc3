@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7362a969_e82608c6",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T00:01:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure if it\u0027ll work, but I\u0027m certainly up to try.  It sounds like you\u0027ve tried this already, so if you have a patchset, just push it here or somewhere else and we can look/make sure tests pass, etc.  Otherwise I can look at doing this as I get time.\n\nI do certainly like your suggestion better than clang-format off",
+      "parentUuid": "6ec6c86f_26b10690",
+      "revId": "75712c5bf6652fa31cca05d86cb495dc60611fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50280a85_e4bea3cc",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 5
