@@ -118,11 +118,11 @@ inline void requestRoutesEventService(App& app)
                 std::optional<bool> serviceEnabled;
                 std::optional<uint32_t> retryAttemps;
                 std::optional<uint32_t> retryInterval;
-
-                if (!json_util::readJsonPatch(
-                        req, asyncResp->res, "ServiceEnabled", serviceEnabled,
-                        "DeliveryRetryAttempts", retryAttemps,
-                        "DeliveryRetryIntervalSeconds", retryInterval))
+                if (!json_util::readJsonPatch(                         //
+                        req, asyncResp->res,                           //
+                        "DeliveryRetryAttempts", retryAttemps,         //
+                        "DeliveryRetryIntervalSeconds", retryInterval, //
+                        "ServiceEnabled", serviceEnabled))
                 {
                     return;
                 }
@@ -302,15 +302,21 @@ inline void requestRoutesEventDestinationCollection(App& app)
             std::optional<std::vector<nlohmann::json::object_t>> headers;
             std::optional<std::vector<nlohmann::json::object_t>> mrdJsonArray;
 
-            if (!json_util::readJsonPatch(
-                    req, asyncResp->res, "Destination", destUrl, "Context",
-                    context, "Protocol", protocol, "SubscriptionType",
-                    subscriptionType, "EventFormatType", eventFormatType2,
-                    "HttpHeaders", headers, "RegistryPrefixes", regPrefixes,
-                    "OriginResources", originResources, "MessageIds", msgIds,
-                    "DeliveryRetryPolicy", retryPolicy,
-                    "MetricReportDefinitions", mrdJsonArray, "ResourceTypes",
-                    resTypes, "VerifyCertificate", verifyCertificate))
+            if (!json_util::readJsonPatch(                   //
+                    req, asyncResp->res,                     //
+                    "Context", context,                      //
+                    "DeliveryRetryPolicy", retryPolicy,      //
+                    "Destination", destUrl,                  //
+                    "EventFormatType", eventFormatType2,     //
+                    "HttpHeaders", headers,                  //
+                    "MessageIds", msgIds,                    //
+                    "MetricReportDefinitions", mrdJsonArray, //
+                    "OriginResources", originResources,      //
+                    "Protocol", protocol,                    //
+                    "RegistryPrefixes", regPrefixes,         //
+                    "ResourceTypes", resTypes,               //
+                    "SubscriptionType", subscriptionType,    //
+                    "VerifyCertificate", verifyCertificate))
             {
                 return;
             }
@@ -750,11 +756,12 @@ inline void requestRoutesEventDestination(App& app)
                 std::optional<bool> verifyCertificate;
                 std::optional<std::vector<nlohmann::json::object_t>> headers;
 
-                if (!json_util::readJsonPatch(
-                        req, asyncResp->res, "Context", context,
-                        "VerifyCertificate", verifyCertificate,
-                        "DeliveryRetryPolicy", retryPolicy, "HttpHeaders",
-                        headers))
+                if (!json_util::readJsonPatch(              //
+                        req, asyncResp->res,                //
+                        "Context", context,                 //
+                        "DeliveryRetryPolicy", retryPolicy, //
+                        "HttpHeaders", headers,             //
+                        "VerifyCertificate", verifyCertificate))
                 {
                     return;
                 }

@@ -1397,8 +1397,8 @@ inline void requestRoutesProcessor(App& app)
 
                 std::optional<std::string> appliedConfigUri;
                 if (!json_util::readJsonPatch(
-                        req, asyncResp->res, "AppliedOperatingConfig/@odata.id",
-                        appliedConfigUri))
+                        req, asyncResp->res, //
+                        "AppliedOperatingConfig/@odata.id", appliedConfigUri))
                 {
                     return;
                 }

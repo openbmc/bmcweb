@@ -941,8 +941,9 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::optional<std::string> diagnosticDataType;
     std::optional<std::string> oemDiagnosticDataType;
 
-    if (!redfish::json_util::readJsonAction(
-            req, asyncResp->res, "DiagnosticDataType", diagnosticDataType,
+    if (!redfish::json_util::readJsonAction(          //
+            req, asyncResp->res,                      //
+            "DiagnosticDataType", diagnosticDataType, //
             "OEMDiagnosticDataType", oemDiagnosticDataType))
     {
         return;
@@ -3055,10 +3056,10 @@ inline void requestRoutesCrashdumpCollect(App& app)
 
                 std::string diagnosticDataType;
                 std::string oemDiagnosticDataType;
-                if (!redfish::json_util::readJsonAction(
-                        req, asyncResp->res, "DiagnosticDataType",
-                        diagnosticDataType, "OEMDiagnosticDataType",
-                        oemDiagnosticDataType))
+                if (!redfish::json_util::readJsonAction(          //
+                        req, asyncResp->res,                      //
+                        "DiagnosticDataType", diagnosticDataType, //
+                        "OEMDiagnosticDataType", oemDiagnosticDataType))
                 {
                     return;
                 }
