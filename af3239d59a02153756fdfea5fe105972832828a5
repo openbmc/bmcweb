@@ -105,6 +105,24 @@
       "parentUuid": "f89613d5_53112d61",
       "revId": "af3239d59a02153756fdfea5fe105972832828a5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a862315b_03729121",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2024-10-09T10:45:26Z",
+      "side": 1,
+      "message": "\u003e Not sure i agree. Phosphor-dbus-interfaces is perfectly capable of holding descriptions, it\u0027s just a matter of someone writing them.\n\nOkay, so baby-step in better direction would be just to expand the text description at https://github.com/openbmc/phosphor-dbus-interfaces/blob/73c931fb942daa714bfff17e950b9d5622a25842/yaml/xyz/openbmc_project/Telemetry/Report.interface.yaml#L36 ?\n\n\u003e These are the same limitations the existing code has, so I\u0027m not sure why a method changes this.\n\nWhat I\u0027ve meant is that neither D-Bus nor phosphor-dbus-interface (by extension) treats method parameters like it treats Interfaces. They are second class citizen. You can\u0027t describe an Interface to an \u0027Object\u0027 passed to the method, therefore phosphor-dbus-interfaces don\u0027t support it. It makes some attempt though, like with definition of `errors` and `metadata`.\n\n\u003e I think we\u0027re missing the point a little, the point is to make the parameters simpler, not to make phosphor-dbus-interfaces support more complex things.\n\nI was answering your questions \"which parameters are supported? which parameters have which types? There\u0027s no way to answer that without looking at the code. This is part of the problem. If one of the parameters is wrong, what error gets returned?\".\nIn the end - phosphor-dbus-interfaces does a good job in describing Properties. It introduces enumerations (out of D-Bus spec scope), errors with metadata (extension of of D-Bus spec scope). Why wouldn\u0027t it be able to model method parameters in the same way? How is that more complex? In both cases you\u0027d have the same object definition, just used in different context.\n\n\u003eIt would look exactly like what\u0027s there, but with the ReadingParameters argument removed, and replaced with arguments that match the values that are in that key. Even if there\u0027s a large number of arguments, that\u0027s still a lot simpler than what we have now.\n\nI\u0027m sorry. I know this is probably clue of the problem, but I still don\u0027t get it. What map? What keys? Definition of this parameter in the code is located here https://github.com/openbmc/bmcweb/blob/15b6f9f9718426f137ad00090984396fe162619c/redfish-core/lib/metric_report_definition.hpp#L38C7-L38C25\nIt consists of:\n- array of source Metrics (1..N)\n-- D-Bus Sensor path - for backend (monitoring done by openbmc/telemetry)\n-- Redfish URI - for frontend (MetricReportDefinition GET - https://github.com/openbmc/bmcweb/blob/15b6f9f9718426f137ad00090984396fe162619c/redfish-core/lib/metric_report_definition.hpp#L323)\n- collectionFunction\n- collectionTimeScope\n- collectionDuration\n\nPerhaps by maps you mean keeping track of Redfish URI\u003c\u003eD-Bus Sensor ? If not - consider me lost and accept my sincere apologies for ongoing misunderstanding..",
+      "parentUuid": "3307ed23_18583517",
+      "revId": "af3239d59a02153756fdfea5fe105972832828a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
