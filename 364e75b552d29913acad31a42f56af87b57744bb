@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3c59df4_3045d2e7",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-10-09T11:23:54Z",
+      "side": 1,
+      "message": "Yes, deviding by million to to seconds resolution. But, I have updated as your suggestion.",
+      "parentUuid": "e646e40f_ca2cdf6f",
+      "range": {
+        "startLine": 401,
+        "startChar": 8,
+        "endLine": 401,
+        "endChar": 52
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0d76753_cb8e9784",
         "filename": "redfish-core/include/utils/time_utils.hpp",
         "patchSetId": 10
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-07T15:16:28Z",
       "side": 1,
       "message": "this function is not taking ownership, pass by Response\u0026",
+      "range": {
+        "startLine": 408,
+        "startChar": 31,
+        "endLine": 408,
+        "endChar": 65
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c65fefe8_c1694bd6",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-10-09T11:23:54Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "e0d76753_cb8e9784",
       "range": {
         "startLine": 408,
         "startChar": 31,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca0d9714_c72a1018",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-10-09T11:23:54Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "a295b372_ab17d19a",
+      "range": {
+        "startLine": 409,
+        "startChar": 31,
+        "endLine": 409,
+        "endChar": 43
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3898f87a_90d29791",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 10
@@ -83,6 +155,30 @@
       "writtenOn": "2024-10-07T15:16:28Z",
       "side": 1,
       "message": "remove redfish::  we\u0027re already in the redfish namespace.",
+      "range": {
+        "startLine": 318,
+        "startChar": 16,
+        "endLine": 318,
+        "endChar": 25
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48198765_16f6ef45",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-10-09T11:23:54Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "3898f87a_90d29791",
       "range": {
         "startLine": 318,
         "startChar": 16,
