@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c34b14a_68463dcd",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T13:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3c59df4_3045d2e7",
+      "range": {
+        "startLine": 401,
+        "startChar": 8,
+        "endLine": 401,
+        "endChar": 52
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0d76753_cb8e9784",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Updated.",
       "parentUuid": "e0d76753_cb8e9784",
+      "range": {
+        "startLine": 408,
+        "startChar": 31,
+        "endLine": 408,
+        "endChar": 65
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "581eb51c_fabd2783",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T13:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c65fefe8_c1694bd6",
       "range": {
         "startLine": 408,
         "startChar": 31,
@@ -142,6 +190,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e164ec_05c1f94c",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T13:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca0d9714_c72a1018",
+      "range": {
+        "startLine": 409,
+        "startChar": 31,
+        "endLine": 409,
+        "endChar": 43
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3898f87a_90d29791",
@@ -179,6 +251,30 @@
       "side": 1,
       "message": "Updated.",
       "parentUuid": "3898f87a_90d29791",
+      "range": {
+        "startLine": 318,
+        "startChar": 16,
+        "endLine": 318,
+        "endChar": 25
+      },
+      "revId": "364e75b552d29913acad31a42f56af87b57744bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3be6577_c523b54f",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T13:42:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48198765_16f6ef45",
       "range": {
         "startLine": 318,
         "startChar": 16,
