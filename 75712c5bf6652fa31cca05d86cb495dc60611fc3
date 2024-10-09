@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c42b26ea_c8040ca2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-09T10:35:29Z",
+      "side": 1,
+      "message": "I meant - the input files are using `//` comment at then of each line like\n```\n            if (!json_util::readJsonObject( //\n     *obj,  asyncResp-\u003eres, //\n       \"RemoteGroup\", remoteGroup, //\n     \"LocalRole\", localRole\n            ))\n```\n\n\nAs you suggested, I pushed a new patchset here.\nPlease review.\nIf not agreeable, we can undo it.",
+      "parentUuid": "7362a969_e82608c6",
+      "revId": "75712c5bf6652fa31cca05d86cb495dc60611fc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "50280a85_e4bea3cc",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 5
