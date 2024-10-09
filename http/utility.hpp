@@ -260,8 +260,7 @@ inline bool base64Decode(std::string_view input, std::string& output)
             return false;
         }
         if (!(++i < inputLength))
-        { // we need at least two input bytes for first
-          // byte output
+        { // we need at least two input bytes for first byte output
             return false;
         }
         base64code1 = getCodeValue(input[i]);
