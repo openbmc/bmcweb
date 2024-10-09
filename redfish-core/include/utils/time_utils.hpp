@@ -234,12 +234,12 @@ constexpr std::tuple<IntType, unsigned, unsigned>
     IntType era = (z >= 0 ? z : z - 146096) / 146097;
     unsigned doe = static_cast<unsigned>(z - era * 146097); // [0, 146096]
     unsigned yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) /
-                   365;                                     // [0, 399]
+                   365; // [0, 399]
     IntType y = static_cast<IntType>(yoe) + era * 400;
     unsigned doy = doe - (365 * yoe + yoe / 4 - yoe / 100); // [0, 365]
-    unsigned mp = (5 * doy + 2) / 153;                      // [0, 11]
-    unsigned d = doy - (153 * mp + 2) / 5 + 1;              // [1, 31]
-    unsigned m = mp < 10 ? mp + 3 : mp - 9;                 // [1, 12]
+    unsigned mp = (5 * doy + 2) / 153; // [0, 11]
+    unsigned d = doy - (153 * mp + 2) / 5 + 1; // [1, 31]
+    unsigned m = mp < 10 ? mp + 3 : mp - 9; // [1, 12]
 
     return std::tuple<IntType, unsigned, unsigned>(y + (m <= 2), m, d);
 }
