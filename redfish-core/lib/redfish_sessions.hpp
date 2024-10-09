@@ -213,9 +213,13 @@ inline void handleSessionCollectionPost(
     std::string password;
     std::optional<std::string> clientId;
     std::optional<std::string> token;
-    if (!json_util::readJsonPatch(req, asyncResp->res, "UserName", username,
-                                  "Password", password, "Token", token,
-                                  "Context", clientId))
+    if (!json_util::readJsonPatch( //
+            req, asyncResp->res,   //
+            "Context", clientId,   //
+            "Password", password,  //
+            "Token", token,        //
+            "UserName", username   //
+            ))
     {
         return;
     }
@@ -330,8 +334,10 @@ inline void handleSessionServicePatch(
         return;
     }
     std::optional<int64_t> sessionTimeout;
-    if (!json_util::readJsonPatch(req, asyncResp->res, "SessionTimeout",
-                                  sessionTimeout))
+    if (!json_util::readJsonPatch(           //
+            req, asyncResp->res,             //
+            "SessionTimeout", sessionTimeout //
+            ))
     {
         return;
     }
