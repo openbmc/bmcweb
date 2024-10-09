@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cddf0148_8828c892",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T20:07:37Z",
+      "side": 1,
+      "message": "This isn\u0027t really how Redfish is intended to work.  The redfish tree/properties shouldn\u0027t be changing based on the value of a an individual property.\n\nWhat I suspect is that you actually want to make this interface optional and remove it for systems on which it doesn\u0027t apply.  What you\u0027ve written here is business logic that bmcweb shouldn\u0027t be doing.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "7485d2787f94f72a08b3da6a656526f0205a0f5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
