@@ -16,6 +16,23 @@
       "message": "https://gerrit.openbmc.org/c/openbmc/openbmc/+/75114 is the bumps failing",
       "revId": "a6cd43245f023b32bee3a0e386d16ecc0179536d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb26c4c9_59b52738",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-09T17:33:40Z",
+      "side": 1,
+      "message": "Bumps are failing, lets get them passing again. Normally would wait a few days for reviews but I think this is pretty straightforward. I see this other places. \n\nhttps://github.com/openbmc/bmcweb/blob/89449bbec0335bfa2e224931068b79f8e5b4331c/redfish-core/lib/cable.hpp#L174\n\nhttps://github.com/openbmc/bmcweb/blob/89449bbec0335bfa2e224931068b79f8e5b4331c/redfish-core/lib/memory.hpp#L744",
+      "revId": "a6cd43245f023b32bee3a0e386d16ecc0179536d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
