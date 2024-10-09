@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a145a8b1_9fd8c311",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T15:01:25Z",
+      "side": 1,
+      "message": "This is nice to help with merge conflicts!\n\nJust two spots where the alphabetizing looks incorrect.",
+      "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55ee2bbe_6acb975d",
@@ -66,6 +83,23 @@
         "endLine": 516,
         "endChar": 47
       },
+      "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "853e3cfd_8077b3a7",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-09T15:01:25Z",
+      "side": 1,
+      "message": "Shouldn\u0027t \"MetricType\" be after \"MetricProperties\"?",
       "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
