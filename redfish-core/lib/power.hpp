@@ -88,8 +88,9 @@ inline void afterGetChassisPath(
     auto& item = powerControlCollections[0];
 
     std::optional<uint32_t> value;
-    if (!json_util::readJsonObject(item, sensorsAsyncResp->asyncResp->res,
-                                   "PowerLimit/LimitInWatts", value))
+    if (!json_util::readJsonObject(                 //
+            item, sensorsAsyncResp->asyncResp->res, //
+            "PowerLimit/LimitInWatts", value))
     {
         return;
     }
@@ -305,9 +306,10 @@ inline void
     std::optional<std::vector<nlohmann::json::object_t>> voltageCollections;
     std::optional<std::vector<nlohmann::json::object_t>> powerCtlCollections;
 
-    if (!json_util::readJsonPatch(req, sensorAsyncResp->asyncResp->res,
-                                  "PowerControl", powerCtlCollections,
-                                  "Voltages", voltageCollections))
+    if (!json_util::readJsonPatch(                //
+            req, sensorAsyncResp->asyncResp->res, //
+            "PowerControl", powerCtlCollections,  //
+            "Voltages", voltageCollections))
     {
         return;
     }
