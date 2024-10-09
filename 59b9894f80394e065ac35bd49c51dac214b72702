@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fece19e0_917bcdde",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T15:20:27Z",
+      "side": 1,
+      "message": "Note to reviewer, this function is identical, with the exception of this check, which had to be added because clang-tidy now (correctly) flags this optional as unchecked.  Otherwise this function is identical.",
+      "range": {
+        "startLine": 615,
+        "startChar": 13,
+        "endLine": 615,
+        "endChar": 19
+      },
+      "revId": "59b9894f80394e065ac35bd49c51dac214b72702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
