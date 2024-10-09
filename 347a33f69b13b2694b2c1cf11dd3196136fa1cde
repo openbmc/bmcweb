@@ -162,6 +162,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "453263c1_0748a9b9",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-09T16:19:06Z",
+      "side": 1,
+      "message": "This would be due to https://clang.llvm.org/docs/ClangFormatStyleOptions.html\n- AlignTrailingComments / Kind\n\nWe can change the option not to align - `Never`\n\n.clang-format\n\n```\nAlignTrailingComments:\n-  Kind: Always\n+  Kind: Never\n  OverEmptyLines: 1\n```\n  \nIf so, the comment `//` will always starts right after the end of char each line\n```\n   if (!json_util::readJsonPatch(\n            req, asyncResp-\u003eres, //\n            \"HostName\", newHostName, //\n            \"NTP/NTPServers\", ntpServerObjects, //\n            \"NTP/ProtocolEnabled\", ntpEnabled, //\n            \"IPMI/ProtocolEnabled\", ipmiEnabled, //\n            \"/a/very/long/redfish/key/for/example\", var, //\n            \"SSH/ProtocolEnabled\", sshEnabled //\n            ))\n    {\n```\n\nIn this way, we can keep the unmodified ones as they are.",
+      "parentUuid": "3172e328_b82dd671",
+      "range": {
+        "startLine": 510,
+        "startChar": 50,
+        "endLine": 510,
+        "endChar": 51
+      },
+      "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "373424e1_e735806a",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 8
