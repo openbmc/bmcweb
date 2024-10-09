@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa8842d7_8ab330dd",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-09T15:11:52Z",
+      "side": 1,
+      "message": "Good catch. Thanks. I modified.",
+      "parentUuid": "55ee2bbe_6acb975d",
+      "range": {
+        "startLine": 1122,
+        "startChar": 15,
+        "endLine": 1127,
+        "endChar": 40
+      },
+      "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8735fd43_acda09f9",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 8
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df05eee3_66114524",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-09T15:11:52Z",
+      "side": 1,
+      "message": "Yes, clang-format will push \"//\" to far-right.\nFor example,\n```\n    if (!json_util::readJsonPatch(                       //\n            req, asyncResp-\u003eres,                         //\n            \"HostName\", newHostName,                     //\n            \"NTP/NTPServers\", ntpServerObjects,          //\n            \"NTP/ProtocolEnabled\", ntpEnabled,           //\n            \"IPMI/ProtocolEnabled\", ipmiEnabled,         //\n            \"/a/very/long/redfish/key/for/example\", var, //\n            \"SSH/ProtocolEnabled\", sshEnabled))\n    {\n```",
+      "parentUuid": "8735fd43_acda09f9",
+      "range": {
+        "startLine": 510,
+        "startChar": 50,
+        "endLine": 510,
+        "endChar": 51
+      },
+      "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "373424e1_e735806a",
         "filename": "redfish-core/lib/network_protocol.hpp",
         "patchSetId": 8
@@ -77,6 +125,30 @@
       "writtenOn": "2024-10-09T14:50:59Z",
       "side": 1,
       "message": "Should we make sure the last entry in the list still as a // so the )) pushes to the next line?",
+      "range": {
+        "startLine": 516,
+        "startChar": 45,
+        "endLine": 516,
+        "endChar": 47
+      },
+      "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5673c6fa_b4f68e07",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-09T15:11:52Z",
+      "side": 1,
+      "message": "Yes, we can by adding `//` at the end like\n```\n    if (!json_util::readJsonPatch(\n            req, asyncResp-\u003eres,                 //\n            \"HostName\", newHostName,             //\n            \"NTP/NTPServers\", ntpServerObjects,  //\n            \"NTP/ProtocolEnabled\", ntpEnabled,   //\n            \"IPMI/ProtocolEnabled\", ipmiEnabled, //\n            \"SSH/ProtocolEnabled\", sshEnabled    //\n            ))\n    {\n```\n\n\nI modified the code to add \"//\" at the end",
+      "parentUuid": "373424e1_e735806a",
       "range": {
         "startLine": 516,
         "startChar": 45,
