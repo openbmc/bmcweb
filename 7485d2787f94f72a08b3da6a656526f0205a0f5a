@@ -22,6 +22,46 @@
       },
       "revId": "7485d2787f94f72a08b3da6a656526f0205a0f5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eefc5a29_1b7582a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T20:10:37Z",
+      "side": 1,
+      "message": "nit, add \"if the xyz.openbmc_project.Control.Power.IdlePowerSaver is present\"",
+      "revId": "7485d2787f94f72a08b3da6a656526f0205a0f5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "268c29fb_35797791",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-09T20:10:37Z",
+      "side": 1,
+      "message": "whether or not properties return on GET has no bearing on whether they can be PATCHED.  If this is the behavior you want, return errors when the system isn\u0027t in a state to accept SetProperty calls, and make sure the error is handled appropriately in bmcweb using redfish::setProperty",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "7485d2787f94f72a08b3da6a656526f0205a0f5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
