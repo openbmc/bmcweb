@@ -280,9 +280,12 @@ inline bool parseThreshold(crow::Response& res,
     std::string activation;
     std::string dwellTimeStr;
 
-    if (!json_util::readJsonObject(threshold, res, "Reading", reading,
-                                   "Activation", activation, "DwellTime",
-                                   dwellTimeStr))
+    if (!json_util::readJsonObject( //
+            threshold, res, //
+            "Activation", activation, //
+            "DwellTime", dwellTimeStr, //
+            "Reading", reading //
+            ))
     {
         return false;
     }
@@ -391,9 +394,13 @@ inline bool parseDiscreteTriggers(
         std::string dwellTimeStr;
         std::string severity;
 
-        if (!json_util::readJsonObject(thresholdInfo, res, "Name", name,
-                                       "Value", value, "DwellTime",
-                                       dwellTimeStr, "Severity", severity))
+        if (!json_util::readJsonObject( //
+                thresholdInfo, res, //
+                "DwellTime", dwellTimeStr, //
+                "Name", name, //
+                "Severity", severity, //
+                "Value", value //
+                ))
         {
             return false;
         }
@@ -595,26 +602,25 @@ inline bool parsePostTriggerParams(crow::Response& res,
     std::optional<std::vector<nlohmann::json::object_t>> discreteTriggers;
     std::optional<std::vector<std::string>> metricReportDefinitions;
     NumericThresholds thresholds;
-    // clang-format off
-    if (!json_util::readJsonPatch(
-            req, res,
-	    "Id", id,
-            "Name", name,
-	    "MetricType", metricType,
-            "TriggerActions", triggerActions,
-            "DiscreteTriggerCondition", discreteTriggerCondition,
-            "DiscreteTriggers", discreteTriggers,
-            "NumericThresholds/UpperCritical", thresholds.upperCritical,
-            "NumericThresholds/UpperWarning", thresholds.upperWarning,
-            "NumericThresholds/LowerWarning", thresholds.lowerWarning,
-            "NumericThresholds/LowerCritical", thresholds.lowerCritical,
-            "MetricProperties", ctx.metricProperties,
-            "Links/MetricReportDefinitions", metricReportDefinitions)
-    )
+
+    if (!json_util::readJsonPatch( //
+            req, res, //
+            "Id", id, //
+            "DiscreteTriggerCondition", discreteTriggerCondition, //
+            "DiscreteTriggers", discreteTriggers, //
+            "Links/MetricReportDefinitions", metricReportDefinitions, //
+            "MetricProperties", ctx.metricProperties, //
+            "MetricType", metricType, //
+            "Name", name, //
+            "NumericThresholds/LowerCritical", thresholds.lowerCritical, //
+            "NumericThresholds/LowerWarning", thresholds.lowerWarning, //
+            "NumericThresholds/UpperCritical", thresholds.upperCritical, //
+            "NumericThresholds/UpperWarning", thresholds.upperWarning, //
+            "TriggerActions", triggerActions //
+            ))
     {
         return false;
     }
-    // clang-format on
 
     ctx.id = *id;
     ctx.name = *name;
