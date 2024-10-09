@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21d13887_cef6a0cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "799ba94c_019ff9a1",
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "658ed521_7730fa27",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-10-07T14:55:56Z",
       "side": 1,
       "message": "put into its own method please.",
+      "range": {
+        "startLine": 1512,
+        "startChar": 0,
+        "endLine": 1529,
+        "endChar": 9
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "223c579d_1ec0d91a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1529,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "You mean, to separate this \"fetch mfa enabled\" into a new method?",
+      "parentUuid": "658ed521_7730fa27",
       "range": {
         "startLine": 1512,
         "startChar": 0,
@@ -88,6 +130,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ba25849_e7099f85",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1724,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30960e1a_5c545f2b",
+      "range": {
+        "startLine": 1721,
+        "startChar": 0,
+        "endLine": 1724,
+        "endChar": 75
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b30e29f3_17933335",
@@ -119,6 +185,24 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "b30e29f3_17933335",
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e58b6ec_1412cc6f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2216,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Yes, thinking if I can create another commit on top of this to move the same to utilize unpackProperties method, if that\u0027s okay.",
+      "parentUuid": "a2de6c33_4578a33e",
       "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -196,6 +280,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0c0ba52c_f7b6de92",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2238,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Yes, as per my prev comment, should just leave it as an empty list and validator would pass I guess. I will verify and update it in my next PS",
+      "parentUuid": "1d868108_c2fe2c10",
+      "range": {
+        "startLine": 2238,
+        "startChar": 0,
+        "endLine": 2238,
+        "endChar": 44
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bf9c6bb_201c1e15",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 14
@@ -207,6 +315,30 @@
       "writtenOn": "2024-10-07T14:55:56Z",
       "side": 1,
       "message": "Don\u0027t construct dbus methods using strings.",
+      "range": {
+        "startLine": 2435,
+        "startChar": 8,
+        "endLine": 2435,
+        "endChar": 48
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee108d7b_ea90d251",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2435,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bf9c6bb_201c1e15",
       "range": {
         "startLine": 2435,
         "startChar": 8,
@@ -248,6 +380,24 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "322c8a4f_ac096e2a",
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ab723e9_dcd46ccd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2467,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2baad7d5_3bfec0c3",
       "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

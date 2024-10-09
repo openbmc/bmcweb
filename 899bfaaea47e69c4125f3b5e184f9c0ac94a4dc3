@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e66932b2_f44ba669",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36b6852f_d62bd3ac",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0ac4c2f_cb10ef1a",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f06cb6bc_cb48d4fe",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2418,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c77ad31a_769bcfdf",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7fd3944_9462553f",
@@ -65,6 +101,24 @@
       "writtenOn": "2024-10-08T15:04:22Z",
       "side": 1,
       "message": "log the ec1 if you can",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a6e50ab_87d499f6",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2430,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7fd3944_9462553f",
       "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +140,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4fc5d88_ad384f24",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2461,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9299fb01_663137ce",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9c251ec_963999e9",
@@ -103,6 +175,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6990a5f_f301039c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2481,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9c251ec_963999e9",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3dacc916_cdcbe578",
@@ -116,6 +206,24 @@
       "writtenOn": "2024-10-08T15:04:22Z",
       "side": 1,
       "message": "warning here since this is a 4xx error",
+      "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0c487ab_179f2f49",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2487,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-09T05:03:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dacc916_cdcbe578",
       "revId": "899bfaaea47e69c4125f3b5e184f9c0ac94a4dc3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
