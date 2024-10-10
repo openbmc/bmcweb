@@ -18,7 +18,7 @@
 #include <string_view>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 class WebSocketRule : public BaseRule
 {
@@ -100,4 +100,6 @@ class WebSocketRule : public BaseRule
         closeHandler;
     std::function<void(websocket::Connection&)> errorHandler;
 };
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

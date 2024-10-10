@@ -49,7 +49,7 @@
 #include <variant>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 namespace openbmc_mapper
 {
@@ -2647,4 +2647,6 @@ inline void requestRoutes(App& app)
                  boost::beast::http::verb::post)(handleBusSystemPost);
 }
 } // namespace openbmc_mapper
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

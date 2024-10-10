@@ -16,7 +16,7 @@
 #include <tuple>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 namespace detail
 {
@@ -99,4 +99,6 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         erasedHandler;
 };
 
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

@@ -3,7 +3,7 @@
 #pragma once
 #include <sdbusplus/asio/connection.hpp>
 
-namespace crow
+namespace bmcweb
 {
 namespace connections
 {
@@ -14,4 +14,6 @@ namespace connections
 extern sdbusplus::asio::connection* systemBus;
 
 } // namespace connections
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;
