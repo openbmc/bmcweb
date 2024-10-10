@@ -22,7 +22,7 @@ namespace
 {
 
 void assertChassisResetActionInfoGet(const std::string& chassisId,
-                                     crow::Response& res)
+                                     bmcweb::Response& res)
 {
     EXPECT_EQ(res.jsonValue["@odata.type"], "#ActionInfo.v1_1_2.ActionInfo");
     EXPECT_EQ(res.jsonValue["@odata.id"],
@@ -48,14 +48,14 @@ TEST(HandleChassisResetActionInfoGet, StaticAttributesAreExpected)
 {
     auto response = std::make_shared<bmcweb::AsyncResp>();
     std::error_code err;
-    crow::Request request{{boost::beast::http::verb::get, "/whatever", 11},
-                          err};
+    bmcweb::Request request{{boost::beast::http::verb::get, "/whatever", 11},
+                            err};
 
     std::string fakeChassis = "fakeChassis";
     response->res.setCompleteRequestHandler(
         std::bind_front(assertChassisResetActionInfoGet, fakeChassis));
 
-    crow::App app;
+    bmcweb::App app;
     handleChassisResetActionInfoGet(app, request, response, fakeChassis);
 }
 

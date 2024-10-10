@@ -67,7 +67,7 @@ inline void
 
     // Create the D-Bus variant for D-Bus call.
     sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, processName, objectPath, interfaceName,
+        *bmcweb::connections::systemBus, processName, objectPath, interfaceName,
         destProperty, propertyValue,
         [asyncResp](const boost::system::error_code& ec) {
             // Use "Set" method to set the property value.
@@ -94,7 +94,7 @@ inline void
 
     // Create the D-Bus variant for D-Bus call.
     sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, processName, objectPath, interfaceName,
+        *bmcweb::connections::systemBus, processName, objectPath, interfaceName,
         destProperty, propertyValue,
         [asyncResp](const boost::system::error_code& ec) {
             // Use "Set" method to set the property value.
@@ -124,7 +124,7 @@ inline void requestRoutesManagerResetAction(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/Actions/Manager.Reset/")
         .privileges(redfish::privileges::postManager)
         .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -193,7 +193,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
         .methods(
             boost::beast::http::verb::
                 post)([&app](
-                          const crow::Request& req,
+                          const bmcweb::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& managerId) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -241,7 +241,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
                 return;
             }
 
-            crow::connections::systemBus->async_method_call(
+            bmcweb::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code& ec) {
                     if (ec)
                     {
@@ -272,7 +272,7 @@ inline void requestRoutesManagerResetActionInfo(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/ResetActionInfo/")
         .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -862,7 +862,7 @@ inline CreatePIDRet createPidInterface(
 
         BMCWEB_LOG_DEBUG("del {} {}", path, iface);
         // delete interface
-        crow::connections::systemBus->async_method_call(
+        bmcweb::connections::systemBus->async_method_call(
             [response, path](const boost::system::error_code& ec) {
                 if (ec)
                 {
@@ -1255,7 +1255,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 const std::string& owner = subtreeLocal[0].second[0].first;
 
                 sdbusplus::asio::getAllProperties(
-                    *crow::connections::systemBus, owner, path,
+                    *bmcweb::connections::systemBus, owner, path,
                     thermalModeIface,
                     [path, owner,
                      self](const boost::system::error_code& ec2,
@@ -1358,7 +1358,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
     ~GetPIDValues()
     {
-        boost::asio::post(crow::connections::systemBus->get_io_context(),
+        boost::asio::post(bmcweb::connections::systemBus->get_io_context(),
                           std::bind_front(&processingComplete, asyncResp,
                                           std::move(complete)));
     }
@@ -1453,7 +1453,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 const std::string& path = subtree[0].first;
                 const std::string& owner = subtree[0].second[0].first;
                 sdbusplus::asio::getAllProperties(
-                    *crow::connections::systemBus, owner, path,
+                    *bmcweb::connections::systemBus, owner, path,
                     thermalModeIface,
                     [self, path,
                      owner](const boost::system::error_code& ec2,
@@ -1512,7 +1512,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             }
             currentProfile = *profile;
             sdbusplus::asio::setProperty(
-                *crow::connections::systemBus, profileConnection, profilePath,
+                *bmcweb::connections::systemBus, profileConnection, profilePath,
                 thermalModeIface, "Current", *profile,
                 [response](const boost::system::error_code& ec) {
                     if (ec)
@@ -1639,7 +1639,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 {
                     for (const auto& property : output)
                     {
-                        crow::connections::systemBus->async_method_call(
+                        bmcweb::connections::systemBus->async_method_call(
                             [response,
                              propertyName{std::string(property.first)}](
                                 const boost::system::error_code& ec) {
@@ -1686,7 +1686,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         return;
                     }
 
-                    crow::connections::systemBus->async_method_call(
+                    bmcweb::connections::systemBus->async_method_call(
                         [response](const boost::system::error_code& ec) {
                             if (ec)
                             {
@@ -1743,7 +1743,7 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG("Get BMC manager Location data.");
 
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        *bmcweb::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
@@ -1767,7 +1767,7 @@ inline void
     BMCWEB_LOG_DEBUG("Getting Manager Last Reset Time");
 
     sdbusplus::asio::getProperty<uint64_t>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.BMC",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.State.BMC",
         "/xyz/openbmc_project/state/bmc0", "xyz.openbmc_project.State.BMC",
         "LastRebootTime",
         [asyncResp](const boost::system::error_code& ec,
@@ -1880,7 +1880,7 @@ inline void
             // An addition could be a Redfish Setting like
             // ActiveSoftwareImageApplyTime and support OnReset
             sdbusplus::asio::setProperty(
-                *crow::connections::systemBus,
+                *bmcweb::connections::systemBus,
                 "xyz.openbmc_project.Software.BMC.Updater",
                 "/xyz/openbmc_project/software/" + firmwareId,
                 "xyz.openbmc_project.Software.RedundancyPriority", "Priority",
@@ -1941,7 +1941,7 @@ inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Set the absolute datetime
     bool relative = false;
     bool interactive = false;
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec,
                     const sdbusplus::message_t& msg) {
             afterSetDateTime(asyncResp, ec, msg);
@@ -1955,7 +1955,7 @@ inline void
     checkForQuiesced(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "org.freedesktop.systemd1",
+        *bmcweb::connections::systemBus, "org.freedesktop.systemd1",
         "/org/freedesktop/systemd1/unit/obmc-bmc-service-quiesce@0.target",
         "org.freedesktop.systemd1.Unit", "ActiveState",
         [asyncResp](const boost::system::error_code& ec,
@@ -1986,7 +1986,7 @@ inline void requestRoutesManager(App& app)
         .methods(
             boost::beast::http::verb::
                 get)([&app,
-                      uuid](const crow::Request& req,
+                      uuid](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& managerId) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2152,7 +2152,7 @@ inline void requestRoutesManager(App& app)
             });
 
             sdbusplus::asio::getProperty<double>(
-                *crow::connections::systemBus, "org.freedesktop.systemd1",
+                *bmcweb::connections::systemBus, "org.freedesktop.systemd1",
                 "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager",
                 "Progress",
                 [asyncResp](const boost::system::error_code& ec, double val) {
@@ -2219,7 +2219,7 @@ inline void requestRoutesManager(App& app)
                             "xyz.openbmc_project.Inventory.Decorator.Asset")
                         {
                             sdbusplus::asio::getAllProperties(
-                                *crow::connections::systemBus, connectionName,
+                                *bmcweb::connections::systemBus, connectionName,
                                 path,
                                 "xyz.openbmc_project.Inventory.Decorator.Asset",
                                 [asyncResp](
@@ -2302,7 +2302,7 @@ inline void requestRoutesManager(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")
         .privileges(redfish::privileges::patchManager)
         .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2399,7 +2399,7 @@ inline void requestRoutesManagerCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/")
         .privileges(redfish::privileges::getManagerCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {

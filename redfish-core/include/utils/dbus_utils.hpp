@@ -58,7 +58,7 @@ void setDbusProperty(
     std::string dbusPropertyStr(dbusProperty);
 
     sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, processNameStr, path.str, interfaceStr,
+        *bmcweb::connections::systemBus, processNameStr, path.str, interfaceStr,
         dbusPropertyStr, prop,
         [asyncResp, redfishPropertyNameStr = std::string{redfishPropertyName},
          jsonProp = nlohmann::json(prop)](const boost::system::error_code& ec,
@@ -81,7 +81,7 @@ void setDbusPropertyAction(
     std::string dbusPropertyStr(dbusProperty);
 
     sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, processNameStr, path.str, interfaceStr,
+        *bmcweb::connections::systemBus, processNameStr, path.str, interfaceStr,
         dbusPropertyStr, prop,
         [asyncResp,
          redfishActionParameterName = std::string{redfishActionParameterName},

@@ -31,7 +31,7 @@ namespace redfish
 namespace json_util
 {
 
-bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
+bool processJsonFromRequest(bmcweb::Response& res, const bmcweb::Request& req,
                             nlohmann::json& reqJson)
 {
     JsonParseResult ret = parseRequestAsJson(req, reqJson);

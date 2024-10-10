@@ -57,7 +57,7 @@ class MultipartParser
   public:
     MultipartParser() = default;
 
-    [[nodiscard]] ParserError parse(const crow::Request& req)
+    [[nodiscard]] ParserError parse(const bmcweb::Request& req)
     {
         std::string_view contentType = req.getHeaderValue("content-type");
 

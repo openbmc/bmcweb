@@ -58,7 +58,7 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const sdbusplus::message::object_path& path)
 {
     sdbusplus::asio::getProperty<std::vector<std::string>>(
-        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
         (path / "storage").str, "xyz.openbmc_project.Association", "endpoints",
         [asyncResp](const boost::system::error_code& ec,
                     const std::vector<std::string>& storageList) {
@@ -99,9 +99,9 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  */
 inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
-    // crow::connections::systemBus->async_method_call(
+    // bmcweb::connections::systemBus->async_method_call(
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
         [asyncResp{std::move(asyncResp)}](const boost::system::error_code& ec,
@@ -166,7 +166,7 @@ inline void handlePhysicalSecurityGetSubTree(
             BMCWEB_LOG_DEBUG("Get intrusion status by service ");
 
             sdbusplus::asio::getProperty<std::string>(
-                *crow::connections::systemBus, service.first, object.first,
+                *bmcweb::connections::systemBus, service.first, object.first,
                 "xyz.openbmc_project.Chassis.Intrusion", "Status",
                 [asyncResp](const boost::system::error_code& ec1,
                             const std::string& value) {
@@ -191,7 +191,7 @@ inline void handlePhysicalSecurityGetSubTree(
 }
 
 inline void handleChassisCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -331,7 +331,7 @@ inline void getChassisLocationCode(
     const std::string& connectionName, const std::string& path)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        *bmcweb::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
@@ -353,7 +353,7 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& path)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+        *bmcweb::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Common.UUID", "UUID",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& chassisUUID) {
@@ -545,7 +545,7 @@ inline void handleChassisGetSubTree(
             if (interface == assetTagInterface)
             {
                 sdbusplus::asio::getProperty<std::string>(
-                    *crow::connections::systemBus, connectionName, path,
+                    *bmcweb::connections::systemBus, connectionName, path,
                     assetTagInterface, "AssetTag",
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const std::string& property) {
@@ -562,7 +562,7 @@ inline void handleChassisGetSubTree(
             else if (interface == replaceableInterface)
             {
                 sdbusplus::asio::getProperty<bool>(
-                    *crow::connections::systemBus, connectionName, path,
+                    *bmcweb::connections::systemBus, connectionName, path,
                     replaceableInterface, "HotPluggable",
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const bool property) {
@@ -580,7 +580,7 @@ inline void handleChassisGetSubTree(
             else if (interface == revisionInterface)
             {
                 sdbusplus::asio::getProperty<std::string>(
-                    *crow::connections::systemBus, connectionName, path,
+                    *bmcweb::connections::systemBus, connectionName, path,
                     revisionInterface, "Version",
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const std::string& property) {
@@ -607,7 +607,7 @@ inline void handleChassisGetSubTree(
         }
 
         sdbusplus::asio::getAllProperties(
-            *crow::connections::systemBus, connectionName, path,
+            *bmcweb::connections::systemBus, connectionName, path,
             "xyz.openbmc_project.Inventory.Decorator.Asset",
             [asyncResp, chassisId,
              path](const boost::system::error_code&,
@@ -637,7 +637,7 @@ inline void handleChassisGetSubTree(
 }
 
 inline void
-    handleChassisGet(App& app, const crow::Request& req,
+    handleChassisGet(App& app, const bmcweb::Request& req,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& chassisId)
 {
@@ -662,7 +662,7 @@ inline void
 }
 
 inline void
-    handleChassisPatch(App& app, const crow::Request& req,
+    handleChassisPatch(App& app, const bmcweb::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& param)
 {
@@ -847,7 +847,7 @@ inline void
 }
 
 inline void handleChassisResetActionInfoPost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*chassisId*/)
 {
@@ -891,7 +891,7 @@ inline void requestRoutesChassisResetAction(App& app)
 }
 
 inline void handleChassisResetActionInfoGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {

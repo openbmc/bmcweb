@@ -102,7 +102,7 @@ void getPortStatusAndPath(
         protocolToDBus,
     CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [protocolToDBus, callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const std::vector<UnitStruct>& r) {
@@ -210,7 +210,7 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
 {
     sdbusplus::asio::getProperty<
         std::vector<std::tuple<std::string, std::string>>>(
-        *crow::connections::systemBus, "org.freedesktop.systemd1", socketPath,
+        *bmcweb::connections::systemBus, "org.freedesktop.systemd1", socketPath,
         "org.freedesktop.systemd1.Socket", "Listen",
         [callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,

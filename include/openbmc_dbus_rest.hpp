@@ -99,7 +99,7 @@ inline bool validateFilename(const std::string& filename)
     return std::regex_match(filename, validFilename);
 }
 
-inline void setErrorResponse(crow::Response& res,
+inline void setErrorResponse(bmcweb::Response& res,
                              boost::beast::http::status result,
                              const std::string& desc, std::string_view msg)
 {
@@ -120,7 +120,7 @@ inline void introspectObjects(
         transaction->res.jsonValue["objects"] = nlohmann::json::array();
     }
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [transaction, processName{std::string(processName)},
          objectPath{std::string(objectPath)}](
             const boost::system::error_code& ec,
@@ -182,7 +182,7 @@ inline void getPropertiesForEnumerate(
                      interface);
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, objectPath, interface,
+        *bmcweb::connections::systemBus, service, objectPath, interface,
         [asyncResp, objectPath, service,
          interface](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -364,7 +364,7 @@ inline void findObjectManagerPathForEnumerate(
 {
     BMCWEB_LOG_DEBUG("Finding objectmanager for path {} on connection:{}",
                      objectName, connectionName);
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [transaction, objectName, connectionName](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetAncestorsResponse& objects) {
@@ -1391,7 +1391,7 @@ inline void findActionOnInterface(
     const std::string& connectionName)
 {
     BMCWEB_LOG_DEBUG("findActionOnInterface for connection {}", connectionName);
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [transaction, connectionName{std::string(connectionName)}](
             const boost::system::error_code& ec,
             const std::string& introspectXml) {
@@ -1443,7 +1443,7 @@ inline void findActionOnInterface(
                                 "Found method named {} on interface {}",
                                 thisMethodName, thisInterfaceName);
                             sdbusplus::message_t m =
-                                crow::connections::systemBus->new_method_call(
+                                bmcweb::connections::systemBus->new_method_call(
                                     connectionName.c_str(),
                                     transaction->path.c_str(),
                                     thisInterfaceName,
@@ -1507,7 +1507,7 @@ inline void findActionOnInterface(
                                     argumentNode->NextSiblingElement("arg");
                             }
 
-                            crow::connections::systemBus->async_send(
+                            bmcweb::connections::systemBus->async_send(
                                 m, [transaction, returnType](
                                        const boost::system::error_code& ec2,
                                        sdbusplus::message_t& m2) {
@@ -1552,7 +1552,7 @@ inline void findActionOnInterface(
         "org.freedesktop.DBus.Introspectable", "Introspect");
 }
 
-inline void handleAction(const crow::Request& req,
+inline void handleAction(const bmcweb::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& objectPath,
                          const std::string& methodName)
@@ -1760,11 +1760,11 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 for (const std::string& interface : interfaceNames)
                 {
                     sdbusplus::message_t m =
-                        crow::connections::systemBus->new_method_call(
+                        bmcweb::connections::systemBus->new_method_call(
                             connection.first.c_str(), path->c_str(),
                             "org.freedesktop.DBus.Properties", "GetAll");
                     m.append(interface);
-                    crow::connections::systemBus->async_send(
+                    bmcweb::connections::systemBus->async_send(
                         m, [asyncResp, response,
                             propertyName](const boost::system::error_code& ec2,
                                           sdbusplus::message_t& msg) {
@@ -1867,7 +1867,7 @@ struct AsyncPutRequest
     nlohmann::json propertyValue;
 };
 
-inline void handlePut(const crow::Request& req,
+inline void handlePut(const bmcweb::Request& req,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& objectPath,
                       const std::string& destProperty)
@@ -1928,7 +1928,7 @@ inline void handlePut(const crow::Request& req,
             {
                 const std::string& connectionName = connection.first;
 
-                crow::connections::systemBus->async_method_call(
+                bmcweb::connections::systemBus->async_method_call(
                     [connectionName{std::string(connectionName)},
                      transaction](const boost::system::error_code& ec3,
                                   const std::string& introspectXml) {
@@ -1981,7 +1981,7 @@ inline void handlePut(const crow::Request& req,
                                     if (argType != nullptr)
                                     {
                                         sdbusplus::message_t m =
-                                            crow::connections::systemBus
+                                            bmcweb::connections::systemBus
                                                 ->new_method_call(
                                                     connectionName.c_str(),
                                                     transaction->objectPath
@@ -2027,7 +2027,7 @@ inline void handlePut(const crow::Request& req,
                                                 "Unexpected Error");
                                             return;
                                         }
-                                        crow::connections::systemBus
+                                        bmcweb::connections::systemBus
                                             ->async_send(
                                                 m,
                                                 [transaction](
@@ -2085,7 +2085,7 @@ inline void handlePut(const crow::Request& req,
         });
 }
 
-inline void handleDBusUrl(const crow::Request& req,
+inline void handleDBusUrl(const bmcweb::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           std::string& objectPath)
 {
@@ -2161,7 +2161,7 @@ inline void handleDBusUrl(const crow::Request& req,
 }
 
 inline void handleBusSystemPost(
-    const crow::Request& req,
+    const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processName, const std::string& requestedPath)
 {
@@ -2215,7 +2215,7 @@ inline void handleBusSystemPost(
     }
     if (interfaceName.empty())
     {
-        crow::connections::systemBus->async_method_call(
+        bmcweb::connections::systemBus->async_method_call(
             [asyncResp, processName,
              objectPath](const boost::system::error_code& ec,
                          const std::string& introspectXml) {
@@ -2269,7 +2269,7 @@ inline void handleBusSystemPost(
     }
     else if (methodName.empty())
     {
-        crow::connections::systemBus->async_method_call(
+        bmcweb::connections::systemBus->async_method_call(
             [asyncResp, processName, objectPath,
              interfaceName](const boost::system::error_code& ec,
                             const std::string& introspectXml) {
@@ -2423,7 +2423,7 @@ inline void handleBusSystemPost(
                     if (type != nullptr && name != nullptr)
                     {
                         sdbusplus::message_t m =
-                            crow::connections::systemBus->new_method_call(
+                            bmcweb::connections::systemBus->new_method_call(
                                 processName.c_str(), objectPath.c_str(),
                                 "org.freedesktop."
                                 "DBus."
@@ -2431,7 +2431,7 @@ inline void handleBusSystemPost(
                                 "Get");
                         m.append(interfaceName, name);
                         nlohmann::json& propertyItem = propertiesObj[name];
-                        crow::connections::systemBus->async_send(
+                        bmcweb::connections::systemBus->async_send(
                             m, [&propertyItem,
                                 asyncResp](const boost::system::error_code& ec2,
                                            sdbusplus::message_t& msg) {
@@ -2500,7 +2500,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/bus/")
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
+            [](const bmcweb::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 nlohmann::json::array_t buses;
                 nlohmann::json& bus = buses.emplace_back();
@@ -2512,7 +2512,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/bus/system/")
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
+            [](const bmcweb::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 auto myCallback = [asyncResp](
                                       const boost::system::error_code& ec,
@@ -2536,7 +2536,7 @@ inline void requestRoutes(App& app)
                         }
                     }
                 };
-                crow::connections::systemBus->async_method_call(
+                bmcweb::connections::systemBus->async_method_call(
                     std::move(myCallback), "org.freedesktop.DBus", "/",
                     "org.freedesktop.DBus", "ListNames");
             });
@@ -2544,7 +2544,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/list/")
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
+            [](const bmcweb::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 handleList(asyncResp, "/");
             });
@@ -2552,7 +2552,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/xyz/<path>")
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
+            [](const bmcweb::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& path) {
                 std::string objectPath = "/xyz/" + path;
@@ -2563,7 +2563,7 @@ inline void requestRoutes(App& app)
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
                  boost::beast::http::verb::delete_)(
-            [](const crow::Request& req,
+            [](const bmcweb::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& path) {
                 std::string objectPath = "/xyz/" + path;
@@ -2573,7 +2573,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/org/<path>")
         .privileges({{"Login"}})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
+            [](const bmcweb::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& path) {
                 std::string objectPath = "/org/" + path;
@@ -2584,7 +2584,7 @@ inline void requestRoutes(App& app)
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
                  boost::beast::http::verb::delete_)(
-            [](const crow::Request& req,
+            [](const bmcweb::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& path) {
                 std::string objectPath = "/org/" + path;
@@ -2594,7 +2594,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
         .privileges({{"ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
+            [](const bmcweb::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& dumpId) {
                 if (!validateFilename(dumpId))
@@ -2621,7 +2621,7 @@ inline void requestRoutes(App& app)
                 for (const auto& file : files)
                 {
                     if (asyncResp->res.openFile(file) !=
-                        crow::OpenCode::Success)
+                        bmcweb::OpenCode::Success)
                     {
                         continue;
                     }
@@ -2663,7 +2663,7 @@ inline void requestRoutes(App& app)
         .privileges({{"Login"}})
 
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
+            [](const bmcweb::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& connection) {
                 introspectObjects(connection, "/", asyncResp);

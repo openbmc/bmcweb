@@ -103,7 +103,7 @@ inline void getValidPCIeDevicePath(
 }
 
 inline void handlePCIeDeviceCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -151,7 +151,7 @@ inline void requestRoutesSystemPCIeDeviceCollection(App& app)
 }
 
 inline void addPCIeSlotProperties(
-    crow::Response& res, const boost::system::error_code& ec,
+    bmcweb::Response& res, const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& pcieSlotProperties)
 {
     if (ec)
@@ -272,7 +272,7 @@ inline void afterGetDbusObject(
         return;
     }
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, object.begin()->first, pcieDeviceSlot,
+        *bmcweb::connections::systemBus, object.begin()->first, pcieDeviceSlot,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
         [asyncResp](
             const boost::system::error_code& ec2,
@@ -299,7 +299,7 @@ inline void getPCIeDeviceHealth(
     const std::string& pcieDevicePath, const std::string& service)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, pcieDevicePath,
+        *bmcweb::connections::systemBus, service, pcieDevicePath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
@@ -326,7 +326,7 @@ inline void getPCIeDeviceState(
     const std::string& pcieDevicePath, const std::string& service)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, pcieDevicePath,
+        *bmcweb::connections::systemBus, service, pcieDevicePath,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp](const boost::system::error_code& ec, bool value) {
             if (ec)
@@ -352,7 +352,7 @@ inline void getPCIeDeviceAsset(
     const std::string& pcieDevicePath, const std::string& service)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, pcieDevicePath,
+        *bmcweb::connections::systemBus, service, pcieDevicePath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [pcieDevicePath, asyncResp{asyncResp}](
             const boost::system::error_code& ec,
@@ -515,7 +515,7 @@ inline void getPCIeDeviceProperties(
         const dbus::utility::DBusPropertiesMap& pcieDevProperties)>&& callback)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, pcieDevicePath,
+        *bmcweb::connections::systemBus, service, pcieDevicePath,
         "xyz.openbmc_project.Inventory.Item.PCIeDevice",
         [asyncResp,
          callback](const boost::system::error_code& ec,
@@ -568,7 +568,7 @@ inline void afterGetValidPcieDevicePath(
 }
 
 inline void handlePCIeDeviceGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& pcieDeviceId)
 {
@@ -604,7 +604,7 @@ inline void requestRoutesSystemPCIeDevice(App& app)
 }
 
 inline void addPCIeFunctionList(
-    crow::Response& res, const std::string& pcieDeviceId,
+    bmcweb::Response& res, const std::string& pcieDeviceId,
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
 {
     nlohmann::json& pcieFunctionList = res.jsonValue["Members"];
@@ -642,7 +642,7 @@ inline void addPCIeFunctionList(
 }
 
 inline void handlePCIeFunctionCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& pcieDeviceId)
 {
@@ -715,7 +715,7 @@ inline bool validatePCIeFunctionId(
 }
 
 inline void addPCIeFunctionProperties(
-    crow::Response& resp, uint64_t pcieFunctionId,
+    bmcweb::Response& resp, uint64_t pcieFunctionId,
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
 {
     std::string functionName = "Function" + std::to_string(pcieFunctionId);
@@ -771,7 +771,7 @@ inline void addPCIeFunctionProperties(
     }
 }
 
-inline void addPCIeFunctionCommonProperties(crow::Response& resp,
+inline void addPCIeFunctionCommonProperties(bmcweb::Response& resp,
                                             const std::string& pcieDeviceId,
                                             uint64_t pcieFunctionId)
 {
@@ -792,7 +792,7 @@ inline void addPCIeFunctionCommonProperties(crow::Response& resp,
 }
 
 inline void handlePCIeFunctionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& pcieDeviceId,
     const std::string& pcieFunctionIdStr)

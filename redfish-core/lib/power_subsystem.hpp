@@ -44,7 +44,7 @@ inline void doPowerSubsystemCollection(
 }
 
 inline void handlePowerSubsystemCollectionHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -69,7 +69,7 @@ inline void handlePowerSubsystemCollectionHead(
 }
 
 inline void handlePowerSubsystemCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {

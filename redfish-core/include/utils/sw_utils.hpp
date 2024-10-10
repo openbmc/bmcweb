@@ -179,8 +179,9 @@ inline void populateSoftwareInformation(
 
                         // Now grab its version info
                         sdbusplus::asio::getAllProperties(
-                            *crow::connections::systemBus, obj.second[0].first,
-                            obj.first, "xyz.openbmc_project.Software.Version",
+                            *bmcweb::connections::systemBus,
+                            obj.second[0].first, obj.first,
+                            "xyz.openbmc_project.Software.Version",
                             [asyncResp, swId, runningImage, swVersionPurpose,
                              activeVersionPropName, populateLinkToImages](
                                 const boost::system::error_code& ec3,
@@ -360,7 +361,7 @@ inline void getSwStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG("getSwStatus: swId {} svc {}", *swId, dbusSvc);
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, dbusSvc,
+        *bmcweb::connections::systemBus, dbusSvc,
         "/xyz/openbmc_project/software/" + *swId,
         "xyz.openbmc_project.Software.Activation",
         [asyncResp,

@@ -29,7 +29,7 @@ inline void getFabricAdapterLocation(
     const std::string& serviceName, const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        *bmcweb::connections::systemBus, serviceName, fabricAdapterPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
@@ -54,7 +54,7 @@ inline void getFabricAdapterAsset(
     const std::string& serviceName, const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        *bmcweb::connections::systemBus, serviceName, fabricAdapterPath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [fabricAdapterPath, asyncResp{asyncResp}](
             const boost::system::error_code& ec,
@@ -112,7 +112,7 @@ inline void getFabricAdapterState(
     const std::string& serviceName, const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        *bmcweb::connections::systemBus, serviceName, fabricAdapterPath,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp](const boost::system::error_code& ec, const bool present) {
             if (ec)
@@ -138,7 +138,7 @@ inline void getFabricAdapterHealth(
     const std::string& serviceName, const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, serviceName, fabricAdapterPath,
+        *bmcweb::connections::systemBus, serviceName, fabricAdapterPath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         [asyncResp](const boost::system::error_code& ec,
                     const bool functional) {
@@ -257,7 +257,7 @@ inline void afterHandleFabricAdapterGet(
 }
 
 inline void handleFabricAdapterGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId)
 {
@@ -284,7 +284,7 @@ inline void handleFabricAdapterGet(
 }
 
 inline void handleFabricAdapterCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -325,7 +325,7 @@ inline void handleFabricAdapterCollectionGet(
 }
 
 inline void handleFabricAdapterCollectionHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -381,7 +381,7 @@ inline void afterHandleFabricAdapterHead(
 }
 
 inline void handleFabricAdapterHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId)
 {

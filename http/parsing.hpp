@@ -25,7 +25,7 @@ inline bool isJsonContentType(std::string_view contentType)
            bmcweb::asciiIEquals(contentType, "application/json;charset=utf-8");
 }
 
-inline JsonParseResult parseRequestAsJson(const crow::Request& req,
+inline JsonParseResult parseRequestAsJson(const bmcweb::Request& req,
                                           nlohmann::json& jsonOut)
 {
     if (!isJsonContentType(

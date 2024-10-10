@@ -42,7 +42,7 @@ namespace redfish
 {
 
 inline void handleSystemsStorageCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -73,7 +73,7 @@ inline void handleSystemsStorageCollectionGet(
 }
 
 inline void handleStorageCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -188,7 +188,7 @@ inline void afterSystemsStorageGetSubtree(
 }
 
 inline void handleSystemsStorageGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& storageId)
 {
@@ -257,7 +257,7 @@ inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void
-    handleStorageGet(App& app, const crow::Request& req,
+    handleStorageGet(App& app, const bmcweb::Request& req,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& storageId)
 {
@@ -292,7 +292,7 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& path)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, path,
+        *bmcweb::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [asyncResp](const boost::system::error_code& ec,
                     const std::vector<
@@ -347,7 +347,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& path)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, connectionName, path,
+        *bmcweb::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp,
          path](const boost::system::error_code& ec, const bool isPresent) {
@@ -371,7 +371,7 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& path)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, connectionName, path,
+        *bmcweb::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.State.Drive", "Rebuilding",
         [asyncResp](const boost::system::error_code& ec, const bool updating) {
             // this interface isn't necessary, only check it
@@ -444,7 +444,7 @@ inline void getDriveItemProperties(
     const std::string& connectionName, const std::string& path)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, path,
+        *bmcweb::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item.Drive",
         [asyncResp](const boost::system::error_code& ec,
                     const std::vector<
@@ -690,7 +690,7 @@ inline void afterGetSubtreeSystemsStorageDrive(
 }
 
 inline void handleSystemsStorageDriveGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& driveId)
 {
@@ -807,7 +807,7 @@ inline void afterChassisDriveCollectionSubtreeGet(
  * information
  */
 inline void chassisDriveCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -908,7 +908,7 @@ inline void matchAndFillDrive(
 }
 
 inline void handleChassisDriveGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& driveName)
 {
@@ -1037,7 +1037,7 @@ inline void populateStorageController(
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, connectionName, path,
+        *bmcweb::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp](const boost::system::error_code& ec, bool isPresent) {
             // this interface isn't necessary, only check it
@@ -1055,7 +1055,7 @@ inline void populateStorageController(
         });
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, path,
+        *bmcweb::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [asyncResp](const boost::system::error_code& ec,
                     const std::vector<
@@ -1138,7 +1138,7 @@ inline void populateStorageControllerCollection(
 }
 
 inline void handleSystemsStorageControllerCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -1175,7 +1175,7 @@ inline void handleSystemsStorageControllerCollectionGet(
 }
 
 inline void handleSystemsStorageControllerGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& controllerId)
 {

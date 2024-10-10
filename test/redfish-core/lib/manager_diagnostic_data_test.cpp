@@ -39,7 +39,7 @@ TEST(ManagerDiagnosticDataTest, ManagerDataGetPathInvalid)
     testDataGetNoError(boost::system::linux_error::bad_request_descriptor);
 }
 
-void verifyError(crow::Response& res)
+void verifyError(bmcweb::Response& res)
 {
     EXPECT_EQ(res.result(), boost::beast::http::status::internal_server_error);
     res.clear();

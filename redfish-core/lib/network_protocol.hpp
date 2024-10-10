@@ -167,7 +167,7 @@ inline void afterNetworkPortRequest(
 }
 
 inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const crow::Request& req)
+                           const bmcweb::Request& req)
 {
     if (req.session == nullptr)
     {
@@ -279,7 +279,7 @@ inline void handleNTPProtocolEnabled(
     auto callback = [asyncResp](const boost::system::error_code& ec) {
         afterSetNTP(asyncResp, ec);
     };
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         std::move(callback), "org.freedesktop.timedate1",
         "/org/freedesktop/timedate1", "org.freedesktop.timedate1", "SetNTP",
         ntpEnabled, interactive);
@@ -449,7 +449,7 @@ inline void
     getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "org.freedesktop.timedate1",
+        *bmcweb::connections::systemBus, "org.freedesktop.timedate1",
         "/org/freedesktop/timedate1", "org.freedesktop.timedate1", "NTP",
         [asyncResp](const boost::system::error_code& ec, bool enabled) {
             if (ec)
@@ -472,7 +472,7 @@ inline std::string encodeServiceObjectPath(std::string_view serviceName)
 }
 
 inline void handleBmcNetworkProtocolHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -485,7 +485,7 @@ inline void handleBmcNetworkProtocolHead(
 }
 
 inline void handleManagersNetworkProtocolPatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -563,7 +563,7 @@ inline void handleManagersNetworkProtocolPatch(
 }
 
 inline void handleManagersNetworkProtocolHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -582,7 +582,7 @@ inline void handleManagersNetworkProtocolHead(
 }
 
 inline void handleManagersNetworkProtocolGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {

@@ -35,7 +35,7 @@ TEST_F(MultipartTest, TestGoodMultipartParser)
         "{\r\n--------d74496d6695887}\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -70,7 +70,7 @@ TEST_F(MultipartTest, TestBadMultipartParser1)
         "1234567890\r\n"
         "-----------------------------d74496d66958873e\r-\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -88,7 +88,7 @@ TEST_F(MultipartTest, TestBadMultipartParser2)
         "Content-Disposition: form-data; name=\"Test1\"\r\n\r\n"
         "abcd\r\n"
         "-----------------------------d74496d66958873e-\r\n";
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -110,7 +110,7 @@ TEST_F(MultipartTest, TestErrorBoundaryFormat)
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -129,7 +129,7 @@ TEST_F(MultipartTest, TestErrorBoundaryCR)
         "Content-Disposition: form-data; name=\"Test2\"\r\n\r\n"
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -149,7 +149,7 @@ TEST_F(MultipartTest, TestErrorBoundaryLF)
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -169,7 +169,7 @@ TEST_F(MultipartTest, TestErrorBoundaryData)
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -188,7 +188,7 @@ TEST_F(MultipartTest, TestErrorEmptyHeader)
         "Content-Disposition: form-data; name=\"Test2\"\r\n"
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -207,7 +207,7 @@ TEST_F(MultipartTest, TestErrorHeaderName)
         "Content-Disposition: form-data; name=\"Test2\"\r\n\r\n"
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -227,7 +227,7 @@ TEST_F(MultipartTest, TestErrorHeaderValue)
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -247,7 +247,7 @@ TEST_F(MultipartTest, TestErrorHeaderEnding)
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -266,7 +266,7 @@ TEST_F(MultipartTest, TestGoodMultipartParserMultipleHeaders)
         "Data1\r\n"
         "-----------------------------d74496d66958873e--";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type",
                     "multipart/form-data; "
@@ -293,7 +293,7 @@ TEST_F(MultipartTest, TestErrorHeaderWithoutColon)
         "\r\n"
         "Data1\r\n"
         "----end--\r\n";
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type", "multipart/form-data; "
                                     "boundary=--end");
@@ -310,7 +310,7 @@ TEST_F(MultipartTest, TestUnknownHeaderIsCorrectlyParsed)
         "Data1\r\n"
         "----end--\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type", "multipart/form-data; "
                                     "boundary=--end");
@@ -335,7 +335,7 @@ TEST_F(MultipartTest, TestErrorMissingSeparatorBetweenMimeFieldsAndData)
         "Data1"
         "-----------------------------d74496d66958873e--";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader(
         "Content-Type",
@@ -354,7 +354,7 @@ TEST_F(MultipartTest, TestDataWithoutMimeFields)
         "Data1\r\n"
         "-----------------------------d74496d66958873e--";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader(
         "Content-Type",
@@ -382,7 +382,7 @@ TEST_F(MultipartTest, TestErrorMissingFinalBoundry)
         "t-DiPpccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccAAAAAAAAAAAAAAABCDz\r\n"
         "\335\r\n\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type", "multipart/form-data; boundary=--XX");
 
@@ -402,7 +402,7 @@ TEST_F(MultipartTest, TestIgnoreDataAfterFinalBoundary)
         "Data2\r\n"
         "----XX--\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type", "multipart/form-data; boundary=--XX");
 
@@ -428,7 +428,7 @@ TEST_F(MultipartTest, TestFinalBoundaryIsCorrectlyRecognized)
         "StillData1\r\n"
         "----XX--\r\n";
 
-    crow::Request reqIn(body, ec);
+    bmcweb::Request reqIn(body, ec);
 
     reqIn.addHeader("Content-Type", "multipart/form-data; boundary=--XX");
 

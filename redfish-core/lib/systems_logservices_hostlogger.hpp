@@ -34,7 +34,7 @@ inline void fillHostLoggerEntryJson(std::string_view logEntryID,
 }
 
 inline void handleSystemsLogServicesHostloggerGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -68,7 +68,7 @@ inline void handleSystemsLogServicesHostloggerGet(
 }
 
 inline void handleSystemsLogServicesHostloggerEntriesGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -155,7 +155,7 @@ inline void handleSystemsLogServicesHostloggerEntriesGet(
 }
 
 inline void handleSystemsLogServicesHostloggerEntriesEntryGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& param)
 {

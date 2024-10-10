@@ -25,6 +25,6 @@ inline void registerUserRemovedSignal()
             "/xyz/openbmc_project/user");
 
     static sdbusplus::bus::match_t userRemovedMatch(
-        *crow::connections::systemBus, userRemovedMatchStr, onUserRemoved);
+        *bmcweb::connections::systemBus, userRemovedMatchStr, onUserRemoved);
 }
 } // namespace bmcweb

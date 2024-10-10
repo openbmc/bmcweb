@@ -33,7 +33,7 @@ limitations under the License.
 namespace redfish
 {
 
-inline void fillSessionObject(crow::Response& res,
+inline void fillSessionObject(bmcweb::Response& res,
                               const persistent_data::UserSession& session)
 {
     res.jsonValue["Id"] = session.uniqueId;
@@ -54,7 +54,7 @@ inline void fillSessionObject(crow::Response& res,
 }
 
 inline void
-    handleSessionHead(crow::App& app, const crow::Request& req,
+    handleSessionHead(bmcweb::App& app, const bmcweb::Request& req,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& /*sessionId*/)
 {
@@ -68,7 +68,7 @@ inline void
 }
 
 inline void
-    handleSessionGet(crow::App& app, const crow::Request& req,
+    handleSessionGet(bmcweb::App& app, const bmcweb::Request& req,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& sessionId)
 {
@@ -94,7 +94,7 @@ inline void
 }
 
 inline void
-    handleSessionDelete(crow::App& app, const crow::Request& req,
+    handleSessionDelete(bmcweb::App& app, const bmcweb::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& sessionId)
 {
@@ -155,7 +155,7 @@ inline nlohmann::json getSessionCollectionMembers()
 }
 
 inline void handleSessionCollectionHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -168,7 +168,7 @@ inline void handleSessionCollectionHead(
 }
 
 inline void handleSessionCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -191,7 +191,7 @@ inline void handleSessionCollectionGet(
 }
 
 inline void handleSessionCollectionMembersGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -202,7 +202,7 @@ inline void handleSessionCollectionMembersGet(
 }
 
 inline void handleSessionCollectionPost(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -278,12 +278,12 @@ inline void handleSessionCollectionPost(
                                 session->username));
     }
 
-    crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
+    bmcweb::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
         fillSessionObject(asyncResp->res, *session);
     });
 }
 inline void handleSessionServiceHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -295,7 +295,7 @@ inline void handleSessionServiceHead(
         "</redfish/v1/JsonSchemas/SessionService/SessionService.json>; rel=describedby");
 }
 inline void
-    handleSessionServiceGet(crow::App& app, const crow::Request& req,
+    handleSessionServiceGet(bmcweb::App& app, const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
 {
@@ -322,7 +322,7 @@ inline void
 }
 
 inline void handleSessionServicePatch(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))

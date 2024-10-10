@@ -52,7 +52,7 @@ inline void doThermalSubsystemCollection(
 }
 
 inline void handleThermalSubsystemCollectionHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -77,7 +77,7 @@ inline void handleThermalSubsystemCollectionHead(
 }
 
 inline void handleThermalSubsystemCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
