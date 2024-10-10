@@ -89,15 +89,15 @@ class WebSocketRule : public BaseRule
     }
 
   protected:
-    std::function<void(crow::websocket::Connection&)> openHandler;
-    std::function<void(crow::websocket::Connection&, const std::string&, bool)>
+    std::function<void(websocket::Connection&)> openHandler;
+    std::function<void(websocket::Connection&, const std::string&, bool)>
         messageHandler;
-    std::function<void(crow::websocket::Connection&, std::string_view,
-                       crow::websocket::MessageType type,
+    std::function<void(websocket::Connection&, std::string_view,
+                       websocket::MessageType type,
                        std::function<void()>&& whenComplete)>
         messageExHandler;
-    std::function<void(crow::websocket::Connection&, const std::string&)>
+    std::function<void(websocket::Connection&, const std::string&)>
         closeHandler;
-    std::function<void(crow::websocket::Connection&)> errorHandler;
+    std::function<void(websocket::Connection&)> errorHandler;
 };
 } // namespace crow

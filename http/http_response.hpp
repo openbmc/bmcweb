@@ -43,7 +43,7 @@ enum class OpenCode
 struct Response
 {
     template <typename Adaptor, typename Handler>
-    friend class crow::Connection;
+    friend class Connection;
 
     http::response<bmcweb::HttpBody> response;
 
