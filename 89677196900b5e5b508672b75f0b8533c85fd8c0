@@ -275,6 +275,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1acc473f_fcf55166",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2510,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-10T10:31:57Z",
+      "side": 1,
+      "message": "I’m not going to continue to argue something on a forum that we have no influence on.  either:\n1. get DMTF to change this, and mark this patch WIP until the next redfish release.\n2. change this patchset for now to follow the privilege registry as it exists, then fix it once you’ve made your case to DMTF and a release is made.",
+      "parentUuid": "d8f568dd_b128b110",
+      "range": {
+        "startLine": 2506,
+        "startChar": 0,
+        "endLine": 2510,
+        "endChar": 5
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b905927_129872b5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
