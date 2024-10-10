@@ -26,7 +26,7 @@
 #include <system_error>
 #include <variant>
 
-namespace crow
+namespace bmcweb
 {
 namespace hostname_monitor
 {
@@ -171,4 +171,6 @@ inline void registerHostnameSignal()
         nullptr);
 }
 } // namespace hostname_monitor
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

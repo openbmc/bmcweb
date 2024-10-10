@@ -32,7 +32,7 @@
 #include <utility>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 
 class Router
@@ -393,4 +393,6 @@ class Router
 
     std::vector<std::unique_ptr<BaseRule>> allRules;
 };
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

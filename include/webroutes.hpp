@@ -5,7 +5,7 @@
 #include <boost/container/flat_set.hpp>
 
 #include <string>
-namespace crow
+namespace bmcweb
 {
 namespace webroutes
 {
@@ -15,4 +15,6 @@ static boost::container::flat_set<std::string> routes;
 
 } // namespace webroutes
 
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

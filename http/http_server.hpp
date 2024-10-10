@@ -27,7 +27,7 @@
 #include <utility>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 
 struct Acceptor
@@ -180,4 +180,6 @@ class Server
 
     std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
 };
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

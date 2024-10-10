@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 namespace dbus_monitor
 {
@@ -269,4 +269,6 @@ inline void requestRoutes(App& app)
         });
 }
 } // namespace dbus_monitor
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

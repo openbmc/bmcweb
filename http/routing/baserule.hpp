@@ -19,7 +19,7 @@
 #include <utility>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 class BaseRule
 {
@@ -106,4 +106,6 @@ class BaseRule
     friend struct RuleParameterTraits;
 };
 
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

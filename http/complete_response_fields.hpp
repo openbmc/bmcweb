@@ -18,7 +18,7 @@
 #include <string_view>
 #include <utility>
 
-namespace crow
+namespace bmcweb
 {
 
 inline void handleEncoding(std::string_view acceptEncoding, Response& res)
@@ -101,4 +101,6 @@ inline void completeResponseFields(
 
     handleEncoding(acceptEncoding, res);
 }
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;
