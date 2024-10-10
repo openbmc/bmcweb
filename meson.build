@@ -267,7 +267,7 @@ bmcweb_dependencies += [libsystemd, zlib]
 
 nlohmann_json_dep = dependency(
     'nlohmann_json',
-    version: '>=3.11.2',
+    version: '>=3.11.3',
     include_type: 'system',
 )
 bmcweb_dependencies += nlohmann_json_dep
