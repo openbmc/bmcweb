@@ -6275,10 +6275,19 @@ inline void getFullAuditLogAttachment(
         return;
     }
 
-    long long int size = lseek(fd, 0, SEEK_END);
+    off_t size = lseek(fd, 0, SEEK_END);
     if (size == -1)
     {
         BMCWEB_LOG_ERROR("Failed to get size of fd {}", fd);
+        messages::internalError(asyncResp->res);
+        close(fd);
+        return;
+    }
+    /* Reset seek pointer so download will start at beginning */
+    off_t rc = lseek(fd, 0, SEEK_SET);
+    if (rc == -1)
+    {
+        BMCWEB_LOG_ERROR("Failed to reset file offset to 0");
         messages::internalError(asyncResp->res);
         close(fd);
         return;
@@ -6298,32 +6307,18 @@ inline void getFullAuditLogAttachment(
         return;
     }
 
-    std::vector<char> data(static_cast<size_t>(size));
-    long long int rc = lseek(fd, 0, SEEK_SET);
-    if (rc == -1)
+    if (!asyncResp->res.openFd(fd, bmcweb::EncodingType::Base64))
     {
-        BMCWEB_LOG_ERROR("Failed to seek fd {}", fd);
+        BMCWEB_LOG_ERROR("Failed to open fd {} for response", fd);
         messages::internalError(asyncResp->res);
         close(fd);
         return;
     }
-    rc = read(fd, data.data(), data.size());
-    if ((rc == -1) || (rc != size))
-    {
-        BMCWEB_LOG_ERROR("Failed to read fd {}", fd);
-        messages::internalError(asyncResp->res);
-        close(fd);
-        return;
-    }
-    close(fd);
-
-    std::string_view strData(data.data(), data.size());
 
     asyncResp->res.addHeader(boost::beast::http::field::content_type,
                              "application/octet-stream");
     asyncResp->res.addHeader(
         boost::beast::http::field::content_transfer_encoding, "Base64");
-    asyncResp->res.write(crow::utility::base64encode(strData));
 }
 
 inline void handleFullAuditLogAttachment(
