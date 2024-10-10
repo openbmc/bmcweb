@@ -80,8 +80,9 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
         std::string chassis;
         std::string node;
 
-        if (crow::utility::readUrlSegments(*parsed, "redfish", "v1", "Chassis",
-                                           std::ref(chassis), std::ref(node)))
+        if (bmcweb::utility::readUrlSegments(*parsed, "redfish", "v1",
+                                             "Chassis", std::ref(chassis),
+                                             std::ref(node)))
         {
             matched.emplace(std::move(chassis), std::move(node));
             uriIdx++;
@@ -92,9 +93,9 @@ inline std::optional<IncorrectMetricUri> getChassisSensorNode(
         // sensors exist at the moment of parsing.
         std::string ignoredSenorId;
 
-        if (crow::utility::readUrlSegments(*parsed, "redfish", "v1", "Chassis",
-                                           std::ref(chassis), "Sensors",
-                                           std::ref(ignoredSenorId)))
+        if (bmcweb::utility::readUrlSegments(
+                *parsed, "redfish", "v1", "Chassis", std::ref(chassis),
+                "Sensors", std::ref(ignoredSenorId)))
         {
             matched.emplace(std::move(chassis), "Sensors");
             uriIdx++;

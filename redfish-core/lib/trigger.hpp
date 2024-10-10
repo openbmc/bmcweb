@@ -232,7 +232,7 @@ inline std::optional<sdbusplus::message::object_path>
     }
 
     std::string id;
-    if (!crow::utility::readUrlSegments(
+    if (!bmcweb::utility::readUrlSegments(
             *parsed, "redfish", "v1", "TelemetryService",
             "MetricReportDefinitions", std::ref(id)))
     {
@@ -271,7 +271,7 @@ inline std::optional<DiscreteCondition>
     return std::nullopt;
 }
 
-inline bool parseThreshold(crow::Response& res,
+inline bool parseThreshold(bmcweb::Response& res,
                            nlohmann::json::object_t& threshold,
                            std::string_view dbusThresholdName,
                            std::vector<NumericThresholdParams>& parsedParams)
@@ -323,7 +323,7 @@ struct NumericThresholds
 };
 
 inline bool parseNumericThresholds(
-    crow::Response& res, NumericThresholds& numericThresholds, Context& ctx)
+    bmcweb::Response& res, NumericThresholds& numericThresholds, Context& ctx)
 {
     std::vector<NumericThresholdParams> parsedParams;
     if (numericThresholds.upperCritical)
@@ -372,7 +372,7 @@ inline bool parseNumericThresholds(
 }
 
 inline bool parseDiscreteTriggers(
-    crow::Response& res,
+    bmcweb::Response& res,
     std::optional<std::vector<nlohmann::json::object_t>>& discreteTriggers,
     Context& ctx)
 {
@@ -423,7 +423,7 @@ inline bool parseDiscreteTriggers(
 }
 
 inline bool parseTriggerThresholds(
-    crow::Response& res,
+    bmcweb::Response& res,
     std::optional<std::vector<nlohmann::json::object_t>>& discreteTriggers,
     NumericThresholds& numericThresholds, Context& ctx)
 {
@@ -515,7 +515,7 @@ inline bool parseTriggerThresholds(
     return true;
 }
 
-inline bool parseLinks(crow::Response& res,
+inline bool parseLinks(bmcweb::Response& res,
                        const std::vector<std::string>& metricReportDefinitions,
                        Context& ctx)
 {
@@ -535,7 +535,7 @@ inline bool parseLinks(crow::Response& res,
     return true;
 }
 
-inline bool parseMetricProperties(crow::Response& res, Context& ctx)
+inline bool parseMetricProperties(bmcweb::Response& res, Context& ctx)
 {
     if (!ctx.metricProperties)
     {
@@ -557,9 +557,9 @@ inline bool parseMetricProperties(crow::Response& res, Context& ctx)
         }
         std::string chassisName;
         std::string sensorName;
-        if (!crow::utility::readUrlSegments(*uri, "redfish", "v1", "Chassis",
-                                            std::ref(chassisName), "Sensors",
-                                            std::ref(sensorName)))
+        if (!bmcweb::utility::readUrlSegments(*uri, "redfish", "v1", "Chassis",
+                                              std::ref(chassisName), "Sensors",
+                                              std::ref(sensorName)))
         {
             messages::propertyValueIncorrect(
                 res, "MetricProperties/" + std::to_string(uriIdx), uriStr);
@@ -584,8 +584,8 @@ inline bool parseMetricProperties(crow::Response& res, Context& ctx)
     return true;
 }
 
-inline bool parsePostTriggerParams(crow::Response& res,
-                                   const crow::Request& req, Context& ctx)
+inline bool parsePostTriggerParams(bmcweb::Response& res,
+                                   const bmcweb::Request& req, Context& ctx)
 {
     std::optional<std::string> id = "";
     std::optional<std::string> name = "";
@@ -939,7 +939,7 @@ inline bool fillTrigger(
 }
 
 inline void handleTriggerCollectionPost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -953,7 +953,7 @@ inline void handleTriggerCollectionPost(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, id = ctx.id](const boost::system::error_code& ec,
                                  const std::string& dbusPath) {
             afterCreateTrigger(ec, dbusPath, asyncResp, id);
@@ -971,7 +971,7 @@ inline void requestRoutesTriggerCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/")
         .privileges(redfish::privileges::getTriggersCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
@@ -1002,7 +1002,7 @@ inline void requestRoutesTrigger(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
         .privileges(redfish::privileges::getTriggers)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& id) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1010,7 +1010,7 @@ inline void requestRoutesTrigger(App& app)
                     return;
                 }
                 sdbusplus::asio::getAllProperties(
-                    *crow::connections::systemBus, telemetry::service,
+                    *bmcweb::connections::systemBus, telemetry::service,
                     telemetry::getDbusTriggerPath(id),
                     telemetry::triggerInterface,
                     [asyncResp,
@@ -1043,7 +1043,7 @@ inline void requestRoutesTrigger(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/Triggers/<str>/")
         .privileges(redfish::privileges::deleteTriggers)
         .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& id) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1053,7 +1053,7 @@ inline void requestRoutesTrigger(App& app)
                 const std::string triggerPath =
                     telemetry::getDbusTriggerPath(id);
 
-                crow::connections::systemBus->async_method_call(
+                bmcweb::connections::systemBus->async_method_call(
                     [asyncResp, id](const boost::system::error_code& ec) {
                         if (ec.value() == EBADR)
                         {

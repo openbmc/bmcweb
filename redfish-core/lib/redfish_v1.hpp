@@ -16,7 +16,7 @@
 namespace redfish
 {
 
-inline void redfishGet(App& app, const crow::Request& req,
+inline void redfishGet(App& app, const bmcweb::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -26,7 +26,7 @@ inline void redfishGet(App& app, const crow::Request& req,
     asyncResp->res.jsonValue["v1"] = "/redfish/v1/";
 }
 
-inline void redfish404(App& app, const crow::Request& req,
+inline void redfish404(App& app, const bmcweb::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& path)
 {
@@ -48,7 +48,7 @@ inline void redfish404(App& app, const crow::Request& req,
     messages::resourceNotFound(asyncResp->res, "", name);
 }
 
-inline void redfish405(App& app, const crow::Request& req,
+inline void redfish405(App& app, const bmcweb::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& path)
 {
@@ -72,7 +72,7 @@ inline void redfish405(App& app, const crow::Request& req,
 }
 
 inline void
-    jsonSchemaIndexGet(App& app, const crow::Request& req,
+    jsonSchemaIndexGet(App& app, const bmcweb::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -113,7 +113,7 @@ inline void
     json["Members"] = std::move(members);
 }
 
-inline void jsonSchemaGet(App& app, const crow::Request& req,
+inline void jsonSchemaGet(App& app, const bmcweb::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& schema)
 {
@@ -177,7 +177,7 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
 }
 
 inline void
-    jsonSchemaGetFile(const crow::Request& /*req*/,
+    jsonSchemaGetFile(const bmcweb::Request& /*req*/,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& schema, const std::string& schemaFile)
 {
@@ -204,13 +204,13 @@ inline void
         return;
     }
 
-    crow::OpenCode ec = asyncResp->res.openFile(filepath);
-    if (ec == crow::OpenCode::FileDoesNotExist)
+    bmcweb::OpenCode ec = asyncResp->res.openFile(filepath);
+    if (ec == bmcweb::OpenCode::FileDoesNotExist)
     {
         messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
         return;
     }
-    if (ec == crow::OpenCode::InternalError)
+    if (ec == bmcweb::OpenCode::InternalError)
     {
         BMCWEB_LOG_DEBUG("failed to read file");
         messages::internalError(asyncResp->res);

@@ -31,7 +31,7 @@ namespace redfish
 {
 
 inline void
-    handleServiceRootHead(App& app, const crow::Request& req,
+    handleServiceRootHead(App& app, const bmcweb::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -116,7 +116,7 @@ inline void handleServiceRootGetImpl(
     protocolFeatures["DeepOperations"]["DeepPATCH"] = false;
 }
 inline void
-    handleServiceRootGet(App& app, const crow::Request& req,
+    handleServiceRootGet(App& app, const bmcweb::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))

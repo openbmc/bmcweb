@@ -357,7 +357,7 @@ TEST(RecursiveSelect, ReservedPropertiesAreSelected)
     auto ret = boost::urls::parse_relative_ref(
         "/redfish/v1?$select=Prefix1/ExplicitSelectMe,Prefix3/ExplicitSelectMe");
     ASSERT_TRUE(ret);
-    crow::Response res;
+    bmcweb::Response res;
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query);
     if (!query)
@@ -418,10 +418,10 @@ TEST(PropogateErrorCode, 4xxIsWorseThanOthers)
 
 TEST(PropogateError, IntermediateNoErrorMessageMakesNoChange)
 {
-    crow::Response intermediate;
+    bmcweb::Response intermediate;
     intermediate.result(boost::beast::http::status::ok);
 
-    crow::Response finalRes;
+    bmcweb::Response finalRes;
     finalRes.result(boost::beast::http::status::ok);
     propogateError(finalRes, intermediate);
     EXPECT_EQ(finalRes.result(), boost::beast::http::status::ok);
@@ -440,11 +440,11 @@ TEST(PropogateError, ErrorsArePropergatedWithErrorInRoot)
     "Resolution": "Resubmit the request.  If the problem persists, consider resetting the service."
 }
 )"_json;
-    crow::Response intermediate;
+    bmcweb::Response intermediate;
     intermediate.result(boost::beast::http::status::internal_server_error);
     intermediate.jsonValue = root;
 
-    crow::Response final;
+    bmcweb::Response final;
     final.result(boost::beast::http::status::ok);
 
     propogateError(final, intermediate);
@@ -461,7 +461,7 @@ TEST(PropogateError, ErrorsArePropergatedWithErrorInRoot)
 
 TEST(PropogateError, ErrorsArePropergatedWithErrorCode)
 {
-    crow::Response intermediate;
+    bmcweb::Response intermediate;
     intermediate.result(boost::beast::http::status::internal_server_error);
 
     nlohmann::json error = R"(
@@ -489,7 +489,7 @@ TEST(PropogateError, ErrorsArePropergatedWithErrorCode)
         error["error"][messages::messageAnnotation].push_back(extendedInfo);
     }
     intermediate.jsonValue = error;
-    crow::Response final;
+    bmcweb::Response final;
     final.result(boost::beast::http::status::ok);
 
     propogateError(final, intermediate);
@@ -517,7 +517,7 @@ TEST(QueryParams, ParseParametersOnly)
         return;
     }
 
-    crow::Response res;
+    bmcweb::Response res;
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query);
     if (!query)
@@ -536,7 +536,7 @@ TEST(QueryParams, ParseParametersExpand)
         return;
     }
 
-    crow::Response res;
+    bmcweb::Response res;
 
     std::optional<Query> query = parseParameters(ret->params(), res);
     if constexpr (BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)
@@ -564,7 +564,7 @@ TEST(QueryParams, ParseParametersTop)
         return;
     }
 
-    crow::Response res;
+    bmcweb::Response res;
 
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query);
@@ -580,7 +580,7 @@ TEST(QueryParams, ParseParametersTopOutOfRangeNegative)
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?$top=-1");
     ASSERT_TRUE(ret);
 
-    crow::Response res;
+    bmcweb::Response res;
 
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query == std::nullopt);
@@ -594,7 +594,7 @@ TEST(QueryParams, ParseParametersTopOutOfRangePositive)
     {
         return;
     }
-    crow::Response res;
+    bmcweb::Response res;
 
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query == std::nullopt);
@@ -605,7 +605,7 @@ TEST(QueryParams, ParseParametersSkip)
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?$skip=1");
     ASSERT_TRUE(ret);
 
-    crow::Response res;
+    bmcweb::Response res;
 
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query);
@@ -621,7 +621,7 @@ TEST(QueryParams, ParseParametersSkipOutOfRange)
         "/redfish/v1?$skip=99999999999999999999");
     ASSERT_TRUE(ret);
 
-    crow::Response res;
+    bmcweb::Response res;
 
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_EQ(query, std::nullopt);
@@ -632,7 +632,7 @@ TEST(QueryParams, ParseParametersUnexpectedGetsIgnored)
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?unexpected_param");
     ASSERT_TRUE(ret);
 
-    crow::Response res;
+    bmcweb::Response res;
 
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query != std::nullopt);
@@ -643,7 +643,7 @@ TEST(QueryParams, ParseParametersUnexpectedDollarGetsError)
     auto ret = boost::urls::parse_relative_ref("/redfish/v1?$unexpected_param");
     ASSERT_TRUE(ret);
 
-    crow::Response res;
+    bmcweb::Response res;
 
     std::optional<Query> query = parseParameters(ret->params(), res);
     ASSERT_TRUE(query == std::nullopt);

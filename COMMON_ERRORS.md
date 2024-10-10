@@ -210,7 +210,7 @@ whole.
 ```cpp
 BMCWEB_ROUTE("/myendpoint/<str>",
     [](Request& req, Response& res, const std::string& id){
-     crow::connections::systemBus->async_method_call(
+     bmcweb::connections::systemBus->async_method_call(
           [asyncResp](const boost::system::error_code& ec,
                       const std::string& myProperty) {
               if (ec)
@@ -242,7 +242,7 @@ An implementation of the above that handles 404 would look like:
 ```cpp
 BMCWEB_ROUTE("/myendpoint/<str>",
     [](Request& req, Response& res, const std::string& id){
-     crow::connections::systemBus->async_method_call(
+     bmcweb::connections::systemBus->async_method_call(
           [asyncResp](const boost::system::error_code& ec,
                       const std::string& myProperty) {
               if (ec == <error code that gets returned by not found>){
@@ -305,7 +305,7 @@ removing just the field you need.
 ## 13. Complete replacement of the response object
 
 ```cpp
-void getMembers(crow::Response& res){
+void getMembers(bmcweb::Response& res){
   res.jsonValue = {{"Value", 2}};
 }
 ```
@@ -317,7 +317,7 @@ output of the response is dependent on the _order_ of the asynchronous actions
 completing, which cannot be guaranteed, and has many time caused bugs.
 
 ```cpp
-void getMembers(crow::Response& res){
+void getMembers(bmcweb::Response& res){
   res.jsonValue["Value"] = 2;
 }
 ```

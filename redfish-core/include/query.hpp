@@ -22,16 +22,16 @@
 #include <type_traits>
 #include <utility>
 
-// IWYU pragma: no_forward_declare crow::App
+// IWYU pragma: no_forward_declare bmcweb::App
 
 #include "redfish_aggregator.hpp"
 
 namespace redfish
 {
 inline void afterIfMatchRequest(
-    crow::App& app, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::shared_ptr<crow::Request>& req, const std::string& ifMatchHeader,
-    const crow::Response& resIn)
+    bmcweb::App& app, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<bmcweb::Request>& req,
+    const std::string& ifMatchHeader, const bmcweb::Response& resIn)
 {
     std::string computedEtag = resIn.computeEtag();
     BMCWEB_LOG_DEBUG("User provided if-match etag {} computed etag {}",
@@ -47,7 +47,7 @@ inline void afterIfMatchRequest(
     app.handle(req, asyncResp);
 }
 
-inline bool handleIfMatch(crow::App& app, const crow::Request& req,
+inline bool handleIfMatch(bmcweb::App& app, const bmcweb::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (req.session == nullptr)
@@ -80,9 +80,9 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     boost::system::error_code ec;
 
     // Try to GET the same resource
-    auto getReq = std::make_shared<crow::Request>(
-        crow::Request::Body{boost::beast::http::verb::get,
-                            req.url().encoded_path(), 11},
+    auto getReq = std::make_shared<bmcweb::Request>(
+        bmcweb::Request::Body{boost::beast::http::verb::get,
+                              req.url().encoded_path(), 11},
         ec);
 
     if (ec)
@@ -104,7 +104,7 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     // a full copy to restart it.
     getReqAsyncResp->res.setCompleteRequestHandler(std::bind_front(
         afterIfMatchRequest, std::ref(app), asyncResp,
-        std::make_shared<crow::Request>(req), std::move(ifMatch)));
+        std::make_shared<bmcweb::Request>(req), std::move(ifMatch)));
 
     app.handle(getReq, getReqAsyncResp);
     return false;
@@ -115,7 +115,7 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
 // handled by redfish-core/lib codes, then default query parameter handler won't
 // process these parameters.
 [[nodiscard]] inline bool setUpRedfishRouteWithDelegation(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     query_param::Query& delegated,
     const query_param::QueryCapabilities& queryCapabilities)
@@ -167,12 +167,12 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     }
 
     delegated = query_param::delegate(queryCapabilities, *queryOpt);
-    std::function<void(crow::Response&)> handler =
+    std::function<void(bmcweb::Response&)> handler =
         asyncResp->res.releaseCompleteRequestHandler();
 
     asyncResp->res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)), query{std::move(*queryOpt)},
-         delegated{delegated}](crow::Response& resIn) mutable {
+         delegated{delegated}](bmcweb::Response& resIn) mutable {
             processAllParams(app, query, delegated, handler, resIn);
         });
 
@@ -181,7 +181,7 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
 
 // Sets up the Redfish Route. All parameters are handled by the default handler.
 [[nodiscard]] inline bool
-    setUpRedfishRoute(crow::App& app, const crow::Request& req,
+    setUpRedfishRoute(bmcweb::App& app, const bmcweb::Request& req,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // This route |delegated| is never used

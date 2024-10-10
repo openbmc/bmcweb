@@ -33,7 +33,7 @@ namespace redfish
 {
 
 inline void handleMessageRegistryFileCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -74,7 +74,7 @@ inline void requestRoutesMessageRegistryFileCollection(App& app)
 }
 
 inline void handleMessageRoutesMessageRegistryFileGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& registry)
 {
@@ -154,7 +154,7 @@ inline void requestRoutesMessageRegistryFile(App& app)
 }
 
 inline void handleMessageRegistryGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& registry, const std::string& registryMatch)
 

@@ -63,7 +63,7 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 {
     BMCWEB_LOG_DEBUG("Get Processor UUID");
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, objPath,
+        *bmcweb::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Common.UUID", "UUID",
         [objPath, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec, const std::string& property) {
@@ -377,7 +377,7 @@ inline void getThrottleProperties(
     BMCWEB_LOG_DEBUG("Get processor throttle resources");
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, objectPath,
+        *bmcweb::connections::systemBus, service, objectPath,
         "xyz.openbmc_project.Control.Power.Throttle",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
@@ -391,7 +391,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 {
     BMCWEB_LOG_DEBUG("Get Cpu Asset Data");
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, objPath,
+        *bmcweb::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [objPath, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
@@ -465,7 +465,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 {
     BMCWEB_LOG_DEBUG("Get Cpu Revision Data");
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, objPath,
+        *bmcweb::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.Revision",
         [objPath, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
@@ -502,7 +502,7 @@ inline void getAcceleratorDataByService(
 {
     BMCWEB_LOG_DEBUG("Get available system Accelerator resources by service.");
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, objPath, "",
+        *bmcweb::connections::systemBus, service, objPath, "",
         [acclrtrId, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& properties) {
@@ -616,7 +616,7 @@ inline void
 
     // First, GetAll CurrentOperatingConfig properties on the object
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, objPath,
+        *bmcweb::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
         [asyncResp, cpuId,
          service](const boost::system::error_code& ec,
@@ -677,7 +677,7 @@ inline void
                 // request to read the base freq core ids out of that
                 // config.
                 sdbusplus::asio::getProperty<BaseSpeedPrioritySettingsProperty>(
-                    *crow::connections::systemBus, service, dbusPath,
+                    *bmcweb::connections::systemBus, service, dbusPath,
                     "xyz.openbmc_project.Inventory.Item.Cpu."
                     "OperatingConfig",
                     "BaseSpeedPrioritySettings",
@@ -718,7 +718,7 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 {
     BMCWEB_LOG_DEBUG("Get Cpu Location Data");
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, objPath,
+        *bmcweb::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [objPath, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec, const std::string& property) {
@@ -749,7 +749,7 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG("Get CPU UniqueIdentifier");
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, objectPath,
+        *bmcweb::connections::systemBus, service, objectPath,
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "UniqueIdentifier",
         [asyncResp](const boost::system::error_code& ec,
@@ -915,7 +915,7 @@ inline void getOperatingConfigData(
     const std::string& service, const std::string& objPath)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, objPath,
+        *bmcweb::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
@@ -1073,7 +1073,7 @@ inline void patchAppliedOperatingConfig(
 }
 
 inline void handleProcessorHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /* systemName */, const std::string& /* processorId */)
 {
@@ -1087,7 +1087,7 @@ inline void handleProcessorHead(
 }
 
 inline void handleProcessorCollectionHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /* systemName */)
 {
@@ -1107,7 +1107,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
         .privileges(redfish::privileges::getOperatingConfigCollection)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName,
                             const std::string& cpuName) {
@@ -1190,7 +1190,7 @@ inline void requestRoutesOperatingConfig(App& app)
         .privileges(redfish::privileges::getOperatingConfig)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName,
                             const std::string& cpuName,
@@ -1277,7 +1277,7 @@ inline void requestRoutesProcessorCollection(App& app)
         .privileges(redfish::privileges::getProcessorCollection)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1334,7 +1334,7 @@ inline void requestRoutesProcessor(App& app)
         .privileges(redfish::privileges::getProcessor)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName,
                             const std::string& processorId) {
@@ -1373,7 +1373,7 @@ inline void requestRoutesProcessor(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Processors/<str>/")
         .privileges(redfish::privileges::patchProcessor)
         .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName,
                    const std::string& processorId) {

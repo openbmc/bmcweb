@@ -39,7 +39,7 @@ inline void
 {
     BMCWEB_LOG_DEBUG("Get hypervisor state information.");
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Hypervisor",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.State.Hypervisor",
         "/xyz/openbmc_project/state/hypervisor0",
         "xyz.openbmc_project.State.Host", "CurrentHostState",
         [asyncResp](const boost::system::error_code& ec,
@@ -609,7 +609,7 @@ inline void
 }
 
 inline void handleHypervisorEthernetInterfaceCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -662,7 +662,7 @@ inline void handleHypervisorEthernetInterfaceCollectionGet(
 }
 
 inline void handleHypervisorEthernetInterfaceGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -713,7 +713,7 @@ inline void handleHypervisorSystemGet(
 }
 
 inline void handleHypervisorEthernetInterfacePatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& ifaceId)
 {
@@ -874,7 +874,7 @@ inline void handleHypervisorResetActionGet(
 }
 
 inline void handleHypervisorSystemResetPost(
-    const crow::Request& req,
+    const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::optional<std::string> resetType;

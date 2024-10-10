@@ -70,7 +70,7 @@ inline void handleCollectionMembers(
     for (const std::string& leaf : pathNames)
     {
         boost::urls::url url = collectionPath;
-        crow::utility::appendUrlPieces(url, leaf);
+        bmcweb::utility::appendUrlPieces(url, leaf);
         nlohmann::json::object_t member;
         member["@odata.id"] = std::move(url);
         members.emplace_back(std::move(member));

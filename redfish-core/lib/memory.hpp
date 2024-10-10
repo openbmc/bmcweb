@@ -620,7 +620,7 @@ inline void getDimmDataByService(
 {
     BMCWEB_LOG_DEBUG("Get available system components.");
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, objPath, "",
+        *bmcweb::connections::systemBus, service, objPath, "",
         [dimmId, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& properties) {
@@ -693,7 +693,7 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                  const std::string& path)
 {
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, path,
+        *bmcweb::connections::systemBus, service, path,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition",
         [asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
@@ -785,7 +785,7 @@ inline void requestRoutesMemoryCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/")
         .privileges(redfish::privileges::getMemoryCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -831,7 +831,7 @@ inline void requestRoutesMemory(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/")
         .privileges(redfish::privileges::getMemory)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName, const std::string& dimmId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))

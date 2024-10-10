@@ -25,7 +25,7 @@ struct DbusWebsocketSession
         interfaces;
 };
 
-using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
+using SessionMap = boost::container::flat_map<bmcweb::websocket::Connection*,
                                               DbusWebsocketSession>;
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -39,8 +39,8 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         BMCWEB_LOG_ERROR("Got sdbus error on match");
         return 0;
     }
-    crow::websocket::Connection* connection =
-        static_cast<crow::websocket::Connection*>(userdata);
+    bmcweb::websocket::Connection* connection =
+        static_cast<bmcweb::websocket::Connection*>(userdata);
     auto thisSession = sessions.find(connection);
     if (thisSession == sessions.end())
     {
@@ -125,14 +125,14 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/subscribe")
         .privileges({{"Login"}})
         .websocket()
-        .onopen([](crow::websocket::Connection& conn) {
+        .onopen([](bmcweb::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
             sessions.try_emplace(&conn);
         })
-        .onclose([](crow::websocket::Connection& conn, const std::string&) {
+        .onclose([](bmcweb::websocket::Connection& conn, const std::string&) {
             sessions.erase(&conn);
         })
-        .onmessage([](crow::websocket::Connection& conn,
+        .onmessage([](bmcweb::websocket::Connection& conn,
                       const std::string& data, bool) {
             const auto sessionPair = sessions.find(&conn);
             if (sessionPair == sessions.end())
@@ -215,7 +215,7 @@ inline void requestRoutes(App& app)
 
                     thisSession.matches.emplace_back(
                         std::make_unique<sdbusplus::bus::match_t>(
-                            *crow::connections::systemBus,
+                            *bmcweb::connections::systemBus,
                             propertiesMatchString, onPropertyUpdate, &conn));
                 }
                 else
@@ -238,8 +238,8 @@ inline void requestRoutes(App& app)
                         BMCWEB_LOG_DEBUG("Creating match {}", ifaceMatchString);
                         thisSession.matches.emplace_back(
                             std::make_unique<sdbusplus::bus::match_t>(
-                                *crow::connections::systemBus, ifaceMatchString,
-                                onPropertyUpdate, &conn));
+                                *bmcweb::connections::systemBus,
+                                ifaceMatchString, onPropertyUpdate, &conn));
                     }
                 }
                 std::string objectManagerMatchString =
@@ -252,8 +252,8 @@ inline void requestRoutes(App& app)
                 BMCWEB_LOG_DEBUG("Creating match {}", objectManagerMatchString);
                 thisSession.matches.emplace_back(
                     std::make_unique<sdbusplus::bus::match_t>(
-                        *crow::connections::systemBus, objectManagerMatchString,
-                        onPropertyUpdate, &conn));
+                        *bmcweb::connections::systemBus,
+                        objectManagerMatchString, onPropertyUpdate, &conn));
             }
         });
 }

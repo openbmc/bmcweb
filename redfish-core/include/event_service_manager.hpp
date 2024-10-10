@@ -277,7 +277,7 @@ class Subscription : public persistent_data::UserSubscription
 
     Subscription(const boost::urls::url_view_base& url,
                  boost::asio::io_context& ioc) :
-        policy(std::make_shared<crow::ConnectionPolicy>())
+        policy(std::make_shared<bmcweb::ConnectionPolicy>())
     {
         destinationUrl = url;
         client.emplace(ioc, policy);
@@ -285,7 +285,7 @@ class Subscription : public persistent_data::UserSubscription
         policy->invalidResp = retryRespHandler;
     }
 
-    explicit Subscription(crow::sse_socket::Connection& connIn) :
+    explicit Subscription(bmcweb::sse_socket::Connection& connIn) :
         sseConn(&connIn)
     {}
 
@@ -580,7 +580,7 @@ class Subscription : public persistent_data::UserSubscription
         return subId;
     }
 
-    bool matchSseId(const crow::sse_socket::Connection& thisConn)
+    bool matchSseId(const bmcweb::sse_socket::Connection& thisConn)
     {
         return &thisConn == sseConn;
     }
@@ -606,10 +606,10 @@ class Subscription : public persistent_data::UserSubscription
     std::string subId;
     uint64_t eventSeqNum = 1;
     boost::urls::url host;
-    std::shared_ptr<crow::ConnectionPolicy> policy;
-    crow::sse_socket::Connection* sseConn = nullptr;
+    std::shared_ptr<bmcweb::ConnectionPolicy> policy;
+    bmcweb::sse_socket::Connection* sseConn = nullptr;
 
-    std::optional<crow::HttpClient> client;
+    std::optional<bmcweb::HttpClient> client;
 
   public:
     std::optional<filter_ast::LogicalAnd> filter;
@@ -1059,7 +1059,7 @@ class EventServiceManager
         }
     }
 
-    void deleteSseSubscription(const crow::sse_socket::Connection& thisConn)
+    void deleteSseSubscription(const bmcweb::sse_socket::Connection& thisConn)
     {
         for (auto it = subscriptionsMap.begin(); it != subscriptionsMap.end();)
         {
@@ -1483,7 +1483,7 @@ class EventServiceManager
                                "arg0=xyz.openbmc_project.Telemetry.Report";
 
         matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match_t>(
-            *crow::connections::systemBus, matchStr, getReadingsForReport);
+            *bmcweb::connections::systemBus, matchStr, getReadingsForReport);
     }
 };
 

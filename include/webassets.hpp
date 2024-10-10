@@ -63,7 +63,7 @@ struct StaticFile
 };
 
 inline void handleStaticAsset(
-    const crow::Request& req,
+    const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const StaticFile& file)
 {
     if (!file.contentType.empty())
@@ -100,7 +100,7 @@ inline void handleStaticAsset(
         }
     }
 
-    if (asyncResp->res.openFile(file.absolutePath) != crow::OpenCode::Success)
+    if (asyncResp->res.openFile(file.absolutePath) != bmcweb::OpenCode::Success)
     {
         BMCWEB_LOG_DEBUG("failed to read file");
         asyncResp->res.result(
@@ -207,7 +207,7 @@ inline void addFile(App& app, const std::filesystem::directory_entry& dir)
 
     app.routeDynamic(webpath)(
         [file = std::move(
-             file)](const crow::Request& req,
+             file)](const bmcweb::Request& req,
                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
             handleStaticAsset(req, asyncResp, file);
         });

@@ -25,7 +25,7 @@ namespace redfish
  * @param[in]       properties  List of Cable Properties key/value pairs.
  */
 inline void fillCableProperties(
-    crow::Response& resp, const boost::system::error_code& ec,
+    bmcweb::Response& resp, const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& properties)
 {
     if (ec)
@@ -92,7 +92,7 @@ inline void
             if (interface == "xyz.openbmc_project.Inventory.Item.Cable")
             {
                 sdbusplus::asio::getAllProperties(
-                    *crow::connections::systemBus, service, cableObjectPath,
+                    *bmcweb::connections::systemBus, service, cableObjectPath,
                     interface,
                     [asyncResp](
                         const boost::system::error_code& ec,
@@ -103,7 +103,7 @@ inline void
             else if (interface == "xyz.openbmc_project.Inventory.Item")
             {
                 sdbusplus::asio::getProperty<bool>(
-                    *crow::connections::systemBus, service, cableObjectPath,
+                    *bmcweb::connections::systemBus, service, cableObjectPath,
                     interface, "Present",
                     [asyncResp, cableObjectPath](
                         const boost::system::error_code& ec, bool present) {
@@ -138,7 +138,7 @@ inline void requestRoutesCable(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Cables/<str>/")
         .privileges(redfish::privileges::getCable)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& cableId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -204,7 +204,7 @@ inline void requestRoutesCableCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Cables/")
         .privileges(redfish::privileges::getCableCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {

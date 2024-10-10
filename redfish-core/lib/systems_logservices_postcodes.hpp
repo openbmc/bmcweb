@@ -17,7 +17,7 @@ namespace redfish
 {
 
 inline void handleSystemsLogServicesPostCodesGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -64,7 +64,7 @@ inline void handleSystemsLogServicesPostCodesGet(
 }
 
 inline void handleSystemsLogServicesPostCodesPost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -88,7 +88,7 @@ inline void handleSystemsLogServicesPostCodesPost(
     BMCWEB_LOG_DEBUG("Do delete all postcodes entries.");
 
     // Make call to post-code service to request clear all
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -306,7 +306,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, entryId, bootIndex,
          codeIndex](const boost::system::error_code& ec,
                     const boost::container::flat_map<
@@ -342,7 +342,7 @@ inline void
                        const uint16_t bootIndex, const uint16_t bootCount,
                        const uint64_t entryCount, size_t skip, size_t top)
 {
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, bootIndex, bootCount, entryCount, skip,
          top](const boost::system::error_code& ec,
               const boost::container::flat_map<
@@ -402,7 +402,7 @@ inline void
 {
     uint64_t entryCount = 0;
     sdbusplus::asio::getProperty<uint16_t>(
-        *crow::connections::systemBus,
+        *bmcweb::connections::systemBus,
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
         "xyz.openbmc_project.State.Boot.PostCode", "CurrentBootCycleCount",
@@ -419,7 +419,7 @@ inline void
 }
 
 inline void handleSystemsLogServicesPostCodesEntriesGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -463,7 +463,7 @@ inline void handleSystemsLogServicesPostCodesEntriesGet(
 }
 
 inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& postCodeID)
 {
@@ -500,7 +500,7 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, postCodeID, currentValue](
             const boost::system::error_code& ec,
             const std::vector<std::tuple<uint64_t, std::vector<uint8_t>>>&
@@ -543,7 +543,7 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
                                      "application/octet-stream");
             asyncResp->res.addHeader(
                 boost::beast::http::field::content_transfer_encoding, "Base64");
-            asyncResp->res.write(crow::utility::base64encode(strData));
+            asyncResp->res.write(bmcweb::utility::base64encode(strData));
         },
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
@@ -551,7 +551,7 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
 }
 
 inline void handleSystemsLogServicesPostCodesEntriesEntryGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& targetID)
 {

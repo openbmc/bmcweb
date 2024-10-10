@@ -82,7 +82,7 @@ inline void
     }
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network.SNMP",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.Network.SNMP",
         objectPath, "xyz.openbmc_project.Network.Client",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
@@ -93,7 +93,7 @@ inline void
 inline void getSnmpTrapClient(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, id](const boost::system::error_code& ec,
                         dbus::utility::ManagedObjectType& resp) {
             if (ec)
@@ -181,7 +181,7 @@ inline void
     addSnmpTrapClient(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& host, uint16_t snmpTrapPort)
 {
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp,
          host](const boost::system::error_code& ec,
                const sdbusplus::message_t& msg, const std::string& dbusSNMPid) {
@@ -223,7 +223,7 @@ inline void
             "/xyz/openbmc_project/network/snmp/manager") /
         std::string(snmpTrapId);
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, param](const boost::system::error_code& ec) {
             if (ec)
             {

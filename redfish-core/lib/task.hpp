@@ -49,7 +49,7 @@ constexpr bool completed = true;
 
 struct Payload
 {
-    explicit Payload(const crow::Request& req) :
+    explicit Payload(const bmcweb::Request& req) :
         targetUri(req.url().encoded_path()), httpOperation(req.methodString()),
         httpHeaders(nlohmann::json::array())
     {
@@ -101,7 +101,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         startTime(std::chrono::system_clock::to_time_t(
             std::chrono::system_clock::now())),
         status("OK"), state("Running"), messages(nlohmann::json::array()),
-        timer(crow::connections::systemBus->get_io_context())
+        timer(bmcweb::connections::systemBus->get_io_context())
 
     {}
 
@@ -139,7 +139,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             std::move(handler), match, lastTask++));
     }
 
-    void populateResp(crow::Response& res, size_t retryAfterSeconds = 30)
+    void populateResp(bmcweb::Response& res, size_t retryAfterSeconds = 30)
     {
         if (!endTime)
         {
@@ -268,7 +268,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             return;
         }
         match = std::make_unique<sdbusplus::bus::match_t>(
-            static_cast<sdbusplus::bus_t&>(*crow::connections::systemBus),
+            static_cast<sdbusplus::bus_t&>(*bmcweb::connections::systemBus),
             matchStr,
             [self = shared_from_this()](sdbusplus::message_t& message) {
                 boost::system::error_code ec;
@@ -285,7 +285,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
                     // reset the match after the callback was successful
                     boost::asio::post(
-                        crow::connections::systemBus->get_io_context(),
+                        bmcweb::connections::systemBus->get_io_context(),
                         [self] { self->match.reset(); });
                     return;
                 }
@@ -321,7 +321,7 @@ inline void requestRoutesTaskMonitor(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/TaskMonitors/<str>/")
         .privileges(redfish::privileges::getTask)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& strParam) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -364,7 +364,7 @@ inline void requestRoutesTask(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/<str>/")
         .privileges(redfish::privileges::getTask)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& strParam) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -443,7 +443,7 @@ inline void requestRoutesTaskCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/Tasks/")
         .privileges(redfish::privileges::getTaskCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
@@ -479,7 +479,7 @@ inline void requestRoutesTaskService(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TaskService/")
         .privileges(redfish::privileges::getTaskService)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
