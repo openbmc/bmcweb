@@ -16,7 +16,7 @@
 #include <string_view>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 namespace google_api
 {
@@ -224,4 +224,6 @@ inline void requestRoutes(App& app)
 }
 
 } // namespace google_api
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

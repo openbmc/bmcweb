@@ -33,7 +33,7 @@
 #include <string>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 
 struct Http2StreamData
@@ -613,4 +613,6 @@ class HTTP2Connection :
     using std::enable_shared_from_this<
         HTTP2Connection<Adaptor, Handler>>::weak_from_this;
 };
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

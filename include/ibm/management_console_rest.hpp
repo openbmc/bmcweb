@@ -16,7 +16,7 @@
 #include <filesystem>
 #include <fstream>
 
-namespace crow
+namespace bmcweb
 {
 namespace ibm_mc
 {
@@ -472,4 +472,6 @@ inline void requestRoutes(App& app)
 }
 
 } // namespace ibm_mc
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

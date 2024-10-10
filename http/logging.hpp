@@ -25,7 +25,7 @@ struct std::formatter<void*>
 };
 // NOLINTEND(readability-convert-member-functions-to-static, cert-dcl58-cpp)
 
-namespace crow
+namespace bmcweb
 {
 enum class LogLevel
 {
@@ -42,20 +42,20 @@ enum class LogLevel
 constexpr std::array<std::string_view, 7> mapLogLevelFromName{
     "DISABLED", "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "ENABLED"};
 
-constexpr crow::LogLevel getLogLevelFromName(std::string_view name)
+constexpr bmcweb::LogLevel getLogLevelFromName(std::string_view name)
 {
     const auto* iter = std::ranges::find(mapLogLevelFromName, name);
     if (iter != mapLogLevelFromName.end())
     {
         return static_cast<LogLevel>(iter - mapLogLevelFromName.begin());
     }
-    return crow::LogLevel::Disabled;
+    return bmcweb::LogLevel::Disabled;
 }
 
 // configured bmcweb LogLevel
-inline crow::LogLevel& getBmcwebCurrentLoggingLevel()
+inline bmcweb::LogLevel& getBmcwebCurrentLoggingLevel()
 {
-    static crow::LogLevel level = getLogLevelFromName(BMCWEB_LOGGING_LEVEL);
+    static bmcweb::LogLevel level = getLogLevelFromName(BMCWEB_LOGGING_LEVEL);
     return level;
 }
 
@@ -120,7 +120,7 @@ inline void vlog(std::format_string<Args...>&& format, Args&&... args,
            logLocation.size(), stdout);
     fflush(stdout);
 }
-} // namespace crow
+} // namespace bmcweb
 
 template <typename... Args>
 struct BMCWEB_LOG_CRITICAL
@@ -130,7 +130,7 @@ struct BMCWEB_LOG_CRITICAL
                         const std::source_location& loc =
                             std::source_location::current()) noexcept
     {
-        crow::vlog<crow::LogLevel::Critical, Args...>(
+        bmcweb::vlog<bmcweb::LogLevel::Critical, Args...>(
             std::move(format), std::forward<Args>(args)..., loc);
     }
 };
@@ -143,7 +143,7 @@ struct BMCWEB_LOG_ERROR
                      const std::source_location& loc =
                          std::source_location::current()) noexcept
     {
-        crow::vlog<crow::LogLevel::Error, Args...>(
+        bmcweb::vlog<bmcweb::LogLevel::Error, Args...>(
             std::move(format), std::forward<Args>(args)..., loc);
     }
 };
@@ -156,7 +156,7 @@ struct BMCWEB_LOG_WARNING
                        const std::source_location& loc =
                            std::source_location::current()) noexcept
     {
-        crow::vlog<crow::LogLevel::Warning, Args...>(
+        bmcweb::vlog<bmcweb::LogLevel::Warning, Args...>(
             std::move(format), std::forward<Args>(args)..., loc);
     }
 };
@@ -169,7 +169,7 @@ struct BMCWEB_LOG_INFO
                     const std::source_location& loc =
                         std::source_location::current()) noexcept
     {
-        crow::vlog<crow::LogLevel::Info, Args...>(
+        bmcweb::vlog<bmcweb::LogLevel::Info, Args...>(
             std::move(format), std::forward<Args>(args)..., loc);
     }
 };
@@ -182,7 +182,7 @@ struct BMCWEB_LOG_DEBUG
                      const std::source_location& loc =
                          std::source_location::current()) noexcept
     {
-        crow::vlog<crow::LogLevel::Debug, Args...>(
+        bmcweb::vlog<bmcweb::LogLevel::Debug, Args...>(
             std::move(format), std::forward<Args>(args)..., loc);
     }
 };
@@ -206,3 +206,5 @@ BMCWEB_LOG_INFO(std::format_string<Args...>,
 template <typename... Args>
 BMCWEB_LOG_DEBUG(std::format_string<Args...>,
                  Args&&...) -> BMCWEB_LOG_DEBUG<Args...>;
+
+namespace crow = bmcweb;

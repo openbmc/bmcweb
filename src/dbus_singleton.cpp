@@ -2,7 +2,7 @@
 
 #include <sdbusplus/asio/connection.hpp>
 
-namespace crow
+namespace bmcweb
 {
 namespace connections
 {
@@ -10,4 +10,4 @@ namespace connections
 sdbusplus::asio::connection* systemBus = nullptr;
 
 } // namespace connections
-} // namespace crow
+} // namespace bmcweb

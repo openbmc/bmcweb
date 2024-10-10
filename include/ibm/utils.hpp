@@ -5,7 +5,7 @@
 #include <filesystem>
 #include <fstream>
 
-namespace crow
+namespace bmcweb
 {
 namespace ibm_utils
 {
@@ -40,4 +40,6 @@ inline bool createDirectory(std::string_view path)
 }
 
 } // namespace ibm_utils
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

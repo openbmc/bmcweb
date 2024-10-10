@@ -15,7 +15,7 @@
 #include <string>
 #include <string_view>
 
-namespace crow
+namespace bmcweb
 {
 namespace webassets
 {
@@ -251,4 +251,6 @@ inline void requestRoutes(App& app)
     }
 }
 } // namespace webassets
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

@@ -48,7 +48,7 @@ limitations under the License.
 #include <queue>
 #include <string>
 
-namespace crow
+namespace bmcweb
 {
 // With Redfish Aggregation it is assumed we will connect to another
 // instance of BMCWeb which can handle 100 simultaneous connections.
@@ -913,4 +913,6 @@ class HttpClient
                                      resHandler);
     }
 };
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;
