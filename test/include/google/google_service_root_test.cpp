@@ -11,7 +11,7 @@
 
 #include <gtest/gtest.h>
 
-namespace crow::google_api
+namespace bmcweb::google_api
 {
 namespace
 {
@@ -42,4 +42,4 @@ TEST(HandleGoogleV1Get, OnSuccess)
 }
 
 } // namespace
-} // namespace crow::google_api
+} // namespace bmcweb::google_api

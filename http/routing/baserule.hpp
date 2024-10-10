@@ -11,7 +11,7 @@
 #include <memory>
 #include <string>
 
-namespace crow
+namespace bmcweb
 {
 class BaseRule
 {
@@ -98,4 +98,6 @@ class BaseRule
     friend struct RuleParameterTraits;
 };
 
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

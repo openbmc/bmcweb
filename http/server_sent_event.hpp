@@ -14,7 +14,7 @@
 #include <functional>
 #include <optional>
 
-namespace crow
+namespace bmcweb
 {
 
 namespace sse_socket
@@ -287,4 +287,6 @@ class ConnectionImpl : public Connection
     std::function<void(Connection&)> closeHandler;
 };
 } // namespace sse_socket
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

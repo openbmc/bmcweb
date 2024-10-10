@@ -13,7 +13,7 @@
 #include <string_view>
 #include <system_error>
 
-namespace crow
+namespace bmcweb
 {
 
 struct Request
@@ -161,4 +161,6 @@ struct Request
     }
 };
 
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

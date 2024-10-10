@@ -13,7 +13,7 @@
 #include <string_view>
 #include <utility>
 
-namespace crow
+namespace bmcweb
 {
 
 template <typename Adaptor, typename Handler>
@@ -338,4 +338,6 @@ struct Response
     bool completed = false;
     std::function<void(Response&)> completeRequestHandler;
 };
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

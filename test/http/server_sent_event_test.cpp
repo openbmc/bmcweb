@@ -13,7 +13,7 @@
 #include <utility>
 
 #include "gtest/gtest.h"
-namespace crow
+namespace bmcweb
 {
 namespace sse_socket
 {
@@ -115,4 +115,4 @@ TEST(ServerSentEvent, SseWorks)
 } // namespace
 
 } // namespace sse_socket
-} // namespace crow
+} // namespace bmcweb

@@ -15,7 +15,7 @@
 
 #include <array>
 
-namespace crow
+namespace bmcweb
 {
 
 inline void completeResponseFields(std::string_view accepts, Response& res)
@@ -55,4 +55,6 @@ inline void completeResponseFields(std::string_view accepts, Response& res)
         }
     }
 }
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

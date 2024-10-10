@@ -27,7 +27,7 @@
 #define BMCWEB_ROUTE(app, url)                                                 \
     app.template route<crow::utility::getParameterTag(url)>(url)
 
-namespace crow
+namespace bmcweb
 {
 class App
 {
@@ -210,5 +210,7 @@ class App
 
     Router router;
 };
-} // namespace crow
+} // namespace bmcweb
 using App = crow::App;
+
+namespace crow = bmcweb;
