@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc62b33e_5294133c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-10T20:18:14Z",
+      "side": 1,
+      "message": "\u003e propertyValueFormatError is a client error\n\nI think PAM_AUTHTOK_ERR is the error when the user password didn\u0027t meet complexity requirements, so I think propertyValueFormatError is right?\n\n\n\u003e In addition, the WARNING log is better to be done before\n\nThe order of the two method calls doesn\u0027t matter.  If the author wants to change it fine, but I\u0027m happy to approve this patch without that change.",
+      "parentUuid": "7dc3923d_5236f808",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6a24c3dc_c32d2dcb",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 4
