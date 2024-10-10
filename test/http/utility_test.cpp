@@ -5,6 +5,7 @@
 #include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
+#include <nlohmann/json.hpp>
 
 #include <algorithm>
 #include <ctime>
