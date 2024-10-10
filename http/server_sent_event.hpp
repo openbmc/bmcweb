@@ -8,7 +8,7 @@
 #include <memory>
 #include <string_view>
 
-namespace crow
+namespace bmcweb
 {
 
 namespace sse_socket
@@ -28,4 +28,6 @@ struct Connection : public std::enable_shared_from_this<Connection>
     virtual void sendSseEvent(std::string_view id, std::string_view msg) = 0;
 };
 } // namespace sse_socket
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

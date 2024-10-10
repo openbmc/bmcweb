@@ -19,7 +19,7 @@
 #include <utility>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 
 SseSocketRule::SseSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
@@ -63,4 +63,4 @@ void SseSocketRule::handleUpgrade(
     myConnection->start(req);
 }
 
-} // namespace crow
+} // namespace bmcweb

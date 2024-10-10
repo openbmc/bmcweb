@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-namespace crow
+namespace bmcweb
 {
 namespace ibm_mc
 {
@@ -51,4 +51,4 @@ TEST(IsValidConfigFileName, FileNameMoreThan20CharReturnsFalse)
 }
 
 } // namespace ibm_mc
-} // namespace crow
+} // namespace bmcweb

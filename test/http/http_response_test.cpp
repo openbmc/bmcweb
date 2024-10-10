@@ -17,7 +17,7 @@
 #include <string>
 
 #include "gtest/gtest.h"
-namespace crow
+namespace bmcweb
 {
 namespace
 {
@@ -186,4 +186,4 @@ TEST(HttpResponse, HttpBodyWriterLarge)
     EXPECT_EQ(getData(res.response), data);
 }
 } // namespace
-} // namespace crow
+} // namespace bmcweb

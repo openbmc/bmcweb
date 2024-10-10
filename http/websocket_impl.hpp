@@ -36,7 +36,7 @@
 #include <string_view>
 #include <utility>
 
-namespace crow
+namespace bmcweb
 {
 namespace websocket
 {
@@ -362,4 +362,4 @@ class ConnectionImpl : public Connection
     std::shared_ptr<Connection> selfOwned;
 };
 } // namespace websocket
-} // namespace crow
+} // namespace bmcweb

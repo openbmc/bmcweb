@@ -17,7 +17,7 @@
 
 #include <gtest/gtest.h>
 
-namespace crow::utility
+namespace bmcweb::utility
 {
 namespace
 {
@@ -195,4 +195,4 @@ TEST(AppendUrlFromPieces, PiecesAreAppendedViaDelimiters)
 }
 
 } // namespace
-} // namespace crow::utility
+} // namespace bmcweb::utility
