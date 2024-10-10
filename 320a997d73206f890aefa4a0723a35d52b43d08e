@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e8790de_5dc9113c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-10T21:31:29Z",
+      "side": 1,
+      "message": "Why not 1 big commit to do this ?\nfind redfish-core/ -exec sed -i \u0027s/crow/bmcweb/g\u0027 {} \\;\nfind include/ -exec sed -i \u0027s/crow/bmcweb/g\u0027 {} \\;\nfind http/ -exec sed -i \u0027s/crow/bmcweb/g\u0027 {} \\;",
+      "revId": "320a997d73206f890aefa4a0723a35d52b43d08e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
