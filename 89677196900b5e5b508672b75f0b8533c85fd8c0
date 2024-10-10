@@ -251,6 +251,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8f568dd_b128b110",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2510,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-10-10T06:49:00Z",
+      "side": 1,
+      "message": "yes right, any admin priv user should not setup a secret key for other user, that\u0027s why DMTF redfish came up generatedSecretKey registry which can be used to direct the same user to generate secret in session create flow..",
+      "parentUuid": "5a4d5b9a_23fc0d21",
+      "range": {
+        "startLine": 2506,
+        "startChar": 0,
+        "endLine": 2510,
+        "endChar": 5
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b905927_129872b5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
