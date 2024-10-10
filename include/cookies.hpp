@@ -6,7 +6,7 @@
 namespace bmcweb
 {
 
-inline void setSessionCookies(crow::Response& res,
+inline void setSessionCookies(bmcweb::Response& res,
                               const persistent_data::UserSession& session)
 {
     res.addHeader(boost::beast::http::field::set_cookie,
@@ -17,7 +17,7 @@ inline void setSessionCookies(crow::Response& res,
                       "; Path=/; SameSite=Strict; Secure; HttpOnly");
 }
 
-inline void clearSessionCookies(crow::Response& res)
+inline void clearSessionCookies(bmcweb::Response& res)
 {
     res.addHeader(boost::beast::http::field::set_cookie,
                   "SESSION="

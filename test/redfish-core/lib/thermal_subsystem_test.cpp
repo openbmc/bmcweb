@@ -18,7 +18,7 @@ namespace
 constexpr const char* chassisId = "ChassisId";
 constexpr const char* validChassisPath = "ChassisPath";
 
-void assertThermalCollectionGet(crow::Response& res)
+void assertThermalCollectionGet(bmcweb::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.type"], "#ThermalSubsystem.v1_0_0.ThermalSubsystem");

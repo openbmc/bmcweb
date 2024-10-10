@@ -742,7 +742,7 @@ inline void deleteIPAddress(const std::string& ifaceId,
                             const std::string& ipHash,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -778,7 +778,7 @@ inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
             }
         };
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         std::move(createIpHandler), "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId,
         "xyz.openbmc_project.Network.IP.Create", "IP",
@@ -806,7 +806,7 @@ inline void deleteAndCreateIPAddress(
     const std::string& gateway,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, version, ifaceId, address, prefixLength,
          gateway](const boost::system::error_code& ec) {
             if (ec)
@@ -815,7 +815,7 @@ inline void deleteAndCreateIPAddress(
             }
             std::string protocol = "xyz.openbmc_project.Network.IP.Protocol.";
             protocol += version == IpVersion::IpV4 ? "IPv4" : "IPv6";
-            crow::connections::systemBus->async_method_call(
+            bmcweb::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code& ec2) {
                     if (ec2)
                     {
@@ -904,7 +904,7 @@ inline void createIPv6(const std::string& ifaceId, uint8_t prefixLength,
         };
     // Passing null for gateway, as per redfish spec IPv6StaticAddresses
     // object does not have associated gateway property
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         std::move(createIpHandler), "xyz.openbmc_project.Network", path,
         "xyz.openbmc_project.Network.IP.Create", "IP",
         "xyz.openbmc_project.Network.IP.Protocol.IPv6", address, prefixLength,
@@ -927,7 +927,7 @@ inline void
     sdbusplus::message::object_path path("/xyz/openbmc_project/network");
     path /= ifaceId;
     path /= gatewayId;
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -959,7 +959,7 @@ inline void createIPv6DefaultGateway(
             messages::internalError(asyncResp->res);
         }
     };
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         std::move(createIpHandler), "xyz.openbmc_project.Network", path,
         "xyz.openbmc_project.Network.StaticGateway.Create", "StaticGateway",
         gateway, "xyz.openbmc_project.Network.IP.Protocol.IPv6");
@@ -984,7 +984,7 @@ inline void deleteAndCreateIPv6DefaultGateway(
     sdbusplus::message::object_path path("/xyz/openbmc_project/network");
     path /= ifaceId;
     path /= gatewayId;
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, ifaceId, gateway](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -2053,7 +2053,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
         .privileges(redfish::privileges::getEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2113,7 +2113,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
         .privileges(redfish::privileges::postEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2170,7 +2170,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 }
 
                 std::string parentInterface;
-                if (!crow::utility::readUrlSegments(
+                if (!bmcweb::utility::readUrlSegments(
                         *parsedUri, "redfish", "v1", "Managers", "bmc",
                         "EthernetInterfaces", std::ref(parentInterface)))
                 {
@@ -2191,7 +2191,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
                 std::string vlanInterface =
                     parentInterface + "_" + std::to_string(vlanId);
-                crow::connections::systemBus->async_method_call(
+                bmcweb::connections::systemBus->async_method_call(
                     [asyncResp, parentInterfaceUri,
                      vlanInterface](const boost::system::error_code& ec,
                                     const sdbusplus::message_t& m) {
@@ -2207,7 +2207,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::getEthernetInterface)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2254,7 +2254,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::patchEthernetInterface)
         .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2426,7 +2426,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::deleteEthernetInterface)
         .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2441,7 +2441,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     return;
                 }
 
-                crow::connections::systemBus->async_method_call(
+                bmcweb::connections::systemBus->async_method_call(
                     [asyncResp, ifaceId](const boost::system::error_code& ec,
                                          const sdbusplus::message_t& m) {
                         afterDelete(asyncResp, ifaceId, ec, m);

@@ -580,12 +580,12 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
     };
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         respHandler, "xyz.openbmc_project.Dump.Manager",
         std::format("{}/entry/{}", getDumpPath(dumpType), entryID),
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
-inline bool checkSizeLimit(int fd, crow::Response& res)
+inline bool checkSizeLimit(int fd, bmcweb::Response& res)
 {
     long long int size = lseek(fd, 0, SEEK_END);
     if (size <= 0)
@@ -696,7 +696,7 @@ inline void
             downloadEntryCallback(asyncResp, entryID, dumpType, ec, unixfd);
         };
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         std::move(downloadDumpEntryHandler), "xyz.openbmc_project.Dump.Manager",
         dumpEntryPath, "xyz.openbmc_project.Dump.Entry", "GetFileHandle");
 }
@@ -731,7 +731,7 @@ inline void downloadEventLogEntry(
             downloadEntryCallback(asyncResp, entryID, dumpType, ec, unixfd);
         };
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         std::move(downloadEventLogEntryHandler), "xyz.openbmc_project.Logging",
         entryPath, "xyz.openbmc_project.Logging.Entry", "GetEntry");
 }
@@ -804,7 +804,7 @@ inline void createDumpTaskCallback(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, payload = std::move(payload), createdObjPath,
          dumpEntryPath{std::move(dumpEntryPath)},
          dumpId](const boost::system::error_code& ec,
@@ -929,7 +929,7 @@ inline void createDumpTaskCallback(
 }
 
 inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const crow::Request& req, const std::string& dumpType)
+                       const bmcweb::Request& req, const std::string& dumpType)
 {
     std::string dumpPath = getDumpEntriesPath(dumpType);
     if (dumpPath.empty())
@@ -1009,7 +1009,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Client");
     }
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, payload(task::Payload(req)),
          dumpPath](const boost::system::error_code& ec,
                    const sdbusplus::message_t& msg,
@@ -1067,7 +1067,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& dumpType)
 {
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -1122,7 +1122,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
         .privileges(redfish::privileges::getLogServiceCollection)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1232,7 +1232,7 @@ inline void requestRoutesEventLogService(App& app)
         .privileges(redfish::privileges::getLogService)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1277,7 +1277,7 @@ inline void requestRoutesEventLogService(App& app)
 }
 
 inline void handleSystemsLogServicesEventLogActionsClearPost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -1304,7 +1304,7 @@ inline void handleSystemsLogServicesEventLogActionsClearPost(
     }
 
     // Reload rsyslog so it knows to start new log files
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -1508,7 +1508,7 @@ inline void afterLogEntriesGetManagedObjects(
 }
 
 inline void handleSystemsLogServiceEventLogLogEntryCollection(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -1623,7 +1623,7 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
 }
 
 inline void handleSystemsLogServiceEventLogEntriesGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& param)
 {
@@ -1733,7 +1733,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1765,7 +1765,7 @@ inline void dBusEventLogEntryGet(
     // DBus implementation of EventLog/Entries
     // Make call to Logging Service to find all log entry objects
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.Logging",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging/entry/" + entryID, "",
         [asyncResp, entryID](const boost::system::error_code& ec,
                              const dbus::utility::DBusPropertiesMap& resp) {
@@ -1789,7 +1789,7 @@ inline void dBusEventLogEntryGet(
 }
 
 inline void
-    dBusEventLogEntryPatch(const crow::Request& req,
+    dBusEventLogEntryPatch(const bmcweb::Request& req,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& entryId)
 {
@@ -1837,7 +1837,7 @@ inline void dBusEventLogEntryDelete(
     };
 
     // Make call to Logging service to request Delete Log
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         respHandler, "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging/entry/" + entryID,
         "xyz.openbmc_project.Object.Delete", "Delete");
@@ -1849,7 +1849,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName, const std::string& entryId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1877,7 +1877,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
         .privileges(redfish::privileges::patchLogEntry)
         .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName, const std::string& entryId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1906,7 +1906,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
         .privileges(redfish::privileges::deleteLogEntry)
 
         .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName, const std::string& param) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1991,7 +1991,7 @@ inline bool getHostLoggerEntries(
 }
 
 inline void handleBMCLogServicesCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -2175,7 +2175,7 @@ inline void
 }
 
 inline void handleLogServicesDumpServiceGet(
-    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    bmcweb::App& app, const std::string& dumpType, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -2194,7 +2194,7 @@ inline void handleLogServicesDumpServiceGet(
 }
 
 inline void handleLogServicesDumpServiceComputerSystemGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -2211,7 +2211,7 @@ inline void handleLogServicesDumpServiceComputerSystemGet(
 }
 
 inline void handleLogServicesDumpEntriesCollectionGet(
-    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    bmcweb::App& app, const std::string& dumpType, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -2229,7 +2229,7 @@ inline void handleLogServicesDumpEntriesCollectionGet(
 }
 
 inline void handleLogServicesDumpEntriesCollectionComputerSystemGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -2246,7 +2246,7 @@ inline void handleLogServicesDumpEntriesCollectionComputerSystemGet(
 }
 
 inline void handleLogServicesDumpEntryGet(
-    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    bmcweb::App& app, const std::string& dumpType, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& dumpId)
 {
@@ -2263,7 +2263,7 @@ inline void handleLogServicesDumpEntryGet(
 }
 
 inline void handleLogServicesDumpEntryComputerSystemGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& dumpId)
 {
@@ -2280,7 +2280,7 @@ inline void handleLogServicesDumpEntryComputerSystemGet(
 }
 
 inline void handleLogServicesDumpEntryDelete(
-    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    bmcweb::App& app, const std::string& dumpType, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& dumpId)
 {
@@ -2298,7 +2298,7 @@ inline void handleLogServicesDumpEntryDelete(
 }
 
 inline void handleLogServicesDumpEntryComputerSystemDelete(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& dumpId)
 {
@@ -2315,7 +2315,7 @@ inline void handleLogServicesDumpEntryComputerSystemDelete(
 }
 
 inline void handleLogServicesDumpEntryDownloadGet(
-    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    bmcweb::App& app, const std::string& dumpType, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& dumpId)
 {
@@ -2333,7 +2333,7 @@ inline void handleLogServicesDumpEntryDownloadGet(
 }
 
 inline void handleDBusEventLogEntryDownloadGet(
-    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    bmcweb::App& app, const std::string& dumpType, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& entryID)
 {
@@ -2352,7 +2352,7 @@ inline void handleDBusEventLogEntryDownloadGet(
 }
 
 inline void handleLogServicesDumpCollectDiagnosticDataPost(
-    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    bmcweb::App& app, const std::string& dumpType, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -2370,7 +2370,7 @@ inline void handleLogServicesDumpCollectDiagnosticDataPost(
 }
 
 inline void handleLogServicesDumpCollectDiagnosticDataComputerSystemPost(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -2396,7 +2396,7 @@ inline void handleLogServicesDumpCollectDiagnosticDataComputerSystemPost(
 }
 
 inline void handleLogServicesDumpClearLogPost(
-    crow::App& app, const std::string& dumpType, const crow::Request& req,
+    bmcweb::App& app, const std::string& dumpType, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -2414,7 +2414,7 @@ inline void handleLogServicesDumpClearLogPost(
 }
 
 inline void handleLogServicesDumpClearLogComputerSystemPost(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -2619,7 +2619,7 @@ inline void requestRoutesCrashdumpService(App& app)
         .privileges({{"ConfigureManager"}})
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2684,7 +2684,7 @@ void inline requestRoutesCrashdumpClear(App& app)
         //.privileges(redfish::privileges::postLogService)
         .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2704,7 +2704,7 @@ void inline requestRoutesCrashdumpClear(App& app)
                                                systemName);
                     return;
                 }
-                crow::connections::systemBus->async_method_call(
+                bmcweb::connections::systemBus->async_method_call(
                     [asyncResp](const boost::system::error_code& ec,
                                 const std::string&) {
                         if (ec)
@@ -2787,7 +2787,7 @@ inline void
             }
         };
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, crashdumpObject,
+        *bmcweb::connections::systemBus, crashdumpObject,
         crashdumpPath + std::string("/") + logID, crashdumpInterface,
         std::move(getStoredLogCallback));
 }
@@ -2806,7 +2806,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
         .privileges({{"ConfigureComponents"}})
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2885,7 +2885,7 @@ inline void requestRoutesCrashdumpEntry(App& app)
         // .privileges(redfish::privileges::getLogEntry)
         .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName, const std::string& param) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2919,7 +2919,7 @@ inline void requestRoutesCrashdumpFile(App& app)
         "/redfish/v1/Systems/<str>/LogServices/Crashdump/Entries/<str>/<str>/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request& req,
+            [](const bmcweb::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& systemName, const std::string& logID,
                const std::string& fileName) {
@@ -2979,7 +2979,7 @@ inline void requestRoutesCrashdumpFile(App& app)
                         }
 
                         if (asyncResp->res.openFile(dbusFilepath) !=
-                            crow::OpenCode::Success)
+                            bmcweb::OpenCode::Success)
                         {
                             messages::resourceNotFound(asyncResp->res,
                                                        "LogEntry", logID);
@@ -2993,7 +2993,7 @@ inline void requestRoutesCrashdumpFile(App& app)
                             "attachment");
                     };
                 sdbusplus::asio::getAllProperties(
-                    *crow::connections::systemBus, crashdumpObject,
+                    *bmcweb::connections::systemBus, crashdumpObject,
                     crashdumpPath + std::string("/") + logID,
                     crashdumpInterface, std::move(getStoredLogCallback));
             });
@@ -3031,7 +3031,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
         //.privileges(redfish::privileges::postLogService)
         .privileges({{"ConfigureComponents"}})
         .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -3155,7 +3155,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                         task->payload.emplace(std::move(payload));
                     };
 
-                crow::connections::systemBus->async_method_call(
+                bmcweb::connections::systemBus->async_method_call(
                     std::move(collectCrashdumpCallback), crashdumpObject,
                     crashdumpPath, iface, method);
             });
@@ -3182,7 +3182,7 @@ inline void dBusLogServiceActionsClear(
     };
 
     // Make call to Logging service to request Clear Log
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         respHandler, "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging",
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
@@ -3204,7 +3204,7 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
         "/redfish/v1/Systems/<str>/LogServices/EventLog/Actions/LogService.ClearLog/")
         .privileges(redfish::privileges::postLogService)
         .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))

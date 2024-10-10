@@ -183,8 +183,9 @@ inline void addPrefixToStringItem(std::string& strValue,
     // version mismatches between aggregator and satellite BMCs.  For now
     // assume that the aggregator has all the schemas and versions that the
     // aggregated server has.
-    if (crow::utility::readUrlSegments(thisUrl, "redfish", "v1", "JsonSchemas",
-                                       crow::utility::OrMorePaths()))
+    if (bmcweb::utility::readUrlSegments(thisUrl, "redfish", "v1",
+                                         "JsonSchemas",
+                                         bmcweb::utility::OrMorePaths()))
     {
         BMCWEB_LOG_DEBUG("Skipping JsonSchemas URI prefix fixing");
         return;
@@ -192,8 +193,8 @@ inline void addPrefixToStringItem(std::string& strValue,
 
     // The first two segments should be "/redfish/v1".  We need to check that
     // before we can search topCollections
-    if (!crow::utility::readUrlSegments(thisUrl, "redfish", "v1",
-                                        crow::utility::OrMorePaths()))
+    if (!bmcweb::utility::readUrlSegments(thisUrl, "redfish", "v1",
+                                          bmcweb::utility::OrMorePaths()))
     {
         return;
     }
@@ -261,8 +262,8 @@ inline void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
     item = *strValue;
 }
 
-inline void addAggregatedHeaders(crow::Response& asyncResp,
-                                 const crow::Response& resp,
+inline void addAggregatedHeaders(bmcweb::Response& asyncResp,
+                                 const bmcweb::Response& resp,
                                  std::string_view prefix)
 {
     if (!resp.getHeaderValue("Content-Type").empty())
@@ -369,7 +370,7 @@ inline boost::system::error_code aggregationRetryHandler(unsigned int respCode)
     return boost::system::errc::make_error_code(boost::system::errc::success);
 }
 
-inline crow::ConnectionPolicy getAggregationPolicy()
+inline bmcweb::ConnectionPolicy getAggregationPolicy()
 {
     return {.maxRetryAttempts = 0,
             .requestByteLimit = aggregatorReadBodyLimit,
@@ -382,7 +383,7 @@ inline crow::ConnectionPolicy getAggregationPolicy()
 class RedfishAggregator
 {
   private:
-    crow::HttpClient client;
+    bmcweb::HttpClient client;
 
     // Dummy callback used by the Constructor so that it can report the number
     // of satellite configs when the class is first created
@@ -539,9 +540,9 @@ class RedfishAggregator
         Resource,
     };
 
-    static void
-        startAggregation(AggregationType aggType, const crow::Request& thisReq,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    static void startAggregation(
+        AggregationType aggType, const bmcweb::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         if (thisReq.method() != boost::beast::http::verb::get)
         {
@@ -562,7 +563,7 @@ class RedfishAggregator
 
         // Create a copy of thisReq so we we can still locally process the req
         std::error_code ec;
-        auto localReq = std::make_shared<crow::Request>(thisReq.req, ec);
+        auto localReq = std::make_shared<bmcweb::Request>(thisReq.req, ec);
         if (ec)
         {
             BMCWEB_LOG_ERROR("Failed to create copy of request");
@@ -578,7 +579,7 @@ class RedfishAggregator
     }
 
     static void findSatellite(
-        const crow::Request& req,
+        const bmcweb::Request& req,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo,
         std::string_view memberName)
@@ -609,7 +610,7 @@ class RedfishAggregator
     // is enabled.  Forwards request to satellite BMC if it exists.
     static void aggregateAndHandle(
         AggregationType aggType,
-        const std::shared_ptr<crow::Request>& sharedReq,
+        const std::shared_ptr<bmcweb::Request>& sharedReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const boost::system::error_code& ec,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
@@ -640,7 +641,7 @@ class RedfishAggregator
             return;
         }
 
-        const crow::Request& thisReq = *sharedReq;
+        const bmcweb::Request& thisReq = *sharedReq;
         BMCWEB_LOG_DEBUG("Aggregation is enabled, begin processing of {}",
                          thisReq.target());
 
@@ -699,7 +700,7 @@ class RedfishAggregator
     // Attempt to forward a request to the satellite BMC associated with the
     // prefix.
     void forwardRequest(
-        const crow::Request& thisReq,
+        const bmcweb::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::string& prefix,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
@@ -727,7 +728,7 @@ class RedfishAggregator
         }
         path.erase(pos, prefix.size() + 1);
 
-        std::function<void(crow::Response&)> cb =
+        std::function<void(bmcweb::Response&)> cb =
             std::bind_front(processResponse, prefix, asyncResp);
 
         std::string data = thisReq.body();
@@ -744,13 +745,13 @@ class RedfishAggregator
 
     // Forward a request for a collection URI to each known satellite BMC
     void forwardCollectionRequests(
-        const crow::Request& thisReq,
+        const bmcweb::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
         for (const auto& sat : satelliteInfo)
         {
-            std::function<void(crow::Response&)> cb = std::bind_front(
+            std::function<void(bmcweb::Response&)> cb = std::bind_front(
                 processCollectionResponse, sat.first, asyncResp);
 
             boost::urls::url url(sat.second);
@@ -769,13 +770,13 @@ class RedfishAggregator
     // Forward request for a URI that is uptree of a top level collection to
     // each known satellite BMC
     void forwardContainsSubordinateRequests(
-        const crow::Request& thisReq,
+        const bmcweb::Request& thisReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
         for (const auto& sat : satelliteInfo)
         {
-            std::function<void(crow::Response&)> cb = std::bind_front(
+            std::function<void(bmcweb::Response&)> cb = std::bind_front(
                 processContainsSubordinateResponse, sat.first, asyncResp);
 
             // will ignore an expanded resource in the response if that resource
@@ -795,8 +796,8 @@ class RedfishAggregator
 
   public:
     explicit RedfishAggregator(boost::asio::io_context& ioc) :
-        client(ioc,
-               std::make_shared<crow::ConnectionPolicy>(getAggregationPolicy()))
+        client(ioc, std::make_shared<bmcweb::ConnectionPolicy>(
+                        getAggregationPolicy()))
     {
         getSatelliteConfigs(constructorCallback);
     }
@@ -861,7 +862,7 @@ class RedfishAggregator
     static void
         processResponse(std::string_view prefix,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        crow::Response& resp)
+                        bmcweb::Response& resp)
     {
         // 429 and 502 mean we didn't actually send the request so don't
         // overwrite the response headers in that case
@@ -911,7 +912,7 @@ class RedfishAggregator
     static void processCollectionResponse(
         const std::string& prefix,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        crow::Response& resp)
+        bmcweb::Response& resp)
     {
         // 429 and 502 mean we didn't actually send the request so don't
         // overwrite the response headers in that case
@@ -1043,7 +1044,7 @@ class RedfishAggregator
     static void processContainsSubordinateResponse(
         const std::string& prefix,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        crow::Response& resp)
+        bmcweb::Response& resp)
     {
         // 429 and 502 mean we didn't actually send the request so don't
         // overwrite the response headers in that case
@@ -1185,27 +1186,28 @@ class RedfishAggregator
     // Returns Result stating whether or not we still need to locally handle the
     // request
     static Result
-        beginAggregation(const crow::Request& thisReq,
+        beginAggregation(const bmcweb::Request& thisReq,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
-        using crow::utility::OrMorePaths;
-        using crow::utility::readUrlSegments;
+        using bmcweb::utility::OrMorePaths;
+        using bmcweb::utility::readUrlSegments;
         boost::urls::url_view url = thisReq.url();
 
         // We don't need to aggregate JsonSchemas due to potential issues such
         // as version mismatches between aggregator and satellite BMCs.  For
         // now assume that the aggregator has all the schemas and versions that
         // the aggregated server has.
-        if (crow::utility::readUrlSegments(url, "redfish", "v1", "JsonSchemas",
-                                           crow::utility::OrMorePaths()))
+        if (bmcweb::utility::readUrlSegments(url, "redfish", "v1",
+                                             "JsonSchemas",
+                                             bmcweb::utility::OrMorePaths()))
         {
             return Result::LocalHandle;
         }
 
         // The first two segments should be "/redfish/v1".  We need to check
         // that before we can search topCollections
-        if (!crow::utility::readUrlSegments(url, "redfish", "v1",
-                                            crow::utility::OrMorePaths()))
+        if (!bmcweb::utility::readUrlSegments(url, "redfish", "v1",
+                                              bmcweb::utility::OrMorePaths()))
         {
             return Result::LocalHandle;
         }

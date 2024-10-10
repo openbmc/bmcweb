@@ -18,7 +18,7 @@ namespace
 constexpr const char* chassisId = "ChassisId";
 constexpr const char* validChassisPath = "ChassisPath";
 
-void assertPowerSubsystemCollectionGet(crow::Response& res)
+void assertPowerSubsystemCollectionGet(bmcweb::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.type"], "#PowerSubsystem.v1_1_0.PowerSubsystem");

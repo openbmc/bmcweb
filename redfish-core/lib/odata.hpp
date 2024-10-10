@@ -19,7 +19,7 @@
 namespace redfish
 {
 
-inline void redfishOdataGet(const crow::Request& /*req*/,
+inline void redfishOdataGet(const bmcweb::Request& /*req*/,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     nlohmann::json::object_t obj;

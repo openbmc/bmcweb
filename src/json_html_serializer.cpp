@@ -571,7 +571,7 @@ void dumpHtml(std::string& out, const nlohmann::json& json)
            "</html>\n";
 }
 
-void prettyPrintJson(crow::Response& res)
+void prettyPrintJson(bmcweb::Response& res)
 {
     std::string html;
     json_html_util::dumpHtml(html, res.jsonValue);

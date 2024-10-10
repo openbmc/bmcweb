@@ -16,7 +16,7 @@ namespace bmcweb::google_api
 namespace
 {
 
-void validateServiceRootGet(crow::Response& res)
+void validateServiceRootGet(bmcweb::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/google/v1");
@@ -37,7 +37,7 @@ TEST(HandleGoogleV1Get, OnSuccess)
 
     asyncResp->res.setCompleteRequestHandler(validateServiceRootGet);
 
-    crow::Request dummyRequest{{boost::beast::http::verb::get, "", 11}, ec};
+    bmcweb::Request dummyRequest{{boost::beast::http::verb::get, "", 11}, ec};
     handleGoogleV1Get(dummyRequest, asyncResp);
 }
 

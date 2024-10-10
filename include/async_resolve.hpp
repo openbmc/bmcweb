@@ -79,7 +79,7 @@ class Resolver
         }
 
         uint64_t flag = 0;
-        crow::connections::systemBus->async_method_call(
+        bmcweb::connections::systemBus->async_method_call(
             [host{std::string(host)}, portNum,
              handler = std::forward<ResolveHandler>(handler)](
                 const boost::system::error_code& ec,

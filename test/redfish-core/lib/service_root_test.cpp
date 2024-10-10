@@ -17,7 +17,7 @@ namespace redfish
 namespace
 {
 
-void assertServiceRootGet(crow::Response& res)
+void assertServiceRootGet(bmcweb::Response& res)
 {
     nlohmann::json& json = res.jsonValue;
     EXPECT_EQ(json["@odata.id"], "/redfish/v1");

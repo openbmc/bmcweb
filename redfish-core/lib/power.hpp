@@ -98,7 +98,7 @@ inline void afterGetChassisPath(
         return;
     }
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
         std::bind_front(afterGetPowerCapEnable, sensorsAsyncResp, *value));
@@ -247,7 +247,7 @@ inline void afterGetChassis(
     }
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap",
         [sensorAsyncResp](const boost::system::error_code& ec,
@@ -257,7 +257,7 @@ inline void afterGetChassis(
 }
 
 inline void
-    handleChassisPowerGet(App& app, const crow::Request& req,
+    handleChassisPowerGet(App& app, const bmcweb::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& chassisName)
 {
@@ -289,7 +289,7 @@ inline void
 }
 
 inline void
-    handleChassisPowerPatch(App& app, const crow::Request& req,
+    handleChassisPowerPatch(App& app, const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& chassisName)
 {

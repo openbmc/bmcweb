@@ -32,7 +32,7 @@ inline std::shared_ptr<persistent_data::UserSession> performBasicAuth(
     std::string_view param = authHeader.substr(strlen("Basic "));
     std::string authData;
 
-    if (!crow::utility::base64Decode(param, authData))
+    if (!bmcweb::utility::base64Decode(param, authData))
     {
         return nullptr;
     }
@@ -215,8 +215,8 @@ inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
         {
             return true;
         }
-        if (crow::webroutes::routes.find(std::string(url)) !=
-            crow::webroutes::routes.end())
+        if (bmcweb::webroutes::routes.find(std::string(url)) !=
+            bmcweb::webroutes::routes.end())
         {
             return true;
         }

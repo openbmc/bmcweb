@@ -65,7 +65,7 @@ inline std::string
 }
 
 inline void
-    handleMetadataGet(App& /*app*/, const crow::Request& /*req*/,
+    handleMetadataGet(App& /*app*/, const bmcweb::Request& /*req*/,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::filesystem::path schema("/usr/share/www/redfish/v1/schema");

@@ -125,7 +125,7 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
  * invalid group name(s).
  */
 inline bool translateUserGroup(const std::vector<std::string>& userGroups,
-                               crow::Response& res)
+                               bmcweb::Response& res)
 {
     std::vector<std::string> accountTypes;
     for (const auto& userGroup : userGroups)
@@ -178,7 +178,7 @@ inline bool translateUserGroup(const std::vector<std::string>& userGroups,
  * @return true if Account Types mapped to User Groups, false otherwise.
  */
 inline bool getUserGroupFromAccountType(
-    crow::Response& res, const std::vector<std::string>& accountTypes,
+    bmcweb::Response& res, const std::vector<std::string>& accountTypes,
     std::vector<std::string>& userGroups)
 {
     // Need both Redfish and WebUI Account Types to map to 'redfish' User Group
@@ -381,7 +381,7 @@ inline void handleRoleMapPatch(
             // delete the existing object
             if (index < roleMapObjData.size())
             {
-                crow::connections::systemBus->async_method_call(
+                bmcweb::connections::systemBus->async_method_call(
                     [asyncResp, roleMapObjData, serverType,
                      index](const boost::system::error_code& ec) {
                         if (ec)
@@ -492,7 +492,7 @@ inline void handleRoleMapPatch(
                 BMCWEB_LOG_DEBUG("Remote Group={},LocalRole={}", *remoteGroup,
                                  *localRole);
 
-                crow::connections::systemBus->async_method_call(
+                bmcweb::connections::systemBus->async_method_call(
                     [asyncResp, serverType, localRole,
                      remoteGroup](const boost::system::error_code& ec) {
                         if (ec)
@@ -1193,7 +1193,7 @@ inline void updateUserProperties(
 }
 
 inline void handleAccountServiceHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1220,7 +1220,7 @@ inline void
 }
 
 inline void handleAccountServiceClientCertificatesInstanceHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*id*/)
 {
@@ -1235,7 +1235,7 @@ inline void handleAccountServiceClientCertificatesInstanceHead(
 }
 
 inline void handleAccountServiceClientCertificatesInstanceGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1255,7 +1255,7 @@ inline void handleAccountServiceClientCertificatesInstanceGet(
 }
 
 inline void handleAccountServiceClientCertificatesHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1269,7 +1269,7 @@ inline void handleAccountServiceClientCertificatesHead(
 }
 
 inline void handleAccountServiceClientCertificatesGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1319,7 +1319,7 @@ inline CertificateMappingAttribute
 }
 
 inline void
-    handleAccountServiceGet(App& app, const crow::Request& req,
+    handleAccountServiceGet(App& app, const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1413,7 +1413,7 @@ inline void
             "/redfish/v1/AccountService/LDAP/Certificates";
     }
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.User.Manager",
         "/xyz/openbmc_project/user", "xyz.openbmc_project.User.AccountPolicy",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
@@ -1475,7 +1475,7 @@ inline void
 }
 
 inline void handleCertificateMappingAttributePatch(
-    crow::Response& res, const std::string& certMapAttribute)
+    bmcweb::Response& res, const std::string& certMapAttribute)
 {
     MTLSCommonNameParseMode parseMode =
         persistent_data::getMTLSCommonNameParseMode(certMapAttribute);
@@ -1492,7 +1492,7 @@ inline void handleCertificateMappingAttributePatch(
 }
 
 inline void handleRespondToUnauthenticatedClientsPatch(
-    App& app, const crow::Request& req, crow::Response& res,
+    App& app, const bmcweb::Request& req, bmcweb::Response& res,
     bool respondToUnauthenticatedClients)
 {
     if (req.session != nullptr)
@@ -1524,7 +1524,7 @@ inline void handleRespondToUnauthenticatedClientsPatch(
 }
 
 inline void handleAccountServicePatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1650,7 +1650,7 @@ inline void handleAccountServicePatch(
 }
 
 inline void handleAccountCollectionHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1663,7 +1663,7 @@ inline void handleAccountCollectionHead(
 }
 
 inline void handleAccountCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1768,7 +1768,7 @@ inline void processAfterCreateUser(
         tempObjPath /= username;
         const std::string userPath(tempObjPath);
 
-        crow::connections::systemBus->async_method_call(
+        bmcweb::connections::systemBus->async_method_call(
             [asyncResp, password](const boost::system::error_code& ec3) {
                 if (ec3)
                 {
@@ -1860,7 +1860,7 @@ inline void processAfterGetAllGroups(
         messages::internalError(asyncResp->res);
         return;
     }
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, username, password](const boost::system::error_code& ec2,
                                         sdbusplus::message_t& m) {
             processAfterCreateUser(asyncResp, username, password, ec2, m);
@@ -1871,7 +1871,7 @@ inline void processAfterGetAllGroups(
 }
 
 inline void handleAccountCollectionPost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1904,7 +1904,7 @@ inline void handleAccountCollectionPost(
 
     // Reading AllGroups property
     sdbusplus::asio::getProperty<std::vector<std::string>>(
-        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.User.Manager",
         "/xyz/openbmc_project/user", "xyz.openbmc_project.User.Manager",
         "AllGroups",
         [asyncResp, username, password{std::move(password)}, roleId, enabled,
@@ -1929,7 +1929,7 @@ inline void handleAccountCollectionPost(
 }
 
 inline void
-    handleAccountHead(App& app, const crow::Request& req,
+    handleAccountHead(App& app, const bmcweb::Request& req,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& /*accountName*/)
 {
@@ -1943,7 +1943,7 @@ inline void
 }
 
 inline void
-    handleAccountGet(App& app, const crow::Request& req,
+    handleAccountGet(App& app, const bmcweb::Request& req,
                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& accountName)
 {
@@ -2130,7 +2130,7 @@ inline void
 }
 
 inline void
-    handleAccountDelete(App& app, const crow::Request& req,
+    handleAccountDelete(App& app, const bmcweb::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& username)
 {
@@ -2149,7 +2149,7 @@ inline void
     tempObjPath /= username;
     const std::string userPath(tempObjPath);
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, username](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -2165,7 +2165,7 @@ inline void
 }
 
 inline void
-    handleAccountPatch(App& app, const crow::Request& req,
+    handleAccountPatch(App& app, const bmcweb::Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& username)
 {
@@ -2238,7 +2238,7 @@ inline void
                              locked, accountTypes, userSelf, req.session);
         return;
     }
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
          locked, userSelf, req, accountTypes(std::move(accountTypes))](

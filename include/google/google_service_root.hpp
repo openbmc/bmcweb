@@ -22,7 +22,7 @@ namespace google_api
 {
 
 inline void
-    handleGoogleV1Get(const crow::Request& /*req*/,
+    handleGoogleV1Get(const bmcweb::Request& /*req*/,
                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     asyncResp->res.jsonValue["@odata.type"] =
@@ -36,7 +36,7 @@ inline void
 }
 
 inline void handleRootOfTrustCollectionGet(
-    const crow::Request& /*req*/,
+    const bmcweb::Request& /*req*/,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     asyncResp->res.jsonValue["@odata.id"] = "/google/v1/RootOfTrustCollection";
@@ -137,7 +137,7 @@ inline void populateRootOfTrustEntity(
 }
 
 inline void
-    handleRootOfTrustGet(const crow::Request& /*req*/,
+    handleRootOfTrustGet(const bmcweb::Request& /*req*/,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& param)
 {
@@ -176,7 +176,7 @@ inline void
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp{asyncResp}](const boost::system::error_code& ec,
                                const std::vector<uint8_t>& responseBytes) {
             invocationCallback(asyncResp, ec, responseBytes);
@@ -186,7 +186,7 @@ inline void
 }
 
 inline void handleRoTSendCommandPost(
-    const crow::Request& request,
+    const bmcweb::Request& request,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& rotId)
 {

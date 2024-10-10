@@ -18,7 +18,7 @@ namespace bmcweb
 namespace login_routes
 {
 
-inline void handleLogin(const crow::Request& req,
+inline void handleLogin(const bmcweb::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     MultipartParser parser;
@@ -180,7 +180,7 @@ inline void handleLogin(const crow::Request& req,
     }
 }
 
-inline void handleLogout(const crow::Request& req,
+inline void handleLogout(const bmcweb::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const auto& session = req.session;

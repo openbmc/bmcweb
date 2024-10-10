@@ -41,7 +41,7 @@ limitations under the License.
 #include <variant>
 #include <vector>
 
-// IWYU pragma: no_forward_declare crow::Request
+// IWYU pragma: no_forward_declare bmcweb::Request
 
 namespace redfish
 {
@@ -60,7 +60,7 @@ namespace json_util
  * @return true if JSON is valid, false when JSON is invalid and response has
  *         been filled with message and ended.
  */
-bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
+bool processJsonFromRequest(bmcweb::Response& res, const bmcweb::Request& req,
                             nlohmann::json& reqJson);
 namespace details
 {
@@ -268,7 +268,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
 
 template <typename Type>
 bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
-                 crow::Response& res, Type& value)
+                 bmcweb::Response& res, Type& value)
 {
     bool ret = true;
 
@@ -501,11 +501,11 @@ struct PerUnpack
     bool complete = false;
 };
 
-inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
+inline bool readJsonHelper(nlohmann::json& jsonRequest, bmcweb::Response& res,
                            std::span<PerUnpack> toUnpack);
 
 inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
-                                 crow::Response& res,
+                                 bmcweb::Response& res,
                                  std::span<PerUnpack> toUnpack)
 {
     bool result = true;
@@ -603,7 +603,7 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
     return result;
 }
 
-inline bool readJsonHelper(nlohmann::json& jsonRequest, crow::Response& res,
+inline bool readJsonHelper(nlohmann::json& jsonRequest, bmcweb::Response& res,
                            std::span<PerUnpack> toUnpack)
 {
     nlohmann::json::object_t* obj =
@@ -634,9 +634,9 @@ void packVariant(std::span<PerUnpack> toPack, std::string_view key,
 }
 
 template <typename FirstType, typename... UnpackTypes>
-bool readJsonObject(nlohmann::json::object_t& jsonRequest, crow::Response& res,
-                    std::string_view key, FirstType&& first,
-                    UnpackTypes&&... in)
+bool readJsonObject(nlohmann::json::object_t& jsonRequest,
+                    bmcweb::Response& res, std::string_view key,
+                    FirstType&& first, UnpackTypes&&... in)
 {
     const std::size_t n = sizeof...(UnpackTypes) + 2;
     std::array<PerUnpack, n / 2> toUnpack2;
@@ -646,7 +646,7 @@ bool readJsonObject(nlohmann::json::object_t& jsonRequest, crow::Response& res,
 }
 
 template <typename FirstType, typename... UnpackTypes>
-bool readJson(nlohmann::json& jsonRequest, crow::Response& res,
+bool readJson(nlohmann::json& jsonRequest, bmcweb::Response& res,
               std::string_view key, FirstType&& first, UnpackTypes&&... in)
 {
     nlohmann::json::object_t* obj =
@@ -662,7 +662,7 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res,
 }
 
 inline std::optional<nlohmann::json::object_t>
-    readJsonPatchHelper(const crow::Request& req, crow::Response& res)
+    readJsonPatchHelper(const bmcweb::Request& req, bmcweb::Response& res)
 {
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))
@@ -695,7 +695,7 @@ inline std::optional<nlohmann::json::object_t>
 }
 
 template <typename... UnpackTypes>
-bool readJsonPatch(const crow::Request& req, crow::Response& res,
+bool readJsonPatch(const bmcweb::Request& req, bmcweb::Response& res,
                    std::string_view key, UnpackTypes&&... in)
 {
     std::optional<nlohmann::json::object_t> jsonRequest =
@@ -715,7 +715,7 @@ bool readJsonPatch(const crow::Request& req, crow::Response& res,
 }
 
 template <typename... UnpackTypes>
-bool readJsonAction(const crow::Request& req, crow::Response& res,
+bool readJsonAction(const bmcweb::Request& req, bmcweb::Response& res,
                     const char* key, UnpackTypes&&... in)
 {
     nlohmann::json jsonRequest;

@@ -16,7 +16,7 @@ namespace redfish
 {
 
 inline void handleTelemetryServiceGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -37,7 +37,7 @@ inline void handleTelemetryServiceGet(
         "/redfish/v1/TelemetryService/Triggers";
 
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, telemetry::service,
+        *bmcweb::connections::systemBus, telemetry::service,
         "/xyz/openbmc_project/Telemetry/Reports",
         "xyz.openbmc_project.Telemetry.ReportManager",
         [asyncResp](const boost::system::error_code& ec,
