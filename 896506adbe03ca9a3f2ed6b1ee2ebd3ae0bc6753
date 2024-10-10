@@ -119,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86212d5d_7f475bd6",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-10T13:56:35Z",
+      "side": 1,
+      "message": "ok, replaced it with just the unique pointer.",
+      "parentUuid": "e4ed8794_38860a25",
+      "range": {
+        "startLine": 68,
+        "startChar": 7,
+        "endLine": 68,
+        "endChar": 36
+      },
+      "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1064a5d4_a06317f0",
@@ -309,6 +333,24 @@
       "side": 1,
       "message": "dbusEventLogMatchHandler is already a callback of the same type.  THere\u0027s no need to have a second local variable of the same type.  If the value is truly in the name \"callback\" then lets rename dbusEventLogMatchHandler -\u003e dbusEventLogMatchCallback\n\nBut making a copy of this possibly large struct doesn\u0027t seem like a good idea.",
       "parentUuid": "3ce84aee_fc117d92",
+      "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18dffa58_e8b5fd7b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-10T13:56:35Z",
+      "side": 1,
+      "message": "ok, i inlined that 👍",
+      "parentUuid": "3f365a83_3fa4f558",
       "revId": "896506adbe03ca9a3f2ed6b1ee2ebd3ae0bc6753",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

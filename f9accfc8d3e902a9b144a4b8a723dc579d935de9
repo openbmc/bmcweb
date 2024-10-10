@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "973fc921_a86731b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-10T13:56:35Z",
+      "side": 1,
+      "message": "I interpret this as resolved, please un-resolve if there\u0027s still any issue.",
+      "parentUuid": "efaa12d0_a8d50278",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73d797b4_b3a4d87f",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "Lets just remove all mention of messageargs.  It\u0027s unimportant to this commit.",
       "parentUuid": "19c9c9fe_2f47f5bd",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ba9a539_55bc1304",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-10T13:56:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "087b74d7_19c4596c",
       "range": {
         "startLine": 21,
         "startChar": 0,
@@ -216,6 +264,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8aacc230_5e54796c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-10T13:56:35Z",
+      "side": 1,
+      "message": "I\u0027m implementing in bmcweb here, not in other daemons.\n\nIf other daemons create the log entry or not, it does not matter to this implementation. The implementation is about the dbus log entries, their dbus interface, consuming that in bmcweb and exposing it via redfish.\n\nRelying on another daemon to produce a specific log entry or produce one at all creates a problem for the reproducibility of that manual test. \n\nIs there any log entry instance that you think the implementation would fail on?",
+      "parentUuid": "c778e671_d974266b",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "993d1324_53df132d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
@@ -263,6 +335,24 @@
       "side": 1,
       "message": "if you\u0027re going to test filtering, then add it to your test by imposing filters.  What\u0027s written here doesn\u0027t really test anything.  If you\u0027re not going to test filters, then no need to mention it in your tested statement.",
       "parentUuid": "7a3be529_8b71c6a2",
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dce005d_f9a9633c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-10T13:56:35Z",
+      "side": 1,
+      "message": "Every log entry goes through the filtering code. I\u0027m not testing the filters, i am just stating the observed behavior and expected result.\n\nExample:\n```\nint x \u003d myfunction();\n\nassert(x \u003e 0);\nassert(otherfunction(x) \u003e 0);\n\n```\n\nin the example the \u0027otherfunction\u0027 is part of the assertions, but i am not testing \u0027otherfunction\u0027.\n\nSimilarly, by mentioning the filtering code, i am not testing it, just noting that it exists and that the message generated from this implementation should make it through that code.\n\nThat outcome is a property of my implementation, not of the filtering code. Because the filtering code has hopefully already been tested and should be working.",
+      "parentUuid": "8a7d47b3_88b9589b",
       "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -446,6 +536,30 @@
       "side": 1,
       "message": "What do we do in the GET handler?  I believe we use the mapper?  If we support multiple daemons in the GET handler, we should support multiple daemons here, if we support only one daemon in the GET handler, then this is fine, but the point is that these should match.",
       "parentUuid": "4f1ce56f_8c37a65a",
+      "range": {
+        "startLine": 1398,
+        "startChar": 0,
+        "endLine": 1398,
+        "endChar": 52
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c510924f_f7bfa8cf",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-10T13:56:35Z",
+      "side": 1,
+      "message": "The GET handler for a single dbus event log entry is hardcoding the dbus service.\n\nhttps://github.com/openbmc/bmcweb/blob/d8e2b61839ed557c24cb1180ff7f8b9f0c4c4b12/redfish-core/lib/log_services.hpp#L1768\n\nThe GET handler for the whole collection is also directly referencing the service.\n\nhttps://github.com/openbmc/bmcweb/blob/d8e2b61839ed557c24cb1180ff7f8b9f0c4c4b12/redfish-core/lib/log_services.hpp#L1723\n\nI\u0027m not sure it makes sense to go via the mapper here. Also i don\u0027t think there is currently any design that proposes any other service to also create these dbus log entries.",
+      "parentUuid": "57652544_c74d9b64",
       "range": {
         "startLine": 1398,
         "startChar": 0,
