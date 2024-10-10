@@ -22,6 +22,30 @@
       },
       "revId": "4424a84134357528f675a2a740f870e150d5717a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89c4026e_7df5f41f",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-10T19:42:23Z",
+      "side": 1,
+      "message": "Good point! I\u0027ve changed both of the setProperty() calls here to use the utility function.\n\n(I didn\u0027t have to create the object_path variable as the call passing the string does the cast itself.)",
+      "parentUuid": "61000a69_64bd7f00",
+      "range": {
+        "startLine": 165,
+        "startChar": 21,
+        "endLine": 165,
+        "endChar": 32
+      },
+      "revId": "4424a84134357528f675a2a740f870e150d5717a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
