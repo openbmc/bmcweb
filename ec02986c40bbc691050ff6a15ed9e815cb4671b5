@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eae7e010_1116215c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2555,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-10T17:04:51Z",
+      "side": 1,
+      "message": "I missed this in the review.  This is wrong because it:\n1. Hardcodes a privilege level\n2. Hardcodes an incorrect privilege level\n\n\nplease fix to update to redfish::privileges::postManagerAccount",
+      "range": {
+        "startLine": 2555,
+        "startChar": 20,
+        "endLine": 2555,
+        "endChar": 38
+      },
+      "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
