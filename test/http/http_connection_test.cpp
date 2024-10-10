@@ -77,8 +77,8 @@ TEST(http_connection, RequestPropogates)
         std::bind_front(&ClockFake::getDateStr, &clock));
 
     boost::asio::ssl::context context{boost::asio::ssl::context::tls};
-    std::shared_ptr<crow::Connection<TestStream, FakeHandler>> conn =
-        std::make_shared<crow::Connection<TestStream, FakeHandler>>(
+    std::shared_ptr<Connection<TestStream, FakeHandler>> conn =
+        std::make_shared<Connection<TestStream, FakeHandler>>(
             &handler, HttpType::HTTP, std::move(timer), date,
             boost::asio::ssl::stream<TestStream>(std::move(stream), context));
     conn->disableAuth();

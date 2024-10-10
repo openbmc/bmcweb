@@ -57,8 +57,8 @@ class ConnectionImpl : public Connection
         Adaptor adaptorIn, std::function<void(Connection&)> openHandlerIn,
         std::function<void(Connection&, const std::string&, bool)>
             messageHandlerIn,
-        std::function<void(crow::websocket::Connection&, std::string_view,
-                           crow::websocket::MessageType type,
+        std::function<void(websocket::Connection&, std::string_view,
+                           websocket::MessageType type,
                            std::function<void()>&& whenComplete)>
             messageExHandlerIn,
         std::function<void(Connection&, const std::string&)> closeHandlerIn,
@@ -82,7 +82,7 @@ class ConnectionImpl : public Connection
             ws.get_executor().context());
     }
 
-    void start(const crow::Request& req)
+    void start(const Request& req)
     {
         BMCWEB_LOG_DEBUG("starting connection {}", logPtr(this));
 
@@ -357,8 +357,8 @@ class ConnectionImpl : public Connection
 
     std::function<void(Connection&)> openHandler;
     std::function<void(Connection&, const std::string&, bool)> messageHandler;
-    std::function<void(crow::websocket::Connection&, std::string_view,
-                       crow::websocket::MessageType type,
+    std::function<void(websocket::Connection&, std::string_view,
+                       websocket::MessageType type,
                        std::function<void()>&& whenComplete)>
         messageExHandler;
     std::function<void(Connection&, const std::string&)> closeHandler;

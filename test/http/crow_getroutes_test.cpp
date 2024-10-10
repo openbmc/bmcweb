@@ -32,7 +32,7 @@ TEST(GetRoutes, TestOneRoute)
     App app;
 
     BMCWEB_ROUTE(app, "/")
-    ([](const crow::Request& /*req*/,
+    ([](const Request& /*req*/,
         const std::shared_ptr<AsyncResp>& /*asyncResp*/) {});
 
     // TODO: "/" doesn't get reported in |getRoutes| today. Uncomment this once
