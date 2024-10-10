@@ -29,7 +29,7 @@
 #include <string_view>
 #include <utility>
 
-namespace crow
+namespace bmcweb
 {
 
 namespace authentication
@@ -310,4 +310,6 @@ inline std::shared_ptr<persistent_data::UserSession> authenticate(
 }
 
 } // namespace authentication
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

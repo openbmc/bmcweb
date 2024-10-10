@@ -9,7 +9,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace crow
+namespace bmcweb
 {
 namespace
 {
@@ -71,4 +71,4 @@ TEST(GetRoutes, TestlotsOfRoutes)
                                      Pointee(Eq("/moo"))));
 }
 } // namespace
-} // namespace crow
+} // namespace bmcweb

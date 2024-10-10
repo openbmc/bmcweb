@@ -19,7 +19,7 @@
 #include <memory>
 #include <string>
 
-namespace crow
+namespace bmcweb
 {
 namespace obmc_kvm
 {
@@ -210,4 +210,6 @@ inline void requestRoutes(App& app)
 }
 
 } // namespace obmc_kvm
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace crow
+namespace bmcweb
 {
 enum class HttpType
 {
@@ -9,3 +9,5 @@ enum class HttpType
     BOTH   // Socket supports both HTTPS and HTTP, with HTTP Redirect
 };
 }
+
+namespace crow = bmcweb;

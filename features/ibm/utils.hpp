@@ -8,7 +8,7 @@
 #include <string_view>
 #include <system_error>
 
-namespace crow
+namespace bmcweb
 {
 namespace ibm_utils
 {
@@ -43,4 +43,6 @@ inline bool createDirectory(std::string_view path)
 }
 
 } // namespace ibm_utils
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

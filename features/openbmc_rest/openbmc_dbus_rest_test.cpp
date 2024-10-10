@@ -5,7 +5,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace crow::openbmc_mapper
+namespace bmcweb::openbmc_mapper
 {
 namespace
 {
@@ -70,4 +70,4 @@ TEST(OpenBmcDbusTest, TestArgSplit)
     EXPECT_THAT(dbusArgSplit("i{si}b"), ElementsAre("i", "{si}", "b"));
 }
 } // namespace
-} // namespace crow::openbmc_mapper
+} // namespace bmcweb::openbmc_mapper
