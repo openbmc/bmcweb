@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba8f2e5_eb36caee",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T14:44:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "82841c25_40644864",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36441284_878f623c",
@@ -125,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e5e4799_d62bbb27",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T14:44:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4875b5ad_54b6d802",
+      "range": {
+        "startLine": 29,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06144756_95f41da2",
@@ -156,6 +198,24 @@
       "side": 1,
       "message": "I\u0027ve moved the error handling to the callers who will handle differently based on whether they are a GET or PATCH. I\u0027ve left the BMCWEB_LOG_DEBUG() in this function to help with debugging.",
       "parentUuid": "06144756_95f41da2",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ced2267_3df86bf1",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T14:44:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "811601c0_7b15e796",
       "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -213,6 +273,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5f1bd2_146bbbcf",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T14:44:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4db407e5_ee1cb3f9",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55fe683d_34f3825f",
@@ -250,6 +328,30 @@
       "side": 1,
       "message": "Changed to ec1 as that seems to be the common case. Looked for other similar cases and changed those as well.",
       "parentUuid": "55fe683d_34f3825f",
+      "range": {
+        "startLine": 82,
+        "startChar": 41,
+        "endLine": 82,
+        "endChar": 48
+      },
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fbfbab6_ecb237e7",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T14:44:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e6df72c0_0bb1948e",
       "range": {
         "startLine": 82,
         "startChar": 41,
@@ -330,6 +432,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "474e9398_dcd195fd",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T14:44:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8dd9049d_73f77b6a",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc85863b_8a0b7089",
@@ -400,6 +520,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b490111_c5aed4cd",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T14:44:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8b66fec5_5ac14bdc",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8adeb95_33b67ed2",
@@ -431,6 +569,24 @@
       "side": 1,
       "message": "Good catch! Added it.",
       "parentUuid": "f8adeb95_33b67ed2",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3424b927_1297efad",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T14:44:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e0e5fc13_a8c6d180",
       "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -482,6 +638,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74cae926_a7f71b24",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T14:44:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "84ac7925_dc3355a0",
+      "range": {
+        "startLine": 192,
+        "startChar": 4,
+        "endLine": 192,
+        "endChar": 24
+      },
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef229d52_cf060126",
@@ -513,6 +693,24 @@
       "side": 1,
       "message": "Yes, good catch! Corrected.",
       "parentUuid": "ef229d52_cf060126",
+      "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb0a22c5_1fbcbb5d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T14:44:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a19393e0_ce453132",
       "revId": "54b2e061a335765c84fd3711114a8bb1e1a5b70f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
