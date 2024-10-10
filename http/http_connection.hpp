@@ -56,7 +56,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace crow
+namespace bmcweb
 {
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -962,4 +962,6 @@ class Connection :
     using std::enable_shared_from_this<
         Connection<Adaptor, Handler>>::weak_from_this;
 };
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

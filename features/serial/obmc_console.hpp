@@ -28,7 +28,7 @@
 #include <utility>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 namespace obmc_console
 {
@@ -351,4 +351,6 @@ inline void requestRoutes(App& app)
         .onmessage(onMessage);
 }
 } // namespace obmc_console
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

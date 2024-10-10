@@ -17,7 +17,7 @@
 #include <utility>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 
 struct Node
@@ -327,4 +327,4 @@ class Trie
 
     std::vector<ContainedType> nodes{};
 };
-} // namespace crow
+} // namespace bmcweb

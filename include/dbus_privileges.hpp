@@ -24,7 +24,7 @@
 #include <utility>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 // Populate session with user information.
 inline bool populateUserInfo(
@@ -197,4 +197,6 @@ inline void getUserInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

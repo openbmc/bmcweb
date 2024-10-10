@@ -7,7 +7,7 @@
 #include <memory>
 #include <string_view>
 
-namespace crow
+namespace bmcweb
 {
 namespace websocket
 {
@@ -39,4 +39,6 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual boost::urls::url_view url() = 0;
 };
 } // namespace websocket
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

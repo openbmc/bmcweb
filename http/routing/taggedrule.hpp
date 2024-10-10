@@ -13,7 +13,7 @@
 #include <type_traits>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 template <typename... Args>
 class TaggedRule :
@@ -87,4 +87,6 @@ class TaggedRule :
                        const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>
         handler;
 };
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;
