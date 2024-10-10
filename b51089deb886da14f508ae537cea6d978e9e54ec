@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c5af066_643efcc6",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1529,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-10-10T06:37:50Z",
+      "side": 1,
+      "message": "i think Ed meant to have separate method for this sdbusplus::asio::getProperty call, move line from 1508 to 1529 into a method",
+      "parentUuid": "223c579d_1ec0d91a",
+      "range": {
+        "startLine": 1512,
+        "startChar": 0,
+        "endLine": 1529,
+        "endChar": 9
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e4e9677_4d8e47a0",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 14
@@ -292,6 +316,30 @@
       "side": 1,
       "message": "Yes, as per my prev comment, should just leave it as an empty list and validator would pass I guess. I will verify and update it in my next PS",
       "parentUuid": "1d868108_c2fe2c10",
+      "range": {
+        "startLine": 2238,
+        "startChar": 0,
+        "endLine": 2238,
+        "endChar": 44
+      },
+      "revId": "b51089deb886da14f508ae537cea6d978e9e54ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71abcfe2_bfb74485",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 2238,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-10-10T06:37:50Z",
+      "side": 1,
+      "message": "basically when user patch redfish \"MultiFactorAuth\" with empty list, D-bus enum value set to None",
+      "parentUuid": "0c0ba52c_f7b6de92",
       "range": {
         "startLine": 2238,
         "startChar": 0,
