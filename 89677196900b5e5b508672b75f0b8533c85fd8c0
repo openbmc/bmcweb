@@ -323,6 +323,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3bab3b4_bdbdaaee",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2510,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-10T17:01:27Z",
+      "side": 1,
+      "message": "\u003e Hi Ed.\n\u003e \n\u003e Am getting that this API restricts to just \"ConfigureSelf\" even for the user with \"priv-admin\" role.\n\u003e \n\u003e But I am unclear about the DMTF change you mention here. Can you please help here, so that we would atleast be able to decide to do the \u00272.\u0027 you have mentioned and take this commit forward.\n\nDMTF lists this API with a ConfigureUsers privilege, with some specific overrides for ConfigureSelf.\n\nhttps://github.com/DMTF/Redfish-Publications/blob/ce5f0dc950120af8856b7aa10ae3c29fcae89c4f/registries/Redfish_1.5.0_PrivilegeRegistry.json#L6132",
+      "parentUuid": "2b01fd80_550fe3e8",
+      "range": {
+        "startLine": 2506,
+        "startChar": 0,
+        "endLine": 2510,
+        "endChar": 5
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b905927_129872b5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
