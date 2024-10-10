@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7dc3923d_5236f808",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-10T19:23:16Z",
+      "side": 1,
+      "message": "In addition, the WARNING log is better to be done before messages::propertyValueFormatError()",
+      "parentUuid": "d12146b0_111ecc57",
+      "revId": "fcf65898722b37eaa27ce39461c697da7562b335",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6a24c3dc_c32d2dcb",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 4
