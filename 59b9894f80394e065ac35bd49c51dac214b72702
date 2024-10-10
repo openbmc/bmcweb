@@ -22,6 +22,30 @@
       },
       "revId": "59b9894f80394e065ac35bd49c51dac214b72702",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d91bf16_86fc02bb",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-10T21:34:12Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "fece19e0_917bcdde",
+      "range": {
+        "startLine": 615,
+        "startChar": 13,
+        "endLine": 615,
+        "endChar": 19
+      },
+      "revId": "59b9894f80394e065ac35bd49c51dac214b72702",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
