@@ -40,10 +40,9 @@ class WebSocketRule : public BaseRule
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
         BMCWEB_LOG_DEBUG("Websocket handles upgrade");
-        std::shared_ptr<
-            crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
+        std::shared_ptr<websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
             myConnection = std::make_shared<
-                crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
+                websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
                 req.url(), req.session, std::move(adaptor), openHandler,
                 messageHandler, messageExHandler, closeHandler, errorHandler);
         myConnection->start(req);
@@ -55,9 +54,9 @@ class WebSocketRule : public BaseRule
                            adaptor) override
     {
         BMCWEB_LOG_DEBUG("Websocket handles upgrade");
-        std::shared_ptr<crow::websocket::ConnectionImpl<
+        std::shared_ptr<websocket::ConnectionImpl<
             boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>
-            myConnection = std::make_shared<crow::websocket::ConnectionImpl<
+            myConnection = std::make_shared<websocket::ConnectionImpl<
                 boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
                 req.url(), req.session, std::move(adaptor), openHandler,
                 messageHandler, messageExHandler, closeHandler, errorHandler);
@@ -100,15 +99,15 @@ class WebSocketRule : public BaseRule
     }
 
   protected:
-    std::function<void(crow::websocket::Connection&)> openHandler;
-    std::function<void(crow::websocket::Connection&, const std::string&, bool)>
+    std::function<void(websocket::Connection&)> openHandler;
+    std::function<void(websocket::Connection&, const std::string&, bool)>
         messageHandler;
-    std::function<void(crow::websocket::Connection&, std::string_view,
-                       crow::websocket::MessageType type,
+    std::function<void(websocket::Connection&, std::string_view,
+                       websocket::MessageType type,
                        std::function<void()>&& whenComplete)>
         messageExHandler;
-    std::function<void(crow::websocket::Connection&, const std::string&)>
+    std::function<void(websocket::Connection&, const std::string&)>
         closeHandler;
-    std::function<void(crow::websocket::Connection&)> errorHandler;
+    std::function<void(websocket::Connection&)> errorHandler;
 };
 } // namespace crow

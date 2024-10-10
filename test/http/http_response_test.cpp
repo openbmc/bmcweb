@@ -15,15 +15,17 @@
 #include <string>
 
 #include "gtest/gtest.h"
+namespace crow
+{
 namespace
 {
-void addHeaders(crow::Response& res)
+void addHeaders(Response& res)
 {
     res.addHeader("myheader", "myvalue");
     res.keepAlive(true);
     res.result(boost::beast::http::status::ok);
 }
-void verifyHeaders(crow::Response& res)
+void verifyHeaders(Response& res)
 {
     EXPECT_EQ(res.getHeaderValue("myheader"), "myvalue");
     EXPECT_EQ(res.keepAlive(), true);
@@ -66,13 +68,13 @@ std::string getData(boost::beast::http::response<bmcweb::HttpBody>& m)
 
 TEST(HttpResponse, Headers)
 {
-    crow::Response res;
+    Response res;
     addHeaders(res);
     verifyHeaders(res);
 }
 TEST(HttpResponse, StringBody)
 {
-    crow::Response res;
+    Response res;
     addHeaders(res);
     std::string_view bodyValue = "this is my new body";
     res.write({bodyValue.data(), bodyValue.length()});
@@ -81,7 +83,7 @@ TEST(HttpResponse, StringBody)
 }
 TEST(HttpResponse, HttpBody)
 {
-    crow::Response res;
+    Response res;
     addHeaders(res);
     TemporaryFileHandle temporaryFile("sample text");
     res.openFile(temporaryFile.stringPath);
@@ -90,7 +92,7 @@ TEST(HttpResponse, HttpBody)
 }
 TEST(HttpResponse, HttpBodyWithFd)
 {
-    crow::Response res;
+    Response res;
     addHeaders(res);
     TemporaryFileHandle temporaryFile("sample text");
     FILE* fd = fopen(temporaryFile.stringPath.c_str(), "r+");
@@ -101,7 +103,7 @@ TEST(HttpResponse, HttpBodyWithFd)
 
 TEST(HttpResponse, Base64HttpBodyWithFd)
 {
-    crow::Response res;
+    Response res;
     addHeaders(res);
     TemporaryFileHandle temporaryFile("sample text");
     FILE* fd = fopen(temporaryFile.stringPath.c_str(), "r");
@@ -113,7 +115,7 @@ TEST(HttpResponse, Base64HttpBodyWithFd)
 
 TEST(HttpResponse, BodyTransitions)
 {
-    crow::Response res;
+    Response res;
     addHeaders(res);
     TemporaryFileHandle temporaryFile("sample text");
     res.openFile(temporaryFile.stringPath);
@@ -136,7 +138,7 @@ std::string generateBigdata()
 
 TEST(HttpResponse, StringBodyWriterLarge)
 {
-    crow::Response res;
+    Response res;
     std::string data = generateBigdata();
     res.write(std::string(data));
     EXPECT_EQ(getData(res.response), data);
@@ -144,7 +146,7 @@ TEST(HttpResponse, StringBodyWriterLarge)
 
 TEST(HttpResponse, Base64HttpBodyWriter)
 {
-    crow::Response res;
+    Response res;
     std::string data = "sample text";
     TemporaryFileHandle temporaryFile(data);
     FILE* f = fopen(temporaryFile.stringPath.c_str(), "r+");
@@ -154,7 +156,7 @@ TEST(HttpResponse, Base64HttpBodyWriter)
 
 TEST(HttpResponse, Base64HttpBodyWriterLarge)
 {
-    crow::Response res;
+    Response res;
     std::string data = generateBigdata();
     TemporaryFileHandle temporaryFile(data);
 
@@ -164,12 +166,12 @@ TEST(HttpResponse, Base64HttpBodyWriterLarge)
               ec);
     EXPECT_EQ(ec.value(), 0);
     res.openFd(file.native_handle(), bmcweb::EncodingType::Base64);
-    EXPECT_EQ(getData(res.response), crow::utility::base64encode(data));
+    EXPECT_EQ(getData(res.response), utility::base64encode(data));
 }
 
 TEST(HttpResponse, HttpBodyWriterLarge)
 {
-    crow::Response res;
+    Response res;
     std::string data = generateBigdata();
     TemporaryFileHandle temporaryFile(data);
 
@@ -181,5 +183,5 @@ TEST(HttpResponse, HttpBodyWriterLarge)
     res.openFd(file.native_handle());
     EXPECT_EQ(getData(res.response), data);
 }
-
 } // namespace
+} // namespace crow

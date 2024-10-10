@@ -266,7 +266,7 @@ class Connection :
         {
             return;
         }
-        req = std::make_shared<crow::Request>(parser->release(), reqEc);
+        req = std::make_shared<Request>(parser->release(), reqEc);
         if (reqEc)
         {
             BMCWEB_LOG_DEBUG("Request failed to construct{}", reqEc.message());
@@ -307,8 +307,8 @@ class Connection :
 
         if (authenticationEnabled)
         {
-            if (!crow::authentication::isOnAllowlist(req->url().path(),
-                                                     req->method()) &&
+            if (!authentication::isOnAllowlist(req->url().path(),
+                                               req->method()) &&
                 req->session == nullptr)
             {
                 BMCWEB_LOG_WARNING("Authentication failed");
@@ -324,7 +324,7 @@ class Connection :
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
         BMCWEB_LOG_DEBUG("Setting completion handler");
         asyncResp->res.setCompleteRequestHandler(
-            [self(shared_from_this())](crow::Response& thisRes) {
+            [self(shared_from_this())](Response& thisRes) {
                 self->completeRequest(thisRes);
             });
         bool isSse =
@@ -337,7 +337,7 @@ class Connection :
             isSse)
         {
             asyncResp->res.setCompleteRequestHandler(
-                [self(shared_from_this())](crow::Response& thisRes) {
+                [self(shared_from_this())](Response& thisRes) {
                     if (thisRes.result() != boost::beast::http::status::ok)
                     {
                         // When any error occurs before handle upgradation,
@@ -411,7 +411,7 @@ class Connection :
         }
     }
 
-    void completeRequest(crow::Response& thisRes)
+    void completeRequest(Response& thisRes)
     {
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
@@ -843,10 +843,10 @@ class Connection :
 
     boost::beast::flat_static_buffer<8192> buffer;
 
-    std::shared_ptr<crow::Request> req;
+    std::shared_ptr<Request> req;
     std::string accept;
 
-    crow::Response res;
+    Response res;
 
     std::shared_ptr<persistent_data::UserSession> userSession;
     std::shared_ptr<persistent_data::UserSession> mtlsSession;

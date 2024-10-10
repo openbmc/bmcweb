@@ -43,9 +43,9 @@ class SseSocketRule : public BaseRule
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
         std::shared_ptr<
-            crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>
+            sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>
             myConnection = std::make_shared<
-                crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
+                sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
                 std::move(adaptor), openHandler, closeHandler);
         myConnection->start(req);
     }
@@ -54,9 +54,9 @@ class SseSocketRule : public BaseRule
                        boost::asio::ssl::stream<boost::asio::ip::tcp::socket>&&
                            adaptor) override
     {
-        std::shared_ptr<crow::sse_socket::ConnectionImpl<
+        std::shared_ptr<sse_socket::ConnectionImpl<
             boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>
-            myConnection = std::make_shared<crow::sse_socket::ConnectionImpl<
+            myConnection = std::make_shared<sse_socket::ConnectionImpl<
                 boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
                 std::move(adaptor), openHandler, closeHandler);
         myConnection->start(req);
@@ -77,9 +77,8 @@ class SseSocketRule : public BaseRule
     }
 
   private:
-    std::function<void(crow::sse_socket::Connection&, const crow::Request&)>
-        openHandler;
-    std::function<void(crow::sse_socket::Connection&)> closeHandler;
+    std::function<void(sse_socket::Connection&, const Request&)> openHandler;
+    std::function<void(sse_socket::Connection&)> closeHandler;
 };
 
 } // namespace crow

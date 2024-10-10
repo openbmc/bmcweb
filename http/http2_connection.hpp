@@ -242,7 +242,7 @@ class HTTP2Connection :
                 return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
             }
         }
-        crow::Request& thisReq = *it->second.req;
+        Request& thisReq = *it->second.req;
         thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
             &adaptor.get_executor().context());
 
@@ -251,7 +251,7 @@ class HTTP2Connection :
         BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
                          thisReq.url().encoded_path());
 
-        crow::Response& thisRes = it->second.res;
+        Response& thisRes = it->second.res;
 
         thisRes.setCompleteRequestHandler(
             [this, streamId](Response& completeRes) {
@@ -266,10 +266,10 @@ class HTTP2Connection :
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
         if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
         {
-            thisReq.session = crow::authentication::authenticate(
+            thisReq.session = authentication::authenticate(
                 {}, asyncResp->res, thisReq.method(), thisReq.req, nullptr);
-            if (!crow::authentication::isOnAllowlist(thisReq.url().path(),
-                                                     thisReq.method()) &&
+            if (!authentication::isOnAllowlist(thisReq.url().path(),
+                                               thisReq.method()) &&
                 thisReq.session == nullptr)
             {
                 BMCWEB_LOG_WARNING("Authentication failed");
@@ -425,7 +425,7 @@ class HTTP2Connection :
             return -1;
         }
 
-        crow::Request& thisReq = *thisStream->second.req;
+        Request& thisReq = *thisStream->second.req;
 
         if (nameSv == ":path")
         {

@@ -33,12 +33,12 @@ class TaggedRule :
     void operator()(Func&& f)
     {
         static_assert(
-            std::is_invocable_v<Func, crow::Request,
+            std::is_invocable_v<Func, Request,
                                 std::shared_ptr<bmcweb::AsyncResp>&, Args...>,
             "Handler type is mismatched with URL parameters");
         static_assert(
             std::is_same_v<
-                void, std::invoke_result_t<Func, crow::Request,
+                void, std::invoke_result_t<Func, Request,
                                            std::shared_ptr<bmcweb::AsyncResp>&,
                                            Args...>>,
             "Handler function with response argument should have void return type");
@@ -79,7 +79,7 @@ class TaggedRule :
     }
 
   private:
-    std::function<void(const crow::Request&,
+    std::function<void(const Request&,
                        const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>
         handler;
 };
