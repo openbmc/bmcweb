@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b3b0d90_163fa864",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-10T16:31:16Z",
+      "side": 1,
+      "message": "This is better, I like this more.",
+      "revId": "6084aff9dd117f80870d54f298d5a2b0a860843f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "505ac534_7572e034",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-10T16:31:16Z",
+      "side": 1,
+      "message": "This to me, isn\u0027t better but :shrug: \nI am fine either way here.",
+      "revId": "6084aff9dd117f80870d54f298d5a2b0a860843f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
