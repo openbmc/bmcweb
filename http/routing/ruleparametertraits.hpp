@@ -14,7 +14,7 @@
 #include <initializer_list>
 #include <optional>
 
-namespace crow
+namespace bmcweb
 {
 template <typename T>
 struct RuleParameterTraits
@@ -104,4 +104,6 @@ struct RuleParameterTraits
         return *self;
     }
 };
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

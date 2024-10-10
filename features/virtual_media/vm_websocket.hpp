@@ -37,7 +37,7 @@
 #include <system_error>
 #include <utility>
 
-namespace crow
+namespace bmcweb
 {
 
 namespace obmc_vm
@@ -623,4 +623,6 @@ inline void requestRoutes(App& app)
 
 } // namespace obmc_vm
 
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

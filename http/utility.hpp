@@ -27,7 +27,7 @@
 #include <utility>
 #include <variant>
 
-namespace crow
+namespace bmcweb
 {
 namespace utility
 {
@@ -511,7 +511,7 @@ inline void setPortDefaults(boost::urls::url& url)
 }
 
 } // namespace utility
-} // namespace crow
+} // namespace bmcweb
 
 namespace nlohmann
 {
@@ -525,3 +525,5 @@ struct adl_serializer<URL>
     }
 };
 } // namespace nlohmann
+
+namespace crow = bmcweb;

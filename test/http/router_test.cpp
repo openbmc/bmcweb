@@ -16,7 +16,7 @@
 
 // IWYU pragma: no_forward_declare bmcweb::AsyncResp
 
-namespace crow
+namespace bmcweb
 {
 namespace
 {
@@ -157,4 +157,4 @@ TEST(Router, 405)
     EXPECT_TRUE(called);
 }
 } // namespace
-} // namespace crow
+} // namespace bmcweb

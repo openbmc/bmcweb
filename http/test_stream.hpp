@@ -4,7 +4,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/beast/_experimental/test/stream.hpp>
 
-namespace crow
+namespace bmcweb
 {
 
 /*
@@ -27,4 +27,6 @@ struct TestStream : public boost::beast::test::stream
     }
 };
 
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

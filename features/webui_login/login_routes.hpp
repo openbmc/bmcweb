@@ -24,7 +24,7 @@
 #include <string>
 #include <string_view>
 
-namespace crow
+namespace bmcweb
 {
 
 namespace login_routes
@@ -224,4 +224,6 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::post)(handleLogout);
 }
 } // namespace login_routes
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

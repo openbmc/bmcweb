@@ -22,7 +22,7 @@
 #include <utility>
 
 #include "gtest/gtest.h"
-namespace crow
+namespace bmcweb
 {
 
 struct FakeHandler
@@ -102,4 +102,4 @@ TEST(http_connection, RequestPropogates)
     EXPECT_TRUE(clock.wascalled);
 }
 
-} // namespace crow
+} // namespace bmcweb

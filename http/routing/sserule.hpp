@@ -15,7 +15,7 @@
 #include <string>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 
 class SseSocketRule : public BaseRule
@@ -58,4 +58,6 @@ class SseSocketRule : public BaseRule
     std::function<void(sse_socket::Connection&)> closeHandler;
 };
 
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;

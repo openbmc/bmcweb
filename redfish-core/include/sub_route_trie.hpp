@@ -13,7 +13,7 @@
 #include <string_view>
 #include <vector>
 
-namespace crow
+namespace bmcweb
 {
 
 struct SubRouteNode : public crow::Node
@@ -238,4 +238,4 @@ class SubRouteTrie : public crow::Trie<ContainedType>
     }
 };
 
-} // namespace crow
+} // namespace bmcweb

@@ -14,7 +14,7 @@
 #include <memory>
 #include <utility>
 
-namespace crow
+namespace bmcweb
 {
 void WebSocketRule::handleUpgrade(
     const Request& req, const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
@@ -43,4 +43,4 @@ void WebSocketRule::handleUpgrade(
             messageHandler, messageExHandler, closeHandler, errorHandler);
     myConnection->start(req);
 }
-} // namespace crow
+} // namespace bmcweb

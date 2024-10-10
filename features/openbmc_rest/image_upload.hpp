@@ -28,7 +28,7 @@
 #include <ranges>
 #include <string>
 
-namespace crow
+namespace bmcweb
 {
 namespace image_upload
 {
@@ -134,4 +134,6 @@ inline void requestRoutes(App& app)
             });
 }
 } // namespace image_upload
-} // namespace crow
+} // namespace bmcweb
+
+namespace crow = bmcweb;
