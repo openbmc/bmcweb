@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8b42cb0_00fb91ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-10-11T15:44:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cddf0148_8828c892",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "7485d2787f94f72a08b3da6a656526f0205a0f5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eefc5a29_1b7582a3",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-10-09T20:10:37Z",
       "side": 1,
       "message": "nit, add \"if the xyz.openbmc_project.Control.Power.IdlePowerSaver is present\"",
+      "revId": "7485d2787f94f72a08b3da6a656526f0205a0f5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36bbed55_ddc67b9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-10-11T15:44:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "eefc5a29_1b7582a3",
       "revId": "7485d2787f94f72a08b3da6a656526f0205a0f5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -60,6 +102,47 @@
         "endLine": 14,
         "endChar": 26
       },
+      "revId": "7485d2787f94f72a08b3da6a656526f0205a0f5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0107bbea_620c3e7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-10-11T15:44:57Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "268c29fb_35797791",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "7485d2787f94f72a08b3da6a656526f0205a0f5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e07c9d7a_30dd7c2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000238
+      },
+      "writtenOn": "2024-10-11T15:44:57Z",
+      "side": 1,
+      "message": "Updated design to not need the PDI change. The service will just not provide the object if not supported.",
       "revId": "7485d2787f94f72a08b3da6a656526f0205a0f5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
