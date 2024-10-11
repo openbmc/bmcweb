@@ -46,6 +46,30 @@
       },
       "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee93082d_b1855ac4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2555,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-11T15:03:55Z",
+      "side": 1,
+      "message": "Redfish also should call this out in the spec like they do for password change, etc",
+      "parentUuid": "6fa58aa4_79b08d56",
+      "range": {
+        "startLine": 2555,
+        "startChar": 20,
+        "endLine": 2555,
+        "endChar": 38
+      },
+      "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
