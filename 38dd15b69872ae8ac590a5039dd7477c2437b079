@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "463a135d_2647f4c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-11T18:19:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc78e1d8_24b7160c",
+      "range": {
+        "startLine": 9,
+        "startChar": 57,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "38dd15b69872ae8ac590a5039dd7477c2437b079",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b144e837_11af07e6",
@@ -95,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e69d362_2ab0eeb4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-11T18:19:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c116653d_50fe92e2",
+      "range": {
+        "startLine": 13,
+        "startChar": 24,
+        "endLine": 13,
+        "endChar": 53
+      },
+      "revId": "38dd15b69872ae8ac590a5039dd7477c2437b079",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ab27703_727fd094",
@@ -126,6 +174,24 @@
       "side": 1,
       "message": "Yes, I\u0027ve updated the commit message to indicate this.",
       "parentUuid": "2ab27703_727fd094",
+      "revId": "38dd15b69872ae8ac590a5039dd7477c2437b079",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e46733e_da3e7df1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-11T18:19:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1badfa07_9fa3e0f8",
       "revId": "38dd15b69872ae8ac590a5039dd7477c2437b079",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
