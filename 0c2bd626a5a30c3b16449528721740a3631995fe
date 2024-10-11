@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5611ed5e_5bf0ac08",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T17:55:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42069c6a_14240d2e",
+      "revId": "0c2bd626a5a30c3b16449528721740a3631995fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef7b2cc6_3ed18c6d",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Added",
       "parentUuid": "ef7b2cc6_3ed18c6d",
+      "revId": "0c2bd626a5a30c3b16449528721740a3631995fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fff43d5_fc8956c0",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T17:55:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40a16ad2_9c5c5137",
       "revId": "0c2bd626a5a30c3b16449528721740a3631995fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +156,24 @@
       "side": 1,
       "message": "I changed it to INFO",
       "parentUuid": "abe61ac6_192f6a31",
+      "revId": "0c2bd626a5a30c3b16449528721740a3631995fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72cc2bb9_3d109005",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1457,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T17:55:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1dddc9_a3f72046",
       "revId": "0c2bd626a5a30c3b16449528721740a3631995fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
