@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b55da12a_60ae7552",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-11T16:56:49Z",
+      "side": 1,
+      "message": "Can you please at least try running one event through the BMC?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5587dc0_2148c68d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-11T16:56:49Z",
+      "side": 1,
+      "message": "FYI, we\u0027ll likely have merge conflicts between this and https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74878.  We\u0027ll get them figured out.",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7552ff76_ca07e534",
         "filename": "redfish-core/include/event-service/event-log-objects-type.hpp",
         "patchSetId": 5
@@ -31,6 +71,41 @@
       "writtenOn": "2024-10-11T16:26:41Z",
       "side": 1,
       "message": "For the consistency with the other cases, would it be better to use \"_\" in the filename like`redfish-core/include/event-service/event_log.hpp`?",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77d23689_2b811df6",
+        "filename": "redfish-core/include/event-service/event-log.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-11T16:56:49Z",
+      "side": 1,
+      "message": "+1 naming convention for files is underscores.",
+      "parentUuid": "89c46d16_f7ed0193",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e34abfda_c034f476",
+        "filename": "redfish-core/include/event-service/event-log.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-11T16:56:49Z",
+      "side": 1,
+      "message": "Can we just remove the \"event-service\" folder for now?  It\u0027s not clear to me what it would represent, and certainly the rest of the files in this folder don\u0027t follow that pattern now.  For this patch, lets keep the folder structure flat, and if we want to make a deeper folder structure, lets do it in a different patch.",
       "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
