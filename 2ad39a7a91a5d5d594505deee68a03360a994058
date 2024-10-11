@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5eaa820_66f2be54",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-11T14:55:13Z",
+      "side": 1,
+      "message": "Having a BMCWEB_LOG_ERROR is helpful when it contains additional information so if the author wants to add\n\n    BMCWEB_LOG_ERROR(\"PAM error: {}\", retval);\n\nthat would be useful\n\nA trace without any additional information here doesn\u0027t help much since the  messages::internalError already has the file and linenumber",
+      "parentUuid": "95ef40b2_17ac17ff",
+      "range": {
+        "startLine": 1139,
+        "startChar": 0,
+        "endLine": 1139,
+        "endChar": 16
+      },
+      "revId": "2ad39a7a91a5d5d594505deee68a03360a994058",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e568bf98_f1d321c5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 18

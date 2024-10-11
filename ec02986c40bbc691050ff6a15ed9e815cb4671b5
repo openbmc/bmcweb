@@ -22,6 +22,30 @@
       },
       "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fa58aa4_79b08d56",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2555,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-11T14:55:13Z",
+      "side": 1,
+      "message": "So I feel what Redfish has is incomplete...\n`const static auto\u0026 postManagerAccount \u003d privilegeSetConfigureUsers;`\n\n\nThey need to add a section here for this like they did Password\nFrom https://redfish.dmtf.org/registries/Redfish_1.5.0_PrivilegeRegistry.json \n```\n            \"PropertyOverrides\": [\n                {\n                    \"Targets\": [\n                        \"Password\"\n                    ],\n                    \"OperationMap\": {\n                        \"PATCH\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureUsers\"\n                                ]\n                            },\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureSelf\"\n                                ]\n                            }\n                        ]\n                    }\n                }\n            ]\n        },\n```\n\nI opened Redfish issue 6245 for this",
+      "parentUuid": "eae7e010_1116215c",
+      "range": {
+        "startLine": 2555,
+        "startChar": 20,
+        "endLine": 2555,
+        "endChar": 38
+      },
+      "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
