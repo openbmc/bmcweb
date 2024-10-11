@@ -161,6 +161,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b16b0a9_567a4cca",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-11T19:28:50Z",
+      "side": 1,
+      "message": "The mockup moved but that is what it shows (no type)\nhttps://redfish.dmtf.org/redfish/mockups/v1/1518",
+      "parentUuid": "cc832d7f_d9894b1d",
+      "range": {
+        "startLine": 450,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 64
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cca3c60f_8cb194cc",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 15
@@ -556,6 +580,30 @@
       "side": 1,
       "message": "That makes a lot of sense. I\u0027ve corrected this to follow this rule.",
       "parentUuid": "e87fe3e5_683954e3",
+      "range": {
+        "startLine": 727,
+        "startChar": 0,
+        "endLine": 727,
+        "endChar": 15
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56320561_4e5eeed3",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-11T19:28:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6376dead_05ad7a9b",
       "range": {
         "startLine": 727,
         "startChar": 0,
