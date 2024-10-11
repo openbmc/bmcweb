@@ -87,6 +87,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2131bb07_8298d729",
+        "filename": "redfish-core/include/event_matches_filter.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-11T23:02:32Z",
+      "side": 1,
+      "message": "Yep, and unfortunately these magic numbers already exist, so this patchset is making it no worse.\n\nPlease send patchsets to fix this if this is something you\u0027re concerned about, but I\u0027m not going to hold up this patch to go fix this function.",
+      "parentUuid": "24c89896_a23e4007",
+      "revId": "d096ce8c6d591086ab388e204395809ee8f52621",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "763d8e60_389027fa",
