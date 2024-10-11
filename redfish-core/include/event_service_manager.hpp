@@ -569,15 +569,15 @@ class Subscription : public persistent_data::UserSubscription
         return eventSeqNum;
     }
 
-    void setSubscriptionId(const std::string& id2)
+    void setSubscriptionId(const std::string& idIn)
     {
-        BMCWEB_LOG_DEBUG("Subscription ID: {}", id2);
-        subId = id2;
+        BMCWEB_LOG_DEBUG("Subscription ID: {}", idIn);
+        id = idIn;
     }
 
     std::string getSubscriptionId()
     {
-        return subId;
+        return id;
     }
 
     bool matchSseId(const crow::sse_socket::Connection& thisConn)
@@ -603,7 +603,6 @@ class Subscription : public persistent_data::UserSubscription
     }
 
   private:
-    std::string subId;
     uint64_t eventSeqNum = 1;
     boost::urls::url host;
     std::shared_ptr<crow::ConnectionPolicy> policy;
