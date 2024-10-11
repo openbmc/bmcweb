@@ -155,6 +155,24 @@
       "message": "#include \u003cranges\u003e",
       "revId": "d096ce8c6d591086ab388e204395809ee8f52621",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "babe7f15_c5ad7737",
+        "filename": "redfish-core/include/event_matches_filter.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-11T23:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4085166_2fe11ef0",
+      "revId": "d096ce8c6d591086ab388e204395809ee8f52621",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

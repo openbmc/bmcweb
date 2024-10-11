@@ -22,6 +22,30 @@
       },
       "revId": "ada15067a2cb783d8199158032ffaa9f9363720d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6a811ba_8fba3da8",
+        "filename": "test/redfish-core/include/event_service_manager_test.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-11T23:04:03Z",
+      "side": 0,
+      "message": "I didn\u0027t combine them, current patchset just moves these tests, because they only applied to the code that moves.",
+      "parentUuid": "c73f2b05_bb83cd2c",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 5
+      },
+      "revId": "ada15067a2cb783d8199158032ffaa9f9363720d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
