@@ -1,8 +1,9 @@
-#include "event_service_manager.hpp"
+#include "event-service/subscription.hpp"
 #include "filter_expr_printer.hpp"
 
 #include <boost/asio/io_context.hpp>
 #include <boost/url/url.hpp>
+#include <boost/url/url_view_base.hpp>
 #include <nlohmann/json.hpp>
 
 #include <optional>
