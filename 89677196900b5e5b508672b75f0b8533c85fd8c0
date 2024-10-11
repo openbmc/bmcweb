@@ -347,6 +347,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5124fbef_dc16e5a1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2510,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-11T18:15:26Z",
+      "side": 1,
+      "message": "I opened an issue with the DTMF for this, see https://github.com/DMTF/Redfish/issues/6245#issuecomment-2407882528",
+      "parentUuid": "c3bab3b4_bdbdaaee",
+      "range": {
+        "startLine": 2506,
+        "startChar": 0,
+        "endLine": 2510,
+        "endChar": 5
+      },
+      "revId": "89677196900b5e5b508672b75f0b8533c85fd8c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3b905927_129872b5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
