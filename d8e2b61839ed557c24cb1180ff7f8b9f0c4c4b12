@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "012c718e_b50f0836",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T16:26:41Z",
+      "side": 0,
+      "message": "#include \u003crandom\u003e // std::uniform_int_distribution\n#include \u003cutility\u003e // std::pair",
+      "revId": "d8e2b61839ed557c24cb1180ff7f8b9f0c4c4b12",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

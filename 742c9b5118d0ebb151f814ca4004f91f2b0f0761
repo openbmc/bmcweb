@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7552ff76_ca07e534",
+        "filename": "redfish-core/include/event-service/event-log-objects-type.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T16:26:41Z",
+      "side": 1,
+      "message": "Similar to `event-log.hpp`, can this be `redfish-core/include/event-service/event_log_objects_type.hpp`?",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89c46d16_f7ed0193",
+        "filename": "redfish-core/include/event-service/event-log.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T16:26:41Z",
+      "side": 1,
+      "message": "For the consistency with the other cases, would it be better to use \"_\" in the filename like`redfish-core/include/event-service/event_log.hpp`?",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4e546cb_a3e321ba",
+        "filename": "redfish-core/include/event-service/event-log.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T16:26:41Z",
+      "side": 1,
+      "message": "include \u003cstring_view\u003e",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffdaa763_aa09b38b",
+        "filename": "redfish-core/include/event-service/registries.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T16:26:41Z",
+      "side": 1,
+      "message": "#include \u003cstring_view\u003e",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
