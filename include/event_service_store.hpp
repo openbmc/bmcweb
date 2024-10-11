@@ -7,6 +7,10 @@
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
 
+#include <memory>
+#include <string>
+#include <vector>
+
 namespace persistent_data
 {
 
@@ -320,6 +324,19 @@ class EventServiceStore
     EventServiceConfig& getEventServiceConfig()
     {
         return eventServiceConfig;
+    }
+
+    std::shared_ptr<UserSubscription>
+        getUserSubscriptionConfig(const std::string& id)
+    {
+        auto obj = subscriptionsConfigMap.find(id);
+        if (obj == subscriptionsConfigMap.end())
+        {
+            BMCWEB_LOG_DEBUG("No UserSubscription exist with ID:{}", id);
+            return nullptr;
+        }
+        std::shared_ptr<UserSubscription> userSub = obj->second;
+        return userSub;
     }
 };
 
