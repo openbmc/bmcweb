@@ -830,6 +830,10 @@ inline void requestRoutesEventDestination(App& app)
             subValue->userSub.verifyCertificate = *verifyCertificate;
         }
 
+        // Sync Subscription to UserSubscriptionConfig
+        persistent_data::EventServiceStore::getInstance()
+            .updateUserSubscriptionConfig(subValue->userSub);
+
         EventServiceManager::getInstance().updateSubscriptionData();
     });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
