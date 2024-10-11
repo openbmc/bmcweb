@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c787482_831b330e",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T17:50:57Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "abc009c4_be1cce73",
+      "revId": "fccd8ea9ea641583771cfc08b0aa468326305bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c26ea2c1_c916346c",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-10-11T16:38:41Z",
       "side": 1,
       "message": "Don\u0027t love the names here. subId is easier to search, oh well. Maybe \nid \u003d idIn ?",
+      "revId": "fccd8ea9ea641583771cfc08b0aa468326305bd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "864b5dc6_4cb4a757",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T17:50:57Z",
+      "side": 1,
+      "message": "Changed to `idIn`.",
+      "parentUuid": "c26ea2c1_c916346c",
       "revId": "fccd8ea9ea641583771cfc08b0aa468326305bd1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
