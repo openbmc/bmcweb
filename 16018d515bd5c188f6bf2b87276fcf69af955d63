@@ -22,6 +22,30 @@
       },
       "revId": "16018d515bd5c188f6bf2b87276fcf69af955d63",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f51ea20_bbdd1b6b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-11T17:14:55Z",
+      "side": 1,
+      "message": "Thanks. needsTerminated() seems better",
+      "parentUuid": "2b66077a_a23ee798",
+      "range": {
+        "startLine": 301,
+        "startChar": 9,
+        "endLine": 301,
+        "endChar": 27
+      },
+      "revId": "16018d515bd5c188f6bf2b87276fcf69af955d63",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
