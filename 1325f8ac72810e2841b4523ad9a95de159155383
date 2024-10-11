@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6c22e34_a7f971e7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2605,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-11T19:36:02Z",
+      "side": 1,
+      "message": "I am confused why this is needed. \nIf the interface doesn\u0027t exist doesn\u0027t getSubTree just return an empty subtree?",
+      "range": {
+        "startLine": 2601,
+        "startChar": 0,
+        "endLine": 2605,
+        "endChar": 17
+      },
+      "revId": "1325f8ac72810e2841b4523ad9a95de159155383",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
