@@ -371,6 +371,27 @@ TEST(ReadJsonPatch, OnlyOdataGivesNoOperation)
     EXPECT_THAT(res.jsonValue, Not(IsEmpty()));
 }
 
+TEST(ReadJsonPatch, VerifyReadJsonPatchIntegerReturnsOutOfRange)
+{
+    crow::Response res;
+    std::error_code ec;
+
+    // 4294967296 is an out-of-range value for uint32_t
+    crow::Request req(R"({"@odata.etag": "etag", "integer": 4294967296})", ec);
+    req.addHeader(boost::beast::http::field::content_type, "application/json");
+
+    uint32_t integer = 0;
+    ASSERT_FALSE(readJsonPatch(req, res, "integer", integer));
+    EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+
+    const nlohmann::json& resExtInfo =
+        res.jsonValue["error"]["@Message.ExtendedInfo"];
+    EXPECT_THAT(resExtInfo[0]["@odata.type"], "#Message.v1_1_1.Message");
+    EXPECT_THAT(resExtInfo[0]["MessageId"],
+                "Base.1.19.0.PropertyValueOutOfRange");
+    EXPECT_THAT(resExtInfo[0]["MessageSeverity"], "Warning");
+}
+
 TEST(ReadJsonAction, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 {
     crow::Response res;
