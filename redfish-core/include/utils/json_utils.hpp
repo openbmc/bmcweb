@@ -330,7 +330,7 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
             }
             else if (ec == UnpackErrorCode::outOfRange)
             {
-                messages::propertyValueNotInList(res, jsonValue, key);
+                messages::propertyValueOutOfRange(res, jsonValue, key);
             }
             return false;
         }
@@ -346,7 +346,7 @@ bool unpackValue(nlohmann::json& jsonValue, std::string_view key,
             }
             else if (ec == UnpackErrorCode::outOfRange)
             {
-                messages::propertyValueNotInList(res, jsonValue, key);
+                messages::propertyValueOutOfRange(res, jsonValue, key);
             }
             return false;
         }
