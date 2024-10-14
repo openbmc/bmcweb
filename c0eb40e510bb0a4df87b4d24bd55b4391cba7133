@@ -498,6 +498,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62bdc032_06fe66e2",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-14T15:50:18Z",
+      "side": 1,
+      "message": "Right, the problem is that if you\u0027re getting for a single sensor type, that\u0027s trivial to do in your mapper call before starting, like you do on line 109.\n\nI\u0027m not that worried about it.",
+      "parentUuid": "4658ccf3_3f1224eb",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 695,
+        "endChar": 5
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b6707c87_034703c1",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 15
@@ -651,6 +675,30 @@
       "side": 1,
       "message": "I\u0027ve changed it although to get it to compile and clang-tidy to not complain I had to get rid of the std::bind_front() here and replace it with a lambda.\n\nclang-tidy complained about the const and std::move() so I removed the const qualifier for the callback as well.",
       "parentUuid": "fcd044f0_7ff103a9",
+      "range": {
+        "startLine": 747,
+        "startChar": 0,
+        "endLine": 747,
+        "endChar": 64
+      },
+      "revId": "c0eb40e510bb0a4df87b4d24bd55b4391cba7133",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ec70715_3c46b79e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-14T15:50:18Z",
+      "side": 1,
+      "message": "rightfully so.",
+      "parentUuid": "898cad13_d42e9f15",
       "range": {
         "startLine": 747,
         "startChar": 0,
