@@ -156,6 +156,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2c79cda_c7229ac6",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-14T12:57:40Z",
+      "side": 1,
+      "message": "I guess this is not related to the current commit. I can change it in a new commit.",
+      "parentUuid": "3db28e1d_7a38b492",
+      "range": {
+        "startLine": 1139,
+        "startChar": 0,
+        "endLine": 1139,
+        "endChar": 16
+      },
+      "revId": "2ad39a7a91a5d5d594505deee68a03360a994058",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e568bf98_f1d321c5",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 18
@@ -167,6 +191,24 @@
       "writtenOn": "2024-10-10T19:23:16Z",
       "side": 1,
       "message": "This L2409-L2444 is better to be a separate function",
+      "revId": "2ad39a7a91a5d5d594505deee68a03360a994058",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49b6f20c_6057a1fd",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-14T12:57:40Z",
+      "side": 1,
+      "message": "Actually I have separated this out as a new method from `handleGenerateSecretKey`\n\nSince this is not a longer lambda, can we have it as such or do you still think the below async call should be taken out in its own method?",
+      "parentUuid": "e568bf98_f1d321c5",
       "revId": "2ad39a7a91a5d5d594505deee68a03360a994058",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
