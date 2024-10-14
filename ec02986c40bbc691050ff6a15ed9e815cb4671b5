@@ -190,6 +190,30 @@
       },
       "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d32a98a4_9ac2f951",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2555,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-14T02:58:25Z",
+      "side": 1,
+      "message": "\u003e Looks like DMTF considers this as a known issue and no proposal to solve this gap yet.\n\n\nyea, we’ve known about this issue since we built the first action.\n\n\u003e \n\u003e Can we please allow this patchset with TODO section, we will fix it soon after DMTF fixes.\n\nno thank you.  TODO in code has no ability to enforce that people follow through on their promises (see the other TODOs for permissions issues that were never fixed).\n\nagain, check this in using the generated privileges, and once this is solved by dmtf, we’ll fix in the generated privilege registry.  assuming this second part is followed through, it won’t be “wrong” for very long.",
+      "parentUuid": "402af365_c33f9e86",
+      "range": {
+        "startLine": 2555,
+        "startChar": 20,
+        "endLine": 2555,
+        "endChar": 38
+      },
+      "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
