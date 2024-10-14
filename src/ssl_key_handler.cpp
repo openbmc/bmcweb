@@ -551,6 +551,11 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
         BMCWEB_LOG_DEBUG("Setting verify peer");
         mode |= boost::asio::ssl::verify_fail_if_no_peer_cert;
     }
+    else
+    {
+        BMCWEB_LOG_DEBUG("Setting verify none");
+        mode |= boost::asio::ssl::verify_none;
+    }
 
     boost::system::error_code ec;
     sslCtx.set_verify_mode(mode, ec);
