@@ -350,9 +350,10 @@ class Subscription
     Subscription(Subscription&&) = delete;
     Subscription& operator=(Subscription&&) = delete;
 
-    Subscription(const boost::urls::url_view_base& url,
+    Subscription(const persistent_data::UserSubscription& userSubIn,
+                 const boost::urls::url_view_base& url,
                  boost::asio::io_context& ioc) :
-        policy(std::make_shared<crow::ConnectionPolicy>())
+        userSub(userSubIn), policy(std::make_shared<crow::ConnectionPolicy>())
     {
         userSub.destinationUrl = url;
         client.emplace(ioc, policy);
@@ -662,8 +663,7 @@ class EventServiceManager
                 continue;
             }
             std::shared_ptr<Subscription> subValue =
-                std::make_shared<Subscription>(*url, ioc);
-            subValue->userSub = newSub;
+                std::make_shared<Subscription>(newSub, *url, ioc);
 
             subscriptionsMap.insert(std::pair(subValue->userSub.id, subValue));
 
