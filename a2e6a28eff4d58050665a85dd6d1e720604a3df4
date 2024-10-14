@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d74043bb_264dcfb1",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-14T22:21:54Z",
+      "side": 1,
+      "message": "If we do the above, this line is no longer needed.",
+      "revId": "a2e6a28eff4d58050665a85dd6d1e720604a3df4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
