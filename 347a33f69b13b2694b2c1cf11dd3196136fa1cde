@@ -208,6 +208,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f60443d_67e8475b",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-14T12:02:30Z",
+      "side": 1,
+      "message": "I\u0027ve rebased on top of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75190.\nDone",
+      "parentUuid": "0249d0da_1833d213",
+      "range": {
+        "startLine": 510,
+        "startChar": 50,
+        "endLine": 510,
+        "endChar": 51
+      },
+      "revId": "347a33f69b13b2694b2c1cf11dd3196136fa1cde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "373424e1_e735806a",
