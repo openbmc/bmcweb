@@ -108,6 +108,9 @@ class Connection :
             persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
         if (c.tlsStrict)
         {
+            BMCWEB_LOG_DEBUG(
+                "{} TLS is in strict mode, returning preverified as is.",
+                logPtr(this));
             return preverified;
         }
         // If tls strict mode is disabled
