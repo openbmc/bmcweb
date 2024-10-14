@@ -313,7 +313,7 @@ class Subscription
         logEntryJson["Message"] = "Generated test event";
         logEntryJson["MessageId"] = "OpenBMC.0.2.TestEventLog";
         // MemberId is 0 : since we are sending one event record.
-        logEntryJson["MemberId"] = 0;
+        logEntryJson["MemberId"] = "0";
         logEntryJson["MessageArgs"] = nlohmann::json::array();
         logEntryJson["EventTimestamp"] =
             redfish::time_utils::getDateTimeOffsetNow().first;
