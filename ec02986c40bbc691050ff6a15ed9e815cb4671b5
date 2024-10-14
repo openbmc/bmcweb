@@ -142,6 +142,30 @@
       },
       "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15439a2b_43a4f10b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2555,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-14T02:19:17Z",
+      "side": 1,
+      "message": "you misunderstand me.  I think:\n1 we shouldn’t have manually entered permissions.  I have no interest in maintaining them.\n2. for all other cases as a rule, actions follow the post permissions for the resource.\n\nwe can debate if this is the right thing to do in general, but I’m not interested in debating it on a case by case basis.\n\nwe can:\n1. wait for dmtf to solve this permissions issue, and hold up this patchset in review until they do\n2. get this patchset checked in using the rule we’ve followed everywhere else, even if we think it’s “wrong” (note that one comment from Mike doesn’t make it wrong in the spec), and put together another patchset once dmtf fixes this.\n\n\nI’m not interested in adding more of these manually written non standard cases.  they make reviews too hard to do correctly.",
+      "parentUuid": "51be65e2_79c84d50",
+      "range": {
+        "startLine": 2555,
+        "startChar": 20,
+        "endLine": 2555,
+        "endChar": 38
+      },
+      "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
