@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a85a4c0_ab042abc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-14T15:50:46Z",
+      "side": 1,
+      "message": "This is close enough we can treat the rest of the things as just continued cleanup of the sensor code",
+      "revId": "6fe8751c46d7086e49977b68e74262927b4a7d39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
