@@ -16,6 +16,24 @@
       "message": "This patch needed rebased, and had some lifetime issues as written.  I\u0027ve rewritten some portions to set up shared_from_this so we get proper lifetimes for subscriptions on delete that might not have all their connections closed.\n\nI haven\u0027t tested it, so PTAL and see if it passes your tests.",
       "revId": "3da1f6c3309be413e106afbc5ff1a9f7a14bbb7e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b1d55f5_9d1a683f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-14T22:42:12Z",
+      "side": 1,
+      "message": "I found out there is a bug in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65720 and I submitted a fix https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75296.\n\nI\u0027ll rebase it when ready",
+      "parentUuid": "16df91f3_cbbdd84d",
+      "revId": "3da1f6c3309be413e106afbc5ff1a9f7a14bbb7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
