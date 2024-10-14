@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "739b94dd_3be9d3c9",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-14T06:12:23Z",
+      "side": 1,
+      "message": "Updated the code",
+      "parentUuid": "3c2b68be_408a8e81",
+      "range": {
+        "startLine": 250,
+        "startChar": 26,
+        "endLine": 250,
+        "endChar": 27
+      },
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c840d27_5ddd6b5f",
@@ -60,6 +84,30 @@
       "writtenOn": "2024-10-07T15:11:46Z",
       "side": 1,
       "message": "please just inline this into the handler callback. There\u0027s no need for two callbacks.",
+      "range": {
+        "startLine": 251,
+        "startChar": 0,
+        "endLine": 264,
+        "endChar": 6
+      },
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfa6924a_7382b3b3",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-14T06:12:23Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "5c840d27_5ddd6b5f",
       "range": {
         "startLine": 251,
         "startChar": 0,
@@ -93,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d834ca85_87576352",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-14T06:12:23Z",
+      "side": 1,
+      "message": "Updated the code",
+      "parentUuid": "bf8cf216_f3194af2",
+      "range": {
+        "startLine": 275,
+        "startChar": 44,
+        "endLine": 275,
+        "endChar": 71
+      },
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ca19a9c_ff55bb94",
@@ -106,6 +178,30 @@
       "writtenOn": "2024-10-07T15:11:46Z",
       "side": 1,
       "message": "convention is callbacks start with \n\nif (ec){\n   // Handle error\n   return;\n}",
+      "range": {
+        "startLine": 278,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 20
+      },
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "098335a5_ebcfbb3f",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-14T06:12:23Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "2ca19a9c_ff55bb94",
       "range": {
         "startLine": 278,
         "startChar": 0,
@@ -139,6 +235,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6843ce90_4dc6acde",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-14T06:12:23Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "9bbb5b42_bc797003",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 17
+      },
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c0f32f4_e59cc25c",
@@ -152,6 +272,24 @@
       "writtenOn": "2024-10-07T15:11:46Z",
       "side": 1,
       "message": "This looks really odd as a call.  Was this unintentionally made static?",
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fa681ce_bebefae4",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-14T06:12:23Z",
+      "side": 1,
+      "message": "Updated.",
+      "parentUuid": "9c0f32f4_e59cc25c",
       "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
