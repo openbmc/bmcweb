@@ -16,6 +16,24 @@
       "message": "Hi! Thank you for this commit. Can you get added your companies CCLA? Your Gerrit Admin should also be able to add you to your gerrit approved list so you don\u0027t get a \"User not approved, see admin, no CI\". \n\nThanks!",
       "revId": "e8aa3fcd7045e7a7718da4343e97d0adc47e648e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e2e24b4_9a298784",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-14T22:20:33Z",
+      "side": 1,
+      "message": "Looks like you might work for Meta.  I believe Patrick is your contact.",
+      "parentUuid": "be6d3d86_32a86598",
+      "revId": "e8aa3fcd7045e7a7718da4343e97d0adc47e648e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
