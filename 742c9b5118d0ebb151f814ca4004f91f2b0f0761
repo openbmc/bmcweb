@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85f07c8c_f7d15616",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-14T15:45:40Z",
+      "side": 1,
+      "message": "BTW, thank you very much for going above an beyond breaking these classes up.  I was only asking that the two methods you were modifying got broken out, but I really appreciate you doing more.  If any of the requested fixes or rebase changes are too onerous for you to make, please let me know and we\u0027ll get it figured out.",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7552ff76_ca07e534",
         "filename": "redfish-core/include/event-service/event-log-objects-type.hpp",
         "patchSetId": 5
