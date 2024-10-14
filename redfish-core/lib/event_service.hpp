@@ -432,7 +432,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
             }
 
             std::shared_ptr<Subscription> subValue =
-                std::make_shared<Subscription>(*url, app.ioContext());
+                std::make_shared<Subscription>(
+                    persistent_data::UserSubscription{}, *url, app.ioContext());
 
             subValue->userSub.destinationUrl = std::move(*url);
 
