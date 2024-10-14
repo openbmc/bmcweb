@@ -16,6 +16,24 @@
       "message": "If we do the above, this line is no longer needed.",
       "revId": "a2e6a28eff4d58050665a85dd6d1e720604a3df4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c4a19ce_708c254f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-14T22:27:21Z",
+      "side": 1,
+      "message": "Yes. Removed this.",
+      "parentUuid": "d74043bb_264dcfb1",
+      "revId": "a2e6a28eff4d58050665a85dd6d1e720604a3df4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
