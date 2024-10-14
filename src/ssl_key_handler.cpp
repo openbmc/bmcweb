@@ -545,20 +545,21 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
     const persistent_data::AuthConfigMethods& c =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
-    boost::asio::ssl::verify_mode mode = boost::asio::ssl::verify_peer;
     if (c.tlsStrict)
     {
         BMCWEB_LOG_DEBUG("Setting verify peer");
-        mode |= boost::asio::ssl::verify_fail_if_no_peer_cert;
+        boost::asio::ssl::verify_mode mode =
+            boost::asio::ssl::verify_peer |
+            boost::asio::ssl::verify_fail_if_no_peer_cert;
+        boost::system::error_code ec;
+        sslCtx.set_verify_mode(mode, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("Failed to set verify mode {}", ec.message());
+            return nullptr;
+        }
     }
 
-    boost::system::error_code ec;
-    sslCtx.set_verify_mode(mode, ec);
-    if (ec)
-    {
-        BMCWEB_LOG_DEBUG("Failed to set verify mode {}", ec.message());
-        return nullptr;
-    }
     SSL_CTX_set_options(sslCtx.native_handle(), SSL_OP_NO_RENEGOTIATION);
 
     if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
