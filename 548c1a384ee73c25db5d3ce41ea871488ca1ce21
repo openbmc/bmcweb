@@ -16,6 +16,24 @@
       "message": "Caused by https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65720 ? Can you add that to the commit msg?",
       "revId": "548c1a384ee73c25db5d3ce41ea871488ca1ce21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a2c0d22_d6ccd6ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-14T22:39:34Z",
+      "side": 1,
+      "message": "Added",
+      "parentUuid": "685e321b_b5375705",
+      "revId": "548c1a384ee73c25db5d3ce41ea871488ca1ce21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
