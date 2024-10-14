@@ -118,6 +118,30 @@
       },
       "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51be65e2_79c84d50",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 2555,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-14T01:21:55Z",
+      "side": 1,
+      "message": "You think an admin should be able to GenerateSecretKey and VerifyTimeBasedOneTimePassword for any user ? \nThat doesn\u0027t sound right.. \n\nRedfish (Mike Raineri, co-chair Redfish) stated \"However, \"ConfigureSelf\" is the right thing to do for this.\"\n\nI think we should start there..\n\nI think this code is correct \n```\n .privileges({{\"ConfigureSelf\"}})\n```\nbut needs a todo / explain we are waiting on Redfish",
+      "parentUuid": "3bb5777b_4b8cbd68",
+      "range": {
+        "startLine": 2555,
+        "startChar": 20,
+        "endLine": 2555,
+        "endChar": 38
+      },
+      "revId": "ec02986c40bbc691050ff6a15ed9e815cb4671b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
