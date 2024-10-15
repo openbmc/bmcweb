@@ -28,6 +28,7 @@ limitations under the License.
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/time_utils.hpp"
 
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
@@ -35,12 +36,14 @@ limitations under the License.
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <ranges>
 #include <string>
 #include <string_view>
 #include <utility>
+#include <variant>
 #include <vector>
 
 namespace redfish
@@ -61,6 +64,11 @@ constexpr const char* ldapCreateInterface =
 constexpr const char* ldapEnableInterface = "xyz.openbmc_project.Object.Enable";
 constexpr const char* ldapPrivMapperInterface =
     "xyz.openbmc_project.User.PrivilegeMapper";
+
+constexpr uint64_t unexpiringPasswordExpiration =
+    std::numeric_limits<uint64_t>::max();
+
+using string_or_null = std::variant<std::string, std::nullptr_t>;
 
 struct LDAPRoleMapData
 {
@@ -1091,12 +1099,82 @@ inline void handleLDAPPatch(LdapPatchParams&& input,
     });
 }
 
+inline nlohmann::json passwordExpirationToJson(uint64_t value)
+{
+    if (value == unexpiringPasswordExpiration)
+        return nullptr;
+
+    std::string time = redfish::time_utils::getDateTimeUint(value);
+
+    // remove last part of the string containing subseconds
+    // string should look like 2024-10-16T00:00:00+00:00
+    const size_t pos = time.find('+');
+    if (pos != std::string::npos)
+        time.erase(pos);
+
+    return time + "Z";
+}
+
+inline std::optional<uint64_t>
+    passwordExpirationToUint64(const string_or_null& value)
+{
+    if (std::get_if<std::nullptr_t>(&value))
+        return unexpiringPasswordExpiration;
+
+    if (!std::get_if<std::string>(&value))
+    {
+        BMCWEB_LOG_ERROR("Failed to get date time string");
+        return std::nullopt;
+    }
+
+    const auto usTime =
+        redfish::time_utils::dateStringToEpoch(std::get<std::string>(value));
+    if (!usTime)
+    {
+        BMCWEB_LOG_ERROR("Failed to parse date time string");
+        return std::nullopt;
+    }
+
+    return static_cast<uint64_t>(
+        std::chrono::duration_cast<std::chrono::seconds>(*usTime).count());
+}
+
+inline void updatePasswordExpiration(
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& userName,
+    const std::optional<string_or_null>& passwordExpiration,
+    std::function<void()> cbOnSuccess)
+{
+    if (!passwordExpiration)
+    {
+        cbOnSuccess();
+        return;
+    }
+
+    const std::optional<uint64_t> time =
+        passwordExpirationToUint64(*passwordExpiration);
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
+        "/xyz/openbmc_project/user/" + userName,
+        "xyz.openbmc_project.User.Attributes", "PasswordExpiration", *time,
+        [asyncResp, cbOnSuccess](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            cbOnSuccess();
+        });
+}
+
 inline void updateUserProperties(
     std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& username,
     const std::optional<std::string>& password,
     const std::optional<bool>& enabled,
     const std::optional<std::string>& roleId, const std::optional<bool>& locked,
-    std::optional<std::vector<std::string>> accountTypes, bool userSelf,
+    std::optional<std::vector<std::string>> accountTypes,
+    const std::optional<string_or_null>& passwordExpiration, bool userSelf,
     const std::shared_ptr<persistent_data::UserSession>& session)
 {
     sdbusplus::message::object_path tempObjPath(rootUserDbusPath);
@@ -1106,8 +1184,8 @@ inline void updateUserProperties(
     dbus::utility::checkDbusPathExists(
         dbusObjectPath,
         [dbusObjectPath, username, password, roleId, enabled, locked,
-         accountTypes(std::move(accountTypes)), userSelf, session,
-         asyncResp{std::move(asyncResp)}](int rc) {
+         accountTypes(std::move(accountTypes)), passwordExpiration, userSelf,
+         session, asyncResp{std::move(asyncResp)}](int rc) {
             if (rc <= 0)
             {
                 messages::resourceNotFound(asyncResp->res, "ManagerAccount",
@@ -1192,6 +1270,10 @@ inline void updateUserProperties(
                 patchAccountTypes(*accountTypes, asyncResp, dbusObjectPath,
                                   userSelf);
             }
+
+            updatePasswordExpiration(
+                asyncResp, username, passwordExpiration,
+                [asyncResp]() { messages::success(asyncResp->res); });
         });
 }
 
@@ -1766,6 +1848,7 @@ inline void handleAccountCollectionGet(
 inline void processAfterCreateUser(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& username, const std::string& password,
+    const std::optional<string_or_null>& passwordExpiration,
     const boost::system::error_code& ec, sdbusplus::message_t& m)
 {
     if (ec)
@@ -1803,16 +1886,20 @@ inline void processAfterCreateUser(
         return;
     }
 
-    messages::created(asyncResp->res);
-    asyncResp->res.addHeader("Location",
-                             "/redfish/v1/AccountService/Accounts/" + username);
+    updatePasswordExpiration(
+        asyncResp, username, passwordExpiration, [asyncResp, username]() {
+            messages::created(asyncResp->res);
+            asyncResp->res.addHeader(
+                "Location", "/redfish/v1/AccountService/Accounts/" + username);
+        });
 }
 
 inline void processAfterGetAllGroups(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& username, const std::string& password,
     const std::string& roleId, bool enabled,
-    std::optional<std::vector<std::string>> accountTypes,
+    const std::optional<std::vector<std::string>>& accountTypes,
+    const std::optional<std::string>& passwordExpiration,
     const std::vector<std::string>& allGroupsList)
 {
     std::vector<std::string> userGroups;
@@ -1877,9 +1964,10 @@ inline void processAfterGetAllGroups(
         return;
     }
     crow::connections::systemBus->async_method_call(
-        [asyncResp, username, password](const boost::system::error_code& ec2,
-                                        sdbusplus::message_t& m) {
-            processAfterCreateUser(asyncResp, username, password, ec2, m);
+        [asyncResp, username, password, passwordExpiration](
+            const boost::system::error_code& ec2, sdbusplus::message_t& m) {
+            processAfterCreateUser(asyncResp, username, password,
+                                   passwordExpiration, ec2, m);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "CreateUser", username, userGroups,
@@ -1899,11 +1987,13 @@ inline void handleAccountCollectionPost(
     std::optional<std::string> roleIdJson;
     std::optional<bool> enabledJson;
     std::optional<std::vector<std::string>> accountTypes;
+    std::optional<std::string> passwordExpiration;
     if (!json_util::readJsonPatch( //
             req, asyncResp->res, //
             "AccountTypes", accountTypes, //
             "Enabled", enabledJson, //
             "Password", password, //
+            "PasswordExpiration", passwordExpiration, //
             "RoleId", roleIdJson, //
             "UserName", username //
             ))
@@ -1928,8 +2018,9 @@ inline void handleAccountCollectionPost(
         "/xyz/openbmc_project/user", "xyz.openbmc_project.User.Manager",
         "AllGroups",
         [asyncResp, username, password{std::move(password)}, roleId, enabled,
-         accountTypes](const boost::system::error_code& ec,
-                       const std::vector<std::string>& allGroupsList) {
+         accountTypes,
+         passwordExpiration](const boost::system::error_code& ec,
+                             const std::vector<std::string>& allGroupsList) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("D-Bus response error {}", ec);
@@ -1944,7 +2035,8 @@ inline void handleAccountCollectionPost(
             }
 
             processAfterGetAllGroups(asyncResp, username, password, roleId,
-                                     enabled, accountTypes, allGroupsList);
+                                     enabled, accountTypes, passwordExpiration,
+                                     allGroupsList);
         });
 }
 
@@ -2118,6 +2210,20 @@ inline void
                             asyncResp->res.jsonValue["PasswordChangeRequired"] =
                                 *userPasswordExpired;
                         }
+                        else if (property.first == "PasswordExpiration")
+                        {
+                            const uint64_t* passwordExpiration =
+                                std::get_if<uint64_t>(&property.second);
+                            if (passwordExpiration == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR(
+                                    "PasswordExpiration wasn't a number");
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            asyncResp->res.jsonValue["PasswordExpiration"] =
+                                passwordExpirationToJson(*passwordExpiration);
+                        }
                         else if (property.first == "UserGroups")
                         {
                             const std::vector<std::string>* userGroups =
@@ -2205,6 +2311,7 @@ inline void
     std::optional<std::string> roleId;
     std::optional<bool> locked;
     std::optional<std::vector<std::string>> accountTypes;
+    std::optional<string_or_null> passwordExpiration;
 
     if (req.session == nullptr)
     {
@@ -2228,6 +2335,7 @@ inline void
                 "Enabled", enabled, //
                 "Locked", locked, //
                 "Password", password, //
+                "PasswordExpiration", passwordExpiration, //
                 "RoleId", roleId, //
                 "UserName", newUserName //
                 ))
@@ -2260,13 +2368,15 @@ inline void
     if (!newUserName || (newUserName.value() == username))
     {
         updateUserProperties(asyncResp, username, password, enabled, roleId,
-                             locked, accountTypes, userSelf, req.session);
+                             locked, accountTypes, passwordExpiration, userSelf,
+                             req.session);
         return;
     }
     crow::connections::systemBus->async_method_call(
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
-         locked, userSelf, req, accountTypes(std::move(accountTypes))](
+         locked, userSelf, req, accountTypes(std::move(accountTypes)),
+         passwordExpiration(std::move(passwordExpiration))](
             const boost::system::error_code& ec, sdbusplus::message_t& m) {
             if (ec)
             {
@@ -2276,7 +2386,8 @@ inline void
             }
 
             updateUserProperties(asyncResp, newUser, password, enabled, roleId,
-                                 locked, accountTypes, userSelf, req.session);
+                                 locked, accountTypes, passwordExpiration,
+                                 userSelf, req.session);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "RenameUser", username,

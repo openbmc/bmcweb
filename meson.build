@@ -429,6 +429,7 @@ srcfiles_unittest = files(
     'test/redfish-core/include/utils/sensor_utils_test.cpp',
     'test/redfish-core/include/utils/stl_utils_test.cpp',
     'test/redfish-core/include/utils/time_utils_test.cpp',
+    'test/redfish-core/lib/account_service_test.cpp',
     'test/redfish-core/lib/chassis_test.cpp',
     'test/redfish-core/lib/log_services_dump_test.cpp',
     'test/redfish-core/lib/manager_diagnostic_data_test.cpp',
