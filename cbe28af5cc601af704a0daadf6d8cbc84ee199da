@@ -16,6 +16,24 @@
       "message": "Earlier there was a flexibility in using MTLS. If client certificate is provided then use it for authentication or continue with usual basic auths. Now I guess the flexibility is gone.If we want MTLS we should use strict tls. \n\nThis flexibility was useful when aggregation is enabled. External clients can use basic auth methods for authentication and internal BMC-BMC can use MTLS. \n\nCan\u0027t we keep this flexibility?",
       "revId": "cbe28af5cc601af704a0daadf6d8cbc84ee199da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a5a486e_80d60c06",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-15T03:46:49Z",
+      "side": 1,
+      "message": "can you elaborate what you mean in terms of “flexibility” ideally in terms of behavior and commands that would work before and don’t now.",
+      "parentUuid": "21f9a323_0d0ab3f9",
+      "revId": "cbe28af5cc601af704a0daadf6d8cbc84ee199da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
