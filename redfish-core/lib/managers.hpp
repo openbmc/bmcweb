@@ -50,6 +50,24 @@ limitations under the License.
 namespace redfish
 {
 
+inline std::string getBMCUpdateServiceName()
+{
+    if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
+    {
+        return "xyz.openbmc_project.Software.Manager";
+    }
+    return "xyz.openbmc_project.Software.BMC.Updater";
+}
+
+inline std::string getBMCUpdateServicePath()
+{
+    if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
+    {
+        return "/xyz/openbmc_project/software/bmc";
+    }
+    return "/xyz/openbmc_project/software";
+}
+
 /**
  * Function reboots the BMC.
  *
@@ -255,8 +273,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
                     // Can't erase what the BMC is running on
                     doBMCGracefulRestart(asyncResp);
                 },
-                "xyz.openbmc_project.Software.BMC.Updater",
-                "/xyz/openbmc_project/software",
+                getBMCUpdateServiceName(), getBMCUpdateServicePath(),
                 "xyz.openbmc_project.Common.FactoryReset", "Reset");
         });
 }
@@ -1840,7 +1857,7 @@ inline void
     // Make sure the image is valid before setting priority
     sdbusplus::message::object_path objPath("/xyz/openbmc_project/software");
     dbus::utility::getManagedObjects(
-        "xyz.openbmc_project.Software.BMC.Updater", objPath,
+        getBMCUpdateServiceName(), objPath,
         [asyncResp, firmwareId, runningFirmwareTarget](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& subtree) {
@@ -1898,8 +1915,7 @@ inline void
             // An addition could be a Redfish Setting like
             // ActiveSoftwareImageApplyTime and support OnReset
             sdbusplus::asio::setProperty(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.Software.BMC.Updater",
+                *crow::connections::systemBus, getBMCUpdateServiceName(),
                 "/xyz/openbmc_project/software/" + firmwareId,
                 "xyz.openbmc_project.Software.RedundancyPriority", "Priority",
                 static_cast<uint8_t>(0),
