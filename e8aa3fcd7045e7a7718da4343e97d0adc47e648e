@@ -34,6 +34,24 @@
       "parentUuid": "be6d3d86_32a86598",
       "revId": "e8aa3fcd7045e7a7718da4343e97d0adc47e648e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7751289_22776e5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000212
+      },
+      "writtenOn": "2024-10-15T17:34:50Z",
+      "side": 1,
+      "message": "Added Igor to CI authorized.",
+      "parentUuid": "5e2e24b4_9a298784",
+      "revId": "e8aa3fcd7045e7a7718da4343e97d0adc47e648e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
