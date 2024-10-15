@@ -140,6 +140,7 @@ Fields common to all schemas
 - `Locked@Redfish.AllowableValues`
 - Password
 - PasswordChangeRequired
+- PasswordExpiration
 - RoleId
 - StrictAccountTypes
 - UserName
