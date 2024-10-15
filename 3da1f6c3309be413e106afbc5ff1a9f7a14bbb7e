@@ -34,6 +34,24 @@
       "parentUuid": "16df91f3_cbbdd84d",
       "revId": "3da1f6c3309be413e106afbc5ff1a9f7a14bbb7e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41734a6b_df9558a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-15T23:19:37Z",
+      "side": 1,
+      "message": "With this, I\u0027m seeing the bad_weak_ptr like\n```\nOct 15 22:48:40 p10bmc bmcwebd[6227]: terminate called after throwing an instance of \u0027std::bad_weak_ptr\u0027\nOct 15 22:48:40 p10bmc bmcwebd[6227]:   what():  bad_weak_ptr\nOct 15 22:48:41 p10bmc systemd[1]: bmcweb.service: Main process exited, code\u003ddumped, status\u003d6/ABRT\nOct 15 22:48:41 p10bmc systemd[1]: bmcweb.service: Failed with result \u0027core-dump\u0027.\nOct 15 23:03:04 p10bmc systemd[1]: Started Start bmcwebd server.\n```\n\nI think this seems related to the class `Subscription` and there seems a mismatch when it is shared.\n\nI\u0027ll keep looking at it.\n\n```\nclass Subscription : std::enable_shared_from_this\u003cSubscription\u003e\n\n...\n\n            client-\u003esendDataWithCallback(\n....\n                std::bind_front(\u0026Subscription::resHandler, this,\n                                shared_from_this()));\n                                \n                                \n```",
+      "parentUuid": "8b1d55f5_9d1a683f",
+      "revId": "3da1f6c3309be413e106afbc5ff1a9f7a14bbb7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
