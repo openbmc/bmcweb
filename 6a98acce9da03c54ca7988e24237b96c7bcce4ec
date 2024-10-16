@@ -68,6 +68,24 @@
       "parentUuid": "4099e9ef_5ca55d26",
       "revId": "6a98acce9da03c54ca7988e24237b96c7bcce4ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "208ff7bf_df6022de",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-16T21:33:50Z",
+      "side": 1,
+      "message": "It looks like - the changes may be wider. \nSo I would like to pursue it separately.",
+      "parentUuid": "8cbc91f2_767e4ab2",
+      "revId": "6a98acce9da03c54ca7988e24237b96c7bcce4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
