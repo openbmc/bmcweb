@@ -50,6 +50,24 @@
       "message": "Maybe userSub should just be a shared_ptr to the persistent_data one so that when we update it we update it directly?  Read-modify-write seems like it\u0027s not quite as good?",
       "revId": "6a98acce9da03c54ca7988e24237b96c7bcce4ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cbc91f2_767e4ab2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-16T20:24:50Z",
+      "side": 1,
+      "message": "Agreed. I\u0027ll take a look at it.",
+      "parentUuid": "4099e9ef_5ca55d26",
+      "revId": "6a98acce9da03c54ca7988e24237b96c7bcce4ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
