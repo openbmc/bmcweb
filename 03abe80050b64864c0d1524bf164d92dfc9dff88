@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81fbc63a_6d5e538f",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-16T18:02:20Z",
+      "side": 1,
+      "message": "boost::urls::format should be used here by convention (although uniqueId is an internally generated URI, it\u0027s not a security issue, we should be consistent.)",
+      "range": {
+        "startLine": 223,
+        "startChar": 20,
+        "endLine": 223,
+        "endChar": 78
+      },
+      "revId": "03abe80050b64864c0d1524bf164d92dfc9dff88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a6786c_adcb8eec",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-16T18:02:20Z",
+      "side": 1,
+      "message": "This error should be coming from pam and shouldn\u0027t require a second async call to get.",
+      "revId": "03abe80050b64864c0d1524bf164d92dfc9dff88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9750d115_169a780c",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-16T18:02:20Z",
+      "side": 1,
+      "message": "Can you please put the refactoring of this function into its own commit please?  It\u0027s difficult to review what actually changed here.",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 35
+      },
+      "revId": "03abe80050b64864c0d1524bf164d92dfc9dff88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
