@@ -129,10 +129,10 @@ anytime they make a change to the GET behavior of the redfish tree. The test
 must run on real hardware since the resource tree will be more complete.
 
 ```bash
-$ git clone https://github.com/DMTF/Redfish-Service-Validator.git
+pip install redfish_service_validator
 
 # run validator and inspect the report for failures
-$ python3 RedfishServiceValidator.py \
+rf_service_validator \
   --auth Session -i https://1.2.3.4:443 \
   -u root -p 0penBmc
 ```
