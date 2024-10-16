@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72e321bd_f4ac5833",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-16T05:12:53Z",
+      "side": 1,
+      "message": "Updated the code.",
+      "parentUuid": "5fe87f1a_1eb6d28b",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 48
+      },
+      "revId": "7d1a342adb6cf658dbaf21a1ca506af076c0484f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c2b68be_408a8e81",
