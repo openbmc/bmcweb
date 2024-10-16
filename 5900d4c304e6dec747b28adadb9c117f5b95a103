@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31065c3f_af46bf48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-10-16T20:50:08Z",
+      "side": 1,
+      "message": "This commit will fail in CI [for some reason].  The next commit, which updates to nlohmann-json to 3.11.3 requires these changes.  I don\u0027t understand why we end up with different clang-tidy issues after a meson change, but we do.  We\u0027ll have to bypass CI on this one and merge it at the same time as the 3.11.3 change (which will pass CI on its own).",
+      "revId": "5900d4c304e6dec747b28adadb9c117f5b95a103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
