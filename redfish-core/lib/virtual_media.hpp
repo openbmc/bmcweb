@@ -482,7 +482,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             });
     }
 
-    dbus::utility::DbusVariantType unixFd(
+    std::variant<sdbusplus::message::unix_fd> unixFd(
         std::in_place_type<sdbusplus::message::unix_fd>, fd);
 
     sdbusplus::message::object_path path(
