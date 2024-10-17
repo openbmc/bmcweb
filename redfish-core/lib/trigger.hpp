@@ -41,17 +41,8 @@ using TriggerThresholdParams =
     std::variant<std::vector<NumericThresholdParams>,
                  std::vector<DiscreteThresholdParams>>;
 
-using TriggerThresholdParamsExt =
-    std::variant<std::monostate, std::vector<NumericThresholdParams>,
-                 std::vector<DiscreteThresholdParams>>;
-
 using TriggerSensorsParams =
     std::vector<std::pair<sdbusplus::message::object_path, std::string>>;
-
-using TriggerGetParamsVariant =
-    std::variant<std::monostate, bool, std::string, TriggerThresholdParamsExt,
-                 TriggerSensorsParams, std::vector<std::string>,
-                 std::vector<sdbusplus::message::object_path>>;
 
 inline triggers::TriggerActionEnum
     toRedfishTriggerAction(std::string_view dbusValue)
@@ -740,7 +731,7 @@ inline std::optional<nlohmann::json::array_t>
 }
 
 inline std::optional<nlohmann::json::array_t>
-    getDiscreteTriggers(const TriggerThresholdParamsExt& thresholdParams)
+    getDiscreteTriggers(const TriggerThresholdParams& thresholdParams)
 {
     nlohmann::json::array_t triggers;
     const std::vector<DiscreteThresholdParams>* discreteParams =
@@ -772,7 +763,7 @@ inline std::optional<nlohmann::json::array_t>
 }
 
 inline std::optional<nlohmann::json>
-    getNumericThresholds(const TriggerThresholdParamsExt& thresholdParams)
+    getNumericThresholds(const TriggerThresholdParams& thresholdParams)
 {
     nlohmann::json::object_t thresholds;
     const std::vector<NumericThresholdParams>* numericParams =
@@ -841,17 +832,15 @@ inline std::vector<std::string>
     return metricProperties;
 }
 
-inline bool fillTrigger(
-    nlohmann::json& json, const std::string& id,
-    const std::vector<std::pair<std::string, TriggerGetParamsVariant>>&
-        properties)
+inline bool fillTrigger(nlohmann::json& json, const std::string& id,
+                        const dbus::utility::DBusPropertiesMap& properties)
 {
     const std::string* name = nullptr;
     const bool* discrete = nullptr;
     const TriggerSensorsParams* sensors = nullptr;
     const std::vector<sdbusplus::message::object_path>* reports = nullptr;
     const std::vector<std::string>* triggerActions = nullptr;
-    const TriggerThresholdParamsExt* thresholds = nullptr;
+    const TriggerThresholdParams* thresholds = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "Name", name, "Discrete",
@@ -1021,9 +1010,7 @@ inline void requestRoutesTrigger(App& app)
                     telemetry::triggerInterface,
                     [asyncResp,
                      id](const boost::system::error_code& ec,
-                         const std::vector<std::pair<
-                             std::string, telemetry::TriggerGetParamsVariant>>&
-                             ret) {
+                         const dbus::utility::DBusPropertiesMap& ret) {
                         if (ec.value() == EBADR ||
                             ec == boost::system::errc::host_unreachable)
                         {
