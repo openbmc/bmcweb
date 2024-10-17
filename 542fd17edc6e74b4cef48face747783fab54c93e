@@ -16,6 +16,24 @@
       "message": "Can you add this to the commit above instead? Not a big deal, but this commit could go on its own if this was included in the commit above",
       "revId": "542fd17edc6e74b4cef48face747783fab54c93e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c10e34bb_f34524b6",
+        "filename": "Redfish.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-17T16:26:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61c8433d_339839de",
+      "revId": "542fd17edc6e74b4cef48face747783fab54c93e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
