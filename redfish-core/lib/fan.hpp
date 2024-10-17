@@ -3,6 +3,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/resource.hpp"
 #include "led.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -197,8 +198,8 @@ inline void addFanCommonProperties(crow::Response& resp,
     resp.jsonValue["Id"] = fanId;
     resp.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Chassis/{}/ThermalSubsystem/Fans/{}", chassisId, fanId);
-    resp.jsonValue["Status"]["State"] = "Enabled";
-    resp.jsonValue["Status"]["Health"] = "OK";
+    resp.jsonValue["Status"]["State"] = resource::State::Enabled;
+    resp.jsonValue["Status"]["Health"] = resource::Health::OK;
 }
 
 inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -221,7 +222,8 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         if (!value)
         {
-            asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
+            asyncResp->res.jsonValue["Status"]["Health"] =
+                resource::Health::Critical;
         }
     });
 }
@@ -246,7 +248,8 @@ inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         if (!value)
         {
-            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Absent;
         }
     });
 }

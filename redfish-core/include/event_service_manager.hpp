@@ -18,6 +18,8 @@
 #include "error_messages.hpp"
 #include "event_service_store.hpp"
 #include "filter_expr_executor.hpp"
+#include "generated/enums/event.hpp"
+#include "generated/enums/log_entry.hpp"
 #include "http_client.hpp"
 #include "metric_report.hpp"
 #include "ossl_random.hpp"
@@ -247,7 +249,13 @@ inline int formatEventLogEntry(const std::string& logEntryID,
 
     // Fill in the log entry with the gathered data
     logEntryJson["EventId"] = logEntryID;
+
     logEntryJson["EventType"] = "Event";
+
+    // TODO, the above is wrong.  Below should be correct, but would change
+    // behavior
+    // logEntryJson["EventType"] = event_destination::EventType::Alert;
+
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Message"] = std::move(msg);
     logEntryJson["MessageId"] = messageID;
@@ -472,7 +480,12 @@ class Subscription : public persistent_data::UserSubscription
 
         logEntryJson["EventId"] = "TestID";
         logEntryJson["EventType"] = "Event";
-        logEntryJson["Severity"] = "OK";
+
+        // TODO, the above is wrong.  There's no "Event" type in the EventType
+        // enum  Below should be correct, but would change behavior
+        // logEntryJson["EventType"] = event::EventType::Alert;
+
+        logEntryJson["Severity"] = log_entry::EventSeverity::OK;
         logEntryJson["Message"] = "Generated test event";
         logEntryJson["MessageId"] = "OpenBMC.0.2.TestEventLog";
         // MemberId is 0 : since we are sending one event record.

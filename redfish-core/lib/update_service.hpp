@@ -964,14 +964,14 @@ inline void requestRoutesUpdateService(App& app)
             {
                 asyncResp->res.jsonValue["HttpPushUriOptions"]
                                         ["HttpPushUriApplyTime"]["ApplyTime"] =
-                    "Immediate";
+                    update_service::ApplyTime::Immediate;
             }
             else if (applyTime == "xyz.openbmc_project.Software.ApplyTime."
                                   "RequestedApplyTimes.OnReset")
             {
                 asyncResp->res.jsonValue["HttpPushUriOptions"]
                                         ["HttpPushUriApplyTime"]["ApplyTime"] =
-                    "OnReset";
+                    update_service::ApplyTime::OnReset;
             }
         });
     });
@@ -1228,7 +1228,8 @@ inline void requestRoutesSoftwareInventory(App& app)
             asyncResp->res.jsonValue["@odata.type"] =
                 "#SoftwareInventory.v1_1_0.SoftwareInventory";
             asyncResp->res.jsonValue["Name"] = "Software Inventory";
-            asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
+            asyncResp->res.jsonValue["Status"]["HealthRollup"] =
+                resource::Health::OK;
 
             asyncResp->res.jsonValue["Updateable"] = false;
             sw_util::getSwUpdatableStatus(asyncResp, swId);

@@ -2,6 +2,7 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/resource.hpp"
 #include "led.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -128,7 +129,8 @@ inline void
 
         if (!present)
         {
-            asyncResp->res.jsonValue["Status"]["State"] = "Absent";
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Absent;
         }
     });
 }
@@ -155,7 +157,8 @@ inline void
 
         if (!functional)
         {
-            asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
+            asyncResp->res.jsonValue["Status"]["Health"] =
+                resource::Health::Critical;
         }
     });
 }
@@ -301,8 +304,8 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/FabricAdapters/{}", systemName, adapterId);
 
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-    asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 
     // add pcieslots
     getFabricAdapterPCIeSlots(

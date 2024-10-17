@@ -3,6 +3,7 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/resource.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -93,8 +94,8 @@ inline void doPowerSubsystemCollection(
     asyncResp->res.jsonValue["Id"] = "PowerSubsystem";
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/PowerSubsystem", chassisId);
-    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-    asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+    asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+    asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
     asyncResp->res.jsonValue["PowerSupplies"]["@odata.id"] =
         boost::urls::format(
             "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies", chassisId);

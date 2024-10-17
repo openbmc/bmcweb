@@ -6,6 +6,9 @@
 #include "error_messages.hpp"
 #include "ethernet.hpp"
 #include "event_service_manager.hpp"
+#include "generated/enums/action_info.hpp"
+#include "generated/enums/computer_system.hpp"
+#include "generated/enums/resource.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "resource_messages.hpp"
@@ -55,37 +58,45 @@ inline void
         // Verify Host State
         if (hostState == "xyz.openbmc_project.State.Host.HostState.Running")
         {
-            asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Enabled;
         }
         else if (hostState == "xyz.openbmc_project.State.Host.HostState."
                               "Quiesced")
         {
-            asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"]["State"] = "Quiesced";
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Quiesced;
         }
         else if (hostState == "xyz.openbmc_project.State.Host.HostState."
                               "Standby")
         {
-            asyncResp->res.jsonValue["PowerState"] = "On";
-            asyncResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::StandbyOffline;
         }
         else if (hostState == "xyz.openbmc_project.State.Host.HostState."
                               "TransitioningToRunning")
         {
-            asyncResp->res.jsonValue["PowerState"] = "PoweringOn";
-            asyncResp->res.jsonValue["Status"]["State"] = "Starting";
+            asyncResp->res.jsonValue["PowerState"] =
+                resource::PowerState::PoweringOn;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Starting;
         }
         else if (hostState == "xyz.openbmc_project.State.Host.HostState."
                               "TransitioningToOff")
         {
-            asyncResp->res.jsonValue["PowerState"] = "PoweringOff";
-            asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+            asyncResp->res.jsonValue["PowerState"] =
+                resource::PowerState::PoweringOff;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Enabled;
         }
         else if (hostState == "xyz.openbmc_project.State.Host.HostState.Off")
         {
-            asyncResp->res.jsonValue["PowerState"] = "Off";
-            asyncResp->res.jsonValue["Status"]["State"] = "Disabled";
+            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::Off;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Disabled;
         }
         else
         {
@@ -1178,7 +1189,8 @@ inline void handleHypervisorSystemGet(
         asyncResp->res.jsonValue["Description"] = "Hypervisor";
         asyncResp->res.jsonValue["Name"] = "Hypervisor";
         asyncResp->res.jsonValue["Id"] = "hypervisor";
-        asyncResp->res.jsonValue["SystemType"] = "OS";
+        asyncResp->res.jsonValue["SystemType"] =
+            computer_system::SystemType::OS;
         nlohmann::json::array_t managedBy;
         nlohmann::json::object_t manager;
         manager["@odata.id"] = boost::urls::format(
@@ -1446,7 +1458,7 @@ inline void handleHypervisorResetActionGet(
         nlohmann::json::object_t parameter;
         parameter["Name"] = "ResetType";
         parameter["Required"] = true;
-        parameter["DataType"] = "String";
+        parameter["DataType"] = action_info::ParameterTypes::String;
         nlohmann::json::array_t allowed;
         allowed.emplace_back("On");
         parameter["AllowableValues"] = std::move(allowed);

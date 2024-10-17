@@ -19,6 +19,9 @@
 
 #include "app.hpp"
 #include "dbus_utility.hpp"
+#include "generated/enums/action_info.hpp"
+#include "generated/enums/manager.hpp"
+#include "generated/enums/resource.hpp"
 #include "led.hpp"
 #include "oem/ibm/usb_code_update.hpp"
 #include "query.hpp"
@@ -336,7 +339,7 @@ inline void requestRoutesManagerResetActionInfo(App& app)
         nlohmann::json::object_t parameter;
         parameter["Name"] = "ResetType";
         parameter["Required"] = true;
-        parameter["DataType"] = "String";
+        parameter["DataType"] = action_info::ParameterTypes::String;
 
         nlohmann::json::array_t allowableValues;
         allowableValues.emplace_back("GracefulRestart");
@@ -1983,19 +1986,21 @@ inline void
         {
             if (val == "active")
             {
-                asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
-                asyncResp->res.jsonValue["Status"]["State"] = "Quiesced";
+                asyncResp->res.jsonValue["Status"]["Health"] =
+                    resource::Health::Critical;
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Quiesced;
                 return;
             }
         }
-        asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
     });
 }
 
 inline void getBMCState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
 {
-    aResp->res.jsonValue["PowerState"] = "On";
+    aResp->res.jsonValue["PowerState"] = resource::PowerState::On;
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.State.BMC",
         "/xyz/openbmc_project/state/bmc0", "xyz.openbmc_project.State.BMC",
@@ -2006,14 +2011,14 @@ inline void getBMCState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         {
             BMCWEB_LOG_DEBUG("DBUS response error reading CurrentBmcState");
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
-            aResp->res.jsonValue["Status"]["Health"] = "OK";
+            aResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
             return;
         }
 
         if (bmcState == "xyz.openbmc_project.State.BMC.BMCState.Ready")
         {
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
-            aResp->res.jsonValue["Status"]["Health"] = "OK";
+            aResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
         }
         else if (bmcState == "xyz.openbmc_project.State.BMC.BMCState."
                              "Quiesced")
@@ -2024,20 +2029,20 @@ inline void getBMCState(const std::shared_ptr<bmcweb::AsyncResp>& aResp)
         else if (bmcState == "xyz.openbmc_project.State.BMC.BMCState."
                              "NotReady")
         {
-            aResp->res.jsonValue["Status"]["State"] = "Starting";
-            aResp->res.jsonValue["Status"]["Health"] = "OK";
+            aResp->res.jsonValue["Status"]["State"] = resource::State::Starting;
+            aResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
         }
         else if (bmcState == "xyz.openbmc_project.State.BMC.BMCState."
                              "UpdateInProgress")
         {
             aResp->res.jsonValue["Status"]["State"] = "Updating";
-            aResp->res.jsonValue["Status"]["Health"] = "OK";
+            aResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
         }
         else
         {
             BMCWEB_LOG_DEBUG("Unsupported D-Bus CurrentBMCState: {}", bmcState);
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
-            aResp->res.jsonValue["Status"]["Health"] = "OK";
+            aResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
         }
     });
 }
@@ -2071,7 +2076,7 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["Description"] =
             "Baseboard Management Controller";
         getBMCState(asyncResp);
-        asyncResp->res.jsonValue["ManagerType"] = "BMC";
+        asyncResp->res.jsonValue["ManagerType"] = manager::ManagerType::BMC;
         asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
         asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
         asyncResp->res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model

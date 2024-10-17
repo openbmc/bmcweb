@@ -18,6 +18,8 @@
 #include "app.hpp"
 #include "dbus_utility.hpp"
 #include "event_service_manager.hpp"
+#include "generated/enums/resource.hpp"
+#include "generated/enums/task_service.hpp"
 #include "http/parsing.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -477,11 +479,12 @@ inline void requestRoutesTaskService(App& app)
         asyncResp->res.jsonValue["Id"] = "TaskService";
         asyncResp->res.jsonValue["DateTime"] =
             redfish::time_utils::getDateTimeOffsetNow().first;
-        asyncResp->res.jsonValue["CompletedTaskOverWritePolicy"] = "Oldest";
+        asyncResp->res.jsonValue["CompletedTaskOverWritePolicy"] =
+            task_service::OverWritePolicy::Oldest;
 
         asyncResp->res.jsonValue["LifeCycleEventOnTaskStateChange"] = true;
 
-        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
         asyncResp->res.jsonValue["ServiceEnabled"] = true;
         asyncResp->res.jsonValue["Tasks"]["@odata.id"] =
             "/redfish/v1/TaskService/Tasks";

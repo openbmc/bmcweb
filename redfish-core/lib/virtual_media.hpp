@@ -257,7 +257,7 @@ inline nlohmann::json vmItemTemplate(const std::string& name,
     item["WriteProtected"] = true;
     item["ConnectedVia"] = virtual_media::ConnectedVia::NotConnected;
     item["MediaTypes"] = nlohmann::json::array_t({"CD", "USBStick"});
-    item["TransferMethod"] = "Stream";
+    item["TransferMethod"] = virtual_media::TransferMethod::Stream;
     item["Oem"]["OpenBMC"]["@odata.type"] =
         "#OpenBMCVirtualMedia.v1_0_0.VirtualMedia";
     item["Oem"]["OpenBMC"]["@odata.id"] = boost::urls::format(
