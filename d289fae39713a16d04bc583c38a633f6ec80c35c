@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a02d799a_9f2646d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-17T16:10:13Z",
+      "side": 1,
+      "message": "Can you do a quick test, making sure the file still writes/restores ?",
+      "revId": "d289fae39713a16d04bc583c38a633f6ec80c35c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e298a896_d9ce042f",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-17T16:10:13Z",
+      "side": 1,
+      "message": "include system_errors",
+      "revId": "d289fae39713a16d04bc583c38a633f6ec80c35c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a05cf88d_70aa8b5e",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-17T16:10:13Z",
+      "side": 1,
+      "message": "You want to log the ec?",
+      "revId": "d289fae39713a16d04bc583c38a633f6ec80c35c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e514a08_18d0d40e",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-17T16:10:13Z",
+      "side": 1,
+      "message": "don\u0027t you need a {} ?",
+      "range": {
+        "startLine": 338,
+        "startChar": 50,
+        "endLine": 338,
+        "endChar": 51
+      },
+      "revId": "d289fae39713a16d04bc583c38a633f6ec80c35c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
