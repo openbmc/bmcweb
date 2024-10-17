@@ -1128,6 +1128,24 @@ void arraySizeTooLong(crow::Response& res, std::string_view property,
 nlohmann::json restrictedRole(const std::string& arg1);
 
 void restrictedRole(crow::Response& res, const std::string& arg1);
+
+/**
+ * @brief Formats GenerateSecretKeyRequired message into JSON
+ * Message body: Secret key needs to be generated for the account before
+ * accessing the service. Account has to provide a time based OTP from the
+ * device configured with the secret key before access is granted. The secret
+ * key can be generated with a `POST` to the `GenerateSecretKey` action for
+ * the account located at the target URI '%1'.
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message GenerateSecretKeyRequired formatted to JSON */
+
+nlohmann::json
+    generateSecretKeyRequired(const boost::urls::url_view_base& arg1);
+
+void generateSecretKeyRequired(crow::Response& res,
+                               const boost::urls::url_view_base& arg1);
 } // namespace messages
 
 } // namespace redfish
