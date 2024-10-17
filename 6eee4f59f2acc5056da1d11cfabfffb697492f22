@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f80d73c_ff8aaafa",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2511,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-17T07:59:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dda32db3_5ff3c1fc",
+      "revId": "6eee4f59f2acc5056da1d11cfabfffb697492f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da501204_b80a9037",
