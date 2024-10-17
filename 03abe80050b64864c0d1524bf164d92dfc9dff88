@@ -67,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43f8a4f8_7949c1f0",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-17T09:13:34Z",
+      "side": 1,
+      "message": "We have opened a discussion to know if pam can return such an error.\nhttps://github.com/google/google-authenticator-libpam/issues/257\nLooks like its not supported at present.",
+      "parentUuid": "c9a6786c_adcb8eec",
+      "revId": "03abe80050b64864c0d1524bf164d92dfc9dff88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9750d115_169a780c",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 33
