@@ -66,6 +66,19 @@ limitations under the License.
 #include <variant>
 #include <vector>
 
+namespace nlohmann
+{
+template <typename... Args>
+struct adl_serializer<std::variant<Args...>>
+{
+    // NOLINTNEXTLINE(readability-identifier-naming)
+    static void to_json(json& j, const std::variant<Args...>& args)
+    {
+        std::visit([&j](auto&& val) { j = val; }, args);
+    }
+};
+} // namespace nlohmann
+
 namespace crow
 {
 namespace openbmc_mapper
@@ -204,20 +217,8 @@ inline void getPropertiesForEnumerate(
             for (const auto& [name, value] : propertiesList)
             {
                 nlohmann::json& propertyJson = objectJson[name];
-                std::visit(
-                    [&propertyJson](auto&& val) {
-                        if constexpr (std::is_same_v<
-                                          std::decay_t<decltype(val)>,
-                                          sdbusplus::message::unix_fd>)
-                        {
-                            propertyJson = val.fd;
-                        }
-                        else
-                        {
-                            propertyJson = val;
-                        }
-                    },
-                    value);
+                std::visit([&propertyJson](auto&& val) { propertyJson = val; },
+                           value);
             }
         });
 }
