@@ -250,6 +250,23 @@
       "message": "I read up a bit on tomcat only because I\u0027ve been thinking about 13.3.2.2 and architecting a path to a non-transparent proxy following the highest security option of creating a BFF  recommended in the OAUTH SPA draft (intended to be incorporated into OAUTH 2.1 per its draft).\n\nThis architecture will also considers adding webauthn and hence passkeys and u2f (fido2 and fido1) and separation of the proxy will likely be configurable.  It builds on my comments to the Redfish OAuth design 58313 and actual OAUTH may be optional.\n\n\nhttps://datatracker.ietf.org/doc/html/draft-ietf-oauth-browser-based-apps-18#name-backend-for-frontend-bff\n\nhttps://gerrit.openbmc.org/c/openbmc/docs/+/58313: docs: add a design doc for Redfish OAuth\n\nhttps://www.w3.org/TR/webauthn-2/",
       "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2688540_65c90e5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-17T16:45:47Z",
+      "side": 1,
+      "message": "I\u0027ve come to the conclusion that I don\u0027t care enough about passing venom and clearing headers has caused more bugs than expected.  Gunnar, if you get this patch rebased, I\u0027m ok for it to merge.",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
