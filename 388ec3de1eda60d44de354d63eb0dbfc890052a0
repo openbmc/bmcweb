@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c338d2ae_17e9170d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-18T17:43:13Z",
+      "side": 1,
+      "message": "Thank you for the commit! \nCan you update Redfish.md with this property?",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "190d653a_1dffd281",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-18T17:43:13Z",
+      "side": 1,
+      "message": "Why is this needed? Why do we need to remove the subseconds?",
+      "range": {
+        "startLine": 1103,
+        "startChar": 0,
+        "endLine": 1116,
+        "endChar": 1
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1f12dd4_f4bfe181",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-18T17:43:13Z",
+      "side": 1,
+      "message": "We follow \nhttps://github.com/openbmc/docs/blob/master/cpp-style-and-conventions.md#bracket-style from https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#c-1 \n\n Please use brackets here",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5491773_0ba5a85d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-18T17:43:13Z",
+      "side": 1,
+      "message": "What if on the PATCH you pass in a bad string, does this properly return a 4xx error?\n\n```\ncurl -k -X PATCH -H \u0027Content-Type: application/json\u0027 \\\n  https://\u003cbmc\u003e/redfish/v1/AccountService/Accounts/\u003cuser\u003e; \\\n  -d \u0027{\"PasswordExpiration\": \"thisIsNotaCorrectDate\"}\u0027\n```",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
