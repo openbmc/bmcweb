@@ -52,6 +52,24 @@
       "parentUuid": "9a5a486e_80d60c06",
       "revId": "cbe28af5cc601af704a0daadf6d8cbc84ee199da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38c28a9d_068ca728",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T19:53:03Z",
+      "side": 1,
+      "message": "\u003e Now we are disabling the invocation of tlsVarifyCallback(by setting verify none). That in turn will disable the session creation using MTLS certificate.\n\nThis is what I can\u0027t explain.  Previously we had no call to set verify mode:\n\nhttps://github.com/openbmc/bmcweb/commit/3281bcf157d2a5a7e12eea199e280fc21db3b3fb#diff-e1afbba62ce215eb68c2ea3b2256d616b26c5c5ea00f77c31f41567400aa5aa6L608\n\n\u003e If we wanted MTLS session we should set tlsStrict. That makes external client mandatorily provide client certificates, otherwise handshake will fail.\n\nRight.",
+      "parentUuid": "37842394_632d9046",
+      "revId": "cbe28af5cc601af704a0daadf6d8cbc84ee199da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
