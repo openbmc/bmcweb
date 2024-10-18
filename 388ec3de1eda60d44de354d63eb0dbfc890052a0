@@ -18,6 +18,97 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "336a8fe4_7c707929",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T17:47:25Z",
+      "side": 1,
+      "message": "Please run the analysis tools on you patch.  There are a number of style/coding violations that are caught by automation.",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8741a55f_1d2fe57c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T17:47:25Z",
+      "side": 1,
+      "message": "Inline this.  I suspect at least one of the uses of this can be replaced with nullopt",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "478d6133_1d31225e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T17:47:25Z",
+      "side": 1,
+      "message": "Just inline this typedef.  It makes the code easier to read.",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0219df68_a30ffb63",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T17:47:25Z",
+      "side": 1,
+      "message": "Why?",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d1dd71_5dc294ee",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T17:47:25Z",
+      "side": 1,
+      "message": "If we do this, this should be another submethod of getDateTimeUint.  Converting time values is a utility function, nothing specifically to do with account service.",
+      "range": {
+        "startLine": 1112,
+        "startChar": 0,
+        "endLine": 1115,
+        "endChar": 22
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "190d653a_1dffd281",
@@ -71,6 +162,92 @@
       "writtenOn": "2024-10-18T17:43:13Z",
       "side": 1,
       "message": "What if on the PATCH you pass in a bad string, does this properly return a 4xx error?\n\n```\ncurl -k -X PATCH -H \u0027Content-Type: application/json\u0027 \\\n  https://\u003cbmc\u003e/redfish/v1/AccountService/Accounts/\u003cuser\u003e; \\\n  -d \u0027{\"PasswordExpiration\": \"thisIsNotaCorrectDate\"}\u0027\n```",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04842704_4a4620c3",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T17:47:25Z",
+      "side": 1,
+      "message": "Common error #12",
+      "range": {
+        "startLine": 1157,
+        "startChar": 0,
+        "endLine": 1157,
+        "endChar": 48
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c0001ea_b5ac2cd2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1890,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T17:47:25Z",
+      "side": 1,
+      "message": "\u003d std::move(username)",
+      "range": {
+        "startLine": 1890,
+        "startChar": 61,
+        "endLine": 1890,
+        "endChar": 69
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0eb0660_6b49f28f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1891,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T17:47:25Z",
+      "side": 1,
+      "message": "suspect this will go away once the password expiration is done as part of the create call.",
+      "range": {
+        "startLine": 1891,
+        "startChar": 0,
+        "endLine": 1891,
+        "endChar": 46
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d35c832d_e769bf9c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T17:47:25Z",
+      "side": 1,
+      "message": "Why isn\u0027t password expiration getting passed to the CreateUser call?  It should be a parameter when we add it, rather than set later, right?",
       "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
