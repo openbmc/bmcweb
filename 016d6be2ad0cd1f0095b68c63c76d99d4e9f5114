@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5512e945_83f1853f",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-18T15:08:22Z",
+      "side": 1,
+      "message": "Can\u0027t this fail for many reasons?",
+      "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7441f744_bd0410a1",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-18T15:08:22Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like the correct error?",
+      "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f11b3aaa_3ee615b1",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-18T15:08:22Z",
+      "side": 1,
+      "message": "The certificate manager can\u0027t just do this and throw back an error?\n\nCan then use the afterSetPropertyAction ?\n\nhttps://github.com/openbmc/bmcweb/blob/56ba386d435a3298df728d9f2e7a73d3948a6a2b/redfish-core/src/utils/dbus_utils.cpp#L101",
+      "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
