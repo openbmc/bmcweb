@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "245a4ec9_b52dcf62",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T15:37:30Z",
+      "side": 1,
+      "message": "we need to split up verifyOpensslKeyCert so that we can pass in the certificate string before it\u0027s written to disk.  Writing the file then immediately reading it back into memory is a waste.",
+      "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5512e945_83f1853f",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 3
@@ -14,6 +31,24 @@
       "writtenOn": "2024-10-18T15:08:22Z",
       "side": 1,
       "message": "Can\u0027t this fail for many reasons?",
+      "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa23b6d5_13d29c11",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T15:37:30Z",
+      "side": 1,
+      "message": "it can, but aside from the filesystem ones, pretty much all are \"we couldnt\u0027 use this cert\"",
+      "parentUuid": "5512e945_83f1853f",
       "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -37,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61d40c52_d0b64f38",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T15:37:30Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "7441f744_bd0410a1",
+      "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f11b3aaa_3ee615b1",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 3
@@ -48,6 +101,41 @@
       "writtenOn": "2024-10-18T15:08:22Z",
       "side": 1,
       "message": "The certificate manager can\u0027t just do this and throw back an error?\n\nCan then use the afterSetPropertyAction ?\n\nhttps://github.com/openbmc/bmcweb/blob/56ba386d435a3298df728d9f2e7a73d3948a6a2b/redfish-core/src/utils/dbus_utils.cpp#L101",
+      "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d42cee86_0720da69",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T15:37:30Z",
+      "side": 1,
+      "message": "eh, this is one of the few cases where I\u0027m ok with doing error checks here, because bmcweb is the recipient of the cert, and it \"knows\" what it supports.  Trying to maintain that in two places might be error prone.",
+      "parentUuid": "f11b3aaa_3ee615b1",
+      "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73943c7f_b6258c1c",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T15:37:30Z",
+      "side": 1,
+      "message": "Rather than this, can we do a comparison against the cipher suites when we construct the context, and just see if cipher count is 0?  That way, if the cipher suites change in the future to remove RSA, or add a new type, this will just work.",
       "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
