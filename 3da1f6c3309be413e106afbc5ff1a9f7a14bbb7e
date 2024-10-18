@@ -106,6 +106,24 @@
       "parentUuid": "03849138_f6164ec8",
       "revId": "3da1f6c3309be413e106afbc5ff1a9f7a14bbb7e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04526c6c_50cda3c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-18T19:25:25Z",
+      "side": 1,
+      "message": "With patcheset 12 (and with rebase on top of the current master) , the exception comes from `shared_from_this()` here.\n\n```\n            client-\u003esendDataWithCallback(\n....\n                std::bind_front(\u0026Subscription::resHandler, this,\n                                shared_from_this()));\n```\nTo prove it, add the line like\n\n```\n@@ -318,6 +318,9 @@ class Subscription : std::enable_shared_from_this\u003cSubscription\u003e\n\n         if (client)\n         {\n+            BMCWEB_LOG_ERROR(\"Before shared_from_this\");\n+            auto self \u003d shared_from_this();\n+            BMCWEB_LOG_ERROR(\"After shared_from_this\");\n             client-\u003esendDataWithCallback(\n                 std::move(msg), userSub.destinationUrl,\n                 static_cast\u003censuressl::VerifyCertificate\u003e(\n```\n\nThen, an exception throw is observed here when a new event is occurred.\n\n```\nOct 18 19:17:02 p10bmc bmcwebd[286]: [DEBUG http_connection.hpp:302] Setting completion handler\nOct 18 19:17:02 p10bmc bmcwebd[286]: [DEBUG http_response.hpp:258] 0x2688b90 setting completion handler\nOct 18 19:17:02 p10bmc bmcwebd[286]: [DEBUG routing.hpp:653] Matched rule \u0027/redfish/v1/EventService/Actions/EventService.SubmitTestEvent/\u0027 POST / 32\nOct 18 19:17:02 p10bmc bmcwebd[286]: [DEBUG dbus_privileges.hpp:50] userName \u003d root userRole \u003d priv-admin\nOct 18 19:17:02 p10bmc bmcwebd[286]: [DEBUG query.hpp:123] setup redfish route\nOct 18 19:17:02 p10bmc bmcwebd[286]: [ERROR event_service_manager.hpp:321] Before shared_from_this\nOct 18 19:17:02 p10bmc bmcwebd[286]: terminate called after throwing an instance of \u0027std::bad_weak_ptr\u0027\nOct 18 19:17:02 p10bmc bmcwebd[286]:   what():  bad_weak_ptr\n```",
+      "parentUuid": "19d171d5_0d2b3a28",
+      "revId": "3da1f6c3309be413e106afbc5ff1a9f7a14bbb7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
