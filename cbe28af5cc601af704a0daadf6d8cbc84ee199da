@@ -88,6 +88,24 @@
       "parentUuid": "38c28a9d_068ca728",
       "revId": "cbe28af5cc601af704a0daadf6d8cbc84ee199da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fce93e8_09c34372",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T19:58:17Z",
+      "side": 1,
+      "message": "I pushed a new patch that might help, PTAL",
+      "parentUuid": "cf969868_19cddeea",
+      "revId": "cbe28af5cc601af704a0daadf6d8cbc84ee199da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
