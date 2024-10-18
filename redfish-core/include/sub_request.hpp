@@ -31,7 +31,7 @@ class SubRequest
             }
 
             auto oemIt = reqJson.find("Oem");
-            if (oemIt != reqJson.end() && oemIt->is_object())
+            if (oemIt != reqJson.end())
             {
                 const nlohmann::json::object_t* oemObj =
                     oemIt->get_ptr<const nlohmann::json::object_t*>();
