@@ -840,12 +840,14 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     {
         BMCWEB_LOG_DEBUG("placeResult for {}", locationToPlace);
         propogateError(finalRes->res, res);
-        if (!res.jsonValue.is_object() || res.jsonValue.empty())
+        nlohmann::json::object_t* obj =
+            res.jsonValue.get_ptr<nlohmann::json::object_t*>();
+        if (obj == nullptr || res.jsonValue.empty())
         {
             return;
         }
         nlohmann::json& finalObj = finalRes->res.jsonValue[locationToPlace];
-        finalObj = std::move(res.jsonValue);
+        finalObj = std::move(*obj);
     }
 
     // Handles the very first level of Expand, and starts a chain of sub-queries

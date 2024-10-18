@@ -85,20 +85,27 @@ inline void handleLogin(const crow::Request& req,
                         }
                     }
                 }
-                else if (dataIt->is_object())
+                else
                 {
-                    nlohmann::json::iterator userIt2 = dataIt->find("username");
-                    nlohmann::json::iterator passIt2 = dataIt->find("password");
-                    if (userIt2 != dataIt->end() && passIt2 != dataIt->end())
+                    nlohmann::json::object_t* obj =
+                        dataIt->get_ptr<nlohmann::json::object_t*>();
+                    if (obj != nullptr)
                     {
-                        const std::string* userStr =
-                            userIt2->get_ptr<const std::string*>();
-                        const std::string* passStr =
-                            passIt2->get_ptr<const std::string*>();
-                        if (userStr != nullptr && passStr != nullptr)
+                        nlohmann::json::object_t::iterator userIt2 =
+                            obj->find("username");
+                        nlohmann::json::object_t::iterator passIt2 =
+                            obj->find("password");
+                        if (userIt2 != obj->end() && passIt2 != obj->end())
                         {
-                            username = *userStr;
-                            password = *passStr;
+                            const std::string* userStr =
+                                userIt2->second.get_ptr<const std::string*>();
+                            const std::string* passStr =
+                                passIt2->second.get_ptr<const std::string*>();
+                            if (userStr != nullptr && passStr != nullptr)
+                            {
+                                username = *userStr;
+                                password = *passStr;
+                            }
                         }
                     }
                 }
