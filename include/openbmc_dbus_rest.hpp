@@ -1350,23 +1350,27 @@ inline void handleMethodResponse(
     // seems better to get the data back somehow.
     nlohmann::json::object_t* dataobj =
         data.get_ptr<nlohmann::json::object_t*>();
-    if (transaction->methodResponse.is_object() && dataobj != nullptr)
+
+    nlohmann::json::object_t* methodResponseObj =
+        transaction->methodResponse.get_ptr<nlohmann::json::object_t*>();
+    if (methodResponseObj != nullptr && dataobj != nullptr)
     {
         for (auto& obj : *dataobj)
         {
             // Note: Will overwrite the data for a duplicate key
-            transaction->methodResponse.emplace(obj.first,
-                                                std::move(obj.second));
+            methodResponseObj->emplace(obj.first, std::move(obj.second));
         }
         return;
     }
 
     nlohmann::json::array_t* dataarr = data.get_ptr<nlohmann::json::array_t*>();
-    if (transaction->methodResponse.is_array() && dataarr != nullptr)
+    nlohmann::json::array_t* methodResponseArr =
+        transaction->methodResponse.get_ptr<nlohmann::json::array_t*>();
+    if (methodResponseArr != nullptr && dataarr != nullptr)
     {
         for (auto& obj : *dataarr)
         {
-            transaction->methodResponse.emplace_back(std::move(obj));
+            methodResponseArr->emplace_back(std::move(obj));
         }
         return;
     }
