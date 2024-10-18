@@ -7,6 +7,7 @@
 #include "http_response.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "ssl_key_handler.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
@@ -573,6 +574,17 @@ inline void handleReplaceCertificateAction(
 
     std::shared_ptr<CertificateFile> certFile =
         std::make_shared<CertificateFile>(certificate);
+
+    std::string sslPemFile(certFile->getCertFilePath());
+    std::string cert = ensuressl::verifyOpensslKeyCert(sslPemFile);
+    if (cert.empty())
+    {
+        BMCWEB_LOG_ERROR("Error in verifying certificate!");
+        messages::actionParameterNotSupported(
+            asyncResp->res, "CertificateString", "ReplaceCertificate");
+        return;
+    }
+
     crow::connections::systemBus->async_method_call(
         [asyncResp, certFile, objectPath, service, url{*parsedUrl}, id, name,
          certificate](const boost::system::error_code& ec,

@@ -188,7 +188,22 @@ std::string verifyOpensslKeyCert(const std::string& filepath)
             }
             else
             {
-                certValid = validateCertificate(x509);
+                EVP_PKEY* pubkey = X509_get0_pubkey(x509);
+                if (pubkey != nullptr)
+                {
+                    // Check the key algorithm
+                    int keyType = EVP_PKEY_base_id(pubkey);
+                    std::string algorithm;
+                    if (keyType == EVP_PKEY_RSA || keyType == EVP_PKEY_EC)
+                    {
+                        certValid = validateCertificate(x509);
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Unsupported certificate algorithm: {}", keyType);
+                    }
+                }
                 X509_free(x509);
             }
         }
