@@ -70,6 +70,24 @@
       "parentUuid": "37842394_632d9046",
       "revId": "cbe28af5cc601af704a0daadf6d8cbc84ee199da",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf969868_19cddeea",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-18T19:55:23Z",
+      "side": 1,
+      "message": "ohhh, maybe that\u0027s the problem, that we\u0027re calling set_verify_mode at all?",
+      "parentUuid": "38c28a9d_068ca728",
+      "revId": "cbe28af5cc601af704a0daadf6d8cbc84ee199da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
