@@ -33,115 +33,106 @@ constexpr const char* url =
 
 constexpr std::array registry =
 {
-    MessageEntry{
+    Message{
         "TaskAborted",
+        "A task has completed with errors.",
+        "The task with Id '%1' has completed with errors.",
+        "Critical",
+        1,
         {
-            "A task has completed with errors.",
-            "The task with Id '%1' has completed with errors.",
-            "Critical",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "TaskCancelled",
+        "A task has been cancelled.",
+        "Work on the task with Id '%1' has been halted prior to completion due to an explicit request.",
+        "Warning",
+        1,
         {
-            "A task has been cancelled.",
-            "Work on the task with Id '%1' has been halted prior to completion due to an explicit request.",
-            "Warning",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "TaskCompletedOK",
+        "A task has completed.",
+        "The task with Id '%1' has completed.",
+        "OK",
+        1,
         {
-            "A task has completed.",
-            "The task with Id '%1' has completed.",
-            "OK",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "TaskCompletedWarning",
+        "A task has completed with warnings.",
+        "The task with Id '%1' has completed with warnings.",
+        "Warning",
+        1,
         {
-            "A task has completed with warnings.",
-            "The task with Id '%1' has completed with warnings.",
-            "Warning",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "TaskPaused",
+        "A task has been paused.",
+        "The task with Id '%1' has been paused.",
+        "Warning",
+        1,
         {
-            "A task has been paused.",
-            "The task with Id '%1' has been paused.",
-            "Warning",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "TaskProgressChanged",
+        "A task has changed progress.",
+        "The task with Id '%1' has changed to progress %2 percent complete.",
+        "OK",
+        2,
         {
-            "A task has changed progress.",
-            "The task with Id '%1' has changed to progress %2 percent complete.",
-            "OK",
-            2,
-            {
-                "string",
-                "number",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "number",
+        },
+        "None.",
+    },
+    Message{
         "TaskRemoved",
+        "A task has been removed.",
+        "The task with Id '%1' has been removed.",
+        "Warning",
+        1,
         {
-            "A task has been removed.",
-            "The task with Id '%1' has been removed.",
-            "Warning",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "TaskResumed",
+        "A task has been resumed.",
+        "The task with Id '%1' has been resumed.",
+        "OK",
+        1,
         {
-            "A task has been resumed.",
-            "The task with Id '%1' has been resumed.",
-            "OK",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "TaskStarted",
+        "A task has started.",
+        "The task with Id '%1' has started.",
+        "OK",
+        1,
         {
-            "A task has started.",
-            "The task with Id '%1' has started.",
-            "OK",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
+            "string",
+        },
+        "None.",
+    },
 
 };
 

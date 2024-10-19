@@ -164,11 +164,11 @@ inline void handleMessageRegistryGet(
         return;
     }
     const registries::Header* header = nullptr;
-    std::vector<const registries::MessageEntry*> registryEntries;
+    std::vector<const registries::Message*> registryEntries;
     if (registry == "Base")
     {
         header = &registries::base::header;
-        for (const registries::MessageEntry& entry : registries::base::registry)
+        for (const registries::Message& entry : registries::base::registry)
         {
             registryEntries.emplace_back(&entry);
         }
@@ -176,7 +176,7 @@ inline void handleMessageRegistryGet(
     else if (registry == "TaskEvent")
     {
         header = &registries::task_event::header;
-        for (const registries::MessageEntry& entry :
+        for (const registries::Message& entry :
              registries::task_event::registry)
         {
             registryEntries.emplace_back(&entry);
@@ -185,8 +185,7 @@ inline void handleMessageRegistryGet(
     else if (registry == "OpenBMC")
     {
         header = &registries::openbmc::header;
-        for (const registries::MessageEntry& entry :
-             registries::openbmc::registry)
+        for (const registries::Message& entry : registries::openbmc::registry)
         {
             registryEntries.emplace_back(&entry);
         }
@@ -194,7 +193,7 @@ inline void handleMessageRegistryGet(
     else if (registry == "ResourceEvent")
     {
         header = &registries::resource_event::header;
-        for (const registries::MessageEntry& entry :
+        for (const registries::Message& entry :
              registries::resource_event::registry)
         {
             registryEntries.emplace_back(&entry);
@@ -203,8 +202,7 @@ inline void handleMessageRegistryGet(
     else if (registry == "Telemetry")
     {
         header = &registries::telemetry::header;
-        for (const registries::MessageEntry& entry :
-             registries::telemetry::registry)
+        for (const registries::Message& entry : registries::telemetry::registry)
         {
             registryEntries.emplace_back(&entry);
         }
@@ -235,22 +233,22 @@ inline void handleMessageRegistryGet(
     nlohmann::json& messageObj = asyncResp->res.jsonValue["Messages"];
 
     // Go through the Message Registry and populate each Message
-    for (const registries::MessageEntry* message : registryEntries)
+    for (const registries::Message* message : registryEntries)
     {
-        nlohmann::json& obj = messageObj[message->first];
-        obj["Description"] = message->second.description;
-        obj["Message"] = message->second.message;
-        obj["Severity"] = message->second.messageSeverity;
-        obj["MessageSeverity"] = message->second.messageSeverity;
-        obj["NumberOfArgs"] = message->second.numberOfArgs;
-        obj["Resolution"] = message->second.resolution;
-        if (message->second.numberOfArgs > 0)
+        nlohmann::json& obj = messageObj[message->messageId];
+        obj["Description"] = message->description;
+        obj["Message"] = message->message;
+        obj["Severity"] = message->messageSeverity;
+        obj["MessageSeverity"] = message->messageSeverity;
+        obj["NumberOfArgs"] = message->numberOfArgs;
+        obj["Resolution"] = message->resolution;
+        if (message->numberOfArgs > 0)
         {
             nlohmann::json& messageParamArray = obj["ParamTypes"];
             messageParamArray = nlohmann::json::array();
-            for (const char* str : message->second.paramTypes)
+            for (const std::string_view str : message->paramTypes)
             {
-                if (str == nullptr)
+                if (str.empty())
                 {
                     break;
                 }

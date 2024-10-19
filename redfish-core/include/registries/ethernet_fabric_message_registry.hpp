@@ -33,110 +33,102 @@ constexpr const char* url =
 
 constexpr std::array registry =
 {
-    MessageEntry{
+    Message{
         "LLDPInterfaceDisabled",
+        "Indicates that an interface has disabled Link Layer Discovery Protocol (LLDP).",
+        "LLDP was disabled on switch '%1' port '%2'.",
+        "Warning",
+        2,
         {
-            "Indicates that an interface has disabled Link Layer Discovery Protocol (LLDP).",
-            "LLDP was disabled on switch '%1' port '%2'.",
-            "Warning",
-            2,
-            {
-                "string",
-                "string",
-            },
-            "Check that LLDP is enabled on device endpoints.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+        },
+        "Check that LLDP is enabled on device endpoints.",
+    },
+    Message{
         "LLDPInterfaceEnabled",
+        "Indicates that an interface has enabled Link Layer Discovery Protocol (LLDP).",
+        "LLDP was enabled on switch '%1' port '%2'.",
+        "OK",
+        2,
         {
-            "Indicates that an interface has enabled Link Layer Discovery Protocol (LLDP).",
-            "LLDP was enabled on switch '%1' port '%2'.",
-            "OK",
-            2,
-            {
-                "string",
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "MLAGInterfaceDegraded",
+        "Indicates that multi-chassis link aggregation group (MLAG) interfaces were established, but at an unexpectedly low aggregated link speed.",
+        "MLAG interface '%1' is degraded on switch '%2'.",
+        "Warning",
+        2,
         {
-            "Indicates that multi-chassis link aggregation group (MLAG) interfaces were established, but at an unexpectedly low aggregated link speed.",
-            "MLAG interface '%1' is degraded on switch '%2'.",
-            "Warning",
-            2,
-            {
-                "string",
-                "string",
-            },
-            "Contact the network administrator for problem resolution.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+        },
+        "Contact the network administrator for problem resolution.",
+    },
+    Message{
         "MLAGInterfaceDown",
+        "Indicates that the multi-chassis link aggregation group (MLAG) interface is down on a switch.",
+        "The MLAG interface '%1' on switch '%2' is down.",
+        "Warning",
+        2,
         {
-            "Indicates that the multi-chassis link aggregation group (MLAG) interface is down on a switch.",
-            "The MLAG interface '%1' on switch '%2' is down.",
-            "Warning",
-            2,
-            {
-                "string",
-                "string",
-            },
-            "Check physical connectivity and that the MLAG system ID matches on switch pairs.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+        },
+        "Check physical connectivity and that the MLAG system ID matches on switch pairs.",
+    },
+    Message{
         "MLAGInterfacesUp",
+        "Indicates that all multi-chassis link aggregation group (MLAG) interfaces are up.",
+        "All MLAG interfaces were established for MLAG ID '%1'.",
+        "OK",
+        1,
         {
-            "Indicates that all multi-chassis link aggregation group (MLAG) interfaces are up.",
-            "All MLAG interfaces were established for MLAG ID '%1'.",
-            "OK",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "MLAGPeerDown",
+        "Indicates that the multi-chassis link aggregation group (MLAG) peer is down.",
+        "MLAG peer switch '%1' with MLAG ID '%2' is down.",
+        "Warning",
+        2,
         {
-            "Indicates that the multi-chassis link aggregation group (MLAG) peer is down.",
-            "MLAG peer switch '%1' with MLAG ID '%2' is down.",
-            "Warning",
-            2,
-            {
-                "string",
-                "string",
-            },
-            "Check physical connectivity and that the port channel ID matches on switch pairs.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+        },
+        "Check physical connectivity and that the port channel ID matches on switch pairs.",
+    },
+    Message{
         "MLAGPeerUp",
+        "Indicates that the multi-chassis link aggregation group (MLAG) peer is up.",
+        "MLAG peer switch '%1' with MLAG ID '%2' is up.",
+        "OK",
+        2,
         {
-            "Indicates that the multi-chassis link aggregation group (MLAG) peer is up.",
-            "MLAG peer switch '%1' with MLAG ID '%2' is up.",
-            "OK",
-            2,
-            {
-                "string",
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "RoutingFailureThresholdExceeded",
+        "Indicates that a switch has encountered an unusually large number of routing errors.",
+        "Switch '%1' has encountered %2 routing errors in the last %3 minutes.",
+        "Warning",
+        3,
         {
-            "Indicates that a switch has encountered an unusually large number of routing errors.",
-            "Switch '%1' has encountered %2 routing errors in the last %3 minutes.",
-            "Warning",
-            3,
-            {
-                "string",
-                "number",
-                "number",
-            },
-            "Contact the network administrator for problem resolution.",
-        }},
+            "string",
+            "number",
+            "number",
+        },
+        "Contact the network administrator for problem resolution.",
+    },
 
 };
 

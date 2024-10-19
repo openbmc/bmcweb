@@ -33,90 +33,84 @@ constexpr const char* url =
 
 constexpr std::array registry =
 {
-    MessageEntry{
+    Message{
         "CableInserted",
+        "Indicates that a network cable was inserted.",
+        "A network cable was inserted into network adapter '%1' port '%2'.",
+        "OK",
+        2,
         {
-            "Indicates that a network cable was inserted.",
-            "A network cable was inserted into network adapter '%1' port '%2'.",
-            "OK",
-            2,
-            {
-                "string",
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "CableRemoved",
+        "Indicates that a network cable was removed.",
+        "A cable was removed from network adapter '%1' port '%2'.",
+        "OK",
+        2,
         {
-            "Indicates that a network cable was removed.",
-            "A cable was removed from network adapter '%1' port '%2'.",
-            "OK",
-            2,
-            {
-                "string",
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "ConnectionDropped",
+        "Indicates that a network connection was dropped.",
+        "The connection is no longer active for network adapter '%1' port '%2' function '%3'.",
+        "OK",
+        3,
         {
-            "Indicates that a network connection was dropped.",
-            "The connection is no longer active for network adapter '%1' port '%2' function '%3'.",
-            "OK",
-            3,
-            {
-                "string",
-                "string",
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "ConnectionEstablished",
+        "Indicates that a network connection was established.",
+        "A network connection was established for network adapter '%1' port '%2' function '%3'.",
+        "OK",
+        3,
         {
-            "Indicates that a network connection was established.",
-            "A network connection was established for network adapter '%1' port '%2' function '%3'.",
-            "OK",
-            3,
-            {
-                "string",
-                "string",
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "DegradedConnectionEstablished",
+        "Indicates that a network connection was established, but at an unexpectedly low link speed.",
+        "A degraded network connection was established for network adapter '%1' port '%2' function '%3'.",
+        "Warning",
+        3,
         {
-            "Indicates that a network connection was established, but at an unexpectedly low link speed.",
-            "A degraded network connection was established for network adapter '%1' port '%2' function '%3'.",
-            "Warning",
-            3,
-            {
-                "string",
-                "string",
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "string",
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "LinkFlapDetected",
+        "Indicates that a network connection is highly unstable.",
+        "The network connection for network adapter '%1' port '%2' function '%3' was established and dropped '%4' times in the last '%5' minutes.",
+        "Warning",
+        5,
         {
-            "Indicates that a network connection is highly unstable.",
-            "The network connection for network adapter '%1' port '%2' function '%3' was established and dropped '%4' times in the last '%5' minutes.",
-            "Warning",
-            5,
-            {
-                "string",
-                "string",
-                "string",
-                "number",
-                "number",
-            },
-            "Contact the network administrator for problem resolution.",
-        }},
+            "string",
+            "string",
+            "string",
+            "number",
+            "number",
+        },
+        "Contact the network administrator for problem resolution.",
+    },
 
 };
 

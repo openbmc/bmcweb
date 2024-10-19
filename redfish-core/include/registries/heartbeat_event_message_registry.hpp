@@ -33,16 +33,15 @@ constexpr const char* url =
 
 constexpr std::array registry =
 {
-    MessageEntry{
+    Message{
         "RedfishServiceFunctional",
-        {
-            "An event sent periodically upon request to indicates that the Redfish service is functional.",
-            "Redfish service is functional.",
-            "OK",
-            0,
-            {},
-            "None.",
-        }},
+        "An event sent periodically upon request to indicates that the Redfish service is functional.",
+        "Redfish service is functional.",
+        "OK",
+        0,
+        {},
+        "None.",
+    },
 
 };
 

@@ -33,18 +33,17 @@ constexpr const char* url =
 
 constexpr std::array registry =
 {
-    MessageEntry{
+    Message{
         "DiagnosticDataCollected",
+        "Indicates that diagnostic data was collected due to a client invoking the `CollectDiagnosticData` action.",
+        "'%1' diagnostic data collected.",
+        "OK",
+        1,
         {
-            "Indicates that diagnostic data was collected due to a client invoking the `CollectDiagnosticData` action.",
-            "'%1' diagnostic data collected.",
-            "OK",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
+            "string",
+        },
+        "None.",
+    },
 
 };
 

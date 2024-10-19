@@ -33,98 +33,90 @@ constexpr const char* url =
 
 constexpr std::array registry =
 {
-    MessageEntry{
+    Message{
         "DaysBeforeExpiration",
+        "Indicates the number of days remaining on a license before expiration.",
+        "The license '%1' will expire in %2 days.",
+        "OK",
+        2,
         {
-            "Indicates the number of days remaining on a license before expiration.",
-            "The license '%1' will expire in %2 days.",
-            "OK",
-            2,
-            {
-                "string",
-                "number",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "number",
+        },
+        "None.",
+    },
+    Message{
         "Expired",
+        "Indicates that a license has expired and its functionality was disabled.",
+        "The license '%1' has expired.",
+        "Warning",
+        1,
         {
-            "Indicates that a license has expired and its functionality was disabled.",
-            "The license '%1' has expired.",
-            "Warning",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "GracePeriod",
+        "Indicates that a license has expired and entered its grace period.",
+        "The license '%1' has expired, %2 day grace period before licensed functionality is disabled.",
+        "Warning",
+        2,
         {
-            "Indicates that a license has expired and entered its grace period.",
-            "The license '%1' has expired, %2 day grace period before licensed functionality is disabled.",
-            "Warning",
-            2,
-            {
-                "string",
-                "number",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "number",
+        },
+        "None.",
+    },
+    Message{
         "InstallFailed",
+        "Indicates that the service failed to install the license.",
+        "Failed to install the license.  Reason: %1.",
+        "Critical",
+        1,
         {
-            "Indicates that the service failed to install the license.",
-            "Failed to install the license.  Reason: %1.",
-            "Critical",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "InvalidLicense",
-        {
-            "Indicates that the license was not recognized, is corrupted, or is invalid.",
-            "The content of the license was not recognized, is corrupted, or is invalid.",
-            "Critical",
-            0,
-            {},
-            "Verify the license content is correct and resubmit the request.",
-        }},
-    MessageEntry{
+        "Indicates that the license was not recognized, is corrupted, or is invalid.",
+        "The content of the license was not recognized, is corrupted, or is invalid.",
+        "Critical",
+        0,
+        {},
+        "Verify the license content is correct and resubmit the request.",
+    },
+    Message{
         "LicenseInstalled",
+        "Indicates that a license was installed.",
+        "The license '%1' was installed.",
+        "OK",
+        1,
         {
-            "Indicates that a license was installed.",
-            "The license '%1' was installed.",
-            "OK",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "NotApplicableToTarget",
-        {
-            "Indicates that the license is not applicable to the target.",
-            "The license is not applicable to the target.",
-            "Critical",
-            0,
-            {},
-            "Check the license compatibility or applicability to the specified target.",
-        }},
-    MessageEntry{
+        "Indicates that the license is not applicable to the target.",
+        "The license is not applicable to the target.",
+        "Critical",
+        0,
+        {},
+        "Check the license compatibility or applicability to the specified target.",
+    },
+    Message{
         "TargetsRequired",
-        {
-            "Indicates that one or more targets need to be specified with the license.",
-            "The license requires targets to be specified.",
-            "Critical",
-            0,
-            {},
-            "Add AuthorizedDevices to Links and resubmit the request.",
-        }},
+        "Indicates that one or more targets need to be specified with the license.",
+        "The license requires targets to be specified.",
+        "Critical",
+        0,
+        {},
+        "Add AuthorizedDevices to Links and resubmit the request.",
+    },
 
 };
 

@@ -33,103 +33,95 @@ constexpr const char* url =
 
 constexpr std::array registry =
 {
-    MessageEntry{
+    Message{
         "JobCancelled",
+        "A job was cancelled.",
+        "The job with Id '%1' was cancelled.",
+        "Warning",
+        1,
         {
-            "A job was cancelled.",
-            "The job with Id '%1' was cancelled.",
-            "Warning",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "JobCompletedException",
+        "A job has completed with warnings or errors.",
+        "The job with Id '%1' has completed with warnings or errors.",
+        "Warning",
+        1,
         {
-            "A job has completed with warnings or errors.",
-            "The job with Id '%1' has completed with warnings or errors.",
-            "Warning",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "JobCompletedOK",
+        "A job has completed.",
+        "The job with Id '%1' has completed.",
+        "OK",
+        1,
         {
-            "A job has completed.",
-            "The job with Id '%1' has completed.",
-            "OK",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "JobProgressChanged",
+        "A job has changed progress.",
+        "The job with Id '%1' has changed to progress %2 percent complete.",
+        "OK",
+        2,
         {
-            "A job has changed progress.",
-            "The job with Id '%1' has changed to progress %2 percent complete.",
-            "OK",
-            2,
-            {
-                "string",
-                "number",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+            "number",
+        },
+        "None.",
+    },
+    Message{
         "JobRemoved",
+        "A job was removed.",
+        "The job with Id '%1' was removed.",
+        "Warning",
+        1,
         {
-            "A job was removed.",
-            "The job with Id '%1' was removed.",
-            "Warning",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "JobResumed",
+        "A job has resumed.",
+        "The job with Id '%1' has resumed.",
+        "OK",
+        1,
         {
-            "A job has resumed.",
-            "The job with Id '%1' has resumed.",
-            "OK",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "JobStarted",
+        "A job has started.",
+        "The job with Id '%1' has started.",
+        "OK",
+        1,
         {
-            "A job has started.",
-            "The job with Id '%1' has started.",
-            "OK",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "None.",
+    },
+    Message{
         "JobSuspended",
+        "A job was suspended.",
+        "The job with Id '%1' was suspended.",
+        "Warning",
+        1,
         {
-            "A job was suspended.",
-            "The job with Id '%1' was suspended.",
-            "Warning",
-            1,
-            {
-                "string",
-            },
-            "None.",
-        }},
+            "string",
+        },
+        "None.",
+    },
 
 };
 

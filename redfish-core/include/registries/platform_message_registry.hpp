@@ -33,48 +33,44 @@ constexpr const char* url =
 
 constexpr std::array registry =
 {
-    MessageEntry{
+    Message{
         "OperatingSystemCrash",
-        {
-            "Indicates the operating system was halted due to a catastrophic error.",
-            "An operating system crash occurred.",
-            "Critical",
-            0,
-            {},
-            "Check additional diagnostic data if available.",
-        }},
-    MessageEntry{
+        "Indicates the operating system was halted due to a catastrophic error.",
+        "An operating system crash occurred.",
+        "Critical",
+        0,
+        {},
+        "Check additional diagnostic data if available.",
+    },
+    Message{
         "PlatformError",
-        {
-            "Indicates that a platform error occurred.",
-            "A platform error occurred.",
-            "Warning",
-            0,
-            {},
-            "Check additional diagnostic data if available.",
-        }},
-    MessageEntry{
+        "Indicates that a platform error occurred.",
+        "A platform error occurred.",
+        "Warning",
+        0,
+        {},
+        "Check additional diagnostic data if available.",
+    },
+    Message{
         "PlatformErrorAtLocation",
+        "Indicates that a platform error occurred and device or other location information is available.",
+        "A platform error occurred at location '%1'.",
+        "Warning",
+        1,
         {
-            "Indicates that a platform error occurred and device or other location information is available.",
-            "A platform error occurred at location '%1'.",
-            "Warning",
-            1,
-            {
-                "string",
-            },
-            "Check additional diagnostic data if available.",
-        }},
-    MessageEntry{
+            "string",
+        },
+        "Check additional diagnostic data if available.",
+    },
+    Message{
         "UnhandledExceptionDetectedAfterReset",
-        {
-            "Indicates that an unhandled exception caused the platform to reset.",
-            "An unhandled exception caused a platform reset.",
-            "Critical",
-            0,
-            {},
-            "Check additional diagnostic data if available.",
-        }},
+        "Indicates that an unhandled exception caused the platform to reset.",
+        "An unhandled exception caused a platform reset.",
+        "Critical",
+        0,
+        {},
+        "Check additional diagnostic data if available.",
+    },
 
 };
 
