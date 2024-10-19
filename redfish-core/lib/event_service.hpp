@@ -444,9 +444,8 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
             std::shared_ptr<Subscription> subValue =
                 std::make_shared<Subscription>(
-                    persistent_data::UserSubscription{}, *url, app.ioContext());
-
-            subValue->userSub.destinationUrl = std::move(*url);
+                    std::make_shared<persistent_data::UserSubscription>(), *url,
+                    app.ioContext());
 
             if (subscriptionType)
             {
@@ -456,12 +455,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         asyncResp->res, *subscriptionType, "SubscriptionType");
                     return;
                 }
-                subValue->userSub.subscriptionType = *subscriptionType;
+                subValue->userSub->subscriptionType = *subscriptionType;
             }
             else
             {
                 // Default
-                subValue->userSub.subscriptionType = "RedfishEvent";
+                subValue->userSub->subscriptionType = "RedfishEvent";
             }
 
             if (protocol != "Redfish")
@@ -470,11 +469,11 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                                  "Protocol");
                 return;
             }
-            subValue->userSub.protocol = protocol;
+            subValue->userSub->protocol = protocol;
 
             if (verifyCertificate)
             {
-                subValue->userSub.verifyCertificate = *verifyCertificate;
+                subValue->userSub->verifyCertificate = *verifyCertificate;
             }
 
             if (eventFormatType2)
@@ -487,12 +486,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         asyncResp->res, *eventFormatType2, "EventFormatType");
                     return;
                 }
-                subValue->userSub.eventFormatType = *eventFormatType2;
+                subValue->userSub->eventFormatType = *eventFormatType2;
             }
             else
             {
                 // If not specified, use default "Event"
-                subValue->userSub.eventFormatType = "Event";
+                subValue->userSub->eventFormatType = "Event";
             }
 
             if (context)
@@ -505,7 +504,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                                  maxContextSize);
                     return;
                 }
-                subValue->userSub.customText = *context;
+                subValue->userSub->customText = *context;
             }
 
             if (headers)
@@ -538,7 +537,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                                 asyncResp->res, "HttpHeaders", maxHeaderSizeED);
                             return;
                         }
-                        subValue->userSub.httpHeaders.set(item.first, *value);
+                        subValue->userSub->httpHeaders.set(item.first, *value);
                     }
                 }
             }
@@ -555,12 +554,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         return;
                     }
                 }
-                subValue->userSub.registryPrefixes = *regPrefixes;
+                subValue->userSub->registryPrefixes = *regPrefixes;
             }
 
             if (originResources)
             {
-                subValue->userSub.originResources = *originResources;
+                subValue->userSub->originResources = *originResources;
             }
 
             if (resTypes)
@@ -575,7 +574,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         return;
                     }
                 }
-                subValue->userSub.resourceTypes = *resTypes;
+                subValue->userSub->resourceTypes = *resTypes;
             }
 
             if (msgIds)
@@ -584,14 +583,14 @@ inline void requestRoutesEventDestinationCollection(App& app)
 
                 // If no registry prefixes are mentioned, consider all
                 // supported prefixes
-                if (subValue->userSub.registryPrefixes.empty())
+                if (subValue->userSub->registryPrefixes.empty())
                 {
                     registryPrefix.assign(supportedRegPrefixes.begin(),
                                           supportedRegPrefixes.end());
                 }
                 else
                 {
-                    registryPrefix = subValue->userSub.registryPrefixes;
+                    registryPrefix = subValue->userSub->registryPrefixes;
                 }
 
                 for (const std::string& id : *msgIds)
@@ -625,7 +624,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     }
                 }
 
-                subValue->userSub.registryMsgIds = *msgIds;
+                subValue->userSub->registryMsgIds = *msgIds;
             }
 
             if (retryPolicy)
@@ -637,12 +636,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         asyncResp->res, *retryPolicy, "DeliveryRetryPolicy");
                     return;
                 }
-                subValue->userSub.retryPolicy = *retryPolicy;
+                subValue->userSub->retryPolicy = *retryPolicy;
             }
             else
             {
                 // Default "TerminateAfterRetries"
-                subValue->userSub.retryPolicy = "TerminateAfterRetries";
+                subValue->userSub->retryPolicy = "TerminateAfterRetries";
             }
 
             if (mrdJsonArray)
@@ -657,7 +656,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                     {
                         return;
                     }
-                    subValue->userSub.metricReportDefinitions.emplace_back(
+                    subValue->userSub->metricReportDefinitions.emplace_back(
                         mrdUri);
                 }
             }
@@ -707,7 +706,7 @@ inline void requestRoutesEventDestination(App& app)
                 const std::string& id = param;
 
                 const persistent_data::UserSubscription& userSub =
-                    subValue->userSub;
+                    *subValue->userSub;
 
                 nlohmann::json& jVal = asyncResp->res.jsonValue;
                 jVal["@odata.type"] =
@@ -780,7 +779,7 @@ inline void requestRoutesEventDestination(App& app)
 
                 if (context)
                 {
-                    subValue->userSub.customText = *context;
+                    subValue->userSub->customText = *context;
                 }
 
                 if (headers)
@@ -802,7 +801,7 @@ inline void requestRoutesEventDestination(App& app)
                             fields.set(it.first, *value);
                         }
                     }
-                    subValue->userSub.httpHeaders = std::move(fields);
+                    subValue->userSub->httpHeaders = std::move(fields);
                 }
 
                 if (retryPolicy)
@@ -816,17 +815,13 @@ inline void requestRoutesEventDestination(App& app)
                                                          "DeliveryRetryPolicy");
                         return;
                     }
-                    subValue->userSub.retryPolicy = *retryPolicy;
+                    subValue->userSub->retryPolicy = *retryPolicy;
                 }
 
                 if (verifyCertificate)
                 {
-                    subValue->userSub.verifyCertificate = *verifyCertificate;
+                    subValue->userSub->verifyCertificate = *verifyCertificate;
                 }
-
-                // Sync Subscription to UserSubscriptionConfig
-                persistent_data::EventServiceStore::getInstance()
-                    .updateUserSubscriptionConfig(subValue->userSub);
 
                 EventServiceManager::getInstance().updateSubscriptionData();
             });

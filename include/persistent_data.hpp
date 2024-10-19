@@ -172,11 +172,11 @@ class ConfigFile
                             BMCWEB_LOG_DEBUG("Restored subscription: {} {}",
                                              newSub->id, newSub->customText);
 
-                            boost::container::flat_map<
-                                std::string, UserSubscription>& configMap =
-                                EventServiceStore::getInstance()
-                                    .subscriptionsConfigMap;
-                            configMap.emplace(newSub->id, *newSub);
+                            EventServiceStore::getInstance()
+                                .subscriptionsConfigMap.emplace(
+                                    newSub->id,
+                                    std::make_shared<UserSubscription>(
+                                        std::move(*newSub)));
                         }
                     }
                     else
@@ -299,7 +299,11 @@ class ConfigFile
         for (const auto& it :
              EventServiceStore::getInstance().subscriptionsConfigMap)
         {
-            const UserSubscription& subValue = it.second;
+            if (it.second == nullptr)
+            {
+                continue;
+            }
+            const UserSubscription& subValue = *it.second;
             if (subValue.subscriptionType == "SSE")
             {
                 BMCWEB_LOG_DEBUG("The subscription type is SSE, so skipping.");
