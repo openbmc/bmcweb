@@ -16,6 +16,24 @@
       "message": "Will you consider adding a concrete example of how to configure BMCWeb to listen to both HTTP on port 80 and HTTPS on port 443 using these parameters?",
       "revId": "2390c0485d1bc640326e5c8e3f31f8226f5ec426",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da040166_f1daccbf",
+        "filename": "meson.options",
+        "patchSetId": 84
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-19T17:40:21Z",
+      "side": 1,
+      "message": "This probably isn\u0027t the place to put it.  My thinking was we\u0027d have specifics in a packageconfig in the recipe.  I\u0027m not sure doing http 80 and https 443 is that common now that browsers default to TLS.",
+      "parentUuid": "fdaa0d51_f7b664c7",
+      "revId": "2390c0485d1bc640326e5c8e3f31f8226f5ec426",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
