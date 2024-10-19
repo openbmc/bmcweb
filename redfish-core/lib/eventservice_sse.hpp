@@ -48,11 +48,18 @@ inline void createSubscription(crow::sse_socket::Connection& conn,
         std::make_shared<Subscription>(conn);
 
     // GET on this URI means, Its SSE subscriptionType.
-    subValue->userSub.subscriptionType = redfish::subscriptionTypeSSE;
+    if (subValue->userSub == nullptr)
+    {
+        BMCWEB_LOG_ERROR("Subscription data is null");
+        conn.close("Internal Error");
+        return;
+    }
 
-    subValue->userSub.protocol = "Redfish";
-    subValue->userSub.retryPolicy = "TerminateAfterRetries";
-    subValue->userSub.eventFormatType = "Event";
+    subValue->userSub->subscriptionType = redfish::subscriptionTypeSSE;
+
+    subValue->userSub->protocol = "Redfish";
+    subValue->userSub->retryPolicy = "TerminateAfterRetries";
+    subValue->userSub->eventFormatType = "Event";
 
     std::string id = manager.addSSESubscription(subValue, lastEventId);
     if (id.empty())
