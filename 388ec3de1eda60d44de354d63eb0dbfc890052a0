@@ -88,6 +88,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef62aafa_38cfa176",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-10-19T13:55:49Z",
+      "side": 1,
+      "message": "It was an attempt to report UTC time properly. There will be no need in this once I have it implemented in other method in redfish::timeutils as you have suggested.",
+      "parentUuid": "0219df68_a30ffb63",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40d1dd71_5dc294ee",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -111,6 +129,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "54b40012_24ab13ff",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-10-19T13:55:49Z",
+      "side": 1,
+      "message": "Right, thanks for pointing out.",
+      "parentUuid": "40d1dd71_5dc294ee",
+      "range": {
+        "startLine": 1112,
+        "startChar": 0,
+        "endLine": 1115,
+        "endChar": 22
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "190d653a_1dffd281",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -122,6 +164,30 @@
       "writtenOn": "2024-10-18T17:43:13Z",
       "side": 1,
       "message": "Why is this needed? Why do we need to remove the subseconds?",
+      "range": {
+        "startLine": 1103,
+        "startChar": 0,
+        "endLine": 1116,
+        "endChar": 1
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ca7d4be_07d315f5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-10-19T13:55:49Z",
+      "side": 1,
+      "message": "I might be wrong here, but we need to report UTC time, hence \u0027+\u0027 would mean time zone offset.",
+      "parentUuid": "190d653a_1dffd281",
       "range": {
         "startLine": 1103,
         "startChar": 0,
@@ -168,6 +234,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ccda271_ea8ddb67",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-10-19T13:55:49Z",
+      "side": 1,
+      "message": "Thanks for pointing it, I\u0027ve completely forgotten to check for an error when use this.",
+      "parentUuid": "d5491773_0ba5a85d",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04842704_4a4620c3",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -179,6 +263,30 @@
       "writtenOn": "2024-10-18T17:47:25Z",
       "side": 1,
       "message": "Common error #12",
+      "range": {
+        "startLine": 1157,
+        "startChar": 0,
+        "endLine": 1157,
+        "endChar": 48
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c95f4a89_0571dc88",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-10-19T13:55:49Z",
+      "side": 1,
+      "message": "My bad, thanks for pointing it out.",
+      "parentUuid": "04842704_4a4620c3",
       "range": {
         "startLine": 1157,
         "startChar": 0,
@@ -248,6 +356,24 @@
       "writtenOn": "2024-10-18T17:47:25Z",
       "side": 1,
       "message": "Why isn\u0027t password expiration getting passed to the CreateUser call?  It should be a parameter when we add it, rather than set later, right?",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86bb6b9b_0cb727b2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-10-19T13:55:49Z",
+      "side": 1,
+      "message": "Yes, you are absolutely correct and I had it done this way initially. Then I realized that would change CreateUser method prototype on DBUS. Could I somehow change that prototype to make it backward compatible in terms of arguments or make it to accept optional arguments. I guess I should have asked beforehand.\n\nOne more thing that made me decide to postpone setting password expiration is the fact that we actually set password from inside bmcweb, after the call to CreateUser. Though I guess this is not relevant.",
+      "parentUuid": "d35c832d_e769bf9c",
       "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
