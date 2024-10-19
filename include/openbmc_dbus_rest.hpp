@@ -66,19 +66,6 @@ limitations under the License.
 #include <variant>
 #include <vector>
 
-namespace nlohmann
-{
-template <typename... Args>
-struct adl_serializer<std::variant<Args...>>
-{
-    // NOLINTNEXTLINE(readability-identifier-naming)
-    static void to_json(json& j, const std::variant<Args...>& args)
-    {
-        std::visit([&j](auto&& val) { j = val; }, args);
-    }
-};
-} // namespace nlohmann
-
 namespace crow
 {
 namespace openbmc_mapper
