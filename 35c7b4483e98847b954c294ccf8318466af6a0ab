@@ -33,6 +33,24 @@
       "message": "```\ndiff --git a/include/persistent_data.hpp b/include/persistent_data.hpp\nindex 25b43021..9048c0e5 100644\n--- a/include/persistent_data.hpp\n+++ b/include/persistent_data.hpp\n@@ -223,7 +223,8 @@ class ConfigFile\n         persistentFile.open(filename, boost::beast::file_mode::write, ec);\n         if (ec)\n         {\n-            BMCWEB_LOG_CRITICAL(\"Unable to store persistent data to file {}\", ec.message());\n+            BMCWEB_LOG_CRITICAL(\"Unable to store persistent data to file {}\",\n+                                ec.message());\n             return;\n         }\n```",
       "revId": "35c7b4483e98847b954c294ccf8318466af6a0ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cfc2e1b_54993957",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-19T00:25:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62506158_652bbbfc",
+      "revId": "35c7b4483e98847b954c294ccf8318466af6a0ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
