@@ -71,13 +71,8 @@ using DbusVariantType = std::variant<
       std::vector<std::tuple<sdbusplus::message::object_path, std::string>>,
       std::string, std::string, uint64_t>>,
     std::vector<std::pair<sdbusplus::message::object_path, std::string>>,
-
-    // TODO This needs looked at.  It's used in the trigger system, but a
-    // variant of a variant seems really odd
-    std::variant<
-                 std::vector<std::tuple<std::string, uint64_t, std::string, double>>,
-                 std::vector<std::tuple<std::string, std::string, uint64_t, std::string>>
-                >
+    std::vector<std::tuple<std::string, uint64_t, std::string, double>>,
+    std::vector<std::tuple<std::string, std::string, uint64_t, std::string>>
  >;
 
 // clang-format on
