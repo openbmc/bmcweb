@@ -51,6 +51,7 @@
 #include <span>
 #include <string>
 #include <string_view>
+#include <utility>
 
 namespace redfish
 {
@@ -355,18 +356,20 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     Subscription(Subscription&&) = delete;
     Subscription& operator=(Subscription&&) = delete;
 
-    Subscription(const persistent_data::UserSubscription& userSubIn,
+    Subscription(std::shared_ptr<persistent_data::UserSubscription> userSubIn,
                  const boost::urls::url_view_base& url,
                  boost::asio::io_context& ioc) :
-        userSub(userSubIn), policy(std::make_shared<crow::ConnectionPolicy>())
+        userSub{std::move(userSubIn)},
+        policy(std::make_shared<crow::ConnectionPolicy>())
     {
-        userSub.destinationUrl = url;
+        userSub->destinationUrl = url;
         client.emplace(ioc, policy);
         // Subscription constructor
         policy->invalidResp = retryRespHandler;
     }
 
     explicit Subscription(crow::sse_socket::Connection& connIn) :
+        userSub{std::make_shared<persistent_data::UserSubscription>()},
         sseConn(&connIn)
     {}
 
@@ -386,7 +389,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
             return;
         }
 
-        if (userSub.retryPolicy != "TerminateAfterRetries")
+        if (userSub->retryPolicy != "TerminateAfterRetries")
         {
             return;
         }
@@ -396,7 +399,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
             {
                 BMCWEB_LOG_INFO(
                     "Subscription {} is deleted after MaxRetryAttempts",
-                    userSub.id);
+                    userSub->id);
                 deleter();
             }
         }
@@ -404,7 +407,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
 
     bool sendEventToSubscriber(std::string&& msg)
     {
-        if (userSub.subscriptionType == "SNMPTrap")
+        if (userSub->subscriptionType == "SNMPTrap")
         {
             return true; // Don't need send SNMPTrap event.
         }
@@ -420,10 +423,10 @@ class Subscription : public std::enable_shared_from_this<Subscription>
         if (client)
         {
             client->sendDataWithCallback(
-                std::move(msg), userSub.destinationUrl,
+                std::move(msg), userSub->destinationUrl,
                 static_cast<ensuressl::VerifyCertificate>(
-                    userSub.verifyCertificate),
-                userSub.httpHeaders, boost::beast::http::verb::post,
+                    userSub->verifyCertificate),
+                userSub->httpHeaders, boost::beast::http::verb::post,
                 std::bind_front(&Subscription::resHandler, this,
                                 shared_from_this()));
             return true;
@@ -457,7 +460,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
         logEntryJson["MessageArgs"] = nlohmann::json::array();
         logEntryJson["EventTimestamp"] =
             redfish::time_utils::getDateTimeOffsetNow().first;
-        logEntryJson["Context"] = userSub.customText;
+        logEntryJson["Context"] = userSub->customText;
 
         nlohmann::json msg;
         msg["@odata.type"] = "#Event.v1_4_0.Event";
@@ -482,13 +485,13 @@ class Subscription : public std::enable_shared_from_this<Subscription>
             nlohmann::json::object_t bmcLogEntry;
             if (event_log::formatEventLogEntry(
                     logEntry.id, logEntry.messageId, messageArgsView,
-                    logEntry.timestamp, userSub.customText, bmcLogEntry) != 0)
+                    logEntry.timestamp, userSub->customText, bmcLogEntry) != 0)
             {
                 BMCWEB_LOG_DEBUG("Read eventLog entry failed");
                 continue;
             }
 
-            if (!eventMatchesFilter(userSub, bmcLogEntry, ""))
+            if (!eventMatchesFilter(*userSub, bmcLogEntry, ""))
             {
                 BMCWEB_LOG_DEBUG("Event {} did not match the filter",
                                  nlohmann::json(bmcLogEntry).dump());
@@ -532,11 +535,11 @@ class Subscription : public std::enable_shared_from_this<Subscription>
             reportId);
 
         // Empty list means no filter. Send everything.
-        if (!userSub.metricReportDefinitions.empty())
+        if (!userSub->metricReportDefinitions.empty())
         {
-            if (std::ranges::find(userSub.metricReportDefinitions,
+            if (std::ranges::find(userSub->metricReportDefinitions,
                                   mrdUri.buffer()) ==
-                userSub.metricReportDefinitions.end())
+                userSub->metricReportDefinitions.end())
             {
                 return;
             }
@@ -553,9 +556,9 @@ class Subscription : public std::enable_shared_from_this<Subscription>
 
         // Context is set by user during Event subscription and it must be
         // set for MetricReport response.
-        if (!userSub.customText.empty())
+        if (!userSub->customText.empty())
         {
-            msg["Context"] = userSub.customText;
+            msg["Context"] = userSub->customText;
         }
 
         std::string strMsg =
@@ -602,7 +605,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
             boost::system::errc::success);
     }
 
-    persistent_data::UserSubscription userSub;
+    std::shared_ptr<persistent_data::UserSubscription> userSub;
     std::function<void()> deleter;
 
   private:
@@ -679,10 +682,11 @@ class EventServiceManager
         for (const auto& it : persistent_data::EventServiceStore::getInstance()
                                   .subscriptionsConfigMap)
         {
-            const persistent_data::UserSubscription& newSub = it.second;
+            std::shared_ptr<persistent_data::UserSubscription> newSub =
+                it.second;
 
             boost::system::result<boost::urls::url> url =
-                boost::urls::parse_absolute_uri(newSub.destinationUrl);
+                boost::urls::parse_absolute_uri(newSub->destinationUrl);
 
             if (!url)
             {
@@ -692,7 +696,7 @@ class EventServiceManager
             }
             std::shared_ptr<Subscription> subValue =
                 std::make_shared<Subscription>(newSub, *url, ioc);
-            std::string id = subValue->userSub.id;
+            std::string id = subValue->userSub->id;
             subValue->deleter = [id]() {
                 EventServiceManager::getInstance().deleteSubscription(id);
             };
@@ -770,8 +774,10 @@ class EventServiceManager
                         newSub.id = id;
                         auto inserted =
                             persistent_data::EventServiceStore::getInstance()
-                                .subscriptionsConfigMap.insert(
-                                    std::pair(id, newSub));
+                                .subscriptionsConfigMap.insert(std::pair(
+                                    id, std::make_shared<
+                                            persistent_data::UserSubscription>(
+                                            newSub)));
                         if (inserted.second)
                         {
                             break;
@@ -873,11 +879,11 @@ class EventServiceManager
         for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
-            if (entry->userSub.eventFormatType == eventFormatType)
+            if (entry->userSub->eventFormatType == eventFormatType)
             {
                 eventLogSubCount++;
             }
-            else if (entry->userSub.eventFormatType == metricReportFormatType)
+            else if (entry->userSub->eventFormatType == metricReportFormatType)
             {
                 metricReportSubCount++;
             }
@@ -942,12 +948,10 @@ class EventServiceManager
         }
 
         // Set Subscription ID for back trace
-        subValue->userSub.id = id;
-
-        persistent_data::UserSubscription newSub(subValue->userSub);
+        subValue->userSub->id = id;
 
         persistent_data::EventServiceStore::getInstance()
-            .subscriptionsConfigMap.emplace(newSub.id, newSub);
+            .subscriptionsConfigMap.emplace(id, subValue->userSub);
 
         updateNoOfSubscribersCount();
 
@@ -1053,7 +1057,7 @@ class EventServiceManager
             if (entryIsThisConn)
             {
                 persistent_data::EventServiceStore::getInstance()
-                    .subscriptionsConfigMap.erase(entry->userSub.id);
+                    .subscriptionsConfigMap.erase(entry->userSub->id);
                 it = subscriptionsMap.erase(it);
                 return;
             }
@@ -1072,7 +1076,7 @@ class EventServiceManager
             subscriptionsMap,
             [](const std::pair<std::string, std::shared_ptr<Subscription>>&
                    entry) {
-                return (entry.second->userSub.subscriptionType ==
+                return (entry.second->userSub->subscriptionType ==
                         subscriptionTypeSSE);
             });
         return static_cast<size_t>(size);
@@ -1118,7 +1122,8 @@ class EventServiceManager
         for (auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription>& entry = it.second;
-            if (!eventMatchesFilter(entry->userSub, eventMessage, resourceType))
+            if (!eventMatchesFilter(*entry->userSub, eventMessage,
+                                    resourceType))
             {
                 BMCWEB_LOG_DEBUG("Filter didn't match");
                 continue;
@@ -1239,7 +1244,7 @@ class EventServiceManager
         for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
-            if (entry->userSub.eventFormatType == "Event")
+            if (entry->userSub->eventFormatType == "Event")
             {
                 entry->filterAndSendEventLogs(eventRecords);
             }
@@ -1437,7 +1442,7 @@ class EventServiceManager
              EventServiceManager::getInstance().subscriptionsMap)
         {
             Subscription& entry = *it.second;
-            if (entry.userSub.eventFormatType == metricReportFormatType)
+            if (entry.userSub->eventFormatType == metricReportFormatType)
             {
                 entry.filterAndSendReports(id, *readings);
             }
