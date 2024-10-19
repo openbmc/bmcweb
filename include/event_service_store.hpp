@@ -310,7 +310,7 @@ struct EventServiceConfig
 class EventServiceStore
 {
   public:
-    boost::container::flat_map<std::string, UserSubscription>
+    boost::container::flat_map<std::string, std::shared_ptr<UserSubscription>>
         subscriptionsConfigMap;
     EventServiceConfig eventServiceConfig;
 
@@ -323,18 +323,6 @@ class EventServiceStore
     EventServiceConfig& getEventServiceConfig()
     {
         return eventServiceConfig;
-    }
-
-    void updateUserSubscriptionConfig(const UserSubscription& userSub)
-    {
-        const std::string& id = userSub.id;
-        auto obj = subscriptionsConfigMap.find(id);
-        if (obj == subscriptionsConfigMap.end())
-        {
-            BMCWEB_LOG_INFO("No UserSubscription exist with ID:{}", id);
-            return;
-        }
-        obj->second = userSub;
     }
 };
 
