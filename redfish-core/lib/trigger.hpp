@@ -204,8 +204,8 @@ struct Context
     std::vector<std::pair<sdbusplus::message::object_path, std::string>>
         sensors;
     std::vector<sdbusplus::message::object_path> reports;
-    TriggerThresholdParams thresholds;
-
+    std::vector<NumericThresholdParams> numericThresholds;
+    std::vector<DiscreteThresholdParams> discreteThresholds;
     std::optional<DiscreteCondition> discreteCondition;
     std::optional<MetricType> metricType;
     std::optional<std::vector<std::string>> metricProperties;
@@ -361,7 +361,7 @@ inline bool parseNumericThresholds(
         }
     }
 
-    ctx.thresholds = std::move(parsedParams);
+    ctx.numericThresholds = std::move(parsedParams);
     return true;
 }
 
@@ -373,7 +373,7 @@ inline bool parseDiscreteTriggers(
     std::vector<DiscreteThresholdParams> parsedParams;
     if (!discreteTriggers)
     {
-        ctx.thresholds = std::move(parsedParams);
+        ctx.discreteThresholds = std::move(parsedParams);
         return true;
     }
 
@@ -416,7 +416,7 @@ inline bool parseDiscreteTriggers(
                                   value);
     }
 
-    ctx.thresholds = std::move(parsedParams);
+    ctx.discreteThresholds = std::move(parsedParams);
     return true;
 }
 
@@ -840,12 +840,15 @@ inline bool fillTrigger(nlohmann::json& json, const std::string& id,
     const TriggerSensorsParams* sensors = nullptr;
     const std::vector<sdbusplus::message::object_path>* reports = nullptr;
     const std::vector<std::string>* triggerActions = nullptr;
-    const TriggerThresholdParams* thresholds = nullptr;
+
+    const std::vector<DiscreteThresholdParams>* discreteThresholds = nullptr;
+    const std::vector<NumericThresholdParams>* numericThresholds = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "Name", name, "Discrete",
         discrete, "Sensors", sensors, "Reports", reports, "TriggerActions",
-        triggerActions, "Thresholds", thresholds);
+        triggerActions, "DiscreteThresholds", discreteThresholds,
+        "NumericThresholds", numericThresholds);
 
     if (!success)
     {
@@ -877,42 +880,39 @@ inline bool fillTrigger(nlohmann::json& json, const std::string& id,
         json["Links"]["MetricReportDefinitions"] = *linkedReports;
     }
 
-    if (discrete != nullptr)
+    if (discreteThresholds != nullptr)
     {
-        if (*discrete)
+        std::optional<nlohmann::json::array_t> discreteTriggers =
+            getDiscreteTriggers(*discreteThresholds);
+
+        if (!discreteTriggers)
         {
-            std::optional<nlohmann::json::array_t> discreteTriggers =
-                getDiscreteTriggers(*thresholds);
-
-            if (!discreteTriggers)
-            {
-                BMCWEB_LOG_ERROR("Property Thresholds is invalid for discrete "
-                                 "triggers in Trigger: {}",
-                                 id);
-                return false;
-            }
-
-            json["DiscreteTriggers"] = *discreteTriggers;
-            json["DiscreteTriggerCondition"] =
-                discreteTriggers->empty() ? "Changed" : "Specified";
-            json["MetricType"] = metric_definition::MetricType::Discrete;
+            BMCWEB_LOG_ERROR("Property Thresholds is invalid for discrete "
+                             "triggers in Trigger: {}",
+                             id);
+            return false;
         }
-        else
+
+        json["DiscreteTriggers"] = *discreteTriggers;
+        json["DiscreteTriggerCondition"] =
+            discreteTriggers->empty() ? "Changed" : "Specified";
+        json["MetricType"] = metric_definition::MetricType::Discrete;
+    }
+    if (numericThresholds != nullptr)
+    {
+        std::optional<nlohmann::json> numericThresholds =
+            getNumericThresholds(*numericThresholds);
+
+        if (!numericThresholds)
         {
-            std::optional<nlohmann::json> numericThresholds =
-                getNumericThresholds(*thresholds);
-
-            if (!numericThresholds)
-            {
-                BMCWEB_LOG_ERROR("Property Thresholds is invalid for numeric "
-                                 "thresholds in Trigger: {}",
-                                 id);
-                return false;
-            }
-
-            json["NumericThresholds"] = *numericThresholds;
-            json["MetricType"] = metric_definition::MetricType::Numeric;
+            BMCWEB_LOG_ERROR("Property Thresholds is invalid for numeric "
+                             "thresholds in Trigger: {}",
+                             id);
+            return false;
         }
+
+        json["NumericThresholds"] = *numericThresholds;
+        json["MetricType"] = metric_definition::MetricType::Numeric;
     }
 
     if (name != nullptr)
@@ -956,7 +956,7 @@ inline void handleTriggerCollectionPost(
         service, "/xyz/openbmc_project/Telemetry/Triggers",
         "xyz.openbmc_project.Telemetry.TriggerManager", "AddTrigger",
         "TelemetryService/" + ctx.id, ctx.name, ctx.actions, ctx.sensors,
-        ctx.reports, ctx.thresholds);
+        ctx.reports, ctx.discreteThresholds, ctx.numericThresholds);
 }
 
 } // namespace telemetry
