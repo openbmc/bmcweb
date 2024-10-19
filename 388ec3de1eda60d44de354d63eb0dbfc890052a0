@@ -376,6 +376,24 @@
       "parentUuid": "d35c832d_e769bf9c",
       "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72cd1b1f_47d59fbf",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-19T17:38:50Z",
+      "side": 1,
+      "message": "\u003e Yes, you are absolutely correct and I had it done this way initially. Then I realized that would change CreateUser method prototype on DBUS. Could I somehow change that prototype to make it backward compatible in terms of arguments or make it to accept optional arguments. I guess I should have asked beforehand.\n\u003e \n\nThat\u0027s a discussion to have with the PUM maintainers, but having a CreateUser2 that takes different params is an easy step.\n\n\u003e One more thing that made me decide to postpone setting password expiration is the fact that we actually set password from inside bmcweb, after the call to CreateUser. Though I guess this is not relevant.\n\nWe set the password later because it\u0027s set through a different interface (pam) which people thought was more secure.",
+      "parentUuid": "86bb6b9b_0cb727b2",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
