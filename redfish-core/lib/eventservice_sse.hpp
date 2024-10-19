@@ -44,15 +44,14 @@ inline void createSubscription(crow::sse_socket::Connection& conn,
 
     std::string lastEventId(req.getHeaderValue("Last-Event-Id"));
 
-    std::shared_ptr<Subscription> subValue =
-        std::make_shared<Subscription>(conn);
+    std::shared_ptr<Subscription> subValue = std::make_shared<Subscription>(conn);
 
     // GET on this URI means, Its SSE subscriptionType.
-    subValue->userSub.subscriptionType = redfish::subscriptionTypeSSE;
+    subValue->userSub->subscriptionType = redfish::subscriptionTypeSSE;
 
-    subValue->userSub.protocol = "Redfish";
-    subValue->userSub.retryPolicy = "TerminateAfterRetries";
-    subValue->userSub.eventFormatType = "Event";
+    subValue->userSub->protocol = "Redfish";
+    subValue->userSub->retryPolicy = "TerminateAfterRetries";
+    subValue->userSub->eventFormatType = "Event";
 
     std::string id = manager.addSSESubscription(subValue, lastEventId);
     if (id.empty())

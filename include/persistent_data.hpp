@@ -157,10 +157,10 @@ class ConfigFile
                     {
                         for (const auto& elem : item.second)
                         {
-                            std::optional<UserSubscription> newSub =
+                            std::shared_ptr<UserSubscription> newSub =
                                 UserSubscription::fromJson(elem);
 
-                            if (!newSub)
+                            if (newSub == nullptr)
                             {
                                 BMCWEB_LOG_ERROR("Problem reading subscription "
                                                  "from persistent store");
@@ -171,10 +171,10 @@ class ConfigFile
                                              newSub->id, newSub->customText);
 
                             boost::container::flat_map<
-                                std::string, UserSubscription>& configMap =
-                                EventServiceStore::getInstance()
-                                    .subscriptionsConfigMap;
-                            configMap.emplace(newSub->id, *newSub);
+                                std::string, std::shared_ptr<UserSubscription>>&
+                                configMap = EventServiceStore::getInstance()
+                                                .subscriptionsConfigMap;
+                            configMap.emplace(newSub->id, newSub);
                         }
                     }
                     else
@@ -270,15 +270,15 @@ class ConfigFile
         for (const auto& it :
              EventServiceStore::getInstance().subscriptionsConfigMap)
         {
-            const UserSubscription& subValue = it.second;
-            if (subValue.subscriptionType == "SSE")
+            std::shared_ptr<UserSubscription> subValue = it.second;
+            if (subValue->subscriptionType == "SSE")
             {
                 BMCWEB_LOG_DEBUG("The subscription type is SSE, so skipping.");
                 continue;
             }
             nlohmann::json::object_t headers;
             for (const boost::beast::http::fields::value_type& header :
-                 subValue.httpHeaders)
+                 subValue->httpHeaders)
             {
                 // Note, these are technically copies because nlohmann doesn't
                 // support key lookup by std::string_view.  At least the
@@ -290,21 +290,21 @@ class ConfigFile
 
             nlohmann::json::object_t subscription;
 
-            subscription["Id"] = subValue.id;
-            subscription["Context"] = subValue.customText;
-            subscription["DeliveryRetryPolicy"] = subValue.retryPolicy;
-            subscription["Destination"] = subValue.destinationUrl;
-            subscription["EventFormatType"] = subValue.eventFormatType;
+            subscription["Id"] = subValue->id;
+            subscription["Context"] = subValue->customText;
+            subscription["DeliveryRetryPolicy"] = subValue->retryPolicy;
+            subscription["Destination"] = subValue->destinationUrl;
+            subscription["EventFormatType"] = subValue->eventFormatType;
             subscription["HttpHeaders"] = std::move(headers);
-            subscription["MessageIds"] = subValue.registryMsgIds;
-            subscription["Protocol"] = subValue.protocol;
-            subscription["RegistryPrefixes"] = subValue.registryPrefixes;
-            subscription["OriginResources"] = subValue.originResources;
-            subscription["ResourceTypes"] = subValue.resourceTypes;
-            subscription["SubscriptionType"] = subValue.subscriptionType;
+            subscription["MessageIds"] = subValue->registryMsgIds;
+            subscription["Protocol"] = subValue->protocol;
+            subscription["RegistryPrefixes"] = subValue->registryPrefixes;
+            subscription["OriginResources"] = subValue->originResources;
+            subscription["ResourceTypes"] = subValue->resourceTypes;
+            subscription["SubscriptionType"] = subValue->subscriptionType;
             subscription["MetricReportDefinitions"] =
-                subValue.metricReportDefinitions;
-            subscription["VerifyCertificate"] = subValue.verifyCertificate;
+                subValue->metricReportDefinitions;
+            subscription["VerifyCertificate"] = subValue->verifyCertificate;
 
             subscriptions.emplace_back(std::move(subscription));
         }
