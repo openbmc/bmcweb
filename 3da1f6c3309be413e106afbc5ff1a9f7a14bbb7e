@@ -160,6 +160,24 @@
       "parentUuid": "d5bba15a_a515a3f6",
       "revId": "3da1f6c3309be413e106afbc5ff1a9f7a14bbb7e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e89c8a21_46504894",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-20T21:53:42Z",
+      "side": 1,
+      "message": "There was a missing `deleter` setup at Subscription PATCH (for push style).\nIt should now be fixed and working.",
+      "parentUuid": "ef28c652_9aad7995",
+      "revId": "3da1f6c3309be413e106afbc5ff1a9f7a14bbb7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
