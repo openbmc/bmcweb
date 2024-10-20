@@ -124,6 +124,24 @@
       "parentUuid": "19d171d5_0d2b3a28",
       "revId": "3da1f6c3309be413e106afbc5ff1a9f7a14bbb7e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5bba15a_a515a3f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-20T18:20:17Z",
+      "side": 1,
+      "message": "It turns out the cause is due to Subscription with `private` enable_shared_from_this inheritance.  (Some more reference is https://stackoverflow.com/questions/39937112/stdenable-shared-from-this-public-vs-private).\n\nThe fix is to do like\n```\nclass Subscription : std::enable_shared_from_this\u003cSubscription\u003e\n--\u003e\nclass Subscription : public std::enable_shared_from_this\u003cSubscription\u003e\n```\n\nNow it works.",
+      "parentUuid": "04526c6c_50cda3c9",
+      "revId": "3da1f6c3309be413e106afbc5ff1a9f7a14bbb7e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
