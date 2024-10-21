@@ -124,6 +124,24 @@
       "parentUuid": "02bfbe6b_6b1b1a97",
       "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19f11ef0_7a36b1c5",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-21T19:49:24Z",
+      "side": 1,
+      "message": "\u003e I believe verify_fail_if_no_peer_cert was not there before(correct me .\n\ncorrect, and ir is still not present in the non strict branch of this patch.\n\n\n\u003e Then when it got added optional mtls was still working because verify-peer was default. Now verify-peer is no more default that makes optional MTLS is broken.\n\nthis patch goes back to the default behavior/\n\n\n\nif this patch doesn’t do what you need, maybe you could propose a different one as an alternative? that might be faster than this conversation.",
+      "parentUuid": "e34a6cab_05dde25c",
+      "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
