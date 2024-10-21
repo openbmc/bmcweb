@@ -169,16 +169,18 @@ inline void afterGetAssociatedFabricPortSubTree(
 
 inline void getAssociatedFabricPortSubTree(
     const std::string& adapterId,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::function<void(const boost::system::error_code&,
                        const dbus::utility::MapperGetSubTreeResponse&)>&&
         callback)
 {
     getValidFabricAdapterPath(
-        adapterId, [callback{std::move(callback)}](
-                       const boost::system::error_code& ec,
-                       const std::string& fabricAdapterPath,
-                       const std::string& fabricServiceName,
-                       const dbus::utility::InterfaceList& /*unused*/) {
+        adapterId, asyncResp,
+        [callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const std::string& fabricAdapterPath,
+            const std::string& fabricServiceName,
+            const dbus::utility::InterfaceList& /*unused*/) {
         if (ec)
         {
             callback(ec, dbus::utility::MapperGetSubTreeResponse{});
@@ -216,13 +218,15 @@ inline void afterGetValidFabricPortPath(
 
 inline void getValidFabricPortPath(
     const std::string& adapterId, const std::string& portId,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::function<void(const boost::system::error_code& ec,
                        const std::string& portPath,
                        const std::string& portServiceName)>&& callback)
 {
-    getAssociatedFabricPortSubTree(
-        adapterId, std::bind_front(afterGetValidFabricPortPath, portId,
-                                   std::move(callback)));
+    getAssociatedFabricPortSubTree(adapterId, asyncResp,
+                                   std::bind_front(afterGetValidFabricPortPath,
+                                                   portId,
+                                                   std::move(callback)));
 }
 
 inline void afterHandleFabricPortHead(
@@ -272,7 +276,7 @@ inline void
     }
 
     getValidFabricPortPath(
-        adapterId, portId,
+        adapterId, portId, asyncResp,
         [asyncResp, portId](const boost::system::error_code& ec,
                             const std::string& /*unused*/,
                             const std::string& /*unused*/) {
@@ -325,7 +329,7 @@ inline void
                                    systemName);
         return;
     }
-    getValidFabricPortPath(adapterId, portId,
+    getValidFabricPortPath(adapterId, portId, asyncResp,
                            std::bind_front(afterHandleFabricPortGet, asyncResp,
                                            systemName, adapterId, portId));
 }
@@ -376,8 +380,9 @@ inline void handleFabricPortCollectionHead(
     }
 
     getAssociatedFabricPortSubTree(
-        adapterId, std::bind_front(afterHandleFabricPortCollectionHead,
-                                   asyncResp, adapterId));
+        adapterId, asyncResp,
+        std::bind_front(afterHandleFabricPortCollectionHead, asyncResp,
+                        adapterId));
 }
 
 inline void doHandleFabricPortCollectionGet(
@@ -458,8 +463,9 @@ inline void handleFabricPortCollectionGet(
     }
 
     getAssociatedFabricPortSubTree(
-        adapterId, std::bind_front(doHandleFabricPortCollectionGet, asyncResp,
-                                   systemName, adapterId));
+        adapterId, asyncResp,
+        std::bind_front(doHandleFabricPortCollectionGet, asyncResp, systemName,
+                        adapterId));
 }
 
 inline void afterHandlePortPatch(
@@ -517,7 +523,7 @@ inline void handlePortPatch(App& app, const crow::Request& req,
     }
     if (locationIndicatorActive)
     {
-        getValidFabricPortPath(adapterId, portId,
+        getValidFabricPortPath(adapterId, portId, asyncResp,
                                std::bind_front(afterHandlePortPatch, asyncResp,
                                                portId,
                                                *locationIndicatorActive));
