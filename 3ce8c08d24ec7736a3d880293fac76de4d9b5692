@@ -106,6 +106,24 @@
       "parentUuid": "678eca37_98683da7",
       "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e34a6cab_05dde25c",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-21T04:49:30Z",
+      "side": 1,
+      "message": "I believe verify_fail_if_no_peer_cert was not there before(correct me ). Then when it got added optional mtls was still working because verify-peer was default. Now verify-peer is no more default that makes optional MTLS is broken.",
+      "parentUuid": "02bfbe6b_6b1b1a97",
+      "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
