@@ -88,6 +88,24 @@
       "parentUuid": "625a0dc9_bf941912",
       "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02bfbe6b_6b1b1a97",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-21T04:43:02Z",
+      "side": 1,
+      "message": "\u003e Does that mean that the existing(previous) behaviour of fallback authentication is a buggy implementation of the redfish?\n\nThere\u0027s two behaviors.  This is arguably trying to fix a regression.\n\n\u003e I thought that was a feature. If someone relied on that already, this is going to be a bc break.\n\nIf they were relying on it, then they were broken prior to the regression.",
+      "parentUuid": "678eca37_98683da7",
+      "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
