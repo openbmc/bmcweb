@@ -106,6 +106,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69b37b5b_1a8f57ea",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-10-21T10:10:03Z",
+      "side": 1,
+      "message": "Actually, it was my misunderstanding. Please disregard my previous comment.",
+      "parentUuid": "ef62aafa_38cfa176",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40d1dd71_5dc294ee",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -188,6 +206,30 @@
       "side": 1,
       "message": "I might be wrong here, but we need to report UTC time, hence \u0027+\u0027 would mean time zone offset.",
       "parentUuid": "190d653a_1dffd281",
+      "range": {
+        "startLine": 1103,
+        "startChar": 0,
+        "endLine": 1116,
+        "endChar": 1
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eadb8ca6_bdc677bc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-10-21T10:10:03Z",
+      "side": 1,
+      "message": "Actually, it was my misunderstanding. Please disregard my previous comment.",
+      "parentUuid": "5ca7d4be_07d315f5",
       "range": {
         "startLine": 1103,
         "startChar": 0,
