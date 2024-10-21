@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e0f259e_524f4786",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-21T02:38:11Z",
+      "side": 1,
+      "message": "I agree that in strict TLS we should fail handshake if client certificate is not provided. In this patch we have only two possibility.\n1) No MTLS\n2) Strict MTLS\n\n\nWhat we need (which was supported before this patch) is a Flexi MTLS\n\nIn this mode if client give MTLS certificate then uses it to authenticate the client. If not the handshake will still succeed and uses user/passwd option as fallback to authenticate clients.\n\nTo be specific what we need is a new TLS flag in which  only boost::asio::ssl::verify_peer is set.",
+      "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
