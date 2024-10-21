@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a49b15f6_cd53a9c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-21T17:45:49Z",
+      "side": 1,
+      "message": "and the world kept turning 😊\n\nI do try to catch these before merge.",
+      "parentUuid": "a59875de_76ee7374",
+      "revId": "6738ece5663cc459501ac92d9eb040eaa27a3b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11d24dc1_8eb58679",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 13
@@ -31,6 +49,24 @@
       "writtenOn": "2024-10-21T17:24:48Z",
       "side": 1,
       "message": "The D-Bus utility and the http request changes should be used by much of the Redfish tree? \nMaybe do a quick test when you test something on top? \nAs for aggregation, telemetry, and query params I\u0027ll leave it up to you if you want to test",
+      "revId": "6738ece5663cc459501ac92d9eb040eaa27a3b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c494dfba_4cca4f8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-21T17:45:49Z",
+      "side": 1,
+      "message": "yep, I can run service validator.  this is just continuing to clean up coverity bugs and for the copy/move ones I wasn’t sure how far we cared to test.",
+      "parentUuid": "11d24dc1_8eb58679",
       "revId": "6738ece5663cc459501ac92d9eb040eaa27a3b23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
