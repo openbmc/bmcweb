@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "613ae8d6_af1a8dac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-10-21T18:17:10Z",
+      "side": 1,
+      "message": "Could you please explain how I can achieve this? So far, I am aware of https://github.com/openbmc/openbmc-build-scripts/blob/master/scripts/format-code.sh. Manual run of clang-format gives some changes but none of them seem to  contain mine and running clang-tidy produces many warnings. I guess I have missed reading of some README document, but I kind of stuck now.",
+      "parentUuid": "336a8fe4_7c707929",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8741a55f_1d2fe57c",
