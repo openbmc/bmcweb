@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0551e5d3_21e99704",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-21T19:34:33Z",
+      "side": 1,
+      "message": "code review isn’t the best place to facilitate such a discussion.  discord or the mailing list is where you should ask.",
+      "parentUuid": "613ae8d6_af1a8dac",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8741a55f_1d2fe57c",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
