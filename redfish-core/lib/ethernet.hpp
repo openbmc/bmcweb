@@ -31,11 +31,13 @@
 #include <boost/url/format.hpp>
 
 #include <array>
+#include <cstddef>
 #include <memory>
 #include <optional>
 #include <ranges>
 #include <regex>
 #include <string_view>
+#include <variant>
 #include <vector>
 
 namespace redfish
@@ -45,6 +47,12 @@ enum class LinkType
 {
     Local,
     Global
+};
+
+enum class IpVersion
+{
+    IpV4,
+    IpV6
 };
 
 /**
@@ -685,7 +693,30 @@ inline void extractIPData(const std::string& ethifaceId,
 }
 
 /**
- * @brief Deletes given IPv4 interface
+ * @brief Modifies the default gateway assigned to the NIC
+ *
+ * @param[in] ifaceId     Id of network interface whose default gateway is to be
+ *                        changed
+ * @param[in] gateway     The new gateway value. Assigning an empty string
+ *                        causes the gateway to be deleted
+ * @param[io] asyncResp   Response object that will be returned to client
+ *
+ * @return None
+ */
+inline void updateIPv4DefaultGateway(
+    const std::string& ifaceId, const std::string& gateway,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    setDbusProperty(
+        asyncResp, "xyz.openbmc_project.Network",
+        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
+            ifaceId,
+        "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway",
+        "Gateway", gateway);
+}
+
+/**
+ * @brief Deletes given static IP address for the interface
  *
  * @param[in] ifaceId     Id of interface whose IP should be deleted
  * @param[in] ipHash      DBus Hash id of IP that should be deleted
@@ -708,17 +739,6 @@ inline void deleteIPAddress(const std::string& ifaceId,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline void updateIPv4DefaultGateway(
-    const std::string& ifaceId, const std::string& gateway,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    setDbusProperty(
-        asyncResp, "xyz.openbmc_project.Network",
-        sdbusplus::message::object_path("/xyz/openbmc_project/network") /
-            ifaceId,
-        "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway",
-        "Gateway", gateway);
-}
 /**
  * @brief Creates a static IPv4 entry
  *
@@ -741,7 +761,6 @@ inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
             messages::internalError(asyncResp->res);
             return;
         }
-        updateIPv4DefaultGateway(ifaceId, gateway, asyncResp);
     };
 
     crow::connections::systemBus->async_method_call(
@@ -753,23 +772,18 @@ inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
 }
 
 /**
- * @brief Deletes the IPv6 entry for this interface and creates a replacement
- * static IPv6 entry
+ * @brief Deletes the IP entry for this interface and creates a replacement
+ * static entry
  *
- * @param[in] ifaceId      Id of interface upon which to create the IPv6 entry
- * @param[in] id           The unique hash entry identifying the DBus entry
- * @param[in] prefixLength IPv6 prefix syntax for the subnet mask
- * @param[in] address      IPv6 address to assign to this interface
- * @param[io] asyncResp    Response object that will be returned to client
+ * @param[in] ifaceId        Id of interface upon which to create the IPv6 entry
+ * @param[in] id             The unique hash entry identifying the DBus entry
+ * @param[in] prefixLength   Prefix syntax for the subnet mask
+ * @param[in] address        Address to assign to this interface
+ * @param[in] numStaticAddrs Count of IPv4 static addresses
+ * @param[io] asyncResp      Response object that will be returned to client
  *
  * @return None
  */
-
-enum class IpVersion
-{
-    IpV4,
-    IpV6
-};
 
 inline void deleteAndCreateIPAddress(
     IpVersion version, const std::string& ifaceId, const std::string& id,
@@ -1067,7 +1081,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
         [ethifaceId{std::string{ethifaceId}},
          callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
-            const dbus::utility::ManagedObjectType& resp) {
+            const dbus::utility::ManagedObjectType& resp) mutable {
         EthernetInterfaceData ethData{};
         std::vector<IPv4AddressData> ipv4Data;
         std::vector<IPv6AddressData> ipv6Data;
@@ -1358,6 +1372,10 @@ inline void handleDHCPPatch(const std::string& ifaceId,
     bool ipv4Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
     bool ipv6Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, false);
 
+    if (ipv4Active)
+    {
+        updateIPv4DefaultGateway(ifaceId, "", asyncResp);
+    }
     bool nextv4DHCPState =
         v4dhcpParms.dhcpv4Enabled ? *v4dhcpParms.dhcpv4Enabled : ipv4Active;
 
@@ -1453,19 +1471,13 @@ inline std::vector<IPv6AddressData>::const_iterator getNextStaticIpEntry(
     });
 }
 
-inline void
-    handleIPv4StaticPatch(const std::string& ifaceId,
-                          nlohmann::json::array_t& input,
-                          const std::vector<IPv4AddressData>& ipv4Data,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleIPv4StaticPatch(
+    const std::string& ifaceId,
+    std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>& input,
+    const EthernetInterfaceData& ethData,
+    const std::vector<IPv4AddressData>& ipv4Data,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (input.empty())
-    {
-        messages::propertyValueTypeError(asyncResp->res, input,
-                                         "IPv4StaticAddresses");
-        return;
-    }
-
     unsigned entryIdx = 1;
     // Find the first static IP address currently active on the NIC and
     // match it to the first JSON element in the IPv4StaticAddresses array.
@@ -1474,22 +1486,63 @@ inline void
     std::vector<IPv4AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
 
-    for (nlohmann::json& thisJson : input)
+    bool gatewayValueAssigned{};
+    bool preserveGateway{};
+    std::string activePath{};
+    std::string activeGateway{};
+    if (!ethData.defaultGateway.empty() && ethData.defaultGateway != "0.0.0.0")
+    {
+        // The NIC is already configured with a default gateway. Use this if
+        // the leading entry in the PATCH is '{}', which is preserving an active
+        // static address.
+        activeGateway = ethData.defaultGateway;
+        activePath = "IPv4StaticAddresses/1";
+        gatewayValueAssigned = true;
+    }
+
+    for (std::variant<nlohmann::json::object_t, std::nullptr_t>& thisJson :
+         input)
     {
         std::string pathString = "IPv4StaticAddresses/" +
                                  std::to_string(entryIdx);
+        nlohmann::json::object_t* obj =
+            std::get_if<nlohmann::json::object_t>(&thisJson);
+        if (obj == nullptr)
+        {
+            if (nicIpEntry != ipv4Data.cend())
+            {
+                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
+                nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
+                                                  ipv4Data.cend());
+                if (!preserveGateway && (nicIpEntry == ipv4Data.cend()))
+                {
+                    // All entries have been processed, and this last has
+                    // requested the IP address be deleted. No prior entry
+                    // performed an action that created or modified a
+                    // gateway. Deleting this IP address means the default
+                    // gateway entry has to be removed as well.
+                    updateIPv4DefaultGateway(ifaceId, "", asyncResp);
+                }
+                entryIdx++;
+                continue;
+            }
+            // Received a DELETE action on an entry not assigned to the NIC
+            messages::resourceCannotBeDeleted(asyncResp->res);
+            return;
+        }
 
-        if (!thisJson.is_null() && !thisJson.empty())
+        // An Add/Modify action is requested
+        if (!obj->empty())
         {
             std::optional<std::string> address;
             std::optional<std::string> subnetMask;
             std::optional<std::string> gateway;
 
-            if (!json_util::readJson(thisJson, asyncResp->res, "Address",
-                                     address, "SubnetMask", subnetMask,
-                                     "Gateway", gateway))
+            if (!json_util::readJsonObject(*obj, asyncResp->res, "Address",
+                                           address, "Gateway", gateway,
+                                           "SubnetMask", subnetMask))
             {
-                messages::propertyValueFormatError(asyncResp->res, thisJson,
+                messages::propertyValueFormatError(asyncResp->res, *obj,
                                                    pathString);
                 return;
             }
@@ -1568,6 +1621,29 @@ inline void
                 return;
             }
 
+            if (gatewayValueAssigned)
+            {
+                if (activeGateway != gateway)
+                {
+                    // A NIC can only have a single active gateway value.
+                    // If any gateway in the array of static addresses
+                    // mismatch the PATCH is in error.
+                    std::string arg1 = pathString + "/Gateway";
+                    std::string arg2 = activePath + "/Gateway";
+                    messages::propertyValueConflict(asyncResp->res, arg1, arg2);
+                    return;
+                }
+            }
+            else
+            {
+                // Capture the very first gateway value from the incoming
+                // JSON record and use it at the default gateway.
+                updateIPv4DefaultGateway(ifaceId, *gateway, asyncResp);
+                activeGateway = *gateway;
+                activePath = pathString;
+                gatewayValueAssigned = true;
+            }
+
             if (nicIpEntry != ipv4Data.cend())
             {
                 deleteAndCreateIPAddress(IpVersion::IpV4, ifaceId,
@@ -1575,41 +1651,34 @@ inline void
                                          *gateway, asyncResp);
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
+                preserveGateway = true;
             }
             else
             {
                 createIPv4(ifaceId, prefixLength, *gateway, *address,
                            asyncResp);
+                preserveGateway = true;
             }
             entryIdx++;
         }
         else
         {
-            if (nicIpEntry == ipv4Data.cend())
-            {
-                // Requesting a DELETE/DO NOT MODIFY action for an item
-                // that isn't present on the eth(n) interface. Input JSON is
-                // in error, so bail out.
-                if (thisJson.is_null())
-                {
-                    messages::resourceCannotBeDeleted(asyncResp->res);
-                    return;
-                }
-                messages::propertyValueFormatError(asyncResp->res, thisJson,
-                                                   pathString);
-                return;
-            }
-
-            if (thisJson.is_null())
-            {
-                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
-            }
+            // Received {}, do not modify this address
             if (nicIpEntry != ipv4Data.cend())
             {
                 nicIpEntry = getNextStaticIpEntry(++nicIpEntry,
                                                   ipv4Data.cend());
+                preserveGateway = true;
+                entryIdx++;
             }
-            entryIdx++;
+            else
+            {
+                // Requested a DO NOT MODIFY action on an entry not assigned
+                // to the NIC
+                messages::propertyValueFormatError(asyncResp->res, *obj,
+                                                   pathString);
+                return;
+            }
         }
     }
 }
@@ -2177,7 +2246,9 @@ inline void requestEthernetInterfacesRoutes(App& app)
         std::optional<std::string> fqdn;
         std::optional<std::string> macAddress;
         std::optional<std::string> ipv6DefaultGateway;
-        std::optional<nlohmann::json::array_t> ipv4StaticAddresses;
+        std::optional<
+            std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>>
+            ipv4StaticAddresses;
         std::optional<nlohmann::json::array_t> ipv6StaticAddresses;
         std::optional<nlohmann::json::array_t> ipv6StaticDefaultGateways;
         std::optional<std::vector<std::string>> staticNameServers;
@@ -2252,7 +2323,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 const bool& success, const EthernetInterfaceData& ethData,
                 const std::vector<IPv4AddressData>& ipv4Data,
                 const std::vector<IPv6AddressData>& ipv6Data,
-                const std::vector<StaticGatewayData>& ipv6GatewayData) {
+                const std::vector<StaticGatewayData>& ipv6GatewayData) mutable {
             if (!success)
             {
                 // ... otherwise return error
@@ -2292,15 +2363,8 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
             if (ipv4StaticAddresses)
             {
-                // TODO(ed) for some reason the capture of
-                // ipv4Addresses above is returning a const value,
-                // not a non-const value. This doesn't really work
-                // for us, as we need to be able to efficiently move
-                // out the intermedia nlohmann::json objects. This
-                // makes a copy of the structure, and operates on
-                // that, but could be done more efficiently
-                nlohmann::json::array_t ipv4Static = *ipv4StaticAddresses;
-                handleIPv4StaticPatch(ifaceId, ipv4Static, ipv4Data, asyncResp);
+                handleIPv4StaticPatch(ifaceId, *ipv4StaticAddresses, ethData,
+                                      ipv4Data, asyncResp);
             }
 
             if (staticNameServers)
