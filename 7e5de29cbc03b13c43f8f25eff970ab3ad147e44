@@ -16,6 +16,24 @@
       "message": "Why? is_object doesn\u0027t throw. \nhttps://json.nlohmann.me/api/basic_json/is_object/ \n\nBecause of the copy vs move? Make coverity  happy?",
       "revId": "7e5de29cbc03b13c43f8f25eff970ab3ad147e44",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc4e7da2_38984e94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-21T17:32:02Z",
+      "side": 1,
+      "message": "no, but the find/operator[] used immediately after does throw.\n\nwill update the commit message.",
+      "parentUuid": "8a72628c_6720da91",
+      "revId": "7e5de29cbc03b13c43f8f25eff970ab3ad147e44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
