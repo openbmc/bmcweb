@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a72628c_6720da91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-21T17:30:33Z",
+      "side": 1,
+      "message": "Why? is_object doesn\u0027t throw. \nhttps://json.nlohmann.me/api/basic_json/is_object/ \n\nBecause of the copy vs move? Make coverity  happy?",
+      "revId": "7e5de29cbc03b13c43f8f25eff970ab3ad147e44",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
