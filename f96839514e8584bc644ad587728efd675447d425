@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6376055_97672bfa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-21T17:20:55Z",
+      "side": 1,
+      "message": "It is a DEBUG statement; if you turn on DEBUG, it is like 100+ traces per request. \nI guess 20? traces on startup for DEBUG don\u0027t feel like that big of a deal. That said, I don\u0027t see a lot of value in the trace itself (maybe like seeing that bmcweb got the etag but that doesn\u0027t feel like a practical use to me..) \n\nA lot of the debug traces don\u0027t seem valuable to me. If this one is annoying, I am good removing but I think this logic could be applied to a lot of other DEBUG traces. All these maybe useful in some corner case traces is why if you enable DEBUG you are going to get a lot of traces and I think that is okay... No one should be running production in DEBUG but it should be helpful to the developer for finding a slew of problems.",
+      "revId": "f96839514e8584bc644ad587728efd675447d425",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
