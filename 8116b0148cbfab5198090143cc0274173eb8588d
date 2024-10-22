@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2fecb564_4c6357bf",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T19:32:29Z",
+      "side": 1,
+      "message": "That\u0027s not something we commonly do.",
+      "parentUuid": "68991a88_ec705ba9",
+      "revId": "8116b0148cbfab5198090143cc0274173eb8588d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "174c57af_36c6c15d",
         "filename": "include/persistent_data.hpp",
         "patchSetId": 13
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "41193d5b_2221be17",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T19:32:29Z",
+      "side": 1,
+      "message": "That\u0027s not something we commonly do.  Arguably there\u0027s a place where we could add more detailed EC print handlers, that do things like decode asio exceptions down to the actual error, but that\u0027s not something to do on this patch.",
+      "parentUuid": "174c57af_36c6c15d",
+      "revId": "8116b0148cbfab5198090143cc0274173eb8588d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d703435d_af1c3d1b",
         "filename": "include/persistent_data.hpp",
         "patchSetId": 13
@@ -65,6 +101,24 @@
       "writtenOn": "2024-10-22T12:50:52Z",
       "side": 1,
       "message": "Wouldn\u0027t it also be useful to print `ec.value()`?",
+      "revId": "8116b0148cbfab5198090143cc0274173eb8588d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22951c85_1c900429",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T19:32:29Z",
+      "side": 1,
+      "message": "That\u0027s not something we commonly do.",
+      "parentUuid": "d703435d_af1c3d1b",
       "revId": "8116b0148cbfab5198090143cc0274173eb8588d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
