@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2296098f_7358f720",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T19:24:03Z",
+      "side": 1,
+      "message": "\u003e Ultimately the `UserSubscription` object from `fromJson()` is going to used as a `shared_ptr\u003cUserSubscription\u003e` object as a part of `Subscription` and also for `subscriptionsMap[]` and `subscriptionsConfigMap[]`.\n\nif this function had unit tests (like it should) it wouldn\u0027t always \"ultimately\" be in a shared ptr.  Keeping it not a shared ptr at this point makes the code simpler\n\n\u003e \n\u003e If it returns a UserSubscription (or optional\u003c\u003e) object, it will need to be passed again to create a shared_ptr\u003cUserSubscription\u003e in Subscription constructor or subscriptionsMap.\n\u003e \n\u003e So, I think it may be more efficient to create it as a shared_ptr once here,  and share the pointer for Subscription, subscriptionsMap, and subscriptionsConfigMap.\n\n\nThe second pass is done by a std::move, so it\u0027s not a large copy.",
+      "parentUuid": "77430290_e6b3b44b",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8def4019_14d8695f",
         "filename": "include/event_service_store.hpp",
         "patchSetId": 3
@@ -67,6 +85,41 @@
       "side": 1,
       "message": "As `UserSubscription` data is used in both `subscriptionsMap[]` and `subscriptionsConfigMap[]`, it would be more efficient by replacing the matching `subscriptionsConfigMap[id].second` with `userSub` (shared_ptr), and it can avoid the copy of the content of the userSubscription.",
       "parentUuid": "8def4019_14d8695f",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a617493_69edd0a2",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T19:24:03Z",
+      "side": 1,
+      "message": "ACK, I see the ownership transfer now.",
+      "parentUuid": "aa6e291a_8308f437",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5547917d_b5e61f7e",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T19:24:03Z",
+      "side": 1,
+      "message": "Now that these are all shared pointers and we\u0027re making no copies, isn\u0027t this just replacing the existing entry in the map with the same pointer?",
       "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
