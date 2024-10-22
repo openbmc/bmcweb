@@ -203,6 +203,23 @@
       },
       "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d793371_ef1ad44a",
+        "filename": "redfish-core/lib/eventservice_sse.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T19:31:14Z",
+      "side": 1,
+      "message": "now that I look at it, this arguably isn\u0027t even correct for SSE subscriptions.  Oh well, something to fix in another patch.",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
