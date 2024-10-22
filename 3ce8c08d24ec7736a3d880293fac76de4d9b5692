@@ -160,6 +160,24 @@
       "parentUuid": "19f11ef0_7a36b1c5",
       "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d48a87f4_d29d0ffe",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T15:06:14Z",
+      "side": 1,
+      "message": "\u003e I can see that you are not in favour of allowing optional MTLS.\n\nthat is not what i said.  i have no problem with optional tls and understand the use case, My point was that going back and forth in a patchset comment section doesn\u0027t get us closer to that working.\n\n\u003e I have a genuine use case for it.I don\u0027t think writing a new patch for it will solve the problem.\n\u003e \n\u003e If optional MTLS is not going to be supported by bmcweb then I don\u0027t have any other comments on this patch. The changes are looking fine otherwise.\n\nIf you have patches for things you need, please send them in gerrit reviews.",
+      "parentUuid": "9bac4cd4_48c245aa",
+      "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
