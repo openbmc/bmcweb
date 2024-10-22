@@ -180,6 +180,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed8148c_251af1c6",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-22T16:22:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d48a87f4_d29d0ffe",
+      "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9170dbef_f0086746",
