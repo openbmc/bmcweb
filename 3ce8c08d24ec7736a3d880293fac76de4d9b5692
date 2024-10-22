@@ -213,6 +213,24 @@
       "parentUuid": "9170dbef_f0086746",
       "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69f3e7ca_3d8b53da",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-22T16:22:29Z",
+      "side": 1,
+      "message": "getSslServerContext called only once from the \u0027run\u0027 method during bmcweb start. It does not happen for each connection. I am not sure how it was handled. But it is  not new in this patch so I am  fine with whatever behaviour it had before.",
+      "parentUuid": "79c03938_2debc10e",
+      "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
