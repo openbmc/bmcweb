@@ -126,6 +126,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "91d6f395_77c254eb",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T19:27:04Z",
+      "side": 1,
+      "message": "This is making a shared_ptr copy for no real reason.  Can we just do\nif (it-\u003esecond \u003d\u003d nullptr){\n   continue;\n}\n\nconst UserSubscription\u0026 subValue \u003d *it.second;",
+      "range": {
+        "startLine": 273,
+        "startChar": 12,
+        "endLine": 273,
+        "endChar": 45
+      },
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "13e7efea_673aa353",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 3
