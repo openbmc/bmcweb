@@ -142,6 +142,24 @@
       "parentUuid": "e34a6cab_05dde25c",
       "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bac4cd4_48c245aa",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2024-10-22T14:59:16Z",
+      "side": 1,
+      "message": "I can see that you are not in favour of allowing optional MTLS.I have a genuine use case for it.I don\u0027t think writing a new patch for it will solve the problem.\n\nIf optional MTLS is not going to be supported by bmcweb then I don\u0027t have any other comments on this patch. The changes are looking fine otherwise.",
+      "parentUuid": "19f11ef0_7a36b1c5",
+      "revId": "3ce8c08d24ec7736a3d880293fac76de4d9b5692",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
