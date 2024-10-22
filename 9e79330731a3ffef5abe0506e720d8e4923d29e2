@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36dedc46_d9d375a9",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T17:25:48Z",
+      "side": 1,
+      "message": "why did this method need to change?  this method takes no ownership, so returning by value seems reasonable.\n\nthe struct can be put into a shared pointer later if required.",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8def4019_14d8695f",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T17:25:48Z",
+      "side": 1,
+      "message": "same here.  this function takes no ownership of user sub.  why is it passing an owning object?",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13e7efea_673aa353",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-22T17:25:48Z",
+      "side": 1,
+      "message": "why was this added?  sse connections don’t have user params, so if this is now a pointer, presumably sse connections should be nullptr?",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
