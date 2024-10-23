@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b28a6655_c9bb135e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-23T21:08:04Z",
+      "side": 1,
+      "message": "I added. I also added a return below when the size is checked for the serviceMap.",
+      "parentUuid": "d5a1f32d_dc2416f1",
+      "revId": "17cf50a59c90ed1d41dc34a526271307d2e678a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e37cce0f_58b86849",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-10-23T13:41:57Z",
       "side": 1,
       "message": "`return` here.",
+      "revId": "17cf50a59c90ed1d41dc34a526271307d2e678a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cbf1f41_73d1ab50",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-23T21:08:04Z",
+      "side": 1,
+      "message": "Good catch, thank you! I\u0027ve added it.",
+      "parentUuid": "e37cce0f_58b86849",
       "revId": "17cf50a59c90ed1d41dc34a526271307d2e678a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ace53d2_281d8766",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-23T21:08:04Z",
+      "side": 1,
+      "message": "Yes, good catch! I\u0027ve added it.",
+      "parentUuid": "5684b74d_9c0d4140",
+      "revId": "17cf50a59c90ed1d41dc34a526271307d2e678a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7fca8a8_6bca275c",
@@ -65,6 +119,24 @@
       "writtenOn": "2024-10-23T13:41:57Z",
       "side": 1,
       "message": "Wouldn\u0027t it be an ERROR, and `internalError()`?",
+      "revId": "17cf50a59c90ed1d41dc34a526271307d2e678a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d53706e_79584abd",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-23T21:08:04Z",
+      "side": 1,
+      "message": "I didn\u0027t think so. This is in the call-chain from handleEnvironmentMetricsGet(). Which is getting the data for multiple objects.\n\nIf we don\u0027t have a path or service to this object for PowerLimitWatts on the GET then we just don\u0027t include the object in the array.\n\nI thought it would be treated differently from an actual error from the D-Bus call which is handled above.\n\nAgree?",
+      "parentUuid": "b7fca8a8_6bca275c",
       "revId": "17cf50a59c90ed1d41dc34a526271307d2e678a3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
