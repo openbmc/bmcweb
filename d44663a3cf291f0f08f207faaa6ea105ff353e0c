@@ -51,6 +51,24 @@
       "parentUuid": "11ee1448_4cc9e182",
       "revId": "d44663a3cf291f0f08f207faaa6ea105ff353e0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb3e56bc_94107964",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-23T18:14:11Z",
+      "side": 1,
+      "message": "For the reference, I submitted https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75459 to remove getSubscriptionId() and setSubscriptionId()",
+      "parentUuid": "24f14361_9aa96a2d",
+      "revId": "d44663a3cf291f0f08f207faaa6ea105ff353e0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
