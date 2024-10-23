@@ -500,6 +500,60 @@ inline void
     });
 }
 
+inline void
+    getPCIeDevicePrettyName(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& pcieDevicePath,
+                            const std::string& service)
+{
+    dbus::utility::MapperServiceMap serviceMap = {
+        {service, {"xyz.openbmc_project.Inventory.Item.PCIeDevice"}}};
+
+    nlohmann::json::json_pointer ptr("/Name");
+
+    name_util::getPrettyName(asyncResp, pcieDevicePath, serviceMap, ptr);
+}
+
+inline void
+    getPCIeDeviceLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& pcieDevicePath,
+                          const std::string& service)
+{
+    sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, service, pcieDevicePath,
+        "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+        [pcieDevicePath,
+         asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::DBusPropertiesMap& locationCodeList) {
+        if (ec)
+        {
+            if (ec.value() != EBADR)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error for Properties{}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+            }
+            return;
+        }
+
+        const std::string* locationCode = nullptr;
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), locationCodeList, "LocationCode",
+            locationCode);
+
+        if (!success)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        if (locationCode != nullptr)
+        {
+            asyncResp->res.jsonValue["Slot"]["Location"]["PartLocation"]
+                                    ["ServiceLabel"] = *locationCode;
+        }
+    });
+}
+
 inline void addPCIeDeviceProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDeviceId,
@@ -651,6 +705,8 @@ inline void afterGetValidPcieDevicePath(
     getPCIeDeviceSlotPath(
         pcieDevicePath, asyncResp,
         std::bind_front(afterGetPCIeDeviceSlotPath, asyncResp));
+    getPCIeDeviceLocation(asyncResp, pcieDevicePath, service);
+    getPCIeDevicePrettyName(asyncResp, pcieDevicePath, service);
 }
 
 inline void
