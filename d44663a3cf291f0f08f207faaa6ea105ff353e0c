@@ -69,6 +69,24 @@
       "parentUuid": "24f14361_9aa96a2d",
       "revId": "d44663a3cf291f0f08f207faaa6ea105ff353e0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58207986_956643e5",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-23T18:32:01Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fb3e56bc_94107964",
+      "revId": "d44663a3cf291f0f08f207faaa6ea105ff353e0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
