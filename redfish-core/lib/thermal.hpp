@@ -20,6 +20,7 @@
 #include "registries/privilege_registry.hpp"
 #include "sensors.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/sensor_utils.hpp"
 
 namespace redfish
 {
@@ -39,7 +40,8 @@ inline void requestRoutesThermal(App& app)
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             asyncResp, chassisName, sensors::dbus::thermalPaths,
-            sensors::node::thermal);
+            sensor_utils::chassisSubNodeToString(
+                sensor_utils::ChassisSubNode::thermalNode));
 
         // TODO Need to get Chassis Redundancy information.
         getChassisData(sensorAsyncResp);
@@ -63,7 +65,8 @@ inline void requestRoutesThermal(App& app)
 
         auto sensorsAsyncResp = std::make_shared<SensorsAsyncResp>(
             asyncResp, chassisName, sensors::dbus::thermalPaths,
-            sensors::node::thermal);
+            sensor_utils::chassisSubNodeToString(
+                sensor_utils::ChassisSubNode::thermalNode));
 
         if (!json_util::readJsonPatch(req, sensorsAsyncResp->asyncResp->res,
                                       "Temperatures", temperatureCollections,
