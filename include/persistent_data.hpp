@@ -292,13 +292,16 @@ class ConfigFile
     {
         std::filesystem::path path(filename);
         path = path.parent_path();
-        std::error_code ecDir;
-        std::filesystem::create_directories(path, ecDir);
-        if (ecDir)
+        if (!path.empty())
         {
-            BMCWEB_LOG_CRITICAL("Can't create persistent folders {}",
-                                ecDir.message());
-            return;
+            std::error_code ecDir;
+            std::filesystem::create_directories(path, ecDir);
+            if (ecDir)
+            {
+                BMCWEB_LOG_CRITICAL("Can't create persistent folders {}",
+                                    ecDir.message());
+                return;
+            }
         }
         boost::beast::file_posix persistentFile;
         boost::system::error_code ec;
