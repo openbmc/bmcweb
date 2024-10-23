@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5a1f32d_dc2416f1",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-23T13:41:57Z",
+      "side": 1,
+      "message": "Can we return here and then `else` can be removed?",
+      "revId": "17cf50a59c90ed1d41dc34a526271307d2e678a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e37cce0f_58b86849",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-23T13:41:57Z",
+      "side": 1,
+      "message": "`return` here.",
+      "revId": "17cf50a59c90ed1d41dc34a526271307d2e678a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5684b74d_9c0d4140",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-23T13:41:57Z",
+      "side": 1,
+      "message": "`return` here to avoid `messages::propertyValueNotInList()` for this case",
+      "revId": "17cf50a59c90ed1d41dc34a526271307d2e678a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7fca8a8_6bca275c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-23T13:41:57Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be an ERROR, and `internalError()`?",
+      "revId": "17cf50a59c90ed1d41dc34a526271307d2e678a3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
