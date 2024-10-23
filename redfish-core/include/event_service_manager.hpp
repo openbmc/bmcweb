@@ -442,17 +442,6 @@ class Subscription
         return eventSeqNum;
     }
 
-    void setSubscriptionId(const std::string& idIn)
-    {
-        BMCWEB_LOG_DEBUG("Subscription ID: {}", idIn);
-        userSub.id = idIn;
-    }
-
-    std::string getSubscriptionId() const
-    {
-        return userSub.id;
-    }
-
     bool matchSseId(const crow::sse_socket::Connection& thisConn)
     {
         return &thisConn == sseConn;
@@ -810,7 +799,7 @@ class EventServiceManager
         }
 
         // Set Subscription ID for back trace
-        subValue->setSubscriptionId(id);
+        subValue->userSub.id = id;
 
         persistent_data::UserSubscription newSub(subValue->userSub);
 
@@ -919,8 +908,7 @@ class EventServiceManager
             if (entryIsThisConn)
             {
                 persistent_data::EventServiceStore::getInstance()
-                    .subscriptionsConfigMap.erase(
-                        it->second->getSubscriptionId());
+                    .subscriptionsConfigMap.erase(entry->userSub.id);
                 it = subscriptionsMap.erase(it);
                 return;
             }
