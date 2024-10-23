@@ -6719,27 +6719,142 @@ inline void getRedfishUriByDbusObjPath(
 }
 
 /**
+ * @brief API used to load the message and Message Args for the HW Isolation
+ * Entries
+ *
+ * @param[in] ec - error code from the dbus call.
+ * @param[in] prettyName - The prettyname fetched from the dbus object.
+ * @param[in] asyncResp - The redfish response to return.
+ * @param[in] path - D-bus object path to find the pretty name
+ * @param[in] entryJsonIdx - The json entry index to add isolated hardware
+ *                            details in the appropriate entry json object.
+ * @param[in] guardType - guardType value to be used in the message
+ *
+ * @return The redfish response with "Message" property of
+ *         Hw Isolation Entry schema if success else return the error
+ */
+static void
+    loadHwIsolationMessage(const boost::system::error_code& ec,
+                           const std::string& prettyName,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& path, const size_t entryJsonIdx,
+                           const std::string& guardType)
+{
+    // Determine base path based on entryJsonIdx
+    nlohmann::json::json_pointer msgPropPath;
+    nlohmann::json::json_pointer msgArgPropPath;
+    if (entryJsonIdx > 0)
+    {
+        msgPropPath = nlohmann::json::json_pointer(
+            "/Members/" + std::to_string(entryJsonIdx - 1) + "/Message");
+        msgArgPropPath = nlohmann::json::json_pointer(
+            "/Members/" + std::to_string(entryJsonIdx - 1) + "/MessageArgs");
+    }
+    else
+    {
+        msgPropPath = nlohmann::json::json_pointer("/Message");
+        msgArgPropPath = nlohmann::json::json_pointer("/MessageArgs");
+    }
+    std::vector<std::string_view> messageArgs;
+    messageArgs.push_back(guardType);
+    if (ec || prettyName.empty())
+    {
+        messageArgs.push_back(path);
+    }
+    else
+    {
+        messageArgs.push_back(prettyName);
+    }
+    const redfish::registries::Message* msgReg =
+        registries::getMessage("OpenBMC.0.6.GuardRecord");
+    if (msgReg == nullptr)
+    {
+        BMCWEB_LOG_ERROR(
+            "Failed to get the GuardRecord message registry to add in the condition");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    std::string msg = redfish::registries::fillMessageArgs(messageArgs,
+                                                           msgReg->message);
+    if (msg.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue[msgPropPath] = msg;
+    asyncResp->res.jsonValue[msgArgPropPath] = messageArgs;
+}
+
+/**
+ * @brief Read the Pretty Name property using the dbus call and load the message
+ * property
+ *
+ * @param[in,out] asyncResp Async response object
+ * @param[in]   path        D-bus object path to find the pretty name
+ * @param[in]   services    List of services to exporting the D-bus object path
+ * @param[in] entryJsonIdx  The json entry index to add isolated hardware
+ *                          details in the appropriate entry json object.
+ * @param[in]   guardType   The guardtype value as a string. To be used in
+ *                          the redfish message property
+ *
+ * @return void
+ */
+inline void updateHwIsolationMessage(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path, const dbus::utility::MapperServiceMap& services,
+    const size_t entryJsonIdx, const std::string& guardType)
+{
+    // Ensure we only got one service back
+    if (services.size() != 1)
+    {
+        BMCWEB_LOG_ERROR("Invalid Service Size {}", services.size());
+        for (const auto& service : services)
+        {
+            BMCWEB_LOG_ERROR("Invalid Service Name: {}", service.first);
+        }
+        if (asyncResp)
+        {
+            messages::internalError(asyncResp->res);
+        }
+        return;
+    }
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, services[0].first, path,
+        "xyz.openbmc_project.Inventory.Item", "PrettyName",
+        [asyncResp, path, entryJsonIdx,
+         guardType](const boost::system::error_code& ec,
+                    const std::string& prettyName) {
+        loadHwIsolationMessage(ec, prettyName, asyncResp, path, entryJsonIdx,
+                               guardType);
+    });
+}
+
+/**
  * @brief API used to get "PrettyName" by using the given dbus object path
  *        and fill into "Message" property of LogEntry schema.
  *
- * @param[in] asyncResp - The redfish response to return.
- * @param[in] dbusObjPath - The DBus object path which represents redfishUri.
- * @param[in] entryJsonIdx - The json entry index to add isolated hardware
+ * @param[in] asyncResp .   The redfish response to return.
+ * @param[in] dbusObjPath   The DBus object path which represents redfishUri.
+ * @param[in] entryJsonIdx  The json entry index to add isolated hardware
  *                            details in the appropriate entry json object.
- *
- * @return The redfish response with "Message" property of LogEntry schema
- *         if success else nothing in redfish response.
+ * @param[in]   guardType   The guardtype value as a string. To be used in
+ *                          the redfish message property
+ * @return void
  */
 
 inline void getPrettyNameByDbusObjPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const sdbusplus::message::object_path& dbusObjPath,
-    const size_t entryJsonIdx)
+    const size_t entryJsonIdx, const std::string& guardType)
 {
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, dbusObjPath,
-         entryJsonIdx](const boost::system::error_code& ec,
-                       const dbus::utility::MapperGetObject& objType) mutable {
+    constexpr std::array<std::string_view, 1> interface = {
+        "xyz.openbmc_project.Inventory.Item"};
+    dbus::utility::getDbusObject(
+        dbusObjPath.str, interface,
+        [asyncResp, dbusObjPath, entryJsonIdx,
+         guardType](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetObject& objType) mutable {
         if (ec || objType.empty())
         {
             BMCWEB_LOG_ERROR(
@@ -6765,28 +6880,9 @@ inline void getPrettyNameByDbusObjPath(
             messages::internalError(asyncResp->res);
             return;
         }
-
-        if (entryJsonIdx > 0)
-        {
-            asyncResp->res.jsonValue["Members"][entryJsonIdx - 1]["Message"] =
-                dbusObjPath.filename();
-            auto msgPropPath = "/Members"_json_pointer;
-            msgPropPath /= entryJsonIdx - 1;
-            msgPropPath /= "Message";
-            name_util::getPrettyName(asyncResp, dbusObjPath.str, objType,
-                                     msgPropPath);
-        }
-        else
-        {
-            asyncResp->res.jsonValue["Message"] = dbusObjPath.filename();
-            name_util::getPrettyName(asyncResp, dbusObjPath.str, objType,
-                                     "/Message"_json_pointer);
-        }
-    },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetObject", dbusObjPath.str,
-        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item"});
+        updateHwIsolationMessage(asyncResp, dbusObjPath.str, objType,
+                                 entryJsonIdx, guardType);
+    });
 }
 
 /**
@@ -6807,7 +6903,7 @@ inline void getPrettyNameByDbusObjPath(
 inline void fillIsolatedHwDetailsByObjPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const sdbusplus::message::object_path& dbusObjPath,
-    const size_t entryJsonIdx)
+    const size_t entryJsonIdx, const std::string& guardType)
 {
     // Fill Redfish uri of isolated hardware into "OriginOfCondition"
     if (dbusObjPath.filename().find("unit") != std::string::npos)
@@ -6824,7 +6920,7 @@ inline void fillIsolatedHwDetailsByObjPath(
     }
 
     // Fill PrettyName of isolated hardware into "Message"
-    getPrettyNameByDbusObjPath(asyncResp, dbusObjPath, entryJsonIdx);
+    getPrettyNameByDbusObjPath(asyncResp, dbusObjPath, entryJsonIdx, guardType);
 }
 
 /**
@@ -6855,6 +6951,9 @@ inline void fillSystemHardwareIsolationLogEntry(
              ? asyncResp->res.jsonValue["Members"][entryJsonIdx - 1]
              : asyncResp->res.jsonValue);
 
+    std::string guardType;
+    // We need the severity details before getting the associations
+    // to fill the message details.
     for (const auto& interface : dbusObjIt->second)
     {
         if (interface.first == "xyz.openbmc_project.HardwareIsolation.Entry")
@@ -6873,36 +6972,27 @@ inline void fillSystemHardwareIsolationLogEntry(
                         messages::internalError(asyncResp->res);
                         break;
                     }
-
-                    if (*severity ==
-                        "xyz.openbmc_project.HardwareIsolation.Entry.Type.Critical")
-                    {
-                        entryJson["Severity"] = "Critical";
-                    }
-                    else if (
-                        *severity ==
-                        "xyz.openbmc_project.HardwareIsolation.Entry.Type.Warning")
-                    {
-                        entryJson["Severity"] = "Warning";
-                    }
-                    else if (
-                        *severity ==
-                        "xyz.openbmc_project.HardwareIsolation.Entry.Type.Manual")
+                    const std::string& severityString = *severity;
+                    guardType =
+                        severityString.substr(severityString.rfind('.') + 1);
+                    entryJson["Severity"] = guardType;
+                    // Manual and Spare guard type map to severity "OK"
+                    if (severityString ==
+                            "xyz.openbmc_project.HardwareIsolation.Entry.Type.Manual" ||
+                        severityString ==
+                            "xyz.openbmc_project.HardwareIsolation.Entry.Type.Spare")
                     {
                         entryJson["Severity"] = "OK";
                     }
-                    else
-                    {
-                        BMCWEB_LOG_ERROR(
-                            "Unsupported Severity[{}] from object: {}",
-                            *severity, dbusObjIt->first.str);
-                        messages::internalError(asyncResp->res);
-                        break;
-                    }
                 }
             }
+            break;
         }
-        else if (interface.first == "xyz.openbmc_project.Time.EpochTime")
+    }
+
+    for (const auto& interface : dbusObjIt->second)
+    {
+        if (interface.first == "xyz.openbmc_project.Time.EpochTime")
         {
             for (const auto& property : interface.second)
             {
@@ -6948,7 +7038,7 @@ inline void fillSystemHardwareIsolationLogEntry(
                                 asyncResp,
                                 sdbusplus::message::object_path(
                                     std::get<2>(assoc)),
-                                entryJsonIdx);
+                                entryJsonIdx, guardType);
                         }
                         else if (std::get<0>(assoc) == "isolated_hw_errorlog")
                         {
@@ -6969,6 +7059,7 @@ inline void fillSystemHardwareIsolationLogEntry(
         "/redfish/v1/Systems/system/LogServices/HardwareIsolation/Entries/{}",
         dbusObjIt->first.filename());
     entryJson["Id"] = dbusObjIt->first.filename();
+    entryJson["MessageId"] = "OpenBMC.0.6.GuardRecord";
     entryJson["Name"] = "Hardware Isolation Entry";
     entryJson["EntryType"] = "Event";
 }
