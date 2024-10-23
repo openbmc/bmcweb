@@ -33,6 +33,24 @@
       "message": "nit: Should this be using getSubscriptionId()?",
       "revId": "d44663a3cf291f0f08f207faaa6ea105ff353e0c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24f14361_9aa96a2d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-23T17:48:08Z",
+      "side": 1,
+      "message": "Previously, there was a different/separate variable `subId` (which was called getSubscriptionId()) from this `id`. It turns out it was an error and thus `subId` was removed.\n\nIn addition, getSubscriptionId() and setSubscriptionId() are used once - which seem overly done.\nSo, I\u0027d rather remove those functions but use `userSub.id` directly (in a separate commit).",
+      "parentUuid": "11ee1448_4cc9e182",
+      "revId": "d44663a3cf291f0f08f207faaa6ea105ff353e0c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
