@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63b384f6_d5e3e945",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 50
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-24T21:27:09Z",
+      "side": 1,
+      "message": "nit: Since this is referencing the Redfish property, please remove the blank spaces here.",
+      "range": {
+        "startLine": 11,
+        "startChar": 26,
+        "endLine": 11,
+        "endChar": 53
+      },
+      "revId": "6a711ae49a4007026bbe0e37c89f6f39fbf964b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2cbbc9d_e8b8e18c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 50
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-24T21:27:09Z",
+      "side": 1,
+      "message": "Overall this looks good, just one problem I noted with the PATCH path.",
+      "revId": "6a711ae49a4007026bbe0e37c89f6f39fbf964b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9843446_26f8d2c2",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-24T21:27:09Z",
+      "side": 1,
+      "message": "These parameters are incorrect.\n\nThe second parameter should be \"LocationIndicatorActive\". (I.e. the Redfish property name to be used for error messages.)\n\nThe second to last parameter should be \"Asserted\" which is the D-Bus property name that is being set.\n\nSo, instead I think the call should be this:\n\n```\nsetDbusProperty(asyncResp, \"LocationIndicatorActive\", service,\n                ledGroupPath,\n                \"xyz.openbmc_project.Led.Group\",\n                \"Asserted\", ledState);\n```\n                      \nI pulled this commit into a build and the GET succeeds but the PATCH fails with:\n```\n[ERROR dbus_utils.cpp:82] D-Bus error setting Redfish Property Asserted ec\u003dInvalid request descriptor [generic:53]\n```",
+      "range": {
+        "startLine": 379,
+        "startChar": 24,
+        "endLine": 382,
+        "endChar": 62
+      },
+      "revId": "6a711ae49a4007026bbe0e37c89f6f39fbf964b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e75fe9b_d037b8ca",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-24T21:27:09Z",
+      "side": 1,
+      "message": "This needs the new clang formatting change (i.e. add the comments to the end of the lines)",
+      "range": {
+        "startLine": 530,
+        "startChar": 20,
+        "endLine": 532,
+        "endChar": 59
+      },
+      "revId": "6a711ae49a4007026bbe0e37c89f6f39fbf964b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
