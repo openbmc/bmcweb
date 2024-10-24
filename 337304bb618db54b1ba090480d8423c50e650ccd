@@ -16,6 +16,80 @@
       "message": "It looks good to me",
       "revId": "337304bb618db54b1ba090480d8423c50e650ccd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32ee1106_1f4cca71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-24T15:35:04Z",
+      "side": 1,
+      "message": "We have this functionality in the GUI https://github.com/openbmc/webui-vue/blob/918526f20c16a05c261a56814657942a707323dd/src/store/modules/ResourceManagement/PowerControlStore.js#L13\n\nWould be good to get this in so the GUI can move over to the new models. This appears to match how the old code was done in power.hpp",
+      "revId": "337304bb618db54b1ba090480d8423c50e650ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4c209fb_6458c6c8",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-24T15:35:04Z",
+      "side": 1,
+      "message": "I think more than 1 would be an internal error; 0 would be like this: ignore the error and move on. Oh well. This matches the old code\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/power.hpp#L80",
+      "revId": "337304bb618db54b1ba090480d8423c50e650ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e719db46_762dcca6",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-24T15:35:04Z",
+      "side": 1,
+      "message": "I think more than 1 would be an internal error; 0 would be like this: ignore the error and move on. Oh well. This matches the old code\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/power.hpp#L80",
+      "revId": "337304bb618db54b1ba090480d8423c50e650ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c12e572_37d21af7",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-24T15:35:04Z",
+      "side": 1,
+      "message": "WARNING typically for 4xx errors, oh well.",
+      "range": {
+        "startLine": 150,
+        "startChar": 19,
+        "endLine": 150,
+        "endChar": 24
+      },
+      "revId": "337304bb618db54b1ba090480d8423c50e650ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
