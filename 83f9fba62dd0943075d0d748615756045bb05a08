@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d423019b_0588ebbf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-25T15:34:51Z",
+      "side": 1,
+      "message": "I agree these are different. I think it makes sense to separate these out. Is there a better name than backends? I could live with backends but that didn\u0027t immediately make it clear this is code to support some of our meson options.",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "83f9fba62dd0943075d0d748615756045bb05a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c9560f8_14b2cb86",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-25T15:34:51Z",
+      "side": 1,
+      "message": "Can you talk more about your overall vision here?\n\nWhere the line is for\nsrc/ \ninclude/ \nbackends/ \nis still a little blurry to me. \n\nE.g. \nWhy move some of the webui code here, but not all of it like https://github.com/openbmc/bmcweb/blob/master/include/webassets.hpp ?\n\n\nEven the lines for \nhttp/\nredfish-core/ \nCan get a little blurry\n\nE.g. \nhttps://github.com/openbmc/bmcweb/blob/master/include/async_resp.hpp I would think would fit better in http/\n\nhttps://github.com/openbmc/bmcweb/blob/master/include/sessions.hpp is in include/ but then there are similar redfish utils at https://github.com/openbmc/bmcweb/tree/master/redfish-core/include/utils\n\nThere are still some \"Redfish\" hits in http/\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+redfish+NOT+path%3A%2F%5Eredfish-core%5C%2F%2F+NOT+path%3A%2F%5Etest%5C%2F%2F+path%3A%2F%5Ehttp%5C%2F%2F\u0026type\u003dcode\n\nA more traditional C++ project of high-level dirs of src/ include/ lib/ is what I would lean towards. E.g. redfish-core/, http/ backends/ are not at the root. \nhttps://stackoverflow.com/questions/2360734/whats-a-good-directory-structure-for-larger-c-projects-using-makefile\n\nThat said, I don\u0027t care as long as our future vision makes sense to developers.",
+      "revId": "83f9fba62dd0943075d0d748615756045bb05a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0986b5e0_804421f5",
         "filename": "backends/google/google_service_root_test.cpp",
         "patchSetId": 5
