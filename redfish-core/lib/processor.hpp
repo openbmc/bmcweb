@@ -245,48 +245,12 @@ inline void getCpuDataByService(
             asyncResp->res.jsonValue["ProcessorType"] =
                 processor::ProcessorType::CPU;
 
-            bool slotPresent = false;
-            std::string corePath = objPath + "/core";
-            size_t totalCores = 0;
             for (const auto& object : dbusData)
             {
                 if (object.first.str == objPath)
                 {
                     getCpuDataByInterface(asyncResp, object.second);
                 }
-                else if (object.first.str.starts_with(corePath))
-                {
-                    for (const auto& interface : object.second)
-                    {
-                        if (interface.first ==
-                            "xyz.openbmc_project.Inventory.Item")
-                        {
-                            for (const auto& property : interface.second)
-                            {
-                                if (property.first == "Present")
-                                {
-                                    const bool* present =
-                                        std::get_if<bool>(&property.second);
-                                    if (present != nullptr)
-                                    {
-                                        if (*present)
-                                        {
-                                            slotPresent = true;
-                                            totalCores++;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            // In getCpuDataByInterface(), state and health are set
-            // based on the present and functional status. If core
-            // count is zero, then it has a higher precedence.
-            if (slotPresent)
-            {
-                asyncResp->res.jsonValue["TotalCores"] = totalCores;
             }
             return;
         });
