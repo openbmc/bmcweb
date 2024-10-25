@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0986b5e0_804421f5",
+        "filename": "backends/google/google_service_root_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-25T01:43:59Z",
+      "side": 1,
+      "message": "We don\u0027t want tests in some test/ folder?",
+      "revId": "83f9fba62dd0943075d0d748615756045bb05a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
