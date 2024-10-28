@@ -18,18 +18,13 @@ limitations under the License.
 #include "error_messages.hpp"
 #include "event_matches_filter.hpp"
 #include "event_service_store.hpp"
-#include "filter_expr_executor.hpp"
-#include "generated/enums/event.hpp"
-#include "generated/enums/log_entry.hpp"
-#include "http_client.hpp"
 #include "metric_report.hpp"
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
 #include "registries.hpp"
 #include "registries_selector.hpp"
 #include "str_utility.hpp"
-#include "utility.hpp"
-#include "utils/json_utils.hpp"
+#include "subscription.hpp"
 #include "utils/time_utils.hpp"
 
 #include <sys/inotify.h>
@@ -47,7 +42,6 @@ limitations under the License.
 #include <format>
 #include <fstream>
 #include <memory>
-#include <ranges>
 #include <span>
 #include <string>
 #include <string_view>
@@ -57,13 +51,6 @@ namespace redfish
 
 static constexpr const char* eventFormatType = "Event";
 static constexpr const char* metricReportFormatType = "MetricReport";
-
-static constexpr const char* subscriptionTypeSSE = "SSE";
-static constexpr const char* eventServiceFile =
-    "/var/lib/bmcweb/eventservice_config.json";
-
-static constexpr const uint8_t maxNoOfSubscriptions = 20;
-static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
@@ -77,13 +64,6 @@ static int inotifyFd = -1;
 static int dirWatchDesc = -1;
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static int fileWatchDesc = -1;
-struct EventLogObjectsType
-{
-    std::string id;
-    std::string timestamp;
-    std::string messageId;
-    std::vector<std::string> messageArgs;
-};
 
 namespace registries
 {
@@ -251,265 +231,6 @@ inline int formatEventLogEntry(
 }
 
 } // namespace event_log
-
-class Subscription : public std::enable_shared_from_this<Subscription>
-{
-  public:
-    Subscription(const Subscription&) = delete;
-    Subscription& operator=(const Subscription&) = delete;
-    Subscription(Subscription&&) = delete;
-    Subscription& operator=(Subscription&&) = delete;
-
-    Subscription(const persistent_data::UserSubscription& userSubIn,
-                 const boost::urls::url_view_base& url,
-                 boost::asio::io_context& ioc) :
-        userSub(userSubIn), policy(std::make_shared<crow::ConnectionPolicy>())
-    {
-        userSub.destinationUrl = url;
-        client.emplace(ioc, policy);
-        // Subscription constructor
-        policy->invalidResp = retryRespHandler;
-    }
-
-    explicit Subscription(crow::sse_socket::Connection& connIn) :
-        sseConn(&connIn)
-    {}
-
-    ~Subscription() = default;
-
-    // callback for subscription sendData
-    void resHandler(const std::shared_ptr<Subscription>& /*unused*/,
-                    const crow::Response& res)
-    {
-        BMCWEB_LOG_DEBUG("Response handled with return code: {}",
-                         res.resultInt());
-
-        if (!client)
-        {
-            BMCWEB_LOG_ERROR(
-                "Http client wasn't filled but http client callback was called.");
-            return;
-        }
-
-        if (userSub.retryPolicy != "TerminateAfterRetries")
-        {
-            return;
-        }
-        if (client->isTerminated())
-        {
-            if (deleter)
-            {
-                BMCWEB_LOG_INFO(
-                    "Subscription {} is deleted after MaxRetryAttempts",
-                    userSub.id);
-                deleter();
-            }
-        }
-    }
-
-    bool sendEventToSubscriber(std::string&& msg)
-    {
-        persistent_data::EventServiceConfig eventServiceConfig =
-            persistent_data::EventServiceStore::getInstance()
-                .getEventServiceConfig();
-        if (!eventServiceConfig.enabled)
-        {
-            return false;
-        }
-
-        if (client)
-        {
-            client->sendDataWithCallback(
-                std::move(msg), userSub.destinationUrl,
-                static_cast<ensuressl::VerifyCertificate>(
-                    userSub.verifyCertificate),
-                userSub.httpHeaders, boost::beast::http::verb::post,
-                std::bind_front(&Subscription::resHandler, this,
-                                shared_from_this()));
-            return true;
-        }
-
-        if (sseConn != nullptr)
-        {
-            eventSeqNum++;
-            sseConn->sendSseEvent(std::to_string(eventSeqNum), msg);
-        }
-        return true;
-    }
-
-    bool sendTestEventLog()
-    {
-        nlohmann::json::array_t logEntryArray;
-        nlohmann::json& logEntryJson = logEntryArray.emplace_back();
-
-        logEntryJson["EventId"] = "TestID";
-        logEntryJson["Severity"] = log_entry::EventSeverity::OK;
-        logEntryJson["Message"] = "Generated test event";
-        logEntryJson["MessageId"] = "OpenBMC.0.2.TestEventLog";
-        // MemberId is 0 : since we are sending one event record.
-        logEntryJson["MemberId"] = "0";
-        logEntryJson["MessageArgs"] = nlohmann::json::array();
-        logEntryJson["EventTimestamp"] =
-            redfish::time_utils::getDateTimeOffsetNow().first;
-        logEntryJson["Context"] = userSub.customText;
-
-        nlohmann::json msg;
-        msg["@odata.type"] = "#Event.v1_4_0.Event";
-        msg["Id"] = std::to_string(eventSeqNum);
-        msg["Name"] = "Event Log";
-        msg["Events"] = logEntryArray;
-
-        std::string strMsg =
-            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
-        return sendEventToSubscriber(std::move(strMsg));
-    }
-
-    void filterAndSendEventLogs(
-        const std::vector<EventLogObjectsType>& eventRecords)
-    {
-        nlohmann::json::array_t logEntryArray;
-        for (const EventLogObjectsType& logEntry : eventRecords)
-        {
-            std::vector<std::string_view> messageArgsView(
-                logEntry.messageArgs.begin(), logEntry.messageArgs.end());
-
-            nlohmann::json::object_t bmcLogEntry;
-            if (event_log::formatEventLogEntry(
-                    logEntry.id, logEntry.messageId, messageArgsView,
-                    logEntry.timestamp, userSub.customText, bmcLogEntry) != 0)
-            {
-                BMCWEB_LOG_DEBUG("Read eventLog entry failed");
-                continue;
-            }
-
-            if (!eventMatchesFilter(userSub, bmcLogEntry, ""))
-            {
-                BMCWEB_LOG_DEBUG("Event {} did not match the filter",
-                                 nlohmann::json(bmcLogEntry).dump());
-                continue;
-            }
-
-            if (filter)
-            {
-                if (!memberMatches(bmcLogEntry, *filter))
-                {
-                    BMCWEB_LOG_DEBUG("Filter didn't match");
-                    continue;
-                }
-            }
-
-            logEntryArray.emplace_back(std::move(bmcLogEntry));
-        }
-
-        if (logEntryArray.empty())
-        {
-            BMCWEB_LOG_DEBUG("No log entries available to be transferred.");
-            return;
-        }
-
-        nlohmann::json msg;
-        msg["@odata.type"] = "#Event.v1_4_0.Event";
-        msg["Id"] = std::to_string(eventSeqNum);
-        msg["Name"] = "Event Log";
-        msg["Events"] = std::move(logEntryArray);
-        std::string strMsg =
-            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
-        sendEventToSubscriber(std::move(strMsg));
-        eventSeqNum++;
-    }
-
-    void filterAndSendReports(const std::string& reportId,
-                              const telemetry::TimestampReadings& var)
-    {
-        boost::urls::url mrdUri = boost::urls::format(
-            "/redfish/v1/TelemetryService/MetricReportDefinitions/{}",
-            reportId);
-
-        // Empty list means no filter. Send everything.
-        if (!userSub.metricReportDefinitions.empty())
-        {
-            if (std::ranges::find(userSub.metricReportDefinitions,
-                                  mrdUri.buffer()) ==
-                userSub.metricReportDefinitions.end())
-            {
-                return;
-            }
-        }
-
-        nlohmann::json msg;
-        if (!telemetry::fillReport(msg, reportId, var))
-        {
-            BMCWEB_LOG_ERROR("Failed to fill the MetricReport for DBus "
-                             "Report with id {}",
-                             reportId);
-            return;
-        }
-
-        // Context is set by user during Event subscription and it must be
-        // set for MetricReport response.
-        if (!userSub.customText.empty())
-        {
-            msg["Context"] = userSub.customText;
-        }
-
-        std::string strMsg =
-            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
-        sendEventToSubscriber(std::move(strMsg));
-    }
-
-    void updateRetryConfig(uint32_t retryAttempts,
-                           uint32_t retryTimeoutInterval)
-    {
-        if (policy == nullptr)
-        {
-            BMCWEB_LOG_DEBUG("Retry policy was nullptr, ignoring set");
-            return;
-        }
-        policy->maxRetryAttempts = retryAttempts;
-        policy->retryIntervalSecs = std::chrono::seconds(retryTimeoutInterval);
-    }
-
-    uint64_t getEventSeqNum() const
-    {
-        return eventSeqNum;
-    }
-
-    bool matchSseId(const crow::sse_socket::Connection& thisConn)
-    {
-        return &thisConn == sseConn;
-    }
-
-    // Check used to indicate what response codes are valid as part of our retry
-    // policy.  2XX is considered acceptable
-    static boost::system::error_code retryRespHandler(unsigned int respCode)
-    {
-        BMCWEB_LOG_DEBUG(
-            "Checking response code validity for SubscriptionEvent");
-        if ((respCode < 200) || (respCode >= 300))
-        {
-            return boost::system::errc::make_error_code(
-                boost::system::errc::result_out_of_range);
-        }
-
-        // Return 0 if the response code is valid
-        return boost::system::errc::make_error_code(
-            boost::system::errc::success);
-    }
-
-    persistent_data::UserSubscription userSub;
-    std::function<void()> deleter;
-
-  private:
-    uint64_t eventSeqNum = 1;
-    boost::urls::url host;
-    std::shared_ptr<crow::ConnectionPolicy> policy;
-    crow::sse_socket::Connection* sseConn = nullptr;
-
-    std::optional<crow::HttpClient> client;
-
-  public:
-    std::optional<filter_ast::LogicalAnd> filter;
-};
 
 class EventServiceManager
 {
