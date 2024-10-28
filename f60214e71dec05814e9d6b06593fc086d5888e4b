@@ -3,6 +3,132 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "650bccf8_c38823de",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-28T17:29:59Z",
+      "side": 1,
+      "message": "include memory",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 19
+      },
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9629837_0f90ffe8",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-28T17:29:59Z",
+      "side": 1,
+      "message": "nitpick: change if you want, everywhere else doesn\u0027t use auto here \n\nhttps://github.com/openbmc/bmcweb/blob/463a0e3e880340a119bf986bab039d1afbe1a432/redfish-core/lib/odata.hpp#L36\n\nhttps://github.com/openbmc/bmcweb/blob/463a0e3e880340a119bf986bab039d1afbe1a432/include/forward_unauthorized.hpp#L27\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+boost%3A%3Aurls%3A%3Aformat\u0026type\u003dcode",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 13
+      },
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6156bd53_919206be",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-28T17:29:59Z",
+      "side": 1,
+      "message": "Isn\u0027t this making some real assumptions ?",
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e427643_fc44a98f",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-28T17:29:59Z",
+      "side": 1,
+      "message": "include functional",
+      "range": {
+        "startLine": 248,
+        "startChar": 4,
+        "endLine": 248,
+        "endChar": 17
+      },
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97fe41f4_a962d577",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-28T17:29:59Z",
+      "side": 1,
+      "message": "Why do you need the std::string?\nhttps://github.com/openbmc/bmcweb/blob/463a0e3e880340a119bf986bab039d1afbe1a432/redfish-core/lib/certificate_service.hpp#L400\n\nAbove is code calling\ncrow::connections::systemBus-\u003easync_method_call\nwith sdbusplus::message::object_path.\n\nKeep the userPath name since that is better than tempObjPath",
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8eeff4d7_52b7c4bb",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-28T17:29:59Z",
+      "side": 1,
+      "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "range": {
+        "startLine": 254,
+        "startChar": 62,
+        "endLine": 254,
+        "endChar": 72
+      },
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7160d885_a09fe971",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 42
