@@ -128,6 +128,30 @@
       },
       "revId": "03abe80050b64864c0d1524bf164d92dfc9dff88",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac57704c_1e0a33d9",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-28T17:31:13Z",
+      "side": 1,
+      "message": "that’s fine that it’s intentional.  do the breakout of the method in a commit before the commit making the functional change to use it in a second location.",
+      "parentUuid": "b1421445_e41c7a32",
+      "range": {
+        "startLine": 315,
+        "startChar": 8,
+        "endLine": 315,
+        "endChar": 35
+      },
+      "revId": "03abe80050b64864c0d1524bf164d92dfc9dff88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
