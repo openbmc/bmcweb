@@ -49,11 +49,11 @@ constexpr const char* configFilePath =
 constexpr size_t maxSaveareaDirSize =
     25000000; // Allow save area dir size to be max 25MB
 constexpr size_t minSaveareaFileSize =
-    100;      // Allow save area file size of minimum 100B
+    100; // Allow save area file size of minimum 100B
 constexpr size_t maxSaveareaFileSize =
     25000000; // Allow save area file size upto 25MB
 constexpr size_t maxBroadcastMsgSize =
-    1000;     // Allow Broadcast message size upto 1KB
+    1000; // Allow Broadcast message size upto 1KB
 
 // NOLINTBEGIN(cppcoreguidelines-avoid-non-const-global-variables)
 static boost::container::flat_map<std::string,

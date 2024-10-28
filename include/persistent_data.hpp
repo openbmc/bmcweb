@@ -6,12 +6,14 @@
 #include "ossl_random.hpp"
 #include "sessions.hpp"
 
+#include <boost/beast/core/file_posix.hpp>
 #include <boost/beast/http/fields.hpp>
 #include <nlohmann/json.hpp>
 
 #include <filesystem>
 #include <fstream>
 #include <random>
+#include <system_error>
 
 namespace persistent_data
 {
@@ -158,10 +160,10 @@ class ConfigFile
                     {
                         for (const auto& elem : item.second)
                         {
-                            std::shared_ptr<UserSubscription> newSubscription =
+                            std::optional<UserSubscription> newSub =
                                 UserSubscription::fromJson(elem);
 
-                            if (newSubscription == nullptr)
+                            if (!newSub)
                             {
                                 BMCWEB_LOG_ERROR("Problem reading subscription "
                                                  "from persistent store");
@@ -169,11 +171,13 @@ class ConfigFile
                             }
 
                             BMCWEB_LOG_DEBUG("Restored subscription: {} {}",
-                                             newSubscription->id,
-                                             newSubscription->customText);
-                            EventServiceStore::getInstance()
-                                .subscriptionsConfigMap.emplace(
-                                    newSubscription->id, newSubscription);
+                                             newSub->id, newSub->customText);
+
+                            boost::container::flat_map<
+                                std::string, UserSubscription>& configMap =
+                                EventServiceStore::getInstance()
+                                    .subscriptionsConfigMap;
+                            configMap.emplace(newSub->id, *newSub);
                         }
                     }
                     else
@@ -252,33 +256,33 @@ class ConfigFile
         for (const auto& it :
              EventServiceStore::getInstance().subscriptionsConfigMap)
         {
-            std::shared_ptr<UserSubscription> subValue = it.second;
-            if (subValue->subscriptionType == "SSE")
+            const UserSubscription& subValue = it.second;
+            if (subValue.subscriptionType == "SSE")
             {
                 BMCWEB_LOG_DEBUG("The subscription type is SSE, so skipping.");
                 continue;
             }
             nlohmann::json::object_t headers;
             for (const boost::beast::http::fields::value_type& header :
-                 subValue->httpHeaders)
+                 subValue.httpHeaders)
             {
                 std::string name(header.name_string());
                 headers[std::move(name)] = header.value();
             }
 
             subscriptions.push_back({
-                {"Id", subValue->id},
-                {"Context", subValue->customText},
-                {"DeliveryRetryPolicy", subValue->retryPolicy},
-                {"Destination", subValue->destinationUrl},
-                {"EventFormatType", subValue->eventFormatType},
+                {"Id", subValue.id},
+                {"Context", subValue.customText},
+                {"DeliveryRetryPolicy", subValue.retryPolicy},
+                {"Destination", subValue.destinationUrl},
+                {"EventFormatType", subValue.eventFormatType},
                 {"HttpHeaders", std::move(headers)},
-                {"MessageIds", subValue->registryMsgIds},
-                {"Protocol", subValue->protocol},
-                {"RegistryPrefixes", subValue->registryPrefixes},
-                {"ResourceTypes", subValue->resourceTypes},
-                {"SubscriptionType", subValue->subscriptionType},
-                {"MetricReportDefinitions", subValue->metricReportDefinitions},
+                {"MessageIds", subValue.registryMsgIds},
+                {"Protocol", subValue.protocol},
+                {"RegistryPrefixes", subValue.registryPrefixes},
+                {"ResourceTypes", subValue.resourceTypes},
+                {"SubscriptionType", subValue.subscriptionType},
+                {"MetricReportDefinitions", subValue.metricReportDefinitions},
             });
         }
         persistentFile << data;
@@ -286,15 +290,43 @@ class ConfigFile
 
     void writeData()
     {
-        std::ofstream persistentFile(filename);
+        std::filesystem::path path(filename);
+        path = path.parent_path();
+        if (!path.empty())
+        {
+            std::error_code ecDir;
+            std::filesystem::create_directories(path, ecDir);
+            if (ecDir)
+            {
+                BMCWEB_LOG_CRITICAL("Can't create persistent folders {}",
+                                    ecDir.message());
+                return;
+            }
+        }
+        boost::beast::file_posix persistentFile;
+        boost::system::error_code ec;
+        persistentFile.open(filename, boost::beast::file_mode::write, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL("Unable to store persistent data to file {}",
+                                ec.message());
+            return;
+        }
 
         // set the permission of the file to 640
         std::filesystem::perms permission =
             std::filesystem::perms::owner_read |
             std::filesystem::perms::owner_write |
             std::filesystem::perms::group_read;
-        std::filesystem::permissions(filename, permission);
-        const auto& c = SessionStore::getInstance().getAuthMethodsConfig();
+        std::filesystem::permissions(filename, permission, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_CRITICAL("Failed to set filesystem permissions {}",
+                                ec.message());
+            return;
+        }
+        const AuthConfigMethods& c =
+            SessionStore::getInstance().getAuthMethodsConfig();
         const auto& eventServiceConfig =
             EventServiceStore::getInstance().getEventServiceConfig();
         nlohmann::json::object_t data;
@@ -344,7 +376,7 @@ class ConfigFile
         for (const auto& it :
              EventServiceStore::getInstance().subscriptionsConfigMap)
         {
-            const UserSubscription& subValue = *it.second;
+            const UserSubscription& subValue = it.second;
             if (subValue.subscriptionType == "SSE")
             {
                 BMCWEB_LOG_DEBUG("The subscription type is SSE, so skipping.");
@@ -373,6 +405,7 @@ class ConfigFile
             subscription["MessageIds"] = subValue.registryMsgIds;
             subscription["Protocol"] = subValue.protocol;
             subscription["RegistryPrefixes"] = subValue.registryPrefixes;
+            subscription["OriginResources"] = subValue.originResources;
             subscription["ResourceTypes"] = subValue.resourceTypes;
             subscription["SubscriptionType"] = subValue.subscriptionType;
             subscription["MetricReportDefinitions"] =
@@ -381,7 +414,13 @@ class ConfigFile
 
             subscriptions.emplace_back(std::move(subscription));
         }
-        persistentFile << data;
+        std::string out = nlohmann::json(data).dump(
+            -1, ' ', true, nlohmann::json::error_handler_t::replace);
+        persistentFile.write(out.data(), out.size(), ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to write file {}", ec.message());
+        }
     }
 
     std::string systemUuid;

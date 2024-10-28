@@ -261,17 +261,19 @@ inline bool base64Decode(std::string_view input, std::string& output)
 
         base64code0 = getCodeValue(input[i]);
         if (base64code0 == nop)
-        { // non base64 character
+        {
+            // non base64 character
             return false;
         }
         if (!(++i < inputLength))
-        { // we need at least two input bytes for first
-          // byte output
+        {
+            // we need at least two input bytes for first byte output
             return false;
         }
         base64code1 = getCodeValue(input[i]);
         if (base64code1 == nop)
-        { // non base64 character
+        {
+            // non base64 character
             return false;
         }
         output +=
@@ -281,12 +283,14 @@ inline bool base64Decode(std::string_view input, std::string& output)
         {
             char c = input[i];
             if (c == '=')
-            { // padding , end of input
+            {
+                // padding , end of input
                 return (base64code1 & 0x0f) == 0;
             }
             base64code2 = getCodeValue(input[i]);
             if (base64code2 == nop)
-            { // non base64 character
+            {
+                // non base64 character
                 return false;
             }
             output += static_cast<char>(((base64code1 << 4) & 0xf0) |
@@ -297,12 +301,14 @@ inline bool base64Decode(std::string_view input, std::string& output)
         {
             char c = input[i];
             if (c == '=')
-            { // padding , end of input
+            {
+                // padding , end of input
                 return (base64code2 & 0x03) == 0;
             }
             char base64code3 = getCodeValue(input[i]);
             if (base64code3 == nop)
-            { // non base64 character
+            {
+                // non base64 character
                 return false;
             }
             output +=
