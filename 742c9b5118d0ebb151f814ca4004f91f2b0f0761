@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2157009c_545a84be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-28T14:45:43Z",
+      "side": 1,
+      "message": "Just use ```diff``` tool. It\u0027s the same code.",
+      "parentUuid": "b55da12a_60ae7552",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e5587dc0_2148c68d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
@@ -58,6 +82,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cea808e_b098ad60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-28T14:45:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "85f07c8c_f7d15616",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7552ff76_ca07e534",
@@ -71,6 +113,24 @@
       "writtenOn": "2024-10-11T16:26:41Z",
       "side": 1,
       "message": "Similar to `event-log.hpp`, can this be `redfish-core/include/event-service/event_log_objects_type.hpp`?",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a99ea695_747cd650",
+        "filename": "redfish-core/include/event-service/event-log-objects-type.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-28T14:45:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7552ff76_ca07e534",
       "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -110,6 +170,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36614ebd_c2755db4",
+        "filename": "redfish-core/include/event-service/event-log.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-28T14:45:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "77d23689_2b811df6",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e34abfda_c034f476",
@@ -123,6 +201,24 @@
       "writtenOn": "2024-10-11T16:56:49Z",
       "side": 1,
       "message": "Can we just remove the \"event-service\" folder for now?  It\u0027s not clear to me what it would represent, and certainly the rest of the files in this folder don\u0027t follow that pattern now.  For this patch, lets keep the folder structure flat, and if we want to make a deeper folder structure, lets do it in a different patch.",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e21cd4b_7e56d0b6",
+        "filename": "redfish-core/include/event-service/event-log.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-28T14:45:43Z",
+      "side": 1,
+      "message": "i can remove it if you prefer the flat layout.",
+      "parentUuid": "e34abfda_c034f476",
       "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -144,6 +240,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e824486e_b6874cf4",
+        "filename": "redfish-core/include/event-service/event-log.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-28T14:45:43Z",
+      "side": 1,
+      "message": "I\u0027m going with a different refactoring for the next revision.\nSo this may no longer apply. Feel free to review again.",
+      "parentUuid": "a4e546cb_a3e321ba",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffdaa763_aa09b38b",
@@ -157,6 +271,24 @@
       "writtenOn": "2024-10-11T16:26:41Z",
       "side": 1,
       "message": "#include \u003cstring_view\u003e",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4293432_cf405d5b",
+        "filename": "redfish-core/include/event-service/registries.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-10-28T14:45:43Z",
+      "side": 1,
+      "message": "I\u0027m going with a different refactoring for the next revision.\nSo this may no longer apply. Feel free to review again.",
+      "parentUuid": "ffdaa763_aa09b38b",
       "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
