@@ -16,6 +16,24 @@
       "message": "Just simplify the code here?",
       "revId": "56b63a12a6961eb067cdded86b5344796cda43fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c1cc879_a1cab46d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-28T12:19:46Z",
+      "side": 1,
+      "message": "Yes, it is only for simplification.",
+      "parentUuid": "a4b1b338_bd4c7491",
+      "revId": "56b63a12a6961eb067cdded86b5344796cda43fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
