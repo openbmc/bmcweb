@@ -1662,8 +1662,7 @@ inline void
 
     nlohmann::json& json = asyncResp->res.jsonValue;
     json["@odata.id"] = "/redfish/v1/AccountService";
-    json["@odata.type"] = "#AccountService."
-                          "v1_10_0.AccountService";
+    json["@odata.type"] = "#AccountService.v1_15_0.AccountService";
     json["Id"] = "AccountService";
     json["Name"] = "Account Service";
     json["Description"] = "Account Service";
@@ -2351,49 +2350,48 @@ inline void
                         }
                     }
                 }
-                if (interface.first ==
-                    "xyz.openbmc_project.User.TOTPAuthenticator")
+            }
+            if (interface.first == "xyz.openbmc_project.User.TOTPAuthenticator")
+            {
+                for (const auto& property : interface.second)
                 {
-                    for (const auto& property : interface.second)
+                    if (property.first == "BypassedProtocol")
                     {
-                        if (property.first == "BypassedProtocol")
-                        {
-                            const std::string* bypassedProtocol =
-                                std::get_if<std::string>(&property.second);
+                        const std::string* bypassedProtocol =
+                            std::get_if<std::string>(&property.second);
 
-                            if (bypassedProtocol == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR(
-                                    "BypassedProtocol Value fetch faile");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            nlohmann::json& mfaBypassArray =
-                                asyncResp->res
-                                    .jsonValue["MFABypass"]["BypassTypes"];
-                            mfaBypassArray = nlohmann::json::array();
-
-                            constexpr std::string_view mfaGoogleAuthDbusVal =
-                                "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
-                            if (*bypassedProtocol == mfaGoogleAuthDbusVal)
-                            {
-                                mfaBypassArray.push_back("GoogleAuthenticator");
-                            }
-                        }
-                        if (property.first == "SecretKeyIsValid")
+                        if (bypassedProtocol == nullptr)
                         {
-                            const bool* secretKeySet =
-                                std::get_if<bool>(&property.second);
-                            if (secretKeySet == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR(
-                                    "SecretKeyIsValid value fetch failed");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            asyncResp->res.jsonValue["SecretKeySet"] =
-                                *secretKeySet;
+                            BMCWEB_LOG_ERROR(
+                                "BypassedProtocol Value fetch faile");
+                            messages::internalError(asyncResp->res);
+                            return;
                         }
+                        nlohmann::json& mfaBypassArray =
+                            asyncResp->res
+                                .jsonValue["MFABypass"]["BypassTypes"];
+                        mfaBypassArray = nlohmann::json::array();
+
+                        constexpr std::string_view mfaGoogleAuthDbusVal =
+                            "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+                        if (*bypassedProtocol == mfaGoogleAuthDbusVal)
+                        {
+                            mfaBypassArray.push_back("GoogleAuthenticator");
+                        }
+                    }
+                    if (property.first == "SecretKeyIsValid")
+                    {
+                        const bool* secretKeySet =
+                            std::get_if<bool>(&property.second);
+                        if (secretKeySet == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR(
+                                "SecretKeyIsValid value fetch failed");
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        asyncResp->res.jsonValue["SecretKeySet"] =
+                            *secretKeySet;
                     }
                 }
             }
