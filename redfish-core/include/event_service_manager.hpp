@@ -15,6 +15,7 @@ limitations under the License.
 */
 #pragma once
 #include "dbus_log_watcher.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_log.hpp"
@@ -31,6 +32,7 @@ limitations under the License.
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
@@ -144,6 +146,12 @@ class EventServiceManager
 
             // Update retry configuration.
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
+
+            // schedule a heartbeat if sendHeartbeat was set to true
+            if (subValue->userSub->sendHeartbeat)
+            {
+                subValue->scheduleNextHeartbeatEvent();
+            }
         }
     }
 
@@ -615,8 +623,11 @@ class EventServiceManager
         }
     }
 
-    void sendEvent(nlohmann::json::object_t eventMessage,
-                   std::string_view origin, std::string_view resourceType)
+    void sendEventToSubscriptionsMap(
+        nlohmann::json::object_t eventMessage, std::string_view origin,
+        std::string_view resourceType,
+        const boost::container::flat_map<
+            std::string, std::shared_ptr<Subscription>>& subsMap)
     {
         eventMessage["EventId"] = eventId;
 
@@ -629,9 +640,9 @@ class EventServiceManager
 
         messages.push_back(Event(std::to_string(eventId), eventMessage));
 
-        for (auto& it : subscriptionsMap)
+        for (const auto& it : subsMap)
         {
-            std::shared_ptr<Subscription>& entry = it.second;
+            const std::shared_ptr<Subscription>& entry = it.second;
             if (!eventMatchesFilter(*entry->userSub, eventMessage,
                                     resourceType))
             {
@@ -654,6 +665,13 @@ class EventServiceManager
             entry->sendEventToSubscriber(std::move(strMsg));
             eventId++; // increment the eventId
         }
+    }
+
+    void sendEvent(nlohmann::json::object_t eventMessage,
+                   std::string_view origin, std::string_view resourceType)
+    {
+        sendEventToSubscriptionsMap(std::move(eventMessage), origin,
+                                    resourceType, subscriptionsMap);
     }
 };
 
