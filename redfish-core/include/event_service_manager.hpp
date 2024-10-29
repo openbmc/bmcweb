@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 #pragma once
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_matches_filter.hpp"
@@ -21,6 +22,7 @@ limitations under the License.
 #include "filter_expr_executor.hpp"
 #include "generated/enums/event.hpp"
 #include "generated/enums/log_entry.hpp"
+#include "heartbeat_messages.hpp"
 #include "http_client.hpp"
 #include "metric_report.hpp"
 #include "ossl_random.hpp"
@@ -35,6 +37,7 @@ limitations under the License.
 #include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
@@ -265,7 +268,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
                  const boost::urls::url_view_base& url,
                  boost::asio::io_context& ioc) :
         userSub{std::move(userSubIn)},
-        policy(std::make_shared<crow::ConnectionPolicy>())
+        policy(std::make_shared<crow::ConnectionPolicy>()), hbTimer(ioc)
     {
         userSub->destinationUrl = url;
         client.emplace(ioc, policy);
@@ -275,7 +278,8 @@ class Subscription : public std::enable_shared_from_this<Subscription>
 
     explicit Subscription(crow::sse_socket::Connection& connIn) :
         userSub{std::make_shared<persistent_data::UserSubscription>()},
-        sseConn(&connIn)
+        sseConn(&connIn),
+        hbTimer(crow::connections::systemBus->get_io_context())
     {}
 
     ~Subscription() = default;
@@ -300,6 +304,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
         }
         if (client->isTerminated())
         {
+            hbTimer.cancel();
             if (deleter)
             {
                 BMCWEB_LOG_INFO(
@@ -308,6 +313,62 @@ class Subscription : public std::enable_shared_from_this<Subscription>
                 deleter();
             }
         }
+    }
+
+    void scheduleNextHeartbeatIfNeeded()
+    {
+        hbTimer.cancel();
+
+        if (userSub->sendHeartbeat && //
+            userSub->hbIntervalMinutes > 0 && //
+            userSub->subscriptionType != subscriptionTypeSSE //
+        )
+        {
+            hbTimer.expires_after(
+                std::chrono::minutes(userSub->hbIntervalMinutes));
+            hbTimer.async_wait(std::bind_front(&Subscription::onHbTimeout, this,
+                                               weak_from_this()));
+        }
+    }
+
+    void onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
+                     const boost::system::error_code& ec)
+    {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            BMCWEB_LOG_DEBUG(
+                "async_wait failed since the operation is aborted");
+            return;
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("async_wait failed: {}", ec.message());
+            // If the timer fails, we need to close the socket anyway, same
+            // as if it expired.
+        }
+
+        std::shared_ptr<Subscription> self = weakSelf.lock();
+        if (!self)
+        {
+            BMCWEB_LOG_CRITICAL("onHbTimeout failed on Subscription");
+            return;
+        }
+
+        // Timer expired.
+        if (userSub->sendHeartbeat && //
+            userSub->hbIntervalMinutes > 0 && //
+            userSub->subscriptionType != subscriptionTypeSSE)
+        {
+            // send the heartbeat message
+            nlohmann::json msg = messages::redfishServiceFunctional();
+            std::string strMsg = msg.dump(
+                2, ' ', true, nlohmann::json::error_handler_t::replace);
+
+            sendEventToSubscriber(std::move(strMsg));
+        }
+
+        // reschedule heartbeat timer
+        scheduleNextHeartbeatIfNeeded();
     }
 
     bool sendEventToSubscriber(std::string&& msg)
@@ -512,6 +573,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
 
   public:
     std::optional<filter_ast::LogicalAnd> filter;
+    boost::asio::steady_timer hbTimer;
 };
 
 class EventServiceManager
@@ -606,6 +668,9 @@ class EventServiceManager
 
             // Update retry configuration.
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
+
+            // schedule a heartbeat
+            subValue->scheduleNextHeartbeatIfNeeded();
         }
     }
 
@@ -925,6 +990,11 @@ class EventServiceManager
         {
             BMCWEB_LOG_WARNING("Could not find subscription with id {}", id);
             return false;
+        }
+        // cancel heartbeat
+        if (obj->second != nullptr)
+        {
+            obj->second->hbTimer.cancel();
         }
         subscriptionsMap.erase(obj);
         auto& event = persistent_data::EventServiceStore::getInstance();

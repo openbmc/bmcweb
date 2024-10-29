@@ -705,6 +705,9 @@ inline void requestRoutesEventDestinationCollection(App& app)
             messages::created(asyncResp->res);
             asyncResp->res.addHeader(
                 "Location", "/redfish/v1/EventService/Subscriptions/" + id);
+
+            // schedule a heartbeat
+            subValue->scheduleNextHeartbeatIfNeeded();
         });
 }
 
@@ -878,6 +881,9 @@ inline void requestRoutesEventDestination(App& app)
                 }
 
                 EventServiceManager::getInstance().updateSubscriptionData();
+
+                // Schedule heartbeat if needed
+                subValue->scheduleNextHeartbeatIfNeeded();
             });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         // The below privilege is wrong, it should be ConfigureManager OR
