@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 #pragma once
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_matches_filter.hpp"
@@ -21,6 +22,7 @@ limitations under the License.
 #include "filter_expr_executor.hpp"
 #include "generated/enums/event.hpp"
 #include "generated/enums/log_entry.hpp"
+#include "heartbeat_messages.hpp"
 #include "http_client.hpp"
 #include "metric_report.hpp"
 #include "ossl_random.hpp"
@@ -35,6 +37,7 @@ limitations under the License.
 #include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
@@ -265,7 +268,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
                  const boost::urls::url_view_base& url,
                  boost::asio::io_context& ioc) :
         userSub{std::move(userSubIn)},
-        policy(std::make_shared<crow::ConnectionPolicy>())
+        policy(std::make_shared<crow::ConnectionPolicy>()), hbTimer(ioc)
     {
         userSub->destinationUrl = url;
         client.emplace(ioc, policy);
@@ -275,7 +278,8 @@ class Subscription : public std::enable_shared_from_this<Subscription>
 
     explicit Subscription(crow::sse_socket::Connection& connIn) :
         userSub{std::make_shared<persistent_data::UserSubscription>()},
-        sseConn(&connIn)
+        sseConn(&connIn),
+        hbTimer(crow::connections::systemBus->get_io_context())
     {}
 
     ~Subscription() = default;
@@ -300,6 +304,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
         }
         if (client->isTerminated())
         {
+            hbTimer.cancel();
             if (deleter)
             {
                 BMCWEB_LOG_INFO(
@@ -307,6 +312,53 @@ class Subscription : public std::enable_shared_from_this<Subscription>
                     userSub->id);
                 deleter();
             }
+        }
+    }
+
+    // forward declaration
+    static inline void
+        sendHeartbeatEvent(const std::shared_ptr<Subscription>& self);
+
+    void scheduleNextHeartbeatEvent()
+    {
+        hbTimer.expires_after(std::chrono::minutes(userSub->hbIntervalMinutes));
+        hbTimer.async_wait(std::bind_front(&Subscription::onHbTimeout, this,
+                                           weak_from_this()));
+    }
+
+    void onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
+                     const boost::system::error_code& ec)
+    {
+        if (ec == boost::asio::error::operation_aborted)
+        {
+            BMCWEB_LOG_DEBUG("heartbeat timer async_wait is aborted");
+            return;
+        }
+        if (ec == boost::system::errc::operation_canceled)
+        {
+            BMCWEB_LOG_DEBUG("heartbeat timer async_wait canceled");
+            return;
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("heartbeat timer async_wait failed: {}", ec);
+            // If the timer fails, it is treated as timer expires
+        }
+
+        std::shared_ptr<Subscription> self = weakSelf.lock();
+        if (!self)
+        {
+            BMCWEB_LOG_CRITICAL("onHbTimeout failed on Subscription");
+            return;
+        }
+
+        // Timer expired.
+        if (userSub->sendHeartbeat)
+        {
+            sendHeartbeatEvent(self);
+
+            // reschedule heartbeat timer
+            scheduleNextHeartbeatEvent();
         }
     }
 
@@ -512,6 +564,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
 
   public:
     std::optional<filter_ast::LogicalAnd> filter;
+    boost::asio::steady_timer hbTimer;
 };
 
 class EventServiceManager
@@ -606,6 +659,12 @@ class EventServiceManager
 
             // Update retry configuration.
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
+
+            // schedule a heartbeat
+            if (subValue->userSub->sendHeartbeat)
+            {
+                subValue->scheduleNextHeartbeatEvent();
+            }
         }
     }
 
@@ -926,6 +985,11 @@ class EventServiceManager
             BMCWEB_LOG_WARNING("Could not find subscription with id {}", id);
             return false;
         }
+        // cancel heartbeat
+        if (obj->second != nullptr)
+        {
+            obj->second->hbTimer.cancel();
+        }
         subscriptionsMap.erase(obj);
         auto& event = persistent_data::EventServiceStore::getInstance();
         auto persistentObj = event.subscriptionsConfigMap.find(id);
@@ -999,8 +1063,11 @@ class EventServiceManager
         return true;
     }
 
-    void sendEvent(nlohmann::json::object_t eventMessage,
-                   std::string_view origin, std::string_view resourceType)
+    void sendEventToSubscriptionsMap(
+        nlohmann::json::object_t eventMessage, std::string_view origin,
+        std::string_view resourceType,
+        const boost::container::flat_map<
+            std::string, std::shared_ptr<Subscription>>& subsMap)
     {
         eventMessage["EventId"] = eventId;
 
@@ -1013,9 +1080,9 @@ class EventServiceManager
 
         messages.push_back(Event(std::to_string(eventId), eventMessage));
 
-        for (auto& it : subscriptionsMap)
+        for (const auto& it : subsMap)
         {
-            std::shared_ptr<Subscription>& entry = it.second;
+            const std::shared_ptr<Subscription>& entry = it.second;
             if (!eventMatchesFilter(*entry->userSub, eventMessage,
                                     resourceType))
             {
@@ -1038,6 +1105,13 @@ class EventServiceManager
             entry->sendEventToSubscriber(std::move(strMsg));
             eventId++; // increment the eventId
         }
+    }
+
+    void sendEvent(nlohmann::json::object_t eventMessage,
+                   std::string_view origin, std::string_view resourceType)
+    {
+        sendEventToSubscriptionsMap(eventMessage, origin, resourceType,
+                                    subscriptionsMap);
     }
 
     void resetRedfishFilePosition()
@@ -1370,5 +1444,20 @@ class EventServiceManager
             *crow::connections::systemBus, matchStr, getReadingsForReport);
     }
 };
+
+// sendHeartbeatEvent() which needs to uses EventServiceManager
+inline void
+    Subscription::sendHeartbeatEvent(const std::shared_ptr<Subscription>& self)
+{
+    // send the heartbeat message
+    nlohmann::json event = messages::redfishServiceFunctional();
+
+    boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
+        selfSubsMap{std::pair(self->userSub->id, self)};
+
+    std::string_view origin{};
+    EventServiceManager::getInstance().sendEventToSubscriptionsMap(
+        event, origin, "", selfSubsMap);
+}
 
 } // namespace redfish
