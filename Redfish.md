@@ -223,19 +223,29 @@ Fields common to all schemas
 #### Chassis
 
 - Actions
+- AssetTag
 - ChassisType
+- Drives
 - HotPluggable
 - Links/ComputerSystems
 - Links/ManagedBy
+- Location/PartLocation/ServiceLabel
+- LocationIndicatorActive
+- Manufacturer
+- Model
+- PartNumber
 - Power
-  - Shall be included if component contains voltage/current sensing components,
-    otherwise will be omitted.
+- PowerSubsystem
 - PowerState
+- PhysicalSecurity
 - Sensors
+- SerialNumber
+- SparePartNumber
 - Status
 - Thermal
-  - Shall be included if component contains temperature sensors, otherwise shall
-    be omitted.
+- ThermalSubsystem
+- UUID
+- Version
 
 ### /redfish/v1/Chassis/{ChassisId}/Drive/
 
