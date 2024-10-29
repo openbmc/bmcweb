@@ -15,12 +15,14 @@ limitations under the License.
 */
 #include "subscription.hpp"
 
+#include "dbus_singleton.hpp"
 #include "event_log.hpp"
 #include "event_logs_object_type.hpp"
 #include "event_matches_filter.hpp"
 #include "event_service_store.hpp"
 #include "filter_expr_executor.hpp"
 #include "generated/enums/log_entry.hpp"
+#include "heartbeat_messages.hpp"
 #include "http_client.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -29,7 +31,9 @@ limitations under the License.
 #include "ssl_key_handler.hpp"
 #include "utils/time_utils.hpp"
 
+#include <boost/asio/error.hpp>
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/errc.hpp>
 #include <boost/url/format.hpp>
@@ -37,6 +41,7 @@ limitations under the License.
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
+#include <chrono>
 #include <cstdint>
 #include <cstdlib>
 #include <ctime>
@@ -56,7 +61,7 @@ Subscription::Subscription(
     std::shared_ptr<persistent_data::UserSubscription> userSubIn,
     const boost::urls::url_view_base& url, boost::asio::io_context& ioc) :
     userSub{std::move(userSubIn)},
-    policy(std::make_shared<crow::ConnectionPolicy>())
+    policy(std::make_shared<crow::ConnectionPolicy>()), hbTimer(ioc)
 {
     userSub->destinationUrl = url;
     client.emplace(ioc, policy);
@@ -66,7 +71,7 @@ Subscription::Subscription(
 
 Subscription::Subscription(crow::sse_socket::Connection& connIn) :
     userSub{std::make_shared<persistent_data::UserSubscription>()},
-    sseConn(&connIn)
+    sseConn(&connIn), hbTimer(crow::connections::systemBus->get_io_context())
 {}
 
 // callback for subscription sendData
@@ -88,6 +93,7 @@ void Subscription::resHandler(const std::shared_ptr<Subscription>& /*unused*/,
     }
     if (client->isTerminated())
     {
+        hbTimer.cancel();
         if (deleter)
         {
             BMCWEB_LOG_INFO("Subscription {} is deleted after MaxRetryAttempts",
@@ -95,6 +101,83 @@ void Subscription::resHandler(const std::shared_ptr<Subscription>& /*unused*/,
             deleter();
         }
     }
+}
+
+void Subscription::sendHeartbeatEvent()
+{
+    // send the heartbeat message
+    nlohmann::json eventMessage = messages::redfishServiceFunctional();
+
+    std::string heartEventId = std::to_string(eventSeqNum);
+    eventMessage["EventId"] = heartEventId;
+    eventMessage["EventTimestamp"] = time_utils::getDateTimeOffsetNow().first;
+    eventMessage["OriginOfCondition"] =
+        std::format("/redfish/v1/EventService/Subscriptions/{}", userSub->id);
+    eventMessage["MemberId"] = "0";
+
+    nlohmann::json::array_t eventRecord;
+    eventRecord.emplace_back(std::move(eventMessage));
+
+    nlohmann::json msgJson;
+    msgJson["@odata.type"] = "#Event.v1_4_0.Event";
+    msgJson["Name"] = "Heartbeat";
+    msgJson["Id"] = heartEventId;
+    msgJson["Events"] = std::move(eventRecord);
+
+    std::string strMsg =
+        msgJson.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+    sendEventToSubscriber(std::move(strMsg));
+    eventSeqNum++;
+}
+
+void Subscription::scheduleNextHeartbeatEvent()
+{
+    hbTimer.expires_after(std::chrono::minutes(userSub->hbIntervalMinutes));
+    hbTimer.async_wait(
+        std::bind_front(&Subscription::onHbTimeout, this, weak_from_this()));
+}
+
+void Subscription::heartbeatParametersChanged()
+{
+    hbTimer.cancel();
+
+    if (userSub->sendHeartbeat)
+    {
+        scheduleNextHeartbeatEvent();
+    }
+}
+
+void Subscription::onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
+                               const boost::system::error_code& ec)
+{
+    if (ec == boost::asio::error::operation_aborted)
+    {
+        BMCWEB_LOG_DEBUG("heartbeat timer async_wait is aborted");
+        return;
+    }
+    if (ec == boost::system::errc::operation_canceled)
+    {
+        BMCWEB_LOG_DEBUG("heartbeat timer async_wait canceled");
+        return;
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_CRITICAL("heartbeat timer async_wait failed: {}", ec);
+        return;
+    }
+
+    std::shared_ptr<Subscription> self = weakSelf.lock();
+    if (!self)
+    {
+        BMCWEB_LOG_CRITICAL("onHbTimeout failed on Subscription");
+        return;
+    }
+
+    // Timer expired.
+    sendHeartbeatEvent();
+
+    // reschedule heartbeat timer
+    scheduleNextHeartbeatEvent();
 }
 
 bool Subscription::sendEventToSubscriber(std::string&& msg)
