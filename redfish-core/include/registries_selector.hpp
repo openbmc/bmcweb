@@ -1,5 +1,6 @@
 #pragma once
 #include "registries/base_message_registry.hpp"
+#include "registries/heartbeat_event_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
 
@@ -18,6 +19,10 @@ inline std::span<const MessageEntry>
     if (openbmc::header.registryPrefix == registryName)
     {
         return {openbmc::registry};
+    }
+    if (heartbeat_event::header.registryPrefix == registryName)
+    {
+        return {heartbeat_event::registry};
     }
     if (base::header.registryPrefix == registryName)
     {
