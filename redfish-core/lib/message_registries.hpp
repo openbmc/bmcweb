@@ -19,6 +19,7 @@ limitations under the License.
 #include "query.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
+#include "registries/heartbeat_event_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/privilege_registry.hpp"
 #include "registries/resource_event_message_registry.hpp"
@@ -52,8 +53,9 @@ inline void handleMessageRegistryFileCollectionGet(
     asyncResp->res.jsonValue["Members@odata.count"] = 5;
 
     nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-    for (const char* memberName : std::to_array(
-             {"Base", "TaskEvent", "ResourceEvent", "OpenBMC", "Telemetry"}))
+    for (const char* memberName :
+         std::to_array({"Base", "TaskEvent", "ResourceEvent", "OpenBMC",
+                        "Telemetry", "HeartbeatEvent"}))
     {
         nlohmann::json::object_t member;
         member["@odata.id"] =
@@ -110,6 +112,11 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     {
         header = &registries::telemetry::header;
         url = registries::telemetry::url;
+    }
+    else if (registry == "HeartbeatEvent")
+    {
+        header = &registries::heartbeat_event::header;
+        url = registries::heartbeat_event::url;
     }
     else
     {
@@ -205,6 +212,15 @@ inline void handleMessageRegistryGet(
         header = &registries::telemetry::header;
         for (const registries::MessageEntry& entry :
              registries::telemetry::registry)
+        {
+            registryEntries.emplace_back(&entry);
+        }
+    }
+    else if (registry == "HeartbeatEvent")
+    {
+        header = &registries::heartbeat_event::header;
+        for (const registries::MessageEntry& entry :
+             registries::heartbeat_event::registry)
         {
             registryEntries.emplace_back(&entry);
         }
