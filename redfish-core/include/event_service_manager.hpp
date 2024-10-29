@@ -15,6 +15,7 @@ limitations under the License.
 */
 #pragma once
 #include "dbus_log_watcher.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_log.hpp"
@@ -31,6 +32,7 @@ limitations under the License.
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
@@ -144,6 +146,12 @@ class EventServiceManager
 
             // Update retry configuration.
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
+
+            // schedule a heartbeat if sendHeartbeat was set to true
+            if (subValue->userSub->sendHeartbeat)
+            {
+                subValue->scheduleNextHeartbeatEvent();
+            }
         }
     }
 
