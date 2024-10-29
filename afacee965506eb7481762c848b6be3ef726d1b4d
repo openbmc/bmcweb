@@ -16,6 +16,24 @@
       "message": "is this patchset still needed?",
       "revId": "afacee965506eb7481762c848b6be3ef726d1b4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8261b51_18aee9ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-29T13:38:51Z",
+      "side": 1,
+      "message": "I think it is still better to use shared_ptr.\n- We can avoid the duplication of `UserSubscription` data  which are in both `subscriptionsMap` and `subscriptionsConfigMap`.\n- It also allows the removal of `updateUserSubscriptionConfig()` which basically copies userSubscription to `subscriptionConfigMap`.\n\nI\u0027ve pushed a new patchset",
+      "parentUuid": "4d892e70_ae0fdf0e",
+      "revId": "afacee965506eb7481762c848b6be3ef726d1b4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
