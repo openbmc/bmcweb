@@ -45,13 +45,13 @@ namespace redfish
 
 static constexpr const std::array<const char*, 2> supportedEvtFormatTypes = {
     eventFormatType, metricReportFormatType};
-static constexpr const std::array<const char*, 3> supportedRegPrefixes = {
-    "Base", "OpenBMC", "TaskEvent"};
+static constexpr const std::array<const char*, 4> supportedRegPrefixes = {
+    "Base", "OpenBMC", "TaskEvent", "HeartbeatEvent"};
 static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
     "TerminateAfterRetries", "SuspendRetries", "RetryForever"};
 
-static constexpr const std::array<const char*, 1> supportedResourceTypes = {
-    "Task"};
+static constexpr const std::array<const char*, 2> supportedResourceTypes = {
+    "Task", "Heartbeat"};
 
 inline void requestRoutesEventService(App& app)
 {
@@ -707,6 +707,12 @@ inline void requestRoutesEventDestinationCollection(App& app)
             messages::created(asyncResp->res);
             asyncResp->res.addHeader(
                 "Location", "/redfish/v1/EventService/Subscriptions/" + id);
+
+            // schedule a heartbeat
+            if (subValue->userSub->sendHeartbeat)
+            {
+                subValue->scheduleNextHeartbeatEvent();
+            }
         });
 }
 
@@ -880,6 +886,19 @@ inline void requestRoutesEventDestination(App& app)
                 }
 
                 EventServiceManager::getInstance().updateSubscriptionData();
+
+                // if Heartbeat interval or send heart were changed, cancel the
+                // heartbeat timer if running and start a new heartbeat if
+                // needed
+                if (hbIntervalMinutes || sendHeartbeat)
+                {
+                    subValue->hbTimer.cancel();
+
+                    if (subValue->userSub->sendHeartbeat)
+                    {
+                        subValue->scheduleNextHeartbeatEvent();
+                    }
+                }
             });
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/Subscriptions/<str>/")
         // The below privilege is wrong, it should be ConfigureManager OR
