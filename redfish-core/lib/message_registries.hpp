@@ -21,6 +21,7 @@
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/bios_registry.hpp"
+#include "registries/heartbeat_event_message_registry.hpp"
 #include "registries/license_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/privilege_registry.hpp"
@@ -52,19 +53,19 @@ inline void handleMessageRegistryFileCollectionGet(
     asyncResp->res.jsonValue["Name"] = "MessageRegistryFile Collection";
     asyncResp->res.jsonValue["Description"] =
         "Collection of MessageRegistryFiles";
-    asyncResp->res.jsonValue["Members@odata.count"] = 7;
 
     nlohmann::json& members = asyncResp->res.jsonValue["Members"];
 
-    for (const char* memberName :
-         std::to_array({"Base", "TaskEvent", "ResourceEvent", "OpenBMC",
-                        "Telemetry", "BiosAttributeRegistry", "License"}))
+    for (const char* memberName : std::to_array(
+             {"Base", "TaskEvent", "ResourceEvent", "OpenBMC", "Telemetry",
+              "BiosAttributeRegistry", "License", "HeartbeatEvent"}))
     {
         nlohmann::json::object_t member;
         member["@odata.id"] =
             boost::urls::format("/redfish/v1/Registries/{}", memberName);
         members.emplace_back(std::move(member));
     }
+    asyncResp->res.jsonValue["Members@odata.count"] = members.size();
 }
 
 inline void requestRoutesMessageRegistryFileCollection(App& app)
@@ -125,6 +126,11 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     {
         header = &registries::license::header;
         url = registries::license::url;
+    }
+    else if (registry == "HeartbeatEvent")
+    {
+        header = &registries::heartbeat_event::header;
+        url = registries::heartbeat_event::url;
     }
     else
     {
@@ -237,6 +243,15 @@ inline void handleMessageRegistryGet(
         header = &registries::license::header;
         for (const registries::MessageEntry& entry :
              registries::license::registry)
+        {
+            registryEntries.emplace_back(&entry);
+        }
+    }
+    else if (registry == "HeartbeatEvent")
+    {
+        header = &registries::heartbeat_event::header;
+        for (const registries::MessageEntry& entry :
+             registries::heartbeat_event::registry)
         {
             registryEntries.emplace_back(&entry);
         }
