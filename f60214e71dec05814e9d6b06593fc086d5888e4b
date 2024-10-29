@@ -256,6 +256,24 @@
       "message": "I would be better to add a ERROR entry here to show `ec`.",
       "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39608e84_09fc2bbc",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-29T17:24:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7160d885_a09fe971",
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
