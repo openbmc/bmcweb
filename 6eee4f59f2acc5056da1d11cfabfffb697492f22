@@ -57,6 +57,30 @@
       },
       "revId": "6eee4f59f2acc5056da1d11cfabfffb697492f22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27279c34_bddd0d2c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 2523,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-29T05:39:10Z",
+      "side": 1,
+      "message": "Done.\n\nHave removed the return statement here. But we might need success message, otherwise we might just have no redfish response for this action on success.",
+      "parentUuid": "da501204_b80a9037",
+      "range": {
+        "startLine": 2522,
+        "startChar": 0,
+        "endLine": 2523,
+        "endChar": 19
+      },
+      "revId": "6eee4f59f2acc5056da1d11cfabfffb697492f22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
