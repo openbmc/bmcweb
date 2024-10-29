@@ -54,6 +54,11 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     void resHandler(const std::shared_ptr<Subscription>& /*unused*/,
                     const crow::Response& res);
 
+    void sendHeartbeatEvent();
+    void scheduleNextHeartbeatEvent();
+    void onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
+                     const boost::system::error_code& ec);
+
     bool sendEventToSubscriber(std::string&& msg);
 
     bool sendTestEventLog();
@@ -88,6 +93,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
 
   public:
     std::optional<filter_ast::LogicalAnd> filter;
+    boost::asio::steady_timer hbTimer;
 };
 
 } // namespace redfish
