@@ -22,6 +22,30 @@
       },
       "revId": "04634338ae6e2278a8349950fc0cb6e676f52da4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b07ada85_76dea231",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1919,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-10-29T06:51:21Z",
+      "side": 1,
+      "message": "The path is fine. RedundancyPriority Interface resides at the same path.",
+      "parentUuid": "4044dd3b_1e99a7ad",
+      "range": {
+        "startLine": 1919,
+        "startChar": 0,
+        "endLine": 1919,
+        "endChar": 62
+      },
+      "revId": "04634338ae6e2278a8349950fc0cb6e676f52da4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
