@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aef8b554_3c6c0729",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-29T15:57:07Z",
+      "side": 1,
+      "message": "minor changes needed.  can’t approve until there’s a patchset that actually implements the correct behavior for heartbeat.  checking in a patch that only supports Get/post/patch doesn’t accomplish the goal.",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e481a9c3_e15883e1",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-29T15:57:07Z",
+      "side": 1,
+      "message": "why int16 here?  if we want to limit to a value, just limit the value, don’t set a non json type.",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97cc321_f37f22bb",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-29T15:57:07Z",
+      "side": 1,
+      "message": "remove conditional.  the properties should always be populated.",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40e82c0b_667c7938",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-29T15:57:07Z",
+      "side": 1,
+      "message": "return?",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0478ded8_6b367c96",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-29T15:57:07Z",
+      "side": 1,
+      "message": "return?",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "744586dd_94690c9f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-29T15:57:07Z",
+      "side": 1,
+      "message": "this is not a query parameter.",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e5eca8e_4f8ae729",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-29T15:57:07Z",
+      "side": 1,
+      "message": "to string isn’t correct here.  should load directly.",
+      "range": {
+        "startLine": 660,
+        "startChar": 56,
+        "endLine": 660,
+        "endChar": 73
+      },
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "224cc8d6_0f1deab8",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-10-29T15:57:07Z",
+      "side": 1,
+      "message": "remove.  properties should not be present or not present dependent on their value.  otherwise PATCH semantics are wrong:",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
