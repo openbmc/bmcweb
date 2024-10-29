@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b04fb423_768d330c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 2284,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-29T07:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d6b6a44_9f8d1281",
+      "revId": "0dbfc12741f799572263e1d384913985b9ce76a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fbc789f_d8399d29",
@@ -48,6 +66,30 @@
       "writtenOn": "2024-10-16T23:39:53Z",
       "side": 1,
       "message": "Remove this whole extra property get.  If this is a constraint you want to enforce, do it in phosphor-user-manager.",
+      "range": {
+        "startLine": 2532,
+        "startChar": 0,
+        "endLine": 2539,
+        "endChar": 13
+      },
+      "revId": "0dbfc12741f799572263e1d384913985b9ce76a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "935f087d_71f2df98",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 2539,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-29T07:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fbc789f_d8399d29",
       "range": {
         "startLine": 2532,
         "startChar": 0,

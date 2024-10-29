@@ -229,6 +229,24 @@
       "parentUuid": "49b6f20c_6057a1fd",
       "revId": "2ad39a7a91a5d5d594505deee68a03360a994058",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbc6b85e_47122d5d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-10-29T07:05:54Z",
+      "side": 1,
+      "message": "Acknowledged.\n\nI have removed one async call as per Ed\u0027s comment in line 2539",
+      "parentUuid": "7aeca60f_238a6a32",
+      "revId": "2ad39a7a91a5d5d594505deee68a03360a994058",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
