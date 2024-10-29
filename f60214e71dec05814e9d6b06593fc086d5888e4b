@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c230c5a8_a56fcb3d",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-29T16:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "650bccf8_c38823de",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 19
+      },
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9629837_0f90ffe8",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-28T17:29:59Z",
       "side": 1,
       "message": "nitpick: change if you want, everywhere else doesn\u0027t use auto here \n\nhttps://github.com/openbmc/bmcweb/blob/463a0e3e880340a119bf986bab039d1afbe1a432/redfish-core/lib/odata.hpp#L36\n\nhttps://github.com/openbmc/bmcweb/blob/463a0e3e880340a119bf986bab039d1afbe1a432/include/forward_unauthorized.hpp#L27\n\nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+boost%3A%3Aurls%3A%3Aformat\u0026type\u003dcode",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 13
+      },
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a3c2ef8_b39430af",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-29T16:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9629837_0f90ffe8",
       "range": {
         "startLine": 228,
         "startChar": 8,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26715796_45debaad",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-29T16:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e427643_fc44a98f",
+      "range": {
+        "startLine": 248,
+        "startChar": 4,
+        "endLine": 248,
+        "endChar": 17
+      },
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97fe41f4_a962d577",
@@ -104,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e8e7080_f002cccf",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-29T16:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97fe41f4_a962d577",
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8eeff4d7_52b7c4bb",
@@ -117,6 +207,30 @@
       "writtenOn": "2024-10-28T17:29:59Z",
       "side": 1,
       "message": "#include \u003cboost/system/error_code.hpp\u003e",
+      "range": {
+        "startLine": 254,
+        "startChar": 62,
+        "endLine": 254,
+        "endChar": 72
+      },
+      "revId": "f60214e71dec05814e9d6b06593fc086d5888e4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a081c60_cb352eea",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-10-29T16:36:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8eeff4d7_52b7c4bb",
       "range": {
         "startLine": 254,
         "startChar": 62,
