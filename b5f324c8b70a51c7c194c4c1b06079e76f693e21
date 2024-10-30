@@ -291,6 +291,24 @@
       "parentUuid": "33360184_9e5706df",
       "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b73d55f4_cb64e194",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-30T14:51:22Z",
+      "side": 1,
+      "message": "Right.\n`HeartbeatIntervalMinutes` is used when `SendHeartbeat` is true.\nIn this case, one way to force is to require `HeartbeatIntervalMinutes` on PATCH or POST if `SendHeartbeat` is true.  Or, use the previously set interval (or 10 minutes by default).\n\n--\n\nIf `SendHeartbeat` is false, `HeartbeatInervalMinutes` will still show. Would it be okay to show `HeartbeatInervalMinutes\u003d10 \u0026\u0026 SendHeartbeat\u003dfalse` by default?",
+      "parentUuid": "bbb898d9_5f0bf9d2",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
