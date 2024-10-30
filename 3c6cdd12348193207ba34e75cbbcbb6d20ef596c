@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c1f42f77_d99fa6c5",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 41
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-30T19:19:45Z",
+      "side": 1,
+      "message": "I\u0027m not clear if there is still something that needs to be addressed for this comment. Did the change from getAssociatedSubTreePaths() to getAssociatedSubTree() address this comment?",
+      "parentUuid": "a5b00494_01c3e365",
+      "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "062313e8_e062bd67",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 41

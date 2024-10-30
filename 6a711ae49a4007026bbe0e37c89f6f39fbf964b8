@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "02c56112_f34aeac2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 50
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-30T19:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63b384f6_d5e3e945",
+      "range": {
+        "startLine": 11,
+        "startChar": 26,
+        "endLine": 11,
+        "endChar": 53
+      },
+      "revId": "6a711ae49a4007026bbe0e37c89f6f39fbf964b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e2cbbc9d_e8b8e18c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 50
@@ -81,6 +105,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38ea2315_bb8dfca3",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-30T19:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9843446_26f8d2c2",
+      "range": {
+        "startLine": 379,
+        "startChar": 24,
+        "endLine": 382,
+        "endChar": 62
+      },
+      "revId": "6a711ae49a4007026bbe0e37c89f6f39fbf964b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e75fe9b_d037b8ca",
@@ -94,6 +142,30 @@
       "writtenOn": "2024-10-24T21:27:09Z",
       "side": 1,
       "message": "This needs the new clang formatting change (i.e. add the comments to the end of the lines)",
+      "range": {
+        "startLine": 530,
+        "startChar": 20,
+        "endLine": 532,
+        "endChar": 59
+      },
+      "revId": "6a711ae49a4007026bbe0e37c89f6f39fbf964b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58076751_3238007c",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-30T19:19:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e75fe9b_d037b8ca",
       "range": {
         "startLine": 530,
         "startChar": 20,
