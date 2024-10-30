@@ -273,6 +273,24 @@
       "parentUuid": "224cc8d6_0f1deab8",
       "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbb898d9_5f0bf9d2",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-30T14:41:53Z",
+      "side": 1,
+      "message": "So there are 2 properties here: \n\"HeartbeatIntervalMinutes\" \nand \n\"SendHeartbeat\" \nright? \n\nAnd \"SendHeartbeat\" has to be true for the Heartbeat to be sent? \nSo the discussion here is what should the default of HeartbeatIntervalMinutes be?\nMost clients, if they set SendHeartbeat, I assume, would also set HeartbeatIntervalMinutes.\nSomething like 65535 is fine but I think a reasonable best guess use case like 10 mins is also fine.",
+      "parentUuid": "33360184_9e5706df",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
