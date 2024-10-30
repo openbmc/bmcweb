@@ -309,6 +309,24 @@
       "parentUuid": "bbb898d9_5f0bf9d2",
       "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de1f0ac4_26c1b697",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-30T16:23:57Z",
+      "side": 1,
+      "message": "I think we want to show SendHeartbeat and HeartbeatInervalMinutes all the time in the GET since I think we want those properties to be able to be PATCHed at any time. \n\nRedfish explained for another discussion as, if you are plumber you want to be able to adjust the pipes (HeartbeatInervalMinutes in this case) without turning on the water (SendHeartbeat in this case). \n\nIf these properties aren\u0027t included in the POST to create the subscription they would have the default values (SendHeartbeat \u003d false and HeartbeatIntervalMinutes  \u003d xxx) \n\nI am okay with xxx being 65535 but also okay with xxx being something more realistic like 10.",
+      "parentUuid": "b73d55f4_cb64e194",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
