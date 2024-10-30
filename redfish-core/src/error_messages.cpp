@@ -1927,6 +1927,26 @@ void restrictedRole(crow::Response& res, const std::string& arg1)
     addMessageToErrorJson(res.jsonValue, restrictedRole(arg1));
 }
 
+nlohmann::json generateSecretKeyRequired(const boost::urls::url_view_base& arg1)
+{
+    return getLog(redfish::registries::base::Index::generateSecretKeyRequired,
+                  std::to_array<std::string_view>({arg1.buffer()}));
+}
+
+/**
+ * @internal
+ * @brief Formats GenerateSecretKeyRequired message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+void generateSecretKeyRequired(crow::Response& res,
+                               const boost::urls::url_view_base& arg1)
+{
+    messages::addMessageToJsonRoot(res.jsonValue,
+                                   generateSecretKeyRequired(arg1));
+}
+
 } // namespace messages
 
 } // namespace redfish
