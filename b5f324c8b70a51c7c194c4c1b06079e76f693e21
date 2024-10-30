@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "638a19cb_d8a5e64b",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-30T13:30:43Z",
+      "side": 1,
+      "message": "Changed to uint64_t",
+      "parentUuid": "e481a9c3_e15883e1",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d97cc321_f37f22bb",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-10-29T15:57:07Z",
       "side": 1,
       "message": "remove conditional.  the properties should always be populated.",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa0d65dd_987ae5a8",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-30T13:30:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d97cc321_f37f22bb",
       "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -69,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ade69c5_4abb4604",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-30T13:30:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40e82c0b_667c7938",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0478ded8_6b367c96",
@@ -86,6 +140,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f350f2fa_9dc7d82e",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-30T13:30:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0478ded8_6b367c96",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "744586dd_94690c9f",
@@ -99,6 +171,24 @@
       "writtenOn": "2024-10-29T15:57:07Z",
       "side": 1,
       "message": "this is not a query parameter.",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb959648_6062341f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-30T13:30:43Z",
+      "side": 1,
+      "message": "Right, it should be `propertyValueOutOfRange`.\nFixed",
+      "parentUuid": "744586dd_94690c9f",
       "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -126,6 +216,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3b73a2d_e649b222",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-30T13:30:43Z",
+      "side": 1,
+      "message": "It should be `propertyValueOutOfRange`. (BTW, for `queryParameterOutOfRange`, its args are `string_view` - https://github.com/openbmc/bmcweb/blob/a91e0057b56edf05b153b0e5f9bab8e0eecf99f2/redfish-core/src/error_messages.cpp#L1800)",
+      "parentUuid": "3e5eca8e_4f8ae729",
+      "range": {
+        "startLine": 660,
+        "startChar": 56,
+        "endLine": 660,
+        "endChar": 73
+      },
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "224cc8d6_0f1deab8",
@@ -139,6 +253,24 @@
       "writtenOn": "2024-10-29T15:57:07Z",
       "side": 1,
       "message": "remove.  properties should not be present or not present dependent on their value.  otherwise PATCH semantics are wrong:",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33360184_9e5706df",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-30T13:30:43Z",
+      "side": 1,
+      "message": "Spec tells that \n1) `HeartbeatIntervalMinutes` should be between 1-65535.\n(https://github.com/openbmc/bmcweb/blob/a91e0057b56edf05b153b0e5f9bab8e0eecf99f2/redfish-core/schema/dmtf/json-schema/EventDestination.v1_15_0.json#L222C1-L226C34)\n\n\nIf the fields should always be shown, what should be the default value of `HeartbeatIntervalMinutes`?\nIf it is set to 0 (current), it will cause Redfish Service Validator failures like\n```\n1 err.Edm.Int64 errors in /redfish/v1/EventService/Subscriptions/708345159\n1 failProp errors in /redfish/v1/EventService/Subscriptions/708345159\nERROR - HeartbeatIntervalMinutes: Value out of assigned min range, 0 \u003e 1\n```\n\n2) One way to avoid the above issues, I think we can hide the values if `SendHeartbeat` is false, as the spec tells https://github.com/openbmc/bmcweb/blob/a91e0057b56edf05b153b0e5f9bab8e0eecf99f2/redfish-core/schema/dmtf/json-schema/EventDestination.v1_15_0.json#L356\n\n```\n  \"SendHeartbeat\": {\n      \"longDescription\": .... If this property is not present, no periodic event shall be sent. ....,\n```\n\n3) Or, should we set the default value of `HeartbeatIntervalMinutes` as max value - 65535 as a default (with sendHeartbeat \u003d\u003d false)?\n\n----\n\nAt this time, I\u0027m going to choose (3) - set the default value of HeartbeatIntervalMinutes to the max (65535).",
+      "parentUuid": "224cc8d6_0f1deab8",
       "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
