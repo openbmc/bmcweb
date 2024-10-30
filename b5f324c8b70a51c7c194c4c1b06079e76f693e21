@@ -327,6 +327,24 @@
       "parentUuid": "b73d55f4_cb64e194",
       "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "668a878f_1aa9789d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-30T17:22:45Z",
+      "side": 1,
+      "message": "Thanks for explanation.\nAs I would agree, I set 10 as a default.",
+      "parentUuid": "de1f0ac4_26c1b697",
+      "revId": "b5f324c8b70a51c7c194c4c1b06079e76f693e21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
