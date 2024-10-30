@@ -685,30 +685,34 @@ inline void
     for (const std::string& sensorGroup : sensorHeaders)
     {
         nlohmann::json::iterator entry = response.find(sensorGroup);
-        if (entry != response.end())
+        if (entry == response.end())
         {
-            std::sort(entry->begin(), entry->end(),
-                      [](const nlohmann::json& c1, const nlohmann::json& c2) {
-                return c1["Name"] < c2["Name"];
-            });
+            continue;
+        }
+        nlohmann::json::array_t* arr =
+            entry->get_ptr<nlohmann::json::array_t*>();
+        if (arr == nullptr)
+        {
+            continue;
+        }
+        json_util::sortJsonArrayByKey(*arr, "Name");
 
-            // add the index counts to the end of each entry
-            size_t count = 0;
-            for (nlohmann::json& sensorJson : *entry)
+        // add the index counts to the end of each entry
+        size_t count = 0;
+        for (nlohmann::json& sensorJson : *entry)
+        {
+            nlohmann::json::iterator odata = sensorJson.find("@odata.id");
+            if (odata == sensorJson.end())
             {
-                nlohmann::json::iterator odata = sensorJson.find("@odata.id");
-                if (odata == sensorJson.end())
-                {
-                    continue;
-                }
-                std::string* value = odata->get_ptr<std::string*>();
-                if (value != nullptr)
-                {
-                    *value += "/" + std::to_string(count);
-                    sensorJson["MemberId"] = std::to_string(count);
-                    count++;
-                    sensorsAsyncResp->updateUri(sensorJson["Name"], *value);
-                }
+                continue;
+            }
+            std::string* value = odata->get_ptr<std::string*>();
+            if (value != nullptr)
+            {
+                *value += "/" + std::to_string(count);
+                sensorJson["MemberId"] = std::to_string(count);
+                count++;
+                sensorsAsyncResp->updateUri(sensorJson["Name"], *value);
             }
         }
     }

@@ -713,7 +713,8 @@ bool readJsonAction(const crow::Request& req, crow::Response& res,
 
 // Determines if two json objects are less, based on the presence of the
 // @odata.id key
-inline int odataObjectCmp(const nlohmann::json& a, const nlohmann::json& b)
+inline int objectKeyCmp(std::string_view key, const nlohmann::json& a,
+                        const nlohmann::json& b)
 {
     using object_t = nlohmann::json::object_t;
     const object_t* aObj = a.get_ptr<const object_t*>();
@@ -731,9 +732,10 @@ inline int odataObjectCmp(const nlohmann::json& a, const nlohmann::json& b)
     {
         return 1;
     }
-    object_t::const_iterator aIt = aObj->find("@odata.id");
-    object_t::const_iterator bIt = bObj->find("@odata.id");
-    // If either object doesn't have the key, they get "sorted" to the end.
+    object_t::const_iterator aIt = aObj->find(key);
+    object_t::const_iterator bIt = bObj->find(key);
+    // If either object doesn't have the key, they get "sorted" to the
+    // beginning.
     if (aIt == aObj->end())
     {
         if (bIt == bObj->end())
@@ -751,7 +753,7 @@ inline int odataObjectCmp(const nlohmann::json& a, const nlohmann::json& b)
     const nlohmann::json::string_t* nameB =
         bIt->second.get_ptr<const std::string*>();
     // If either object doesn't have a string as the key, they get "sorted" to
-    // the end.
+    // the beginning.
     if (nameA == nullptr)
     {
         if (nameB == nullptr)
@@ -794,21 +796,41 @@ inline int odataObjectCmp(const nlohmann::json& a, const nlohmann::json& b)
     }
 };
 
+// kept for backward compatibility
+inline int odataObjectCmp(const nlohmann::json& left,
+                          const nlohmann::json& right)
+{
+    return objectKeyCmp("@odata.id", left, right);
+}
+
 struct ODataObjectLess
 {
+    std::string_view key;
+
+    explicit ODataObjectLess(std::string_view keyIn) : key(keyIn) {}
+
     bool operator()(const nlohmann::json& left,
                     const nlohmann::json& right) const
     {
-        return odataObjectCmp(left, right) < 0;
+        return objectKeyCmp(key, left, right) < 0;
     }
 };
 
 // Sort the JSON array by |element[key]|.
 // Elements without |key| or type of |element[key]| is not string are smaller
 // those whose |element[key]| is string.
+inline void sortJsonArrayByKey(nlohmann::json::array_t& array,
+                               std::string_view key)
+{
+    std::ranges::sort(array, ODataObjectLess(key));
+}
+
+// Sort the JSON array by |element[key]|.
+// Elements without |key| or type of |element[key]| is not string are smaller
+// those whose |element[key]| is string.
 inline void sortJsonArrayByOData(nlohmann::json::array_t& array)
 {
-    std::ranges::sort(array, ODataObjectLess());
+    std::ranges::sort(array, ODataObjectLess("@odata.id"));
 }
 
 // Returns the estimated size of the JSON value
