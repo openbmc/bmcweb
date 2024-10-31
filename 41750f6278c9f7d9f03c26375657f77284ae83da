@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8884eb10_eaf093a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-31T17:59:26Z",
+      "side": 1,
+      "message": "Isn\u0027t this undoing dome of https://github.com/openbmc/bmcweb/commit/4b712a29debc1a0860cc04850b262203cad402a5  ?",
+      "revId": "41750f6278c9f7d9f03c26375657f77284ae83da",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
