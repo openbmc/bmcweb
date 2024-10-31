@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3499775e_5d777f4a",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-31T18:06:00Z",
+      "side": 1,
+      "message": "Yeah this is correct based on the LED design. \nSearching for Group because you could have multiple LEDs in the group. \nhttps://github.com/openbmc/docs/blob/master/architecture/LED-architecture.md#redfish\n\nNote: I didn\u0027t design, just reading the docs",
+      "parentUuid": "6c215d75_fdc6a290",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "6e57917f321f9dba14eafc9b5421c622a21dd7e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fad05244_650dd5df",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 45
