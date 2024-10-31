@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59a3314f_15acd1a7",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-31T12:57:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a225ca5c_a96b5e71",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8def4019_14d8695f",
@@ -125,6 +143,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26a6bf2a_a15a9ac0",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-31T12:57:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a617493_69edd0a2",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5547917d_b5e61f7e",
@@ -156,6 +192,24 @@
       "side": 1,
       "message": "That\u0027s right. \nIn fact, updateUserSubscriptionConfig() is not needed. \nI kept it as is to maintain the same semantics, i.e. it is updated for both subscriptionsMap \u0026 subscriptionsConfigMap, but I think we can remove it now.",
       "parentUuid": "5547917d_b5e61f7e",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4b4e0c5_45d71ab6",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-10-31T12:57:34Z",
+      "side": 1,
+      "message": "I removed `updateUserSubscriptionConfig`",
+      "parentUuid": "54c6328e_f6c54426",
       "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
