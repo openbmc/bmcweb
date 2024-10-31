@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61b6147b_44a37900",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-31T19:33:24Z",
+      "side": 1,
+      "message": "why do you need this? \nYou are doing this so you don\u0027t overwrite the \n\n    if (subtree.size() \u003e 1)\n    {\n        BMCWEB_LOG_ERROR(\"Unexpected number paths found {}\", subtree.size());\n        messages::internalError(asyncResp-\u003eres);\n        return pathAndService;\n    }\n\nbut in that case the subtree isn\u0027t empty?",
+      "revId": "126cd8ed4178c50ca4bce7fac4f76d95a5ad893f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aebd0cd_8fc26e6c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-10-31T19:33:24Z",
+      "side": 1,
+      "message": "Again not sure why you need this?",
+      "revId": "126cd8ed4178c50ca4bce7fac4f76d95a5ad893f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
