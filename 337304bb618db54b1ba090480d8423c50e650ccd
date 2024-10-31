@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e16fafca_c4e83b30",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-31T18:53:31Z",
+      "side": 1,
+      "message": "I\u0027ve gone ahead and made this change.\n\nNote: callers that might add an error (PATCH) will check if an error has already been added to the response and not add another error to the response.",
+      "parentUuid": "f4c209fb_6458c6c8",
+      "revId": "337304bb618db54b1ba090480d8423c50e650ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e719db46_762dcca6",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 24
@@ -65,6 +83,24 @@
       "writtenOn": "2024-10-24T15:35:04Z",
       "side": 1,
       "message": "I think more than 1 would be an internal error; 0 would be like this: ignore the error and move on. Oh well. This matches the old code\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/power.hpp#L80",
+      "revId": "337304bb618db54b1ba090480d8423c50e650ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ce20939_80ab7f14",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-31T18:53:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e719db46_762dcca6",
       "revId": "337304bb618db54b1ba090480d8423c50e650ccd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -82,6 +118,30 @@
       "writtenOn": "2024-10-24T15:35:04Z",
       "side": 1,
       "message": "WARNING typically for 4xx errors, oh well.",
+      "range": {
+        "startLine": 150,
+        "startChar": 19,
+        "endLine": 150,
+        "endChar": 24
+      },
+      "revId": "337304bb618db54b1ba090480d8423c50e650ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81c37827_6efc8d01",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-10-31T18:53:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c12e572_37d21af7",
       "range": {
         "startLine": 150,
         "startChar": 19,
