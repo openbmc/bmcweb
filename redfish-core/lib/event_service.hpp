@@ -354,6 +354,17 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 return;
             }
             url->normalize();
+
+            // port_number returns zero if it is not a valid representable port
+            if (url->has_port() && url->port_number() == 0)
+            {
+                BMCWEB_LOG_WARNING("{} is an invalid port in destination url",
+                                   url->port());
+                messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                                   "Destination");
+                return;
+            }
+
             crow::utility::setProtocolDefaults(*url, protocol);
             crow::utility::setPortDefaults(*url);
 
