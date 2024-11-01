@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6c738456_ab51f421",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-01T15:19:49Z",
+      "side": 1,
+      "message": "Posting the full -vv seems overkill for a commit msg where the important part of the testing is \n```\n{\n  \"Destination@Message.ExtendedInfo\": [\n    {\n      \"@odata.type\": \"#Message.v1_1_1.Message\",\n      \"Message\": \"The value \u0027\\\"snmp://xx.xx.xx.76:65537\\\"\u0027 for the property Destination is of a different format than the property can accept.\",\n      \"MessageArgs\": [\n        \"\\\"snmp://xx.xx.xx.76:65537\\\"\",\n        \"Destination\"\n      ],\n      \"MessageId\": \"Base.1.16.0.PropertyValueFormatError\",\n      \"MessageSeverity\": \"Warning\",\n      \"Resolution\": \"Correct the value for the property in the request body and resubmit the request if the operation failed.\"\n    }\n  ]\n```\n\nmaybe just trim this down to the actual error and like line 63 ?\n\n```\n\n$ curl --header \"Content-Type: application/json\" X POST -i -k -u root:0penBmc https://{bmc}/redfish/v1/EventService/Subscriptions --data-raw \u0027{\"Destination\": \"snmp://xx.xx.xx.76:65537\",\"SubscriptionType\": \"SNMPTrap\", \"Protocol\": \"SNMPv2c\"}\u0027 -vv\n...\n\n\u003c HTTP/1.1 400 Bad Request\n...\n\n{\n  \"Destination@Message.ExtendedInfo\": [\n    {\n      \"@odata.type\": \"#Message.v1_1_1.Message\",\n      \"Message\": \"The value \u0027\\\"snmp://xx.xx.xx.76:65537\\\"\u0027 for the property Destination is of a different format than the property can accept.\",\n      \"MessageArgs\": [\n        \"\\\"snmp://xx.xx.xx.76:65537\\\"\",\n        \"Destination\"\n      ],\n      \"MessageId\": \"Base.1.16.0.PropertyValueFormatError\",\n      \"MessageSeverity\": \"Warning\",\n      \"Resolution\": \"Correct the value for the property in the request body and resubmit the request if the operation failed.\"\n    }\n  ]\n* Connection #0 to host 127.0.0.1 left intact\n}\n\n\n```",
+      "range": {
+        "startLine": 15,
+        "startChar": 240,
+        "endLine": 52,
+        "endChar": 13
+      },
+      "revId": "07484fb40e815afa7573b5ac25cacd08d0fa6900",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbf02b8a_26025dde",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 2
