@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bee9ddc3_52cc78ec",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-01T15:11:16Z",
+      "side": 1,
+      "message": "I am okay with this. This matches the old code, marking resolved.",
+      "parentUuid": "e16fafca_c4e83b30",
+      "revId": "337304bb618db54b1ba090480d8423c50e650ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e719db46_762dcca6",
