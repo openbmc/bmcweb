@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "435a02b1_c367f920",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T08:36:20Z",
+      "side": 1,
+      "message": "Still can\u0027t merge until there\u0027s an implementation of this that functions as the spec specifies.",
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92c8bf55_62974d96",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T08:36:20Z",
+      "side": 1,
+      "message": "would -\u003e will",
+      "range": {
+        "startLine": 28,
+        "startChar": 24,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a54936b1_f838039b",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T08:36:20Z",
+      "side": 1,
+      "message": "remove \"the\"",
+      "range": {
+        "startLine": 28,
+        "startChar": 7,
+        "endLine": 28,
+        "endChar": 10
+      },
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04820a95_4cfff033",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T08:36:20Z",
+      "side": 1,
+      "message": "Why does this condition exist at all?  SSE subscriptions aren\u0027t persisted?",
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7463f4f_fbf4b9b2",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T08:36:20Z",
+      "side": 1,
+      "message": "This is an internal file being restored.  We should restore the values as is.  They\u0027ve already had limits applied.",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 78
+      },
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df9ce315_baa97452",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T08:36:20Z",
+      "side": 1,
+      "message": "Please make this explicitly 65535, and note that it came from the redfish schema limits.",
+      "range": {
+        "startLine": 660,
+        "startChar": 41,
+        "endLine": 660,
+        "endChar": 77
+      },
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
