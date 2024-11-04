@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec65d56d_b650d1e2",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-04T22:12:19Z",
+      "side": 1,
+      "message": "I\u0027ve updated the commit message to add these references.",
+      "parentUuid": "3499775e_5d777f4a",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "6e57917f321f9dba14eafc9b5421c622a21dd7e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fad05244_650dd5df",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 45
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "Similar to `getIndicatorLedState()`, this would be under Led.Group interface and its path is like `/xyz/openbmc_project/led/groups/\u003cname\u003e` (described in https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/Led).",
       "parentUuid": "27162ff6_125c1acb",
+      "range": {
+        "startLine": 302,
+        "startChar": 34,
+        "endLine": 302,
+        "endChar": 40
+      },
+      "revId": "6e57917f321f9dba14eafc9b5421c622a21dd7e6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f45074d_d02ad6c2",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-04T22:12:19Z",
+      "side": 1,
+      "message": "I\u0027ve updated the commit message to add this reference.",
+      "parentUuid": "6eca2da8_7490633d",
       "range": {
         "startLine": 302,
         "startChar": 34,
