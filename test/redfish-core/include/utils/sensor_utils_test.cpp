@@ -61,6 +61,9 @@ TEST(ChassisSubNodeToString, Success)
     subNodeStr = chassisSubNodeToString(ChassisSubNode::thermalNode);
     EXPECT_EQ(subNodeStr, "Thermal");
 
+    subNodeStr = chassisSubNodeToString(ChassisSubNode::thermalMetricsNode);
+    EXPECT_EQ(subNodeStr, "ThermalMetrics");
+
     subNodeStr = chassisSubNodeToString(ChassisSubNode::unknownNode);
     EXPECT_EQ(subNodeStr, "");
 }
@@ -78,11 +81,27 @@ TEST(ChassisSubNodeFromString, Success)
     subNode = chassisSubNodeFromString("Thermal");
     EXPECT_EQ(subNode, ChassisSubNode::thermalNode);
 
+    subNode = chassisSubNodeFromString("ThermalMetrics");
+    EXPECT_EQ(subNode, ChassisSubNode::thermalMetricsNode);
+
     subNode = chassisSubNodeFromString("BadNode");
     EXPECT_EQ(subNode, ChassisSubNode::unknownNode);
 
     subNode = chassisSubNodeFromString("");
     EXPECT_EQ(subNode, ChassisSubNode::unknownNode);
+}
+
+TEST(IsExcerptNode, True)
+{
+    EXPECT_TRUE(isExcerptNode(ChassisSubNode::thermalMetricsNode));
+}
+
+TEST(IsExcerptNode, False)
+{
+    EXPECT_FALSE(isExcerptNode(ChassisSubNode::sensorsNode));
+    EXPECT_FALSE(isExcerptNode(ChassisSubNode::powerNode));
+    EXPECT_FALSE(isExcerptNode(ChassisSubNode::thermalNode));
+    EXPECT_FALSE(isExcerptNode(ChassisSubNode::unknownNode));
 }
 
 } // namespace

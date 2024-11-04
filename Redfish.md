@@ -338,8 +338,9 @@ Fields common to all schemas
 
 ##### ThermalMetrics
 
-- TemperatureReadingsCelsius/DataSourceUri
-- TemperatureReadingsCelsius/Reading
+- TemperatureReadingsCelsius[]/DataSourceUri
+- TemperatureReadingsCelsius[]/Reading
+- TemperatureReadingsCelsius@odata.count
 
 #### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Fans
 
