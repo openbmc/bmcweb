@@ -22,6 +22,30 @@
       },
       "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfe2bb3e_7288a60f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-11-04T08:35:42Z",
+      "side": 1,
+      "message": "\u003e This code looks like it breaks setting destinations without a port.\n\nIf port is 0, this will not hit this if\n\n\u003e I see the error is already handled here:\nhttps://github.com/openbmc/bmcweb/blob/02ea923f13de196726ac2f022766a6f80bee1c0a/redfish-core/include/snmp_trap_event_clients.hpp#L138\n\nIf an incorrect port is passed, the port_number() method will return 0, so the following setPortDefaults method will set the port to the default value, so there will be no error when calling the addSnmpTrapClient method",
+      "parentUuid": "5e8b4f6d_dc718fe1",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 59
+      },
+      "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
