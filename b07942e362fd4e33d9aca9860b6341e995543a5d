@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e8b4f6d_dc718fe1",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T08:27:06Z",
+      "side": 1,
+      "message": "This code looks like it breaks setting destinations without a port.\n\nIf we\u0027re truly trying to avoid 0, that\u0027s something the snmp daemon needs to verify.\n\nI see the error is already handled here:\nhttps://github.com/openbmc/bmcweb/blob/02ea923f13de196726ac2f022766a6f80bee1c0a/redfish-core/include/snmp_trap_event_clients.hpp#L138\n\nSo it\u0027s not clear why that\u0027s not working in this case.",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 59
+      },
+      "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
