@@ -214,6 +214,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "65391250_f17f5edc",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T08:42:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4b4e0c5_45d71ab6",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91d6f395_77c254eb",
@@ -292,6 +310,24 @@
       "side": 1,
       "message": "SSE subscription also uses UserSubscription data for its parameters - https://github.com/openbmc/bmcweb/blob/29d7ca982d61f3cb83e98e44e585d42f2f1b803c/redfish-core/lib/eventservice_sse.hpp#L50\n\nSo, UserSubscription object would still be needed.",
       "parentUuid": "13e7efea_673aa353",
+      "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37fb440c_28bfd11f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T08:42:43Z",
+      "side": 1,
+      "message": "Ug, ok, that\u0027s not the intent, but something to clean up later.",
+      "parentUuid": "485d6e76_7821d723",
       "revId": "9e79330731a3ffef5abe0506e720d8e4923d29e2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
