@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98e163b8_276a8e09",
+        "filename": "redfish-core/include/subscription.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T17:38:02Z",
+      "side": 1,
+      "message": "I see a lot of these includes that don\u0027t look correct.  Could you please give this a first pass for headers that aren\u0027t used?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 17
+      },
+      "revId": "9e5bff00c0bf8599521a6e339f2d87428454c2a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

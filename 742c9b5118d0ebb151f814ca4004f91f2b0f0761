@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cad0f3b1_f659dbc5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T17:38:02Z",
+      "side": 1,
+      "message": "Diff isn\u0027t a test and this code doesn\u0027t have any unit test coverage that I\u0027m aware of.  Diff also reports changes.  If you\u0027re not able or willing to test this, please just let me know and I\u0027ll get the testing done.  It\u0027s not meant to be onerous or blocking and my expectation was that setting up and running the test would\u0027ve taken a trivial amount of time if you had already set them up.",
+      "parentUuid": "2157009c_545a84be",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e5587dc0_2148c68d",
@@ -219,6 +243,24 @@
       "side": 1,
       "message": "i can remove it if you prefer the flat layout.",
       "parentUuid": "e34abfda_c034f476",
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bbc970d_aeb6c993",
+        "filename": "redfish-core/include/event-service/event-log.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-04T17:38:02Z",
+      "side": 1,
+      "message": "Thank you",
+      "parentUuid": "6e21cd4b_7e56d0b6",
       "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
