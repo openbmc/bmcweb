@@ -80,7 +80,8 @@ int run()
         redfish::RedfishService redfish(app);
 
         // Create EventServiceManager instance and initialize Config
-        redfish::EventServiceManager::getInstance(&*io);
+        boost::asio::any_io_executor io2(*io);
+        redfish::EventServiceManager::getInstance(&io2);
 
         if constexpr (BMCWEB_REDFISH_AGGREGATION)
         {

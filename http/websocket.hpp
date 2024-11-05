@@ -40,7 +40,7 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual void close(std::string_view msg = "quit") = 0;
     virtual void deferRead() = 0;
     virtual void resumeRead() = 0;
-    virtual boost::asio::io_context& getIoContext() = 0;
+    virtual boost::asio::any_io_executor getIoContext() = 0;
     virtual ~Connection() = default;
     virtual boost::urls::url_view url() = 0;
 };
@@ -76,10 +76,9 @@ class ConnectionImpl : public Connection
         BMCWEB_LOG_DEBUG("Creating new connection {}", logPtr(this));
     }
 
-    boost::asio::io_context& getIoContext() override
+    boost::asio::any_io_executor getIoContext() override
     {
-        return static_cast<boost::asio::io_context&>(
-            ws.get_executor().context());
+        return ws.get_executor();
     }
 
     void start(const crow::Request& req)

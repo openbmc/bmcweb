@@ -30,7 +30,7 @@ struct Connection : public std::enable_shared_from_this<Connection>
     Connection& operator=(const Connection&&) = delete;
     virtual ~Connection() = default;
 
-    virtual boost::asio::io_context& getIoContext() = 0;
+    virtual boost::asio::any_io_executor getIoContext() = 0;
     virtual void close(std::string_view msg = "quit") = 0;
     virtual void sendSseEvent(std::string_view id, std::string_view msg) = 0;
 };
@@ -43,9 +43,7 @@ class ConnectionImpl : public Connection
         Adaptor&& adaptorIn,
         std::function<void(Connection&, const Request&)> openHandlerIn,
         std::function<void(Connection&)> closeHandlerIn) :
-        adaptor(std::move(adaptorIn)),
-        timer(static_cast<boost::asio::io_context&>(
-            adaptor.get_executor().context())),
+        adaptor(std::move(adaptorIn)), timer(adaptor.get_executor()),
         openHandler(std::move(openHandlerIn)),
         closeHandler(std::move(closeHandlerIn))
 
@@ -63,10 +61,9 @@ class ConnectionImpl : public Connection
         BMCWEB_LOG_DEBUG("SSE ConnectionImpl: SSE destructor {}", logPtr(this));
     }
 
-    boost::asio::io_context& getIoContext() override
+    boost::asio::any_io_executor getIoContext() override
     {
-        return static_cast<boost::asio::io_context&>(
-            adaptor.get_executor().context());
+        return adaptor.get_executor();
     }
 
     void start(const Request& req)

@@ -186,6 +186,7 @@ add_project_arguments(
             '-DJSON_NOEXCEPTION',
             '-DOPENSSL_NO_FILENAMES',
             '-DSDBUSPLUS_DISABLE_BOOST_COROUTINES',
+            '-DBOOST_ASIO_NO_TS_EXECUTORS',
         ],
     ),
     language: 'cpp',

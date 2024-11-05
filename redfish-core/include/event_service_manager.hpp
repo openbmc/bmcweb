@@ -536,7 +536,7 @@ class EventServiceManager
     constexpr static size_t maxMessages = 200;
     boost::circular_buffer<Event> messages{maxMessages};
 
-    boost::asio::io_context& ioc;
+    boost::asio::any_io_executor ioc;
 
   public:
     EventServiceManager(const EventServiceManager&) = delete;
@@ -545,14 +545,14 @@ class EventServiceManager
     EventServiceManager& operator=(EventServiceManager&&) = delete;
     ~EventServiceManager() = default;
 
-    explicit EventServiceManager(boost::asio::io_context& iocIn) : ioc(iocIn)
+    explicit EventServiceManager(boost::asio::any_io_executor& iocIn) : ioc(iocIn)
     {
         // Load config from persist store.
         initConfig();
     }
 
     static EventServiceManager&
-        getInstance(boost::asio::io_context* ioc = nullptr)
+        getInstance(boost::asio::any_io_executor* ioc = nullptr)
     {
         static EventServiceManager handler(*ioc);
         return handler;

@@ -38,7 +38,7 @@ inline void
         return;
     }
     // Make this const static so it survives outside this method
-    static boost::asio::steady_timer timeout(*req.ioService,
+    static boost::asio::steady_timer timeout(req.ioService,
                                              std::chrono::seconds(5));
 
     timeout.expires_after(std::chrono::seconds(15));

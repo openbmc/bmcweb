@@ -817,7 +817,7 @@ inline void
     }
 
     // Make this static so it survives outside this method
-    static boost::asio::steady_timer timeout(*req.ioService);
+    static boost::asio::steady_timer timeout(req.ioService);
     timeout.expires_after(std::chrono::seconds(timeOut));
     timeout.async_wait([asyncResp](const boost::system::error_code& ec) {
         csrMatcher = nullptr;

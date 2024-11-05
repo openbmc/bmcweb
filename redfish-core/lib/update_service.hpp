@@ -457,7 +457,7 @@ inline void monitorForSoftwareAvailable(
     }
 
     fwAvailableTimer =
-        std::make_unique<boost::asio::steady_timer>(*req.ioService);
+        std::make_unique<boost::asio::steady_timer>(req.ioService);
 
     fwAvailableTimer->expires_after(std::chrono::seconds(timeoutTimeSeconds));
 
