@@ -94,6 +94,30 @@
       },
       "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d11963e_85808ad0",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-05T01:17:43Z",
+      "side": 1,
+      "message": "Ah, I understand better now.  Do we understand why boost url accepts ports outside of the valid range?",
+      "parentUuid": "efa37825_d6b3587b",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 59
+      },
+      "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
