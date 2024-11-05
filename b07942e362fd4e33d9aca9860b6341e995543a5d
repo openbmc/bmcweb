@@ -190,6 +190,30 @@
       },
       "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24e8206e_f02b7692",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-05T16:21:09Z",
+      "side": 1,
+      "message": "I understand now, fine as is.",
+      "parentUuid": "4d930136_65e82673",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 59
+      },
+      "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
