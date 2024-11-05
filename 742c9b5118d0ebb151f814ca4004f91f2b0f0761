@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a191c27_5cf4c227",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-05T20:27:01Z",
+      "side": 1,
+      "message": "\u003e Which changes are you seeing with \u0027diff\u0027 tool?\n\nGerrit is showing 100+ new lines:\n+414 -280\n\nThat\u0027s not to say these lines don\u0027t make sense, but \"look at diff and you\u0027ll see they\u0027re the same\" isn\u0027t the answer.\n\n\u003e \n\u003e If the C++ code is the same then there cannot be any change in the behavior, right?\n\u003e So it would not need any testing.\n\nThat\u0027s your opinion.  Testing in the commit message is about more than just one commit or keeping you honest, it\u0027s about communicating \"this is the way to test this change\" and to make sure that others can replicate. \n\n\u003e \n\u003e The function names are qualified now, so \u0027diff\u0027 might report that. But it\u0027s not a behavior change.\n\u003e \n\u003e I did not intend to do any behavior change.\n\nI understand, doesn\u0027t change the need for a testing statement on the commit message.",
+      "parentUuid": "41984553_e221a8d8",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e5587dc0_2148c68d",
