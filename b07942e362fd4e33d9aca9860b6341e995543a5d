@@ -118,6 +118,30 @@
       },
       "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ef56ab1_89e48e3d",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-11-05T01:44:32Z",
+      "side": 1,
+      "message": "Sorry, I haven\u0027t explored this issue in depth, but from testing, if it is an invalid port, has_port will return true, and port_number() will return 0.",
+      "parentUuid": "3d11963e_85808ad0",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 59
+      },
+      "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
