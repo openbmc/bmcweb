@@ -6,6 +6,7 @@
 #include "dbus_utility.hpp"
 #include "logging.hpp"
 #include "websocket.hpp"
+#include "io_context_singleton.hpp"
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -286,7 +287,7 @@ inline void onOpen(crow::websocket::Connection& conn)
     }
 
     std::shared_ptr<ConsoleHandler> handler =
-        std::make_shared<ConsoleHandler>(conn.getIoContext(), conn);
+        std::make_shared<ConsoleHandler>(getIoContext(), conn);
     getConsoleHandlerMap().emplace(&conn, handler);
 
     conn.deferRead();

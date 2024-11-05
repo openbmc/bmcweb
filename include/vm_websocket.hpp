@@ -9,6 +9,7 @@
 #include "dbus_utility.hpp"
 #include "logging.hpp"
 #include "websocket.hpp"
+#include "io_context_singleton.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/error.hpp>
@@ -585,7 +586,7 @@ inline void requestRoutes(App& app)
                 // media is the last digit of the endpoint /vm/0/0. A future
                 // enhancement can include supporting different endpoint values.
                 const char* media = "0";
-                handler = std::make_shared<Handler>(media, conn.getIoContext());
+                handler = std::make_shared<Handler>(media, getIoContext());
                 handler->connect();
             })
             .onclose([](crow::websocket::Connection& conn,
