@@ -25,7 +25,7 @@ struct Request
     boost::urls::url urlBase;
 
   public:
-    boost::asio::io_context* ioService = nullptr;
+    boost::asio::any_io_executor* ioService = nullptr;
     boost::asio::ip::address ipAddress;
 
     std::shared_ptr<persistent_data::UserSession> session;
