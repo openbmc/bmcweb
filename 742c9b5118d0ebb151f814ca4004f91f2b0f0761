@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "41984553_e221a8d8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-05T17:23:34Z",
+      "side": 1,
+      "message": "Which changes are you seeing with \u0027diff\u0027 tool?\n\nIf the C++ code is the same then there cannot be any change in the behavior, right?\nSo it would not need any testing.\n\nThe function names are qualified now, so \u0027diff\u0027 might report that. But it\u0027s not a behavior change.\n\nI did not intend to do any behavior change.",
+      "parentUuid": "cad0f3b1_f659dbc5",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e5587dc0_2148c68d",
