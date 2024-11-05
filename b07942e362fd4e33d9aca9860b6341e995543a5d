@@ -70,6 +70,30 @@
       },
       "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efa37825_d6b3587b",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-11-05T01:15:59Z",
+      "side": 1,
+      "message": "\u003e \u003e If port is 0, this will not hit this if\n\u003e \n\u003e ah, I see that now.\n\u003e \n\u003e But the second part is still valid.  Why is the SNMP daemon accepting bad ports over dbus?\n\nsetPortDefaults will get the port number through the port_number() method.\nIf the port number is wrong or there is no port number, the return value is 0.\nhttps://github.com/openbmc/bmcweb/blob/master/http/utility.hpp#L495\n\nAt this time, a default port number will be set:\nhttps://github.com/openbmc/bmcweb/blob/master/http/utility.hpp#L513",
+      "parentUuid": "f8ce05d6_771808af",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 59
+      },
+      "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
