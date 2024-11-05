@@ -166,6 +166,30 @@
       },
       "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d930136_65e82673",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000397
+      },
+      "writtenOn": "2024-11-05T02:11:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure, maybe this is the intentional design of boost::url?",
+      "parentUuid": "6b45147e_806be85c",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 59
+      },
+      "revId": "b07942e362fd4e33d9aca9860b6341e995543a5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
