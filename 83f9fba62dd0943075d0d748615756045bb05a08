@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4aafd479_88541b1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-05T18:06:54Z",
+      "side": 1,
+      "message": "What should they be called instead of backends?",
+      "parentUuid": "d423019b_0588ebbf",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "83f9fba62dd0943075d0d748615756045bb05a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7c9560f8_14b2cb86",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "354b9f68_d815273e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-05T18:06:54Z",
+      "side": 1,
+      "message": "\u003e Can you talk more about your overall vision here?\n\u003e \n\u003e Where the line is for\n\u003e src/ \n\u003e include/ \n\u003e backends/ \n\u003e is still a little blurry to me. \n\n\nbackends -\u003e Individual handlers for a specific purpose, organized in folders by ownership.\ninclude/src (should be combined) -\u003e Generic code that doesn\u0027t really belong anywhere else.\nbackends/redfish-core -\u003e Code specific to redfish\nhttp -\u003e Code related to HTTP parsing/orchestration/routing\n\n\nThe big part is that I want to have a separation such that:\nA. when people fork the code, they\u0027re adding their own \"backend\" folder, and thus isolating their code from others.  That way, if/when it gets upstreamed, it has fewer merge conflicts\nB. Different routes are separate by folders.  At some point, it seems very likely that we split redfish-core into redfish-core and redfish-dbus, given that there are those are are using bmcweb to build their own custom non-openbmc implementations.  I want to be able to support that open source effort without imposing a lot of overhead on openbmc or the submitters.  Separating the code on a backend boundary seems like a start to that.\nC. We can decide which code needs to \"die\" or is unmaintained.  For example, I think the dbus-rest stuff is dead, but I don\u0027t really want to delete the code entirely because I suspect there\u0027s people still using it.  Separating it out into a folder means we can remove it from the majority of the CI/build (and subsequently take back the compile time improvements) and if folks want to continue to compile/maintain it, they can propose themselves as reviewers/maintainers and turn it back on.\n\n\u003e \n\u003e E.g. \n\u003e Why move some of the webui code here, but not all of it like https://github.com/openbmc/bmcweb/blob/master/include/webassets.hpp ?\n\nwebassets isn\u0027t specific to the UI, so I was somewhat treating it like \"generic\" code, although I could certainly see the argument it should be a \"backend\".  It also has some weirdness where the http layer interacts with it for maintaining the allowlist, so it\u0027s non-trivial to move in this commit.\n\n\u003e \n\u003e \n\u003e Even the lines for \n\u003e http/\n\u003e redfish-core/ \n\u003e Can get a little blurry\n\nMaybe I\u0027ve looked at this too long, but the way I see it:\nhttp -\u003e is this a generic HTTP/RFC concept?\nredfish-core -\u003e Is this a Redfish concept?\n\nThe only big piece of overlap today is privileges, and in the future at some point I\u0027d like to fix that.\n\n\u003e \n\u003e E.g. \n\u003e https://github.com/openbmc/bmcweb/blob/master/include/async_resp.hpp I would think would fit better in http/\n\nAgreed, but it\u0027s not a backend, so I didn\u0027t really move it in this commit which is focusing on breaking out backends.  Honestly, I think the whole AsyncResp class could go away and just be merged with Response, but that\u0027s a problem for another day.\n\n\u003e \n\u003e https://github.com/openbmc/bmcweb/blob/master/include/sessions.hpp is in include/ but then there are similar redfish utils at https://github.com/openbmc/bmcweb/tree/master/redfish-core/include/utils\n\nThat\u0027s exactly what I\u0027m starting to clean up with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65720\n\nbut again, unrelated to breaking out backends.\n\n\u003e \n\u003e There are still some \"Redfish\" hits in http/\n\u003e https://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb+redfish+NOT+path%3A%2F%5Eredfish-core%5C%2F%2F+NOT+path%3A%2F%5Etest%5C%2F%2F+path%3A%2F%5Ehttp%5C%2F%2F\u0026type\u003dcode\n\u003e \n\u003e A more traditional C++ project of high-level dirs of src/ include/ lib/ is what I would lean towards. E.g. redfish-core/, http/ backends/ are not at the root.\n\u003e https://stackoverflow.com/questions/2360734/whats-a-good-directory-structure-for-larger-c-projects-using-makefile\n\u003e \n\u003e That said, I don\u0027t care as long as our future vision makes sense to developers.\n\nI\u0027m not quite following.  I know we\u0027ve said that we shouldn\u0027t separate src/include, so you\u0027re suggesting we do\n\nsrc/backends/\u003cfoo\u003e ?",
+      "parentUuid": "7c9560f8_14b2cb86",
+      "revId": "83f9fba62dd0943075d0d748615756045bb05a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0986b5e0_804421f5",
         "filename": "backends/google/google_service_root_test.cpp",
         "patchSetId": 5
@@ -54,6 +96,24 @@
       "writtenOn": "2024-10-25T01:43:59Z",
       "side": 1,
       "message": "We don\u0027t want tests in some test/ folder?",
+      "revId": "83f9fba62dd0943075d0d748615756045bb05a08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "143bf7b1_5edfa0d7",
+        "filename": "backends/google/google_service_root_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-05T18:06:54Z",
+      "side": 1,
+      "message": "Ideally I want the tests for the \"thing\" next to the thing.  IN this case, I want to make it clear the ownership boundary of the tests.",
+      "parentUuid": "0986b5e0_804421f5",
       "revId": "83f9fba62dd0943075d0d748615756045bb05a08",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
