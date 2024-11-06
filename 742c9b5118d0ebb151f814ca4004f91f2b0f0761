@@ -144,6 +144,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2bbcd4b_270cb76b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-06T20:23:11Z",
+      "side": 1,
+      "message": "\u003e \u003e That\u0027s not to say these lines don\u0027t make sense, but \"look at diff and you\u0027ll see they\u0027re the same\" isn\u0027t the answer.\n\u003e \n\u003e It\u0027s called code review and it is time consuming. If you don\u0027t trust me that i just copy-pasted the functions from one file to the other, you can do it yourself and between what i did and what you did there will be no diff, after running clang-format.\n\u003e \n\u003e Then you don\u0027t have to actually look at the code or diff individual functions.\n\u003e \n\u003e I get that it\u0027s not the same since the indentation has changed.\n\u003e I\u0027m not trying to avoid doing necessary work of testing behavior changes, but this is simply the indentation change that\u0027s causing a lot of the diff.\n\nIt\u0027s more than an indentation change.  We moved from header-only to header + cpp unit.  That on its own is fine and good, so telling me to look at the diff doesn\u0027t really help here, as the diff can\u0027t show that nothing has changed.\n\n\u003e There is no testing work needed here since the code is exactly the same.\n\nConsidering that at a minimum I rebased it yesterday manually, and I believe you did at least once, there\u0027s no guarantee the code is still the same.\n\n\u003e \n\u003e \u003e That\u0027s your opinion. Testing in the commit message is about more than just one commit or keeping you honest, it\u0027s about communicating \"this is the way to test this change\" and to make sure that others can replicate. \n\u003e \n\u003e This change is analogous to your change in b729096d0a787abe2a7e8a9a2d1ea12b5e1540fb\n\u003e where you refactored a large lambda into a function (nice change, happy about that one). I don\u0027t see why different rules apply to me. There you also put the commit message as \n\u003e \n\u003e \u003e Tested: Inspection Only.\n\nAh, I see the confusion.  Because there\u0027s automated tests that have coverage of that code, so if it were broken, it would immediately show in CI.  To my knowledge, event service (the code changed here) does not have automated tests or unit tests like that commit does.\n\n\u003e \n\u003e For further examples of \u0027Inspection Only\u0027 we have\n\u003e \n\u003e 7945eeed0fe8f9c7bf07669294499ae0108da1d3 (Ed, refactoring)\n\u003e d3e9c3a24a804d159b473002dfc99eb86ac3cd91 (Ed)\n\u003e ac1e1246464e28fe4313ba936a6b8f64ec65bb12 (Ed)\n\u003e f2a8e57ede74a8252100b2281e3f4d170aa69391 (Gunnar)\n\u003e ...\n\nYou\u0027ll note that these each hit some combination of:\n- Code covered by redfish-service-validator, which runs automatically.\n- Either a net same or net negative code lines diff that\u0027s trivial to review.  (this code is +100 lines)\n- A change made by script automation, so far less likely that it had any human errors in it.\n\nIn comparison to this patch, those make these things different.  You\u0027ll also note that the vast majority of my commits do have testing statements.\n\nI\u0027d also point out again that if testing eventservice is too onerous for you, I\u0027ve offered to do it for you.  For the amount of time invested in this thread, we could\u0027ve tested this patch several times by now.  If you\u0027d like to change the policy on how we test things, doing it in this commit isn\u0027t the way to accomplish that.  If that\u0027s a discussion you\u0027d like to have, I\u0027m happy to have it outside of this patch.",
+      "parentUuid": "e7a47572_537c7e7b",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e5587dc0_2148c68d",
