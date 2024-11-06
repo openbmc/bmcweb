@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd34d2e9_9b787f87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 28
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-06T16:42:38Z",
+      "side": 1,
+      "message": "Why is this testing GET handlers, when the commit is adding PATCH handlers.  I really suspect this commit message needs rewritten to match what is actually here.",
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f09c04f7_39a1e794",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-06T16:42:38Z",
+      "side": 1,
+      "message": "Got partially through a review, but there\u0027s a lot of stuff here that wasn\u0027t really looked at, and the commit message is out of date for the content.  Please get it updated and we\u0027ll go from there.",
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "396a4283_dde22a8a",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-06T16:42:38Z",
+      "side": 1,
+      "message": "Please don\u0027t use a pair when it\u0027s not necessary.  If you need a struct, make a struct and name the members appropriately",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 42
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67ed7da4_b29a761e",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-06T16:42:38Z",
+      "side": 1,
+      "message": "?  No it\u0027s not.  It\u0027s a per chassis setting.  As written this is going to cause every chassis to have the same power cap params, instead of only the main chassis (as redfish specifies)",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 80
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96a37fef_9ed49520",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-06T16:42:38Z",
+      "side": 1,
+      "message": "invert this please to go from more specific error to less specific error.",
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8af38c04_0c946f6c",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-06T16:42:38Z",
+      "side": 1,
+      "message": "auto makes this code hard to read without looking up the return value of getPowerLimitsPath",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 8
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d57e2a38_080b92db",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-06T16:42:38Z",
+      "side": 1,
+      "message": "Wrong error message, wrong args.",
+      "range": {
+        "startLine": 79,
+        "startChar": 22,
+        "endLine": 79,
+        "endChar": 44
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dcc1daa_575151af",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-06T16:42:38Z",
+      "side": 1,
+      "message": "Should this use the new mapper methods to get by id?",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 100,
+        "endChar": 29
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5089f56_e5cb85bd",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-06T16:42:38Z",
+      "side": 1,
+      "message": "Please use the generated enums for this and the line above.",
+      "range": {
+        "startLine": 220,
+        "startChar": 70,
+        "endLine": 220,
+        "endChar": 78
+      },
+      "revId": "888dcf1b53e105720d9d823a52fcde4da873540a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
