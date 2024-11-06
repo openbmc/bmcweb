@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14fc63ff_48567c87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-06T16:10:10Z",
+      "side": 1,
+      "message": "I noticed there is a pre-existing commit with this same change out there. Should that be the commit being finished instead to make sure the comments for that commit were handled?\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/70895",
+      "revId": "1c7d55c2ef512f2a693a9dc4a93c05652445b63a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
