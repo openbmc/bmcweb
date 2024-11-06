@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7a47572_537c7e7b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-06T10:02:11Z",
+      "side": 1,
+      "message": "\u003e That\u0027s not to say these lines don\u0027t make sense, but \"look at diff and you\u0027ll see they\u0027re the same\" isn\u0027t the answer.\n\nIt\u0027s called code review and it is time consuming. If you don\u0027t trust me that i just copy-pasted the functions from one file to the other, you can do it yourself and between what i did and what you did there will be no diff, after running clang-format.\n\nThen you don\u0027t have to actually look at the code or diff individual functions.\n\nI get that it\u0027s not the same since the indentation has changed.\nI\u0027m not trying to avoid doing necessary work of testing behavior changes, but this is simply the indentation change that\u0027s causing a lot of the diff.\nThere is no testing work needed here since the code is exactly the same.\n\n\u003e That\u0027s your opinion. Testing in the commit message is about more than just one commit or keeping you honest, it\u0027s about communicating \"this is the way to test this change\" and to make sure that others can replicate. \n\nThis change is analogous to your change in b729096d0a787abe2a7e8a9a2d1ea12b5e1540fb\nwhere you refactored a large lambda into a function (nice change, happy about that one). I don\u0027t see why different rules apply to me. There you also put the commit message as \n\n\u003e Tested: Inspection Only.\n\nFor further examples of \u0027Inspection Only\u0027 we have\n\n7945eeed0fe8f9c7bf07669294499ae0108da1d3 (Ed, refactoring)\nd3e9c3a24a804d159b473002dfc99eb86ac3cd91 (Ed)\nac1e1246464e28fe4313ba936a6b8f64ec65bb12 (Ed)\nf2a8e57ede74a8252100b2281e3f4d170aa69391 (Gunnar)\n...",
+      "parentUuid": "9a191c27_5cf4c227",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e5587dc0_2148c68d",
