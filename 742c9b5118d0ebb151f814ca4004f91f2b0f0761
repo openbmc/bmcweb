@@ -168,6 +168,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "612d5d27_05d54d22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-06T20:56:06Z",
+      "side": 1,
+      "message": "\u003e\u003e     For further examples of \u0027Inspection Only\u0027 we have\n\n\u003e\u003e    7945eeed0fe8f9c7bf07669294499ae0108da1d3 (Ed, refactoring)\n    d3e9c3a24a804d159b473002dfc99eb86ac3cd91 (Ed)\n    ac1e1246464e28fe4313ba936a6b8f64ec65bb12 (Ed)\n    f2a8e57ede74a8252100b2281e3f4d170aa69391 (Gunnar)\n    ...\n\n\u003e You\u0027ll note that these each hit some combination of:\n\n\u003e   Code covered by redfish-service-validator, which runs automatically.\n    Either a net same or net negative code lines diff that\u0027s trivial to review. (this code is +100 lines)\n    A change made by script automation, so far less likely that it had any human errors in it.\n\n\u003e In comparison to this patch, those make these things different. You\u0027ll also note that the vast majority of my commits do have testing statements.\n\nAgree here.",
+      "parentUuid": "e2bbcd4b_270cb76b",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e5587dc0_2148c68d",
