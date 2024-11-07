@@ -16,6 +16,40 @@
       "message": "I noticed there is a pre-existing commit with this same change out there. Should that be the commit being finished instead to make sure the comments for that commit were handled?\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/70895",
       "revId": "1c7d55c2ef512f2a693a9dc4a93c05652445b63a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e9f91d1_ab376ad2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002117
+      },
+      "writtenOn": "2024-11-07T06:12:45Z",
+      "side": 1,
+      "message": "Thanks for the reminder. I will track the commit 70895.",
+      "revId": "1c7d55c2ef512f2a693a9dc4a93c05652445b63a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bcf4b49_5d8d716c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002117
+      },
+      "writtenOn": "2024-11-07T06:12:45Z",
+      "side": 1,
+      "message": "Thanks for the reminder. I will track the commit 70895.",
+      "revId": "1c7d55c2ef512f2a693a9dc4a93c05652445b63a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
