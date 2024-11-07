@@ -16,6 +16,24 @@
       "message": "Hi! \nCan you please make sure you are on your companies CCLA or an individual CLA and have your company add you to their gerrit approved list?",
       "revId": "483145880ac6d1570ea34299986b67166a0d2167",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fabf4e16_f26554c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002211
+      },
+      "writtenOn": "2024-11-07T11:45:17Z",
+      "side": 1,
+      "message": "Hi, sorry, I forgot about CLA, just mailed it to manager@lfprojects.org.",
+      "parentUuid": "0ca17144_a35c1168",
+      "revId": "483145880ac6d1570ea34299986b67166a0d2167",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
