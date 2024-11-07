@@ -50,6 +50,24 @@
       "message": "Thanks for the reminder. I will track the commit 70895.",
       "revId": "1c7d55c2ef512f2a693a9dc4a93c05652445b63a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54e43882_8c04d549",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002117
+      },
+      "writtenOn": "2024-11-07T06:16:01Z",
+      "side": 1,
+      "message": "There is a pre-existing commit with this same change.(70895)",
+      "parentUuid": "14fc63ff_48567c87",
+      "revId": "1c7d55c2ef512f2a693a9dc4a93c05652445b63a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
