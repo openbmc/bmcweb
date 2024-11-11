@@ -272,13 +272,19 @@ nlohmann_json_dep = dependency(
 )
 bmcweb_dependencies += nlohmann_json_dep
 
+boost_modules = ['url']
+if boost.version().version_compare('>=1.86.0')
+    # Boost version is 1.86 or higher to include the 'process' module
+    boost_modules += ['process']
+endif
 boost = dependency(
     'boost',
-    modules: ['url'],
+    modules: boost_modules,
     version: '>=1.84.0',
     required: false,
     include_type: 'system',
 )
+
 if boost.found()
     bmcweb_dependencies += [boost]
     bmcweb_cli_dependencies += [boost]
