@@ -274,7 +274,7 @@ bmcweb_dependencies += nlohmann_json_dep
 
 boost = dependency(
     'boost',
-    modules: ['url'],
+    modules: ['process', 'url'],
     version: '>=1.84.0',
     required: false,
     include_type: 'system',
