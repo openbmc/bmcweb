@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a443ae3_ab8bd28a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-11T18:38:55Z",
+      "side": 1,
+      "message": "Please comment on why this is an issue in practice.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 9
+      },
+      "revId": "1c7d55c2ef512f2a693a9dc4a93c05652445b63a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14fc63ff_48567c87",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 10
