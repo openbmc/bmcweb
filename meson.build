@@ -279,6 +279,18 @@ boost = dependency(
     required: false,
     include_type: 'system',
 )
+
+# Boost version is 1.86 or higher to include the 'process' module
+if boost.version().version_compare('>=1.86.0')
+    boost = dependency(
+        'boost',
+        modules: ['url', 'process'],
+        version: '>=1.86.0',
+        required: false,
+        include_type: 'system',
+    )
+endif
+
 if boost.found()
     bmcweb_dependencies += [boost]
     bmcweb_cli_dependencies += [boost]
