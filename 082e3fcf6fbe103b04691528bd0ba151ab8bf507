@@ -16,6 +16,24 @@
       "message": "Any pointer to the boost docs on why this is now needed?",
       "revId": "082e3fcf6fbe103b04691528bd0ba151ab8bf507",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea7e7567_6d412803",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-11T16:54:22Z",
+      "side": 1,
+      "message": "we generally try to avoid static linking against boost libraries because it can bloat binary sizes.  URL is here because they made it so there was no other option.",
+      "parentUuid": "c6e426a2_2e49812b",
+      "revId": "082e3fcf6fbe103b04691528bd0ba151ab8bf507",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
