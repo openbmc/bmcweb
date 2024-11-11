@@ -176,6 +176,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d315a6f1_1f6f86f0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-11T18:36:45Z",
+      "side": 1,
+      "message": "This patch continues to need responses to the questions asked.  To be transparent, this Sensor value interface needs to be performant.  As it stands it\u0027s an interface that on most systems takes 500ms to respond, which for sensors polled at 500ms or 250ms loops is already too slow.\n\nThe test case being \"fixed\" here is undefined behavior in the Redfish specification an, and can\u0027t have any impact on a properly formed redfish client.  To actually have impact would require a client to ignore the Redfish collection URI tree.\n\nGiven that there\u0027s no patchset that can accomplish both, my preference is for the performant version, rather than trying reduce the performance (doubling dbus calls) to support someones example case.",
+      "revId": "f578bb9e7136d9bca817ac2b870b1119e07d7209",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ee9a84a_e5569930",
         "filename": "redfish-core/lib/sensors.hpp",
         "patchSetId": 14
