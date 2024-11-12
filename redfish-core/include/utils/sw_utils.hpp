@@ -104,7 +104,8 @@ inline void populateSoftwareInformation(
             {
                 BMCWEB_LOG_ERROR("error_code = {}", ec);
                 BMCWEB_LOG_ERROR("error msg = {}", ec.message());
-                messages::internalError(asyncResp->res);
+                // No functional software for this swVersionPurpose, so just
+                // return
                 return;
             }
 
