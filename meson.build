@@ -412,6 +412,7 @@ srcfiles_unittest = files(
     'test/include/multipart_test.cpp',
     'test/include/openbmc_dbus_rest_test.cpp',
     'test/include/ossl_random.cpp',
+    'test/include/property_tree_test.cpp',
     'test/include/ssl_key_handler_test.cpp',
     'test/include/str_utility_test.cpp',
     'test/redfish-core/include/event_matches_filter_test.cpp',
