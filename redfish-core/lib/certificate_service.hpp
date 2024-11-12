@@ -299,8 +299,8 @@ inline void getCertificateProperties(
 {
     BMCWEB_LOG_DEBUG("getCertificateProperties Path={} certId={} certURl={}",
                      objectPath, certId, certURL);
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, objectPath, certs::certPropIntf,
+    dbus::utility::getAllProperties(
+        service, objectPath, certs::certPropIntf,
         [asyncResp, certURL, certId,
          name](const boost::system::error_code& ec,
                const dbus::utility::DBusPropertiesMap& properties) {

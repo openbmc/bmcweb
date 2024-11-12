@@ -148,8 +148,8 @@ inline void onMapperAssociationDone(
         return;
     }
 
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, pcieSlotPath,
+    dbus::utility::getAllProperties(
+        connectionName, pcieSlotPath,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
         [asyncResp](const boost::system::error_code& ec2,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {

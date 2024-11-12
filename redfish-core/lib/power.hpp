@@ -99,8 +99,8 @@ inline void afterGetChassisPath(
     {
         return;
     }
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+    dbus::utility::getProperty<bool>(
+        "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
         std::bind_front(afterGetPowerCapEnable, sensorsAsyncResp, *value));
@@ -248,8 +248,8 @@ inline void afterGetChassis(
         return;
     }
 
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+    dbus::utility::getAllProperties(
+        "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap",
         [sensorAsyncResp](const boost::system::error_code& ec,

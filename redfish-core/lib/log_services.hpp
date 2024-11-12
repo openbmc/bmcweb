@@ -1766,8 +1766,8 @@ inline void dBusEventLogEntryGet(
 
     // DBus implementation of EventLog/Entries
     // Make call to Logging Service to find all log entry objects
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.Logging",
+    dbus::utility::getAllProperties(
+        "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging/entry/" + entryID, "",
         [asyncResp, entryID](const boost::system::error_code& ec,
                              const dbus::utility::DBusPropertiesMap& resp) {
@@ -2788,10 +2788,9 @@ inline void
                 logEntryJson.update(logEntry);
             }
         };
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, crashdumpObject,
-        crashdumpPath + std::string("/") + logID, crashdumpInterface,
-        std::move(getStoredLogCallback));
+    dbus::utility::getAllProperties(
+        crashdumpObject, crashdumpPath + std::string("/") + logID,
+        crashdumpInterface, std::move(getStoredLogCallback));
 }
 
 inline void requestRoutesCrashdumpEntryCollection(App& app)
@@ -2994,7 +2993,7 @@ inline void requestRoutesCrashdumpFile(App& app)
                             boost::beast::http::field::content_disposition,
                             "attachment");
                     };
-                sdbusplus::asio::getAllProperties(
+                dbus::utility::getAllProperties(
                     *crow::connections::systemBus, crashdumpObject,
                     crashdumpPath + std::string("/") + logID,
                     crashdumpInterface, std::move(getStoredLogCallback));

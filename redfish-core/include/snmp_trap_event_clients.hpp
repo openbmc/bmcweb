@@ -70,9 +70,9 @@ inline void
     asyncResp->res.jsonValue["EventFormatType"] =
         event_destination::EventFormatType::Event;
 
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.Network.SNMP",
-        objectPath, "xyz.openbmc_project.Network.Client",
+    dbus::utility::getAllProperties(
+        "xyz.openbmc_project.Network.SNMP", objectPath,
+        "xyz.openbmc_project.Network.Client",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
             afterGetSnmpTrapClientdata(asyncResp, ec, properties);

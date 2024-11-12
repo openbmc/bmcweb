@@ -1415,9 +1415,9 @@ inline void
         asyncResp->res.jsonValue["LDAP"]["Certificates"]["@odata.id"] =
             "/redfish/v1/AccountService/LDAP/Certificates";
     }
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
-        "/xyz/openbmc_project/user", "xyz.openbmc_project.User.AccountPolicy",
+    dbus::utility::getAllProperties(
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.AccountPolicy",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
             if (ec)
@@ -1923,10 +1923,9 @@ inline void handleAccountCollectionPost(
     bool enabled = enabledJson.value_or(true);
 
     // Reading AllGroups property
-    sdbusplus::asio::getProperty<std::vector<std::string>>(
-        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
-        "/xyz/openbmc_project/user", "xyz.openbmc_project.User.Manager",
-        "AllGroups",
+    dbus::utility::getProperty<std::vector<std::string>>(
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.Manager", "AllGroups",
         [asyncResp, username, password{std::move(password)}, roleId, enabled,
          accountTypes](const boost::system::error_code& ec,
                        const std::vector<std::string>& allGroupsList) {
