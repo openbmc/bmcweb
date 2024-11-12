@@ -291,7 +291,7 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& connectionName,
                           const std::string& path)
 {
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [asyncResp](const boost::system::error_code& ec,
@@ -346,7 +346,7 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& connectionName,
                             const std::string& path)
 {
-    sdbusplus::asio::getProperty<bool>(
+    dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp,
@@ -370,7 +370,7 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& connectionName,
                           const std::string& path)
 {
-    sdbusplus::asio::getProperty<bool>(
+    dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.State.Drive", "Rebuilding",
         [asyncResp](const boost::system::error_code& ec, const bool updating) {
@@ -443,7 +443,7 @@ inline void getDriveItemProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& connectionName, const std::string& path)
 {
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item.Drive",
         [asyncResp](const boost::system::error_code& ec,
@@ -1036,7 +1036,7 @@ inline void populateStorageController(
     asyncResp->res.jsonValue["Id"] = controllerId;
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
-    sdbusplus::asio::getProperty<bool>(
+    dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp](const boost::system::error_code& ec, bool isPresent) {
@@ -1054,7 +1054,7 @@ inline void populateStorageController(
             }
         });
 
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [asyncResp](const boost::system::error_code& ec,

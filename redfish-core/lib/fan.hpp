@@ -233,7 +233,7 @@ inline void addFanCommonProperties(crow::Response& resp,
 inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& fanPath, const std::string& service)
 {
-    sdbusplus::asio::getProperty<bool>(
+    dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, service, fanPath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         [asyncResp](const boost::system::error_code& ec, const bool value) {
@@ -259,7 +259,7 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& fanPath, const std::string& service)
 {
-    sdbusplus::asio::getProperty<bool>(
+    dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, service, fanPath,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp](const boost::system::error_code& ec, const bool value) {
@@ -285,7 +285,7 @@ inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void getFanAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& fanPath, const std::string& service)
 {
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, fanPath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [fanPath, asyncResp{asyncResp}](
@@ -344,7 +344,7 @@ inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& fanPath,
                            const std::string& service)
 {
-    sdbusplus::asio::getProperty<std::string>(
+    dbus::utility::getProperty<std::string>(
         *crow::connections::systemBus, service, fanPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code& ec,

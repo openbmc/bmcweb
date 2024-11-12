@@ -140,13 +140,37 @@ inline bool getNthStringFromPath(const std::string& path, int index,
     return count >= index;
 }
 
+inline void getAllProperties(
+    sdbusplus::asio::connection& /*conn*/, const std::string& service,
+    const std::string& objectPath, const std::string& interface,
+    std::function<void(const boost::system::error_code&,
+                       const DBusPropertiesMap&)>&& callback)
+{
+    sdbusplus::asio::getAllProperties(*crow::connections::systemBus, service,
+                                      objectPath, interface,
+                                      std::move(callback));
+}
+
+template <typename PropertyType>
+inline void getProperty(
+    sdbusplus::asio::connection& /*conn*/, const std::string& service,
+    const std::string& objectPath, const std::string& interface,
+    const std::string& propertyName,
+    std::function<void(const boost::system::error_code&, const PropertyType&)>&&
+        callback)
+{
+    sdbusplus::asio::getProperty<PropertyType>(
+        *crow::connections::systemBus, service, objectPath, interface,
+        propertyName, std::move(callback));
+}
+
 template <typename Callback>
 inline void checkDbusPathExists(const std::string& path, Callback&& callback)
 {
     crow::connections::systemBus->async_method_call(
         [callback = std::forward<Callback>(callback)](
             const boost::system::error_code& ec,
-            const dbus::utility::MapperGetObject& objectNames) {
+            const MapperGetObject& objectNames) {
             callback(!ec && !objectNames.empty());
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -283,7 +307,7 @@ inline void getAssociationEndPoints(
     std::function<void(const boost::system::error_code&,
                        const MapperEndPoints&)>&& callback)
 {
-    sdbusplus::asio::getProperty<MapperEndPoints>(
+    getProperty<MapperEndPoints>(
         *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper", path,
         "xyz.openbmc_project.Association", "endpoints", std::move(callback));
 }

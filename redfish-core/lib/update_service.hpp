@@ -1191,7 +1191,7 @@ inline void
                        const std::string& service, const std::string& path,
                        const std::string& swId)
 {
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Software.Version",
         [asyncResp,

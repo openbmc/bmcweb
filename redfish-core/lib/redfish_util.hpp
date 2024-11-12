@@ -208,7 +208,7 @@ void getPortStatusAndPath(
 template <typename CallbackFunc>
 void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
 {
-    sdbusplus::asio::getProperty<
+    dbus::utility::getProperty<
         std::vector<std::tuple<std::string, std::string>>>(
         *crow::connections::systemBus, "org.freedesktop.systemd1", socketPath,
         "org.freedesktop.systemd1.Socket", "Listen",

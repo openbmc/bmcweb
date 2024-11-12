@@ -38,7 +38,7 @@ inline void
     getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get hypervisor state information.");
-    sdbusplus::asio::getProperty<std::string>(
+    dbus::utility::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.State.Hypervisor",
         "/xyz/openbmc_project/state/hypervisor0",
         "xyz.openbmc_project.State.Host", "CurrentHostState",

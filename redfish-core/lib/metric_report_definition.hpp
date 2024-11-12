@@ -1192,7 +1192,7 @@ inline void setReportMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view id,
     std::vector<nlohmann::json::object_t>&& metrics)
 {
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, telemetry::service,
         telemetry::getDbusReportPath(id), telemetry::reportInterface,
         [asyncResp, id = std::string(id), redfishMetrics = std::move(metrics)](
@@ -1475,7 +1475,7 @@ inline void handleMetricReportGet(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/MetricReport/MetricReport.json>; rel=describedby");
 
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, telemetry::service,
         telemetry::getDbusReportPath(id), telemetry::reportInterface,
         [asyncResp, id](const boost::system::error_code& ec,

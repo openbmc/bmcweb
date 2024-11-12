@@ -83,7 +83,7 @@ inline void managerGetStorageStatistics(
     constexpr auto freeStorageObjPath =
         "/xyz/openbmc_project/metric/bmc/storage/rw";
 
-    sdbusplus::asio::getProperty<double>(
+    dbus::utility::getProperty<double>(
         *crow::connections::systemBus, healthMonitorServiceName,
         freeStorageObjPath, valueInterface, valueProperty,
         std::bind_front(setBytesProperty, asyncResp,
@@ -118,13 +118,13 @@ inline void managerGetProcessorStatistics(
     constexpr auto userCPUObjPath = "/xyz/openbmc_project/metric/bmc/cpu/user";
 
     using json_pointer = nlohmann::json::json_pointer;
-    sdbusplus::asio::getProperty<double>(
+    dbus::utility::getProperty<double>(
         *crow::connections::systemBus, healthMonitorServiceName,
         kernelCPUObjPath, valueInterface, valueProperty,
         std::bind_front(setPercentProperty, asyncResp,
                         json_pointer("/ProcessorStatistics/KernelPercent")));
 
-    sdbusplus::asio::getProperty<double>(
+    dbus::utility::getProperty<double>(
         *crow::connections::systemBus, healthMonitorServiceName, userCPUObjPath,
         valueInterface, valueProperty,
         std::bind_front(setPercentProperty, asyncResp,
@@ -137,7 +137,7 @@ inline void managerGetMemoryStatistics(
     using json_pointer = nlohmann::json::json_pointer;
     constexpr auto availableMemoryObjPath =
         "/xyz/openbmc_project/metric/bmc/memory/available";
-    sdbusplus::asio::getProperty<double>(
+    dbus::utility::getProperty<double>(
         *crow::connections::systemBus, healthMonitorServiceName,
         availableMemoryObjPath, valueInterface, valueProperty,
         std::bind_front(setBytesProperty, asyncResp,
@@ -145,7 +145,7 @@ inline void managerGetMemoryStatistics(
 
     constexpr auto bufferedAndCachedMemoryObjPath =
         "/xyz/openbmc_project/metric/bmc/memory/buffered_and_cached";
-    sdbusplus::asio::getProperty<double>(
+    dbus::utility::getProperty<double>(
         *crow::connections::systemBus, healthMonitorServiceName,
         bufferedAndCachedMemoryObjPath, valueInterface, valueProperty,
         std::bind_front(
@@ -154,7 +154,7 @@ inline void managerGetMemoryStatistics(
 
     constexpr auto freeMemoryObjPath =
         "/xyz/openbmc_project/metric/bmc/memory/free";
-    sdbusplus::asio::getProperty<double>(
+    dbus::utility::getProperty<double>(
         *crow::connections::systemBus, healthMonitorServiceName,
         freeMemoryObjPath, valueInterface, valueProperty,
         std::bind_front(setBytesProperty, asyncResp,
@@ -162,7 +162,7 @@ inline void managerGetMemoryStatistics(
 
     constexpr auto sharedMemoryObjPath =
         "/xyz/openbmc_project/metric/bmc/memory/shared";
-    sdbusplus::asio::getProperty<double>(
+    dbus::utility::getProperty<double>(
         *crow::connections::systemBus, healthMonitorServiceName,
         sharedMemoryObjPath, valueInterface, valueProperty,
         std::bind_front(setBytesProperty, asyncResp,
@@ -170,7 +170,7 @@ inline void managerGetMemoryStatistics(
 
     constexpr auto totalMemoryObjPath =
         "/xyz/openbmc_project/metric/bmc/memory/total";
-    sdbusplus::asio::getProperty<double>(
+    dbus::utility::getProperty<double>(
         *crow::connections::systemBus, healthMonitorServiceName,
         totalMemoryObjPath, valueInterface, valueProperty,
         std::bind_front(setBytesProperty, asyncResp,
@@ -216,7 +216,7 @@ inline void afterGetManagerStartTime(
 inline void managerGetServiceRootUptime(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    sdbusplus::asio::getProperty<uint64_t>(
+    dbus::utility::getProperty<uint64_t>(
         *crow::connections::systemBus, "org.freedesktop.systemd1",
         "/org/freedesktop/systemd1/unit/bmcweb_2eservice",
         "org.freedesktop.systemd1.Unit", "ActiveEnterTimestampMonotonic",

@@ -99,7 +99,7 @@ inline void afterGetChassisPath(
     {
         return;
     }
-    sdbusplus::asio::getProperty<bool>(
+    dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
@@ -248,7 +248,7 @@ inline void afterGetChassis(
         return;
     }
 
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap",

@@ -1272,7 +1272,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 const std::string& path = subtreeLocal[0].first;
                 const std::string& owner = subtreeLocal[0].second[0].first;
 
-                sdbusplus::asio::getAllProperties(
+                dbus::utility::getAllProperties(
                     *crow::connections::systemBus, owner, path,
                     thermalModeIface,
                     [path, owner,
@@ -1470,7 +1470,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
                 const std::string& path = subtree[0].first;
                 const std::string& owner = subtree[0].second[0].first;
-                sdbusplus::asio::getAllProperties(
+                dbus::utility::getAllProperties(
                     *crow::connections::systemBus, owner, path,
                     thermalModeIface,
                     [self, path,
@@ -1760,7 +1760,7 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG("Get BMC manager Location data.");
 
-    sdbusplus::asio::getProperty<std::string>(
+    dbus::utility::getProperty<std::string>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code& ec,
@@ -1784,7 +1784,7 @@ inline void
 {
     BMCWEB_LOG_DEBUG("Getting Manager Last Reset Time");
 
-    sdbusplus::asio::getProperty<uint64_t>(
+    dbus::utility::getProperty<uint64_t>(
         *crow::connections::systemBus, "xyz.openbmc_project.State.BMC",
         "/xyz/openbmc_project/state/bmc0", "xyz.openbmc_project.State.BMC",
         "LastRebootTime",
@@ -1972,7 +1972,7 @@ inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void
     checkForQuiesced(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    sdbusplus::asio::getProperty<std::string>(
+    dbus::utility::getProperty<std::string>(
         *crow::connections::systemBus, "org.freedesktop.systemd1",
         "/org/freedesktop/systemd1/unit/obmc-bmc-service-quiesce@0.target",
         "org.freedesktop.systemd1.Unit", "ActiveState",
@@ -2169,7 +2169,7 @@ inline void requestRoutesManager(App& app)
                     chassiUrl;
             });
 
-            sdbusplus::asio::getProperty<double>(
+            dbus::utility::getProperty<double>(
                 *crow::connections::systemBus, "org.freedesktop.systemd1",
                 "/org/freedesktop/systemd1", "org.freedesktop.systemd1.Manager",
                 "Progress",
@@ -2236,7 +2236,7 @@ inline void requestRoutesManager(App& app)
                         if (interfaceName ==
                             "xyz.openbmc_project.Inventory.Decorator.Asset")
                         {
-                            sdbusplus::asio::getAllProperties(
+                            dbus::utility::getAllProperties(
                                 *crow::connections::systemBus, connectionName,
                                 path,
                                 "xyz.openbmc_project.Inventory.Decorator.Asset",

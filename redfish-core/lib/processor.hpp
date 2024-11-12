@@ -62,7 +62,7 @@ inline void getProcessorUUID(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                              const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG("Get Processor UUID");
-    sdbusplus::asio::getProperty<std::string>(
+    dbus::utility::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Common.UUID", "UUID",
         [objPath, asyncResp{std::move(asyncResp)}](
@@ -340,7 +340,7 @@ inline void getThrottleProperties(
 {
     BMCWEB_LOG_DEBUG("Get processor throttle resources");
 
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, objectPath,
         "xyz.openbmc_project.Control.Power.Throttle",
         [asyncResp](const boost::system::error_code& ec,
@@ -354,7 +354,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                             const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG("Get Cpu Asset Data");
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [objPath, asyncResp{std::move(asyncResp)}](
@@ -428,7 +428,7 @@ inline void getCpuRevisionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG("Get Cpu Revision Data");
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.Revision",
         [objPath, asyncResp{std::move(asyncResp)}](
@@ -465,7 +465,7 @@ inline void getAcceleratorDataByService(
     const std::string& service, const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG("Get available system Accelerator resources by service.");
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, objPath, "",
         [acclrtrId, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
@@ -579,7 +579,7 @@ inline void
     BMCWEB_LOG_INFO("Getting CPU operating configs for {}", cpuId);
 
     // First, GetAll CurrentOperatingConfig properties on the object
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
         [asyncResp, cpuId,
@@ -640,7 +640,7 @@ inline void
                 // Once we found the current applied config, queue another
                 // request to read the base freq core ids out of that
                 // config.
-                sdbusplus::asio::getProperty<BaseSpeedPrioritySettingsProperty>(
+                dbus::utility::getProperty<BaseSpeedPrioritySettingsProperty>(
                     *crow::connections::systemBus, service, dbusPath,
                     "xyz.openbmc_project.Inventory.Item.Cpu."
                     "OperatingConfig",
@@ -681,7 +681,7 @@ inline void getCpuLocationCode(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG("Get Cpu Location Data");
-    sdbusplus::asio::getProperty<std::string>(
+    dbus::utility::getProperty<std::string>(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [objPath, asyncResp{std::move(asyncResp)}](
@@ -712,7 +712,7 @@ inline void getCpuUniqueId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& objectPath)
 {
     BMCWEB_LOG_DEBUG("Get CPU UniqueIdentifier");
-    sdbusplus::asio::getProperty<std::string>(
+    dbus::utility::getProperty<std::string>(
         *crow::connections::systemBus, service, objectPath,
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
         "UniqueIdentifier",
@@ -878,7 +878,7 @@ inline void getOperatingConfigData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& service, const std::string& objPath)
 {
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Inventory.Item.Cpu.OperatingConfig",
         [asyncResp](const boost::system::error_code& ec,

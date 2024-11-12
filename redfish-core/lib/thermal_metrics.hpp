@@ -86,7 +86,7 @@ inline void handleTemperatureReadingsCelsius(
 
     for (const auto& [service, sensorPath] : sensorsServiceAndPath)
     {
-        sdbusplus::asio::getAllProperties(
+        dbus::utility::getAllProperties(
             *crow::connections::systemBus, service, sensorPath,
             "xyz.openbmc_project.Sensor.Value",
             [asyncResp, chassisId,
