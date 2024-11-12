@@ -1349,6 +1349,11 @@ inline void updateUserProperties(
             // Check if the input vector contains just one bypass type:
             // as there are just two defined in the backend:
             // GoogleAuthenticator  and None
+            if (username == "service")
+            {
+                messages::operationNotAllowed(asyncResp->res);
+                return;
+            }
             if (mfaBypass->size() > 1)
             {
                 messages::propertyNotWritable(asyncResp->res,
