@@ -233,8 +233,8 @@ inline void addFanCommonProperties(crow::Response& resp,
 inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& fanPath, const std::string& service)
 {
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, fanPath,
+    dbus::utility::getProperty<bool>(
+        service, fanPath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
@@ -259,9 +259,8 @@ inline void getFanHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& fanPath, const std::string& service)
 {
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, fanPath,
-        "xyz.openbmc_project.Inventory.Item", "Present",
+    dbus::utility::getProperty<bool>(
+        service, fanPath, "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
@@ -285,9 +284,8 @@ inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void getFanAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& fanPath, const std::string& service)
 {
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, fanPath,
-        "xyz.openbmc_project.Inventory.Decorator.Asset",
+    dbus::utility::getAllProperties(
+        service, fanPath, "xyz.openbmc_project.Inventory.Decorator.Asset",
         [fanPath, asyncResp{asyncResp}](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& assetList) {
@@ -344,8 +342,8 @@ inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& fanPath,
                            const std::string& service)
 {
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, fanPath,
+    dbus::utility::getProperty<std::string>(
+        service, fanPath,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {

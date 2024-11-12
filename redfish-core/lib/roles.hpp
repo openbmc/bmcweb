@@ -133,8 +133,7 @@ inline void requestRoutesRoleCollection(App& app)
                 asyncResp->res.jsonValue["Name"] = "Roles Collection";
                 asyncResp->res.jsonValue["Description"] = "BMC User Roles";
 
-                sdbusplus::asio::getProperty<std::vector<std::string>>(
-                    *crow::connections::systemBus,
+                dbus::utility::getProperty<std::vector<std::string>>(
                     "xyz.openbmc_project.User.Manager",
                     "/xyz/openbmc_project/user",
                     "xyz.openbmc_project.User.Manager", "AllPrivileges",
