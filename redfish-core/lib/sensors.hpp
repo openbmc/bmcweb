@@ -2324,7 +2324,7 @@ namespace sensors
 
 inline void getChassisCallback(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    std::string_view chassisId, std::string_view chassisSubNode,
+    std::string_view chassisId,
     const std::shared_ptr<std::set<std::string>>& sensorNames)
 {
     BMCWEB_LOG_DEBUG("getChassisCallback enter ");
@@ -2347,7 +2347,7 @@ inline void getChassisCallback(
 
         nlohmann::json::object_t member;
         member["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Chassis/{}/{}/{}", chassisId, chassisSubNode, id);
+            "/redfish/v1/Chassis/{}/Sensors/{}", chassisId, id);
 
         entriesArray.emplace_back(std::move(member));
     }
@@ -2387,9 +2387,9 @@ inline void handleSensorCollectionGet(
 
     // We get all sensors as hyperlinkes in the chassis (this
     // implies we reply on the default query parameters handler)
-    getChassis(asyncResp, chassisId, sensors::sensorsNodeStr, dbus::sensorPaths,
-               std::bind_front(sensors::getChassisCallback, asyncResp,
-                               chassisId, sensors::sensorsNodeStr));
+    getChassis(
+        asyncResp, chassisId, sensors::sensorsNodeStr, dbus::sensorPaths,
+        std::bind_front(sensors::getChassisCallback, asyncResp, chassisId));
 }
 
 inline void
