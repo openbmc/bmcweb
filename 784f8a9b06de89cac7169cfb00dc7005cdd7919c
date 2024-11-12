@@ -81,6 +81,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be682274_577ffbbb",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-12T18:32:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92c8bf55_62974d96",
+      "range": {
+        "startLine": 28,
+        "startChar": 24,
+        "endLine": 28,
+        "endChar": 29
+      },
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d01baf2e_b39d8a2d",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-12T18:32:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a54936b1_f838039b",
+      "range": {
+        "startLine": 28,
+        "startChar": 7,
+        "endLine": 28,
+        "endChar": 10
+      },
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04820a95_4cfff033",
@@ -94,6 +142,24 @@
       "writtenOn": "2024-11-04T08:36:20Z",
       "side": 1,
       "message": "Why does this condition exist at all?  SSE subscriptions aren\u0027t persisted?",
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "334a00cc_50327607",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-12T18:32:49Z",
+      "side": 1,
+      "message": "DMTF explicitly specifies that Heartbeat does not apply for SSE\n\nhttps://github.com/openbmc/bmcweb/blob/5fe4ef35821f946c91d9c20cee01e632d6d3ffd4/redfish-core/schema/dmtf/json-schema/EventDestination.v1_15_0.json#L358\n\n```\n\"SendHeartbeat\": {\n....\nThis property shall not apply to event destinations if the `SubscriptionType` property contains the value `SSE`.\",\n```",
+      "parentUuid": "04820a95_4cfff033",
       "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -123,6 +189,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb78ff46_497bbf05",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-12T18:32:49Z",
+      "side": 1,
+      "message": "This is reading from persistent file.\nIsn\u0027t it still a proper to validate the content like what\u0027s done for `DeliveryRetryAttempts` or `DeliveryRetryIntervalSeconds`?\n\nhttps://github.com/openbmc/bmcweb/blob/5fe4ef35821f946c91d9c20cee01e632d6d3ffd4/include/event_service_store.hpp#L289",
+      "parentUuid": "a7463f4f_fbf4b9b2",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 78
+      },
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df9ce315_baa97452",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 11
@@ -134,6 +224,30 @@
       "writtenOn": "2024-11-04T08:36:20Z",
       "side": 1,
       "message": "Please make this explicitly 65535, and note that it came from the redfish schema limits.",
+      "range": {
+        "startLine": 660,
+        "startChar": 41,
+        "endLine": 660,
+        "endChar": 77
+      },
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dee9631b_a18f026a",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-12T18:32:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df9ce315_baa97452",
       "range": {
         "startLine": 660,
         "startChar": 41,
