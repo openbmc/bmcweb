@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "131b7104_584c4416",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000086
+      },
+      "writtenOn": "2024-11-12T08:19:42Z",
+      "side": 1,
+      "message": "Required https://gerrit.openbmc.org/c/openbmc/openbmc/+/75762 merge, to fix build issue.",
+      "revId": "92e6e507822fe72d3d08250b274b953a5899f87d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
