@@ -1415,7 +1415,7 @@ inline void
         asyncResp->res.jsonValue["LDAP"]["Certificates"]["@odata.id"] =
             "/redfish/v1/AccountService/LDAP/Certificates";
     }
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
         "/xyz/openbmc_project/user", "xyz.openbmc_project.User.AccountPolicy",
         [asyncResp](const boost::system::error_code& ec,
@@ -1923,7 +1923,7 @@ inline void handleAccountCollectionPost(
     bool enabled = enabledJson.value_or(true);
 
     // Reading AllGroups property
-    sdbusplus::asio::getProperty<std::vector<std::string>>(
+    dbus::utility::getProperty<std::vector<std::string>>(
         *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
         "/xyz/openbmc_project/user", "xyz.openbmc_project.User.Manager",
         "AllGroups",

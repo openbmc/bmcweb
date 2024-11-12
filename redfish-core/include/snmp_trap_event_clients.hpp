@@ -70,7 +70,7 @@ inline void
     asyncResp->res.jsonValue["EventFormatType"] =
         event_destination::EventFormatType::Event;
 
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, "xyz.openbmc_project.Network.SNMP",
         objectPath, "xyz.openbmc_project.Network.Client",
         [asyncResp](const boost::system::error_code& ec,

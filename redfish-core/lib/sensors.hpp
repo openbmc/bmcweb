@@ -555,7 +555,7 @@ inline void populateFanRedundancy(
                         {
                             return;
                         }
-                        sdbusplus::asio::getAllProperties(
+                        dbus::utility::getAllProperties(
                             *crow::connections::systemBus, owner, path,
                             "xyz.openbmc_project.Control.FanRedundancy",
                             [path, sensorsAsyncResp](
@@ -1375,7 +1375,7 @@ void getInventoryLedData(
             };
 
         // Get the State property for the current LED
-        sdbusplus::asio::getProperty<std::string>(
+        dbus::utility::getProperty<std::string>(
             *crow::connections::systemBus, ledConnection, ledPath,
             "xyz.openbmc_project.Led.Physical", "State",
             std::move(respHandler));
@@ -1544,7 +1544,7 @@ void getPowerSupplyAttributesData(
 
     // Get the DeratingFactor property for the PowerSupplyAttributes
     // Currently only property on the interface/only one we care about
-    sdbusplus::asio::getProperty<uint32_t>(
+    dbus::utility::getProperty<uint32_t>(
         *crow::connections::systemBus, psAttributesConnection, psAttributesPath,
         "xyz.openbmc_project.Control.PowerSupplyAttributes", "DeratingFactor",
         std::move(respHandler));
@@ -2407,7 +2407,7 @@ inline void
     BMCWEB_LOG_DEBUG("Looking up {}", connectionName);
     BMCWEB_LOG_DEBUG("Path {}", sensorPath);
 
-    sdbusplus::asio::getAllProperties(
+    ::dbus::utility::getAllProperties(
         *crow::connections::systemBus, connectionName, sensorPath, "",
         [asyncResp,
          sensorPath](const boost::system::error_code& ec,
