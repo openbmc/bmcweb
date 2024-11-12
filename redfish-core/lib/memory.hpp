@@ -619,7 +619,7 @@ inline void getDimmDataByService(
     const std::string& service, const std::string& objPath)
 {
     BMCWEB_LOG_DEBUG("Get available system components.");
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, objPath, "",
         [dimmId, asyncResp{std::move(asyncResp)}](
             const boost::system::error_code& ec,
@@ -692,7 +692,7 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                                  const std::string& service,
                                  const std::string& path)
 {
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition",
         [asyncResp{std::move(asyncResp)}](

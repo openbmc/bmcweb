@@ -181,7 +181,7 @@ inline void getPropertiesForEnumerate(
     BMCWEB_LOG_DEBUG("getPropertiesForEnumerate {} {} {}", objectPath, service,
                      interface);
 
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, objectPath, interface,
         [asyncResp, objectPath, service,
          interface](const boost::system::error_code& ec,
