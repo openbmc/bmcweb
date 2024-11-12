@@ -271,7 +271,7 @@ inline void afterGetDbusObject(
         messages::internalError(asyncResp->res);
         return;
     }
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, object.begin()->first, pcieDeviceSlot,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
         [asyncResp](
@@ -298,7 +298,7 @@ inline void getPCIeDeviceHealth(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDevicePath, const std::string& service)
 {
-    sdbusplus::asio::getProperty<bool>(
+    dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, service, pcieDevicePath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         [asyncResp](const boost::system::error_code& ec, const bool value) {
@@ -325,7 +325,7 @@ inline void getPCIeDeviceState(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDevicePath, const std::string& service)
 {
-    sdbusplus::asio::getProperty<bool>(
+    dbus::utility::getProperty<bool>(
         *crow::connections::systemBus, service, pcieDevicePath,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp](const boost::system::error_code& ec, bool value) {
@@ -351,7 +351,7 @@ inline void getPCIeDeviceAsset(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDevicePath, const std::string& service)
 {
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, pcieDevicePath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [pcieDevicePath, asyncResp{asyncResp}](
@@ -514,7 +514,7 @@ inline void getPCIeDeviceProperties(
     const std::function<void(
         const dbus::utility::DBusPropertiesMap& pcieDevProperties)>&& callback)
 {
-    sdbusplus::asio::getAllProperties(
+    dbus::utility::getAllProperties(
         *crow::connections::systemBus, service, pcieDevicePath,
         "xyz.openbmc_project.Inventory.Item.PCIeDevice",
         [asyncResp,
