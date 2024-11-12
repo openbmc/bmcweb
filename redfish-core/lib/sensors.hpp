@@ -14,6 +14,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "property_tree.hpp"
 #include "str_utility.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
