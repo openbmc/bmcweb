@@ -36,9 +36,8 @@ inline void handleTelemetryServiceGet(
     asyncResp->res.jsonValue["Triggers"]["@odata.id"] =
         "/redfish/v1/TelemetryService/Triggers";
 
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, telemetry::service,
-        "/xyz/openbmc_project/Telemetry/Reports",
+    dbus::utility::getAllProperties(
+        telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
         "xyz.openbmc_project.Telemetry.ReportManager",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& ret) {

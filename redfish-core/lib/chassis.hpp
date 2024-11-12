@@ -57,9 +57,9 @@ namespace redfish
 inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const sdbusplus::message::object_path& path)
 {
-    sdbusplus::asio::getProperty<std::vector<std::string>>(
-        *crow::connections::systemBus, "xyz.openbmc_project.ObjectMapper",
-        (path / "storage").str, "xyz.openbmc_project.Association", "endpoints",
+    dbus::utility::getProperty<std::vector<std::string>>(
+        "xyz.openbmc_project.ObjectMapper", (path / "storage").str,
+        "xyz.openbmc_project.Association", "endpoints",
         [asyncResp](const boost::system::error_code& ec,
                     const std::vector<std::string>& storageList) {
             if (ec)
@@ -100,8 +100,8 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
     // crow::connections::systemBus->async_method_call(
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Chassis",
+    dbus::utility::getProperty<std::string>(
+        "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",
         "xyz.openbmc_project.State.Chassis", "CurrentPowerState",
         [asyncResp{std::move(asyncResp)}](const boost::system::error_code& ec,
@@ -165,8 +165,8 @@ inline void handlePhysicalSecurityGetSubTree(
 
             BMCWEB_LOG_DEBUG("Get intrusion status by service ");
 
-            sdbusplus::asio::getProperty<std::string>(
-                *crow::connections::systemBus, service.first, object.first,
+            dbus::utility::getProperty<std::string>(
+                service.first, object.first,
                 "xyz.openbmc_project.Chassis.Intrusion", "Status",
                 [asyncResp](const boost::system::error_code& ec1,
                             const std::string& value) {
@@ -330,8 +330,8 @@ inline void getChassisLocationCode(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& connectionName, const std::string& path)
 {
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
+    dbus::utility::getProperty<std::string>(
+        connectionName, path,
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
@@ -352,9 +352,8 @@ inline void getChassisUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& connectionName,
                            const std::string& path)
 {
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, connectionName, path,
-        "xyz.openbmc_project.Common.UUID", "UUID",
+    dbus::utility::getProperty<std::string>(
+        connectionName, path, "xyz.openbmc_project.Common.UUID", "UUID",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& chassisUUID) {
             if (ec)
@@ -544,9 +543,8 @@ inline void handleChassisGetSubTree(
         {
             if (interface == assetTagInterface)
             {
-                sdbusplus::asio::getProperty<std::string>(
-                    *crow::connections::systemBus, connectionName, path,
-                    assetTagInterface, "AssetTag",
+                dbus::utility::getProperty<std::string>(
+                    connectionName, path, assetTagInterface, "AssetTag",
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const std::string& property) {
                         if (ec2)
@@ -561,9 +559,8 @@ inline void handleChassisGetSubTree(
             }
             else if (interface == replaceableInterface)
             {
-                sdbusplus::asio::getProperty<bool>(
-                    *crow::connections::systemBus, connectionName, path,
-                    replaceableInterface, "HotPluggable",
+                dbus::utility::getProperty<bool>(
+                    connectionName, path, replaceableInterface, "HotPluggable",
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const bool property) {
                         if (ec2)
@@ -579,9 +576,8 @@ inline void handleChassisGetSubTree(
             }
             else if (interface == revisionInterface)
             {
-                sdbusplus::asio::getProperty<std::string>(
-                    *crow::connections::systemBus, connectionName, path,
-                    revisionInterface, "Version",
+                dbus::utility::getProperty<std::string>(
+                    connectionName, path, revisionInterface, "Version",
                     [asyncResp, chassisId](const boost::system::error_code& ec2,
                                            const std::string& property) {
                         if (ec2)
@@ -606,7 +602,7 @@ inline void handleChassisGetSubTree(
             }
         }
 
-        sdbusplus::asio::getAllProperties(
+        dbus::utility::getAllProperties(
             *crow::connections::systemBus, connectionName, path,
             "xyz.openbmc_project.Inventory.Decorator.Asset",
             [asyncResp, chassisId,

@@ -37,8 +37,8 @@ inline void
     getIndicatorLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get led groups");
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
+    dbus::utility::getProperty<bool>(
+        "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
         [asyncResp](const boost::system::error_code& ec, const bool blinking) {
@@ -60,8 +60,7 @@ inline void
                 return;
             }
 
-            sdbusplus::asio::getProperty<bool>(
-                *crow::connections::systemBus,
+            dbus::utility::getProperty<bool>(
                 "xyz.openbmc_project.LED.GroupManager",
                 "/xyz/openbmc_project/led/groups/enclosure_identify",
                 "xyz.openbmc_project.Led.Group", "Asserted",
@@ -162,8 +161,8 @@ inline void getSystemLocationIndicatorActive(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get LocationIndicatorActive");
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
+    dbus::utility::getProperty<bool>(
+        "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted",
         [asyncResp](const boost::system::error_code& ec, const bool blinking) {
@@ -184,8 +183,7 @@ inline void getSystemLocationIndicatorActive(
                 return;
             }
 
-            sdbusplus::asio::getProperty<bool>(
-                *crow::connections::systemBus,
+            dbus::utility::getProperty<bool>(
                 "xyz.openbmc_project.LED.GroupManager",
                 "/xyz/openbmc_project/led/groups/enclosure_identify",
                 "xyz.openbmc_project.Led.Group", "Asserted",
