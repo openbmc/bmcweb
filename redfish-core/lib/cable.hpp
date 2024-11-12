@@ -91,7 +91,7 @@ inline void
         {
             if (interface == "xyz.openbmc_project.Inventory.Item.Cable")
             {
-                sdbusplus::asio::getAllProperties(
+                dbus::utility::getAllProperties(
                     *crow::connections::systemBus, service, cableObjectPath,
                     interface,
                     [asyncResp](
@@ -102,9 +102,8 @@ inline void
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item")
             {
-                sdbusplus::asio::getProperty<bool>(
-                    *crow::connections::systemBus, service, cableObjectPath,
-                    interface, "Present",
+                dbus::utility::getProperty<bool>(
+                    service, cableObjectPath, interface, "Present",
                     [asyncResp, cableObjectPath](
                         const boost::system::error_code& ec, bool present) {
                         if (ec)

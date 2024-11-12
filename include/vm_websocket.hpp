@@ -474,8 +474,8 @@ inline void onOpen(crow::websocket::Connection& conn)
     std::string path =
         std::format("/xyz/openbmc_project/VirtualMedia/Proxy/Slot_{}", index);
 
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.VirtualMedia", path,
+    dbus::utility::getAllProperties(
+        "xyz.openbmc_project.VirtualMedia", path,
         "xyz.openbmc_project.VirtualMedia.MountPoint",
         [&conn, path](const boost::system::error_code& ec,
                       const dbus::utility::DBusPropertiesMap& propertiesList) {

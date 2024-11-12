@@ -198,9 +198,8 @@ inline void
     getPowerSupplyState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& service, const std::string& path)
 {
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.Inventory.Item", "Present",
+    dbus::utility::getProperty<bool>(
+        service, path, "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
@@ -225,9 +224,9 @@ inline void
     getPowerSupplyHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& service, const std::string& path)
 {
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
+    dbus::utility::getProperty<bool>(
+        service, path, "xyz.openbmc_project.State.Decorator.OperationalStatus",
+        "Functional",
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
             {
@@ -252,9 +251,8 @@ inline void
     getPowerSupplyAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::string& service, const std::string& path)
 {
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.Inventory.Decorator.Asset",
+    dbus::utility::getAllProperties(
+        service, path, "xyz.openbmc_project.Inventory.Decorator.Asset",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
             if (ec)
@@ -324,9 +322,8 @@ inline void getPowerSupplyFirmwareVersion(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& service, const std::string& path)
 {
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.Software.Version", "Version",
+    dbus::utility::getProperty<std::string>(
+        service, path, "xyz.openbmc_project.Software.Version", "Version",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& value) {
             if (ec)
@@ -348,9 +345,9 @@ inline void
     getPowerSupplyLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& service, const std::string& path)
 {
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
+    dbus::utility::getProperty<std::string>(
+        service, path, "xyz.openbmc_project.Inventory.Decorator.LocationCode",
+        "LocationCode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& value) {
             if (ec)
@@ -429,9 +426,9 @@ inline void handlePowerSupplyAttributesSubTreeResponse(
 
     const auto& [path, serviceMap] = *subtree.begin();
     const auto& [service, interfaces] = *serviceMap.begin();
-    sdbusplus::asio::getProperty<uint32_t>(
-        *crow::connections::systemBus, service, path,
-        "xyz.openbmc_project.Control.PowerSupplyAttributes", "DeratingFactor",
+    dbus::utility::getProperty<uint32_t>(
+        service, path, "xyz.openbmc_project.Control.PowerSupplyAttributes",
+        "DeratingFactor",
         [asyncResp](const boost::system::error_code& ec1, uint32_t value) {
             handleGetEfficiencyResponse(asyncResp, ec1, value);
         });

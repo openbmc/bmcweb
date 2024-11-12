@@ -271,8 +271,8 @@ inline void afterGetDbusObject(
         messages::internalError(asyncResp->res);
         return;
     }
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, object.begin()->first, pcieDeviceSlot,
+    dbus::utility::getAllProperties(
+        object.begin()->first, pcieDeviceSlot,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
         [asyncResp](
             const boost::system::error_code& ec2,
@@ -298,8 +298,8 @@ inline void getPCIeDeviceHealth(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDevicePath, const std::string& service)
 {
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, pcieDevicePath,
+    dbus::utility::getProperty<bool>(
+        service, pcieDevicePath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         [asyncResp](const boost::system::error_code& ec, const bool value) {
             if (ec)
@@ -325,9 +325,9 @@ inline void getPCIeDeviceState(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDevicePath, const std::string& service)
 {
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, pcieDevicePath,
-        "xyz.openbmc_project.Inventory.Item", "Present",
+    dbus::utility::getProperty<bool>(
+        service, pcieDevicePath, "xyz.openbmc_project.Inventory.Item",
+        "Present",
         [asyncResp](const boost::system::error_code& ec, bool value) {
             if (ec)
             {
@@ -351,8 +351,8 @@ inline void getPCIeDeviceAsset(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& pcieDevicePath, const std::string& service)
 {
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, pcieDevicePath,
+    dbus::utility::getAllProperties(
+        service, pcieDevicePath,
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [pcieDevicePath, asyncResp{asyncResp}](
             const boost::system::error_code& ec,
@@ -514,8 +514,8 @@ inline void getPCIeDeviceProperties(
     const std::function<void(
         const dbus::utility::DBusPropertiesMap& pcieDevProperties)>&& callback)
 {
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, service, pcieDevicePath,
+    dbus::utility::getAllProperties(
+        service, pcieDevicePath,
         "xyz.openbmc_project.Inventory.Item.PCIeDevice",
         [asyncResp,
          callback](const boost::system::error_code& ec,
