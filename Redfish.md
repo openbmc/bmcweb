@@ -776,6 +776,7 @@ other.
 - Boot
 - BootProgress
 - Description
+- FabricAdapters
 - HostWatchdogTimer
 - IdlePowerSaver/Enable
 - IdlePowerSaver/EnterUtilizationPercent
@@ -792,12 +793,18 @@ other.
 - Memory
 - MemorySummary
 - Model
+- PCIeDevices
 - PartNumber
 - PowerMode
 - PowerRestorePolicy
 - PowerState
 - ProcessorSummary
 - Processors
+- SerialConsole/IPMI/ServiceEnabled
+- SerialConsole/MaxConcurrentSessions
+- SerialConsole/SSH/HotKeySequenceDisplay
+- SerialConsole/SSH/Port
+- SerialConsole/SSH/ServiceEnabled
 - SerialNumber
 - Status
 - Storage
