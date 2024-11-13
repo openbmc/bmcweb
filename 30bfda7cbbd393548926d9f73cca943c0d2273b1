@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a76bd2b7_8d2d4e21",
+        "filename": "Redfish.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T22:45:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19c4d25e_64e02c9b",
+      "range": {
+        "startLine": 230,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 12
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee047923_e58fd841",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-02-05T17:08:22Z",
       "side": 1,
       "message": "why do we call getSubTree, THEN getObject?  I suspect the subtree call can be removed entirely?",
+      "range": {
+        "startLine": 142,
+        "startChar": 19,
+        "endLine": 142,
+        "endChar": 34
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad6a2ef2_20cad666",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T22:45:13Z",
+      "side": 1,
+      "message": "I\u0027ve restructured the flow which simplifies things. I\u0027ve updated the commit message with the new flow.",
+      "parentUuid": "ee047923_e58fd841",
       "range": {
         "startLine": 142,
         "startChar": 19,
@@ -106,6 +154,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d504aa6_f8e6cd0d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T22:45:13Z",
+      "side": 1,
+      "message": "I\u0027ve restructured to use the new \u0027total_power\u0027 association for the chassis. I\u0027ve updated the commit message to show the new flow.",
+      "parentUuid": "41531600_17456d48",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 54
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3b49b03_9d29f47d",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 8
@@ -117,6 +189,24 @@
       "writtenOn": "2024-10-24T15:13:46Z",
       "side": 1,
       "message": "Need the new logging here {}",
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "420dadae_649ce609",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T22:45:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3b49b03_9d29f47d",
       "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -170,6 +260,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "48a16366_9924abd2",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T22:45:13Z",
+      "side": 1,
+      "message": "I\u0027ve updated to use the new \u0027total_power\u0027 association from the chassis to the sensor. I\u0027ve updated the commit message with the reference to the commit which added the new association.",
+      "parentUuid": "427b420e_e23e939c",
+      "range": {
+        "startLine": 162,
+        "startChar": 25,
+        "endLine": 162,
+        "endChar": 36
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6c9cba3a_c6ab8ff8",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 8
@@ -181,6 +295,30 @@
       "writtenOn": "2024-02-05T17:08:22Z",
       "side": 1,
       "message": "We call subtree, then we hardcode an object path?",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 60
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24077011_1f10662b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T22:45:13Z",
+      "side": 1,
+      "message": "I\u0027ve restructured to use the new association, the path is no longer hard-coded. Please see commit message for new flow.",
+      "parentUuid": "6c9cba3a_c6ab8ff8",
       "range": {
         "startLine": 175,
         "startChar": 12,
@@ -216,6 +354,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c10cda0_d345b417",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T22:45:13Z",
+      "side": 1,
+      "message": "I\u0027ve modified to use sensor_utils::objectExcerptToJson(). This function builds the DataSourceUri in the standard way.",
+      "parentUuid": "c4e67248_ee191210",
+      "range": {
+        "startLine": 204,
+        "startChar": 56,
+        "endLine": 204,
+        "endChar": 68
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "230d8fa1_2bd96900",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 8
@@ -227,6 +389,30 @@
       "writtenOn": "2024-02-05T17:08:22Z",
       "side": 1,
       "message": "It\u0027s a little odd we have @odata.id and DataSourceURI here.  are you sure that\u0027s correct?",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 73
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "920a16b6_40ec4b92",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T22:45:13Z",
+      "side": 1,
+      "message": "You are right, that was not correct. From the schema definition @odata.id should not be here just the DataSourceUri is a defined property for SensorPowerExcerpt.\n\nI\u0027ve changed to use sensor_utils::objectExcerptToJson() which handles this correctly.",
+      "parentUuid": "230d8fa1_2bd96900",
       "range": {
         "startLine": 202,
         "startChar": 0,
@@ -262,6 +448,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2315ad2b_2560ed80",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T22:45:13Z",
+      "side": 1,
+      "message": "It was not correct. I\u0027ve tested the link being produced now and the link does connect to the total_power sensor. See commit message for example.",
+      "parentUuid": "fea40efe_77c4417b",
+      "range": {
+        "startLine": 208,
+        "startChar": 24,
+        "endLine": 208,
+        "endChar": 69
+      },
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "12f91ca7_e9f89b7b",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 8
@@ -273,6 +483,24 @@
       "writtenOn": "2024-02-05T17:08:22Z",
       "side": 1,
       "message": "This lambda is 3 tiers deep.  as has been pointed out in the past, please don\u0027t write non trivial lambdas.",
+      "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d580f434_ce04848d",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T22:45:13Z",
+      "side": 1,
+      "message": "I\u0027ve restructured to remove most of the lambdas and created named functions instead.",
+      "parentUuid": "12f91ca7_e9f89b7b",
       "revId": "30bfda7cbbd393548926d9f73cca943c0d2273b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
