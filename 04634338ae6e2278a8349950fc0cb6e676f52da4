@@ -16,6 +16,24 @@
       "message": "This error looks correct.  If \"getFunctionalSoftwarePath\" returns a path that doesn\u0027t exist, clearly there\u0027s a bug in that routine.  This is correctly stating that we\u0027ve violated some form of dbus interface.",
       "revId": "04634338ae6e2278a8349950fc0cb6e676f52da4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cab25ae7_743b763c",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-11-13T19:37:59Z",
+      "side": 0,
+      "message": "Previously, the flow would also return without an error if it couldn\u0027t find a matching versionPurpose (https://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/include/utils/sw_utils.hpp?r\u003dbd79bce8#231). However, based on objectPath (https://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/include/utils/sw_utils.hpp?r\u003dbd79bce8#34), the association may not exist (for example, if flash_bios feature is not enabled) so it shouldn\u0027t return an error.",
+      "parentUuid": "5d120237_da7b0e36",
+      "revId": "04634338ae6e2278a8349950fc0cb6e676f52da4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
