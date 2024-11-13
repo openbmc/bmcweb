@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d120237_da7b0e36",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T00:48:42Z",
+      "side": 0,
+      "message": "This error looks correct.  If \"getFunctionalSoftwarePath\" returns a path that doesn\u0027t exist, clearly there\u0027s a bug in that routine.  This is correctly stating that we\u0027ve violated some form of dbus interface.",
+      "revId": "04634338ae6e2278a8349950fc0cb6e676f52da4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
