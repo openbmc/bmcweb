@@ -303,7 +303,7 @@ option(
 option(
     'redfish-updateservice-use-dbus',
     type: 'feature',
-    value: 'disabled',
+    value: 'enabled',
     description: '''Enables xyz.openbmc_project.Software.Update D-Bus interface
                     to propagate UpdateService requests to the corresponding
                     updater daemons instead of moving files to /tmp/images dir.
