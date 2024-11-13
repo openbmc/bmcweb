@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46b82e82_1ba34f12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-13T18:08:32Z",
+      "side": 1,
+      "message": "Agreed. I think it is an event object.\nI changed it to use `EventServiceManager::getInstance().sendEvent()`",
+      "parentUuid": "bec3db5f_ec9b715f",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa3bc27d_df3f5da5",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 1
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99266ff7_fc11c60f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-13T18:08:32Z",
+      "side": 1,
+      "message": "Yes, it has been tested.\n\nThis `scheduleNextHeartbeatIfNeeded` is called after PATCH - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75791/1/redfish-core/lib/event_service.hpp#L886.\n\nThis function cancels `hbTimer` first, and reschedule it if needed.\nI\u0027ll redo the code so that `scheduleNextHeartbeat()` is called only if heartbeat is enabled.",
+      "parentUuid": "fa3bc27d_df3f5da5",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46ede612_ac0bbe8f",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 1
@@ -48,6 +84,30 @@
       "writtenOn": "2024-11-13T01:00:20Z",
       "side": 1,
       "message": "Remove.  If the timer is running, there\u0027s no need to recheck this stuff.  If these change, code needs to appropriately start or stop the timer.",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 9
+      },
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cd552ac_e02f8378",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-13T18:08:32Z",
+      "side": 1,
+      "message": "Currently, this function is invoked also from PATCH (which may be disabling heartbeat) and thus it checks it again.\nHowever, I\u0027m going to restructure the code.",
+      "parentUuid": "46ede612_ac0bbe8f",
       "range": {
         "startLine": 322,
         "startChar": 0,
@@ -77,6 +137,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ddeb78b0_e48e3ece",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-13T18:08:32Z",
+      "side": 1,
+      "message": "I think we can return if ec \u003d\u003d aborted or operation_cancelled.\nBut the other cases, should we retry like `timer expired`?  (If not, the heartbeat may be stopped due to those errors without any notifications?)",
+      "parentUuid": "ff07c642_bcbbe81b",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e4457ce_870a644b",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 1
@@ -88,6 +166,24 @@
       "writtenOn": "2024-11-13T01:00:20Z",
       "side": 1,
       "message": "This is going to cause last-event-id to increment, and the logic to be correct.  I think this needs to call eventservicemanager to send the message.\n\nDo heartbeat messages need an ID?",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6898062b_2ef78bf7",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-13T18:08:32Z",
+      "side": 1,
+      "message": "I redo the code to use `EventServiceManager::getInstance().sendEvent()` like\n```\nvoid Subscription::sendHeartbeatEvent()\n{\n    // send the heartbeat message\n    nlohmann::json event \u003d messages::redfishServiceFunctional();\n\n    std::string_view origin{};\n    EventServiceManager::getInstance().sendEvent(event, origin,\n                                                 \"HeartbeatEvent\");\n}\n```",
+      "parentUuid": "4e4457ce_870a644b",
       "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
