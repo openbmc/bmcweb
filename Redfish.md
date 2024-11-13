@@ -550,7 +550,6 @@ Fields common to all schemas
 - Oem
 - PartNumber
 - PowerState
-- SerialConsole
 - SerialNumber
 - ServiceEntryPointUUID
 - SparePartNumber
