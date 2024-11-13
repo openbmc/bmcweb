@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "330b848e_9ea35df8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T19:07:04Z",
+      "side": 1,
+      "message": "Waiting on the prior patches before testing.",
+      "parentUuid": "e87ffbac_ea5e3493",
+      "revId": "0a98a8e070351da6e246fbba9f84b83d7f92ca87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6986f4ac_6925e3ee",
         "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2024-11-13T15:50:23Z",
       "side": 1,
       "message": "Missing dbus_utility.hpp",
+      "revId": "0a98a8e070351da6e246fbba9f84b83d7f92ca87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5582dc1_b9325a99",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T19:07:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6986f4ac_6925e3ee",
       "revId": "0a98a8e070351da6e246fbba9f84b83d7f92ca87",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be5f692d_1f088e80",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2410,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T19:07:04Z",
+      "side": 1,
+      "message": "This is directing it to the root namespace avoiding ADL.  Might not be \"necessary\" in this case, but was done because getAllProperties exists in two namespaces.",
+      "parentUuid": "9416ff25_10c8f64f",
+      "revId": "0a98a8e070351da6e246fbba9f84b83d7f92ca87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9da80866_a58026ac",
         "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
         "patchSetId": 2
@@ -65,6 +119,24 @@
       "writtenOn": "2024-11-13T15:50:23Z",
       "side": 1,
       "message": "Missing dbus_utility.hpp",
+      "revId": "0a98a8e070351da6e246fbba9f84b83d7f92ca87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e31f49a2_a4e0ba76",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T19:07:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9da80866_a58026ac",
       "revId": "0a98a8e070351da6e246fbba9f84b83d7f92ca87",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
