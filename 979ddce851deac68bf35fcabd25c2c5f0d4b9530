@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c397bedf_97c0bba2",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T01:00:20Z",
+      "side": 1,
+      "message": "same here.  no need to check subscriptionTypeSSE if sendHeartbeat can never be enabled on SSE",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 63
+      },
+      "revId": "979ddce851deac68bf35fcabd25c2c5f0d4b9530",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

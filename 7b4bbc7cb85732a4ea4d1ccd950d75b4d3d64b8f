@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bec3db5f_ec9b715f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T01:00:20Z",
+      "side": 1,
+      "message": "EventService should be sending Event objects, not message objects.\n\n?\n\nUnless I\u0027m missing something, in which case please link the appropriate part of the spec.",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa3bc27d_df3f5da5",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T01:00:20Z",
+      "side": 1,
+      "message": "I don\u0027t see any handling for PATCH if the user enables/disables heartbeat, the timer should be started/stopped appropriately, right?\n\nCan you please test the patch case?",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46ede612_ac0bbe8f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T01:00:20Z",
+      "side": 1,
+      "message": "Remove.  If the timer is running, there\u0027s no need to recheck this stuff.  If these change, code needs to appropriately start or stop the timer.",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 326,
+        "endChar": 9
+      },
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff07c642_bcbbe81b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T01:00:20Z",
+      "side": 1,
+      "message": "This looks like it was copied from somewhere else?\n\nPresumably this needs to return?",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e4457ce_870a644b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T01:00:20Z",
+      "side": 1,
+      "message": "This is going to cause last-event-id to increment, and the logic to be correct.  I think this needs to call eventservicemanager to send the message.\n\nDo heartbeat messages need an ID?",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
