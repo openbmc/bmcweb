@@ -49,6 +49,7 @@ Fields common to all schemas
 - TelemetryService
 - UUID
 - UpdateService
+- MultiFactorAuthEnabled
 
 ### /redfish/v1/AccountService/
 

@@ -100,6 +100,33 @@ inline void
     });
 }
 
+inline void
+    handleMFAEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
+        "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.MultiFactorAuthConfiguration", "Enabled",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& multiFactorAuthEnabledVal) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR(
+                "DBUS response error while fetching MultiFactorAuth property. Error: {}",
+                ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        constexpr std::string_view mfaGoogleAuthDbusVal =
+            "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+        bool googleAuthEnabled =
+            (multiFactorAuthEnabledVal == mfaGoogleAuthDbusVal);
+        asyncResp->res.jsonValue["Oem"]["IBM"]["MultiFactorAuthEnabled"] =
+            googleAuthEnabled;
+    });
+}
+
 inline void fillServiceRootOemProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
@@ -199,6 +226,7 @@ inline void
     asyncResp->res.jsonValue["Oem"]["IBM"]["DateTimeLocalOffset"] =
         redfishDateTimeOffset.second;
     handleACFWindowActive(asyncResp);
+    handleMFAEnabled(asyncResp);
     asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
         "#IBMServiceRoot.v1_0_0.IBM";
 }

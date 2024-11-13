@@ -75,6 +75,12 @@
                     "longDescription": "This property shall indicate if the time window for an unauthorized agent to upload an ACF is active.",
                     "readonly": true,
                     "type": ["boolean", "null"]
+                },
+                "MultiFactorAuthEnabled": {
+                    "description": "An indication of whether multi factor authentication is enabled.",
+                    "longDescription": "This property shall indicate if the multi factor authentication is enabled in the system.",
+                    "readonly": true,
+                    "type": ["boolean", "null"]
                 }
             },
             "type": "object"

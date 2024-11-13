@@ -58,6 +58,11 @@
           <Annotation Term="OData.Description" String="An indication of whether the time window for an unauthorized agent to upload an ACF is active."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate if the time window for an unauthorized agent to upload an ACF is active."/>
         </Property>
+        <Property Name="MultiFactorAuthEnabled" Type="IBMServiceRoot.IBM">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether multi factor authentication is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the multi factor authentication is enabled in the system."/>
+        </Property>
       </ComplexType>
     </Schema>
   </edmx:DataServices>
