@@ -16,6 +16,23 @@
       "message": "Required https://gerrit.openbmc.org/c/openbmc/openbmc/+/75762 merge, to fix build issue.",
       "revId": "92e6e507822fe72d3d08250b274b953a5899f87d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19550bd8_4da17b90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-13T17:13:01Z",
+      "side": 1,
+      "message": "Change is fine.  Needs to build.",
+      "revId": "92e6e507822fe72d3d08250b274b953a5899f87d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
