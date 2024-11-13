@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e87ffbac_ea5e3493",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T15:50:23Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "0a98a8e070351da6e246fbba9f84b83d7f92ca87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6986f4ac_6925e3ee",
+        "filename": "redfish-core/lib/manager_diagnostic_data.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T15:50:23Z",
+      "side": 1,
+      "message": "Missing dbus_utility.hpp",
+      "revId": "0a98a8e070351da6e246fbba9f84b83d7f92ca87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9416ff25_10c8f64f",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2410,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T15:50:23Z",
+      "side": 1,
+      "message": "Extraneous \"::\" at front here.",
+      "revId": "0a98a8e070351da6e246fbba9f84b83d7f92ca87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9da80866_a58026ac",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-11-13T15:50:23Z",
+      "side": 1,
+      "message": "Missing dbus_utility.hpp",
+      "revId": "0a98a8e070351da6e246fbba9f84b83d7f92ca87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
