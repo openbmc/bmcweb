@@ -23,8 +23,13 @@ namespace fabric_util
  * @brief Workaround to handle duplicate Fabric device list
  *
  * retrieve Fabric device endpoint information and if path is
- * ~/chassisN/logical_slotN/io_moduleN then, replace redfish
- * Fabric device as "chassisN-logical_slotN-io_moduleN"
+ * system/chassisN/logical_slotN/io_moduleN then, replace redfish
+ * Fabric device as "system-chassisN-logical_slotN-io_moduleN" (MEX)
+ *
+ * chassisN/boardN/logical_slotN/io_moduleN would be
+ * chassisN-boardN-logical_slotN-io_moduleN (Splitter)
+ *
+ * Because Splitter added an extra segment, had to go 4 deep.
  *
  * @param[i]   fullPath  object path of Fabric device
  *
@@ -34,12 +39,17 @@ inline std::string buildFabricUniquePath(const std::string& fullPath)
 {
     sdbusplus::message::object_path path(fullPath);
     sdbusplus::message::object_path parentPath = path.parent_path();
+    sdbusplus::message::object_path grandparentPath = parentPath.parent_path();
 
     std::string devName;
 
-    if (!parentPath.parent_path().filename().empty())
+    if (!grandparentPath.parent_path().filename().empty())
     {
-        devName = parentPath.parent_path().filename() + "-";
+        devName = grandparentPath.parent_path().filename() + "-";
+    }
+    if (!grandparentPath.filename().empty())
+    {
+        devName += grandparentPath.filename() + "-";
     }
     if (!parentPath.filename().empty())
     {
