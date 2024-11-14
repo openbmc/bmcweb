@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "858e166b_480cbf44",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-11-14T01:28:25Z",
+      "side": 1,
+      "message": "\u003e This isn\u0027t \"enabling\" it, this is changing the default  Has anyone aside from you successfully tested this option on their system?  If so, some amount of backup in the commit message about it seems wise.\n\u003e \n\nIt has been tested by @Adriana. Added the info to commit message and will request her to review the PR as well.\n\n\u003e \n\u003e This is going to break everyone proprietary firmware updates.  That\u0027s fine, but lets make sure we\u0027re doing it on purpose and with documentation about why the defaults should be changed.\n\nI have added the reference to the design document in the commit message and earlier redfish cheatsheet was also updated with the commands. Please let me know if you want me to add anything else?\n\nAlso, as stated in meson option description (POR from earlier discussions) once this change is soaked, the meson option will be removed and this flow will be made the normal flow.",
+      "parentUuid": "c8a34ad3_2a57b4b9",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "882ca1a5768a06472296d62cd215f39f06636ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2c45bea_018ee5a6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -37,6 +61,24 @@
       "writtenOn": "2024-11-13T00:47:00Z",
       "side": 1,
       "message": "No testing?",
+      "revId": "882ca1a5768a06472296d62cd215f39f06636ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cb59f1b_cef0ea19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-11-14T01:28:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2c45bea_018ee5a6",
       "revId": "882ca1a5768a06472296d62cd215f39f06636ff2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
