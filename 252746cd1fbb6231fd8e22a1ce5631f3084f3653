@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c59bc85f_b628cce0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-14T18:18:09Z",
+      "side": 1,
+      "message": "Okay, yeah Redfish created this message/registry just for this \nhttps://redfish.dmtf.org/registries/HeartbeatEvent.1.0.1.json\n\n            \"LongDescription\": \"This message shall indicate that the Redfish service is functional.  This message shall only be sent if specifically requested by an event destination during the creation of a subscription using the `SendHeartbeatMinutes` property.\",\n\nmight be worth mentioning the message being used",
+      "revId": "252746cd1fbb6231fd8e22a1ce5631f3084f3653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0164f161_4200e5f9",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1444,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-14T18:18:09Z",
+      "side": 1,
+      "message": "This follows the standard 5 retries?\n\nhttps://github.com/openbmc/bmcweb/blob/463a0e3e880340a119bf986bab039d1afbe1a432/http/http_client.hpp#L101\n\nhttps://github.com/openbmc/bmcweb/blob/463a0e3e880340a119bf986bab039d1afbe1a432/http/http_client.hpp#L441\n\nAnd then, if \"TerminateAfterRetries,\" it will delete the subscription ?",
+      "revId": "252746cd1fbb6231fd8e22a1ce5631f3084f3653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b16bc9c1_e0876944",
+        "filename": "redfish-core/include/heartbeat_messages.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-14T18:18:09Z",
+      "side": 1,
+      "message": "include span, string_view",
+      "revId": "252746cd1fbb6231fd8e22a1ce5631f3084f3653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
