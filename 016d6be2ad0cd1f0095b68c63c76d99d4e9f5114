@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "50b51d3d_b4bfa0e5",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-14T16:59:37Z",
+      "side": 1,
+      "message": "\u003e This is duplicating verify call in the certificate manger verify function.\n\nNot really.  The difference between them is that berificate manager can verify that the certificate is valid.  bmcweb can verify that it\u0027s a certificate that can be used to create a valid http server.  They\u0027re slightly different.",
+      "parentUuid": "66235967_c4834b36",
+      "revId": "016d6be2ad0cd1f0095b68c63c76d99d4e9f5114",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "245a4ec9_b52dcf62",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 3
