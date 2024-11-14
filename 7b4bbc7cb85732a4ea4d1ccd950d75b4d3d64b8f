@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01a78dc8_b5262593",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-14T23:18:07Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75791/comment/0164f161_4200e5f9/\n\nAs described in the previous reply to Gunnar\u0027s comment, I\u0027ve changed to send the heartbeat only to the enabled subscriber.",
+      "parentUuid": "46b82e82_1ba34f12",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa3bc27d_df3f5da5",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 1
@@ -184,6 +202,24 @@
       "side": 1,
       "message": "I redo the code to use `EventServiceManager::getInstance().sendEvent()` like\n```\nvoid Subscription::sendHeartbeatEvent()\n{\n    // send the heartbeat message\n    nlohmann::json event \u003d messages::redfishServiceFunctional();\n\n    std::string_view origin{};\n    EventServiceManager::getInstance().sendEvent(event, origin,\n                                                 \"HeartbeatEvent\");\n}\n```",
       "parentUuid": "4e4457ce_870a644b",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d2c3ed7_9f021f62",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-14T23:18:07Z",
+      "side": 1,
+      "message": "I use Subscription\u0027s `eventSeqNum` as `EventId`, so that it will increment for each event",
+      "parentUuid": "6898062b_2ef78bf7",
       "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

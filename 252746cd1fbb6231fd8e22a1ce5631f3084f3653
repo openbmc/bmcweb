@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2501c64e_f7db0c43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-14T23:18:07Z",
+      "side": 1,
+      "message": "DMTF message registry spec must be a typo `SendHeartbeatMinutes` and it should be `HeartbeatIntervalMinutes`.\n\nI\u0027ve created an issue - https://github.com/DMTF/Redfish/issues/6278\n\nI\u0027ll also add the link as a reference to the commit message.",
+      "parentUuid": "c59bc85f_b628cce0",
+      "revId": "252746cd1fbb6231fd8e22a1ce5631f3084f3653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0164f161_4200e5f9",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 4
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47f90067_62a35635",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1444,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-14T23:18:07Z",
+      "side": 1,
+      "message": "In fact, it is not correct to use `EventServiceManager::getInstance().sendEvent()` as it will send out the heartbeat to all subscribers (whether they enable heartbeat or not).\n\nHeartbeat is per-destination as DMTF spec mentions - https://github.com/DMTF/Redfish/blob/d9e54fc8393d8930bd42e8b134741f5051a2680f/registries/HeartbeatEvent.1.0.1.json#L14\n```\n... This message shall only be sent if specifically requested by an event destination during the creation of a subscription...\n```\n\nThis can also be verified by doing\n- create 2 event listeners with 2 different destinations (e.g. port 8080, and port 8081)\n- Patch sendheartbeat\u003dtrue to only one subscriber.\n- We expect the heartbeat is happening only for the subscriber that enables the heartbeat.\n\nSo, I\u0027ve changed so that heartbeat is sent to only the specified subscriber.\n\n--\nRegarding \"...And then, if \"TerminateAfterRetries,\" it will delete the subscription ?\",\nyes, it will also delete the subscription if the heartbeat can\u0027t be sent after retries under \"TerminateAfterRetries\".  This will effectively achieve the goal to make sure the subscription to be kept alive only if the subscriber is reachable.",
+      "parentUuid": "0164f161_4200e5f9",
+      "revId": "252746cd1fbb6231fd8e22a1ce5631f3084f3653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b16bc9c1_e0876944",
         "filename": "redfish-core/include/heartbeat_messages.hpp",
         "patchSetId": 4
@@ -48,6 +84,24 @@
       "writtenOn": "2024-11-14T18:18:09Z",
       "side": 1,
       "message": "include span, string_view",
+      "revId": "252746cd1fbb6231fd8e22a1ce5631f3084f3653",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4913750_0a235c50",
+        "filename": "redfish-core/include/heartbeat_messages.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-14T23:18:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b16bc9c1_e0876944",
       "revId": "252746cd1fbb6231fd8e22a1ce5631f3084f3653",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
