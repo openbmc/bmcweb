@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "962ed816_2bb68ebc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-14T21:19:20Z",
+      "side": 1,
+      "message": "It looks good to me",
+      "revId": "9bb9d364960017f8d94de5138131dfc4f3f13bd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd230bba_fed84b36",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-14T21:19:20Z",
+      "side": 1,
+      "message": "I think Doxygen uses `@details` - https://www.doxygen.nl/manual/commands.html",
+      "revId": "9bb9d364960017f8d94de5138131dfc4f3f13bd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
