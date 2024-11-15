@@ -236,6 +236,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab2fc3d_348c9e24",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-15T16:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3ffaaa5_552dd221",
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7463f4f_fbf4b9b2",
@@ -321,6 +339,30 @@
       "side": 1,
       "message": "Yes, it is duplicated with L114.  Removed the condition.",
       "parentUuid": "2066cd39_927abc80",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 78
+      },
+      "revId": "784f8a9b06de89cac7169cfb00dc7005cdd7919c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b4a63f9_4061f21d",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-15T16:49:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "970ebca6_98841bd7",
       "range": {
         "startLine": 283,
         "startChar": 0,
