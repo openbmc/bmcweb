@@ -34,6 +34,47 @@
       "parentUuid": "6a0f720b_e23f9874",
       "revId": "07b1a4737f2e1fa52251a4c6c89ef80ffee2edf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13d7f942_42affac1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-15T23:32:30Z",
+      "side": 1,
+      "message": "Sure, I guess this is a case there dbus isn\u0027t really descriptive enough to describe something that would be a conflict.",
+      "parentUuid": "8ad50a7b_fff6953e",
+      "revId": "07b1a4737f2e1fa52251a4c6c89ef80ffee2edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dca8445f_650c29e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-15T23:32:30Z",
+      "side": 1,
+      "message": "xyz.openbmc_project.Common.Error.Unavailable seems like the wrong error to be using for that case.  Some soft of Common.error.conflict might be better?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 15
+      },
+      "revId": "07b1a4737f2e1fa52251a4c6c89ef80ffee2edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
