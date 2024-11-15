@@ -346,6 +346,7 @@ srcfiles_bmcweb = files(
     'redfish-core/src/filter_expr_printer.cpp',
     'redfish-core/src/redfish.cpp',
     'redfish-core/src/registries.cpp',
+    'redfish-core/src/subscription.cpp',
     'redfish-core/src/utils/dbus_utils.cpp',
     'redfish-core/src/utils/json_utils.cpp',
     'redfish-core/src/utils/time_utils.cpp',
