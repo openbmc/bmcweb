@@ -1482,10 +1482,74 @@ inline std::vector<IPv6AddressData>::const_iterator getNextStaticIpEntry(
     });
 }
 
+inline void setGateway(const std::string& ifaceId,
+                       const std::vector<IPv4AddressData>& ipv4Data,
+                       const std::vector<std::string>& ipv4Gateways,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    size_t currentGatewayIndex = 0;
+    std::string currentGateway;
+
+    auto ipv4DataIt = ipv4Data.begin();
+    for (size_t index = 0;
+         index < std::max(ipv4Data.size(), ipv4Gateways.size()); index++)
+    {
+        ipv4DataIt = getNextStaticIpEntry(ipv4DataIt, ipv4Data.end());
+        if (ipv4DataIt != ipv4Data.end())
+        {
+            const IPv4AddressData& currentDbusVal = *ipv4DataIt;
+            if (currentDbusVal.gateway.empty() &&
+                currentDbusVal.gateway != "0.0.0.0")
+            {
+                currentGateway = ipv4DataIt->gateway;
+            }
+            ipv4DataIt++;
+        }
+
+        if (index < ipv4Gateways.size())
+        {
+            const std::string& requestedGateway = ipv4Gateways[index];
+            if (!requestedGateway.empty() && requestedGateway != "0.0.0.0")
+            {
+                if (currentGateway.empty())
+                {
+                    currentGateway = requestedGateway;
+                    currentGatewayIndex = index;
+                }
+
+                // A NIC can only have a single active gateway value.
+                // If any gateway in the array of static addresses
+                // mismatch the PATCH is in error.
+                else if (currentGateway != requestedGateway)
+                {
+                    std::string arg1 = std::format(
+                        "IPv4StaticAddresses/{}/Gateway", index + 1);
+                    if (!ip_util::ipv4VerifyIpAndGetBitcount(requestedGateway))
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, requestedGateway, arg1);
+                        return;
+                    }
+
+                    std::string arg2 =
+                        std::format("IPv4StaticAddresses/{}/Gateway",
+                                    currentGatewayIndex + 1);
+
+                    messages::propertyValueConflict(asyncResp->res, arg1, arg2);
+                    return;
+                }
+            }
+        }
+    }
+
+    // Note, gateway might be empty string
+    updateIPv4DefaultGateway(ifaceId, currentGateway, asyncResp);
+}
+
 inline void handleIPv4StaticPatch(
     const std::string& ifaceId,
     std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>& input,
-    const EthernetInterfaceData& ethData,
+    const EthernetInterfaceData& /*ethData*/,
     const std::vector<IPv4AddressData>& ipv4Data,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
@@ -1497,195 +1561,34 @@ inline void handleIPv4StaticPatch(
     std::vector<IPv4AddressData>::const_iterator nicIpEntry =
         getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
 
-    bool gatewayValueAssigned{};
-    bool preserveGateway{};
-    std::string activePath{};
-    std::string activeGateway{};
-    if (!ethData.defaultGateway.empty() && ethData.defaultGateway != "0.0.0.0")
-    {
-        // The NIC is already configured with a default gateway. Use this if
-        // the leading entry in the PATCH is '{}', which is preserving an active
-        // static address.
-        activeGateway = ethData.defaultGateway;
-        activePath = "IPv4StaticAddresses/1";
-        gatewayValueAssigned = true;
-    }
+    std::vector<std::string> gateways;
 
     for (std::variant<nlohmann::json::object_t, std::nullptr_t>& thisJson :
          input)
     {
         std::string pathString =
-            "IPv4StaticAddresses/" + std::to_string(entryIdx);
+            std::format("IPv4StaticAddresses/{}", entryIdx);
         nlohmann::json::object_t* obj =
             std::get_if<nlohmann::json::object_t>(&thisJson);
         if (obj == nullptr)
         {
-            if (nicIpEntry != ipv4Data.cend())
+            if (nicIpEntry == ipv4Data.cend())
             {
-                deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
-                nicIpEntry =
-                    getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
-                if (!preserveGateway && (nicIpEntry == ipv4Data.cend()))
-                {
-                    // All entries have been processed, and this last has
-                    // requested the IP address be deleted. No prior entry
-                    // performed an action that created or modified a
-                    // gateway. Deleting this IP address means the default
-                    // gateway entry has to be removed as well.
-                    updateIPv4DefaultGateway(ifaceId, "", asyncResp);
-                }
-                entryIdx++;
-                continue;
-            }
-            // Received a DELETE action on an entry not assigned to the NIC
-            messages::resourceCannotBeDeleted(asyncResp->res);
-            return;
-        }
-
-        // An Add/Modify action is requested
-        if (!obj->empty())
-        {
-            std::optional<std::string> address;
-            std::optional<std::string> subnetMask;
-            std::optional<std::string> gateway;
-
-            if (!json_util::readJsonObject( //
-                    *obj, asyncResp->res, //
-                    "Address", address, //
-                    "Gateway", gateway, //
-                    "SubnetMask", subnetMask //
-                    ))
-            {
-                messages::propertyValueFormatError(asyncResp->res, *obj,
-                                                   pathString);
+                // Received a DELETE action on an entry not assigned to the NIC
+                messages::resourceCannotBeDeleted(asyncResp->res);
                 return;
             }
 
-            // Find the address/subnet/gateway values. Any values that are
-            // not explicitly provided are assumed to be unmodified from the
-            // current state of the interface. Merge existing state into the
-            // current request.
-            if (address)
-            {
-                if (!ip_util::ipv4VerifyIpAndGetBitcount(*address))
-                {
-                    messages::propertyValueFormatError(asyncResp->res, *address,
-                                                       pathString + "/Address");
-                    return;
-                }
-            }
-            else if (nicIpEntry != ipv4Data.cend())
-            {
-                address = (nicIpEntry->address);
-            }
-            else
-            {
-                messages::propertyMissing(asyncResp->res,
-                                          pathString + "/Address");
-                return;
-            }
-
-            uint8_t prefixLength = 0;
-            if (subnetMask)
-            {
-                if (!ip_util::ipv4VerifyIpAndGetBitcount(*subnetMask,
-                                                         &prefixLength))
-                {
-                    messages::propertyValueFormatError(
-                        asyncResp->res, *subnetMask,
-                        pathString + "/SubnetMask");
-                    return;
-                }
-            }
-            else if (nicIpEntry != ipv4Data.cend())
-            {
-                if (!ip_util::ipv4VerifyIpAndGetBitcount(nicIpEntry->netmask,
-                                                         &prefixLength))
-                {
-                    messages::propertyValueFormatError(
-                        asyncResp->res, nicIpEntry->netmask,
-                        pathString + "/SubnetMask");
-                    return;
-                }
-            }
-            else
-            {
-                messages::propertyMissing(asyncResp->res,
-                                          pathString + "/SubnetMask");
-                return;
-            }
-
-            if (gateway)
-            {
-                if (!ip_util::ipv4VerifyIpAndGetBitcount(*gateway))
-                {
-                    messages::propertyValueFormatError(asyncResp->res, *gateway,
-                                                       pathString + "/Gateway");
-                    return;
-                }
-            }
-            else if (nicIpEntry != ipv4Data.cend())
-            {
-                gateway = nicIpEntry->gateway;
-            }
-            else
-            {
-                messages::propertyMissing(asyncResp->res,
-                                          pathString + "/Gateway");
-                return;
-            }
-
-            if (gatewayValueAssigned)
-            {
-                if (activeGateway != gateway)
-                {
-                    // A NIC can only have a single active gateway value.
-                    // If any gateway in the array of static addresses
-                    // mismatch the PATCH is in error.
-                    std::string arg1 = pathString + "/Gateway";
-                    std::string arg2 = activePath + "/Gateway";
-                    messages::propertyValueConflict(asyncResp->res, arg1, arg2);
-                    return;
-                }
-            }
-            else
-            {
-                // Capture the very first gateway value from the incoming
-                // JSON record and use it at the default gateway.
-                updateIPv4DefaultGateway(ifaceId, *gateway, asyncResp);
-                activeGateway = *gateway;
-                activePath = pathString;
-                gatewayValueAssigned = true;
-            }
-
-            if (nicIpEntry != ipv4Data.cend())
-            {
-                deleteAndCreateIPAddress(IpVersion::IpV4, ifaceId,
-                                         nicIpEntry->id, prefixLength, *address,
-                                         *gateway, asyncResp);
-                nicIpEntry =
-                    getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
-                preserveGateway = true;
-            }
-            else
-            {
-                createIPv4(ifaceId, prefixLength, *gateway, *address,
-                           asyncResp);
-                preserveGateway = true;
-            }
+            deleteIPAddress(ifaceId, nicIpEntry->id, asyncResp);
+            gateways.emplace_back("");
             entryIdx++;
+            continue;
         }
-        else
+
+        if (obj->empty())
         {
             // Received {}, do not modify this address
-            if (nicIpEntry != ipv4Data.cend())
-            {
-                nicIpEntry =
-                    getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
-                preserveGateway = true;
-                entryIdx++;
-            }
-            else
+            if (nicIpEntry == ipv4Data.cend())
             {
                 // Requested a DO NOT MODIFY action on an entry not assigned
                 // to the NIC
@@ -1693,8 +1596,100 @@ inline void handleIPv4StaticPatch(
                                                    pathString);
                 return;
             }
+
+            nicIpEntry = getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
+            gateways.push_back(nicIpEntry->gateway);
+            entryIdx++;
+            continue;
         }
+
+        // An Add/Modify action is requested
+        std::optional<std::string> address;
+        std::optional<std::string> subnetMask;
+        std::optional<std::string> gateway;
+
+        if (!json_util::readJsonObject(*obj, asyncResp->res, "Address", address,
+                                       "SubnetMask", subnetMask, "Gateway",
+                                       gateway))
+        {
+            messages::propertyValueFormatError(asyncResp->res, *obj,
+                                               pathString);
+            return;
+        }
+
+        // Find the address/subnet/gateway values. Any values that are
+        // not explicitly provided are assumed to be unmodified from the
+        // current state of the interface. Merge existing state into the
+        // current request.
+        if (address)
+        {
+            if (!ip_util::ipv4VerifyIpAndGetBitcount(*address))
+            {
+                messages::propertyValueFormatError(asyncResp->res, *address,
+                                                   pathString + "/Address");
+                return;
+            }
+        }
+        else if (nicIpEntry != ipv4Data.cend())
+        {
+            address = nicIpEntry->address;
+        }
+        else
+        {
+            messages::propertyMissing(asyncResp->res, pathString + "/Address");
+            return;
+        }
+
+        uint8_t prefixLength = 0;
+        if (subnetMask)
+        {
+            if (!ip_util::ipv4VerifyIpAndGetBitcount(*subnetMask,
+                                                     &prefixLength))
+            {
+                messages::propertyValueFormatError(asyncResp->res, *subnetMask,
+                                                   pathString + "/SubnetMask");
+                return;
+            }
+        }
+        else if (nicIpEntry != ipv4Data.cend())
+        {
+            if (!ip_util::ipv4VerifyIpAndGetBitcount(nicIpEntry->netmask,
+                                                     &prefixLength))
+            {
+                messages::propertyValueFormatError(asyncResp->res,
+                                                   nicIpEntry->netmask,
+                                                   pathString + "/SubnetMask");
+                return;
+            }
+        }
+        else
+        {
+            messages::propertyMissing(asyncResp->res,
+                                      pathString + "/SubnetMask");
+            return;
+        }
+
+        if (!gateway)
+        {
+            gateway = "";
+        }
+
+        if (nicIpEntry != ipv4Data.cend())
+        {
+            deleteAndCreateIPAddress(IpVersion::IpV4, ifaceId, nicIpEntry->id,
+                                     prefixLength, *address, *gateway,
+                                     asyncResp);
+            nicIpEntry = getNextStaticIpEntry(++nicIpEntry, ipv4Data.cend());
+        }
+        else
+        {
+            createIPv4(ifaceId, prefixLength, *gateway, *address, asyncResp);
+        }
+        gateways.push_back(*gateway);
+        entryIdx++;
     }
+
+    setGateway(ifaceId, ipv4Data, gateways, asyncResp);
 }
 
 inline void handleStaticNameServersPatch(
