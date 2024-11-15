@@ -16,6 +16,24 @@
       "message": "Maybe could we start with what we\u0027re trying to accomplish?  Going straight to \"should we change dbus\" doesn\u0027t really answer why this is useful to a user.  We\u0027re talking about error codes here, it\u0027s not clear what case having the perfect error code would be valuable to the user.",
       "revId": "07b1a4737f2e1fa52251a4c6c89ef80ffee2edf3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ad50a7b_fff6953e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-15T18:19:15Z",
+      "side": 1,
+      "message": "We want to display the most accurate / most exact error to a client using Redfish and to the webui-vue so they can display the most accurate error. In this case, the \u0027Resolved\u0027 property of the Log Entry is Unavailable or \"the system is not currently in a state to allow this\"..",
+      "parentUuid": "6a0f720b_e23f9874",
+      "revId": "07b1a4737f2e1fa52251a4c6c89ef80ffee2edf3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
