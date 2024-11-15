@@ -34,6 +34,24 @@
       "parentUuid": "5d120237_da7b0e36",
       "revId": "04634338ae6e2278a8349950fc0cb6e676f52da4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f82519e_23cb0158",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-15T18:02:21Z",
+      "side": 0,
+      "message": "Right, and if the association to the currently running software doesn\u0027t exist, that\u0027s an error, right?",
+      "parentUuid": "cab25ae7_743b763c",
+      "revId": "04634338ae6e2278a8349950fc0cb6e676f52da4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
