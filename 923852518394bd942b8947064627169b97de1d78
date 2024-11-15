@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2802599_8b0526ce",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-15T19:46:56Z",
+      "side": 1,
+      "message": "I\u0027m wondering why `subscription.cpp` needs to be created?\nCan this class body implementation be done as a part of `subscription.hpp`?\n\nBy doing this way, it may loose the benefit of inlining functions.\nFor example, previously `matchSseId()` was inlined when it is referenced from `event_service_manager.hpp`. Now, since it is moved to `subscription.cpp`, it seems not inlined anymore.\nIn fact, I think most of functions of `Subscription` class becomes non-inlined with this.",
+      "revId": "923852518394bd942b8947064627169b97de1d78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
