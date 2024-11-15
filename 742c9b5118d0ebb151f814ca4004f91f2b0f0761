@@ -218,6 +218,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "08d332cb_57b9a683",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-15T15:25:12Z",
+      "side": 1,
+      "message": "Tested it similar to another commit recently made in that area, using \nredfish service validator and redfish event listener.",
+      "parentUuid": "b67197b1_d1f0672e",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 23
+      },
+      "revId": "742c9b5118d0ebb151f814ca4004f91f2b0f0761",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e5587dc0_2148c68d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 5
