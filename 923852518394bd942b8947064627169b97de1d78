@@ -34,6 +34,24 @@
       "parentUuid": "d2802599_8b0526ce",
       "revId": "923852518394bd942b8947064627169b97de1d78",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "425bcd01_8bfe9c66",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-16T00:58:19Z",
+      "side": 1,
+      "message": "I think - having the inline functions (member functions as part of class) may allow the compiler to do the optimization if possible.\nHowever, moving the body of the function into *.cpp (as a separate compilation unit) effectively disable such optimization even if they may be possible.\n\nIn my experiment, I see the image/usr/libexec/bmcwebd size differences \n\n    - 172370088 (with this)\n    - 170208180 (moving funcs into inline)",
+      "parentUuid": "891675a5_9147a742",
+      "revId": "923852518394bd942b8947064627169b97de1d78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
