@@ -33,6 +33,24 @@
       "message": "let me know if you need any help in testing this patch",
       "revId": "2d8bf0246fd1359f6d88bdfcbace815863a3630a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01659b83_8b005f59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T16:28:23Z",
+      "side": 1,
+      "message": "yes, any help you can give would be appreciated.",
+      "parentUuid": "72aba971_179ed47f",
+      "revId": "2d8bf0246fd1359f6d88bdfcbace815863a3630a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
