@@ -37,12 +37,13 @@ namespace pcie_util
 
 inline void getPCIeDeviceList(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName,
     const nlohmann::json::json_pointer& jsonKeyName)
 {
     static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
         "xyz.openbmc_project.Inventory.Item.PCIeDevice"};
-    const boost::urls::url pcieDeviceUrl = boost::urls::format(
-        "/redfish/v1/Systems/{}/PCIeDevices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    const boost::urls::url pcieDeviceUrl =
+        boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices", systemName);
 
     collection_util::getCollectionToKey(
         asyncResp, pcieDeviceUrl, pcieDeviceInterface,

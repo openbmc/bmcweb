@@ -14,7 +14,6 @@
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
-#include <array>
 #include <charconv>
 #include <cstddef>
 #include <cstdint>

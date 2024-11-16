@@ -53,25 +53,27 @@ inline void handleSystemsStorageCollectionGet(
     {
         return;
     }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
     {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
     }
 
     asyncResp->res.jsonValue["@odata.type"] =
         "#StorageCollection.StorageCollection";
-    asyncResp->res.jsonValue["@odata.id"] = std::format(
-        "/redfish/v1/Systems/{}/Storage", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] =
+        std::format("/redfish/v1/Systems/{}/Storage", systemName);
     asyncResp->res.jsonValue["Name"] = "Storage Collection";
 
     constexpr std::array<std::string_view, 1> interface{
         "xyz.openbmc_project.Inventory.Item.Storage"};
     collection_util::getCollectionMembers(
         asyncResp,
-        boost::urls::format("/redfish/v1/Systems/{}/Storage",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
+        boost::urls::format("/redfish/v1/Systems/{}/Storage", systemName),
         interface, "/xyz/openbmc_project/inventory");
 }
 

@@ -1247,19 +1247,14 @@ inline void requestRoutesProcessorCollection(App& app)
             {
                 return;
             }
-            if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+            if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
             {
-                // Option currently returns no systems.  TBD
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
-            }
-
-            if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-            {
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
+                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+                {
+                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                               systemName);
+                    return;
+                }
             }
 
             asyncResp->res.addHeader(
@@ -1271,13 +1266,12 @@ inline void requestRoutesProcessorCollection(App& app)
             asyncResp->res.jsonValue["Name"] = "Processor Collection";
 
             asyncResp->res.jsonValue["@odata.id"] =
-                std::format("/redfish/v1/Systems/{}/Processors",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                std::format("/redfish/v1/Systems/{}/Processors", systemName);
 
             collection_util::getCollectionMembers(
                 asyncResp,
                 boost::urls::format("/redfish/v1/Systems/{}/Processors",
-                                    BMCWEB_REDFISH_SYSTEM_URI_NAME),
+                                    systemName),
                 processorInterfaces, "/xyz/openbmc_project/inventory");
         });
 }

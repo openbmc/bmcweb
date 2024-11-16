@@ -121,18 +121,14 @@ inline void handlePCIeDeviceCollectionGet(
     {
         return;
     }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
     {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
     }
 
     asyncResp->res.addHeader(boost::beast::http::field::link,
@@ -140,12 +136,12 @@ inline void handlePCIeDeviceCollectionGet(
                              "PCIeDeviceCollection.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] =
         "#PCIeDeviceCollection.PCIeDeviceCollection";
-    asyncResp->res.jsonValue["@odata.id"] = std::format(
-        "/redfish/v1/Systems/{}/PCIeDevices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] =
+        std::format("/redfish/v1/Systems/{}/PCIeDevices", systemName);
     asyncResp->res.jsonValue["Name"] = "PCIe Device Collection";
     asyncResp->res.jsonValue["Description"] = "Collection of PCIe Devices";
 
-    pcie_util::getPCIeDeviceList(asyncResp,
+    pcie_util::getPCIeDeviceList(asyncResp, systemName,
                                  nlohmann::json::json_pointer("/Members"));
 }
 
