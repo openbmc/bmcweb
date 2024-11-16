@@ -16,6 +16,23 @@
       "message": "yeah, I agree. recently I too noticed issue.\nModify gateway should be allowed.",
       "revId": "2d8bf0246fd1359f6d88bdfcbace815863a3630a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72aba971_179ed47f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-11-16T16:27:30Z",
+      "side": 1,
+      "message": "let me know if you need any help in testing this patch",
+      "revId": "2d8bf0246fd1359f6d88bdfcbace815863a3630a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
