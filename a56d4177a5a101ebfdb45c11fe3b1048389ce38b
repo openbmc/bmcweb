@@ -16,6 +16,24 @@
       "message": "Is it really the size of the binary on the target? \nThat would have to be smaller.",
       "revId": "a56d4177a5a101ebfdb45c11fe3b1048389ce38b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4433874f_aa3080a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-16T02:41:49Z",
+      "side": 1,
+      "message": "Size is one of the points.\nMy key point is that the compiler optimization is effectively disabled unless it is inlined.",
+      "parentUuid": "5d777117_adae24e8",
+      "revId": "a56d4177a5a101ebfdb45c11fe3b1048389ce38b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
