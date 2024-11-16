@@ -11,6 +11,7 @@
 
 #include <boost/system/errc.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/url/format.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
@@ -63,10 +64,12 @@ template <typename CallbackFunc>
 void getMainChassisId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       CallbackFunc&& callback)
 {
+    std::vector<std::string_view> interfaces;
+
+    interfaces = {"xyz.openbmc_project.Inventory.Item.Board",
+                  "xyz.openbmc_project.Inventory.Item.Chassis"};
+
     // Find managed chassis
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Board",
-        "xyz.openbmc_project.Inventory.Item.Chassis"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/inventory", 0, interfaces,
         [callback = std::forward<CallbackFunc>(callback),
