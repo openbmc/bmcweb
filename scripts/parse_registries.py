@@ -187,105 +187,6 @@ namespace redfish::privileges
 """
 )
 
-
-def get_old_index(entry):
-    old_order = [
-        "ResourceInUse",
-        "MalformedJSON",
-        "ResourceMissingAtURI",
-        "ActionParameterValueFormatError",
-        "ActionParameterValueNotInList",
-        "InternalError",
-        "UnrecognizedRequestBody",
-        "ResourceAtUriUnauthorized",
-        "ActionParameterUnknown",
-        "ResourceCannotBeDeleted",
-        "PropertyDuplicate",
-        "ServiceTemporarilyUnavailable",
-        "ResourceAlreadyExists",
-        "AccountForSessionNoLongerExists",
-        "CreateFailedMissingReqProperties",
-        "PropertyValueFormatError",
-        "PropertyValueNotInList",
-        "PropertyValueOutOfRange",
-        "ResourceAtUriInUnknownFormat",
-        "ServiceDisabled",
-        "ServiceInUnknownState",
-        "EventSubscriptionLimitExceeded",
-        "ActionParameterMissing",
-        "StringValueTooLong",
-        "SessionTerminated",
-        "SubscriptionTerminated",
-        "ResourceTypeIncompatible",
-        "ResetRequired",
-        "ChassisPowerStateOnRequired",
-        "ChassisPowerStateOffRequired",
-        "PropertyValueConflict",
-        "PropertyValueResourceConflict",
-        "PropertyValueExternalConflict",
-        "PropertyValueIncorrect",
-        "ResourceCreationConflict",
-        "MaximumErrorsExceeded",
-        "PreconditionFailed",
-        "PreconditionRequired",
-        "OperationFailed",
-        "OperationTimeout",
-        "PropertyValueTypeError",
-        "PropertyValueError",
-        "ResourceNotFound",
-        "CouldNotEstablishConnection",
-        "PropertyNotWritable",
-        "QueryParameterValueTypeError",
-        "ServiceShuttingDown",
-        "ActionParameterDuplicate",
-        "ActionParameterNotSupported",
-        "SourceDoesNotSupportProtocol",
-        "StrictAccountTypes",
-        "AccountRemoved",
-        "AccessDenied",
-        "QueryNotSupported",
-        "CreateLimitReachedForResource",
-        "GeneralError",
-        "Success",
-        "Created",
-        "NoOperation",
-        "PropertyUnknown",
-        "NoValidSession",
-        "InvalidObject",
-        "ResourceInStandby",
-        "ActionParameterValueTypeError",
-        "ActionParameterValueError",
-        "SessionLimitExceeded",
-        "ActionNotSupported",
-        "InvalidIndex",
-        "EmptyJSON",
-        "QueryNotSupportedOnResource",
-        "QueryNotSupportedOnOperation",
-        "QueryCombinationInvalid",
-        "EventBufferExceeded",
-        "InsufficientPrivilege",
-        "PropertyValueModified",
-        "AccountNotModified",
-        "QueryParameterValueFormatError",
-        "PropertyMissing",
-        "ResourceExhaustion",
-        "AccountModified",
-        "QueryParameterOutOfRange",
-        "PasswordChangeRequired",
-        "InvalidUpload",
-        "InsufficientStorage",
-        "OperationNotAllowed",
-        "ArraySizeTooLong",
-        "Invalid File",
-        "GenerateSecretKeyRequired",
-    ]
-
-    if entry[0] in old_order:
-        return old_order.index(entry[0])
-    else:
-        return 999999
-
-
 def create_error_registry(entry):
 
     arg_as_url = {
@@ -334,14 +235,12 @@ def create_error_registry(entry):
     file, json_dict, namespace, url = entry
 
     # Note, this message doesn't exist in DMTF.  Needs cleaned up at some point
-    json_dict["Messages"]["InvalidUpload"] = {
+    messages = json_dict["Messages"]
+
+    messages["InvalidUpload"] = {
         "Message": "Invalid file uploaded to %1: %2.*",
         "ParamTypes": ["string", "string"],
     }
-
-    messages = OrderedDict(
-        sorted(json_dict["Messages"].items(), key=get_old_index)
-    )
 
     with open(
         os.path.join(
