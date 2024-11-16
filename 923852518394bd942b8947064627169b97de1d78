@@ -52,6 +52,24 @@
       "parentUuid": "891675a5_9147a742",
       "revId": "923852518394bd942b8947064627169b97de1d78",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96b056f6_7553e7e5",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-16T01:00:25Z",
+      "side": 1,
+      "message": "My experimental code is https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75858 to move most of member functions as inline.",
+      "parentUuid": "425bcd01_8bfe9c66",
+      "revId": "923852518394bd942b8947064627169b97de1d78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
