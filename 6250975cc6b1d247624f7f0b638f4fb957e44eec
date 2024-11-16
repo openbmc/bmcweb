@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4659c7e2_94952efe",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2290,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:15:55Z",
+      "side": 1,
+      "message": "Please don\u0027t duplicate this actions lookup\n\nnlohmann::json\u0026 actions \u003d asyncResp-\u003eres\n                .jsonValue[\"Actions\"];\nactions[\"...\"] \u003d ...;",
+      "range": {
+        "startLine": 2289,
+        "startChar": 0,
+        "endLine": 2290,
+        "endChar": 38
+      },
+      "revId": "6250975cc6b1d247624f7f0b638f4fb957e44eec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c51ab8d3_6a6dff88",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2297,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:15:55Z",
+      "side": 1,
+      "message": "Common error.  Please use the appropriate types for URL creation.",
+      "range": {
+        "startLine": 2297,
+        "startChar": 39,
+        "endLine": 2297,
+        "endChar": 50
+      },
+      "revId": "6250975cc6b1d247624f7f0b638f4fb957e44eec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4743fea9_cf858c39",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2585,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:15:55Z",
+      "side": 1,
+      "message": "Username doesn\u0027t look used below?",
+      "range": {
+        "startLine": 2585,
+        "startChar": 9,
+        "endLine": 2585,
+        "endChar": 17
+      },
+      "revId": "6250975cc6b1d247624f7f0b638f4fb957e44eec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daa1b7b1_f4b00396",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2601,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:15:55Z",
+      "side": 1,
+      "message": "Please make this a normal method.",
+      "range": {
+        "startLine": 2586,
+        "startChar": 0,
+        "endLine": 2601,
+        "endChar": 9
+      },
+      "revId": "6250975cc6b1d247624f7f0b638f4fb957e44eec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
