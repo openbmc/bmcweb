@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff118625_dc02ca41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T03:36:08Z",
+      "side": 1,
+      "message": "Can you please check your numbers?  When I did the compressed arm binary size I got\n\nbefore: 889140\nafter: 889300\n\n\nWe\u0027re talking about an inconsequential amount of code difference.\n\n\nUncompressed I get\nBefore: 3477336\nAfter: 3477320\n\n\nKeep in mind, arm linux is running LTO, so saying that functions wont\u0027 inline between compile boundaries isn\u0027t really true.  It\u0027s possibly harder, but considering we\u0027re looking at a 16 BYTE difference in generated code, I\u0027m assuming one of the functions was just ever so slightly different, rather than optimization being done differently.\n\nIf you\u0027re still getting different numbers, please share how you got them.  Based on the size (170 MB?) I\u0027m assuming you were building debug binaries?  we don\u0027t really optimize for those, especially unstripped.",
+      "revId": "e32eb335e4dec0246b5b38ab8c8210532b69aed9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bb13a539_d4d87954",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 4
