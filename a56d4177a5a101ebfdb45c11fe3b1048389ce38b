@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d777117_adae24e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-16T01:14:30Z",
+      "side": 1,
+      "message": "Is it really the size of the binary on the target? \nThat would have to be smaller.",
+      "revId": "a56d4177a5a101ebfdb45c11fe3b1048389ce38b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
