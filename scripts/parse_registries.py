@@ -4,6 +4,7 @@ import json
 import os
 
 import requests
+from collections import OrderedDict
 
 PRAGMA_ONCE = """#pragma once
 """
@@ -47,7 +48,7 @@ def make_getter(dmtf_name, header_name, type_name):
     url = "https://redfish.dmtf.org/registries/{}".format(dmtf_name)
     dmtf = requests.get(url, proxies=proxies)
     dmtf.raise_for_status()
-    json_file = json.loads(dmtf.text)
+    json_file = json.loads(dmtf.text, object_pairs_hook=OrderedDict)
     path = os.path.join(include_path, header_name)
     return (path, json_file, type_name, url)
 
@@ -187,6 +188,250 @@ namespace redfish::privileges
 )
 
 
+def get_old_index(entry):
+    old_order = [
+        "ResourceInUse",
+        "MalformedJSON",
+        "ResourceMissingAtURI",
+        "ActionParameterValueFormatError",
+        "ActionParameterValueNotInList",
+        "InternalError",
+        "UnrecognizedRequestBody",
+        "ResourceAtUriUnauthorized",
+        "ActionParameterUnknown",
+        "ResourceCannotBeDeleted",
+        "PropertyDuplicate",
+        "ServiceTemporarilyUnavailable",
+        "ResourceAlreadyExists",
+        "AccountForSessionNoLongerExists",
+        "CreateFailedMissingReqProperties",
+        "PropertyValueFormatError",
+        "PropertyValueNotInList",
+        "PropertyValueOutOfRange",
+        "ResourceAtUriInUnknownFormat",
+        "ServiceDisabled",
+        "ServiceInUnknownState",
+        "EventSubscriptionLimitExceeded",
+        "ActionParameterMissing",
+        "StringValueTooLong",
+        "SessionTerminated",
+        "SubscriptionTerminated",
+        "ResourceTypeIncompatible",
+        "ResetRequired",
+        "ChassisPowerStateOnRequired",
+        "ChassisPowerStateOffRequired",
+        "PropertyValueConflict",
+        "PropertyValueResourceConflict",
+        "PropertyValueExternalConflict",
+        "PropertyValueIncorrect",
+        "ResourceCreationConflict",
+        "MaximumErrorsExceeded",
+        "PreconditionFailed",
+        "PreconditionRequired",
+        "OperationFailed",
+        "OperationTimeout",
+        "PropertyValueTypeError",
+        "PropertyValueError",
+        "ResourceNotFound",
+        "CouldNotEstablishConnection",
+        "PropertyNotWritable",
+        "QueryParameterValueTypeError",
+        "ServiceShuttingDown",
+        "ActionParameterDuplicate",
+        "ActionParameterNotSupported",
+        "SourceDoesNotSupportProtocol",
+        "StrictAccountTypes",
+        "AccountRemoved",
+        "AccessDenied",
+        "QueryNotSupported",
+        "CreateLimitReachedForResource",
+        "GeneralError",
+        "Success",
+        "Created",
+        "NoOperation",
+        "PropertyUnknown",
+        "NoValidSession",
+        "InvalidObject",
+        "ResourceInStandby",
+        "ActionParameterValueTypeError",
+        "ActionParameterValueError",
+        "SessionLimitExceeded",
+        "ActionNotSupported",
+        "InvalidIndex",
+        "EmptyJSON",
+        "QueryNotSupportedOnResource",
+        "QueryNotSupportedOnOperation",
+        "QueryCombinationInvalid",
+        "EventBufferExceeded",
+        "InsufficientPrivilege",
+        "PropertyValueModified",
+        "AccountNotModified",
+        "QueryParameterValueFormatError",
+        "PropertyMissing",
+        "ResourceExhaustion",
+        "AccountModified",
+        "QueryParameterOutOfRange",
+        "PasswordChangeRequired",
+        "InvalidUpload",
+        "InsufficientStorage",
+        "OperationNotAllowed",
+        "ArraySizeTooLong",
+        "Invalid File",
+        "GenerateSecretKeyRequired",
+    ]
+
+    if entry[0] in old_order:
+        return old_order.index(entry[0])
+    else:
+        return 999999
+
+
+def create_error_registry(entry):
+
+    arg_as_url = {
+        "AccessDenied": [1],
+        "CouldNotEstablishConnection": [1],
+        "GenerateSecretKeyRequired": [1],
+        "InvalidObject": [1],
+        "PasswordChangeRequired": [1],
+        "PropertyValueResourceConflict": [3],
+        "ResetRequired": [1],
+        "ResourceAtUriInUnknownFormat": [1],
+        "ResourceAtUriUnauthorized": [1],
+        "ResourceCreationConflict": [1],
+        "ResourceMissingAtURI": [1],
+        "SourceDoesNotSupportProtocol": [1],
+    }
+
+    arg_as_json = {
+        "ActionParameterValueError": [1],
+        "ActionParameterValueFormatError": [1],
+        "ActionParameterValueTypeError": [1],
+        "PropertyValueExternalConflict": [2],
+        "PropertyValueFormatError": [1],
+        "PropertyValueIncorrect": [2],
+        "PropertyValueModified": [2],
+        "PropertyValueNotInList": [1],
+        "PropertyValueOutOfRange": [1],
+        "PropertyValueResourceConflict": [2],
+        "PropertyValueTypeError": [1],
+        "QueryParameterValueFormatError": [1],
+        "QueryParameterValueTypeError": [1],
+    }
+
+    arg_as_int = {
+        "StringValueTooLong": [2],
+    }
+
+    arg_as_uint64 = {
+        "ArraySizeTooLong": [2],
+    }
+    arg_as_int64 = {
+        "InvalidIndex": [1],
+    }
+
+    file, json_dict, namespace, url = entry
+
+    # Note, this message doesn't exist in DMTF.  Needs cleaned up at some point
+    json_dict["Messages"]["InvalidUpload"] = {
+        "Message": "Invalid file uploaded to %1: %2.*",
+        "ParamTypes": ["string", "string"],
+    }
+
+    messages = OrderedDict(
+        sorted(json_dict["Messages"].items(), key=get_old_index)
+    )
+
+    with open(
+        os.path.join(
+            SCRIPT_DIR, "..", "redfish-core", "include", "error_messages.hpp"
+        ),
+        "w",
+    ) as out:
+        out.write(PRAGMA_ONCE)
+        out.write(WARNING)
+        out.write(
+            """
+
+#include "http_response.hpp"
+
+#include <boost/url/url_view_base.hpp>
+#include <nlohmann/json.hpp>
+
+#include <cstdint>
+#include <source_location>
+#include <string>
+#include <string_view>
+
+// IWYU pragma: no_forward_declare crow::Response
+
+namespace redfish
+{
+
+namespace messages
+{
+
+    constexpr const char* messageVersionPrefix = "Base.1.11.0.";
+    constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
+
+    /**
+    * @brief Moves all error messages from the |source| JSON to |target|
+    */
+    void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source);
+
+"""
+        )
+
+        for entry_id, entry in messages.items():
+            message = entry["Message"]
+            for index in range(1, 10):
+                message = message.replace(f"'%{index}'", f"<arg{index}>")
+                message = message.replace(f"%{index}", f"<arg{index}>")
+
+            out.write("/**\n")
+            out.write(f"* @brief Formats {entry_id} message into JSON\n")
+            out.write(f'* Message body: "{message}"\n')
+            out.write("*\n")
+            arg_index = 0
+            for arg_index, arg in enumerate(entry.get("ParamTypes", [])):
+                arg_index += 1
+
+                out.write(
+                    f"* @param[in] arg{arg_index} Parameter of message that will replace %{arg_index} in its body.\n"
+                )
+            out.write("*\n")
+            out.write(f"* @returns Message {entry_id} formatted to JSON */\n")
+
+            args = []
+            for arg_index, arg in enumerate(entry.get("ParamTypes", [])):
+                arg_index += 1
+                if arg_index in arg_as_url.get(entry_id, []):
+                    typename = "const boost::urls::url_view_base&"
+                elif arg_index in arg_as_json.get(entry_id, []):
+                    typename = "const nlohmann::json&"
+                elif arg_index in arg_as_int.get(entry_id, []):
+                    typename = "int"
+                elif arg_index in arg_as_uint64.get(entry_id, []):
+                    typename = "uint64_t"
+                elif arg_index in arg_as_int64.get(entry_id, []):
+                    typename = "int64_t"
+                else:
+                    typename = "std::string_view"
+                args.append(f"{typename} arg{arg_index}")
+            function_name = entry_id[0].lower() + entry_id[1:]
+            arg = ", ".join(args)
+            out.write(f"nlohmann::json {function_name}({arg});\n\n")
+            args.insert(0, "crow::Response& res")
+            if entry_id == "InternalError":
+                args.append(
+                    "std::source_location location = std::source_location::current()"
+                )
+            arg = ", ".join(args)
+            out.write(f"void {function_name}({arg});\n\n")
+        out.write("    }\n")
+        out.write("}\n")
+
+
 def make_privilege_registry():
     path, json_file, type_name, url = make_getter(
         "Redfish_1.5.0_PrivilegeRegistry.json",
@@ -292,6 +537,8 @@ def main():
         files.append(openbmc_local_getter())
 
     update_registries(files)
+
+    create_error_registry(files[0])
 
     if "privilege" in registries:
         make_privilege_registry()
