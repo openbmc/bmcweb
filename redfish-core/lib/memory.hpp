@@ -790,33 +790,28 @@ inline void requestRoutesMemoryCollection(App& app)
                 {
                     return;
                 }
-                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+                if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
                 {
-                    // Option currently returns no systems.  TBD
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
-                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
+                    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+                    {
+                        messages::resourceNotFound(
+                            asyncResp->res, "ComputerSystem", systemName);
+                        return;
+                    }
                 }
 
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#MemoryCollection.MemoryCollection";
                 asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    boost::urls::format("/redfish/v1/Systems/{}/Memory",
-                                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/Systems/{}/Memory", systemName);
 
                 constexpr std::array<std::string_view, 1> interfaces{
                     "xyz.openbmc_project.Inventory.Item.Dimm"};
                 collection_util::getCollectionMembers(
                     asyncResp,
                     boost::urls::format("/redfish/v1/Systems/{}/Memory",
-                                        BMCWEB_REDFISH_SYSTEM_URI_NAME),
+                                        systemName),
                     interfaces, "/xyz/openbmc_project/inventory");
             });
 }
