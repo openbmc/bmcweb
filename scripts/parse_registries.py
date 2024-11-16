@@ -188,6 +188,54 @@ namespace redfish::privileges
 )
 
 
+def get_response_code(entry_id, entry):
+    codes = {
+        "InternalError": "internal_server_error",
+        "OperationTimeout": "internal_server_error",
+        "PropertyValueResourceConflict": "conflict",
+        "ResourceInUse": "service_unavailable",
+        "ServiceTemporarilyUnavailable": "service_unavailable",
+        "ResourceCannotBeDeleted": "method_not_allowed",
+        "PropertyValueModified": "ok",
+        "InsufficientPrivilege": "forbidden",
+        "AccountForSessionNoLongerExists": "forbidden",
+        "ServiceDisabled": "service_unavailable",
+        "ServiceInUnknownState": "service_unavailable",
+        "EventSubscriptionLimitExceeded": "service_unavailable",
+        "ResourceAtUriUnauthorized": "unauthorized",
+        "SessionTerminated": "ok",
+        "SubscriptionTerminated": "ok",
+        "PropertyNotWritable": "forbidden",
+        "MaximumErrorsExceeded": "internal_server_error",
+        "GeneralError": "internal_server_error",
+        "PreconditionFailed": "precondition_failed",
+        "OperationFailed": "bad_gateway",
+        "ServiceShuttingDown": "service_unavailable",
+        "AccountRemoved": "ok",
+        "PropertyValueExternalConflict": "conflict",
+        "InsufficientStorage": "insufficient_storage",
+        "OperationNotAllowed": "method_not_allowed",
+        "ResourceNotFound": "not_found",
+        "CouldNotEstablishConnection": "not_found",
+        "AccessDenied": "forbidden",
+        "Success": None,
+        "Created": "created",
+        "NoValidSession": "forbidden",
+        "SessionLimitExceeded": "service_unavailable",
+        "ResourceExhaustion": "service_unavailable",
+        "AccountModified": "ok",
+        "PasswordChangeRequired": None,
+        "ResourceInStandby": "service_unavailable",
+        "GenerateSecretKeyRequired": "forbidden",
+    }
+
+    code = codes.get(entry_id, "NOCODE")
+    if code != "NOCODE":
+        return code
+
+    return "bad_request"
+
+
 def get_old_index(entry):
     old_order = [
         "ResourceInUse",
@@ -285,7 +333,7 @@ def get_old_index(entry):
         return 999999
 
 
-def create_error_registry(entry):
+def make_error_function(entry_id, entry, is_header):
 
     arg_as_url = {
         "AccessDenied": [1],
@@ -329,6 +377,128 @@ def create_error_registry(entry):
         "InvalidIndex": [1],
     }
 
+    out = ""
+    args = []
+    argtypes = []
+    for arg_index, arg in enumerate(entry.get("ParamTypes", [])):
+        arg_index += 1
+        if arg_index in arg_as_url.get(entry_id, []):
+            typename = "const boost::urls::url_view_base&"
+        elif arg_index in arg_as_json.get(entry_id, []):
+            typename = "const nlohmann::json&"
+        elif arg_index in arg_as_int.get(entry_id, []):
+            typename = "int"
+        elif arg_index in arg_as_uint64.get(entry_id, []):
+            typename = "uint64_t"
+        elif arg_index in arg_as_int64.get(entry_id, []):
+            typename = "int64_t"
+        else:
+            typename = "std::string_view"
+        argtypes.append(typename)
+        args.append(f"{typename} arg{arg_index}")
+    function_name = entry_id[0].lower() + entry_id[1:]
+    arg = ", ".join(args)
+    out += f"nlohmann::json {function_name}({arg})"
+
+    if is_header:
+        out += ";\n\n"
+    else:
+        out += "\n{\n"
+        to_array_type = ""
+        if argtypes:
+            outargs = []
+            for index, typename in enumerate(argtypes):
+                index += 1
+                if typename == "const nlohmann::json&":
+                    out += f"std::string arg{index}Str = arg{index}.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);\n"
+                elif typename in ("int64_t", "int", "uint64_t"):
+                    out += f"std::string arg{index}Str = std::to_string(arg{index});\n"
+
+            for index, typename in enumerate(argtypes):
+                index += 1
+                if typename == "const boost::urls::url_view_base&":
+                    outargs.append(f"arg{index}.buffer()")
+                    to_array_type = "<std::string_view>"
+                elif typename == "const nlohmann::json&":
+                    outargs.append(f"arg{index}Str")
+                    to_array_type = "<std::string_view>"
+                elif typename in ("int64_t", "int", "uint64_t"):
+                    outargs.append(f"arg{index}Str")
+                    to_array_type = "<std::string_view>"
+                else:
+                    outargs.append(f"arg{index}")
+            argstring = ", ".join(outargs)
+            # out += f"    std::array<std::string_view, {len(argtypes)}> args{{{argstring}}};\n"
+
+        if argtypes:
+            arg_param = f"std::to_array{to_array_type}({{{argstring}}})"
+        else:
+            arg_param = "{}"
+        out += f"    return getLog(redfish::registries::base::Index::{function_name}, {arg_param});"
+        out += "\n}\n\n"
+    args.insert(0, "crow::Response& res")
+    if entry_id == "InternalError":
+        if is_header:
+            args.append(
+                "std::source_location location = std::source_location::current()"
+            )
+        else:
+            args.append("const std::source_location location")
+    arg = ", ".join(args)
+    out += f"void {function_name}({arg})"
+    if is_header:
+        out += ";\n"
+    else:
+        out += "\n{\n"
+        if entry_id == "InternalError":
+            out += """BMCWEB_LOG_CRITICAL("Internal Error {}({}:{}) `{}`: ", location.file_name(),
+                        location.line(), location.column(),
+                        location.function_name());\n"""
+
+        if entry_id == "ServiceTemporarilyUnavailable":
+            out += (
+                "res.addHeader(boost::beast::http::field::retry_after, arg1);"
+            )
+
+        res = get_response_code(entry_id, entry)
+        if res:
+            out += f"    res.result(boost::beast::http::status::{res});\n"
+        args_out = ", ".join([f"arg{x+1}" for x in range(len(argtypes))])
+
+        addMessageToJson = {
+            "PropertyDuplicate": 1,
+            "ResourceAlreadyExists": 2,
+            "CreateFailedMissingReqProperties": 1,
+            "PropertyValueFormatError": 2,
+            "PropertyValueNotInList": 2,
+            "PropertyValueTypeError": 2,
+            "PropertyValueError": 1,
+            "PropertyNotWritable": 1,
+            "PropertyValueModified": 1,
+            "PropertyMissing": 1,
+        }
+
+        addMessageToRoot = [
+            "SessionTerminated",
+            "SubscriptionTerminated",
+            "AccountRemoved",
+            "Created",
+            "Success",
+            "PasswordChangeRequired",
+        ]
+
+        if entry_id in addMessageToJson:
+            out += f"    addMessageToJson(res.jsonValue, {function_name}({args_out}), arg{addMessageToJson[entry_id]});\n"
+        elif entry_id in addMessageToRoot:
+            out += f"    addMessageToJsonRoot(res.jsonValue, {function_name}({args_out}));\n"
+        else:
+            out += f"    addMessageToErrorJson(res.jsonValue, {function_name}({args_out}));\n"
+        out += "}\n"
+    out += "\n"
+    return out
+
+
+def create_error_registry(entry):
     file, json_dict, namespace, url = entry
 
     messages = OrderedDict(
@@ -396,35 +566,187 @@ namespace messages
             out.write("*\n")
             out.write(f"* @returns Message {entry_id} formatted to JSON */\n")
 
-            args = []
-            for arg_index, arg in enumerate(entry.get("ParamTypes", [])):
-                arg_index += 1
-                if arg_index in arg_as_url.get(entry_id, []):
-                    typename = "const boost::urls::url_view_base&"
-                elif arg_index in arg_as_json.get(entry_id, []):
-                    typename = "const nlohmann::json&"
-                elif arg_index in arg_as_int.get(entry_id, []):
-                    typename = "int"
-                elif arg_index in arg_as_uint64.get(entry_id, []):
-                    typename = "uint64_t"
-                elif arg_index in arg_as_int64.get(entry_id, []):
-                    typename = "int64_t"
-                else:
-                    typename = "std::string_view"
-                args.append(f"{typename} arg{arg_index}")
-            function_name = entry_id[0].lower() + entry_id[1:]
-            arg = ", ".join(args)
-            out.write(f"nlohmann::json {function_name}({arg});\n\n")
-            args.insert(0, "crow::Response& res")
-            if entry_id == "InternalError":
-                args.append(
-                    "std::source_location location = std::source_location::current()"
-                )
-            arg = ", ".join(args)
-            out.write(f"void {function_name}({arg});\n\n")
+            out.write(make_error_function(entry_id, entry, True))
         out.write("    }\n")
         out.write("}\n")
-    os.system(f"clang-format -i {error_messages_hpp}")
+
+    error_messages_cpp = os.path.join(
+        SCRIPT_DIR, "..", "redfish-core", "src", "error_messages.cpp"
+    )
+    with open(
+        error_messages_cpp,
+        "w",
+    ) as out:
+        out.write(WARNING)
+        out.write(
+            """
+#include "error_messages.hpp"
+
+#include "http_response.hpp"
+#include "logging.hpp"
+#include "registries.hpp"
+#include "registries/base_message_registry.hpp"
+
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/url/url_view_base.hpp>
+#include <nlohmann/json.hpp>
+
+#include <array>
+#include <cstddef>
+#include <cstdint>
+#include <source_location>
+#include <span>
+#include <string>
+#include <string_view>
+#include <utility>
+
+namespace redfish
+{
+
+namespace messages
+{
+
+static void addMessageToErrorJson(nlohmann::json& target,
+                                  const nlohmann::json& message)
+{
+    auto& error = target["error"];
+
+    // If this is the first error message, fill in the information from the
+    // first error message to the top level struct
+    if (!error.is_object())
+    {
+        auto messageIdIterator = message.find("MessageId");
+        if (messageIdIterator == message.end())
+        {
+            BMCWEB_LOG_CRITICAL(
+                "Attempt to add error message without MessageId");
+            return;
+        }
+
+        auto messageFieldIterator = message.find("Message");
+        if (messageFieldIterator == message.end())
+        {
+            BMCWEB_LOG_CRITICAL("Attempt to add error message without Message");
+            return;
+        }
+        error["code"] = *messageIdIterator;
+        error["message"] = *messageFieldIterator;
+    }
+    else
+    {
+        // More than 1 error occurred, so the message has to be generic
+        error["code"] = std::string(messageVersionPrefix) + "GeneralError";
+        error["message"] = "A general error has occurred. See Resolution for "
+                           "information on how to resolve the error.";
+    }
+
+    // This check could technically be done in the default construction
+    // branch above, but because we need the pointer to the extended info field
+    // anyway, it's more efficient to do it here.
+    auto& extendedInfo = error[messages::messageAnnotation];
+    if (!extendedInfo.is_array())
+    {
+        extendedInfo = nlohmann::json::array();
+    }
+
+    extendedInfo.push_back(message);
+}
+
+void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source)
+{
+    if (!source.is_object())
+    {
+        return;
+    }
+    auto errorIt = source.find("error");
+    if (errorIt == source.end())
+    {
+        // caller puts error message in root
+        messages::addMessageToErrorJson(target, source);
+        source.clear();
+        return;
+    }
+    auto extendedInfoIt = errorIt->find(messages::messageAnnotation);
+    if (extendedInfoIt == errorIt->end())
+    {
+        return;
+    }
+    const nlohmann::json::array_t* extendedInfo =
+        (*extendedInfoIt).get_ptr<const nlohmann::json::array_t*>();
+    if (extendedInfo == nullptr)
+    {
+        source.erase(errorIt);
+        return;
+    }
+    for (const nlohmann::json& message : *extendedInfo)
+    {
+        addMessageToErrorJson(target, message);
+    }
+    source.erase(errorIt);
+}
+
+static void addMessageToJsonRoot(nlohmann::json& target,
+                                 const nlohmann::json& message)
+{
+    if (!target[messages::messageAnnotation].is_array())
+    {
+        // Force object to be an array
+        target[messages::messageAnnotation] = nlohmann::json::array();
+    }
+
+    target[messages::messageAnnotation].push_back(message);
+}
+
+static void addMessageToJson(nlohmann::json& target,
+                             const nlohmann::json& message,
+                             std::string_view fieldPath)
+{
+    std::string extendedInfo(fieldPath);
+    extendedInfo += messages::messageAnnotation;
+
+    nlohmann::json& field = target[extendedInfo];
+    if (!field.is_array())
+    {
+        // Force object to be an array
+        field = nlohmann::json::array();
+    }
+
+    // Object exists and it is an array so we can just push in the message
+    field.push_back(message);
+}
+
+static nlohmann::json getLog(redfish::registries::base::Index name,
+                             std::span<const std::string_view> args)
+{
+    size_t index = static_cast<size_t>(name);
+    if (index >= redfish::registries::base::registry.size())
+    {
+        return {};
+    }
+    return getLogFromRegistry(redfish::registries::base::header,
+                              redfish::registries::base::registry, index, args);
+}
+
+"""
+        )
+        for entry_id, entry in messages.items():
+            out.write(
+                f"""/**
+ * @internal
+ * @brief Formats {entry_id} message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+"""
+            )
+            message = entry["Message"]
+            out.write(make_error_function(entry_id, entry, False))
+
+        out.write("    }\n")
+        out.write("}\n")
+    os.system(f"clang-format -i {error_messages_hpp} {error_messages_cpp}")
 
 
 def make_privilege_registry():
