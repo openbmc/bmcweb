@@ -1086,7 +1086,6 @@ inline void requestRoutesOperatingConfigCollection(App& app)
                                            systemName);
                 return;
             }
-
             if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
             {
                 messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1254,7 +1253,6 @@ inline void requestRoutesProcessorCollection(App& app)
                                            systemName);
                 return;
             }
-
             if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
             {
                 messages::resourceNotFound(asyncResp->res, "ComputerSystem",
