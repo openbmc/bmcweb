@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e46ee77_571d35de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-16T01:25:13Z",
+      "side": 1,
+      "message": "even if my change were to reduce the size of the binary on the target \n(which will be less than 32MB)\n\nyou are doing a tradeoff with compilation time.\nSince every translation unit including this header now has to process more code.\n\nWhich then leads to increased compilation time.",
+      "revId": "9ef781c0374bacf97920245fb83794dcf9eaa2ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
