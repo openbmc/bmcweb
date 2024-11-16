@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb13a539_d4d87954",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T03:03:24Z",
+      "side": 1,
+      "message": "on this patchset I\u0027d like to see:\n\n1. The xz compressed binary size.  This is what we measure.  The 1.7MB reported value is about double what I\u0027d expect.\n2. Some discussion of these compiler optimizations we\u0027re worried about?  Do they matter in practice?\n\nIs this problem better solved by enabling unity builds in meson?\n\nThere\u0027s currently lots of things that are compile units, including in a bunch of our dependencies.  If this is truly a problem, it\u0027s a much bigger problem than just subscription.cpp.",
+      "revId": "e32eb335e4dec0246b5b38ab8c8210532b69aed9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
