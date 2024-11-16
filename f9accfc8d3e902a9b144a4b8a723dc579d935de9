@@ -454,6 +454,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "86d1ccae_fc7ab3ea",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "The above has merged.  THis needs rebased I think?",
+      "parentUuid": "3bd1e2cd_0d860bdc",
+      "range": {
+        "startLine": 1321,
+        "startChar": 16,
+        "endLine": 1321,
+        "endChar": 38
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89839570_d511079a",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 9

@@ -1,0 +1,267 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b66664a_1a13e98b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "\"this should work for you\" isn\u0027t really a great explanation of this new feature.  What is it?  How does it work?",
+      "range": {
+        "startLine": 15,
+        "startChar": 45,
+        "endLine": 15,
+        "endChar": 70
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06219103_4cdbb0a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "We generally try to avoid dbus calls in tests (because dbus isn\u0027t a user facing interface).  Maybe turning the system on/off (which will generate a log) might be a better test?",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff167deb_ff31d718",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "This is a new feature, what is \"expected\"?",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 37
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5b2b497_9dcd5b94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "Can we also please test this with the official redfish event service handler?  I suspect that will simplify your testing as well.",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93fca727_7623f0d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "Is there anything in this patch that needs unit tests?",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecacb6b3_13c2c342",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "Please make this a static \"getInstance\" variable, similar to how EventService singleton is handled.  Alternatively this could probably just go in the EventService class?",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 24
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ee6498c_0bd56b43",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "nit, capitalize the first letter of the sentence.  I think all the logs in this patch need this fix.",
+      "range": {
+        "startLine": 109,
+        "startChar": 28,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d5e392a_be0f04f2",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "Why is this being added?  I only see one usage where it\u0027s set to true.  Probably move this to its own commit with a message about why we would ever want to create an unformatted log message?",
+      "range": {
+        "startLine": 222,
+        "startChar": 8,
+        "endLine": 222,
+        "endChar": 25
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faad895a_13d2dae0",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "From the documentation for MessageArgs:\n\n```It has the same semantics as the `MessageArgs` property in the Redfish `MessageRegistry` schema```\n\nWhich I read to mean omitting it for a message that has it specified in the equivalent registry would be a spec violation.",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cfec135_78a6ea26",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "Please log something here if this is unexpected.",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbf967e4_40f124c2",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "Lets avoid making copies if we can.",
+      "range": {
+        "startLine": 1005,
+        "startChar": 0,
+        "endLine": 1005,
+        "endChar": 51
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d539367_de861d9a",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "can we call this something more descripitive like \"onDbusEventLogCreated\"",
+      "range": {
+        "startLine": 1042,
+        "startChar": 16,
+        "endLine": 1042,
+        "endChar": 40
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78ff7ff4_44512b45",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-16T19:08:11Z",
+      "side": 1,
+      "message": "i believe sdbusplus has a helper function for this match expression.",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
