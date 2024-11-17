@@ -336,52 +336,43 @@ inline void afterAvailbleTimerAsyncWait(
 
 inline void
     handleUpdateErrorType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& url, const std::string& type)
+                          const std::string& /*url*/, const std::string& type)
 {
     if (type == "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Invalid archive");
+        messages::internalError(asyncResp->res);
     }
     else if (type ==
              "xyz.openbmc_project.Software.Image.Error.ManifestFileFailure")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Invalid manifest");
+        messages::internalError(asyncResp->res);
     }
     else if (type == "xyz.openbmc_project.Software.Image.Error.ImageFailure")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Invalid image format");
+        messages::internalError(asyncResp->res);
     }
     else if (type == "xyz.openbmc_project.Software.Version.Error.AlreadyExists")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Image version already exists");
-
-        redfish::messages::resourceAlreadyExists(
-            asyncResp->res, "UpdateService", "Version", "uploaded version");
+        messages::resourceAlreadyExists(asyncResp->res, "UpdateService",
+                                        "Version", "uploaded version");
     }
     else if (type == "xyz.openbmc_project.Software.Image.Error.BusyFailure")
     {
-        redfish::messages::resourceExhaustion(asyncResp->res, url);
+        messages::internalError(asyncResp->res);
     }
     else if (type == "xyz.openbmc_project.Software.Version.Error.Incompatible")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Incompatible image version");
+        messages::internalError(asyncResp->res);
     }
     else if (type ==
              "xyz.openbmc_project.Software.Version.Error.ExpiredAccessKey")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Update Access Key Expired");
+        messages::internalError(asyncResp->res);
     }
     else if (type ==
              "xyz.openbmc_project.Software.Version.Error.InvalidSignature")
     {
-        redfish::messages::invalidUpload(asyncResp->res, url,
-                                         "Invalid image signature");
+        messages::internalError(asyncResp->res);
     }
     else if (type ==
                  "xyz.openbmc_project.Software.Image.Error.InternalFailure" ||
