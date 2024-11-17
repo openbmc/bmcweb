@@ -336,21 +336,21 @@ inline void afterAvailbleTimerAsyncWait(
 
 inline void
     handleUpdateErrorType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& /*url*/, const std::string& type)
+                          const std::string& url, const std::string& type)
 {
     // NOLINTBEGIN(bugprone-branch-clone)
     if (type == "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
     {
-        messages::internalError(asyncResp->res);
+        messages::missingOrMalformedPart(asyncResp->res);
     }
     else if (type ==
              "xyz.openbmc_project.Software.Image.Error.ManifestFileFailure")
     {
-        messages::internalError(asyncResp->res);
+        messages::missingOrMalformedPart(asyncResp->res);
     }
     else if (type == "xyz.openbmc_project.Software.Image.Error.ImageFailure")
     {
-        messages::internalError(asyncResp->res);
+        messages::missingOrMalformedPart(asyncResp->res);
     }
     else if (type == "xyz.openbmc_project.Software.Version.Error.AlreadyExists")
     {
@@ -359,7 +359,7 @@ inline void
     }
     else if (type == "xyz.openbmc_project.Software.Image.Error.BusyFailure")
     {
-        messages::internalError(asyncResp->res);
+        messages::serviceTemporarilyUnavailable(asyncResp->res, url);
     }
     else if (type == "xyz.openbmc_project.Software.Version.Error.Incompatible")
     {
@@ -373,14 +373,14 @@ inline void
     else if (type ==
              "xyz.openbmc_project.Software.Version.Error.InvalidSignature")
     {
-        messages::internalError(asyncResp->res);
+        messages::missingOrMalformedPart(asyncResp->res);
     }
     else if (type ==
                  "xyz.openbmc_project.Software.Image.Error.InternalFailure" ||
              type == "xyz.openbmc_project.Software.Version.Error.HostFile")
     {
         BMCWEB_LOG_ERROR("Software Image Error type={}", type);
-        redfish::messages::internalError(asyncResp->res);
+        messages::internalError(asyncResp->res);
     }
     else
     {
