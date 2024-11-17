@@ -228,7 +228,7 @@ nlohmann::json actionParameterValueFormatError(
     const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3)
 {
     std::string arg1Str =
-        arg1.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(
         redfish::registries::base::Index::actionParameterValueFormatError,
         std::to_array<std::string_view>({arg1Str, arg2, arg3}));
@@ -483,7 +483,7 @@ nlohmann::json propertyValueFormatError(const nlohmann::json& arg1,
                                         std::string_view arg2)
 {
     std::string arg1Str =
-        arg1.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(redfish::registries::base::Index::propertyValueFormatError,
                   std::to_array<std::string_view>({arg1Str, arg2}));
 }
@@ -531,7 +531,7 @@ nlohmann::json propertyValueOutOfRange(const nlohmann::json& arg1,
                                        std::string_view arg2)
 {
     std::string arg1Str =
-        arg1.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(redfish::registries::base::Index::propertyValueOutOfRange,
                   std::to_array<std::string_view>({arg1Str, arg2}));
 }
@@ -812,7 +812,7 @@ nlohmann::json propertyValueResourceConflict(
     const boost::urls::url_view_base& arg3)
 {
     std::string arg2Str =
-        arg2.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
 
     return getLog(
         redfish::registries::base::Index::propertyValueResourceConflict,
@@ -839,7 +839,7 @@ nlohmann::json propertyValueExternalConflict(std::string_view arg1,
                                              const nlohmann::json& arg2)
 {
     std::string arg2Str =
-        arg2.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
 
     return getLog(
         redfish::registries::base::Index::propertyValueExternalConflict,
@@ -865,7 +865,7 @@ nlohmann::json propertyValueIncorrect(std::string_view arg1,
                                       const nlohmann::json& arg2)
 {
     std::string arg2Str =
-        arg2.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(redfish::registries::base::Index::propertyValueIncorrect,
                   std::to_array<std::string_view>({arg1, arg2Str}));
 }
@@ -999,7 +999,7 @@ nlohmann::json propertyValueTypeError(const nlohmann::json& arg1,
                                       std::string_view arg2)
 {
     std::string arg1Str =
-        arg1.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(redfish::registries::base::Index::propertyValueTypeError,
                   std::to_array<std::string_view>({arg1Str, arg2}));
 }
@@ -1103,7 +1103,7 @@ nlohmann::json queryParameterValueTypeError(const nlohmann::json& arg1,
                                             std::string_view arg2)
 {
     std::string arg1Str =
-        arg1.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(
         redfish::registries::base::Index::queryParameterValueTypeError,
         std::to_array<std::string_view>({arg1Str, arg2}));
@@ -1454,7 +1454,7 @@ nlohmann::json actionParameterValueTypeError(
     const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3)
 {
     std::string arg1Str =
-        arg1.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(
         redfish::registries::base::Index::actionParameterValueTypeError,
         std::to_array<std::string_view>({arg1Str, arg2, arg3}));
@@ -1480,7 +1480,7 @@ nlohmann::json actionParameterValueError(const nlohmann::json& arg1,
                                          std::string_view arg2)
 {
     std::string arg1Str =
-        arg1.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(redfish::registries::base::Index::actionParameterValueError,
                   std::to_array<std::string_view>({arg1Str, arg2}));
 }
@@ -1671,7 +1671,7 @@ nlohmann::json propertyValueModified(std::string_view arg1,
                                      const nlohmann::json& arg2)
 {
     std::string arg2Str =
-        arg2.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(redfish::registries::base::Index::propertyValueModified,
                   std::to_array<std::string_view>({arg1, arg2Str}));
 }
@@ -1712,7 +1712,7 @@ nlohmann::json queryParameterValueFormatError(const nlohmann::json& arg1,
                                               std::string_view arg2)
 {
     std::string arg1Str =
-        arg1.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
     return getLog(
         redfish::registries::base::Index::queryParameterValueFormatError,
         std::to_array<std::string_view>({arg1Str, arg2}));
