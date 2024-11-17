@@ -791,22 +791,42 @@ inline int objectKeyCmp(std::string_view key, const nlohmann::json& a,
     {
         return 1;
     }
-    boost::urls::url_view aUrl(*nameA);
-    boost::urls::url_view bUrl(*nameB);
-    auto segmentsAIt = aUrl.segments().begin();
-    auto segmentsBIt = bUrl.segments().begin();
+    if (key != "@odata.id")
+    {
+        return nameA->compare(*nameB);
+    }
+
+    boost::system::result<boost::urls::url_view> aUrl =
+        boost::urls::parse_relative_ref(*nameA);
+    boost::system::result<boost::urls::url_view> bUrl =
+        boost::urls::parse_relative_ref(*nameB);
+    if (!aUrl)
+    {
+        if (!bUrl)
+        {
+            return 0;
+        }
+        return -1;
+    }
+    if (!bUrl)
+    {
+        return 1;
+    }
+
+    auto segmentsAIt = aUrl->segments().begin();
+    auto segmentsBIt = bUrl->segments().begin();
 
     while (true)
     {
-        if (segmentsAIt == aUrl.segments().end())
+        if (segmentsAIt == aUrl->segments().end())
         {
-            if (segmentsBIt == bUrl.segments().end())
+            if (segmentsBIt == bUrl->segments().end())
             {
                 return 0;
             }
             return -1;
         }
-        if (segmentsBIt == bUrl.segments().end())
+        if (segmentsBIt == bUrl->segments().end())
         {
             return 1;
         }
@@ -819,6 +839,7 @@ inline int objectKeyCmp(std::string_view key, const nlohmann::json& a,
         segmentsAIt++;
         segmentsBIt++;
     }
+    return 0;
 };
 
 // kept for backward compatibility
