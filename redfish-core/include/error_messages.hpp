@@ -900,9 +900,9 @@ void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message InvalidIndex formatted to JSON */
-nlohmann::json invalidIndex(int64_t arg1);
+nlohmann::json invalidIndex(uint64_t arg1);
 
-void invalidIndex(crow::Response& res, int64_t arg1);
+void invalidIndex(crow::Response& res, uint64_t arg1);
 
 /**
  * @brief Formats PropertyValueModified message into JSON
@@ -950,9 +950,10 @@ void resourceExhaustion(crow::Response& res, std::string_view arg1);
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message StringValueTooLong formatted to JSON */
-nlohmann::json stringValueTooLong(std::string_view arg1, int arg2);
+nlohmann::json stringValueTooLong(std::string_view arg1, uint64_t arg2);
 
-void stringValueTooLong(crow::Response& res, std::string_view arg1, int arg2);
+void stringValueTooLong(crow::Response& res, std::string_view arg1,
+                        uint64_t arg2);
 
 /**
  * @brief Formats StringValueTooShort message into JSON
