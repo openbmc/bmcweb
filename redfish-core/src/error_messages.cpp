@@ -1867,18 +1867,17 @@ void operationNotAllowed(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json arraySizeTooLong(std::string_view property, uint64_t length)
+nlohmann::json arraySizeTooLong(std::string_view arg1, uint64_t arg2)
 {
-    std::string valStr = std::to_string(length);
+    std::string arg2Str = std::to_string(arg2);
     return getLog(redfish::registries::base::Index::arraySizeTooLong,
-                  std::to_array<std::string_view>({property, valStr}));
+                  std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void arraySizeTooLong(crow::Response& res, std::string_view property,
-                      uint64_t length)
+void arraySizeTooLong(crow::Response& res, std::string_view arg1, uint64_t arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue, arraySizeTooLong(property, length));
+    addMessageToErrorJson(res.jsonValue, arraySizeTooLong(arg1, arg2));
 }
 
 void invalidUpload(crow::Response& res, std::string_view arg1,
