@@ -1077,19 +1077,6 @@ void passwordChangeRequired(crow::Response& res,
                             const boost::urls::url_view_base& arg1);
 
 /**
- * @brief Formats InvalidUpload message into JSON
- * Message body: "Invalid file uploaded to <arg1>: <arg2>.*"
- *
- * @param[in] arg1 Parameter of message that will replace %1 in its body.
- * @param[in] arg2 Parameter of message that will replace %2 in its body.
- *
- * @returns Message InvalidUpload formatted to JSON */
-nlohmann::json invalidUpload(std::string_view arg1, std::string_view arg2);
-
-void invalidUpload(crow::Response& res, std::string_view arg1,
-                   std::string_view arg2);
-
-/**
  * @brief Formats InsufficientStorage message into JSON
  * Message body: "Insufficient storage or memory available to complete the
  * request."
