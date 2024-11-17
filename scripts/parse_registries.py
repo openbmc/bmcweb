@@ -272,7 +272,6 @@ def get_old_index(entry):
         "AccountModified",
         "QueryParameterOutOfRange",
         "PasswordChangeRequired",
-        "InvalidUpload",
         "InsufficientStorage",
         "OperationNotAllowed",
         "ArraySizeTooLong",
@@ -331,12 +330,6 @@ def create_error_registry(entry):
     }
 
     file, json_dict, namespace, url = entry
-
-    # Note, this message doesn't exist in DMTF.  Needs cleaned up at some point
-    json_dict["Messages"]["InvalidUpload"] = {
-        "Message": "Invalid file uploaded to %1: %2.*",
-        "ParamTypes": ["string", "string"],
-    }
 
     messages = OrderedDict(
         sorted(json_dict["Messages"].items(), key=get_old_index)
