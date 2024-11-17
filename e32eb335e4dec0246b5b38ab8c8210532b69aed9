@@ -33,6 +33,24 @@
       "message": "on this patchset I\u0027d like to see:\n\n1. The xz compressed binary size.  This is what we measure.  The 1.7MB reported value is about double what I\u0027d expect.\n2. Some discussion of these compiler optimizations we\u0027re worried about?  Do they matter in practice?\n\nIs this problem better solved by enabling unity builds in meson?\n\nThere\u0027s currently lots of things that are compile units, including in a bunch of our dependencies.  If this is truly a problem, it\u0027s a much bigger problem than just subscription.cpp.",
       "revId": "e32eb335e4dec0246b5b38ab8c8210532b69aed9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bbc64a7_8066f4b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-17T22:01:07Z",
+      "side": 1,
+      "message": "The xz compressed sizes of bmcwebd.xz are:\n- 18184684 (before)\n- 17748332 (after this)\n\nThe file `subscription.hpp` is included by `event_service_manager.hpp`, and the member functions of Subscription are used in many places (e.g. `event_service.hpp`, etc).\n\nI think this implies that the compiler may loose the opportunities like inline of the short funcs, and/or size or speed optimizations.\n\nI also think this issue could be addressed or may be loosened via unity builds.",
+      "parentUuid": "bb13a539_d4d87954",
+      "revId": "e32eb335e4dec0246b5b38ab8c8210532b69aed9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
