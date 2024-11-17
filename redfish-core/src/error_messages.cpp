@@ -1867,11 +1867,11 @@ void operationNotAllowed(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json arraySizeTooLong(std::string_view property, uint64_t length)
+nlohmann::json arraySizeTooLong(std::string_view arg1, uint64_t arg2)
 {
-    std::string valStr = std::to_string(length);
+    std::string arg2Str = std::to_string(length);
     return getLog(redfish::registries::base::Index::arraySizeTooLong,
-                  std::to_array<std::string_view>({property, valStr}));
+                  std::to_array<std::string_view>({arg1, arg2str}));
 }
 
 void arraySizeTooLong(crow::Response& res, std::string_view property,
