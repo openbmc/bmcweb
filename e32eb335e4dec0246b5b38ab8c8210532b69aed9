@@ -51,6 +51,24 @@
       "parentUuid": "bb13a539_d4d87954",
       "revId": "e32eb335e4dec0246b5b38ab8c8210532b69aed9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b735a2f_b38cfce0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-17T22:11:02Z",
+      "side": 1,
+      "message": "\u003e The xz compressed sizes of bmcwebd.xz are:\n\u003e - 18184684 (before)\n\u003e - 17748332 (after this)\n\n18MB would be HUGE, and take up 1/3rd of the flash.  Are you sure you\u0027re building optmized?  See my other comment for the numbers I\u0027m seeing, which are in the \u003c1MB compressed and \u003c3MB uncompressed.\n\n\u003e \n\u003e The file `subscription.hpp` is included by `event_service_manager.hpp`, and the member functions of Subscription are used in many places (e.g. `event_service.hpp`, etc).\n\u003e \n\u003e I think this implies that the compiler may loose the opportunities like inline of the short funcs, and/or size or speed optimizations.\n\nI\u0027m not seeing that in my testing.  See other comment.",
+      "parentUuid": "8bbc64a7_8066f4b7",
+      "revId": "e32eb335e4dec0246b5b38ab8c8210532b69aed9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
