@@ -22,6 +22,9 @@ limitations under the License.
 #include "human_sort.hpp"
 #include "logging.hpp"
 
+#include <boost/url/encode.hpp>
+#include <boost/url/grammar/string_token.hpp>
+#include <boost/url/rfc/pchars.hpp>
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
@@ -791,8 +794,20 @@ inline int objectKeyCmp(std::string_view key, const nlohmann::json& a,
     {
         return 1;
     }
-    boost::urls::url_view aUrl(*nameA);
-    boost::urls::url_view bUrl(*nameB);
+
+    // Added percent encoding to handle sensor names with spaces.
+    std::string ecncodeA;
+    boost::urls::encode(
+        *nameA, boost::urls::pchars, {},
+        boost::urls::grammar::string_token::assign_to(ecncodeA));
+    boost::urls::url_view aUrl(ecncodeA);
+
+    std::string ecncodeB;
+    boost::urls::encode(
+        *nameB, boost::urls::pchars, {},
+        boost::urls::grammar::string_token::assign_to(ecncodeB));
+    boost::urls::url_view bUrl(ecncodeB);
+
     auto segmentsAIt = aUrl.segments().begin();
     auto segmentsBIt = bUrl.segments().begin();
 
