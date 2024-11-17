@@ -70,6 +70,24 @@
       "parentUuid": "425bcd01_8bfe9c66",
       "revId": "923852518394bd942b8947064627169b97de1d78",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31688cbc_24b167f5",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-17T22:09:15Z",
+      "side": 1,
+      "message": "I\u0027m not able to reproduce those numbers, and those numbers are a bit suspect, because 172 MB wouldn\u0027t even fit into the 64MB bmc flash.  Maybe you were looking at an unoptimized and unstripped build?\n\nFWIW, I\u0027m seeing a \u003c 200 byte difference with this patch when I run builds in yocto.",
+      "parentUuid": "96b056f6_7553e7e5",
+      "revId": "923852518394bd942b8947064627169b97de1d78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
