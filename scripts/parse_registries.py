@@ -238,47 +238,41 @@ def get_response_code(entry_id, entry):
 
 
 def make_error_function(entry_id, entry, is_header):
-
-    arg_as_url = {
-        "AccessDenied": [1],
-        "CouldNotEstablishConnection": [1],
-        "GenerateSecretKeyRequired": [1],
-        "InvalidObject": [1],
-        "PasswordChangeRequired": [1],
-        "PropertyValueResourceConflict": [3],
-        "ResetRequired": [1],
-        "ResourceAtUriInUnknownFormat": [1],
-        "ResourceAtUriUnauthorized": [1],
-        "ResourceCreationConflict": [1],
-        "ResourceMissingAtURI": [1],
-        "SourceDoesNotSupportProtocol": [1],
-    }
-
-    arg_as_json = {
-        "ActionParameterValueError": [1],
-        "ActionParameterValueFormatError": [1],
-        "ActionParameterValueTypeError": [1],
-        "PropertyValueExternalConflict": [2],
-        "PropertyValueFormatError": [1],
-        "PropertyValueIncorrect": [2],
-        "PropertyValueModified": [2],
-        "PropertyValueNotInList": [1],
-        "PropertyValueOutOfRange": [1],
-        "PropertyValueResourceConflict": [2],
-        "PropertyValueTypeError": [1],
-        "QueryParameterValueFormatError": [1],
-        "QueryParameterValueTypeError": [1],
-    }
-
-    arg_as_int = {
-        "StringValueTooLong": [2],
-    }
-
-    arg_as_uint64 = {
-        "ArraySizeTooLong": [2],
-    }
-    arg_as_int64 = {
-        "InvalidIndex": [1],
+    arg_nonstring_types = {
+        "const boost::urls::url_view_base&": {
+            "AccessDenied": [1],
+            "CouldNotEstablishConnection": [1],
+            "GenerateSecretKeyRequired": [1],
+            "InvalidObject": [1],
+            "PasswordChangeRequired": [1],
+            "PropertyValueResourceConflict": [3],
+            "ResetRequired": [1],
+            "ResourceAtUriInUnknownFormat": [1],
+            "ResourceAtUriUnauthorized": [1],
+            "ResourceCreationConflict": [1],
+            "ResourceMissingAtURI": [1],
+            "SourceDoesNotSupportProtocol": [1],
+        },
+        "const nlohmann::json&": {
+            "ActionParameterValueError": [1],
+            "ActionParameterValueFormatError": [1],
+            "ActionParameterValueTypeError": [1],
+            "PropertyValueExternalConflict": [2],
+            "PropertyValueFormatError": [1],
+            "PropertyValueIncorrect": [2],
+            "PropertyValueModified": [2],
+            "PropertyValueNotInList": [1],
+            "PropertyValueOutOfRange": [1],
+            "PropertyValueResourceConflict": [2],
+            "PropertyValueTypeError": [1],
+            "QueryParameterValueFormatError": [1],
+            "QueryParameterValueTypeError": [1],
+        },
+        "uint64_t": {
+            "InvalidIndex": [1],
+            "StringValueTooLong": [2],
+            "ArraySizeTooLong": [2],
+        },
     }
 
     out = ""
@@ -286,18 +280,11 @@ def make_error_function(entry_id, entry, is_header):
     argtypes = []
     for arg_index, arg in enumerate(entry.get("ParamTypes", [])):
         arg_index += 1
-        if arg_index in arg_as_url.get(entry_id, []):
-            typename = "const boost::urls::url_view_base&"
-        elif arg_index in arg_as_json.get(entry_id, []):
-            typename = "const nlohmann::json&"
-        elif arg_index in arg_as_int.get(entry_id, []):
-            typename = "int"
-        elif arg_index in arg_as_uint64.get(entry_id, []):
-            typename = "uint64_t"
-        elif arg_index in arg_as_int64.get(entry_id, []):
-            typename = "int64_t"
-        else:
-            typename = "std::string_view"
+        typename = "std::string_view"
+        for typestring, entries in arg_nonstring_types.items():
+            if arg_index in entries.get(entry_id, []):
+                typename = typestring
+
         argtypes.append(typename)
         args.append(f"{typename} arg{arg_index}")
     function_name = entry_id[0].lower() + entry_id[1:]
@@ -315,7 +302,7 @@ def make_error_function(entry_id, entry, is_header):
                 index += 1
                 if typename == "const nlohmann::json&":
                     out += f"std::string arg{index}Str = arg{index}.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);\n"
-                elif typename in ("int64_t", "int", "uint64_t"):
+                elif typename == "uint64_t":
                     out += f"std::string arg{index}Str = std::to_string(arg{index});\n"
 
             for index, typename in enumerate(argtypes):
@@ -326,13 +313,12 @@ def make_error_function(entry_id, entry, is_header):
                 elif typename == "const nlohmann::json&":
                     outargs.append(f"arg{index}Str")
                     to_array_type = "<std::string_view>"
-                elif typename in ("int64_t", "int", "uint64_t"):
+                elif typename == "uint64_t":
                     outargs.append(f"arg{index}Str")
                     to_array_type = "<std::string_view>"
                 else:
                     outargs.append(f"arg{index}")
             argstring = ", ".join(outargs)
-            # out += f"    std::array<std::string_view, {len(argtypes)}> args{{{argstring}}};\n"
 
         if argtypes:
             arg_param = f"std::to_array{to_array_type}({{{argstring}}})"
