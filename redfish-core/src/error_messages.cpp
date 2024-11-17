@@ -1529,14 +1529,14 @@ void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json invalidIndex(int64_t arg1)
+nlohmann::json invalidIndex(uint64_t arg1)
 {
     std::string arg1Str = std::to_string(arg1);
     return getLog(redfish::registries::base::Index::invalidIndex,
                   std::to_array<std::string_view>({arg1Str}));
 }
 
-void invalidIndex(crow::Response& res, int64_t arg1)
+void invalidIndex(crow::Response& res, uint64_t arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, invalidIndex(arg1));
@@ -1609,14 +1609,15 @@ void resourceExhaustion(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json stringValueTooLong(std::string_view arg1, int arg2)
+nlohmann::json stringValueTooLong(std::string_view arg1, uint64_t arg2)
 {
     std::string arg2Str = std::to_string(arg2);
     return getLog(redfish::registries::base::Index::stringValueTooLong,
                   std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void stringValueTooLong(crow::Response& res, std::string_view arg1, int arg2)
+void stringValueTooLong(crow::Response& res, std::string_view arg1,
+                        uint64_t arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, stringValueTooLong(arg1, arg2));
