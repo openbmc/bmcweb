@@ -340,16 +340,16 @@ inline void
 {
     if (type == "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
     {
-        messages::internalError(asyncResp->res);
+        messages::missingOrMalformedPart(asyncResp->res);
     }
     else if (type ==
              "xyz.openbmc_project.Software.Image.Error.ManifestFileFailure")
     {
-        messages::internalError(asyncResp->res);
+        messages::missingOrMalformedPart(asyncResp->res);
     }
     else if (type == "xyz.openbmc_project.Software.Image.Error.ImageFailure")
     {
-        messages::internalError(asyncResp->res);
+        messages::missingOrMalformedPart(asyncResp->res);
     }
     else if (type == "xyz.openbmc_project.Software.Version.Error.AlreadyExists")
     {
@@ -358,7 +358,7 @@ inline void
     }
     else if (type == "xyz.openbmc_project.Software.Image.Error.BusyFailure")
     {
-        messages::internalError(asyncResp->res);
+        messages::serviceTemporarilyUnavailable(asyncResp->res);
     }
     else if (type == "xyz.openbmc_project.Software.Version.Error.Incompatible")
     {
@@ -372,14 +372,14 @@ inline void
     else if (type ==
              "xyz.openbmc_project.Software.Version.Error.InvalidSignature")
     {
-        messages::internalError(asyncResp->res);
+        messages::missingOrMalformedPart(asyncResp->res);
     }
     else if (type ==
                  "xyz.openbmc_project.Software.Image.Error.InternalFailure" ||
              type == "xyz.openbmc_project.Software.Version.Error.HostFile")
     {
         BMCWEB_LOG_ERROR("Software Image Error type={}", type);
-        redfish::messages::internalError(asyncResp->res);
+        messages::internalError(asyncResp->res);
     }
     else
     {
