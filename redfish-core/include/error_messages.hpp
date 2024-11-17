@@ -1112,10 +1112,10 @@ void operationNotAllowed(crow::Response& res);
  * Message body: "Indicates that a string value passed to the given resource
  * exceeded its length limit."
  * @returns Message ArraySizeTooLong formatted to JSON */
-nlohmann::json arraySizeTooLong(std::string_view property, uint64_t length);
+nlohmann::json arraySizeTooLong(std::string_view arg1, uint64_t arg2);
 
-void arraySizeTooLong(crow::Response& res, std::string_view property,
-                      uint64_t length);
+void arraySizeTooLong(crow::Response& res, std::string_view arg1,
+                      uint64_t arg2);
 
 /**
  * @brief Formats GenerateSecretKeyRequired message into JSON
