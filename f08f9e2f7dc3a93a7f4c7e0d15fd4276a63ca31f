@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79be10b2_c563bce0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T11:13:52Z",
+      "side": 1,
+      "message": "Where is the log generated?\n\nI can\u0027t find it it in the sources. When i do a powercycle, there is no \nnew object path entry on the ```busctl tree xyz.openbmc_project.Logging```.\n\nCan you please point me to the line where this event log is generated?",
+      "parentUuid": "06219103_4cdbb0a2",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff167deb_ff31d718",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
