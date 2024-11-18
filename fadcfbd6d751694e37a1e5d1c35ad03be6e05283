@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "176cec89_e7cbf4f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T18:24:33Z",
+      "side": 1,
+      "message": "I think I found the issue.  Can you retest with the latest?",
+      "parentUuid": "96813a32_432579ca",
+      "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6e26cbb8_8eecae35",
