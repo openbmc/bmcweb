@@ -15,7 +15,6 @@ limitations under the License.
 */
 #include "event_log.hpp"
 
-#include "event_service_manager.hpp"
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
@@ -127,7 +126,7 @@ int formatEventLogEntry(
     const std::string& customText, nlohmann::json::object_t& logEntryJson)
 {
     // Get the Message from the MessageRegistry
-    const registries::Message* message = registries::formatMessage(messageID);
+    const registries::Message* message = registries::getMessage(messageID);
 
     if (message == nullptr)
     {
