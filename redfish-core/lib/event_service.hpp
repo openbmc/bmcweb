@@ -20,8 +20,11 @@ limitations under the License.
 #include "http/utility.hpp"
 #include "logging.hpp"
 #include "query.hpp"
+#include "registries.hpp"
 #include "registries/privilege_registry.hpp"
+#include "registries_selector.hpp"
 #include "snmp_trap_event_clients.hpp"
+#include "utils/json_utils.hpp"
 
 #include <boost/beast/http/fields.hpp>
 #include <boost/system/error_code.hpp>

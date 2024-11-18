@@ -3,6 +3,7 @@
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/telemetry_message_registry.hpp"
+#include "registries_selector.hpp"
 #include "str_utility.hpp"
 
 #include <algorithm>
@@ -59,6 +60,41 @@ const Message* getMessage(std::string_view messageID)
             messageKey, std::span<const MessageEntry>(telemetry::registry));
     }
     return nullptr;
+}
+
+const Message* getMsgFromRegistry(const std::string& messageKey,
+                                  const std::span<const MessageEntry>& registry)
+{
+    std::span<const MessageEntry>::iterator messageIt = std::ranges::find_if(
+        registry, [&messageKey](const MessageEntry& messageEntry) {
+            return messageKey == messageEntry.first;
+        });
+    if (messageIt != registry.end())
+    {
+        return &messageIt->second;
+    }
+
+    return nullptr;
+}
+
+const Message* formatMessage(std::string_view messageID)
+{
+    // Redfish MessageIds are in the form
+    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
+    // the right Message
+    std::vector<std::string> fields;
+    fields.reserve(4);
+
+    bmcweb::split(fields, messageID, '.');
+    if (fields.size() != 4)
+    {
+        return nullptr;
+    }
+    const std::string& registryName = fields[0];
+    const std::string& messageKey = fields[3];
+
+    // Find the right registry and check it for the MessageKey
+    return getMsgFromRegistry(messageKey, getRegistryFromPrefix(registryName));
 }
 
 } // namespace redfish::registries
