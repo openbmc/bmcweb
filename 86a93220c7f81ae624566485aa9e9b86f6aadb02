@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d647fcf_ac76e7aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000086
+      },
+      "writtenOn": "2024-11-18T12:42:48Z",
+      "side": 1,
+      "message": "Nit: Need to update with new approch.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 18
+      },
+      "revId": "86a93220c7f81ae624566485aa9e9b86f6aadb02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6b2b38d_d993051a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000086
+      },
+      "writtenOn": "2024-11-18T12:42:48Z",
+      "side": 1,
+      "message": "Looks more cleaner now, thanks Ed.",
+      "revId": "86a93220c7f81ae624566485aa9e9b86f6aadb02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee37076_3ac5e491",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1000086
+      },
+      "writtenOn": "2024-11-18T12:42:48Z",
+      "side": 1,
+      "message": "Nit: for better readability\n\nif (!aUrl \u0026\u0026 !bUrl) {\n    return 0;\n}\nif (!aUrl) {\n    return -1;\n}\nif (!bUrl) {\n    return 1;\n}",
+      "range": {
+        "startLine": 803,
+        "startChar": 4,
+        "endLine": 815,
+        "endChar": 0
+      },
+      "revId": "86a93220c7f81ae624566485aa9e9b86f6aadb02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
