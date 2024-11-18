@@ -27,8 +27,7 @@ namespace redfish
 
 namespace messages
 {
-
-constexpr const char* messageVersionPrefix = "Base.1.11.0.";
+constexpr const char* messageVersionPrefix = "Base.1.19.0";
 constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
 
 /**
