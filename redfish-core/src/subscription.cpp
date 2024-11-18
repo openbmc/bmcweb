@@ -15,9 +15,9 @@ limitations under the License.
 */
 #include "subscription.hpp"
 
+#include "event_log.hpp"
 #include "event_logs_object_type.hpp"
 #include "event_matches_filter.hpp"
-#include "event_service_manager.hpp"
 #include "event_service_store.hpp"
 #include "filter_expr_executor.hpp"
 #include "generated/enums/log_entry.hpp"
