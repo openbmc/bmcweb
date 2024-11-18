@@ -39,6 +39,30 @@
       },
       "revId": "233d616a366a78faca8dd81d459a76a84b8d12e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da66044a_bccc9586",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T04:52:45Z",
+      "side": 1,
+      "message": "Correct, that\u0027s the macro that determines whether there\u0027s support for Calendars and Time Zones.  In theory this macro was already here, but the one corner case failed.",
+      "parentUuid": "28258aed_51e575fb",
+      "range": {
+        "startLine": 203,
+        "startChar": 24,
+        "endLine": 203,
+        "endChar": 31
+      },
+      "revId": "233d616a366a78faca8dd81d459a76a84b8d12e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
