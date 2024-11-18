@@ -19,92 +19,6 @@
 
 namespace redfish
 {
-// Entry is formed like "BootID_timestamp" or "BootID_timestamp_index"
-inline bool
-    getTimestampFromID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       std::string_view entryIDStrView, sd_id128_t& bootID,
-                       uint64_t& timestamp, uint64_t& index)
-{
-    // Convert the unique ID back to a bootID + timestamp to find the entry
-    auto underscore1Pos = entryIDStrView.find('_');
-    if (underscore1Pos == std::string_view::npos)
-    {
-        // EntryID has no bootID or timestamp
-        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
-        return false;
-    }
-
-    // EntryID has bootID + timestamp
-
-    // Convert entryIDViewString to BootID
-    // NOTE: bootID string which needs to be null-terminated for
-    // sd_id128_from_string()
-    std::string bootIDStr(entryIDStrView.substr(0, underscore1Pos));
-    if (sd_id128_from_string(bootIDStr.c_str(), &bootID) < 0)
-    {
-        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
-        return false;
-    }
-
-    // Get the timestamp from entryID
-    entryIDStrView.remove_prefix(underscore1Pos + 1);
-
-    auto [timestampEnd, tstampEc] = std::from_chars(
-        entryIDStrView.begin(), entryIDStrView.end(), timestamp);
-    if (tstampEc != std::errc())
-    {
-        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
-        return false;
-    }
-    entryIDStrView = std::string_view(
-        timestampEnd,
-        static_cast<size_t>(std::distance(timestampEnd, entryIDStrView.end())));
-    if (entryIDStrView.empty())
-    {
-        index = 0U;
-        return true;
-    }
-    // Timestamp might include optional index, if two events happened at the
-    // same "time".
-    if (entryIDStrView[0] != '_')
-    {
-        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
-        return false;
-    }
-    entryIDStrView.remove_prefix(1);
-    auto [ptr, indexEc] =
-        std::from_chars(entryIDStrView.begin(), entryIDStrView.end(), index);
-    if (indexEc != std::errc() || ptr != entryIDStrView.end())
-    {
-        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
-        return false;
-    }
-    if (index <= 1)
-    {
-        // Indexes go directly from no postfix (handled above) to _2
-        // so if we ever see _0 or _1, it's incorrect
-        messages::resourceNotFound(asyncResp->res, "LogEntry", entryIDStrView);
-        return false;
-    }
-
-    // URI indexes are one based, journald is zero based
-    index -= 1;
-    return true;
-}
-
-inline std::string getUniqueEntryID(uint64_t index, uint64_t curTs,
-                                    sd_id128_t& curBootID)
-{
-    // make entryID as <bootID>_<timestamp>[_<index>]
-    std::array<char, SD_ID128_STRING_MAX> bootIDStr{};
-    sd_id128_to_string(curBootID, bootIDStr.data());
-    std::string postfix;
-    if (index > 0)
-    {
-        postfix = std::format("_{}", index + 1);
-    }
-    return std::format("{}_{}{}", bootIDStr.data(), curTs, postfix);
-}
 
 inline int getJournalMetadata(sd_journal* journal, std::string_view field,
                               std::string_view& contents)
@@ -200,11 +114,15 @@ inline bool fillBMCJournalLogEntryJson(
 
     // Fill in the log entry with the gathered data
     bmcJournalLogEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
+
+    std::string entryIdBase64 =
+        crow::utility::base64encodeUrlSafe(bmcJournalLogEntryID);
+
     bmcJournalLogEntryJson["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}/LogServices/Journal/Entries/{}",
-        BMCWEB_REDFISH_MANAGER_URI_NAME, bmcJournalLogEntryID);
+        BMCWEB_REDFISH_MANAGER_URI_NAME, entryIdBase64);
     bmcJournalLogEntryJson["Name"] = "BMC Journal Entry";
-    bmcJournalLogEntryJson["Id"] = bmcJournalLogEntryID;
+    bmcJournalLogEntryJson["Id"] = entryIdBase64;
     bmcJournalLogEntryJson["Message"] = std::move(message);
     bmcJournalLogEntryJson["EntryType"] = log_entry::LogEntryType::Oem;
     log_entry::EventSeverity severityEnum = log_entry::EventSeverity::OK;
@@ -262,9 +180,6 @@ inline void handleManagersLogServiceJournalGet(
 struct JournalReadState
 {
     std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal;
-    uint64_t index = 0;
-    sd_id128_t prevBootID{};
-    uint64_t prevTs = 0;
 };
 
 inline void readJournalEntries(
@@ -305,38 +220,15 @@ inline void readJournalEntries(
             return;
         }
 
-        // Get the entry timestamp
-        sd_id128_t curBootID{};
-        uint64_t curTs = 0;
-        int ret = sd_journal_get_monotonic_usec(readState.journal.get(), &curTs,
-                                                &curBootID);
+        char* cursor = nullptr;
+        int ret = sd_journal_get_cursor(readState.journal.get(), &cursor);
         if (ret < 0)
         {
-            BMCWEB_LOG_ERROR("Failed to read entry timestamp: {}",
-                             strerror(-ret));
             messages::internalError(asyncResp->res);
             return;
         }
-
-        // If the timestamp isn't unique on the same boot, increment the index
-        bool sameBootIDs = sd_id128_equal(curBootID, readState.prevBootID) != 0;
-        if (sameBootIDs && (curTs == readState.prevTs))
-        {
-            readState.index++;
-        }
-        else
-        {
-            // Otherwise, reset it
-            readState.index = 0;
-        }
-
-        // Save the bootID
-        readState.prevBootID = curBootID;
-
-        // Save the timestamp
-        readState.prevTs = curTs;
-
-        std::string idStr = getUniqueEntryID(readState.index, curTs, curBootID);
+        std::string idStr(cursor);
+        free(cursor);
 
         nlohmann::json::object_t bmcJournalLogEntry;
         if (!fillBMCJournalLogEntryJson(idStr, readState.journal.get(),
@@ -479,8 +371,6 @@ inline void handleManagersJournalLogEntryCollectionGet(
                 BMCWEB_REDFISH_MANAGER_URI_NAME, std::to_string(skip + top));
     }
     uint64_t index = 0;
-    sd_id128_t curBootID{};
-    uint64_t curTs = 0;
     if (skip > 0)
     {
         if (sd_journal_next_skip(journal.get(), skip) < 0)
@@ -488,88 +378,9 @@ inline void handleManagersJournalLogEntryCollectionGet(
             messages::internalError(asyncResp->res);
             return;
         }
-
-        // Get the entry timestamp
-        ret = sd_journal_get_monotonic_usec(journal.get(), &curTs, &curBootID);
-        if (ret < 0)
-        {
-            BMCWEB_LOG_ERROR("Failed to read entry timestamp: {}",
-                             strerror(-ret));
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        uint64_t endChunkSeqNum = 0;
-#if LIBSYSTEMD_VERSION >= 254
-        {
-            if (sd_journal_get_seqnum(journal.get(), &endChunkSeqNum, nullptr) <
-                0)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        }
-#endif
-
-        // Seek to the first entry with the same timestamp and boot
-        ret = sd_journal_seek_monotonic_usec(journal.get(), curBootID, curTs);
-        if (ret < 0)
-        {
-            BMCWEB_LOG_ERROR("Failed to seek: {}", strerror(-ret));
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        if (sd_journal_next(journal.get()) < 0)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        uint64_t startChunkSeqNum = 0;
-#if LIBSYSTEMD_VERSION >= 254
-        {
-            if (sd_journal_get_seqnum(journal.get(), &startChunkSeqNum,
-                                      nullptr) < 0)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        }
-#endif
-
-        // Get the difference between the start and end.  Most of the time this
-        // will be 0
-        BMCWEB_LOG_DEBUG("start={} end={}", startChunkSeqNum, endChunkSeqNum);
-        index = endChunkSeqNum - startChunkSeqNum;
-        if (index > endChunkSeqNum)
-        {
-            // Detect underflows.  Should never happen.
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        if (index > 0)
-        {
-            BMCWEB_LOG_DEBUG("index = {}", index);
-            if (sd_journal_next_skip(journal.get(), index) < 0)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        }
-    }
-    // If this is the first entry of this series, reset the timestamps so the
-    // Index doesn't increment
-    if (index == 0)
-    {
-        curBootID = {};
-        curTs = 0;
-    }
-    else
-    {
-        index -= 1;
     }
     BMCWEB_LOG_DEBUG("Index was {}", index);
-    readJournalEntries(top, asyncResp,
-                       {std::move(journal), index, curBootID, curTs});
+    readJournalEntries(top, asyncResp, {std::move(journal)});
 }
 
 inline void handleManagersJournalEntriesLogEntryGet(
@@ -588,15 +399,6 @@ inline void handleManagersJournalEntriesLogEntryGet(
         return;
     }
 
-    // Convert the unique ID back to a timestamp to find the entry
-    sd_id128_t bootID{};
-    uint64_t ts = 0;
-    uint64_t index = 0;
-    if (!getTimestampFromID(asyncResp, entryID, bootID, ts, index))
-    {
-        return;
-    }
-
     sd_journal* journalTmp = nullptr;
     int ret = sd_journal_open(&journalTmp, SD_JOURNAL_LOCAL_ONLY);
     if (ret < 0)
@@ -608,25 +410,43 @@ inline void handleManagersJournalEntriesLogEntryGet(
     std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
         journalTmp, sd_journal_close);
     journalTmp = nullptr;
-    // Go to the timestamp in the log and move to the entry at the
-    // index tracking the unique ID
-    ret = sd_journal_seek_monotonic_usec(journal.get(), bootID, ts);
+
+    std::string cursor;
+    if (!crow::utility::base64Decode(entryID, cursor,
+                                     crow::utility::decodingDataUrlSafe))
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+        return;
+    }
+
+    // Go to the cursor in the log
+    ret = sd_journal_seek_cursor(journal.get(), cursor.c_str());
     if (ret < 0)
     {
-        BMCWEB_LOG_ERROR("failed to seek to an entry in journal{}",
-                         strerror(-ret));
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+        return;
+    }
+
+    if (sd_journal_next(journal.get()) < 0)
+    {
         messages::internalError(asyncResp->res);
         return;
     }
 
-    if (sd_journal_next_skip(journal.get(), index + 1) < 0)
+    ret = sd_journal_test_cursor(journal.get(), cursor.c_str());
+    if (ret == 0)
+    {
+        messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
+        return;
+    }
+    if (ret < 0)
     {
         messages::internalError(asyncResp->res);
         return;
     }
 
     nlohmann::json::object_t bmcJournalLogEntry;
-    if (!fillBMCJournalLogEntryJson(entryID, journal.get(), bmcJournalLogEntry))
+    if (!fillBMCJournalLogEntryJson(cursor, journal.get(), bmcJournalLogEntry))
     {
         messages::internalError(asyncResp->res);
         return;
