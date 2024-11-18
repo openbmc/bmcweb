@@ -175,6 +175,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a44ed03_ced01a5a",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T15:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ecacb6b3_13c2c342",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 24
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ee6498c_0bd56b43",
@@ -297,6 +321,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5d9c940_1b84f348",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T15:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cfec135_78a6ea26",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbf967e4_40f124c2",
@@ -310,6 +352,30 @@
       "writtenOn": "2024-11-16T19:08:11Z",
       "side": 1,
       "message": "Lets avoid making copies if we can.",
+      "range": {
+        "startLine": 1005,
+        "startChar": 0,
+        "endLine": 1005,
+        "endChar": 51
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c80e6e9f_09cad70f",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1005,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T15:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbf967e4_40f124c2",
       "range": {
         "startLine": 1005,
         "startChar": 0,
@@ -380,6 +446,24 @@
       "writtenOn": "2024-11-16T19:08:11Z",
       "side": 1,
       "message": "i believe sdbusplus has a helper function for this match expression.",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed5ab82a_0df8c01e",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T15:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78ff7ff4_44512b45",
       "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

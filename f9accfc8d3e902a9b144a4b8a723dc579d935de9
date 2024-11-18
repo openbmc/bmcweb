@@ -478,6 +478,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0f75a41_9658a92b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T15:59:55Z",
+      "side": 1,
+      "message": "It should be rebased now.\n\nWhat do you think, should i create an event_service_manager.cpp before this patch?\n\n\u003e EventServiceManager might take the second two as members.\n\nok, should we make the 2 backends implement some common interface?\n\nLike IEventServiceBackend and that could then define some virtual functions to override. For example, to register the dbus matcher or inotify.\n\nThen the EventServiceManager could have a member of type IEventServiceBackend\nand the implementation can be chosen by selecting the appropriate meson option.\n\nOn the reverse, RsyslogEventServiceManager and DbusEventServiceManager could be \ncreated and inherit from EventServiceManager. \n\nThen the consumer code can create either type depending on the meson option.",
+      "parentUuid": "86d1ccae_fc7ab3ea",
+      "range": {
+        "startLine": 1321,
+        "startChar": 16,
+        "endLine": 1321,
+        "endChar": 38
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89839570_d511079a",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 9
