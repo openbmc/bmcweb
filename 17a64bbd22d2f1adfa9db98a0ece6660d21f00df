@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "092fb2fd_3761d356",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T06:17:59Z",
+      "side": 1,
+      "message": "Yep.  This is already wrong.  we have messages from newer versions.  Let me throw that a new commit.",
+      "parentUuid": "03175008_0c91e590",
+      "revId": "17a64bbd22d2f1adfa9db98a0ece6660d21f00df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "350eca8b_7f4905b4",
         "filename": "redfish-core/include/error_messages.hpp",
         "patchSetId": 9
@@ -31,6 +49,24 @@
       "writtenOn": "2024-11-18T04:39:34Z",
       "side": 1,
       "message": "I see this in base 1.19 not base 1.11 \n\n        \"PropertyNotUpdated\": {\n            \"Description\": \"Indicates that a property was not updated due to an internal service error, but the service is still functional.\",\n            \"LongDescription\": \"This message shall indicate that a property was not updated due to an internal service error, but the service is still functional.\",\n            \"Message\": \"The property %1 was not updated due to an internal service error.  The service is still operational.\",\n            \"Severity\": \"Critical\",\n            \"MessageSeverity\": \"Critical\",\n            \"VersionAdded\": \"1.12.0\",\n            \"NumberOfArgs\": 1,\n            \"ParamTypes\": [\n                \"string\"\n            ],\n            \"ArgDescriptions\": [\n                \"The name of the property.\"\n            ],\n            \"ArgLongDescriptions\": [\n                \"This argument shall contain the name of the property.\"\n            ],\n            \"Resolution\": \"Resubmit the request.  If the problem persists, check for additional messages and consider resetting the service.\"\n        },\n       \n\n\nI am fine moving to base 1.19 but make sure it is changed in all places (might be easier to do in a separate commit but I am okay doing here.)",
+      "revId": "17a64bbd22d2f1adfa9db98a0ece6660d21f00df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b60c85c3_156c3989",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T06:17:59Z",
+      "side": 1,
+      "message": "We\u0027re on 1.19 now.  I\u0027m not following where 1.11 is from?\n\nhttps://github.com/openbmc/bmcweb/blob/master/scripts/parse_registries.py#L247",
+      "parentUuid": "350eca8b_7f4905b4",
       "revId": "17a64bbd22d2f1adfa9db98a0ece6660d21f00df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
