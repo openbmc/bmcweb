@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28258aed_51e575fb",
+        "filename": "test/redfish-core/include/utils/time_utils_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-18T04:32:51Z",
+      "side": 1,
+      "message": "This value is based on \n\nCalendars and Time Zones \t201907L \t\u003cchrono\u003e \t(C++20)\n\nhttps://en.cppreference.com/w/cpp/feature_test#cpp_lib_chrono \n\n?",
+      "range": {
+        "startLine": 203,
+        "startChar": 24,
+        "endLine": 203,
+        "endChar": 31
+      },
+      "revId": "233d616a366a78faca8dd81d459a76a84b8d12e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
