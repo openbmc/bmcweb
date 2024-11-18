@@ -22,9 +22,6 @@
 #include "metric_report.hpp"
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
-#include "registries.hpp"
-#include "registries_selector.hpp"
-#include "str_utility.hpp"
 #include "subscription.hpp"
 #include "utils/time_utils.hpp"
 
@@ -43,7 +40,6 @@
 #include <format>
 #include <fstream>
 #include <memory>
-#include <span>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -69,45 +65,6 @@ static int inotifyFd = -1;
 static int dirWatchDesc = -1;
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static int fileWatchDesc = -1;
-
-namespace registries
-{
-inline const Message*
-    getMsgFromRegistry(const std::string& messageKey,
-                       const std::span<const MessageEntry>& registry)
-{
-    std::span<const MessageEntry>::iterator messageIt = std::ranges::find_if(
-        registry, [&messageKey](const MessageEntry& messageEntry) {
-            return messageKey == messageEntry.first;
-        });
-    if (messageIt != registry.end())
-    {
-        return &messageIt->second;
-    }
-
-    return nullptr;
-}
-
-inline const Message* formatMessage(std::string_view messageID)
-{
-    // Redfish MessageIds are in the form
-    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
-    // the right Message
-    std::vector<std::string> fields;
-    fields.reserve(4);
-
-    bmcweb::split(fields, messageID, '.');
-    if (fields.size() != 4)
-    {
-        return nullptr;
-    }
-    const std::string& registryName = fields[0];
-    const std::string& messageKey = fields[3];
-
-    // Find the right registry and check it for the MessageKey
-    return getMsgFromRegistry(messageKey, getRegistryFromPrefix(registryName));
-}
-} // namespace registries
 
 class EventServiceManager
 {
