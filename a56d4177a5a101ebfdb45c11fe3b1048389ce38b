@@ -34,6 +34,24 @@
       "parentUuid": "5d777117_adae24e8",
       "revId": "a56d4177a5a101ebfdb45c11fe3b1048389ce38b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d751e829_4eebca95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T10:16:16Z",
+      "side": 1,
+      "message": "\u003e My key point is that the compiler optimization is effectively disabled unless it is inlined.\n\nEven if as the result of my changes, none of these functions could be inlined anymore (which i\u0027m not sure about), a function call in c++ has extremely small amount of overhead, like maybe 10 machine instructions, depending on the function.\n\nThe main benefits i want to achive with these refactorings is\n\n## readability\nThe programmer can see in the .hpp what is the interface and does not need to go through all the code in many cases.\n\n## compilation time\nSince the .cpp can be compiled independently, it enables greater parallelization.\nThe .hpp becomes smaller, which is good since it may be included in a lot of places.\n\n## compile-testing small changes\nninja can also compile the ```subscription.o``` file by itself, so if someone\nwants to make changes in the file, the entire bmcwebd does not have to be compiled\neach time to check for compilation errors.\n\n## opinion\n\nIn my opinion, the possibility of a few extra instructions is well worth it to\nhave better compilation time and readability.\nI have experienced OOM before when compiling bmcweb on my laptop. It is not normal to have these kinds of overhead for a medium size c++ project. Had to add a swapfile to overcome this, even though i have 32 GB of memory.\n\n## link time inlining of c++ functions\n\nIn the following reference there is an example by Ciro Santilli for how functions may be inlined at link time.\nhttps://stackoverflow.com/questions/7046547/link-time-optimization-and-inline\n\n## meaning of the \u0027inline\u0027 keyword\n\nThe compiler and linker usually decide for themselves if they want to inline or not, depending on optimization flags. What makes us know better?\n\nYou can check this on compiler explorer.\nhttps://godbolt.org/z/G86aczWGW\n\nFor example this code\n```\ninline int f(int a, int b){\n    return a+b+3;\n}\n\nint main(){\n    return f(3, 5);\n}\n```\ndoes not result in inlining of function \u0027f\u0027 when compiling with x86-64 gcc 13.2.\n\nSo the inline keyword does not guarantee inlining.\n\nHave you checked if there is any difference in functions inlined vs not inlined before and after my patch?",
+      "parentUuid": "4433874f_aa3080a0",
+      "revId": "a56d4177a5a101ebfdb45c11fe3b1048389ce38b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
