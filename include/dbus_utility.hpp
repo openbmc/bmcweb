@@ -164,13 +164,12 @@ inline void getProperty(
         propertyName, std::move(callback));
 }
 
-template <typename Callback>
-inline void checkDbusPathExists(const std::string& path, Callback&& callback)
+inline void checkDbusPathExists(const std::string& path,
+                                std::function<void(bool)>&& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [callback = std::forward<Callback>(callback)](
-            const boost::system::error_code& ec,
-            const MapperGetObject& objectNames) {
+        [callback = std::move(callback)](const boost::system::error_code& ec,
+                                         const MapperGetObject& objectNames) {
             callback(!ec && !objectNames.empty());
         },
         "xyz.openbmc_project.ObjectMapper",
