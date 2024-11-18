@@ -416,6 +416,7 @@ srcfiles_unittest = files(
     'test/include/ossl_random.cpp',
     'test/include/ssl_key_handler_test.cpp',
     'test/include/str_utility_test.cpp',
+    'test/redfish-core/include/event_log_test.cpp',
     'test/redfish-core/include/event_matches_filter_test.cpp',
     'test/redfish-core/include/filter_expr_executor_test.cpp',
     'test/redfish-core/include/filter_expr_parser_test.cpp',
