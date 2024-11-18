@@ -387,7 +387,7 @@ def make_error_function(entry_id, entry, is_header):
     return out
 
 
-def create_error_registry(entry):
+def create_error_registry(entry, registry_version):
     file, json_dict, namespace, url = entry
 
     error_messages_hpp = os.path.join(
@@ -421,18 +421,22 @@ namespace redfish
 
 namespace messages
 {
-
-    constexpr const char* messageVersionPrefix = "Base.1.11.0.";
-    constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
-
-    /**
-    * @brief Moves all error messages from the |source| JSON to |target|
-    */
-    void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source);
-
 """
         )
+        out.write(
+            f'constexpr const char* messageVersionPrefix = "Base.{registry_version}.";'
+        )
+        out.write(
+            """
+        constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
 
+        /**
+        * @brief Moves all error messages from the |source| JSON to |target|
+        */
+        void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source);
+
+    """
+        )
         for entry_id, entry in messages.items():
             message = entry["Message"]
             for index in range(1, 10):
@@ -742,7 +746,7 @@ def main():
 
     update_registries(files)
 
-    create_error_registry(files[0])
+    create_error_registry(files[0], dmtf_registries[0][1])
 
     if "privilege" in registries:
         make_privilege_registry()
