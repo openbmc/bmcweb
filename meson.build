@@ -342,6 +342,7 @@ fs = import('fs')
 srcfiles_bmcweb = files(
     'http/mutual_tls.cpp',
     'redfish-core/src/error_messages.cpp',
+    'redfish-core/src/event_log.cpp',
     'redfish-core/src/filter_expr_executor.cpp',
     'redfish-core/src/filter_expr_printer.cpp',
     'redfish-core/src/redfish.cpp',
