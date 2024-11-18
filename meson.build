@@ -4,6 +4,7 @@ project(
     version: '1.0',
     meson_version: '>=1.3.0',
     default_options: [
+        'unity=on',
         'b_lto_mode=default',
         'b_lto_threads=0',
         'b_lto=true',
@@ -340,24 +341,7 @@ bmcweb_cli_dependencies += conf_h_dep
 fs = import('fs')
 
 srcfiles_bmcweb = files(
-    'http/mutual_tls.cpp',
-    'redfish-core/src/error_messages.cpp',
-    'redfish-core/src/filter_expr_executor.cpp',
-    'redfish-core/src/filter_expr_printer.cpp',
-    'redfish-core/src/redfish.cpp',
-    'redfish-core/src/registries.cpp',
-    'redfish-core/src/subscription.cpp',
-    'redfish-core/src/utils/dbus_utils.cpp',
-    'redfish-core/src/utils/json_utils.cpp',
-    'redfish-core/src/utils/time_utils.cpp',
-    'src/boost_asio.cpp',
-    'src/boost_asio_ssl.cpp',
-    'src/boost_beast.cpp',
-    'src/dbus_singleton.cpp',
-    'src/json_html_serializer.cpp',
-    'src/ossl_random.cpp',
-    'src/ssl_key_handler.cpp',
-    'src/webserver_run.cpp',
+    'src/webserver_run_unity.cpp',
 )
 
 bmcweblib = static_library(
