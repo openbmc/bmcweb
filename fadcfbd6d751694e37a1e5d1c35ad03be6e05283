@@ -16,6 +16,24 @@
       "message": "I have verified this patch,\nModifying gateway with single IP address works.\nI see error while adding new ip with different gateway on the same interfaces\nI\u0027m getting 401 unauthorised and loosing connection.\n\ncurl -k -H \"X-Auth-Token:${bmc_token}\" -H \"Content-Type: application/json\" -X PATCH -D patch.txt -d \u0027{\"IPv4StaticAddresses\":[{},{\"Address\":\"10.9.9.95\",\"SubnetMask\": \"255.255.255.0\",\"Gateway\":\"10.9.9.1\"}]}\u0027 https://${bmc}/redfish/v1/Managers/bmc/EthernetInterfaces/eth0",
       "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32f33926_b27aed1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T16:35:13Z",
+      "side": 1,
+      "message": "If you\u0027re sending [{}.... \n\nyou must\u0027ve already loaded a static IP?  Can you give the full set of commands you ran from a factory reset BMC?\n\nI\u0027m really surprised to see 401..... There\u0027s only a few calls to that and none of them in the networking code.  If you get me a set of curl commands to reproduce I can try them.",
+      "parentUuid": "2b1ddd55_f8b61340",
+      "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
