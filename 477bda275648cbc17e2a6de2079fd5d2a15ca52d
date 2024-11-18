@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a249c859_e643ab80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T19:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b45cc9a7_1e5b6eff",
+      "range": {
+        "startLine": 13,
+        "startChar": 3,
+        "endLine": 13,
+        "endChar": 11
+      },
+      "revId": "477bda275648cbc17e2a6de2079fd5d2a15ca52d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e994818f_18cae57c",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "327c553a_4064857d",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T19:02:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e994818f_18cae57c",
+      "revId": "477bda275648cbc17e2a6de2079fd5d2a15ca52d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0064010e_3e1b87e6",
@@ -54,6 +96,30 @@
       "writtenOn": "2024-11-18T16:09:58Z",
       "side": 1,
       "message": "FWIW, these arguably need rolled out into a separate struct so we can track it, rather than having static variables.  Do you know if moving the compile unit these are declared in could have any impacts to function?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "477bda275648cbc17e2a6de2079fd5d2a15ca52d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "306e8327_ba838028",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T19:02:35Z",
+      "side": 1,
+      "message": "Yes, it would be good to have this as a struct that can be passed in.\nGood for the unit-testing. I managed to test it anyways. Better to have tests first and then make changes.",
+      "parentUuid": "0064010e_3e1b87e6",
       "range": {
         "startLine": 44,
         "startChar": 0,
