@@ -73,22 +73,30 @@ constexpr uint64_t getParameterTag(std::string_view url)
     return tagValue;
 }
 
+constexpr static std::array<char, 64> base64key = {
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
+
+constexpr static std::array<char, 64> base64keyUrlSafe = {
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '_'};
+
 class Base64Encoder
 {
+  private:
     char overflow1 = '\0';
     char overflow2 = '\0';
     uint8_t overflowCount = 0;
-
-    constexpr static std::array<char, 64> key = {
-        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
+    const std::array<char, 64>& key;
 
     // Takes 3 ascii chars, and encodes them as 4 base64 chars
-    static void encodeTriple(char first, char second, char third,
-                             std::string& output)
+    void encodeTriple(char first, char second, char third, std::string& output)
     {
         size_t keyIndex = 0;
 
@@ -108,6 +116,10 @@ class Base64Encoder
     }
 
   public:
+    explicit Base64Encoder(const std::array<char, 64>& keyIn = base64key) :
+        key(keyIn)
+    {}
+
     // Accepts a partial string to encode, and writes the encoded characters to
     // the output stream. requires subsequently calling finalize to complete
     // stream.
@@ -203,44 +215,74 @@ inline std::string base64encode(std::string_view data)
     return out;
 }
 
+inline std::string base64encodeUrlSafe(std::string_view data)
+{
+    // Encodes a 3 character stream into a 4 character stream
+    std::string out;
+    Base64Encoder base64(base64keyUrlSafe);
+    out.reserve(Base64Encoder::encodedSize(data.size()));
+    base64.encode(data, out);
+    base64.finalize(out);
+    return out;
+}
+
+static const char nop = static_cast<char>(-1);
+// See note on encoding_data[] in above function
+
+static const std::array<char, 256> decodingDataStd = {
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, 62,  nop,
+    nop, nop, 63,  52,  53,  54,  55,  56,  57,  58,  59,  60,  61,  nop, nop,
+    nop, nop, nop, nop, nop, 0,   1,   2,   3,   4,   5,   6,   7,   8,   9,
+    10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,
+    25,  nop, nop, nop, nop, nop, nop, 26,  27,  28,  29,  30,  31,  32,  33,
+    34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,  48,
+    49,  50,  51,  nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop};
+
+static const std::array<char, 256> decodingDataUrlSafe = {
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    62,  nop, nop, 52,  53,  54,  55,  56,  57,  58,  59,  60,  61,  nop, nop,
+    nop, nop, nop, nop, nop, 0,   1,   2,   3,   4,   5,   6,   7,   8,   9,
+    10,  11,  12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23,  24,
+    25,  nop, nop, nop, nop, nop, nop, 26,  27,  28,  29,  30,  31,  32,  33,
+    34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,  48,
+    49,  50,  51,  nop, nop, nop, nop, 63,  nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
+    nop};
+
 // TODO this is temporary and should be deleted once base64 is refactored out of
 // crow
-inline bool base64Decode(std::string_view input, std::string& output)
+inline bool
+    base64Decode(std::string_view input, std::string& output,
+                 const std::array<char, 256>& decodingData = decodingDataStd)
 {
-    static const char nop = static_cast<char>(-1);
-    // See note on encoding_data[] in above function
-    static const std::array<char, 256> decodingData = {
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, 62,  nop, nop, nop, 63,  52,  53,  54,  55,  56,  57,  58,  59,
-        60,  61,  nop, nop, nop, nop, nop, nop, nop, 0,   1,   2,   3,   4,
-        5,   6,   7,   8,   9,   10,  11,  12,  13,  14,  15,  16,  17,  18,
-        19,  20,  21,  22,  23,  24,  25,  nop, nop, nop, nop, nop, nop, 26,
-        27,  28,  29,  30,  31,  32,  33,  34,  35,  36,  37,  38,  39,  40,
-        41,  42,  43,  44,  45,  46,  47,  48,  49,  50,  51,  nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop};
-
     size_t inputLength = input.size();
 
     // allocate space for output string
     output.clear();
     output.reserve(((inputLength + 2) / 3) * 4);
 
-    auto getCodeValue = [](char c) {
+    auto getCodeValue = [&decodingData](char c) {
         auto code = static_cast<unsigned char>(c);
-        // Ensure we cannot index outside the bounds of the decoding array
-        static_assert(
-            std::numeric_limits<decltype(code)>::max() < decodingData.size());
         return decodingData[code];
     };
 
@@ -312,6 +354,11 @@ inline bool base64Decode(std::string_view input, std::string& output)
     }
 
     return true;
+}
+
+inline bool base64DecodeUrlSafe(std::string_view input, std::string& output)
+{
+    return base64Decode(input, output, decodingDataUrlSafe);
 }
 
 namespace details
