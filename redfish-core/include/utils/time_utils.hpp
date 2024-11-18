@@ -219,6 +219,10 @@ inline std::optional<std::string>
 
 namespace details
 {
+// This code is left for support of gcc < 13 which didn't have support for
+// timezones. It should be removed at some point in the future.
+#if __cpp_lib_chrono < 201907L
+
 // Returns year/month/day triple in civil calendar
 // Preconditions:  z is number of days since 1970-01-01 and is in the range:
 //                   [numeric_limits<Int>::min(),
@@ -252,13 +256,10 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
     using hours = std::chrono::duration<int, std::ratio<3600>>;
     using days = std::chrono::duration<
         IntType, std::ratio_multiply<hours::period, std::ratio<24>>>;
-
     // d is days since 1970-01-01
     days d = std::chrono::duration_cast<days>(t);
-
     // t is now time duration since midnight of day d
     t -= d;
-
     // break d down into year/month/day
     int year = 0;
     int month = 0;
@@ -280,17 +281,12 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
         day = 1;
         t = std::chrono::duration<IntType, Period>::zero();
     }
-
     hours hr = duration_cast<hours>(t);
     t -= hr;
-
     minutes mt = duration_cast<minutes>(t);
     t -= mt;
-
     seconds se = duration_cast<seconds>(t);
-
     t -= se;
-
     std::string subseconds;
     if constexpr (std::is_same_v<typename decltype(t)::period, std::milli>)
     {
@@ -304,11 +300,63 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
         MicroDuration subsec = duration_cast<MicroDuration>(t);
         subseconds = std::format(".{:06}", subsec.count());
     }
-
     return std::format("{:04}-{:02}-{:02}T{:02}:{:02}:{:02}{}+00:00", year,
                        month, day, hr.count(), mt.count(), se.count(),
                        subseconds);
 }
+
+#else
+
+template <typename IntType, typename Period>
+std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
+{
+    using namespace std::literals::chrono_literals;
+
+    using SubType = std::chrono::duration<IntType, Period>;
+
+    // d is days since 1970-01-01
+    std::chrono::days d = std::chrono::floor<std::chrono::days>(t);
+    std::chrono::sys_days sd(d);
+    std::chrono::year_month_day ymd(sd);
+
+    // Enforce 3 constraints
+    // the result cant under or overflow the calculation
+    // the resulting string needs to be representable as 4 digits
+    // The resulting string can't be before epoch
+    if (t.count() <= 0)
+    {
+        BMCWEB_LOG_WARNING("Underflow from value {}", t.count());
+        ymd = 1970y / std::chrono::January / 1d;
+        t = std::chrono::duration<IntType, Period>::zero();
+    }
+    else if (t > duration_cast<SubType>(d + std::chrono::days(1)))
+    {
+        BMCWEB_LOG_WARNING("Overflow from value {}", t.count());
+        ymd = 9999y / std::chrono::December / 31d;
+        t = std::chrono::days(1) - SubType(1);
+    }
+    else if (ymd.year() >= 10000y)
+    {
+        BMCWEB_LOG_WARNING("Year {} not representable", ymd.year());
+        ymd = 9999y / std::chrono::December / 31d;
+        t = std::chrono::days(1) - SubType(1);
+    }
+    else if (ymd.year() < 1970y)
+    {
+        BMCWEB_LOG_WARNING("Year {} not representable", ymd.year());
+        ymd = 1970y / std::chrono::January / 1d;
+        t = SubType::zero();
+    }
+    else
+    {
+        // t is now time duration since midnight of day d
+        t -= d;
+    }
+    std::chrono::hh_mm_ss<SubType> hms(t);
+
+    return std::format("{}T{}+00:00", ymd, hms);
+}
+#endif
 } // namespace details
 
 // Returns the formatted date time string.
