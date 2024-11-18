@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b1ddd55_f8b61340",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000073
+      },
+      "writtenOn": "2024-11-18T09:53:59Z",
+      "side": 1,
+      "message": "I have verified this patch,\nModifying gateway with single IP address works.\nI see error while adding new ip with different gateway on the same interfaces\nI\u0027m getting 401 unauthorised and loosing connection.\n\ncurl -k -H \"X-Auth-Token:${bmc_token}\" -H \"Content-Type: application/json\" -X PATCH -D patch.txt -d \u0027{\"IPv4StaticAddresses\":[{},{\"Address\":\"10.9.9.95\",\"SubnetMask\": \"255.255.255.0\",\"Gateway\":\"10.9.9.1\"}]}\u0027 https://${bmc}/redfish/v1/Managers/bmc/EthernetInterfaces/eth0",
+      "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
