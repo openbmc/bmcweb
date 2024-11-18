@@ -97,6 +97,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81170a29_f4845ef0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T16:30:33Z",
+      "side": 1,
+      "message": "I don\u0027t see an S5549 in upstream https://github.com/openbmc/openbmc/tree/master/meta-tyan\n\nSo testing this might be a little tricky.  I\u0027m not all that worried about it not being in upstream, but I\u0027d like to see some evidence of an upstream daemon having run through the event code just to ensure that the fields are the same.  I\u0027m fairly certain there\u0027s nothing in openbmc that can generate the message you posted through phosphor-logging.\n\nI would like to see something done that\u0027s actually using a backend to generate this (or any other) message to verify the path works.",
+      "parentUuid": "b4848944_8a7c2fa7",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ff167deb_ff31d718",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
@@ -382,6 +400,23 @@
         "endLine": 1005,
         "endChar": 51
       },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ab6f085_2371f4d4",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T16:30:33Z",
+      "side": 1,
+      "message": "this is going to create a copy of a relatively large object.  Could we instead do\n\nconst std::vector\u003cEventLogObjectsType\u003e eventRecords;\nEventLogObjectsType\u0026 event \u003d eventRecords.emplace_back();\nbool success \u003d eventLogObjectFromDBus(map, event);",
       "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

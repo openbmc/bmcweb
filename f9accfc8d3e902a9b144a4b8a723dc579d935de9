@@ -288,6 +288,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7833b41e_dfc6d3b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T16:30:33Z",
+      "side": 1,
+      "message": "\u003e I\u0027m implementing in bmcweb here, not in other daemons.\n\nCool, and bmcweb has had a history of failures that were caused essentially because someone injected their idealized dbus interface in a test, and ignored what the backends actually produced.  The way we\u0027ve found to defend against that in code review is to ask for a test that acts as a user would, actually generating a real event.\n\n\u003e \n\u003e If other daemons create the log entry or not, it does not matter to this implementation. The implementation is about the dbus log entries, their dbus interface, consuming that in bmcweb and exposing it via redfish.\n\u003e \n\u003e Relying on another daemon to produce a specific log entry or produce one at all creates a problem for the reproducibility of that manual test.\n\nFunctionally, we have to rely on other daemons to produce expected log entries.  As a concrete example, it\u0027s been brought up before about 2 vs 3 digits in the registry version number.  Your test does 2, which is fine, but there\u0027s no way to verify that\u0027s what daemons actually produce.\n\n\u003e \n\u003e Is there any log entry instance that you think the implementation would fail on?\n\nWithout testthe code in the backend, there\u0027s not really any way to know.",
+      "parentUuid": "8aacc230_5e54796c",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "993d1324_53df132d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
