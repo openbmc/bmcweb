@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5941be5_8da50e63",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-18T16:21:36Z",
+      "side": 1,
+      "message": "looks like a 1.8% improvement size has been achieved.\n\nWhen optimizing for size, do you have any target?\n\nThe change is meaningless if other people are going to add features over time\nand they will exceed your change again.\n\nIf do you have a size target, can you achieve it with meson options and conditional compilation?\n\nMaybe disabling individual features and guarding them with meson options if you are not using them on your target bmc.\n\nI would assume that may give much greater savings.",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
