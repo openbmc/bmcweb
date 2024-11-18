@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "703e3eaa_858b6a6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T16:32:45Z",
+      "side": 1,
+      "message": "Can you please post the XZ compressed numbers?\n\n\nThe command I use for this is below.\n\nxz -c $BBPATH/tmp/work/s7106-openbmc-linux-gnueabi/obmc-phosphor-image/1.0/rootfs/usr/libexec/bmcwebd | wc -c\n\n\nThose are the ones that matter.",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a120ba32_362d5eb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T16:32:45Z",
+      "side": 1,
+      "message": "Please also measure clean compile times and incremental compile times.  The last time we did this experiment (see HEADERS.md) it made compile times significantly worse.",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c5941be5_8da50e63",
@@ -14,6 +48,23 @@
       "writtenOn": "2024-11-18T16:21:36Z",
       "side": 1,
       "message": "looks like a 1.8% improvement size has been achieved.\n\nWhen optimizing for size, do you have any target?\n\nThe change is meaningless if other people are going to add features over time\nand they will exceed your change again.\n\nIf do you have a size target, can you achieve it with meson options and conditional compilation?\n\nMaybe disabling individual features and guarding them with meson options if you are not using them on your target bmc.\n\nI would assume that may give much greater savings.",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49829399_0038fb26",
+        "filename": "src/webserver_run_unity.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T16:32:45Z",
+      "side": 1,
+      "message": "???? The whole point of meson enabling unity builds is so you don\u0027t have to do this.",
       "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
