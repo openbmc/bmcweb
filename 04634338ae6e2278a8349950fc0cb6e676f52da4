@@ -70,6 +70,24 @@
       "parentUuid": "8f82519e_23cb0158",
       "revId": "04634338ae6e2278a8349950fc0cb6e676f52da4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24a0ece9_5d81a1c4",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-18T22:19:19Z",
+      "side": 0,
+      "message": "\u003e Yes, but the existence of the association will depend on whether the flash_bios feature is enabled or not.\n\nI\u0027m not following.  if flash_bios is disabled, both interfaces should be removed, right?\n\n\u003e \n\u003e Even earlier it was same, but since both (BMC, BIOS) associations used to exist on /xyz/openbmc_project/software/functional path and BMC one will always exist by default, the getAssociationEndpoint used to return BMC by default and Purpose check on https://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/include/utils/sw_utils.hpp?r\u003dbd79bce8#231 used to fail for BIOS and just return (NO error).\n\nAHHHHH, this is the piece I was missing.\n\n\n\u003e \n\u003e So, i am now moving this check earlier since now there is an explicit query for BIOS association on /xyz/openbmc_project/software/bios/functional which fails since no association exist on that path (if flash_bios feature is not enabled), hence i am making this failure not to throw an error as it breaks the Redfish Validator. Behavior wise it will continue to be same as before for BIOS. If you are concerned about not throwing an error in case this genuinely fails for BMC, probably i can add a check to skip error only for BIOS?",
+      "parentUuid": "b7747948_8cfc73fa",
+      "revId": "04634338ae6e2278a8349950fc0cb6e676f52da4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
