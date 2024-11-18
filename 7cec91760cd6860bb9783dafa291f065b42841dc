@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf44d500_dc2f602b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-18T18:34:38Z",
+      "side": 1,
+      "message": "I use p10bmc build and I run `\nxz -c $BBPATH/tmp/work/p10bmc-openbmc-linux-gnueabi/obmc-phosphor-image/1.0/rootfs/usr/libexec/bmcwebd | wc -c`\n\n- 874664 (before this)\n- 868032 (with this - 6632 smaller)",
+      "parentUuid": "703e3eaa_858b6a6c",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a120ba32_362d5eb7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2024-11-18T16:32:45Z",
       "side": 1,
       "message": "Please also measure clean compile times and incremental compile times.  The last time we did this experiment (see HEADERS.md) it made compile times significantly worse.",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67319dea_2cb4af8d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-18T18:34:38Z",
+      "side": 1,
+      "message": "I would agree that the unity build may take longer, for incremental builds.\n\n---- \n\nI measure this like -  date; time  MACHINE\u003dp10bmc bitbake  bmcweb; date`\n\n1) clean compile:\n\nnormal (before):\n```\ndo_compile 1m38s \u003c-- by eyes\nreal    2m3.016s\nuser    0m1.637s\nsys     0m0.476s\n```\nunity (with this):\n```\ndo_compile 1m40s\nreal    2m10.312s\nuser    0m1.426s\nsys     0m0.445s\n```\n\n2) Incremental.  (after touch a file `subscription.cpp`)\n\nnormal incremental build: 40s\nunity incremental build : 1m40s      \u003c\u003d\u003d This is longer as expected",
+      "parentUuid": "a120ba32_362d5eb7",
       "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -65,6 +101,24 @@
       "writtenOn": "2024-11-18T16:32:45Z",
       "side": 1,
       "message": "???? The whole point of meson enabling unity builds is so you don\u0027t have to do this.",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "697cb7e1_41cdb23a",
+        "filename": "src/webserver_run_unity.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-18T18:34:38Z",
+      "side": 1,
+      "message": "This commit is just an experiment to show the unity build.\nI think - to utilize the unity build, a source file would need to contain a jumbo compile unit file to include all sources - https://mesonbuild.com/Unity-builds.html",
+      "parentUuid": "49829399_0038fb26",
       "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
