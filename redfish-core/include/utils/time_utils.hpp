@@ -219,6 +219,10 @@ inline std::optional<std::string>
 
 namespace details
 {
+// This code is left for support of gcc < 13 which didn't have support for
+// timezones. It should be removed at some point in the future.
+#if __cpp_lib_chrono < 201907L
+
 // Returns year/month/day triple in civil calendar
 // Preconditions:  z is number of days since 1970-01-01 and is in the range:
 //                   [numeric_limits<Int>::min(),
@@ -309,6 +313,59 @@ std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> t)
                        month, day, hr.count(), mt.count(), se.count(),
                        subseconds);
 }
+
+#else
+
+template <typename IntType, typename Period>
+std::string toISO8061ExtendedStr(std::chrono::duration<IntType, Period> dur)
+{
+    using namespace std::literals::chrono_literals;
+
+    using SubType = std::chrono::duration<IntType, Period>;
+
+    // d is days since 1970-01-01
+    std::chrono::days days = std::chrono::floor<std::chrono::days>(dur);
+    std::chrono::sys_days sysDays(days);
+    std::chrono::year_month_day ymd(sysDays);
+
+    // Enforce 3 constraints
+    // the result cant under or overflow the calculation
+    // the resulting string needs to be representable as 4 digits
+    // The resulting string can't be before epoch
+    if (dur.count() <= 0)
+    {
+        BMCWEB_LOG_WARNING("Underflow from value {}", t.count());
+        ymd = 1970y / std::chrono::January / 1d;
+        dur = std::chrono::duration<IntType, Period>::zero();
+    }
+    else if (t > duration_cast<SubType>(d + std::chrono::days(1)))
+    {
+        BMCWEB_LOG_WARNING("Overflow from value {}", t.count());
+        ymd = 9999y / std::chrono::December / 31d;
+        dur = std::chrono::days(1) - SubType(1);
+    }
+    else if (ymd.year() >= 10000y)
+    {
+        BMCWEB_LOG_WARNING("Year {} not representable", ymd.year());
+        ymd = 9999y / std::chrono::December / 31d;
+        dur = std::chrono::days(1) - SubType(1);
+    }
+    else if (ymd.year() < 1970y)
+    {
+        BMCWEB_LOG_WARNING("Year {} not representable", ymd.year());
+        ymd = 1970y / std::chrono::January / 1d;
+        dur = SubType::zero();
+    }
+    else
+    {
+        // t is now time duration since midnight of day d
+        dur -= d;
+    }
+    std::chrono::hh_mm_ss<SubType> hms(dur);
+
+    return std::format("{}T{}+00:00", ymd, hms);
+}
+#endif
 } // namespace details
 
 // Returns the formatted date time string.
