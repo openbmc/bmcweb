@@ -15,7 +15,6 @@ limitations under the License.
 */
 #include "event_log.hpp"
 
-#include "event_service_manager.hpp"
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"

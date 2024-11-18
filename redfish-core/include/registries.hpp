@@ -120,4 +120,10 @@ const Message* getMessage(std::string_view messageID);
 const Message* getMessageFromRegistry(const std::string& messageKey,
                                       std::span<const MessageEntry> registry);
 
+const Message*
+    getMsgFromRegistry(const std::string& messageKey,
+                       const std::span<const MessageEntry>& registry);
+
+const Message* formatMessage(std::string_view messageID);
+
 } // namespace redfish::registries
