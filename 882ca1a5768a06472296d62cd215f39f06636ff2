@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "738a823c_04ef646a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-11-18T22:04:13Z",
+      "side": 1,
+      "message": "Sent email to the mailing list with title \"Enabling StartUpdate D-Bus interface for FirmwareUpdate\".",
+      "parentUuid": "cb125946_296580ec",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "882ca1a5768a06472296d62cd215f39f06636ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2c45bea_018ee5a6",
