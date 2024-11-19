@@ -51,8 +51,8 @@ TEST(AlphaNum, NumberTests)
 
 TEST(AlphaNum, LessTest)
 {
-    std::set<std::string, AlphanumLess<std::string>> sorted{"Alpha 10",
-                                                            "Alpha 2"};
+    std::set<std::string, AlphanumLess<std::string>> sorted{
+        "Alpha 10", "Alpha 2"};
     EXPECT_THAT(sorted, ElementsAreArray({"Alpha 2", "Alpha 10"}));
 }
 } // namespace

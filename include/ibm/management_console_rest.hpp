@@ -392,8 +392,8 @@ inline void
             const std::filesystem::path& pathObj = file.path();
             if (std::filesystem::is_regular_file(pathObj))
             {
-                pathObjList.push_back("/ibm/v1/Host/ConfigFiles/" +
-                                      pathObj.filename().string());
+                pathObjList.push_back(
+                    "/ibm/v1/Host/ConfigFiles/" + pathObj.filename().string());
             }
         }
     }
@@ -473,8 +473,8 @@ inline void handleFileGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         return;
     }
 
-    std::string contentDispositionParam = "attachment; filename=\"" + fileID +
-                                          "\"";
+    std::string contentDispositionParam =
+        "attachment; filename=\"" + fileID + "\"";
     asyncResp->res.addHeader(boost::beast::http::field::content_disposition,
                              contentDispositionParam);
     std::string fileData;
@@ -487,8 +487,8 @@ inline void
     handleFileDelete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                      const std::string& fileID)
 {
-    std::string filePath("/var/lib/bmcweb/ibm-management-console/configfiles/" +
-                         fileID);
+    std::string filePath(
+        "/var/lib/bmcweb/ibm-management-console/configfiles/" + fileID);
     BMCWEB_LOG_DEBUG("Removing the file : {}", filePath);
     std::ifstream fileOpen(filePath.c_str());
     if (static_cast<bool>(fileOpen))
@@ -540,8 +540,8 @@ inline void
     std::string origin = "/ibm/v1/HMC/BroadcastService";
     nlohmann::json msgJson = {{"Message", broadcastMsg}};
 
-    redfish::EventServiceManager::getInstance().sendEvent(msgJson, origin,
-                                                          "BroadcastService");
+    redfish::EventServiceManager::getInstance().sendEvent(
+        msgJson, origin, "BroadcastService");
 }
 
 inline void handleFileUrl(const crow::Request& req,
@@ -883,40 +883,41 @@ inline void
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec,
                     const std::variant<std::string>& certificate) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("getCSREntryCertificate respHandler got error: {}",
-                             ec.message());
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            asyncResp->res.jsonValue["Description"] =
-                "Failed to get request status";
-            return;
-        }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "getCSREntryCertificate respHandler got error: {}",
+                    ec.message());
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Failed to get request status";
+                return;
+            }
 
-        const std::string* cert = std::get_if<std::string>(&certificate);
-        if (cert == nullptr)
-        {
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            asyncResp->res.jsonValue["Description"] =
-                "Failed to get certificate from host";
-            return;
-        }
+            const std::string* cert = std::get_if<std::string>(&certificate);
+            if (cert == nullptr)
+            {
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Failed to get certificate from host";
+                return;
+            }
 
-        if (cert->empty())
-        {
-            BMCWEB_LOG_ERROR("Empty Client Certificate");
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            asyncResp->res.jsonValue["Description"] =
-                "Empty Client Certificate";
-            return;
-        }
+            if (cert->empty())
+            {
+                BMCWEB_LOG_ERROR("Empty Client Certificate");
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Empty Client Certificate";
+                return;
+            }
 
-        BMCWEB_LOG_INFO("Successfully got VMI client certificate");
-        asyncResp->res.jsonValue["Certificate"] = *cert;
-    },
+            BMCWEB_LOG_INFO("Successfully got VMI client certificate");
+            asyncResp->res.jsonValue["Certificate"] = *cert;
+        },
         "xyz.openbmc_project.Certs.ca.authority.Manager",
         "/xyz/openbmc_project/certs/ca/entry/" + entryId,
         "org.freedesktop.DBus.Properties", "Get",
@@ -929,56 +930,57 @@ inline void getCSREntryAck(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     crow::connections::systemBus->async_method_call(
         [asyncResp, entryId](const boost::system::error_code ec,
                              const std::variant<std::string>& hostAck) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("getCSREntryAck respHandler got error: {}",
-                             ec.message());
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            asyncResp->res.jsonValue["Description"] =
-                "Failed to get request status";
-            return;
-        }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("getCSREntryAck respHandler got error: {}",
+                                 ec.message());
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Failed to get request status";
+                return;
+            }
 
-        const std::string* status = std::get_if<std::string>(&hostAck);
-        if (status == nullptr)
-        {
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            asyncResp->res.jsonValue["Description"] =
-                "Failed to get host ack status";
-            return;
-        }
+            const std::string* status = std::get_if<std::string>(&hostAck);
+            if (status == nullptr)
+            {
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] =
+                    "Failed to get host ack status";
+                return;
+            }
 
-        BMCWEB_LOG_INFO("VMI Cert Entry {} new status property value {}",
-                        entryId, *status);
-        if (*status == "xyz.openbmc_project.Certs.Entry.State.Pending")
-        {
-            asyncResp->res.addHeader("Retry-After", "60");
-            asyncResp->res.result(
-                boost::beast::http::status::service_unavailable);
-            asyncResp->res.jsonValue["Description"] =
-                "Host is not ready to serve the request";
-        }
-        else if (*status == "xyz.openbmc_project.Certs.Entry.State.BadCSR")
-        {
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            asyncResp->res.jsonValue["Description"] = "Bad CSR";
-            BMCWEB_LOG_CRITICAL("SignCSR failed with Bad CSR");
-        }
-        else if (*status == "xyz.openbmc_project.Certs.Entry.State.Complete")
-        {
-            getCSREntryCertificate(asyncResp, entryId);
-        }
+            BMCWEB_LOG_INFO("VMI Cert Entry {} new status property value {}",
+                            entryId, *status);
+            if (*status == "xyz.openbmc_project.Certs.Entry.State.Pending")
+            {
+                asyncResp->res.addHeader("Retry-After", "60");
+                asyncResp->res.result(
+                    boost::beast::http::status::service_unavailable);
+                asyncResp->res.jsonValue["Description"] =
+                    "Host is not ready to serve the request";
+            }
+            else if (*status == "xyz.openbmc_project.Certs.Entry.State.BadCSR")
+            {
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                asyncResp->res.jsonValue["Description"] = "Bad CSR";
+                BMCWEB_LOG_CRITICAL("SignCSR failed with Bad CSR");
+            }
+            else if (*status ==
+                     "xyz.openbmc_project.Certs.Entry.State.Complete")
+            {
+                getCSREntryCertificate(asyncResp, entryId);
+            }
 
-        deleteVMIDbusEntry(asyncResp, entryId);
-        auto entry = ackMatches.find(entryId);
-        if (entry != ackMatches.end())
-        {
-            BMCWEB_LOG_INFO("Erasing match of entryId: {}", entryId);
-            ackMatches.erase(entryId);
-        }
-    },
+            deleteVMIDbusEntry(asyncResp, entryId);
+            auto entry = ackMatches.find(entryId);
+            if (entry != ackMatches.end())
+            {
+                BMCWEB_LOG_INFO("Erasing match of entryId: {}", entryId);
+                ackMatches.erase(entryId);
+            }
+        },
         "xyz.openbmc_project.Certs.ca.authority.Manager",
         "/xyz/openbmc_project/certs/ca/entry/" + entryId,
         "org.freedesktop.DBus.Properties", "Get",
@@ -997,77 +999,81 @@ static void
     crow::connections::systemBus->async_method_call(
         [asyncResp, timeout](const boost::system::error_code ec,
                              sdbusplus::message::message& m) {
-        sdbusplus::message::object_path objPath;
-        m.read(objPath);
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("Error in creating CSR Entry object : {} ",
-                             ec.message());
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            asyncResp->res.jsonValue["Description"] = internalServerError;
-            return;
-        }
-
-        std::string entryId = objPath.filename();
-        if (entryId.empty())
-        {
-            BMCWEB_LOG_ERROR("Invalid ID in objPath");
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            asyncResp->res.jsonValue["Description"] = internalServerError;
-            return;
-        }
-
-        BMCWEB_LOG_INFO("Created CSR Entry object with entryId: {}", entryId);
-        auto timeoutHandler = [asyncResp, timeout, entryId](
-                                  const boost::system::error_code errorCode) {
-            if (errorCode)
+            sdbusplus::message::object_path objPath;
+            m.read(objPath);
+            if (ec)
             {
-                if (errorCode != boost::asio::error::operation_aborted)
-                {
-                    BMCWEB_LOG_ERROR("Async_wait failed {}", errorCode);
-                }
+                BMCWEB_LOG_ERROR("Error in creating CSR Entry object : {} ",
+                                 ec.message());
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
                 return;
             }
 
-            getCSREntryAck(asyncResp, entryId);
-            timeout->cancel();
-        };
-
-        timeout->async_wait(timeoutHandler);
-
-        auto callback = [asyncResp, timeout,
-                         entryId](sdbusplus::message::message& msg) {
-            boost::container::flat_map<std::string, std::variant<std::string>>
-                values;
-            std::string iface;
-            msg.read(iface, values);
-            if (iface == "xyz.openbmc_project.Certs.Entry")
+            std::string entryId = objPath.filename();
+            if (entryId.empty())
             {
-                auto findStatus = values.find("Status");
-                if (findStatus != values.end())
-                {
-                    BMCWEB_LOG_INFO(
-                        "Found status prop change of VMI cert object with entryId: {}",
-                        entryId);
+                BMCWEB_LOG_ERROR("Invalid ID in objPath");
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+
+            BMCWEB_LOG_INFO("Created CSR Entry object with entryId: {}",
+                            entryId);
+            auto timeoutHandler =
+                [asyncResp, timeout,
+                 entryId](const boost::system::error_code errorCode) {
+                    if (errorCode)
+                    {
+                        if (errorCode != boost::asio::error::operation_aborted)
+                        {
+                            BMCWEB_LOG_ERROR("Async_wait failed {}", errorCode);
+                        }
+                        return;
+                    }
+
                     getCSREntryAck(asyncResp, entryId);
                     timeout->cancel();
+                };
+
+            timeout->async_wait(timeoutHandler);
+
+            auto callback = [asyncResp, timeout,
+                             entryId](sdbusplus::message::message& msg) {
+                boost::container::flat_map<std::string,
+                                           std::variant<std::string>>
+                    values;
+                std::string iface;
+                msg.read(iface, values);
+                if (iface == "xyz.openbmc_project.Certs.Entry")
+                {
+                    auto findStatus = values.find("Status");
+                    if (findStatus != values.end())
+                    {
+                        BMCWEB_LOG_INFO(
+                            "Found status prop change of VMI cert object with entryId: {}",
+                            entryId);
+                        getCSREntryAck(asyncResp, entryId);
+                        timeout->cancel();
+                    }
                 }
-            }
-        };
+            };
 
-        std::string matchStr(
-            "interface='org.freedesktop.DBus.Properties',type='"
-            "signal',"
-            "member='PropertiesChanged',path='/xyz/openbmc_project/certs/"
-            "ca/entry/" +
-            entryId + "'");
+            std::string matchStr(
+                "interface='org.freedesktop.DBus.Properties',type='"
+                "signal',"
+                "member='PropertiesChanged',path='/xyz/openbmc_project/certs/"
+                "ca/entry/" +
+                entryId + "'");
 
-        ackMatches.emplace(
-            entryId, std::make_unique<sdbusplus::bus::match::match>(
-                         *crow::connections::systemBus, matchStr, callback));
-    },
+            ackMatches.emplace(
+                entryId,
+                std::make_unique<sdbusplus::bus::match::match>(
+                    *crow::connections::systemBus, matchStr, callback));
+        },
         "xyz.openbmc_project.Certs.ca.authority.Manager",
         "/xyz/openbmc_project/certs/ca", "xyz.openbmc_project.Certs.Authority",
         "SignCSR", csrString);
@@ -1136,28 +1142,28 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#ibmServiceRoot.v1_0_0.ibmServiceRoot";
-        asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/";
-        asyncResp->res.jsonValue["Id"] = "IBM Rest RootService";
-        asyncResp->res.jsonValue["Name"] = "IBM Service Root";
-        asyncResp->res.jsonValue["ConfigFiles"]["@odata.id"] =
-            "/ibm/v1/Host/ConfigFiles";
-        asyncResp->res.jsonValue["LockService"]["@odata.id"] =
-            "/ibm/v1/HMC/LockService";
-        asyncResp->res.jsonValue["BroadcastService"]["@odata.id"] =
-            "/ibm/v1/HMC/BroadcastService";
-        asyncResp->res.jsonValue["Certificate"]["@odata.id"] =
-            "/ibm/v1/Host/Certificate";
-    });
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#ibmServiceRoot.v1_0_0.ibmServiceRoot";
+                asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/";
+                asyncResp->res.jsonValue["Id"] = "IBM Rest RootService";
+                asyncResp->res.jsonValue["Name"] = "IBM Service Root";
+                asyncResp->res.jsonValue["ConfigFiles"]["@odata.id"] =
+                    "/ibm/v1/Host/ConfigFiles";
+                asyncResp->res.jsonValue["LockService"]["@odata.id"] =
+                    "/ibm/v1/HMC/LockService";
+                asyncResp->res.jsonValue["BroadcastService"]["@odata.id"] =
+                    "/ibm/v1/HMC/BroadcastService";
+                asyncResp->res.jsonValue["Certificate"]["@odata.id"] =
+                    "/ibm/v1/Host/Certificate";
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        handleConfigFileList(asyncResp);
-    });
+                handleConfigFileList(asyncResp);
+            });
 
     BMCWEB_ROUTE(app,
                  "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll")
@@ -1165,8 +1171,8 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        deleteConfigFiles(asyncResp);
-    });
+                deleteConfigFiles(asyncResp);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<str>")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -1175,75 +1181,79 @@ inline void requestRoutes(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& fileName) {
-        BMCWEB_LOG_DEBUG("ConfigFile : {}", fileName);
-        // Validate the incoming fileName
-        if (!isValidConfigFileName(fileName, asyncResp->res.jsonValue))
-        {
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        handleFileUrl(req, asyncResp, fileName);
-    });
+                BMCWEB_LOG_DEBUG("ConfigFile : {}", fileName);
+                // Validate the incoming fileName
+                if (!isValidConfigFileName(fileName, asyncResp->res.jsonValue))
+                {
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+                handleFileUrl(req, asyncResp, fileName);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/Certificate")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        asyncResp->res.jsonValue["@odata.id"] = "/ibm/v1/Host/Certificate";
-        asyncResp->res.jsonValue["Id"] = "Certificate";
-        asyncResp->res.jsonValue["Name"] = "Certificate";
-        asyncResp->res.jsonValue["Actions"]["SignCSR"] = {
-            {"target", "/ibm/v1/Host/Actions/SignCSR"}};
-        asyncResp->res.jsonValue["root"] = {
-            {"target", "/ibm/v1/Host/Certificate/root"}};
-    });
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/ibm/v1/Host/Certificate";
+                asyncResp->res.jsonValue["Id"] = "Certificate";
+                asyncResp->res.jsonValue["Name"] = "Certificate";
+                asyncResp->res.jsonValue["Actions"]["SignCSR"] = {
+                    {"target", "/ibm/v1/Host/Actions/SignCSR"}};
+                asyncResp->res.jsonValue["root"] = {
+                    {"target", "/ibm/v1/Host/Certificate/root"}};
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/Certificate/root")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!std::filesystem::exists(rootCertPath))
-        {
-            BMCWEB_LOG_ERROR("RootCert file does not exist");
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            asyncResp->res.jsonValue["Description"] = internalServerError;
-            return;
-        }
-        std::ifstream inFile;
-        inFile.open(rootCertPath.c_str());
-        if (inFile.fail())
-        {
-            BMCWEB_LOG_DEBUG("Error while opening the root certificate "
-                             "file for reading");
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            asyncResp->res.jsonValue["Description"] = internalServerError;
-            return;
-        }
+                if (!std::filesystem::exists(rootCertPath))
+                {
+                    BMCWEB_LOG_ERROR("RootCert file does not exist");
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    asyncResp->res.jsonValue["Description"] =
+                        internalServerError;
+                    return;
+                }
+                std::ifstream inFile;
+                inFile.open(rootCertPath.c_str());
+                if (inFile.fail())
+                {
+                    BMCWEB_LOG_DEBUG("Error while opening the root certificate "
+                                     "file for reading");
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    asyncResp->res.jsonValue["Description"] =
+                        internalServerError;
+                    return;
+                }
 
-        std::stringstream strStream;
-        strStream << inFile.rdbuf();
-        inFile.close();
-        asyncResp->res.jsonValue["Certificate"] = strStream.str();
-    });
+                std::stringstream strStream;
+                strStream << inFile.rdbuf();
+                inFile.close();
+                asyncResp->res.jsonValue["Certificate"] = strStream.str();
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/Actions/SignCSR")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        std::string csrString;
-        if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "CsrString",
-                                               csrString))
-        {
-            return;
-        }
+                std::string csrString;
+                if (!redfish::json_util::readJsonPatch(req, asyncResp->res,
+                                                       "CsrString", csrString))
+                {
+                    return;
+                }
 
-        handleCsrRequest(asyncResp, csrString);
-    });
+                handleCsrRequest(asyncResp, csrString);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
@@ -1255,77 +1265,81 @@ inline void requestRoutes(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        getLockServiceData(asyncResp);
-    });
+                getLockServiceData(asyncResp);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        std::vector<nlohmann::json> body;
-        if (!redfish::json_util::readJsonAction(req, asyncResp->res, "Request",
-                                                body))
-        {
-            BMCWEB_LOG_DEBUG("Not a Valid JSON");
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        handleAcquireLockAPI(req, asyncResp, body);
-    });
+                std::vector<nlohmann::json> body;
+                if (!redfish::json_util::readJsonAction(req, asyncResp->res,
+                                                        "Request", body))
+                {
+                    BMCWEB_LOG_DEBUG("Not a Valid JSON");
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+                handleAcquireLockAPI(req, asyncResp, body);
+            });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        std::string type;
-        std::vector<uint32_t> listTransactionIds;
+                std::string type;
+                std::vector<uint32_t> listTransactionIds;
 
-        if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "Type",
-                                               type, "TransactionIDs",
-                                               listTransactionIds))
-        {
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        if (type == "Transaction")
-        {
-            handleReleaseLockAPI(req, asyncResp, listTransactionIds);
-        }
-        else if (type == "Session")
-        {
-            handleRelaseAllAPI(req, asyncResp);
-        }
-        else
-        {
-            BMCWEB_LOG_DEBUG(" Value of Type : {} is Not a Valid key", type);
-            redfish::messages::propertyValueNotInList(asyncResp->res, type,
-                                                      "Type");
-        }
-    });
+                if (!redfish::json_util::readJsonPatch(
+                        req, asyncResp->res, "Type", type, "TransactionIDs",
+                        listTransactionIds))
+                {
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+                if (type == "Transaction")
+                {
+                    handleReleaseLockAPI(req, asyncResp, listTransactionIds);
+                }
+                else if (type == "Session")
+                {
+                    handleRelaseAllAPI(req, asyncResp);
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG(" Value of Type : {} is Not a Valid key",
+                                     type);
+                    redfish::messages::propertyValueNotInList(asyncResp->res,
+                                                              type, "Type");
+                }
+            });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        ListOfSessionIds listSessionIds;
+                ListOfSessionIds listSessionIds;
 
-        if (!redfish::json_util::readJsonPatch(req, asyncResp->res,
-                                               "SessionIDs", listSessionIds))
-        {
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-        handleGetLockListAPI(asyncResp, listSessionIds);
-    });
+                if (!redfish::json_util::readJsonPatch(
+                        req, asyncResp->res, "SessionIDs", listSessionIds))
+                {
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+                handleGetLockListAPI(asyncResp, listSessionIds);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        handleBroadcastService(req, asyncResp);
-    });
+                handleBroadcastService(req, asyncResp);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/OCC/Control/<str>/Actions/PassThrough.Send")
         .privileges({{"OemIBMPerformService"}})
@@ -1333,8 +1347,8 @@ inline void requestRoutes(App& app)
             [](const crow::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& name) {
-        handlePassThrough(req, asyncResp, name);
-    });
+                handlePassThrough(req, asyncResp, name);
+            });
 }
 
 } // namespace ibm_mc

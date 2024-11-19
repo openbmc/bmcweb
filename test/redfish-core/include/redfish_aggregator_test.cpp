@@ -55,28 +55,30 @@ TEST(IsPropertyUri, UnsupportedPropertyReturnsFalse)
 TEST(addPrefixToItem, ValidURIs)
 {
     nlohmann::json jsonRequest;
-    constexpr std::array validRoots{"Cables",
-                                    "Chassis",
-                                    "Fabrics",
-                                    "PowerEquipment/FloorPDUs",
-                                    "Systems",
-                                    "TaskService/Tasks",
-                                    "TaskService/TaskMonitors",
-                                    "TelemetryService/LogService/Entries",
-                                    "UpdateService/SoftwareInventory"};
+    constexpr std::array validRoots{
+        "Cables",
+        "Chassis",
+        "Fabrics",
+        "PowerEquipment/FloorPDUs",
+        "Systems",
+        "TaskService/Tasks",
+        "TaskService/TaskMonitors",
+        "TelemetryService/LogService/Entries",
+        "UpdateService/SoftwareInventory"};
 
     // We're only testing prefix fixing so it's alright that some of the
     // resulting URIs will not actually be possible as defined by the schema
-    constexpr std::array validIDs{"1",
-                                  "1/",
-                                  "Test",
-                                  "Test/",
-                                  "Extra_Test",
-                                  "Extra_Test/",
-                                  "Extra_Test/Sensors",
-                                  "Extra_Test/Sensors/",
-                                  "Extra_Test/Sensors/power_sensor",
-                                  "Extra_Test/Sensors/power_sensor/"};
+    constexpr std::array validIDs{
+        "1",
+        "1/",
+        "Test",
+        "Test/",
+        "Extra_Test",
+        "Extra_Test/",
+        "Extra_Test/Sensors",
+        "Extra_Test/Sensors/",
+        "Extra_Test/Sensors/power_sensor",
+        "Extra_Test/Sensors/power_sensor/"};
 
     // Construct URIs which should have prefix fixing applied
     for (const auto& root : validRoots)
@@ -101,16 +103,17 @@ TEST(addPrefixToItem, UnsupportedURIs)
         "PowerEquipment",           "TaskService",
         "TelemetryService/Entries", "UpdateService"};
 
-    constexpr std::array validIDs{"1",
-                                  "1/",
-                                  "Test",
-                                  "Test/",
-                                  "Extra_Test",
-                                  "Extra_Test/",
-                                  "Extra_Test/Sensors",
-                                  "Extra_Test/Sensors/",
-                                  "Extra_Test/Sensors/power_sensor",
-                                  "Extra_Test/Sensors/power_sensor/"};
+    constexpr std::array validIDs{
+        "1",
+        "1/",
+        "Test",
+        "Test/",
+        "Extra_Test",
+        "Extra_Test/",
+        "Extra_Test/Sensors",
+        "Extra_Test/Sensors/",
+        "Extra_Test/Sensors/power_sensor",
+        "Extra_Test/Sensors/power_sensor/"};
 
     // Construct URIs which should NOT have prefix fixing applied
     for (const auto& root : invalidRoots)
@@ -130,16 +133,17 @@ TEST(addPrefixToItem, UnsupportedURIs)
 TEST(addPrefixToItem, TopLevelCollections)
 {
     nlohmann::json jsonRequest;
-    constexpr std::array validRoots{"Cables",
-                                    "Chassis/",
-                                    "Fabrics",
-                                    "JsonSchemas",
-                                    "PowerEquipment/FloorPDUs",
-                                    "Systems",
-                                    "TaskService/Tasks",
-                                    "TelemetryService/LogService/Entries",
-                                    "TelemetryService/LogService/Entries/",
-                                    "UpdateService/SoftwareInventory/"};
+    constexpr std::array validRoots{
+        "Cables",
+        "Chassis/",
+        "Fabrics",
+        "JsonSchemas",
+        "PowerEquipment/FloorPDUs",
+        "Systems",
+        "TaskService/Tasks",
+        "TelemetryService/LogService/Entries",
+        "TelemetryService/LogService/Entries/",
+        "UpdateService/SoftwareInventory/"};
 
     // Construct URIs for top level collections.  Prefixes should NOT be
     // applied to any of the URIs
@@ -692,8 +696,8 @@ TEST(processContainsSubordinateResponse, addLinks)
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1";
     asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
 
-    RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
-                                                          resp);
+    RedfishAggregator::processContainsSubordinateResponse(
+        "prefix", asyncResp, resp);
     EXPECT_EQ(asyncResp->res.jsonValue["Chassis"]["@odata.id"],
               "/redfish/v1/Chassis");
     EXPECT_EQ(asyncResp->res.jsonValue["Fabrics"]["@odata.id"],
@@ -730,8 +734,8 @@ TEST(processContainsSubordinateResponse, localNotOK)
     resp.write(
         jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
 
-    RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
-                                                          resp);
+    RedfishAggregator::processContainsSubordinateResponse(
+        "prefix", asyncResp, resp);
 
     // Most of the response should get copied over since asyncResp is a 404
     EXPECT_EQ(asyncResp->res.resultInt(), 200);
@@ -757,8 +761,8 @@ TEST(processContainsSubordinateResponse, localNotOK)
     asyncResp->res.jsonValue["Fake"]["@odata.id"] = "/redfish/v1/Fake";
     messages::internalError(asyncResp->res);
 
-    RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
-                                                          resp);
+    RedfishAggregator::processContainsSubordinateResponse(
+        "prefix", asyncResp, resp);
 
     // These should also be copied over since asyncResp is a 500
     EXPECT_EQ(asyncResp->res.resultInt(), 200);
@@ -798,8 +802,8 @@ TEST(processContainsSubordinateResponse, noValidLinks)
     resp.write(
         jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
 
-    RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
-                                                          resp);
+    RedfishAggregator::processContainsSubordinateResponse(
+        "prefix", asyncResp, resp);
 
     // We won't add any links from response so asyncResp shouldn't change
     EXPECT_EQ(asyncResp->res.resultInt(), 500);
@@ -817,8 +821,8 @@ TEST(processContainsSubordinateResponse, noValidLinks)
     resp.write(
         jsonValue.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
 
-    RedfishAggregator::processContainsSubordinateResponse("prefix", asyncResp,
-                                                          resp);
+    RedfishAggregator::processContainsSubordinateResponse(
+        "prefix", asyncResp, resp);
 
     EXPECT_EQ(asyncResp->res.resultInt(), 200);
     EXPECT_EQ(asyncResp->res.jsonValue["Chassis"]["@odata.id"],

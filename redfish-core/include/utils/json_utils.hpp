@@ -542,14 +542,16 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
                 break;
             }
 
-            result = std::visit(
-                         [&item, &unpackSpec, &res](auto&& val) {
-                using ContainedT =
-                    std::remove_pointer_t<std::decay_t<decltype(val)>>;
-                return details::unpackValue<ContainedT>(
-                    item.second, unpackSpec.key, res, *val);
-            }, unpackSpec.value) &&
-                     result;
+            result =
+                std::visit(
+                    [&item, &unpackSpec, &res](auto&& val) {
+                        using ContainedT =
+                            std::remove_pointer_t<std::decay_t<decltype(val)>>;
+                        return details::unpackValue<ContainedT>(
+                            item.second, unpackSpec.key, res, *val);
+                    },
+                    unpackSpec.value) &&
+                result;
 
             unpackSpec.complete = true;
             break;
@@ -566,11 +568,13 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
     {
         if (!perUnpack.complete)
         {
-            bool isOptional = std::visit([](auto&& val) {
-                using ContainedType =
-                    std::remove_pointer_t<std::decay_t<decltype(val)>>;
-                return details::IsOptional<ContainedType>::value;
-            }, perUnpack.value);
+            bool isOptional = std::visit(
+                [](auto&& val) {
+                    using ContainedType =
+                        std::remove_pointer_t<std::decay_t<decltype(val)>>;
+                    return details::IsOptional<ContainedType>::value;
+                },
+                perUnpack.value);
             if (isOptional)
             {
                 continue;
@@ -658,8 +662,8 @@ inline std::optional<nlohmann::json::object_t>
     }
     std::erase_if(*object,
                   [](const std::pair<std::string, nlohmann::json>& item) {
-        return item.first.starts_with("@odata.");
-    });
+                      return item.first.starts_with("@odata.");
+                  });
     if (object->empty())
     {
         //  If the update request only contains OData annotations, the service

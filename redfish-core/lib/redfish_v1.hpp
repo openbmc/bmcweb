@@ -104,8 +104,8 @@ inline void
             continue;
         }
         nlohmann::json::object_t member;
-        member["@odata.id"] = boost::urls::format("/redfish/v1/JsonSchemas/{}",
-                                                  split[0]);
+        member["@odata.id"] =
+            boost::urls::format("/redfish/v1/JsonSchemas/{}", split[0]);
         members.emplace_back(std::move(member));
     }
 
@@ -146,8 +146,8 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
         }
 
         nlohmann::json& json = asyncResp->res.jsonValue;
-        json["@odata.id"] = boost::urls::format("/redfish/v1/JsonSchemas/{}",
-                                                schema);
+        json["@odata.id"] =
+            boost::urls::format("/redfish/v1/JsonSchemas/{}", schema);
         json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile";
         json["Name"] = schema + " Schema File";
         json["Description"] = schema + " Schema File Location";

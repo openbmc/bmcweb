@@ -32,33 +32,33 @@ void getValidChassisPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
          chassisId](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreePathsResponse&
                         chassisPaths) mutable {
-        BMCWEB_LOG_DEBUG("getValidChassisPath respHandler enter");
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("getValidChassisPath respHandler DBUS error: {}",
-                             ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
+            BMCWEB_LOG_DEBUG("getValidChassisPath respHandler enter");
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "getValidChassisPath respHandler DBUS error: {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
 
-        std::optional<std::string> chassisPath;
-        for (const std::string& chassis : chassisPaths)
-        {
-            sdbusplus::message::object_path path(chassis);
-            std::string chassisName = path.filename();
-            if (chassisName.empty())
+            std::optional<std::string> chassisPath;
+            for (const std::string& chassis : chassisPaths)
             {
-                BMCWEB_LOG_ERROR("Failed to find '/' in {}", chassis);
-                continue;
+                sdbusplus::message::object_path path(chassis);
+                std::string chassisName = path.filename();
+                if (chassisName.empty())
+                {
+                    BMCWEB_LOG_ERROR("Failed to find '/' in {}", chassis);
+                    continue;
+                }
+                if (chassisName == chassisId)
+                {
+                    chassisPath = chassis;
+                    break;
+                }
             }
-            if (chassisName == chassisId)
-            {
-                chassisPath = chassis;
-                break;
-            }
-        }
-        callback(chassisPath);
-    });
+            callback(chassisPath);
+        });
     BMCWEB_LOG_DEBUG("checkChassisId exit");
 }
 

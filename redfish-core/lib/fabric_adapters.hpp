@@ -34,25 +34,25 @@ inline void getFabricAdapterLocation(
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error for Location");
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for Location");
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-            property;
-    });
+            asyncResp->res
+                .jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
+                property;
+        });
 }
 
-inline void
-    getFabricAdapterAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& serviceName,
-                          const std::string& fabricAdapterPath)
+inline void getFabricAdapterAsset(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, serviceName, fabricAdapterPath,
@@ -60,107 +60,105 @@ inline void
         [fabricAdapterPath, asyncResp{asyncResp}](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& propertiesList) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error for Properties");
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for Properties");
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        const std::string* serialNumber = nullptr;
-        const std::string* model = nullptr;
-        const std::string* partNumber = nullptr;
-        const std::string* sparePartNumber = nullptr;
+            const std::string* serialNumber = nullptr;
+            const std::string* model = nullptr;
+            const std::string* partNumber = nullptr;
+            const std::string* sparePartNumber = nullptr;
 
-        const bool success = sdbusplus::unpackPropertiesNoThrow(
-            dbus_utils::UnpackErrorPrinter(), propertiesList, "SerialNumber",
-            serialNumber, "Model", model, "PartNumber", partNumber,
-            "SparePartNumber", sparePartNumber);
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), propertiesList,
+                "SerialNumber", serialNumber, "Model", model, "PartNumber",
+                partNumber, "SparePartNumber", sparePartNumber);
 
-        if (!success)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
 
-        if (serialNumber != nullptr)
-        {
-            asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
-        }
+            if (serialNumber != nullptr)
+            {
+                asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
+            }
 
-        if (model != nullptr)
-        {
-            asyncResp->res.jsonValue["Model"] = *model;
-        }
+            if (model != nullptr)
+            {
+                asyncResp->res.jsonValue["Model"] = *model;
+            }
 
-        if (partNumber != nullptr)
-        {
-            asyncResp->res.jsonValue["PartNumber"] = *partNumber;
-        }
+            if (partNumber != nullptr)
+            {
+                asyncResp->res.jsonValue["PartNumber"] = *partNumber;
+            }
 
-        if (sparePartNumber != nullptr && !sparePartNumber->empty())
-        {
-            asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
-        }
-    });
+            if (sparePartNumber != nullptr && !sparePartNumber->empty())
+            {
+                asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+            }
+        });
 }
 
-inline void
-    getFabricAdapterState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& serviceName,
-                          const std::string& fabricAdapterPath)
+inline void getFabricAdapterState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, serviceName, fabricAdapterPath,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp](const boost::system::error_code& ec, const bool present) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error for State");
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for State");
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        if (!present)
-        {
-            asyncResp->res.jsonValue["Status"]["State"] =
-                resource::State::Absent;
-        }
-    });
+            if (!present)
+            {
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Absent;
+            }
+        });
 }
 
-inline void
-    getFabricAdapterHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& serviceName,
-                           const std::string& fabricAdapterPath)
+inline void getFabricAdapterHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& fabricAdapterPath)
 {
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, serviceName, fabricAdapterPath,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
         [asyncResp](const boost::system::error_code& ec,
                     const bool functional) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error for Health");
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for Health");
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        if (!functional)
-        {
-            asyncResp->res.jsonValue["Status"]["Health"] =
-                resource::Health::Critical;
-        }
-    });
+            if (!functional)
+            {
+                asyncResp->res.jsonValue["Status"]["Health"] =
+                    resource::Health::Critical;
+            }
+        });
 }
 
 inline void afterDoCheckFabricAdapterChassis(
@@ -287,12 +285,11 @@ inline void getFabricAdapterPCIeSlots(
                         fabricAdapterPath, std::move(callback)));
 }
 
-inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& systemName,
-                         const std::string& adapterId,
-                         const std::string& fabricAdapterPath,
-                         const std::string& serviceName,
-                         const dbus::utility::InterfaceList& interfaces)
+inline void doAdapterGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& adapterId,
+    const std::string& fabricAdapterPath, const std::string& serviceName,
+    const dbus::utility::InterfaceList& interfaces)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
@@ -312,12 +309,12 @@ inline void doAdapterGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         asyncResp, fabricAdapterPath,
         [asyncResp](const std::string& chassisName,
                     const dbus::utility::MapperEndPoints& /*pcieSlotPaths*/) {
-        asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
-            "#IBMFabricAdapter.v1_0_0.IBM";
-        asyncResp->res.jsonValue["Oem"]["IBM"]["Slots"]["@odata.id"] =
-            boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots",
-                                chassisName);
-    });
+            asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
+                "#IBMFabricAdapter.v1_0_0.IBM";
+            asyncResp->res.jsonValue["Oem"]["IBM"]["Slots"]["@odata.id"] =
+                boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots",
+                                    chassisName);
+        });
 
     asyncResp->res.jsonValue["Ports"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/FabricAdapters/{}/Ports",
@@ -384,10 +381,10 @@ inline void getValidFabricAdapterPath(
 {
     constexpr std::array<std::string_view, 1> interfaces{
         "xyz.openbmc_project.Inventory.Item.FabricAdapter"};
-    dbus::utility::getSubTree("/xyz/openbmc_project/inventory", 0, interfaces,
-                              std::bind_front(afterGetValidFabricAdapterPath,
-                                              adapterId, asyncResp,
-                                              std::move(callback)));
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
+        std::bind_front(afterGetValidFabricAdapterPath, adapterId, asyncResp,
+                        std::move(callback)));
 }
 
 inline void afterHandleFabricAdapterGet(
@@ -420,11 +417,10 @@ inline void afterHandleFabricAdapterGet(
                  serviceName, interfaces);
 }
 
-inline void
-    handleFabricAdapterGet(App& app, const crow::Request& req,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& systemName,
-                           const std::string& adapterId)
+inline void handleFabricAdapterGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& adapterId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -443,10 +439,10 @@ inline void
                                    systemName);
         return;
     }
-    getValidFabricAdapterPath(adapterId, asyncResp,
-                              std::bind_front(afterHandleFabricAdapterGet,
-                                              asyncResp, systemName,
-                                              adapterId));
+    getValidFabricAdapterPath(
+        adapterId, asyncResp,
+        std::bind_front(afterHandleFabricAdapterGet, asyncResp, systemName,
+                        adapterId));
 }
 
 inline void afterHandleFabricAdapterPatch(
@@ -508,10 +504,10 @@ inline void handleFabricAdapterPatch(
         return;
     }
 
-    getValidFabricAdapterPath(adapterId, asyncResp,
-                              std::bind_front(afterHandleFabricAdapterPatch,
-                                              asyncResp, adapterId,
-                                              locationIndicatorActive));
+    getValidFabricAdapterPath(
+        adapterId, asyncResp,
+        std::bind_front(afterHandleFabricAdapterPatch, asyncResp, adapterId,
+                        locationIndicatorActive));
 }
 
 inline void handleFabricAdapterCollectionGet(
@@ -607,11 +603,10 @@ inline void afterHandleFabricAdapterHead(
         "</redfish/v1/JsonSchemas/FabricAdapter/FabricAdapter.json>; rel=describedby");
 }
 
-inline void
-    handleFabricAdapterHead(crow::App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& systemName,
-                            const std::string& adapterId)
+inline void handleFabricAdapterHead(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& adapterId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {

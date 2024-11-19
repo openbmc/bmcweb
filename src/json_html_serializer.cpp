@@ -185,10 +185,10 @@ static void dumpEscaped(std::string& out, const std::string& str)
                                 // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
                                 std::snprintf(
                                     &stringBuffer[bytes], 13, "\\u%04x\\u%04x",
-                                    static_cast<uint16_t>(0xD7C0 +
-                                                          (codePoint >> 10)),
-                                    static_cast<uint16_t>(0xDC00 +
-                                                          (codePoint & 0x3FF)));
+                                    static_cast<uint16_t>(
+                                        0xD7C0 + (codePoint >> 10)),
+                                    static_cast<uint16_t>(
+                                        0xDC00 + (codePoint & 0x3FF)));
                                 bytes += 12;
                             }
                         }

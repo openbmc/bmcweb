@@ -32,9 +32,8 @@ struct UserSubscription
     std::vector<std::string> metricReportDefinitions;
     std::vector<std::string> originResources;
 
-    static std::optional<UserSubscription>
-        fromJson(const nlohmann::json::object_t& j,
-                 const bool loadFromOldConfig = false)
+    static std::optional<UserSubscription> fromJson(
+        const nlohmann::json::object_t& j, const bool loadFromOldConfig = false)
     {
         UserSubscription subvalue;
         for (const auto& element : j)

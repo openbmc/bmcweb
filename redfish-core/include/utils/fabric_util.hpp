@@ -77,37 +77,39 @@ inline void
         [asyncResp, jsonKeyName](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& paths) {
-        nlohmann::json::json_pointer jsonCountKeyName = jsonKeyName;
-        std::string back = jsonCountKeyName.back();
-        jsonCountKeyName.pop_back();
-        jsonCountKeyName /= back + "@odata.count";
+            nlohmann::json::json_pointer jsonCountKeyName = jsonKeyName;
+            std::string back = jsonCountKeyName.back();
+            jsonCountKeyName.pop_back();
+            jsonCountKeyName /= back + "@odata.count";
 
-        nlohmann::json& members = asyncResp->res.jsonValue[jsonKeyName];
-        members = nlohmann::json::array();
+            nlohmann::json& members = asyncResp->res.jsonValue[jsonKeyName];
+            members = nlohmann::json::array();
 
-        if (ec)
-        {
-            // Not an error, system just doesn't have FabricAdapter
-            BMCWEB_LOG_DEBUG("no FabricAdapter paths found ec: {}", ec.value());
-            asyncResp->res.jsonValue[jsonCountKeyName] = members.size();
-            return;
-        }
-
-        for (const auto& pcieDevicePath : paths)
-        {
-            std::string adapterUniq = buildFabricUniquePath(pcieDevicePath);
-            if (adapterUniq.empty())
+            if (ec)
             {
-                BMCWEB_LOG_DEBUG("Invalid Name");
-                continue;
+                // Not an error, system just doesn't have FabricAdapter
+                BMCWEB_LOG_DEBUG("no FabricAdapter paths found ec: {}",
+                                 ec.value());
+                asyncResp->res.jsonValue[jsonCountKeyName] = members.size();
+                return;
             }
-            nlohmann::json::object_t device;
-            device["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Systems/system/FabricAdapters/{}", adapterUniq);
-            members.emplace_back(std::move(device));
-        }
-        asyncResp->res.jsonValue[jsonCountKeyName] = members.size();
-    });
+
+            for (const auto& pcieDevicePath : paths)
+            {
+                std::string adapterUniq = buildFabricUniquePath(pcieDevicePath);
+                if (adapterUniq.empty())
+                {
+                    BMCWEB_LOG_DEBUG("Invalid Name");
+                    continue;
+                }
+                nlohmann::json::object_t device;
+                device["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/Systems/system/FabricAdapters/{}",
+                    adapterUniq);
+                members.emplace_back(std::move(device));
+            }
+            asyncResp->res.jsonValue[jsonCountKeyName] = members.size();
+        });
 }
 
 } // namespace fabric_util

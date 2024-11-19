@@ -316,8 +316,8 @@ enum class QueryError
 
 inline QueryError getNumericParam(std::string_view value, size_t& param)
 {
-    std::from_chars_result r = std::from_chars(value.begin(), value.end(),
-                                               param);
+    std::from_chars_result r =
+        std::from_chars(value.begin(), value.end(), param);
 
     // If the number wasn't representable in the type, it's out of range
     if (r.ec == std::errc::result_out_of_range)
@@ -393,9 +393,9 @@ inline bool getFilterParam(std::string_view value, Query& query)
     return query.filter.has_value();
 }
 
-inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
-                                            crow::Response& res,
-                                            std::string_view url)
+inline std::optional<Query>
+    parseParameters(boost::urls::params_view urlParams, crow::Response& res,
+                    std::string_view url)
 {
     Query ret{};
     for (const boost::urls::params_view::value_type& it : urlParams)
@@ -713,9 +713,8 @@ inline void findNavigationReferencesInObjectRecursive(
 // Isn't a concern until https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60556
 // lands.  May want to avoid forwarding query params when request is uptree from
 // a top level collection.
-inline std::vector<ExpandNode>
-    findNavigationReferences(ExpandType eType, int depth, int skipDepth,
-                             nlohmann::json& jsonResponse)
+inline std::vector<ExpandNode> findNavigationReferences(
+    ExpandType eType, int depth, int skipDepth, nlohmann::json& jsonResponse)
 {
     std::vector<ExpandNode> ret;
     const nlohmann::json::json_pointer root = nlohmann::json::json_pointer("");
@@ -805,8 +804,9 @@ inline unsigned propogateErrorCode(unsigned finalCode, unsigned subResponseCode)
     if (finalCodeIndex != std::numeric_limits<size_t>::max() &&
         subResponseCodeIndex != std::numeric_limits<size_t>::max())
     {
-        return finalCodeIndex <= subResponseCodeIndex ? finalCode
-                                                      : subResponseCode;
+        return finalCodeIndex <= subResponseCodeIndex
+                   ? finalCode
+                   : subResponseCode;
     }
     if (subResponseCode == 500 || finalCode == 500)
     {

@@ -46,40 +46,44 @@ inline void getSAI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         [asyncResp, name,
          propertyValue](const boost::system::error_code& ec,
                         const dbus::utility::MapperGetObject& object) {
-        if (ec || object.empty())
-        {
-            BMCWEB_LOG_DEBUG("Failed to get LED DBus name: {}", ec.message());
-            return;
-        }
-
-        sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus, object.begin()->first,
-            "/xyz/openbmc_project/led/groups/" + name,
-            "xyz.openbmc_project.Led.Group", "Asserted",
-            [asyncResp, propertyValue](const boost::system::error_code& ec1,
-                                       bool assert) {
-            if (ec1)
+            if (ec || object.empty())
             {
-                if (ec1.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error: {}", ec1.message());
-                    messages::internalError(asyncResp->res);
-                }
+                BMCWEB_LOG_DEBUG("Failed to get LED DBus name: {}",
+                                 ec.message());
                 return;
             }
 
-            nlohmann::json& oemSAI = asyncResp->res.jsonValue["Oem"]["IBM"];
-            oemSAI["@odata.type"] = "#IBMComputerSystem.v1_0_0.IBM";
-            if (propertyValue == "PartitionSystemAttentionIndicator")
-            {
-                oemSAI["PartitionSystemAttentionIndicator"] = assert;
-            }
-            else if (propertyValue == "PlatformSystemAttentionIndicator")
-            {
-                oemSAI["PlatformSystemAttentionIndicator"] = assert;
-            }
+            sdbusplus::asio::getProperty<bool>(
+                *crow::connections::systemBus, object.begin()->first,
+                "/xyz/openbmc_project/led/groups/" + name,
+                "xyz.openbmc_project.Led.Group", "Asserted",
+                [asyncResp, propertyValue](const boost::system::error_code& ec1,
+                                           bool assert) {
+                    if (ec1)
+                    {
+                        if (ec1.value() != EBADR)
+                        {
+                            BMCWEB_LOG_ERROR("DBUS response error: {}",
+                                             ec1.message());
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
+
+                    nlohmann::json& oemSAI =
+                        asyncResp->res.jsonValue["Oem"]["IBM"];
+                    oemSAI["@odata.type"] = "#IBMComputerSystem.v1_0_0.IBM";
+                    if (propertyValue == "PartitionSystemAttentionIndicator")
+                    {
+                        oemSAI["PartitionSystemAttentionIndicator"] = assert;
+                    }
+                    else if (propertyValue ==
+                             "PlatformSystemAttentionIndicator")
+                    {
+                        oemSAI["PlatformSystemAttentionIndicator"] = assert;
+                    }
+                });
         });
-    });
 }
 
 /**
@@ -117,28 +121,29 @@ inline void setSAI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "/xyz/openbmc_project/led/groups/" + name, interfaces,
         [asyncResp, name, value](const boost::system::error_code& ec,
                                  const dbus::utility::MapperGetObject& object) {
-        if (ec || object.empty())
-        {
-            BMCWEB_LOG_ERROR("DBUS response error: {}", ec.message());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, object.begin()->first,
-            "/xyz/openbmc_project/led/groups/" + name,
-            "xyz.openbmc_project.Led.Group", "Asserted", value,
-            [asyncResp](const boost::system::error_code& ec1) {
-            if (ec1)
+            if (ec || object.empty())
             {
-                if (ec1.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error: {}", ec1.message());
-                    messages::internalError(asyncResp->res);
-                }
+                BMCWEB_LOG_ERROR("DBUS response error: {}", ec.message());
+                messages::internalError(asyncResp->res);
                 return;
             }
+
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus, object.begin()->first,
+                "/xyz/openbmc_project/led/groups/" + name,
+                "xyz.openbmc_project.Led.Group", "Asserted", value,
+                [asyncResp](const boost::system::error_code& ec1) {
+                    if (ec1)
+                    {
+                        if (ec1.value() != EBADR)
+                        {
+                            BMCWEB_LOG_ERROR("DBUS response error: {}",
+                                             ec1.message());
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
+                });
         });
-    });
 }
 } // namespace redfish

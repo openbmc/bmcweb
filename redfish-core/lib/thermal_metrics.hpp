@@ -94,9 +94,9 @@ inline void handleTemperatureReadingsCelsius(
             [asyncResp, chassisId,
              sensorPath](const boost::system::error_code& ec1,
                          const dbus::utility::DBusPropertiesMap& properties) {
-            afterGetTemperatureValue(asyncResp, chassisId, sensorPath, ec1,
-                                     properties);
-        });
+                afterGetTemperatureValue(asyncResp, chassisId, sensorPath, ec1,
+                                         properties);
+            });
     }
 }
 
@@ -152,15 +152,16 @@ inline void handleThermalMetricsHead(
         asyncResp, chassisId,
         [asyncResp,
          chassisId](const std::optional<std::string>& validChassisPath) {
-        if (!validChassisPath)
-        {
-            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-            return;
-        }
-        asyncResp->res.addHeader(
-            boost::beast::http::field::link,
-            "</redfish/v1/JsonSchemas/ThermalMetrics/ThermalMetrics.json>; rel=describedby");
-    });
+            if (!validChassisPath)
+            {
+                messages::resourceNotFound(asyncResp->res, "Chassis",
+                                           chassisId);
+                return;
+            }
+            asyncResp->res.addHeader(
+                boost::beast::http::field::link,
+                "</redfish/v1/JsonSchemas/ThermalMetrics/ThermalMetrics.json>; rel=describedby");
+        });
 }
 
 inline void

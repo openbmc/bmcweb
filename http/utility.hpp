@@ -57,8 +57,8 @@ constexpr uint64_t getParameterTag(std::string_view url)
             {
                 return 0;
             }
-            std::string_view tag = url.substr(urlSegmentIndex,
-                                              urlIndex + 1 - urlSegmentIndex);
+            std::string_view tag =
+                url.substr(urlSegmentIndex, urlIndex + 1 - urlSegmentIndex);
 
             if (tag == "<str>" || tag == "<string>")
             {
@@ -244,8 +244,8 @@ inline bool base64Decode(std::string_view input, std::string& output)
     auto getCodeValue = [](char c) {
         auto code = static_cast<unsigned char>(c);
         // Ensure we cannot index outside the bounds of the decoding array
-        static_assert(std::numeric_limits<decltype(code)>::max() <
-                      decodingData.size());
+        static_assert(
+            std::numeric_limits<decltype(code)>::max() < decodingData.size());
         return decodingData[code];
     };
 
@@ -293,8 +293,8 @@ inline bool base64Decode(std::string_view input, std::string& output)
                 // non base64 character
                 return false;
             }
-            output += static_cast<char>(((base64code1 << 4) & 0xf0) |
-                                        ((base64code2 >> 2) & 0x0f));
+            output += static_cast<char>(
+                ((base64code1 << 4) & 0xf0) | ((base64code2 >> 2) & 0x0f));
         }
 
         if (++i < inputLength)
@@ -340,9 +340,8 @@ struct ConstantTimeCompare
 
 namespace details
 {
-inline boost::urls::url
-    appendUrlPieces(boost::urls::url& url,
-                    const std::initializer_list<std::string_view> args)
+inline boost::urls::url appendUrlPieces(
+    boost::urls::url& url, const std::initializer_list<std::string_view> args)
 {
     for (std::string_view arg : args)
     {

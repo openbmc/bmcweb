@@ -19,9 +19,8 @@ namespace crow
 namespace authentication
 {
 
-inline std::shared_ptr<persistent_data::UserSession>
-    performBasicAuth(const boost::asio::ip::address& clientIp,
-                     std::string_view authHeader)
+inline std::shared_ptr<persistent_data::UserSession> performBasicAuth(
+    const boost::asio::ip::address& clientIp, std::string_view authHeader)
 {
     BMCWEB_LOG_DEBUG("[AuthMiddleware] Basic authentication");
 
@@ -142,8 +141,8 @@ inline std::shared_ptr<persistent_data::UserSession>
         {
             endIndex = cookieValue.size();
         }
-        std::string_view authKey = cookieValue.substr(startIndex,
-                                                      endIndex - startIndex);
+        std::string_view authKey =
+            cookieValue.substr(startIndex, endIndex - startIndex);
 
         std::shared_ptr<persistent_data::UserSession> sessionOut =
             persistent_data::SessionStore::getInstance().loginSessionByToken(
@@ -183,10 +182,9 @@ inline std::shared_ptr<persistent_data::UserSession>
     return nullptr;
 }
 
-inline std::shared_ptr<persistent_data::UserSession>
-    performTLSAuth(Response& res,
-                   const boost::beast::http::header<true>& reqHeader,
-                   const std::weak_ptr<persistent_data::UserSession>& session)
+inline std::shared_ptr<persistent_data::UserSession> performTLSAuth(
+    Response& res, const boost::beast::http::header<true>& reqHeader,
+    const std::weak_ptr<persistent_data::UserSession>& session)
 {
     if (auto sp = session.lock())
     {

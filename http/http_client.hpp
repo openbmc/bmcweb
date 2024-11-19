@@ -319,8 +319,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     {
         state = ConnState::recvInProgress;
 
-        parser_type& thisParser = parser.emplace(std::piecewise_construct,
-                                                 std::make_tuple());
+        parser_type& thisParser =
+            parser.emplace(std::piecewise_construct, std::make_tuple());
 
         thisParser.body_limit(connPolicy->requestByteLimit);
 
@@ -922,9 +922,9 @@ class HttpClient
         {
             verify = "ssl no verify";
         }
-        std::string clientKey = std::format("{}{}://{}", verify,
-                                            destUrl.scheme(),
-                                            destUrl.encoded_host_and_port());
+        std::string clientKey =
+            std::format("{}{}://{}", verify, destUrl.scheme(),
+                        destUrl.encoded_host_and_port());
         auto pool = connectionPools.try_emplace(clientKey);
         if (pool.first->second == nullptr)
         {

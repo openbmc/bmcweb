@@ -34,39 +34,40 @@ inline void
         usbCodeUpdateObjectPath, usbCodeUpdateInterfaces,
         [asyncResp](const boost::system::error_code& ec1,
                     const dbus::utility::MapperGetObject& object) {
-        if (ec1 || object.empty())
-        {
-            if (ec1 == boost::system::errc::io_error)
+            if (ec1 || object.empty())
             {
-                BMCWEB_LOG_WARNING("USB code update not found");
-                return;
-            }
+                if (ec1 == boost::system::errc::io_error)
+                {
+                    BMCWEB_LOG_WARNING("USB code update not found");
+                    return;
+                }
 
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus, object.begin()->first,
-            usbCodeUpdateObjectPath, usbCodeUpdateInterface, "Enabled",
-            [asyncResp](const boost::system::error_code& ec2,
-                        bool usbCodeUpdateState) {
-            if (ec2)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error: {}", ec2);
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
                 messages::internalError(asyncResp->res);
                 return;
             }
 
-            asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
-                "#IBMManager.v1_0_0.IBM";
-            asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.id"] =
-                "/redfish/v1/Managers/bmc#/Oem/IBM";
-            asyncResp->res.jsonValue["Oem"]["IBM"]["USBCodeUpdateEnabled"] =
-                usbCodeUpdateState;
+            sdbusplus::asio::getProperty<bool>(
+                *crow::connections::systemBus, object.begin()->first,
+                usbCodeUpdateObjectPath, usbCodeUpdateInterface, "Enabled",
+                [asyncResp](const boost::system::error_code& ec2,
+                            bool usbCodeUpdateState) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_ERROR("DBUS response error: {}", ec2);
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.type"] =
+                        "#IBMManager.v1_0_0.IBM";
+                    asyncResp->res.jsonValue["Oem"]["IBM"]["@odata.id"] =
+                        "/redfish/v1/Managers/bmc#/Oem/IBM";
+                    asyncResp->res
+                        .jsonValue["Oem"]["IBM"]["USBCodeUpdateEnabled"] =
+                        usbCodeUpdateState;
+                });
         });
-    });
 }
 
 /**
@@ -77,35 +78,34 @@ inline void
  *
  * @return None.
  */
-inline void
-    setUSBCodeUpdateState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const bool& state)
+inline void setUSBCodeUpdateState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const bool& state)
 {
     BMCWEB_LOG_DEBUG("Set USB code update status.");
     dbus::utility::getDbusObject(
         usbCodeUpdateObjectPath, usbCodeUpdateInterfaces,
         [asyncResp, state](const boost::system::error_code& ec1,
                            const dbus::utility::MapperGetObject& object) {
-        if (ec1 || object.empty())
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, object.begin()->first,
-            usbCodeUpdateObjectPath, usbCodeUpdateInterface, "Enabled", state,
-            [asyncResp](const boost::system::error_code& ec2) {
-            if (ec2)
+            if (ec1 || object.empty())
             {
-                BMCWEB_LOG_ERROR("Can't set USB code update status. Error: {}",
-                                 ec2);
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec1);
                 messages::internalError(asyncResp->res);
                 return;
             }
-            messages::success(asyncResp->res);
+
+            sdbusplus::asio::setProperty(
+                *crow::connections::systemBus, object.begin()->first,
+                usbCodeUpdateObjectPath, usbCodeUpdateInterface, "Enabled",
+                state, [asyncResp](const boost::system::error_code& ec2) {
+                    if (ec2)
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Can't set USB code update status. Error: {}", ec2);
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    messages::success(asyncResp->res);
+                });
         });
-    });
 }
 } // namespace redfish
