@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96a5f9ff_6579c9d4",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-19T21:59:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18d3d917_6b30cf94",
+      "revId": "2f470ad81b3c495956284539fbe9db775dd8bd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a73f1fb2_3a8ef604",
