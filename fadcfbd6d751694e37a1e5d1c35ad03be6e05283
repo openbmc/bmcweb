@@ -108,6 +108,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb900e63_ff37a56b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-19T20:41:01Z",
+      "side": 1,
+      "message": "I am trying the same on my own machine ATM.\nPATCH :url/redfish/v1/Managers/bmc/EthernetInterfaces/eth1\nContent-Type: application/json\n{\n     \"IPv4StaticAddresses\": [\n     {\n             \"Address\": \"192.168.20.11\",\n             \"SubnetMask\": \"255.255.255.0\",\n             \"Gateway\": \"192.168.20.1\"\n     }\n     ]\n}\n\nI can send this repeatedly, and it will accept it.\nI can take away the address, and subnetmask, and it still works as expected.\n\nTake this with a grain of salt, however.\nIntel is substantially behind the most recent bmcweb state.\nSHA: 6d0b80be1b79122de60ade0b80460510696954e0\nThis is over 130 commits behind the origin.\nThis particular PATCH command is part of a series I used to test the Gateway handling in the first place. I was surprised when this commit came in, as I was certain I had confirmed the correct behavior.",
+      "parentUuid": "21340592_33d29fb2",
+      "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6e26cbb8_8eecae35",
