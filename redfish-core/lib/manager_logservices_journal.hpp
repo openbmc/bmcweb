@@ -8,6 +8,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/journal_utils.hpp"
 #include "utils/time_utils.hpp"
+#include "utils/journal_utils.hpp"
 
 #include <systemd/sd-journal.h>
 
