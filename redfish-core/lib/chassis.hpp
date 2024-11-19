@@ -41,6 +41,52 @@ limitations under the License.
 namespace redfish
 {
 
+inline std::string
+    translateChassisTypeToRedfish(const std::string_view& chassisType)
+{
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Blade")
+    {
+        return "Blade";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Component")
+    {
+        return "Component";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Enclosure")
+    {
+        return "Enclosure";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Module")
+    {
+        return "Module";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.RackMount")
+    {
+        return "RackMount";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.StandAlone")
+    {
+        return "StandAlone";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.StorageEnclosure")
+    {
+        return "StorageEnclosure";
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Zone")
+    {
+        return "Zone";
+    }
+    return "Other";
+}
+
 /**
  * @brief Retrieves resources over dbus to link to the chassis
  *
@@ -463,6 +509,28 @@ inline void handleDecoratorAssetProperties(
     getStorageLink(asyncResp, path);
 }
 
+inline void handleChassisProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::DBusPropertiesMap& propertiesList)
+{
+    const std::string* type = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesList, "Type", type);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (type != nullptr)
+    {
+        asyncResp->res.jsonValue["ChassisType"] =
+            translateChassisTypeToRedfish(*type);
+    }
+}
+
 inline void handleChassisGetSubTree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const boost::system::error_code& ec,
@@ -615,6 +683,15 @@ inline void handleChassisGetSubTree(
                 handleDecoratorAssetProperties(asyncResp, chassisId, path,
                                                propertiesList);
             });
+
+        sdbusplus::asio::getAllProperties(
+            *crow::connections::systemBus, connectionName, path,
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+            [asyncResp](
+                const boost::system::error_code&,
+                const dbus::utility::DBusPropertiesMap& propertiesList) {
+            handleChassisProperties(asyncResp, propertiesList);
+        });
 
         for (const auto& interface : interfaces2)
         {
