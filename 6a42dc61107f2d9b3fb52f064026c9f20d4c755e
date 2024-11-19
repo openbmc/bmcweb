@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0116d643_decf4565",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2024-11-19T20:52:23Z",
+      "side": 1,
+      "message": "Some other CI problem in phosphor-logging right now.  Bypassing.",
+      "revId": "6a42dc61107f2d9b3fb52f064026c9f20d4c755e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
