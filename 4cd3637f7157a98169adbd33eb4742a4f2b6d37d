@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49554ab3_a861a8c8",
+        "filename": "redfish-core/include/event_log.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-19T22:02:31Z",
+      "side": 1,
+      "message": "This is a new file with different content, so we don\u0027t need it and i\u0027m not a lawyer but someone from 9elements writing code with an intel copyright seems worrisome to me.\n\ni\u0027ve just removed it in the latest patch.",
+      "parentUuid": "2fa7594d_cf7f2085",
+      "revId": "4cd3637f7157a98169adbd33eb4742a4f2b6d37d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14ed3845_a70d11e1",
