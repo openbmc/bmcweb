@@ -126,6 +126,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "127a6544_f2092b74",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-19T21:14:14Z",
+      "side": 1,
+      "message": "I need to talk with you more about it, but I wanted to start from something more than \"i\u0027m seeing a bug\".\n\nI don\u0027t really care whether or not this merges, but so far as I can test, we\u0027re broken.\n\nI would\u0027ve expected that:\n\n\"IPv4StaticAddresses\": [\n{\n\"Gateway\": \"192.168.20.1\"\n}\n\nWould return a conflict if you tested on master, but I haven\u0027t had a change to dig super deep on this yet.  I just wanted to post something as a starting point to see if others were seeing the same conflict.",
+      "parentUuid": "eb900e63_ff37a56b",
+      "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6e26cbb8_8eecae35",
