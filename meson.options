@@ -86,6 +86,15 @@ option(
                     /redfish/v1/Managers/bmc/LogServices/Journal.''',
 )
 
+# BMCWEB_REDFISH_BMC_JOURNAL_EVENTS
+option(
+    'redfish-bmc-journal-events',
+    type: 'feature',
+    value: 'enabled',
+    description: '''For events in /redfish/v1/Managers/bmc/LogServices/Journal,
+                    allow sending them via EventService.''',
+)
+
 # BMCWEB_REDFISH_CPU_LOG
 option(
     'redfish-cpu-log',

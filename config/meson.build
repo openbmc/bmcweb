@@ -22,6 +22,7 @@ feature_options = [
     'mutual-tls-auth',
     'redfish-aggregation',
     'redfish-allow-deprecated-power-thermal',
+    'redfish-bmc-journal-events',
     'redfish-bmc-journal',
     'redfish-cpu-log',
     'redfish-dbus-log',
