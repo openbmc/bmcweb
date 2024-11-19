@@ -257,7 +257,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         }
         boost::urls::url origin =
             boost::urls::format("/redfish/v1/TaskService/Tasks/{}", index);
-        EventServiceManager::getInstance().sendEvent(event, origin.buffer(),
+        EventServiceManager::sendEvent(event, origin.buffer(),
                                                      "Task");
     }
 
