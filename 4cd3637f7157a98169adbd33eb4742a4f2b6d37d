@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c77e3b0_c1063994",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-19T21:21:15Z",
+      "side": 1,
+      "message": "Thanks for your review 😊",
+      "parentUuid": "671ccbb2_0306f2a6",
+      "revId": "4cd3637f7157a98169adbd33eb4742a4f2b6d37d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b88461f4_e3e6857e",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fa7594d_cf7f2085",
+        "filename": "redfish-core/include/event_log.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-19T21:21:15Z",
+      "side": 1,
+      "message": "I\u0027m not a copyright lawyer. The reviewers can state what they want here. I cannot answer this.",
+      "parentUuid": "b88461f4_e3e6857e",
+      "revId": "4cd3637f7157a98169adbd33eb4742a4f2b6d37d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14ed3845_a70d11e1",
@@ -48,6 +84,24 @@
       "writtenOn": "2024-11-19T17:49:53Z",
       "side": 1,
       "message": "New file, do we need this?",
+      "revId": "4cd3637f7157a98169adbd33eb4742a4f2b6d37d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bef093a_8c6c4f36",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-19T21:21:15Z",
+      "side": 1,
+      "message": "I\u0027m not a copyright lawyer. The reviewers can state what they want here. I cannot answer this.",
+      "parentUuid": "14ed3845_a70d11e1",
       "revId": "4cd3637f7157a98169adbd33eb4742a4f2b6d37d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
