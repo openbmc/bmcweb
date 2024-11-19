@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "21340592_33d29fb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000073
+      },
+      "writtenOn": "2024-11-19T09:28:18Z",
+      "side": 1,
+      "message": "Getting the error:\n\ncurl -k -H \"X-Auth-Token:${bmc_token}\" -H \"Content-Type: application/json\" -X PATCH -D patch.txt -d \u0027{\"IPv4StaticAddresses\":[{},{\"Address\":\"10.9.9.95\",\"SubnetMask\": \"255.255.255.0\",\"Gateway\":\"10.9.9.1\"}]}\u0027 https://${bmc}/redfish/v1/Managers/bmc/EthernetInterfaces/eth0 \n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The property \u0027IPv4StaticAddresses/2/Gateway\u0027 could not be written because its value would conflict with the value of the \u0027IPv4StaticAddresses/1/Gateway\u0027 property.\",\n        \"MessageArgs\": [\n          \"IPv4StaticAddresses/2/Gateway\",\n          \"IPv4StaticAddresses/1/Gateway\"\n        ],\n        \"MessageId\": \"Base.1.19.0.PropertyValueConflict\",\n        \"MessageSeverity\": \"Warning\",\n        \"Resolution\": \"None.\"\n      }\n    ],\n    \"code\": \"Base.1.19.0.PropertyValueConflict\",\n    \"message\": \"The property \u0027IPv4StaticAddresses/2/Gateway\u0027 could not be written because its value would conflict with the value of the \u0027IPv4StaticAddresses/1/Gateway\u0027 property.\"\n  }",
+      "parentUuid": "bba19594_83198d85",
+      "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6e26cbb8_8eecae35",
