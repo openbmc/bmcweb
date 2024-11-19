@@ -1217,6 +1217,18 @@ inline void
                                            "HostName");
         return;
     }
+    // RFC 1123-compliant hostname regex: alphanumeric, hyphen (-), and dots (.)
+    // Cannot start or end with a hyphen or dot, and no consecutive dots.
+    const std::regex hostnameRegex(
+        R"(^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$)");
+
+    if (!std::regex_match(hostname, hostnameRegex))
+    {
+        messages::propertyValueFormatError(asyncResp->res, hostname,
+                                           "HostName");
+        return;
+    }
+
     setDbusProperty(
         asyncResp, "HostName", "xyz.openbmc_project.Network",
         sdbusplus::message::object_path("/xyz/openbmc_project/network/config"),
