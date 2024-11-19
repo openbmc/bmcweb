@@ -10,6 +10,7 @@
 #include "event_matches_filter.hpp"
 #include "event_service_store.hpp"
 #include "filesystem_log_watcher.hpp"
+#include "journald_watcher.hpp"
 #include "metric_report.hpp"
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
@@ -58,6 +59,7 @@ class EventServiceManager
     std::optional<DbusEventLogMonitor> dbusEventLogMonitor;
     std::optional<DbusTelemetryMonitor> matchTelemetryMonitor;
     std::optional<FilesystemLogWatcher> filesystemLogMonitor;
+
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
@@ -74,6 +76,8 @@ class EventServiceManager
 
     boost::asio::io_context& ioc;
 
+    std::shared_ptr<JournalWatcher> journalWatcher;
+
   public:
     EventServiceManager(const EventServiceManager&) = delete;
     EventServiceManager& operator=(const EventServiceManager&) = delete;
@@ -82,7 +86,13 @@ class EventServiceManager
     ~EventServiceManager() = default;
 
     explicit EventServiceManager(boost::asio::io_context& iocIn) : ioc(iocIn)
+
     {
+        if constexpr (BMCWEB_REDFISH_BMC_JOURNAL_EVENTS)
+        {
+            journalWatcher = std::make_shared<JournalWatcher>(iocIn, sendEvent);
+        }
+
         // Load config from persist store.
         initConfig();
     }
@@ -92,6 +102,14 @@ class EventServiceManager
     {
         static EventServiceManager handler(*ioc);
         return handler;
+    }
+
+    static void sendEvent(nlohmann::json::object_t eventMessage,
+                          std::string_view origin,
+                          std::string_view resourceType)
+    {
+        getInstance().sendEventInternal(std::move(eventMessage), origin,
+                                        resourceType);
     }
 
     void initConfig()
@@ -615,8 +633,9 @@ class EventServiceManager
         }
     }
 
-    void sendEvent(nlohmann::json::object_t eventMessage,
-                   std::string_view origin, std::string_view resourceType)
+    void sendEventInternal(nlohmann::json::object_t eventMessage,
+                           std::string_view origin,
+                           std::string_view resourceType)
     {
         eventMessage["EventId"] = eventId;
 
