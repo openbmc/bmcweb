@@ -154,6 +154,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4cebc86_f0c56687",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-19T22:28:41Z",
+      "side": 1,
+      "message": "Lets hope this doesn\u0027t cause a problem.  It wasn\u0027t a problem before, so maybe we\u0027re safe?  This code needs refactored either way.",
+      "parentUuid": "2202f18a_315b4c04",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "477bda275648cbc17e2a6de2079fd5d2a15ca52d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "96724ab3_eb1505d1",
