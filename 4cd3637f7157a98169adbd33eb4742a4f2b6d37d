@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b88461f4_e3e6857e",
+        "filename": "redfish-core/include/event_log.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-19T17:49:53Z",
+      "side": 1,
+      "message": "new file, do we need this?",
+      "revId": "4cd3637f7157a98169adbd33eb4742a4f2b6d37d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14ed3845_a70d11e1",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-19T17:49:53Z",
+      "side": 1,
+      "message": "New file, do we need this?",
+      "revId": "4cd3637f7157a98169adbd33eb4742a4f2b6d37d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
