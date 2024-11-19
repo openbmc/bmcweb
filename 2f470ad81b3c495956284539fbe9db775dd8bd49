@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18d3d917_6b30cf94",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-19T21:38:17Z",
+      "side": 1,
+      "message": "Yep, if you no longer want this patch and want to open a different one for reusing, feel free, but I don\u0027t want to end up with two copies of identical code with slightly different function names in the same file.",
+      "parentUuid": "09d1d2b9_232f978b",
+      "revId": "2f470ad81b3c495956284539fbe9db775dd8bd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a73f1fb2_3a8ef604",
         "filename": "redfish-core/src/registries.cpp",
         "patchSetId": 1
@@ -90,6 +108,30 @@
       "side": 1,
       "message": "sounds like a good idea for a new separate patch.\n\nThis is a refactoring change which moves functions between files. deduplicating is a separate change?",
       "parentUuid": "a73f1fb2_3a8ef604",
+      "range": {
+        "startLine": 80,
+        "startChar": 15,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "2f470ad81b3c495956284539fbe9db775dd8bd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69ffbdfe_3b867d8b",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-19T21:38:17Z",
+      "side": 1,
+      "message": "deduplicating would make this patch not required at all.\n\nSame as above,  I don\u0027t want to end up with two copies of identical code with slightly different function names in the same file, which is what this patch would do.",
+      "parentUuid": "5d4dad6c_2322436e",
       "range": {
         "startLine": 80,
         "startChar": 15,
