@@ -130,6 +130,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2202f18a_315b4c04",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-19T22:04:49Z",
+      "side": 1,
+      "message": "Right, unit tests will all be in the same compile unit so the unit tests will pass, but functionally we\u0027ll break.\n\nThis is worrying enough for me that we should fix it before this merges.  If you need me to clean it up, as always, happy to help.",
+      "parentUuid": "306e8327_ba838028",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "477bda275648cbc17e2a6de2079fd5d2a15ca52d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "96724ab3_eb1505d1",
