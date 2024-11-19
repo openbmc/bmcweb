@@ -35,11 +35,58 @@ limitations under the License.
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <memory>
 #include <ranges>
 #include <string_view>
 
 namespace redfish
 {
+
+inline chassis::ChassisType
+    translateChassisTypeToRedfish(const std::string_view& chassisType)
+{
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Blade")
+    {
+        return chassis::ChassisType::Blade;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Component")
+    {
+        return chassis::ChassisType::Component;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Enclosure")
+    {
+        return chassis::ChassisType::Enclosure;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Module")
+    {
+        return chassis::ChassisType::Module;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.RackMount")
+    {
+        return chassis::ChassisType::RackMount;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.StandAlone")
+    {
+        return chassis::ChassisType::StandAlone;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.StorageEnclosure")
+    {
+        return chassis::ChassisType::StorageEnclosure;
+    }
+    if (chassisType ==
+        "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Zone")
+    {
+        return chassis::ChassisType::Zone;
+    }
+    return chassis::ChassisType::Invalid;
+}
 
 /**
  * @brief Retrieves resources over dbus to link to the chassis
@@ -463,6 +510,36 @@ inline void handleDecoratorAssetProperties(
     getStorageLink(asyncResp, path);
 }
 
+inline void handleChassisProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::DBusPropertiesMap& propertiesList)
+{
+    const std::string* type = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesList, "Type", type);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (type != nullptr)
+    {
+        auto chassisType = translateChassisTypeToRedfish(*type);
+        if (chassisType != chassis::ChassisType::Invalid)
+        {
+            asyncResp->res.jsonValue["ChassisType"] = chassisType;
+        }
+    }
+    else
+    {
+        asyncResp->res.jsonValue["ChassisType"] =
+            chassis::ChassisType::RackMount;
+    }
+}
+
 inline void handleChassisGetSubTree(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const boost::system::error_code& ec,
@@ -502,8 +579,6 @@ inline void handleChassisGetSubTree(
         asyncResp->res.jsonValue["@odata.id"] =
             boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
         asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-        asyncResp->res.jsonValue["ChassisType"] =
-            chassis::ChassisType::RackMount;
         asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
             boost::urls::format("/redfish/v1/Chassis/{}/Actions/Chassis.Reset",
                                 chassisId);
@@ -614,6 +689,15 @@ inline void handleChassisGetSubTree(
                    const dbus::utility::DBusPropertiesMap& propertiesList) {
                 handleDecoratorAssetProperties(asyncResp, chassisId, path,
                                                propertiesList);
+            });
+
+        sdbusplus::asio::getAllProperties(
+            *crow::connections::systemBus, connectionName, path,
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+            [asyncResp](
+                const boost::system::error_code&,
+                const dbus::utility::DBusPropertiesMap& propertiesList) {
+                handleChassisProperties(asyncResp, propertiesList);
             });
 
         for (const auto& interface : interfaces2)
