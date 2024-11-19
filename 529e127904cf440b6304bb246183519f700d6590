@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7ae2c89_dd8fe140",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-19T16:45:11Z",
+      "side": 1,
+      "message": "Was a 1 char variable before (see line 252) but sure, changed to dur.  I wanted to keep the variable short, otherwise there\u0027s a lot of line wrapping.",
+      "parentUuid": "ca4f4ae5_633c8a3f",
+      "range": {
+        "startLine": 320,
+        "startChar": 72,
+        "endLine": 320,
+        "endChar": 73
+      },
+      "revId": "529e127904cf440b6304bb246183519f700d6590",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1871029c_3c70dd98",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-11-19T15:21:06Z",
       "side": 1,
       "message": "days?",
+      "range": {
+        "startLine": 327,
+        "startChar": 22,
+        "endLine": 327,
+        "endChar": 23
+      },
+      "revId": "529e127904cf440b6304bb246183519f700d6590",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58b4e17a_71ab5e3d",
+        "filename": "redfish-core/include/utils/time_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-19T16:45:11Z",
+      "side": 1,
+      "message": "Changed",
+      "parentUuid": "1871029c_3c70dd98",
       "range": {
         "startLine": 327,
         "startChar": 22,
