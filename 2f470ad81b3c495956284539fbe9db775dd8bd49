@@ -140,6 +140,30 @@
       },
       "revId": "2f470ad81b3c495956284539fbe9db775dd8bd49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1636029e_e8815326",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-19T21:42:28Z",
+      "side": 1,
+      "message": "you already have these copies but in different files which is arguably worse.\n\nAnd deduplication would probably require another round of manual testing which is easily 1 hour for me.\n\nWe can always add more changes on top.",
+      "parentUuid": "69ffbdfe_3b867d8b",
+      "range": {
+        "startLine": 80,
+        "startChar": 15,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "2f470ad81b3c495956284539fbe9db775dd8bd49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
