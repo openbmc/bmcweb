@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62c2ab25_1ebd93e5",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T04:10:19Z",
+      "side": 1,
+      "message": "please use the redfish generated enum types for these.",
+      "revId": "7b89a638e78b6c4abab6dd0a1faf016b38e76097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68209bfd_6a1f5cc4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T04:10:19Z",
+      "side": 1,
+      "message": "Should we omit the property if we can\u0027t map it to a type?  Other seems like it would cause odd behavior for folks that don\u0027t want the property to be present.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 19
+      },
+      "revId": "7b89a638e78b6c4abab6dd0a1faf016b38e76097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "614edf9b_f0192c8e",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T04:10:19Z",
+      "side": 1,
+      "message": "This needs moved to the else of line 527.",
+      "revId": "7b89a638e78b6c4abab6dd0a1faf016b38e76097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
