@@ -263,6 +263,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e40bf7f2_42573ce8",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1458,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T23:01:02Z",
+      "side": 1,
+      "message": "The current code is using `eventId` (event_service_manager.cpp#L83) but it is used as resourceType\u003d\"\" (so that it won\u0027t be filtered) as it will be sent by event_service_manager.\n\nFor the case of Task, it seems using \"Task\" - https://github.com/openbmc/bmcweb/blob/a8770740ab793a16210ad2aa769d50d8110383ca/redfish-core/lib/task.hpp#L260C6-L261C62\n\nWhat I meant is -\n- isn\u0027t it to use something like \"Heartbeat\" as ResourceTypes so that it will be filtered like what\u0027s done like \"Task\".  (Or it may not be a matter?)\n\n- Also \"Origin\"  which may need to specified as the original subscription URL?\n\nAnyway, I\u0027ll keep play it around.",
+      "parentUuid": "8a748c1e_186e336c",
+      "range": {
+        "startLine": 1458,
+        "startChar": 21,
+        "endLine": 1458,
+        "endChar": 27
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68abd152_25ec295b",
         "filename": "redfish-core/include/heartbeat_messages.hpp",
         "patchSetId": 7

@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb984b85_9632c0b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T23:01:02Z",
+      "side": 1,
+      "message": "The subscription needs a listener or subscriber (as https server) so that bmcweb sends a https invocation (e.g. HttpClient) to the listener.\nI think we may need a something like test mock over HttpClient???\n\nIf it is not easy enough, can we consider the part separately??",
+      "parentUuid": "7f1f7e68_41b57650",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa3bc27d_df3f5da5",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 1
