@@ -180,6 +180,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "55294967_ca908647",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-20T19:15:22Z",
+      "side": 1,
+      "message": "I\u0027ve performed a devtool checkout of bmcweb, and switched to SHA d109e2b60f7bb367dc8115475c6cb86bca6e1914 Refactor: move registries functions to their file\n\nI am unable to duplicate the issue as stated.\nMy process (all via Redfish):\nDisable DHCPv4 on eth1\nAssign a single static IPv4 address, netmask, gateway. (x.x.x.11)\nIssue the same request\nIssue a request with only the Gateway in the PATCH\nIssue a request to add two IPv4 addresses\n   - The PATCH has the original assignment  (x.x.x.11)\n   - The PATCH adds a second assignment (x.x.x.30)\nDelete one static IPv4\nRun the DELETE action a second time, clearing all static IPv4\nRe-enable DHCPv4\n\nAll requests complete with a \"204 No Content\" response code.\n\nThere\u0027s something different in how we\u0027re activating the code, and I\u0027d like to understand the variance. IMO it shouldn\u0027t matter what the NIC happens to be, NCSI vs USB.",
+      "parentUuid": "24ee928d_481e841d",
+      "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6e26cbb8_8eecae35",
