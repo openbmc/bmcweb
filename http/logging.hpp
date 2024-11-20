@@ -90,7 +90,6 @@ inline void vlog(std::format_string<Args...>&& format, Args&&... args,
     constexpr size_t stringIndex = static_cast<size_t>(level);
     static_assert(stringIndex < mapLogLevelFromName.size(),
                   "Missing string for level");
-    constexpr std::string_view levelString = mapLogLevelFromName[stringIndex];
     std::string_view filename = loc.file_name();
     filename = filename.substr(filename.rfind('/'));
     if (!filename.empty())
@@ -105,7 +104,7 @@ inline void vlog(std::format_string<Args...>&& format, Args&&... args,
         // of the formatters throw, so unclear at this point why this try/catch
         // is required, but add it to silence the static analysis tools.
         logLocation =
-            std::format("[{} {}:{}] ", levelString, filename, loc.line());
+            std::format("<{}>[{}:{}] ", stringIndex, filename, loc.line());
         logLocation +=
             std::format(std::move(format), std::forward<Args>(args)...);
     }
