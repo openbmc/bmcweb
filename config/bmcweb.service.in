@@ -9,6 +9,7 @@ ExecReload=kill -s HUP $MAINPID
 ExecStart=@MESON_INSTALL_PREFIX@/libexec/bmcwebd
 Type=simple
 WorkingDirectory=/home/root
+SyslogLevelPrefix=true
 
 [Install]
 WantedBy=network.target
