@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4c27858_f03974a1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-11-20T19:10:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77c99aa0_4427026f",
+      "revId": "7b89a638e78b6c4abab6dd0a1faf016b38e76097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68209bfd_6a1f5cc4",
@@ -179,6 +197,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "904aa6c7_f2465eb7",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-11-20T19:10:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e646fa1a_8bc23411",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 19
+      },
+      "revId": "7b89a638e78b6c4abab6dd0a1faf016b38e76097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "614edf9b_f0192c8e",
@@ -192,6 +234,24 @@
       "writtenOn": "2024-11-20T04:10:19Z",
       "side": 1,
       "message": "This needs moved to the else of line 527.",
+      "revId": "7b89a638e78b6c4abab6dd0a1faf016b38e76097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "854d6ef0_b897e6d4",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-11-20T19:10:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "614edf9b_f0192c8e",
       "revId": "7b89a638e78b6c4abab6dd0a1faf016b38e76097",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
