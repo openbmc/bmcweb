@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "25dbe418_cac598c1",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T16:00:01Z",
+      "side": 1,
+      "message": "\u003e I was thinking about this as well, since currently its hardcoded. I didn\u0027t want to necessarily fall back to the \"RackMount\" because it could be wrong. You also wouldn\u0027t want to break current solutions.\n\nI don\u0027t think changing this line could break any existing solutions.  This line is for if we found a parameter and it\u0027s unparsable.\n\nWe should have a default of \"if we don\u0027t find the parameter to exist, use rackmount\"\n\n\u003e I like the idea of omitting the property if we can\u0027t map it, and if the owners are fine with that I will change it.",
+      "parentUuid": "57fd8c7c_a04834f5",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 19
+      },
+      "revId": "7b89a638e78b6c4abab6dd0a1faf016b38e76097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "614edf9b_f0192c8e",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 4
