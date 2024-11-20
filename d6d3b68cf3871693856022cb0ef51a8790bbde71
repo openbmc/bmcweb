@@ -16,6 +16,24 @@
       "message": "@Ed In our previous discussions, you mentioned that you were not in favor of having global error matchers for firmware updates. Instead, the plan of record (POR) was to rely on task state \u0026 status to determine whether the update had succeeded or failed, and then use the log service to identify any errors. This is what the new flow will bring in. Since you are making changes to this API which gets called from fwUpdateErrorMatcher, I wanted to understand if the POR has changed?",
       "revId": "d6d3b68cf3871693856022cb0ef51a8790bbde71",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f42134a_6c96ec83",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T21:25:09Z",
+      "side": 1,
+      "message": "I\u0027m not following what the question has to do with this patch?  This patch is transitioning us to the registry generated messages, as should\u0027ve been done int he first place (not an OEM message).\n\nWhether or not we have global match expressions is a different discussion, and I\u0027m not really sure how it\u0027s related?",
+      "parentUuid": "ec4dd3fe_9be4f087",
+      "revId": "d6d3b68cf3871693856022cb0ef51a8790bbde71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
