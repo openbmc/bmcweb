@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1c8bf50_91c19e8f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1095,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4a9498a_c64f9c51",
+      "range": {
+        "startLine": 1095,
+        "startChar": 31,
+        "endLine": 1095,
+        "endChar": 45
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de2eb620_59e67176",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-11-18T12:27:53Z",
       "side": 1,
       "message": "this should be a size error, not that the property is not writable",
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ec5cc1_e552bd93",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de2eb620_59e67176",
       "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aa9c10c_ebd6b4bc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61e4abad_fc6785b7",
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b14786a_ffb4f294",
@@ -75,6 +135,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e483e086_92c0e5c9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1161,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b14786a_ffb4f294",
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e42a587a_baf04c37",
@@ -88,6 +166,30 @@
       "writtenOn": "2024-11-18T12:27:53Z",
       "side": 1,
       "message": "Please combine the None case with the branch on line 1157",
+      "range": {
+        "startLine": 1162,
+        "startChar": 53,
+        "endLine": 1162,
+        "endChar": 79
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6852383_684e44e5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e42a587a_baf04c37",
       "range": {
         "startLine": 1162,
         "startChar": 53,
@@ -121,6 +223,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58801f47_360fb48f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1173,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b115c50a_d849fcfa",
+      "range": {
+        "startLine": 1173,
+        "startChar": 36,
+        "endLine": 1173,
+        "endChar": 57
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbc42c11_8ad13382",
@@ -134,6 +260,30 @@
       "writtenOn": "2024-11-18T12:27:53Z",
       "side": 1,
       "message": "this is for the roleId property, right?",
+      "range": {
+        "startLine": 1192,
+        "startChar": 68,
+        "endLine": 1192,
+        "endChar": 74
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a463108_1208d4d8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1192,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbc42c11_8ad13382",
       "range": {
         "startLine": 1192,
         "startChar": 68,
@@ -169,6 +319,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b4f8084_893ed9c9",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1209,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "This change is outside the scope of the current commit.\nProbably a new commit for the same?",
+      "parentUuid": "ff2afb82_99d108f7",
+      "range": {
+        "startLine": 1202,
+        "startChar": 0,
+        "endLine": 1209,
+        "endChar": 9
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c7c108b_556f7234",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 32
@@ -180,6 +354,30 @@
       "writtenOn": "2024-11-18T12:27:53Z",
       "side": 1,
       "message": "Why is this called \"capture0\" instead of accountTypes?",
+      "range": {
+        "startLine": 1236,
+        "startChar": 33,
+        "endLine": 1236,
+        "endChar": 42
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "321a505e_c7797294",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c7c108b_556f7234",
       "range": {
         "startLine": 1236,
         "startChar": 33,
@@ -213,6 +411,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76ffe9c9_40d087ad",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1237,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc46c975_9b892d75",
+      "range": {
+        "startLine": 1237,
+        "startChar": 56,
+        "endLine": 1237,
+        "endChar": 65
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "585cb1be_341a94da",
@@ -226,6 +448,30 @@
       "writtenOn": "2024-11-18T12:27:53Z",
       "side": 1,
       "message": "Remove.  No need to call std::forward on an int.",
+      "range": {
+        "startLine": 1238,
+        "startChar": 33,
+        "endLine": 1238,
+        "endChar": 63
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2dcf88a_665d5c4a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1238,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "585cb1be_341a94da",
       "range": {
         "startLine": 1238,
         "startChar": 33,
@@ -261,6 +507,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01d05856_478370ee",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1385,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "For MFA not enabled, line 1391 would evaluate to false as dbus value will be none. And the same value (false) will be sent back in the response.",
+      "parentUuid": "0f63db93_15abc061",
+      "range": {
+        "startLine": 1385,
+        "startChar": 0,
+        "endLine": 1385,
+        "endChar": 2
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cc8667e_d7fe5a7c",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 32
@@ -272,6 +542,30 @@
       "writtenOn": "2024-11-18T12:27:53Z",
       "side": 1,
       "message": "nit, extra parens",
+      "range": {
+        "startLine": 1392,
+        "startChar": 16,
+        "endLine": 1392,
+        "endChar": 17
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2a6a7dd_ef9fc57a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-11-20T12:50:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cc8667e_d7fe5a7c",
       "range": {
         "startLine": 1392,
         "startChar": 16,
