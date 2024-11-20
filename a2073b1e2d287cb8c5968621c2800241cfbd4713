@@ -93,6 +93,30 @@
       },
       "revId": "a2073b1e2d287cb8c5968621c2800241cfbd4713",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b8cefe7_05408600",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-20T18:02:48Z",
+      "side": 1,
+      "message": "yeah, I guess that catches 0",
+      "parentUuid": "47205649_a21d9114",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 2
+      },
+      "revId": "a2073b1e2d287cb8c5968621c2800241cfbd4713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
