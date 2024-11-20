@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee36ba66_f36cd293",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T19:31:04Z",
+      "side": 1,
+      "message": "This has been changed to be a normal class member function as \n`void Subscription::sendHeartbeatEvent()\u0027 and placed it in subscription.cpp after breaking the header/cpp by https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75235.\n\nPlease see https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75791/7..12/redfish-core/src/subscription.cpp#108",
+      "parentUuid": "7b5e6984_35174c23",
+      "range": {
+        "startLine": 318,
+        "startChar": 0,
+        "endLine": 318,
+        "endChar": 26
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af79c3bb_fe71118e",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de59f471_f84d507b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T19:31:04Z",
+      "side": 1,
+      "message": "Thanks for pointing out this.\nRemoved the part.",
+      "parentUuid": "af79c3bb_fe71118e",
+      "range": {
+        "startLine": 988,
+        "startChar": 0,
+        "endLine": 992,
+        "endChar": 9
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f551cf53_a3cc7800",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-11-20T15:58:30Z",
       "side": 1,
       "message": "Please follow the pattern the other methods follow for declaring in the class",
+      "range": {
+        "startLine": 1450,
+        "startChar": 4,
+        "endLine": 1450,
+        "endChar": 16
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae59dcc0_36673983",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1450,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T19:31:04Z",
+      "side": 1,
+      "message": "This part was done this way due to the order of the classes `Subscription` \u0026 `EventServiceManager` before.\nAfter https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75235, I\u0027ve redone this as a normal member function of `Subscription`  -  https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75791/7..12/redfish-core/src/subscription.cpp#108",
+      "parentUuid": "f551cf53_a3cc7800",
       "range": {
         "startLine": 1450,
         "startChar": 4,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf70ae16_50f0d293",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1458,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T19:31:04Z",
+      "side": 1,
+      "message": "Yes, each heartbeat is treated like a new event?\nShould we have a separate event id (e.g. for HeartbeatEventId)?",
+      "parentUuid": "56ff98be_d494bf8b",
+      "range": {
+        "startLine": 1458,
+        "startChar": 21,
+        "endLine": 1458,
+        "endChar": 27
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68abd152_25ec295b",
         "filename": "redfish-core/include/heartbeat_messages.hpp",
         "patchSetId": 7
@@ -106,6 +202,30 @@
       "writtenOn": "2024-11-20T15:58:30Z",
       "side": 1,
       "message": "?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 45
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d4f7af2_620dd8f0",
+        "filename": "redfish-core/include/heartbeat_messages.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T19:31:04Z",
+      "side": 1,
+      "message": "I modeled this after `error_messages.hpp` like\n\nhttps://github.com/openbmc/bmcweb/blob/d109e2b60f7bb367dc8115475c6cb86bca6e1914/redfish-core/src/error_messages.cpp#L152C1-L163C1\n\nThe similar ones are  `task_messages.hpp` or `resource_messages.hpp` like\nhttps://github.com/openbmc/bmcweb/blob/d109e2b60f7bb367dc8115475c6cb86bca6e1914/redfish-core/include/task_messages.hpp#L29",
+      "parentUuid": "68abd152_25ec295b",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -163,6 +283,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d4c6fe2_34085d21",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T19:31:04Z",
+      "side": 1,
+      "message": "Yes, this is a part of POST and thus heartbeat is started only if heartbeat is enabled.",
+      "parentUuid": "00bea8b6_5f1ec2a9",
+      "range": {
+        "startLine": 712,
+        "startChar": 0,
+        "endLine": 712,
+        "endChar": 55
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "923220e7_96b09696",
@@ -199,6 +343,30 @@
       "writtenOn": "2024-11-20T18:16:03Z",
       "side": 1,
       "message": "On a PATCH, we could either do this, stop it / add the new always or check if heartbeat values were actually in the patch.  \n\nLet\u0027s say you just updated retryPolicy and not HeartbeatIntervalMinutes / SendHeartbeat, this breaks the cadence..\n\nSo yeah probably something like \n```\n// if Heartbeat interval or send heart were changed, cancel the heartbeat timer if running and start a new heartbeat if needed \n  if (hbIntervalMinutes || sendHeartbeat) \n{\n  subValue-\u003ehbTimer.cancel();\n\n  if (subValue-\u003euserSub-\u003esendHeartbeat)\n  {\n     subValue-\u003escheduleNextHeartbeatEvent();\n  }\n\n}\n```",
+      "parentUuid": "923220e7_96b09696",
+      "range": {
+        "startLine": 888,
+        "startChar": 0,
+        "endLine": 888,
+        "endChar": 56
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "489ec146_0cbd1bb6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T19:31:04Z",
+      "side": 1,
+      "message": "Right. The current code can causes the lapse of the heartbeat if a patch happens while the timer is being waited.\n\nI\u0027ll do the schedule next heartbeat only if hbIntervalMinutes or sendHeartbeat as you suggested.\n\n---\nI still see another problem - in the case if hbInterval is changed.\n- If a previous timer is started and waiting (e.g. says - 1/2 interval (t1) passed )\n- hbInterval is changed (t2)\n\nThen, the heartbeat will not occur until the next t2, and then total pause time will be 1/2 * t1 + t2 - which would be larger than both t1 or t2.\n(Note, in the current code, the first heartbeat happens after the inteval from POST or PATCH).\n\nPerhaps, should we start the heartbeat immediately after POST or PATCH?\nOr, is it not an issue as the heartbeat interval should be measure from POST or PATCH?",
       "parentUuid": "923220e7_96b09696",
       "range": {
         "startLine": 888,
