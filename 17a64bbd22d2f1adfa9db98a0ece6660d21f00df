@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da3ac8df_958027ca",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T16:58:24Z",
+      "side": 1,
+      "message": "You may not see it, but it\u0027s there 😊\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/75882",
+      "parentUuid": "e5845e9b_cbda0ee3",
+      "revId": "17a64bbd22d2f1adfa9db98a0ece6660d21f00df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "350eca8b_7f4905b4",
         "filename": "redfish-core/include/error_messages.hpp",
         "patchSetId": 9
