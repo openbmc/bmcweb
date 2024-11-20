@@ -38,6 +38,32 @@ enum class LogLevel
     Enabled,
 };
 
+constexpr int toSystemdLevel(LogLevel level)
+{
+    std::array<std::pair<LogLevel, int>, 5> mapping{
+        {// EMERGENCY 0
+         // ALERT 1
+         {LogLevel::Critical, 2},
+         {LogLevel::Error, 3},
+         {LogLevel::Warning, 4},
+         // NOTICE 5
+         {LogLevel::Info, 6},
+         {LogLevel::Debug, 7}}};
+
+    auto* it = std::ranges::find_if(
+        mapping, [level](const std::pair<LogLevel, int>& elem) {
+            return elem.first == level;
+        });
+
+    // Unknown log level.  Just assume debug
+    if (it != mapping.end())
+    {
+        return 7;
+    }
+
+    return it->second;
+}
+
 // Mapping of the external loglvl name to internal loglvl
 constexpr std::array<std::string_view, 7> mapLogLevelFromName{
     "DISABLED", "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG", "ENABLED"};
@@ -87,10 +113,7 @@ inline void vlog(std::format_string<Args...>&& format, Args&&... args,
     {
         return;
     }
-    constexpr size_t stringIndex = static_cast<size_t>(level);
-    static_assert(stringIndex < mapLogLevelFromName.size(),
-                  "Missing string for level");
-    constexpr std::string_view levelString = mapLogLevelFromName[stringIndex];
+    constexpr int systemdLevel = toSystemdLevel(level);
     std::string_view filename = loc.file_name();
     filename = filename.substr(filename.rfind('/'));
     if (!filename.empty())
@@ -105,7 +128,7 @@ inline void vlog(std::format_string<Args...>&& format, Args&&... args,
         // of the formatters throw, so unclear at this point why this try/catch
         // is required, but add it to silence the static analysis tools.
         logLocation =
-            std::format("[{} {}:{}] ", levelString, filename, loc.line());
+            std::format("<{}>[{}:{}] ", systemdLevel, filename, loc.line());
         logLocation +=
             std::format(std::move(format), std::forward<Args>(args)...);
     }
