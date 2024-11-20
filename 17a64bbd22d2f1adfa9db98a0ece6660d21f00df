@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5845e9b_cbda0ee3",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-20T15:53:05Z",
+      "side": 1,
+      "message": "maybe just change this in this commit then? \nI don\u0027t see a commit changing this yet",
+      "parentUuid": "092fb2fd_3761d356",
+      "revId": "17a64bbd22d2f1adfa9db98a0ece6660d21f00df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "350eca8b_7f4905b4",
         "filename": "redfish-core/include/error_messages.hpp",
         "patchSetId": 9
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "We\u0027re on 1.19 now.  I\u0027m not following where 1.11 is from?\n\nhttps://github.com/openbmc/bmcweb/blob/master/scripts/parse_registries.py#L247",
       "parentUuid": "350eca8b_7f4905b4",
+      "revId": "17a64bbd22d2f1adfa9db98a0ece6660d21f00df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cc13a60_4280e631",
+        "filename": "redfish-core/include/error_messages.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-20T15:53:05Z",
+      "side": 1,
+      "message": "it was above. ack.",
+      "parentUuid": "b60c85c3_156c3989",
       "revId": "17a64bbd22d2f1adfa9db98a0ece6660d21f00df",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
