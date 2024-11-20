@@ -215,6 +215,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "257b87ab_a22b8c5a",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1458,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T21:28:27Z",
+      "side": 1,
+      "message": "Would this be related to this?\n \n```\ncurl -k -X GET https://${bmc}/redfish/v1/EventService/\n\n  \"RegistryPrefixes\": [\n    \"Base\",\n    \"OpenBMC\",\n    \"TaskEvent\"\n  ],\n  \"ResourceTypes\": [\n    \"IBMConfigFile\",\n    \"Task\"\n  ],\n```\n\nAnd todos are\n- add \"HeartbeatEvent\" for RegistryPrefixes \n-  add \"Heartbeat\" for ResourceTypes\n- Deal with those additional prefixes and resourceTypes like \"TaskEvent\" or \"Task\u0027. e.g. sendEvent(\"Heartbeat\") for heartbeat.\n\nI\u0027ll play around more",
+      "parentUuid": "cd6e2b04_3b137c4e",
+      "range": {
+        "startLine": 1458,
+        "startChar": 21,
+        "endLine": 1458,
+        "endChar": 27
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68abd152_25ec295b",
         "filename": "redfish-core/include/heartbeat_messages.hpp",
         "patchSetId": 7
