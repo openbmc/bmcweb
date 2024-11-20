@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e112dba_db59e87b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-20T18:01:06Z",
+      "side": 1,
+      "message": "generated enums",
+      "revId": "89849cde2a58382877130de957f3e2e2b72fa581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d08d92c_28dcc54a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-20T18:01:06Z",
+      "side": 1,
+      "message": "include memory",
+      "revId": "89849cde2a58382877130de957f3e2e2b72fa581",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
