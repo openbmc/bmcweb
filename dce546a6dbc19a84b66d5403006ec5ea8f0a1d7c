@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e88b435f_7e948327",
+        "filename": "redfish-core/include/event_log.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T03:40:50Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed yet.  There\u0027s no ability to handle message args today, right?",
+      "range": {
+        "startLine": 39,
+        "startChar": 40,
+        "endLine": 39,
+        "endChar": 57
+      },
+      "revId": "dce546a6dbc19a84b66d5403006ec5ea8f0a1d7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
