@@ -526,6 +526,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bba08587_dc2e5503",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 1321,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T03:48:31Z",
+      "side": 1,
+      "message": "\u003e It should be rebased now.\n\u003e \n\u003e What do you think, should i create an event_service_manager.cpp before this patch?\n\nI don\u0027t care that much about a cpp vs hpp.\n\n\u003e \n\u003e \u003e EventServiceManager might take the second two as members.\n\u003e \n\u003e ok, should we make the 2 backends implement some common interface?\n\nEh, I\u0027m less worried about common interfaces.  Just have each type be it\u0027s own method can call each at the appropriate time.  I suspect the biggest thing is that these two static methods should turn into \"normal\" methods outside of the class and just be called, unit tested, etc.\n\n\u003e \n\u003e Like IEventServiceBackend and that could then define some virtual functions to override. For example, to register the dbus matcher or inotify.\n\nLets worry about that when we have more than 3 backends.  For now, lets just code it up and call each in turn after checking the options.\n\n\u003e \n\u003e Then the EventServiceManager could have a member of type IEventServiceBackend\n\u003e and the implementation can be chosen by selecting the appropriate meson option.\n\u003e \n\u003e On the reverse, RsyslogEventServiceManager and DbusEventServiceManager could be \n\u003e created and inherit from EventServiceManager. \n\nI\u0027d really prefer we don\u0027t do that.  bmcweb has a relatively complete understanding of what exists within it.  The need for abstract interfaces is fairly rare by design.\n\n\u003e \n\u003e Then the consumer code can create either type depending on the meson option.",
+      "parentUuid": "f0f75a41_9658a92b",
+      "range": {
+        "startLine": 1321,
+        "startChar": 16,
+        "endLine": 1321,
+        "endChar": 38
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "89839570_d511079a",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 9

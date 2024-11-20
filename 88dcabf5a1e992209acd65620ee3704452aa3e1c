@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28b3b4c1_18b40e44",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T03:48:31Z",
+      "side": 1,
+      "message": "Now that we have a connection to dbus, we need a kind of \"shutdown\" method to make sure that this match object (or the EventServiceManager) object is destroyed before dbus closes, otherwise we\u0027ll have lifetime issues.",
+      "range": {
+        "startLine": 101,
+        "startChar": 36,
+        "endLine": 101,
+        "endChar": 43
+      },
+      "revId": "88dcabf5a1e992209acd65620ee3704452aa3e1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcc4f66d_ae622440",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T03:48:31Z",
+      "side": 1,
+      "message": "This should be else, then the below code, right?\n\nprobably lets make a new \"start\" function, and put both registerDbusEventLogMatch() and startEventLogMonitor() in the new function.",
+      "revId": "88dcabf5a1e992209acd65620ee3704452aa3e1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
