@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24be7137_fdc7392f",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 711,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-20T18:16:03Z",
+      "side": 1,
+      "message": "// schedule a heartbeat if sendHeartbeat was set to true \n\nwould make this more clear",
+      "revId": "1a5cc4382832191e94252316abb10bef46cff1ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

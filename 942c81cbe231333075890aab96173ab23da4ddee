@@ -141,6 +141,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c81a4981_cdc7e970",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-20T18:16:03Z",
+      "side": 1,
+      "message": "It is only called if sendHeartbeat is true (which the default is false), so only if the sendHeartbeat was added in the Post.",
+      "parentUuid": "00bea8b6_5f1ec2a9",
+      "range": {
+        "startLine": 712,
+        "startChar": 0,
+        "endLine": 712,
+        "endChar": 55
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "923220e7_96b09696",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 7
@@ -152,6 +176,30 @@
       "writtenOn": "2024-11-20T15:58:30Z",
       "side": 1,
       "message": "Won\u0027t this break the heartbeat cadence if this timer is less than the new set time?  Might not matter, but something to consider.",
+      "range": {
+        "startLine": 888,
+        "startChar": 0,
+        "endLine": 888,
+        "endChar": 56
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce6c6d67_91e0cb31",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-20T18:16:03Z",
+      "side": 1,
+      "message": "On a PATCH, we could either do this, stop it / add the new always or check if heartbeat values were actually in the patch.  \n\nLet\u0027s say you just updated retryPolicy and not HeartbeatIntervalMinutes / SendHeartbeat, this breaks the cadence..\n\nSo yeah probably something like \n```\n// if Heartbeat interval or send heart were changed, cancel the heartbeat timer if running and start a new heartbeat if needed \n  if (hbIntervalMinutes || sendHeartbeat) \n{\n  subValue-\u003ehbTimer.cancel();\n\n  if (subValue-\u003euserSub-\u003esendHeartbeat)\n  {\n     subValue-\u003escheduleNextHeartbeatEvent();\n  }\n\n}\n```",
+      "parentUuid": "923220e7_96b09696",
       "range": {
         "startLine": 888,
         "startChar": 0,
