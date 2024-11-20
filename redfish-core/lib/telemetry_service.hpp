@@ -33,6 +33,8 @@ inline void handleTelemetryServiceGet(
         "/redfish/v1/TelemetryService/MetricReportDefinitions";
     asyncResp->res.jsonValue["MetricReports"]["@odata.id"] =
         "/redfish/v1/TelemetryService/MetricReports";
+    asyncResp->res.jsonValue["MetricDefinitions"]["@odata.id"] =
+        "/redfish/v1/TelemetryService/MetricDefinitions";
     asyncResp->res.jsonValue["Triggers"]["@odata.id"] =
         "/redfish/v1/TelemetryService/Triggers";
 

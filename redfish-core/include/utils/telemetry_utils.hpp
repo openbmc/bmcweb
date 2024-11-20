@@ -20,6 +20,8 @@ namespace telemetry
 constexpr const char* service = "xyz.openbmc_project.Telemetry";
 constexpr const char* reportInterface = "xyz.openbmc_project.Telemetry.Report";
 
+constexpr const char* metricDefinitionUri =
+    "/redfish/v1/TelemetryService/MetricDefinitions/";
 inline std::string getDbusReportPath(std::string_view id)
 {
     sdbusplus::message::object_path reportsPath(
