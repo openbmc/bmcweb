@@ -239,6 +239,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8a748c1e_186e336c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1458,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T21:37:38Z",
+      "side": 1,
+      "message": "\u003e Would this be related to this?\n\u003e  \n\u003e ```\n\u003e curl -k -X GET https://${bmc}/redfish/v1/EventService/\n\u003e \n\u003e   \"RegistryPrefixes\": [\n\u003e     \"Base\",\n\u003e     \"OpenBMC\",\n\u003e     \"TaskEvent\"\n\u003e   ],\n\u003e   \"ResourceTypes\": [\n\u003e     \"IBMConfigFile\",\n\u003e     \"Task\"\n\u003e   ],\n\u003e ```\n\n\nNo.  https://github.com/openbmc/bmcweb/blob/a8770740ab793a16210ad2aa769d50d8110383ca/redfish-core/include/event_service_manager.hpp#L83\n\nis what I\u0027m talking about.\n\n\u003e \n\u003e And todos are\n\u003e - add \"HeartbeatEvent\" for RegistryPrefixes\n\u003e -  add \"Heartbeat\" for ResourceTypes\n\u003e - Deal with those additional prefixes and resourceTypes like \"TaskEvent\" or \"Task\u0027. e.g. sendEvent(\"Heartbeat\") for heartbeat.\n\u003e \n\u003e I\u0027ll play around more",
+      "parentUuid": "257b87ab_a22b8c5a",
+      "range": {
+        "startLine": 1458,
+        "startChar": 21,
+        "endLine": 1458,
+        "endChar": 27
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68abd152_25ec295b",
         "filename": "redfish-core/include/heartbeat_messages.hpp",
         "patchSetId": 7

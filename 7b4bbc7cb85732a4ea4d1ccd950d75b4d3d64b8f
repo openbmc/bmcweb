@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f1f7e68_41b57650",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T21:37:38Z",
+      "side": 1,
+      "message": "Redfish event listener clearly isn\u0027t testing types.  Do we need to hand the output to another tool to do that?",
+      "parentUuid": "15f1b784_f7330a78",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa3bc27d_df3f5da5",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 1
