@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "738b22d2_5c24508b",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-11-20T17:22:35Z",
+      "side": 1,
+      "message": "So this line currently does support the xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Unknown enum. Should we specifically call out that enum and then have the default not add the parameter?",
+      "parentUuid": "25dbe418_cac598c1",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 19
+      },
+      "revId": "7b89a638e78b6c4abab6dd0a1faf016b38e76097",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "614edf9b_f0192c8e",
         "filename": "redfish-core/lib/chassis.hpp",
         "patchSetId": 4
