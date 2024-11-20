@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd6e2b04_3b137c4e",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1458,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T20:04:09Z",
+      "side": 1,
+      "message": "This architectural thought and testing.  Currently bmcweb treats all IDs as global to the system.  This patch is changing that such that some ids are now subscription specific.  What I suspect we need to do is come up with a mechanism where hearbeats are still assigned a system-wide ID, but are only sent to a single subscription, similar to if they had been filtered.",
+      "parentUuid": "cf70ae16_50f0d293",
+      "range": {
+        "startLine": 1458,
+        "startChar": 21,
+        "endLine": 1458,
+        "endChar": 27
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68abd152_25ec295b",
         "filename": "redfish-core/include/heartbeat_messages.hpp",
         "patchSetId": 7
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "I modeled this after `error_messages.hpp` like\n\nhttps://github.com/openbmc/bmcweb/blob/d109e2b60f7bb367dc8115475c6cb86bca6e1914/redfish-core/src/error_messages.cpp#L152C1-L163C1\n\nThe similar ones are  `task_messages.hpp` or `resource_messages.hpp` like\nhttps://github.com/openbmc/bmcweb/blob/d109e2b60f7bb367dc8115475c6cb86bca6e1914/redfish-core/include/task_messages.hpp#L29",
       "parentUuid": "68abd152_25ec295b",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 45
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0797d9cc_cde30c3e",
+        "filename": "redfish-core/include/heartbeat_messages.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-20T20:04:09Z",
+      "side": 1,
+      "message": "Ug, that probably needs fixed to make those enums size_t so in this code we can just do to_underlying.\n\nOk, fine as is.  Please also be aware of the series that\u0027s generating these files.  Ideally we would generate this file as well.\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/75882",
+      "parentUuid": "8d4f7af2_620dd8f0",
       "range": {
         "startLine": 17,
         "startChar": 0,
