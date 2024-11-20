@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "019ab2ee_50803327",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T16:20:11Z",
+      "side": 1,
+      "message": "Added the schema links",
+      "parentUuid": "4e8bbec7_66d1379b",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "a2073b1e2d287cb8c5968621c2800241cfbd4713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef972a9a_587b66d0",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-20T15:39:11Z",
       "side": 1,
       "message": "Should this confirm *value is also \u003e 0?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 2
+      },
+      "revId": "a2073b1e2d287cb8c5968621c2800241cfbd4713",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47205649_a21d9114",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-20T16:20:11Z",
+      "side": 1,
+      "message": "Good catch. I\u0027ve updated it",
+      "parentUuid": "ef972a9a_587b66d0",
       "range": {
         "startLine": 114,
         "startChar": 0,
