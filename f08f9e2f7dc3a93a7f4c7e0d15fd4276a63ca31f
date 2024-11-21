@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6415b0ef_c68bc660",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-21T19:15:45Z",
+      "side": 1,
+      "message": "Added some details to the expected features.",
+      "parentUuid": "1b66664a_1a13e98b",
+      "range": {
+        "startLine": 15,
+        "startChar": 45,
+        "endLine": 15,
+        "endChar": 70
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06219103_4cdbb0a2",
@@ -136,6 +160,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1f9df18_ed6b47da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-21T19:15:45Z",
+      "side": 1,
+      "message": "Added some detail here.",
+      "parentUuid": "ff167deb_ff31d718",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 37
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5b2b497_9dcd5b94",
@@ -149,6 +197,24 @@
       "writtenOn": "2024-11-16T19:08:11Z",
       "side": 1,
       "message": "Can we also please test this with the official redfish event service handler?  I suspect that will simplify your testing as well.",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7efe0d23_d43682a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-21T19:15:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5b2b497_9dcd5b94",
       "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -277,6 +343,30 @@
       "writtenOn": "2024-11-16T19:08:11Z",
       "side": 1,
       "message": "Why is this being added?  I only see one usage where it\u0027s set to true.  Probably move this to its own commit with a message about why we would ever want to create an unformatted log message?",
+      "range": {
+        "startLine": 222,
+        "startChar": 8,
+        "endLine": 222,
+        "endChar": 25
+      },
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c6a78cc_390b0682",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-21T19:15:45Z",
+      "side": 1,
+      "message": "removed that.",
+      "parentUuid": "8d5e392a_be0f04f2",
       "range": {
         "startLine": 222,
         "startChar": 8,
@@ -435,6 +525,24 @@
       "writtenOn": "2024-11-18T16:30:33Z",
       "side": 1,
       "message": "this is going to create a copy of a relatively large object.  Could we instead do\n\nconst std::vector\u003cEventLogObjectsType\u003e eventRecords;\nEventLogObjectsType\u0026 event \u003d eventRecords.emplace_back();\nbool success \u003d eventLogObjectFromDBus(map, event);",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7029f0c_37c24981",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-21T19:15:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ab6f085_2371f4d4",
       "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
