@@ -115,12 +115,7 @@ int run()
 
     crow::login_routes::requestRoutes(app);
 
-    int rc = redfish::EventServiceManager::getInstance(io.get()).start();
-    if (rc != 0)
-    {
-        BMCWEB_LOG_ERROR("Redfish event handler setup failed...");
-        return rc;
-    }
+    redfish::EventServiceManager::getInstance(io.get());
 
     if constexpr (!BMCWEB_INSECURE_DISABLE_SSL)
     {
@@ -137,9 +132,6 @@ int run()
     io->run();
 
     crow::connections::systemBus = nullptr;
-
-    // TODO(ed) Make event log monitor an RAII object instead of global vars
-    redfish::EventServiceManager::stopEventLogMonitor();
 
     return 0;
 }
