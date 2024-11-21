@@ -20,15 +20,23 @@ inline void getRegistryAndMessageKey(const std::string& messageID,
                                      std::string& messageKey)
 {
     // Redfish MessageIds are in the form
-    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
-    // the right Message
+    // RegistryName.MajorVersion.MinorVersion.MessageKey  or
+    // RegistryName.MajorVersion.MinorVersion.Revision.MessageKey, so parse it
+    // to find the right Message
     std::vector<std::string> fields;
-    fields.reserve(4);
+    fields.reserve(5);
     bmcweb::split(fields, messageID, '.');
     if (fields.size() == 4)
     {
         registryName = fields[0];
         messageKey = fields[3];
+    }
+    else if (fields.size() == 5)
+    {
+        // e.g., HeartbeatEvent message like
+        // "HeartbeatEvent.1.0.1.RedfishServiceFunctional"
+        registryName = fields[0];
+        messageKey = fields[4];
     }
 }
 
