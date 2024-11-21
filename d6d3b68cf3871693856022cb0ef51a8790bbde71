@@ -34,6 +34,24 @@
       "parentUuid": "ec4dd3fe_9be4f087",
       "revId": "d6d3b68cf3871693856022cb0ef51a8790bbde71",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58e36f9a_57e1e659",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-11-21T06:36:32Z",
+      "side": 1,
+      "message": "Yes, it\u0027s not directly related to the patch. Please disregard my previous comment. The global error matcher won\u0027t be necessary as the Activation Status interface will be updated accordingly in the new flow.",
+      "parentUuid": "6f42134a_6c96ec83",
+      "revId": "d6d3b68cf3871693856022cb0ef51a8790bbde71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
