@@ -81,6 +81,7 @@ class EventServiceManager
 
     boost::asio::io_context& ioc;
 
+    std::optional<DbusEventLogMonitor> dbusEventLogMonitor;
     std::optional<DbusTelemetryMonitor> dbusTelemetryReportMonitor;
     std::optional<FilesystemLogWatcher> filesystemLogMonitor;
 
@@ -261,11 +262,18 @@ class EventServiceManager
 
         if (serviceEnabled)
         {
-            if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
+            if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+            {
+                if (!dbusEventLogMonitor && noOfEventLogSubscribers > 0U)
+                {
+                    dbusEventLogMonitor.emplace();
+                }
+            }
+            else
             {
                 if (!filesystemLogMonitor && noOfEventLogSubscribers > 0U)
                 {
-                    filesystemLogMonitor.emplace(FilesystemLogWatcher(ioc));
+                    filesystemLogMonitor.emplace(ioc);
                 }
             }
             if (!dbusTelemetryReportMonitor && noOfMetricReportSubscribers > 0U)
@@ -275,6 +283,7 @@ class EventServiceManager
         }
         else
         {
+            dbusEventLogMonitor.reset();
             dbusTelemetryReportMonitor.reset();
             filesystemLogMonitor.reset();
         }
@@ -332,22 +341,42 @@ class EventServiceManager
                 metricReportSubCount++;
             }
         }
-
         noOfEventLogSubscribers = eventLogSubCount;
-        if (noOfMetricReportSubscribers != metricReportSubCount)
+        if (eventLogSubCount > 0U)
         {
-            noOfMetricReportSubscribers = metricReportSubCount;
-            if (noOfMetricReportSubscribers != 0U)
+            if constexpr (BMCWEB_REDFISH_DBUS_LOG)
             {
-                if (!dbusTelemetryReportMonitor)
+                if (!dbusEventLogMonitor)
                 {
-                    dbusTelemetryReportMonitor.emplace();
+                    dbusEventLogMonitor.emplace();
                 }
             }
             else
             {
-                dbusTelemetryReportMonitor.reset();
+                if (!filesystemLogMonitor)
+                {
+                    filesystemLogMonitor.emplace(ioc);
+                }
             }
+        }
+        else
+        {
+            dbusEventLogMonitor.reset();
+            filesystemLogMonitor.reset();
+        }
+
+        noOfMetricReportSubscribers = metricReportSubCount;
+        if (metricReportSubCount > 0U)
+        {
+            if (!dbusTelemetryReportMonitor)
+            {
+                dbusTelemetryReportMonitor.emplace();
+            }
+        }
+        else
+        {
+            dbusTelemetryReportMonitor.reset();
+            dbusEventLogMonitor.reset();
         }
     }
 
