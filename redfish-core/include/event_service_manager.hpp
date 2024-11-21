@@ -82,6 +82,7 @@ class EventServiceManager
     boost::asio::io_context& ioc;
 
     std::optional<DbusTelemetryMonitor> dbusTelemetryReportMonitor;
+    std::optional<FilesystemLogWatcher> filesystemLogMonitor;
 
   public:
     EventServiceManager(const EventServiceManager&) = delete;
@@ -260,6 +261,13 @@ class EventServiceManager
 
         if (serviceEnabled)
         {
+            if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
+            {
+                if (!filesystemLogMonitor && noOfEventLogSubscribers > 0U)
+                {
+                    filesystemLogMonitor.emplace(FilesystemLogWatcher(ioc));
+                }
+            }
             if (!dbusTelemetryReportMonitor && noOfMetricReportSubscribers > 0U)
             {
                 dbusTelemetryReportMonitor.emplace();
@@ -268,6 +276,7 @@ class EventServiceManager
         else
         {
             dbusTelemetryReportMonitor.reset();
+            filesystemLogMonitor.reset();
         }
 
         if (serviceEnabled != cfg.enabled)
