@@ -115,6 +115,20 @@ option(
                     /redfish/v1/Systems/system/LogServices/EventLog/Entries''',
 )
 
+# BMCWEB_EXPERIMENTAL_REDFISH_DBUS_LOG_SUBS
+option(
+    'experimental-redfish-dbus-log-subs',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable DBUS log event subscriptions through Redfish.
+                    Currently there is a problem with this code that will restrict
+                    the number of events you can receive compared to
+                    /redfish/v1/Systems/system/LogServices/EventLog/Entries to the subset
+                    of events that do not have any entries in the 'MessageArgs' field.
+                    Paths are under /redfish/v1/EventService/Subscriptions/
+                    ''',
+)
+
 # BMCWEB_REDFISH_HOST_LOGGER
 option(
     'redfish-host-logger',
