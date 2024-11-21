@@ -568,6 +568,30 @@
       },
       "revId": "942c81cbe231333075890aab96173ab23da4ddee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e293c89c_74d14428",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-21T16:22:22Z",
+      "side": 1,
+      "message": "Acknowledged.\nLet\u0027s mark this point as resolved.",
+      "parentUuid": "7a95cfa7_288e08cb",
+      "range": {
+        "startLine": 888,
+        "startChar": 0,
+        "endLine": 888,
+        "endChar": 56
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

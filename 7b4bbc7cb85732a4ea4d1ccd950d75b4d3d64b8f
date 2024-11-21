@@ -146,6 +146,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ccc008d2_6b8ca5c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-21T16:22:22Z",
+      "side": 1,
+      "message": "I submitted a commit - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75979 to fix `eventMatchesFilter()` to handle MessageIds which may have 5 parts like\n- \"MessageId\": \"TaskEvent.1.0.3.TaskStarted\",\n- \"MessageId\": \"HeartbeatEvent.1.0.1.RedfishServiceFunctional\",\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/75979 also adds a HeartbeatEvent test cases (which may address this test related points).",
+      "parentUuid": "82ecdfe3_0cf0dcb3",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa3bc27d_df3f5da5",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 1
