@@ -115,6 +115,21 @@ option(
                     /redfish/v1/Systems/system/LogServices/EventLog/Entries''',
 )
 
+# BMCWEB_EXPERIMENTAL_REDFISH_DBUS_LOG_SUBSCRIPTION
+option(
+    'experimental-redfish-dbus-log-subscription',
+    type: 'feature',
+    value: 'disabled',
+    description: '''
+        Allows EventService subscriptions when the redfish-dbus-log option is
+        enabled.
+        This option is currently non-functional, given Redfish requirements for
+        MessageId support in Events.
+        Option will be removed begining of Q2-2025.
+        Should not be enabled on any production systems.
+    ''',
+)
+
 # BMCWEB_REDFISH_HOST_LOGGER
 option(
     'redfish-host-logger',
