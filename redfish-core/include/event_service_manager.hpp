@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 #pragma once
+#include "dbus_log_watcher.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_log.hpp"
@@ -81,7 +82,6 @@ class EventServiceManager
     std::streampos redfishLogFilePosition{0};
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
-    std::shared_ptr<sdbusplus::bus::match_t> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
@@ -98,7 +98,8 @@ class EventServiceManager
 
     boost::asio::io_context& ioc;
 
-    std::unique_ptr<sdbusplus::bus::match_t> dbusEventLogMonitor;
+    std::optional<DbusEventLogMonitor> dbusEventLogMonitor;
+    std::optional<DbusTelemetryMonitor> dbusTelemetryReportMonitor;
 
   public:
     EventServiceManager(const EventServiceManager&) = delete;
@@ -280,17 +281,29 @@ class EventServiceManager
         bool updateConfig = false;
         bool updateRetryCfg = false;
 
+        if (serviceEnabled)
+        {
+            if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+            {
+                if (!dbusEventLogMonitor)
+                {
+                    dbusEventLogMonitor.emplace();
+                }
+            }
+            if (!dbusTelemetryReportMonitor && noOfMetricReportSubscribers > 0U)
+            {
+                dbusTelemetryReportMonitor.emplace();
+            }
+        }
+        else
+        {
+            dbusEventLogMonitor.reset();
+            dbusTelemetryReportMonitor.reset();
+        }
+
         if (serviceEnabled != cfg.enabled)
         {
             serviceEnabled = cfg.enabled;
-            if (serviceEnabled && noOfMetricReportSubscribers != 0U)
-            {
-                registerMetricReportSignal();
-            }
-            else
-            {
-                unregisterMetricReportSignal();
-            }
             updateConfig = true;
         }
 
@@ -348,11 +361,22 @@ class EventServiceManager
             noOfMetricReportSubscribers = metricReportSubCount;
             if (noOfMetricReportSubscribers != 0U)
             {
-                registerMetricReportSignal();
+                if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+                {
+                    if (!dbusEventLogMonitor)
+                    {
+                        dbusEventLogMonitor.emplace();
+                    }
+                }
+                if (!dbusTelemetryReportMonitor)
+                {
+                    dbusTelemetryReportMonitor.emplace();
+                }
             }
             else
             {
-                unregisterMetricReportSignal();
+                dbusTelemetryReportMonitor.reset();
+                dbusEventLogMonitor.reset();
             }
         }
     }
@@ -556,6 +580,28 @@ class EventServiceManager
             }
         }
         return true;
+    }
+
+    static void
+        sendEventsToSubs(const std::vector<EventLogObjectsType>& eventRecords)
+    {
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            Subscription& entry = *it.second;
+            entry.filterAndSendEventLogs(eventRecords);
+        }
+    }
+
+    static void sendTelemetryReportToSubs(
+        const std::string& reportId, const telemetry::TimestampReadings& var)
+    {
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            Subscription& entry = *it.second;
+            entry.filterAndSendReports(reportId, var);
+        }
     }
 
     void sendEvent(nlohmann::json::object_t eventMessage,
@@ -808,101 +854,9 @@ class EventServiceManager
             });
     }
 
-    static bool eventLogObjectFromDBus(
-        const dbus::utility::DBusPropertiesMap& map, EventLogObjectsType& event)
-    {
-        std::optional<DbusEventLogEntry> optEntry =
-            fillDbusEventLogEntryFromPropertyMap(map);
-
-        if (!optEntry.has_value())
-        {
-            BMCWEB_LOG_ERROR(
-                "Could not construct event log entry from dbus properties");
-            return false;
-        }
-        DbusEventLogEntry& entry = optEntry.value();
-        event.id = std::to_string(entry.Id);
-        event.timestamp = std::to_string(entry.Timestamp);
-        event.messageId = entry.Message;
-
-        // The order of 'AdditionalData' is not what's specified in an e.g.
-        // busctl call to create the Event Log Entry. So it cannot be used
-        // to map to the message args. Leaving this branch here for it to be
-        // implemented when the mapping is available
-
-        return true;
-    }
-
-    static void dbusEventLogMatchHandlerSingleEntry(
-        const dbus::utility::DBusPropertiesMap& map)
-    {
-        std::vector<EventLogObjectsType> eventRecords;
-        EventLogObjectsType& event = eventRecords.emplace_back();
-        bool success = eventLogObjectFromDBus(map, event);
-        if (!success)
-        {
-            BMCWEB_LOG_ERROR("Could not parse event log entry from dbus");
-            return;
-        }
-
-        BMCWEB_LOG_DEBUG(
-            "Found Event Log Entry Id={}, Timestamp={}, Message={}", event.id,
-            event.timestamp, event.messageId);
-
-        for (const auto& it :
-             EventServiceManager::getInstance().subscriptionsMap)
-        {
-            std::shared_ptr<Subscription> entry = it.second;
-            entry->filterAndSendEventLogs(eventRecords);
-        }
-    }
-
-    static void onDbusEventLogCreated(sdbusplus::message_t& msg)
-    {
-        BMCWEB_LOG_DEBUG("Handling new DBus Event Log Entry");
-
-        sdbusplus::message::object_path objectPath;
-        dbus::utility::DBusInterfacesMap interfaces;
-
-        msg.read(objectPath, interfaces);
-
-        for (auto& pair : interfaces)
-        {
-            BMCWEB_LOG_DEBUG("Found dbus interface {}", pair.first);
-            if (pair.first == "xyz.openbmc_project.Logging.Entry")
-            {
-                const dbus::utility::DBusPropertiesMap& map = pair.second;
-                dbusEventLogMatchHandlerSingleEntry(map);
-            }
-        }
-    }
-
-    void registerDbusEventLogMatch()
-    {
-        BMCWEB_LOG_DEBUG("Registering Dbus Event Log Added Signal");
-
-        std::string propertiesMatchString =
-            sdbusplus::bus::match::rules::type::signal() +
-            sdbusplus::bus::match::rules::sender(
-                "xyz.openbmc_project.Logging") +
-            sdbusplus::bus::match::rules::interface(
-                "org.freedesktop.DBus.ObjectManager") +
-            sdbusplus::bus::match::rules::path("/xyz/openbmc_project/logging") +
-            sdbusplus::bus::match::rules::member("InterfacesAdded");
-
-        dbusEventLogMonitor = std::make_unique<sdbusplus::bus::match_t>(
-            *crow::connections::systemBus, propertiesMatchString,
-            onDbusEventLogCreated);
-    }
-
     int start()
     {
-        if constexpr (BMCWEB_REDFISH_DBUS_LOG)
-        {
-            registerDbusEventLogMatch();
-            return 0;
-        }
-        else
+        if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
         {
             return startEventLogMonitor();
         }
@@ -951,82 +905,6 @@ class EventServiceManager
     static void stopEventLogMonitor()
     {
         inotifyConn.reset();
-    }
-
-    static void getReadingsForReport(sdbusplus::message_t& msg)
-    {
-        if (msg.is_method_error())
-        {
-            BMCWEB_LOG_ERROR("TelemetryMonitor Signal error");
-            return;
-        }
-
-        sdbusplus::message::object_path path(msg.get_path());
-        std::string id = path.filename();
-        if (id.empty())
-        {
-            BMCWEB_LOG_ERROR("Failed to get Id from path");
-            return;
-        }
-
-        std::string interface;
-        dbus::utility::DBusPropertiesMap props;
-        std::vector<std::string> invalidProps;
-        msg.read(interface, props, invalidProps);
-
-        auto found = std::ranges::find_if(props, [](const auto& x) {
-            return x.first == "Readings";
-        });
-        if (found == props.end())
-        {
-            BMCWEB_LOG_INFO("Failed to get Readings from Report properties");
-            return;
-        }
-
-        const telemetry::TimestampReadings* readings =
-            std::get_if<telemetry::TimestampReadings>(&found->second);
-        if (readings == nullptr)
-        {
-            BMCWEB_LOG_INFO("Failed to get Readings from Report properties");
-            return;
-        }
-
-        for (const auto& it :
-             EventServiceManager::getInstance().subscriptionsMap)
-        {
-            Subscription& entry = *it.second;
-            if (entry.userSub->eventFormatType == metricReportFormatType)
-            {
-                entry.filterAndSendReports(id, *readings);
-            }
-        }
-    }
-
-    void unregisterMetricReportSignal()
-    {
-        if (matchTelemetryMonitor)
-        {
-            BMCWEB_LOG_DEBUG("Metrics report signal - Unregister");
-            matchTelemetryMonitor.reset();
-            matchTelemetryMonitor = nullptr;
-        }
-    }
-
-    void registerMetricReportSignal()
-    {
-        if (!serviceEnabled || matchTelemetryMonitor)
-        {
-            BMCWEB_LOG_DEBUG("Not registering metric report signal.");
-            return;
-        }
-
-        BMCWEB_LOG_DEBUG("Metrics report signal - Register");
-        std::string matchStr = "type='signal',member='PropertiesChanged',"
-                               "interface='org.freedesktop.DBus.Properties',"
-                               "arg0=xyz.openbmc_project.Telemetry.Report";
-
-        matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match_t>(
-            *crow::connections::systemBus, matchStr, getReadingsForReport);
     }
 };
 
