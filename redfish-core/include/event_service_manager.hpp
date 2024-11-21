@@ -25,16 +25,16 @@ limitations under the License.
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
 #include "subscription.hpp"
+#include "utility.hpp"
+#include "utils/dbus_event_log_entry.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
-
-#include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view_base.hpp>
-#include <sdbusplus/bus/match.hpp>
 
 #include <algorithm>
 #include <cstdlib>
@@ -45,6 +45,7 @@ limitations under the License.
 #include <string>
 #include <string_view>
 #include <utility>
+#include <variant>
 
 namespace redfish
 {
@@ -55,8 +56,6 @@ static constexpr const char* metricReportFormatType = "MetricReport";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
 
-static constexpr const char* redfishEventLogFile = "/var/log/redfish";
-
 class EventServiceManager
 {
   private:
@@ -64,10 +63,8 @@ class EventServiceManager
     uint32_t retryAttempts = 0;
     uint32_t retryTimeoutInterval = 0;
 
-    std::streampos redfishLogFilePosition{0};
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
-    std::optional<DbusTelemetryMonitor> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
@@ -83,6 +80,9 @@ class EventServiceManager
     boost::circular_buffer<Event> messages{maxMessages};
 
     boost::asio::io_context& ioc;
+
+    std::optional<DbusTelemetryMonitor> dbusTelemetryReportMonitor;
+    std::optional<FilesystemLogWatcher> filesystemLogMonitor;
 
   public:
     EventServiceManager(const EventServiceManager&) = delete;
@@ -141,11 +141,6 @@ class EventServiceManager
             subscriptionsMap.emplace(id, subValue);
 
             updateNoOfSubscribersCount();
-
-            if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
-            {
-                cacheRedfishLogFile();
-            }
 
             // Update retry configuration.
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
@@ -264,17 +259,29 @@ class EventServiceManager
         bool updateConfig = false;
         bool updateRetryCfg = false;
 
+        if (serviceEnabled)
+        {
+            if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
+            {
+                if (!filesystemLogMonitor && noOfEventLogSubscribers > 0U)
+                {
+                    filesystemLogMonitor.emplace(FilesystemLogWatcher(ioc));
+                }
+            }
+            if (!dbusTelemetryReportMonitor && noOfMetricReportSubscribers > 0U)
+            {
+                dbusTelemetryReportMonitor.emplace();
+            }
+        }
+        else
+        {
+            dbusTelemetryReportMonitor.reset();
+            filesystemLogMonitor.reset();
+        }
+
         if (serviceEnabled != cfg.enabled)
         {
             serviceEnabled = cfg.enabled;
-            if (serviceEnabled && noOfMetricReportSubscribers != 0U)
-            {
-                matchTelemetryMonitor.emplace();
-            }
-            else
-            {
-                matchTelemetryMonitor.reset();
-            }
             updateConfig = true;
         }
 
@@ -332,11 +339,14 @@ class EventServiceManager
             noOfMetricReportSubscribers = metricReportSubCount;
             if (noOfMetricReportSubscribers != 0U)
             {
-                matchTelemetryMonitor.emplace();
+                if (!dbusTelemetryReportMonitor)
+                {
+                    dbusTelemetryReportMonitor.emplace();
+                }
             }
             else
             {
-                matchTelemetryMonitor.reset();
+                dbusTelemetryReportMonitor.reset();
             }
         }
     }
@@ -392,13 +402,6 @@ class EventServiceManager
 
         updateNoOfSubscribersCount();
 
-        if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
-        {
-            if (redfishLogFilePosition != 0)
-            {
-                cacheRedfishLogFile();
-            }
-        }
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
 
@@ -542,6 +545,17 @@ class EventServiceManager
         return true;
     }
 
+    static void
+        sendEventsToSubs(const std::vector<EventLogObjectsType>& eventRecords)
+    {
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            Subscription& entry = *it.second;
+            entry.filterAndSendEventLogs(eventRecords);
+        }
+    }
+
     static void sendTelemetryReportToSubs(
         const std::string& reportId, const telemetry::TimestampReadings& var)
     {
@@ -591,111 +605,6 @@ class EventServiceManager
                 2, ' ', true, nlohmann::json::error_handler_t::replace);
             entry->sendEventToSubscriber(std::move(strMsg));
             eventId++; // increment the eventId
-        }
-    }
-
-    void resetRedfishFilePosition()
-    {
-        // Control would be here when Redfish file is created.
-        // Reset File Position as new file is created
-        redfishLogFilePosition = 0;
-    }
-
-    void cacheRedfishLogFile()
-    {
-        // Open the redfish file and read till the last record.
-
-        std::ifstream logStream(redfishEventLogFile);
-        if (!logStream.good())
-        {
-            BMCWEB_LOG_ERROR(" Redfish log file open failed ");
-            return;
-        }
-        std::string logEntry;
-        while (std::getline(logStream, logEntry))
-        {
-            redfishLogFilePosition = logStream.tellg();
-        }
-    }
-
-    void readEventLogsFromFile()
-    {
-        std::ifstream logStream(redfishEventLogFile);
-        if (!logStream.good())
-        {
-            BMCWEB_LOG_ERROR(" Redfish log file open failed");
-            return;
-        }
-
-        std::vector<EventLogObjectsType> eventRecords;
-
-        std::string logEntry;
-
-        BMCWEB_LOG_DEBUG("Redfish log file: seek to {}",
-                         static_cast<int>(redfishLogFilePosition));
-
-        // Get the read pointer to the next log to be read.
-        logStream.seekg(redfishLogFilePosition);
-
-        while (std::getline(logStream, logEntry))
-        {
-            BMCWEB_LOG_DEBUG("Redfish log file: found new event log entry");
-            // Update Pointer position
-            redfishLogFilePosition = logStream.tellg();
-
-            std::string idStr;
-            if (!event_log::getUniqueEntryID(logEntry, idStr))
-            {
-                BMCWEB_LOG_DEBUG(
-                    "Redfish log file: could not get unique entry id for {}",
-                    logEntry);
-                continue;
-            }
-
-            if (!serviceEnabled || noOfEventLogSubscribers == 0)
-            {
-                // If Service is not enabled, no need to compute
-                // the remaining items below.
-                // But, Loop must continue to keep track of Timestamp
-                BMCWEB_LOG_DEBUG(
-                    "Redfish log file: no subscribers / event service not enabled");
-                continue;
-            }
-
-            std::string timestamp;
-            std::string messageID;
-            std::vector<std::string> messageArgs;
-            if (event_log::getEventLogParams(logEntry, timestamp, messageID,
-                                             messageArgs) != 0)
-            {
-                BMCWEB_LOG_DEBUG("Read eventLog entry params failed for {}",
-                                 logEntry);
-                continue;
-            }
-
-            eventRecords.emplace_back(idStr, timestamp, messageID, messageArgs);
-        }
-
-        if (!serviceEnabled || noOfEventLogSubscribers == 0)
-        {
-            BMCWEB_LOG_DEBUG("EventService disabled or no Subscriptions.");
-            return;
-        }
-
-        if (eventRecords.empty())
-        {
-            // No Records to send
-            BMCWEB_LOG_DEBUG("No log entries available to be transferred.");
-            return;
-        }
-
-        for (const auto& it : subscriptionsMap)
-        {
-            std::shared_ptr<Subscription> entry = it.second;
-            if (entry->userSub->eventFormatType == "Event")
-            {
-                entry->filterAndSendEventLogs(eventRecords);
-            }
         }
     }
 };
