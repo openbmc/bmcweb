@@ -287,6 +287,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "231edc19_7a5e1e1b",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1458,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-21T14:26:04Z",
+      "side": 1,
+      "message": "I modified  so that \n- Add \"Heartbeat\" resourceType for filtering\n- OriginOfCondition as URL of subscription\n\n```\ncurl -k -X GET https://${bmc}/redfish/v1/EventService/\n\n  \"RegistryPrefixes\": [\n    \"Base\",\n    \"OpenBMC\",\n    \"TaskEvent\",\n    \"HeartbeatEvent\"\n  ],\n  \"ResourceTypes\": [\n    \"Task\",\n    \"Heartbeat\"\n  ],\n  \n```\n\nHeartbeat event message:\n\n```\n{\n  \"@odata.type\": \"#Event.v1_4_0.Event\",\n  \"Events\": [\n    {\n      \"@odata.type\": \"#Message.v1_1_1.Message\",\n      \"EventId\": 1,\n      \"EventTimestamp\": \"2024-11-21T12:49:16+00:00\",\n      \"MemberId\": \"0\",\n      \"Message\": \"Redfish service is functional.\",\n      \"MessageArgs\": [],\n      \"MessageId\": \"HeartbeatEvent.1.0.1.RedfishServiceFunctional\",\n      \"MessageSeverity\": \"OK\",\n      \"OriginOfCondition\": \"/redfish/v1/EventService/Subscriptions/1521743607\",\n      \"Resolution\": \"None.\"\n    }\n  ],\n  \"Id\": 1,\n  \"Name\": \"Event Log\"\n}\n```\n\nIn addition, add HeartbeatEvent to Registry \n`curl -k -X GET https://${bmc}/redfish/v1/Registries/HeartbeatEvent/HeartbeatEvent`.",
+      "parentUuid": "e40bf7f2_42573ce8",
+      "range": {
+        "startLine": 1458,
+        "startChar": 21,
+        "endLine": 1458,
+        "endChar": 27
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "68abd152_25ec295b",
         "filename": "redfish-core/include/heartbeat_messages.hpp",
         "patchSetId": 7
