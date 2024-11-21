@@ -14,11 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 #pragma once
+#include "dbus_log_watcher.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_log.hpp"
 #include "event_matches_filter.hpp"
 #include "event_service_store.hpp"
+#include "filesystem_log_watcher.hpp"
 #include "metric_report.hpp"
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
@@ -28,15 +30,11 @@ limitations under the License.
 #include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
 
-#include <sys/inotify.h>
-
 #include <boost/asio/io_context.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view_base.hpp>
-#include <sdbusplus/bus.hpp>
-#include <sdbusplus/bus/match.hpp>
 
 #include <algorithm>
 #include <cstdlib>
@@ -52,24 +50,10 @@ limitations under the License.
 namespace redfish
 {
 
-static constexpr const char* eventFormatType = "Event";
-static constexpr const char* metricReportFormatType = "MetricReport";
-
-static constexpr const char* eventServiceFile =
+constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
-
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
-static constexpr const char* redfishEventLogDir = "/var/log";
-static constexpr const char* redfishEventLogFile = "/var/log/redfish";
-static constexpr const size_t iEventSize = sizeof(inotify_event);
-
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static int inotifyFd = -1;
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static int dirWatchDesc = -1;
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static int fileWatchDesc = -1;
+constexpr const char* eventFormatType = "Event";
+constexpr const char* metricReportFormatType = "MetricReport";
 
 class EventServiceManager
 {
@@ -81,7 +65,6 @@ class EventServiceManager
     std::streampos redfishLogFilePosition{0};
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
-    std::shared_ptr<sdbusplus::bus::match_t> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
@@ -98,7 +81,9 @@ class EventServiceManager
 
     boost::asio::io_context& ioc;
 
-    std::unique_ptr<sdbusplus::bus::match_t> dbusEventLogMonitor;
+    std::optional<DbusEventLogMonitor> dbusEventLogMonitor;
+    std::optional<DbusTelemetryMonitor> dbusTelemetryReportMonitor;
+    std::optional<FilesystemLogWatcher> filesystemLogMonitor;
 
   public:
     EventServiceManager(const EventServiceManager&) = delete;
@@ -280,17 +265,37 @@ class EventServiceManager
         bool updateConfig = false;
         bool updateRetryCfg = false;
 
-        if (serviceEnabled != cfg.enabled)
+        if (serviceEnabled)
         {
-            serviceEnabled = cfg.enabled;
-            if (serviceEnabled && noOfMetricReportSubscribers != 0U)
+            if constexpr (BMCWEB_REDFISH_DBUS_LOG)
             {
-                registerMetricReportSignal();
+                if (!dbusEventLogMonitor)
+                {
+                    dbusEventLogMonitor.emplace();
+                }
             }
             else
             {
-                unregisterMetricReportSignal();
+                if (!filesystemLogMonitor)
+                {
+                    filesystemLogMonitor.emplace(FilesystemLogWatcher(ioc));
+                }
             }
+            if (!dbusTelemetryReportMonitor && noOfMetricReportSubscribers > 0U)
+            {
+                dbusTelemetryReportMonitor.emplace();
+            }
+        }
+        else
+        {
+            dbusEventLogMonitor.reset();
+            dbusTelemetryReportMonitor.reset();
+            filesystemLogMonitor.reset();
+        }
+
+        if (serviceEnabled != cfg.enabled)
+        {
+            serviceEnabled = cfg.enabled;
             updateConfig = true;
         }
 
@@ -348,11 +353,22 @@ class EventServiceManager
             noOfMetricReportSubscribers = metricReportSubCount;
             if (noOfMetricReportSubscribers != 0U)
             {
-                registerMetricReportSignal();
+                if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+                {
+                    if (!dbusEventLogMonitor)
+                    {
+                        dbusEventLogMonitor.emplace();
+                    }
+                }
+                if (!dbusTelemetryReportMonitor)
+                {
+                    dbusTelemetryReportMonitor.emplace();
+                }
             }
             else
             {
-                unregisterMetricReportSignal();
+                dbusTelemetryReportMonitor.reset();
+                dbusEventLogMonitor.reset();
             }
         }
     }
@@ -558,6 +574,28 @@ class EventServiceManager
         return true;
     }
 
+    static void
+        sendEventsToSubs(const std::vector<EventLogObjectsType>& eventRecords)
+    {
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            Subscription& entry = *it.second;
+            entry.filterAndSendEventLogs(eventRecords);
+        }
+    }
+
+    static void sendTelemetryReportToSubs(
+        const std::string& reportId, const telemetry::TimestampReadings& var)
+    {
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            Subscription& entry = *it.second;
+            entry.filterAndSendReports(reportId, var);
+        }
+    }
+
     void sendEvent(nlohmann::json::object_t eventMessage,
                    std::string_view origin, std::string_view resourceType)
     {
@@ -702,331 +740,6 @@ class EventServiceManager
                 entry->filterAndSendEventLogs(eventRecords);
             }
         }
-    }
-
-    static void watchRedfishEventLogFile()
-    {
-        if (!inotifyConn)
-        {
-            BMCWEB_LOG_ERROR("inotify Connection is not present");
-            return;
-        }
-
-        static std::array<char, 1024> readBuffer;
-
-        inotifyConn->async_read_some(
-            boost::asio::buffer(readBuffer),
-            [&](const boost::system::error_code& ec,
-                const std::size_t& bytesTransferred) {
-                if (ec == boost::asio::error::operation_aborted)
-                {
-                    BMCWEB_LOG_DEBUG("Inotify was canceled (shutdown?)");
-                    return;
-                }
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("Callback Error: {}", ec.message());
-                    return;
-                }
-
-                BMCWEB_LOG_DEBUG("reading {} via inotify", bytesTransferred);
-
-                std::size_t index = 0;
-                while ((index + iEventSize) <= bytesTransferred)
-                {
-                    struct inotify_event event
-                    {};
-                    std::memcpy(&event, &readBuffer[index], iEventSize);
-                    if (event.wd == dirWatchDesc)
-                    {
-                        if ((event.len == 0) ||
-                            (index + iEventSize + event.len > bytesTransferred))
-                        {
-                            index += (iEventSize + event.len);
-                            continue;
-                        }
-
-                        std::string fileName(&readBuffer[index + iEventSize]);
-                        if (fileName != "redfish")
-                        {
-                            index += (iEventSize + event.len);
-                            continue;
-                        }
-
-                        BMCWEB_LOG_DEBUG(
-                            "Redfish log file created/deleted. event.name: {}",
-                            fileName);
-                        if (event.mask == IN_CREATE)
-                        {
-                            if (fileWatchDesc != -1)
-                            {
-                                BMCWEB_LOG_DEBUG(
-                                    "Remove and Add inotify watcher on "
-                                    "redfish event log file");
-                                // Remove existing inotify watcher and add
-                                // with new redfish event log file.
-                                inotify_rm_watch(inotifyFd, fileWatchDesc);
-                                fileWatchDesc = -1;
-                            }
-
-                            fileWatchDesc = inotify_add_watch(
-                                inotifyFd, redfishEventLogFile, IN_MODIFY);
-                            if (fileWatchDesc == -1)
-                            {
-                                BMCWEB_LOG_ERROR("inotify_add_watch failed for "
-                                                 "redfish log file.");
-                                return;
-                            }
-
-                            EventServiceManager::getInstance()
-                                .resetRedfishFilePosition();
-                            EventServiceManager::getInstance()
-                                .readEventLogsFromFile();
-                        }
-                        else if ((event.mask == IN_DELETE) ||
-                                 (event.mask == IN_MOVED_TO))
-                        {
-                            if (fileWatchDesc != -1)
-                            {
-                                inotify_rm_watch(inotifyFd, fileWatchDesc);
-                                fileWatchDesc = -1;
-                            }
-                        }
-                    }
-                    else if (event.wd == fileWatchDesc)
-                    {
-                        if (event.mask == IN_MODIFY)
-                        {
-                            EventServiceManager::getInstance()
-                                .readEventLogsFromFile();
-                        }
-                    }
-                    index += (iEventSize + event.len);
-                }
-
-                watchRedfishEventLogFile();
-            });
-    }
-
-    static bool eventLogObjectFromDBus(
-        const dbus::utility::DBusPropertiesMap& map, EventLogObjectsType& event)
-    {
-        std::optional<DbusEventLogEntry> optEntry =
-            fillDbusEventLogEntryFromPropertyMap(map);
-
-        if (!optEntry.has_value())
-        {
-            BMCWEB_LOG_ERROR(
-                "Could not construct event log entry from dbus properties");
-            return false;
-        }
-        DbusEventLogEntry& entry = optEntry.value();
-        event.id = std::to_string(entry.Id);
-        event.timestamp = std::to_string(entry.Timestamp);
-        event.messageId = entry.Message;
-
-        // The order of 'AdditionalData' is not what's specified in an e.g.
-        // busctl call to create the Event Log Entry. So it cannot be used
-        // to map to the message args. Leaving this branch here for it to be
-        // implemented when the mapping is available
-
-        return true;
-    }
-
-    static void dbusEventLogMatchHandlerSingleEntry(
-        const dbus::utility::DBusPropertiesMap& map)
-    {
-        std::vector<EventLogObjectsType> eventRecords;
-        EventLogObjectsType& event = eventRecords.emplace_back();
-        bool success = eventLogObjectFromDBus(map, event);
-        if (!success)
-        {
-            BMCWEB_LOG_ERROR("Could not parse event log entry from dbus");
-            return;
-        }
-
-        BMCWEB_LOG_DEBUG(
-            "Found Event Log Entry Id={}, Timestamp={}, Message={}", event.id,
-            event.timestamp, event.messageId);
-
-        for (const auto& it :
-             EventServiceManager::getInstance().subscriptionsMap)
-        {
-            std::shared_ptr<Subscription> entry = it.second;
-            entry->filterAndSendEventLogs(eventRecords);
-        }
-    }
-
-    static void onDbusEventLogCreated(sdbusplus::message_t& msg)
-    {
-        BMCWEB_LOG_DEBUG("Handling new DBus Event Log Entry");
-
-        sdbusplus::message::object_path objectPath;
-        dbus::utility::DBusInterfacesMap interfaces;
-
-        msg.read(objectPath, interfaces);
-
-        for (auto& pair : interfaces)
-        {
-            BMCWEB_LOG_DEBUG("Found dbus interface {}", pair.first);
-            if (pair.first == "xyz.openbmc_project.Logging.Entry")
-            {
-                const dbus::utility::DBusPropertiesMap& map = pair.second;
-                dbusEventLogMatchHandlerSingleEntry(map);
-            }
-        }
-    }
-
-    void registerDbusEventLogMatch()
-    {
-        BMCWEB_LOG_DEBUG("Registering Dbus Event Log Added Signal");
-
-        std::string propertiesMatchString =
-            sdbusplus::bus::match::rules::type::signal() +
-            sdbusplus::bus::match::rules::sender(
-                "xyz.openbmc_project.Logging") +
-            sdbusplus::bus::match::rules::interface(
-                "org.freedesktop.DBus.ObjectManager") +
-            sdbusplus::bus::match::rules::path("/xyz/openbmc_project/logging") +
-            sdbusplus::bus::match::rules::member("InterfacesAdded");
-
-        dbusEventLogMonitor = std::make_unique<sdbusplus::bus::match_t>(
-            *crow::connections::systemBus, propertiesMatchString,
-            onDbusEventLogCreated);
-    }
-
-    int start()
-    {
-        if constexpr (BMCWEB_REDFISH_DBUS_LOG)
-        {
-            registerDbusEventLogMatch();
-            return 0;
-        }
-        else
-        {
-            return startEventLogMonitor();
-        }
-    }
-
-    int startEventLogMonitor()
-    {
-        BMCWEB_LOG_DEBUG("starting Event Log Monitor");
-
-        inotifyConn.emplace(ioc);
-        inotifyFd = inotify_init1(IN_NONBLOCK);
-        if (inotifyFd == -1)
-        {
-            BMCWEB_LOG_ERROR("inotify_init1 failed.");
-            return -1;
-        }
-
-        // Add watch on directory to handle redfish event log file
-        // create/delete.
-        dirWatchDesc = inotify_add_watch(inotifyFd, redfishEventLogDir,
-                                         IN_CREATE | IN_MOVED_TO | IN_DELETE);
-        if (dirWatchDesc == -1)
-        {
-            BMCWEB_LOG_ERROR(
-                "inotify_add_watch failed for event log directory.");
-            return -1;
-        }
-
-        // Watch redfish event log file for modifications.
-        fileWatchDesc =
-            inotify_add_watch(inotifyFd, redfishEventLogFile, IN_MODIFY);
-        if (fileWatchDesc == -1)
-        {
-            BMCWEB_LOG_ERROR("inotify_add_watch failed for redfish log file.");
-            // Don't return error if file not exist.
-            // Watch on directory will handle create/delete of file.
-        }
-
-        // monitor redfish event log file
-        inotifyConn->assign(inotifyFd);
-        watchRedfishEventLogFile();
-
-        return 0;
-    }
-
-    static void stopEventLogMonitor()
-    {
-        inotifyConn.reset();
-    }
-
-    static void getReadingsForReport(sdbusplus::message_t& msg)
-    {
-        if (msg.is_method_error())
-        {
-            BMCWEB_LOG_ERROR("TelemetryMonitor Signal error");
-            return;
-        }
-
-        sdbusplus::message::object_path path(msg.get_path());
-        std::string id = path.filename();
-        if (id.empty())
-        {
-            BMCWEB_LOG_ERROR("Failed to get Id from path");
-            return;
-        }
-
-        std::string interface;
-        dbus::utility::DBusPropertiesMap props;
-        std::vector<std::string> invalidProps;
-        msg.read(interface, props, invalidProps);
-
-        auto found = std::ranges::find_if(props, [](const auto& x) {
-            return x.first == "Readings";
-        });
-        if (found == props.end())
-        {
-            BMCWEB_LOG_INFO("Failed to get Readings from Report properties");
-            return;
-        }
-
-        const telemetry::TimestampReadings* readings =
-            std::get_if<telemetry::TimestampReadings>(&found->second);
-        if (readings == nullptr)
-        {
-            BMCWEB_LOG_INFO("Failed to get Readings from Report properties");
-            return;
-        }
-
-        for (const auto& it :
-             EventServiceManager::getInstance().subscriptionsMap)
-        {
-            Subscription& entry = *it.second;
-            if (entry.userSub->eventFormatType == metricReportFormatType)
-            {
-                entry.filterAndSendReports(id, *readings);
-            }
-        }
-    }
-
-    void unregisterMetricReportSignal()
-    {
-        if (matchTelemetryMonitor)
-        {
-            BMCWEB_LOG_DEBUG("Metrics report signal - Unregister");
-            matchTelemetryMonitor.reset();
-            matchTelemetryMonitor = nullptr;
-        }
-    }
-
-    void registerMetricReportSignal()
-    {
-        if (!serviceEnabled || matchTelemetryMonitor)
-        {
-            BMCWEB_LOG_DEBUG("Not registering metric report signal.");
-            return;
-        }
-
-        BMCWEB_LOG_DEBUG("Metrics report signal - Register");
-        std::string matchStr = "type='signal',member='PropertiesChanged',"
-                               "interface='org.freedesktop.DBus.Properties',"
-                               "arg0=xyz.openbmc_project.Telemetry.Report";
-
-        matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match_t>(
-            *crow::connections::systemBus, matchStr, getReadingsForReport);
     }
 };
 
