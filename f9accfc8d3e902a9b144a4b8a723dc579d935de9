@@ -312,6 +312,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7545db6_7d631f8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-21T19:32:22Z",
+      "side": 1,
+      "message": "I see the same event log entries from my manual test also in the webui.\n```\nhttps://${bmc}/#/logs/event-logs\n```\n\nSo it has to have the same dbus properties.\n\nSince i am using the same functions to parse it\n\n```\n+        std::optional\u003cDbusEventLogEntry\u003e optEntry \u003d\n+            fillDbusEventLogEntryFromPropertyMap(map);\n```\n\nHow would there be a difference?\n\n\u003e Cool, and bmcweb has had a history of failures that were caused essentially because someone injected their idealized dbus interface in a test, and ignored what the backends actually produced.\n\nI\u0027m simply exposing, via event subscriptions, the same dbus event log entries which are already supported. Not  inventing any new dbus interfaces here.\n\n\nIf you want to see something which produces these entries, how did you come to merge the support for dbus event log originally?",
+      "parentUuid": "7833b41e_dfc6d3b2",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "993d1324_53df132d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
