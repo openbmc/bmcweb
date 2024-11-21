@@ -79,4 +79,77 @@ TEST(EventServiceManager, eventMatchesFilter)
         }
     }
 }
+
+TEST(EventServiceManager, eventMatchesFilterForHeartbeat)
+{
+    {
+        nlohmann::json::object_t event;
+        // Resource types filter
+        persistent_data::UserSubscription sub;
+        sub.resourceTypes.emplace_back("Heartbeat");
+        EXPECT_FALSE(eventMatchesFilter(sub, event, "Event"));
+        EXPECT_FALSE(eventMatchesFilter(sub, event, "Task"));
+        EXPECT_TRUE(eventMatchesFilter(sub, event, "Heartbeat"));
+    }
+    {
+        nlohmann::json::object_t event;
+        // Resource types filter
+        persistent_data::UserSubscription sub;
+        sub.resourceTypes.emplace_back("Heartbeat");
+        sub.registryMsgIds.emplace_back(
+            "HeartbeatEvent.RedfishServiceFunctional");
+
+        // Correct message registry
+        event["MessageId"] = "HeartbeatEvent.1.0.1.RedfishServiceFunctional";
+        EXPECT_TRUE(eventMatchesFilter(sub, event, "Heartbeat"));
+
+        // Different message registry
+        event["MessageId"] = "Task.1.0.1.RedfishServiceFunctional";
+        EXPECT_FALSE(eventMatchesFilter(sub, event, "Heartbeat"));
+
+        // Different MessageId
+        event["MessageId"] = "OpenBMC.1.0.1.RedfishServiceFunctional";
+        EXPECT_FALSE(eventMatchesFilter(sub, event, "Heartbeat"));
+    }
+    {
+        nlohmann::json::object_t event;
+        // Message Id filter
+        persistent_data::UserSubscription sub;
+        sub.resourceTypes.emplace_back("Heartbeat");
+        event["MessageId"] = "HeartbeatEvent.1.0.1.RedfishServiceFunctional";
+
+        // Correct message registry
+        sub.registryPrefixes.emplace_back("HeartbeatEvent");
+        EXPECT_TRUE(eventMatchesFilter(sub, event, "Heartbeat"));
+
+        // Different message registry
+        event["MessageId"] = "Task.0.1.RedfishServiceFunctional";
+        EXPECT_FALSE(eventMatchesFilter(sub, event, "Heartbeat"));
+    }
+    {
+        nlohmann::json::object_t event;
+        // Resource types filter
+        {
+            persistent_data::UserSubscription sub;
+            sub.resourceTypes.emplace_back("Heartbeat");
+            event["OriginOfCondition"] =
+                "/redfish/v1/EventService/Subscriptions/1521743607";
+
+            // Correct origin
+            sub.originResources.emplace_back(
+                "/redfish/v1/EventService/Subscriptions/1521743607");
+            EXPECT_TRUE(eventMatchesFilter(sub, event, "Heartbeat"));
+        }
+        {
+            persistent_data::UserSubscription sub;
+            sub.resourceTypes.emplace_back("Heartbeat");
+            // Incorrect origin
+            sub.originResources.clear();
+            sub.originResources.emplace_back(
+                "/redfish/v1/EventService/Subscriptions/11111111");
+            EXPECT_FALSE(eventMatchesFilter(sub, event, "Heartbeat"));
+        }
+    }
+}
+
 } // namespace redfish
