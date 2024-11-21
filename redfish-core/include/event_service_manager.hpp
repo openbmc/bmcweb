@@ -25,16 +25,16 @@ limitations under the License.
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
 #include "subscription.hpp"
+#include "utility.hpp"
+#include "utils/dbus_event_log_entry.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
-
-#include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view_base.hpp>
-#include <sdbusplus/bus/match.hpp>
 
 #include <algorithm>
 #include <cstdlib>
@@ -45,6 +45,7 @@ limitations under the License.
 #include <string>
 #include <string_view>
 #include <utility>
+#include <variant>
 
 namespace redfish
 {
@@ -141,11 +142,6 @@ class EventServiceManager
             subscriptionsMap.emplace(id, subValue);
 
             updateNoOfSubscribersCount();
-
-            if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
-            {
-                cacheRedfishLogFile();
-            }
 
             // Update retry configuration.
             subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
@@ -264,17 +260,21 @@ class EventServiceManager
         bool updateConfig = false;
         bool updateRetryCfg = false;
 
-        if (serviceEnabled != cfg.enabled)
+        if (serviceEnabled)
         {
-            serviceEnabled = cfg.enabled;
-            if (serviceEnabled && noOfMetricReportSubscribers != 0U)
+            if (!matchTelemetryMonitor && noOfMetricReportSubscribers > 0U)
             {
                 matchTelemetryMonitor.emplace();
             }
-            else
-            {
-                matchTelemetryMonitor.reset();
-            }
+        }
+        else
+        {
+            matchTelemetryMonitor.reset();
+        }
+
+        if (serviceEnabled != cfg.enabled)
+        {
+            serviceEnabled = cfg.enabled;
             updateConfig = true;
         }
 
@@ -332,7 +332,10 @@ class EventServiceManager
             noOfMetricReportSubscribers = metricReportSubCount;
             if (noOfMetricReportSubscribers != 0U)
             {
-                matchTelemetryMonitor.emplace();
+                if (!matchTelemetryMonitor)
+                {
+                    matchTelemetryMonitor.emplace();
+                }
             }
             else
             {
@@ -392,13 +395,6 @@ class EventServiceManager
 
         updateNoOfSubscribersCount();
 
-        if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
-        {
-            if (redfishLogFilePosition != 0)
-            {
-                cacheRedfishLogFile();
-            }
-        }
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
 
@@ -540,6 +536,17 @@ class EventServiceManager
             }
         }
         return true;
+    }
+
+    static void
+        sendEventsToSubs(const std::vector<EventLogObjectsType>& eventRecords)
+    {
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            Subscription& entry = *it.second;
+            entry.filterAndSendEventLogs(eventRecords);
+        }
     }
 
     static void sendTelemetryReportToSubs(
