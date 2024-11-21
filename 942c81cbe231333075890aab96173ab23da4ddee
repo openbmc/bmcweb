@@ -520,6 +520,30 @@
       },
       "revId": "942c81cbe231333075890aab96173ab23da4ddee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a95cfa7_288e08cb",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 888,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-11-21T14:28:51Z",
+      "side": 1,
+      "message": "\u003e Then, the heartbeat will not occur until the next t2, and then total pause time will be 1/2 * t1 + t2 - which would be larger than both t1 or t2.\n\nI think that is fine. The client changed the hbInterval interval. \nI would expect the heartbeats to start at the new value passed in. \n\n\u003e Or, is it not an issue as the heartbeat interval should be measure from POST or PATCH?\n\nWe are getting down into the weeds but I think the heartbeat interval should be measured from the POST or PATCH (assuming they changed it on the PATCH and had it set in the POST)",
+      "parentUuid": "489ec146_0cbd1bb6",
+      "range": {
+        "startLine": 888,
+        "startChar": 0,
+        "endLine": 888,
+        "endChar": 56
+      },
+      "revId": "942c81cbe231333075890aab96173ab23da4ddee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
