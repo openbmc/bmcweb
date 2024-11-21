@@ -78,10 +78,9 @@ int run()
     if constexpr (BMCWEB_REDFISH)
     {
         redfish::RedfishService redfish(app);
-        if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
-        {
-            redfish::EventServiceManager::getInstance(&*io);
-        }
+
+        // Create EventServiceManager instance and initialize Config
+        redfish::EventServiceManager::getInstance(&*io);
 
         if constexpr (BMCWEB_REDFISH_AGGREGATION)
         {
