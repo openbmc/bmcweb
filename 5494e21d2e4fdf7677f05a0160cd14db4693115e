@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5447a73d_4f36dc5f",
+        "filename": "test/redfish-core/include/event_log_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-21T19:07:45Z",
+      "side": 1,
+      "message": "Most of these should be EXPECT, not ASSERT, just so the test can test all the assertions and not abort.\n\nI\u0027m not worried enough about it to hold this up more.",
+      "revId": "5494e21d2e4fdf7677f05a0160cd14db4693115e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "168ac11f_ac28cc2c",
+        "filename": "test/redfish-core/include/event_log_test.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-21T19:07:45Z",
+      "side": 1,
+      "message": "AssertThat(logEntryJson[\"MessageArgs\"], ArrayElemeentsAre(....));\n\nIs a simpler way to do this, but this is also fine.",
+      "revId": "5494e21d2e4fdf7677f05a0160cd14db4693115e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
