@@ -200,21 +200,23 @@ void FilesystemLogWatcher::watchRedfishEventLogFile()
 }
 
 FilesystemLogWatcher::FilesystemLogWatcher(boost::asio::io_context& ioc) :
-    inotifyFd(inotify_init1(IN_NONBLOCK)), inotifyConn(ioc)
+    inotifyConn(ioc)
 {
     BMCWEB_LOG_DEBUG("starting Event Log Monitor");
 
-    if (inotifyFd == -1)
+    int inotifyFd = inotify_init1(IN_NONBLOCK);
+    if (inotifyFd < 0)
     {
         BMCWEB_LOG_ERROR("inotify_init1 failed.");
         return;
     }
+    inotifyConn.assign(inotifyFd);
 
     // Add watch on directory to handle redfish event log file
     // create/delete.
     dirWatchDesc = inotify_add_watch(inotifyFd, redfishEventLogDir,
                                      IN_CREATE | IN_MOVED_TO | IN_DELETE);
-    if (dirWatchDesc == -1)
+    if (dirWatchDesc < 0)
     {
         BMCWEB_LOG_ERROR("inotify_add_watch failed for event log directory.");
         return;
@@ -223,7 +225,7 @@ FilesystemLogWatcher::FilesystemLogWatcher(boost::asio::io_context& ioc) :
     // Watch redfish event log file for modifications.
     fileWatchDesc =
         inotify_add_watch(inotifyFd, redfishEventLogFile, IN_MODIFY);
-    if (fileWatchDesc == -1)
+    if (fileWatchDesc < 0)
     {
         BMCWEB_LOG_ERROR("inotify_add_watch failed for redfish log file.");
         // Don't return error if file not exist.
@@ -231,7 +233,6 @@ FilesystemLogWatcher::FilesystemLogWatcher(boost::asio::io_context& ioc) :
     }
 
     // monitor redfish event log file
-    inotifyConn.assign(inotifyFd);
     watchRedfishEventLogFile();
 
     if (redfishLogFilePosition != 0)
