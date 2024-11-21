@@ -1,9 +1,39 @@
 #pragma once
 
-#include <boost/asio/io_context.hpp>
+#include <sys/inotify.h>
 
+#include <boost/asio/posix/stream_descriptor.hpp>
+
+#include <optional>
+#include <string_view>
 namespace redfish
 {
-int startEventLogMonitor(boost::asio::io_context& ioc);
-void stopEventLogMonitor();
+
+constexpr const char* redfishEventLogFile = "/var/log/redfish";
+
+class FilesystemLogWatcher
+{
+  private:
+    std::streampos redfishLogFilePosition{0};
+
+    int inotifyFd = -1;
+    int dirWatchDesc = -1;
+    int fileWatchDesc = -1;
+    boost::asio::posix::stream_descriptor inotifyConn;
+    void onINotify(const boost::system::error_code& ec,
+                   std::size_t bytesTransferred);
+
+    void resetRedfishFilePosition();
+
+    void watchRedfishEventLogFile();
+
+    void readEventLogsFromFile();
+
+    void cacheRedfishLogFile();
+
+    std::array<char, 1024> readBuffer{};
+
+  public:
+    explicit FilesystemLogWatcher(boost::asio::io_context& iocIn);
+};
 } // namespace redfish
