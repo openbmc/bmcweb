@@ -57,6 +57,7 @@ static void getReadingsForReport(sdbusplus::message_t& msg)
         BMCWEB_LOG_INFO("Failed to get Readings from Report properties");
         return;
     }
+
     EventServiceManager::sendTelemetryReportToSubs(id, *readings);
 }
 
