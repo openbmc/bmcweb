@@ -18,24 +18,11 @@
 namespace redfish
 {
 
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static int inotifyFd = -1;
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static int dirWatchDesc = -1;
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static int fileWatchDesc = -1;
-
-static std::array<char, 1024> readBuffer{};
-
 static constexpr const char* redfishEventLogDir = "/var/log";
 static constexpr const size_t iEventSize = sizeof(inotify_event);
 
-static void watchRedfishEventLogFile();
-
-void onINotify(const boost::system::error_code& ec,
-               std::size_t bytesTransferred)
+void FilesystemLogWatcher::onINotify(const boost::system::error_code& ec,
+                                     std::size_t bytesTransferred)
 {
     if (ec == boost::asio::error::operation_aborted)
     {
@@ -120,27 +107,22 @@ void onINotify(const boost::system::error_code& ec,
     watchRedfishEventLogFile();
 }
 
-static void watchRedfishEventLogFile()
+void FilesystemLogWatcher::watchRedfishEventLogFile()
 {
-    if (!inotifyConn)
-    {
-        BMCWEB_LOG_ERROR("inotify Connection is not present");
-        return;
-    }
-
-    inotifyConn->async_read_some(boost::asio::buffer(readBuffer), onINotify);
+    inotifyConn.async_read_some(
+        boost::asio::buffer(readBuffer),
+        std::bind_front(&FilesystemLogWatcher::onINotify, this));
 }
 
-int startEventLogMonitor(boost::asio::io_context& ioc)
+FilesystemLogWatcher::FilesystemLogWatcher(boost::asio::io_context& ioc) :
+    inotifyFd(inotify_init1(IN_NONBLOCK)), inotifyConn(ioc)
 {
     BMCWEB_LOG_DEBUG("starting Event Log Monitor");
 
-    inotifyConn.emplace(ioc);
-    inotifyFd = inotify_init1(IN_NONBLOCK);
     if (inotifyFd == -1)
     {
         BMCWEB_LOG_ERROR("inotify_init1 failed.");
-        return -1;
+        return;
     }
 
     // Add watch on directory to handle redfish event log file
@@ -150,7 +132,7 @@ int startEventLogMonitor(boost::asio::io_context& ioc)
     if (dirWatchDesc == -1)
     {
         BMCWEB_LOG_ERROR("inotify_add_watch failed for event log directory.");
-        return -1;
+        return;
     }
 
     // Watch redfish event log file for modifications.
@@ -164,14 +146,7 @@ int startEventLogMonitor(boost::asio::io_context& ioc)
     }
 
     // monitor redfish event log file
-    inotifyConn->assign(inotifyFd);
+    inotifyConn.assign(inotifyFd);
     watchRedfishEventLogFile();
-
-    return 0;
-}
-
-void stopEventLogMonitor()
-{
-    inotifyConn.reset();
 }
 } // namespace redfish
