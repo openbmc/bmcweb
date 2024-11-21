@@ -56,8 +56,6 @@ static constexpr const char* metricReportFormatType = "MetricReport";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
 
-static constexpr const char* redfishEventLogFile = "/var/log/redfish";
-
 class EventServiceManager
 {
   private:
@@ -65,10 +63,10 @@ class EventServiceManager
     uint32_t retryAttempts = 0;
     uint32_t retryTimeoutInterval = 0;
 
-    std::streampos redfishLogFilePosition{0};
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
     std::optional<DbusTelemetryMonitor> matchTelemetryMonitor;
+    std::optional<FilesystemLogWatcher> filesystemLogMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
@@ -262,21 +260,25 @@ class EventServiceManager
 
         if (serviceEnabled)
         {
-            if (noOfMetricReportSubscribers > 0U)
+            if (noOfEventLogSubscribers > 0U)
             {
-                if (!matchTelemetryMonitor)
+                if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
                 {
-                    matchTelemetryMonitor.emplace();
+                    if (!filesystemLogMonitor)
+                    {
+                        filesystemLogMonitor.emplace(ioc);
+                    }
                 }
             }
             else
             {
-                matchTelemetryMonitor.reset();
+                filesystemLogMonitor.reset();
             }
         }
         else
         {
             matchTelemetryMonitor.reset();
+            filesystemLogMonitor.reset();
         }
 
         if (serviceEnabled != cfg.enabled)
@@ -606,103 +608,6 @@ class EventServiceManager
             entry->sendEventToSubscriber(std::move(strMsg));
             eventId++; // increment the eventId
         }
-    }
-
-    void resetRedfishFilePosition()
-    {
-        // Control would be here when Redfish file is created.
-        // Reset File Position as new file is created
-        redfishLogFilePosition = 0;
-    }
-
-    void cacheRedfishLogFile()
-    {
-        // Open the redfish file and read till the last record.
-
-        std::ifstream logStream(redfishEventLogFile);
-        if (!logStream.good())
-        {
-            BMCWEB_LOG_ERROR(" Redfish log file open failed ");
-            return;
-        }
-        std::string logEntry;
-        while (std::getline(logStream, logEntry))
-        {
-            redfishLogFilePosition = logStream.tellg();
-        }
-    }
-
-    void readEventLogsFromFile()
-    {
-        std::ifstream logStream(redfishEventLogFile);
-        if (!logStream.good())
-        {
-            BMCWEB_LOG_ERROR(" Redfish log file open failed");
-            return;
-        }
-
-        std::vector<EventLogObjectsType> eventRecords;
-
-        std::string logEntry;
-
-        BMCWEB_LOG_DEBUG("Redfish log file: seek to {}",
-                         static_cast<int>(redfishLogFilePosition));
-
-        // Get the read pointer to the next log to be read.
-        logStream.seekg(redfishLogFilePosition);
-
-        while (std::getline(logStream, logEntry))
-        {
-            BMCWEB_LOG_DEBUG("Redfish log file: found new event log entry");
-            // Update Pointer position
-            redfishLogFilePosition = logStream.tellg();
-
-            std::string idStr;
-            if (!event_log::getUniqueEntryID(logEntry, idStr))
-            {
-                BMCWEB_LOG_DEBUG(
-                    "Redfish log file: could not get unique entry id for {}",
-                    logEntry);
-                continue;
-            }
-
-            if (!serviceEnabled || noOfEventLogSubscribers == 0)
-            {
-                // If Service is not enabled, no need to compute
-                // the remaining items below.
-                // But, Loop must continue to keep track of Timestamp
-                BMCWEB_LOG_DEBUG(
-                    "Redfish log file: no subscribers / event service not enabled");
-                continue;
-            }
-
-            std::string timestamp;
-            std::string messageID;
-            std::vector<std::string> messageArgs;
-            if (event_log::getEventLogParams(logEntry, timestamp, messageID,
-                                             messageArgs) != 0)
-            {
-                BMCWEB_LOG_DEBUG("Read eventLog entry params failed for {}",
-                                 logEntry);
-                continue;
-            }
-
-            eventRecords.emplace_back(idStr, timestamp, messageID, messageArgs);
-        }
-
-        if (!serviceEnabled || noOfEventLogSubscribers == 0)
-        {
-            BMCWEB_LOG_DEBUG("EventService disabled or no Subscriptions.");
-            return;
-        }
-
-        if (eventRecords.empty())
-        {
-            // No Records to send
-            BMCWEB_LOG_DEBUG("No log entries available to be transferred.");
-            return;
-        }
-        EventServiceManager::sendEventsToSubs(eventRecords);
     }
 };
 
