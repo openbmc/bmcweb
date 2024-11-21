@@ -18,25 +18,99 @@
 
 namespace redfish
 {
+void FilesystemLogWatcher::resetRedfishFilePosition()
+{
+    // Control would be here when Redfish file is created.
+    // Reset File Position as new file is created
+    redfishLogFilePosition = 0;
+}
 
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static std::optional<boost::asio::posix::stream_descriptor> inotifyConn;
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static int inotifyFd = -1;
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static int dirWatchDesc = -1;
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static int fileWatchDesc = -1;
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static std::array<char, 1024> readBuffer{};
+void FilesystemLogWatcher::cacheRedfishLogFile()
+{
+    // Open the redfish file and read till the last record.
+
+    std::ifstream logStream(redfishEventLogFile);
+    if (!logStream.good())
+    {
+        BMCWEB_LOG_ERROR(" Redfish log file open failed ");
+        return;
+    }
+    std::string logEntry;
+    while (std::getline(logStream, logEntry))
+    {
+        redfishLogFilePosition = logStream.tellg();
+    }
+}
+
+void FilesystemLogWatcher::readEventLogsFromFile()
+{
+    std::ifstream logStream(redfishEventLogFile);
+    if (!logStream.good())
+    {
+        BMCWEB_LOG_ERROR(" Redfish log file open failed");
+        return;
+    }
+
+    std::vector<EventLogObjectsType> eventRecords;
+
+    std::string logEntry;
+
+    BMCWEB_LOG_DEBUG("Redfish log file: seek to {}",
+                     static_cast<int>(redfishLogFilePosition));
+
+    // Get the read pointer to the next log to be read.
+    logStream.seekg(redfishLogFilePosition);
+
+    while (std::getline(logStream, logEntry))
+    {
+        BMCWEB_LOG_DEBUG("Redfish log file: found new event log entry");
+        // Update Pointer position
+        redfishLogFilePosition = logStream.tellg();
+
+        std::string idStr;
+        if (!event_log::getUniqueEntryID(logEntry, idStr))
+        {
+            BMCWEB_LOG_DEBUG(
+                "Redfish log file: could not get unique entry id for {}",
+                logEntry);
+            continue;
+        }
+
+        std::string timestamp;
+        std::string messageID;
+        std::vector<std::string> messageArgs;
+        if (event_log::getEventLogParams(logEntry, timestamp, messageID,
+                                         messageArgs) != 0)
+        {
+            BMCWEB_LOG_DEBUG("Read eventLog entry params failed for {}",
+                             logEntry);
+            continue;
+        }
+
+        eventRecords.emplace_back(idStr, timestamp, messageID, messageArgs);
+    }
+
+    if (eventRecords.empty())
+    {
+        // No Records to send
+        BMCWEB_LOG_DEBUG("No log entries available to be transferred.");
+        return;
+    }
+    EventServiceManager::sendEventsToSubs(eventRecords);
+}
 
 static constexpr const char* redfishEventLogDir = "/var/log";
 static constexpr const size_t iEventSize = sizeof(inotify_event);
 
+<<<<<<< PATCH SET (6bbcca Break out Dbus and Filesystem events into classes)
+void FilesystemLogWatcher::onINotify(const boost::system::error_code& ec,
+                                     std::size_t bytesTransferred)
+=======
 static void watchRedfishEventLogFile();
 
 static void onINotify(const boost::system::error_code& ec,
                       std::size_t bytesTransferred)
+>>>>>>> BASE      (b4ba9d Break out long lambda)
 {
     if (ec == boost::asio::error::operation_aborted)
     {
@@ -96,8 +170,8 @@ static void onINotify(const boost::system::error_code& ec,
                     return;
                 }
 
-                EventServiceManager::getInstance().resetRedfishFilePosition();
-                EventServiceManager::getInstance().readEventLogsFromFile();
+                resetRedfishFilePosition();
+                readEventLogsFromFile();
             }
             else if ((event.mask == IN_DELETE) || (event.mask == IN_MOVED_TO))
             {
@@ -112,7 +186,7 @@ static void onINotify(const boost::system::error_code& ec,
         {
             if (event.mask == IN_MODIFY)
             {
-                EventServiceManager::getInstance().readEventLogsFromFile();
+                readEventLogsFromFile();
             }
         }
         index += (iEventSize + event.len);
@@ -121,27 +195,22 @@ static void onINotify(const boost::system::error_code& ec,
     watchRedfishEventLogFile();
 }
 
-static void watchRedfishEventLogFile()
+void FilesystemLogWatcher::watchRedfishEventLogFile()
 {
-    if (!inotifyConn)
-    {
-        BMCWEB_LOG_ERROR("inotify Connection is not present");
-        return;
-    }
-
-    inotifyConn->async_read_some(boost::asio::buffer(readBuffer), onINotify);
+    inotifyConn.async_read_some(
+        boost::asio::buffer(readBuffer),
+        std::bind_front(&FilesystemLogWatcher::onINotify, this));
 }
 
-int startEventLogMonitor(boost::asio::io_context& ioc)
+FilesystemLogWatcher::FilesystemLogWatcher(boost::asio::io_context& ioc) :
+    inotifyFd(inotify_init1(IN_NONBLOCK)), inotifyConn(ioc)
 {
     BMCWEB_LOG_DEBUG("starting Event Log Monitor");
 
-    inotifyConn.emplace(ioc);
-    inotifyFd = inotify_init1(IN_NONBLOCK);
     if (inotifyFd == -1)
     {
         BMCWEB_LOG_ERROR("inotify_init1 failed.");
-        return -1;
+        return;
     }
 
     // Add watch on directory to handle redfish event log file
@@ -151,7 +220,7 @@ int startEventLogMonitor(boost::asio::io_context& ioc)
     if (dirWatchDesc == -1)
     {
         BMCWEB_LOG_ERROR("inotify_add_watch failed for event log directory.");
-        return -1;
+        return;
     }
 
     // Watch redfish event log file for modifications.
@@ -165,14 +234,12 @@ int startEventLogMonitor(boost::asio::io_context& ioc)
     }
 
     // monitor redfish event log file
-    inotifyConn->assign(inotifyFd);
+    inotifyConn.assign(inotifyFd);
     watchRedfishEventLogFile();
 
-    return 0;
-}
-
-void stopEventLogMonitor()
-{
-    inotifyConn.reset();
+    if (redfishLogFilePosition != 0)
+    {
+        cacheRedfishLogFile();
+    }
 }
 } // namespace redfish
