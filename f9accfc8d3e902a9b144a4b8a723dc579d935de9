@@ -336,6 +336,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f5ffb2b1_76863c1e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-22T00:33:55Z",
+      "side": 1,
+      "message": "\u003e I see the same event log entries from my manual test also in the webui.\n\u003e ```\n\u003e https://${bmc}/#/logs/event-logs\n\u003e ```\n\u003e \n\u003e So it has to have the same dbus properties.\n\u003e \n\u003e Since i am using the same functions to parse it\n\u003e \n\u003e ```\n\u003e +        std::optional\u003cDbusEventLogEntry\u003e optEntry \u003d\n\u003e +            fillDbusEventLogEntryFromPropertyMap(map);\n\u003e ```\n\u003e \n\u003e How would there be a difference?\n\u003e \n\u003e \u003e Cool, and bmcweb has had a history of failures that were caused essentially because someone injected their idealized dbus interface in a test, and ignored what the backends actually produced.\n\u003e \n\u003e I\u0027m simply exposing, via event subscriptions, the same dbus event log entries which are already supported. Not  inventing any new dbus interfaces here.\n\u003e \n\u003e \n\u003e If you want to see something which produces these entries, how did you come to merge the support for dbus event log originally?\n\nBecause the person that pushed the review tested it, and provided a testing statement in their commit message that tested a real scenario, just like I\u0027m asking you to do.",
+      "parentUuid": "f7545db6_7d631f8b",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "993d1324_53df132d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 9
