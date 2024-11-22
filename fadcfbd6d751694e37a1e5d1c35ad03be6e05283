@@ -216,6 +216,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "919129d1_37b388ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-22T16:45:41Z",
+      "side": 1,
+      "message": "Which is in error?\nphosphor-network explicitly blocks adding a gateway when dhcpv4 is active.\n            if (!dhcp4())\n            {\n                auto gateway4 \u003d EthernetInterfaceIntf::defaultGateway();\n                if (!gateway4.empty())\nSo your https://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/75860 commit is explicitly bypassing that check.\n\nWhat is the correct behavior in this instance?\nWhile systemd doesn\u0027t block DHCPv4 and static V4 simultaneously, it is counter to the dominant paradigm.\nIMO, if DHCPv4 is active, any PATCH of the StaticIPV4Addresses is violating common practice, and by extension needs to be blocked.\nI tested the change creating two static IPv4 addresses on the same NIC. Again, systemd doesn\u0027t prevent this. At the same time I\u0027m not sure what value doing this has for something like a BMC.",
+      "parentUuid": "a7eee1e6_4a8ca3b8",
+      "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6e26cbb8_8eecae35",
