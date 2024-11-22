@@ -204,9 +204,9 @@ inline void fillPcieDeviceStatus(crow::Response& resp,
 }
 
 inline void
-    addLinkToPCIeSlot(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const boost::system::error_code& ec,
-                      const dbus::utility::MapperEndPoints& chassisPaths)
+    afterAddLinkToPCIeSlot(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const boost::system::error_code& ec,
+                           const dbus::utility::MapperEndPoints& chassisPaths)
 {
     if (ec)
     {
@@ -232,6 +232,19 @@ inline void
         "#IBMPCIeDevice.v1_0_0.PCIeLinks";
     asyncResp->res.jsonValue["Links"]["Oem"]["IBM"]["PCIeSlot"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots", chassisName);
+}
+
+inline void
+    addLinkToPCIeSlot(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& pcieDeviceSlot)
+{
+    constexpr std::array<std::string_view, 1> chassisInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
+
+    dbus::utility::getAssociatedSubTreePaths(
+        pcieDeviceSlot + "/contained_by",
+        sdbusplus::message::object_path("/xyz/openbmc_project/inventory"), 0,
+        chassisInterfaces, std::bind_front(afterAddLinkToPCIeSlot, asyncResp));
 }
 
 inline void addPCIeSlotProperties(
@@ -393,6 +406,9 @@ inline void
         messages::internalError(asyncResp->res);
         return;
     }
+
+    addLinkToPCIeSlot(asyncResp, pcieDeviceSlot);
+
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, object.begin()->first, pcieDeviceSlot,
         "xyz.openbmc_project.Inventory.Item.PCIeSlot",
