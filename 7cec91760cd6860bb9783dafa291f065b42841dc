@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab11ae09_69240fb9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-22T14:38:37Z",
+      "side": 1,
+      "message": "that\u0027s fairly different than what\u0027s in the commit message.",
+      "parentUuid": "cf44d500_dc2f602b",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a120ba32_362d5eb7",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "I would agree that the unity build may take longer, for incremental builds.\n\n---- \n\nI measure this like -  date; time  MACHINE\u003dp10bmc bitbake  bmcweb; date`\n\n1) clean compile:\n\nnormal (before):\n```\ndo_compile 1m38s \u003c-- by eyes\nreal    2m3.016s\nuser    0m1.637s\nsys     0m0.476s\n```\nunity (with this):\n```\ndo_compile 1m40s\nreal    2m10.312s\nuser    0m1.426s\nsys     0m0.445s\n```\n\n2) Incremental.  (after touch a file `subscription.cpp`)\n\nnormal incremental build: 40s\nunity incremental build : 1m40s      \u003c\u003d\u003d This is longer as expected",
       "parentUuid": "a120ba32_362d5eb7",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ae2645_a3ac846e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-22T14:38:37Z",
+      "side": 1,
+      "message": "\u003e unity incremental build : 1m40s \u003c\u003d\u003d This is longer as expected\n\nYep.  Everything is about tradeoffs,\na 0.7% decrease in binary size doesn\u0027t seem worth it to me for a 3X longer incremental build.\n\nFor a lot less same time \"cost\" we could probably save about the same or more by just optimizing existing code.",
+      "parentUuid": "67319dea_2cb4af8d",
       "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
