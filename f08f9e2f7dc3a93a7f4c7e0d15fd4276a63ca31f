@@ -137,6 +137,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d2ac846_d8ab6669",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-22T18:24:44Z",
+      "side": 1,
+      "message": "closing this since it\u0027s a duplicate to the other comment thread\n(talking about need to have a manual test with real test scenario)",
+      "parentUuid": "81170a29_f4845ef0",
+      "revId": "f08f9e2f7dc3a93a7f4c7e0d15fd4276a63ca31f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff167deb_ff31d718",

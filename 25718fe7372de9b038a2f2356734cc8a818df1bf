@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "632c30f7_3153f576",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-22T18:24:44Z",
+      "side": 1,
+      "message": "Looks like a good idea and clean separation of\n\n- event service manager\n- file based backend\n- dbus backend\n\nThanks for letting me know, so i will not accidentally duplicate that work.",
+      "parentUuid": "1330f6ad_d47878d6",
+      "revId": "25718fe7372de9b038a2f2356734cc8a818df1bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10e17474_fd55e246",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-11-22T00:30:02Z",
       "side": 1,
       "message": "We probably shouldn\u0027t unconditionally be registering for events.  Take a look at the flow of registerMetricReportSignal and unregisterMetricReportSignal\n\nThey check for number of subscribers, and only subscribe if someone is actually listening.",
+      "revId": "25718fe7372de9b038a2f2356734cc8a818df1bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "471be884_65a7c7b4",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-22T18:24:44Z",
+      "side": 1,
+      "message": "Why would we introduce the conditional flow and make it complicated?\n\nIf we would do it that way then we would have to check that upon creation of a new subscription the match is created.\n\nSo the point of failure is moved into the future. I would rather have\nthis setup be done at startup.\n\nIf there is any problem with creating the match, it will fail fast.",
+      "parentUuid": "10e17474_fd55e246",
       "revId": "25718fe7372de9b038a2f2356734cc8a818df1bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
