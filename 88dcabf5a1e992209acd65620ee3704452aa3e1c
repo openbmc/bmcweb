@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "221275d6_dc6506f7",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-22T18:32:31Z",
+      "side": 1,
+      "message": "If you think the \"cleanup\" patch is acceptable, that patch solves this.",
+      "parentUuid": "28b3b4c1_18b40e44",
+      "range": {
+        "startLine": 101,
+        "startChar": 36,
+        "endLine": 101,
+        "endChar": 43
+      },
+      "revId": "88dcabf5a1e992209acd65620ee3704452aa3e1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bcc4f66d_ae622440",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 19
