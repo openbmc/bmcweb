@@ -120,7 +120,32 @@ int getEventLogParams(const std::string& logEntry, std::string& timestamp,
     return 0;
 }
 
-int formatEventLogEntry(
+void formatEventLogEntryWithoutMessageId(
+    const std::string& logEntryID, std::string timestamp,
+    const std::string& customText, nlohmann::json::object_t& logEntryJson)
+{
+    // Get the Created time from the timestamp. The log timestamp is in
+    // RFC3339 format which matches the Redfish format except for the
+    // fractional seconds between the '.' and the '+', so just remove them.
+    std::size_t dot = timestamp.find_first_of('.');
+    std::size_t plus = timestamp.find_first_of('+', dot);
+    if (dot != std::string::npos && plus != std::string::npos)
+    {
+        timestamp.erase(dot, plus - dot);
+    }
+
+    // Fill in the log entry with the gathered data
+    logEntryJson["EventId"] = logEntryID;
+
+    logEntryJson["Severity"] = message->messageSeverity;
+
+    logEntryJson["MessageId"] = messageID;
+    logEntryJson["MessageArgs"] = messageArgs;
+    logEntryJson["EventTimestamp"] = std::move(timestamp);
+    logEntryJson["Context"] = customText;
+}
+
+int formatEventLogEntryWithMessageId(
     const std::string& logEntryID, const std::string& messageID,
     const std::span<std::string_view> messageArgs, std::string timestamp,
     const std::string& customText, nlohmann::json::object_t& logEntryJson)
@@ -140,25 +165,10 @@ int formatEventLogEntry(
         return -1;
     }
 
-    // Get the Created time from the timestamp. The log timestamp is in
-    // RFC3339 format which matches the Redfish format except for the
-    // fractional seconds between the '.' and the '+', so just remove them.
-    std::size_t dot = timestamp.find_first_of('.');
-    std::size_t plus = timestamp.find_first_of('+', dot);
-    if (dot != std::string::npos && plus != std::string::npos)
-    {
-        timestamp.erase(dot, plus - dot);
-    }
-
-    // Fill in the log entry with the gathered data
-    logEntryJson["EventId"] = logEntryID;
-
-    logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Message"] = std::move(msg);
-    logEntryJson["MessageId"] = messageID;
-    logEntryJson["MessageArgs"] = messageArgs;
-    logEntryJson["EventTimestamp"] = std::move(timestamp);
-    logEntryJson["Context"] = customText;
+
+    formatEventLogEntryWithoutMessageId(logEntryID, timestamp, customText,
+                                        logEntryJson);
     return 0;
 }
 
