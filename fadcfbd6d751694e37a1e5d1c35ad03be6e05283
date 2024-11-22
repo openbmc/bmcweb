@@ -234,6 +234,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "93142a5e_b7c40bff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-22T16:53:24Z",
+      "side": 1,
+      "message": "\u003e Which is in error?\n\u003e phosphor-network explicitly blocks adding a gateway when dhcpv4 is active.\n\nAh, maybe this is the root of all my problems in this code.\n\n\u003e             if (!dhcp4())\n\u003e             {\n\u003e                 auto gateway4 \u003d EthernetInterfaceIntf::defaultGateway();\n\u003e                 if (!gateway4.empty())\n\u003e So your https://gerrit.openbmc.org/c/openbmc/phosphor-networkd/+/75860 commit is explicitly bypassing that check.\n\u003e \n\u003e What is the correct behavior in this instance?\n\u003e While systemd doesn\u0027t block DHCPv4 and static V4 simultaneously, it is counter to the dominant paradigm.\n\nI\u0027m not really sure what that means.  I would expect that static ip addresses are orthogonal to dhcp addresses (in redfish they\u0027re different parameters).\n\nRedfish has EthernetInterface.UseGateway that\u0027s means to be the selector for \"Should you use the DHCP gateway, or the static gateways\".\n\nIt would\u0027ve been really nice if they just had a default gateway prop, or a gateway metrics list, but I guess that\u0027s not really how that works.\n\n\u003e IMO, if DHCPv4 is active, any PATCH of the StaticIPV4Addresses is violating common practice, and by extension needs to be blocked.\n\nbeing able to support this makes testing considerably easier, because you can leave the dhcp in place, and just test the static addresses in isolation.  Maybe it\u0027s not common, but I could see the use case.\n\n\u003e I tested the change creating two static IPv4 addresses on the same NIC. Again, systemd doesn\u0027t prevent this. At the same time I\u0027m not sure what value doing this has for something like a BMC.\n\nTwo static addresses definitely has value for non trivial deployments.",
+      "parentUuid": "919129d1_37b388ff",
+      "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6e26cbb8_8eecae35",
