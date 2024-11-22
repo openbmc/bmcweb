@@ -1288,9 +1288,148 @@ inline void handleLDAPPatch(nlohmann::json& input,
     });
 }
 
-inline void updateUserProperties(
-    std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& username,
+inline void processAccountUpdate(
+    int rc, const std::string& userDbusPath, const std::string& username,
     const std::optional<std::string>& password,
+    const std::optional<std::string>& roleId,
+    const std::optional<bool>& enabled, const std::optional<bool>& locked,
+    std::optional<std::vector<std::string>> accountTypes, bool userSelf,
+    const std::shared_ptr<persistent_data::UserSession>& session,
+    const std::optional<std::vector<std::string>>& mfaBypass,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (rc <= 0)
+    {
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
+        return;
+    }
+
+    if (password)
+    {
+        int retval = pamUpdatePassword(username, *password);
+
+        if (retval == PAM_USER_UNKNOWN)
+        {
+            messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                       username);
+        }
+        else if (retval == PAM_AUTHTOK_ERR)
+        {
+            // If password is invalid
+            messages::propertyValueFormatError(asyncResp->res, nullptr,
+                                               "Password");
+            BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
+        }
+        else if (retval != PAM_SUCCESS)
+        {
+            BMCWEB_LOG_ERROR("pamUpdatePassword Failed. retval: {}", retval);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        else
+        {
+            // Remove existing sessions of the user when password changed
+            persistent_data::SessionStore::getInstance()
+                .removeSessionsByUsernameExceptSession(username, session);
+            messages::success(asyncResp->res);
+        }
+    }
+
+    if (mfaBypass)
+    {
+        std::string mfaBypassDbusVal;
+        // Check if the input vector contains just one bypass type:
+        // as there are just two defined in the backend:
+        // GoogleAuthenticator  and None
+        if (username == "service")
+        {
+            messages::operationNotAllowed(asyncResp->res);
+            return;
+        }
+        if (mfaBypass->size() > 1)
+        {
+            std::string values = std::accumulate(
+                std::next(mfaBypass->begin()), mfaBypass->end(),
+                mfaBypass->front(),
+                [](const std::string& str1, const std::string& str2) {
+                return str1 + ", " + str2;
+            });
+            messages::propertyValueIncorrect(asyncResp->res,
+                                             "MFABypass/BypassTypes", values);
+            return;
+        }
+        std::string mfaBypassDbusPrefix =
+            "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.";
+        if (mfaBypass->empty() || mfaBypass->front() == "None")
+        {
+            mfaBypassDbusVal =
+                "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.None";
+        }
+        else
+        {
+            std::string mfaBypassVal = mfaBypass->front();
+            if (mfaBypassVal == "GoogleAuthenticator")
+            {
+                mfaBypassDbusVal =
+                    "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+            }
+            else
+            {
+                messages::propertyValueNotInList(asyncResp->res, mfaBypassVal,
+                                                 "MFABypass/BypassTypes");
+                return;
+            }
+        }
+        setDbusProperty(
+            asyncResp, "xyz.openbmc_project.User.Manager", userDbusPath,
+            "xyz.openbmc_project.User.TOTPAuthenticator", "BypassedProtocol",
+            "MFABypass/BypassTypes/1", mfaBypassDbusVal);
+    }
+
+    if (enabled)
+    {
+        setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
+                        userDbusPath, "xyz.openbmc_project.User.Attributes",
+                        "UserEnabled", "Enabled", *enabled);
+    }
+
+    if (roleId)
+    {
+        std::string priv = getPrivilegeFromRoleId(*roleId);
+        if (priv.empty())
+        {
+            messages::propertyValueNotInList(asyncResp->res, true, "RoleId");
+            return;
+        }
+        setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
+                        userDbusPath, "xyz.openbmc_project.User.Attributes",
+                        "UserPrivilege", "RoleId", priv);
+    }
+
+    if (locked)
+    {
+        // admin can unlock the account which is locked by
+        // successive authentication failures but admin should
+        // not be allowed to lock an account.
+        if (*locked)
+        {
+            messages::propertyValueNotInList(asyncResp->res, "true", "Locked");
+            return;
+        }
+        setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
+                        userDbusPath, "xyz.openbmc_project.User.Attributes",
+                        "UserLockedForFailedAttempt", "Locked", *locked);
+    }
+
+    if (accountTypes)
+    {
+        patchAccountTypes(*accountTypes, asyncResp, userDbusPath, userSelf);
+    }
+}
+
+inline void updateUserProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username, const std::optional<std::string>& password,
     const std::optional<bool>& enabled,
     const std::optional<std::string>& roleId, const std::optional<bool>& locked,
     std::optional<std::vector<std::string>> accountTypes, bool userSelf,
@@ -1302,163 +1441,12 @@ inline void updateUserProperties(
     std::string dbusObjectPath(tempObjPath);
 
     dbus::utility::checkDbusPathExists(
-        dbusObjectPath,
-        [dbusObjectPath, username, password, roleId, enabled, locked,
-         accountTypes(std::move(accountTypes)), userSelf, session, mfaBypass,
-         asyncResp{std::move(asyncResp)}](int rc) {
-        if (rc <= 0)
-        {
-            messages::resourceNotFound(asyncResp->res, "ManagerAccount",
-                                       username);
-            return;
-        }
-
-        if (password)
-        {
-            int retval = pamUpdatePassword(username, *password);
-
-            if (retval == PAM_USER_UNKNOWN)
-            {
-                messages::resourceNotFound(asyncResp->res, "ManagerAccount",
-                                           username);
-            }
-            else if (retval == PAM_AUTHTOK_ERR)
-            {
-                // If password is invalid
-                messages::propertyValueFormatError(asyncResp->res, nullptr,
-                                                   "Password");
-                BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
-            }
-            else if (retval != PAM_SUCCESS)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            else
-            {
-                // Remove existing sessions of the user when password changed
-                persistent_data::SessionStore::getInstance()
-                    .removeSessionsByUsernameExceptSession(username, session);
-                messages::success(asyncResp->res);
-            }
-        }
-
-        if (mfaBypass)
-        {
-            std::string mfaBypassDbusVal;
-            // Check if the input vector contains just one bypass type:
-            // as there are just two defined in the backend:
-            // GoogleAuthenticator  and None
-            if (username == "service")
-            {
-                messages::operationNotAllowed(asyncResp->res);
-                return;
-            }
-            if (mfaBypass->size() > 1)
-            {
-                messages::propertyNotWritable(asyncResp->res,
-                                              "MFABypass/BypassTypes");
-                return;
-            }
-            std::string mfaBypassDbusPrefix =
-                "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.";
-            if (mfaBypass->empty())
-            {
-                mfaBypassDbusVal = mfaBypassDbusPrefix + "None";
-            }
-            else
-            {
-                std::string mfaBypassVal = mfaBypass->front();
-                if (mfaBypassVal == "GoogleAuthenticator" ||
-                    mfaBypassVal == "None")
-                {
-                    mfaBypassDbusVal = mfaBypassDbusPrefix + mfaBypassVal;
-                }
-                else
-                {
-                    messages::propertyValueNotInList(
-                        asyncResp->res, mfaBypassVal, "MFABypass/BypassTypes");
-                    return;
-                }
-            }
-            sdbusplus::asio::setProperty(
-                *crow::connections::systemBus,
-                "xyz.openbmc_project.User.Manager", dbusObjectPath,
-                "xyz.openbmc_project.User.TOTPAuthenticator",
-                "BypassedProtocol", mfaBypassDbusVal,
-                [asyncResp,
-                 mfaBypassDbusVal](const boost::system::error_code& ec,
-                                   const sdbusplus::message_t& msg) {
-                if (ec)
-                {
-                    const sd_bus_error* dbusError = msg.get_error();
-                    if (dbusError != nullptr)
-                    {
-                        std::string_view errorName(dbusError->name);
-
-                        if (errorName ==
-                            "xyz.openbmc_project.Common.Error.InvalidArgument")
-                        {
-                            BMCWEB_LOG_WARNING("DBUS response error: {}", ec);
-                            messages::propertyValueIncorrect(
-                                asyncResp->res, "MFABypass/BypassTypes",
-                                mfaBypassDbusVal);
-                            return;
-                        }
-                        BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                }
-                messages::success(asyncResp->res);
-            });
-        }
-
-        if (enabled)
-        {
-            setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
-                            dbusObjectPath,
-                            "xyz.openbmc_project.User.Attributes",
-                            "UserEnabled", "Enabled", *enabled);
-        }
-
-        if (roleId)
-        {
-            std::string priv = getPrivilegeFromRoleId(*roleId);
-            if (priv.empty())
-            {
-                messages::propertyValueNotInList(asyncResp->res, true,
-                                                 "Locked");
-                return;
-            }
-            setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
-                            dbusObjectPath,
-                            "xyz.openbmc_project.User.Attributes",
-                            "UserPrivilege", "RoleId", priv);
-        }
-
-        if (locked)
-        {
-            // admin can unlock the account which is locked by
-            // successive authentication failures but admin should
-            // not be allowed to lock an account.
-            if (*locked)
-            {
-                messages::propertyValueNotInList(asyncResp->res, "true",
-                                                 "Locked");
-                return;
-            }
-            setDbusProperty(asyncResp, "xyz.openbmc_project.User.Manager",
-                            dbusObjectPath,
-                            "xyz.openbmc_project.User.Attributes",
-                            "UserLockedForFailedAttempt", "Locked", *locked);
-        }
-
-        if (accountTypes)
-        {
-            patchAccountTypes(*accountTypes, asyncResp, dbusObjectPath,
-                              userSelf);
-        }
+        dbusObjectPath, [dbusObjectPath, username, password, roleId, enabled,
+                         locked, accountTypes = std::move(accountTypes),
+                         userSelf, session, mfaBypass, asyncResp](int rc) {
+        processAccountUpdate(rc, dbusObjectPath, username, password, roleId,
+                             enabled, locked, accountTypes, userSelf, session,
+                             mfaBypass, asyncResp);
     });
 }
 
@@ -1636,8 +1624,8 @@ inline void getMultiFactorAuthConfiguration(
 
         constexpr std::string_view mfaGoogleAuthDbusVal =
             "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
-        bool googleAuthEnabled =
-            (multiFactorAuthEnabledVal == mfaGoogleAuthDbusVal);
+        bool googleAuthEnabled = multiFactorAuthEnabledVal ==
+                                 mfaGoogleAuthDbusVal;
         asyncResp->res.jsonValue["MultiFactorAuth"]["GoogleAuthenticator"]
                                 ["Enabled"] = googleAuthEnabled;
     });
@@ -2358,47 +2346,45 @@ inline void
             }
             if (interface.first == "xyz.openbmc_project.User.TOTPAuthenticator")
             {
-                for (const auto& property : interface.second)
+                const std::string* bypassedProtocol = nullptr;
+                const bool* secretKeySet = nullptr;
+
+                const bool success = sdbusplus::unpackPropertiesNoThrow(
+                    dbus_utils::UnpackErrorPrinter(), interface.second,
+                    "BypassedProtocol", bypassedProtocol, "SecretKeyIsValid",
+                    secretKeySet);
+                if (!success)
                 {
-                    if (property.first == "BypassedProtocol")
-                    {
-                        const std::string* bypassedProtocol =
-                            std::get_if<std::string>(&property.second);
-
-                        if (bypassedProtocol == nullptr)
-                        {
-                            BMCWEB_LOG_ERROR(
-                                "BypassedProtocol Value fetch faile");
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        nlohmann::json& mfaBypassArray =
-                            asyncResp->res
-                                .jsonValue["MFABypass"]["BypassTypes"];
-                        mfaBypassArray = nlohmann::json::array();
-
-                        constexpr std::string_view mfaGoogleAuthDbusVal =
-                            "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
-                        if (*bypassedProtocol == mfaGoogleAuthDbusVal)
-                        {
-                            mfaBypassArray.push_back("GoogleAuthenticator");
-                        }
-                    }
-                    if (property.first == "SecretKeyIsValid")
-                    {
-                        const bool* secretKeySet =
-                            std::get_if<bool>(&property.second);
-                        if (secretKeySet == nullptr)
-                        {
-                            BMCWEB_LOG_ERROR(
-                                "SecretKeyIsValid value fetch failed");
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res.jsonValue["SecretKeySet"] =
-                            *secretKeySet;
-                    }
+                    messages::internalError(asyncResp->res);
+                    return;
                 }
+                if (bypassedProtocol == nullptr)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "Failed to fetch BypassedProtocol property");
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                nlohmann::json& mfaBypassArray =
+                    asyncResp->res.jsonValue["MFABypass"]["BypassTypes"];
+                mfaBypassArray = nlohmann::json::array();
+
+                constexpr std::string_view mfaGoogleAuthDbusVal =
+                    "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+                if (*bypassedProtocol == mfaGoogleAuthDbusVal)
+                {
+                    mfaBypassArray.push_back("GoogleAuthenticator");
+                }
+
+                if (secretKeySet == nullptr)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "Failed to fetch SecretKeyIsValid property");
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                asyncResp->res.jsonValue["SecretKeySet"] = *secretKeySet;
             }
         }
 
@@ -2406,6 +2392,18 @@ inline void
             "/redfish/v1/AccountService/Accounts/{}", accountName);
         asyncResp->res.jsonValue["Id"] = accountName;
         asyncResp->res.jsonValue["UserName"] = accountName;
+
+        nlohmann::json& actions = asyncResp->res.jsonValue["Actions"];
+
+        actions["#ManagerAccount.GenerateSecretKey"]["target"] =
+            boost::urls::format(
+                "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.GenerateSecretKey",
+                accountName);
+
+        actions["#ManagerAccount.VerifyTimeBasedOneTimePassword"]["target"] =
+            boost::urls::format(
+                "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword",
+                accountName);
 
         if (accountName == "service")
         {
@@ -2785,6 +2783,30 @@ inline void
     });
 }
 
+inline void
+    verifyTotpDbusUtil(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                       const std::string& totp, const std::string& userPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec, bool status) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("D-Bus response error: {}", ec.value());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (!status)
+        {
+            messages::actionParameterValueError(
+                asyncResp->res, "ManagerAccount.VerifyTimeBasedOneTimePassword",
+                "TimeBasedOneTimePassword");
+            return;
+        }
+        messages::success(asyncResp->res);
+    }, "xyz.openbmc_project.User.Manager", userPath,
+        "xyz.openbmc_project.User.TOTPAuthenticator", "VerifyOTP", totp);
+}
+
 inline void handleManagerAccountVerifyTotpAction(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2822,26 +2844,7 @@ inline void handleManagerAccountVerifyTotpAction(
     sdbusplus::message::object_path tempObjPath("/xyz/openbmc_project/user/");
     tempObjPath /= username;
     const std::string userPath(tempObjPath);
-    crow::connections::systemBus->async_method_call(
-        [asyncResp, username](const boost::system::error_code& ec,
-                              bool status) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("D-Bus response error: {}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        if (!status)
-        {
-            messages::actionParameterValueError(
-                asyncResp->res, "ManagerAccount.VerifyTimeBasedOneTimePassword",
-                "TimeBasedOneTimePassword");
-            return;
-        }
-        messages::success(asyncResp->res);
-    },
-        "xyz.openbmc_project.User.Manager", userPath,
-        "xyz.openbmc_project.User.TOTPAuthenticator", "VerifyOTP", totp);
+    verifyTotpDbusUtil(asyncResp, totp, userPath);
 }
 
 inline void requestAccountServiceRoutes(App& app)
@@ -2904,14 +2907,20 @@ inline void requestAccountServiceRoutes(App& app)
         "/redfish/v1/AccountService/Accounts/<str>/Actions/ManagerAccount.GenerateSecretKey")
         // Only the user is authorized to configure or set up MFA for their own
         // account.
-        .privileges(redfish::privileges::postManagerAccount)
+        // TODO this privilege should be using the generated endpoints, but
+        // because of the special handling of ConfigureSelf, it's not able to
+        // yet
+        .privileges({{"ConfigureSelf"}})
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleGenerateSecretKey, std::ref(app)));
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/AccountService/Accounts/<str>/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword")
-        .privileges(redfish::privileges::postManagerAccount)
+        // TODO this privilege should be using the generated endpoints, but
+        // because of the special handling of ConfigureSelf, it's not able to
+        // yet
+        .privileges({{"ConfigureSelf"}})
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleManagerAccountVerifyTotpAction, std::ref(app)));
 }

@@ -62,6 +62,10 @@ Fields common to all schemas
 - LDAP
 - MaxPasswordLength
 - MinPasswordLength
+- MultiFactorAuth/ClientCertificate/Certificates
+- MultiFactorAuth/ClientCertificate/CertificateMappingAttribute
+- MultiFactorAuth/ClientCertificate/Enabled
+- MultiFactorAuth/ClientCertificate/RespondToUnauthenticatedClients
 - MultiFactorAuth/GoogleAuthenticator/Enabled
 - Oem/OpenBMC/AuthMethods/BasicAuth
 - Oem/OpenBMC/AuthMethods/Cookie
