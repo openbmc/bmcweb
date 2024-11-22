@@ -1,10 +1,12 @@
 #include "dbus_log_watcher.hpp"
 
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "event_service_manager.hpp"
 #include "logging.hpp"
 #include "metric_report.hpp"
 
+#include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
@@ -15,7 +17,7 @@
 
 namespace redfish
 {
-void getReadingsForReport(sdbusplus::message_t& msg)
+static void getReadingsForReport(sdbusplus::message_t& msg)
 {
     if (msg.is_method_error())
     {
@@ -54,4 +56,14 @@ void getReadingsForReport(sdbusplus::message_t& msg)
     }
     EventServiceManager::sendTelemetryReportToSubs(id, *readings);
 }
+
+const std::string telemetryMatchStr =
+    "type='signal',member='PropertiesChanged',"
+    "interface='org.freedesktop.DBus.Properties',"
+    "arg0=xyz.openbmc_project.Telemetry.Report";
+
+DbusTelemetryMonitor::DbusTelemetryMonitor() :
+    matchTelemetryMonitor(*crow::connections::systemBus, telemetryMatchStr,
+                          getReadingsForReport)
+{}
 } // namespace redfish

@@ -25,16 +25,16 @@ limitations under the License.
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
 #include "subscription.hpp"
+#include "utility.hpp"
+#include "utils/dbus_event_log_entry.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
-
-#include <sys/inotify.h>
 
 #include <boost/asio/io_context.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view_base.hpp>
-#include <sdbusplus/bus/match.hpp>
 
 #include <algorithm>
 #include <cstdlib>
@@ -45,6 +45,7 @@ limitations under the License.
 #include <string>
 #include <string_view>
 #include <utility>
+#include <variant>
 
 namespace redfish
 {
@@ -67,7 +68,7 @@ class EventServiceManager
     std::streampos redfishLogFilePosition{0};
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
-    std::shared_ptr<sdbusplus::bus::match_t> matchTelemetryMonitor;
+    std::optional<DbusTelemetryMonitor> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
@@ -264,17 +265,28 @@ class EventServiceManager
         bool updateConfig = false;
         bool updateRetryCfg = false;
 
-        if (serviceEnabled != cfg.enabled)
+        if (serviceEnabled)
         {
-            serviceEnabled = cfg.enabled;
-            if (serviceEnabled && noOfMetricReportSubscribers != 0U)
+            if (noOfMetricReportSubscribers > 0U)
             {
-                registerMetricReportSignal();
+                if (!matchTelemetryMonitor)
+                {
+                    matchTelemetryMonitor.emplace();
+                }
             }
             else
             {
-                unregisterMetricReportSignal();
+                matchTelemetryMonitor.reset();
             }
+        }
+        else
+        {
+            matchTelemetryMonitor.reset();
+        }
+
+        if (serviceEnabled != cfg.enabled)
+        {
+            serviceEnabled = cfg.enabled;
             updateConfig = true;
         }
 
@@ -332,11 +344,14 @@ class EventServiceManager
             noOfMetricReportSubscribers = metricReportSubCount;
             if (noOfMetricReportSubscribers != 0U)
             {
-                registerMetricReportSignal();
+                if (!matchTelemetryMonitor)
+                {
+                    matchTelemetryMonitor.emplace();
+                }
             }
             else
             {
-                unregisterMetricReportSignal();
+                matchTelemetryMonitor.reset();
             }
         }
     }
@@ -399,6 +414,7 @@ class EventServiceManager
                 cacheRedfishLogFile();
             }
         }
+
         // Update retry configuration.
         subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
 
@@ -697,33 +713,6 @@ class EventServiceManager
                 entry->filterAndSendEventLogs(eventRecords);
             }
         }
-    }
-
-    void unregisterMetricReportSignal()
-    {
-        if (matchTelemetryMonitor)
-        {
-            BMCWEB_LOG_DEBUG("Metrics report signal - Unregister");
-            matchTelemetryMonitor.reset();
-            matchTelemetryMonitor = nullptr;
-        }
-    }
-
-    void registerMetricReportSignal()
-    {
-        if (!serviceEnabled || matchTelemetryMonitor)
-        {
-            BMCWEB_LOG_DEBUG("Not registering metric report signal.");
-            return;
-        }
-
-        BMCWEB_LOG_DEBUG("Metrics report signal - Register");
-        std::string matchStr = "type='signal',member='PropertiesChanged',"
-                               "interface='org.freedesktop.DBus.Properties',"
-                               "arg0=xyz.openbmc_project.Telemetry.Report";
-
-        matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match_t>(
-            *crow::connections::systemBus, matchStr, getReadingsForReport);
     }
 };
 
