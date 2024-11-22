@@ -198,6 +198,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7eee1e6_4a8ca3b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-22T16:07:18Z",
+      "side": 1,
+      "message": "\u003e Disable DHCPv4 on eth1\n\nThis is probably the difference.  I leave DHCP enabled, so this hits different paths.",
+      "parentUuid": "55294967_ca908647",
+      "revId": "fadcfbd6d751694e37a1e5d1c35ad03be6e05283",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6e26cbb8_8eecae35",
