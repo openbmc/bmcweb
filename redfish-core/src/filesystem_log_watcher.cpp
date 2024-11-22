@@ -33,6 +33,94 @@ static std::array<char, 1024> readBuffer{};
 static constexpr const char* redfishEventLogDir = "/var/log";
 static constexpr const size_t iEventSize = sizeof(inotify_event);
 
+static void watchRedfishEventLogFile();
+
+static void onINotify(const boost::system::error_code& ec,
+                      std::size_t bytesTransferred)
+{
+    if (ec == boost::asio::error::operation_aborted)
+    {
+        BMCWEB_LOG_DEBUG("Inotify was canceled (shutdown?)");
+        return;
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Callback Error: {}", ec.message());
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG("reading {} via inotify", bytesTransferred);
+
+    std::size_t index = 0;
+    while ((index + iEventSize) <= bytesTransferred)
+    {
+        struct inotify_event event
+        {};
+        std::memcpy(&event, &readBuffer[index], iEventSize);
+        if (event.wd == dirWatchDesc)
+        {
+            if ((event.len == 0) ||
+                (index + iEventSize + event.len > bytesTransferred))
+            {
+                index += (iEventSize + event.len);
+                continue;
+            }
+
+            std::string fileName(&readBuffer[index + iEventSize]);
+            if (fileName != "redfish")
+            {
+                index += (iEventSize + event.len);
+                continue;
+            }
+
+            BMCWEB_LOG_DEBUG("Redfish log file created/deleted. event.name: {}",
+                             fileName);
+            if (event.mask == IN_CREATE)
+            {
+                if (fileWatchDesc != -1)
+                {
+                    BMCWEB_LOG_DEBUG("Remove and Add inotify watcher on "
+                                     "redfish event log file");
+                    // Remove existing inotify watcher and add
+                    // with new redfish event log file.
+                    inotify_rm_watch(inotifyFd, fileWatchDesc);
+                    fileWatchDesc = -1;
+                }
+
+                fileWatchDesc = inotify_add_watch(
+                    inotifyFd, redfishEventLogFile, IN_MODIFY);
+                if (fileWatchDesc == -1)
+                {
+                    BMCWEB_LOG_ERROR("inotify_add_watch failed for "
+                                     "redfish log file.");
+                    return;
+                }
+
+                EventServiceManager::getInstance().resetRedfishFilePosition();
+                EventServiceManager::getInstance().readEventLogsFromFile();
+            }
+            else if ((event.mask == IN_DELETE) || (event.mask == IN_MOVED_TO))
+            {
+                if (fileWatchDesc != -1)
+                {
+                    inotify_rm_watch(inotifyFd, fileWatchDesc);
+                    fileWatchDesc = -1;
+                }
+            }
+        }
+        else if (event.wd == fileWatchDesc)
+        {
+            if (event.mask == IN_MODIFY)
+            {
+                EventServiceManager::getInstance().readEventLogsFromFile();
+            }
+        }
+        index += (iEventSize + event.len);
+    }
+
+    watchRedfishEventLogFile();
+}
+
 static void watchRedfishEventLogFile()
 {
     if (!inotifyConn)
@@ -41,98 +129,7 @@ static void watchRedfishEventLogFile()
         return;
     }
 
-    inotifyConn->async_read_some(
-        boost::asio::buffer(readBuffer),
-        [&](const boost::system::error_code& ec,
-            const std::size_t& bytesTransferred) {
-            if (ec == boost::asio::error::operation_aborted)
-            {
-                BMCWEB_LOG_DEBUG("Inotify was canceled (shutdown?)");
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Callback Error: {}", ec.message());
-                return;
-            }
-
-            BMCWEB_LOG_DEBUG("reading {} via inotify", bytesTransferred);
-
-            std::size_t index = 0;
-            while ((index + iEventSize) <= bytesTransferred)
-            {
-                struct inotify_event event
-                {};
-                std::memcpy(&event, &readBuffer[index], iEventSize);
-                if (event.wd == dirWatchDesc)
-                {
-                    if ((event.len == 0) ||
-                        (index + iEventSize + event.len > bytesTransferred))
-                    {
-                        index += (iEventSize + event.len);
-                        continue;
-                    }
-
-                    std::string fileName(&readBuffer[index + iEventSize]);
-                    if (fileName != "redfish")
-                    {
-                        index += (iEventSize + event.len);
-                        continue;
-                    }
-
-                    BMCWEB_LOG_DEBUG(
-                        "Redfish log file created/deleted. event.name: {}",
-                        fileName);
-                    if (event.mask == IN_CREATE)
-                    {
-                        if (fileWatchDesc != -1)
-                        {
-                            BMCWEB_LOG_DEBUG(
-                                "Remove and Add inotify watcher on "
-                                "redfish event log file");
-                            // Remove existing inotify watcher and add
-                            // with new redfish event log file.
-                            inotify_rm_watch(inotifyFd, fileWatchDesc);
-                            fileWatchDesc = -1;
-                        }
-
-                        fileWatchDesc = inotify_add_watch(
-                            inotifyFd, redfishEventLogFile, IN_MODIFY);
-                        if (fileWatchDesc == -1)
-                        {
-                            BMCWEB_LOG_ERROR("inotify_add_watch failed for "
-                                             "redfish log file.");
-                            return;
-                        }
-
-                        EventServiceManager::getInstance()
-                            .resetRedfishFilePosition();
-                        EventServiceManager::getInstance()
-                            .readEventLogsFromFile();
-                    }
-                    else if ((event.mask == IN_DELETE) ||
-                             (event.mask == IN_MOVED_TO))
-                    {
-                        if (fileWatchDesc != -1)
-                        {
-                            inotify_rm_watch(inotifyFd, fileWatchDesc);
-                            fileWatchDesc = -1;
-                        }
-                    }
-                }
-                else if (event.wd == fileWatchDesc)
-                {
-                    if (event.mask == IN_MODIFY)
-                    {
-                        EventServiceManager::getInstance()
-                            .readEventLogsFromFile();
-                    }
-                }
-                index += (iEventSize + event.len);
-            }
-
-            watchRedfishEventLogFile();
-        });
+    inotifyConn->async_read_some(boost::asio::buffer(readBuffer), onINotify);
 }
 
 int startEventLogMonitor(boost::asio::io_context& ioc)
