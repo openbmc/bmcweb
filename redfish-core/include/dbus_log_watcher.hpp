@@ -1,9 +1,13 @@
 #pragma once
 
-#include <sdbusplus/message.hpp>
+#include <sdbusplus/bus/match.hpp>
 namespace redfish
 {
+class DbusTelemetryMonitor
+{
+  public:
+    DbusTelemetryMonitor();
 
-void getReadingsForReport(sdbusplus::message_t& msg);
-
+    sdbusplus::bus::match_t matchTelemetryMonitor;
+};
 } // namespace redfish
