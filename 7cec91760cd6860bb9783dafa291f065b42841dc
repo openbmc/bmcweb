@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "645d56d0_a2e2861d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-22T15:57:00Z",
+      "side": 1,
+      "message": "The commit message shows the before compress.\nI\u0027ll update the commit message.",
+      "parentUuid": "ab11ae09_69240fb9",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a120ba32_362d5eb7",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "\u003e unity incremental build : 1m40s \u003c\u003d\u003d This is longer as expected\n\nYep.  Everything is about tradeoffs,\na 0.7% decrease in binary size doesn\u0027t seem worth it to me for a 3X longer incremental build.\n\nFor a lot less same time \"cost\" we could probably save about the same or more by just optimizing existing code.",
       "parentUuid": "67319dea_2cb4af8d",
+      "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "284e4817_6ba76d80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-11-22T15:57:00Z",
+      "side": 1,
+      "message": "Agreed.\nI\u0027ll mark this submission as WIP for now and then later I may abandon it (if determined not needed).",
+      "parentUuid": "38ae2645_a3ac846e",
       "revId": "7cec91760cd6860bb9783dafa291f065b42841dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
