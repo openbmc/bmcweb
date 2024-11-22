@@ -17,7 +17,7 @@
 
 namespace redfish
 {
-void getReadingsForReport(sdbusplus::message_t& msg)
+static void getReadingsForReport(sdbusplus::message_t& msg)
 {
     if (msg.is_method_error())
     {
@@ -56,4 +56,14 @@ void getReadingsForReport(sdbusplus::message_t& msg)
     }
     EventServiceManager::sendTelemetryReportToSubs(id, *readings);
 }
+
+const std::string telemetryMatchStr =
+    "type='signal',member='PropertiesChanged',"
+    "interface='org.freedesktop.DBus.Properties',"
+    "arg0=xyz.openbmc_project.Telemetry.Report";
+
+DbusTelemetryMonitor::DbusTelemetryMonitor() :
+    matchTelemetryMonitor(*crow::connections::systemBus, telemetryMatchStr,
+                          getReadingsForReport)
+{}
 } // namespace redfish
