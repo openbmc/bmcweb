@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 #pragma once
+#include "dbus_log_watcher.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_log.hpp"
@@ -66,7 +67,7 @@ class EventServiceManager
     std::streampos redfishLogFilePosition{0};
     size_t noOfEventLogSubscribers{0};
     size_t noOfMetricReportSubscribers{0};
-    std::shared_ptr<sdbusplus::bus::match_t> matchTelemetryMonitor;
+    std::optional<DbusTelemetryMonitor> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
@@ -268,11 +269,14 @@ class EventServiceManager
             serviceEnabled = cfg.enabled;
             if (serviceEnabled && noOfMetricReportSubscribers != 0U)
             {
-                registerMetricReportSignal();
+                if (!matchTelemetryMonitor)
+                {
+                    matchTelemetryMonitor.emplace();
+                }
             }
             else
             {
-                unregisterMetricReportSignal();
+                matchTelemetryMonitor.reset();
             }
             updateConfig = true;
         }
@@ -331,11 +335,11 @@ class EventServiceManager
             noOfMetricReportSubscribers = metricReportSubCount;
             if (noOfMetricReportSubscribers != 0U)
             {
-                registerMetricReportSignal();
+                matchTelemetryMonitor.emplace();
             }
             else
             {
-                unregisterMetricReportSignal();
+                matchTelemetryMonitor.reset();
             }
         }
     }
@@ -541,6 +545,17 @@ class EventServiceManager
         return true;
     }
 
+    static void sendTelemetryReportToSubs(
+        const std::string& reportId, const telemetry::TimestampReadings& var)
+    {
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            Subscription& entry = *it.second;
+            entry.filterAndSendReports(reportId, var);
+        }
+    }
+
     void sendEvent(nlohmann::json::object_t eventMessage,
                    std::string_view origin, std::string_view resourceType)
     {
@@ -685,82 +700,6 @@ class EventServiceManager
                 entry->filterAndSendEventLogs(eventRecords);
             }
         }
-    }
-
-    static void getReadingsForReport(sdbusplus::message_t& msg)
-    {
-        if (msg.is_method_error())
-        {
-            BMCWEB_LOG_ERROR("TelemetryMonitor Signal error");
-            return;
-        }
-
-        sdbusplus::message::object_path path(msg.get_path());
-        std::string id = path.filename();
-        if (id.empty())
-        {
-            BMCWEB_LOG_ERROR("Failed to get Id from path");
-            return;
-        }
-
-        std::string interface;
-        dbus::utility::DBusPropertiesMap props;
-        std::vector<std::string> invalidProps;
-        msg.read(interface, props, invalidProps);
-
-        auto found = std::ranges::find_if(props, [](const auto& x) {
-            return x.first == "Readings";
-        });
-        if (found == props.end())
-        {
-            BMCWEB_LOG_INFO("Failed to get Readings from Report properties");
-            return;
-        }
-
-        const telemetry::TimestampReadings* readings =
-            std::get_if<telemetry::TimestampReadings>(&found->second);
-        if (readings == nullptr)
-        {
-            BMCWEB_LOG_INFO("Failed to get Readings from Report properties");
-            return;
-        }
-
-        for (const auto& it :
-             EventServiceManager::getInstance().subscriptionsMap)
-        {
-            Subscription& entry = *it.second;
-            if (entry.userSub->eventFormatType == metricReportFormatType)
-            {
-                entry.filterAndSendReports(id, *readings);
-            }
-        }
-    }
-
-    void unregisterMetricReportSignal()
-    {
-        if (matchTelemetryMonitor)
-        {
-            BMCWEB_LOG_DEBUG("Metrics report signal - Unregister");
-            matchTelemetryMonitor.reset();
-            matchTelemetryMonitor = nullptr;
-        }
-    }
-
-    void registerMetricReportSignal()
-    {
-        if (!serviceEnabled || matchTelemetryMonitor)
-        {
-            BMCWEB_LOG_DEBUG("Not registering metric report signal.");
-            return;
-        }
-
-        BMCWEB_LOG_DEBUG("Metrics report signal - Register");
-        std::string matchStr = "type='signal',member='PropertiesChanged',"
-                               "interface='org.freedesktop.DBus.Properties',"
-                               "arg0=xyz.openbmc_project.Telemetry.Report";
-
-        matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match_t>(
-            *crow::connections::systemBus, matchStr, getReadingsForReport);
     }
 };
 
