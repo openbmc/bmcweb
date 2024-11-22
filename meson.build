@@ -330,8 +330,7 @@ bmcweb_dependencies += conf_h_dep
 fs = import('fs')
 
 srcfiles_bmcweb = files(
-    # end large files
-
+    'redfish-core/src/dbus_log_watcher.cpp',
     'redfish-core/src/error_messages.cpp',
     'redfish-core/src/event_log.cpp',
     'redfish-core/src/filesystem_log_watcher.cpp',
