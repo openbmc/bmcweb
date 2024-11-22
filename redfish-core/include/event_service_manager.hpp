@@ -55,9 +55,7 @@ static constexpr const char* metricReportFormatType = "MetricReport";
 static constexpr const char* eventServiceFile =
     "/var/lib/bmcweb/eventservice_config.json";
 
-static constexpr const char* redfishEventLogDir = "/var/log";
 static constexpr const char* redfishEventLogFile = "/var/log/redfish";
-static constexpr const size_t iEventSize = sizeof(inotify_event);
 
 class EventServiceManager
 {
