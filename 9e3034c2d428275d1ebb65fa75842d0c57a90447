@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2626f8b8_c9ae897a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T19:44:17Z",
+      "side": 1,
+      "message": "Thank you for the review.",
+      "parentUuid": "8427876b_ac1da62b",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "014f0727_3dbb8154",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-11-25T19:20:12Z",
       "side": 1,
       "message": "Change these instances to \nthisAddress.existingDbusId.empty()\n?\nIf this entry doesn\u0027t have a value then the test on line 1520 failed.",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "634b796a_729a1db1",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T19:44:17Z",
+      "side": 1,
+      "message": "Changed it.",
+      "parentUuid": "014f0727_3dbb8154",
       "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "624d6287_0b8287aa",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T19:44:17Z",
+      "side": 1,
+      "message": "I would, but each one is subtly different.\n\nAddress is required in all cases\nSubnet mask needs to be parsed by ipv4VerifyIpAndGetBitcount and converted to a unint.\nGateway is optional\n\nBy the time we handle all those cases, we wouldn\u0027t have any less code.  I could break these out into sub-functions for each if we think that makes sense, but that also seems like more/messier code.\n\nHappy to do whatever.",
+      "parentUuid": "f0e483f1_f3207145",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e78a51d4_dc21ec84",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 8
@@ -65,6 +119,24 @@
       "writtenOn": "2024-11-25T19:20:12Z",
       "side": 1,
       "message": "Is this the correct action?\nIsn\u0027t it better to assume the remainder of the request was a series of \"{}\" entries?\nIs there any guidance in the RF spec?",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12c74ad2_8ea7b63a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T19:44:17Z",
+      "side": 1,
+      "message": "\u003e Is this the correct action?\n\nGiven PATCH semantics, I believe this is correct.  The goal of PATCH is that if you send a value, that value is reproduced on a GET.  If we don\u0027t delete the remaining entries, PATCH no longer does what you asked for.\n\nWe could explicitly require that you have to explicitly set null or {} for every entry that exists, but this seemed more user friendly.\n\n\u003e Isn\u0027t it better to assume the remainder of the request was a series of \"{}\" entries?\n\u003e Is there any guidance in the RF spec?\n\nI\u0027m reading section 7.7 and I think this is right?\n\n```. Array properties that use the fixed or variable length style remove those elements,\nwhile array properties that use the rigid style replace removed elements with null elements```\n\nI\u0027m not positive this reading right and I\u0027ve cut off a lot of context.  I think this behavior is what openbmc did before?",
+      "parentUuid": "e78a51d4_dc21ec84",
       "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -88,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43ff0271_8d6a01dc",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T19:44:17Z",
+      "side": 1,
+      "message": "\u003e Does this really work?\n\u003e All it does is set the D-Bus entry and return, right?\n\u003e Inspection of phosphor-network indicates that DHCPv4 assigned GW is going to remain in effect, and this assignment will be ignored.\n\nThis works when done in tandem with my other patch that I linked in the commit message.\n\n\u003e Is it appropriate to report the fact the PATCH did not actually work?\n\nI\u0027m not sure I understand.",
+      "parentUuid": "c5a390af_f3f6d9fc",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16d8d802_d00aaabc",
         "filename": "test/redfish-core/lib/ethernet_test.cpp",
         "patchSetId": 8
@@ -105,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d842b0c_f174c1e5",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T19:44:17Z",
+      "side": 1,
+      "message": "This comment is correct I think?  We\u0027re creating an object with all properties in both cases.  If there\u0027s something else better I should put here to make it more clear, let me know what you\u0027d like to see.",
+      "parentUuid": "16d8d802_d00aaabc",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51efcef0_6532a8b6",
         "filename": "test/redfish-core/lib/ethernet_test.cpp",
         "patchSetId": 8
@@ -116,6 +224,24 @@
       "writtenOn": "2024-11-25T19:20:12Z",
       "side": 1,
       "message": "fails because 1.1.1.1 doesn\u0027t equal 192.168.1.1?",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48c417dc_4805180e",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T19:44:17Z",
+      "side": 1,
+      "message": "Fails because there already exists an entry with a different gateway.",
+      "parentUuid": "51efcef0_6532a8b6",
       "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
