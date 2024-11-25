@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e21c5897_7f2cf7c8",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-11-25T03:07:59Z",
+      "side": 1,
+      "message": "This call fails for LDAP users and blocks ldap user login\nfor ldap user there wont be any d-bus user object, we need to handle this case for remote users",
+      "revId": "18041edf75678d1b95244081fee1462a92e382c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
