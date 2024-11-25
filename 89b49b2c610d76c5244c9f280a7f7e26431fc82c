@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93ca85e7_7857acb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T15:57:32Z",
+      "side": 1,
+      "message": "Minor changes in the description, then this looks good to go.",
+      "revId": "89b49b2c610d76c5244c9f280a7f7e26431fc82c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a3df048_03e290d1",
+        "filename": "meson.options",
+        "patchSetId": 22
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T15:57:32Z",
+      "side": 1,
+      "message": "nit, please word wrap at 80.",
+      "range": {
+        "startLine": 124,
+        "startChar": 80,
+        "endLine": 124,
+        "endChar": 82
+      },
+      "revId": "89b49b2c610d76c5244c9f280a7f7e26431fc82c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c99f7def_829cd6ef",
+        "filename": "meson.options",
+        "patchSetId": 22
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T15:57:32Z",
+      "side": 1,
+      "message": "There\u0027s nothing in EventLog that has MessageArgs, so this really needs to say \"Because of Redfish requirements, this option can\u0027t function properly until LogService gets additional ErrorLogs.\"\n\n\nPlease also add a \"Option will will be deleted before start of Q225\" just so we can track how long this is in process for and make sure it\u0027s still making progress.  If that date changes and you\u0027re still actively working on this, you can update the date.",
+      "range": {
+        "startLine": 127,
+        "startChar": 67,
+        "endLine": 127,
+        "endChar": 78
+      },
+      "revId": "89b49b2c610d76c5244c9f280a7f7e26431fc82c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
