@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79fd6c6b_4ca6a8ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-25T19:30:59Z",
+      "side": 1,
+      "message": "Yes. We can keep that in mind for the things to fix before the meson option expires.",
+      "parentUuid": "729155dc_77a75933",
+      "revId": "775c8785fa5405bc453fdc177cbac4b3459f20b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6a6b635_9ba80831",
         "filename": "redfish-core/src/dbus_log_watcher.cpp",
         "patchSetId": 23
