@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f08607f_c9b807be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T19:17:39Z",
+      "side": 1,
+      "message": "I suspect this can merge now.  Please take a look at the changes I\u0027ve made and make sure you\u0027re ok with them.\n\nThere\u0027s still work to do in the conversion between dbus event -\u003e LogEntry, but we can address those over time.",
+      "revId": "53235bc267e86acde1344bf9a8b8e05bd469da22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
