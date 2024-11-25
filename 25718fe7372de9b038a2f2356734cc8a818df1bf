@@ -69,6 +69,24 @@
       "parentUuid": "10e17474_fd55e246",
       "revId": "25718fe7372de9b038a2f2356734cc8a818df1bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30338dd9_16d81317",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-25T14:16:51Z",
+      "side": 1,
+      "message": "Following your commit on this, so this should be resolved.",
+      "parentUuid": "471be884_65a7c7b4",
+      "revId": "25718fe7372de9b038a2f2356734cc8a818df1bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

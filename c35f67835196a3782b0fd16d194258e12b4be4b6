@@ -16,6 +16,24 @@
       "message": "This doesn\u0027t really do what we want.  We don\u0027t want to monitor events if nobody is listening.  Take a look at my patch, which obsoletes this.",
       "revId": "c35f67835196a3782b0fd16d194258e12b4be4b6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fb438d0_c078e1e5",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-25T14:16:51Z",
+      "side": 1,
+      "message": "based the new revision on your patch.",
+      "parentUuid": "df9555e2_f106052a",
+      "revId": "c35f67835196a3782b0fd16d194258e12b4be4b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

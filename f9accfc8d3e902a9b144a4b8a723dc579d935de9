@@ -358,6 +358,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60b0df7a_d235e357",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-25T14:16:51Z",
+      "side": 1,
+      "message": "making a meson option for this as discussed.",
+      "parentUuid": "f5ffb2b1_76863c1e",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 6
+      },
+      "revId": "f9accfc8d3e902a9b144a4b8a723dc579d935de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "993d1324_53df132d",
