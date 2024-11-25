@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b0e0584_8d49ba49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T19:54:09Z",
+      "side": 1,
+      "message": "Please plan on writing unit tests for the new functions you\u0027ve added.",
+      "parentUuid": "79fd6c6b_4ca6a8ed",
+      "revId": "775c8785fa5405bc453fdc177cbac4b3459f20b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6a6b635_9ba80831",
         "filename": "redfish-core/src/dbus_log_watcher.cpp",
         "patchSetId": 23
