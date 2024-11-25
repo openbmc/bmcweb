@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1855b2d_e5e6c22f",
+        "filename": "redfish-core/src/dbus_log_watcher.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T19:16:17Z",
+      "side": 1,
+      "message": "I\u0027ve removed these conversions for now just so we can get this merged.",
+      "parentUuid": "f6a6b635_9ba80831",
+      "range": {
+        "startLine": 37,
+        "startChar": 27,
+        "endLine": 37,
+        "endChar": 36
+      },
+      "revId": "775c8785fa5405bc453fdc177cbac4b3459f20b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a95237be_54978dee",
