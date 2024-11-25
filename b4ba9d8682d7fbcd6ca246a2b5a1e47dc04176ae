@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7af0ba73_9e8fe959",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-25T09:56:09Z",
+      "side": 0,
+      "message": "Why do we drop the call here?\n\nThere is nothing in the commit message about why it is dropped.\nIt looks like the side effect here is to update \u0027redfishLogFilePosition\u0027.",
+      "revId": "b4ba9d8682d7fbcd6ca246a2b5a1e47dc04176ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeb25a2d_7d445433",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-25T09:56:09Z",
+      "side": 0,
+      "message": "Why do we drop the call here?\n\nThere is nothing in the commit message about why it is dropped.\nIt looks like the side effect here is to update \u0027redfishLogFilePosition\u0027.",
+      "revId": "b4ba9d8682d7fbcd6ca246a2b5a1e47dc04176ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
