@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95cd0da0_3921a6a6",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T22:35:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "634b796a_729a1db1",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0e483f1_f3207145",
@@ -108,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "947cdfed_171e7aeb",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T22:35:22Z",
+      "side": 1,
+      "message": "Leave it as is then.",
+      "parentUuid": "624d6287_0b8287aa",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e78a51d4_dc21ec84",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 8
@@ -137,6 +173,24 @@
       "side": 1,
       "message": "\u003e Is this the correct action?\n\nGiven PATCH semantics, I believe this is correct.  The goal of PATCH is that if you send a value, that value is reproduced on a GET.  If we don\u0027t delete the remaining entries, PATCH no longer does what you asked for.\n\nWe could explicitly require that you have to explicitly set null or {} for every entry that exists, but this seemed more user friendly.\n\n\u003e Isn\u0027t it better to assume the remainder of the request was a series of \"{}\" entries?\n\u003e Is there any guidance in the RF spec?\n\nI\u0027m reading section 7.7 and I think this is right?\n\n```. Array properties that use the fixed or variable length style remove those elements,\nwhile array properties that use the rigid style replace removed elements with null elements```\n\nI\u0027m not positive this reading right and I\u0027ve cut off a lot of context.  I think this behavior is what openbmc did before?",
       "parentUuid": "e78a51d4_dc21ec84",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05078cf3_6c0dfdf0",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T22:35:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "12c74ad2_8ea7b63a",
       "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -196,6 +250,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e6a9d758_36adfdb5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T22:35:22Z",
+      "side": 1,
+      "message": "Testing without your phos-net change I would expect this BMCWeb code to report 200 or 204 when DHCPv4 is active. In spite of BMCWeb reporting \"success\", phos-net will not assign a Gateway value.\nIf phos-net doesn\u0027t apply the gateway requested, is BMCWeb reporting \"success\" desirable behavior?\nWill updateIPv4Default error out if DHCPv4 is active? It doesn\u0027t appear phos-net returns an error, it just fails to write the gw into the config file.\nI don\u0027t recall your philosophy wrt applying \"policy\" within BMCWeb.",
+      "parentUuid": "9b174950_8eb48192",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16d8d802_d00aaabc",
         "filename": "test/redfish-core/lib/ethernet_test.cpp",
         "patchSetId": 8
@@ -231,6 +303,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "37dc745f_2d4aac8c",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T22:35:22Z",
+      "side": 1,
+      "message": "IMO this isn\u0027t descriptive.\nIt would be nice to read a comment that describes the test behavior in English w/o having to grok the code.\n\nThis appears to actually:\nAdd two static IPv4 addresses with different gateway values.\nConfirm the mismatched gateway values are rejected.",
+      "parentUuid": "0d842b0c_f174c1e5",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51efcef0_6532a8b6",
         "filename": "test/redfish-core/lib/ethernet_test.cpp",
         "patchSetId": 8
@@ -260,6 +350,24 @@
       "side": 1,
       "message": "Fails because there already exists an entry with a different gateway.",
       "parentUuid": "51efcef0_6532a8b6",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b9879d3_097d4be6",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T22:35:22Z",
+      "side": 1,
+      "message": "See my suggested comment above.\nThe failure model did not jump out based on reading the code.",
+      "parentUuid": "48c417dc_4805180e",
       "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

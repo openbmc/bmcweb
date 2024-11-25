@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acc8542e_25cdaf5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T22:35:22Z",
+      "side": 1,
+      "message": "More comments.....",
+      "revId": "bb750b9ee5fefe322a2a60d28d4203685a6f156f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5118638_a1ca68e6",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T22:35:22Z",
+      "side": 1,
+      "message": "It would be nice to have a summary of what parseAddress does.\n\nName change suggestion: validateV4StaticAddrPatch()\n\n\n// Match the first incoming JSON Modify/Delete/Leave alone action to the first\n// IPv4 address assigned to the NIC. Create one AddressPatch object if all state\n// is correct.\n// Iterate to the next JSON entry, and match it against the next IPv4 address\n// assigned to the NIC.\n// Return a collection of all actions to be applied, and the static gateway\n// when all requested actions are confirmed",
+      "revId": "bb750b9ee5fefe322a2a60d28d4203685a6f156f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2973dba6_be039d23",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T22:35:22Z",
+      "side": 1,
+      "message": "Likewise....\nAttempt to assign a gateway to a NIC that already has a static IPv4 address assigned.\nConfirm the attempt to write an address containing a gateway value different from that already applied to the NIC is rejected.",
+      "revId": "bb750b9ee5fefe322a2a60d28d4203685a6f156f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b10a1425_a8740c0b",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T22:35:22Z",
+      "side": 1,
+      "message": "move to line 165 to match other test cases?",
+      "revId": "bb750b9ee5fefe322a2a60d28d4203685a6f156f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
