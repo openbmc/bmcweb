@@ -2304,6 +2304,11 @@ inline void
                 ["target"] = boost::urls::format(
                     "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword",
                     accountName);
+
+            actions["#ManagerAccount.ClearSecretKey"]["target"] =
+                boost::urls::format(
+                    "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.ClearSecretKey",
+                    accountName);
         });
 }
 
@@ -2616,6 +2621,87 @@ inline void handleManagerAccountVerifyTotpAction(
     verifyTotpDbusUtil(asyncResp, totp, userPath);
 }
 
+inline void
+    clearSecretKeyDbusUtil(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& userPath)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec,
+                    const sdbusplus::message_t& msg) {
+            if (ec)
+            {
+                const sd_bus_error* dbusError = msg.get_error();
+                if (dbusError != nullptr)
+                {
+                    if (dbusError->name ==
+                        std::string_view(
+                            "xyz.openbmc_project.Common.Error.UnsupportedRequest"))
+                    {
+                        BMCWEB_LOG_WARNING << "DBUS response error: " << ec;
+                        actionNotSupported(asyncResp->res, "ClearSecretKey");
+                        return;
+                    }
+                    else if (dbusError->name ==
+                             std::string_view(
+                                 "xyz.openbmc_project.Common.Error.NotAllowed"))
+                    {
+                        BMCWEB_LOG_WARNING << "DBUS response error: " << ec;
+                        messages::operationNotAllowed(asyncResp->res);
+                        return;
+                    }
+                }
+                BMCWEB_LOG_ERROR("D-Bus response error: {}", ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+        },
+        "xyz.openbmc_project.User.Manager", userPath,
+        "xyz.openbmc_project.User.TOTPAuthenticator", "ClearSecretKey");
+}
+
+inline void handleManagerAccountClearSecretKey(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        // If authentication is disabled, there are no user accounts
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount", username);
+        return;
+    }
+
+    if (req.session == nullptr)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    bool userSelf = (username == req.session->username);
+
+    Privileges effectiveUserPrivileges =
+        redfish::getUserPrivileges(*req.session);
+    Privileges configureUsers = {"ConfigureUsers"};
+    bool userHasConfigureUsers =
+        effectiveUserPrivileges.isSupersetOf(configureUsers);
+
+    if (!userHasConfigureUsers && !userSelf)
+    {
+        messages::insufficientPrivilege(asyncResp->res);
+        return;
+    }
+
+    sdbusplus::message::object_path tempObjPath("/xyz/openbmc_project/user/");
+    tempObjPath /= username;
+    const std::string userPath(tempObjPath);
+    clearSecretKeyDbusUtil(asyncResp, userPath);
+}
+
 inline void requestAccountServiceRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/")
@@ -2718,6 +2804,16 @@ inline void requestAccountServiceRoutes(App& app)
         .privileges({{"ConfigureUsers"}, {"ConfigureSelf"}})
         .methods(boost::beast::http::verb::post)(std::bind_front(
             handleManagerAccountVerifyTotpAction, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/AccountService/Accounts/<str>/Actions/ManagerAccount.ClearSecretKey")
+        // TODO this privilege should be using the generated endpoints, but
+        // because of the special handling of ConfigureSelf, it's not able to
+        // yet
+        .privileges({{"ConfigureUsers"}, {"ConfigureSelf"}})
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleManagerAccountClearSecretKey, std::ref(app)));
 }
 
 } // namespace redfish
