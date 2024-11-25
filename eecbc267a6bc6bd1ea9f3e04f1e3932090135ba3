@@ -16,6 +16,24 @@
       "message": "looks fine, only one thing i\u0027m wondering is, do we still need to guard the \u0027matchTelemetryMonitor\u0027 from being destroyed, then constructed again.\n\nThe old code had a guard for this in \u0027unregisterMetricReportSignal\u0027\nand \u0027registerMetricReportSignal\u0027.\n\nmatchTelemetryMonitor.emplace()\n\n\u003e Constructs the contained value in-place. If *this already contains a value before the call, the contained value is destroyed by calling its destructor.",
       "revId": "eecbc267a6bc6bd1ea9f3e04f1e3932090135ba3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4fedef5_c59788ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T15:58:22Z",
+      "side": 1,
+      "message": "Yes, we probably do.",
+      "parentUuid": "50368c0b_41218961",
+      "revId": "eecbc267a6bc6bd1ea9f3e04f1e3932090135ba3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
