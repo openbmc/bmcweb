@@ -357,6 +357,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ef7e6f40_7e6d6d64",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T22:54:14Z",
+      "side": 1,
+      "message": "Added both those descriptions inline in code",
+      "parentUuid": "37dc745f_2d4aac8c",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51efcef0_6532a8b6",
         "filename": "test/redfish-core/lib/ethernet_test.cpp",
         "patchSetId": 8
