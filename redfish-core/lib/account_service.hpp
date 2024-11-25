@@ -2122,6 +2122,9 @@ inline void checkAndAddSecretKeyActionsCallback(
     actions["#ManagerAccount.VerifyTimeBasedOneTimePassword"]["target"] = boost::urls::format(
         "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword",
         accountName);
+    actions["#ManagerAccount.ClearSecretKey"]["target"] = boost::urls::format(
+        "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.ClearSecretKey",
+        accountName);
 }
 
 inline void checkAndAddSecretKeyActions(
