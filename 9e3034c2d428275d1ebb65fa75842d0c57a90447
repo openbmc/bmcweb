@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8427876b_ac1da62b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T19:20:12Z",
+      "side": 1,
+      "message": "Here are some of my observations.",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "014f0727_3dbb8154",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T19:20:12Z",
+      "side": 1,
+      "message": "Change these instances to \nthisAddress.existingDbusId.empty()\n?\nIf this entry doesn\u0027t have a value then the test on line 1520 failed.",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0e483f1_f3207145",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T19:20:12Z",
+      "side": 1,
+      "message": "This sequence looks like it could benefit from a helper function for addr,subnet,gw.",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e78a51d4_dc21ec84",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T19:20:12Z",
+      "side": 1,
+      "message": "Is this the correct action?\nIsn\u0027t it better to assume the remainder of the request was a series of \"{}\" entries?\nIs there any guidance in the RF spec?",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a390af_f3f6d9fc",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T19:20:12Z",
+      "side": 1,
+      "message": "Does this really work?\nAll it does is set the D-Bus entry and return, right?\nInspection of phosphor-network indicates that DHCPv4 assigned GW is going to remain in effect, and this assignment will be ignored.\nIs it appropriate to report the fact the PATCH did not actually work?",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16d8d802_d00aaabc",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T19:20:12Z",
+      "side": 1,
+      "message": "Is this comment correct? And the one ahead of the next TEST?",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51efcef0_6532a8b6",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2024-11-25T19:20:12Z",
+      "side": 1,
+      "message": "fails because 1.1.1.1 doesn\u0027t equal 192.168.1.1?",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
