@@ -142,6 +142,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96e1c608_90080687",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1557,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T22:52:02Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "947cdfed_171e7aeb",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e78a51d4_dc21ec84",
@@ -262,6 +280,24 @@
       "side": 1,
       "message": "Testing without your phos-net change I would expect this BMCWeb code to report 200 or 204 when DHCPv4 is active. In spite of BMCWeb reporting \"success\", phos-net will not assign a Gateway value.\nIf phos-net doesn\u0027t apply the gateway requested, is BMCWeb reporting \"success\" desirable behavior?\nWill updateIPv4Default error out if DHCPv4 is active? It doesn\u0027t appear phos-net returns an error, it just fails to write the gw into the config file.\nI don\u0027t recall your philosophy wrt applying \"policy\" within BMCWeb.",
       "parentUuid": "9b174950_8eb48192",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "338dd68a_8c55074d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T22:52:02Z",
+      "side": 1,
+      "message": "\u003e Testing without your phos-net change I would expect this BMCWeb code to report 200 or 204 when DHCPv4 is active. In spite of BMCWeb reporting \"success\", phos-net will not assign a Gateway value.\n\nJust so I understand, is this the behavior we had before this patch, or do you think this is behavior is new in this patch?  I don\u0027t see any code in the existing handleIPv4StaticPatch method that\u0027s changing behavior dependent on whether DHCP is enabled.\n\n\u003e If phos-net doesn\u0027t apply the gateway requested, is BMCWeb reporting \"success\" desirable behavior?\n\nHard to say because technically I think our behavior is wrong to the standard anyway.  Long term what I suspect is that we really should be implementing \"UseGateway\" which lets you explicitly switch between DHCP and Static addresses for gateway.  If UseGateway \u003d\u003d true, we should error out on setting the gateway.  If UseGateway \u003d false, we shouldn\u0027t try to set the gateway at all, and just set dhcp.\n\n\u003e Will updateIPv4Default error out if DHCPv4 is active? It doesn\u0027t appear phos-net returns an error, it just fails to write the gw into the config file.\n\u003e I don\u0027t recall your philosophy wrt applying \"policy\" within BMCWeb.\n\nIf we have constraints that aren\u0027t specific to Redfish (IE, we can\u0027t set a gateway if DHCP is enabled), then they should be enforced in the backend, otherwise we\u0027re duplicating all behaviors in IPMI and Redfish.\n\nIf the constraint is redfish specific, fine to go in bmcweb.\n\nI suspect phosphor-network should be returning an error if DHCP is enabled given its current implementation.",
+      "parentUuid": "e6a9d758_36adfdb5",
       "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
