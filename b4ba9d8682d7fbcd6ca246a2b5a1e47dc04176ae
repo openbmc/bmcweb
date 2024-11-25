@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6cf3b5d_124ca81c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T20:17:54Z",
+      "side": 0,
+      "message": "I\u0027ve added the above to the commit message.  Let me know if that works for you.",
+      "parentUuid": "2837c814_a73f93ed",
+      "revId": "b4ba9d8682d7fbcd6ca246a2b5a1e47dc04176ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eeb25a2d_7d445433",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 14
