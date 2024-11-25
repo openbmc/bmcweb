@@ -175,6 +175,24 @@
       "message": "?",
       "revId": "3214c565509696bfeaf158d43a8f86d0321b4f91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3925c38b_58d20597",
+        "filename": "redfish-core/src/dbus_log_watcher.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T20:16:55Z",
+      "side": 1,
+      "message": "Whitespace related to the other functions being moved.  Whitespace is fixed.",
+      "parentUuid": "4c26d0aa_c0c44e82",
+      "revId": "3214c565509696bfeaf158d43a8f86d0321b4f91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
