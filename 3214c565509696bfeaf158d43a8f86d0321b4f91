@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35269a59_20798f16",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T20:16:08Z",
+      "side": 1,
+      "message": "Moved the code.",
+      "parentUuid": "92da3a89_8bb5c170",
+      "revId": "3214c565509696bfeaf158d43a8f86d0321b4f91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "02e2e36f_42490915",
@@ -71,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f177369_017700a2",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T20:16:08Z",
+      "side": 1,
+      "message": "Moved.",
+      "parentUuid": "a9deb858_e80c3dcc",
+      "revId": "3214c565509696bfeaf158d43a8f86d0321b4f91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9512bafe_1b2f6708",
@@ -102,6 +138,24 @@
       "side": 1,
       "message": "Call site is in the next patch.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/76023\n\nSame as above, arguably we could move things into the other patches, but it will take some time.  Up to you if you want that to do it.",
       "parentUuid": "9512bafe_1b2f6708",
+      "revId": "3214c565509696bfeaf158d43a8f86d0321b4f91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87844bd5_7d867fcb",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-25T20:16:08Z",
+      "side": 1,
+      "message": "Moved this to the next patch.",
+      "parentUuid": "9254e6e3_eb9adef7",
       "revId": "3214c565509696bfeaf158d43a8f86d0321b4f91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
