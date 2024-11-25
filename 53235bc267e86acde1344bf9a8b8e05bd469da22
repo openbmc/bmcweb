@@ -16,6 +16,24 @@
       "message": "I suspect this can merge now.  Please take a look at the changes I\u0027ve made and make sure you\u0027re ok with them.\n\nThere\u0027s still work to do in the conversion between dbus event -\u003e LogEntry, but we can address those over time.",
       "revId": "53235bc267e86acde1344bf9a8b8e05bd469da22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "936399f0_a1828adb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 25
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-25T19:25:46Z",
+      "side": 1,
+      "message": "\u003e I suspect this can merge now. Please take a look at the changes I\u0027ve made and make sure you\u0027re ok with them.\n\nLooked at the changes, they are fine to me.\n\n\u003e There\u0027s still work to do in the conversion between dbus event -\u003e LogEntry, but we can address those over time.\n\nYes.",
+      "parentUuid": "8f08607f_c9b807be",
+      "revId": "53235bc267e86acde1344bf9a8b8e05bd469da22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
