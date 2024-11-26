@@ -16,6 +16,24 @@
       "message": "This can be 3 patches\n\n- create dbus_log_watcher.cpp and move functions there\n- create function sendTelemetryReportToSubs\n- refactor to using a class (RAII)\n\nAnd 2 of these will be trivial +2",
       "revId": "a415728b0672d955bebce042a47f411803078677",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9357601_f2838359",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-26T18:02:35Z",
+      "side": 1,
+      "message": "1 and 2 must be done together because The code wouldn\u0027t compile otherwise.  sendTelemetryReportToSubs is required to break out the function.\n\nWith that said, I\u0027ve broken the RAII creation into it\u0027s own class as you asked.",
+      "parentUuid": "e11953d2_f9f0c4fb",
+      "revId": "a415728b0672d955bebce042a47f411803078677",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
