@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df1639c0_9c0ab56d",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-26T10:10:23Z",
+      "side": 1,
+      "message": "why do we add this newline in an unrelated file?",
+      "revId": "2aa2b4d4210f63f4513665b4f2b99cba65406bc1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
