@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af92d67d_650c1484",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-26T10:07:28Z",
+      "side": 1,
+      "message": "Is there a call site within this patch?\n\nIf not, why are we creating this function in this patch?",
+      "revId": "43d95e466424a3c5700ca82b8e562b5847d21c98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
