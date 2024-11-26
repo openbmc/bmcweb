@@ -1,0 +1,10 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Janet Adkins <janeta@us.ibm.com>
+Code-Review+1: Alexander <alexander.hansen@9elements.com>
+Code-Review+2: Ed Tanous <ed@tanous.net>
+Submitted-by: Alexander <alexander.hansen@9elements.com>
+Submitted-at: Tue, 26 Nov 2024 09:32:06 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/76018
+Comments-Total: 2
+Project: openbmc/bmcweb
+Branch: refs/heads/master
