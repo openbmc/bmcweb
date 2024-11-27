@@ -34,6 +34,24 @@
       "parentUuid": "597c30db_68e6413c",
       "revId": "d28c6055e458f4dcd5dd0b9b82cb0650a581e6ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "434008bd_0841b92e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-27T11:32:01Z",
+      "side": 1,
+      "message": "extracting function ```sendEventsToSubs``` is another refactoring\nwhich is different from moving the functions or \ncreating the RAII class.\n\nSo that is already something that can be separate. \nI don\u0027t have anything against this patch, it might well be correct.\n\nIt\u0027s just not something i can be 99% confident about.\n\nIf you split it up more, some patches will be trivial and not need testing.\n\nJust my opinion, you are the maintainer and not need my approval to merge anything\nthat you determine is correct.",
+      "parentUuid": "d8332df9_2da93536",
+      "revId": "d28c6055e458f4dcd5dd0b9b82cb0650a581e6ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
