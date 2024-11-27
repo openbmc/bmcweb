@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "274c0e44_909caf4c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-27T17:22:24Z",
+      "side": 0,
+      "message": "since this patch is about the matchTelemetryMonitor, why is the call to cacheRedfishLogFile removed in this patch?",
+      "revId": "b26ff34d5c35b623b0eb7de24f952d4c5d2459bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e243f932_38e2135c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-27T17:22:24Z",
+      "side": 0,
+      "message": "since this patch is about the matchTelemetryMonitor, why is the call to cacheRedfishLogFile removed in this patch?",
+      "revId": "b26ff34d5c35b623b0eb7de24f952d4c5d2459bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
