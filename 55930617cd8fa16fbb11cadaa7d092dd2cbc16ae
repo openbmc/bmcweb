@@ -16,6 +16,24 @@
       "message": "you have duplicated the condition here\n```\n            if (!matchTelemetryMonitor \u0026\u0026 noOfMetricReportSubscribers \u003e 0U)\n            {\n                if (!matchTelemetryMonitor)\n```",
       "revId": "55930617cd8fa16fbb11cadaa7d092dd2cbc16ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a02926e_1b97a6fd",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-27T12:42:07Z",
+      "side": 1,
+      "message": "Right you are.  Fixed",
+      "parentUuid": "b24487de_6d4dc0c8",
+      "revId": "55930617cd8fa16fbb11cadaa7d092dd2cbc16ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
