@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "597c30db_68e6413c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-27T10:11:31Z",
+      "side": 1,
+      "message": "you moved 3 functions to FilesystemLogWatcher, which is a great patch for trivial +2 and merge.\n\nThere is no need to combine the simple movement of these functions with other refactoring, right? It can be 2 separate patches.",
+      "revId": "d28c6055e458f4dcd5dd0b9b82cb0650a581e6ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
