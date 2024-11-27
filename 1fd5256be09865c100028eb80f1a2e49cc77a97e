@@ -16,6 +16,24 @@
       "message": "when diffing with the base of this patch, this was the previous contents of the if\nstatement \u0027true\u0027 block.\n```\nif (noOfMetricReportSubscribers \u003e 0U)\n            {\n                if (!matchTelemetryMonitor)\n                {\n                    matchTelemetryMonitor.emplace();\n                }\n            }\n            else\n            {\n                matchTelemetryMonitor.reset();\n            }\n```\n\nwhat happened to that code?\nI thought this patch was exclusively about the filesystem event log monitor.",
       "revId": "1fd5256be09865c100028eb80f1a2e49cc77a97e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a51910fd_f25c7aa0",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-27T15:28:27Z",
+      "side": 1,
+      "message": "Got hit in a rebase conflict when I broke out one of the changes you asked to be broken out.  You\u0027re right, obviously looks wrong here.",
+      "parentUuid": "4ee97a46_0066b1c8",
+      "revId": "1fd5256be09865c100028eb80f1a2e49cc77a97e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
