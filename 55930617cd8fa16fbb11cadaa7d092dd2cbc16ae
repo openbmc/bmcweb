@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b24487de_6d4dc0c8",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-27T09:11:03Z",
+      "side": 1,
+      "message": "you have duplicated the condition here\n```\n            if (!matchTelemetryMonitor \u0026\u0026 noOfMetricReportSubscribers \u003e 0U)\n            {\n                if (!matchTelemetryMonitor)\n```",
+      "revId": "55930617cd8fa16fbb11cadaa7d092dd2cbc16ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

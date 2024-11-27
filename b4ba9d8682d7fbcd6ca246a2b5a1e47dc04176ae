@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26e0b190_43b22c66",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-27T09:11:03Z",
+      "side": 0,
+      "message": "👍",
+      "parentUuid": "b6cf3b5d_124ca81c",
+      "revId": "b4ba9d8682d7fbcd6ca246a2b5a1e47dc04176ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eeb25a2d_7d445433",
@@ -85,6 +103,24 @@
       "side": 0,
       "message": "Now that this is all based in the class, this call is no longer required.  class encapsulates this within the constructor/destructor",
       "parentUuid": "eeb25a2d_7d445433",
+      "revId": "b4ba9d8682d7fbcd6ca246a2b5a1e47dc04176ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8c250e3_92cf85f5",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-11-27T09:11:03Z",
+      "side": 0,
+      "message": "ok",
+      "parentUuid": "2b961cdc_6a74f808",
       "revId": "b4ba9d8682d7fbcd6ca246a2b5a1e47dc04176ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
