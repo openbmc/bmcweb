@@ -304,6 +304,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dfebeae7_3026c407",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-27T00:58:08Z",
+      "side": 1,
+      "message": "I thought about it more,\n\nI think that phosphor-network should accept a string value of \"DHCP\" for default gateway, in which case it will set the default gateway to whatever DHCP provides, same as disabling DHCP.  bmcweb could then wire that to the \"UseDHCP\" setting in Redfish.\n\nUseDHCP \u003d True; DefaultGateway \u003d \"DHCP\";\nUseDHCP \u003d False; DefaultGateway \u003d first gateway in static ip list.",
+      "parentUuid": "338dd68a_8c55074d",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16d8d802_d00aaabc",
         "filename": "test/redfish-core/lib/ethernet_test.cpp",
         "patchSetId": 8
