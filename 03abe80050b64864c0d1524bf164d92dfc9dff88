@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52b7bcf7_4a958786",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-27T21:26:52Z",
+      "side": 1,
+      "message": "From their response:\n\n```If you want to enforce it, then you should probably use some other PAM module that has a list of users, and skip the GA PAM module based on that.```\n\nAnd it looks like you were pointed to a couple of pam modules that did what you need.",
+      "parentUuid": "43f8a4f8_7949c1f0",
+      "revId": "03abe80050b64864c0d1524bf164d92dfc9dff88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9750d115_169a780c",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 33
