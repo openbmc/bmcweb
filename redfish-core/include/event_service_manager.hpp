@@ -545,6 +545,17 @@ class EventServiceManager
         return true;
     }
 
+    static void
+        sendEventsToSubs(const std::vector<EventLogObjectsType>& eventRecords)
+    {
+        for (const auto& it :
+             EventServiceManager::getInstance().subscriptionsMap)
+        {
+            Subscription& entry = *it.second;
+            entry.filterAndSendEventLogs(eventRecords);
+        }
+    }
+
     static void sendTelemetryReportToSubs(
         const std::string& reportId, const telemetry::TimestampReadings& var)
     {
@@ -691,15 +702,7 @@ class EventServiceManager
             BMCWEB_LOG_DEBUG("No log entries available to be transferred.");
             return;
         }
-
-        for (const auto& it : subscriptionsMap)
-        {
-            std::shared_ptr<Subscription> entry = it.second;
-            if (entry->userSub->eventFormatType == "Event")
-            {
-                entry->filterAndSendEventLogs(eventRecords);
-            }
-        }
+        EventServiceManager::sendEventsToSubs(eventRecords);
     }
 };
 
