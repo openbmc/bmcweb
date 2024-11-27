@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0144800_89f88157",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-27T20:32:46Z",
+      "side": 0,
+      "message": "removed.",
+      "parentUuid": "1dc94220_df7f5648",
+      "revId": "b26ff34d5c35b623b0eb7de24f952d4c5d2459bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e243f932_38e2135c",
@@ -67,6 +85,24 @@
       "side": 0,
       "message": "same.  Will fix.",
       "parentUuid": "e243f932_38e2135c",
+      "revId": "b26ff34d5c35b623b0eb7de24f952d4c5d2459bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "303fe8bc_41514bff",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-27T20:32:46Z",
+      "side": 0,
+      "message": "removed.",
+      "parentUuid": "83dea64d_344cea72",
       "revId": "b26ff34d5c35b623b0eb7de24f952d4c5d2459bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
