@@ -16,6 +16,24 @@
       "message": "you moved 3 functions to FilesystemLogWatcher, which is a great patch for trivial +2 and merge.\n\nThere is no need to combine the simple movement of these functions with other refactoring, right? It can be 2 separate patches.",
       "revId": "d28c6055e458f4dcd5dd0b9b82cb0650a581e6ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8332df9_2da93536",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-11-27T11:11:43Z",
+      "side": 1,
+      "message": "which refactoring are you referring to?  everything in this patch was required to make the class raii.  the functions couldn’t be moved in a single patch, because they relied on variables that were previously in event service manager, and changing them to global variables (which they weren’t before and is arguably a refactor) just to change them back to class variables didn’t really make sense to me.",
+      "parentUuid": "597c30db_68e6413c",
+      "revId": "d28c6055e458f4dcd5dd0b9b82cb0650a581e6ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
