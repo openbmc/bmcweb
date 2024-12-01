@@ -1385,7 +1385,67 @@ inline void handleDHCPPatch(
 
     if (ipv4Active)
     {
-        updateIPv4DefaultGateway(ifaceId, "", asyncResp);
+        sdbusplus::asio::getProperty<std::string>(
+            *crow::connections::systemBus, "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/" + ifaceId,
+            "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway",
+            [asyncResp, ifaceId](const boost::system::error_code& ecGw,
+                                 const std::string& defaultGateway) {
+                if (ecGw)
+                {
+                    BMCWEB_LOG_ERROR("Failed to read default gateway: {}",
+                                     ecGw);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                updateIPv4DefaultGateway(ifaceId, "", asyncResp);
+                constexpr std::array<std::string_view, 1> netInterfaces = {
+                    "xyz.openbmc_project.Network.IP"};
+                dbus::utility::getSubTree(
+                    "/xyz/openbmc_project/network/" + ifaceId, 0, netInterfaces,
+                    [asyncResp, defaultGateway,
+                     ifaceId](const boost::system::error_code& ec,
+                              const dbus::utility::MapperGetSubTreeResponse&
+                                  subtree) {
+                        bool ipv4GwUpdated = false;
+                        if (ec)
+                        {
+                            BMCWEB_LOG_WARNING("D-Bus error: {}, {}", ec,
+                                               ec.message());
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        for (const auto& [objectPath, serviceMap] : subtree)
+                        {
+                            sdbusplus::asio::getProperty<std::string>(
+                                *crow::connections::systemBus,
+                                "xyz.openbmc_project.Network", objectPath,
+                                "xyz.openbmc_project.Network.IP", "Origin",
+                                [asyncResp, defaultGateway, ifaceId,
+                                 &ipv4GwUpdated](
+                                    const boost::system::error_code& ecProperty,
+                                    const std::string& origin) {
+                                    if (ecProperty)
+                                    {
+                                        BMCWEB_LOG_ERROR(
+                                            "Failed to read IPv4 type: {}",
+                                            ecProperty);
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                    if ((origin ==
+                                         "xyz.openbmc_project.Network.IP.AddressOrigin.Static") &&
+                                        !ipv4GwUpdated)
+                                    {
+                                        updateIPv4DefaultGateway(
+                                            ifaceId, defaultGateway, asyncResp);
+                                        ipv4GwUpdated = true;
+                                    }
+                                });
+                        }
+                    });
+            });
     }
     bool nextv4DHCPState =
         v4dhcpParms.dhcpv4Enabled ? *v4dhcpParms.dhcpv4Enabled : ipv4Active;
