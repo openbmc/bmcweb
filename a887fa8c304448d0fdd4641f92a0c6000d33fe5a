@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "088b3296_63349a4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-02T18:29:26Z",
+      "side": 1,
+      "message": "Modified the statement",
+      "parentUuid": "95b85868_eff6d31f",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76321a80_f6b7d9c5",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-12-02T17:24:15Z",
       "side": 1,
       "message": "These seem like bugs in newly written code?",
+      "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cb89088_22ab95ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-02T18:29:26Z",
+      "side": 1,
+      "message": "I think - DMTF messages with 3-components seem needing the update to conform the spec.",
+      "parentUuid": "76321a80_f6b7d9c5",
       "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "36c28a46_b25bb1a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-02T18:29:26Z",
+      "side": 1,
+      "message": "Updated",
+      "parentUuid": "d0df1d93_e7b7d980",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 42
+      },
+      "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3faa2c03_995fd8b2",
@@ -77,6 +143,24 @@
       "writtenOn": "2024-12-02T17:21:36Z",
       "side": 1,
       "message": "Redfish service validator has no paths that test eventservice.\n\nPlease include a test that actually uses event service.",
+      "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcbdc8de_ac816b5c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-02T18:29:26Z",
+      "side": 1,
+      "message": "Modified the statement as Event service testing with Event Listener is done",
+      "parentUuid": "3faa2c03_995fd8b2",
       "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -112,6 +196,24 @@
       "side": 1,
       "message": "Section 9.5.11.2\n\n```\nThe MessageId property value shall be in the format:\n\u003cMessageRegistryPrefix\u003e.\u003cMajorVersion\u003e.\u003cMinorVersion\u003e.\u003cMessageKey\u003e\n```\n\nMake it pretty clear that it should be 4 wide.",
       "parentUuid": "dd314010_4c17bb34",
+      "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ddc885d_32ea7742",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-02T18:29:26Z",
+      "side": 1,
+      "message": "It looks like there is an opened issue - https://github.com/openbmc/bmcweb/issues/293, and conversation seems going to fix like\n\nhttps://github.com/openbmc/bmcweb/issues/293#issuecomment-2460446837\n```\nRight, but as the 3-component version breaks the specification, we need to get rid of them and use only 2-component ones. If you don\u0027t have objections to this, I will start working on replacing 3-component versions with 2-component ones.\n```",
+      "parentUuid": "d9538be4_09ab96c9",
       "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
