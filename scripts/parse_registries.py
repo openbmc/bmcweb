@@ -772,6 +772,7 @@ def main():
     update_registries(files)
 
     create_error_registry(files[0], dmtf_registries[0][1], 'Base', "base", "error")
+    create_error_registry(files[12], dmtf_registries[12][1], 'ResourceEvent', 'resource_event', "resource")
     create_error_registry(files[15], dmtf_registries[15][1], 'TaskEvent', 'task_event', "task")
 
     if "privilege" in registries:
