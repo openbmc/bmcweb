@@ -20,12 +20,13 @@ namespace redfish::registries::platform
 const Header header = {
     "Copyright 2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "Platform.1.0.1",
+    1,
+    0,
+    1,
     "Compute Platform Message Registry",
     "en",
     "This registry defines messages for compute platforms, covering topics related to processor, memory, and I/O device connectivity.",
     "Platform",
-    "1.0.1",
     "DMTF",
 };
 constexpr const char* url =

@@ -80,18 +80,22 @@ def update_registries(files):
             print("{} not found".format(file))
 
         with open(file, "w") as registry:
+
+            version_split = json_dict["RegistryVersion"].split(".")
+
             registry.write(REGISTRY_HEADER.format(namespace))
             # Parse the Registry header info
             registry.write(
                 "const Header header = {{\n"
                 '    "{json_dict[@Redfish.Copyright]}",\n'
                 '    "{json_dict[@odata.type]}",\n'
-                '    "{json_dict[Id]}",\n'
+                "    {version_split[0]},\n"
+                "    {version_split[1]},\n"
+                "    {version_split[2]},\n"
                 '    "{json_dict[Name]}",\n'
                 '    "{json_dict[Language]}",\n'
                 '    "{json_dict[Description]}",\n'
                 '    "{json_dict[RegistryPrefix]}",\n'
-                '    "{json_dict[RegistryVersion]}",\n'
                 '    "{json_dict[OwningEntity]}",\n'
                 "}};\n"
                 "constexpr const char* url =\n"
@@ -101,6 +105,7 @@ def update_registries(files):
                 "{{\n".format(
                     json_dict=json_dict,
                     url=url,
+                    version_split=version_split,
                 )
             )
 

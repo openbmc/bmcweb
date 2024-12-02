@@ -20,12 +20,13 @@ namespace redfish::registries::update
 const Header header = {
     "Copyright 2014-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "Update.1.0.2",
+    1,
+    0,
+    2,
     "Update Message Registry",
     "en",
     "This registry defines the update status and error messages.",
     "Update",
-    "1.0.2",
     "DMTF",
 };
 constexpr const char* url =
