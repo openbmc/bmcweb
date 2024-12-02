@@ -419,9 +419,7 @@ def create_error_registry(
 #include <boost/url/url_view_base.hpp>
 #include <nlohmann/json.hpp>
 
-#include <cstdint>
 #include <source_location>
-#include <string>
 #include <string_view>
 
 // IWYU pragma: no_forward_declare crow::Response
@@ -508,7 +506,7 @@ namespace messages
         headers.append("<cstddef>")
         headers.append("<span>")
 
-        if registry_name != "ResourceEvent":
+        if registry_name not in ("ResourceEvent", "HeartbeatEvent"):
             headers.append("<cstdint>")
             headers.append("<string>")
         headers.append("<string_view>")
@@ -793,6 +791,13 @@ def main():
 
     create_error_registry(
         files[0], dmtf_registries[0][1], "Base", "base", "error"
+    )
+    create_error_registry(
+        files[5],
+        dmtf_registries[5][1],
+        "HeartbeatEvent",
+        "heartbeat_event",
+        "heartbeat",
     )
     create_error_registry(
         files[12],

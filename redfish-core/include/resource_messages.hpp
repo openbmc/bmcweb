@@ -15,9 +15,7 @@
 #include <boost/url/url_view_base.hpp>
 #include <nlohmann/json.hpp>
 
-#include <cstdint>
 #include <source_location>
-#include <string>
 #include <string_view>
 
 // IWYU pragma: no_forward_declare crow::Response
