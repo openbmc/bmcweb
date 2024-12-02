@@ -26,6 +26,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ee179b5_4b878996",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T21:43:25Z",
+      "side": 1,
+      "message": "Should heartbeat events be filtered?",
+      "range": {
+        "startLine": 646,
+        "startChar": 17,
+        "endLine": 646,
+        "endChar": 35
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514674ec_7e5f28a3",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T21:43:25Z",
+      "side": 1,
+      "message": "here we\u0027re incrementing the eventId per subscriber.......  That seems odd.  Not anything to do with this patch, but I wonder if this needs rolled out of the loop.",
+      "range": {
+        "startLine": 666,
+        "startChar": 0,
+        "endLine": 666,
+        "endChar": 47
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e8fc523_ffdadd0d",
         "filename": "redfish-core/include/subscription.hpp",
         "patchSetId": 20
