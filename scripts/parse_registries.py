@@ -489,56 +489,36 @@ namespace messages
     ) as out:
         out.write(WARNING)
         out.write(f'\n#include "{base_filename}.hpp"\n')
-        if registry_name == "Base":
-            out.write(
-                """
+        headers = []
 
-#include "http_response.hpp"
-#include "logging.hpp"
-"""
-            )
-        out.write(
-            """
-#include "registries.hpp"
-"""
-        )
+        headers.append('"registries.hpp"')
         if registry_name == "Base":
             reg_name_lower = "base"
+            headers.append('"http_response.hpp"')
+            headers.append('"logging.hpp"')
+            headers.append("<boost/beast/http/field.hpp>")
+            headers.append("<boost/beast/http/status.hpp>")
+            headers.append("<boost/url/url_view_base.hpp>")
+            headers.append("<source_location>")
         else:
             reg_name_lower = namespace_name.lower()
-        out.write(
-            f'#include "registries/{reg_name_lower}_message_registry.hpp"'
-        )
-        if registry_name == "Base":
-            out.write(
-                """
+        headers.append(f'"registries/{reg_name_lower}_message_registry.hpp"')
 
-    #include <boost/beast/http/field.hpp>
-    #include <boost/beast/http/status.hpp>
-    #include <boost/url/url_view_base.hpp>
-"""
-            )
-        out.write(
-            """
-#include <nlohmann/json.hpp>
+        headers.append("<nlohmann/json.hpp>")
+        headers.append("<array>")
+        headers.append("<cstddef>")
+        headers.append("<span>")
 
-#include <array>
-#include <cstddef>
-#include <cstdint>
-"""
-        )
-        if registry_name == "Base":
-            out.write(
-                """
-#include <source_location>
-"""
-            )
+        if registry_name != "ResourceEvent":
+            headers.append("<cstdint>")
+            headers.append("<string>")
+        headers.append("<string_view>")
+
+        for header in headers:
+            out.write(f"#include {header}\n")
+
         out.write(
             """
-#include <span>
-#include <string>
-#include <string_view>
-
 // Clang can't seem to decide whether this header needs to be included or not,
 // and is inconsistent.  Include it for now
 // NOLINTNEXTLINE(misc-include-cleaner)
@@ -814,6 +794,13 @@ def main():
 
     create_error_registry(
         files[0], dmtf_registries[0][1], "Base", "base", "error"
+    )
+    create_error_registry(
+        files[12],
+        dmtf_registries[12][1],
+        "ResourceEvent",
+        "resource_event",
+        "resource",
     )
     create_error_registry(
         files[15], dmtf_registries[15][1], "TaskEvent", "task_event", "task"
