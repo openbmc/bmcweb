@@ -26,12 +26,14 @@ inline bool
     std::string userRole;
     bool remoteUser = false;
     std::optional<bool> passwordExpired;
+    std::optional<bool> secretKeyRequired;
     std::optional<std::vector<std::string>> userGroups;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         redfish::dbus_utils::UnpackErrorPrinter(), userInfoMap, "UserPrivilege",
         userRole, "RemoteUser", remoteUser, "UserPasswordExpired",
-        passwordExpired, "UserGroups", userGroups);
+        passwordExpired, "TOTPSecretkeyRequired", secretKeyRequired,
+        "UserGroups", userGroups);
 
     if (!success)
     {
@@ -49,10 +51,13 @@ inline bool
     session.userRole = userRole;
     BMCWEB_LOG_DEBUG("userName = {} userRole = {}", session.username, userRole);
 
+    session.isGenerateSecretKeyRequired = secretKeyRequired.value_or(false);
+
     // Set isConfigureSelfOnly based on D-Bus results.  This
     // ignores the results from both pamAuthenticateUser and the
     // value from any previous use of this session.
-    session.isConfigureSelfOnly = passwordExpired.value_or(false);
+    session.isConfigureSelfOnly = passwordExpired.value_or(false) ||
+                                  secretKeyRequired.value_or(false);
 
     session.userGroups.clear();
     if (userGroups)
@@ -90,10 +95,22 @@ inline bool
         asyncResp->res.result(boost::beast::http::status::forbidden);
         if (req.session->isConfigureSelfOnly)
         {
-            redfish::messages::passwordChangeRequired(
-                asyncResp->res,
-                boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
-                                    req.session->username));
+            if (!req.session->isGenerateSecretKeyRequired)
+            {
+                redfish::messages::passwordChangeRequired(
+                    asyncResp->res,
+                    boost::urls::format(
+                        "/redfish/v1/AccountService/Accounts/{}",
+                        req.session->username));
+            }
+            else
+            {
+                redfish::messages::generateSecretKeyRequired(
+                    asyncResp->res,
+                    boost::urls::format(
+                        "/redfish/v1/AccountService/Accounts/{}",
+                        req.session->username));
+            }
         }
         return false;
     }

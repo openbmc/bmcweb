@@ -308,7 +308,7 @@ inline void handleSessionCollectionPost(
         std::shared_ptr<persistent_data::UserSession> session =
             persistent_data::SessionStore::getInstance().generateUserSession(
                 username, req.ipAddress, clientId,
-                persistent_data::SessionType::Session, true);
+                persistent_data::SessionType::Session, true, false);
         if (!session)
         {
             messages::internalError(asyncResp->res);
@@ -332,7 +332,7 @@ inline void handleSessionCollectionPost(
         std::shared_ptr<persistent_data::UserSession> session =
             persistent_data::SessionStore::getInstance().generateUserSession(
                 username, req.ipAddress, clientId,
-                persistent_data::SessionType::Session, required);
+                persistent_data::SessionType::Session, required, required);
         if (!session)
         {
             messages::internalError(asyncResp->res);
