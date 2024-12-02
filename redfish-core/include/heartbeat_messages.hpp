@@ -1,38 +1,31 @@
 #pragma once
-#include "registries/heartbeat_event_message_registry.hpp"
+/****************************************************************
+ *                 READ THIS WARNING FIRST
+ * This is an auto-generated header which contains definitions
+ * for Redfish DMTF defined messages.
+ * DO NOT modify this registry outside of running the
+ * parse_registries.py script.  The definitions contained within
+ * this file are owned by DMTF.  Any modifications to these files
+ * should be first pushed to the relevant registry in the DMTF
+ * github organization.
+ ***************************************************************/
 
+#include "http_response.hpp"
+
+#include <boost/url/url_view_base.hpp>
 #include <nlohmann/json.hpp>
 
-#include <array>
-#include <span>
+#include <source_location>
 #include <string_view>
 
-namespace redfish::messages
+// IWYU pragma: no_forward_declare crow::Response
+
+namespace redfish
 {
 
-inline nlohmann::json
-    getLogHeartbeat(redfish::registries::heartbeat_event::Index name,
-                    std::span<const std::string_view> args)
+namespace messages
 {
-    size_t index = static_cast<size_t>(name);
-    if (index >= redfish::registries::heartbeat_event::registry.size())
-    {
-        return {};
-    }
-    return getLogFromRegistry(redfish::registries::heartbeat_event::header,
-                              redfish::registries::heartbeat_event::registry,
-                              index, args);
+nlohmann::json redfishServiceFunctional();
+
 }
-
-/**
- * @brief Formats RedfishServiceFunctional message into JSON
- * Message body: "Redfish service is functional."
- *
- * @returns Message RedfishServiceFunctional formatted to JSON */
-inline nlohmann::json redfishServiceFunctional()
-{
-    return getLogHeartbeat(
-        registries::heartbeat_event::Index::redfishServiceFunctional, {});
-}
-
-} // namespace redfish::messages
+} // namespace redfish
