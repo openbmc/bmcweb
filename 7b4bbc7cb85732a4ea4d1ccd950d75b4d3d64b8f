@@ -164,6 +164,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8813415_f39387c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T21:38:05Z",
+      "side": 1,
+      "message": "Those address the 3 vs 2 part version issue, not the fact that this was sending LogEntries initially, not events.",
+      "parentUuid": "ccc008d2_6b8ca5c9",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa3bc27d_df3f5da5",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 1
@@ -335,6 +353,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a69fcc4a_d6da358c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T21:38:05Z",
+      "side": 1,
+      "message": "\u003e If not, the heartbeat may be stopped due to those errors without any notifications?\n\nIf the timer is returning errors, we don\u0027t know if it\u0027s valid anymore.  System level errors should not result in the timer restarting unless it\u0027s a known error and we handle it explicitly (like operation_aborted).\n\nthe remaining errrors should all stop the heartbeat.",
+      "parentUuid": "ddeb78b0_e48e3ece",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e4457ce_870a644b",
         "filename": "redfish-core/include/event_service_manager.hpp",
         "patchSetId": 1
@@ -382,6 +418,24 @@
       "side": 1,
       "message": "I use Subscription\u0027s `eventSeqNum` as `EventId`, so that it will increment for each event",
       "parentUuid": "6898062b_2ef78bf7",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5acbade_6af22bc2",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T21:38:05Z",
+      "side": 1,
+      "message": "\u003e so that it will increment for each event\n\nIs this correct behavior?  I don\u0027t really know, because heartbeats are a per-subscription \"event\".  Is there something in the redfish spec that defines what should happen here?",
+      "parentUuid": "2d2c3ed7_9f021f62",
       "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
