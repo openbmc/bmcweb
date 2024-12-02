@@ -20,12 +20,13 @@ namespace redfish::registries::network_device
 const Header header = {
     "Copyright 2019-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "NetworkDevice.1.0.3",
+    1,
+    0,
+    3,
     "Network Device Message Registry",
     "en",
     "This registry defines the messages for networking devices.",
     "NetworkDevice",
-    "1.0.3",
     "DMTF",
 };
 constexpr const char* url =

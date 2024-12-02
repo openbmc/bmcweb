@@ -25,6 +25,17 @@ option(
                     https://github.com/openbmc/jsnbd/blob/master/README.''',
 )
 
+option(
+    'redfish-use-3-digit-messageid',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Prior to a bug fix, bmcweb exposed error messages with a
+                    MessageId of Base.x.y.z.Message which was incorrect.
+                    Enabling this option causes return codes to return the old
+                    incorrect version for backward compatibility.  Will be
+                    removed Q2-2025'''
+)
+
 # BMCWEB_NBDPROXY
 # if you use this option and are seeing this comment, please comment here:
 # https://github.com/openbmc/bmcweb/issues/188 and put forward your intentions
