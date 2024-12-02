@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "401a33fc_ac159f87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T18:35:37Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "9cb89088_22ab95ef",
+      "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0df1d93_e7b7d980",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -214,6 +232,24 @@
       "side": 1,
       "message": "It looks like there is an opened issue - https://github.com/openbmc/bmcweb/issues/293, and conversation seems going to fix like\n\nhttps://github.com/openbmc/bmcweb/issues/293#issuecomment-2460446837\n```\nRight, but as the 3-component version breaks the specification, we need to get rid of them and use only 2-component ones. If you don\u0027t have objections to this, I will start working on replacing 3-component versions with 2-component ones.\n```",
       "parentUuid": "d9538be4_09ab96c9",
+      "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eb36178_ea28984c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T18:35:37Z",
+      "side": 1,
+      "message": "Yep.  that was my understanding as well.  Given that, is this patch still neccesary?",
+      "parentUuid": "9ddc885d_32ea7742",
       "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
