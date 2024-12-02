@@ -13,6 +13,12 @@ namespace crow
 template <typename T>
 struct RuleParameterTraits
 {
+    private:
+    RuleParameterTraits() = default;
+    friend T;
+
+    public:
+
     using self_t = T;
     WebSocketRule& websocket()
     {
