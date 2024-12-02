@@ -20,6 +20,7 @@ limitations under the License.
 #include <array>
 #include <charconv>
 #include <cstddef>
+#include <format>
 #include <numeric>
 #include <span>
 #include <string>
@@ -32,7 +33,9 @@ struct Header
 {
     const char* copyright;
     const char* type;
-    const char* id;
+    int versionMajor;
+    int versionMinor;
+    int versionPatch;
     const char* name;
     const char* language;
     const char* description;
@@ -101,9 +104,9 @@ inline nlohmann::json::object_t getLogFromRegistry(
     {
         jArgs.push_back(arg);
     }
-    std::string msgId = header.id;
-    msgId += ".";
-    msgId += entry.first;
+    std::string msgId =
+        std::format("{}.{}.{}.{}", header.registryPrefix, header.versionMajor,
+                    header.versionMinor, entry.first);
 
     nlohmann::json::object_t response;
     response["@odata.type"] = "#Message.v1_1_1.Message";
