@@ -94,7 +94,7 @@ inline void parseCrashdumpParameters(
 
 inline void afterGetPostCodeService(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
+    const std::string& systemName, const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreePathsResponse& subtreePath)
 {
     if (ec)
@@ -111,8 +111,7 @@ inline void afterGetPostCodeService(
                 asyncResp->res.jsonValue["Members"];
             nlohmann::json::object_t member;
             member["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Systems/{}/LogServices/PostCodes",
-                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                "/redfish/v1/Systems/{}/LogServices/PostCodes", systemName);
 
             logServiceArrayLocal.emplace_back(std::move(member));
 
@@ -148,7 +147,7 @@ inline void handleSystemsLogServiceCollectionGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogServiceCollection.LogServiceCollection";
     asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/LogServices", systemName);
+        boost::urls::format("/redfish/v1/Systems/{}/LogServices", systemName);
     asyncResp->res.jsonValue["Name"] = "System Log Services Collection";
     asyncResp->res.jsonValue["Description"] =
         "Collection of LogServices for this Computer System";
@@ -197,7 +196,7 @@ inline void handleSystemsLogServiceCollectionGet(
         "xyz.openbmc_project.State.Boot.PostCode"};
     dbus::utility::getSubTreePaths(
         "/", 0, interfaces,
-        std::bind_front(afterGetPostCodeService, asyncResp));
+        std::bind_front(afterGetPostCodeService, asyncResp, systemName));
 }
 
 inline void handleManagersLogServicesCollectionGet(
