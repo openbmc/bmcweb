@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e8fc523_ffdadd0d",
+        "filename": "redfish-core/include/subscription.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T21:38:44Z",
+      "side": 1,
+      "message": "This should be private",
+      "range": {
+        "startLine": 96,
+        "startChar": 30,
+        "endLine": 96,
+        "endChar": 37
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4c88a9ca_83c454ae",
         "filename": "redfish-core/lib/event_service.hpp",
         "patchSetId": 20
