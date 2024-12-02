@@ -20,7 +20,10 @@ namespace redfish::registries::fabric
 const Header header = {
     "Copyright 2014-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "Fabric.1.0.2",
+    "Fabric",
+    1,
+    0,
+    2,
     "Fabric Message Registry",
     "en",
     "This registry defines messages for generic fabrics.",
