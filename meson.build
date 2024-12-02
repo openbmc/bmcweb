@@ -355,6 +355,7 @@ srcfiles_bmcweb = files(
     'http/mutual_tls.cpp',
     'redfish-core/src/dbus_log_watcher.cpp',
     'redfish-core/src/error_messages.cpp',
+    'redfish-core/src/task_messages.cpp',
     'redfish-core/src/event_log.cpp',
     'redfish-core/src/filesystem_log_watcher.cpp',
     'redfish-core/src/filter_expr_executor.cpp',
