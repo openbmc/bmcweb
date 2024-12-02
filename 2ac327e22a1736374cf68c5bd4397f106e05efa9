@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09c2f26b_30980b5a",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T21:20:33Z",
+      "side": 1,
+      "message": "I realize you\u0027re trying to format this reasonably, but it\u0027s not clear that what\u0027s here is actually better.  Can you please remove these //",
+      "range": {
+        "startLine": 275,
+        "startChar": 36,
+        "endLine": 275,
+        "endChar": 61
+      },
+      "revId": "2ac327e22a1736374cf68c5bd4397f106e05efa9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
