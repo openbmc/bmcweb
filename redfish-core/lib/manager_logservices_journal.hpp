@@ -20,7 +20,7 @@
 namespace redfish
 {
 
-inline int getJournalMetadata(sd_journal* journal, std::string_view field,
+inline int getJournalMetadata(sd_journal* journal, const char* field,
                               std::string_view& contents)
 {
     const char* data = nullptr;
@@ -30,7 +30,7 @@ inline int getJournalMetadata(sd_journal* journal, std::string_view field,
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     const void** dataVoid = reinterpret_cast<const void**>(&data);
 
-    ret = sd_journal_get_data(journal, field.data(), dataVoid, &length);
+    ret = sd_journal_get_data(journal, field, dataVoid, &length);
     if (ret < 0)
     {
         return ret;
@@ -41,7 +41,7 @@ inline int getJournalMetadata(sd_journal* journal, std::string_view field,
     return ret;
 }
 
-inline int getJournalMetadataInt(sd_journal* journal, std::string_view field,
+inline int getJournalMetadataInt(sd_journal* journal, const char* field,
                                  const int& base, long int& contents)
 {
     int ret = 0;
