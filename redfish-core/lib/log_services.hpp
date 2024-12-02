@@ -984,7 +984,7 @@ inline void handleSystemsLogServiceCollectionGet(
                     nlohmann::json& logServiceArrayLocal =
                         asyncResp->res.jsonValue["Members"];
                     nlohmann::json::object_t member;
-                    member["@odata.id"] = std::format(
+                    member["@odata.id"] = boost::urls::format(
                         "/redfish/v1/Systems/{}/LogServices/PostCodes",
                         systemName);
 
