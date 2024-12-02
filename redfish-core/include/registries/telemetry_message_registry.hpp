@@ -20,7 +20,10 @@ namespace redfish::registries::telemetry
 const Header header = {
     "Copyright 2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "Telemetry.1.0.0",
+    "Telemetry",
+    1,
+    0,
+    0,
     "Telemetry Message Registry",
     "en",
     "This registry defines the messages for telemetry related events.",

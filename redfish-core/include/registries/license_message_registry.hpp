@@ -20,7 +20,10 @@ namespace redfish::registries::license
 const Header header = {
     "Copyright 2014-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "License.1.0.3",
+    "License",
+    1,
+    0,
+    3,
     "License Message Registry",
     "en",
     "This registry defines the license status and error messages.",

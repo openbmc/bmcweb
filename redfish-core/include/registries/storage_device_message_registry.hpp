@@ -20,7 +20,10 @@ namespace redfish::registries::storage_device
 const Header header = {
     "Copyright 2020-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "StorageDevice.1.2.1",
+    "StorageDevice",
+    1,
+    2,
+    1,
     "Storage Device Message Registry",
     "en",
     "This registry defines the messages for storage devices.",
