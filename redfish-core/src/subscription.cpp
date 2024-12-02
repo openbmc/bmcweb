@@ -34,6 +34,8 @@ limitations under the License.
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/errc.hpp>
 #include <boost/url/format.hpp>
@@ -192,11 +194,14 @@ bool Subscription::sendEventToSubscriber(std::string&& msg)
 
     if (client)
     {
+        boost::beast::http::fields httpHeadersCopy(userSub->httpHeaders);
+        httpHeadersCopy.set(boost::beast::http::field::content_type,
+                            "application/json");
         client->sendDataWithCallback(
             std::move(msg), userSub->destinationUrl,
             static_cast<ensuressl::VerifyCertificate>(
                 userSub->verifyCertificate),
-            userSub->httpHeaders, boost::beast::http::verb::post,
+            httpHeadersCopy, boost::beast::http::verb::post,
             std::bind_front(&Subscription::resHandler, this,
                             shared_from_this()));
         return true;
