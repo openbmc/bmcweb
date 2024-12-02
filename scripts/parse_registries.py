@@ -241,7 +241,9 @@ def get_response_code(entry_id, entry):
     return "bad_request"
 
 
-def make_error_function(entry_id, entry, is_header):
+def make_error_function(
+    entry_id, entry, is_header, registry_name, namespace_name
+):
     arg_nonstring_types = {
         "const boost::urls::url_view_base&": {
             "AccessDenied": [1],
@@ -276,6 +278,7 @@ def make_error_function(entry_id, entry, is_header):
             "ArraySizeTooLong": [2],
             "InvalidIndex": [1],
             "StringValueTooLong": [2],
+            "TaskProgressChanged": [2],
         },
     }
 
@@ -328,75 +331,77 @@ def make_error_function(entry_id, entry, is_header):
             arg_param = f"std::to_array{to_array_type}({{{argstring}}})"
         else:
             arg_param = "{}"
-        out += f"    return getLog(redfish::registries::base::Index::{function_name}, {arg_param});"
+        out += f"    return getLog(redfish::registries::{namespace_name}::Index::{function_name}, {arg_param});"
         out += "\n}\n\n"
-    args.insert(0, "crow::Response& res")
-    if entry_id == "InternalError":
-        if is_header:
-            args.append(
-                "std::source_location location = std::source_location::current()"
-            )
-        else:
-            args.append("const std::source_location location")
-    arg = ", ".join(args)
-    out += f"void {function_name}({arg})"
-    if is_header:
-        out += ";\n"
-    else:
-        out += "\n{\n"
+    if registry_name == "Base":
+        args.insert(0, "crow::Response& res")
         if entry_id == "InternalError":
-            out += """BMCWEB_LOG_CRITICAL("Internal Error {}({}:{}) `{}`: ", location.file_name(),
-                        location.line(), location.column(),
-                        location.function_name());\n"""
-
-        if entry_id == "ServiceTemporarilyUnavailable":
-            out += (
-                "res.addHeader(boost::beast::http::field::retry_after, arg1);"
-            )
-
-        res = get_response_code(entry_id, entry)
-        if res:
-            out += f"    res.result(boost::beast::http::status::{res});\n"
-        args_out = ", ".join([f"arg{x+1}" for x in range(len(argtypes))])
-
-        addMessageToJson = {
-            "PropertyDuplicate": 1,
-            "ResourceAlreadyExists": 2,
-            "CreateFailedMissingReqProperties": 1,
-            "PropertyValueFormatError": 2,
-            "PropertyValueNotInList": 2,
-            "PropertyValueTypeError": 2,
-            "PropertyValueError": 1,
-            "PropertyNotWritable": 1,
-            "PropertyValueModified": 1,
-            "PropertyMissing": 1,
-        }
-
-        addMessageToRoot = [
-            "SessionTerminated",
-            "SubscriptionTerminated",
-            "AccountRemoved",
-            "Created",
-            "Success",
-            "PasswordChangeRequired",
-        ]
-
-        if entry_id in addMessageToJson:
-            out += f"    addMessageToJson(res.jsonValue, {function_name}({args_out}), arg{addMessageToJson[entry_id]});\n"
-        elif entry_id in addMessageToRoot:
-            out += f"    addMessageToJsonRoot(res.jsonValue, {function_name}({args_out}));\n"
+            if is_header:
+                args.append(
+                    "std::source_location location = std::source_location::current()"
+                )
+            else:
+                args.append("const std::source_location location")
+        arg = ", ".join(args)
+        out += f"void {function_name}({arg})"
+        if is_header:
+            out += ";\n"
         else:
-            out += f"    addMessageToErrorJson(res.jsonValue, {function_name}({args_out}));\n"
-        out += "}\n"
+            out += "\n{\n"
+            if entry_id == "InternalError":
+                out += """BMCWEB_LOG_CRITICAL("Internal Error {}({}:{}) `{}`: ", location.file_name(),
+                            location.line(), location.column(),
+                            location.function_name());\n"""
+
+            if entry_id == "ServiceTemporarilyUnavailable":
+                out += "res.addHeader(boost::beast::http::field::retry_after, arg1);"
+
+            res = get_response_code(entry_id, entry)
+            if res:
+                out += f"    res.result(boost::beast::http::status::{res});\n"
+            args_out = ", ".join([f"arg{x+1}" for x in range(len(argtypes))])
+
+            addMessageToJson = {
+                "PropertyDuplicate": 1,
+                "ResourceAlreadyExists": 2,
+                "CreateFailedMissingReqProperties": 1,
+                "PropertyValueFormatError": 2,
+                "PropertyValueNotInList": 2,
+                "PropertyValueTypeError": 2,
+                "PropertyValueError": 1,
+                "PropertyNotWritable": 1,
+                "PropertyValueModified": 1,
+                "PropertyMissing": 1,
+            }
+
+            addMessageToRoot = [
+                "SessionTerminated",
+                "SubscriptionTerminated",
+                "AccountRemoved",
+                "Created",
+                "Success",
+                "PasswordChangeRequired",
+            ]
+
+            if entry_id in addMessageToJson:
+                out += f"    addMessageToJson(res.jsonValue, {function_name}({args_out}), arg{addMessageToJson[entry_id]});\n"
+            elif entry_id in addMessageToRoot:
+                out += f"    addMessageToJsonRoot(res.jsonValue, {function_name}({args_out}));\n"
+            else:
+                out += f"    addMessageToErrorJson(res.jsonValue, {function_name}({args_out}));\n"
+            out += "}\n"
     out += "\n"
     return out
 
 
-def create_error_registry(entry, registry_version):
+def create_error_registry(
+    entry, registry_version, registry_name, namespace_name, filename
+):
     file, json_dict, namespace, url = entry
+    base_filename = filename + "_messages"
 
     error_messages_hpp = os.path.join(
-        SCRIPT_DIR, "..", "redfish-core", "include", "error_messages.hpp"
+        SCRIPT_DIR, "..", "redfish-core", "include", f"{base_filename}.hpp"
     )
     messages = json_dict["Messages"]
 
@@ -428,70 +433,107 @@ namespace messages
 {
 """
         )
-        out.write(
-            f'constexpr const char* messageVersionPrefix = "Base.{registry_version}.";'
-        )
-        out.write(
-            """
-        constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
+        if registry_name == "Base":
+            out.write(
+                f'constexpr const char* messageVersionPrefix = "{registry_name}.{registry_version}.";'
+            )
+            out.write(
+                """
+            constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
 
-        /**
-        * @brief Moves all error messages from the |source| JSON to |target|
-        */
-        void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source);
+            /**
+            * @brief Moves all error messages from the |source| JSON to |target|
+            */
+            void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source);
 
-    """
-        )
+        """
+            )
         for entry_id, entry in messages.items():
             message = entry["Message"]
             for index in range(1, 10):
                 message = message.replace(f"'%{index}'", f"<arg{index}>")
                 message = message.replace(f"%{index}", f"<arg{index}>")
 
-            out.write("/**\n")
-            out.write(f"* @brief Formats {entry_id} message into JSON\n")
-            out.write(f'* Message body: "{message}"\n')
-            out.write("*\n")
-            arg_index = 0
-            for arg_index, arg in enumerate(entry.get("ParamTypes", [])):
-                arg_index += 1
+            if registry_name == "Base":
+                out.write("/**\n")
+                out.write(f"* @brief Formats {entry_id} message into JSON\n")
+                out.write(f'* Message body: "{message}"\n')
+                out.write("*\n")
+                arg_index = 0
+                for arg_index, arg in enumerate(entry.get("ParamTypes", [])):
+                    arg_index += 1
 
+                    out.write(
+                        f"* @param[in] arg{arg_index} Parameter of message that will replace %{arg_index} in its body.\n"
+                    )
+                out.write("*\n")
                 out.write(
-                    f"* @param[in] arg{arg_index} Parameter of message that will replace %{arg_index} in its body.\n"
+                    f"* @returns Message {entry_id} formatted to JSON */\n"
                 )
-            out.write("*\n")
-            out.write(f"* @returns Message {entry_id} formatted to JSON */\n")
 
-            out.write(make_error_function(entry_id, entry, True))
+            out.write(
+                make_error_function(
+                    entry_id, entry, True, registry_name, namespace_name
+                )
+            )
         out.write("    }\n")
         out.write("}\n")
 
     error_messages_cpp = os.path.join(
-        SCRIPT_DIR, "..", "redfish-core", "src", "error_messages.cpp"
+        SCRIPT_DIR, "..", "redfish-core", "src", f"{base_filename}.cpp"
     )
     with open(
         error_messages_cpp,
         "w",
     ) as out:
         out.write(WARNING)
-        out.write(
-            """
-#include "error_messages.hpp"
+        out.write(f'\n#include "{base_filename}.hpp"\n')
+        if registry_name == "Base":
+            out.write(
+                """
 
 #include "http_response.hpp"
 #include "logging.hpp"
+"""
+            )
+        out.write(
+            """
 #include "registries.hpp"
-#include "registries/base_message_registry.hpp"
+"""
+        )
+        if registry_name == "Base":
+            reg_name_lower = "base"
+        else:
+            reg_name_lower = namespace_name.lower()
+        out.write(
+            f'#include "registries/{reg_name_lower}_message_registry.hpp"'
+        )
+        if registry_name == "Base":
+            out.write(
+                """
 
-#include <boost/beast/http/field.hpp>
-#include <boost/beast/http/status.hpp>
-#include <boost/url/url_view_base.hpp>
+    #include <boost/beast/http/field.hpp>
+    #include <boost/beast/http/status.hpp>
+    #include <boost/url/url_view_base.hpp>
+"""
+            )
+        out.write(
+            """
 #include <nlohmann/json.hpp>
 
 #include <array>
 #include <cstddef>
 #include <cstdint>
+"""
+        )
+        if registry_name == "Base":
+            out.write(
+                """
 #include <source_location>
+"""
+            )
+        out.write(
+            """
 #include <span>
 #include <string>
 #include <string_view>
@@ -506,7 +548,12 @@ namespace redfish
 
 namespace messages
 {
+"""
+        )
 
+        if registry_name == "Base":
+            out.write(
+                """
 static void addMessageToErrorJson(nlohmann::json& target,
                                   const nlohmann::json& message)
 {
@@ -615,20 +662,25 @@ static void addMessageToJson(nlohmann::json& target,
     // Object exists and it is an array so we can just push in the message
     field.push_back(message);
 }
-
-static nlohmann::json getLog(redfish::registries::base::Index name,
-                             std::span<const std::string_view> args)
-{
-    size_t index = static_cast<size_t>(name);
-    if (index >= redfish::registries::base::registry.size())
-    {
-        return {};
-    }
-    return getLogFromRegistry(redfish::registries::base::header,
-                              redfish::registries::base::registry, index, args);
-}
-
 """
+            )
+        out.write(
+            """
+static nlohmann::json getLog(redfish::registries::{namespace_name}::Index name,
+                             std::span<const std::string_view> args)
+{{
+    size_t index = static_cast<size_t>(name);
+    if (index >= redfish::registries::{namespace_name}::registry.size())
+    {{
+        return {{}};
+    }}
+    return getLogFromRegistry(redfish::registries::{namespace_name}::header,
+                              redfish::registries::{namespace_name}::registry, index, args);
+}}
+
+""".format(
+                namespace_name=namespace_name
+            )
         )
         for entry_id, entry in messages.items():
             out.write(
@@ -642,7 +694,11 @@ static nlohmann::json getLog(redfish::registries::base::Index name,
 """
             )
             message = entry["Message"]
-            out.write(make_error_function(entry_id, entry, False))
+            out.write(
+                make_error_function(
+                    entry_id, entry, False, registry_name, namespace_name
+                )
+            )
 
         out.write("    }\n")
         out.write("}\n")
@@ -755,7 +811,12 @@ def main():
 
     update_registries(files)
 
-    create_error_registry(files[0], dmtf_registries[0][1])
+    create_error_registry(
+        files[0], dmtf_registries[0][1], "Base", "base", "error"
+    )
+    create_error_registry(
+        files[15], dmtf_registries[15][1], "TaskEvent", "task_event", "task"
+    )
 
     if "privilege" in registries:
         make_privilege_registry()
