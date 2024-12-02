@@ -25,4 +25,5 @@ inline std::span<const MessageEntry>
     }
     return {openbmc::registry};
 }
+
 } // namespace redfish::registries
