@@ -20,7 +20,7 @@
 namespace redfish
 {
 
-inline int getJournalMetadata(sd_journal* journal, std::string_view field,
+inline int getJournalMetadata(sd_journal* journal, const char* field,
                               std::string_view& contents)
 {
     const char* data = nullptr;
@@ -30,7 +30,7 @@ inline int getJournalMetadata(sd_journal* journal, std::string_view field,
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
     const void** dataVoid = reinterpret_cast<const void**>(&data);
 
-    ret = sd_journal_get_data(journal, field.data(), dataVoid, &length);
+    ret = sd_journal_get_data(journal, field, dataVoid, &length);
     if (ret < 0)
     {
         return ret;
@@ -41,19 +41,23 @@ inline int getJournalMetadata(sd_journal* journal, std::string_view field,
     return ret;
 }
 
-inline int getJournalMetadataInt(sd_journal* journal, std::string_view field,
-                                 const int& base, long int& contents)
+inline int getJournalMetadataInt(sd_journal* journal, const char* field,
+                                 const int base, long int& contents)
 {
-    int ret = 0;
     std::string_view metadata;
     // Get the metadata from the requested field of the journal entry
-    ret = getJournalMetadata(journal, field, metadata);
+    int ret = getJournalMetadata(journal, field, metadata);
     if (ret < 0)
     {
         return ret;
     }
-    contents = strtol(metadata.data(), nullptr, base);
-    return ret;
+    std::from_chars_result res =
+        std::from_chars(&*metadata.begin(), &*metadata.end(), contents, base);
+    if (res.ec != std::error_code{} || res.ptr != &*metadata.end())
+    {
+        return -1;
+    }
+    return 0;
 }
 
 inline bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
@@ -63,7 +67,7 @@ inline bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
     ret = sd_journal_get_realtime_usec(journal, &timestamp);
     if (ret < 0)
     {
-        BMCWEB_LOG_ERROR("Failed to read entry timestamp: {}", strerror(-ret));
+        BMCWEB_LOG_ERROR("Failed to read entry timestamp: {}", ret);
         return false;
     }
     entryTimestamp = redfish::time_utils::getDateTimeUintUs(timestamp);
@@ -88,8 +92,7 @@ inline bool fillBMCJournalLogEntryJson(
     ret = getJournalMetadata(journal, "SYSLOG_IDENTIFIER", syslogID);
     if (ret < 0)
     {
-        BMCWEB_LOG_DEBUG("Failed to read SYSLOG_IDENTIFIER field: {}",
-                         strerror(-ret));
+        BMCWEB_LOG_DEBUG("Failed to read SYSLOG_IDENTIFIER field: {}", ret);
     }
     if (!syslogID.empty())
     {
@@ -100,7 +103,7 @@ inline bool fillBMCJournalLogEntryJson(
     ret = getJournalMetadata(journal, "MESSAGE", msg);
     if (ret < 0)
     {
-        BMCWEB_LOG_ERROR("Failed to read MESSAGE field: {}", strerror(-ret));
+        BMCWEB_LOG_ERROR("Failed to read MESSAGE field: {}", ret);
         return false;
     }
     message += std::string(msg);
@@ -110,7 +113,7 @@ inline bool fillBMCJournalLogEntryJson(
     ret = getJournalMetadataInt(journal, "PRIORITY", 10, severity);
     if (ret < 0)
     {
-        BMCWEB_LOG_DEBUG("Failed to read PRIORITY field: {}", strerror(-ret));
+        BMCWEB_LOG_DEBUG("Failed to read PRIORITY field: {}", ret);
     }
 
     // Get the Created time from the timestamp
@@ -294,7 +297,7 @@ inline void handleManagersJournalLogEntryCollectionGet(
     int ret = sd_journal_open(&journalTmp, SD_JOURNAL_LOCAL_ONLY);
     if (ret < 0)
     {
-        BMCWEB_LOG_ERROR("failed to open journal: {}", strerror(-ret));
+        BMCWEB_LOG_ERROR("failed to open journal: {}", ret);
         messages::internalError(asyncResp->res);
         return;
     }
@@ -401,7 +404,7 @@ inline void handleManagersJournalEntriesLogEntryGet(
     int ret = sd_journal_open(&journalTmp, SD_JOURNAL_LOCAL_ONLY);
     if (ret < 0)
     {
-        BMCWEB_LOG_ERROR("failed to open journal: {}", strerror(-ret));
+        BMCWEB_LOG_ERROR("failed to open journal: {}", ret);
         messages::internalError(asyncResp->res);
         return;
     }
