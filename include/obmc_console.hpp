@@ -200,8 +200,7 @@ inline void connectConsoleSocket(crow::websocket::Connection& conn,
     int fd = dup(unixfd);
     if (fd == -1)
     {
-        BMCWEB_LOG_ERROR("Failed to dup the DBUS unixfd error: {}",
-                         strerror(errno));
+        BMCWEB_LOG_ERROR("Failed to dup the DBUS unixfd error");
         conn.close("Internal error");
         return;
     }

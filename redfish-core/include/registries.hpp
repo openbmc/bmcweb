@@ -73,7 +73,7 @@ inline std::string fillMessageArgs(
         ret += msg.substr(0, stringIndex);
         msg.remove_prefix(stringIndex + 1);
         size_t number = 0;
-        auto it = std::from_chars(msg.data(), &*msg.end(), number);
+        auto it = std::from_chars(&*msg.begin(), &*msg.end(), number);
         if (it.ec != std::errc())
         {
             return "";
