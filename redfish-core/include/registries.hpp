@@ -15,11 +15,14 @@ limitations under the License.
 */
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include <nlohmann/json.hpp>
 
 #include <array>
 #include <charconv>
 #include <cstddef>
+#include <format>
 #include <numeric>
 #include <span>
 #include <string>
@@ -32,12 +35,13 @@ struct Header
 {
     const char* copyright;
     const char* type;
-    const char* id;
+    unsigned int versionMajor;
+    unsigned int versionMinor;
+    unsigned int versionPatch;
     const char* name;
     const char* language;
     const char* description;
     const char* registryPrefix;
-    const char* registryVersion;
     const char* owningEntity;
 };
 
@@ -101,10 +105,19 @@ inline nlohmann::json::object_t getLogFromRegistry(
     {
         jArgs.push_back(arg);
     }
-    std::string msgId = header.id;
-    msgId += ".";
-    msgId += entry.first;
-
+    std::string msgId;
+    if (BMCWEB_REDFISH_USE_3_DIGIT_MESSAGEID)
+    {
+        msgId = std::format("{}.{}.{}.{}.{}", header.registryPrefix,
+                            header.versionMajor, header.versionMinor,
+                            header.versionPatch, entry.first);
+    }
+    else
+    {
+        msgId =
+            std::format("{}.{}.{}.{}", header.registryPrefix,
+                        header.versionMajor, header.versionMinor, entry.first);
+    }
     nlohmann::json::object_t response;
     response["@odata.type"] = "#Message.v1_1_1.Message";
     response["MessageId"] = std::move(msgId);
