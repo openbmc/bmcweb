@@ -20,12 +20,13 @@ namespace redfish::registries::log_service
 const Header header = {
     "Copyright 2020-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "LogService.1.0.1",
+    1,
+    0,
+    1,
     "Log Service Message Registry",
     "en",
     "This registry defines the messages for log service related events.",
     "LogService",
-    "1.0.1",
     "DMTF",
 };
 constexpr const char* url =

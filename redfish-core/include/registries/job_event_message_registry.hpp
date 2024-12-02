@@ -20,12 +20,13 @@ namespace redfish::registries::job_event
 const Header header = {
     "Copyright 2014-2023 DMTF in cooperation with the Storage Networking Industry Association (SNIA). All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "JobEvent.1.0.1",
+    1,
+    0,
+    1,
     "Job Event Message Registry",
     "en",
     "This registry defines the messages for job related events.",
     "JobEvent",
-    "1.0.1",
     "DMTF",
 };
 constexpr const char* url =

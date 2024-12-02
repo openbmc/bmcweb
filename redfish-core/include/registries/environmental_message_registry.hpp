@@ -20,12 +20,13 @@ namespace redfish::registries::environmental
 const Header header = {
     "Copyright 2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "Environmental.1.0.1",
+    1,
+    0,
+    1,
     "Environmental Message Registry",
     "en",
     "This registry defines messages related to environmental sensors, heating and cooling equipment, or other environmental conditions.",
     "Environmental",
-    "1.0.1",
     "DMTF",
 };
 constexpr const char* url =
