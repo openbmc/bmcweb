@@ -489,7 +489,8 @@ namespace messages
     ) as out:
         out.write(WARNING)
         out.write(f'\n#include "{base_filename}.hpp"\n')
-        out.write("""
+        out.write(
+            """
 
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -794,6 +795,13 @@ def main():
 
     create_error_registry(
         files[0], dmtf_registries[0][1], "Base", "base", "error"
+    )
+    create_error_registry(
+        files[5],
+        dmtf_registries[5][1],
+        "HeartbeatEvent",
+        "heartbeat",
+        "heartbeat",
     )
     create_error_registry(
         files[12],
