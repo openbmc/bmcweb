@@ -20,7 +20,9 @@ namespace redfish::registries::heartbeat_event
 const Header header = {
     "Copyright 2021-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "HeartbeatEvent.1.0.1",
+    1,
+    0,
+    1,
     "Heartbeat Event Message Registry",
     "en",
     "This registry defines the messages to use for periodic heartbeat, also known as 'keep alive', events.",

@@ -28,6 +28,7 @@ limitations under the License.
 #include <boost/url/format.hpp>
 
 #include <array>
+#include <format>
 
 namespace redfish
 {
@@ -126,7 +127,8 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     asyncResp->res.jsonValue["Description"] =
         dmtf + registry + " Message Registry File Location";
     asyncResp->res.jsonValue["Id"] = header->registryPrefix;
-    asyncResp->res.jsonValue["Registry"] = header->id;
+    asyncResp->res.jsonValue["Registry"] = std::format(
+        "{}.{}.{}", header->registryPrefix, header->versionMajor, header->versionMinor);
     nlohmann::json::array_t languages;
     languages.emplace_back(header->language);
     asyncResp->res.jsonValue["Languages@odata.count"] = languages.size();
@@ -224,7 +226,9 @@ inline void handleMessageRegistryGet(
 
     asyncResp->res.jsonValue["@Redfish.Copyright"] = header->copyright;
     asyncResp->res.jsonValue["@odata.type"] = header->type;
-    asyncResp->res.jsonValue["Id"] = header->id;
+    asyncResp->res.jsonValue["Id"] =
+        std::format("{}.{}.{}.{}", header->registryPrefix, header->versionMajor,
+                    header->versionMinor, header->versionPatch);
     asyncResp->res.jsonValue["Name"] = header->name;
     asyncResp->res.jsonValue["Language"] = header->language;
     asyncResp->res.jsonValue["Description"] = header->description;
