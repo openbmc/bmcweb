@@ -20,7 +20,9 @@ namespace redfish::registries::ethernet_fabric
 const Header header = {
     "Copyright 2020-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
-    "EthernetFabric.1.0.1",
+    1,
+    0,
+    1,
     "Ethernet Fabric Message Registry",
     "en",
     "This registry defines messages for Ethernet fabrics.",
