@@ -26,6 +26,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76321a80_f6b7d9c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T17:24:15Z",
+      "side": 1,
+      "message": "These seem like bugs in newly written code?",
+      "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d0df1d93_e7b7d980",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -60,6 +77,23 @@
       "writtenOn": "2024-12-02T17:21:36Z",
       "side": 1,
       "message": "Redfish service validator has no paths that test eventservice.\n\nPlease include a test that actually uses event service.",
+      "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd314010_4c17bb34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T17:24:15Z",
+      "side": 1,
+      "message": "Overall, we need to figure out which version (4 section or 5 section) is correct and just support that.  We should locate the portion of the spec that governs this, and add it to the commit message.",
       "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
