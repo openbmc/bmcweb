@@ -22,6 +22,9 @@
 #include "human_sort.hpp"
 #include "logging.hpp"
 
+#include <boost/system/result.hpp>
+#include <boost/url/parse.hpp>
+#include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
 
 #include <algorithm>
@@ -766,22 +769,42 @@ inline int objectKeyCmp(std::string_view key, const nlohmann::json& a,
     {
         return 1;
     }
-    boost::urls::url_view aUrl(*nameA);
-    boost::urls::url_view bUrl(*nameB);
-    auto segmentsAIt = aUrl.segments().begin();
-    auto segmentsBIt = bUrl.segments().begin();
+    if (key != "@odata.id")
+    {
+        return alphanumComp(*nameA, *nameB);
+    }
+
+    boost::system::result<boost::urls::url_view> aUrl =
+        boost::urls::parse_relative_ref(*nameA);
+    boost::system::result<boost::urls::url_view> bUrl =
+        boost::urls::parse_relative_ref(*nameB);
+    if (!aUrl)
+    {
+        if (!bUrl)
+        {
+            return 0;
+        }
+        return -1;
+    }
+    if (!bUrl)
+    {
+        return 1;
+    }
+
+    auto segmentsAIt = aUrl->segments().begin();
+    auto segmentsBIt = bUrl->segments().begin();
 
     while (true)
     {
-        if (segmentsAIt == aUrl.segments().end())
+        if (segmentsAIt == aUrl->segments().end())
         {
-            if (segmentsBIt == bUrl.segments().end())
+            if (segmentsBIt == bUrl->segments().end())
             {
                 return 0;
             }
             return -1;
         }
-        if (segmentsBIt == bUrl.segments().end())
+        if (segmentsBIt == bUrl->segments().end())
         {
             return 1;
         }
@@ -794,6 +817,7 @@ inline int objectKeyCmp(std::string_view key, const nlohmann::json& a,
         segmentsAIt++;
         segmentsBIt++;
     }
+    return 0;
 };
 
 // kept for backward compatibility
