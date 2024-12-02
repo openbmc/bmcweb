@@ -96,6 +96,24 @@
       "message": "Overall, we need to figure out which version (4 section or 5 section) is correct and just support that.  We should locate the portion of the spec that governs this, and add it to the commit message.",
       "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9538be4_09ab96c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-02T17:29:29Z",
+      "side": 1,
+      "message": "Section 9.5.11.2\n\n```\nThe MessageId property value shall be in the format:\n\u003cMessageRegistryPrefix\u003e.\u003cMajorVersion\u003e.\u003cMinorVersion\u003e.\u003cMessageKey\u003e\n```\n\nMake it pretty clear that it should be 4 wide.",
+      "parentUuid": "dd314010_4c17bb34",
+      "revId": "a887fa8c304448d0fdd4641f92a0c6000d33fe5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
