@@ -1147,18 +1147,14 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
             {
                 return;
             }
-            if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+            if constexpr (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
             {
-                // Option currently returns no systems.  TBD
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
-            }
-            if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-            {
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
+                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+                {
+                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                               systemName);
+                    return;
+                }
             }
 
             // Collections don't include the static data added by SubRoute
@@ -1166,34 +1162,33 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogServiceCollection.LogServiceCollection";
             asyncResp->res.jsonValue["@odata.id"] =
-                std::format("/redfish/v1/Systems/{}/LogServices",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                std::format("/redfish/v1/Systems/{}/LogServices", systemName);
             asyncResp->res.jsonValue["Name"] = "System Log Services Collection";
             asyncResp->res.jsonValue["Description"] =
                 "Collection of LogServices for this Computer System";
             nlohmann::json& logServiceArray =
                 asyncResp->res.jsonValue["Members"];
             logServiceArray = nlohmann::json::array();
-            nlohmann::json::object_t eventLog;
-            eventLog["@odata.id"] =
-                std::format("/redfish/v1/Systems/{}/LogServices/EventLog",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
-            logServiceArray.emplace_back(std::move(eventLog));
+            if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+            {
+                nlohmann::json::object_t eventLog;
+                eventLog["@odata.id"] = std::format(
+                    "/redfish/v1/Systems/{}/LogServices/EventLog", systemName);
+                logServiceArray.emplace_back(std::move(eventLog));
+            }
             if constexpr (BMCWEB_REDFISH_DUMP_LOG)
             {
                 nlohmann::json::object_t dumpLog;
-                dumpLog["@odata.id"] =
-                    std::format("/redfish/v1/Systems/{}/LogServices/Dump",
-                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                dumpLog["@odata.id"] = std::format(
+                    "/redfish/v1/Systems/{}/LogServices/Dump", systemName);
                 logServiceArray.emplace_back(std::move(dumpLog));
             }
 
             if constexpr (BMCWEB_REDFISH_CPU_LOG)
             {
                 nlohmann::json::object_t crashdump;
-                crashdump["@odata.id"] =
-                    std::format("/redfish/v1/Systems/{}/LogServices/Crashdump",
-                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                crashdump["@odata.id"] = std::format(
+                    "/redfish/v1/Systems/{}/LogServices/Crashdump", systemName);
                 logServiceArray.emplace_back(std::move(crashdump));
             }
 
@@ -1202,7 +1197,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                 nlohmann::json::object_t hostlogger;
                 hostlogger["@odata.id"] =
                     std::format("/redfish/v1/Systems/{}/LogServices/HostLogger",
-                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                                systemName);
                 logServiceArray.emplace_back(std::move(hostlogger));
             }
             asyncResp->res.jsonValue["Members@odata.count"] =
@@ -1212,9 +1207,10 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                 "xyz.openbmc_project.State.Boot.PostCode"};
             dbus::utility::getSubTreePaths(
                 "/", 0, interfaces,
-                [asyncResp](const boost::system::error_code& ec,
-                            const dbus::utility::MapperGetSubTreePathsResponse&
-                                subtreePath) {
+                [asyncResp,
+                 systemName](const boost::system::error_code& ec,
+                             const dbus::utility::MapperGetSubTreePathsResponse&
+                                 subtreePath) {
                     if (ec)
                     {
                         BMCWEB_LOG_ERROR("{}", ec);
@@ -1230,7 +1226,7 @@ inline void requestRoutesSystemLogServiceCollection(App& app)
                             nlohmann::json::object_t member;
                             member["@odata.id"] = std::format(
                                 "/redfish/v1/Systems/{}/LogServices/PostCodes",
-                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                                systemName);
 
                             logServiceArrayLocal.emplace_back(
                                 std::move(member));
@@ -1257,15 +1253,22 @@ inline void requestRoutesEventLogService(App& app)
             {
                 return;
             }
+            if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+            {
+                // Option currently returns no systems.  TBD
+                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                           systemName);
+                return;
+            }
             if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
             {
                 messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                            systemName);
                 return;
             }
-            asyncResp->res.jsonValue["@odata.id"] =
-                std::format("/redfish/v1/Systems/{}/LogServices/EventLog",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+            asyncResp->res.jsonValue["@odata.id"] = std::format(
+                "/redfish/v1/Systems/{}/LogServices/EventLog", systemName);
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogService.v1_2_0.LogService";
             asyncResp->res.jsonValue["Name"] = "Event Log Service";
@@ -1284,13 +1287,13 @@ inline void requestRoutesEventLogService(App& app)
 
             asyncResp->res.jsonValue["Entries"]["@odata.id"] = std::format(
                 "/redfish/v1/Systems/{}/LogServices/EventLog/Entries",
-                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                systemName);
             asyncResp->res
                 .jsonValue["Actions"]["#LogService.ClearLog"]["target"]
 
                 = std::format(
                     "/redfish/v1/Systems/{}/LogServices/EventLog/Actions/LogService.ClearLog",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                    systemName);
         });
 }
 
@@ -1301,6 +1304,13 @@ inline void handleSystemsLogServicesEventLogActionsClearPost(
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
         return;
     }
     if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
@@ -1357,8 +1367,8 @@ enum class LogParseError
 };
 
 static LogParseError fillEventLogEntryJson(
-    const std::string& logEntryID, const std::string& logEntry,
-    nlohmann::json::object_t& logEntryJson)
+    const std::string& systemName, const std::string& logEntryID,
+    const std::string& logEntry, nlohmann::json::object_t& logEntryJson)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
@@ -1420,8 +1430,8 @@ static LogParseError fillEventLogEntryJson(
     // Fill in the log entry with the gathered data
     logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
     logEntryJson["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, logEntryID);
+        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}", systemName,
+        logEntryID);
     logEntryJson["Name"] = "System Event Log Entry";
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = std::move(msg);
@@ -1434,12 +1444,13 @@ static LogParseError fillEventLogEntryJson(
 }
 
 inline void fillEventLogLogEntryFromDbusLogEntry(
-    const DbusEventLogEntry& entry, nlohmann::json& objectToFillOut)
+    const std::string& systemName, const DbusEventLogEntry& entry,
+    nlohmann::json& objectToFillOut)
 {
     objectToFillOut["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
     objectToFillOut["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(entry.Id));
+        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}", systemName,
+        std::to_string(entry.Id));
     objectToFillOut["Name"] = "System Event Log Entry";
     objectToFillOut["Id"] = std::to_string(entry.Id);
     objectToFillOut["Message"] = entry.Message;
@@ -1465,13 +1476,13 @@ inline void fillEventLogLogEntryFromDbusLogEntry(
     {
         objectToFillOut["AdditionalDataURI"] = boost::urls::format(
             "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}/attachment",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(entry.Id));
+            systemName, std::to_string(entry.Id));
     }
 }
 
 inline void afterLogEntriesGetManagedObjects(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
+    const std::string& systemName, const boost::system::error_code& ec,
     const dbus::utility::ManagedObjectType& resp)
 {
     if (ec)
@@ -1511,7 +1522,7 @@ inline void afterLogEntriesGetManagedObjects(
             messages::internalError(asyncResp->res);
             return;
         }
-        fillEventLogLogEntryFromDbusLogEntry(*optEntry,
+        fillEventLogLogEntryFromDbusLogEntry(systemName, *optEntry,
                                              entriesArray.emplace_back());
     }
 
@@ -1556,9 +1567,8 @@ inline void handleSystemsLogServiceEventLogLogEntryCollection(
     // because it has a duplicate entry for members
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogEntryCollection.LogEntryCollection";
-    asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/LogServices/EventLog/Entries",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries", systemName);
     asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
     asyncResp->res.jsonValue["Description"] =
         "Collection of System Event Log Entries";
@@ -1595,7 +1605,7 @@ inline void handleSystemsLogServiceEventLogLogEntryCollection(
 
             nlohmann::json::object_t bmcLogEntry;
             LogParseError status =
-                fillEventLogEntryJson(idStr, logEntry, bmcLogEntry);
+                fillEventLogEntryJson(systemName, idStr, logEntry, bmcLogEntry);
             if (status == LogParseError::messageIdNotInRegistry)
             {
                 continue;
@@ -1623,7 +1633,7 @@ inline void handleSystemsLogServiceEventLogLogEntryCollection(
         asyncResp->res.jsonValue["Members@odata.nextLink"] =
             boost::urls::format(
                 "/redfish/v1/Systems/{}/LogServices/EventLog/Entries?$skip={}",
-                BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(skip + top));
+                systemName, std::to_string(skip + top));
     }
 }
 
@@ -1644,6 +1654,7 @@ inline void handleSystemsLogServiceEventLogEntriesGet(
     {
         return;
     }
+
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
@@ -1651,7 +1662,6 @@ inline void handleSystemsLogServiceEventLogEntriesGet(
                                    systemName);
         return;
     }
-
     if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -1691,8 +1701,8 @@ inline void handleSystemsLogServiceEventLogEntriesGet(
             if (idStr == targetID)
             {
                 nlohmann::json::object_t bmcLogEntry;
-                LogParseError status =
-                    fillEventLogEntryJson(idStr, logEntry, bmcLogEntry);
+                LogParseError status = fillEventLogEntryJson(
+                    systemName, idStr, logEntry, bmcLogEntry);
                 if (status != LogParseError::success)
                 {
                     messages::internalError(asyncResp->res);
@@ -1717,15 +1727,15 @@ inline void requestRoutesJournalEventLogEntry(App& app)
 }
 
 inline void dBusEventLogEntryCollection(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
 {
     // Collections don't include the static data added by SubRoute
     // because it has a duplicate entry for members
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogEntryCollection.LogEntryCollection";
-    asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/LogServices/EventLog/Entries",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries", systemName);
     asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
     asyncResp->res.jsonValue["Description"] =
         "Collection of System Event Log Entries";
@@ -1735,9 +1745,9 @@ inline void dBusEventLogEntryCollection(
     sdbusplus::message::object_path path("/xyz/openbmc_project/logging");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Logging", path,
-        [asyncResp](const boost::system::error_code& ec,
-                    const dbus::utility::ManagedObjectType& resp) {
-            afterLogEntriesGetManagedObjects(asyncResp, ec, resp);
+        [asyncResp, systemName](const boost::system::error_code& ec,
+                                const dbus::utility::ManagedObjectType& resp) {
+            afterLogEntriesGetManagedObjects(asyncResp, systemName, ec, resp);
         });
 }
 
@@ -1753,26 +1763,23 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                 {
                     return;
                 }
-                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+                if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
                 {
-                    // Option currently returns no systems.  TBD
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
+                    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+                    {
+                        messages::resourceNotFound(
+                            asyncResp->res, "ComputerSystem", systemName);
+                        return;
+                    }
                 }
-                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
-                dBusEventLogEntryCollection(asyncResp);
+                dBusEventLogEntryCollection(asyncResp, systemName);
             });
 }
 
 inline void afterDBusEventLogEntryGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& entryID, const boost::system::error_code& ec,
+    std::string& systemName, const std::string& entryID,
+    const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& resp)
 {
     if (ec.value() == EBADR)
@@ -1796,11 +1803,13 @@ inline void afterDBusEventLogEntryGet(
         return;
     }
 
-    fillEventLogLogEntryFromDbusLogEntry(*optEntry, asyncResp->res.jsonValue);
+    fillEventLogLogEntryFromDbusLogEntry(systemName, *optEntry,
+                                         asyncResp->res.jsonValue);
 }
 
 inline void dBusEventLogEntryGet(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string entryID)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, std::string entryID)
 {
     dbus::utility::escapePathForDbus(entryID);
 
@@ -1809,7 +1818,8 @@ inline void dBusEventLogEntryGet(
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging/entry/" + entryID, "",
-        std::bind_front(afterDBusEventLogEntryGet, asyncResp, entryID));
+        std::bind_front(afterDBusEventLogEntryGet, asyncResp, systemName,
+                        entryID));
 }
 
 inline void dBusEventLogEntryPatch(
@@ -1893,8 +1903,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                                systemName);
                     return;
                 }
-
-                dBusEventLogEntryGet(asyncResp, entryId);
+                dBusEventLogEntryGet(asyncResp, systemName, entryId);
             });
 
     BMCWEB_ROUTE(
@@ -1921,7 +1930,6 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                                                systemName);
                     return;
                 }
-
                 dBusEventLogEntryPatch(req, asyncResp, entryId);
             });
 
@@ -3176,18 +3184,14 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
                 {
                     return;
                 }
-                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+                if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
                 {
-                    // Option currently returns no systems.  TBD
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
-                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
+                    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+                    {
+                        messages::resourceNotFound(
+                            asyncResp->res, "ComputerSystem", systemName);
+                        return;
+                    }
                 }
                 dBusLogServiceActionsClear(asyncResp);
             });
