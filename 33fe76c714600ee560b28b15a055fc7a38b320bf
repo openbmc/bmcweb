@@ -16,6 +16,24 @@
       "message": "is this going to increase executable size?",
       "revId": "33fe76c714600ee560b28b15a055fc7a38b320bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecddab44_8c1e6447",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-03T15:46:20Z",
+      "side": 1,
+      "message": "yes, but should reduce the overall size.",
+      "parentUuid": "5c2bc530_b77a7670",
+      "revId": "33fe76c714600ee560b28b15a055fc7a38b320bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
