@@ -22,6 +22,30 @@
       },
       "revId": "3ebc0e2639fe4ed45b62cf194115fc24c1948d7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9c89e2b_4ec7c2ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-03T03:31:22Z",
+      "side": 1,
+      "message": "I\u0027ll at least run this through service validator.  Just wanted to make sure everyone was ok with not having the back path first.",
+      "parentUuid": "81a0481a_915524ba",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "3ebc0e2639fe4ed45b62cf194115fc24c1948d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
