@@ -277,6 +277,7 @@ boost = dependency(
     modules: ['url'],
     version: '>=1.84.0',
     required: false,
+    static: true,
     include_type: 'system',
 )
 
@@ -286,6 +287,7 @@ if boost.version().version_compare('>=1.86.0')
         'boost',
         modules: ['url', 'process'],
         version: '>=1.86.0',
+        static: true,
         required: false,
         include_type: 'system',
     )
