@@ -22,8 +22,8 @@
 namespace redfish
 {
 
-static bool eventLogObjectFromDBus(const dbus::utility::DBusPropertiesMap& map,
-                                   EventLogObjectsType& event)
+bool DbusEventLogMonitor::eventLogObjectFromDBus(
+    const dbus::utility::DBusPropertiesMap& map, EventLogObjectsType& event)
 {
     std::optional<DbusEventLogEntry> optEntry =
         fillDbusEventLogEntryFromPropertyMap(map);
@@ -57,7 +57,7 @@ static void dbusEventLogMatchHandlerSingleEntry(
 {
     std::vector<EventLogObjectsType> eventRecords;
     EventLogObjectsType& event = eventRecords.emplace_back();
-    bool success = eventLogObjectFromDBus(map, event);
+    bool success = DbusEventLogMonitor::eventLogObjectFromDBus(map, event);
     if (!success)
     {
         BMCWEB_LOG_ERROR("Could not parse event log entry from dbus");
