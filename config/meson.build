@@ -23,6 +23,7 @@ feature_options = [
     'mutual-tls-auth',
     'redfish-aggregation',
     'redfish-allow-deprecated-power-thermal',
+    'redfish-allow-simple-update',
     'redfish-use-3-digit-messageid',
     'redfish-bmc-journal',
     'redfish-cpu-log',
