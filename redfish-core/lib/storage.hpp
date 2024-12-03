@@ -164,9 +164,9 @@ inline void afterSystemsStorageGetSubtree(
         subtree,
         [&storageId](const std::pair<std::string,
                                      dbus::utility::MapperServiceMap>& object) {
-        return sdbusplus::message::object_path(object.first).filename() ==
-               storageId;
-    });
+            return sdbusplus::message::object_path(object.first).filename() ==
+                   storageId;
+        });
     if (storage == subtree.end())
     {
         messages::resourceNotFound(asyncResp->res, "#Storage.v1_13_0.Storage",
@@ -188,11 +188,10 @@ inline void afterSystemsStorageGetSubtree(
                             BMCWEB_REDFISH_SYSTEM_URI_NAME, storageId);
 }
 
-inline void
-    handleSystemsStorageGet(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& systemName,
-                            const std::string& storageId)
+inline void handleSystemsStorageGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& storageId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -229,9 +228,9 @@ inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         subtree,
         [&storageId](const std::pair<std::string,
                                      dbus::utility::MapperServiceMap>& object) {
-        return sdbusplus::message::object_path(object.first).filename() ==
-               storageId;
-    });
+            return sdbusplus::message::object_path(object.first).filename() ==
+                   storageId;
+        });
     if (storage == subtree.end())
     {
         messages::resourceNotFound(asyncResp->res, "#Storage.v1_13_0.Storage",
@@ -300,48 +299,48 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     const std::vector<
                         std::pair<std::string, dbus::utility::DbusVariantType>>&
                         propertiesList) {
-        if (ec)
-        {
-            // this interface isn't necessary
-            return;
-        }
+            if (ec)
+            {
+                // this interface isn't necessary
+                return;
+            }
 
-        const std::string* partNumber = nullptr;
-        const std::string* serialNumber = nullptr;
-        const std::string* manufacturer = nullptr;
-        const std::string* model = nullptr;
+            const std::string* partNumber = nullptr;
+            const std::string* serialNumber = nullptr;
+            const std::string* manufacturer = nullptr;
+            const std::string* model = nullptr;
 
-        const bool success = sdbusplus::unpackPropertiesNoThrow(
-            dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
-            partNumber, "SerialNumber", serialNumber, "Manufacturer",
-            manufacturer, "Model", model);
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
+                partNumber, "SerialNumber", serialNumber, "Manufacturer",
+                manufacturer, "Model", model);
 
-        if (!success)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
 
-        if (partNumber != nullptr)
-        {
-            asyncResp->res.jsonValue["PartNumber"] = *partNumber;
-        }
+            if (partNumber != nullptr)
+            {
+                asyncResp->res.jsonValue["PartNumber"] = *partNumber;
+            }
 
-        if (serialNumber != nullptr)
-        {
-            asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
-        }
+            if (serialNumber != nullptr)
+            {
+                asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
+            }
 
-        if (manufacturer != nullptr)
-        {
-            asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
-        }
+            if (manufacturer != nullptr)
+            {
+                asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
+            }
 
-        if (model != nullptr)
-        {
-            asyncResp->res.jsonValue["Model"] = *model;
-        }
-    });
+            if (model != nullptr)
+            {
+                asyncResp->res.jsonValue["Model"] = *model;
+            }
+        });
 }
 
 inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -351,21 +350,21 @@ inline void getDrivePresent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
-        [asyncResp, path](const boost::system::error_code& ec,
-                          const bool isPresent) {
-        // this interface isn't necessary, only check it if
-        // we get a good return
-        if (ec)
-        {
-            return;
-        }
+        [asyncResp,
+         path](const boost::system::error_code& ec, const bool isPresent) {
+            // this interface isn't necessary, only check it if
+            // we get a good return
+            if (ec)
+            {
+                return;
+            }
 
-        if (!isPresent)
-        {
-            asyncResp->res.jsonValue["Status"]["State"] =
-                resource::State::Absent;
-        }
-    });
+            if (!isPresent)
+            {
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Absent;
+            }
+        });
 }
 
 inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -376,23 +375,23 @@ inline void getDriveState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.State.Drive", "Rebuilding",
         [asyncResp](const boost::system::error_code& ec, const bool updating) {
-        // this interface isn't necessary, only check it
-        // if we get a good return
-        if (ec)
-        {
-            return;
-        }
+            // this interface isn't necessary, only check it
+            // if we get a good return
+            if (ec)
+            {
+                return;
+            }
 
-        // updating and disabled in the backend shouldn't be
-        // able to be set at the same time, so we don't need
-        // to check for the race condition of these two
-        // calls
-        if (updating)
-        {
-            asyncResp->res.jsonValue["Status"]["State"] =
-                resource::State::Updating;
-        }
-    });
+            // updating and disabled in the backend shouldn't be
+            // able to be set at the same time, so we don't need
+            // to check for the race condition of these two
+            // calls
+            if (updating)
+            {
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Updating;
+            }
+        });
 }
 
 inline std::optional<drive::MediaType> convertDriveType(std::string_view type)
@@ -441,10 +440,9 @@ inline std::optional<protocol::Protocol>
     return protocol::Protocol::Invalid;
 }
 
-inline void
-    getDriveItemProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& connectionName,
-                           const std::string& path)
+inline void getDriveItemProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& connectionName, const std::string& path)
 {
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, path,
@@ -453,157 +451,159 @@ inline void
                     const std::vector<
                         std::pair<std::string, dbus::utility::DbusVariantType>>&
                         propertiesList) {
-        if (ec)
-        {
-            // this interface isn't required
-            return;
-        }
-        const std::string* encryptionStatus = nullptr;
-        const bool* isLocked = nullptr;
-        for (const std::pair<std::string, dbus::utility::DbusVariantType>&
-                 property : propertiesList)
-        {
-            const std::string& propertyName = property.first;
-            if (propertyName == "Type")
+            if (ec)
             {
-                const std::string* value =
-                    std::get_if<std::string>(&property.second);
-                if (value == nullptr)
+                // this interface isn't required
+                return;
+            }
+            const std::string* encryptionStatus = nullptr;
+            const bool* isLocked = nullptr;
+            for (const std::pair<std::string, dbus::utility::DbusVariantType>&
+                     property : propertiesList)
+            {
+                const std::string& propertyName = property.first;
+                if (propertyName == "Type")
                 {
-                    // illegal property
-                    BMCWEB_LOG_ERROR("Illegal property: Type");
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        // illegal property
+                        BMCWEB_LOG_ERROR("Illegal property: Type");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
 
-                std::optional<drive::MediaType> mediaType =
-                    convertDriveType(*value);
-                if (!mediaType)
-                {
-                    BMCWEB_LOG_WARNING("UnknownDriveType Interface: {}",
-                                       *value);
-                    continue;
-                }
-                if (*mediaType == drive::MediaType::Invalid)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
+                    std::optional<drive::MediaType> mediaType =
+                        convertDriveType(*value);
+                    if (!mediaType)
+                    {
+                        BMCWEB_LOG_WARNING("UnknownDriveType Interface: {}",
+                                           *value);
+                        continue;
+                    }
+                    if (*mediaType == drive::MediaType::Invalid)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
 
-                asyncResp->res.jsonValue["MediaType"] = *mediaType;
-            }
-            else if (propertyName == "Capacity")
-            {
-                const uint64_t* capacity =
-                    std::get_if<uint64_t>(&property.second);
-                if (capacity == nullptr)
-                {
-                    BMCWEB_LOG_ERROR("Illegal property: Capacity");
-                    messages::internalError(asyncResp->res);
-                    return;
+                    asyncResp->res.jsonValue["MediaType"] = *mediaType;
                 }
-                if (*capacity == 0)
+                else if (propertyName == "Capacity")
                 {
-                    // drive capacity not known
-                    continue;
-                }
+                    const uint64_t* capacity =
+                        std::get_if<uint64_t>(&property.second);
+                    if (capacity == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("Illegal property: Capacity");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (*capacity == 0)
+                    {
+                        // drive capacity not known
+                        continue;
+                    }
 
-                asyncResp->res.jsonValue["CapacityBytes"] = *capacity;
-            }
-            else if (propertyName == "Protocol")
-            {
-                const std::string* value =
-                    std::get_if<std::string>(&property.second);
-                if (value == nullptr)
-                {
-                    BMCWEB_LOG_ERROR("Illegal property: Protocol");
-                    messages::internalError(asyncResp->res);
-                    return;
+                    asyncResp->res.jsonValue["CapacityBytes"] = *capacity;
                 }
+                else if (propertyName == "Protocol")
+                {
+                    const std::string* value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("Illegal property: Protocol");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
 
-                std::optional<protocol::Protocol> proto =
-                    convertDriveProtocol(*value);
-                if (!proto)
-                {
-                    BMCWEB_LOG_WARNING("Unknown DrivePrototype Interface: {}",
-                                       *value);
-                    continue;
+                    std::optional<protocol::Protocol> proto =
+                        convertDriveProtocol(*value);
+                    if (!proto)
+                    {
+                        BMCWEB_LOG_WARNING(
+                            "Unknown DrivePrototype Interface: {}", *value);
+                        continue;
+                    }
+                    if (*proto == protocol::Protocol::Invalid)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["Protocol"] = *proto;
                 }
-                if (*proto == protocol::Protocol::Invalid)
+                else if (propertyName == "PredictedMediaLifeLeftPercent")
                 {
-                    messages::internalError(asyncResp->res);
-                    return;
+                    const uint8_t* lifeLeft =
+                        std::get_if<uint8_t>(&property.second);
+                    if (lifeLeft == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Illegal property: PredictedMediaLifeLeftPercent");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    // 255 means reading the value is not supported
+                    if (*lifeLeft != 255)
+                    {
+                        asyncResp->res
+                            .jsonValue["PredictedMediaLifeLeftPercent"] =
+                            *lifeLeft;
+                    }
                 }
-                asyncResp->res.jsonValue["Protocol"] = *proto;
+                else if (propertyName == "EncryptionStatus")
+                {
+                    encryptionStatus =
+                        std::get_if<std::string>(&property.second);
+                    if (encryptionStatus == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("Illegal property: EncryptionStatus");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                }
+                else if (propertyName == "Locked")
+                {
+                    isLocked = std::get_if<bool>(&property.second);
+                    if (isLocked == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("Illegal property: Locked");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                }
             }
-            else if (propertyName == "PredictedMediaLifeLeftPercent")
-            {
-                const uint8_t* lifeLeft =
-                    std::get_if<uint8_t>(&property.second);
-                if (lifeLeft == nullptr)
-                {
-                    BMCWEB_LOG_ERROR(
-                        "Illegal property: PredictedMediaLifeLeftPercent");
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                // 255 means reading the value is not supported
-                if (*lifeLeft != 255)
-                {
-                    asyncResp->res.jsonValue["PredictedMediaLifeLeftPercent"] =
-                        *lifeLeft;
-                }
-            }
-            else if (propertyName == "EncryptionStatus")
-            {
-                encryptionStatus = std::get_if<std::string>(&property.second);
-                if (encryptionStatus == nullptr)
-                {
-                    BMCWEB_LOG_ERROR("Illegal property: EncryptionStatus");
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            }
-            else if (propertyName == "Locked")
-            {
-                isLocked = std::get_if<bool>(&property.second);
-                if (isLocked == nullptr)
-                {
-                    BMCWEB_LOG_ERROR("Illegal property: Locked");
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            }
-        }
 
-        if (encryptionStatus == nullptr || isLocked == nullptr ||
-            *encryptionStatus ==
-                "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Unknown")
-        {
-            return;
-        }
-        if (*encryptionStatus !=
-            "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Encrypted")
-        {
-            //"The drive is not currently encrypted."
+            if (encryptionStatus == nullptr || isLocked == nullptr ||
+                *encryptionStatus ==
+                    "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Unknown")
+            {
+                return;
+            }
+            if (*encryptionStatus !=
+                "xyz.openbmc_project.Inventory.Item.Drive.DriveEncryptionState.Encrypted")
+            {
+                //"The drive is not currently encrypted."
+                asyncResp->res.jsonValue["EncryptionStatus"] =
+                    drive::EncryptionStatus::Unencrypted;
+                return;
+            }
+            if (*isLocked)
+            {
+                //"The drive is currently encrypted and the data is not
+                // accessible to the user."
+                asyncResp->res.jsonValue["EncryptionStatus"] =
+                    drive::EncryptionStatus::Locked;
+                return;
+            }
+            // if not locked
+            // "The drive is currently encrypted but the data is accessible
+            // to the user in unencrypted form."
             asyncResp->res.jsonValue["EncryptionStatus"] =
-                drive::EncryptionStatus::Unencrypted;
-            return;
-        }
-        if (*isLocked)
-        {
-            //"The drive is currently encrypted and the data is not
-            // accessible to the user."
-            asyncResp->res.jsonValue["EncryptionStatus"] =
-                drive::EncryptionStatus::Locked;
-            return;
-        }
-        // if not locked
-        // "The drive is currently encrypted but the data is accessible
-        // to the user in unencrypted form."
-        asyncResp->res.jsonValue["EncryptionStatus"] =
-            drive::EncryptionStatus::Unlocked;
-    });
+                drive::EncryptionStatus::Unlocked;
+        });
 }
 
 static void addAllDriveInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -648,9 +648,9 @@ inline void afterGetSubtreeSystemsStorageDrive(
         subtree,
         [&driveId](const std::pair<std::string,
                                    dbus::utility::MapperServiceMap>& object) {
-        return sdbusplus::message::object_path(object.first).filename() ==
-               driveId;
-    });
+            return sdbusplus::message::object_path(object.first).filename() ==
+                   driveId;
+        });
 
     if (drive == subtree.end())
     {
@@ -677,12 +677,12 @@ inline void afterGetSubtreeSystemsStorageDrive(
         return;
     }
 
-    getMainChassisId(asyncResp,
-                     [](const std::string& chassisId,
-                        const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-        aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
-            boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
-    });
+    getMainChassisId(
+        asyncResp, [](const std::string& chassisId,
+                      const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+            aRsp->res.jsonValue["Links"]["Chassis"]["@odata.id"] =
+                boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
+        });
 
     // default it to Enabled
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
@@ -773,33 +773,34 @@ inline void afterChassisDriveCollectionSubtreeGet(
             path + "/drive",
             [asyncResp, chassisId](const boost::system::error_code& ec3,
                                    const dbus::utility::MapperEndPoints& resp) {
-            if (ec3)
-            {
-                BMCWEB_LOG_ERROR("Error in chassis Drive association ");
-            }
-            nlohmann::json& members = asyncResp->res.jsonValue["Members"];
-            // important if array is empty
-            members = nlohmann::json::array();
+                if (ec3)
+                {
+                    BMCWEB_LOG_ERROR("Error in chassis Drive association ");
+                }
+                nlohmann::json& members = asyncResp->res.jsonValue["Members"];
+                // important if array is empty
+                members = nlohmann::json::array();
 
-            std::vector<std::string> leafNames;
-            for (const auto& drive : resp)
-            {
-                sdbusplus::message::object_path drivePath(drive);
-                leafNames.push_back(drivePath.filename());
-            }
+                std::vector<std::string> leafNames;
+                for (const auto& drive : resp)
+                {
+                    sdbusplus::message::object_path drivePath(drive);
+                    leafNames.push_back(drivePath.filename());
+                }
 
-            std::ranges::sort(leafNames, AlphanumLess<std::string>());
+                std::ranges::sort(leafNames, AlphanumLess<std::string>());
 
-            for (const auto& leafName : leafNames)
-            {
-                nlohmann::json::object_t member;
-                member["@odata.id"] = boost::urls::format(
-                    "/redfish/v1/Chassis/{}/Drives/{}", chassisId, leafName);
-                members.emplace_back(std::move(member));
-                // navigation links will be registered in next patch set
-            }
-            asyncResp->res.jsonValue["Members@odata.count"] = resp.size();
-        }); // end association lambda
+                for (const auto& leafName : leafNames)
+                {
+                    nlohmann::json::object_t member;
+                    member["@odata.id"] =
+                        boost::urls::format("/redfish/v1/Chassis/{}/Drives/{}",
+                                            chassisId, leafName);
+                    members.emplace_back(std::move(member));
+                    // navigation links will be registered in next patch set
+                }
+                asyncResp->res.jsonValue["Members@odata.count"] = resp.size();
+            }); // end association lambda
 
     } // end Iterate over all retrieved ObjectPaths
 }
@@ -882,11 +883,10 @@ inline void buildDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
-inline void
-    matchAndFillDrive(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& chassisId,
-                      const std::string& driveName,
-                      const std::vector<std::string>& resp)
+inline void matchAndFillDrive(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& driveName,
+    const std::vector<std::string>& resp)
 {
     for (const std::string& drivePath : resp)
     {
@@ -904,16 +904,15 @@ inline void
             [asyncResp, chassisId, driveName](
                 const boost::system::error_code& ec,
                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            buildDrive(asyncResp, chassisId, driveName, ec, subtree);
-        });
+                buildDrive(asyncResp, chassisId, driveName, ec, subtree);
+            });
     }
 }
 
-inline void
-    handleChassisDriveGet(crow::App& app, const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& chassisId,
-                          const std::string& driveName)
+inline void handleChassisDriveGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& driveName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -929,41 +928,42 @@ inline void
         [asyncResp, chassisId,
          driveName](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        // Iterate over all retrieved ObjectPaths.
-        for (const auto& [path, connectionNames] : subtree)
-        {
-            sdbusplus::message::object_path objPath(path);
-            if (objPath.filename() != chassisId)
+            if (ec)
             {
-                continue;
+                messages::internalError(asyncResp->res);
+                return;
             }
 
-            if (connectionNames.empty())
+            // Iterate over all retrieved ObjectPaths.
+            for (const auto& [path, connectionNames] : subtree)
             {
-                BMCWEB_LOG_ERROR("Got 0 Connection names");
-                continue;
-            }
-
-            dbus::utility::getAssociationEndPoints(
-                path + "/drive",
-                [asyncResp, chassisId,
-                 driveName](const boost::system::error_code& ec3,
-                            const dbus::utility::MapperEndPoints& resp) {
-                if (ec3)
+                sdbusplus::message::object_path objPath(path);
+                if (objPath.filename() != chassisId)
                 {
-                    return; // no drives = no failures
+                    continue;
                 }
-                matchAndFillDrive(asyncResp, chassisId, driveName, resp);
-            });
-            break;
-        }
-    });
+
+                if (connectionNames.empty())
+                {
+                    BMCWEB_LOG_ERROR("Got 0 Connection names");
+                    continue;
+                }
+
+                dbus::utility::getAssociationEndPoints(
+                    path + "/drive",
+                    [asyncResp, chassisId,
+                     driveName](const boost::system::error_code& ec3,
+                                const dbus::utility::MapperEndPoints& resp) {
+                        if (ec3)
+                        {
+                            return; // no drives = no failures
+                        }
+                        matchAndFillDrive(asyncResp, chassisId, driveName,
+                                          resp);
+                    });
+                break;
+            }
+        });
 }
 
 /**
@@ -1042,19 +1042,19 @@ inline void populateStorageController(
         *crow::connections::systemBus, connectionName, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp](const boost::system::error_code& ec, bool isPresent) {
-        // this interface isn't necessary, only check it
-        // if we get a good return
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG("Failed to get Present property");
-            return;
-        }
-        if (!isPresent)
-        {
-            asyncResp->res.jsonValue["Status"]["State"] =
-                resource::State::Absent;
-        }
-    });
+            // this interface isn't necessary, only check it
+            // if we get a good return
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("Failed to get Present property");
+                return;
+            }
+            if (!isPresent)
+            {
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Absent;
+            }
+        });
 
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, connectionName, path,
@@ -1063,8 +1063,8 @@ inline void populateStorageController(
                     const std::vector<
                         std::pair<std::string, dbus::utility::DbusVariantType>>&
                         propertiesList) {
-        getStorageControllerAsset(asyncResp, ec, propertiesList);
-    });
+            getStorageControllerAsset(asyncResp, ec, propertiesList);
+        });
 }
 
 inline void getStorageControllerHandler(
@@ -1172,8 +1172,8 @@ inline void handleSystemsStorageControllerCollectionGet(
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreePathsResponse&
                         controllerList) {
-        populateStorageControllerCollection(asyncResp, ec, controllerList);
-    });
+            populateStorageControllerCollection(asyncResp, ec, controllerList);
+        });
 }
 
 inline void handleSystemsStorageControllerGet(
@@ -1200,8 +1200,8 @@ inline void handleSystemsStorageControllerGet(
         [asyncResp,
          controllerId](const boost::system::error_code& ec,
                        const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        getStorageControllerHandler(asyncResp, controllerId, ec, subtree);
-    });
+            getStorageControllerHandler(asyncResp, controllerId, ec, subtree);
+        });
 }
 
 inline void requestRoutesStorageControllerCollection(App& app)

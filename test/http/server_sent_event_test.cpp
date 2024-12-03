@@ -31,10 +31,10 @@ TEST(ServerSentEvent, SseWorks)
     Request req;
 
     bool openCalled = false;
-    auto openHandler = [&openCalled](Connection&,
-                                     const Request& /*handedReq*/) {
-        openCalled = true;
-    };
+    auto openHandler =
+        [&openCalled](Connection&, const Request& /*handedReq*/) {
+            openCalled = true;
+        };
     bool closeCalled = false;
     auto closeHandler = [&closeCalled](Connection&) { closeCalled = true; };
 
@@ -86,10 +86,11 @@ TEST(ServerSentEvent, SseWorks)
     // Send second event
     {
         conn->sendSseEvent("TestEventId2", "TestEvent\nContent2");
-        constexpr std::string_view expected = "id: TestEventId2\n"
-                                              "data: TestEvent\n"
-                                              "data: Content2\n"
-                                              "\n";
+        constexpr std::string_view expected =
+            "id: TestEventId2\n"
+            "data: TestEvent\n"
+            "data: Content2\n"
+            "\n";
 
         while (out.str().size() < expected.size())
         {

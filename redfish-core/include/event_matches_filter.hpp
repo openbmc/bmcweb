@@ -42,8 +42,8 @@ inline bool eventMatchesFilter(const persistent_data::UserSubscription& userSub,
         // Search the resourceTypes list for the subscription.
         auto resourceTypeIndex = std::ranges::find_if(
             userSub.resourceTypes, [resType](const std::string& rtEntry) {
-            return rtEntry == resType;
-        });
+                return rtEntry == resType;
+            });
         if (resourceTypeIndex == userSub.resourceTypes.end())
         {
             BMCWEB_LOG_DEBUG("Not subscribed to this resource");
@@ -98,8 +98,8 @@ inline bool eventMatchesFilter(const persistent_data::UserSubscription& userSub,
             return false;
         }
 
-        auto obj = std::ranges::find(userSub.originResources,
-                                     *originOfCondition);
+        auto obj =
+            std::ranges::find(userSub.originResources, *originOfCondition);
 
         if (obj == userSub.originResources.end())
         {

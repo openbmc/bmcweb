@@ -82,13 +82,13 @@ class ConnectionImpl : public Connection
             adaptor, *streamres.bufferResponse,
             [this, self(shared_from_this())](
                 const boost::system::error_code& ec2, std::size_t) {
-            if (ec2)
-            {
-                BMCWEB_LOG_DEBUG("Error while writing on socket {}", ec2);
-                close();
-                return;
-            }
-        });
+                if (ec2)
+                {
+                    BMCWEB_LOG_DEBUG("Error while writing on socket {}", ec2);
+                    close();
+                    return;
+                }
+            });
     }
 
     void setStreamHeaders(const std::string& header,
@@ -106,13 +106,13 @@ class ConnectionImpl : public Connection
             adaptor, *streamres.bufferResponse,
             [this, self(shared_from_this())](
                 const boost::system::error_code& ec2, std::size_t) {
-            if (ec2)
-            {
-                BMCWEB_LOG_DEBUG("Error while writing on socket {}", ec2);
-                close();
-                return;
-            }
-        });
+                if (ec2)
+                {
+                    BMCWEB_LOG_DEBUG("Error while writing on socket {}", ec2);
+                    close();
+                    return;
+                }
+            });
     }
 
     void sendMessage(const boost::asio::mutable_buffer& buffer,
@@ -142,16 +142,16 @@ class ConnectionImpl : public Connection
             adaptor, streamres.bufferResponse->body().data(),
             [this, self(shared_from_this())](boost::beast::error_code ec,
                                              std::size_t bytesWritten) {
-            streamres.bufferResponse->body().consume(bytesWritten);
+                streamres.bufferResponse->body().consume(bytesWritten);
 
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG("Error in async_write {}", ec);
-                close();
-                return;
-            }
-            (handlerFunc)();
-        });
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG("Error in async_write {}", ec);
+                    close();
+                    return;
+                }
+                (handlerFunc)();
+            });
     }
 
   private:

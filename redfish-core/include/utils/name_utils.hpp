@@ -55,21 +55,21 @@ inline void getPrettyName(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         [asyncResp, path, namePath](const boost::system::error_code& ec,
                                     const std::string& prettyName) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG("DBUS response error : {}", ec.value());
-            return;
-        }
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error : {}", ec.value());
+                return;
+            }
 
-        if (prettyName.empty())
-        {
-            return;
-        }
+            if (prettyName.empty())
+            {
+                return;
+            }
 
-        BMCWEB_LOG_DEBUG("Pretty Name: {}", prettyName);
+            BMCWEB_LOG_DEBUG("Pretty Name: {}", prettyName);
 
-        asyncResp->res.jsonValue[namePath] = prettyName;
-    });
+            asyncResp->res.jsonValue[namePath] = prettyName;
+        });
 }
 
 } // namespace name_util

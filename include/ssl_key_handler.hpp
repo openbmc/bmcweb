@@ -133,8 +133,8 @@ inline std::string verifyOpensslKeyCert(const std::string& filepath)
     BIO_free(bufio);
     if (pkey != nullptr)
     {
-        EVP_PKEY_CTX* pkeyCtx = EVP_PKEY_CTX_new_from_pkey(nullptr, pkey,
-                                                           nullptr);
+        EVP_PKEY_CTX* pkeyCtx =
+            EVP_PKEY_CTX_new_from_pkey(nullptr, pkey, nullptr);
 
         if (pkeyCtx == nullptr)
         {
@@ -442,10 +442,9 @@ inline int nextProtoCallback(SSL* /*unused*/, const unsigned char** data,
     return SSL_TLSEXT_ERR_OK;
 }
 
-inline int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
-                                   unsigned char* outlen,
-                                   const unsigned char* in, unsigned int inlen,
-                                   void* /*unused*/)
+inline int alpnSelectProtoCallback(
+    SSL* /*unused*/, const unsigned char** out, unsigned char* outlen,
+    const unsigned char* in, unsigned int inlen, void* /*unused*/)
 {
     // There's a mismatch in constness for nghttp2_select_next_protocol.  The
     // examples in nghttp2 don't show this problem.  Unclear what the right fix
@@ -465,12 +464,13 @@ inline int alpnSelectProtoCallback(SSL* /*unused*/, const unsigned char** out,
 inline bool getSslContext(boost::asio::ssl::context& mSslContext,
                           const std::string& sslPemFile)
 {
-    mSslContext.set_options(boost::asio::ssl::context::default_workarounds |
-                            boost::asio::ssl::context::no_sslv2 |
-                            boost::asio::ssl::context::no_sslv3 |
-                            boost::asio::ssl::context::single_dh_use |
-                            boost::asio::ssl::context::no_tlsv1 |
-                            boost::asio::ssl::context::no_tlsv1_1);
+    mSslContext.set_options(
+        boost::asio::ssl::context::default_workarounds |
+        boost::asio::ssl::context::no_sslv2 |
+        boost::asio::ssl::context::no_sslv3 |
+        boost::asio::ssl::context::single_dh_use |
+        boost::asio::ssl::context::no_tlsv1 |
+        boost::asio::ssl::context::no_tlsv1_1);
 
     BMCWEB_LOG_DEBUG("Using default TrustStore location: {}", trustStorePath);
     mSslContext.add_verify_path(trustStorePath);
@@ -502,15 +502,16 @@ inline bool getSslContext(boost::asio::ssl::context& mSslContext,
 
     // Mozilla intermediate cipher suites v5.7
     // Sourced from: https://ssl-config.mozilla.org/guidelines/5.7.json
-    const char* mozillaIntermediate = "ECDHE-ECDSA-AES128-GCM-SHA256:"
-                                      "ECDHE-RSA-AES128-GCM-SHA256:"
-                                      "ECDHE-ECDSA-AES256-GCM-SHA384:"
-                                      "ECDHE-RSA-AES256-GCM-SHA384:"
-                                      "ECDHE-ECDSA-CHACHA20-POLY1305:"
-                                      "ECDHE-RSA-CHACHA20-POLY1305:"
-                                      "DHE-RSA-AES128-GCM-SHA256:"
-                                      "DHE-RSA-AES256-GCM-SHA384:"
-                                      "DHE-RSA-CHACHA20-POLY1305";
+    const char* mozillaIntermediate =
+        "ECDHE-ECDSA-AES128-GCM-SHA256:"
+        "ECDHE-RSA-AES128-GCM-SHA256:"
+        "ECDHE-ECDSA-AES256-GCM-SHA384:"
+        "ECDHE-RSA-AES256-GCM-SHA384:"
+        "ECDHE-ECDSA-CHACHA20-POLY1305:"
+        "ECDHE-RSA-CHACHA20-POLY1305:"
+        "DHE-RSA-AES128-GCM-SHA256:"
+        "DHE-RSA-AES256-GCM-SHA384:"
+        "DHE-RSA-CHACHA20-POLY1305";
 
     if (SSL_CTX_set_cipher_list(mSslContext.native_handle(),
                                 mozillaIntermediate) != 1)
@@ -605,15 +606,16 @@ inline std::optional<boost::asio::ssl::context>
 
     // All cipher suites are set as per OWASP datasheet.
     // https://cheatsheetseries.owasp.org/cheatsheets/TLS_Cipher_String_Cheat_Sheet.html
-    constexpr const char* sslCiphers = "ECDHE-ECDSA-AES128-GCM-SHA256:"
-                                       "ECDHE-RSA-AES128-GCM-SHA256:"
-                                       "ECDHE-ECDSA-AES256-GCM-SHA384:"
-                                       "ECDHE-RSA-AES256-GCM-SHA384:"
-                                       "ECDHE-ECDSA-CHACHA20-POLY1305:"
-                                       "ECDHE-RSA-CHACHA20-POLY1305:"
-                                       "DHE-RSA-AES128-GCM-SHA256:"
-                                       "DHE-RSA-AES256-GCM-SHA384:"
-                                       "DHE-RSA-CHACHA20-POLY1305";
+    constexpr const char* sslCiphers =
+        "ECDHE-ECDSA-AES128-GCM-SHA256:"
+        "ECDHE-RSA-AES128-GCM-SHA256:"
+        "ECDHE-ECDSA-AES256-GCM-SHA384:"
+        "ECDHE-RSA-AES256-GCM-SHA384:"
+        "ECDHE-ECDSA-CHACHA20-POLY1305:"
+        "ECDHE-RSA-CHACHA20-POLY1305:"
+        "DHE-RSA-AES128-GCM-SHA256:"
+        "DHE-RSA-AES256-GCM-SHA384:"
+        "DHE-RSA-CHACHA20-POLY1305";
 
     if (SSL_CTX_set_cipher_list(sslCtx.native_handle(), sslCiphers) != 1)
     {

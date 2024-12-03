@@ -63,35 +63,36 @@ inline void getValidDumpEntryForAttachment(
          callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::ManagedObjectType& resp) {
-        if (ec.value() == EBADR)
-        {
-            messages::resourceNotFound(asyncResp->res, dumpType + " dump",
-                                       entryID);
-            return;
-        }
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DumpEntry resp_handler got error {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        std::string dumpEntryIdPath =
-            "/xyz/openbmc_project/dump/" +
-            std::string(boost::algorithm::to_lower_copy(dumpType)) + "/entry/" +
-            dumpId;
-
-        for (const auto& objectPath : resp)
-        {
-            if (objectPath.first.str == dumpEntryIdPath)
+            if (ec.value() == EBADR)
             {
-                callback(dumpEntryIdPath, entryID, dumpType);
+                messages::resourceNotFound(asyncResp->res, dumpType + " dump",
+                                           entryID);
                 return;
             }
-        }
-        BMCWEB_LOG_WARNING("Dump entry {} is not found", entryID);
-        messages::resourceNotFound(asyncResp->res, dumpType + " dump", entryID);
-    };
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("DumpEntry resp_handler got error {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            std::string dumpEntryIdPath =
+                "/xyz/openbmc_project/dump/" +
+                std::string(boost::algorithm::to_lower_copy(dumpType)) +
+                "/entry/" + dumpId;
+
+            for (const auto& objectPath : resp)
+            {
+                if (objectPath.first.str == dumpEntryIdPath)
+                {
+                    callback(dumpEntryIdPath, entryID, dumpType);
+                    return;
+                }
+            }
+            BMCWEB_LOG_WARNING("Dump entry {} is not found", entryID);
+            messages::resourceNotFound(asyncResp->res, dumpType + " dump",
+                                       entryID);
+        };
 
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Dump.Manager",

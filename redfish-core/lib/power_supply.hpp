@@ -81,18 +81,18 @@ inline void
         [asyncResp, chassisId](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error{}", ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error{}", ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        updatePowerSupplyList(asyncResp, chassisId, subtreePaths);
-    });
+            updatePowerSupplyList(asyncResp, chassisId, subtreePaths);
+        });
 }
 
 inline void handlePowerSupplyCollectionHead(
@@ -109,15 +109,16 @@ inline void handlePowerSupplyCollectionHead(
         asyncResp, chassisId,
         [asyncResp,
          chassisId](const std::optional<std::string>& validChassisPath) {
-        if (!validChassisPath)
-        {
-            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-            return;
-        }
-        asyncResp->res.addHeader(
-            boost::beast::http::field::link,
-            "</redfish/v1/JsonSchemas/PowerSupplyCollection/PowerSupplyCollection.json>; rel=describedby");
-    });
+            if (!validChassisPath)
+            {
+                messages::resourceNotFound(asyncResp->res, "Chassis",
+                                           chassisId);
+                return;
+            }
+            asyncResp->res.addHeader(
+                boost::beast::http::field::link,
+                "</redfish/v1/JsonSchemas/PowerSupplyCollection/PowerSupplyCollection.json>; rel=describedby");
+        });
 }
 
 inline void handlePowerSupplyCollectionGet(
@@ -170,100 +171,99 @@ inline void getValidPowerSupplyPath(
         [asyncResp, powerSupplyId, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error for getAssociatedSubTreePaths{}",
-                    ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "DBUS response error for getAssociatedSubTreePaths{}",
+                        ec.value());
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::resourceNotFound(asyncResp->res, "PowerSupplies",
+                                           powerSupplyId);
                 return;
             }
-            messages::resourceNotFound(asyncResp->res, "PowerSupplies",
-                                       powerSupplyId);
-            return;
-        }
 
-        for (const std::string& path : subtreePaths)
-        {
-            if (checkPowerSupplyId(path, powerSupplyId))
+            for (const std::string& path : subtreePaths)
             {
-                callback(path);
+                if (checkPowerSupplyId(path, powerSupplyId))
+                {
+                    callback(path);
+                    return;
+                }
+            }
+
+            if (!subtreePaths.empty())
+            {
+                BMCWEB_LOG_WARNING("Power supply not found: {}", powerSupplyId);
+                messages::resourceNotFound(asyncResp->res, "PowerSupplies",
+                                           powerSupplyId);
                 return;
             }
-        }
-
-        if (!subtreePaths.empty())
-        {
-            BMCWEB_LOG_WARNING("Power supply not found: {}", powerSupplyId);
-            messages::resourceNotFound(asyncResp->res, "PowerSupplies",
-                                       powerSupplyId);
-            return;
-        }
-    });
+        });
 }
 
-inline void
-    getPowerSupplyState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& service, const std::string& path,
-                        bool available)
+inline void getPowerSupplyState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path, bool available)
 {
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Inventory.Item", "Present",
-        [asyncResp, available](const boost::system::error_code& ec,
-                               const bool value) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+        [asyncResp,
+         available](const boost::system::error_code& ec, const bool value) {
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error for State {}",
-                                 ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for State {}",
+                                     ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        if (!value)
-        {
-            asyncResp->res.jsonValue["Status"]["State"] =
-                resource::State::Absent;
-        }
-        else if (!available)
-        {
-            asyncResp->res.jsonValue["Status"]["State"] = "UnavailableOffline";
-        }
-    });
+            if (!value)
+            {
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Absent;
+            }
+            else if (!available)
+            {
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    "UnavailableOffline";
+            }
+        });
 }
 
-inline void
-    getPowerSupplyHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& service, const std::string& path,
-                         bool available)
+inline void getPowerSupplyHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path, bool available)
 {
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.State.Decorator.OperationalStatus", "Functional",
-        [asyncResp, available](const boost::system::error_code& ec,
-                               const bool value) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+        [asyncResp,
+         available](const boost::system::error_code& ec, const bool value) {
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error for Health {}",
-                                 ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for Health {}",
+                                     ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        if (!value || !available)
-        {
-            asyncResp->res.jsonValue["Status"]["Health"] =
-                resource::Health::Critical;
-        }
-    });
+            if (!value || !available)
+            {
+                asyncResp->res.jsonValue["Status"]["Health"] =
+                    resource::Health::Critical;
+            }
+        });
 }
 
 inline void getPowerSupplyStateAndHealth(
@@ -273,23 +273,23 @@ inline void getPowerSupplyStateAndHealth(
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.State.Decorator.Availability", "Available",
-        [asyncResp, service, path](const boost::system::error_code& ec,
-                                   const bool available) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+        [asyncResp, service,
+         path](const boost::system::error_code& ec, const bool available) {
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error for Available {}",
-                                 ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for Available {}",
+                                     ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        getPowerSupplyState(asyncResp, service, path, available);
+            getPowerSupplyState(asyncResp, service, path, available);
 
-        getPowerSupplyHealth(asyncResp, service, path, available);
-    });
+            getPowerSupplyHealth(asyncResp, service, path, available);
+        });
 }
 
 inline void
@@ -301,60 +301,61 @@ inline void
         "xyz.openbmc_project.Inventory.Decorator.Asset",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error for Asset {}",
-                                 ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for Asset {}",
+                                     ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        const std::string* partNumber = nullptr;
-        const std::string* serialNumber = nullptr;
-        const std::string* manufacturer = nullptr;
-        const std::string* model = nullptr;
-        const std::string* sparePartNumber = nullptr;
+            const std::string* partNumber = nullptr;
+            const std::string* serialNumber = nullptr;
+            const std::string* manufacturer = nullptr;
+            const std::string* model = nullptr;
+            const std::string* sparePartNumber = nullptr;
 
-        const bool success = sdbusplus::unpackPropertiesNoThrow(
-            dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
-            partNumber, "SerialNumber", serialNumber, "Manufacturer",
-            manufacturer, "Model", model, "SparePartNumber", sparePartNumber);
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
+                partNumber, "SerialNumber", serialNumber, "Manufacturer",
+                manufacturer, "Model", model, "SparePartNumber",
+                sparePartNumber);
 
-        if (!success)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
 
-        if (partNumber != nullptr)
-        {
-            asyncResp->res.jsonValue["PartNumber"] = *partNumber;
-        }
+            if (partNumber != nullptr)
+            {
+                asyncResp->res.jsonValue["PartNumber"] = *partNumber;
+            }
 
-        if (serialNumber != nullptr)
-        {
-            asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
-        }
+            if (serialNumber != nullptr)
+            {
+                asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
+            }
 
-        if (manufacturer != nullptr)
-        {
-            asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
-        }
+            if (manufacturer != nullptr)
+            {
+                asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
+            }
 
-        if (model != nullptr)
-        {
-            asyncResp->res.jsonValue["Model"] = *model;
-        }
+            if (model != nullptr)
+            {
+                asyncResp->res.jsonValue["Model"] = *model;
+            }
 
-        // SparePartNumber is optional on D-Bus so skip if it is empty
-        if (sparePartNumber != nullptr && !sparePartNumber->empty())
-        {
-            asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
-        }
-    });
+            // SparePartNumber is optional on D-Bus so skip if it is empty
+            if (sparePartNumber != nullptr && !sparePartNumber->empty())
+            {
+                asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+            }
+        });
 }
 
 inline void getPowerSupplyFirmwareVersion(
@@ -366,18 +367,19 @@ inline void getPowerSupplyFirmwareVersion(
         "xyz.openbmc_project.Software.Version", "Version",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& value) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error for FirmwareVersion {}",
-                                 ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "DBUS response error for FirmwareVersion {}",
+                        ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
-        asyncResp->res.jsonValue["FirmwareVersion"] = value;
-    });
+            asyncResp->res.jsonValue["FirmwareVersion"] = value;
+        });
 }
 
 inline void
@@ -389,19 +391,19 @@ inline void
         "xyz.openbmc_project.Inventory.Decorator.LocationCode", "LocationCode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& value) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error for Location {}",
-                                 ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error for Location {}",
+                                     ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
-        asyncResp->res.jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
-            value;
-    });
+            asyncResp->res
+                .jsonValue["Location"]["PartLocation"]["ServiceLabel"] = value;
+        });
 }
 
 inline void handleGetEfficiencyResponse(
@@ -469,8 +471,8 @@ inline void handlePowerSupplyAttributesSubTreeResponse(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Control.PowerSupplyAttributes", "DeratingFactor",
         [asyncResp](const boost::system::error_code& ec1, uint32_t value) {
-        handleGetEfficiencyResponse(asyncResp, ec1, value);
-    });
+            handleGetEfficiencyResponse(asyncResp, ec1, value);
+        });
 }
 
 inline void
@@ -483,15 +485,14 @@ inline void
         "/xyz/openbmc_project", 0, efficiencyIntf,
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        handlePowerSupplyAttributesSubTreeResponse(asyncResp, ec, subtree);
-    });
+            handlePowerSupplyAttributesSubTreeResponse(asyncResp, ec, subtree);
+        });
 }
 
-inline void
-    doPowerSupplyGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& chassisId,
-                     const std::string& powerSupplyId,
-                     const std::optional<std::string>& validChassisPath)
+inline void doPowerSupplyGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& powerSupplyId,
+    const std::optional<std::string>& validChassisPath)
 {
     if (!validChassisPath)
     {
@@ -500,54 +501,55 @@ inline void
     }
 
     // Get the correct Path and Service that match the input parameters
-    getValidPowerSupplyPath(asyncResp, *validChassisPath, powerSupplyId,
-                            [asyncResp, chassisId, powerSupplyId](
-                                const std::string& powerSupplyPath) {
-        asyncResp->res.addHeader(
-            boost::beast::http::field::link,
-            "</redfish/v1/JsonSchemas/PowerSupply/PowerSupply.json>; rel=describedby");
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#PowerSupply.v1_5_0.PowerSupply";
-        asyncResp->res.jsonValue["Name"] = "Power Supply";
-        asyncResp->res.jsonValue["Id"] = powerSupplyId;
-        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies/{}", chassisId,
-            powerSupplyId);
+    getValidPowerSupplyPath(
+        asyncResp, *validChassisPath, powerSupplyId,
+        [asyncResp, chassisId,
+         powerSupplyId](const std::string& powerSupplyPath) {
+            asyncResp->res.addHeader(
+                boost::beast::http::field::link,
+                "</redfish/v1/JsonSchemas/PowerSupply/PowerSupply.json>; rel=describedby");
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#PowerSupply.v1_5_0.PowerSupply";
+            asyncResp->res.jsonValue["Name"] = "Power Supply";
+            asyncResp->res.jsonValue["Id"] = powerSupplyId;
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies/{}",
+                chassisId, powerSupplyId);
 
-        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
-        asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                resource::State::Enabled;
+            asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 
-        dbus::utility::getDbusObject(
-            powerSupplyPath, powerSupplyInterface,
-            [asyncResp,
-             powerSupplyPath](const boost::system::error_code& ec,
-                              const dbus::utility::MapperGetObject& object) {
-            if (ec || object.empty())
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
+            dbus::utility::getDbusObject(
+                powerSupplyPath, powerSupplyInterface,
+                [asyncResp, powerSupplyPath](
+                    const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetObject& object) {
+                    if (ec || object.empty())
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
 
-            getPowerSupplyStateAndHealth(asyncResp, object.begin()->first,
-                                         powerSupplyPath);
-            getPowerSupplyAsset(asyncResp, object.begin()->first,
-                                powerSupplyPath);
-            getPowerSupplyFirmwareVersion(asyncResp, object.begin()->first,
-                                          powerSupplyPath);
-            getPowerSupplyLocation(asyncResp, object.begin()->first,
-                                   powerSupplyPath);
+                    getPowerSupplyStateAndHealth(
+                        asyncResp, object.begin()->first, powerSupplyPath);
+                    getPowerSupplyAsset(asyncResp, object.begin()->first,
+                                        powerSupplyPath);
+                    getPowerSupplyFirmwareVersion(
+                        asyncResp, object.begin()->first, powerSupplyPath);
+                    getPowerSupplyLocation(asyncResp, object.begin()->first,
+                                           powerSupplyPath);
+                });
+
+            getEfficiencyPercent(asyncResp);
+            getLocationIndicatorActive(asyncResp, powerSupplyPath);
         });
-
-        getEfficiencyPercent(asyncResp);
-        getLocationIndicatorActive(asyncResp, powerSupplyPath);
-    });
 }
 
-inline void
-    handlePowerSupplyHead(App& app, const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& chassisId,
-                          const std::string& powerSupplyId)
+inline void handlePowerSupplyHead(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& powerSupplyId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -558,27 +560,28 @@ inline void
         asyncResp, chassisId,
         [asyncResp, chassisId,
          powerSupplyId](const std::optional<std::string>& validChassisPath) {
-        if (!validChassisPath)
-        {
-            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-            return;
-        }
+            if (!validChassisPath)
+            {
+                messages::resourceNotFound(asyncResp->res, "Chassis",
+                                           chassisId);
+                return;
+            }
 
-        // Get the correct Path and Service that match the input parameters
-        getValidPowerSupplyPath(asyncResp, *validChassisPath, powerSupplyId,
-                                [asyncResp](const std::string&) {
-            asyncResp->res.addHeader(
-                boost::beast::http::field::link,
-                "</redfish/v1/JsonSchemas/PowerSupply/PowerSupply.json>; rel=describedby");
+            // Get the correct Path and Service that match the input parameters
+            getValidPowerSupplyPath(
+                asyncResp, *validChassisPath, powerSupplyId,
+                [asyncResp](const std::string&) {
+                    asyncResp->res.addHeader(
+                        boost::beast::http::field::link,
+                        "</redfish/v1/JsonSchemas/PowerSupply/PowerSupply.json>; rel=describedby");
+                });
         });
-    });
 }
 
-inline void
-    handlePowerSupplyGet(App& app, const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& chassisId,
-                         const std::string& powerSupplyId)
+inline void handlePowerSupplyGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& powerSupplyId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -590,10 +593,9 @@ inline void
         std::bind_front(doPowerSupplyGet, asyncResp, chassisId, powerSupplyId));
 }
 
-inline void
-    doPatchPowerSupply(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const bool locationIndicatorActive,
-                       const std::string& powerSupplyPath)
+inline void doPatchPowerSupply(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const bool locationIndicatorActive, const std::string& powerSupplyPath)
 {
     setLocationIndicatorActive(asyncResp, powerSupplyPath,
                                locationIndicatorActive);
@@ -618,11 +620,10 @@ inline void powerSupplyPatchAfterValidateChassis(
                                             locationIndicatorActive));
 }
 
-inline void
-    handlePowerSupplyPatch(App& app, const crow::Request& req,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& chassisId,
-                           const std::string& powerSupplyId)
+inline void handlePowerSupplyPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& powerSupplyId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {

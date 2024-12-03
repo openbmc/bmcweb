@@ -36,10 +36,9 @@ inline nlohmann::json
                               args);
 }
 
-inline nlohmann::json taskAborted(const std::string& arg1,
-                                  const std::string& arg2,
-                                  const std::string& arg3,
-                                  const std::string& arg4)
+inline nlohmann::json
+    taskAborted(const std::string& arg1, const std::string& arg2,
+                const std::string& arg3, const std::string& arg4)
 {
     return nlohmann::json{
         {"@odata.type", "#Message.v1_0_0.Message"},

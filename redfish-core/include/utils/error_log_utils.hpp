@@ -38,37 +38,37 @@ inline void setErrorLogUri(
         errorLogObjPath.str, "org.open_power.Logging.PEL.Entry", "Hidden",
         [asyncResp, errorLogObjPath, errorLogPropPath, isLink](
             const boost::system::error_code& ec, const bool hiddenProperty) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR(
-                "DBus response error [{} : {}] when tried to get the Hidden property from the given error log object {}",
-                ec.value(), ec.message(), errorLogObjPath.str);
-            return;
-        }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "DBus response error [{} : {}] when tried to get the Hidden property from the given error log object {}",
+                    ec.value(), ec.message(), errorLogObjPath.str);
+                return;
+            }
 
-        std::string errLogUri{"/redfish/v1/Systems/system/LogServices/"};
-        if (hiddenProperty)
-        {
-            errLogUri.append("CELog/Entries/");
-        }
-        else
-        {
-            errLogUri.append("EventLog/Entries/");
-        }
-        errLogUri.append(errorLogObjPath.filename());
+            std::string errLogUri{"/redfish/v1/Systems/system/LogServices/"};
+            if (hiddenProperty)
+            {
+                errLogUri.append("CELog/Entries/");
+            }
+            else
+            {
+                errLogUri.append("EventLog/Entries/");
+            }
+            errLogUri.append(errorLogObjPath.filename());
 
-        if (isLink)
-        {
-            std::string path = errorLogPropPath.to_string();
-            asyncResp->res.jsonValue[path]["@odata.id"] = errLogUri;
-        }
-        else
-        {
-            errLogUri.append("/attachment");
-            std::string path = errorLogPropPath.to_string();
-            asyncResp->res.jsonValue[path]["@odata.id"] = errLogUri;
-        }
-    });
+            if (isLink)
+            {
+                std::string path = errorLogPropPath.to_string();
+                asyncResp->res.jsonValue[path]["@odata.id"] = errLogUri;
+            }
+            else
+            {
+                errLogUri.append("/attachment");
+                std::string path = errorLogPropPath.to_string();
+                asyncResp->res.jsonValue[path]["@odata.id"] = errLogUri;
+            }
+        });
 }
 
 } // namespace error_log_utils

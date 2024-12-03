@@ -41,10 +41,9 @@ inline void afterGetFabricPortLocation(
         value;
 }
 
-inline void
-    getFabricPortLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& portPath,
-                          const std::string& serviceName)
+inline void getFabricPortLocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portPath, const std::string& serviceName)
 {
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, serviceName, portPath,
@@ -73,10 +72,9 @@ inline void
     }
 }
 
-inline void
-    getFabricPortState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& portPath,
-                       const std::string& serviceName)
+inline void getFabricPortState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portPath, const std::string& serviceName)
 {
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, serviceName, portPath,
@@ -105,10 +103,9 @@ inline void afterGetFabricPortHealth(
     }
 }
 
-inline void
-    getFabricPortHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& portPath,
-                        const std::string& serviceName)
+inline void getFabricPortHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portPath, const std::string& serviceName)
 {
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, serviceName, portPath,
@@ -163,8 +160,8 @@ inline void afterGetAssociatedFabricPortSubTree(
         portInterfaces,
         [callback](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreeResponse& portSubTree) {
-        callback(ec, portSubTree);
-    });
+            callback(ec, portSubTree);
+        });
 }
 
 inline void getAssociatedFabricPortSubTree(
@@ -181,14 +178,14 @@ inline void getAssociatedFabricPortSubTree(
             const std::string& fabricAdapterPath,
             const std::string& fabricServiceName,
             const dbus::utility::InterfaceList& /*unused*/) {
-        if (ec)
-        {
-            callback(ec, dbus::utility::MapperGetSubTreeResponse{});
-            return;
-        }
-        afterGetAssociatedFabricPortSubTree(fabricAdapterPath,
-                                            fabricServiceName, callback);
-    });
+            if (ec)
+            {
+                callback(ec, dbus::utility::MapperGetSubTreeResponse{});
+                return;
+            }
+            afterGetAssociatedFabricPortSubTree(fabricAdapterPath,
+                                                fabricServiceName, callback);
+        });
 }
 
 inline void afterGetValidFabricPortPath(
@@ -223,10 +220,10 @@ inline void getValidFabricPortPath(
                        const std::string& portPath,
                        const std::string& portServiceName)>&& callback)
 {
-    getAssociatedFabricPortSubTree(adapterId, asyncResp,
-                                   std::bind_front(afterGetValidFabricPortPath,
-                                                   portId,
-                                                   std::move(callback)));
+    getAssociatedFabricPortSubTree(
+        adapterId, asyncResp,
+        std::bind_front(afterGetValidFabricPortPath, portId,
+                        std::move(callback)));
 }
 
 inline void afterHandleFabricPortHead(
@@ -250,12 +247,11 @@ inline void afterHandleFabricPortHead(
         "</redfish/v1/JsonSchemas/Port/Port.json>; rel=describedby");
 }
 
-inline void
-    handleFabricPortHead(crow::App& app, const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& systemName,
-                         const std::string& adapterId,
-                         const std::string& portId)
+inline void handleFabricPortHead(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& adapterId,
+    const std::string& portId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -277,11 +273,11 @@ inline void
 
     getValidFabricPortPath(
         adapterId, portId, asyncResp,
-        [asyncResp, portId](const boost::system::error_code& ec,
-                            const std::string& /*unused*/,
-                            const std::string& /*unused*/) {
-        afterHandleFabricPortHead(asyncResp, portId, ec);
-    });
+        [asyncResp,
+         portId](const boost::system::error_code& ec,
+                 const std::string& /*unused*/, const std::string& /*unused*/) {
+            afterHandleFabricPortHead(asyncResp, portId, ec);
+        });
 }
 
 inline void afterHandleFabricPortGet(
@@ -306,11 +302,11 @@ inline void afterHandleFabricPortGet(
                             portServiceName);
 }
 
-inline void
-    handleFabricPortGet(App& app, const crow::Request& req,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& systemName,
-                        const std::string& adapterId, const std::string& portId)
+inline void handleFabricPortGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& adapterId,
+    const std::string& portId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -523,10 +519,10 @@ inline void handlePortPatch(App& app, const crow::Request& req,
     }
     if (locationIndicatorActive)
     {
-        getValidFabricPortPath(adapterId, portId, asyncResp,
-                               std::bind_front(afterHandlePortPatch, asyncResp,
-                                               portId,
-                                               *locationIndicatorActive));
+        getValidFabricPortPath(
+            adapterId, portId, asyncResp,
+            std::bind_front(afterHandlePortPatch, asyncResp, portId,
+                            *locationIndicatorActive));
     }
 }
 

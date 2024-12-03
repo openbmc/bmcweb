@@ -62,8 +62,8 @@ struct nghttp2_session_callbacks
     void setOnBeginHeadersCallback(
         nghttp2_on_begin_headers_callback onBeginHeaders)
     {
-        nghttp2_session_callbacks_set_on_begin_headers_callback(ptr,
-                                                                onBeginHeaders);
+        nghttp2_session_callbacks_set_on_begin_headers_callback(
+            ptr, onBeginHeaders);
     }
 
     void setSendDataCallback(nghttp2_send_data_callback onSendData)

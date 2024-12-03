@@ -61,43 +61,44 @@ inline void
         "xyz.openbmc_project.Object.Enable", "Enabled",
         [asyncResp](const boost::system::error_code& ec,
                     const bool allowUnauthACFUpload) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR(
-                    "D-Bus response error reading allow_unauth_upload: {}",
-                    ec.value());
-                messages::internalError(asyncResp->res);
-            }
-            return;
-        }
-
-        if (allowUnauthACFUpload)
-        {
-            asyncResp->res.jsonValue["Oem"]["IBM"]["ACFWindowActive"] =
-                allowUnauthACFUpload;
-            return;
-        }
-
-        // Check D-Bus property ACFWindowActive
-        sdbusplus::asio::getProperty<bool>(
-            *crow::connections::systemBus, "com.ibm.PanelApp",
-            "/com/ibm/panel_app", "com.ibm.panel", "ACFWindowActive",
-            [asyncResp](const boost::system::error_code& ec1,
-                        const bool isACFWindowActive) {
-            if (ec1)
-            {
-                BMCWEB_LOG_ERROR("Failed to read ACFWindowActive property");
-                // Default value when panel app is unreachable.
-                asyncResp->res.jsonValue["Oem"]["IBM"]["ACFWindowActive"] =
-                    false;
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "D-Bus response error reading allow_unauth_upload: {}",
+                        ec.value());
+                    messages::internalError(asyncResp->res);
+                }
                 return;
             }
-            asyncResp->res.jsonValue["Oem"]["IBM"]["ACFWindowActive"] =
-                isACFWindowActive;
+
+            if (allowUnauthACFUpload)
+            {
+                asyncResp->res.jsonValue["Oem"]["IBM"]["ACFWindowActive"] =
+                    allowUnauthACFUpload;
+                return;
+            }
+
+            // Check D-Bus property ACFWindowActive
+            sdbusplus::asio::getProperty<bool>(
+                *crow::connections::systemBus, "com.ibm.PanelApp",
+                "/com/ibm/panel_app", "com.ibm.panel", "ACFWindowActive",
+                [asyncResp](const boost::system::error_code& ec1,
+                            const bool isACFWindowActive) {
+                    if (ec1)
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Failed to read ACFWindowActive property");
+                        // Default value when panel app is unreachable.
+                        asyncResp->res
+                            .jsonValue["Oem"]["IBM"]["ACFWindowActive"] = false;
+                        return;
+                    }
+                    asyncResp->res.jsonValue["Oem"]["IBM"]["ACFWindowActive"] =
+                        isACFWindowActive;
+                });
         });
-    });
 }
 
 inline void
@@ -109,22 +110,22 @@ inline void
         "xyz.openbmc_project.User.MultiFactorAuthConfiguration", "Enabled",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& multiFactorAuthEnabledVal) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR(
-                "DBUS response error while fetching MultiFactorAuth property. Error: {}",
-                ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "DBUS response error while fetching MultiFactorAuth property. Error: {}",
+                    ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
 
-        constexpr std::string_view mfaGoogleAuthDbusVal =
-            "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
-        bool googleAuthEnabled =
-            (multiFactorAuthEnabledVal == mfaGoogleAuthDbusVal);
-        asyncResp->res.jsonValue["Oem"]["IBM"]["MultiFactorAuthEnabled"] =
-            googleAuthEnabled;
-    });
+            constexpr std::string_view mfaGoogleAuthDbusVal =
+                "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+            bool googleAuthEnabled =
+                (multiFactorAuthEnabledVal == mfaGoogleAuthDbusVal);
+            asyncResp->res.jsonValue["Oem"]["IBM"]["MultiFactorAuthEnabled"] =
+                googleAuthEnabled;
+        });
 }
 
 inline void fillServiceRootOemProperties(
@@ -202,8 +203,9 @@ inline void afterHandleServiceRootOem(
                 [asyncResp](
                     const boost::system::error_code& ec2,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
-                fillServiceRootOemProperties(asyncResp, ec2, propertiesList);
-            });
+                    fillServiceRootOemProperties(asyncResp, ec2,
+                                                 propertiesList);
+                });
         }
     }
 }

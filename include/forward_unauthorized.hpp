@@ -24,8 +24,8 @@ inline void sendUnauthorized(std::string_view url,
         // If we have a webui installed, redirect to that login page
         if (hasWebuiRoute)
         {
-            boost::urls::url forward = boost::urls::format("/?next={}#/login",
-                                                           url);
+            boost::urls::url forward =
+                boost::urls::format("/?next={}#/login", url);
             res.result(boost::beast::http::status::temporary_redirect);
             res.addHeader(boost::beast::http::field::location,
                           forward.buffer());

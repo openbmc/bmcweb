@@ -197,13 +197,13 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             "/", 0, interfaces,
             [self](const boost::system::error_code& ec,
                    const dbus::utility::MapperGetSubTreePathsResponse& resp) {
-            if (ec || resp.size() != 1)
-            {
-                // no global item, or too many
-                return;
-            }
-            self->globalInventoryPath = resp[0];
-        });
+                if (ec || resp.size() != 1)
+                {
+                    // no global item, or too many
+                    return;
+                }
+                self->globalInventoryPath = resp[0];
+            });
     }
 
     void getAllStatusAssociations()
@@ -214,22 +214,23 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             "xyz.openbmc_project.ObjectMapper", path,
             [self](const boost::system::error_code& ec,
                    const dbus::utility::ManagedObjectType& resp) {
-            if (ec)
-            {
-                return;
-            }
-            self->statuses = resp;
-            for (auto it = self->statuses.begin(); it != self->statuses.end();)
-            {
-                if (it->first.str.ends_with("critical") ||
-                    it->first.str.ends_with("warning"))
+                if (ec)
                 {
-                    it++;
-                    continue;
+                    return;
                 }
-                it = self->statuses.erase(it);
-            }
-        });
+                self->statuses = resp;
+                for (auto it = self->statuses.begin();
+                     it != self->statuses.end();)
+                {
+                    if (it->first.str.ends_with("critical") ||
+                        it->first.str.ends_with("warning"))
+                    {
+                        it++;
+                        continue;
+                    }
+                    it = self->statuses.erase(it);
+                }
+            });
     }
 
     std::shared_ptr<bmcweb::AsyncResp> asyncResp;

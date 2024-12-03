@@ -195,8 +195,8 @@ inline void handleLogout(const crow::Request& req,
     const auto& session = req.session;
     if (session != nullptr)
     {
-        asyncResp->res.jsonValue["data"] = "User '" + session->username +
-                                           "' logged out";
+        asyncResp->res.jsonValue["data"] =
+            "User '" + session->username + "' logged out";
         asyncResp->res.jsonValue["message"] = "200 OK";
         asyncResp->res.jsonValue["status"] = "ok";
 

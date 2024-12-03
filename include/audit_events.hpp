@@ -196,9 +196,9 @@ inline void auditEvent(const crow::Request& req, const std::string& userName,
         return;
     }
 
-    std::string opPath = std::format("op={}:{} ",
-                                     std::string(req.methodString()),
-                                     std::string(req.target()));
+    std::string opPath =
+        std::format("op={}:{} ", std::string(req.methodString()),
+                    std::string(req.target()));
 
     size_t maxBuf = 256; // Limit message to avoid filling log with single entry
     std::string cnfgBuff = opPath.substr(0, maxBuf);
@@ -268,10 +268,10 @@ inline void auditEvent(const crow::Request& req, const std::string& userName,
 
     std::string ipAddress = req.ipAddress.to_string();
 
-    int rc = audit_log_user_message(auditfd, AUDIT_USYS_CONFIG,
-                                    cnfgBuff.c_str(),
-                                    boost::asio::ip::host_name().c_str(),
-                                    ipAddress.c_str(), nullptr, int(success));
+    int rc = audit_log_user_message(
+        auditfd, AUDIT_USYS_CONFIG, cnfgBuff.c_str(),
+        boost::asio::ip::host_name().c_str(), ipAddress.c_str(), nullptr,
+        int(success));
 
     if (rc <= 0)
     {

@@ -31,47 +31,47 @@ inline void getPowerSubsystemAllocation(
         "xyz.openbmc_project.Control.Power.Cap",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+
+            uint32_t powerCap{0};
+            bool powerCapEnable{false};
+            uint32_t maxPowerCapValue{0};
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), propertiesList, "PowerCap",
+                powerCap, "PowerCapEnable", powerCapEnable, "MaxPowerCapValue",
+                maxPowerCapValue);
+
+            if (!success)
+            {
                 messages::internalError(asyncResp->res);
+                return;
             }
-            return;
-        }
 
-        uint32_t powerCap{0};
-        bool powerCapEnable{false};
-        uint32_t maxPowerCapValue{0};
-        const bool success = sdbusplus::unpackPropertiesNoThrow(
-            dbus_utils::UnpackErrorPrinter(), propertiesList, "PowerCap",
-            powerCap, "PowerCapEnable", powerCapEnable, "MaxPowerCapValue",
-            maxPowerCapValue);
-
-        if (!success)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        // If MaxPowerCapValue valid, store Allocation properties in JSON
-        if ((maxPowerCapValue > 0) && (maxPowerCapValue < UINT32_MAX))
-        {
-            if (powerCapEnable)
+            // If MaxPowerCapValue valid, store Allocation properties in JSON
+            if ((maxPowerCapValue > 0) && (maxPowerCapValue < UINT32_MAX))
             {
-                asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
-                    powerCap;
-            }
-            else
-            {
-                asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
+                if (powerCapEnable)
+                {
+                    asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
+                        powerCap;
+                }
+                else
+                {
+                    asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
+                        maxPowerCapValue;
+                }
+                asyncResp->res.jsonValue["Allocation"]["RequestedWatts"] =
                     maxPowerCapValue;
             }
-            asyncResp->res.jsonValue["Allocation"]["RequestedWatts"] =
-                maxPowerCapValue;
-        }
-    });
+        });
 }
 
 inline void doPowerSubsystemCollection(

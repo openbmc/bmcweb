@@ -161,35 +161,35 @@ inline void getLicenseEntryCollection(
         "xyz.openbmc_project.PLDM", path,
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::ManagedObjectType& resp) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("LicenseEntry resp_handler got error {}", ec);
-            // continue here to show zero members
-            asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
-            asyncResp->res.jsonValue["Members@odata.count"] = 0;
-            return;
-        }
-
-        nlohmann::json& entriesArray = asyncResp->res.jsonValue["Members"];
-        entriesArray = nlohmann::json::array();
-
-        for (const auto& object : resp)
-        {
-            std::string entryID = object.first.filename();
-            if (entryID.empty())
+            if (ec)
             {
-                continue;
+                BMCWEB_LOG_ERROR("LicenseEntry resp_handler got error {}", ec);
+                // continue here to show zero members
+                asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+                asyncResp->res.jsonValue["Members@odata.count"] = 0;
+                return;
             }
-            entriesArray.push_back({});
-            nlohmann::json& thisEntry = entriesArray.back();
-            thisEntry["@odata.id"] =
-                std::format("/redfish/v1/LicenseService/Licenses/{}", entryID);
-            thisEntry["Id"] = entryID;
-            thisEntry["Name"] = entryID + " License Entry";
-            asyncResp->res.jsonValue["Members@odata.count"] =
-                entriesArray.size();
-        }
-    });
+
+            nlohmann::json& entriesArray = asyncResp->res.jsonValue["Members"];
+            entriesArray = nlohmann::json::array();
+
+            for (const auto& object : resp)
+            {
+                std::string entryID = object.first.filename();
+                if (entryID.empty())
+                {
+                    continue;
+                }
+                entriesArray.push_back({});
+                nlohmann::json& thisEntry = entriesArray.back();
+                thisEntry["@odata.id"] = std::format(
+                    "/redfish/v1/LicenseService/Licenses/{}", entryID);
+                thisEntry["Id"] = entryID;
+                thisEntry["Name"] = entryID + " License Entry";
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    entriesArray.size();
+            }
+        });
 }
 
 inline void requestRoutesLicenseService(App& app)
@@ -199,22 +199,23 @@ inline void requestRoutesLicenseService(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/LicenseService";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LicenseService.v1_0_0.LicenseService";
-        asyncResp->res.jsonValue["Name"] = "License Service";
-        asyncResp->res.jsonValue["Id"] = "LicenseService";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/LicenseService";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#LicenseService.v1_0_0.LicenseService";
+                asyncResp->res.jsonValue["Name"] = "License Service";
+                asyncResp->res.jsonValue["Id"] = "LicenseService";
 
-        asyncResp->res.jsonValue["Licenses"]["@odata.id"] =
-            "/redfish/v1/LicenseService/Licenses";
-        asyncResp->res.jsonValue["Actions"] = {
-            {"#LicenseService.Install",
-             {{
-                 "target",
-                 "/redfish/v1/LicenseService/Actions/"
-                 "LicenseService.Install",
-             }}}};
-    });
+                asyncResp->res.jsonValue["Licenses"]["@odata.id"] =
+                    "/redfish/v1/LicenseService/Licenses";
+                asyncResp->res.jsonValue["Actions"] = {
+                    {"#LicenseService.Install",
+                     {{
+                         "target",
+                         "/redfish/v1/LicenseService/Actions/"
+                         "LicenseService.Install",
+                     }}}};
+            });
 }
 
 static void resetLicenseActivationStatus(
@@ -223,16 +224,17 @@ static void resetLicenseActivationStatus(
     std::string value{"com.ibm.License.LicenseManager.Status.Pending"};
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error: Unable to set "
-                             "the LicenseString property {}",
-                             ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        getLicenseActivationStatusMatch() = nullptr;
-    }, "com.ibm.License.Manager", "/com/ibm/license",
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error: Unable to set "
+                                 "the LicenseString property {}",
+                                 ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            getLicenseActivationStatusMatch() = nullptr;
+        },
+        "com.ibm.License.Manager", "/com/ibm/license",
         "org.freedesktop.DBus.Properties", "Set",
         "com.ibm.License.LicenseManager", "LicenseActivationStatus",
         std::variant<std::string>(value));
@@ -244,25 +246,25 @@ static void
     std::string value;
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error: Unable to set "
-                             "the LicenseString property {}",
-                             ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        resetLicenseActivationStatus(asyncResp);
-    }, "com.ibm.License.Manager", "/com/ibm/license",
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error: Unable to set "
+                                 "the LicenseString property {}",
+                                 ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            resetLicenseActivationStatus(asyncResp);
+        },
+        "com.ibm.License.Manager", "/com/ibm/license",
         "org.freedesktop.DBus.Properties", "Set",
         "com.ibm.License.LicenseManager", "LicenseString",
         std::variant<std::string>(value));
 }
 
-inline void
-    getLicenseActivationAck(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& status,
-                            const std::string& licenseString)
+inline void getLicenseActivationAck(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& status, const std::string& licenseString)
 {
     if (status == "com.ibm.License.LicenseManager.Status.ActivationFailed")
     {
@@ -336,77 +338,81 @@ static void
     crow::connections::systemBus->async_method_call(
         [timeout, asyncResp,
          licenseString](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("LicenseString resp_handler got error {}", ec);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        auto timeoutHandler =
-            [asyncResp, timeout](const boost::system::error_code& errCode) {
-            resetLicenseString(asyncResp);
-            if (errCode)
+            if (ec)
             {
-                if (errCode != boost::asio::error::operation_aborted)
-                {
-                    BMCWEB_LOG_ERROR("Async_wait failed {}", errCode);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            }
-            else
-            {
-                BMCWEB_LOG_WARNING("Timed out waiting for HostInterface to "
-                                   "serve license upload request");
-                messages::serviceTemporarilyUnavailable(asyncResp->res, "60");
+                BMCWEB_LOG_ERROR("LicenseString resp_handler got error {}", ec);
+                messages::internalError(asyncResp->res);
                 return;
             }
-        };
 
-        timeout->async_wait(timeoutHandler);
+            auto timeoutHandler =
+                [asyncResp, timeout](const boost::system::error_code& errCode) {
+                    resetLicenseString(asyncResp);
+                    if (errCode)
+                    {
+                        if (errCode != boost::asio::error::operation_aborted)
+                        {
+                            BMCWEB_LOG_ERROR("Async_wait failed {}", errCode);
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_WARNING(
+                            "Timed out waiting for HostInterface to "
+                            "serve license upload request");
+                        messages::serviceTemporarilyUnavailable(asyncResp->res,
+                                                                "60");
+                        return;
+                    }
+                };
 
-        auto callback = [asyncResp, timeout,
-                         licenseString](sdbusplus::message::message& m) {
-            BMCWEB_LOG_DEBUG("Response Matched ");
-            boost::container::flat_map<std::string, std::variant<std::string>>
-                values;
-            std::string iface;
-            m.read(iface, values);
-            if (iface == "com.ibm.License.LicenseManager")
-            {
-                auto findStatus = values.find("LicenseActivationStatus");
-                if (findStatus != values.end())
+            timeout->async_wait(timeoutHandler);
+
+            auto callback = [asyncResp, timeout,
+                             licenseString](sdbusplus::message::message& m) {
+                BMCWEB_LOG_DEBUG("Response Matched ");
+                boost::container::flat_map<std::string,
+                                           std::variant<std::string>>
+                    values;
+                std::string iface;
+                m.read(iface, values);
+                if (iface == "com.ibm.License.LicenseManager")
                 {
-                    BMCWEB_LOG_INFO("Found Status property change");
-                    std::string* status =
-                        std::get_if<std::string>(&(findStatus->second));
-                    if (status == nullptr)
+                    auto findStatus = values.find("LicenseActivationStatus");
+                    if (findStatus != values.end())
                     {
-                        messages::internalError(asyncResp->res);
-                        return;
+                        BMCWEB_LOG_INFO("Found Status property change");
+                        std::string* status =
+                            std::get_if<std::string>(&(findStatus->second));
+                        if (status == nullptr)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        // Ignore D-bus propertyChanged signal for
+                        // status value "Pending"
+                        if (*status ==
+                            "com.ibm.License.LicenseManager.Status.Pending")
+                        {
+                            return;
+                        }
+                        getLicenseActivationAck(asyncResp, *status,
+                                                licenseString);
+                        timeout->cancel();
                     }
-                    // Ignore D-bus propertyChanged signal for
-                    // status value "Pending"
-                    if (*status ==
-                        "com.ibm.License.LicenseManager.Status.Pending")
-                    {
-                        return;
-                    }
-                    getLicenseActivationAck(asyncResp, *status, licenseString);
-                    timeout->cancel();
                 }
-            }
-        };
+            };
 
-        getLicenseActivationStatusMatch() =
-            std::make_unique<sdbusplus::bus::match::match>(
-                *crow::connections::systemBus,
-                "interface='org.freedesktop.DBus.Properties',type='"
-                "signal',"
-                "member='PropertiesChanged',path='/com/ibm/license'",
-                callback);
-    },
+            getLicenseActivationStatusMatch() =
+                std::make_unique<sdbusplus::bus::match::match>(
+                    *crow::connections::systemBus,
+                    "interface='org.freedesktop.DBus.Properties',type='"
+                    "signal',"
+                    "member='PropertiesChanged',path='/com/ibm/license'",
+                    callback);
+        },
         "com.ibm.License.Manager", "/com/ibm/license",
         "org.freedesktop.DBus.Properties", "Set",
         "com.ibm.License.LicenseManager", "LicenseString",
@@ -419,14 +425,14 @@ inline void requestRoutesLicenseEntryCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#LicenseCollection.LicenseCollection";
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/LicenseService/Licenses";
-        asyncResp->res.jsonValue["Name"] = "License Collection";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#LicenseCollection.LicenseCollection";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/LicenseService/Licenses";
+                asyncResp->res.jsonValue["Name"] = "License Collection";
 
-        getLicenseEntryCollection(asyncResp);
-    });
+                getLicenseEntryCollection(asyncResp);
+            });
 
     BMCWEB_ROUTE(app, "/redfish/v1/LicenseService/Licenses")
         .privileges({{"ConfigureManager"}})
@@ -496,172 +502,177 @@ inline void
         [asyncResp,
          licenseEntryID](const boost::system::error_code& ec,
                          const dbus::utility::ManagedObjectType& resp) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("LicenseEntry resp_handler got error {}",
-                             ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        std::string licenseEntryPath = "/xyz/openbmc_project/license/entry/" +
-                                       licenseEntryID;
-
-        for (const auto& objectPath : resp)
-        {
-            if (objectPath.first.str != licenseEntryPath)
+            if (ec)
             {
-                continue;
+                BMCWEB_LOG_ERROR("LicenseEntry resp_handler got error {}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+                return;
             }
 
-            uint64_t expirationTime = 0;
-            const uint32_t* deviceNumPtr = nullptr;
-            const std::string* serialNumPtr = nullptr;
-            const std::string* licenseNamePtr = nullptr;
-            const std::string* licenseTypePtr = nullptr;
-            const std::string* authorizationTypePtr = nullptr;
-            bool available = false;
-            bool state = false;
+            std::string licenseEntryPath =
+                "/xyz/openbmc_project/license/entry/" + licenseEntryID;
 
-            for (const auto& interfaceMap : objectPath.second)
+            for (const auto& objectPath : resp)
             {
-                if (interfaceMap.first == "com.ibm.License.Entry.LicenseEntry")
+                if (objectPath.first.str != licenseEntryPath)
                 {
-                    for (const auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Name")
-                        {
-                            licenseNamePtr =
-                                std::get_if<std::string>(&propertyMap.second);
-                            if (licenseNamePtr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                        }
-                        else if (propertyMap.first == "Type")
-                        {
-                            licenseTypePtr =
-                                std::get_if<std::string>(&propertyMap.second);
-                            if (licenseTypePtr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                        }
-                        else if (propertyMap.first == "AuthorizationType")
-                        {
-                            authorizationTypePtr =
-                                std::get_if<std::string>(&propertyMap.second);
-                            if (authorizationTypePtr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                        }
-                        else if (propertyMap.first == "AuthDeviceNumber")
-                        {
-                            deviceNumPtr =
-                                std::get_if<uint32_t>(&propertyMap.second);
-                            if (deviceNumPtr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                        }
-                        else if (propertyMap.first == "ExpirationTime")
-                        {
-                            const uint64_t* timePtr =
-                                std::get_if<uint64_t>(&propertyMap.second);
-                            if (timePtr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                            expirationTime = *timePtr;
-                        }
-                        else if (propertyMap.first == "SerialNumber")
-                        {
-                            serialNumPtr =
-                                std::get_if<std::string>(&propertyMap.second);
-                            if (serialNumPtr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                        }
-                    }
+                    continue;
                 }
-                else if (interfaceMap.first ==
-                         "xyz.openbmc_project.State.Decorator.Availability")
-                {
-                    for (const auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Available")
-                        {
-                            const bool* availablePtr =
-                                std::get_if<bool>(&propertyMap.second);
-                            if (availablePtr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                            available = *availablePtr;
-                        }
-                    }
-                }
-                if (interfaceMap.first == "xyz.openbmc_project.State.Decorator."
-                                          "OperationalStatus")
-                {
-                    for (const auto& propertyMap : interfaceMap.second)
-                    {
-                        if (propertyMap.first == "Functional")
-                        {
-                            const bool* functionalPtr =
-                                std::get_if<bool>(&propertyMap.second);
-                            if (functionalPtr == nullptr)
-                            {
-                                messages::internalError(asyncResp->res);
-                                break;
-                            }
-                            state = *functionalPtr;
-                        }
-                    }
-                }
-            }
-            asyncResp->res.jsonValue["@odata.type"] = "#License.v1_0_0.License";
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/LicenseService/Licenses/" + licenseEntryID;
-            asyncResp->res.jsonValue["Id"] = licenseEntryID;
-            asyncResp->res.jsonValue["SerialNumber"] = *serialNumPtr;
-            asyncResp->res.jsonValue["Name"] = *licenseNamePtr;
-            asyncResp->res.jsonValue["ExpirationDate"] =
-                redfish::time_utils::getDateTimeUint(expirationTime);
-            translateLicenseTypeDbusToRedfish(asyncResp, *licenseTypePtr);
-            translateAuthorizationTypeDbusToRedfish(asyncResp,
-                                                    *authorizationTypePtr);
-            asyncResp->res.jsonValue["MaxAuthorizedDevices"] = *deviceNumPtr;
 
-            if (available)
-            {
-                asyncResp->res.jsonValue["Status"]["Health"] = "OK";
-                if (state)
+                uint64_t expirationTime = 0;
+                const uint32_t* deviceNumPtr = nullptr;
+                const std::string* serialNumPtr = nullptr;
+                const std::string* licenseNamePtr = nullptr;
+                const std::string* licenseTypePtr = nullptr;
+                const std::string* authorizationTypePtr = nullptr;
+                bool available = false;
+                bool state = false;
+
+                for (const auto& interfaceMap : objectPath.second)
                 {
-                    asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+                    if (interfaceMap.first ==
+                        "com.ibm.License.Entry.LicenseEntry")
+                    {
+                        for (const auto& propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "Name")
+                            {
+                                licenseNamePtr = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (licenseNamePtr == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                            }
+                            else if (propertyMap.first == "Type")
+                            {
+                                licenseTypePtr = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (licenseTypePtr == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                            }
+                            else if (propertyMap.first == "AuthorizationType")
+                            {
+                                authorizationTypePtr = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (authorizationTypePtr == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                            }
+                            else if (propertyMap.first == "AuthDeviceNumber")
+                            {
+                                deviceNumPtr =
+                                    std::get_if<uint32_t>(&propertyMap.second);
+                                if (deviceNumPtr == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                            }
+                            else if (propertyMap.first == "ExpirationTime")
+                            {
+                                const uint64_t* timePtr =
+                                    std::get_if<uint64_t>(&propertyMap.second);
+                                if (timePtr == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                                expirationTime = *timePtr;
+                            }
+                            else if (propertyMap.first == "SerialNumber")
+                            {
+                                serialNumPtr = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (serialNumPtr == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else if (interfaceMap.first ==
+                             "xyz.openbmc_project.State.Decorator.Availability")
+                    {
+                        for (const auto& propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "Available")
+                            {
+                                const bool* availablePtr =
+                                    std::get_if<bool>(&propertyMap.second);
+                                if (availablePtr == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                                available = *availablePtr;
+                            }
+                        }
+                    }
+                    if (interfaceMap.first ==
+                        "xyz.openbmc_project.State.Decorator."
+                        "OperationalStatus")
+                    {
+                        for (const auto& propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "Functional")
+                            {
+                                const bool* functionalPtr =
+                                    std::get_if<bool>(&propertyMap.second);
+                                if (functionalPtr == nullptr)
+                                {
+                                    messages::internalError(asyncResp->res);
+                                    break;
+                                }
+                                state = *functionalPtr;
+                            }
+                        }
+                    }
+                }
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#License.v1_0_0.License";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/LicenseService/Licenses/" + licenseEntryID;
+                asyncResp->res.jsonValue["Id"] = licenseEntryID;
+                asyncResp->res.jsonValue["SerialNumber"] = *serialNumPtr;
+                asyncResp->res.jsonValue["Name"] = *licenseNamePtr;
+                asyncResp->res.jsonValue["ExpirationDate"] =
+                    redfish::time_utils::getDateTimeUint(expirationTime);
+                translateLicenseTypeDbusToRedfish(asyncResp, *licenseTypePtr);
+                translateAuthorizationTypeDbusToRedfish(asyncResp,
+                                                        *authorizationTypePtr);
+                asyncResp->res.jsonValue["MaxAuthorizedDevices"] =
+                    *deviceNumPtr;
+
+                if (available)
+                {
+                    asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+                    if (state)
+                    {
+                        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+                    }
+                    else
+                    {
+                        asyncResp->res.jsonValue["Status"]["State"] =
+                            "Disabled";
+                    }
                 }
                 else
                 {
-                    asyncResp->res.jsonValue["Status"]["State"] = "Disabled";
+                    asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
+                    asyncResp->res.jsonValue["Status"]["State"] =
+                        "UnavailableOffline";
                 }
             }
-            else
-            {
-                asyncResp->res.jsonValue["Status"]["Health"] = "Critical";
-                asyncResp->res.jsonValue["Status"]["State"] =
-                    "UnavailableOffline";
-            }
-        }
-    });
+        });
 }
 
 inline void requestRoutesLicenseEntry(App& app)
@@ -672,7 +683,7 @@ inline void requestRoutesLicenseEntry(App& app)
             [](const crow::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& param) {
-        getLicenseEntryById(asyncResp, param);
-    });
+                getLicenseEntryById(asyncResp, param);
+            });
 }
 } // namespace redfish

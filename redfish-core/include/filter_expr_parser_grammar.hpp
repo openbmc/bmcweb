@@ -50,8 +50,8 @@ const rule<class LogicalNotId, LogicalNot> logicalNot("LogicalNot");
 ///// BEGIN GRAMMAR
 
 // Two types of strings.
-const auto quotedString_def = '\'' >> lexeme[*('\\' >> char_ | ~char_('\''))] >>
-                              '\'';
+const auto quotedString_def =
+    '\'' >> lexeme[*('\\' >> char_ | ~char_('\''))] >> '\'';
 const auto unquotedString_def = char_("a-zA-Z") >> *(char_("a-zA-Z0-9[]/"));
 
 // Make sure we only parse true floating points as doubles

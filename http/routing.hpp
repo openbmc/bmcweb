@@ -213,8 +213,8 @@ class Trie
 
             if (reqUrl.starts_with(fragment))
             {
-                FindResult ret = findHelper(reqUrl.substr(fragment.size()),
-                                            child, params);
+                FindResult ret =
+                    findHelper(reqUrl.substr(fragment.size()), child, params);
                 if (ret.ruleIndex != 0U)
                 {
                     return {ret.ruleIndex, std::move(ret.params)};
@@ -429,8 +429,8 @@ class Router
                 {
                     perMethods[method].trie.add(
                         rule.substr(0, rule.size() - 1),
-                        static_cast<unsigned>(perMethods[method].rules.size() -
-                                              1));
+                        static_cast<unsigned>(
+                            perMethods[method].rules.size() - 1));
                 }
             }
         }
@@ -507,10 +507,10 @@ class Router
              perMethodIndex++)
         {
             // Make sure it's safe to deference the array at that index
-            static_assert(maxVerbIndex <
-                          std::tuple_size_v<decltype(perMethods)>);
-            FindRoute route = findRouteByIndex(req.url().encoded_path(),
-                                               perMethodIndex);
+            static_assert(
+                maxVerbIndex < std::tuple_size_v<decltype(perMethods)>);
+            FindRoute route =
+                findRouteByIndex(req.url().encoded_path(), perMethodIndex);
             if (route.rule == nullptr)
             {
                 continue;
@@ -576,11 +576,12 @@ class Router
 
         // TODO(ed) This should be able to use std::bind_front, but it doesn't
         // appear to work with the std::move on adaptor.
-        validatePrivilege(req, asyncResp, rule,
-                          [req, &rule, asyncResp,
-                           adaptor = std::forward<Adaptor>(adaptor)]() mutable {
-            rule.handleUpgrade(*req, asyncResp, std::move(adaptor));
-        });
+        validatePrivilege(
+            req, asyncResp, rule,
+            [req, &rule, asyncResp,
+             adaptor = std::forward<Adaptor>(adaptor)]() mutable {
+                rule.handleUpgrade(*req, asyncResp, std::move(adaptor));
+            });
     }
 
     void handle(const std::shared_ptr<Request>& req,
@@ -601,8 +602,8 @@ class Router
             // route
             if (foundRoute.allowHeader.empty())
             {
-                foundRoute.route = findRouteByIndex(req->url().encoded_path(),
-                                                    notFoundIndex);
+                foundRoute.route =
+                    findRouteByIndex(req->url().encoded_path(), notFoundIndex);
             }
             else
             {
@@ -649,8 +650,8 @@ class Router
         validatePrivilege(
             req, asyncResp, rule,
             [req, asyncResp, &rule, params = std::move(params)]() {
-            rule.handle(*req, asyncResp, params);
-        });
+                rule.handle(*req, asyncResp, params);
+            });
     }
 
     void debugPrint()

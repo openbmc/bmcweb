@@ -37,19 +37,19 @@ inline void getFanPaths(
         [asyncResp, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error for getAssociatedSubTreePaths {}",
-                    ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "DBUS response error for getAssociatedSubTreePaths {}",
+                        ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
-        callback(subtreePaths);
-    });
+            callback(subtreePaths);
+        });
 }
 
 } // namespace fan_utils

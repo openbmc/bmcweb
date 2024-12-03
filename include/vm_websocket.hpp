@@ -100,27 +100,27 @@ class Handler : public std::enable_shared_from_this<Handler>
             inputBuffer->data(),
             [this, self(shared_from_this())](const boost::beast::error_code& ec,
                                              std::size_t bytesWritten) {
-            BMCWEB_LOG_DEBUG("Wrote {}bytes", bytesWritten);
-            doingWrite = false;
-            inputBuffer->consume(bytesWritten);
+                BMCWEB_LOG_DEBUG("Wrote {}bytes", bytesWritten);
+                doingWrite = false;
+                inputBuffer->consume(bytesWritten);
 
-            if (session == nullptr)
-            {
-                return;
-            }
-            if (ec == boost::asio::error::eof)
-            {
-                session->close("VM socket port closed");
-                return;
-            }
-            if (ec)
-            {
-                session->close("Error in writing to proxy port");
-                BMCWEB_LOG_ERROR("Error in VM socket write {}", ec);
-                return;
-            }
-            doWrite();
-        });
+                if (session == nullptr)
+                {
+                    return;
+                }
+                if (ec == boost::asio::error::eof)
+                {
+                    session->close("VM socket port closed");
+                    return;
+                }
+                if (ec)
+                {
+                    session->close("Error in writing to proxy port");
+                    BMCWEB_LOG_ERROR("Error in VM socket write {}", ec);
+                    return;
+                }
+                doWrite();
+            });
     }
 
     void doRead()
@@ -131,30 +131,30 @@ class Handler : public std::enable_shared_from_this<Handler>
             outputBuffer->prepare(bytes),
             [this, self(shared_from_this())](
                 const boost::system::error_code& ec, std::size_t bytesRead) {
-            BMCWEB_LOG_DEBUG("Read done.  Read {} bytes", bytesRead);
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Couldn't read from VM port: {}", ec);
-                if (session != nullptr)
+                BMCWEB_LOG_DEBUG("Read done.  Read {} bytes", bytesRead);
+                if (ec)
                 {
-                    session->close("Error in connecting to VM port");
+                    BMCWEB_LOG_ERROR("Couldn't read from VM port: {}", ec);
+                    if (session != nullptr)
+                    {
+                        session->close("Error in connecting to VM port");
+                    }
+                    return;
                 }
-                return;
-            }
-            if (session == nullptr)
-            {
-                return;
-            }
+                if (session == nullptr)
+                {
+                    return;
+                }
 
-            outputBuffer->commit(bytesRead);
-            std::string_view payload(
-                static_cast<const char*>(outputBuffer->data().data()),
-                bytesRead);
-            session->sendBinary(payload);
-            outputBuffer->consume(bytesRead);
+                outputBuffer->commit(bytesRead);
+                std::string_view payload(
+                    static_cast<const char*>(outputBuffer->data().data()),
+                    bytesRead);
+                session->sendBinary(payload);
+                outputBuffer->consume(bytesRead);
 
-            doRead();
-        });
+                doRead();
+            });
     }
 
     boost::asio::readable_pipe pipeOut;
@@ -230,25 +230,25 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         acceptor.async_accept(
             [weak(weak_from_this())](const boost::system::error_code& ec,
                                      stream_protocol::socket socket) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("UNIX socket: async_accept error = {}",
-                                 ec.message());
-                return;
-            }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("UNIX socket: async_accept error = {}",
+                                     ec.message());
+                    return;
+                }
 
-            BMCWEB_LOG_DEBUG("Connection opened");
-            std::shared_ptr<NbdProxyServer> self = weak.lock();
-            if (self == nullptr)
-            {
-                return;
-            }
+                BMCWEB_LOG_DEBUG("Connection opened");
+                std::shared_ptr<NbdProxyServer> self = weak.lock();
+                if (self == nullptr)
+                {
+                    return;
+                }
 
-            self->connection.resumeRead();
-            self->peerSocket = std::move(socket);
-            //  Start reading from socket
-            self->doRead();
-        });
+                self->connection.resumeRead();
+                self->peerSocket = std::move(socket);
+                //  Start reading from socket
+                self->doRead();
+            });
 
         auto mountHandler = [weak(weak_from_this())](
                                 const boost::system::error_code& ec, bool) {
@@ -289,32 +289,32 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             ux2wsBuf.prepare(nbdBufferSize),
             [weak(weak_from_this())](const boost::system::error_code& ec,
                                      size_t bytesRead) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("UNIX socket: async_read_some error = {}",
-                                 ec.message());
-                return;
-            }
-            std::shared_ptr<NbdProxyServer> self = weak.lock();
-            if (self == nullptr)
-            {
-                return;
-            }
-
-            // Send to websocket
-            self->ux2wsBuf.commit(bytesRead);
-            self->connection.sendEx(
-                crow::websocket::MessageType::Binary,
-                boost::beast::buffers_to_string(self->ux2wsBuf.data()),
-                [weak(self->weak_from_this())]() {
-                std::shared_ptr<NbdProxyServer> self2 = weak.lock();
-                if (self2 != nullptr)
+                if (ec)
                 {
-                    self2->ux2wsBuf.consume(self2->ux2wsBuf.size());
-                    self2->doRead();
+                    BMCWEB_LOG_ERROR("UNIX socket: async_read_some error = {}",
+                                     ec.message());
+                    return;
                 }
+                std::shared_ptr<NbdProxyServer> self = weak.lock();
+                if (self == nullptr)
+                {
+                    return;
+                }
+
+                // Send to websocket
+                self->ux2wsBuf.commit(bytesRead);
+                self->connection.sendEx(
+                    crow::websocket::MessageType::Binary,
+                    boost::beast::buffers_to_string(self->ux2wsBuf.data()),
+                    [weak(self->weak_from_this())]() {
+                        std::shared_ptr<NbdProxyServer> self2 = weak.lock();
+                        if (self2 != nullptr)
+                        {
+                            self2->ux2wsBuf.consume(self2->ux2wsBuf.size());
+                            self2->doRead();
+                        }
+                    });
             });
-        });
     }
 
     void doWrite(std::function<void()>&& onDone)
@@ -337,30 +337,31 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             [weak(weak_from_this()),
              onDone(std::move(onDone))](const boost::system::error_code& ec,
                                         size_t bytesWritten) mutable {
-            std::shared_ptr<NbdProxyServer> self = weak.lock();
-            if (self == nullptr)
-            {
-                return;
-            }
+                std::shared_ptr<NbdProxyServer> self = weak.lock();
+                if (self == nullptr)
+                {
+                    return;
+                }
 
-            self->ws2uxBuf.consume(bytesWritten);
-            self->uxWriteInProgress = false;
+                self->ws2uxBuf.consume(bytesWritten);
+                self->uxWriteInProgress = false;
 
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("UNIX: async_write error = {}", ec.message());
-                self->connection.close("Internal error");
-                return;
-            }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("UNIX: async_write error = {}",
+                                     ec.message());
+                    self->connection.close("Internal error");
+                    return;
+                }
 
-            // Retrigger doWrite if there is something in buffer
-            if (self->ws2uxBuf.size() > 0)
-            {
-                self->doWrite(std::move(onDone));
-                return;
-            }
-            onDone();
-        });
+                // Retrigger doWrite if there is something in buffer
+                if (self->ws2uxBuf.size() > 0)
+                {
+                    self->doWrite(std::move(onDone));
+                    return;
+                }
+                onDone();
+            });
     }
 
     // Keeps UNIX socket endpoint file path
@@ -390,10 +391,9 @@ using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static SessionMap sessions;
 
-inline void
-    afterGetManagedObjects(crow::websocket::Connection& conn,
-                           const boost::system::error_code& ec,
-                           const dbus::utility::ManagedObjectType& objects)
+inline void afterGetManagedObjects(
+    crow::websocket::Connection& conn, const boost::system::error_code& ec,
+    const dbus::utility::ManagedObjectType& objects)
 {
     const std::string* socketValue = nullptr;
     const std::string* endpointValue = nullptr;
@@ -481,8 +481,8 @@ inline void onOpen(crow::websocket::Connection& conn)
         "xyz.openbmc_project.VirtualMedia", path,
         [&conn](const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& objects) {
-        afterGetManagedObjects(conn, ec, objects);
-    });
+            afterGetManagedObjects(conn, ec, objects);
+        });
 
     // We need to wait for dbus and the websockets to hook up before data is
     // sent/received.  Tell the core to hold off messages until the sockets are
@@ -562,58 +562,58 @@ inline void requestRoutes(App& app)
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
             .websocket()
             .onopen([](crow::websocket::Connection& conn) {
-            BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
+                BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
 
-            if (session != nullptr)
-            {
-                conn.close("Session already connected");
-                return;
-            }
+                if (session != nullptr)
+                {
+                    conn.close("Session already connected");
+                    return;
+                }
 
-            if (handler != nullptr)
-            {
-                conn.close("Handler already running");
-                return;
-            }
+                if (handler != nullptr)
+                {
+                    conn.close("Handler already running");
+                    return;
+                }
 
-            session = &conn;
+                session = &conn;
 
-            // media is the last digit of the endpoint /vm/0/0. A future
-            // enhancement can include supporting different endpoint values.
-            const char* media = "0";
-            handler = std::make_shared<Handler>(media, conn.getIoContext());
-            handler->connect();
-        })
+                // media is the last digit of the endpoint /vm/0/0. A future
+                // enhancement can include supporting different endpoint values.
+                const char* media = "0";
+                handler = std::make_shared<Handler>(media, conn.getIoContext());
+                handler->connect();
+            })
             .onclose([](crow::websocket::Connection& conn,
                         const std::string& /*reason*/) {
-            if (&conn != session)
-            {
-                return;
-            }
+                if (&conn != session)
+                {
+                    return;
+                }
 
-            session = nullptr;
-            handler->doClose();
-            handler->inputBuffer->clear();
-            handler->outputBuffer->clear();
-            handler.reset();
-        })
+                session = nullptr;
+                handler->doClose();
+                handler->inputBuffer->clear();
+                handler->outputBuffer->clear();
+                handler.reset();
+            })
             .onmessage([](crow::websocket::Connection& conn,
                           const std::string& data, bool) {
-            if (data.length() >
-                handler->inputBuffer->capacity() - handler->inputBuffer->size())
-            {
-                BMCWEB_LOG_ERROR("Buffer overrun when writing {} bytes",
-                                 data.length());
-                conn.close("Buffer overrun");
-                return;
-            }
+                if (data.length() > handler->inputBuffer->capacity() -
+                                        handler->inputBuffer->size())
+                {
+                    BMCWEB_LOG_ERROR("Buffer overrun when writing {} bytes",
+                                     data.length());
+                    conn.close("Buffer overrun");
+                    return;
+                }
 
-            size_t copied = boost::asio::buffer_copy(
-                handler->inputBuffer->prepare(data.size()),
-                boost::asio::buffer(data));
-            handler->inputBuffer->commit(copied);
-            handler->doWrite();
-        });
+                size_t copied = boost::asio::buffer_copy(
+                    handler->inputBuffer->prepare(data.size()),
+                    boost::asio::buffer(data));
+                handler->inputBuffer->commit(copied);
+                handler->doWrite();
+            });
     }
 }
 

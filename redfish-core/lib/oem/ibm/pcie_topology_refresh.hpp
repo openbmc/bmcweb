@@ -61,35 +61,36 @@ static void pcieTopologyRefreshWatchdog(
         "PCIeTopologyRefresh",
         [asyncResp, timer, countPtr](const boost::system::error_code& ec1,
                                      const bool pcieRefreshValue) {
-        if (ec1)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error {}", ec1.value());
-            messages::internalError(asyncResp->res);
-            pcieTopologyRefreshTimer = nullptr;
-            (*countPtr) = 0;
-            return;
-        }
-        // After PCIe Topology Refresh, it sets the pcieRefreshValuePtr
-        // value to false. if a value is not false, extend the time, and if
-        // it is false, delete the timer and reset the counter
-        if (pcieRefreshValue)
-        {
-            BMCWEB_LOG_INFO("pcieRefreshValuePtr time extended");
-            timer->expires_at(timer->expiry() +
-                              boost::asio::chrono::seconds(1));
-            timer->async_wait([timer, asyncResp,
-                               countPtr](const boost::system::error_code& ec2) {
-                pcieTopologyRefreshWatchdog(ec2, timer, asyncResp, countPtr);
-            });
-        }
-        else
-        {
-            BMCWEB_LOG_ERROR("pcieRefreshValuePtr value refreshed");
-            pcieTopologyRefreshTimer = nullptr;
-            (*countPtr) = 0;
-            return;
-        }
-    });
+            if (ec1)
+            {
+                BMCWEB_LOG_ERROR("DBUS response error {}", ec1.value());
+                messages::internalError(asyncResp->res);
+                pcieTopologyRefreshTimer = nullptr;
+                (*countPtr) = 0;
+                return;
+            }
+            // After PCIe Topology Refresh, it sets the pcieRefreshValuePtr
+            // value to false. if a value is not false, extend the time, and if
+            // it is false, delete the timer and reset the counter
+            if (pcieRefreshValue)
+            {
+                BMCWEB_LOG_INFO("pcieRefreshValuePtr time extended");
+                timer->expires_at(
+                    timer->expiry() + boost::asio::chrono::seconds(1));
+                timer->async_wait([timer, asyncResp, countPtr](
+                                      const boost::system::error_code& ec2) {
+                    pcieTopologyRefreshWatchdog(ec2, timer, asyncResp,
+                                                countPtr);
+                });
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR("pcieRefreshValuePtr value refreshed");
+                pcieTopologyRefreshTimer = nullptr;
+                (*countPtr) = 0;
+                return;
+            }
+        });
 };
 
 /**
@@ -101,10 +102,9 @@ static void pcieTopologyRefreshWatchdog(
  *
  * @return None.
  */
-inline void
-    setPCIeTopologyRefresh(const crow::Request& req,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const bool state)
+inline void setPCIeTopologyRefresh(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const bool state)
 {
     BMCWEB_LOG_DEBUG("Set PCIe Topology Refresh status.");
     sdbusplus::asio::setProperty(
@@ -112,23 +112,23 @@ inline void
         "/xyz/openbmc_project/pldm", "com.ibm.PLDM.PCIeTopology",
         "PCIeTopologyRefresh", state,
         [&req, asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("PCIe Topology Refresh failed.{}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        countPCIeTopologyRefresh = 0;
-        pcieTopologyRefreshTimer =
-            std::make_unique<boost::asio::steady_timer>(*req.ioService);
-        pcieTopologyRefreshTimer->expires_after(std::chrono::seconds(1));
-        pcieTopologyRefreshTimer->async_wait(
-            [timer = pcieTopologyRefreshTimer.get(),
-             asyncResp](const boost::system::error_code& ec1) {
-            pcieTopologyRefreshWatchdog(ec1, timer, asyncResp,
-                                        &countPCIeTopologyRefresh);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("PCIe Topology Refresh failed.{}", ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            countPCIeTopologyRefresh = 0;
+            pcieTopologyRefreshTimer =
+                std::make_unique<boost::asio::steady_timer>(*req.ioService);
+            pcieTopologyRefreshTimer->expires_after(std::chrono::seconds(1));
+            pcieTopologyRefreshTimer->async_wait(
+                [timer = pcieTopologyRefreshTimer.get(),
+                 asyncResp](const boost::system::error_code& ec1) {
+                    pcieTopologyRefreshWatchdog(ec1, timer, asyncResp,
+                                                &countPCIeTopologyRefresh);
+                });
         });
-    });
 }
 
 /**
@@ -139,9 +139,8 @@ inline void
  *
  * @return None.
  */
-inline void
-    setSavePCIeTopologyInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const bool state)
+inline void setSavePCIeTopologyInfo(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const bool state)
 {
     BMCWEB_LOG_DEBUG("Set Save PCIe Topology Info status.");
 
@@ -150,13 +149,14 @@ inline void
         "/xyz/openbmc_project/pldm", "com.ibm.PLDM.PCIeTopology",
         "SavePCIeTopologyInfo", state,
         [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("Save PCIe Topology Info failed.{}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Save PCIe Topology Info failed.{}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        });
 }
 
 } // namespace redfish

@@ -18,8 +18,8 @@ TEST(UpdateService, ParseTFTPPostitive)
     crow::Response res;
     {
         // No protocol, schema on url
-        std::optional<TftpUrl> ret = parseTftpUrl("tftp://1.1.1.1/path",
-                                                  std::nullopt, res);
+        std::optional<TftpUrl> ret =
+            parseTftpUrl("tftp://1.1.1.1/path", std::nullopt, res);
         ASSERT_NE(ret, std::nullopt);
         EXPECT_EQ(ret->tftpServer, "1.1.1.1");
         EXPECT_EQ(ret->fwFile, "path");
@@ -33,8 +33,8 @@ TEST(UpdateService, ParseTFTPPostitive)
     }
     {
         // Both protocl and schema on url
-        std::optional<TftpUrl> ret = parseTftpUrl("tftp://1.1.1.1/path", "TFTP",
-                                                  res);
+        std::optional<TftpUrl> ret =
+            parseTftpUrl("tftp://1.1.1.1/path", "TFTP", res);
         ASSERT_NE(ret, std::nullopt);
         EXPECT_EQ(ret->tftpServer, "1.1.1.1");
         EXPECT_EQ(ret->fwFile, "path");

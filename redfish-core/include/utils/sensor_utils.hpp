@@ -445,8 +445,8 @@ inline void objectPropertiesToJson(
         }
 
         sensorJson["Status"]["State"] = getState(inventoryItem, available);
-        sensorJson["Status"]["Health"] = getHealth(sensorJson, propertiesDict,
-                                                   inventoryItem);
+        sensorJson["Status"]["Health"] =
+            getHealth(sensorJson, propertiesDict, inventoryItem);
 
         if (chassisSubNode == ChassisSubNode::sensorsNode)
         {
@@ -677,13 +677,12 @@ inline void objectPropertiesToJson(
  * @returns True if sensorJson object filled. False on any error.
  * Caller is responsible for handling error.
  */
-inline bool
-    objectExcerptToJson(const std::string& path,
-                        const std::string_view chassisId,
-                        ChassisSubNode chassisSubNode,
-                        const std::optional<std::string>& sensorTypeExpected,
-                        const dbus::utility::DBusPropertiesMap& propertiesDict,
-                        nlohmann::json& sensorJson)
+inline bool objectExcerptToJson(
+    const std::string& path, const std::string_view chassisId,
+    ChassisSubNode chassisSubNode,
+    const std::optional<std::string>& sensorTypeExpected,
+    const dbus::utility::DBusPropertiesMap& propertiesDict,
+    nlohmann::json& sensorJson)
 {
     if (!isExcerptNode(chassisSubNode))
     {
@@ -738,24 +737,24 @@ inline void getAllSensorObjects(
         [callback = std::move(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
-        SensorServicePathList sensorsServiceAndPath;
+            SensorServicePathList sensorsServiceAndPath;
 
-        if (ec)
-        {
-            callback(ec, sensorsServiceAndPath);
-            return;
-        }
-
-        for (const auto& [sensorPath, serviceMaps] : subtree)
-        {
-            for (const auto& [service, mapInterfaces] : serviceMaps)
+            if (ec)
             {
-                sensorsServiceAndPath.emplace_back(service, sensorPath);
+                callback(ec, sensorsServiceAndPath);
+                return;
             }
-        }
 
-        callback(ec, sensorsServiceAndPath);
-    });
+            for (const auto& [sensorPath, serviceMaps] : subtree)
+            {
+                for (const auto& [service, mapInterfaces] : serviceMaps)
+                {
+                    sensorsServiceAndPath.emplace_back(service, sensorPath);
+                }
+            }
+
+            callback(ec, sensorsServiceAndPath);
+        });
 }
 
 } // namespace sensor_utils

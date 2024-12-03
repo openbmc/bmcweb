@@ -75,9 +75,9 @@ inline std::shared_ptr<persistent_data::UserSession>
     // Extract username contained in CommonName
     sslUser.resize(256, '\0');
 
-    int status = X509_NAME_get_text_by_NID(X509_get_subject_name(peerCert),
-                                           NID_commonName, sslUser.data(),
-                                           static_cast<int>(sslUser.size()));
+    int status = X509_NAME_get_text_by_NID(
+        X509_get_subject_name(peerCert), NID_commonName, sslUser.data(),
+        static_cast<int>(sslUser.size()));
 
     if (status == -1)
     {

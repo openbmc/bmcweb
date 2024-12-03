@@ -46,18 +46,17 @@ inline void
     fanSensorList.emplace_back(std::move(item));
     std::sort(fanSensorList.begin(), fanSensorList.end(),
               [](const nlohmann::json& c1, const nlohmann::json& c2) {
-        return c1["DataSourceUri"] < c2["DataSourceUri"];
-    });
+                  return c1["DataSourceUri"] < c2["DataSourceUri"];
+              });
     asyncResp->res.jsonValue["FanSpeedsPercent@odata.count"] =
         fanSensorList.size();
 }
 
-inline void
-    getFanSensorsProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& chassisId,
-                            const std::string& path,
-                            const boost::system::error_code& ec,
-                            const dbus::utility::MapperGetObject& object)
+inline void getFanSensorsProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& path,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
 {
     if (ec || object.empty())
     {
@@ -70,27 +69,26 @@ inline void
     sdbusplus::asio::getProperty<double>(
         *crow::connections::systemBus, service, path,
         "xyz.openbmc_project.Sensor.Value", "Value",
-        [asyncResp, chassisId, path](const boost::system::error_code& ec1,
-                                     const double value) {
-        if (ec1)
-        {
-            if (ec1.value() != EBADR)
+        [asyncResp, chassisId,
+         path](const boost::system::error_code& ec1, const double value) {
+            if (ec1)
             {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec1.value());
-                messages::internalError(asyncResp->res);
+                if (ec1.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error {}", ec1.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        updateFanSensorList(asyncResp, chassisId, path, value);
-    });
+            updateFanSensorList(asyncResp, chassisId, path, value);
+        });
 }
 
-inline void
-    getFanSensorValues(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& chassisId,
-                       const boost::system::error_code& ec,
-                       const dbus::utility::MapperEndPoints& fanSensorPaths)
+inline void getFanSensorValues(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& fanSensorPaths)
 {
     constexpr std::array<std::string_view, 1> sensorInterface = {
         "xyz.openbmc_project.Sensor.Value"};
@@ -107,10 +105,10 @@ inline void
 
     for (const auto& fanSensorPath : fanSensorPaths)
     {
-        dbus::utility::getDbusObject(fanSensorPath, sensorInterface,
-                                     std::bind_front(getFanSensorsProperties,
-                                                     asyncResp, chassisId,
-                                                     fanSensorPath));
+        dbus::utility::getDbusObject(
+            fanSensorPath, sensorInterface,
+            std::bind_front(getFanSensorsProperties, asyncResp, chassisId,
+                            fanSensorPath));
     }
 }
 
@@ -130,10 +128,9 @@ inline void afterGetFanSpeedsPercent(
     }
 }
 
-inline void
-    getFanSpeedsPercent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& validChassisPath,
-                        const std::string& chassisId)
+inline void getFanSpeedsPercent(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& validChassisPath, const std::string& chassisId)
 {
     redfish::fan_utils::getFanPaths(
         asyncResp, validChassisPath,
@@ -250,9 +247,8 @@ inline void getPowerWatts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         std::bind_front(afterGetPowerWatts, asyncResp, chassisId));
 }
 
-inline void
-    setPowerSetPoint(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     uint32_t powerCap)
+inline void setPowerSetPoint(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, uint32_t powerCap)
 {
     BMCWEB_LOG_DEBUG("Set Power Limit Watts Set Point");
 
@@ -261,13 +257,13 @@ inline void
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap", "PowerCap", powerCap,
         [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("Failed to set PowerCap: {}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to set PowerCap: {}", ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        });
 }
 
 inline void
@@ -298,13 +294,14 @@ inline void
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
         powerCapEnable, [asyncResp](const boost::system::error_code& ec) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("Failed to set PowerCapEnable: {}", ec.value());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-    });
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to set PowerCapEnable: {}",
+                                 ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        });
 }
 
 inline void
@@ -316,59 +313,60 @@ inline void
         "xyz.openbmc_project.Control.Power.Cap",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        asyncResp->res.jsonValue["PowerLimitWatts"]["SetPoint"] = 0;
-        asyncResp->res.jsonValue["PowerLimitWatts"]["ControlMode"] =
-            "Automatic";
-
-        const uint32_t* powerCap = nullptr;
-        const bool* powerCapEnable = nullptr;
-        const uint32_t* minCap = nullptr;
-        const uint32_t* maxCap = nullptr;
-
-        const bool success = sdbusplus::unpackPropertiesNoThrow(
-            dbus_utils::UnpackErrorPrinter(), propertiesList, "PowerCap",
-            powerCap, "PowerCapEnable", powerCapEnable, "MinPowerCapValue",
-            minCap, "MaxPowerCapValue", maxCap);
-
-        if (!success)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        if (powerCap != nullptr)
-        {
-            asyncResp->res.jsonValue["PowerLimitWatts"]["SetPoint"] = *powerCap;
-        }
-
-        if (powerCapEnable != nullptr && !*powerCapEnable)
-        {
+            asyncResp->res.jsonValue["PowerLimitWatts"]["SetPoint"] = 0;
             asyncResp->res.jsonValue["PowerLimitWatts"]["ControlMode"] =
-                "Disabled";
-        }
+                "Automatic";
 
-        if (minCap != nullptr)
-        {
-            asyncResp->res.jsonValue["PowerLimitWatts"]["AllowableMin"] =
-                *minCap;
-        }
+            const uint32_t* powerCap = nullptr;
+            const bool* powerCapEnable = nullptr;
+            const uint32_t* minCap = nullptr;
+            const uint32_t* maxCap = nullptr;
 
-        if (maxCap != nullptr)
-        {
-            asyncResp->res.jsonValue["PowerLimitWatts"]["AllowableMax"] =
-                *maxCap;
-        }
-    });
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), propertiesList, "PowerCap",
+                powerCap, "PowerCapEnable", powerCapEnable, "MinPowerCapValue",
+                minCap, "MaxPowerCapValue", maxCap);
+
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (powerCap != nullptr)
+            {
+                asyncResp->res.jsonValue["PowerLimitWatts"]["SetPoint"] =
+                    *powerCap;
+            }
+
+            if (powerCapEnable != nullptr && !*powerCapEnable)
+            {
+                asyncResp->res.jsonValue["PowerLimitWatts"]["ControlMode"] =
+                    "Disabled";
+            }
+
+            if (minCap != nullptr)
+            {
+                asyncResp->res.jsonValue["PowerLimitWatts"]["AllowableMin"] =
+                    *minCap;
+            }
+
+            if (maxCap != nullptr)
+            {
+                asyncResp->res.jsonValue["PowerLimitWatts"]["AllowableMax"] =
+                    *maxCap;
+            }
+        });
 }
 
 inline void handleEnvironmentMetricsGet(
@@ -431,22 +429,23 @@ inline void handleEnvironmentMetricsPatch(
         asyncResp, chassisId,
         [asyncResp, chassisId, setPoint,
          controlMode](const std::optional<std::string>& validChassisPath) {
-        if (!validChassisPath)
-        {
-            messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
-            return;
-        }
+            if (!validChassisPath)
+            {
+                messages::resourceNotFound(asyncResp->res, "Chassis",
+                                           chassisId);
+                return;
+            }
 
-        if (setPoint)
-        {
-            setPowerSetPoint(asyncResp, *setPoint);
-        }
+            if (setPoint)
+            {
+                setPowerSetPoint(asyncResp, *setPoint);
+            }
 
-        if (controlMode)
-        {
-            setPowerControlMode(asyncResp, *controlMode);
-        }
-    });
+            if (controlMode)
+            {
+                setPowerControlMode(asyncResp, *controlMode);
+            }
+        });
 }
 
 inline void requestRoutesEnvironmentMetrics(App& app)

@@ -56,27 +56,28 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
             boost::asio::buffer(inputBuffer.data(), inputBuffer.size()),
             [weak(weak_from_this())](const boost::beast::error_code& ec,
                                      std::size_t bytesWritten) {
-            std::shared_ptr<ConsoleHandler> self = weak.lock();
-            if (self == nullptr)
-            {
-                return;
-            }
+                std::shared_ptr<ConsoleHandler> self = weak.lock();
+                if (self == nullptr)
+                {
+                    return;
+                }
 
-            self->doingWrite = false;
-            self->inputBuffer.erase(0, bytesWritten);
+                self->doingWrite = false;
+                self->inputBuffer.erase(0, bytesWritten);
 
-            if (ec == boost::asio::error::eof)
-            {
-                self->conn.close("Error in reading to host port");
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Error in host serial write {}", ec.message());
-                return;
-            }
-            self->doWrite();
-        });
+                if (ec == boost::asio::error::eof)
+                {
+                    self->conn.close("Error in reading to host port");
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("Error in host serial write {}",
+                                     ec.message());
+                    return;
+                }
+                self->doWrite();
+            });
     }
 
     static void afterSendEx(const std::weak_ptr<ConsoleHandler>& weak)
@@ -96,23 +97,24 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
             boost::asio::buffer(outputBuffer),
             [this, weakSelf(weak_from_this())](
                 const boost::system::error_code& ec, std::size_t bytesRead) {
-            BMCWEB_LOG_DEBUG("read done.  Read {} bytes", bytesRead);
-            std::shared_ptr<ConsoleHandler> self = weakSelf.lock();
-            if (self == nullptr)
-            {
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Couldn't read from host serial port: {}",
-                                 ec.message());
-                conn.close("Error connecting to host port");
-                return;
-            }
-            std::string_view payload(outputBuffer.data(), bytesRead);
-            self->conn.sendEx(crow::websocket::MessageType::Binary, payload,
-                              std::bind_front(afterSendEx, weak_from_this()));
-        });
+                BMCWEB_LOG_DEBUG("read done.  Read {} bytes", bytesRead);
+                std::shared_ptr<ConsoleHandler> self = weakSelf.lock();
+                if (self == nullptr)
+                {
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("Couldn't read from host serial port: {}",
+                                     ec.message());
+                    conn.close("Error connecting to host port");
+                    return;
+                }
+                std::string_view payload(outputBuffer.data(), bytesRead);
+                self->conn.sendEx(
+                    crow::websocket::MessageType::Binary, payload,
+                    std::bind_front(afterSendEx, weak_from_this()));
+            });
     }
 
     bool connect(int fd)
@@ -213,11 +215,10 @@ inline void connectConsoleSocket(crow::websocket::Connection& conn,
     }
 }
 
-inline void
-    processConsoleObject(crow::websocket::Connection& conn,
-                         const std::string& consoleObjPath,
-                         const boost::system::error_code& ec,
-                         const ::dbus::utility::MapperGetObject& objInfo)
+inline void processConsoleObject(
+    crow::websocket::Connection& conn, const std::string& consoleObjPath,
+    const boost::system::error_code& ec,
+    const ::dbus::utility::MapperGetObject& objInfo)
 {
     // Look up the handler
     auto iter = getConsoleHandlerMap().find(&conn);
@@ -251,8 +252,8 @@ inline void
     crow::connections::systemBus->async_method_call(
         [&conn](const boost::system::error_code& ec1,
                 const sdbusplus::message::unix_fd& unixfd) {
-        connectConsoleSocket(conn, ec1, unixfd);
-    },
+            connectConsoleSocket(conn, ec1, unixfd);
+        },
         consoleService, consoleObjPath, "xyz.openbmc_project.Console.Access",
         "Connect");
 }
@@ -303,8 +304,8 @@ inline void onOpen(crow::websocket::Connection& conn)
         consolePath, interfaces,
         [&conn, consolePath](const boost::system::error_code& ec,
                              const ::dbus::utility::MapperGetObject& objInfo) {
-        processConsoleObject(conn, consolePath, ec, objInfo);
-    });
+            processConsoleObject(conn, consolePath, ec, objInfo);
+        });
 }
 
 inline void onMessage(crow::websocket::Connection& conn,

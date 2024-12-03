@@ -109,78 +109,77 @@ inline void afterFillCableProperties(
  * @param[in]       cableObjectPath Object path of the Cable with association.
  * @param[in]      service - serviceName of cable object
  */
-inline void
-    fillCableProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& cableObjectPath,
-                        const std::string& service)
+inline void fillCableProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& cableObjectPath, const std::string& service)
 {
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, cableObjectPath,
         "xyz.openbmc_project.Inventory.Item.Cable",
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        afterFillCableProperties(asyncResp, properties);
-    });
+            afterFillCableProperties(asyncResp, properties);
+        });
 
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, service, cableObjectPath,
         "xyz.openbmc_project.Inventory.Decorator.Asset", "PartNumber",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& property) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+            if (ec)
             {
-                BMCWEB_LOG_ERROR("DBus response error for PartNumber, {}",
-                                 ec.value());
-                messages::internalError(asyncResp->res);
-            }
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBus response error for PartNumber, {}",
+                                     ec.value());
+                    messages::internalError(asyncResp->res);
+                }
 
-            // PartNumber is optional, ignore the failure if it doesn't exist.
-            return;
-        }
-        asyncResp->res.jsonValue["PartNumber"] = property;
-    });
+                // PartNumber is optional, ignore the failure if it doesn't
+                // exist.
+                return;
+            }
+            asyncResp->res.jsonValue["PartNumber"] = property;
+        });
 }
 
-inline void
-    fillCableHealthState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& cableObjectPath,
-                         const std::string& service)
+inline void fillCableHealthState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& cableObjectPath, const std::string& service)
 {
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, service, cableObjectPath,
         "xyz.openbmc_project.Inventory.Item", "Present",
-        [asyncResp, cableObjectPath](const boost::system::error_code& ec,
-                                     bool present) {
-        if (ec)
-        {
-            if (ec.value() != EBADR)
+        [asyncResp,
+         cableObjectPath](const boost::system::error_code& ec, bool present) {
+            if (ec)
             {
-                BMCWEB_LOG_ERROR(
-                    "get presence failed for Cable {} with error {}",
-                    cableObjectPath, ec.value());
-                messages::internalError(asyncResp->res);
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "get presence failed for Cable {} with error {}",
+                        cableObjectPath, ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
             }
-            return;
-        }
 
-        if (!present)
-        {
-            asyncResp->res.jsonValue["Status"]["State"] =
-                resource::State::Absent;
-        }
-    });
+            if (!present)
+            {
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Absent;
+            }
+        });
 }
 
 inline void afterGetCableUpstreamResources(
@@ -305,14 +304,14 @@ inline void getCableDownstreamResources(
         [asyncResp,
          cableObjectPath](const std::optional<std::string>& validChassisPath,
                           const std::vector<std::string>& updatedAssemblyList) {
-        if (!validChassisPath || updatedAssemblyList.empty())
-        {
-            BMCWEB_LOG_DEBUG("Chassis not found");
-            return;
-        }
-        doGetCableDownstreamResources(asyncResp, cableObjectPath,
-                                      updatedAssemblyList);
-    });
+            if (!validChassisPath || updatedAssemblyList.empty())
+            {
+                BMCWEB_LOG_DEBUG("Chassis not found");
+                return;
+            }
+            doGetCableDownstreamResources(asyncResp, cableObjectPath,
+                                          updatedAssemblyList);
+        });
 }
 
 inline void afterGetCableAssociatedPorts(
@@ -365,11 +364,10 @@ inline void afterGetCableAssociatedPorts(
     asyncResp->res.jsonValue["Links"][jsonKeyName] = std::move(linkArray);
 }
 
-inline void
-    getCableAssociatedPorts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const nlohmann::json::json_pointer& jsonKeyName,
-                            const std::string& cableObjectPath,
-                            const std::string& associationName)
+inline void getCableAssociatedPorts(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonKeyName,
+    const std::string& cableObjectPath, const std::string& associationName)
 {
     sdbusplus::message::object_path endpointPath{cableObjectPath};
     endpointPath /= associationName;
@@ -493,11 +491,10 @@ inline void
     }
 }
 
-inline void
-    afterHandleCableGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& cableId,
-                        const boost::system::error_code& ec,
-                        const dbus::utility::MapperGetSubTreeResponse& subtree)
+inline void afterHandleCableGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& cableId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec.value() == EBADR)
     {

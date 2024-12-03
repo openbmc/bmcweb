@@ -127,22 +127,22 @@ class Handler : public std::enable_shared_from_this<Handler>
             boost::asio::buffer(inputBuffer.data(), inputBuffer.size()),
             [this, self(shared_from_this())](
                 const boost::system::error_code& ec, std::size_t bytesWritten) {
-            BMCWEB_LOG_DEBUG("Wrote {} bytes", bytesWritten);
-            doingWrite = false;
-            inputBuffer.erase(0, bytesWritten);
-            if (ec == boost::asio::error::eof)
-            {
-                session->close("ssh socket port closed");
-                return;
-            }
-            if (ec)
-            {
-                session->close("Error in writing to processSSH port");
-                BMCWEB_LOG_ERROR("Error in ssh socket write {}", ec);
-                return;
-            }
-            doWrite();
-        });
+                BMCWEB_LOG_DEBUG("Wrote {} bytes", bytesWritten);
+                doingWrite = false;
+                inputBuffer.erase(0, bytesWritten);
+                if (ec == boost::asio::error::eof)
+                {
+                    session->close("ssh socket port closed");
+                    return;
+                }
+                if (ec)
+                {
+                    session->close("Error in writing to processSSH port");
+                    BMCWEB_LOG_ERROR("Error in ssh socket write {}", ec);
+                    return;
+                }
+                doWrite();
+            });
     }
 
     void doRead()
@@ -156,22 +156,22 @@ class Handler : public std::enable_shared_from_this<Handler>
             boost::asio::buffer(outputBuffer.data(), outputBuffer.size()),
             [this, self(shared_from_this())](
                 const boost::system::error_code& ec, std::size_t bytesRead) {
-            BMCWEB_LOG_DEBUG("Read done.  Read {} bytes", bytesRead);
-            if (session == nullptr)
-            {
-                BMCWEB_LOG_DEBUG("session is closed");
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Couldn't read from ssh port: {}", ec);
-                session->close("Error in connecting to ssh port");
-                return;
-            }
-            std::string_view payload(outputBuffer.data(), bytesRead);
-            session->sendBinary(payload);
-            doRead();
-        });
+                BMCWEB_LOG_DEBUG("Read done.  Read {} bytes", bytesRead);
+                if (session == nullptr)
+                {
+                    BMCWEB_LOG_DEBUG("session is closed");
+                    return;
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("Couldn't read from ssh port: {}", ec);
+                    session->close("Error in connecting to ssh port");
+                    return;
+                }
+                std::string_view payload(outputBuffer.data(), bytesRead);
+                session->sendBinary(payload);
+                doRead();
+            });
     }
 
     // this has to public
@@ -198,8 +198,8 @@ inline void onOpen(crow::websocket::Connection& conn)
     auto it = mapHandler.find(&conn);
     if (it == mapHandler.end())
     {
-        auto insertData = mapHandler.emplace(&conn,
-                                             std::make_shared<Handler>(&conn));
+        auto insertData =
+            mapHandler.emplace(&conn, std::make_shared<Handler>(&conn));
         if (std::get<bool>(insertData))
         {
             std::get<0>(insertData)->second->connect();

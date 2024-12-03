@@ -102,44 +102,47 @@ inline void requestRoutesRoles(App& app)
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& roleId) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-        nlohmann::json privArray = nlohmann::json::array();
-        if (!getAssignedPrivFromRole(roleId, privArray))
-        {
-            messages::resourceNotFound(asyncResp->res, "Role", roleId);
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                {
+                    return;
+                }
+                nlohmann::json privArray = nlohmann::json::array();
+                if (!getAssignedPrivFromRole(roleId, privArray))
+                {
+                    messages::resourceNotFound(asyncResp->res, "Role", roleId);
 
-            return;
-        }
+                    return;
+                }
 
-        nlohmann::json oemPrivArray = nlohmann::json::array();
-        if (!getOemPrivFromRole(roleId, oemPrivArray))
-        {
-            messages::resourceNotFound(asyncResp->res, "Role", roleId);
-            return;
-        }
+                nlohmann::json oemPrivArray = nlohmann::json::array();
+                if (!getOemPrivFromRole(roleId, oemPrivArray))
+                {
+                    messages::resourceNotFound(asyncResp->res, "Role", roleId);
+                    return;
+                }
 
-        asyncResp->res.jsonValue["@odata.type"] = "#Role.v1_3_0.Role";
-        asyncResp->res.jsonValue["Name"] = "User Role";
-        asyncResp->res.jsonValue["OemPrivileges"] = std::move(oemPrivArray);
-        asyncResp->res.jsonValue["IsPredefined"] = true;
-        asyncResp->res.jsonValue["Id"] = roleId;
-        asyncResp->res.jsonValue["RoleId"] = roleId;
-        asyncResp->res.jsonValue["@odata.id"] =
-            boost::urls::format("/redfish/v1/AccountService/Roles/{}", roleId);
-        asyncResp->res.jsonValue["AssignedPrivileges"] = std::move(privArray);
-        asyncResp->res.jsonValue["Restricted"] = isRestrictedRole(roleId);
-        if (roleId == "OemIBMServiceAgent")
-        {
-            asyncResp->res.jsonValue["Description"] = "ServiceAgent";
-        }
-        else
-        {
-            asyncResp->res.jsonValue["Description"] = roleId;
-        }
-    });
+                asyncResp->res.jsonValue["@odata.type"] = "#Role.v1_3_0.Role";
+                asyncResp->res.jsonValue["Name"] = "User Role";
+                asyncResp->res.jsonValue["OemPrivileges"] =
+                    std::move(oemPrivArray);
+                asyncResp->res.jsonValue["IsPredefined"] = true;
+                asyncResp->res.jsonValue["Id"] = roleId;
+                asyncResp->res.jsonValue["RoleId"] = roleId;
+                asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/AccountService/Roles/{}", roleId);
+                asyncResp->res.jsonValue["AssignedPrivileges"] =
+                    std::move(privArray);
+                asyncResp->res.jsonValue["Restricted"] =
+                    isRestrictedRole(roleId);
+                if (roleId == "OemIBMServiceAgent")
+                {
+                    asyncResp->res.jsonValue["Description"] = "ServiceAgent";
+                }
+                else
+                {
+                    asyncResp->res.jsonValue["Description"] = roleId;
+                }
+            });
 }
 
 inline void requestRoutesRoleCollection(App& app)
@@ -149,46 +152,49 @@ inline void requestRoutesRoleCollection(App& app)
         .methods(boost::beast::http::verb::get)(
             [&app](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-        {
-            return;
-        }
-
-        asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/AccountService/Roles";
-        asyncResp->res.jsonValue["@odata.type"] =
-            "#RoleCollection.RoleCollection";
-        asyncResp->res.jsonValue["Name"] = "Roles Collection";
-        asyncResp->res.jsonValue["Description"] = "BMC User Roles";
-
-        sdbusplus::asio::getProperty<std::vector<std::string>>(
-            *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
-            "/xyz/openbmc_project/user", "xyz.openbmc_project.User.Manager",
-            "AllPrivileges",
-            [asyncResp](const boost::system::error_code& ec,
-                        const std::vector<std::string>& privList) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            nlohmann::json& memberArray = asyncResp->res.jsonValue["Members"];
-            memberArray = nlohmann::json::array();
-            for (const std::string& priv : privList)
-            {
-                std::string role = getRoleFromPrivileges(priv);
-                if (!role.empty())
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
-                    nlohmann::json::object_t member;
-                    member["@odata.id"] = boost::urls::format(
-                        "/redfish/v1/AccountService/Roles/{}", role);
-                    memberArray.emplace_back(std::move(member));
+                    return;
                 }
-            }
-            asyncResp->res.jsonValue["Members@odata.count"] =
-                memberArray.size();
-        });
-    });
+
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/AccountService/Roles";
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#RoleCollection.RoleCollection";
+                asyncResp->res.jsonValue["Name"] = "Roles Collection";
+                asyncResp->res.jsonValue["Description"] = "BMC User Roles";
+
+                sdbusplus::asio::getProperty<std::vector<std::string>>(
+                    *crow::connections::systemBus,
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "xyz.openbmc_project.User.Manager", "AllPrivileges",
+                    [asyncResp](const boost::system::error_code& ec,
+                                const std::vector<std::string>& privList) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        nlohmann::json& memberArray =
+                            asyncResp->res.jsonValue["Members"];
+                        memberArray = nlohmann::json::array();
+                        for (const std::string& priv : privList)
+                        {
+                            std::string role = getRoleFromPrivileges(priv);
+                            if (!role.empty())
+                            {
+                                nlohmann::json::object_t member;
+                                member["@odata.id"] = boost::urls::format(
+                                    "/redfish/v1/AccountService/Roles/{}",
+                                    role);
+                                memberArray.emplace_back(std::move(member));
+                            }
+                        }
+                        asyncResp->res.jsonValue["Members@odata.count"] =
+                            memberArray.size();
+                    });
+            });
 }
 
 } // namespace redfish

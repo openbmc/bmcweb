@@ -238,8 +238,8 @@ inline void processAfterSessionCreation(
 
     crow::getUserInfo(asyncResp, session->username, session,
                       [asyncResp, session]() {
-        fillSessionObject(asyncResp->res, *session);
-    });
+                          fillSessionObject(asyncResp->res, *session);
+                      });
 }
 
 inline void checkGoogleAuthenticatorSecretKeyRequired(
@@ -322,24 +322,25 @@ inline void handleSessionCollectionPost(
     checkGoogleAuthenticatorSecretKeyRequired(
         username, [username, asyncResp, req, clientId = std::move(clientId)](
                       const boost::system::error_code& ec, bool required) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("secretKeyRequired check failed = {}",
-                             ec.message());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        std::shared_ptr<persistent_data::UserSession> session =
-            persistent_data::SessionStore::getInstance().generateUserSession(
-                username, req.ipAddress, clientId,
-                persistent_data::SessionType::Session, required, required);
-        if (!session)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        processAfterSessionCreation(asyncResp, req, session, required);
-    });
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("secretKeyRequired check failed = {}",
+                                 ec.message());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            std::shared_ptr<persistent_data::UserSession> session =
+                persistent_data::SessionStore::getInstance()
+                    .generateUserSession(username, req.ipAddress, clientId,
+                                         persistent_data::SessionType::Session,
+                                         required, required);
+            if (!session)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            processAfterSessionCreation(asyncResp, req, session, required);
+        });
 }
 
 inline void handleSessionServiceHead(

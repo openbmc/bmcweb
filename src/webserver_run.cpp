@@ -123,16 +123,6 @@ int run()
     }
     crow::login_routes::requestRoutes(app);
 
-    if constexpr (!BMCWEB_REDFISH_DBUS_LOG)
-    {
-        int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
-        if (rc != 0)
-        {
-            BMCWEB_LOG_ERROR("Redfish event handler setup failed...");
-            return rc;
-        }
-    }
-
     if constexpr (!BMCWEB_INSECURE_DISABLE_SSL)
     {
         BMCWEB_LOG_INFO("Start Hostname Monitor Service...");
@@ -145,9 +135,6 @@ int run()
     io->run();
 
     crow::connections::systemBus = nullptr;
-
-    // TODO(ed) Make event log monitor an RAII object instead of global vars
-    redfish::EventServiceManager::stopEventLogMonitor();
 
     return 0;
 }
