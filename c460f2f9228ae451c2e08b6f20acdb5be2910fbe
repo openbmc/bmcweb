@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a038b829_0e5d4d1e",
+        "filename": "redfish-core/include/resource_messages.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-03T22:09:34Z",
+      "side": 1,
+      "message": "Let me add it in a different commit (Although I agree it\u0027s a good idea).\n\nAll our generated files could use that map.",
+      "parentUuid": "e09b34c8_d4af8309",
+      "revId": "c460f2f9228ae451c2e08b6f20acdb5be2910fbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d23c73b1_0c05f313",
         "filename": "redfish-core/include/resource_messages.hpp",
         "patchSetId": 7
@@ -31,6 +49,24 @@
       "writtenOn": "2024-12-03T19:51:41Z",
       "side": 1,
       "message": "same comment as the one before if these were used",
+      "revId": "c460f2f9228ae451c2e08b6f20acdb5be2910fbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93be65d1_83b6474c",
+        "filename": "redfish-core/include/resource_messages.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-03T22:09:34Z",
+      "side": 1,
+      "message": "Yep.",
+      "parentUuid": "d23c73b1_0c05f313",
       "revId": "c460f2f9228ae451c2e08b6f20acdb5be2910fbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
