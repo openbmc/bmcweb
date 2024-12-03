@@ -212,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c456e0a8_e359dc24",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-03T21:43:51Z",
+      "side": 1,
+      "message": "Yes, you got my intent correct.  I just gave the wrong namespace.",
+      "parentUuid": "403f6909_d63019a3",
+      "range": {
+        "startLine": 895,
+        "startChar": 0,
+        "endLine": 900,
+        "endChar": 21
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "690e3c39_a09a3335",
@@ -296,6 +320,30 @@
       "side": 1,
       "message": "Can do this later as a part of refactoring, as it will also modify the existing codes?",
       "parentUuid": "8d7cd6c8_182a9548",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 5
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f922eb8d_e1f45790",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-03T21:43:51Z",
+      "side": 1,
+      "message": "If you want to do it in another patch before or after this one doesn\u0027t matter to me, but expect them to merge at the same time.",
+      "parentUuid": "c6e03736_f3f1d528",
       "range": {
         "startLine": 116,
         "startChar": 0,
