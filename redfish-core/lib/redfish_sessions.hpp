@@ -201,6 +201,38 @@ inline void handleSessionCollectionMembersGet(
     asyncResp->res.jsonValue = getSessionCollectionMembers();
 }
 
+inline void processAfterSessionCreation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const crow::Request& req,
+    std::shared_ptr<persistent_data::UserSession>& session)
+    // When session is created by webui-vue give it session cookies as a
+    // non-standard Redfish extension. This is needed for authentication for
+    // WebSockets-based functionality.
+    if (!req.getHeaderValue("X-Requested-With").empty())
+    {
+        bmcweb::setSessionCookies(asyncResp->res, *session);
+    }
+    else
+    {
+        asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
+    }
+
+    asyncResp->res.addHeader(
+        "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
+    asyncResp->res.result(boost::beast::http::status::created);
+    if (session->isConfigureSelfOnly)
+    {
+        messages::passwordChangeRequired(
+            asyncResp->res,
+            boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
+                                session->username));
+    }
+
+    crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
+        fillSessionObject(asyncResp->res, *session);
+    });
+}
+
 inline void handleSessionCollectionPost(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -258,33 +290,7 @@ inline void handleSessionCollectionPost(
         messages::internalError(asyncResp->res);
         return;
     }
-
-    // When session is created by webui-vue give it session cookies as a
-    // non-standard Redfish extension. This is needed for authentication for
-    // WebSockets-based functionality.
-    if (!req.getHeaderValue("X-Requested-With").empty())
-    {
-        bmcweb::setSessionCookies(asyncResp->res, *session);
-    }
-    else
-    {
-        asyncResp->res.addHeader("X-Auth-Token", session->sessionToken);
-    }
-
-    asyncResp->res.addHeader(
-        "Location", "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
-    asyncResp->res.result(boost::beast::http::status::created);
-    if (session->isConfigureSelfOnly)
-    {
-        messages::passwordChangeRequired(
-            asyncResp->res,
-            boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
-                                session->username));
-    }
-
-    crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
-        fillSessionObject(asyncResp->res, *session);
-    });
+    processAfterSessionCreation(asyncResp, req, session);
 }
 inline void handleSessionServiceHead(
     crow::App& app, const crow::Request& req,
