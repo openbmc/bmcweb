@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f72f4cd8_14cbab5c",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-03T17:48:52Z",
+      "side": 1,
+      "message": "I make this back to the previous one, and add `sendHeartbeatEvent()` separately and made it like `sendTestEventLog()`",
+      "parentUuid": "8b882af1_bf009784",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 630,
+        "endChar": 64
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ee179b5_4b878996",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-02T21:43:25Z",
       "side": 1,
       "message": "Should heartbeat events be filtered?",
+      "range": {
+        "startLine": 646,
+        "startChar": 17,
+        "endLine": 646,
+        "endChar": 35
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82575a3b_165dc62d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-03T17:48:52Z",
+      "side": 1,
+      "message": "I separated `sendHeartbeatEvent()` from this. This will effectively bypass the filtering for heartbeat",
+      "parentUuid": "6ee179b5_4b878996",
       "range": {
         "startLine": 646,
         "startChar": 17,
@@ -93,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bb41b4f_9f9570d2",
+        "filename": "redfish-core/include/subscription.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-03T17:48:52Z",
+      "side": 1,
+      "message": "Changed",
+      "parentUuid": "3e8fc523_ffdadd0d",
+      "range": {
+        "startLine": 96,
+        "startChar": 30,
+        "endLine": 96,
+        "endChar": 37
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c88a9ca_83c454ae",
@@ -106,6 +178,30 @@
       "writtenOn": "2024-12-02T21:38:05Z",
       "side": 1,
       "message": "Could we wrap this into a method\n\nEventServiceManager::heartbeatParametersChanged();\n\nthat way eventservicemanager owns the complete lifecycle of the timer, and hbTimer can be private.",
+      "range": {
+        "startLine": 895,
+        "startChar": 0,
+        "endLine": 900,
+        "endChar": 21
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "403f6909_d63019a3",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-03T17:48:52Z",
+      "side": 1,
+      "message": "DMTF schema specifies that Heartbeat is per EventDestination \n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2024.3.pdf\n```\n6.42.2 URIs \n/redfish/v1/EventService/Subscriptions/{EventDestinationId}\n- HeartbeatIntervalMinutes\n- SendHeartbeat\n```\n\nIts heartbeat message is also defined as per-destination (e.g. subscription)\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2065_2024.1.pdf\n````\n2.6 HeartbeatEvent 1.0.1\n2.6.1 RedfishServiceFunctional\n...\n This message shall only be sent if specifically requested \n by an event destination during the creation of a subscription using the property.\n ```\n \nTo implement this way, `hbTimer` is under `Subscription` (rather than `EventServiceManager`). So, I think it seems making sense to wrap it into `Subscription::heartbeatParametersChanged()`, and call it here like\n\n```\n    if (hbIntervalMinutes || sendHeartbeat)\n    {\n        subValue-\u003eheartbeatParametersChanged();\n    }\n    EventServiceManager::getInstance().updateSubscriptionData();\n```",
+      "parentUuid": "4c88a9ca_83c454ae",
       "range": {
         "startLine": 895,
         "startChar": 0,
@@ -139,6 +235,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3458a631_a700de28",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-03T17:48:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "690e3c39_a09a3335",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 54
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d7cd6c8_182a9548",
@@ -152,6 +272,30 @@
       "writtenOn": "2024-12-02T21:38:05Z",
       "side": 1,
       "message": "This block of code is probably past the point where it needs rolled out into its own method.  Please make a new method and put it into registries_selector.hpp, which is already doing a similar operation.",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 5
+      },
+      "revId": "64aac503824ddc9c3919c0b611a7a83495cfeaa0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6e03736_f3f1d528",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-03T17:48:52Z",
+      "side": 1,
+      "message": "Can do this later as a part of refactoring, as it will also modify the existing codes?",
+      "parentUuid": "8d7cd6c8_182a9548",
       "range": {
         "startLine": 116,
         "startChar": 0,

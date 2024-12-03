@@ -369,6 +369,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f3f1b5e_503ec7f2",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-03T17:48:52Z",
+      "side": 1,
+      "message": "Agreed.\nI made it as CRITICAL and stopping the heartbeats.",
+      "parentUuid": "a69fcc4a_d6da358c",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e4457ce_870a644b",
@@ -436,6 +454,24 @@
       "side": 1,
       "message": "\u003e so that it will increment for each event\n\nIs this correct behavior?  I don\u0027t really know, because heartbeats are a per-subscription \"event\".  Is there something in the redfish spec that defines what should happen here?",
       "parentUuid": "2d2c3ed7_9f021f62",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77603eb3_05f1b57d",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-03T17:48:52Z",
+      "side": 1,
+      "message": "DMTF schema specifies that Heartbeat is per EventDestination \n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2024.3.pdf\n```\n6.42.2 URIs \n/redfish/v1/EventService/Subscriptions/{EventDestinationId}\n- HeartbeatIntervalMinutes\n- SendHeartbeat\n```\n\nIts heartbeat message is also defined as per-destination (e.g. subscription)\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2065_2024.1.pdf\n````\n2.6 HeartbeatEvent 1.0.1\n2.6.1 RedfishServiceFunctional\n\n An event sent periodically upon request to indicates that the Redfish service is functional. • \n This message shall indicate that the Redfish service is functional. \n This message shall only be sent if specifically requested \n by an event destination during the creation of a subscription using the property.\n ```",
+      "parentUuid": "f5acbade_6af22bc2",
       "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
