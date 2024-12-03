@@ -70,6 +70,30 @@
       },
       "revId": "af5e777905613b92f355af0a79793940fd59d8fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44c9fe8a_9ba32591",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-03T03:38:19Z",
+      "side": 1,
+      "message": "Gotta love Turkey.  Next year go for Brisket.",
+      "parentUuid": "5599846a_451d6785",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 23
+      },
+      "revId": "af5e777905613b92f355af0a79793940fd59d8fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
