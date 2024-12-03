@@ -2149,7 +2149,8 @@ inline void
 {
     // Process response from Logging service.
     auto respHandler = [asyncResp,
-                        entryId](const boost::system::error_code& ec) {
+                        entryId](const boost::system::error_code& ec,
+                                 const sdbusplus::message::message& msg) {
         BMCWEB_LOG_DEBUG("EventLogEntry (DBus) doDelete callback: Done");
         if (ec)
         {
@@ -2158,10 +2159,26 @@ inline void
                 messages::resourceNotFound(asyncResp->res, "LogEntry", entryId);
                 return;
             }
-            // TODO Handle for specific error code
+
+            const sd_bus_error* dbusError = msg.get_error();
+            if (dbusError == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (std::string_view(
+                    "xyz.openbmc_project.Common.Error.Unavailable") ==
+                dbusError->name)
+            {
+                messages::propertyValueExternalConflict(asyncResp->res,
+                                                        "LogEntry", "Delete");
+                return;
+            }
+
             BMCWEB_LOG_ERROR("EventLogEntry (DBus) doDelete "
                              "respHandler got error {}",
                              ec);
+
             messages::internalError(asyncResp->res);
             return;
         }
