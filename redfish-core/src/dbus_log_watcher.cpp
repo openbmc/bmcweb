@@ -7,6 +7,7 @@
 #include "logging.hpp"
 #include "metric_report.hpp"
 #include "utils/dbus_event_log_entry.hpp"
+#include "utils/time_utils.hpp"
 
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message.hpp>
@@ -20,6 +21,7 @@
 
 namespace redfish
 {
+
 static bool eventLogObjectFromDBus(const dbus::utility::DBusPropertiesMap& map,
                                    EventLogObjectsType& event)
 {
@@ -34,6 +36,7 @@ static bool eventLogObjectFromDBus(const dbus::utility::DBusPropertiesMap& map,
     }
     DbusEventLogEntry& entry = optEntry.value();
     event.id = std::to_string(entry.Id);
+    event.timestamp = redfish::time_utils::getDateTimeUintMs(entry.Timestamp);
 
     // The order of 'AdditionalData' is not what's specified in an e.g.
     // busctl call to create the Event Log Entry. So it cannot be used
