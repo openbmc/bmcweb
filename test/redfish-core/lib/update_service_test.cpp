@@ -13,13 +13,13 @@ namespace redfish
 namespace
 {
 
-TEST(UpdateService, ParseTFTPPostitive)
+TEST(UpdateService, ParseHTTSPPostitive)
 {
     crow::Response res;
     {
         // No protocol, schema on url
         std::optional<boost::urls::url> ret =
-            parseSimpleUpdateUrl("tftp://1.1.1.1/path", std::nullopt, res);
+            parseSimpleUpdateUrl("https://1.1.1.1/path", std::nullopt, res);
         ASSERT_TRUE(ret);
         if (!ret)
         {
@@ -27,12 +27,12 @@ TEST(UpdateService, ParseTFTPPostitive)
         }
         EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
         EXPECT_EQ(ret->encoded_path(), "/path");
-        EXPECT_EQ(ret->scheme(), "tftp");
+        EXPECT_EQ(ret->scheme(), "https");
     }
     {
         // Protocol, no schema on url
         std::optional<boost::urls::url> ret =
-            parseSimpleUpdateUrl("1.1.1.1/path", "TFTP", res);
+            parseSimpleUpdateUrl("1.1.1.1/path", "HTTPS", res);
         ASSERT_TRUE(ret);
         if (!ret)
         {
@@ -40,12 +40,12 @@ TEST(UpdateService, ParseTFTPPostitive)
         }
         EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
         EXPECT_EQ(ret->encoded_path(), "/path");
-        EXPECT_EQ(ret->scheme(), "tftp");
+        EXPECT_EQ(ret->scheme(), "https");
     }
     {
         // Both protocol and schema on url
         std::optional<boost::urls::url> ret =
-            parseSimpleUpdateUrl("tftp://1.1.1.1/path", "TFTP", res);
+            parseSimpleUpdateUrl("https://1.1.1.1/path", "HTTPS", res);
         ASSERT_TRUE(ret);
         if (!ret)
         {
@@ -53,7 +53,7 @@ TEST(UpdateService, ParseTFTPPostitive)
         }
         EXPECT_EQ(ret->encoded_host_and_port(), "1.1.1.1");
         EXPECT_EQ(ret->encoded_path(), "/path");
-        EXPECT_EQ(ret->scheme(), "tftp");
+        EXPECT_EQ(ret->scheme(), "https");
     }
 }
 
@@ -127,23 +127,14 @@ TEST(UpdateService, ParseHTTPSPostitive)
     }
 }
 
-TEST(UpdateService, ParseTFTPNegative)
+TEST(UpdateService, ParseHTTPSNegative)
 {
     crow::Response res;
     // No protocol, no schema
     ASSERT_EQ(parseSimpleUpdateUrl("1.1.1.1/path", std::nullopt, res),
               std::nullopt);
     // No host
-    ASSERT_EQ(parseSimpleUpdateUrl("/path", "TFTP", res), std::nullopt);
-
-    // No host
-    ASSERT_EQ(parseSimpleUpdateUrl("path", "TFTP", res), std::nullopt);
-
-    // No path
-    ASSERT_EQ(parseSimpleUpdateUrl("tftp://1.1.1.1", "TFTP", res),
-              std::nullopt);
-    ASSERT_EQ(parseSimpleUpdateUrl("tftp://1.1.1.1/", "TFTP", res),
-              std::nullopt);
+    ASSERT_EQ(parseSimpleUpdateUrl("/path", "HTTPS", res), std::nullopt);
 }
 } // namespace
 } // namespace redfish
