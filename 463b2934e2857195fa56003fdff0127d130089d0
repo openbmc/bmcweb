@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc69e58e_4f322477",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-03T22:13:29Z",
+      "side": 0,
+      "message": "Note, this should\u0027ve been removed in the original tftp revert.",
+      "range": {
+        "startLine": 1119,
+        "startChar": 67,
+        "endLine": 1119,
+        "endChar": 71
+      },
+      "revId": "463b2934e2857195fa56003fdff0127d130089d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
