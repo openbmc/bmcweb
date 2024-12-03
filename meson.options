@@ -329,6 +329,17 @@ option(
                 ''',
 )
 
+# BMCWEB_REDFISH_ALLOW_SIMPLE_UPDATE
+option(
+    'redfish-allow-simple-update',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enables Redfish UpdateService SimpleUpdate Action.  Note
+                    that at this time this option is non-functional.  Redfish
+                    recommends using MultiPartUpdate.''',
+)
+
+
 # BMCWEB_HTTPS_PORT
 option(
     'https_port',
