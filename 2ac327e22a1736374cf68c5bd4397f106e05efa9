@@ -22,6 +22,30 @@
       },
       "revId": "2ac327e22a1736374cf68c5bd4397f106e05efa9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d436ba0d_8ac39b49",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-03T14:30:54Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "09c2f26b_30980b5a",
+      "range": {
+        "startLine": 275,
+        "startChar": 36,
+        "endLine": 275,
+        "endChar": 61
+      },
+      "revId": "2ac327e22a1736374cf68c5bd4397f106e05efa9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
