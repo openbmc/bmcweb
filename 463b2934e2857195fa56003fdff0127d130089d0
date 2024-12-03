@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c464fec3_9d2a9152",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-12-03T23:36:00Z",
+      "side": 0,
+      "message": "Agree. But this was moved under BMCWEB_INSECURE_PUSH_STYLE_NOTIFICATION option by https://github.com/openbmc/bmcweb/commit/25b54dba775b31021a3a4677eb79e9771bcb97f7#diff-f6982062bfa20b3b1fe96fcd1027924252215ba89805e8dc094fd07454a9f68bR845. So, probably thats the reason when i was cleaning up BMCWEB_INSECURE_TFTP_UPDATE this got missed out.",
+      "parentUuid": "dc69e58e_4f322477",
+      "range": {
+        "startLine": 1119,
+        "startChar": 67,
+        "endLine": 1119,
+        "endChar": 71
+      },
+      "revId": "463b2934e2857195fa56003fdff0127d130089d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6594c04_8658d28e",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-12-03T22:21:54Z",
       "side": 0,
       "message": "This also should\u0027ve been removed in the original.",
+      "revId": "463b2934e2857195fa56003fdff0127d130089d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "663d3f82_d7d7ae18",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2024-12-03T23:36:00Z",
+      "side": 0,
+      "message": "Agree.",
+      "parentUuid": "c6594c04_8658d28e",
       "revId": "463b2934e2857195fa56003fdff0127d130089d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
