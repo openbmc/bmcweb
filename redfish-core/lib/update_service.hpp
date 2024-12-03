@@ -497,12 +497,8 @@ inline std::optional<boost::urls::url> parseSimpleUpdateUrl(
                 res, imageURI, "ImageURI", "UpdateService.SimpleUpdate");
             return std::nullopt;
         }
-        // OpenBMC currently only supports TFTP or HTTPS
-        if (*transferProtocol == "TFTP")
-        {
-            imageURI = "tftp://" + imageURI;
-        }
-        else if (*transferProtocol == "HTTPS")
+        // OpenBMC currently only supports HTTPS
+        if (*transferProtocol == "HTTPS")
         {
             imageURI = "https://" + imageURI;
         }
@@ -1105,22 +1101,19 @@ inline void
     asyncResp->res.jsonValue["MaxImageSizeBytes"] =
         BMCWEB_HTTP_BODY_LIMIT * 1024 * 1024;
 
-    // Update Actions object.
-    nlohmann::json& updateSvcSimpleUpdate =
-        asyncResp->res.jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
-    updateSvcSimpleUpdate["target"] =
-        "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
-
-    nlohmann::json::array_t allowed;
-    allowed.emplace_back(update_service::TransferProtocolType::HTTPS);
-
-    if constexpr (BMCWEB_INSECURE_PUSH_STYLE_NOTIFICATION)
+    if constexpr (BMCWEB_REDFISH_ALLOW_SIMPLE_UPDATE)
     {
-        allowed.emplace_back(update_service::TransferProtocolType::TFTP);
-    }
+        // Update Actions object.
+        nlohmann::json& updateSvcSimpleUpdate =
+            asyncResp->res.jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
+        updateSvcSimpleUpdate["target"] =
+            "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
 
-    updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] =
-        std::move(allowed);
+        nlohmann::json::array_t allowed;
+        allowed.emplace_back(update_service::TransferProtocolType::HTTPS);
+        updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] =
+            std::move(allowed);
+    }
 
     asyncResp->res
         .jsonValue["HttpPushUriOptions"]["HttpPushUriApplyTime"]["ApplyTime"] =
@@ -1324,12 +1317,15 @@ inline void handleUpdateServiceFirmwareInventoryGet(
 
 inline void requestRoutesUpdateService(App& app)
 {
-    BMCWEB_ROUTE(
-        app, "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
-        .privileges(redfish::privileges::postUpdateService)
-        .methods(boost::beast::http::verb::post)(std::bind_front(
-            handleUpdateServiceSimpleUpdateAction, std::ref(app)));
-
+    if constexpr (BMCWEB_REDFISH_ALLOW_SIMPLE_UPDATE)
+    {
+        BMCWEB_ROUTE(
+            app,
+            "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
+            .privileges(redfish::privileges::postUpdateService)
+            .methods(boost::beast::http::verb::post)(std::bind_front(
+                handleUpdateServiceSimpleUpdateAction, std::ref(app)));
+    }
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/")
         .privileges(redfish::privileges::getSoftwareInventory)
         .methods(boost::beast::http::verb::get)(std::bind_front(
