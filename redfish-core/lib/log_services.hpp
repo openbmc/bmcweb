@@ -2118,19 +2118,10 @@ inline void updateProperty(const std::optional<bool>& resolved,
 {
     if (resolved.has_value())
     {
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.Logging",
-            "/xyz/openbmc_project/logging/entry/" + entryId,
-            "xyz.openbmc_project.Logging.Entry", "Resolved", *resolved,
-            [asyncResp](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            });
-        BMCWEB_LOG_DEBUG("Set Resolved");
+        setDbusProperty(asyncResp, "xyz.openbmc_project.Logging",
+                        "/xyz/openbmc_project/logging/entry/" + entryId,
+                        "xyz.openbmc_project.Logging.Entry", "Resolved",
+                        "Resolved", *resolved);
     }
 
     if (managementSystemAck.has_value())
