@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "931943d4_cf9f6084",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-03T16:12:37Z",
+      "side": 1,
+      "message": "How was this tested?",
+      "revId": "135bee8d2108e35fbd22ac4ab6ee0b8502354174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2043db87_e64a7d57",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-03T16:12:37Z",
+      "side": 1,
+      "message": "generateUserSession is now within this conditional, which means that for the normal path, a session won\u0027t be created.  Can you please test this change?",
+      "range": {
+        "startLine": 296,
+        "startChar": 57,
+        "endLine": 296,
+        "endChar": 76
+      },
+      "revId": "135bee8d2108e35fbd22ac4ab6ee0b8502354174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
