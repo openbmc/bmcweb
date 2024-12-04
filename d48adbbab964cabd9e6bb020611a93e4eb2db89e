@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5022dd2_77ce7f01",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-04T16:13:14Z",
+      "side": 1,
+      "message": "the first one seems like it should work.",
+      "parentUuid": "3b2bbca2_f75728f8",
+      "range": {
+        "startLine": 112,
+        "startChar": 30,
+        "endLine": 112,
+        "endChar": 42
+      },
+      "revId": "d48adbbab964cabd9e6bb020611a93e4eb2db89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24a27c41_60ce80c6",
         "filename": "redfish-core/src/subscription.cpp",
         "patchSetId": 24

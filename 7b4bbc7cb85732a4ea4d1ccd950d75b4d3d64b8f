@@ -492,6 +492,24 @@
       "parentUuid": "f5acbade_6af22bc2",
       "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f14f1252_77458887",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-04T16:13:14Z",
+      "side": 1,
+      "message": "Right, so we shouldn\u0027t be assigning a global ID for them (which it looks like you\u0027ve implemented).",
+      "parentUuid": "77603eb3_05f1b57d",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
