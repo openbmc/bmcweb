@@ -18,13 +18,7 @@ limitations under the License.
 #include "app.hpp"
 #include "query.hpp"
 #include "registries.hpp"
-#include "registries/base_message_registry.hpp"
-#include "registries/heartbeat_event_message_registry.hpp"
-#include "registries/openbmc_message_registry.hpp"
-#include "registries/privilege_registry.hpp"
-#include "registries/resource_event_message_registry.hpp"
-#include "registries/task_event_message_registry.hpp"
-#include "registries/telemetry_message_registry.hpp"
+#include "registries_selector.hpp"
 
 #include <boost/url/format.hpp>
 
@@ -87,46 +81,19 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     {
         return;
     }
-    const registries::Header* header = nullptr;
     std::string dmtf = "DMTF ";
-    const char* url = nullptr;
+    std::optional<registries::HeaderAndUrl> headerAndUrl =
+        registries::getRegistryHeaderAndUrlFromPrefix(registry);
 
-    if (registry == "Base")
-    {
-        header = &registries::base::header;
-        url = registries::base::url;
-    }
-    else if (registry == "TaskEvent")
-    {
-        header = &registries::task_event::header;
-        url = registries::task_event::url;
-    }
-    else if (registry == "OpenBMC")
-    {
-        header = &registries::openbmc::header;
-        dmtf.clear();
-    }
-    else if (registry == "ResourceEvent")
-    {
-        header = &registries::resource_event::header;
-        url = registries::resource_event::url;
-    }
-    else if (registry == "Telemetry")
-    {
-        header = &registries::telemetry::header;
-        url = registries::telemetry::url;
-    }
-    else if (registry == "HeartbeatEvent")
-    {
-        header = &registries::heartbeat_event::header;
-        url = registries::heartbeat_event::url;
-    }
-    else
+    if (!headerAndUrl)
     {
         messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
                                    registry);
         return;
     }
+
+    const registries::Header* header = headerAndUrl->header;
+    const char* url = headerAndUrl->url;
 
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Registries/{}", registry);
@@ -173,68 +140,17 @@ inline void handleMessageRegistryGet(
     {
         return;
     }
-    const registries::Header* header = nullptr;
-    std::vector<const registries::MessageEntry*> registryEntries;
-    if (registry == "Base")
-    {
-        header = &registries::base::header;
-        for (const registries::MessageEntry& entry : registries::base::registry)
-        {
-            registryEntries.emplace_back(&entry);
-        }
-    }
-    else if (registry == "TaskEvent")
-    {
-        header = &registries::task_event::header;
-        for (const registries::MessageEntry& entry :
-             registries::task_event::registry)
-        {
-            registryEntries.emplace_back(&entry);
-        }
-    }
-    else if (registry == "OpenBMC")
-    {
-        header = &registries::openbmc::header;
-        for (const registries::MessageEntry& entry :
-             registries::openbmc::registry)
-        {
-            registryEntries.emplace_back(&entry);
-        }
-    }
-    else if (registry == "ResourceEvent")
-    {
-        header = &registries::resource_event::header;
-        for (const registries::MessageEntry& entry :
-             registries::resource_event::registry)
-        {
-            registryEntries.emplace_back(&entry);
-        }
-    }
-    else if (registry == "Telemetry")
-    {
-        header = &registries::telemetry::header;
-        for (const registries::MessageEntry& entry :
-             registries::telemetry::registry)
-        {
-            registryEntries.emplace_back(&entry);
-        }
-    }
-    else if (registry == "HeartbeatEvent")
-    {
-        header = &registries::heartbeat_event::header;
-        for (const registries::MessageEntry& entry :
-             registries::heartbeat_event::registry)
-        {
-            registryEntries.emplace_back(&entry);
-        }
-    }
-    else
+
+    std::optional<registries::HeaderAndUrl> headerAndUrl =
+        registries::getRegistryHeaderAndUrlFromPrefix(registry);
+    if (!headerAndUrl)
     {
         messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
                                    registry);
         return;
     }
 
+    const registries::Header* header = headerAndUrl->header;
     if (registry != registryMatch)
     {
         messages::resourceNotFound(asyncResp->res, header->type, registryMatch);
@@ -254,20 +170,23 @@ inline void handleMessageRegistryGet(
     nlohmann::json& messageObj = asyncResp->res.jsonValue["Messages"];
 
     // Go through the Message Registry and populate each Message
-    for (const registries::MessageEntry* message : registryEntries)
+    const std::span<const registries::MessageEntry> registryEntries =
+        registries::getRegistryFromPrefix(registry);
+
+    for (const registries::MessageEntry& message : registryEntries)
     {
-        nlohmann::json& obj = messageObj[message->first];
-        obj["Description"] = message->second.description;
-        obj["Message"] = message->second.message;
-        obj["Severity"] = message->second.messageSeverity;
-        obj["MessageSeverity"] = message->second.messageSeverity;
-        obj["NumberOfArgs"] = message->second.numberOfArgs;
-        obj["Resolution"] = message->second.resolution;
-        if (message->second.numberOfArgs > 0)
+        nlohmann::json& obj = messageObj[message.first];
+        obj["Description"] = message.second.description;
+        obj["Message"] = message.second.message;
+        obj["Severity"] = message.second.messageSeverity;
+        obj["MessageSeverity"] = message.second.messageSeverity;
+        obj["NumberOfArgs"] = message.second.numberOfArgs;
+        obj["Resolution"] = message.second.resolution;
+        if (message.second.numberOfArgs > 0)
         {
             nlohmann::json& messageParamArray = obj["ParamTypes"];
             messageParamArray = nlohmann::json::array();
-            for (const char* str : message->second.paramTypes)
+            for (const char* str : message.second.paramTypes)
             {
                 if (str == nullptr)
                 {
