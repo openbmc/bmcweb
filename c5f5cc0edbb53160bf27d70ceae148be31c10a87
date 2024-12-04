@@ -343,6 +343,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a502fb1_26782c63",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1209,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2024-12-04T15:40:36Z",
+      "side": 1,
+      "message": "This commit is not changing this test; it is merely refactoring the code around it.\n\nTh Redfish ManagerAccount Locked property has AllowableValues set to only \"false\" ~ https://github.com/openbmc/bmcweb/blob/8274eb11c44f38e51e9c643ae62192bafacf257c/redfish-core/lib/account_service.hpp#L2075\nThe \"true\" value is not allowed.  Given this, should BMCWeb enforce these allowable values?\n\nIn the Phosphor user manager implementation: For true, it takes no action (and returns the current lock state).  For false, it clears the lock state.  Ref: https://github.com/openbmc/phosphor-user-manager/blob/34e6ccd405dfe9bd43d10cb8f0053598134688e3/user_mgr.cpp#L858",
+      "parentUuid": "6b4f8084_893ed9c9",
+      "range": {
+        "startLine": 1202,
+        "startChar": 0,
+        "endLine": 1209,
+        "endChar": 9
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c7c108b_556f7234",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 32
