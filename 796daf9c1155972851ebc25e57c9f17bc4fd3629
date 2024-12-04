@@ -34,6 +34,23 @@
       "parentUuid": "02217a32_2d559261",
       "revId": "796daf9c1155972851ebc25e57c9f17bc4fd3629",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de8ad50c_29840cdd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2024-12-04T06:43:22Z",
+      "side": 1,
+      "message": "Tested on Ampere\u0027s Mt.Mitchell platform.",
+      "revId": "796daf9c1155972851ebc25e57c9f17bc4fd3629",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
