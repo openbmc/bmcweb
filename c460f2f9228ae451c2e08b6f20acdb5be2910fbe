@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c92dc123_13d2af0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-04T16:30:25Z",
+      "side": 1,
+      "message": "testing",
+      "revId": "c460f2f9228ae451c2e08b6f20acdb5be2910fbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e09b34c8_d4af8309",
         "filename": "redfish-core/include/resource_messages.hpp",
         "patchSetId": 7
@@ -32,6 +49,24 @@
       "side": 1,
       "message": "Let me add it in a different commit (Although I agree it\u0027s a good idea).\n\nAll our generated files could use that map.",
       "parentUuid": "e09b34c8_d4af8309",
+      "revId": "c460f2f9228ae451c2e08b6f20acdb5be2910fbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cfdcbf11_e706f2e0",
+        "filename": "redfish-core/include/resource_messages.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-04T16:30:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a038b829_0e5d4d1e",
       "revId": "c460f2f9228ae451c2e08b6f20acdb5be2910fbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -67,6 +102,24 @@
       "side": 1,
       "message": "Yep.",
       "parentUuid": "d23c73b1_0c05f313",
+      "revId": "c460f2f9228ae451c2e08b6f20acdb5be2910fbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b3116a9_31b67eaa",
+        "filename": "redfish-core/include/resource_messages.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-04T16:30:25Z",
+      "side": 1,
+      "message": "You mentioned you would clean up later in the prior commit. I am good with that.",
+      "parentUuid": "93be65d1_83b6474c",
       "revId": "c460f2f9228ae451c2e08b6f20acdb5be2910fbe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
