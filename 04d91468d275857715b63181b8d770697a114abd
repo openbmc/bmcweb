@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "494e9843_d56ce6e2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2304,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T15:02:01Z",
+      "side": 1,
+      "message": "Should we use `boost::urls::format()` for URL format?",
+      "range": {
+        "startLine": 2304,
+        "startChar": 29,
+        "endLine": 2304,
+        "endChar": 49
+      },
+      "revId": "04d91468d275857715b63181b8d770697a114abd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d9b21ef_c74e567a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2545,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T15:02:01Z",
+      "side": 1,
+      "message": "Would this better to be like `std::function\u003cvoid(bool)\u003e\u0026\u0026 callback`?",
+      "range": {
+        "startLine": 2545,
+        "startChar": 23,
+        "endLine": 2545,
+        "endChar": 64
+      },
+      "revId": "04d91468d275857715b63181b8d770697a114abd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
