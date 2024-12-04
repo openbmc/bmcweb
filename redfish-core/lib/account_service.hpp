@@ -2809,14 +2809,17 @@ inline void
 
 inline void
     verifyTotpDbusUtil(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& totp, const std::string& userPath)
+                       const std::string& totp, const std::string& userPath,
+                       const std::function<void(bool)>& callback)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code& ec, bool status) {
+        [asyncResp,
+         callback](const boost::system::error_code& ec, bool status) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("D-Bus response error: {}", ec.value());
                 messages::internalError(asyncResp->res);
+                callback(false);
                 return;
             }
             if (!status)
@@ -2825,9 +2828,11 @@ inline void
                     asyncResp->res,
                     "ManagerAccount.VerifyTimeBasedOneTimePassword",
                     "TimeBasedOneTimePassword");
+                callback(false);
                 return;
             }
             messages::success(asyncResp->res);
+            callback(true);
         },
         "xyz.openbmc_project.User.Manager", userPath,
         "xyz.openbmc_project.User.TOTPAuthenticator", "VerifyOTP", totp);
@@ -2870,7 +2875,16 @@ inline void handleManagerAccountVerifyTotpAction(
     sdbusplus::message::object_path tempObjPath("/xyz/openbmc_project/user/");
     tempObjPath /= username;
     const std::string userPath(tempObjPath);
-    verifyTotpDbusUtil(asyncResp, totp, userPath);
+    verifyTotpDbusUtil(asyncResp, totp, userPath,
+                       [username, req](bool success) {
+                           if (success)
+                           {
+                               // Remove existing sessions of the user
+                               persistent_data::SessionStore::getInstance()
+                                   .removeSessionsByUsernameExceptSession(
+                                       username, req.session);
+                           }
+                       });
 }
 
 inline void requestAccountServiceRoutes(App& app)
