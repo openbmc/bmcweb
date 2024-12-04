@@ -510,6 +510,24 @@
       "parentUuid": "77603eb3_05f1b57d",
       "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78ff9ae1_c17a16cd",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T20:24:13Z",
+      "side": 1,
+      "message": "As to follow https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75791/comment/d9ae1599_9d15f02f/, it seems now addressed.",
+      "parentUuid": "f14f1252_77458887",
+      "revId": "7b4bbc7cb85732a4ea4d1ccd950d75b4d3d64b8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

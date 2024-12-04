@@ -166,6 +166,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25c8d6df_558ae22b",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T20:24:13Z",
+      "side": 1,
+      "message": "Great. Then the patchset 25+ is now doing right. Thanks",
+      "parentUuid": "d5022dd2_77ce7f01",
+      "range": {
+        "startLine": 112,
+        "startChar": 30,
+        "endLine": 112,
+        "endChar": 42
+      },
+      "revId": "d48adbbab964cabd9e6bb020611a93e4eb2db89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24a27c41_60ce80c6",
