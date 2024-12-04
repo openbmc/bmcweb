@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "566f26c9_7c6682a6",
+        "filename": "redfish-core/lib/event_service.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T15:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79823fd1_3f56840a",
+      "range": {
+        "startLine": 892,
+        "startChar": 0,
+        "endLine": 892,
+        "endChar": 55
+      },
+      "revId": "d48adbbab964cabd9e6bb020611a93e4eb2db89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e60c1bc_a8af2912",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-03T21:43:51Z",
       "side": 1,
       "message": "string_view to avoid constructing an object here.",
+      "range": {
+        "startLine": 111,
+        "startChar": 15,
+        "endLine": 111,
+        "endChar": 21
+      },
+      "revId": "d48adbbab964cabd9e6bb020611a93e4eb2db89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecfac260_ce784f57",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T15:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e60c1bc_a8af2912",
       "range": {
         "startLine": 111,
         "startChar": 15,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b2bbca2_f75728f8",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T15:40:08Z",
+      "side": 1,
+      "message": "Previously it used `eventId` (under EventServiceManager) which will make unique.\nI think this may be resolved by\n- I think we can use the existing `eventSeqNum` (which is a part of `Subscription`). This will make EventId unique for each subscription (but may not globally). Will it work?\n\nI\u0027ll try this in the next patchset.\n\n- Or can we make it as `\u003csubscriptionId\u003e_\u003cseqNum\u003e` so that it can be unique?",
+      "parentUuid": "d9ae1599_9d15f02f",
+      "range": {
+        "startLine": 112,
+        "startChar": 30,
+        "endLine": 112,
+        "endChar": 42
+      },
+      "revId": "d48adbbab964cabd9e6bb020611a93e4eb2db89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24a27c41_60ce80c6",
         "filename": "redfish-core/src/subscription.cpp",
         "patchSetId": 24
@@ -83,6 +155,30 @@
       "writtenOn": "2024-12-03T21:48:26Z",
       "side": 1,
       "message": "nit, remove redfish::  We\u0027re already in the redfish namespace.",
+      "range": {
+        "startLine": 114,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 17
+      },
+      "revId": "d48adbbab964cabd9e6bb020611a93e4eb2db89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10b8f398_7f8e70bc",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T15:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24a27c41_60ce80c6",
       "range": {
         "startLine": 114,
         "startChar": 8,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbb93481_60b18fc3",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T15:40:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6017852f_712c648b",
+      "range": {
+        "startLine": 120,
+        "startChar": 29,
+        "endLine": 120,
+        "endChar": 41
+      },
+      "revId": "d48adbbab964cabd9e6bb020611a93e4eb2db89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36e15293_9e32d2eb",
@@ -139,6 +259,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a73322a3_d2a460ff",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T15:40:08Z",
+      "side": 1,
+      "message": "Changed to \"Heartbeat\"",
+      "parentUuid": "36e15293_9e32d2eb",
+      "range": {
+        "startLine": 124,
+        "startChar": 23,
+        "endLine": 124,
+        "endChar": 32
+      },
+      "revId": "d48adbbab964cabd9e6bb020611a93e4eb2db89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bda18997_d8dc928f",
@@ -152,6 +296,30 @@
       "writtenOn": "2024-12-03T21:48:26Z",
       "side": 1,
       "message": "Can we remove this branch?  If the timer is running, sendHeartbeat is true.  If sendHeartbeat is false, the timer should\u0027ve never run, or should\u0027ve aborted.",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 5
+      },
+      "revId": "d48adbbab964cabd9e6bb020611a93e4eb2db89e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08491cab_cd8922f7",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-04T15:40:08Z",
+      "side": 1,
+      "message": "You\u0027re right. Changed.",
+      "parentUuid": "bda18997_d8dc928f",
       "range": {
         "startLine": 176,
         "startChar": 0,
