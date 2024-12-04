@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19e78f64_7b0c16aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-12-04T17:31:13Z",
+      "side": 1,
+      "message": "Updated the commit message",
+      "parentUuid": "931943d4_cf9f6084",
+      "revId": "135bee8d2108e35fbd22ac4ab6ee0b8502354174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2043db87_e64a7d57",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-12-03T16:12:37Z",
       "side": 1,
       "message": "generateUserSession is now within this conditional, which means that for the normal path, a session won\u0027t be created.  Can you please test this change?",
+      "range": {
+        "startLine": 296,
+        "startChar": 57,
+        "endLine": 296,
+        "endChar": 76
+      },
+      "revId": "135bee8d2108e35fbd22ac4ab6ee0b8502354174",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5343b0d5_31c65aa0",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2024-12-04T17:31:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2043db87_e64a7d57",
       "range": {
         "startLine": 296,
         "startChar": 57,
