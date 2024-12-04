@@ -660,8 +660,8 @@ class EventServiceManager
             std::string strMsg = msgJson.dump(
                 2, ' ', true, nlohmann::json::error_handler_t::replace);
             entry->sendEventToSubscriber(std::move(strMsg));
-            eventId++; // increment the eventId
         }
+        eventId++; // increment the eventId
     }
 };
 
