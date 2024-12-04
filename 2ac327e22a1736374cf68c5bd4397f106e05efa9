@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0f2f048_28d4efc0",
+        "filename": "include/event_service_store.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-04T16:11:43Z",
+      "side": 1,
+      "message": "ack.",
+      "parentUuid": "6ac5d391_11f6baad",
+      "range": {
+        "startLine": 114,
+        "startChar": 63,
+        "endLine": 114,
+        "endChar": 68
+      },
+      "revId": "2ac327e22a1736374cf68c5bd4397f106e05efa9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09c2f26b_30980b5a",
