@@ -16,6 +16,24 @@
       "message": "Where is this documented though in PDI?",
       "revId": "79c381bda99dec3eb9af572fedcd58250cd012d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d0ca4c4_a22d1dfb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-04T17:10:07Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/75943 is the review",
+      "parentUuid": "0a400f25_40f094d5",
+      "revId": "79c381bda99dec3eb9af572fedcd58250cd012d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
