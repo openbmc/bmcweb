@@ -51,6 +51,23 @@
       "message": "Tested on Ampere\u0027s Mt.Mitchell platform.",
       "revId": "796daf9c1155972851ebc25e57c9f17bc4fd3629",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f122d381_dd127049",
+        "filename": "meson.options",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-04T16:40:28Z",
+      "side": 1,
+      "message": "I would prefer like you did for BMCWEB_NBDPROXY since it is non-functional but I guess that makes it more of a pain for forks  \n```\n# BMCWEB_NBDPROXY \n# option(\n```",
+      "revId": "796daf9c1155972851ebc25e57c9f17bc4fd3629",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
