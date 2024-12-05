@@ -16,6 +16,23 @@
       "message": "I want to look closer at what the spec says here, but code looks right.",
       "revId": "29abfaa7a42fb1dbeb306c8a8e3c46d2654e5bca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea0eaae4_24795c71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-05T19:10:03Z",
+      "side": 1,
+      "message": "Not a lot in the spec but this tracks with how I read the spec \n\n                \"EventId\": {\n                    \"description\": \"The unique instance identifier of an event.\",\n                    \"longDescription\": \"This property shall contain a service-defined unique identifier for the event.\",",
+      "revId": "29abfaa7a42fb1dbeb306c8a8e3c46d2654e5bca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
