@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0c0fbd8_b31d587d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T16:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84879ac6_c703b9e3",
+      "range": {
+        "startLine": 11,
+        "startChar": 54,
+        "endLine": 11,
+        "endChar": 63
+      },
+      "revId": "4a40bce8ec68c18968483254f320c345efc3d0ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea7046f7_e8045604",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-04T17:15:04Z",
       "side": 1,
       "message": "There is a semantic change here if the D-Bus object doesn\u0027t have \"Discrete\" property set. Since this is the GET I don\u0027t think this is a problem since I would expect the D-Bus side to handle making sure the trigger agrees with the \"Discrete\" property.\n\nnit: We are no longer using discrete variable, any reason to unpack it?",
+      "range": {
+        "startLine": 864,
+        "startChar": 0,
+        "endLine": 864,
+        "endChar": 2
+      },
+      "revId": "4a40bce8ec68c18968483254f320c345efc3d0ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3097da5c_a08e3441",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T16:02:04Z",
+      "side": 1,
+      "message": "Yes, in this code it is a semantic change.  In practice, the telemetry server is now using a known struct, so arguably both of these could just be required.  I might add that in the next patch.\n\nI do not believe there is a change to user facing behavior in either case.",
+      "parentUuid": "ea7046f7_e8045604",
       "range": {
         "startLine": 864,
         "startChar": 0,
