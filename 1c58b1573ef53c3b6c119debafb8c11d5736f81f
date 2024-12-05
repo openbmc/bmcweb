@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d62c2e_55b885e8",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-12-05T19:49:08Z",
+      "side": 0,
+      "message": "Is the dmtf.clear() still needed for this one?",
+      "revId": "1c58b1573ef53c3b6c119debafb8c11d5736f81f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
