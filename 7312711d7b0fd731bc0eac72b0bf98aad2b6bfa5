@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08824d3f_1a949c5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T00:37:39Z",
+      "side": 1,
+      "message": "THis is new.  Needed for the next patch in the series.",
+      "parentUuid": "c93e2949_9bbed2fe",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 2
+      },
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a00d9371_2525747d",
         "filename": "include/http_utility.hpp",
         "patchSetId": 6
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-04T16:43:59Z",
       "side": 1,
       "message": "nit: typo, should be preferred",
+      "range": {
+        "startLine": 101,
+        "startChar": 57,
+        "endLine": 101,
+        "endChar": 65
+      },
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c21a9e5_ee0d1ae9",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T00:37:39Z",
+      "side": 1,
+      "message": "will fix",
+      "parentUuid": "a00d9371_2525747d",
       "range": {
         "startLine": 101,
         "startChar": 57,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c432f0d3_b6bf1dfd",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T00:37:39Z",
+      "side": 1,
+      "message": "Seems reasonable, will fix.",
+      "parentUuid": "b6426a69_11a2baf5",
+      "range": {
+        "startLine": 124,
+        "startChar": 9,
+        "endLine": 124,
+        "endChar": 18
+      },
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4684d915_ca28fb98",
         "filename": "include/http_utility.hpp",
         "patchSetId": 6
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f7fdc40_6e087fee",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T00:37:39Z",
+      "side": 1,
+      "message": "Sure, allowedOrder might be better?  Or maybe availableOrder?",
+      "parentUuid": "4684d915_ca28fb98",
+      "range": {
+        "startLine": 147,
+        "startChar": 40,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1401190b_512fc470",
         "filename": "test/include/http_utility_test.cpp",
         "patchSetId": 6
@@ -106,6 +202,24 @@
       "writtenOn": "2024-12-04T16:43:59Z",
       "side": 1,
       "message": "If I\u0027m reading the code correctly, then another test here that shows the case where the acceptEncoding param is not in the preferedOrder list.\n\nI.e.\nEXPECT_EQ(getPreferredEncoding(\"zstd\", contentType),Encoding::NoMatch);",
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c717bfd3_f77e37c7",
+        "filename": "test/include/http_utility_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T00:37:39Z",
+      "side": 1,
+      "message": "Happy to add it, but does that cover a different code path than \"noexist\"?",
+      "parentUuid": "1401190b_512fc470",
       "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
