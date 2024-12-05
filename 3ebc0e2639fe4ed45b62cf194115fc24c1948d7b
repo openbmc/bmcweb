@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "170020e5_f98aeb71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T19:52:21Z",
+      "side": 1,
+      "message": "yep.",
+      "parentUuid": "63261add_387ca2ac",
+      "range": {
+        "startLine": 15,
+        "startChar": 15,
+        "endLine": 15,
+        "endChar": 22
+      },
+      "revId": "3ebc0e2639fe4ed45b62cf194115fc24c1948d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ac09c5e_b1675181",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-04T16:29:13Z",
       "side": 1,
       "message": "I think it is a breaking change in practice too. Here https://gerrit.openbmc.org/c/openbmc/webui-vue/+/72589/6#message-8e00433c508f7b2eed0b95116c438fd2d0235218 I noticed the inconsistency and asked if the standard had a typo. Getting no reply I assumed yes, and followed with what was implemented in bmcweb at the time. So until the last revision of https://gerrit.openbmc.org/c/openbmc/webui-vue/+/74371 (thank you Jason for taking care of this detail promptly) is merged webui-vue would remain broken I\u0027m afraid.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 36
+      },
+      "revId": "3ebc0e2639fe4ed45b62cf194115fc24c1948d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "486ee944_6745d9cf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T19:52:21Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/webui-vue/+/74371\n\nLooks like it was meant to handle either 2 or 3 digit, but that\u0027s a fair point, this could break folks.\n\nDo you think it\u0027s worth having an opt-out option?",
+      "parentUuid": "4ac09c5e_b1675181",
       "range": {
         "startLine": 27,
         "startChar": 0,
@@ -243,6 +291,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9304d34f_257151f0",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T19:52:21Z",
+      "side": 1,
+      "message": "Considering that the versions strings are optional, I made these -1 for the case where a registry might not use a 3 digit version string, so we could set them to -1 in that case.\n\nThere isn\u0027t a DMTF registry that follows that yet, so if we really want these as uint and change them when such time comes, I can make that change.",
+      "parentUuid": "731c82e2_029022c2",
+      "revId": "3ebc0e2639fe4ed45b62cf194115fc24c1948d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8f40d81f_7454e483",
         "filename": "redfish-core/include/registries.hpp",
         "patchSetId": 9
@@ -254,6 +320,24 @@
       "writtenOn": "2024-12-05T11:06:42Z",
       "side": 1,
       "message": "nit: since the version is already defined by the 3 integers, \nis \u0027char* registryVersion\u0027 still needed?",
+      "revId": "3ebc0e2639fe4ed45b62cf194115fc24c1948d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6fd1924_ef6cb2c9",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T19:52:21Z",
+      "side": 1,
+      "message": "Probably not.  It\u0027s been removed in the latest patch.  Thanks for the idea.",
+      "parentUuid": "8f40d81f_7454e483",
       "revId": "3ebc0e2639fe4ed45b62cf194115fc24c1948d7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
