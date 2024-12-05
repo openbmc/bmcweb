@@ -579,6 +579,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc5f5470_172ffb1c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1385,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T16:11:18Z",
+      "side": 1,
+      "message": "line 1391 is \"return;\"   Maybe you meant 1385?",
+      "parentUuid": "01d05856_478370ee",
+      "range": {
+        "startLine": 1385,
+        "startChar": 0,
+        "endLine": 1385,
+        "endChar": 2
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cc8667e_d7fe5a7c",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 32
