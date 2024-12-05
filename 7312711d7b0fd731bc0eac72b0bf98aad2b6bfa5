@@ -112,6 +112,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b1a770f_26174726",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-12-05T20:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c21a9e5_ee0d1ae9",
+      "range": {
+        "startLine": 101,
+        "startChar": 57,
+        "endLine": 101,
+        "endChar": 65
+      },
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6426a69_11a2baf5",
@@ -149,6 +173,30 @@
       "side": 1,
       "message": "Seems reasonable, will fix.",
       "parentUuid": "b6426a69_11a2baf5",
+      "range": {
+        "startLine": 124,
+        "startChar": 9,
+        "endLine": 124,
+        "endChar": 18
+      },
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa43aaf5_4dae05b7",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-12-05T20:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c432f0d3_b6bf1dfd",
       "range": {
         "startLine": 124,
         "startChar": 9,
@@ -206,6 +254,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db916fa6_84c25dcb",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-12-05T20:16:39Z",
+      "side": 1,
+      "message": "I think your change to availableEncodings captures the meaning. Thank you for changing it.",
+      "parentUuid": "9f7fdc40_6e087fee",
+      "range": {
+        "startLine": 147,
+        "startChar": 40,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1401190b_512fc470",
@@ -237,6 +309,24 @@
       "side": 1,
       "message": "Happy to add it, but does that cover a different code path than \"noexist\"?",
       "parentUuid": "1401190b_512fc470",
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7436438_78552768",
+        "filename": "test/include/http_utility_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-12-05T20:16:39Z",
+      "side": 1,
+      "message": "Sorry I was reading the code incorrectly. The path I\u0027m trying to hit is for the find() on L148 to not find a match and return on L154 (return Encoding::NoMatch).\n\nSo, I think what would be needed would be to also modify the contentType before the new test:\n\nstd::array\u003cEncoding, 1\u003e contentType(Encoding::GZIP};\nEXPECT_EQ(getPreferredEncoding(\"zstd\", contentType), Encoding::NoMatch);",
+      "parentUuid": "c717bfd3_f77e37c7",
       "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
