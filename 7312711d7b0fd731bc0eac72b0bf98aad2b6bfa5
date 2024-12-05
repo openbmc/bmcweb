@@ -136,6 +136,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2e6fde4_803d1344",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T20:19:45Z",
+      "side": 1,
+      "message": "Changed to availableOrder per later comment.",
+      "parentUuid": "7c21a9e5_ee0d1ae9",
+      "range": {
+        "startLine": 101,
+        "startChar": 57,
+        "endLine": 101,
+        "endChar": 65
+      },
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6426a69_11a2baf5",
@@ -194,6 +218,30 @@
         "id": 1001621
       },
       "writtenOn": "2024-12-05T20:16:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c432f0d3_b6bf1dfd",
+      "range": {
+        "startLine": 124,
+        "startChar": 9,
+        "endLine": 124,
+        "endChar": 18
+      },
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "254ed638_fa540cbc",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T20:19:45Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "c432f0d3_b6bf1dfd",
@@ -267,6 +315,30 @@
       "writtenOn": "2024-12-05T20:16:39Z",
       "side": 1,
       "message": "I think your change to availableEncodings captures the meaning. Thank you for changing it.",
+      "parentUuid": "9f7fdc40_6e087fee",
+      "range": {
+        "startLine": 147,
+        "startChar": 40,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d532c58_6e2e45b2",
+        "filename": "include/http_utility.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T20:19:45Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "9f7fdc40_6e087fee",
       "range": {
         "startLine": 147,
