@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "916a4ec7_cd8a8e56",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2304,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-12-05T06:49:51Z",
+      "side": 1,
+      "message": "But that only is being used. am i missing something here?",
+      "parentUuid": "494e9843_d56ce6e2",
+      "range": {
+        "startLine": 2304,
+        "startChar": 29,
+        "endLine": 2304,
+        "endChar": 49
+      },
+      "revId": "04d91468d275857715b63181b8d770697a114abd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d9b21ef_c74e567a",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 27
