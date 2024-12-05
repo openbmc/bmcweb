@@ -419,6 +419,24 @@
       "parentUuid": "e7436438_78552768",
       "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da63c30a_dbb4008e",
+        "filename": "test/include/http_utility_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T20:43:04Z",
+      "side": 1,
+      "message": "which I think is correct to the http spec, if there\u0027s no match, we assume no encoding.",
+      "parentUuid": "44af1386_950f8455",
+      "revId": "7312711d7b0fd731bc0eac72b0bf98aad2b6bfa5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
