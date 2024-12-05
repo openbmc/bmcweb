@@ -71,6 +71,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "487a3038_2cbab55b",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T20:52:21Z",
+      "side": 1,
+      "message": "This is called \"afterGetLedGroupPath\" but htis is actually after getAssociatedSubTree.  Maybe a copy/paste from old code?",
+      "range": {
+        "startLine": 311,
+        "startChar": 12,
+        "endLine": 311,
+        "endChar": 32
+      },
+      "revId": "1cc271a1dfa89b7fece235f7c946cad0529f47ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "038cff3d_037e8d31",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 52
@@ -87,6 +110,29 @@
         "startChar": 9,
         "endLine": 323,
         "endChar": 21
+      },
+      "revId": "1cc271a1dfa89b7fece235f7c946cad0529f47ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25443089_d635d896",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T20:52:21Z",
+      "side": 1,
+      "message": "lambda is more than a few lines.  make a function",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 11
       },
       "revId": "1cc271a1dfa89b7fece235f7c946cad0529f47ec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
