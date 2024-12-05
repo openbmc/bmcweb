@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "175940c8_ba2c3dff",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T16:05:45Z",
+      "side": 1,
+      "message": "This block of code is identical to the block from 309-317, with the exception of the final argument on generateUserSession (which just tracks isConfigureSelfOnly like it did previously)\n\nWhy did this need to be duplicated?\n\nIf we want to break out lines 262 and on into another method that\u0027s fine, but there\u0027s no need to change these lines",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 68
+      },
+      "revId": "97c27c17e48b3c9f7c333e6f78701fd606db0cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
