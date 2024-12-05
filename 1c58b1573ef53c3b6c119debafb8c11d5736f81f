@@ -16,6 +16,24 @@
       "message": "Is the dmtf.clear() still needed for this one?",
       "revId": "1c58b1573ef53c3b6c119debafb8c11d5736f81f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46f432db_899b9512",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-05T20:16:29Z",
+      "side": 0,
+      "message": "yes, this is still needed.  in theory owner probably needs moved into the registries struct.",
+      "parentUuid": "e4d62c2e_55b885e8",
+      "revId": "1c58b1573ef53c3b6c119debafb8c11d5736f81f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
