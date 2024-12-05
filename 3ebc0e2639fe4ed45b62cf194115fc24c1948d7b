@@ -222,6 +222,40 @@
       "parentUuid": "7aeefad0_c984c9d1",
       "revId": "3ebc0e2639fe4ed45b62cf194115fc24c1948d7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "731c82e2_029022c2",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-12-05T11:06:42Z",
+      "side": 1,
+      "message": "can these 3 members be unsigned int?\n\nOr is there a need for negative version numbers.",
+      "revId": "3ebc0e2639fe4ed45b62cf194115fc24c1948d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f40d81f_7454e483",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2024-12-05T11:06:42Z",
+      "side": 1,
+      "message": "nit: since the version is already defined by the 3 integers, \nis \u0027char* registryVersion\u0027 still needed?",
+      "revId": "3ebc0e2639fe4ed45b62cf194115fc24c1948d7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
