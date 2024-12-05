@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f203efee_8e16abe9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-12-05T23:01:22Z",
+      "side": 1,
+      "message": "I see, I understand now what this comment is about. Given the D-Bus relationships I\u0027m not seeing how two mapper calls can be avoided in this case. There are two separate D-Bus paths that provide the details for a power supply:\n 1) power supply (provides most of the properties of the power supply)\n 2) logical led group associated to power supply (provides LED setting for power supply)\n \nIs there a D-Bus interface I can use which will get the power supply associated with the chassis and its associated objects in one call?\n\nBusctl details showing the relationships:\n```\n/* Power supply itself is found through the powered_by association.\n * This path is used to get most of the power supply properties\n */\n# busctl --json\u003dpretty call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetAssociatedSubTreeById ssassas chassis /xyz/openbmc_project/inventory 2 xyz.openbmc_project.Inventory.Item.Board xyz.openbmc_project.Inventory.Item.Chassis powered_by 1 xyz.openbmc_project.Inventory.Item.PowerSupply\n{\n        \"type\" : \"a{sa{sas}}\",\n        \"data\" : [\n                {\n                        \"/xyz/openbmc_project/inventory/system/chassis/motherboard/powersupply0\" : {\n                                \"xyz.openbmc_project.Inventory.Manager\" : [\n                                        \"org.freedesktop.DBus.Introspectable\",\n                                        \"org.freedesktop.DBus.Peer\",\n                                        \"org.freedesktop.DBus.Properties\",\n                                        \"xyz.openbmc_project.Association.Definitions\",\n                                        \"xyz.openbmc_project.Inventory.Decorator.Asset\",\n                                        \"xyz.openbmc_project.Inventory.Decorator.LocationCode\",\n                                        \"xyz.openbmc_project.Inventory.Item\",\n                                        \"xyz.openbmc_project.Inventory.Item.PowerSupply\",\n                                        \"xyz.openbmc_project.Object.Enable\",\n                                        \"xyz.openbmc_project.Software.Version\",\n                                        \"xyz.openbmc_project.State.Decorator.Availability\",\n                                        \"xyz.openbmc_project.State.Decorator.OperationalStatus\"\n                                ]\n                        },\n[...]\n\n\n/* The power supply has an association for the LED group path */\n# busctl introspect xyz.openbmc_project.Inventory.Manager /xyz/openbmc_project/inventory/system/chassis/motherboard/powersupply0 --full | grep Association\nxyz.openbmc_project.Association.Definitions           interface -         -\n.Associations                                         property  a(sss)    10 \n[...]\n\"identifying\" \"identified_by\" \"/xyz/openbmc_project/led/groups/powersupply0_identify\"\n[...]\n\n/* Second object which is the logical LED group path.\n * This is where the value for the LED is implemented.\n */\n# busctl --json\u003dpretty call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetAssociatedSubTree ooias /xyz/openbmc_project/inventory/system/chassis/motherboard/powersupply0/identifying /xyz/openbmc_project/led/groups 0 1 xyz.openbmc_project.Led.Group\n{\n        \"type\" : \"a{sa{sas}}\",\n        \"data\" : [\n                {\n                        \"/xyz/openbmc_project/led/groups/powersupply0_identify\" : {\n                                \"xyz.openbmc_project.LED.GroupManager\" : [\n                                        \"org.freedesktop.DBus.Introspectable\",\n                                        \"org.freedesktop.DBus.Peer\",\n                                        \"org.freedesktop.DBus.Properties\",\n                                        \"xyz.openbmc_project.Led.Group\"\n                                ]\n                        }\n                }\n        ]\n}\n\n# busctl get-property xyz.openbmc_project.LED.GroupManager /xyz/openbmc_project/led/groups/powersupply0_identify xyz.openbmc_project.Led.Group Asserted\nb false\n```",
+      "parentUuid": "4cbb8eea_19208c18",
+      "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7bc1805_c2ff39e5",
         "filename": "redfish-core/lib/led.hpp",
         "patchSetId": 41

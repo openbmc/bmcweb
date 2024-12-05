@@ -92,6 +92,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "554ae65e_10493959",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-12-05T23:01:22Z",
+      "side": 1,
+      "message": "Changed to handleLedGroupSubtree()",
+      "parentUuid": "487a3038_2cbab55b",
+      "range": {
+        "startLine": 311,
+        "startChar": 12,
+        "endLine": 311,
+        "endChar": 32
+      },
+      "revId": "1cc271a1dfa89b7fece235f7c946cad0529f47ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "038cff3d_037e8d31",
@@ -115,6 +139,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "376f4f5e_60677b5a",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-12-05T23:01:22Z",
+      "side": 1,
+      "message": "Yes, I\u0027ve removed. I\u0027m surprised clang-tidy didn\u0027t catch that.",
+      "parentUuid": "038cff3d_037e8d31",
+      "range": {
+        "startLine": 323,
+        "startChar": 9,
+        "endLine": 323,
+        "endChar": 21
+      },
+      "revId": "1cc271a1dfa89b7fece235f7c946cad0529f47ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25443089_d635d896",
@@ -128,6 +176,30 @@
       "writtenOn": "2024-12-05T20:52:21Z",
       "side": 1,
       "message": "lambda is more than a few lines.  make a function",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 11
+      },
+      "revId": "1cc271a1dfa89b7fece235f7c946cad0529f47ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ca46a6_c22d237f",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-12-05T23:01:22Z",
+      "side": 1,
+      "message": "I\u0027ve moved this to a named function, afterGetLedState().\n\nNote: I\u0027m a bit confused about the naming conventions. To me it looks like it is common to use the \"after\u003cFuncname\u003e\" convention for callbacks to dBus calls. But from your comment above about the naming of afterGetLedGroupPath() it seems that that is not always the case.\n\nCan you clarify when the \"after\u003cFuncname\u003e\" convention can be used? Is it okay with get/set property dBus calls but not when getting new objects?",
+      "parentUuid": "25443089_d635d896",
       "range": {
         "startLine": 322,
         "startChar": 0,
