@@ -2118,19 +2118,10 @@ inline void updateProperty(const std::optional<bool>& resolved,
 {
     if (resolved.has_value())
     {
-        sdbusplus::asio::setProperty(
-            *crow::connections::systemBus, "xyz.openbmc_project.Logging",
-            "/xyz/openbmc_project/logging/entry/" + entryId,
-            "xyz.openbmc_project.Logging.Entry", "Resolved", *resolved,
-            [asyncResp](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            });
-        BMCWEB_LOG_DEBUG("Set Resolved");
+        setDbusProperty(asyncResp, "xyz.openbmc_project.Logging",
+                        "/xyz/openbmc_project/logging/entry/" + entryId,
+                        "xyz.openbmc_project.Logging.Entry", "Resolved",
+                        "Resolved", *resolved);
     }
 
     if (managementSystemAck.has_value())
@@ -2158,7 +2149,8 @@ inline void
 {
     // Process response from Logging service.
     auto respHandler = [asyncResp,
-                        entryId](const boost::system::error_code& ec) {
+                        entryId](const boost::system::error_code& ec,
+                                 const sdbusplus::message::message& msg) {
         BMCWEB_LOG_DEBUG("EventLogEntry (DBus) doDelete callback: Done");
         if (ec)
         {
@@ -2167,10 +2159,26 @@ inline void
                 messages::resourceNotFound(asyncResp->res, "LogEntry", entryId);
                 return;
             }
-            // TODO Handle for specific error code
+
+            const sd_bus_error* dbusError = msg.get_error();
+            if (dbusError == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (std::string_view(
+                    "xyz.openbmc_project.Common.Error.Unavailable") ==
+                dbusError->name)
+            {
+                messages::propertyValueExternalConflict(asyncResp->res,
+                                                        "LogEntry", "Delete");
+                return;
+            }
+
             BMCWEB_LOG_ERROR("EventLogEntry (DBus) doDelete "
                              "respHandler got error {}",
                              ec);
+
             messages::internalError(asyncResp->res);
             return;
         }
