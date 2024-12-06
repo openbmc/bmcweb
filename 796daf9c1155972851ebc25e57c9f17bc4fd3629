@@ -68,6 +68,24 @@
       "message": "I would prefer like you did for BMCWEB_NBDPROXY since it is non-functional but I guess that makes it more of a pain for forks  \n```\n# BMCWEB_NBDPROXY \n# option(\n```",
       "revId": "796daf9c1155972851ebc25e57c9f17bc4fd3629",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "601c75e8_31b01c64",
+        "filename": "meson.options",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T20:31:34Z",
+      "side": 1,
+      "message": "I\u0027m hoping in the future this option just goes away in the immediate (next few months) future, and we go back to what we had before (simple update works).  The nbdproxy one also didn\u0027t have the desired effect of getting the backend upstream, so IDK 😊",
+      "parentUuid": "f122d381_dd127049",
+      "revId": "796daf9c1155972851ebc25e57c9f17bc4fd3629",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
