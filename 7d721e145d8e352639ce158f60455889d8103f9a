@@ -114,6 +114,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3fbfe86d_a5a3790b",
+        "filename": "redfish-core/include/task_messages.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T22:38:44Z",
+      "side": 1,
+      "message": "nlohmann is used, url_view is not, you\u0027re right.",
+      "parentUuid": "189521fc_3f4114b2",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 28
+      },
+      "revId": "7d721e145d8e352639ce158f60455889d8103f9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dad67b85_63876507",
         "filename": "redfish-core/include/task_messages.hpp",
         "patchSetId": 6
