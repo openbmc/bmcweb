@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07863948_719519dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T22:41:57Z",
+      "side": 1,
+      "message": "Indeed.",
+      "parentUuid": "c92dc123_13d2af0d",
+      "revId": "c460f2f9228ae451c2e08b6f20acdb5be2910fbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e09b34c8_d4af8309",
         "filename": "redfish-core/include/resource_messages.hpp",
         "patchSetId": 7
