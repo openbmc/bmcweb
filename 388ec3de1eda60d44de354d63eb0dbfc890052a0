@@ -402,6 +402,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08834791_f11a086c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T21:58:57Z",
+      "side": 1,
+      "message": "Simplify this down to:\n\nconst std::string* str \u003d std::get_if\u003cstd::string\u003e(\u0026value));\nif (str \u003d\u003d nullptr){\n    return unexpiringPasswordExpiration;\n}\nconst auto usTime \u003d\n        redfish::time_utils::dateStringToEpoch(*str);",
+      "range": {
+        "startLine": 1121,
+        "startChar": 0,
+        "endLine": 1131,
+        "endChar": 77
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3ada23e_d635c794",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T21:58:57Z",
+      "side": 1,
+      "message": "We shouldn\u0027t be setting the success code if we didn\u0027t actually do any operation.  See below how to fix this.",
+      "range": {
+        "startLine": 1149,
+        "startChar": 0,
+        "endLine": 1149,
+        "endChar": 22
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04842704_4a4620c3",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -443,6 +489,40 @@
         "endLine": 1157,
         "endChar": 48
       },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cdc0fe9_4e037b59",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1273,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T21:58:57Z",
+      "side": 1,
+      "message": "Lets continue the pattern here\n\nif (passwordExpiration){\n    updatePasswordExpiration(....)\n\n}",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edec5759_c2ceb4df",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T21:58:57Z",
+      "side": 1,
+      "message": "This looks like it unconditionally sets the expiration?  Should we only set the expiration if it\u0027s been modified by the user?",
       "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -577,6 +657,24 @@
       "side": 1,
       "message": "Do you mean ```sdbusplus::unpackPropertiesNoThrow```? Because I\u0027ve failed to find any mention of ```unpackNoThrow```.",
       "parentUuid": "1947bf53_d6605ced",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0503758d_0756af6b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T21:58:57Z",
+      "side": 1,
+      "message": "Yes sdbusplus::unpackPropertiesNoThrow",
+      "parentUuid": "aa1f6c1d_88b44e1a",
       "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
