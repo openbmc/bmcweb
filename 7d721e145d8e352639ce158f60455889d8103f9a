@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "073b9215_4d9e9dfe",
+        "filename": "redfish-core/include/task_messages.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T22:41:42Z",
+      "side": 1,
+      "message": "Can we defer this for now?  Conditionally including headers is kinda messy.  I clean it up a bit in the next patch, but this one is harder.",
+      "parentUuid": "3fbfe86d_a5a3790b",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 28
+      },
+      "revId": "7d721e145d8e352639ce158f60455889d8103f9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dad67b85_63876507",
         "filename": "redfish-core/include/task_messages.hpp",
         "patchSetId": 6
