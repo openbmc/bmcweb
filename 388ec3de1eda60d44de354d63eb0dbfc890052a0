@@ -249,6 +249,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d2f4ba1_902a106c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T22:57:47Z",
+      "side": 1,
+      "message": "So the code here will be removed?",
+      "parentUuid": "69b37b5b_1a8f57ea",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40d1dd71_5dc294ee",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -360,6 +378,53 @@
         "startChar": 0,
         "endLine": 1116,
         "endChar": 1
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6bdbe90_503c5eb1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T22:57:47Z",
+      "side": 1,
+      "message": "Will follow up in thread above.",
+      "parentUuid": "eadb8ca6_bdc677bc",
+      "range": {
+        "startLine": 1103,
+        "startChar": 0,
+        "endLine": 1116,
+        "endChar": 1
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "157bdab2_e30b8294",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-06T22:57:47Z",
+      "side": 1,
+      "message": "Please use holds_alternative (which returns a boolean) if you don\u0027t intend on using the result.",
+      "range": {
+        "startLine": 1121,
+        "startChar": 13,
+        "endLine": 1121,
+        "endChar": 19
       },
       "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
