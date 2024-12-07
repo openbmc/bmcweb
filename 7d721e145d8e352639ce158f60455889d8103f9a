@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2e14bc9_9949ddb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-07T15:26:39Z",
+      "side": 1,
+      "message": "Mostly for others watching, \nI initially felt we didn\u0027t need the tested statement \nhttps://gerrit.openbmc.org/c/openbmc/docs/+/8506\n\nBut I think it has helped us a ton in bmcweb. \nWe still get breaks, but I think without forcing developers to write down how they tested, many new developers would break things like the Redfish validator. bmcweb has had 176 contributors, which is a lot of people coming in.",
+      "parentUuid": "6c0ea3f2_e08fb69b",
+      "revId": "7d721e145d8e352639ce158f60455889d8103f9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "678a30c1_1c059d3a",
@@ -150,6 +168,30 @@
       "side": 1,
       "message": "Can we defer this for now?  Conditionally including headers is kinda messy.  I clean it up a bit in the next patch, but this one is harder.",
       "parentUuid": "3fbfe86d_a5a3790b",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 28
+      },
+      "revId": "7d721e145d8e352639ce158f60455889d8103f9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ed998aa_c3370164",
+        "filename": "redfish-core/include/task_messages.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-07T15:26:39Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "073b9215_4d9e9dfe",
       "range": {
         "startLine": 13,
         "startChar": 0,
