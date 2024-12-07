@@ -90,6 +90,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0092ab69_b289474a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-07T21:57:00Z",
+      "side": 1,
+      "message": "\u003e Mostly for others watching, \n\nTo be clear for those watching, I was being sarcastic.  I fully support having tested statements.\n\n\u003e I initially felt we didn\u0027t need the tested statement \n\u003e https://gerrit.openbmc.org/c/openbmc/docs/+/8506\n\u003e \n\u003e But I think it has helped us a ton in bmcweb. \n\u003e We still get breaks, but I think without forcing developers to write down how they tested, many new developers would break things like the Redfish validator. bmcweb has had 176 contributors, which is a lot of people coming in.\n\n\nFWIW, the largest value in the tested statement isn\u0027t in that we don\u0027t break master, it\u0027s that future developers can run the same tests that were run initially to prove out a feature.  Many..... many times refactoring code I will use the tested statements for POST requests to test that a given flow works, without necessarily needing to craft a new test command myself.  Much of the time, the original developer of the feature is long gone.",
+      "parentUuid": "a2e14bc9_9949ddb6",
+      "revId": "7d721e145d8e352639ce158f60455889d8103f9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "678a30c1_1c059d3a",
