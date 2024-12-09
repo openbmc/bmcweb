@@ -86,6 +86,24 @@
       "parentUuid": "f122d381_dd127049",
       "revId": "796daf9c1155972851ebc25e57c9f17bc4fd3629",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "577e463c_0371fabb",
+        "filename": "meson.options",
+        "patchSetId": 3
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-09T14:57:08Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "601c75e8_31b01c64",
+      "revId": "796daf9c1155972851ebc25e57c9f17bc4fd3629",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
