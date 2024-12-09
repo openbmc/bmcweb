@@ -1091,6 +1091,107 @@ inline void handleLDAPPatch(LdapPatchParams&& input,
     });
 }
 
+struct UserUpdateParams
+{
+    std::string username;
+    std::optional<std::string> password;
+    std::optional<bool> enabled;
+    std::optional<std::string> roleId;
+    std::optional<bool> locked;
+    std::optional<std::vector<std::string>> accountTypes;
+    bool userSelf;
+    std::shared_ptr<persistent_data::UserSession> session;
+    std::string dbusObjectPath;
+};
+
+inline void
+    afterVerifyUserExists(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const UserUpdateParams& params, int rc)
+{
+    if (rc <= 0)
+    {
+        messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                   params.username);
+        return;
+    }
+
+    if (params.password)
+    {
+        int retval = pamUpdatePassword(params.username, *params.password);
+
+        if (retval == PAM_USER_UNKNOWN)
+        {
+            messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                       params.username);
+        }
+        else if (retval == PAM_AUTHTOK_ERR)
+        {
+            // If password is invalid
+            messages::propertyValueFormatError(asyncResp->res, nullptr,
+                                               "Password");
+            BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
+        }
+        else if (retval != PAM_SUCCESS)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        else
+        {
+            // Remove existing sessions of the user when password
+            // changed
+            persistent_data::SessionStore::getInstance()
+                .removeSessionsByUsernameExceptSession(params.username,
+                                                       params.session);
+            messages::success(asyncResp->res);
+        }
+    }
+
+    if (params.enabled)
+    {
+        setDbusProperty(
+            asyncResp, "Enabled", "xyz.openbmc_project.User.Manager",
+            params.dbusObjectPath, "xyz.openbmc_project.User.Attributes",
+            "UserEnabled", *params.enabled);
+    }
+
+    if (params.roleId)
+    {
+        std::string priv = getPrivilegeFromRoleId(*params.roleId);
+        if (priv.empty())
+        {
+            messages::propertyValueNotInList(asyncResp->res, true, "Locked");
+            return;
+        }
+        setDbusProperty(asyncResp, "RoleId", "xyz.openbmc_project.User.Manager",
+                        params.dbusObjectPath,
+                        "xyz.openbmc_project.User.Attributes", "UserPrivilege",
+                        priv);
+    }
+
+    if (params.locked)
+    {
+        // admin can unlock the account which is locked by
+        // successive authentication failures but admin should
+        // not be allowed to lock an account.
+        if (*params.locked)
+        {
+            messages::propertyValueNotInList(asyncResp->res, "true", "Locked");
+            return;
+        }
+        setDbusProperty(asyncResp, "Locked", "xyz.openbmc_project.User.Manager",
+                        params.dbusObjectPath,
+                        "xyz.openbmc_project.User.Attributes",
+                        "UserLockedForFailedAttempt", *params.locked);
+    }
+
+    if (params.accountTypes)
+    {
+        patchAccountTypes(*params.accountTypes, asyncResp,
+                          params.dbusObjectPath, params.userSelf);
+    }
+}
+
 inline void updateUserProperties(
     std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& username,
     const std::optional<std::string>& password,
@@ -1103,96 +1204,13 @@ inline void updateUserProperties(
     tempObjPath /= username;
     std::string dbusObjectPath(tempObjPath);
 
+    UserUpdateParams params{username, password, enabled,
+                            roleId,   locked,   accountTypes,
+                            userSelf, session,  dbusObjectPath};
+
     dbus::utility::checkDbusPathExists(
         dbusObjectPath,
-        [dbusObjectPath, username, password, roleId, enabled, locked,
-         accountTypes(std::move(accountTypes)), userSelf, session,
-         asyncResp{std::move(asyncResp)}](int rc) {
-            if (rc <= 0)
-            {
-                messages::resourceNotFound(asyncResp->res, "ManagerAccount",
-                                           username);
-                return;
-            }
-
-            if (password)
-            {
-                int retval = pamUpdatePassword(username, *password);
-
-                if (retval == PAM_USER_UNKNOWN)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ManagerAccount",
-                                               username);
-                }
-                else if (retval == PAM_AUTHTOK_ERR)
-                {
-                    // If password is invalid
-                    messages::propertyValueFormatError(asyncResp->res, nullptr,
-                                                       "Password");
-                    BMCWEB_LOG_ERROR("pamUpdatePassword Failed");
-                }
-                else if (retval != PAM_SUCCESS)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                else
-                {
-                    // Remove existing sessions of the user when password
-                    // changed
-                    persistent_data::SessionStore::getInstance()
-                        .removeSessionsByUsernameExceptSession(username,
-                                                               session);
-                    messages::success(asyncResp->res);
-                }
-            }
-
-            if (enabled)
-            {
-                setDbusProperty(
-                    asyncResp, "Enabled", "xyz.openbmc_project.User.Manager",
-                    dbusObjectPath, "xyz.openbmc_project.User.Attributes",
-                    "UserEnabled", *enabled);
-            }
-
-            if (roleId)
-            {
-                std::string priv = getPrivilegeFromRoleId(*roleId);
-                if (priv.empty())
-                {
-                    messages::propertyValueNotInList(asyncResp->res, true,
-                                                     "Locked");
-                    return;
-                }
-                setDbusProperty(
-                    asyncResp, "RoleId", "xyz.openbmc_project.User.Manager",
-                    dbusObjectPath, "xyz.openbmc_project.User.Attributes",
-                    "UserPrivilege", priv);
-            }
-
-            if (locked)
-            {
-                // admin can unlock the account which is locked by
-                // successive authentication failures but admin should
-                // not be allowed to lock an account.
-                if (*locked)
-                {
-                    messages::propertyValueNotInList(asyncResp->res, "true",
-                                                     "Locked");
-                    return;
-                }
-                setDbusProperty(
-                    asyncResp, "Locked", "xyz.openbmc_project.User.Manager",
-                    dbusObjectPath, "xyz.openbmc_project.User.Attributes",
-                    "UserLockedForFailedAttempt", *locked);
-            }
-
-            if (accountTypes)
-            {
-                patchAccountTypes(*accountTypes, asyncResp, dbusObjectPath,
-                                  userSelf);
-            }
-        });
+        std::bind_front(afterVerifyUserExists, asyncResp, std::move(params)));
 }
 
 inline void handleAccountServiceHead(
