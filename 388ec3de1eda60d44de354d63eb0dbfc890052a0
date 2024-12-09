@@ -267,6 +267,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5180d62_851d8519",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-12-09T07:41:34Z",
+      "side": 1,
+      "message": "Yes, this will be removed.",
+      "parentUuid": "7d2f4ba1_902a106c",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "40d1dd71_5dc294ee",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -554,6 +572,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2315b202_b0245329",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-12-09T07:41:34Z",
+      "side": 1,
+      "message": "I\u0027ve got rid of it already, so it will be removed.",
+      "parentUuid": "b3ada23e_d635c794",
+      "range": {
+        "startLine": 1149,
+        "startChar": 0,
+        "endLine": 1149,
+        "endChar": 22
+      },
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04842704_4a4620c3",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
@@ -629,6 +671,24 @@
       "writtenOn": "2024-12-06T21:58:57Z",
       "side": 1,
       "message": "This looks like it unconditionally sets the expiration?  Should we only set the expiration if it\u0027s been modified by the user?",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00ddaa5_ac9ef7bc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-12-09T07:41:34Z",
+      "side": 1,
+      "message": "It does not, my code was not clear, will be fixed.",
+      "parentUuid": "edec5759_c2ceb4df",
       "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
