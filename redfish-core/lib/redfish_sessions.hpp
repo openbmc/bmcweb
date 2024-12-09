@@ -203,7 +203,7 @@ inline void handleSessionCollectionMembersGet(
 inline void processAfterSessionCreation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const crow::Request& req,
-    std::shared_ptr<persistent_data::UserSession> session,
+    std::shared_ptr<persistent_data::UserSession>& session,
     bool isGenerateSecretkeyRequired)
 {
     // When session is created by webui-vue give it session cookies as a
@@ -247,13 +247,12 @@ inline void checkGoogleAuthenticatorSecretKeyRequired(
     std::function<void(const boost::system::error_code& ec, bool)> callback)
 {
     sdbusplus::message::object_path userPath("/xyz/openbmc_project/user");
-    userPath /= username;
     crow::connections::systemBus->async_method_call(
         [callback = std::move(callback)](const boost::system::error_code& ec,
                                          bool val) { callback(ec, val); },
         "xyz.openbmc_project.User.Manager", userPath,
-        "xyz.openbmc_project.User.TOTPAuthenticator",
-        "IsGenerateSecretKeyRequired");
+        "xyz.openbmc_project.User.TOTPAuthenticatorManager",
+        "IsGenerateSecretKeyRequired", username);
 }
 
 inline void handleSessionCollectionPost(
