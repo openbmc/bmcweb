@@ -627,6 +627,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ffc2876_547e7316",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 1385,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-12-10T08:28:22Z",
+      "side": 1,
+      "message": "No, I meant \"multiFactorAuthEnabledVal\" value obtained in #1379 will show if mfa is enabled/not.\n\nSo in line 1392, \"multiFactorAuthEnabledVal \u003d\u003d mfaGoogleAuthDbusVal\" will evaluate to false indicating mfa is not enabled.",
+      "parentUuid": "bc5f5470_172ffb1c",
+      "range": {
+        "startLine": 1385,
+        "startChar": 0,
+        "endLine": 1385,
+        "endChar": 2
+      },
+      "revId": "c5f5cc0edbb53160bf27d70ceae148be31c10a87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cc8667e_d7fe5a7c",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 32

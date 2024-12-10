@@ -62,6 +62,30 @@
       },
       "revId": "75efeadc71c7b0bf329fb43fc9d0dca619f676d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "704e806d_d26da4e1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2624,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-12-10T08:28:22Z",
+      "side": 1,
+      "message": "We can maybe add a new privilege like privilegeSetConfigureUsersOrConfigureSelf and use it here?",
+      "parentUuid": "91f2fa08_14a69fc8",
+      "range": {
+        "startLine": 2622,
+        "startChar": 0,
+        "endLine": 2624,
+        "endChar": 14
+      },
+      "revId": "75efeadc71c7b0bf329fb43fc9d0dca619f676d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
