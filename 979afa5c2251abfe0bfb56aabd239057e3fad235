@@ -16,6 +16,52 @@
       "message": "I rebased out the refactorings so this is easier to review.",
       "revId": "979afa5c2251abfe0bfb56aabd239057e3fad235",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6fe58d7_a881a055",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-10T03:51:45Z",
+      "side": 1,
+      "message": "Please simplify.  Any of the \"property\" parameters should accept by nlohmann, which is trivially constructible from any of the value types.",
+      "range": {
+        "startLine": 1159,
+        "startChar": 0,
+        "endLine": 1166,
+        "endChar": 78
+      },
+      "revId": "979afa5c2251abfe0bfb56aabd239057e3fad235",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b71ca29_72108917",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-10T03:51:45Z",
+      "side": 1,
+      "message": "in Redfish, it should be empty array, right?  \"None\" is not a valid redfish type.",
+      "range": {
+        "startLine": 1169,
+        "startChar": 38,
+        "endLine": 1169,
+        "endChar": 76
+      },
+      "revId": "979afa5c2251abfe0bfb56aabd239057e3fad235",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
