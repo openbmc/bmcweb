@@ -132,7 +132,8 @@ TEST(HandleChassisProperties, BadTypeFound)
         dbus::utility::DbusVariantType(
             "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Unknown"));
     handleChassisProperties(response, properties);
-    ASSERT_FALSE(response->res.jsonValue.contains("ChassisType"));
+    // We fall back to RackMount
+    ASSERT_EQ("RackMount", response->res.jsonValue["ChassisType"]);
 }
 
 TEST(HandleChassisProperties, FailToGetProperty)
