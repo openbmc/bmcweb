@@ -1371,8 +1371,8 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             {
                 // Fault data dump
                 createDumpParams.emplace_back(
-                    "xyz.openbmc_project.Dump.Internal.Create.Type",
-                    "xyz.openbmc_project.Dump.Internal.Create.Type.FaultData");
+                    "xyz.openbmc_project.Dump.Create.CreateParameters.DumpType",
+                    "xyz.openbmc_project.Dump.Create.DumpType.FaultData");
             }
             else
             {
