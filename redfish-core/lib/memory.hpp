@@ -34,6 +34,7 @@
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+#include <utils/name_utils.hpp>
 
 #include <array>
 #include <cstdint>
@@ -414,7 +415,6 @@ inline void assembleDimmProperties(
     const nlohmann::json::json_pointer& jsonPtr)
 {
     asyncResp->res.jsonValue[jsonPtr]["Id"] = dimmId;
-    asyncResp->res.jsonValue[jsonPtr]["Name"] = "DIMM Slot";
     asyncResp->res.jsonValue[jsonPtr]["Status"]["State"] =
         resource::State::Enabled;
     asyncResp->res.jsonValue[jsonPtr]["Status"]["Health"] =
@@ -803,6 +803,8 @@ inline void handleGetDimmData(
                     dimmInterface = true;
                     getDimmDataByService(asyncResp, dimmId, serviceName,
                                          objectPath);
+                    name_util::getPrettyName(asyncResp, objectPath, serviceMap,
+                                             "/Name"_json_pointer);
                 }
                 else if (
                     interface ==
