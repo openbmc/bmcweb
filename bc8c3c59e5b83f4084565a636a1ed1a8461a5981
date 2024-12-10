@@ -16,6 +16,24 @@
       "message": "There\u0027s 3 cases here:\n1. Chassis type wasn\u0027t provided\n2. Chassis type was provided, but we didn\u0027t understand it\n3. Chassis type was provided and we understood it.\n\nThe code looks like it only would change the behavior for #2?  What value was being published to dbus that we didn\u0027t translate?",
       "revId": "bc8c3c59e5b83f4084565a636a1ed1a8461a5981",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41e3b2cf_25617e2f",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-10T20:55:18Z",
+      "side": 1,
+      "message": "1. Chassis type wasn\u0027t provided \n\nIf you are have implemented \"xyz.openbmc_project.Inventory.Item.Chassis\", you have Chassis type. If you have implemented \"xyz.openbmc_project.Inventory.Item.Board\" you don\u0027t have a Chassis type. \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Chassis.interface.yaml#L5\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Board.interface.yaml\n\nThis code doesn\u0027t touch this. This should already fall back to ChassisType RackMount\n\n2. Chassis type was provided, but we didn\u0027t understand it\n3. Chassis type was provided and we understood it.\nThe code looks like it only would change the behavior for #2? \n\nIs \"Unknown\" https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Chassis.interface.yaml#L44 #2? Then yes, this modifies what happens when there is a chassis type but we can\u0027t map it to something we have an enum for.\n\n\n\u003e  What value was being published to dbus that we didn\u0027t translate?\n\n\"Unknown\". The default. We (and I suspect others do as well) implemented xyz.openbmc_project.Inventory.Item.Chassis but didn\u0027t set ChassisType. \nThis is now a Redfish validator error. I believe https://gerrit.openbmc.org/c/openbmc/openpower-vpd-parser/+/76434 fixes this on the backend but others probably do this as well.",
+      "parentUuid": "7561228b_2cba1475",
+      "revId": "bc8c3c59e5b83f4084565a636a1ed1a8461a5981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
