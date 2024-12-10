@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7561228b_2cba1475",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-10T17:59:24Z",
+      "side": 1,
+      "message": "There\u0027s 3 cases here:\n1. Chassis type wasn\u0027t provided\n2. Chassis type was provided, but we didn\u0027t understand it\n3. Chassis type was provided and we understood it.\n\nThe code looks like it only would change the behavior for #2?  What value was being published to dbus that we didn\u0027t translate?",
+      "revId": "bc8c3c59e5b83f4084565a636a1ed1a8461a5981",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
