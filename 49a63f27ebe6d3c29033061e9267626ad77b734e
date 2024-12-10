@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e43af00_a0c41db6",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 44
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-10T19:12:21Z",
+      "side": 1,
+      "message": "Can we put this into a method like \"HandleMFABypass\". This method is already long enough.",
+      "range": {
+        "startLine": 1153,
+        "startChar": 0,
+        "endLine": 1193,
+        "endChar": 62
+      },
+      "revId": "49a63f27ebe6d3c29033061e9267626ad77b734e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
