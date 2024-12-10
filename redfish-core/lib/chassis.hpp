@@ -519,6 +519,11 @@ inline void handleChassisProperties(
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), propertiesList, "Type", type);
 
+    // Chassis Type is a required property in Redfish
+    // If there is an error or some enum we don't support just sit it to Rack
+    // Mount
+    asyncResp->res.jsonValue["ChassisType"] = chassis::ChassisType::RackMount;
+
     if (!success)
     {
         messages::internalError(asyncResp->res);
@@ -532,11 +537,6 @@ inline void handleChassisProperties(
         {
             asyncResp->res.jsonValue["ChassisType"] = chassisType;
         }
-    }
-    else
-    {
-        asyncResp->res.jsonValue["ChassisType"] =
-            chassis::ChassisType::RackMount;
     }
 }
 
