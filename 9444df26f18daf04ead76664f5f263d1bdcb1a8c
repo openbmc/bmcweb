@@ -22,6 +22,23 @@
       },
       "revId": "9444df26f18daf04ead76664f5f263d1bdcb1a8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d489ed31_37e3b506",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-10T20:50:31Z",
+      "side": 1,
+      "message": "When `TOTPAuthenticatorManager` is not present, Redfish-Event-Listener causes an error like\n```\nDec 10 20:05:34 p10bmc bmcwebd[286]: [ERROR redfish_sessions.hpp:331] secretKeyRequired check failed \u003d Invalid request descriptor\nDec 10 20:05:34 p10bmc bmcwebd[286]: [CRITICAL error_messages.cpp:1356] Internal Error /usr/src/debug/bmcweb/1.0+git/redfish-core/lib/redfish_sessions.hpp(332:40) `redfish::handleSessionCollectionPost(crow::App\u0026, const crow::Request\u0026, const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026)::\u003clambda(const boost::system::error_code\u0026, bool)\u003e`:\n```\n\nI think - when TOTPAuthenticatorManager is not installed, this is happening.\n\nShould we check if(ec.value() \u003d\u003d EBADR) to bypass?\n\n```\ndiff --git a/redfish-core/lib/redfish_sessions.hpp b/redfish-core/lib/redfish_sessions.hpp\nindex 87fe694e..a408d85b 100644\n--- a/redfish-core/lib/redfish_sessions.hpp\n+++ b/redfish-core/lib/redfish_sessions.hpp\n@@ -327,10 +327,13 @@ inline void handleSessionCollectionPost(\n                       const boost::system::error_code\u0026 ec, bool required) {\n             if (ec)\n             {\n+                if (ec.value() !\u003d EBADR)\n+                {\n                    BMCWEB_LOG_ERROR(\"secretKeyRequired check failed \u003d {}\",\n                                     ec.message());\n                    messages::internalError(asyncResp-\u003eres);\n                    return;\n+                }\n             }\n             std::shared_ptr\u003cpersistent_data::UserSession\u003e session \u003d\n                 persistent_data::SessionStore::getInstance()\n\n```",
+      "revId": "9444df26f18daf04ead76664f5f263d1bdcb1a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
