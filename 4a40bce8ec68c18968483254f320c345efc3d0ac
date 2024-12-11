@@ -141,6 +141,30 @@
       },
       "revId": "4a40bce8ec68c18968483254f320c345efc3d0ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "425453ab_c57d8b2e",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-11T16:50:16Z",
+      "side": 1,
+      "message": "👍\n\nYeah, I don\u0027t yet intend to make the change to make these fields required (I don\u0027t think it adds a lot when there\u0027s only one backend implementation).",
+      "parentUuid": "78d4dabc_2dc42227",
+      "range": {
+        "startLine": 864,
+        "startChar": 0,
+        "endLine": 864,
+        "endChar": 2
+      },
+      "revId": "4a40bce8ec68c18968483254f320c345efc3d0ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
