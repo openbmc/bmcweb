@@ -117,6 +117,30 @@
       },
       "revId": "4a40bce8ec68c18968483254f320c345efc3d0ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78d4dabc_2dc42227",
+        "filename": "redfish-core/lib/trigger.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2024-12-11T16:48:55Z",
+      "side": 1,
+      "message": "Oh, I was thinking you meant you were going to add another patch set to this commit so I was waiting to see what that looked like.\n\nI am okay with this semantic change as it is only on the GET side.",
+      "parentUuid": "df13e6bf_ea7f26bf",
+      "range": {
+        "startLine": 864,
+        "startChar": 0,
+        "endLine": 864,
+        "endChar": 2
+      },
+      "revId": "4a40bce8ec68c18968483254f320c345efc3d0ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
