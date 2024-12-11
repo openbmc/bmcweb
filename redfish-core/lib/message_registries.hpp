@@ -91,7 +91,7 @@ inline void handleMessageRoutesMessageRegistryFileGet(
                                    registry);
         return;
     }
-    if (registry == "OpenBMC")
+    if (registry == "OpenBMC" || registry == "BiosAttributeRegistry")
     {
         dmtf.clear();
     }
