@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2c17992_a75697ba",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 2304,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2024-12-11T15:29:20Z",
+      "side": 1,
+      "message": "Sorry, I thought I saw it as `std::format()`.",
+      "parentUuid": "916a4ec7_cd8a8e56",
+      "range": {
+        "startLine": 2304,
+        "startChar": 29,
+        "endLine": 2304,
+        "endChar": 49
+      },
+      "revId": "04d91468d275857715b63181b8d770697a114abd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d9b21ef_c74e567a",
