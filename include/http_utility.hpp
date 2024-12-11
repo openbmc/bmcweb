@@ -47,8 +47,9 @@ inline ContentType getPreferredContentType(
 
     std::vector<ContentType> ct;
 
-    auto parameters = *(lit(';') >> lit("q=") >> uint_ >> -(lit('.') >> uint_));
-    auto typeCharset = char_("a-zA-Z.+-");
+    auto typeCharset = +(char_("a-zA-Z0-9.+-"));
+
+    auto parameters = *(lit(';') >> typeCharset >> lit("=") >> typeCharset);
     auto mimeType = knownMimeType |
                     omit[+typeCharset >> lit('/') >> +typeCharset];
     auto parser = +(mimeType >> omit[parameters >> -char_(',') >> *space]);
