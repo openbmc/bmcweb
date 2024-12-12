@@ -40,9 +40,7 @@ class Handler : public std::enable_shared_from_this<Handler>
         pipeOut(ios), pipeIn(ios),
         proxy(ios, "/usr/bin/nbd-proxy", {media},
               boost::process::v2::process_stdio{
-                  .in = pipeIn, .out = pipeOut, .err = nullptr}),
-        outputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>),
-        inputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>)
+                  .in = pipeIn, .out = pipeOut, .err = nullptr})
     {}
 
     ~Handler() = default;
@@ -90,7 +88,7 @@ class Handler : public std::enable_shared_from_this<Handler>
             return;
         }
 
-        if (inputBuffer->size() == 0)
+        if (inputBuffer.size() == 0)
         {
             BMCWEB_LOG_DEBUG("inputBuffer empty.  Bailing out");
             return;
@@ -98,12 +96,12 @@ class Handler : public std::enable_shared_from_this<Handler>
 
         doingWrite = true;
         pipeIn.async_write_some(
-            inputBuffer->data(),
+            inputBuffer.data(),
             [this, self(shared_from_this())](const boost::beast::error_code& ec,
                                              std::size_t bytesWritten) {
                 BMCWEB_LOG_DEBUG("Wrote {}bytes", bytesWritten);
                 doingWrite = false;
-                inputBuffer->consume(bytesWritten);
+                inputBuffer.consume(bytesWritten);
 
                 if (session == nullptr)
                 {
@@ -126,10 +124,10 @@ class Handler : public std::enable_shared_from_this<Handler>
 
     void doRead()
     {
-        std::size_t bytes = outputBuffer->capacity() - outputBuffer->size();
+        std::size_t bytes = outputBuffer.capacity() - outputBuffer.size();
 
         pipeOut.async_read_some(
-            outputBuffer->prepare(bytes),
+            outputBuffer.prepare(bytes),
             [this, self(shared_from_this())](
                 const boost::system::error_code& ec, std::size_t bytesRead) {
                 BMCWEB_LOG_DEBUG("Read done.  Read {} bytes", bytesRead);
@@ -147,12 +145,12 @@ class Handler : public std::enable_shared_from_this<Handler>
                     return;
                 }
 
-                outputBuffer->commit(bytesRead);
+                outputBuffer.commit(bytesRead);
                 std::string_view payload(
-                    static_cast<const char*>(outputBuffer->data().data()),
+                    static_cast<const char*>(outputBuffer.data().data()),
                     bytesRead);
                 session->sendBinary(payload);
-                outputBuffer->consume(bytesRead);
+                outputBuffer.consume(bytesRead);
 
                 doRead();
             });
@@ -163,10 +161,8 @@ class Handler : public std::enable_shared_from_this<Handler>
     boost::process::v2::process proxy;
     bool doingWrite{false};
 
-    std::unique_ptr<boost::beast::flat_static_buffer<nbdBufferSize>>
-        outputBuffer;
-    std::unique_ptr<boost::beast::flat_static_buffer<nbdBufferSize>>
-        inputBuffer;
+    boost::beast::flat_static_buffer<nbdBufferSize> outputBuffer;
+    boost::beast::flat_static_buffer<nbdBufferSize> inputBuffer;
 };
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
@@ -582,14 +578,14 @@ inline void requestRoutes(App& app)
 
                 session = nullptr;
                 handler->doClose();
-                handler->inputBuffer->clear();
-                handler->outputBuffer->clear();
+                handler->inputBuffer.clear();
+                handler->outputBuffer.clear();
                 handler.reset();
             })
             .onmessage([](crow::websocket::Connection& conn,
                           const std::string& data, bool) {
-                if (data.length() > handler->inputBuffer->capacity() -
-                                        handler->inputBuffer->size())
+                if (data.length() > handler->inputBuffer.capacity() -
+                                        handler->inputBuffer.size())
                 {
                     BMCWEB_LOG_ERROR("Buffer overrun when writing {} bytes",
                                      data.length());
@@ -598,9 +594,9 @@ inline void requestRoutes(App& app)
                 }
 
                 size_t copied = boost::asio::buffer_copy(
-                    handler->inputBuffer->prepare(data.size()),
+                    handler->inputBuffer.prepare(data.size()),
                     boost::asio::buffer(data));
-                handler->inputBuffer->commit(copied);
+                handler->inputBuffer.commit(copied);
                 handler->doWrite();
             });
     }
