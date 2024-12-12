@@ -596,6 +596,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9de2ebf7_e5cdc263",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-12T23:23:18Z",
+      "side": 1,
+      "message": "Please let me know (either through text, documentation, or example) how I can add a standard network adapter to the redfish tree as this patch claims.\n\nI\u0027d also point out this patch is marked WIP, so it doesn\u0027t show up on most to review lists.",
+      "parentUuid": "e631d398_536ec4bd",
+      "revId": "e271d931482453af77d8abe5e4639533f09e4269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80052248_60696b37",
         "filename": "redfish-core/lib/fabric_adapters.hpp",
         "patchSetId": 64
