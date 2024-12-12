@@ -19,7 +19,6 @@ limitations under the License.
 #include "event_log.hpp"
 #include "event_logs_object_type.hpp"
 #include "event_matches_filter.hpp"
-#include "event_service_manager.hpp"
 #include "event_service_store.hpp"
 #include "filter_expr_executor.hpp"
 #include "generated/enums/log_entry.hpp"
@@ -36,7 +35,6 @@ limitations under the License.
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/http/verb.hpp>
-#include <boost/container/flat_map.hpp>
 #include <boost/system/errc.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url_view_base.hpp>
@@ -110,26 +108,26 @@ void Subscription::sendHeartbeatEvent()
     // send the heartbeat message
     nlohmann::json eventMessage = messages::redfishServiceFunctional();
 
-    const std::string heartEventId = "HeartbeatId";
+    std::string heartEventId = std::to_string(eventSeqNum);
     eventMessage["EventId"] = heartEventId;
-    eventMessage["EventTimestamp"] =
-        redfish::time_utils::getDateTimeOffsetNow().first;
+    eventMessage["EventTimestamp"] = time_utils::getDateTimeOffsetNow().first;
     eventMessage["OriginOfCondition"] =
         std::format("/redfish/v1/EventService/Subscriptions/{}", userSub->id);
     eventMessage["MemberId"] = "0";
 
     nlohmann::json::array_t eventRecord;
-    eventRecord.emplace_back(eventMessage);
+    eventRecord.emplace_back(std::move(eventMessage));
 
     nlohmann::json msgJson;
     msgJson["@odata.type"] = "#Event.v1_4_0.Event";
-    msgJson["Name"] = "Event Log";
+    msgJson["Name"] = "Heartbeat";
     msgJson["Id"] = heartEventId;
     msgJson["Events"] = std::move(eventRecord);
 
     std::string strMsg =
         msgJson.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
     sendEventToSubscriber(std::move(strMsg));
+    eventSeqNum++;
 }
 
 void Subscription::scheduleNextHeartbeatEvent()
@@ -176,13 +174,10 @@ void Subscription::onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
     }
 
     // Timer expired.
-    if (userSub->sendHeartbeat)
-    {
-        sendHeartbeatEvent();
+    sendHeartbeatEvent();
 
-        // reschedule heartbeat timer
-        scheduleNextHeartbeatEvent();
-    }
+    // reschedule heartbeat timer
+    scheduleNextHeartbeatEvent();
 }
 
 bool Subscription::sendEventToSubscriber(std::string&& msg)

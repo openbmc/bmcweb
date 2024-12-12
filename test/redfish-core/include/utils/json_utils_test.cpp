@@ -393,7 +393,7 @@ TEST(ReadJsonPatch, VerifyReadJsonPatchIntegerReturnsOutOfRange)
         res.jsonValue["error"]["@Message.ExtendedInfo"];
     EXPECT_THAT(resExtInfo[0]["@odata.type"], "#Message.v1_1_1.Message");
     EXPECT_THAT(resExtInfo[0]["MessageId"],
-                "Base.1.19.0.PropertyValueOutOfRange");
+                "Base.1.19.PropertyValueOutOfRange");
     EXPECT_THAT(resExtInfo[0]["MessageSeverity"], "Warning");
 }
 

@@ -922,17 +922,17 @@ inline void requestRoutesEventDestination(App& app)
                     subValue->userSub->hbIntervalMinutes = *hbIntervalMinutes;
                 }
 
+                if (hbIntervalMinutes || sendHeartbeat)
+                {
+                    // if Heartbeat interval or send heart were changed, cancel
+                    // the heartbeat timer if running and start a new heartbeat
+                    // if needed
+                    subValue->heartbeatParametersChanged();
+                }
+
                 if (verifyCertificate)
                 {
                     subValue->userSub->verifyCertificate = *verifyCertificate;
-                }
-
-                // if Heartbeat interval or send heart were changed, cancel the
-                // heartbeat timer if running and start a new heartbeat if
-                // needed
-                if (hbIntervalMinutes || sendHeartbeat)
-                {
-                    subValue->heartbeatParametersChanged();
                 }
 
                 EventServiceManager::getInstance().updateSubscriptionData();
