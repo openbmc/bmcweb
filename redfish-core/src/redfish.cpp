@@ -162,6 +162,9 @@ RedfishService::RedfishService(App& app)
 
     requestRoutesBiosService(app);
     requestRoutesBiosReset(app);
+    {
+        requestRoutesPendingBios(app);
+    }
 
     if constexpr (BMCWEB_VM_NBDPROXY)
     {
