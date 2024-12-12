@@ -88,6 +88,15 @@ option(
                     as paths under /.''',
 )
 
+# BMCWEB_REDFISH_BIOS_SETTINGS
+option(
+    'redfish-bios-settings',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Supports exposing current and pending BIOS settings via the
+                    Redfish API.'''
+)
+
 # BMCWEB_REDFISH_BMC_JOURNAL
 option(
     'redfish-bmc-journal',
