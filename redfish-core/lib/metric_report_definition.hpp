@@ -1190,7 +1190,8 @@ inline void setReportActions(
 
 inline void setReportMetrics(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view id,
-    std::vector<nlohmann::json::object_t>&& metrics)
+    std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>&&
+        metrics)
 {
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, telemetry::service,
@@ -1222,8 +1223,16 @@ inline void setReportMetrics(
                 chassisSensors;
 
             size_t index = 0;
-            for (nlohmann::json::object_t& metric : redfishMetrics)
+            for (std::variant<nlohmann::json::object_t, std::nullptr_t>&
+                     metricVariant : redfishMetrics)
             {
+                if (std::holds_alternative<std::nullptr_t>(metricVariant))
+                {
+                    continue;
+                }
+
+                nlohmann::json::object_t metric =
+                    std::get<nlohmann::json::object_t>(metricVariant);
                 AddReportArgs::MetricArgs metricArgs;
                 std::vector<
                     std::tuple<sdbusplus::message::object_path, std::string>>
@@ -1332,7 +1341,9 @@ inline void handleReportPatch(
     std::optional<std::string> reportingTypeStr;
     std::optional<std::string> reportUpdatesStr;
     std::optional<bool> metricReportDefinitionEnabled;
-    std::optional<std::vector<nlohmann::json::object_t>> metrics;
+    std::optional<
+        std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>>
+        metrics;
     std::optional<std::vector<std::string>> reportActionsStr;
     std::optional<std::string> scheduleDurationStr;
 
