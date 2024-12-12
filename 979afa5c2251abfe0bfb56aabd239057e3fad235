@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "861af40a_3eae3244",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 1166,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-12-12T08:51:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6fe58d7_a881a055",
+      "range": {
+        "startLine": 1159,
+        "startChar": 0,
+        "endLine": 1166,
+        "endChar": 78
+      },
+      "revId": "979afa5c2251abfe0bfb56aabd239057e3fad235",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b71ca29_72108917",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-12-10T03:51:45Z",
       "side": 1,
       "message": "in Redfish, it should be empty array, right?  \"None\" is not a valid redfish type.",
+      "range": {
+        "startLine": 1169,
+        "startChar": 38,
+        "endLine": 1169,
+        "endChar": 76
+      },
+      "revId": "979afa5c2251abfe0bfb56aabd239057e3fad235",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "078e2a04_e0b37cc1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 43
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-12-12T08:51:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b71ca29_72108917",
       "range": {
         "startLine": 1169,
         "startChar": 38,
