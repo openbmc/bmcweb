@@ -41,6 +41,7 @@ feature_options = [
     'tests',
     'vm-websocket',
     'xtoken-auth',
+    'bios-settings',
 ]
 
 string_options = [
