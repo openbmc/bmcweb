@@ -25,6 +25,7 @@ feature_options = [
     'redfish-allow-deprecated-power-thermal',
     'redfish-allow-simple-update',
     'redfish-use-3-digit-messageid',
+    'redfish-bios-settings',
     'redfish-bmc-journal',
     'redfish-cpu-log',
     'redfish-dbus-log',
