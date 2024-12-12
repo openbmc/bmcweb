@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "187fd8fa_b166be60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-12T18:37:29Z",
+      "side": 1,
+      "message": "And made some minor header changes to scripts/parse_registries.py that impacts the other registries",
+      "revId": "2edc450b351faf81ae62a74a8eb0df64b6c3f218",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ee1f65c_0ea97f80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2024-12-12T18:37:29Z",
+      "side": 1,
+      "message": "testing",
+      "revId": "2edc450b351faf81ae62a74a8eb0df64b6c3f218",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
