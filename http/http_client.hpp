@@ -318,8 +318,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     {
         state = ConnState::recvInProgress;
 
-        parser_type& thisParser =
-            parser.emplace(std::piecewise_construct, std::make_tuple());
+        parser_type& thisParser = parser.emplace();
 
         thisParser.body_limit(connPolicy->requestByteLimit);
 
