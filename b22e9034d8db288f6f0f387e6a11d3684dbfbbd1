@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc964abc_334adbf4",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-12T23:10:17Z",
+      "side": 1,
+      "message": "Allowing this to be different will need to go along with a change to https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/BIOSConfig to have this configurable. OnReset seems to be the best \"default\"",
+      "revId": "b22e9034d8db288f6f0f387e6a11d3684dbfbbd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
