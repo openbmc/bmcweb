@@ -296,6 +296,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ccef9aa6_3a573c24",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-13T19:45:58Z",
+      "side": 1,
+      "message": "Don\u0027t capture request by value.  This makes a very expensive copy.  Parse out the things you need in the first callback, then pass in data structures into next callbacks as required.",
+      "range": {
+        "startLine": 349,
+        "startChar": 9,
+        "endLine": 349,
+        "endChar": 12
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90a7f272_50a9232a",
         "filename": "redfish-core/src/redfish.cpp",
         "patchSetId": 2
