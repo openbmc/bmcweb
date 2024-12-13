@@ -40,9 +40,25 @@ inline nlohmann::json
     taskAborted(const std::string& arg1, const std::string& arg2,
                 const std::string& arg3, const std::string& arg4)
 {
+    const redfish::registries::Header& header =
+        redfish::registries::task_event::header;
+
+    std::string msgId;
+    std::string_view msgName = "TaskAborted";
+    if constexpr (BMCWEB_REDFISH_USE_3_DIGIT_MESSAGEID)
+    {
+        msgId = std::format("{}.{}.{}.{}.{}", header.registryPrefix,
+                            header.versionMajor, header.versionMinor,
+                            header.versionPatch, msgName);
+    }
+    else
+    {
+        msgId = std::format("{}.{}.{}.{}", header.registryPrefix,
+                            header.versionMajor, header.versionMinor, msgName);
+    }
     return nlohmann::json{
         {"@odata.type", "#Message.v1_0_0.Message"},
-        {"MessageId", "TaskEvent.1.0.1.TaskAborted"},
+        {"MessageId", msgId},
         {"Message", "The task with id " + arg1 + " has been aborted."},
         {"MessageArgs", {arg1, arg2, arg3, arg4}},
         {"Severity", "Critical"},
