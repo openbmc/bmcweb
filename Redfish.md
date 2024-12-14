@@ -605,6 +605,7 @@ Fields common to all schemas
 - VLAN/VLANEnable
 - VLAN/VLANId
 - VLAN/Tagged
+- Links/Ports
 
 ### /redfish/v1/Managers/bmc/LogServices/
 
