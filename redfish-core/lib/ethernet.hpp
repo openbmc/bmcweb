@@ -2053,67 +2053,126 @@ inline void afterVlanCreate(
     asyncResp->res.addHeader("Location", vlanInterfaceUri.buffer());
 }
 
+inline void handleNetworkPortPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId, const std::string& portId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+    std::optional<bool> EmitLLDP;
+    if (!json_util::readJsonPatch(req, asyncResp->res, "LLDPEnabled", EmitLLDP))
+    {
+        return;
+    }
+    if (EmitLLDP)
+    {
+        setDbusProperty(asyncResp, "LLDPEnabled", "xyz.openbmc_project.Network",
+                        sdbusplus::message::object_path(
+                            "/xyz/openbmc_project/network/" + portId),
+                        "xyz.openbmc_project.Network.EthernetInterface",
+                        "EmitLLDP", *EmitLLDP);
+    }
+}
+inline void handleNetworkPortGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId, const std::string& portId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+    std::string path = "/xyz/openbmc_project/network/";
+    path += portId;
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, "xyz.openbmc_project.Network", path,
+        "xyz.openbmc_project.Network.EthernetInterface", "EmitLLDP",
+        [asyncResp](const boost::system::error_code& ec, bool enabled) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+            }
+
+            asyncResp->res.jsonValue["LLDPEnabled"] = enabled;
+        });
+}
+inline void handleEthernetInterfacesRoutes(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#EthernetInterfaceCollection.EthernetInterfaceCollection";
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+    asyncResp->res.jsonValue["Name"] = "Ethernet Network Interface Collection";
+    asyncResp->res.jsonValue["Description"] =
+        "Collection of EthernetInterfaces for this Manager";
+
+    // Get eth interface list, and call the below callback for JSON
+    // preparation
+    getEthernetIfaceList(
+        [asyncResp](const bool& success,
+                    const std::vector<std::string>& ifaceList) {
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            nlohmann::json& ifaceArray = asyncResp->res.jsonValue["Members"];
+            ifaceArray = nlohmann::json::array();
+            for (const std::string& ifaceItem : ifaceList)
+            {
+                nlohmann::json::object_t iface;
+                iface["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/Managers/{}/EthernetInterfaces/{}",
+                    BMCWEB_REDFISH_MANAGER_URI_NAME, ifaceItem);
+                ifaceArray.push_back(std::move(iface));
+                nlohmann::json::object_t port;
+                port["@odata.id"] = boost::urls::format(
+                    "/redfish/v1/Managers/{}/EthernetInterfaces/Ports/{}",
+                    BMCWEB_REDFISH_MANAGER_URI_NAME, ifaceItem);
+                ifaceArray.push_back(std::move(port));
+            }
+
+            asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Managers/{}/EthernetInterfaces",
+                BMCWEB_REDFISH_MANAGER_URI_NAME);
+        });
+}
 inline void requestEthernetInterfacesRoutes(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
         .privileges(redfish::privileges::getEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-
-                if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Manager",
-                                               managerId);
-                    return;
-                }
-
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#EthernetInterfaceCollection.EthernetInterfaceCollection";
-                asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-                    "/redfish/v1/Managers/{}/EthernetInterfaces",
-                    BMCWEB_REDFISH_MANAGER_URI_NAME);
-                asyncResp->res.jsonValue["Name"] =
-                    "Ethernet Network Interface Collection";
-                asyncResp->res.jsonValue["Description"] =
-                    "Collection of EthernetInterfaces for this Manager";
-
-                // Get eth interface list, and call the below callback for JSON
-                // preparation
-                getEthernetIfaceList(
-                    [asyncResp](const bool& success,
-                                const std::vector<std::string>& ifaceList) {
-                        if (!success)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-
-                        nlohmann::json& ifaceArray =
-                            asyncResp->res.jsonValue["Members"];
-                        ifaceArray = nlohmann::json::array();
-                        for (const std::string& ifaceItem : ifaceList)
-                        {
-                            nlohmann::json::object_t iface;
-                            iface["@odata.id"] = boost::urls::format(
-                                "/redfish/v1/Managers/{}/EthernetInterfaces/{}",
-                                BMCWEB_REDFISH_MANAGER_URI_NAME, ifaceItem);
-                            ifaceArray.push_back(std::move(iface));
-                        }
-
-                        asyncResp->res.jsonValue["Members@odata.count"] =
-                            ifaceArray.size();
-                        asyncResp->res.jsonValue["@odata.id"] =
-                            boost::urls::format(
-                                "/redfish/v1/Managers/{}/EthernetInterfaces",
-                                BMCWEB_REDFISH_MANAGER_URI_NAME);
-                    });
-            });
+            std::bind_front(handleEthernetInterfacesRoutes, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
         .privileges(redfish::privileges::postEthernetInterfaceCollection)
@@ -2460,6 +2519,16 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     std::string("/xyz/openbmc_project/network/") + ifaceId,
                     "xyz.openbmc_project.Object.Delete", "Delete");
             });
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Managers/<str>/EthernetInterfaces/Ports/<str>/")
+        .privileges(redfish::privileges::patchEthernetInterface)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleNetworkPortPatch, std::ref(app)));
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Managers/<str>/EthernetInterfaces/Ports/<str>/")
+        .privileges(redfish::privileges::patchEthernetInterface)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleNetworkPortGet, std::ref(app)));
 }
 
 } // namespace redfish
