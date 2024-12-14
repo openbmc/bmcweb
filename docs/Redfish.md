@@ -694,6 +694,22 @@ Fields common to all schemas
 - Status
 - UUID
 
+### /redfish/v1/Managers/bmc/DedicatedNetworkPorts/
+
+#### PortCollection
+
+- Description
+- Members
+- `Members@odata.count`
+
+### /redfish/v1/Managers/bmc/DedicatedNetworkPorts/{DedicatedNetworkPortId}
+
+#### DedicatedNetworkPort
+
+- Ethernet
+- Id
+- Links/EthernetInterfaces
+
 ### /redfish/v1/Managers/bmc/EthernetInterfaces/
 
 #### EthernetInterfaceCollection
@@ -720,6 +736,7 @@ Fields common to all schemas
 - IPv6StaticAddresses
 - IPv6StaticDefaultGateways
 - InterfaceEnabled
+- Links/Ports
 - Links/RelatedInterfaces
 - LinkStatus
 - MACAddress
