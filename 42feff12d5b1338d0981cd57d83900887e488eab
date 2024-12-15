@@ -16,6 +16,24 @@
       "message": "is it ok to call this blocking call?\nit may cause delays if you’re calling it for multiple sockets right?",
       "revId": "42feff12d5b1338d0981cd57d83900887e488eab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd948ac8_91555308",
+        "filename": "http/app.hpp",
+        "patchSetId": 95
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-15T16:44:46Z",
+      "side": 1,
+      "message": "I don’t believe this call does blocking IO, and it’s only done at the startup phase before the main reactor is running, so even if it did, it should be fine.",
+      "parentUuid": "7a23d009_36d50109",
+      "revId": "42feff12d5b1338d0981cd57d83900887e488eab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
