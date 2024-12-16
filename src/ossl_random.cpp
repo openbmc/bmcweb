@@ -12,7 +12,7 @@ extern "C"
 #include <openssl/rand.h>
 }
 
-#include <boost/uuid/random_generator.hpp>
+#include <boost/uuid/basic_random_generator.hpp>
 #include <boost/uuid/uuid_io.hpp>
 
 #include <array>
