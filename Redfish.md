@@ -361,7 +361,7 @@ Fields common to all schemas
 
 - TemperatureReadingsCelsius[]/DataSourceUri
 - TemperatureReadingsCelsius[]/Reading
-- TemperatureReadingsCelsius@odata.count
+- `TemperatureReadingsCelsius@odata.count`
 
 #### /redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Fans
 
