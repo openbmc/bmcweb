@@ -26,11 +26,50 @@ enum class ContentType
     EventStream,
 };
 
-inline ContentType getPreferredContentType(
-    std::string_view header, std::span<const ContentType> preferredOrder)
+inline ContentType getContentType(std::string_view contentTypeHeader)
 {
     using boost::spirit::x3::char_;
     using boost::spirit::x3::lit;
+    using boost::spirit::x3::no_case;
+    using boost::spirit::x3::omit;
+    using boost::spirit::x3::parse;
+    using boost::spirit::x3::space;
+    using boost::spirit::x3::symbols;
+    using boost::spirit::x3::uint_;
+
+    const symbols<ContentType> knownMimeType{
+        {"application/cbor", ContentType::CBOR},
+        {"application/json", ContentType::JSON},
+        {"application/octet-stream", ContentType::OctetStream},
+        {"text/event-stream", ContentType::EventStream},
+        {"text/html", ContentType::HTML}};
+
+    ContentType ct;
+
+    auto typeCharset = +(char_("a-zA-Z0-9.+-"));
+
+    auto parameters =
+        *(lit(';') >> *space >> typeCharset >> lit("=") >> typeCharset);
+    auto parser = no_case[knownMimeType] >> omit[parameters];
+    std::string_view::iterator begin = contentTypeHeader.begin();
+    if (!parse(begin, contentTypeHeader.end(), parser, ct))
+    {
+        return ContentType::NoMatch;
+    }
+    if (begin != contentTypeHeader.end())
+    {
+        return ContentType::NoMatch;
+    }
+
+    return ct;
+}
+
+inline ContentType getPreferredContentType(
+    std::string_view acceptsHeader, std::span<const ContentType> preferredOrder)
+{
+    using boost::spirit::x3::char_;
+    using boost::spirit::x3::lit;
+    using boost::spirit::x3::no_case;
     using boost::spirit::x3::omit;
     using boost::spirit::x3::parse;
     using boost::spirit::x3::space;
@@ -50,10 +89,10 @@ inline ContentType getPreferredContentType(
     auto typeCharset = +(char_("a-zA-Z0-9.+-"));
 
     auto parameters = *(lit(';') >> typeCharset >> lit("=") >> typeCharset);
-    auto mimeType = knownMimeType |
+    auto mimeType = no_case[knownMimeType] |
                     omit[+typeCharset >> lit('/') >> +typeCharset];
     auto parser = +(mimeType >> omit[parameters >> -char_(',') >> *space]);
-    if (!parse(header.begin(), header.end(), parser, ct))
+    if (!parse(acceptsHeader.begin(), acceptsHeader.end(), parser, ct))
     {
         return ContentType::NoMatch;
     }
