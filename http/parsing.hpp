@@ -1,6 +1,7 @@
 #pragma once
 
 #include "http/http_request.hpp"
+#include "http_utility.hpp"
 #include "logging.hpp"
 #include "str_utility.hpp"
 
@@ -19,10 +20,8 @@ enum class JsonParseResult
 
 inline bool isJsonContentType(std::string_view contentType)
 {
-    return bmcweb::asciiIEquals(contentType, "application/json") ||
-           bmcweb::asciiIEquals(contentType,
-                                "application/json; charset=utf-8") ||
-           bmcweb::asciiIEquals(contentType, "application/json;charset=utf-8");
+    return http_helpers::getContentType(contentType) ==
+           http_helpers::ContentType::JSON;
 }
 
 inline JsonParseResult parseRequestAsJson(const crow::Request& req,
