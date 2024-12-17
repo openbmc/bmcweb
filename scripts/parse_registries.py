@@ -44,7 +44,7 @@ include_path = os.path.realpath(
 proxies = {"https": os.environ.get("https_proxy", None)}
 
 
-def make_getter(dmtf_name, header_name, type_name):
+def make_getter(dmtf_name, header_name, type_name):https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries/openbmc.json
     url = "https://redfish.dmtf.org/registries/{}".format(dmtf_name)
     dmtf = requests.get(url, proxies=proxies)
     dmtf.raise_for_status()
