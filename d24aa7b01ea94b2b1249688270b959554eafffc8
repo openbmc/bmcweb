@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3841ce2b_7fc07a52",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 2261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-17T18:02:09Z",
+      "side": 1,
+      "message": "else if",
+      "revId": "d24aa7b01ea94b2b1249688270b959554eafffc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61649a7b_b2c77fdb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 49
+      },
+      "lineNbr": 2303,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-17T18:02:09Z",
+      "side": 1,
+      "message": "This loop really should be moved to the modern unpacking methods before we add more things to it.",
+      "revId": "d24aa7b01ea94b2b1249688270b959554eafffc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
