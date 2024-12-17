@@ -30,7 +30,7 @@ const Header header = {
     "OpenBMC",
 };
 constexpr const char* url =
-    "https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries/openbmc.json";
+    "https://raw.githubusercontent.com/openbmc/bmcweb/refs/heads/master/redfish-core/include/registries/openbmc.json";
 
 constexpr std::array registry =
 {

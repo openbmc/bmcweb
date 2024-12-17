@@ -54,7 +54,7 @@ def make_getter(dmtf_name, header_name, type_name):
 
 
 def openbmc_local_getter():
-    url = "https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries/openbmc.json"
+    url = "https://raw.githubusercontent.com/openbmc/bmcweb/refs/heads/master/redfish-core/include/registries/openbmc.json"
     with open(
         os.path.join(
             SCRIPT_DIR,
