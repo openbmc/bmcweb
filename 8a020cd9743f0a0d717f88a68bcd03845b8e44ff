@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c64e54c7_dad122e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-12-17T07:48:37Z",
+      "side": 1,
+      "message": "can you please run redfish validator and share results",
+      "revId": "8a020cd9743f0a0d717f88a68bcd03845b8e44ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffbd1064_1d5bffa4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-12-17T07:48:37Z",
+      "side": 1,
+      "message": "Since Ports is collection under EthernetInterfaces\ncan you please host list of ports(both eth0 and eth1) under Ports resource\n\nGET on https://${bmc}/redfish/v1/Managers/bmc/EthernetInterfaces/Ports can list both eth0 and eth1 ports",
+      "revId": "8a020cd9743f0a0d717f88a68bcd03845b8e44ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "662f2f51_d76a68aa",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-12-17T07:48:37Z",
+      "side": 1,
+      "message": "I don\u0027t see port schema details populated, please populate \"odata.id\" and odata.type\" properties.",
+      "revId": "8a020cd9743f0a0d717f88a68bcd03845b8e44ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
