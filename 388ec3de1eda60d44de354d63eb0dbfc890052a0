@@ -830,6 +830,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "643362b2_4364c67a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2024-12-18T04:16:17Z",
+      "side": 1,
+      "message": "Hi Ed\n\nI think PasswordExpiration falls under account policy settings like account lockout, currently all account policy d-bus settings are defined as account attributes which will be set after user created. even though new createUser interface takes this PasswordExpiration parameter but it sets PasswordExpiration policy after user successfully created and we need to support additional PasswordExpiration D-bus property anyways to support modifying PasswordExpiration policy later after user created.",
+      "parentUuid": "72cd1b1f_47d59fbf",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1947bf53_d6605ced",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
