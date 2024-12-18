@@ -96,6 +96,7 @@ if (cxx.get_id() == 'clang')
         '-Wno-covered-switch-default',
         '-Wno-disabled-macro-expansion',
         '-Wno-unneeded-internal-declaration',
+        '-Wno-unsafe-buffer-usage-in-container',
         language: 'cpp',
     )
 endif
