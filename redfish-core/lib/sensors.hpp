@@ -1406,10 +1406,10 @@ void getInventoryLedData(
  * @param callback Callback to invoke when inventory items have been obtained.
  */
 template <typename Callback>
-void getInventoryLeds(
-    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-    Callback&& callback)
+void
+    getInventoryLeds(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+                     std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+                     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG("getInventoryLeds enter");
 
