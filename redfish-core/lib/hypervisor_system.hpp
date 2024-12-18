@@ -543,10 +543,10 @@ inline void handleHypervisorIPv4StaticPatch(
     std::string address;
     std::string subnetMask;
     std::string gateway;
-    if (!json_util::readJsonObject( //
-            *obj, asyncResp->res, //
-            "Address", address, //
-            "Gateway", gateway, //
+    if (!json_util::readJsonObject(  //
+            *obj, asyncResp->res,    //
+            "Address", address,      //
+            "Gateway", gateway,      //
             "SubnetMask", subnetMask //
             ))
     {
@@ -731,12 +731,12 @@ inline void handleHypervisorEthernetInterfacePatch(
     std::optional<std::vector<nlohmann::json::object_t>> ipv4Addresses;
     std::optional<bool> ipv4DHCPEnabled;
 
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
-            "DHCPv4/DHCPEnabled", ipv4DHCPEnabled, //
-            "IPv4Addresses", ipv4Addresses, //
+    if (!json_util::readJsonPatch(                      //
+            req, asyncResp->res,                        //
+            "DHCPv4/DHCPEnabled", ipv4DHCPEnabled,      //
+            "IPv4Addresses", ipv4Addresses,             //
             "IPv4StaticAddresses", ipv4StaticAddresses, //
-            "HostName", hostName //
+            "HostName", hostName                        //
             ))
     {
         return;

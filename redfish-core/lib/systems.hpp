@@ -3190,27 +3190,27 @@ inline void handleComputerSystemPatch(
     std::optional<uint8_t> ipsExitUtil;
     std::optional<uint64_t> ipsExitTime;
 
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
-            "AssetTag", assetTag, //
-            "Boot/AutomaticRetryAttempts", bootAutomaticRetryAttempts, //
-            "Boot/AutomaticRetryConfig", bootAutomaticRetry, //
-            "Boot/BootSourceOverrideEnabled", bootEnable, //
-            "Boot/BootSourceOverrideMode", bootType, //
-            "Boot/BootSourceOverrideTarget", bootSource, //
-            "Boot/StopBootOnFault", stopBootOnFault, //
+    if (!json_util::readJsonPatch(                                         //
+            req, asyncResp->res,                                           //
+            "AssetTag", assetTag,                                          //
+            "Boot/AutomaticRetryAttempts", bootAutomaticRetryAttempts,     //
+            "Boot/AutomaticRetryConfig", bootAutomaticRetry,               //
+            "Boot/BootSourceOverrideEnabled", bootEnable,                  //
+            "Boot/BootSourceOverrideMode", bootType,                       //
+            "Boot/BootSourceOverrideTarget", bootSource,                   //
+            "Boot/StopBootOnFault", stopBootOnFault,                       //
             "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired, //
-            "HostWatchdogTimer/FunctionEnabled", wdtEnable, //
-            "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction, //
-            "IdlePowerSaver/Enabled", ipsEnable, //
-            "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime, //
-            "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil, //
-            "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime, //
-            "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil, //
-            "IndicatorLED", indicatorLed, //
-            "LocationIndicatorActive", locationIndicatorActive, //
-            "PowerMode", powerMode, //
-            "PowerRestorePolicy", powerRestorePolicy //
+            "HostWatchdogTimer/FunctionEnabled", wdtEnable,                //
+            "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction,           //
+            "IdlePowerSaver/Enabled", ipsEnable,                           //
+            "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,          //
+            "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,        //
+            "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime,            //
+            "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,          //
+            "IndicatorLED", indicatorLed,                                  //
+            "LocationIndicatorActive", locationIndicatorActive,            //
+            "PowerMode", powerMode,                                        //
+            "PowerRestorePolicy", powerRestorePolicy                       //
             ))
     {
         return;

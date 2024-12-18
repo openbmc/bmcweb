@@ -66,9 +66,9 @@ inline std::string getCertificateFromReqBody(
     std::string certificate;
     std::optional<std::string> certificateType = "PEM";
 
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
-            "CertificateString", certificate, //
+    if (!json_util::readJsonPatch(             //
+            req, asyncResp->res,               //
+            "CertificateString", certificate,  //
             "CertificateType", certificateType //
             ))
     {
@@ -499,9 +499,9 @@ inline void handleReplaceCertificateAction(
     std::string certURI;
     std::optional<std::string> certificateType = "PEM";
 
-    if (!json_util::readJsonAction( //
-            req, asyncResp->res, //
-            "CertificateString", certificate, //
+    if (!json_util::readJsonAction(             //
+            req, asyncResp->res,                //
+            "CertificateString", certificate,   //
             "CertificateType", certificateType, //
             "CertificateUri/@odata.id", certURI //
             ))
@@ -675,27 +675,27 @@ inline void
         std::vector<std::string>();
     std::optional<std::string> optSurname = "";
     std::optional<std::string> optUnstructuredName = "";
-    if (!json_util::readJsonAction( //
-            req, asyncResp->res, //
-            "AlternativeNames", optAlternativeNames, //
+    if (!json_util::readJsonAction(                     //
+            req, asyncResp->res,                        //
+            "AlternativeNames", optAlternativeNames,    //
             "CertificateCollection/@odata.id", certURI, //
-            "ChallengePassword", optChallengePassword, //
-            "City", city, //
-            "CommonName", commonName, //
-            "ContactPerson", optContactPerson, //
-            "Country", country, //
-            "Email", optEmail, //
-            "GivenName", optGivenName, //
-            "Initials", optInitials, //
-            "KeyBitLength", optKeyBitLength, //
-            "KeyCurveId", optKeyCurveId, //
-            "KeyPairAlgorithm", optKeyPairAlgorithm, //
-            "KeyUsage", optKeyUsage, //
-            "Organization", organization, //
-            "OrganizationalUnit", organizationalUnit, //
-            "State", state, //
-            "Surname", optSurname, //
-            "UnstructuredName", optUnstructuredName //
+            "ChallengePassword", optChallengePassword,  //
+            "City", city,                               //
+            "CommonName", commonName,                   //
+            "ContactPerson", optContactPerson,          //
+            "Country", country,                         //
+            "Email", optEmail,                          //
+            "GivenName", optGivenName,                  //
+            "Initials", optInitials,                    //
+            "KeyBitLength", optKeyBitLength,            //
+            "KeyCurveId", optKeyCurveId,                //
+            "KeyPairAlgorithm", optKeyPairAlgorithm,    //
+            "KeyUsage", optKeyUsage,                    //
+            "Organization", organization,               //
+            "OrganizationalUnit", organizationalUnit,   //
+            "State", state,                             //
+            "Surname", optSurname,                      //
+            "UnstructuredName", optUnstructuredName     //
             ))
     {
         return;

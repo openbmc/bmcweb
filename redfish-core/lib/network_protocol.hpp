@@ -508,12 +508,12 @@ inline void handleManagersNetworkProtocolPatch(
     std::optional<bool> sshEnabled;
 
     if (!json_util::readJsonPatch(
-            req, asyncResp->res, //
-            "HostName", newHostName, //
-            "NTP/NTPServers", ntpServerObjects, //
-            "NTP/ProtocolEnabled", ntpEnabled, //
+            req, asyncResp->res,                 //
+            "HostName", newHostName,             //
+            "NTP/NTPServers", ntpServerObjects,  //
+            "NTP/ProtocolEnabled", ntpEnabled,   //
             "IPMI/ProtocolEnabled", ipmiEnabled, //
-            "SSH/ProtocolEnabled", sshEnabled //
+            "SSH/ProtocolEnabled", sshEnabled    //
             ))
     {
         return;

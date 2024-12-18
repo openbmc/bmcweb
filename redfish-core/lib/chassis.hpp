@@ -758,9 +758,9 @@ inline void
         return;
     }
 
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
-            "IndicatorLED", indicatorLed, //
+    if (!json_util::readJsonPatch(                             //
+            req, asyncResp->res,                               //
+            "IndicatorLED", indicatorLed,                      //
             "LocationIndicatorActive", locationIndicatorActive //
             ))
     {
