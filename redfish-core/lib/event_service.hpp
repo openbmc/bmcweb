@@ -122,11 +122,11 @@ inline void requestRoutesEventService(App& app)
                 std::optional<bool> serviceEnabled;
                 std::optional<uint32_t> retryAttemps;
                 std::optional<uint32_t> retryInterval;
-                if (!json_util::readJsonPatch( //
-                        req, asyncResp->res, //
-                        "DeliveryRetryAttempts", retryAttemps, //
+                if (!json_util::readJsonPatch(                         //
+                        req, asyncResp->res,                           //
+                        "DeliveryRetryAttempts", retryAttemps,         //
                         "DeliveryRetryIntervalSeconds", retryInterval, //
-                        "ServiceEnabled", serviceEnabled //
+                        "ServiceEnabled", serviceEnabled               //
                         ))
                 {
                     return;
@@ -309,23 +309,23 @@ inline void requestRoutesEventDestinationCollection(App& app)
             std::optional<std::vector<nlohmann::json::object_t>> headers;
             std::optional<std::vector<nlohmann::json::object_t>> mrdJsonArray;
 
-            if (!json_util::readJsonPatch( //
-                    req, asyncResp->res, //
-                    "Context", context, //
-                    "DeliveryRetryPolicy", retryPolicy, //
-                    "Destination", destUrl, //
-                    "EventFormatType", eventFormatType2, //
+            if (!json_util::readJsonPatch(                         //
+                    req, asyncResp->res,                           //
+                    "Context", context,                            //
+                    "DeliveryRetryPolicy", retryPolicy,            //
+                    "Destination", destUrl,                        //
+                    "EventFormatType", eventFormatType2,           //
                     "HeartbeatIntervalMinutes", hbIntervalMinutes, //
-                    "HttpHeaders", headers, //
-                    "MessageIds", msgIds, //
-                    "MetricReportDefinitions", mrdJsonArray, //
-                    "OriginResources", originResources, //
-                    "Protocol", protocol, //
-                    "RegistryPrefixes", regPrefixes, //
-                    "ResourceTypes", resTypes, //
-                    "SendHeartbeat", sendHeartbeat, //
-                    "SubscriptionType", subscriptionType, //
-                    "VerifyCertificate", verifyCertificate //
+                    "HttpHeaders", headers,                        //
+                    "MessageIds", msgIds,                          //
+                    "MetricReportDefinitions", mrdJsonArray,       //
+                    "OriginResources", originResources,            //
+                    "Protocol", protocol,                          //
+                    "RegistryPrefixes", regPrefixes,               //
+                    "ResourceTypes", resTypes,                     //
+                    "SendHeartbeat", sendHeartbeat,                //
+                    "SubscriptionType", subscriptionType,          //
+                    "VerifyCertificate", verifyCertificate         //
                     ))
             {
                 return;
@@ -811,14 +811,14 @@ inline void requestRoutesEventDestination(App& app)
                 std::optional<bool> verifyCertificate;
                 std::optional<std::vector<nlohmann::json::object_t>> headers;
 
-                if (!json_util::readJsonPatch( //
-                        req, asyncResp->res, //
-                        "Context", context, //
-                        "DeliveryRetryPolicy", retryPolicy, //
+                if (!json_util::readJsonPatch(                         //
+                        req, asyncResp->res,                           //
+                        "Context", context,                            //
+                        "DeliveryRetryPolicy", retryPolicy,            //
                         "HeartbeatIntervalMinutes", hbIntervalMinutes, //
-                        "HttpHeaders", headers, //
-                        "SendHeartbeat", sendHeartbeat, //
-                        "VerifyCertificate", verifyCertificate //
+                        "HttpHeaders", headers,                        //
+                        "SendHeartbeat", sendHeartbeat,                //
+                        "VerifyCertificate", verifyCertificate         //
                         ))
                 {
                     return;

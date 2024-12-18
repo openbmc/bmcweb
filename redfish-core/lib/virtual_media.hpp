@@ -708,15 +708,15 @@ inline void handleManagersVirtualMediaActionInsertPost(
     InsertMediaActionParams actionParams;
 
     // Read obligatory parameters (url of image)
-    if (!json_util::readJsonAction( //
-            req, asyncResp->res, //
-            "Image", actionParams.imageUrl, //
-            "Inserted", actionParams.inserted, //
-            "Password", actionParams.password, //
-            "TransferMethod", actionParams.transferMethod, //
+    if (!json_util::readJsonAction(                                    //
+            req, asyncResp->res,                                       //
+            "Image", actionParams.imageUrl,                            //
+            "Inserted", actionParams.inserted,                         //
+            "Password", actionParams.password,                         //
+            "TransferMethod", actionParams.transferMethod,             //
             "TransferProtocolType", actionParams.transferProtocolType, //
-            "UserName", actionParams.userName, //
-            "WriteProtected", actionParams.writeProtected //
+            "UserName", actionParams.userName,                         //
+            "WriteProtected", actionParams.writeProtected              //
             ))
     {
         return;

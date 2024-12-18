@@ -1549,10 +1549,10 @@ inline void handleIPv4StaticPatch(
             std::optional<std::string> subnetMask;
             std::optional<std::string> gateway;
 
-            if (!json_util::readJsonObject( //
-                    *obj, asyncResp->res, //
-                    "Address", address, //
-                    "Gateway", gateway, //
+            if (!json_util::readJsonObject(  //
+                    *obj, asyncResp->res,    //
+                    "Address", address,      //
+                    "Gateway", gateway,      //
                     "SubnetMask", subnetMask //
                     ))
             {
@@ -1731,10 +1731,10 @@ inline void handleIPv6StaticAddressesPatch(
             std::optional<std::string> address;
             std::optional<uint8_t> prefixLength;
             nlohmann::json::object_t thisJsonCopy = *obj;
-            if (!json_util::readJsonObject( //
+            if (!json_util::readJsonObject(       //
                     thisJsonCopy, asyncResp->res, //
-                    "Address", address, //
-                    "PrefixLength", prefixLength //
+                    "Address", address,           //
+                    "PrefixLength", prefixLength  //
                     ))
             {
                 messages::propertyValueFormatError(asyncResp->res, thisJsonCopy,
@@ -2137,11 +2137,11 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 uint32_t vlanId = 0;
                 std::vector<nlohmann::json::object_t> relatedInterfaces;
 
-                if (!json_util::readJsonPatch( //
-                        req, asyncResp->res, //
+                if (!json_util::readJsonPatch(                        //
+                        req, asyncResp->res,                          //
                         "Links/RelatedInterfaces", relatedInterfaces, //
-                        "VLAN/VLANEnable", vlanEnable, //
-                        "VLAN/VLANId", vlanId //
+                        "VLAN/VLANEnable", vlanEnable,                //
+                        "VLAN/VLANId", vlanId                         //
                         ))
                 {
                     return;
@@ -2296,31 +2296,31 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 DHCPParameters v4dhcpParms;
                 DHCPParameters v6dhcpParms;
 
-                if (!json_util::readJsonPatch( //
-                        req, asyncResp->res, //
-                        "DHCPv4/DHCPEnabled", v4dhcpParms.dhcpv4Enabled, //
+                if (!json_util::readJsonPatch(                             //
+                        req, asyncResp->res,                               //
+                        "DHCPv4/DHCPEnabled", v4dhcpParms.dhcpv4Enabled,   //
                         "DHCPv4/UseDNSServers", v4dhcpParms.useDnsServers, //
                         "DHCPv4/UseDomainName", v4dhcpParms.useDomainName, //
                         "DHCPv4/UseNTPServers", v4dhcpParms.useNtpServers, //
                         "DHCPv6/OperatingMode",
-                        v6dhcpParms.dhcpv6OperatingMode, //
+                        v6dhcpParms.dhcpv6OperatingMode,                   //
                         "DHCPv6/UseDNSServers", v6dhcpParms.useDnsServers, //
                         "DHCPv6/UseDomainName", v6dhcpParms.useDomainName, //
                         "DHCPv6/UseNTPServers", v6dhcpParms.useNtpServers, //
-                        "FQDN", fqdn, //
-                        "HostName", hostname, //
-                        "InterfaceEnabled", interfaceEnabled, //
-                        "IPv4StaticAddresses", ipv4StaticAddresses, //
-                        "IPv6DefaultGateway", ipv6DefaultGateway, //
-                        "IPv6StaticAddresses", ipv6StaticAddresses, //
+                        "FQDN", fqdn,                                      //
+                        "HostName", hostname,                              //
+                        "InterfaceEnabled", interfaceEnabled,              //
+                        "IPv4StaticAddresses", ipv4StaticAddresses,        //
+                        "IPv6DefaultGateway", ipv6DefaultGateway,          //
+                        "IPv6StaticAddresses", ipv6StaticAddresses,        //
                         "IPv6StaticDefaultGateways",
-                        ipv6StaticDefaultGateways, //
-                        "InterfaceEnabled", interfaceEnabled, //
-                        "MACAddress", macAddress, //
-                        "MTUSize", mtuSize, //
+                        ipv6StaticDefaultGateways,                         //
+                        "InterfaceEnabled", interfaceEnabled,              //
+                        "MACAddress", macAddress,                          //
+                        "MTUSize", mtuSize,                                //
                         "StatelessAddressAutoConfig/IPv6AutoConfigEnabled",
-                        ipv6AutoConfigEnabled, //
-                        "StaticNameServers", staticNameServers //
+                        ipv6AutoConfigEnabled,                             //
+                        "StaticNameServers", staticNameServers             //
                         ))
                 {
                     return;

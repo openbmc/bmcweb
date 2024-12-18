@@ -583,9 +583,9 @@ inline void handleUpdateServiceSimpleUpdateAction(
     // 1) TransferProtocol:TFTP ImageURI:1.1.1.1/myfile.bin
     // 2) ImageURI:tftp://1.1.1.1/myfile.bin
 
-    if (!json_util::readJsonAction( //
-            req, asyncResp->res, //
-            "ImageURI", imageURI, //
+    if (!json_util::readJsonAction(              //
+            req, asyncResp->res,                 //
+            "ImageURI", imageURI,                //
             "TransferProtocol", transferProtocol //
             ))
     {
@@ -758,10 +758,10 @@ inline std::optional<MultiPartUpdateParameters>
                     return std::nullopt;
                 }
 
-                if (!json_util::readJsonObject( //
-                        *obj, asyncResp->res, //
+                if (!json_util::readJsonObject(                            //
+                        *obj, asyncResp->res,                              //
                         "@Redfish.OperationApplyTime", multiRet.applyTime, //
-                        "Targets", tempTargets //
+                        "Targets", tempTargets                             //
                         ))
                 {
                     return std::nullopt;

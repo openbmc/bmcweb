@@ -417,9 +417,9 @@ inline void handleRoleMapPatch(
             std::optional<std::string> remoteGroup;
             std::optional<std::string> localRole;
 
-            if (!json_util::readJsonObject( //
-                    *obj, asyncResp->res, //
-                    "LocalRole", localRole, //
+            if (!json_util::readJsonObject(    //
+                    *obj, asyncResp->res,      //
+                    "LocalRole", localRole,    //
                     "RemoteGroup", remoteGroup //
                     ))
             {
@@ -1545,52 +1545,52 @@ inline void handleAccountServicePatch(
     AuthMethods auth;
     std::optional<std::string> httpBasicAuth;
 
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
-            "AccountLockoutDuration", unlockTimeout, //
-            "AccountLockoutThreshold", lockoutThreshold, //
+    if (!json_util::readJsonPatch(                                         //
+            req, asyncResp->res,                                           //
+            "AccountLockoutDuration", unlockTimeout,                       //
+            "AccountLockoutThreshold", lockoutThreshold,                   //
             "ActiveDirectory/Authentication/AuthenticationType",
-            activeDirectoryObject.authType, //
+            activeDirectoryObject.authType,                                //
             "ActiveDirectory/Authentication/Password",
-            activeDirectoryObject.password, //
+            activeDirectoryObject.password,                                //
             "ActiveDirectory/Authentication/Username",
-            activeDirectoryObject.userName, //
+            activeDirectoryObject.userName,                                //
             "ActiveDirectory/LDAPService/SearchSettings/BaseDistinguishedNames",
-            activeDirectoryObject.baseDNList, //
+            activeDirectoryObject.baseDNList,                              //
             "ActiveDirectory/LDAPService/SearchSettings/GroupsAttribute",
-            activeDirectoryObject.groupsAttribute, //
+            activeDirectoryObject.groupsAttribute,                         //
             "ActiveDirectory/LDAPService/SearchSettings/UsernameAttribute",
-            activeDirectoryObject.userNameAttribute, //
+            activeDirectoryObject.userNameAttribute,                       //
             "ActiveDirectory/RemoteRoleMapping",
-            activeDirectoryObject.remoteRoleMapData, //
+            activeDirectoryObject.remoteRoleMapData,                       //
             "ActiveDirectory/ServiceAddresses",
-            activeDirectoryObject.serviceAddressList, //
+            activeDirectoryObject.serviceAddressList,                      //
             "ActiveDirectory/ServiceEnabled",
-            activeDirectoryObject.serviceEnabled, //
-            "HTTPBasicAuth", httpBasicAuth, //
+            activeDirectoryObject.serviceEnabled,                          //
+            "HTTPBasicAuth", httpBasicAuth,                                //
             "LDAP/Authentication/AuthenticationType", ldapObject.authType, //
-            "LDAP/Authentication/Password", ldapObject.password, //
-            "LDAP/Authentication/Username", ldapObject.userName, //
+            "LDAP/Authentication/Password", ldapObject.password,           //
+            "LDAP/Authentication/Username", ldapObject.userName,           //
             "LDAP/LDAPService/SearchSettings/BaseDistinguishedNames",
-            ldapObject.baseDNList, //
+            ldapObject.baseDNList,                                         //
             "LDAP/LDAPService/SearchSettings/GroupsAttribute",
-            ldapObject.groupsAttribute, //
+            ldapObject.groupsAttribute,                                    //
             "LDAP/LDAPService/SearchSettings/UsernameAttribute",
-            ldapObject.userNameAttribute, //
-            "LDAP/RemoteRoleMapping", ldapObject.remoteRoleMapData, //
-            "LDAP/ServiceAddresses", ldapObject.serviceAddressList, //
-            "LDAP/ServiceEnabled", ldapObject.serviceEnabled, //
-            "MaxPasswordLength", maxPasswordLength, //
-            "MinPasswordLength", minPasswordLength, //
+            ldapObject.userNameAttribute,                                  //
+            "LDAP/RemoteRoleMapping", ldapObject.remoteRoleMapData,        //
+            "LDAP/ServiceAddresses", ldapObject.serviceAddressList,        //
+            "LDAP/ServiceEnabled", ldapObject.serviceEnabled,              //
+            "MaxPasswordLength", maxPasswordLength,                        //
+            "MinPasswordLength", minPasswordLength,                        //
             "MultiFactorAuth/ClientCertificate/CertificateMappingAttribute",
-            certificateMappingAttribute, //
+            certificateMappingAttribute,                                   //
             "MultiFactorAuth/ClientCertificate/RespondToUnauthenticatedClients",
-            respondToUnauthenticatedClients, //
-            "Oem/OpenBMC/AuthMethods/BasicAuth", auth.basicAuth, //
-            "Oem/OpenBMC/AuthMethods/Cookie", auth.cookie, //
-            "Oem/OpenBMC/AuthMethods/SessionToken", auth.sessionToken, //
-            "Oem/OpenBMC/AuthMethods/TLS", auth.tls, //
-            "Oem/OpenBMC/AuthMethods/XToken", auth.xToken //
+            respondToUnauthenticatedClients,                               //
+            "Oem/OpenBMC/AuthMethods/BasicAuth", auth.basicAuth,           //
+            "Oem/OpenBMC/AuthMethods/Cookie", auth.cookie,                 //
+            "Oem/OpenBMC/AuthMethods/SessionToken", auth.sessionToken,     //
+            "Oem/OpenBMC/AuthMethods/TLS", auth.tls,                       //
+            "Oem/OpenBMC/AuthMethods/XToken", auth.xToken                  //
             ))
     {
         return;
@@ -1899,13 +1899,13 @@ inline void handleAccountCollectionPost(
     std::optional<std::string> roleIdJson;
     std::optional<bool> enabledJson;
     std::optional<std::vector<std::string>> accountTypes;
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
+    if (!json_util::readJsonPatch(        //
+            req, asyncResp->res,          //
             "AccountTypes", accountTypes, //
-            "Enabled", enabledJson, //
-            "Password", password, //
-            "RoleId", roleIdJson, //
-            "UserName", username //
+            "Enabled", enabledJson,       //
+            "Password", password,         //
+            "RoleId", roleIdJson,         //
+            "UserName", username          //
             ))
     {
         return;
@@ -2221,14 +2221,14 @@ inline void
     if (userHasConfigureUsers)
     {
         // Users with ConfigureUsers can modify for all users
-        if (!json_util::readJsonPatch( //
-                req, asyncResp->res, //
+        if (!json_util::readJsonPatch(        //
+                req, asyncResp->res,          //
                 "AccountTypes", accountTypes, //
-                "Enabled", enabled, //
-                "Locked", locked, //
-                "Password", password, //
-                "RoleId", roleId, //
-                "UserName", newUserName //
+                "Enabled", enabled,           //
+                "Locked", locked,             //
+                "Password", password,         //
+                "RoleId", roleId,             //
+                "UserName", newUserName       //
                 ))
         {
             return;
