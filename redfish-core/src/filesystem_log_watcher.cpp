@@ -125,8 +125,7 @@ void FilesystemLogWatcher::onINotify(const boost::system::error_code& ec,
     std::size_t index = 0;
     while ((index + iEventSize) <= bytesTransferred)
     {
-        struct inotify_event event
-        {};
+        struct inotify_event event{};
         std::memcpy(&event, &readBuffer[index], iEventSize);
         if (event.wd == dirWatchDesc)
         {
