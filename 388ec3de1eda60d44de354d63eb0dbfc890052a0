@@ -848,6 +848,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6582febb_e325e1cc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1974,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-18T19:07:49Z",
+      "side": 1,
+      "message": "Correct, we need to support both paths.",
+      "parentUuid": "643362b2_4364c67a",
+      "revId": "388ec3de1eda60d44de354d63eb0dbfc890052a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1947bf53_d6605ced",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 1
