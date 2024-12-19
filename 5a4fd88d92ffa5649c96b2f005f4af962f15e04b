@@ -461,6 +461,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a5c9021_88819375",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T06:25:47Z",
+      "side": 1,
+      "message": "This is where I might be getting my c++ wrong, is a capture always by value? Because req is a reference being passed into this function, and it is passed in as a reference later as well. The \"req\" call itself is needed inside \"populatePendingFromRedfish\" to call json_util::readJsonPatch. I can look for a refactor of this structure",
+      "parentUuid": "ccef9aa6_3a573c24",
+      "range": {
+        "startLine": 349,
+        "startChar": 9,
+        "endLine": 349,
+        "endChar": 12
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90a7f272_50a9232a",
         "filename": "redfish-core/src/redfish.cpp",
         "patchSetId": 2
