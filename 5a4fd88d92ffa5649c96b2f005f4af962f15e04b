@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ac21ffc_38062711",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T05:48:40Z",
+      "side": 1,
+      "message": "All of these are following the same values as found in \"xyz/openbmc_project/BIOSConfig/Manager/\u003ccommon, server, client\u003e.hpp\". Because the dbus structures are setup this way I used the same data types to avoid any issues. I was not able to find these structures defined in any generated files in either bmcweb or phosphor-dbus-interfaces",
+      "parentUuid": "b7dfead8_12894b0c",
+      "range": {
+        "startLine": 20,
+        "startChar": 24,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e039a93_2bdad28d",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -60,6 +84,30 @@
       "writtenOn": "2024-12-13T19:45:02Z",
       "side": 1,
       "message": "This really needs rolled into some classes\n\nI\u0027m not an expert on this stuff, but this is confusing to me, and looks like it might just duplicate a bunch of the generated enums?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 66
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29c6c5d1_0986b21e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T05:48:40Z",
+      "side": 1,
+      "message": "I looked for generated structures. There wasn\u0027t any in bmcweb or phosphor-dbus-interfaces. There are generated Enums on the Redfish side and in the phosphor-dbus-interfaces generaged code. However there are no generated structures that are passed to and from dbus.",
+      "parentUuid": "2e039a93_2bdad28d",
       "range": {
         "startLine": 20,
         "startChar": 0,
@@ -187,6 +235,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "66da6677_80ed8210",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T05:48:40Z",
+      "side": 1,
+      "message": "Sure, I took this from a diff in our fork. We needed to add error messages for all failures and this was picked up. I know upstream bmcweb is not setup to do this.",
+      "parentUuid": "bb2908be_7294cdb9",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 58
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b23370a_b5a4dbcb",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -244,6 +316,30 @@
       "writtenOn": "2024-12-13T19:45:02Z",
       "side": 1,
       "message": "This isn\u0027t a flag we check.",
+      "range": {
+        "startLine": 151,
+        "startChar": 3,
+        "endLine": 151,
+        "endChar": 18
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4337e0b0_b23237c3",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T05:48:40Z",
+      "side": 1,
+      "message": "Good point, left from our fork, will remove",
+      "parentUuid": "268a4148_35896708",
       "range": {
         "startLine": 151,
         "startChar": 3,
