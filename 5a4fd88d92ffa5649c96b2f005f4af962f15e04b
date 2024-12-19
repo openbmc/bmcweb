@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2352f65d_8080376b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "Changing this actually caused quite a few changes in how we decipher the attribute, but I think it is working correctly with the common definition.",
+      "parentUuid": "5fa9459a_be52eef7",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 58
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7dfead8_12894b0c",
@@ -141,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c089d51e_5f816329",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acf4f653_64291057",
+      "range": {
+        "startLine": 53,
+        "startChar": 52,
+        "endLine": 53,
+        "endChar": 53
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2725f28b_ffe9b5f2",
@@ -154,6 +202,30 @@
       "writtenOn": "2024-12-13T19:49:26Z",
       "side": 1,
       "message": "From Redfish spec:\n```\nThis object shall describe BIOS attribute settings as additional properties. If the object specifies a BIOS attribute registry, attributes shall be looked up in that attribute registry by their attribute name.\n```\n\nMy reading of that is that that be compliant with Redfish, need a registry before we can support this property.",
+      "range": {
+        "startLine": 77,
+        "startChar": 59,
+        "endLine": 77,
+        "endChar": 69
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ee5e609_c42bb1e7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "I read it as optional \"If the object specifies a BIOS attribute registry...\" but either way we need to support the registry, I am wanting to check the spec to see if there are rules about limiting what can be put in Attributes based on the registry, or if that is left to the backend. If we need to load up the registry and check values that will be quite a bit more code that will be going in here.",
+      "parentUuid": "2725f28b_ffe9b5f2",
       "range": {
         "startLine": 77,
         "startChar": 59,
@@ -200,6 +272,54 @@
       "writtenOn": "2024-12-13T19:45:02Z",
       "side": 1,
       "message": "object_t",
+      "range": {
+        "startLine": 103,
+        "startChar": 18,
+        "endLine": 103,
+        "endChar": 32
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12a751dc_de591fc8",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27b2cac8_e6186935",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 17
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f4d71ab_4a452bb3",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "364f0732_f7324919",
       "range": {
         "startLine": 103,
         "startChar": 18,
@@ -257,6 +377,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e36d7b9_86f2a473",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66da6677_80ed8210",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 58
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b23370a_b5a4dbcb",
@@ -280,6 +424,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a4a50ae_a60c936b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b23370a_b5a4dbcb",
+      "range": {
+        "startLine": 115,
+        "startChar": 59,
+        "endLine": 115,
+        "endChar": 64
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95491254_7729404e",
@@ -293,6 +461,30 @@
       "writtenOn": "2024-12-13T19:45:02Z",
       "side": 1,
       "message": "This is called out by name in COMMON_ERRORS.md.  Please replace all of them with the appropriate utility functions.",
+      "range": {
+        "startLine": 124,
+        "startChar": 20,
+        "endLine": 124,
+        "endChar": 29
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b8c9640_76ba7739",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95491254_7729404e",
       "range": {
         "startLine": 124,
         "startChar": 20,
@@ -340,6 +532,30 @@
       "side": 1,
       "message": "Good point, left from our fork, will remove",
       "parentUuid": "268a4148_35896708",
+      "range": {
+        "startLine": 151,
+        "startChar": 3,
+        "endLine": 151,
+        "endChar": 18
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dad19703_6b1f7fc8",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4337e0b0_b23237c3",
       "range": {
         "startLine": 151,
         "startChar": 3,
@@ -398,6 +614,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "77515ceb_89a92314",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "This only grabs a single property, it was written to consolidate the calls to get the dbus object and get the property from it. The whole reason for this helper was because our sonarqube was complaining about duplicated code since getting the different properties was almost all the same setup steps. I\u0027ll change and look for a better solution. And anyway our SQ doesn\u0027t even work anymore now that bmcweb uses cpp23\nNext time I\u0027ll start from scratch instead of pulling in our diff I think, seems to cause more issues",
+      "parentUuid": "205e6490_2c35c5e1",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 35
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7aeef00_74963706",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -415,6 +655,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "613b9885_18d519be",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "I made the changes. I think moving these from nested lambdas to bind_front type calls might have caused it to be more confusing. But at least it should be more standard",
+      "parentUuid": "b7aeef00_74963706",
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ac193c2_39c67979",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -426,6 +684,30 @@
       "writtenOn": "2024-12-13T19:45:02Z",
       "side": 1,
       "message": "This helper isn\u0027t really in line with the rest of computersystem, and definitely shouldn\u0027t go in bios namespace.  If you want to do this, happy to discuss this separately.  For this patch, just inline these.",
+      "range": {
+        "startLine": 222,
+        "startChar": 0,
+        "endLine": 245,
+        "endChar": 1
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e50da9bc_d614ba3d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ac193c2_39c67979",
       "range": {
         "startLine": 222,
         "startChar": 0,
@@ -496,6 +778,24 @@
       "writtenOn": "2024-12-13T19:45:02Z",
       "side": 1,
       "message": "?  Looks like you missed adding the flag here?",
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ca1382d_f95d91e1",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-19T20:39:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90a7f272_50a9232a",
       "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
