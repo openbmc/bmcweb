@@ -155,7 +155,9 @@ inline bool translateDhcpEnabledToBool(const std::string& inputDHCP,
             (inputDHCP ==
              "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v4") ||
             (inputDHCP ==
-             "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both"));
+             "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.both") ||
+            (inputDHCP ==
+             "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v4v6stateless"));
     }
     return ((inputDHCP ==
              "xyz.openbmc_project.Network.EthernetInterface.DHCPConf.v6") ||
