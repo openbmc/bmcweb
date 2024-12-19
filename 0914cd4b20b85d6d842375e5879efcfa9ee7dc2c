@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d58579e_5cedad9b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2024-12-19T05:51:05Z",
+      "side": 1,
+      "message": "The CI fails for something that is outside this commit\u0027s scope.",
+      "revId": "0914cd4b20b85d6d842375e5879efcfa9ee7dc2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
