@@ -238,6 +238,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2943d8e_3543befc",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-19T22:53:40Z",
+      "side": 1,
+      "message": "Lets get some clarity.  This object does specify a BIOS attribute registry, so maybe my reading is different.  Probably best to ask redfish forum.\n\n\u003e If we need to load up the registry and check values that will be quite a bit more code that will be going in here.\n\nYep, and I think that\u0027s intentional in the spec to keep this customized namespace from exploding.",
+      "parentUuid": "6ee5e609_c42bb1e7",
+      "range": {
+        "startLine": 77,
+        "startChar": 59,
+        "endLine": 77,
+        "endChar": 69
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "27b2cac8_e6186935",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -391,6 +415,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "66da6677_80ed8210",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 58
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f29d097_8742b214",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-19T22:53:40Z",
+      "side": 1,
+      "message": "HA, I wrote a comment and was going to point you to the code, but it looks like you found a bug.\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/include/utils/json_utils.hpp#L673\n\nThat line should be setting messages::unrecognizedRequestBody.  If you want to fix that in another patch, please open it.",
+      "parentUuid": "5e36d7b9_86f2a473",
       "range": {
         "startLine": 109,
         "startChar": 0,
@@ -638,6 +686,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80d71639_e5c39932",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-19T22:53:40Z",
+      "side": 1,
+      "message": "Upstream we have coverity and sonarcloud, both of which seem to work just fine 😊. Feel free to use those reports as needed to help clean things up:\nhttps://sonarcloud.io/summary/new_code?id\u003dedtanous_bmcweb\u0026branch\u003dmaster\nhttps://scan.coverity.com/projects/openbmc-bmcweb?tab\u003doverview",
+      "parentUuid": "77515ceb_89a92314",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 35
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b7aeef00_74963706",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -667,6 +739,24 @@
       "side": 1,
       "message": "I made the changes. I think moving these from nested lambdas to bind_front type calls might have caused it to be more confusing. But at least it should be more standard",
       "parentUuid": "b7aeef00_74963706",
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7c0d1e6_250ede97",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-19T22:53:40Z",
+      "side": 1,
+      "message": "and unit testable! 😊",
+      "parentUuid": "613b9885_18d519be",
       "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
