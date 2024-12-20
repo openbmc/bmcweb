@@ -149,6 +149,24 @@
       "message": "Can we assert the content in logEntryJson here?",
       "revId": "b16788d7b7ee7c184c22366ff833f60eee148ab0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d35a95a_66cf697d",
+        "filename": "test/redfish-core/include/submit_test_event_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2024-12-20T19:36:38Z",
+      "side": 1,
+      "message": "Assert added",
+      "parentUuid": "049100ab_1a341112",
+      "revId": "b16788d7b7ee7c184c22366ff833f60eee148ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
