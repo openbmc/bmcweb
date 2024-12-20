@@ -303,8 +303,8 @@ void getObjectsWithConnection(
  * @param callback Callback for processing gathered connections
  */
 template <typename Callback>
-void getConnections(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-                    const std::shared_ptr<std::set<std::string>> sensorNames,
+void getConnections(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+                    const std::shared_ptr<std::set<std::string>>& sensorNames,
                     Callback&& callback)
 {
     auto objectsWithConnectionCb =
@@ -970,10 +970,10 @@ inline void storeInventoryItemData(
  */
 template <typename Callback>
 void getInventoryItemsData(
-    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-    std::shared_ptr<std::set<std::string>> invConnections, Callback&& callback,
-    size_t invConnectionsIndex = 0)
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
+    const std::shared_ptr<std::set<std::string>>& invConnections,
+    Callback&& callback, size_t invConnectionsIndex = 0)
 {
     BMCWEB_LOG_DEBUG("getInventoryItemsData enter");
 
@@ -1303,9 +1303,9 @@ void getInventoryItemAssociations(
  */
 template <typename Callback>
 void getInventoryLedData(
-    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
-    std::shared_ptr<std::map<std::string, std::string>> ledConnections,
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
+    const std::shared_ptr<std::map<std::string, std::string>>& ledConnections,
     Callback&& callback, size_t ledConnectionsIndex = 0)
 {
     BMCWEB_LOG_DEBUG("getInventoryLedData enter");
@@ -1407,8 +1407,8 @@ void getInventoryLedData(
  */
 template <typename Callback>
 void getInventoryLeds(
-    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG("getInventoryLeds enter");
@@ -1493,7 +1493,7 @@ void getInventoryLeds(
 template <typename Callback>
 void getPowerSupplyAttributesData(
     const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
     const std::map<std::string, std::string>& psAttributesConnections,
     Callback&& callback)
 {
@@ -1576,8 +1576,8 @@ void getPowerSupplyAttributesData(
  */
 template <typename Callback>
 void getPowerSupplyAttributes(
-    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::shared_ptr<std::vector<InventoryItem>>& inventoryItems,
     Callback&& callback)
 {
     BMCWEB_LOG_DEBUG("getPowerSupplyAttributes enter");
@@ -1674,20 +1674,20 @@ void getPowerSupplyAttributes(
  */
 template <typename Callback>
 inline void
-    getInventoryItems(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
-                      const std::shared_ptr<std::set<std::string>> sensorNames,
+    getInventoryItems(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+                      const std::shared_ptr<std::set<std::string>>& sensorNames,
                       Callback&& callback)
 {
     BMCWEB_LOG_DEBUG("getInventoryItems enter");
     auto getInventoryItemAssociationsCb =
         [sensorsAsyncResp, callback = std::forward<Callback>(callback)](
-            std::shared_ptr<std::vector<InventoryItem>>
+            const std::shared_ptr<std::vector<InventoryItem>>&
                 inventoryItems) mutable {
             BMCWEB_LOG_DEBUG("getInventoryItemAssociationsCb enter");
             auto getInventoryItemsConnectionsCb =
                 [sensorsAsyncResp, inventoryItems,
                  callback = std::forward<Callback>(callback)](
-                    std::shared_ptr<std::set<std::string>>
+                    const std::shared_ptr<std::set<std::string>>&
                         invConnections) mutable {
                     BMCWEB_LOG_DEBUG("getInventoryItemsConnectionsCb enter");
                     auto getInventoryItemsDataCb =
