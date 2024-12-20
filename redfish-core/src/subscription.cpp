@@ -210,21 +210,58 @@ bool Subscription::sendEventToSubscriber(std::string&& msg)
     return true;
 }
 
-bool Subscription::sendTestEventLog()
+bool Subscription::sendTestEventLog(TestEvent& testEvent)
 {
     nlohmann::json::array_t logEntryArray;
     nlohmann::json& logEntryJson = logEntryArray.emplace_back();
 
-    logEntryJson["EventId"] = "TestID";
-    logEntryJson["Severity"] = log_entry::EventSeverity::OK;
-    logEntryJson["Message"] = "Generated test event";
-    logEntryJson["MessageId"] = "OpenBMC.0.2.TestEventLog";
+    if (testEvent.eventGroupId)
+    {
+        logEntryJson["EventGroupId"] = *testEvent.eventGroupId;
+    }
+
+    if (testEvent.eventId)
+    {
+        logEntryJson["EventId"] = *testEvent.eventId;
+    }
+
+    if (testEvent.eventTimestamp)
+    {
+        logEntryJson["EventTimestamp"] = *testEvent.eventTimestamp;
+    }
+
+    if (testEvent.originOfCondition)
+    {
+        logEntryJson["OriginOfCondition"] = nlohmann::json::object();
+        logEntryJson["OriginOfCondition"]["@odata.id"] =
+            *testEvent.originOfCondition;
+    }
+    if (testEvent.severity)
+    {
+        logEntryJson["Severity"] = *testEvent.severity;
+    }
+
+    if (testEvent.message)
+    {
+        logEntryJson["Message"] = *testEvent.message;
+    }
+
+    if (testEvent.resolution)
+    {
+        logEntryJson["Resolution"] = *testEvent.resolution;
+    }
+
+    if (testEvent.messageId)
+    {
+        logEntryJson["MessageId"] = *testEvent.messageId;
+    }
+
+    if (testEvent.messageArgs && !testEvent.messageArgs->empty())
+    {
+        logEntryJson["MessageArgs"] = *testEvent.messageArgs;
+    }
     // MemberId is 0 : since we are sending one event record.
-    logEntryJson["MemberId"] = "0";
-    logEntryJson["MessageArgs"] = nlohmann::json::array();
-    logEntryJson["EventTimestamp"] =
-        redfish::time_utils::getDateTimeOffsetNow().first;
-    logEntryJson["Context"] = userSub->customText;
+    logEntryJson["MemberId"] = 0;
 
     nlohmann::json msg;
     msg["@odata.type"] = "#Event.v1_4_0.Event";

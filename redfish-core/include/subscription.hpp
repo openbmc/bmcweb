@@ -33,6 +33,35 @@ static constexpr const char* subscriptionTypeSSE = "SSE";
 
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
 static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
+struct TestEvent
+{
+    std::optional<int64_t> eventGroupId;
+    std::optional<std::string> eventId;
+    std::optional<std::string> eventTimestamp;
+    std::optional<std::string> message;
+    std::optional<std::vector<std::string>> messageArgs;
+    std::optional<std::string> messageId;
+    std::optional<std::string> originOfCondition;
+    std::optional<std::string> resolution;
+    std::optional<std::string> severity;
+
+    // constructor with all the aruments
+    TestEvent(std::optional<int64_t> eventGroupId,
+              std::optional<std::string> eventId,
+              std::optional<std::string> eventTimestamp,
+              std::optional<std::string> message,
+              std::optional<std::vector<std::string>> messageArgs,
+              std::optional<std::string> messageId,
+              std::optional<std::string> originOfCondition,
+              std::optional<std::string> resolution,
+              std::optional<std::string> severity) :
+        eventGroupId(eventGroupId), eventId(eventId),
+        eventTimestamp(eventTimestamp), message(message),
+        messageArgs(messageArgs), messageId(messageId),
+        originOfCondition(originOfCondition), resolution(resolution),
+        severity(severity)
+    {}
+};
 
 class Subscription : public std::enable_shared_from_this<Subscription>
 {
@@ -62,7 +91,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
 
     bool sendEventToSubscriber(std::string&& msg);
 
-    bool sendTestEventLog();
+    bool sendTestEventLog(TestEvent& testEvent);
 
     void filterAndSendEventLogs(
         const std::vector<EventLogObjectsType>& eventRecords);
