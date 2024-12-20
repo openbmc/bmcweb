@@ -314,27 +314,16 @@ inline bool base64Decode(std::string_view input, std::string& output)
     return true;
 }
 
-namespace details
-{
-inline boost::urls::url appendUrlPieces(
-    boost::urls::url& url, const std::initializer_list<std::string_view> args)
-{
-    for (std::string_view arg : args)
-    {
-        url.segments().push_back(arg);
-    }
-    return url;
-}
-
-} // namespace details
-
 class OrMorePaths
 {};
 
 template <typename... AV>
-inline void appendUrlPieces(boost::urls::url& url, const AV... args)
+inline void appendUrlPieces(boost::urls::url& url, AV&&... args)
 {
-    details::appendUrlPieces(url, {args...});
+    for (const std::string_view arg : {args...})
+    {
+        url.segments().push_back(arg);
+    }
 }
 
 namespace details
