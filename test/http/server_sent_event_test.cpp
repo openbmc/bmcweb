@@ -49,7 +49,7 @@ TEST(ServerSentEvent, SseWorks)
             "Content-Type: text/event-stream\r\n"
             "\r\n";
 
-        while (out.str().size() != expected.size())
+        while (out.str().size() != expected.size() || !openCalled)
         {
             io.run_for(std::chrono::milliseconds(1));
         }
