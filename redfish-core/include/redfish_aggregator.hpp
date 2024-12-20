@@ -176,7 +176,7 @@ static inline void addPrefixToStringItem(std::string& strValue,
         return;
     }
 
-    boost::urls::url_view thisUrl = *parsed;
+    const boost::urls::url_view& thisUrl = *parsed;
 
     // We don't need to aggregate JsonSchemas due to potential issues such as
     // version mismatches between aggregator and satellite BMCs.  For now

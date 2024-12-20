@@ -59,7 +59,7 @@ using UnitStruct =
                std::string, sdbusplus::message::object_path>;
 
 template <typename CallbackFunc>
-void getMainChassisId(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+void getMainChassisId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       CallbackFunc&& callback)
 {
     // Find managed chassis
