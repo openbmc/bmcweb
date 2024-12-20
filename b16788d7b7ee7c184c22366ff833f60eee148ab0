@@ -52,6 +52,41 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb12f5b8_096515f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2024-12-20T19:34:40Z",
+      "side": 1,
+      "message": "Added assert",
+      "revId": "b16788d7b7ee7c184c22366ff833f60eee148ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7df37f33_2bd25ae1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2024-12-20T19:34:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f356df93_f7055e48",
+      "revId": "b16788d7b7ee7c184c22366ff833f60eee148ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d58fda39_76006da1",
@@ -65,6 +100,30 @@
       "writtenOn": "2024-12-20T18:50:22Z",
       "side": 1,
       "message": "This line doesn\u0027t do anything?",
+      "range": {
+        "startLine": 235,
+        "startChar": 0,
+        "endLine": 235,
+        "endChar": 69
+      },
+      "revId": "b16788d7b7ee7c184c22366ff833f60eee148ab0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38bbbc57_aed15052",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2024-12-20T19:34:40Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "d58fda39_76006da1",
       "range": {
         "startLine": 235,
         "startChar": 0,
