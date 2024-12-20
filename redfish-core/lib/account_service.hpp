@@ -2161,100 +2161,87 @@ inline void
             {
                 if (interface.first == "xyz.openbmc_project.User.Attributes")
                 {
-                    for (const auto& property : interface.second)
-                    {
-                        if (property.first == "UserEnabled")
-                        {
-                            const bool* userEnabled =
-                                std::get_if<bool>(&property.second);
-                            if (userEnabled == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR("UserEnabled wasn't a bool");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            asyncResp->res.jsonValue["Enabled"] = *userEnabled;
-                        }
-                        else if (property.first == "UserLockedForFailedAttempt")
-                        {
-                            const bool* userLocked =
-                                std::get_if<bool>(&property.second);
-                            if (userLocked == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR("UserLockedForF"
-                                                 "ailedAttempt "
-                                                 "wasn't a bool");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            asyncResp->res.jsonValue["Locked"] = *userLocked;
-                            nlohmann::json::array_t allowed;
-                            // can only unlock accounts
-                            allowed.emplace_back("false");
-                            asyncResp->res
-                                .jsonValue["Locked@Redfish.AllowableValues"] =
-                                std::move(allowed);
-                        }
-                        else if (property.first == "UserPrivilege")
-                        {
-                            const std::string* userPrivPtr =
-                                std::get_if<std::string>(&property.second);
-                            if (userPrivPtr == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR("UserPrivilege wasn't a "
-                                                 "string");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            std::string role =
-                                getRoleIdFromPrivilege(*userPrivPtr);
-                            if (role.empty())
-                            {
-                                BMCWEB_LOG_ERROR("Invalid user role");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            asyncResp->res.jsonValue["RoleId"] = role;
+                    const bool* userEnabled = nullptr;
+                    const bool* userLocked = nullptr;
+                    const std::string* userPrivPtr = nullptr;
+                    const bool* userPasswordExpired = nullptr;
+                    const std::vector<std::string>* userGroups = = nullptr;
 
-                            nlohmann::json& roleEntry =
-                                asyncResp->res.jsonValue["Links"]["Role"];
-                            roleEntry["@odata.id"] = boost::urls::format(
-                                "/redfish/v1/AccountService/Roles/{}", role);
-                        }
-                        else if (property.first == "UserPasswordExpired")
-                        {
-                            const bool* userPasswordExpired =
-                                std::get_if<bool>(&property.second);
-                            if (userPasswordExpired == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR(
-                                    "UserPasswordExpired wasn't a bool");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            asyncResp->res.jsonValue["PasswordChangeRequired"] =
-                                *userPasswordExpired;
-                        }
-                        else if (property.first == "UserGroups")
-                        {
-                            const std::vector<std::string>* userGroups =
-                                std::get_if<std::vector<std::string>>(
-                                    &property.second);
-                            if (userGroups == nullptr)
-                            {
-                                BMCWEB_LOG_ERROR(
-                                    "userGroups wasn't a string vector");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            if (!translateUserGroup(*userGroups,
-                                                    asyncResp->res))
-                            {
-                                BMCWEB_LOG_ERROR("userGroups mapping failed");
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                        }
+                    const bool success = sdbusplus::unpackPropertiesNoThrow(
+                        dbus_utils::UnpackErrorPrinter(), interface.second,
+                        "UserEnabled", userEnabled,
+                        "UserLockedForFailedAttempt", userLocked,
+                        "UserPrivilege", userPrivPtr, "UserPasswordExpired",
+                        userPasswordExpired, "UserGroups", userGroups);
+                    if (!success)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (userEnabled == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("UserEnabled wasn't a bool");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["Enabled"] = *userEnabled;
+
+                    if (userLocked == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("UserLockedForF"
+                                         "ailedAttempt "
+                                         "wasn't a bool");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["Locked"] = *userLocked;
+                    nlohmann::json::array_t allowed;
+                    // can only unlock accounts
+                    allowed.emplace_back("false");
+                    asyncResp->res.jsonValue["Locked@Redfish.AllowableValues"] =
+                        std::move(allowed);
+
+                    if (userPrivPtr == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("UserPrivilege wasn't a "
+                                         "string");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    std::string role = getRoleIdFromPrivilege(*userPrivPtr);
+                    if (role.empty())
+                    {
+                        BMCWEB_LOG_ERROR("Invalid user role");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["RoleId"] = role;
+
+                    nlohmann::json& roleEntry =
+                        asyncResp->res.jsonValue["Links"]["Role"];
+                    roleEntry["@odata.id"] = boost::urls::format(
+                        "/redfish/v1/AccountService/Roles/{}", role);
+
+                    if (userPasswordExpired == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("UserPasswordExpired wasn't a bool");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    asyncResp->res.jsonValue["PasswordChangeRequired"] =
+                        *userPasswordExpired;
+
+                    if (userGroups == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR("userGroups wasn't a string vector");
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    if (!translateUserGroup(*userGroups, asyncResp->res))
+                    {
+                        BMCWEB_LOG_ERROR("userGroups mapping failed");
+                        messages::internalError(asyncResp->res);
+                        return;
                     }
                 }
                 else if (interface.first ==
