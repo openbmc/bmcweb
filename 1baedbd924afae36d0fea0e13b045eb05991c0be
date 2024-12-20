@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e9e136_48370612",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-20T17:32:11Z",
+      "side": 1,
+      "message": "Please don\u0027t do this pattern.  It causes significant problems on clang updates",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 7
+      },
+      "revId": "1baedbd924afae36d0fea0e13b045eb05991c0be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50fc1806_8bdf1fc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-20T17:32:11Z",
+      "side": 1,
+      "message": "You\u0027ve also disabled a large number of tests that were passing, without actually mentioning it.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 28
+      },
+      "revId": "1baedbd924afae36d0fea0e13b045eb05991c0be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
