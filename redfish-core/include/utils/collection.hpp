@@ -41,7 +41,7 @@ inline void handleCollectionMembers(
     if (ec == boost::system::errc::io_error)
     {
         asyncResp->res.jsonValue[jsonKeyName] = nlohmann::json::array();
-        asyncResp->res.jsonValue[jsonCountKeyName] = 0;
+        asyncResp->res.jsonValue[jsonCountKeyName.to_string()] = 0;
         return;
     }
 
