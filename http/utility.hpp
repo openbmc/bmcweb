@@ -332,7 +332,7 @@ class OrMorePaths
 {};
 
 template <typename... AV>
-inline void appendUrlPieces(boost::urls::url& url, const AV... args)
+inline void appendUrlPieces(boost::urls::url& url, AV&&... args)
 {
     details::appendUrlPieces(url, {args...});
 }
