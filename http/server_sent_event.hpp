@@ -71,13 +71,16 @@ class ConnectionImpl : public Connection
 
     void start(const Request& req)
     {
-        if (!openHandler)
-        {
-            BMCWEB_LOG_CRITICAL("No open handler???");
-            return;
-        }
-        openHandler(*this, req);
-        sendSSEHeader();
+        BMCWEB_LOG_DEBUG("Starting SSE connection");
+
+        res.set(boost::beast::http::field::content_type, "text/event-stream");
+        boost::beast::http::response_serializer<BodyType>& serial =
+            serializer.emplace(res);
+
+        boost::beast::http::async_write_header(
+            adaptor, serial,
+            std::bind_front(&ConnectionImpl::sendSSEHeaderCallback, this,
+                            shared_from_this(), req));
     }
 
     void close(const std::string_view msg) override
@@ -92,21 +95,8 @@ class ConnectionImpl : public Connection
         boost::beast::get_lowest_layer(adaptor).close();
     }
 
-    void sendSSEHeader()
-    {
-        BMCWEB_LOG_DEBUG("Starting SSE connection");
-
-        res.set(boost::beast::http::field::content_type, "text/event-stream");
-        boost::beast::http::response_serializer<BodyType>& serial =
-            serializer.emplace(res);
-
-        boost::beast::http::async_write_header(
-            adaptor, serial,
-            std::bind_front(&ConnectionImpl::sendSSEHeaderCallback, this,
-                            shared_from_this()));
-    }
-
     void sendSSEHeaderCallback(const std::shared_ptr<Connection>& /*self*/,
+                               const Request& req,
                                const boost::system::error_code& ec,
                                size_t /*bytesSent*/)
     {
@@ -118,6 +108,12 @@ class ConnectionImpl : public Connection
             return;
         }
         BMCWEB_LOG_DEBUG("SSE header sent - Connection established");
+        if (!openHandler)
+        {
+            BMCWEB_LOG_CRITICAL("No open handler???");
+            return;
+        }
+        openHandler(*this, req);
 
         // SSE stream header sent, So let us setup monitor.
         // Any read data on this stream will be error in case of SSE.
