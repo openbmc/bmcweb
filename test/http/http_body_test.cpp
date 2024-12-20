@@ -116,7 +116,9 @@ TEST(HttpFileBodyValueType, SetFd)
     HttpBody::value_type value(EncodingType::Base64);
     TemporaryFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
-    value.setFd(fileno(fopen(temporaryFile.stringPath.c_str(), "r")), ec);
+    int r = fopen(temporaryFile.stringPath.c_str()), "r");
+    ASSERT_GT(r, 0);
+    value.setFd(fileno(fopen(r, ec));
     ASSERT_FALSE(ec);
 
     std::array<char, 4096> buffer{};
