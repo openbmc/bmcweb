@@ -189,7 +189,38 @@ inline void requestRoutesSubmitTestEvent(App& app)
                 {
                     return;
                 }
-                if (!EventServiceManager::getInstance().sendTestEventLog())
+
+                std::optional<std::string> messageId;
+                std::optional<int64_t> eventGroupId;
+                std::optional<std::string> eventId;
+                std::optional<std::string> eventTimestamp;
+                std::optional<std::string> message;
+                std::optional<std::vector<std::string>> messageArgs;
+                std::optional<std::string> originOfCondition;
+                std::optional<std::string> resolution;
+                std::optional<std::string> severity;
+                // clang-format off
+                if (!json_util::readJsonAction(
+                        req, asyncResp->res,
+                        "EventGroupId", eventGroupId,
+                        "EventId", eventId,
+                        "EventTimestamp", eventTimestamp,
+                        "Message", message,
+                        "MessageArgs", messageArgs,
+                        "MessageId", messageId,
+                        "OriginOfCondition", originOfCondition,
+                        "Resolution", resolution,
+                        "Severity", severity))
+                {
+                    return;
+                }
+                // clang-format on
+
+                TestEvent testEvent(eventGroupId, eventId, eventTimestamp,
+                                    message, messageArgs, messageId,
+                                    originOfCondition, resolution, severity);
+                if (!EventServiceManager::getInstance().sendTestEventLog(
+                        testEvent))
                 {
                     messages::serviceDisabled(asyncResp->res,
                                               "/redfish/v1/EventService/");
