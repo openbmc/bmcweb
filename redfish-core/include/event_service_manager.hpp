@@ -588,12 +588,12 @@ class EventServiceManager
         return idList;
     }
 
-    bool sendTestEventLog()
+    bool sendTestEventLog(TestEvent& testEvent)
     {
         for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
-            if (!entry->sendTestEventLog())
+            if (!entry->sendTestEventLog(testEvent))
             {
                 return false;
             }
