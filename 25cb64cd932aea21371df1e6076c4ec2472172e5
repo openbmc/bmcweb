@@ -22,6 +22,30 @@
       },
       "revId": "25cb64cd932aea21371df1e6076c4ec2472172e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6481f6b5_d85ee979",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000086
+      },
+      "writtenOn": "2024-12-21T05:24:35Z",
+      "side": 0,
+      "message": "I also noticed same, some time clang-provides some false positive results. Let em rerun with latest config and will update here.",
+      "parentUuid": "56831075_a6691478",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 13
+      },
+      "revId": "25cb64cd932aea21371df1e6076c4ec2472172e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
