@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41a560a5_c4b1b437",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000086
+      },
+      "writtenOn": "2024-12-21T08:05:11Z",
+      "side": 1,
+      "message": "Not reported these errors in local docker setup with same version.",
+      "revId": "6b3003e83a4a01842e97072026a53c5fd8e8d84a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
