@@ -33,6 +33,24 @@
       "message": "Code looks correct.  Needs to build, then this looks good to me.",
       "revId": "0680546d0b9db129c46b2e60623c61e21311f17b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3acbcdb5_e46d5321",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2024-12-21T13:56:07Z",
+      "side": 1,
+      "message": "Building fine now",
+      "parentUuid": "0c34e2e6_c305318b",
+      "revId": "0680546d0b9db129c46b2e60623c61e21311f17b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
