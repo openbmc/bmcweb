@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eadb00f7_aeb0cda9",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-23T18:29:45Z",
+      "side": 1,
+      "message": "not sure why this is neccesary?",
+      "range": {
+        "startLine": 1247,
+        "startChar": 0,
+        "endLine": 1247,
+        "endChar": 74
+      },
+      "revId": "21af70920027891972e86955698a529a2bf6fe06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

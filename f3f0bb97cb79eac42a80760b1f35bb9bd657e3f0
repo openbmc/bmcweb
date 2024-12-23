@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4226b8b7_82827fe5",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-23T18:29:45Z",
+      "side": 1,
+      "message": "I think I see now, there\u0027s only a patch to the whole array, there\u0027s no way to modify in place?  This patch does look closer.",
+      "parentUuid": "0a894830_cd008f4a",
+      "range": {
+        "startLine": 1231,
+        "startChar": 20,
+        "endLine": 1231,
+        "endChar": 28
+      },
+      "revId": "f3f0bb97cb79eac42a80760b1f35bb9bd657e3f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc1c7906_e4e4cd5d",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 1
