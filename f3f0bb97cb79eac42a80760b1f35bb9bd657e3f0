@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a894830_cd008f4a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-23T18:26:54Z",
+      "side": 1,
+      "message": "This branch would need to implement a flow that deletes the metric from the array.\n\nYou also need to add a check for metric-\u003eempty(), and yes, that one would just increment the index and continue on.",
+      "parentUuid": "e494d3e2_de3dcaef",
+      "range": {
+        "startLine": 1231,
+        "startChar": 20,
+        "endLine": 1231,
+        "endChar": 28
+      },
+      "revId": "f3f0bb97cb79eac42a80760b1f35bb9bd657e3f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc1c7906_e4e4cd5d",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 1
