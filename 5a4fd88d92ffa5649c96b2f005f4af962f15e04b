@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36de8b14_c7bd0a74",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-24T02:48:16Z",
+      "side": 1,
+      "message": "Does my use of \"using\" make sense now? They are used because that is the \"type\" being used by the dbus interfaces in the generated code. However the phosphor-dbus-interfaces generated code does not generate the \"types\" itself.",
+      "parentUuid": "5ac21ffc_38062711",
+      "range": {
+        "startLine": 20,
+        "startChar": 24,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e039a93_2bdad28d",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "I looked for generated structures. There wasn\u0027t any in bmcweb or phosphor-dbus-interfaces. There are generated Enums on the Redfish side and in the phosphor-dbus-interfaces generaged code. However there are no generated structures that are passed to and from dbus.",
       "parentUuid": "2e039a93_2bdad28d",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 66
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cf33cae_33ec8680",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-24T02:48:16Z",
+      "side": 1,
+      "message": "Same question here, since these are being used to Get and Set the properties on dbus I would still need these (for readability) even if we moved to different classes.",
+      "parentUuid": "29c6c5d1_0986b21e",
       "range": {
         "startLine": 20,
         "startChar": 0,
@@ -449,6 +497,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26ff086b_5f6f4419",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-24T02:48:16Z",
+      "side": 1,
+      "message": "I investigated this and determined that adding messages::unrecognizedRequestBody would be redundant as the parseRequestAsJson already sets that message when it fails. I think we are good already as is.",
+      "parentUuid": "5f29d097_8742b214",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 58
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0b23370a_b5a4dbcb",
@@ -637,6 +709,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f748bf26_c6c7bbbd",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-24T02:48:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78942058_b9f227df",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 1
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "205e6490_2c35c5e1",
@@ -698,6 +794,30 @@
       "side": 1,
       "message": "Upstream we have coverity and sonarcloud, both of which seem to work just fine 😊. Feel free to use those reports as needed to help clean things up:\nhttps://sonarcloud.io/summary/new_code?id\u003dedtanous_bmcweb\u0026branch\u003dmaster\nhttps://scan.coverity.com/projects/openbmc-bmcweb?tab\u003doverview",
       "parentUuid": "77515ceb_89a92314",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 35
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff76cd0f_95f77959",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2024-12-24T02:48:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "80d71639_e5c39932",
       "range": {
         "startLine": 189,
         "startChar": 0,
