@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "739c8b8e_6e04567e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T18:53:13Z",
+      "side": 1,
+      "message": "Is this correct per the redfish spec?  Can you link the description for DHCPEnabled that says that?",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "cb22c28684a08441f881d504d88b66da011b1c7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
