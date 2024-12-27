@@ -33,7 +33,7 @@ option(
                     MessageId of Base.x.y.z.Message which was incorrect.
                     Enabling this option causes return codes to return the old
                     incorrect version for backward compatibility.  Will be
-                    removed Q2-2025'''
+                    removed Q2-2025''',
 )
 
 # BMCWEB_NBDPROXY
