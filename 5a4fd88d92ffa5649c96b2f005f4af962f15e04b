@@ -121,6 +121,53 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4916f336_a7f3f71e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "ACK.  I see the usage now.  Please make sure that there\u0027s a comment above each one of these that lists out what the elements are (same as the tuple on line 28).",
+      "parentUuid": "5ac21ffc_38062711",
+      "range": {
+        "startLine": 20,
+        "startChar": 24,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f8b6001_9dff5f8c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "enum class.  It looks like you\u0027ve kind of created your own enum class.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 4
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e039a93_2bdad28d",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -185,6 +232,53 @@
         "startChar": 0,
         "endLine": 48,
         "endChar": 66
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "657b270e_330a301d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "I didn\u0027t catch that all the \"index\" enums were indexing into the tuples, not redfish commands.  Just make them enum class and we should be good.",
+      "parentUuid": "29c6c5d1_0986b21e",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 66
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba321c73_878ec18d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "This doesn\u0027t appear to be used as a map.  As messy as it might appear, lets make it a std::vector\u003cstd::pair\u003cstd::string, PendingAttribute\u003e\u003e",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 34
       },
       "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
@@ -895,6 +989,24 @@
       "side": 1,
       "message": "touche",
       "parentUuid": "f7c0d1e6_250ede97",
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1efb1142_e3542a12",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "BTW, that wasn\u0027t directed at only you.  I\u0027ve realized that a lot of folks write code like this, then complain that they can\u0027t write unit tests \"because it\u0027s a lambda\"......  obviously",
+      "parentUuid": "fb23944b_5b07f100",
       "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

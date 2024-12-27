@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dc26ec2_950ce3fb",
+        "filename": "config/meson.build",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "nit, this list is alphabetical.  Please keep it that way.  also, please append redfish- to this option, (so it becomes redfish-bios-settings).",
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b2ca463_01f2bbf8",
+        "filename": "meson.options",
+        "patchSetId": 10
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "wrap at 80 characters please.",
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "120476f9_8ffd19e4",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "Remove.  Don\u0027t \"using\" things from other utility namespaces into the redfish namespaces, especially not in a bios handler like this",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 54
+      },
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed0c3684_3f6ce004",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "you duplicate this settings lookup 3 times in this function.  Please don\u0027t duplicate it.  Do it once and get a nlohmann::json\u0026",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 49
+      },
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a56158f0_7d58e15d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "Please create this using a nlohmann::json::array_t.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 44
+      },
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e8114af_5548460b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "This URI doesn\u0027t look quite correct?",
+      "range": {
+        "startLine": 60,
+        "startChar": 49,
+        "endLine": 60,
+        "endChar": 57
+      },
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c43b176_3020d12f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "Are these the only 3 types allowed?  Why do we allow both int32 AND int64?",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 5
+      },
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62774aca_d31b791a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:30:34Z",
+      "side": 1,
+      "message": "Pass by Response\u0026 if you\u0027re not doing async actions.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 56
+      },
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
