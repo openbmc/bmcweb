@@ -171,6 +171,69 @@
       },
       "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79987fdc_c6cfac1e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:34:35Z",
+      "side": 1,
+      "message": "Take this code.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 5
+      },
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "275ea918_d462bebc",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:34:35Z",
+      "side": 1,
+      "message": "This is now an unsafe capture by reference.  Call the json parsing in this callback, then pass attributes.",
+      "range": {
+        "startLine": 374,
+        "startChar": 21,
+        "endLine": 374,
+        "endChar": 31
+      },
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "613acf03_d4b1570a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:34:35Z",
+      "side": 1,
+      "message": "missing HEAD handler.",
+      "revId": "15bb11eb00e268056f436ee249b5298cfecb80ae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

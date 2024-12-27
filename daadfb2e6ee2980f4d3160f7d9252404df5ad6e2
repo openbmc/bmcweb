@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa622e3a_b0eb48fb",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T17:34:35Z",
+      "side": 0,
+      "message": "nit, you probably didn\u0027t intend to remove these whitespaces?",
+      "revId": "daadfb2e6ee2980f4d3160f7d9252404df5ad6e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
