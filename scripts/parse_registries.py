@@ -739,7 +739,7 @@ def to_pascal_case(text):
 
 
 def main():
-    dmtf_registries = (
+    dmtf_registries = OrderedDict([
         ("base", "1.19.0"),
         ("composition", "1.1.2"),
         ("environmental", "1.0.1"),
@@ -758,14 +758,14 @@ def main():
         ("task_event", "1.0.3"),
         ("telemetry", "1.0.0"),
         ("update", "1.0.2"),
-    )
+    ])
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--registries",
         type=str,
         default="privilege,openbmc,"
-        + ",".join([dmtf[0] for dmtf in dmtf_registries]),
+        + ",".join([dmtf for dmtf in dmtf_registries]),
         help="Comma delimited list of registries to update",
     )
 
@@ -773,8 +773,9 @@ def main():
 
     registries = set(args.registries.split(","))
     files = []
+    registries_map = OrderedDict()
 
-    for registry, version in dmtf_registries:
+    for registry, version in dmtf_registries.items():
         if registry in registries:
             registry_pascal_case = to_pascal_case(registry)
             files.append(
@@ -784,31 +785,37 @@ def main():
                     registry,
                 )
             )
+            registries_map[registry] = files[-1]
     if "openbmc" in registries:
         files.append(openbmc_local_getter())
 
     update_registries(files)
 
-    create_error_registry(
-        files[0], dmtf_registries[0][1], "Base", "base", "error"
-    )
-    create_error_registry(
-        files[5],
-        dmtf_registries[5][1],
-        "HeartbeatEvent",
-        "heartbeat_event",
-        "heartbeat",
-    )
-    create_error_registry(
-        files[12],
-        dmtf_registries[12][1],
-        "ResourceEvent",
-        "resource_event",
-        "resource",
-    )
-    create_error_registry(
-        files[15], dmtf_registries[15][1], "TaskEvent", "task_event", "task"
-    )
+    if "base" in registries_map:
+        create_error_registry(
+            registries_map["base"], dmtf_registries["base"], "Base", "base", "error"
+        )
+    if "heartbeat_event" in registries_map:
+        create_error_registry(
+            registries_map["heartbeat_event"],
+            dmtf_registries["heartbeat_event"],
+            "HeartbeatEvent",
+            "heartbeat_event",
+            "heartbeat",
+        )
+    if "resource_event" in registries_map:
+        create_error_registry(
+            registries_map["resource_event"],
+            dmtf_registries["resource_event"],
+            "ResourceEvent",
+            "resource_event",
+            "resource",
+        )
+    if "task_event" in registries_map:
+        create_error_registry(
+            registries_map["task_event"], dmtf_registries["task_event"], "TaskEvent", "task_event", "task"
+        )
+
 
     if "privilege" in registries:
         make_privilege_registry()
