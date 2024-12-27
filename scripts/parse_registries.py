@@ -789,26 +789,34 @@ def main():
 
     update_registries(files)
 
-    create_error_registry(
-        files[0], dmtf_registries[0][1], "Base", "base", "error"
-    )
-    create_error_registry(
-        files[5],
-        dmtf_registries[5][1],
-        "HeartbeatEvent",
-        "heartbeat_event",
-        "heartbeat",
-    )
-    create_error_registry(
-        files[12],
-        dmtf_registries[12][1],
-        "ResourceEvent",
-        "resource_event",
-        "resource",
-    )
-    create_error_registry(
-        files[15], dmtf_registries[15][1], "TaskEvent", "task_event", "task"
-    )
+    if dmtf_registries[0][0] in registries:
+        index = list(registries).index(dmtf_registries[0][0])
+        create_error_registry(
+            files[index], dmtf_registries[0][1], "Base", "base", "error"
+        )
+    if dmtf_registries[5][0] in registries:
+        index = list(registries).index(dmtf_registries[5][0])
+        create_error_registry(
+            files[index],
+            dmtf_registries[5][1],
+            "HeartbeatEvent",
+            "heartbeat_event",
+            "heartbeat",
+        )
+    if dmtf_registries[12][0] in registries:
+        index = list(registries).index(dmtf_registries[12][0])
+        create_error_registry(
+            files[index],
+            dmtf_registries[12][1],
+            "ResourceEvent",
+            "resource_event",
+            "resource",
+        )
+    if dmtf_registries[15][0] in registries:
+        index = list(registries).index(dmtf_registries[15][0])
+        create_error_registry(
+            files[index], dmtf_registries[15][1], "TaskEvent", "task_event", "task"
+        )
 
     if "privilege" in registries:
         make_privilege_registry()
