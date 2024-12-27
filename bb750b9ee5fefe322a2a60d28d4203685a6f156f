@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "166a2fd3_3568c94a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T18:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fe430e1_cb2a465a",
+      "revId": "bb750b9ee5fefe322a2a60d28d4203685a6f156f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2973dba6_be039d23",
@@ -66,6 +84,24 @@
       "writtenOn": "2024-11-25T22:35:22Z",
       "side": 1,
       "message": "Likewise....\nAttempt to assign a gateway to a NIC that already has a static IPv4 address assigned.\nConfirm the attempt to write an address containing a gateway value different from that already applied to the NIC is rejected.",
+      "revId": "bb750b9ee5fefe322a2a60d28d4203685a6f156f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "220b4d12_bd49ef2f",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T18:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2973dba6_be039d23",
       "revId": "bb750b9ee5fefe322a2a60d28d4203685a6f156f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

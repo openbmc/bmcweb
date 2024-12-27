@@ -320,6 +320,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adf2144f_ed6d56d6",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1732,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T18:44:36Z",
+      "side": 1,
+      "message": "Talked with jonathan on discord.  He\u0027s ok with this patch, was just pointing out future issues to fix.",
+      "parentUuid": "dfebeae7_3026c407",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16d8d802_d00aaabc",
@@ -391,6 +409,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "480b8824_f21640b8",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T18:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef7e6f40_7e6d6d64",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51efcef0_6532a8b6",
@@ -440,6 +476,24 @@
       "side": 1,
       "message": "See my suggested comment above.\nThe failure model did not jump out based on reading the code.",
       "parentUuid": "48c417dc_4805180e",
+      "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92762eae_ed2d371f",
+        "filename": "test/redfish-core/lib/ethernet_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T18:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b9879d3_097d4be6",
       "revId": "9e3034c2d428275d1ebb65fa75842d0c57a90447",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

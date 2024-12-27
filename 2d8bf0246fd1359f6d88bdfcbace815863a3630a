@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "097ab3d4_84d3de9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T18:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d8f0557_5f348c43",
+      "revId": "2d8bf0246fd1359f6d88bdfcbace815863a3630a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "72aba971_179ed47f",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "yes, any help you can give would be appreciated.",
       "parentUuid": "72aba971_179ed47f",
+      "revId": "2d8bf0246fd1359f6d88bdfcbace815863a3630a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "674ad914_a7f5de2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-27T18:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01659b83_8b005f59",
       "revId": "2d8bf0246fd1359f6d88bdfcbace815863a3630a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
