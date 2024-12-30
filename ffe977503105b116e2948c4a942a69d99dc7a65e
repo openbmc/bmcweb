@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1993ad1d_fe8b75f8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2024-12-30T18:55:25Z",
+      "side": 1,
+      "message": "I don\u0027t understand this value.  The caller checks std::numeric_limits\u003cuint64_t\u003e::max() for \"no password expiration\" so why is this check needed?  Isn\u0027t time\u003d\u003d0 meaning 1970-01-01T00:00 a valid time?",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edd342cd_940994e0",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2024-12-30T18:55:25Z",
+      "side": 1,
+      "message": "Can we have a test for 1970-01-01T00:00, or whatever values makes time\u003d0 (beginning of epoch)?  It seems like an admin might use this to force someone to change their password.",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
