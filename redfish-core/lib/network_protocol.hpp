@@ -418,16 +418,30 @@ inline void
             {
                 if (entry.first.starts_with(netBasePath))
                 {
-                    setDbusProperty(
-                        asyncResp, "IPMI/ProtocolEnabled",
+                    sdbusplus::asio::setProperty(
+                        *crow::connections::systemBus,
                         entry.second.begin()->first, entry.first,
                         "xyz.openbmc_project.Control.Service.Attributes",
-                        "Running", protocolEnabled);
-                    setDbusProperty(
-                        asyncResp, "IPMI/ProtocolEnabled",
+                        "Running", protocolEnabled,
+                        [asyncResp](const boost::system::error_code& ec2) {
+                            if (ec2)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                        });
+                    sdbusplus::asio::setProperty(
+                        *crow::connections::systemBus,
                         entry.second.begin()->first, entry.first,
                         "xyz.openbmc_project.Control.Service.Attributes",
-                        "Enabled", protocolEnabled);
+                        "Enabled", protocolEnabled,
+                        [asyncResp](const boost::system::error_code& ec2) {
+                            if (ec2)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                        });
                 }
             }
         });
