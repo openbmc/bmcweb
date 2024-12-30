@@ -154,5 +154,44 @@ TEST(Router, 405)
     }
     EXPECT_TRUE(called);
 }
+
+TEST(Router, FragmentRoutes)
+{
+    bool fooCalled = false;
+    auto fooCallback = [&fooCalled](const Request&,
+                          const std::shared_ptr<bmcweb::AsyncResp>&) {
+
+    fooCalled = true;
+    };
+    bool oemCalled = false;
+    auto fooOemCallback =
+        [&oemCalled](const Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+                     const std::string& bar) {
+        oemCalled = true;
+        EXPECT_EQ(bar, "bar");
+    };
+
+    Router router;
+    std::error_code ec;
+
+    router.newRuleTagged<getParameterTag("/foo/<str>")>("/foo/<str>")(
+        fooCallback);
+    router.newRuleTagged<getParameterTag("/foo/<str>#Oem")>("/foo/<str>#Oem")(fooOemCallback);
+    router.validate();
+    {
+        constexpr std::string_view url = "/foo/bar";
+
+        auto req = std::make_shared<Request>(
+            Request::Body{boost::beast::http::verb::get, url, 11}, ec);
+
+        std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+            std::make_shared<bmcweb::AsyncResp>();
+
+        router.handle(req, asyncResp);
+    }
+    EXPECT_TRUE(fooCalled);
+    EXPECT_TRUE(oemCalled);
+}
+
 } // namespace
 } // namespace crow
