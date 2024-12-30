@@ -16,6 +16,24 @@
       "message": "These should really be some form of find to look for the correct registry.  Indexing was a bad idea.  If you don\u0027t want to fix it, I can.",
       "revId": "44d43d1d7ae635dfe57362efab8275a4d0dfebb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b16b5610_70f6b0fb",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1002315
+      },
+      "writtenOn": "2024-12-30T08:51:34Z",
+      "side": 1,
+      "message": "Thank for your feedback. I see we can remove indexing with `dict` and `zip`. I wanted to confirm is that what you were referring to.\n\n```python\n    registries_map \u003d dict(zip(registries, files))\n    if dmtf_registries[0][0] in registries_map:\n        create_error_registry(\n            registries_map[dmtf_registries[0][0]], dmtf_registries[0][1], \"Base\", \"base\", \"error\"\n        )\n\n```",
+      "parentUuid": "d0125e0d_4f09debc",
+      "revId": "44d43d1d7ae635dfe57362efab8275a4d0dfebb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
