@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
 #include "http_request.hpp"
+#include "redfish_oem_routing.hpp"
 #include "routing.hpp"
 #include "utility.hpp"
 
@@ -155,6 +156,37 @@ TEST(Router, 405)
         router.handle(req, asyncResp);
     }
     EXPECT_TRUE(called);
+}
+
+TEST(Router, FragmentRoutes)
+{
+    // Callback handler that does nothing
+    bool oemCalled = false;
+    auto oemCallback =
+        [&oemCalled](const Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+                     const std::string& bar) {
+            oemCalled = true;
+            EXPECT_EQ(bar, "bar");
+        };
+
+    RfOemRouter router;
+    std::error_code ec;
+    constexpr std::string_view fragment = "/foo/<str>#Oem";
+    router.newRfOemRule<getParameterTag(fragment)>(std::string(fragment))
+        .setGetHandler(oemCallback);
+    router.validate();
+    {
+        constexpr std::string_view reqUrl = "/foo/bar";
+
+        auto req = std::make_shared<Request>(
+            Request::Body{boost::beast::http::verb::get, reqUrl, 11}, ec);
+
+        std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+            std::make_shared<bmcweb::AsyncResp>();
+
+        router.handleOemGet(req, asyncResp);
+    }
+    EXPECT_TRUE(oemCalled);
 }
 } // namespace
 } // namespace crow
