@@ -408,29 +408,43 @@ inline void
         [protocolEnabled, asyncResp,
          netBasePath](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
 
-            for (const auto& entry : subtree)
+        for (const auto& entry : subtree)
+        {
+            if (entry.first.starts_with(netBasePath))
             {
-                if (entry.first.starts_with(netBasePath))
-                {
-                    setDbusProperty(
-                        asyncResp, "IPMI/ProtocolEnabled",
-                        entry.second.begin()->first, entry.first,
-                        "xyz.openbmc_project.Control.Service.Attributes",
-                        "Running", protocolEnabled);
-                    setDbusProperty(
-                        asyncResp, "IPMI/ProtocolEnabled",
-                        entry.second.begin()->first, entry.first,
-                        "xyz.openbmc_project.Control.Service.Attributes",
-                        "Enabled", protocolEnabled);
-                }
+                sdbusplus::asio::setProperty(
+                    *crow::connections::systemBus, entry.second.begin()->first,
+                    entry.first,
+                    "xyz.openbmc_project.Control.Service.Attributes", "Running",
+                    protocolEnabled,
+                    [asyncResp](const boost::system::error_code& ec2) {
+                    if (ec2)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                });
+                sdbusplus::asio::setProperty(
+                    *crow::connections::systemBus, entry.second.begin()->first,
+                    entry.first,
+                    "xyz.openbmc_project.Control.Service.Attributes", "Enabled",
+                    protocolEnabled,
+                    [asyncResp](const boost::system::error_code& ec2) {
+                    if (ec2)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                });
             }
-        });
+        }
+    });
 }
 
 inline std::string getHostName()
