@@ -154,5 +154,47 @@ TEST(Router, 405)
     }
     EXPECT_TRUE(called);
 }
+
+TEST(Router, FragmentRoutes)
+{
+    // Callback handler that does nothing
+    bool fooCalled = false;
+    auto fooCallback =
+        [&fooCalled](const Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+                     const std::string& bar) {
+            fooCalled = true;
+            EXPECT_EQ(bar, "bar");
+        };
+    bool oemCalled = false;
+    auto fooOemCallback =
+        [&oemCalled](const Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+                     const std::string& bar) {
+            oemCalled = true;
+            EXPECT_EQ(bar, "bar");
+        };
+
+    Router router;
+    std::error_code ec;
+    constexpr std::string_view url = "/foo/<str>";
+    router.newRuleTagged<getParameterTag(url)>(std::string(url))
+        .methods(boost::beast::http::verb::get)(fooCallback);
+    constexpr std::string_view fragment = "/foo/<str>#Oem";
+    router.newRuleTagged<getParameterTag(fragment)>(std::string(fragment))
+        .methods(boost::beast::http::verb::get)(fooOemCallback);
+    router.validate();
+    {
+        constexpr std::string_view reqUrl = "/foo/bar";
+
+        auto req = std::make_shared<Request>(
+            Request::Body{boost::beast::http::verb::get, reqUrl, 11}, ec);
+
+        std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+            std::make_shared<bmcweb::AsyncResp>();
+
+        router.handle(req, asyncResp);
+    }
+    EXPECT_TRUE(fooCalled);
+    EXPECT_TRUE(oemCalled);
+}
 } // namespace
 } // namespace crow
