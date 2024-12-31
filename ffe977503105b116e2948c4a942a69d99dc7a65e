@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d0137c5_d4e7416b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-12-31T20:41:24Z",
+      "side": 1,
+      "message": "It both values corresponding to 0 and maximum values are valid times. The thing is that there is a need to indicate somehow that password does not expire and password expiration is not specified. That is, \"PasswordExpiration\" is null or is absent in REST POST request to create a new user. Also, there is a need to change password expiration from some date time to make password not to expire. I decided to use 0 value for D-Bus PasswordExpiration value to indicate that password does not expire and maximum value (default value of the attribute) that password expiration is not specified on user creation.\nI\u0027ve introduced corresponding changes in description of PasswordExpiration attribute in https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/75236 which is still in review.",
+      "parentUuid": "0d12ca8d_cc57230d",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94cacb63_68b6a8cb",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -84,6 +102,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c57d48a1_25e8e435",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-12-31T20:41:24Z",
+      "side": 1,
+      "message": "Yes, I see the problem here.",
+      "parentUuid": "94cacb63_68b6a8cb",
+      "range": {
+        "startLine": 1118,
+        "startChar": 10,
+        "endLine": 1118,
+        "endChar": 14
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd5fe3f0_87835bca",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -101,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2701df8f_0d241e05",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-12-31T20:41:24Z",
+      "side": 1,
+      "message": "I\u0027ll do it.",
+      "parentUuid": "fd5fe3f0_87835bca",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d4c134d6_4b501650",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -112,6 +172,24 @@
       "writtenOn": "2024-12-31T18:06:51Z",
       "side": 1,
       "message": "why two casts here?\n\njust cast to std::chrono::duration\u003cuint64_t\u003e to get seconds in a uint64_t",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b23e832d_2b679917",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-12-31T20:41:24Z",
+      "side": 1,
+      "message": "usTime is in milliseconds and it is signed, so I convert it to seconds and unsigned.",
+      "parentUuid": "d4c134d6_4b501650",
       "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -141,6 +219,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60458984_b3e45431",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-12-31T20:41:24Z",
+      "side": 1,
+      "message": "O means that password does not expire and maximum values means that user was created without password expiration specified.",
+      "parentUuid": "e32acd27_15dfae69",
+      "range": {
+        "startLine": 1940,
+        "startChar": 0,
+        "endLine": 1940,
+        "endChar": 45
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edd342cd_940994e0",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 7
@@ -152,6 +254,24 @@
       "writtenOn": "2024-12-30T18:55:25Z",
       "side": 1,
       "message": "Can we have a test for 1970-01-01T00:00, or whatever values makes time\u003d0 (beginning of epoch)?  It seems like an admin might use this to force someone to change their password.",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ab12286_6c91a007",
+        "filename": "test/redfish-core/lib/account_service_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002219
+      },
+      "writtenOn": "2024-12-31T20:41:24Z",
+      "side": 1,
+      "message": "Yes, I\u0027ll add test for beginning of Epoch time, though in my patchset it means that password does not expire. I realize that 01-01-1970 is valid time but I do not know how to specify special cases like password does not expire and password expiration is not specified without these special values of PasswordExpiration attribute.",
+      "parentUuid": "edd342cd_940994e0",
       "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
