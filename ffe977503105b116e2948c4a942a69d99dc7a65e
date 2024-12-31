@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c7014f2_29d2014c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T20:45:31Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "5d0137c5_d4e7416b",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94cacb63_68b6a8cb",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -196,6 +214,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bfda8619_90a36dc7",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T20:45:31Z",
+      "side": 1,
+      "message": "just duration_cast directly to the correct type (unsigned 64 bit seconds).",
+      "parentUuid": "b23e832d_2b679917",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e32acd27_15dfae69",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 7
@@ -231,6 +267,30 @@
       "side": 1,
       "message": "O means that password does not expire and maximum values means that user was created without password expiration specified.",
       "parentUuid": "e32acd27_15dfae69",
+      "range": {
+        "startLine": 1940,
+        "startChar": 0,
+        "endLine": 1940,
+        "endChar": 45
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a6ae9f7_c2d55bd8",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T20:45:31Z",
+      "side": 1,
+      "message": "You haven\u0027t handled that distinction, and I\u0027m not sure it matters to track how the user was created differently than how the user currently is.  Lets just be consistent and use 0 here.",
+      "parentUuid": "60458984_b3e45431",
       "range": {
         "startLine": 1940,
         "startChar": 0,
