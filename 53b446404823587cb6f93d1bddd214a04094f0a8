@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abdd5b9d_ca1d4892",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T19:59:06Z",
+      "side": 1,
+      "message": "No need to call dump here.  this accepts a nlohman::json object directly.\n\nhttps://github.com/openbmc/bmcweb/blob/dac07cadb8ec2f69c676fb1e2bfcab355971a7cf/redfish-core/src/error_messages.cpp#L1896",
+      "range": {
+        "startLine": 1120,
+        "startChar": 45,
+        "endLine": 1120,
+        "endChar": 52
+      },
+      "revId": "53b446404823587cb6f93d1bddd214a04094f0a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1744b1e8_0bd496a4",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T19:59:06Z",
+      "side": 1,
+      "message": "should be BypassTypes/1",
+      "range": {
+        "startLine": 1140,
+        "startChar": 56,
+        "endLine": 1140,
+        "endChar": 67
+      },
+      "revId": "53b446404823587cb6f93d1bddd214a04094f0a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11100530_4dbeb771",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 2303,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T19:59:06Z",
+      "side": 1,
+      "message": "This lambda is already way too long.  This patch just makes it longer.  Please refactor ahead of adding more to this.",
+      "revId": "53b446404823587cb6f93d1bddd214a04094f0a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
