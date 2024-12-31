@@ -1244,7 +1244,10 @@ inline void setReportMetrics(
                     const ReadingParameters::value_type& existing =
                         readingParams[index];
 
-                    pathAndUri = std::get<0>(existing);
+                    if (metric->empty())
+                    {
+                        pathAndUri = std::get<0>(existing);
+                    }
                     metricArgs.collectionFunction = std::get<1>(existing);
                     metricArgs.collectionTimeScope = std::get<2>(existing);
                     metricArgs.collectionDuration = std::get<3>(existing);
