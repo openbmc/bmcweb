@@ -20,6 +20,127 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d12ca8d_cc57230d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T18:06:51Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/phosphor-dbus-interfaces/blob/3eb0180161fc42a91fd2197f60695da1541e8083/yaml/xyz/openbmc_project/User/Attributes.interface.yaml#L64\n\nDoesn\u0027t indicate that max or 0 are used as a \"never expires\" value.",
+      "parentUuid": "1993ad1d_fe8b75f8",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94cacb63_68b6a8cb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T18:06:51Z",
+      "side": 1,
+      "message": "Remove auto and fill in the type.  I helped write the dateStringToEpoch function, and I don\u0027t remember what type it returns without looking it up.",
+      "range": {
+        "startLine": 1118,
+        "startChar": 10,
+        "endLine": 1118,
+        "endChar": 14
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41609b46_68c02c57",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T18:06:51Z",
+      "side": 1,
+      "message": "nit, remove redfish::.  You\u0027re already in the redfish namespace.",
+      "range": {
+        "startLine": 1118,
+        "startChar": 24,
+        "endLine": 1118,
+        "endChar": 33
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd5fe3f0_87835bca",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T18:06:51Z",
+      "side": 1,
+      "message": "nit, might want to include the actual string value that failed to parse?",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4c134d6_4b501650",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T18:06:51Z",
+      "side": 1,
+      "message": "why two casts here?\n\njust cast to std::chrono::duration\u003cuint64_t\u003e to get seconds in a uint64_t",
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e32acd27_15dfae69",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1940,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2024-12-31T18:06:51Z",
+      "side": 1,
+      "message": "Above you used 0 as \"never expires\" here you use max uint64-t.  which is it?",
+      "range": {
+        "startLine": 1940,
+        "startChar": 0,
+        "endLine": 1940,
+        "endChar": 45
+      },
+      "revId": "ffe977503105b116e2948c4a942a69d99dc7a65e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "edd342cd_940994e0",
         "filename": "test/redfish-core/lib/account_service_test.cpp",
         "patchSetId": 7
