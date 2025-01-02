@@ -128,6 +128,30 @@
       },
       "revId": "75efeadc71c7b0bf329fb43fc9d0dca619f676d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "035d4d04_a59f2cac",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2624,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-02T21:22:20Z",
+      "side": 1,
+      "message": "We\u0027d update the privilege generation to handle this correctly with ConfigureSelf, then use redfish::privileges::patchManagerAccount here.\n\nI\u0027m ok with this if we can\u0027t do it here.",
+      "parentUuid": "704e806d_d26da4e1",
+      "range": {
+        "startLine": 2622,
+        "startChar": 0,
+        "endLine": 2624,
+        "endChar": 14
+      },
+      "revId": "75efeadc71c7b0bf329fb43fc9d0dca619f676d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
