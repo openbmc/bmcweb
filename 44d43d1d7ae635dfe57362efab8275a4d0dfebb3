@@ -52,6 +52,24 @@
       "parentUuid": "b16b5610_70f6b0fb",
       "revId": "44d43d1d7ae635dfe57362efab8275a4d0dfebb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adddbdd2_c0bec9af",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 1002315
+      },
+      "writtenOn": "2025-01-02T05:08:01Z",
+      "side": 1,
+      "message": "Turn out `zip` doesn\u0027t work becuase `files` and `registries` are not the same order. I updated to create registries_map while retrieving data from DTMF website.\n\nWe can also update it further by looping through dictionary like this:\n\n```\n    error_registries \u003d {\n        \"base\": \"error\",\n        \"resource_event\": \"resource\",\n        \"heartbeat_event\": \"heartbeat\",\n        \"task_event\":\"task\"}\n    for registry, output_name in error_registries.items():\n        if registry not in registries_map:\n            continue\n        create_error_registry(\n            registries_map[registry],\n            dmtf_registries[registry],\n            to_pascal_case(registry),\n            registry,\n            output_name\n        )\n```",
+      "parentUuid": "39940be7_c9c219d6",
+      "revId": "44d43d1d7ae635dfe57362efab8275a4d0dfebb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
