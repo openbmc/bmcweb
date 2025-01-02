@@ -16,6 +16,24 @@
       "message": "Could you please also review https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75859\n\nThis looks related.",
       "revId": "8b3daad256f2d24bff424b61326ca44822af59ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceef2657_3d480645",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-02T21:33:47Z",
+      "side": 1,
+      "message": "I merged the above, can you please review and determine if your patchset is still needed?",
+      "parentUuid": "8cc25e3d_a790bd5a",
+      "revId": "8b3daad256f2d24bff424b61326ca44822af59ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
