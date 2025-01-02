@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3b2149e_76958420",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-02T02:15:06Z",
+      "side": 1,
+      "message": "\u003e By no effect, I mean the HTTP operation performs no D-Bus operation to affect SSH enablement, SSH enablement is not changed, and there is no indication of error.\n\u003e Note this is after taking into account the 15 second delay used by the configuration service manager.\n\n\nThe above is what your commit message should say, along with what request (in curl or whatever) you\u0027re attempting so that others can reproduce.",
+      "parentUuid": "c20d7eb7_ef095965",
+      "range": {
+        "startLine": 11,
+        "startChar": 43,
+        "endLine": 11,
+        "endChar": 71
+      },
+      "revId": "4c300eb8fe306a669d916fcc25261fea9818189c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "422b741e_259e7402",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "Originally the handleProtocolEnabled() function handled only \"IPMI/ProtocolEnabled\"; the \"IPMI/ProtocolEnabled\" was hard-coded in the function body.  Then this function was enhanced to also handle \"SSH/ProtocolEnabled\" and take the Redfish property name as a parameter.\nCommit 87c449664 [here: https://github.com/openbmc/bmcweb/commit/87c449664e5375abb040af6fad63ef965c311bec#diff-c8f2d16b1cd85758922a4bdc29a25e0eed76b9141d5fcf427cd8f269b3f1e439R394] apparently accidentally changed this back to hard-coded IPMI/ProtocolEnabled.\n\nNote that two later commits affect this same line of code: e93abac6d and then bd79bce8c.  This series of commits makes it difficult to revert the commit which introduced this bug.  Hence this patch.",
       "parentUuid": "422b741e_259e7402",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 67
+      },
+      "revId": "4c300eb8fe306a669d916fcc25261fea9818189c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "140884ec_11d3eaf1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-02T02:15:06Z",
+      "side": 1,
+      "message": "\u003e Then this function was enhanced to also handle \"SSH/ProtocolEnabled\" and take the Redfish property name as a parameter.\n\nContinue this line of thought just a little...... How did this enhancement break things, and how does your commit fix it?  (presumably you tested that this fixes the issue?)\n\nCan we just fix the args on this call?",
+      "parentUuid": "df930a83_72ee2286",
       "range": {
         "startLine": 12,
         "startChar": 0,
