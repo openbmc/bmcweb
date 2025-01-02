@@ -25,6 +25,26 @@ namespace redfish
 inline void getPowerSubsystemAllocation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    // Get max from CapLimit
+    sdbusplus::asio::getProperty<uint32_t>(
+        *crow::connections::systemBus, "org.open_power.OCC.Control",
+        "/xyz/openbmc_project/control/host0/power_cap_limits",
+        "xyz.openbmc_project.Control.Power.CapLimits", "MaxPowerCapValue",
+        [asyncResp](const boost::system::error_code& ec, uint32_t maxCap) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] = maxCap;
+            asyncResp->res.jsonValue["Allocation"]["RequestedWatts"] = maxCap;
+        });
+
+    // Get power cap enable status and the cap (if set)
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_cap",
@@ -41,13 +61,11 @@ inline void getPowerSubsystemAllocation(
                 return;
             }
 
-            uint32_t powerCap{0};
-            bool powerCapEnable{false};
-            uint32_t maxPowerCapValue{0};
+            const uint32_t* powerCap = nullptr;
+            const bool* powerCapEnable = nullptr;
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), propertiesList, "PowerCap",
-                powerCap, "PowerCapEnable", powerCapEnable, "MaxPowerCapValue",
-                maxPowerCapValue);
+                powerCap, "PowerCapEnable", powerCapEnable);
 
             if (!success)
             {
@@ -55,21 +73,13 @@ inline void getPowerSubsystemAllocation(
                 return;
             }
 
-            // If MaxPowerCapValue valid, store Allocation properties in JSON
-            if ((maxPowerCapValue > 0) && (maxPowerCapValue < UINT32_MAX))
+            if ((powerCap != nullptr) && (powerCapEnable != nullptr))
             {
-                if (powerCapEnable)
+                if (*powerCapEnable)
                 {
                     asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
-                        powerCap;
+                        *powerCap;
                 }
-                else
-                {
-                    asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
-                        maxPowerCapValue;
-                }
-                asyncResp->res.jsonValue["Allocation"]["RequestedWatts"] =
-                    maxPowerCapValue;
             }
         });
 }

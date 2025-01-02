@@ -308,6 +308,45 @@ inline void
     getPowerLimitWatts(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::asio::getAllProperties(
+        *crow::connections::systemBus, "org.open_power.OCC.Control",
+        "/xyz/openbmc_project/control/host0/power_cap_limits",
+        "xyz.openbmc_project.Control.Power.CapLimits",
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::DBusPropertiesMap& propertiesList) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+
+            const uint32_t* minCap = nullptr;
+            const uint32_t* maxCap = nullptr;
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), propertiesList,
+                "MinPowerCapValue", minCap, "MaxPowerCapValue", maxCap);
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (minCap != nullptr)
+            {
+                asyncResp->res.jsonValue["PowerLimitWatts"]["AllowableMin"] =
+                    *minCap;
+            }
+            if (maxCap != nullptr)
+            {
+                asyncResp->res.jsonValue["PowerLimitWatts"]["AllowableMax"] =
+                    *maxCap;
+            }
+        });
+
+    sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_cap",
         "xyz.openbmc_project.Control.Power.Cap",
@@ -329,13 +368,10 @@ inline void
 
             const uint32_t* powerCap = nullptr;
             const bool* powerCapEnable = nullptr;
-            const uint32_t* minCap = nullptr;
-            const uint32_t* maxCap = nullptr;
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), propertiesList, "PowerCap",
-                powerCap, "PowerCapEnable", powerCapEnable, "MinPowerCapValue",
-                minCap, "MaxPowerCapValue", maxCap);
+                powerCap, "PowerCapEnable", powerCapEnable);
 
             if (!success)
             {
@@ -353,18 +389,6 @@ inline void
             {
                 asyncResp->res.jsonValue["PowerLimitWatts"]["ControlMode"] =
                     "Disabled";
-            }
-
-            if (minCap != nullptr)
-            {
-                asyncResp->res.jsonValue["PowerLimitWatts"]["AllowableMin"] =
-                    *minCap;
-            }
-
-            if (maxCap != nullptr)
-            {
-                asyncResp->res.jsonValue["PowerLimitWatts"]["AllowableMax"] =
-                    *maxCap;
             }
         });
 }
