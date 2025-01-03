@@ -445,6 +445,7 @@ srcfiles_unittest = files(
     'test/redfish-core/include/privileges_test.cpp',
     'test/redfish-core/include/redfish_aggregator_test.cpp',
     'test/redfish-core/include/redfish_test.cpp',
+    'test/redfish-core/include/redfish_oem_routing_test.cpp',
     'test/redfish-core/include/registries_test.cpp',
     'test/redfish-core/include/submit_test_event_test.cpp',
     'test/redfish-core/include/utils/dbus_utils.cpp',
