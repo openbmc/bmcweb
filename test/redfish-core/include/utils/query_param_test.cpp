@@ -3,6 +3,7 @@
 #include "bmcweb_config.h"
 
 #include "http_response.hpp"
+#include "utils/error_code.hpp"
 #include "utils/query_param.hpp"
 
 #include <boost/beast/http/status.hpp>
