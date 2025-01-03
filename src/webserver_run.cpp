@@ -20,6 +20,7 @@
 #include "openbmc_dbus_rest.hpp"
 #include "redfish.hpp"
 #include "redfish_aggregator.hpp"
+#include "redfish_oem_routing.hpp"
 #include "user_monitor.hpp"
 #include "vm_websocket.hpp"
 #include "watchdog.hpp"
