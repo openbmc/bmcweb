@@ -55,6 +55,9 @@ class Trie
                                            1>>;
         ChildMap children;
 
+        // Children for fragments (starting with #)
+        ChildMap fragmentChildren;
+
         bool isSimpleNode() const
         {
             return ruleIndex == 0 && stringParamChild == 0 &&
@@ -162,6 +165,7 @@ class Trie
     {
         unsigned ruleIndex;
         std::vector<std::string> params;
+        std::vector<unsigned> fragmentRuleIndexes;
     };
 
   private:
@@ -170,7 +174,13 @@ class Trie
     {
         if (reqUrl.empty())
         {
-            return {node.ruleIndex, params};
+            FindResult result = {node.ruleIndex, params, {}};
+            for (const auto& [fragment, fragmentRuleIndex] :
+                 node.fragmentChildren)
+            {
+                result.fragmentRuleIndexes.push_back(fragmentRuleIndex);
+            }
+            return result;
         }
 
         if (node.stringParamChild != 0U)
@@ -189,9 +199,9 @@ class Trie
                 params.emplace_back(reqUrl.substr(0, epos));
                 FindResult ret = findHelper(
                     reqUrl.substr(epos), nodes[node.stringParamChild], params);
-                if (ret.ruleIndex != 0U)
+                if (ret.ruleIndex != 0U || !ret.fragmentRuleIndexes.empty())
                 {
-                    return {ret.ruleIndex, std::move(ret.params)};
+                    return ret;
                 }
                 params.pop_back();
             }
@@ -201,9 +211,9 @@ class Trie
         {
             params.emplace_back(reqUrl);
             FindResult ret = findHelper("", nodes[node.pathParamChild], params);
-            if (ret.ruleIndex != 0U)
+            if (ret.ruleIndex != 0U || !ret.fragmentRuleIndexes.empty())
             {
-                return {ret.ruleIndex, std::move(ret.params)};
+                return ret;
             }
             params.pop_back();
         }
@@ -217,14 +227,14 @@ class Trie
             {
                 FindResult ret =
                     findHelper(reqUrl.substr(fragment.size()), child, params);
-                if (ret.ruleIndex != 0U)
+                if (ret.ruleIndex != 0U || !ret.fragmentRuleIndexes.empty())
                 {
-                    return {ret.ruleIndex, std::move(ret.params)};
+                    return ret;
                 }
             }
         }
 
-        return {0U, std::vector<std::string>()};
+        return {0U, std::vector<std::string>(), {}};
     }
 
   public:
@@ -239,6 +249,17 @@ class Trie
         size_t idx = 0;
 
         std::string_view url = urlIn;
+
+        std::string_view fragment;
+        // Check if the URL contains a fragment (#)
+        size_t fragmentPos = urlIn.find('#');
+        size_t queryPos = urlIn.find('?');
+        if (fragmentPos != std::string::npos && queryPos == std::string::npos &&
+            fragmentPos != urlIn.length() - 1)
+        {
+            fragment = urlIn.substr(fragmentPos + 1);
+            url = urlIn.substr(0, fragmentPos);
+        }
 
         while (!url.empty())
         {
@@ -287,6 +308,11 @@ class Trie
             url.remove_prefix(1);
         }
         Node& node = nodes[idx];
+        if (!fragment.empty())
+        {
+            node.fragmentChildren.emplace(fragment, ruleIndex);
+            return;
+        }
         if (node.ruleIndex != 0U)
         {
             BMCWEB_LOG_CRITICAL("handler already exists for \"{}\"", urlIn);
@@ -309,6 +335,10 @@ class Trie
         {
             BMCWEB_LOG_DEBUG("{} <path>", spaces);
             debugNodePrint(nodes[n.pathParamChild], level + 6);
+        }
+        for (const Node::ChildMap::value_type& kv : n.fragmentChildren)
+        {
+            BMCWEB_LOG_DEBUG("{}#{}", spaces, kv.first);
         }
         for (const Node::ChildMap::value_type& kv : n.children)
         {
