@@ -3,12 +3,15 @@
 
 #include "bmcweb_config.h"
 
+#include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
+#include "redfish_oem_routing.hpp"
+#include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
@@ -1479,7 +1482,7 @@ inline void getHandleOemOpenBmc(
     const std::string& /*managerId*/)
 {
     // Default OEM data
-    nlohmann::json& oemOpenbmc = asyncResp->res.jsonValue["Oem"]["OpenBmc"];
+    nlohmann::json& oemOpenbmc = asyncResp->res.jsonValue;
     oemOpenbmc["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager";
     oemOpenbmc["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}#/Oem/OpenBmc",
@@ -1496,6 +1499,13 @@ inline void getHandleOemOpenBmc(
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
     }
+}
+
+inline void requestRoutesOpenBmcManager(App& /*app*/)
+{
+    BMCWEB_OEM_ROUTE(getOemRouter(), "/redfish/v1/Managers/<str>#Oem/OpenBmc")
+        .privileges(redfish::privileges::getManager)
+        .setGetHandler(getHandleOemOpenBmc);
 }
 
 } // namespace redfish
