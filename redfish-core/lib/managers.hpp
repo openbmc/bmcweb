@@ -6,18 +6,13 @@
 #include "bmcweb_config.h"
 
 #include "app.hpp"
-#include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
-#include "error_messages.hpp"
 #include "generated/enums/action_info.hpp"
 #include "generated/enums/manager.hpp"
 #include "generated/enums/resource.hpp"
-#include "http_request.hpp"
-#include "logging.hpp"
 #include "openbmc/openbmc_managers.hpp"
-#include "persistent_data.hpp"
 #include "query.hpp"
+#include "redfish_oem_routing.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
@@ -26,32 +21,20 @@
 #include "utils/systemd_utils.hpp"
 #include "utils/time_utils.hpp"
 
-#include <systemd/sd-bus.h>
-
-#include <boost/beast/http/status.hpp>
-#include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
-#include <boost/url/url.hpp>
-#include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
-#include <sdbusplus/message.hpp>
-#include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
-#include <cstddef>
 #include <cstdint>
-#include <format>
-#include <functional>
-#include <map>
 #include <memory>
 #include <optional>
 #include <ranges>
+#include <sstream>
 #include <string>
 #include <string_view>
-#include <utility>
-#include <vector>
+#include <variant>
 
 namespace redfish
 {
@@ -641,8 +624,6 @@ inline void requestRoutesManager(App& app)
                                         BMCWEB_REDFISH_MANAGER_URI_NAME);
             }
 
-            getHandleOemOpenBmc(req, asyncResp, managerId);
-
             // Manager.Reset (an action) can be many values, OpenBMC only
             // supports BMC reboot.
             nlohmann::json& managerReset =
@@ -709,12 +690,6 @@ inline void requestRoutesManager(App& app)
             managerDiagnosticData["@odata.id"] = boost::urls::format(
                 "/redfish/v1/Managers/{}/ManagerDiagnosticData",
                 BMCWEB_REDFISH_MANAGER_URI_NAME);
-
-            if constexpr (BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA)
-            {
-                auto pids = std::make_shared<GetPIDValues>(asyncResp);
-                pids->run();
-            }
 
             getMainChassisId(asyncResp, [](const std::string& chassisId,
                                            const std::shared_ptr<
@@ -878,6 +853,9 @@ inline void requestRoutesManager(App& app)
                         }
                     }
                 });
+
+            getOemRouter().handleOemGet(std::make_shared<crow::Request>(req),
+                                        asyncResp);
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")
