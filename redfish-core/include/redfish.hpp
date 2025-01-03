@@ -3,6 +3,7 @@
 #pragma once
 
 #include "app.hpp"
+#include "redfish_oem_routing.hpp"
 
 namespace redfish
 {
@@ -20,6 +21,26 @@ class RedfishService
      * @param[in] app   Crow app on which Redfish will initialize
      */
     explicit RedfishService(App& app);
+
+    static OemRouter& getOemRouter()
+    {
+        static OemRouter instance;
+        return instance;
+    }
+
+    static void oemRouterSetup()
+    {
+        getOemRouter().validate();
+    }
 };
+
+template <const char* Url>
+constexpr auto& redfishOemRule()
+{
+    constexpr std::string_view urlView(Url);
+    return RedfishService::getOemRouter()
+        .template newOemRule<crow::utility::getParameterTag(urlView)>(
+            std::string(urlView));
+}
 
 } // namespace redfish
