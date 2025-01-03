@@ -18,6 +18,7 @@
 #include "openbmc/openbmc_managers.hpp"
 #include "persistent_data.hpp"
 #include "query.hpp"
+#include "redfish_oem_routing.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
@@ -641,8 +642,6 @@ inline void requestRoutesManager(App& app)
                                         BMCWEB_REDFISH_MANAGER_URI_NAME);
             }
 
-            getHandleOemOpenBmc(req, asyncResp, managerId);
-
             // Manager.Reset (an action) can be many values, OpenBMC only
             // supports BMC reboot.
             nlohmann::json& managerReset =
@@ -709,12 +708,6 @@ inline void requestRoutesManager(App& app)
             managerDiagnosticData["@odata.id"] = boost::urls::format(
                 "/redfish/v1/Managers/{}/ManagerDiagnosticData",
                 BMCWEB_REDFISH_MANAGER_URI_NAME);
-
-            if constexpr (BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA)
-            {
-                auto pids = std::make_shared<GetPIDValues>(asyncResp);
-                pids->run();
-            }
 
             getMainChassisId(asyncResp, [](const std::string& chassisId,
                                            const std::shared_ptr<
@@ -878,6 +871,8 @@ inline void requestRoutesManager(App& app)
                         }
                     }
                 });
+
+            getOemRouter().handleOemGet(req, asyncResp);
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")

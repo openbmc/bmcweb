@@ -20,6 +20,7 @@
 #include "openbmc_dbus_rest.hpp"
 #include "redfish.hpp"
 #include "redfish_aggregator.hpp"
+#include "redfish_oem_routing.hpp"
 #include "user_monitor.hpp"
 #include "vm_websocket.hpp"
 #include "watchdog.hpp"
@@ -82,6 +83,8 @@ int run()
     if constexpr (BMCWEB_REDFISH)
     {
         redfish::RedfishService redfish(app);
+
+        redfish::oemRouterSetup();
 
         // Create EventServiceManager instance and initialize Config
         redfish::EventServiceManager::getInstance();
