@@ -2068,23 +2068,6 @@ inline void requestRoutesManager(App& app)
                                         BMCWEB_REDFISH_MANAGER_URI_NAME);
             }
 
-            // default oem data
-            nlohmann::json& oem = asyncResp->res.jsonValue["Oem"];
-            nlohmann::json& oemOpenbmc = oem["OpenBmc"];
-            oem["@odata.id"] =
-                boost::urls::format("/redfish/v1/Managers/{}#/Oem",
-                                    BMCWEB_REDFISH_MANAGER_URI_NAME);
-            oemOpenbmc["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager";
-            oemOpenbmc["@odata.id"] =
-                boost::urls::format("/redfish/v1/Managers/{}#/Oem/OpenBmc",
-                                    BMCWEB_REDFISH_MANAGER_URI_NAME);
-
-            nlohmann::json::object_t certificates;
-            certificates["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Managers/{}/Truststore/Certificates",
-                BMCWEB_REDFISH_MANAGER_URI_NAME);
-            oemOpenbmc["Certificates"] = std::move(certificates);
-
             // Manager.Reset (an action) can be many values, OpenBMC only
             // supports BMC reboot.
             nlohmann::json& managerReset =
@@ -2320,6 +2303,8 @@ inline void requestRoutesManager(App& app)
                         }
                     }
                 });
+
+            app.handleOemGet(std::make_shared<crow::Request>(req), asyncResp);
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")

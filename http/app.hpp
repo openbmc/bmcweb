@@ -5,6 +5,7 @@
 #include "http_server.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
+#include "redfish_oem_routing.hpp"
 #include "routing.hpp"
 #include "utility.hpp"
 
@@ -26,6 +27,10 @@
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage, clang-diagnostic-unused-macros)
 #define BMCWEB_ROUTE(app, url)                                                 \
     app.template route<crow::utility::getParameterTag(url)>(url)
+
+// NOLINTNEXTLINE(cppcoreguidelines-macro-usage, clang-diagnostic-unused-macros)
+#define BMCWEB_OEM_ROUTE(app, url)                                             \
+    app.template OemRoute<crow::utility::getParameterTag(url)>(url)
 
 namespace crow
 {
@@ -69,9 +74,29 @@ class App
         return router.newRuleTagged<Tag>(std::move(rule));
     }
 
+    template <uint64_t Tag>
+    auto& OemRoute(std::string&& rule)
+    {
+        return rfOemRouter.newRfOemRule<Tag>(std::move(rule));
+    }
+
+    void handleOemGet(const std::shared_ptr<Request>& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    {
+        rfOemRouter.handleOemGet(req, asyncResp);
+    }
+
+    void handleOemPatch(const std::shared_ptr<Request>& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const nlohmann::json::object_t& payload)
+    {
+        rfOemRouter.handleOemPatch(req, asyncResp, payload);
+    }
+
     void validate()
     {
         router.validate();
+        rfOemRouter.validate();
     }
 
     void loadCertificate()
@@ -164,6 +189,7 @@ class App
     std::optional<server_type> server;
 
     Router router;
+    RfOemRouter rfOemRouter;
 };
 } // namespace crow
 using App = crow::App;
