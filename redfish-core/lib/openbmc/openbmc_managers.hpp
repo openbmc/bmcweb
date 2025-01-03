@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "bmcweb_config.h"
@@ -9,8 +8,10 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
+#include "redfish.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "verb.hpp"
 
 #include <boost/asio/post.hpp>
 #include <boost/beast/http/status.hpp>
@@ -1473,13 +1474,13 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
     size_t objectCount = 0;
 };
 
-inline void getHandleOemOpenBmc(
+inline void handleGetManagerOpenBmc(
     const crow::Request& /*req*/,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*managerId*/)
 {
     // Default OEM data
-    nlohmann::json& oemOpenbmc = asyncResp->res.jsonValue["Oem"]["OpenBmc"];
+    nlohmann::json& oemOpenbmc = asyncResp->res.jsonValue;
     oemOpenbmc["@odata.type"] = "#OpenBMCManager.v1_0_0.Manager";
     oemOpenbmc["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}#/Oem/OpenBmc",
@@ -1496,6 +1497,12 @@ inline void getHandleOemOpenBmc(
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
     }
+}
+
+inline void requestRoutesOpenBmcManager(RedfishService& service)
+{
+    REDFISH_SUB_ROUTE<"/redfish/v1/Managers/<str>/#/Oem/OpenBmc">(
+        service, HttpVerb::Get)(handleGetManagerOpenBmc);
 }
 
 } // namespace redfish
