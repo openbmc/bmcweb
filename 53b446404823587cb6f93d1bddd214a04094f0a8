@@ -62,6 +62,24 @@
       "message": "This lambda is already way too long.  This patch just makes it longer.  Please refactor ahead of adding more to this.",
       "revId": "53b446404823587cb6f93d1bddd214a04094f0a8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98f523cb_ca481023",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 2303,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-03T23:19:45Z",
+      "side": 1,
+      "message": "I made this change for you.  Please rebase your patch on top.",
+      "parentUuid": "11100530_4dbeb771",
+      "revId": "53b446404823587cb6f93d1bddd214a04094f0a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
