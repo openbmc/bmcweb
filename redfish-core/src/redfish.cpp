@@ -29,6 +29,7 @@
 #include "metric_report_definition.hpp"
 #include "network_protocol.hpp"
 #include "odata.hpp"
+#include "openbmc/openbmc_managers.hpp"
 #include "pcie.hpp"
 #include "power.hpp"
 #include "power_subsystem.hpp"
@@ -233,6 +234,10 @@ RedfishService::RedfishService(App& app)
 
     // Note, this must be the last route registered
     requestRoutesRedfish(app);
+
+    requestRoutesOpenBmcManager(*this);
+
+    validate();
 }
 
 } // namespace redfish
