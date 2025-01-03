@@ -308,7 +308,7 @@ class Trie
         debugNodePrint(head(), 0U);
     }
 
-  private:
+  protected:
     const ContainedType& head() const
     {
         return nodes.front();
