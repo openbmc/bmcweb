@@ -49,6 +49,7 @@
 #include "trigger.hpp"
 #include "update_service.hpp"
 #include "virtual_media.hpp"
+#include "openbmc/openbmc_managers.hpp"
 
 namespace redfish
 {
@@ -89,6 +90,10 @@ RedfishService::RedfishService(App& app)
     }
     requestRoutesManagerCollection(app);
     requestRoutesManager(app);
+    if constexpr (BMCWEB_OPENBMC_OEM_SCHEMA)
+    {
+        requestRoutesOpenBmcManager(app);
+    } 
     requestRoutesManagerResetAction(app);
     requestRoutesManagerResetActionInfo(app);
     requestRoutesManagerResetToDefaultsAction(app);
