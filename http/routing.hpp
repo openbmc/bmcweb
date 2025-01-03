@@ -16,11 +16,13 @@
 #include "sessions.hpp"
 #include "utility.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/fragment_routing.hpp"
 #include "verb.hpp"
 #include "websocket.hpp"
 
 #include <boost/container/flat_map.hpp>
 #include <boost/container/small_vector.hpp>
+#include <boost/url/url_view.hpp>
 
 #include <algorithm>
 #include <cerrno>
@@ -52,6 +54,9 @@ class Trie
             boost::container::small_vector<std::pair<std::string, unsigned>,
                                            1>>;
         ChildMap children;
+
+        // Children for fragments (starting with #)
+        ChildMap fragmentChildren;
 
         bool isSimpleNode() const
         {
@@ -160,6 +165,7 @@ class Trie
     {
         unsigned ruleIndex;
         std::vector<std::string> params;
+        std::vector<unsigned> fragmentRuleIndexes;
     };
 
   private:
@@ -168,7 +174,13 @@ class Trie
     {
         if (reqUrl.empty())
         {
-            return {node.ruleIndex, params};
+            FindResult result = {node.ruleIndex, params, {}};
+            for (const auto& [fragment, fragmentRuleIndex] :
+                 node.fragmentChildren)
+            {
+                result.fragmentRuleIndexes.push_back(fragmentRuleIndex);
+            }
+            return result;
         }
 
         if (node.stringParamChild != 0U)
@@ -189,7 +201,7 @@ class Trie
                     reqUrl.substr(epos), nodes[node.stringParamChild], params);
                 if (ret.ruleIndex != 0U)
                 {
-                    return {ret.ruleIndex, std::move(ret.params)};
+                    return ret;
                 }
                 params.pop_back();
             }
@@ -201,7 +213,7 @@ class Trie
             FindResult ret = findHelper("", nodes[node.pathParamChild], params);
             if (ret.ruleIndex != 0U)
             {
-                return {ret.ruleIndex, std::move(ret.params)};
+                return ret;
             }
             params.pop_back();
         }
@@ -217,12 +229,12 @@ class Trie
                     findHelper(reqUrl.substr(fragment.size()), child, params);
                 if (ret.ruleIndex != 0U)
                 {
-                    return {ret.ruleIndex, std::move(ret.params)};
+                    return ret;
                 }
             }
         }
 
-        return {0U, std::vector<std::string>()};
+        return {0U, std::vector<std::string>(), {}};
     }
 
   public:
@@ -237,6 +249,14 @@ class Trie
         size_t idx = 0;
 
         std::string_view url = urlIn;
+
+        std::string_view fragment;
+        boost::urls::url_view parsed_url = url::parse_uri(urlIn).value();
+        if (parsed_url.has_fragment() && !parsed_url.has_query())
+        {
+            fragment = parsed_url.fragment();
+            url = parsed_url.remove_fragment().encoded_url();
+        }
 
         while (!url.empty())
         {
@@ -285,6 +305,11 @@ class Trie
             url.remove_prefix(1);
         }
         Node& node = nodes[idx];
+        if (!fragment.empty())
+        {
+            node.fragmentChildren.emplace(fragment, ruleIndex);
+            return;
+        }
         if (node.ruleIndex != 0U)
         {
             BMCWEB_LOG_CRITICAL("handler already exists for \"{}\"", urlIn);
@@ -307,6 +332,10 @@ class Trie
         {
             BMCWEB_LOG_DEBUG("{} <path>", spaces);
             debugNodePrint(nodes[n.pathParamChild], level + 6);
+        }
+        for (const Node::ChildMap::value_type& kv : n.fragmentChildren)
+        {
+            BMCWEB_LOG_DEBUG("{}#{}", spaces, kv.first);
         }
         for (const Node::ChildMap::value_type& kv : n.children)
         {
@@ -431,6 +460,17 @@ class Router
                 trie.add(rule.substr(0, rule.size() - 1),
                          static_cast<unsigned>(rules.size() - 1));
             }
+
+            // request to /resource#frag url matches /resource/#frag
+            size_t hashPos = rule.find('#');
+            if (hashPos != std::string_view::npos)
+            {
+                std::string url(rule.substr(0, hashPos));
+                url += '/';
+                url += rule.substr(hashPos);
+                std::string_view fragRule = url;
+                trie.add(fragRule, static_cast<unsigned>(rules.size() - 1U));
+            }
         }
     };
 
@@ -490,6 +530,7 @@ class Router
     {
         BaseRule* rule = nullptr;
         std::vector<std::string> params;
+        std::vector<BaseRule*> fragmentRules;
     };
 
     struct FindRouteResponse
@@ -513,6 +554,12 @@ class Router
         {
             route.rule = perMethod.rules[found.ruleIndex];
             route.params = std::move(found.params);
+        }
+
+        for (auto fragmentRuleIndex : found.fragmentRuleIndexes)
+        {
+            route.fragmentRules.emplace_back(
+                perMethod.rules[fragmentRuleIndex]);
         }
         return route;
     }
@@ -647,21 +694,32 @@ class Router
         }
 
         BaseRule& rule = *foundRoute.route.rule;
+        std::vector<BaseRule*> fragments =
+            std::move(foundRoute.route.fragmentRules);
         std::vector<std::string> params = std::move(foundRoute.route.params);
 
         BMCWEB_LOG_DEBUG("Matched rule '{}' {} / {}", rule.rule,
                          req->methodString(), rule.getMethods());
 
+        auto resp = asyncResp;
+        if (!fragments.empty())
+        {
+            if (!handleMultiFragmentRouting(req, fragments, params, asyncResp,
+                                            resp))
+            {
+                return;
+            }
+        }
+
         if (req->session == nullptr)
         {
-            rule.handle(*req, asyncResp, params);
+            rule.handle(*req, resp, params);
             return;
         }
-        validatePrivilege(
-            req, asyncResp, rule,
-            [req, asyncResp, &rule, params = std::move(params)]() {
-                rule.handle(*req, asyncResp, params);
-            });
+        validatePrivilege(req, resp, rule,
+                          [req, resp, &rule, params = std::move(params)]() {
+                              rule.handle(*req, resp, params);
+                          });
     }
 
     void debugPrint()
