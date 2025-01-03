@@ -2,7 +2,9 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "bmcweb_config.h"
 
+#include "error_message_utils.hpp"
 #include "http_response.hpp"
+#include "utils/error_code.hpp"
 #include "utils/query_param.hpp"
 
 #include <boost/beast/http/status.hpp>
