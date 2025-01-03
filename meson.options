@@ -475,3 +475,11 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.''',
 )
+
+# BMCWEB_OPENBMC_OEM_SCHEMA
+option(
+    'openbmc-oem-schema',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Enable OpenBMC Oem schema property handling routes',
+)
