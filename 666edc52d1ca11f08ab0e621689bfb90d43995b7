@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3375e7b3_10156125",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-03T16:40:52Z",
+      "side": 1,
+      "message": "Please help with review of this proposal.",
+      "revId": "666edc52d1ca11f08ab0e621689bfb90d43995b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
