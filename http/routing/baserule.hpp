@@ -15,6 +15,7 @@
 #include <limits>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -23,7 +24,7 @@ namespace crow
 class BaseRule
 {
   public:
-    explicit BaseRule(const std::string& thisRule) : rule(thisRule) {}
+    explicit BaseRule(std::string_view thisRule) : rule(thisRule) {}
 
     virtual ~BaseRule() = default;
 

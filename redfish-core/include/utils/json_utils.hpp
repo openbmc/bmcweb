@@ -722,6 +722,21 @@ bool readJsonPatch(const crow::Request& req, crow::Response& res,
                           std::forward<UnpackTypes&&>(in)...);
 }
 
+inline std::optional<nlohmann::json::json_pointer>
+    createJsonPointerFromFragment(std::string_view input)
+{
+    auto hashPos = input.find('#');
+    if (hashPos == std::string_view::npos || hashPos + 1 >= input.size())
+    {
+        BMCWEB_LOG_ERROR(
+            "createJsonPointerFromFragment() No fragment found after #");
+        return std::nullopt;
+    }
+
+    std::string_view fragment = input.substr(hashPos + 1);
+    return nlohmann::json::json_pointer(std::string(fragment));
+}
+
 template <typename... UnpackTypes>
 bool readJsonAction(const crow::Request& req, crow::Response& res,
                     const char* key, UnpackTypes&&... in)
