@@ -739,26 +739,28 @@ def to_pascal_case(text):
 
 
 def main():
-    dmtf_registries = OrderedDict([
-        ("base", "1.19.0"),
-        ("composition", "1.1.2"),
-        ("environmental", "1.0.1"),
-        ("ethernet_fabric", "1.0.1"),
-        ("fabric", "1.0.2"),
-        ("heartbeat_event", "1.0.1"),
-        ("job_event", "1.0.1"),
-        ("license", "1.0.3"),
-        ("log_service", "1.0.1"),
-        ("network_device", "1.0.3"),
-        ("platform", "1.0.1"),
-        ("power", "1.0.1"),
-        ("resource_event", "1.3.0"),
-        ("sensor_event", "1.0.1"),
-        ("storage_device", "1.2.1"),
-        ("task_event", "1.0.3"),
-        ("telemetry", "1.0.0"),
-        ("update", "1.0.2"),
-    ])
+    dmtf_registries = OrderedDict(
+        [
+            ("base", "1.19.0"),
+            ("composition", "1.1.2"),
+            ("environmental", "1.0.1"),
+            ("ethernet_fabric", "1.0.1"),
+            ("fabric", "1.0.2"),
+            ("heartbeat_event", "1.0.1"),
+            ("job_event", "1.0.1"),
+            ("license", "1.0.3"),
+            ("log_service", "1.0.1"),
+            ("network_device", "1.0.3"),
+            ("platform", "1.0.1"),
+            ("power", "1.0.1"),
+            ("resource_event", "1.3.0"),
+            ("sensor_event", "1.0.1"),
+            ("storage_device", "1.2.1"),
+            ("task_event", "1.0.3"),
+            ("telemetry", "1.0.0"),
+            ("update", "1.0.2"),
+        ]
+    )
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -793,7 +795,11 @@ def main():
 
     if "base" in registries_map:
         create_error_registry(
-            registries_map["base"], dmtf_registries["base"], "Base", "base", "error"
+            registries_map["base"],
+            dmtf_registries["base"],
+            "Base",
+            "base",
+            "error",
         )
     if "heartbeat_event" in registries_map:
         create_error_registry(
@@ -813,9 +819,12 @@ def main():
         )
     if "task_event" in registries_map:
         create_error_registry(
-            registries_map["task_event"], dmtf_registries["task_event"], "TaskEvent", "task_event", "task"
+            registries_map["task_event"],
+            dmtf_registries["task_event"],
+            "TaskEvent",
+            "task_event",
+            "task",
         )
-
 
     if "privilege" in registries:
         make_privilege_registry()
