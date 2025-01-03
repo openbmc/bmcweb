@@ -29,6 +29,7 @@
 #include "metric_report_definition.hpp"
 #include "network_protocol.hpp"
 #include "odata.hpp"
+#include "openbmc/openbmc_managers.hpp"
 #include "pcie.hpp"
 #include "power.hpp"
 #include "power_subsystem.hpp"
@@ -91,6 +92,7 @@ RedfishService::RedfishService(App& app)
     }
     requestRoutesManagerCollection(app);
     requestRoutesManager(app);
+    requestRoutesOpenBmcManager(app);
     requestRoutesManagerResetAction(app);
     requestRoutesManagerResetActionInfo(app);
     requestRoutesManagerResetToDefaultsAction(app);
