@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c31ab9f6_38350ac5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-04T19:28:51Z",
+      "side": 1,
+      "message": "Discussed with Rohit offline about getting added to the CLA.",
+      "revId": "16a74c31b2adb08f66c48253083efd0199b62f43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
