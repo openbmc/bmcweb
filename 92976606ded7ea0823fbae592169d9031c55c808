@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a67617b_ff394bfc",
+        "filename": ".clang-tidy",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-06T15:38:44Z",
+      "side": 1,
+      "message": "isn\u0027t this the same one?",
+      "revId": "92976606ded7ea0823fbae592169d9031c55c808",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36ef3a93_71115039",
+        "filename": ".clang-tidy",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-06T15:38:44Z",
+      "side": 1,
+      "message": "isn\u0027t this the same one?",
+      "revId": "92976606ded7ea0823fbae592169d9031c55c808",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
