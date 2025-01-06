@@ -42,7 +42,7 @@ inline int getJournalMetadata(sd_journal* journal, const char* field,
 }
 
 inline int getJournalMetadataInt(sd_journal* journal, const char* field,
-                                 const int base, long int& contents)
+                                 long int& contents)
 {
     std::string_view metadata;
     // Get the metadata from the requested field of the journal entry
@@ -52,7 +52,7 @@ inline int getJournalMetadataInt(sd_journal* journal, const char* field,
         return ret;
     }
     std::from_chars_result res =
-        std::from_chars(&*metadata.begin(), &*metadata.end(), contents, base);
+        std::from_chars(&*metadata.begin(), &*metadata.end(), contents);
     if (res.ec != std::error_code{} || res.ptr != &*metadata.end())
     {
         return -1;
@@ -67,7 +67,7 @@ inline bool getEntryTimestamp(sd_journal* journal, std::string& entryTimestamp)
     ret = sd_journal_get_realtime_usec(journal, &timestamp);
     if (ret < 0)
     {
-        BMCWEB_LOG_ERROR("Failed to read entry timestamp: {}", strerror(-ret));
+        BMCWEB_LOG_ERROR("Failed to read entry timestamp: {}", ret);
         return false;
     }
     entryTimestamp = redfish::time_utils::getDateTimeUintUs(timestamp);
@@ -111,7 +111,7 @@ inline bool fillBMCJournalLogEntryJson(
 
     // Get the severity from the PRIORITY field
     long int severity = 8; // Default to an invalid priority
-    ret = getJournalMetadataInt(journal, "PRIORITY", 10, severity);
+    ret = getJournalMetadataInt(journal, "PRIORITY", severity);
     if (ret < 0)
     {
         BMCWEB_LOG_DEBUG("Failed to read PRIORITY field: {}", strerror(-ret));
