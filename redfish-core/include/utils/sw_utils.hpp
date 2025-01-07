@@ -223,8 +223,8 @@ inline void afterAssociatedEndpoints(
     BMCWEB_LOG_DEBUG("populateSoftwareInformation enter");
     if (ec)
     {
-        BMCWEB_LOG_ERROR("error_code = {}", ec);
-        BMCWEB_LOG_ERROR("error msg = {}", ec.message());
+        BMCWEB_LOG_DEBUG("error_code = {}", ec);
+        BMCWEB_LOG_DEBUG("error msg = {}", ec.message());
         // No functional software for this swVersionPurpose, so just
         return;
     }
