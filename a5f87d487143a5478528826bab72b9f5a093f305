@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "461188e6_4577411f",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-07T17:08:37Z",
+      "side": 1,
+      "message": "Would\u0027ve preferred to see a callout between doesn\u0027t exist and other errors, but I\u0027m not worried about it enough to enforce it.",
+      "revId": "a5f87d487143a5478528826bab72b9f5a093f305",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
