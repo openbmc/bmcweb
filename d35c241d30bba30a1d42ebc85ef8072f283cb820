@@ -16,6 +16,24 @@
       "message": "Why woulnd\u0027t we want to print the errno ?\nWhat am I missing?\n\nhttps://man7.org/linux/man-pages/man2/dup.2.html\n\n```\nRETURN VALUE         top\n\n       On success, these system calls return the new file descriptor.\n       On error, -1 is returned, and errno is set to indicate the error.\n\n```",
       "revId": "d35c241d30bba30a1d42ebc85ef8072f283cb820",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b49d4ed4_575eed5b",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-07T17:12:04Z",
+      "side": 0,
+      "message": "It\u0027s not threadsafe and relies on a global buffer.  In theory it could be replaced with strerror_s, but that would be a lot of code, and I don\u0027t think worth it for just an error logger.",
+      "parentUuid": "71cdca18_5468440e",
+      "revId": "d35c241d30bba30a1d42ebc85ef8072f283cb820",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
