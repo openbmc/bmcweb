@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71cdca18_5468440e",
+        "filename": "include/obmc_console.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-07T14:18:08Z",
+      "side": 0,
+      "message": "Why woulnd\u0027t we want to print the errno ?\nWhat am I missing?\n\nhttps://man7.org/linux/man-pages/man2/dup.2.html\n\n```\nRETURN VALUE         top\n\n       On success, these system calls return the new file descriptor.\n       On error, -1 is returned, and errno is set to indicate the error.\n\n```",
+      "revId": "d35c241d30bba30a1d42ebc85ef8072f283cb820",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
