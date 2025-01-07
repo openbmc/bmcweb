@@ -16,6 +16,23 @@
       "message": "Hi @ed@tanous.net, I tried to test your patch (https://github.com/openbmc/bmcweb/commit/6e1a52fae1e39bdae6427bf060598242e1e4e4e6). My issue still happens. So, I think this patchset is still needed.\n\nMy issue was opened at https://github.com/openbmc/bmcweb/issues/294.",
       "revId": "fe3068fba12ac6485932160325dac679a598cac9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a54b8f8_a041620b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-07T17:09:57Z",
+      "side": 1,
+      "message": "This patchset needs greatly simplified.  It should not be doing chained queries and duplicated queries.",
+      "revId": "fe3068fba12ac6485932160325dac679a598cac9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
