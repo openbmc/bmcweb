@@ -34,6 +34,24 @@
       "parentUuid": "8cc25e3d_a790bd5a",
       "revId": "8b3daad256f2d24bff424b61326ca44822af59ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "731f2052_dd6236b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000994
+      },
+      "writtenOn": "2025-01-07T03:33:46Z",
+      "side": 1,
+      "message": "Thank @Ed Tanous, I\u0027m testing your patch (https://github.com/openbmc/bmcweb/commit/6e1a52fae1e39bdae6427bf060598242e1e4e4e6) on my system. I\u0027m verifying your patch with my issue opened at https://github.com/openbmc/bmcweb/issues/294. I will update informations to you soon.",
+      "parentUuid": "ceef2657_3d480645",
+      "revId": "8b3daad256f2d24bff424b61326ca44822af59ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
