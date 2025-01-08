@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9034131c_7a22de66",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-01-08T05:25:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4916f336_a7f3f71e",
+      "range": {
+        "startLine": 20,
+        "startChar": 24,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f8b6001_9dff5f8c",
@@ -156,6 +180,30 @@
       "writtenOn": "2024-12-27T17:30:34Z",
       "side": 1,
       "message": "enum class.  It looks like you\u0027ve kind of created your own enum class.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 4
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8c2dea9_24831808",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-01-08T05:25:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f8b6001_9dff5f8c",
       "range": {
         "startLine": 21,
         "startChar": 0,
@@ -286,6 +334,54 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "392be073_78676d3c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-01-08T05:25:59Z",
+      "side": 1,
+      "message": "So it isn\u0027t used as a map specifically but the dbus interface exposes it as a map:\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L100\n\nSo when we call getBIOSManagerProperty\u003cPendingAttributes\u003e or setBIOSManagerProperty\u003cPendingAttributes\u003e it is going to need to be the right structure\n\nIdeally these types of structures would be defined in the generated dbus c++ files but they are not as far as I can find, I was looking.",
+      "parentUuid": "ba321c73_878ec18d",
+      "range": {
+        "startLine": 48,
+        "startChar": 26,
+        "endLine": 48,
+        "endChar": 34
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df78bc40_3aacca86",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-01-08T05:25:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "657b270e_330a301d",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 66
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acf4f653_64291057",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -392,6 +488,30 @@
       "side": 1,
       "message": "Lets get some clarity.  This object does specify a BIOS attribute registry, so maybe my reading is different.  Probably best to ask redfish forum.\n\n\u003e If we need to load up the registry and check values that will be quite a bit more code that will be going in here.\n\nYep, and I think that\u0027s intentional in the spec to keep this customized namespace from exploding.",
       "parentUuid": "6ee5e609_c42bb1e7",
+      "range": {
+        "startLine": 77,
+        "startChar": 59,
+        "endLine": 77,
+        "endChar": 69
+      },
+      "revId": "5a4fd88d92ffa5649c96b2f005f4af962f15e04b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf946d6a_e91481ab",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-01-08T05:25:59Z",
+      "side": 1,
+      "message": "So we are not required to add AttributeRegistry, per the meeting today. However, I agree that we should add it. I am working on it for our gen 1 product currently to ensure I understand the nuances before adding to bmcweb.\n\nI think we should do this in 2 phases:\n1. Add the support for static registries and expose the parameter here if set (need to discuses where this is exposed)\n2. Add logic to limit the PATCH and PUT to only those in the current registry (I think this can be a setting that allows a service to ignore the validation steps)",
+      "parentUuid": "c2943d8e_3543befc",
       "range": {
         "startLine": 77,
         "startChar": 59,
