@@ -172,6 +172,10 @@ class EventServiceManager
 
         const nlohmann::json::object_t* obj =
             jsonData.get_ptr<const nlohmann::json::object_t*>();
+        if (obj == nullptr)
+        {
+            return;
+        }
         for (const auto& item : *obj)
         {
             if (item.first == "Configuration")

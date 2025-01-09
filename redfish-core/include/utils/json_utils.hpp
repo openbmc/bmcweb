@@ -154,7 +154,7 @@ UnpackErrorCode unpackValueVariant(nlohmann::json& j, std::string_view key,
 {
     if constexpr (Index < std::variant_size_v<std::variant<Args...>>)
     {
-        std::variant_alternative_t<Index, std::variant<Args...>> type;
+        std::variant_alternative_t<Index, std::variant<Args...>> type{};
         UnpackErrorCode unpack = unpackValueWithErrorCode(j, key, type);
         if (unpack == UnpackErrorCode::success)
         {
