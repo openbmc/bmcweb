@@ -42,45 +42,48 @@ inline void getPowerSubsystemAllocation(
             }
             asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] = maxCap;
             asyncResp->res.jsonValue["Allocation"]["RequestedWatts"] = maxCap;
-        });
 
-    // Get power cap enable status and the cap (if set)
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/power_cap",
-        "xyz.openbmc_project.Control.Power.Cap",
-        [asyncResp](const boost::system::error_code& ec,
+            // Get power cap enable status and the cap (if set)
+            sdbusplus::asio::getAllProperties(
+                *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+                "/xyz/openbmc_project/control/host0/power_cap",
+                "xyz.openbmc_project.Control.Power.Cap",
+                [asyncResp](
+                    const boost::system::error_code& ec2,
                     const dbus::utility::DBusPropertiesMap& propertiesList) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
+                    if (ec2)
+                    {
+                        if (ec2.value() != EBADR)
+                        {
+                            BMCWEB_LOG_ERROR("DBUS response error: {}",
+                                             ec2.value());
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
 
-            const uint32_t* powerCap = nullptr;
-            const bool* powerCapEnable = nullptr;
-            const bool success = sdbusplus::unpackPropertiesNoThrow(
-                dbus_utils::UnpackErrorPrinter(), propertiesList, "PowerCap",
-                powerCap, "PowerCapEnable", powerCapEnable);
+                    const uint32_t* powerCap = nullptr;
+                    const bool* powerCapEnable = nullptr;
+                    const bool success = sdbusplus::unpackPropertiesNoThrow(
+                        dbus_utils::UnpackErrorPrinter(), propertiesList,
+                        "PowerCap", powerCap, "PowerCapEnable", powerCapEnable);
 
-            if (!success)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
+                    if (!success)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
 
-            if ((powerCap != nullptr) && (powerCapEnable != nullptr))
-            {
-                if (*powerCapEnable)
-                {
-                    asyncResp->res.jsonValue["Allocation"]["AllocatedWatts"] =
-                        *powerCap;
-                }
-            }
+                    if ((powerCap != nullptr) && (powerCapEnable != nullptr))
+                    {
+                        if (*powerCapEnable)
+                        {
+                            asyncResp->res
+                                .jsonValue["Allocation"]["AllocatedWatts"] =
+                                *powerCap;
+                        }
+                    }
+                });
         });
 }
 
