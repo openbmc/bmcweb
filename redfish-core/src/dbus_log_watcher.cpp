@@ -38,6 +38,12 @@ static bool eventLogObjectFromDBus(const dbus::utility::DBusPropertiesMap& map,
     event.id = std::to_string(entry.Id);
     event.timestamp = redfish::time_utils::getDateTimeUintMs(entry.Timestamp);
 
+    // This dbus property is not documented to contain the Redfish Message Id,
+    // but can be used as such. As a temporary solution that is sufficient,
+    // the event filtering code will drop the event anyways if event.messageId
+    // is not valid.
+    event.messageId = entry.Message;
+
     // The order of 'AdditionalData' is not what's specified in an e.g.
     // busctl call to create the Event Log Entry. So it cannot be used
     // to map to the message args. Leaving this branch here for it to be
