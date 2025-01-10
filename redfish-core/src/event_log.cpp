@@ -130,6 +130,9 @@ int formatEventLogEntry(
 
     if (message == nullptr)
     {
+        BMCWEB_LOG_DEBUG(
+            "{}: could not find messageID '{}' for log entry {} in registry",
+            __func__, messageID, logEntryID);
         return -1;
     }
 
@@ -137,6 +140,8 @@ int formatEventLogEntry(
         redfish::registries::fillMessageArgs(messageArgs, message->message);
     if (msg.empty())
     {
+        BMCWEB_LOG_DEBUG("{}: message is empty after filling fillMessageArgs",
+                         __func__);
         return -1;
     }
 
