@@ -283,6 +283,8 @@ void Subscription::filterAndSendEventLogs(
     nlohmann::json::array_t logEntryArray;
     for (const EventLogObjectsType& logEntry : eventRecords)
     {
+        BMCWEB_LOG_DEBUG("Processing logEntry: {}, {} '{}'",logEntry.id,
+                         logEntry.timestamp, logEntry.messageId);
         std::vector<std::string_view> messageArgsView(
             logEntry.messageArgs.begin(), logEntry.messageArgs.end());
 
@@ -291,7 +293,7 @@ void Subscription::filterAndSendEventLogs(
                 logEntry.id, logEntry.messageId, messageArgsView,
                 logEntry.timestamp, userSub->customText, bmcLogEntry) != 0)
         {
-            BMCWEB_LOG_DEBUG("Read eventLog entry failed");
+            BMCWEB_LOG_WARNING("Read eventLog entry failed");
             continue;
         }
 
