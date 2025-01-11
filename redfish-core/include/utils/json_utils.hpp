@@ -685,6 +685,41 @@ inline std::optional<nlohmann::json::object_t>
     return {std::move(*object)};
 }
 
+inline const nlohmann::json* findNestedKey(std::string_view key,
+                                           const nlohmann::json& value)
+{
+    size_t keysplitIndex = key.find('/');
+    std::string_view leftover;
+    nlohmann::json::const_iterator it;
+    if (keysplitIndex != std::string_view::npos)
+    {
+        const nlohmann::json::object_t* obj =
+            value.get_ptr<const nlohmann::json::object_t*>();
+        if (obj == nullptr || obj->empty())
+        {
+            BMCWEB_LOG_ERROR("Requested key wasn't an object");
+            return nullptr;
+        }
+
+        leftover = key.substr(keysplitIndex + 1);
+        std::string_view keypart = key.substr(0, keysplitIndex);
+        it = value.find(keypart);
+        if (it == value.end())
+        {
+            // Entry didn't have key
+            return nullptr;
+        }
+        return findNestedKey(leftover, it.value());
+    }
+
+    it = value.find(key);
+    if (it == value.end())
+    {
+        return nullptr;
+    }
+    return &*it;
+}
+
 template <typename... UnpackTypes>
 bool readJsonPatch(const crow::Request& req, crow::Response& res,
                    std::string_view key, UnpackTypes&&... in)

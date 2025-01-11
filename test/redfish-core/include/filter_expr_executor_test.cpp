@@ -251,4 +251,21 @@ TEST(FilterParser, Dates)
     filterFalse("'2021-11-30T22:41:35.124+00:00' le Created", members);
 }
 
+TEST(FilterParser, NestedProperty)
+{
+    const nlohmann::json members = R"({"Members": [{"Oem": {
+        "OEM": {
+          "@odata.type": "#OEMLogEntry.v1_1_0.OEMLogEntry",
+          "Key": "Switch_1",
+          "ErrorId": "SWITCH_EC_STRAP_MISMATCH"
+        }
+      }}]})"_json;
+    // Forward true conditions
+    filterTrue("Oem/OEM/ErrorId eq 'SWITCH_EC_STRAP_MISMATCH'", members);
+    filterTrue("Oem/OEM/Key eq 'Switch_1'", members);
+    filterFalse("Oem/OEM/ErrorId eq 'EC_STRAP_MISMATCH'", members);
+    filterFalse("Oem/OEM/ErrorId eq 'CX7_EC_STRAP_MISMATCH'", members);
+    filterFalse("Oem/OEM/ErrorId ne 'SWITCH_EC_STRAP_MISMATCH'", members);
+}
+
 } // namespace redfish

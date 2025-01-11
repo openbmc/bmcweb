@@ -5,6 +5,7 @@
 #include "filter_expr_parser_ast.hpp"
 #include "human_sort.hpp"
 #include "logging.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <nlohmann/json.hpp>
@@ -129,26 +130,29 @@ ValueVisitor::result_type
 ValueVisitor::result_type
     ValueVisitor::operator()(const filter_ast::UnquotedString& x)
 {
-    // Future, handle paths with / in them
-    nlohmann::json::const_iterator entry = body.find(x);
-    if (entry == body.end())
+    // find key including paths with / in them
+    const nlohmann::json* it =
+        json_util::findNestedKey(static_cast<std::string_view>(x), body);
+    if (it == nullptr)
     {
         BMCWEB_LOG_ERROR("Key {} doesn't exist in output, cannot filter",
                          static_cast<std::string>(x));
         BMCWEB_LOG_DEBUG("Output {}", body.dump());
         return {};
     }
-    const double* dValue = entry->get_ptr<const double*>();
+
+    const nlohmann::json& entry = *it;
+    const double* dValue = entry.get_ptr<const double*>();
     if (dValue != nullptr)
     {
         return {*dValue};
     }
-    const int64_t* iValue = entry->get_ptr<const int64_t*>();
+    const int64_t* iValue = entry.get_ptr<const int64_t*>();
     if (iValue != nullptr)
     {
         return {*iValue};
     }
-    const std::string* strValue = entry->get_ptr<const std::string*>();
+    const std::string* strValue = entry.get_ptr<const std::string*>();
     if (strValue != nullptr)
     {
         if (DateTimeString::isDateTimeKey(x))
@@ -160,7 +164,7 @@ ValueVisitor::result_type
 
     BMCWEB_LOG_ERROR(
         "Type for key {} was {} which does not have a comparison operator",
-        static_cast<std::string>(x), static_cast<int>(entry->type()));
+        static_cast<std::string>(x), static_cast<int>(entry.type()));
     return {};
 }
 
