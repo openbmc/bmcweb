@@ -3050,7 +3050,10 @@ inline void
     asyncResp->res.jsonValue["SystemType"] =
         computer_system::SystemType::Physical;
     asyncResp->res.jsonValue["Description"] = "Computer System";
-    asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
+    }
     asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
         double(0);
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
@@ -3060,21 +3063,25 @@ inline void
         "/redfish/v1/Systems/{}/Processors", BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["Memory"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/Memory", BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    asyncResp->res.jsonValue["Storage"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Storage", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        asyncResp->res.jsonValue["Storage"]["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/Storage", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    }
     asyncResp->res.jsonValue["FabricAdapters"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Systems/{}/FabricAdapters",
                             BMCWEB_REDFISH_SYSTEM_URI_NAME);
-
-    asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]["target"] =
-        boost::urls::format(
-            "/redfish/v1/Systems/{}/Actions/ComputerSystem.Reset",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    asyncResp->res
-        .jsonValue["Actions"]["#ComputerSystem.Reset"]["@Redfish.ActionInfo"] =
-        boost::urls::format("/redfish/v1/Systems/{}/ResetActionInfo",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
-
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]["target"] =
+            boost::urls::format(
+                "/redfish/v1/Systems/{}/Actions/ComputerSystem.Reset",
+                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]
+                                ["@Redfish.ActionInfo"] =
+            boost::urls::format("/redfish/v1/Systems/{}/ResetActionInfo",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    }
     asyncResp->res.jsonValue["LogServices"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/LogServices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["Bios"]["@odata.id"] = boost::urls::format(
@@ -3088,14 +3095,20 @@ inline void
     asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
-    // Fill in SerialConsole info
-    asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
-    asyncResp->res.jsonValue["SerialConsole"]["IPMI"]["ServiceEnabled"] = true;
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        // Fill in SerialConsole info
+        asyncResp->res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 15;
+        asyncResp->res.jsonValue["SerialConsole"]["IPMI"]["ServiceEnabled"] =
+            true;
 
-    asyncResp->res.jsonValue["SerialConsole"]["SSH"]["ServiceEnabled"] = true;
-    asyncResp->res.jsonValue["SerialConsole"]["SSH"]["Port"] = 2200;
-    asyncResp->res.jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
-        "Press ~. to exit console";
+        asyncResp->res.jsonValue["SerialConsole"]["SSH"]["ServiceEnabled"] =
+            true;
+        asyncResp->res.jsonValue["SerialConsole"]["SSH"]["Port"] = 2200;
+        asyncResp->res
+            .jsonValue["SerialConsole"]["SSH"]["HotKeySequenceDisplay"] =
+            "Press ~. to exit console";
+    }
     getPortStatusAndPath(std::span{protocolToDBusForSystems},
                          std::bind_front(afterPortRequest, asyncResp));
 
@@ -3124,21 +3137,30 @@ inline void
     getIndicatorLedState(asyncResp);
     getComputerSystem(asyncResp);
     getHostState(asyncResp);
-    getBootProperties(asyncResp);
-    getBootProgress(asyncResp);
-    getBootProgressLastStateTime(asyncResp);
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        getBootProperties(asyncResp);
+        getBootProgress(asyncResp);
+        getBootProgressLastStateTime(asyncResp);
+    }
     pcie_util::getPCIeDeviceList(asyncResp,
                                  nlohmann::json::json_pointer("/PCIeDevices"));
     getHostWatchdogTimer(asyncResp);
-    getPowerRestorePolicy(asyncResp);
-    getStopBootOnFault(asyncResp);
-    getAutomaticRetryPolicy(asyncResp);
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        getPowerRestorePolicy(asyncResp);
+        getStopBootOnFault(asyncResp);
+        getAutomaticRetryPolicy(asyncResp);
+    }
     getLastResetTime(asyncResp);
     if constexpr (BMCWEB_REDFISH_PROVISIONING_FEATURE)
     {
         getProvisioningStatus(asyncResp);
     }
-    getTrustedModuleRequiredToBoot(asyncResp);
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        getTrustedModuleRequiredToBoot(asyncResp);
+    }
     getPowerMode(asyncResp);
     getIdlePowerSaver(asyncResp);
 }
@@ -3209,11 +3231,19 @@ inline void handleComputerSystemPatch(
             "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil, //
             "IndicatorLED", indicatorLed, //
             "LocationIndicatorActive", locationIndicatorActive, //
-            "PowerMode", powerMode, //
-            "PowerRestorePolicy", powerRestorePolicy //
+            "PowerMode", powerMode //
             ))
     {
         return;
+    }
+
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        if (!json_util::readJsonPatch(req, asyncResp->res, "PowerRestorePolicy",
+                                      powerRestorePolicy))
+        {
+            return;
+        }
     }
 
     asyncResp->res.result(boost::beast::http::status::no_content);
@@ -3268,9 +3298,12 @@ inline void handleComputerSystemPatch(
                                  "LocationIndicatorActive instead.\"");
     }
 
-    if (powerRestorePolicy)
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
     {
-        setPowerRestorePolicy(asyncResp, *powerRestorePolicy);
+        if (powerRestorePolicy)
+        {
+            setPowerRestorePolicy(asyncResp, *powerRestorePolicy);
+        }
     }
 
     if (powerMode)

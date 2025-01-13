@@ -578,13 +578,16 @@ inline void handleChassisGetSubTree(
         asyncResp->res.jsonValue["@odata.id"] =
             boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
         asyncResp->res.jsonValue["Name"] = "Chassis Collection";
-        asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
-            boost::urls::format("/redfish/v1/Chassis/{}/Actions/Chassis.Reset",
+        if constexpr (BMCWEB_HOST_OS_FEATURES)
+        {
+            asyncResp->res.jsonValue["Actions"]["#Chassis.Reset"]["target"] =
+                boost::urls::format("/redfish/v1/Chassis/{}/Actions/Chassis.Reset",
                                 chassisId);
-        asyncResp->res
-            .jsonValue["Actions"]["#Chassis.Reset"]["@Redfish.ActionInfo"] =
-            boost::urls::format("/redfish/v1/Chassis/{}/ResetActionInfo",
+            asyncResp->res
+                .jsonValue["Actions"]["#Chassis.Reset"]["@Redfish.ActionInfo"] =
+                boost::urls::format("/redfish/v1/Chassis/{}/ResetActionInfo",
                                 chassisId);
+        }
         dbus::utility::getAssociationEndPoints(
             path + "/drive",
             [asyncResp, chassisId](const boost::system::error_code& ec3,

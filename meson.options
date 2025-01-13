@@ -475,3 +475,11 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.''',
 )
+
+# BMCWEB_HOST_OS_FEATURES
+option(
+    'host-os-features',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Enables feature specific to host os.',
+)
