@@ -199,6 +199,30 @@
       },
       "revId": "9d92fcd13177a82bd326385b8eac76529643d261",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1e91f1f_7ec380fb",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:41:27Z",
+      "side": 1,
+      "message": "\u003e I would assume that not having optional properties makes it somewhat easier to generate the code.\n\u003e \n\u003e Did you ever try to add optional properties to the PDI, or know of someone that tried it? \n\n(this was a long time ago, but as I remember) Brad was against it at the time when he maintained it.\n\n\u003e \n\u003e Optionality can also be represented by having another dbus interface which may or may not be present on the object path.\n\u003e \n\u003e Which is a simpler design.\n\n\"by having another dbus interface\" My understanding the last time I talked to him was that Patrick didn\u0027t want to support this because it would proliferate interfaces, but you\u0027re right, this is generally how DBus interfaces like systemd are maintained, they keep every optional value on a different interface, which would be one way to solve this problem.\n\nFWIW, this ecosystem could certainly be better;  The majority of my desires revolve around me as the maintainer not wanting to have to verify that every daemon has implemented a new interface just to merge a new feature in bmcweb.  Today, we can make optional properties, and if the new interface is merged or not, I (as the maintainer) don\u0027t really have to care about how much of the ecosystem is enabled with that new interface.  The old code works the way the old code worked, and new code can call the new path and populate redfish appropriately.",
+      "parentUuid": "bcda456e_f06ff3a4",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 25
+      },
+      "revId": "9d92fcd13177a82bd326385b8eac76529643d261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
