@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd6413aa_8fc56d41",
+        "filename": "redfish-core/src/dbus_log_watcher.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:16:15Z",
+      "side": 1,
+      "message": "Why was this moved under DbusEventLogMonitor?  I would\u0027ve thought keeping it separate would make it more unit testable?",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "ac8a47c51a0bd1854ae3ee45e8f55fa352bdfcd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
