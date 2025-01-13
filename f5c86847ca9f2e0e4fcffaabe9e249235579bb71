@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "232aa606_908ce422",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "This list needs scrubbed.  Systems without a host can have a lot of these things, other things are detectable on dbus.\n\nTHe only things this option should control is the things that:\n1. Give no indication whether they exist on dbus\n2. Are directly related to whether or not a host is present.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dee101b7_5a2e164e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "Need redfish service validator testing per Testing.md",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 41,
+        "endChar": 14
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ae2bece_e730ea0b",
+        "filename": "config/meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "This likely needs aligned with the latest host design.  I suspect this is just a case of number_of_hosts \u003d\u003d 0 and we don\u0027t need a specific meson option for it.",
+      "range": {
+        "startLine": 12,
+        "startChar": 5,
+        "endLine": 12,
+        "endChar": 21
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad44b598_a9100f1c",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "Should these just be dbus lookups?",
+      "range": {
+        "startLine": 581,
+        "startChar": 0,
+        "endLine": 590,
+        "endChar": 9
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "695b2e0c_bb01de80",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2073,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "These manager features have nothing to do with having a host or not.",
+      "range": {
+        "startLine": 2073,
+        "startChar": 0,
+        "endLine": 2073,
+        "endChar": 50
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6bd4143_183ddad0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3053,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "Should we just remove this entirely?  Defaulting to 0 seems like a bad idea.",
+      "range": {
+        "startLine": 3053,
+        "startChar": 0,
+        "endLine": 3053,
+        "endChar": 42
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eacf12b7_79dc83c6",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3066,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 3066,
+        "startChar": 0,
+        "endLine": 3066,
+        "endChar": 42
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "456e1620_189a413e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3140,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "This branch shouldn\u0027t exist in 3 different places.",
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f748b417_fddedca4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3246,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "This looks wrong, and would break all existing things.  Please test this.",
+      "range": {
+        "startLine": 3242,
+        "startChar": 0,
+        "endLine": 3246,
+        "endChar": 9
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0311304_966ea981",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3301,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be required.  If power restore policy isn\u0027t supported, we should get back the appropriate error code.",
+      "range": {
+        "startLine": 3301,
+        "startChar": 0,
+        "endLine": 3301,
+        "endChar": 42
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c3c0862_e98a49e6",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "Having a trigger has nothing to do with having a host os",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 0
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2835c612_e9feb8e4",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "Having a host has nothing to do with whether or not the system has fans.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 5
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8cd8e1f_5b161cbd",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T18:25:05Z",
+      "side": 1,
+      "message": "Chassis reset has nothing to do with whether or not a system has a host os",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 5
+      },
+      "revId": "f5c86847ca9f2e0e4fcffaabe9e249235579bb71",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
