@@ -98,11 +98,8 @@ RedfishService::RedfishService(App& app)
     requestRoutesManagerDiagnosticData(app);
     requestRoutesChassisCollection(app);
     requestRoutesChassis(app);
-    if constexpr (BMCWEB_HOST_OS_FEATURES)
-    {
-        requestRoutesChassisResetAction(app);
-        requestRoutesChassisResetActionInfo(app);
-    }
+    requestRoutesChassisResetAction(app);
+    requestRoutesChassisResetActionInfo(app);
     requestRoutesChassisDrive(app);
     requestRoutesChassisDriveName(app);
     requestRoutesUpdateService(app);

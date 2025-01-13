@@ -3050,10 +3050,7 @@ inline void
     asyncResp->res.jsonValue["SystemType"] =
         computer_system::SystemType::Physical;
     asyncResp->res.jsonValue["Description"] = "Computer System";
-    if constexpr (BMCWEB_HOST_OS_FEATURES)
-    {
-        asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
-    }
+    asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
     asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
         double(0);
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
