@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbd8e2e7_efd1bb27",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T16:54:22Z",
+      "side": 0,
+      "message": "Pretty sure this now causes a use after free issue if the subscription object is destroyed before this handler is called.",
+      "range": {
+        "startLine": 79,
+        "startChar": 30,
+        "endLine": 79,
+        "endChar": 78
+      },
+      "revId": "a5f87d487143a5478528826bab72b9f5a093f305",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
