@@ -22,6 +22,30 @@
       },
       "revId": "ac8a47c51a0bd1854ae3ee45e8f55fa352bdfcd8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e731a5b6_4340e473",
+        "filename": "redfish-core/src/dbus_log_watcher.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-01-13T18:28:19Z",
+      "side": 1,
+      "message": "Not sure how it ended up here. Probably there are better places to put it, but that\u0027s not the topic of this patch.\n\nSince it is a static member of the class, it does not need an instance. So it is as good as any other function from my perspective, when it comes to testing.",
+      "parentUuid": "bd6413aa_8fc56d41",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "ac8a47c51a0bd1854ae3ee45e8f55fa352bdfcd8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

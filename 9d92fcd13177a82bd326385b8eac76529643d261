@@ -175,6 +175,30 @@
       },
       "revId": "9d92fcd13177a82bd326385b8eac76529643d261",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcda456e_f06ff3a4",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-01-13T18:28:19Z",
+      "side": 1,
+      "message": "I would assume that not having optional properties makes it somewhat easier to generate the code.\n\nDid you ever try to add optional properties to the PDI, or know of someone that tried it? \n\nOptionality can also be represented by having another dbus interface which may or may not be present on the object path.\n\nWhich is a simpler design.",
+      "parentUuid": "f4af2d02_486698b7",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 25
+      },
+      "revId": "9d92fcd13177a82bd326385b8eac76529643d261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
