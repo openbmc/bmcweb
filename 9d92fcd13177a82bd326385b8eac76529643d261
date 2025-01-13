@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77a38930_e9fea517",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-01-13T17:58:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "095d4505_14739808",
+      "revId": "9d92fcd13177a82bd326385b8eac76529643d261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82048c3a_42cd1661",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd7217c1_fcb21288",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-01-13T17:58:42Z",
+      "side": 1,
+      "message": "```struct EventLogObjectsType```\n\nonly has 4 properties.",
+      "parentUuid": "82048c3a_42cd1661",
+      "revId": "9d92fcd13177a82bd326385b8eac76529643d261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f72ca13e_61f3ca07",
@@ -65,6 +101,30 @@
       "writtenOn": "2025-01-13T17:43:29Z",
       "side": 1,
       "message": "Odd that we require resolved ( thought it was optional), but I guess this is the behavior now?\n\nAll good.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 25
+      },
+      "revId": "9d92fcd13177a82bd326385b8eac76529643d261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8575726_f7e6bdfc",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-01-13T17:58:42Z",
+      "side": 1,
+      "message": "I\u0027m not sure the PDI supports optional dbus properties.\n\nAnd \u0027Resolved\u0027 is not documented as being optional in the interface yaml.",
+      "parentUuid": "f72ca13e_61f3ca07",
       "range": {
         "startLine": 55,
         "startChar": 0,
