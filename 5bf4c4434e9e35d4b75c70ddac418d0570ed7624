@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "003c46c4_7d484eea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-01-13T17:09:04Z",
+      "side": 1,
+      "message": "Added the fluff about the redfish spec.",
+      "parentUuid": "54908ae8_4d5399e6",
+      "range": {
+        "startLine": 15,
+        "startChar": 25,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "5bf4c4434e9e35d4b75c70ddac418d0570ed7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3480bf07_243448ca",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-10T20:02:22Z",
       "side": 1,
       "message": "Message and message id are two different things.  It\u0027s very unlikely this produces a correct redfish message in the eventlog.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "5bf4c4434e9e35d4b75c70ddac418d0570ed7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db02c8ea_dd911b50",
+        "filename": "redfish-core/src/dbus_log_watcher.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-01-13T17:09:04Z",
+      "side": 1,
+      "message": "Why not?\n\nIn this use-case, the MessageId has to come from somewhere. It should not be empty.\n\nThe final Message is generated with MessageId and MessageArgs.\n\nSo if the dbus property \"Message\" does contain a valid redfish MessageId,\nit should work.\n\nhttps://github.com/openbmc/bmcweb/blob/a5f87d487143a5478528826bab72b9f5a093f305/redfish-core/src/event_log.cpp#L129\n\nAs already mentioned elsewhere, the design says to use \u0027Message\u0027 field for the MessageId. \n\nhttps://github.com/openbmc/docs/blob/d886ce89fe66c128b3ab492e530ad48fa0c1b4eb/designs/event-logging.md?plain\u003d1#L448",
+      "parentUuid": "3480bf07_243448ca",
       "range": {
         "startLine": 41,
         "startChar": 0,
