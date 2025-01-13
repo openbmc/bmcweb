@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "095d4505_14739808",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T17:43:29Z",
+      "side": 1,
+      "message": "We can do a little better than this for testing the timestamp worked correctly.",
+      "revId": "9d92fcd13177a82bd326385b8eac76529643d261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82048c3a_42cd1661",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T17:43:29Z",
+      "side": 1,
+      "message": "I would expect at least one assert per key in propMapStub, to make sure it got translated like we expect.",
+      "revId": "9d92fcd13177a82bd326385b8eac76529643d261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f72ca13e_61f3ca07",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T17:43:29Z",
+      "side": 1,
+      "message": "Odd that we require resolved ( thought it was optional), but I guess this is the behavior now?\n\nAll good.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 25
+      },
+      "revId": "9d92fcd13177a82bd326385b8eac76529643d261",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
