@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9d6e562a_15a387e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-01-13T17:08:44Z",
+      "side": 1,
+      "message": "It\u0027s been manually tested by someone\n\nhttps://discord.com/channels/775381525260664832/1285909954095616050/1327330501937205382",
+      "parentUuid": "e86ad3d9_18496e98",
+      "range": {
+        "startLine": 22,
+        "startChar": 25,
+        "endLine": 22,
+        "endChar": 54
+      },
+      "revId": "cbf06fc926a2a0207f3ce7c8cc1f56621ad23c3c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "20f8200c_0de8ea89",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
