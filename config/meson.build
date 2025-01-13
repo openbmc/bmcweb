@@ -9,6 +9,7 @@ feature_options = [
     'experimental-redfish-multi-computer-system',
     'experimental-redfish-dbus-log-subscription',
     'google-api',
+    'host-os-features',
     'host-serial-socket',
     'hypervisor-computer-system',
     'ibm-management-console',

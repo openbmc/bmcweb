@@ -39,8 +39,11 @@ inline void doThermalSubsystemCollection(
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Chassis/{}/ThermalSubsystem", chassisId);
 
-    asyncResp->res.jsonValue["Fans"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Chassis/{}/ThermalSubsystem/Fans", chassisId);
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        asyncResp->res.jsonValue["Fans"]["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Chassis/{}/ThermalSubsystem/Fans", chassisId);
+    }
 
     asyncResp->res.jsonValue["ThermalMetrics"]["@odata.id"] =
         boost::urls::format(
