@@ -16,6 +16,24 @@
       "message": "can you include the actual PATCH payload that you\u0027re testing?",
       "revId": "719309fb3f45a04fa81b8366678d59a1f3666880",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76370574_8f4a5394",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000994
+      },
+      "writtenOn": "2025-01-13T09:14:35Z",
+      "side": 1,
+      "message": "Thank @ed@tanous.net, I will update my PATCH payload that I tested to commit message.",
+      "parentUuid": "5bb91b22_c0cc19cc",
+      "revId": "719309fb3f45a04fa81b8366678d59a1f3666880",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
