@@ -2331,9 +2331,12 @@ inline void requestRoutesManager(App& app)
                 std::optional<nlohmann::json::object_t> fanZones;
                 std::optional<nlohmann::json::object_t> stepwiseControllers;
                 std::optional<std::string> profile;
+                
+                std::set<std::string_view> fragments;
+                app.getFragments(req, fragments);
 
                 if (!json_util::readJsonPatch( //
-                        req, asyncResp->res, //
+                        req, fragments, asyncResp->res, //
                         "DateTime", datetime, //
                         "Links/ActiveSoftwareImage/@odata.id",
                         activeSoftwareImageOdataId, //

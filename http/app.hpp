@@ -173,6 +173,12 @@ class App
         return *io;
     }
 
+    getFragments(const std::shared_ptr<Request> &req,
+                            std::set<std::string_view>& fragments);
+    {
+        return router.getFragments(req, fragments);
+    }
+
   private:
     std::shared_ptr<boost::asio::io_context> io;
 

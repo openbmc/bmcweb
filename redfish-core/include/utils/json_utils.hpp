@@ -717,6 +717,96 @@ bool readJsonPatch(const crow::Request& req, crow::Response& res,
                           std::forward<UnpackTypes&&>(in)...);
 }
 
+void jsonErase(nlohmann::json::object_t &obj, const std::string_view &keyPointer) {
+
+  std::vector<std::string> keys;
+  bmcweb::split(keys, keyPointer, '/');
+  nlohmann::json *current = &obj;
+  std::vector<nlohmann::json*> parents;
+
+  for (const std::string &key : keys) 
+  {
+    if (current->contains(key) && current->at(key).is_object()) 
+    {
+      parents.push_back(current);
+      current = &((*current)[key]);
+    } 
+    else if (key == keys.back() && current->contains(key)) 
+    {
+      current->erase(key);
+      for (auto it = parents.rbegin(); it != parents.rend(); ++it) 
+      {
+        if (current->empty()) 
+        {
+          (*it)->erase(keys[it - parents.rbegin()]);
+        } 
+        else 
+        {
+          break;
+        }
+        current = *it;
+      }
+      return;
+    } 
+    else 
+    {
+      return;
+    }
+  }
+}
+
+template <typename... UnpackTypes>
+bool readJsonPatch(const crow::Request& req, std::set<std::string_view>& fragments, crow::Response& res,
+                   std::string_view key, UnpackTypes&&... in)
+{
+    std::optional<nlohmann::json::object_t> jsonRequest =
+        readJsonPatchHelper(req, res);
+        
+    if (!jsonRequest)
+    {
+        return false;
+    }
+    if (jsonRequest->empty())
+    {
+        messages::emptyJSON(res);
+        return false;
+    }
+    // ignore fragments which will be processed in the patch route handlers 
+    for(auto& fragment : fragments)
+    {
+        jsonErase(jsonRequest, fragment);
+    }
+
+    return readJsonObject(*jsonRequest, res, key,
+                          std::forward<UnpackTypes&&>(in)...);
+}
+
+template <typename... UnpackTypes>
+bool readJsonPatchFragment(const crow::Request& req, crow::Response& res,
+                           std::string_view fragment, std::string_view key,
+                           UnpackTypes&&... in)
+{
+    std::optional<nlohmann::json::object_t> jsonRequest = readJsonPatchHelper(req, res);
+    if (!jsonRequest)
+    {
+        return false;
+    }
+    if (jsonRequest->empty())
+    {
+        messages::emptyJSON(res);
+        return false;
+    }
+
+    auto jsonPtr = createJsonPointerFromFragment(fragment);
+    auto subObjectIt = jsonRequest->find(jsonPtr);
+    if (subObjectIt == jsonRequest->end() || !subObjectIt->is_object())
+    {
+        return false;
+    }
+
+    return readJsonObject(subObjectIt->value(), res, key, std::forward<UnpackTypes&&>(in)...);
+}
+
 template <typename... UnpackTypes>
 bool readJsonAction(const crow::Request& req, crow::Response& res,
                     const char* key, UnpackTypes&&... in)

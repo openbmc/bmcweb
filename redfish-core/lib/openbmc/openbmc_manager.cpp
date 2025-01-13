@@ -19,6 +19,7 @@
 
 #include <app.hpp>
 
+#include <optional>
 #include <string>
 
 namespace redfish
@@ -45,6 +46,24 @@ inline void requestRoutesOpenBmcManager(App& app)
             BMCWEB_REDFISH_MANAGER_URI_NAME);
         oemOpenbmc["Certificates"] = std::move(certificates);
     });
+
+    // mock up code for patch 
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>#Oem/OpenBmc")
+        .privileges(redfish::privileges::getManager)
+        .methods(boost::beast::http::verb::patch)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+               const std::string& managerId) {
+    
+    std::optional<std::string> value;
+    if(!readJsonPatchFragment(req, asyncResp, "Oem/OpenBmc", "Key", value)){
+        return;
+    }
+
+    if (value)
+    {
+        BMCWEB_LOG_INFO("OpenBMC OEM mock match with Key and Value:{}", value);
+    }
 }
 
 } // namespace redfish

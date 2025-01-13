@@ -653,6 +653,20 @@ class Router
             });
     }
 
+    void getFragments(const std::shared_ptr<Request>& req,
+                            std::set<std::string_view>& fragments) {
+
+      FindRouteResponse foundRoute = findRoute(*req);
+      
+      std::vector<BaseRule *> fragments =
+          std::move(foundRoute.route.fragmentRules);
+      
+      if (auto &fragment : fragments) 
+      {
+        fragments.emplace_back(fragment->rule);
+      }
+    }
+
     void handle(const std::shared_ptr<Request>& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
