@@ -34,6 +34,23 @@
       "parentUuid": "5bb91b22_c0cc19cc",
       "revId": "719309fb3f45a04fa81b8366678d59a1f3666880",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02e49c27_33449ed4",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T20:01:37Z",
+      "side": 1,
+      "message": "This section of code is crazy complex and doesn\u0027t follow our coding standards.  I suspect there\u0027s a much simpler patchset that will accomplish the same thing, but I don\u0027t know what test case you\u0027re trying to fix to try to understand what the case is.",
+      "revId": "719309fb3f45a04fa81b8366678d59a1f3666880",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
