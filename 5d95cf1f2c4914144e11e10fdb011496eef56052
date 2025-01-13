@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a84a7a24_4d2c1b68",
+        "filename": "redfish-core/src/dbus_log_watcher.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-13T17:39:02Z",
+      "side": 1,
+      "message": "Can you please add one line, something like\n\n\"This will need resolved before experimental-redfish-dbus-log-subscription is stabilized\"\n\nJust so anyone that greps for experimental-redfish-dbus-log-subscription will see this comment?\n\nAfter that, that\u0027s fine, this can merge.",
+      "revId": "5d95cf1f2c4914144e11e10fdb011496eef56052",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
