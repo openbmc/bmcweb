@@ -73,8 +73,11 @@ RedfishService::RedfishService(App& app)
     requestEthernetInterfacesRoutes(app);
     if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_POWER_THERMAL)
     {
-        requestRoutesThermal(app);
-        requestRoutesPower(app);
+        if constexpr (BMCWEB_HOST_OS_FEATURES)
+        {
+            requestRoutesThermal(app);
+            requestRoutesPower(app);
+        }
     }
     if constexpr (BMCWEB_REDFISH_NEW_POWERSUBSYSTEM_THERMALSUBSYSTEM)
     {
@@ -95,8 +98,11 @@ RedfishService::RedfishService(App& app)
     requestRoutesManagerDiagnosticData(app);
     requestRoutesChassisCollection(app);
     requestRoutesChassis(app);
-    requestRoutesChassisResetAction(app);
-    requestRoutesChassisResetActionInfo(app);
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        requestRoutesChassisResetAction(app);
+        requestRoutesChassisResetActionInfo(app);
+    }
     requestRoutesChassisDrive(app);
     requestRoutesChassisDriveName(app);
     requestRoutesUpdateService(app);
@@ -226,9 +232,11 @@ RedfishService::RedfishService(App& app)
     requestRoutesMetricReportDefinition(app);
     requestRoutesMetricReportCollection(app);
     requestRoutesMetricReport(app);
-    requestRoutesTriggerCollection(app);
-    requestRoutesTrigger(app);
-
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        requestRoutesTriggerCollection(app);
+        requestRoutesTrigger(app);
+    }
     // Note, this must be the last route registered
     requestRoutesRedfish(app);
 }

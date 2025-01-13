@@ -33,8 +33,11 @@ inline void handleTelemetryServiceGet(
         "/redfish/v1/TelemetryService/MetricReportDefinitions";
     asyncResp->res.jsonValue["MetricReports"]["@odata.id"] =
         "/redfish/v1/TelemetryService/MetricReports";
-    asyncResp->res.jsonValue["Triggers"]["@odata.id"] =
-        "/redfish/v1/TelemetryService/Triggers";
+    if constexpr (BMCWEB_HOST_OS_FEATURES)
+    {
+        asyncResp->res.jsonValue["Triggers"]["@odata.id"] =
+            "/redfish/v1/TelemetryService/Triggers";
+    }
 
     dbus::utility::getAllProperties(
         telemetry::service, "/xyz/openbmc_project/Telemetry/Reports",
