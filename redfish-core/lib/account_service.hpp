@@ -2788,28 +2788,7 @@ inline void
     tempObjPath /= username;
     const std::string userPath(tempObjPath);
 
-    sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
-        "/xyz/openbmc_project/user",
-        "xyz.openbmc_project.User.MultiFactorAuthConfiguration", "Enabled",
-        [asyncResp, username, userPath](const boost::system::error_code& ec,
-                                        const std::string& mfaEnabled) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("D-Bus response error: {}", ec.value());
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            if (mfaEnabled.ends_with("None"))
-            {
-                // MFA is not enabled
-                BMCWEB_LOG_WARNING("MFA is not enabled in the system");
-                messages::actionNotSupported(asyncResp->res,
-                                             "GenerateSecretKey");
-                return;
-            }
-            checkAndCreateSecretKey(asyncResp, username, userPath);
-        });
+    checkAndCreateSecretKey(asyncResp, username, userPath);
 }
 
 inline void
