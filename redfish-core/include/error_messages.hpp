@@ -25,14 +25,6 @@ namespace redfish
 
 namespace messages
 {
-constexpr const char* messageVersionPrefix = "Base.1.19.0.";
-constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
-
-/**
- * @brief Moves all error messages from the |source| JSON to |target|
- */
-void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source);
-
 /**
  * @brief Formats Success message into JSON
  * Message body: "The request completed successfully."
