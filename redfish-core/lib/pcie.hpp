@@ -377,8 +377,8 @@ inline void getPCIeDeviceSlotPath(
             if (endpoints.size() > 1)
             {
                 BMCWEB_LOG_ERROR(
-                    "PCIeDevice is associated with more than one PCIeSlot: {}",
-                    endpoints.size());
+                    "PCIeDevice {} is associated with more than one PCIeSlot: {}",
+                    pcieDevicePath, endpoints.size());
                 messages::internalError(asyncResp->res);
                 return;
             }
