@@ -1,0 +1,216 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8da76248_0799220e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:03:09Z",
+      "side": 1,
+      "message": "This lambda is already waaaay beyond what should be in a lambda.  Please don\u0027t add to it.  If you want to refactor, great, but at the very least roll your functions out into a separate method.  Even as a normal method this lambda would probably be too long.",
+      "range": {
+        "startLine": 2142,
+        "startChar": 0,
+        "endLine": 2149,
+        "endChar": 13
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caaa3eaa_b0b78b5b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:03:09Z",
+      "side": 1,
+      "message": "Reading this as optional, then setting internal error if it\u0027s not present makes no sense.  Either the property is optional on the interface, in which case don\u0027t set an error, or (as I suspect) it\u0027s non optional on the interface, so just unpack it and make it required.",
+      "range": {
+        "startLine": 2278,
+        "startChar": 0,
+        "endLine": 2278,
+        "endChar": 64
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef68e520_d90d8a6d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2281,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:03:09Z",
+      "side": 1,
+      "message": "Please write this as\n\nnlohmann::json::array_t bypassTypes;\nbypassTypes.emplace_back(....);\n\n asyncResp-\u003eres.jsonValue[\"MFABypass\"][\"BypassTypes\"] \u003d std::move(bypassTypes);",
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68564f1d_9d66462e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2296,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:03:09Z",
+      "side": 1,
+      "message": "Same here.  Don\u0027t read as optional then make it functionally required",
+      "range": {
+        "startLine": 2296,
+        "startChar": 0,
+        "endLine": 2296,
+        "endChar": 64
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a650a357_abf8c7c5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2314,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:03:09Z",
+      "side": 1,
+      "message": "Do we need to check if this interface is available on dbus?",
+      "range": {
+        "startLine": 2310,
+        "startChar": 0,
+        "endLine": 2314,
+        "endChar": 33
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa6c0f26_2e18190e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2474,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:03:09Z",
+      "side": 1,
+      "message": "This lambda is also still too long",
+      "range": {
+        "startLine": 2462,
+        "startChar": 60,
+        "endLine": 2474,
+        "endChar": 9
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e370a2e5_1231c94e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2488,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:03:09Z",
+      "side": 1,
+      "message": "Why are we doing this check in the webserver?  This is business logic that needs implemented in the backend if this is something they want to support.",
+      "range": {
+        "startLine": 2485,
+        "startChar": 0,
+        "endLine": 2488,
+        "endChar": 27
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bae560bc_72bbe26c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2498,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:03:09Z",
+      "side": 1,
+      "message": "This seems wrong.   Just because a secret key is set up doesn\u0027t mean a user might not want to replace it.",
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a931f905_9235ae01",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2508,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:03:09Z",
+      "side": 1,
+      "message": "This lambda is still too long.",
+      "range": {
+        "startLine": 2485,
+        "startChar": 0,
+        "endLine": 2508,
+        "endChar": 9
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45481a7_62464958",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2646,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:03:09Z",
+      "side": 1,
+      "message": "For the new routes, lets put them into a new file\n\naccount_service_actions_generatesecretkey.hpp\n\n\naccount_service.hpp is already very long.  we shouldn\u0027t make it longer by adding actions to it.",
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
