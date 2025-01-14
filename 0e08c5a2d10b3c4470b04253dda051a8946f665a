@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdcfb813_2e430cb5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-01-14T00:05:39Z",
+      "side": 1,
+      "message": "nit, \"aggregated bmc\" or \"satellite bmc\" to be in line with the other change.",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04875a8f_eb2f9641",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-01-14T00:05:39Z",
+      "side": 1,
+      "message": "FWIW I tested this and it worked as expected. $skip and only are not forwarded to the satellite while other params are.  A couple of nits, but functionality-wise LGTM",
+      "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eddbbf5e_8772d442",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-01-14T00:05:39Z",
+      "side": 1,
+      "message": "nit, this may be confusing in the logs because the same message is printed above around LINE 548 for non-GET non-Collection requests.  In the above case we return early and here we keep processing normally.",
+      "range": {
+        "startLine": 578,
+        "startChar": 12,
+        "endLine": 579,
+        "endChar": 72
+      },
+      "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
