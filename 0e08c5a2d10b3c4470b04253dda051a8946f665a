@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3f9526ba_c72c473b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T19:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdcfb813_2e430cb5",
+      "range": {
+        "startLine": 7,
+        "startChar": 30,
+        "endLine": 7,
+        "endChar": 40
+      },
+      "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "04875a8f_eb2f9641",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -37,6 +61,24 @@
       "writtenOn": "2025-01-14T00:05:39Z",
       "side": 1,
       "message": "FWIW I tested this and it worked as expected. $skip and only are not forwarded to the satellite while other params are.  A couple of nits, but functionality-wise LGTM",
+      "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf4f7fa_b4b584ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T19:59:15Z",
+      "side": 1,
+      "message": "Thank you for looking",
+      "parentUuid": "04875a8f_eb2f9641",
       "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +96,30 @@
       "writtenOn": "2025-01-14T00:05:39Z",
       "side": 1,
       "message": "nit, this may be confusing in the logs because the same message is printed above around LINE 548 for non-GET non-Collection requests.  In the above case we return early and here we keep processing normally.",
+      "range": {
+        "startLine": 578,
+        "startChar": 12,
+        "endLine": 579,
+        "endChar": 72
+      },
+      "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "617386c5_3f2ad579",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T19:59:15Z",
+      "side": 1,
+      "message": "Changed the log. PTAL",
+      "parentUuid": "eddbbf5e_8772d442",
       "range": {
         "startLine": 578,
         "startChar": 12,
