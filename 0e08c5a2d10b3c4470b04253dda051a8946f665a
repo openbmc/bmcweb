@@ -128,6 +128,30 @@
       },
       "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e5857ed_90b57ab5",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-01-14T22:19:20Z",
+      "side": 1,
+      "message": "The wording is awkward now.  There should already be debug messages denoting the type of aggregation request and what the URI is.\n\nI think all we really need to log in this new code is if we erased a param.\n\nHow do you feel about deleting this log and instead adding a log like\n```\nBMCWEB_LOG_DEBUG(\"Erasing \\\"{}\\\" param from request to top level collection\", param.key);\n```\n\nor even\n```\nBMCWEB_LOG_DEBUG(\"Can\u0027t forward query param \\\"{}\\\" to top level collections\", param.key);\n```\n\nto inside of here?\n```\n                if (param.key \u003d\u003d \"only\" || param.key \u003d\u003d \"$skip\")\n                {\n                    paramsIt \u003d urlNew.params().erase(paramsIt);\n                    continue;\n                }\n```",
+      "parentUuid": "617386c5_3f2ad579",
+      "range": {
+        "startLine": 578,
+        "startChar": 12,
+        "endLine": 579,
+        "endChar": 72
+      },
+      "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
