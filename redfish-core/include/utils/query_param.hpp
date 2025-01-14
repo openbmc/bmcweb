@@ -3,6 +3,7 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "error_message_utils.hpp"
 #include "error_messages.hpp"
 #include "filter_expr_executor.hpp"
 #include "filter_expr_printer.hpp"

@@ -1,6 +1,5 @@
 #include "bmcweb_config.h"
 
-#include "error_messages.hpp"
 #include "http_response.hpp"
 #include "utils/query_param.hpp"
 
