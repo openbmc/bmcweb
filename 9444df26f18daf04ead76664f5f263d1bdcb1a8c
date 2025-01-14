@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "479a408e_61970736",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-14T21:05:12Z",
+      "side": 1,
+      "message": "value_or seems like the wrong behavior here.  We should omit the interface if it isn\u0027t supported.",
+      "range": {
+        "startLine": 54,
+        "startChar": 42,
+        "endLine": 54,
+        "endChar": 76
+      },
+      "revId": "9444df26f18daf04ead76664f5f263d1bdcb1a8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d489ed31_37e3b506",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 61
