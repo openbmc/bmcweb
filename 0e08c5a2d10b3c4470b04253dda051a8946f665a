@@ -176,6 +176,30 @@
       },
       "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a73a451d_2d7fc133",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-01-14T23:53:28Z",
+      "side": 1,
+      "message": "SG",
+      "parentUuid": "8294ddc0_aeb22f96",
+      "range": {
+        "startLine": 578,
+        "startChar": 12,
+        "endLine": 579,
+        "endChar": 72
+      },
+      "revId": "0e08c5a2d10b3c4470b04253dda051a8946f665a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
