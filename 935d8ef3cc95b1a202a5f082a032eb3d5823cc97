@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce5d9985_9c645cfe",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-01-15T03:49:01Z",
+      "side": 1,
+      "message": "Apologies but I just realized this solution does not work for multiple query param requests such as `/redfish/v1/Chassis?$skip\u003d2\u0026$top\u003d1`  The Redfish spec https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.21.1.pdf says this is the order params should be processed in:\n\n• $filter\n• $skip\n• $top\n• Apply server-side pagination\n• $expand\n• excerpt\n• $select\n\nIf we omit just $skip then we end up with some unintended behavior.\n\nLet\u0027s say this is the normal Chassis collection:\n\n```\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/cha_a\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/5B247A_sat_a\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/5B247A_sat_b\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/5B247A_sat_c\"\n    }\n  ],\n  \"Members@odata.count\": 4,\n```\n\nFor `/redfish/v1/Chassis?$skip\u003d2\u0026$top\u003d1`, this is what we should see\n```\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/5B247A_sat_b\"\n    },\n  ],\n  \"Members@odata.count\": 4,\n```\n\nInstead, we do `$top\u003d1` on the satellite response so then aggregating that with the local BMC (before processing the query params) we get\n```\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/cha_a\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/5B247A_sat_a\"\n    }\n  ],\n  \"Members@odata.count\": 4,\n``` \n\nThen we\u0027d do `$skip\u003d2` followed by `$top\u003d1` to end up with an empty Members array.\n\nI don\u0027t know where `only` falls in the order of processing, but instead should we strip everything but $filter from the forwarded request?",
+      "range": {
+        "startLine": 590,
+        "startChar": 16,
+        "endLine": 598,
+        "endChar": 17
+      },
+      "revId": "935d8ef3cc95b1a202a5f082a032eb3d5823cc97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
