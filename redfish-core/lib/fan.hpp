@@ -10,6 +10,7 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/fan_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/name_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -195,7 +196,6 @@ inline void addFanCommonProperties(crow::Response& resp,
     resp.addHeader(boost::beast::http::field::link,
                    "</redfish/v1/JsonSchemas/Fan/Fan.json>; rel=describedby");
     resp.jsonValue["@odata.type"] = "#Fan.v1_3_0.Fan";
-    resp.jsonValue["Name"] = "Fan";
     resp.jsonValue["Id"] = fanId;
     resp.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Chassis/{}/ThermalSubsystem/Fans/{}", chassisId, fanId);
@@ -349,6 +349,9 @@ inline void
     getFanAsset(asyncResp, fanPath, service);
     getFanLocation(asyncResp, fanPath, service);
     getLocationIndicatorActive(asyncResp, fanPath);
+    const dbus::utility::MapperServiceMap& serviceMatch = {{service, {""}}};
+    name_util::getPrettyName(asyncResp, fanPath, serviceMatch,
+                             "/Name"_json_pointer);
 }
 
 inline void doFanGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

@@ -9,6 +9,7 @@
 #include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/name_utils.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
@@ -510,7 +511,6 @@ inline void doPowerSupplyGet(
                 "</redfish/v1/JsonSchemas/PowerSupply/PowerSupply.json>; rel=describedby");
             asyncResp->res.jsonValue["@odata.type"] =
                 "#PowerSupply.v1_5_0.PowerSupply";
-            asyncResp->res.jsonValue["Name"] = "Power Supply";
             asyncResp->res.jsonValue["Id"] = powerSupplyId;
             asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
                 "/redfish/v1/Chassis/{}/PowerSubsystem/PowerSupplies/{}",
@@ -539,6 +539,8 @@ inline void doPowerSupplyGet(
                         asyncResp, object.begin()->first, powerSupplyPath);
                     getPowerSupplyLocation(asyncResp, object.begin()->first,
                                            powerSupplyPath);
+                    name_util::getPrettyName(asyncResp, powerSupplyPath, object,
+                                             "/Name"_json_pointer);
                 });
 
             getEfficiencyPercent(asyncResp);
