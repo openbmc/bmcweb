@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "013ccd92_a1f6701d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-01-15T16:37:28Z",
+      "side": 1,
+      "message": "I believe this is resolved the best it can be given the LED architecture.",
+      "parentUuid": "f203efee_8e16abe9",
+      "revId": "3c6cdd12348193207ba34e75cbbcbb6d20ef596c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7bc1805_c2ff39e5",
