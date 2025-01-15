@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aefca942_95a5a2a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-15T16:51:00Z",
+      "side": 1,
+      "message": "Please get this building in CI. There\u0027s a bunch of formatting things that should just be resolved.",
+      "revId": "f4dd9b137ac6a33b14c50fb771df851fa4b45bcf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
