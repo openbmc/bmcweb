@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b9a2872_f62247d8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2149,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-15T21:35:49Z",
+      "side": 1,
+      "message": "Logging the ec here is always helpful",
+      "revId": "948c9986954df830a0a8531e0bb929e7d04039e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3014dd0_527f7915",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-15T21:35:49Z",
+      "side": 1,
+      "message": "This and the 2 below are getting a little long for a lambdas\n\nhttps://github.com/openbmc/bmcweb/blob/60e995cd6ab15aac32e146860c2a99c069ea111f/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "range": {
+        "startLine": 2152,
+        "startChar": 0,
+        "endLine": 2165,
+        "endChar": 11
+      },
+      "revId": "948c9986954df830a0a8531e0bb929e7d04039e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c636d791_d58ec4e2",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2636,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-15T21:35:49Z",
+      "side": 1,
+      "message": "How does this handle \n\n/redfish/v1/Managers/bmc/DedicatedNetworkPorts/abadnetworkportid\n\nSame with the PATCH\n\nCheck out https://github.com/openbmc/bmcweb/blob/60e995cd6ab15aac32e146860c2a99c069ea111f/COMMON_ERRORS.md#11-not-responding-to-404",
+      "range": {
+        "startLine": 2636,
+        "startChar": 23,
+        "endLine": 2636,
+        "endChar": 78
+      },
+      "revId": "948c9986954df830a0a8531e0bb929e7d04039e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae508032_0149080e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2637,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-15T21:35:49Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be a getEthernetInterface ?",
+      "range": {
+        "startLine": 2637,
+        "startChar": 41,
+        "endLine": 2637,
+        "endChar": 63
+      },
+      "revId": "948c9986954df830a0a8531e0bb929e7d04039e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

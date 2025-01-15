@@ -104,6 +104,24 @@
       "message": "please use latest Port.v1_14_0 schema",
       "revId": "467a89ed14fcb950549e26011ed493373f29502b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e19a5248_05bc0755",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 2140,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-15T21:35:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6eb1ffd6_9a7c7085",
+      "revId": "467a89ed14fcb950549e26011ed493373f29502b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
