@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11905b21_c5a139cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-15T02:50:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2df9b684_8cb525e2",
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "325e3f71_19f4f288",
@@ -64,6 +82,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d69f3bc_925e98d3",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-15T02:50:44Z",
+      "side": 1,
+      "message": "The resp object points to either the original async response if there were no fragment routes for the requested URI. If there are fragment routes then we take the original async response and convert that to a multi async response and pass the new multi async response for the original handler as well.",
+      "parentUuid": "693dcfa7_6a77df84",
+      "range": {
+        "startLine": 726,
+        "startChar": 17,
+        "endLine": 726,
+        "endChar": 21
+      },
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b020ff69_ab79083b",
@@ -77,6 +119,30 @@
       "writtenOn": "2025-01-13T16:49:32Z",
       "side": 1,
       "message": "We already have some options for individual handling of oem routes.  Please use the existing.",
+      "range": {
+        "startLine": 478,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 1
+      },
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fe186eb_df85ecff",
+        "filename": "meson.options",
+        "patchSetId": 5
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-15T02:50:44Z",
+      "side": 1,
+      "message": "Related to OEM manager schema I could only find this option - redfish-oem-manager-fan-data. What is the other option you have in mind for reuse",
+      "parentUuid": "b020ff69_ab79083b",
       "range": {
         "startLine": 478,
         "startChar": 0,
