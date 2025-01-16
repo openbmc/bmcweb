@@ -46,6 +46,30 @@
       },
       "revId": "935d8ef3cc95b1a202a5f082a032eb3d5823cc97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5db986f9_11b1e28b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-16T16:06:57Z",
+      "side": 1,
+      "message": "I would probably say follow on patch.  At the very least this patch makes the behavior.... better?\n\nThe thing you\u0027re pointing out would only happen on top level collections, and I haven\u0027t seen a lot of use cases for doing $skip/$top on top level collections.",
+      "parentUuid": "cb5e623e_49bdc417",
+      "range": {
+        "startLine": 590,
+        "startChar": 16,
+        "endLine": 598,
+        "endChar": 17
+      },
+      "revId": "935d8ef3cc95b1a202a5f082a032eb3d5823cc97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
