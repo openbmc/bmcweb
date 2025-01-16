@@ -388,6 +388,31 @@ static void
     }
 }
 
+// TODO(Gunnar): Remove this 4/1/25
+inline void createBMCDump()
+{
+    std::vector<std::pair<std::string, std::variant<std::string, uint64_t>>>
+        createDumpParamVec;
+
+    createDumpParamVec.emplace_back(
+        "xyz.openbmc_project.Dump.Create.CreateParameters.OriginatorId",
+        "bmcweb-internal");
+    createDumpParamVec.emplace_back(
+        "xyz.openbmc_project.Dump.Create.CreateParameters.OriginatorType",
+        "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Internal");
+
+    crow::connections::systemBus->async_method_call(
+        [](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to do a dump:{}", ec.value());
+                return;
+            }
+        },
+        "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump/bmc",
+        "xyz.openbmc_project.Dump.Create", "CreateDump", createDumpParamVec);
+}
+
 inline void afterAvailbleTimerAsyncWait(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec)
@@ -400,6 +425,9 @@ inline void afterAvailbleTimerAsyncWait(
     }
     BMCWEB_LOG_ERROR("Timed out waiting for firmware object being created");
     BMCWEB_LOG_ERROR("FW image may has already been uploaded to server");
+    // TODO(Gunnar): Remove this 4/1/25, this is here to try to figure what is
+    // slowing down the system so much.
+    createBMCDump();
     if (ec)
     {
         BMCWEB_LOG_ERROR("Async_wait failed{}", ec);
