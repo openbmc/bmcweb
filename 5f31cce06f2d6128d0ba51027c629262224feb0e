@@ -61,6 +61,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14559bfe_93c6ac92",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-16T18:16:26Z",
+      "side": 1,
+      "message": "This doesn\u0027t implement a correct HTTP uri parser.  Use boost::urls::url* classes where appropriate.",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 9
+      },
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "693dcfa7_6a77df84",
         "filename": "http/routing.hpp",
         "patchSetId": 5
@@ -196,6 +219,29 @@
         "startChar": 0,
         "endLine": 485,
         "endChar": 1
+      },
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ff41c6c_3c05c330",
+        "filename": "redfish-core/lib/openbmc/openbmc_manager.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-16T18:16:26Z",
+      "side": 1,
+      "message": "Please don\u0027t make this a lambda.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 5
       },
       "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"

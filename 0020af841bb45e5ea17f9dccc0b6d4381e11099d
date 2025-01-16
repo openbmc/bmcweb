@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89ba8820_3ee08a15",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-16T18:16:26Z",
+      "side": 1,
+      "message": "Looking at this, we\u0027d have to make the router aware of URL parsing, and json parsing to make this work.\n\nAs written it looks like if I register\n\n/redfish/v1/Chassis/\u003cstr\u003e\nand\n/redfish/v1/Chassis/Foo#bar\n\nthe router won\u0027t be able to differentiate, because the child node needs to be attached at one level.\n\n\nI suspect making a redfish specific OEM router is probably the way to go here.  That way we can have more control over the API?\n\nAlso, calling privileges on a fragment handler doesn\u0027t make a ton of sense.  The route should have the same privilege level as the root.",
+      "revId": "0020af841bb45e5ea17f9dccc0b6d4381e11099d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
