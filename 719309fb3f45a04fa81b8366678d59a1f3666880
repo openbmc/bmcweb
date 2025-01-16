@@ -51,6 +51,24 @@
       "message": "This section of code is crazy complex and doesn\u0027t follow our coding standards.  I suspect there\u0027s a much simpler patchset that will accomplish the same thing, but I don\u0027t know what test case you\u0027re trying to fix to try to understand what the case is.",
       "revId": "719309fb3f45a04fa81b8366678d59a1f3666880",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fd8eb62_f6d6182e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 1000994
+      },
+      "writtenOn": "2025-01-16T07:37:10Z",
+      "side": 1,
+      "message": "Thank @ed@tanous.net for your review, I also think my implementation is so complex, so I\u0027m looking forward to seeing your comments to improve my implementation.\n\nThis is the workflow of my implementation; please help take a look!\n1. Save DefaultGateway property\n2. Clear DefaultGateway property\n3. Get subtree by \"xyz.openbmc_project.Network.IP\" interface\n4. Get \"Origin\" property each object path that was gotten at step#3.\n5. Check if exist any static IP address by \"Origin\" \u003d\u003d \"static\"\n   - Static IP address exists: Update the DefaultGateway value from step#1 to DefaultGateway property\n                               \n                               \nI just updated the commit message to list the detailed test case, Please help me take a look at that!",
+      "parentUuid": "02e49c27_33449ed4",
+      "revId": "719309fb3f45a04fa81b8366678d59a1f3666880",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
