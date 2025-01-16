@@ -27,7 +27,7 @@ namespace redfish
 enum class VmMode
 {
     Invalid,
-    Legacy,
+    Standard,
     Proxy
 };
 
@@ -60,9 +60,9 @@ inline VmMode parseObjectPathAndGetMode(
         return VmMode::Invalid;
     }
     std::string modeStr = mode.filename();
-    if (modeStr == "Legacy")
+    if (modeStr == "Standard")
     {
-        return VmMode::Legacy;
+        return VmMode::Standard;
     }
     if (modeStr == "Proxy")
     {
@@ -308,8 +308,8 @@ inline void
 
     asyncResp->res.jsonValue = vmItemTemplate(name, resName);
 
-    // Check if dbus path is Legacy type
-    if (mode == VmMode::Legacy)
+    // Check if dbus path is Standard type
+    if (mode == VmMode::Standard)
     {
         asyncResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
                                 ["target"] = boost::urls::format(
@@ -434,10 +434,11 @@ struct InsertMediaActionParams
  *
  * All BMC state properties will be retrieved before sending reset request.
  */
-inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& service, const std::string& name,
-                            const std::string& imageUrl, bool rw,
-                            std::string&& userName, std::string&& password)
+inline void
+    doMountVmStandard(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                      const std::string& service, const std::string& name,
+                      const std::string& imageUrl, bool rw,
+                      std::string&& userName, std::string&& password)
 {
     int fd = -1;
     std::shared_ptr<CredentialsPipe> secretPipe;
@@ -474,7 +475,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         std::in_place_type<sdbusplus::message::unix_fd>, fd);
 
     sdbusplus::message::object_path path(
-        "/xyz/openbmc_project/VirtualMedia/Legacy");
+        "/xyz/openbmc_project/VirtualMedia/Standard");
     path /= name;
     crow::connections::systemBus->async_method_call(
         [asyncResp,
@@ -491,7 +492,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 messages::internalError(asyncResp->res);
             }
         },
-        service, path.str, "xyz.openbmc_project.VirtualMedia.Legacy", "Mount",
+        service, path.str, "xyz.openbmc_project.VirtualMedia.Standard", "Mount",
         imageUrl, rw, unixFd);
 }
 
@@ -628,10 +629,10 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         actionParams.password = "";
     }
 
-    doMountVmLegacy(asyncResp, service, resName, *actionParams.imageUrl,
-                    !(actionParams.writeProtected.value_or(false)),
-                    std::move(*actionParams.userName),
-                    std::move(*actionParams.password));
+    doMountVmStandard(asyncResp, service, resName, *actionParams.imageUrl,
+                      !(actionParams.writeProtected.value_or(false)),
+                      std::move(*actionParams.userName),
+                      std::move(*actionParams.password));
 }
 
 /**
@@ -641,10 +642,10 @@ inline void validateParams(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  */
 inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& service, const std::string& name,
-                          bool legacy)
+                          bool standard)
 {
-    // Legacy mount requires parameter with image
-    if (legacy)
+    // Standard mount requires parameter with image
+    if (standard)
     {
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code& ec) {
@@ -656,8 +657,8 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     return;
                 }
             },
-            service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
-            "xyz.openbmc_project.VirtualMedia.Legacy", "Unmount");
+            service, "/xyz/openbmc_project/VirtualMedia/Standard/" + name,
+            "xyz.openbmc_project.VirtualMedia.Standard", "Unmount");
     }
     else // proxy
     {
@@ -747,7 +748,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
                     {
                         VmMode mode =
                             parseObjectPathAndGetMode(object.first, resName);
-                        if (mode == VmMode::Legacy)
+                        if (mode == VmMode::Standard)
                         {
                             validateParams(asyncResp, service, resName,
                                            actionParams);
@@ -818,7 +819,7 @@ inline void handleManagersVirtualMediaActionEject(
                         if (mode != VmMode::Invalid)
                         {
                             doEjectAction(asyncResp, service, resName,
-                                          mode == VmMode::Legacy);
+                                          mode == VmMode::Standard);
                             return;
                         }
                     }
