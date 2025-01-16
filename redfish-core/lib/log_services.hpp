@@ -21,6 +21,7 @@
 #include "registries/privilege_registry.hpp"
 #include "str_utility.hpp"
 #include "task.hpp"
+#include "task_generation.hpp"
 #include "task_messages.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/etag_utils.hpp"
@@ -583,129 +584,7 @@ inline void createDumpTaskCallback(
         return;
     }
 
-    dbus::utility::async_method_call(
-        asyncResp,
-        [asyncResp, payload = std::move(payload), createdObjPath,
-         dumpEntryPath{std::move(dumpEntryPath)},
-         dumpId](const boost::system::error_code& ec,
-                 const std::string& introspectXml) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("Introspect call failed with error: {}",
-                                 ec.message());
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            // Check if the created dump object has implemented Progress
-            // interface to track dump completion. If yes, fetch the "Status"
-            // property of the interface, modify the task state accordingly.
-            // Else, return task completed.
-            tinyxml2::XMLDocument doc;
-
-            doc.Parse(introspectXml.data(), introspectXml.size());
-            tinyxml2::XMLNode* pRoot = doc.FirstChildElement("node");
-            if (pRoot == nullptr)
-            {
-                BMCWEB_LOG_ERROR("XML document failed to parse");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            tinyxml2::XMLElement* interfaceNode =
-                pRoot->FirstChildElement("interface");
-
-            bool isProgressIntfPresent = false;
-            while (interfaceNode != nullptr)
-            {
-                const char* thisInterfaceName =
-                    interfaceNode->Attribute("name");
-                if (thisInterfaceName != nullptr)
-                {
-                    if (thisInterfaceName ==
-                        std::string_view("xyz.openbmc_project.Common.Progress"))
-                    {
-                        interfaceNode =
-                            interfaceNode->NextSiblingElement("interface");
-                        continue;
-                    }
-                    isProgressIntfPresent = true;
-                    break;
-                }
-                interfaceNode = interfaceNode->NextSiblingElement("interface");
-            }
-
-            std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-                [createdObjPath, dumpEntryPath, dumpId, isProgressIntfPresent](
-                    const boost::system::error_code& ec2,
-                    sdbusplus::message_t& msg,
-                    const std::shared_ptr<task::TaskData>& taskData) {
-                    if (ec2)
-                    {
-                        BMCWEB_LOG_ERROR("{}: Error in creating dump",
-                                         createdObjPath.str);
-                        taskData->messages.emplace_back(
-                            messages::internalError());
-                        taskData->state = "Cancelled";
-                        return task::completed;
-                    }
-
-                    if (isProgressIntfPresent)
-                    {
-                        dbus::utility::DBusPropertiesMap values;
-                        std::string prop;
-                        msg.read(prop, values);
-
-                        DumpCreationProgress dumpStatus =
-                            getDumpCompletionStatus(values);
-                        if (dumpStatus ==
-                            DumpCreationProgress::DUMP_CREATE_FAILED)
-                        {
-                            BMCWEB_LOG_ERROR("{}: Error in creating dump",
-                                             createdObjPath.str);
-                            taskData->state = "Cancelled";
-                            return task::completed;
-                        }
-
-                        if (dumpStatus ==
-                            DumpCreationProgress::DUMP_CREATE_INPROGRESS)
-                        {
-                            BMCWEB_LOG_DEBUG(
-                                "{}: Dump creation task is in progress",
-                                createdObjPath.str);
-                            return !task::completed;
-                        }
-                    }
-
-                    nlohmann::json retMessage = messages::success();
-                    taskData->messages.emplace_back(retMessage);
-
-                    boost::urls::url url = boost::urls::format(
-                        "/redfish/v1/Managers/{}/LogServices/Dump/Entries/{}",
-                        BMCWEB_REDFISH_MANAGER_URI_NAME, dumpId);
-
-                    std::string headerLoc = "Location: ";
-                    headerLoc += url.buffer();
-
-                    taskData->payload->httpHeaders.emplace_back(
-                        std::move(headerLoc));
-
-                    BMCWEB_LOG_DEBUG("{}: Dump creation task completed",
-                                     createdObjPath.str);
-                    taskData->state = "Completed";
-                    return task::completed;
-                },
-                "type='signal',interface='org.freedesktop.DBus.Properties',"
-                "member='PropertiesChanged',path='" +
-                    createdObjPath.str + "'");
-
-            // The task timer is set to max time limit within which the
-            // requested dump will be collected.
-            task->startTimer(std::chrono::minutes(6));
-            task->payload.emplace(payload);
-            task->populateResp(asyncResp->res);
-        },
-        "xyz.openbmc_project.Dump.Manager", createdObjPath,
-        "org.freedesktop.DBus.Introspectable", "Introspect");
+    createTaskForDbusPath(asyncResp, std::move(payload), createdObjPath);
 }
 
 inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,

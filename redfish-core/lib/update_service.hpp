@@ -22,6 +22,7 @@
 #include "registries/privilege_registry.hpp"
 #include "str_utility.hpp"
 #include "task.hpp"
+#include "task_generation.hpp"
 #include "task_messages.hpp"
 #include "utility.hpp"
 #include "utils/collection.hpp"
@@ -146,121 +147,6 @@ inline void activateImage(const std::string& objPath,
         });
 }
 
-inline bool handleCreateTask(const boost::system::error_code& ec2,
-                             sdbusplus::message_t& msg,
-                             const std::shared_ptr<task::TaskData>& taskData)
-{
-    if (ec2)
-    {
-        return task::completed;
-    }
-
-    std::string iface;
-    dbus::utility::DBusPropertiesMap values;
-
-    std::string index = std::to_string(taskData->index);
-    msg.read(iface, values);
-
-    if (iface == "xyz.openbmc_project.Software.Activation")
-    {
-        const std::string* state = nullptr;
-        for (const auto& property : values)
-        {
-            if (property.first == "Activation")
-            {
-                state = std::get_if<std::string>(&property.second);
-                if (state == nullptr)
-                {
-                    taskData->messages.emplace_back(messages::internalError());
-                    return task::completed;
-                }
-            }
-        }
-
-        if (state == nullptr)
-        {
-            return !task::completed;
-        }
-
-        if (state->ends_with("Invalid") || state->ends_with("Failed"))
-        {
-            taskData->state = "Exception";
-            taskData->status = "Warning";
-            taskData->messages.emplace_back(messages::taskAborted(index));
-            return task::completed;
-        }
-
-        if (state->ends_with("Staged"))
-        {
-            taskData->state = "Stopping";
-            taskData->messages.emplace_back(messages::taskPaused(index));
-
-            // its staged, set a long timer to
-            // allow them time to complete the
-            // update (probably cycle the
-            // system) if this expires then
-            // task will be canceled
-            taskData->extendTimer(std::chrono::hours(5));
-            return !task::completed;
-        }
-
-        if (state->ends_with("Active"))
-        {
-            taskData->messages.emplace_back(messages::taskCompletedOK(index));
-            taskData->state = "Completed";
-            return task::completed;
-        }
-    }
-    else if (iface == "xyz.openbmc_project.Software.ActivationProgress")
-    {
-        const uint8_t* progress = nullptr;
-        for (const auto& property : values)
-        {
-            if (property.first == "Progress")
-            {
-                progress = std::get_if<uint8_t>(&property.second);
-                if (progress == nullptr)
-                {
-                    taskData->messages.emplace_back(messages::internalError());
-                    return task::completed;
-                }
-            }
-        }
-
-        if (progress == nullptr)
-        {
-            return !task::completed;
-        }
-        taskData->percentComplete = *progress;
-        taskData->messages.emplace_back(
-            messages::taskProgressChanged(index, *progress));
-
-        // if we're getting status updates it's
-        // still alive, update timer
-        taskData->extendTimer(std::chrono::minutes(5));
-    }
-
-    // as firmware update often results in a
-    // reboot, the task  may never "complete"
-    // unless it is an error
-
-    return !task::completed;
-}
-
-inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       task::Payload&& payload,
-                       const sdbusplus::message::object_path& objPath)
-{
-    std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-        std::bind_front(handleCreateTask),
-        "type='signal',interface='org.freedesktop.DBus.Properties',"
-        "member='PropertiesChanged',path='" +
-            objPath.str + "'");
-    task->startTimer(std::chrono::minutes(5));
-    task->payload.emplace(std::move(payload));
-    task->populateResp(asyncResp->res);
-}
-
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
 inline void softwareInterfaceAdded(
@@ -321,7 +207,8 @@ inline void softwareInterfaceAdded(
                     activateImage(objPath.str, objInfo[0].first);
                     if (asyncResp)
                     {
-                        createTask(asyncResp, std::move(payload), objPath);
+                        createTaskForDbusPath(asyncResp, std::move(payload),
+                                              objPath);
                     }
                     fwUpdateInProgress = false;
                 });
@@ -850,8 +737,9 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
 }
 
 inline void handleStartUpdate(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
-    const std::string& objectPath, const boost::system::error_code& ec,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    task::Payload&& payload, const std::string& objectPath,
+    const boost::system::error_code& ec,
     const sdbusplus::message::object_path& retPath)
 {
     if (ec)
@@ -864,7 +752,7 @@ inline void handleStartUpdate(
 
     BMCWEB_LOG_INFO("Call to StartUpdate on {} Success, retPath = {}",
                     objectPath, retPath.str);
-    createTask(asyncResp, std::move(payload), retPath);
+    createTaskForDbusPath(asyncResp, std::move(payload), retPath);
 }
 
 inline void startUpdate(
@@ -1104,9 +992,9 @@ inline void doHTTPUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
         task::Payload payload(req);
-        // HTTP push only supports BMC updates (with ApplyTime as immediate) for
-        // backwards compatibility. Specific component updates will be handled
-        // through Multipart form HTTP push.
+        // HTTP push only supports BMC updates (with ApplyTime as immediate)
+        // for backwards compatibility. Specific component updates will be
+        // handled through Multipart form HTTP push.
         std::vector<std::string> targets;
         targets.emplace_back(BMCWEB_REDFISH_MANAGER_URI_NAME);
 
