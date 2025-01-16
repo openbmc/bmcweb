@@ -70,6 +70,30 @@
       },
       "revId": "935d8ef3cc95b1a202a5f082a032eb3d5823cc97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c517fb5a_d1d7cf58",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-01-16T17:55:56Z",
+      "side": 1,
+      "message": "I\u0027m good with a follow on patch since this patch in its current state is an improvement.\n\nNow we\u0027ll have \"only\" or $skip always work correctly when they\u0027re the only query param.\n\nWe can still get some weirdness if they are used in a multi-query param request.\n\nI have an idea for handling that I\u0027ll try to upload later after this patch goes in.",
+      "parentUuid": "5db986f9_11b1e28b",
+      "range": {
+        "startLine": 590,
+        "startChar": 16,
+        "endLine": 598,
+        "endChar": 17
+      },
+      "revId": "935d8ef3cc95b1a202a5f082a032eb3d5823cc97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
