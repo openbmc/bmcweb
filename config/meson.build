@@ -4,6 +4,7 @@ conf_data = configuration_data()
 
 feature_options = [
     'basic-auth',
+    'bios',
     'cookie-auth',
     'experimental-http2',
     'experimental-redfish-multi-computer-system',
