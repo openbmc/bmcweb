@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "543bd892_f4601751",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-17T20:55:23Z",
+      "side": 1,
+      "message": "How does this handle \n\n{\n    \"Oem\": {\n        \"OpenBmc\": {\n            \"Fan\": {\n                \"StepwiseControllers\": {\n                    \"Test1\": {\n                        \"NegativeHysteresis\": 7.0,\n                        \"PositiveHysteresis\": 8.0\n                    }\n                }\n            }\n        }\n    },\n    \"DateTime\": \"2025-01-17T20:54:24+00:00\",\n}",
+      "revId": "4f921c74e6a579939cf30566a35efb2a936b5e78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "117abaf3_4a5992ea",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
