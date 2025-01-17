@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "248eb8e3_cce20f6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-17T20:31:04Z",
+      "side": 1,
+      "message": "please follow https://cbea.ms/git-commit/ and wrap body at 72",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bec11c62_e6367d82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-17T20:31:04Z",
+      "side": 1,
+      "message": "Why do we need this? What is the end goal? \n\"/redfish/v1/Managers/\u003cstr\u003e#Oem/Ibm\" ?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 13
+      },
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea93289e_625c0108",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-17T20:31:04Z",
+      "side": 1,
+      "message": "Don\u0027t we already do that with https://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA\u0026type\u003dcode",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cedfc2e_9c7824f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-17T20:31:04Z",
+      "side": 1,
+      "message": "Why not just BMCWEB_REDFISH_MANAGER_TRUSTSTORE_CERTIFICATE ?",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a726e1f_615df7dd",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-17T20:31:04Z",
+      "side": 1,
+      "message": "Do you need this?",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac7e9230_9ca48407",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-17T20:31:04Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e39bc9a8_adac03ba",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-17T20:31:04Z",
+      "side": 1,
+      "message": "include memory",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

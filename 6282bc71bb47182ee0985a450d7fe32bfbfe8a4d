@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dd283b9_19869870",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 2080,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-17T20:31:04Z",
+      "side": 0,
+      "message": "This should probably be behind the BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA flag already.",
+      "range": {
+        "startLine": 2071,
+        "startChar": 1,
+        "endLine": 2080,
+        "endChar": 69
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e945507_c6219b03",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-17T20:31:04Z",
+      "side": 0,
+      "message": "This should not just move the link behind a compile flag but leave the code  \nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/certificate_service.hpp#L1325\nIf BMCWEB_OPENBMC_OEM_SCHEMA \u003d False can still get to /redfish/v1/Managers/\u003cstr\u003e/Truststore/Certificates/\u003cstr\u003e/ \n\nThis is kind of a grey area if this is really OEM. It doesn\u0027t use any OEM schemas but has a problem that it isn\u0027t implementing the schema in the correct place \nhttps://github.com/openbmc/bmcweb/issues/119\n\nInstead of this commit would definitely like to see something fixing the path here like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61958",
+      "range": {
+        "startLine": 2082,
+        "startChar": 0,
+        "endLine": 2086,
+        "endChar": 65
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
