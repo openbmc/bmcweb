@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9362fdf6_dc039c03",
+        "filename": "config/meson.build",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-17T19:03:03Z",
+      "side": 1,
+      "message": "This patchset shouldn\u0027t add a global OEM flag.  If we want to optionally shut these off, it needs to be done one schema at a time.\n\nPlease look and OpenBMCManager, it already has an option key for it.  But again, please don\u0027t put that in this patch.",
+      "parentUuid": "057d3ff1_7ef9e418",
+      "range": {
+        "startLine": 24,
+        "startChar": 17,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14559bfe_93c6ac92",
         "filename": "http/routing.hpp",
         "patchSetId": 5
@@ -120,6 +144,30 @@
       "side": 1,
       "message": "I tried this and most of the URLs called part of router add have \u003cstr\u003e, \u003cpath\u003e and when we call boost::urls::parse_url, it returns error as bad URL.",
       "parentUuid": "14559bfe_93c6ac92",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 9
+      },
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31581dd9_541f2e4d",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-17T19:03:03Z",
+      "side": 1,
+      "message": "Can you post what code you tried?  I\u0027m not really understanding the problem",
+      "parentUuid": "8581fc66_87989fc3",
       "range": {
         "startLine": 255,
         "startChar": 0,
