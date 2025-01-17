@@ -7,8 +7,10 @@
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "credential_pipe.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "generated/enums/virtual_media.hpp"
+#include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/json_utils.hpp"
@@ -16,10 +18,12 @@
 #include <boost/url/format.hpp>
 #include <boost/url/url_view.hpp>
 #include <boost/url/url_view_base.hpp>
+#include <sdbusplus/bus/match.hpp>
 
 #include <array>
 #include <ranges>
 #include <string_view>
+#include <utility>
 
 namespace redfish
 {
@@ -30,6 +34,18 @@ enum class VmMode
     Standard,
     Proxy
 };
+
+static constexpr const char* standardMode = "Standard";
+static constexpr const char* proxyMode = "Proxy";
+
+static std::string getModeName(bool isStandard)
+{
+    if (isStandard)
+    {
+        return standardMode;
+    }
+    return proxyMode;
+}
 
 inline VmMode parseObjectPathAndGetMode(
     const sdbusplus::message::object_path& itemPath, const std::string& resName)
@@ -430,6 +446,122 @@ struct InsertMediaActionParams
 };
 
 /**
+ * @brief holder for dbus signal matchers
+ */
+class MatchWrapper : public std::enable_shared_from_this<MatchWrapper>
+{
+  public:
+    MatchWrapper(boost::asio::io_context& iocIn,
+                 std::shared_ptr<bmcweb::AsyncResp> asyncRespIn,
+                 const std::string& matchStrIn, const std::string& nameIn,
+                 const std::string& actionIn) :
+        asyncResp{std::move(asyncRespIn)}, matchStr{matchStrIn}, name{nameIn},
+        action{actionIn}, timer{iocIn}
+    {}
+
+    void start()
+    {
+        matcher = std::make_unique<sdbusplus::bus::match::match>(
+            *crow::connections::systemBus, matchStr, [this](auto&& message) {
+                handle(std::forward<decltype(message)>(message));
+            });
+        timer.expires_after(std::chrono::minutes(3));
+        timer.async_wait(
+            [self = shared_from_this()](const boost::system::error_code& ec) {
+                if (ec != boost::asio::error::operation_aborted)
+                {
+                    BMCWEB_LOG_DEBUG("Timer expired! Signal did not come");
+                    self->matcher.reset();
+                    return;
+                }
+            });
+    }
+
+    void stop()
+    {
+        timer.cancel();
+        matcher.reset();
+    }
+
+  private:
+    void handle(sdbusplus::message::message& m)
+    {
+        int errorCode = 0;
+        try
+        {
+            BMCWEB_LOG_INFO("Completion signal from {} has been received",
+                            m.get_path());
+
+            m.read(errorCode);
+            switch (errorCode)
+            {
+                case 0: // success
+                    BMCWEB_LOG_INFO("Signal received: Success");
+                    messages::success(asyncResp->res);
+                    break;
+                case EPERM:
+                    BMCWEB_LOG_ERROR("Signal received: EPERM");
+                    messages::accessDenied(asyncResp->res,
+                                           boost::urls::format(action));
+                    break;
+                case EBUSY:
+                    BMCWEB_LOG_ERROR("Signal received: EAGAIN");
+                    messages::resourceInUse(asyncResp->res);
+                    break;
+                default:
+                    BMCWEB_LOG_ERROR("Signal received: Other: {}", errorCode);
+                    messages::operationFailed(asyncResp->res);
+                    break;
+            }
+        }
+        catch (sdbusplus::exception::SdBusError& e)
+        {
+            BMCWEB_LOG_ERROR("{}", e.what());
+        }
+        // postpone matcher deletion after callback finishes
+        boost::asio::post(
+            crow::connections::systemBus->get_io_context(), [this]() {
+                BMCWEB_LOG_DEBUG("Removing matcher for {} node.", name);
+                this->stop();
+            });
+    }
+
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
+    std::unique_ptr<sdbusplus::bus::match::match> matcher;
+    std::string matchStr;
+    std::string name;
+    std::string action;
+    boost::asio::steady_timer timer;
+};
+
+/**
+ * @brief Function starts waiting for signal completion
+ */
+inline std::shared_ptr<MatchWrapper> doListenForCompletion(
+    const std::string& name, const std::string& objectPath,
+    const std::string& action, bool standard,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    BMCWEB_LOG_DEBUG("Start Listening for completion : {}", action);
+    std::string matcherString = sdbusplus::bus::match::rules::type::signal();
+
+    std::string interface = std::string("xyz.openbmc_project.VirtualMedia.") +
+                            getModeName(standard);
+
+    matcherString += sdbusplus::bus::match::rules::interface(interface);
+    matcherString += sdbusplus::bus::match::rules::member("Completion");
+    matcherString += sdbusplus::bus::match::rules::sender(
+        "xyz.openbmc_project.VirtualMedia");
+    matcherString += sdbusplus::bus::match::rules::path(objectPath);
+
+    auto matchWrapper = std::make_shared<MatchWrapper>(
+        crow::connections::systemBus->get_io_context(), asyncResp,
+        matcherString, name, action);
+    matchWrapper->start();
+    return matchWrapper;
+}
+
+/**
  * @brief Function transceives data with dbus directly.
  *
  * All BMC state properties will be retrieved before sending reset request.
@@ -470,6 +602,11 @@ inline void
                 }
             });
     }
+    const std::string objectPath =
+        "/xyz/openbmc_project/VirtualMedia/Standard/" + name;
+    const std::string action = "VirtualMedia.InsertMedia";
+    auto wrapper =
+        doListenForCompletion(name, objectPath, action, true, asyncResp);
 
     std::variant<sdbusplus::message::unix_fd> unixFd(
         std::in_place_type<sdbusplus::message::unix_fd>, fd);
@@ -478,22 +615,39 @@ inline void
         "/xyz/openbmc_project/VirtualMedia/Standard");
     path /= name;
     crow::connections::systemBus->async_method_call(
-        [asyncResp,
-         secretPipe](const boost::system::error_code& ec, bool success) {
+        [asyncResp, secretPipe, name, action, wrapper,
+         objectPath](const boost::system::error_code& ec, bool success) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
-                messages::internalError(asyncResp->res);
+                if (ec == boost::system::errc::device_or_resource_busy)
+                {
+                    messages::resourceInUse(asyncResp->res);
+                }
+                else if (ec == boost::system::errc::permission_denied)
+                {
+                    messages::accessDenied(
+                        asyncResp->res,
+                        boost::urls::format(
+                            "/redfish/v1/Managers/bmc/VirtualMedia/{}/Actions/{}",
+                            name, action));
+                }
+                else
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                wrapper->stop();
                 return;
             }
             if (!success)
             {
                 BMCWEB_LOG_ERROR("Service responded with error");
-                messages::internalError(asyncResp->res);
+                messages::operationFailed(asyncResp->res);
+                wrapper->stop();
             }
         },
-        service, path.str, "xyz.openbmc_project.VirtualMedia.Standard", "Mount",
-        imageUrl, rw, unixFd);
+        service, objectPath, "xyz.openbmc_project.VirtualMedia.Standard",
+        "Mount", imageUrl, rw, unixFd);
 }
 
 /**
@@ -644,37 +798,48 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& service, const std::string& name,
                           bool standard)
 {
-    // Standard mount requires parameter with image
-    if (standard)
-    {
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
+    const std::string vmMode = getModeName(standard);
+    const std::string objectPath =
+        "/xyz/openbmc_project/VirtualMedia/" + vmMode + "/" + name;
+    const std::string ifaceName = "xyz.openbmc_project.VirtualMedia." + vmMode;
+    std::string action = "VirtualMedia.Eject";
 
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-            },
-            service, "/xyz/openbmc_project/VirtualMedia/Standard/" + name,
-            "xyz.openbmc_project.VirtualMedia.Standard", "Unmount");
-    }
-    else // proxy
-    {
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code& ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
+    auto wrapper =
+        doListenForCompletion(name, objectPath, action, standard, asyncResp);
 
-                    messages::internalError(asyncResp->res);
-                    return;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, name, action, objectPath,
+         wrapper](const boost::system::error_code ec, bool success) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
+                if (ec == boost::system::errc::device_or_resource_busy)
+                {
+                    messages::resourceInUse(asyncResp->res);
                 }
-            },
-            service, "/xyz/openbmc_project/VirtualMedia/Proxy/" + name,
-            "xyz.openbmc_project.VirtualMedia.Proxy", "Unmount");
-    }
+                else if (ec == boost::system::errc::permission_denied)
+                {
+                    messages::accessDenied(
+                        asyncResp->res,
+                        boost::urls::format(
+                            "/redfish/v1/Managers/bmc/VirtualMedia/{}/Actions/{}",
+                            name, action));
+                }
+                else
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                wrapper->stop();
+                return;
+            }
+
+            if (!success)
+            {
+                messages::operationFailed(asyncResp->res);
+                wrapper->stop();
+            }
+        },
+        service, objectPath, ifaceName, "Unmount");
 }
 
 inline void handleManagersVirtualMediaActionInsertPost(
