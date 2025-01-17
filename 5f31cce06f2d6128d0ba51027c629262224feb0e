@@ -106,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8581fc66_87989fc3",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-17T13:43:32Z",
+      "side": 1,
+      "message": "I tried this and most of the URLs called part of router add have \u003cstr\u003e, \u003cpath\u003e and when we call boost::urls::parse_url, it returns error as bad URL.",
+      "parentUuid": "14559bfe_93c6ac92",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 9
+      },
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "693dcfa7_6a77df84",
