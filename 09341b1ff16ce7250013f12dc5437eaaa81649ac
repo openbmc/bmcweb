@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "586753c1_7f84bcd5",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-01-20T11:08:33Z",
+      "side": 1,
+      "message": "nit: You can use ```__func__``` to refer to the name of the current function.\nThat prevents the bitrot when the function is renamed.\n\nhttps://gcc.gnu.org/onlinedocs/cpp/Standard-Predefined-Macros.html",
+      "revId": "09341b1ff16ce7250013f12dc5437eaaa81649ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
