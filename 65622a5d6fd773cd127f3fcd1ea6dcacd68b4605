@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec5dbf4d_d86c96a0",
+        "filename": "include/openbmc_dbus_rest.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1738,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-20T18:29:17Z",
+      "side": 1,
+      "message": "This whole branch isn\u0027t needed.  the \n\nfor (const std::string\u0026 interface : interfaceNames)\n\nwill not execute at all",
+      "revId": "65622a5d6fd773cd127f3fcd1ea6dcacd68b4605",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
