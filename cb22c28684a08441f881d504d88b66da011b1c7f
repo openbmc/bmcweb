@@ -46,6 +46,30 @@
       },
       "revId": "cb22c28684a08441f881d504d88b66da011b1c7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe93948c_a7034688",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-20T19:09:32Z",
+      "side": 1,
+      "message": "\"This property shall indicate whether DHCP v4 is enabled for this Ethernet interface.\"\n\nAnd you\u0027re adding v4v6stateless to be true.",
+      "parentUuid": "054e3ab0_78d88b79",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "cb22c28684a08441f881d504d88b66da011b1c7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
