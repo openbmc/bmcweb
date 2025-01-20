@@ -1729,8 +1729,6 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
             std::shared_ptr<nlohmann::json> response =
                 std::make_shared<nlohmann::json>(nlohmann::json::object());
-            // The mapper should never give us an empty interface names
-            // list, but check anyway
             for (const std::pair<std::string, std::vector<std::string>>&
                      connection : objectNames)
             {
@@ -1739,10 +1737,9 @@ inline void handleGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
                 if (interfaceNames.empty())
                 {
-                    setErrorResponse(asyncResp->res,
-                                     boost::beast::http::status::not_found,
-                                     notFoundDesc, notFoundMsg);
-                    return;
+                    // mapper allows empty interfaces in case an
+                    // object does not implement any interface.
+                    continue;
                 }
 
                 for (const std::string& interface : interfaceNames)
