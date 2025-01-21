@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SecurityPolicy v1.0.2                                               -->
+<!--# Redfish Schema:  SecurityPolicy v1.0.3                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -190,14 +190,15 @@
         <Annotation Term="OData.Description" String="The TLS client and server policies."/>
         <Annotation Term="OData.LongDescription" String="This property shall contain the policy requirements for TLS communication and usage for a TLS client and server."/>
         <Property Name="Client" Type="SecurityPolicy.v1_0_0.TLSPolicy" Nullable="false">
-          <Annotation Term="OData.Description" String="The TLS policy."/>
+          <Annotation Term="OData.Description" String="The TLS policy where the manager acts as a TLS client for communication with servers."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the policy requirements and usage for TLS connections where the manager acts as a TLS client."/>
         </Property>
         <Property Name="Server" Type="SecurityPolicy.v1_0_0.TLSPolicy" Nullable="false">
-          <Annotation Term="OData.Description" String="The TLS policy."/>
+          <Annotation Term="OData.Description" String="The TLS policy where the manager acts as a TLS server for communication with clients."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the policy requirements and usage for TLS connections where the manager acts as a TLS server."/>
         </Property>
       </ComplexType>
+
       <ComplexType Name="TLSPolicy">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="TLS policy settings."/>
@@ -270,6 +271,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="SecurityPolicy" BaseType="SecurityPolicy.v1_0_1.SecurityPolicy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecurityPolicy.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `Client` and `Server` properties within the `TLS` property."/>
+      <EntityType Name="SecurityPolicy" BaseType="SecurityPolicy.v1_0_2.SecurityPolicy"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.20.0                                                    -->
+<!--# Redfish Schema:  Resource v1.21.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -118,7 +118,7 @@
         </Property>
         <Property Name="Conditions" Type="Collection(Resource.Condition)">
           <Annotation Term="OData.Description" String="Conditions in this resource that require attention."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the active conditions requiring attention in this or a related resource that affects the `Health` or `HealthRollup` of this resource.  The service may roll up multiple conditions originating from a resource, using the `ConditionInRelatedResource` message from the Base Message Registry.  The array order of conditions may change as new conditions occur or as conditions are resolved by the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the active conditions requiring attention in this or a related resource.  The conditions may affect the `Health` or `HealthRollup` of this resource.  The service may roll up multiple conditions originating from a resource, using the `ConditionInRelatedResource` message from the Base Message Registry.  The array order of conditions may change as new conditions occur or as conditions are resolved by the service."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -224,6 +224,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_20_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Property>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_21_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -384,8 +396,8 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will behave as if the physical power button is pressed.  The behavior of pressing the physical power button may be dependent on the state of the unit and the behavior may be configurable."/>
         </Member>
         <Member Name="PowerCycle">
-          <Annotation Term="OData.Description" String="Power cycle the unit.  Behaves like a full power removal, followed by a power restore to the resource."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will perform a power cycle.  If currently in the power on state, the resource will transition to a power off state, then transition to a power on state.  If currently in the power off state, the resource will transition to a power on state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
+          <Annotation Term="OData.Description" String="Power cycle the unit.  Behaves like a power removal, followed by a power restore to the resource."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will perform a power cycle.  This is different from `FullPowerCycle` in that it typically performs localized power sequencing of the resource while external power is still present.  For example, turning DC voltage regulators off and then turning DC voltage regulators back on.  If currently in the power on state, the resource will transition to a power off state, then transition to a power on state.  If currently in the power off state, the resource will transition to a power on state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -427,6 +439,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_13_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="FullPowerCycle">
+          <Annotation Term="OData.Description" String="Full power cycle the unit.  Behaves like removing utility lines, followed by restoring utility lines to the resource."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the resource will perform a full power cycle as if utility lines to the resource are removed and restored.  This is different from `PowerCycle` in that it's as close to a true power cycle as possible.  For example, removing AC power cables from an enclosure and then restoring the AC power cables.  If currently in the power on state, the resource will transition to a power off state, then transition to a power on state.  If currently in the power off state, the resource will transition to a power on state.  Upon successful completion, the `PowerState` property, if supported, shall contain the value `On`.  If a service supports this value but there are no other distinct power cycle flows, the service shall support `PowerCycle` as an alias to `FullPowerCycle`.  This type of reset may cause the manager providing the Redfish service to power cycle.  If the manager providing the Redfish service is affected by this type of reset, the service shall send the action response before resetting to prevent client timeouts."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_21_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -850,7 +874,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
-      <Annotation Term="OData.Description" String="This version moves the former definition of PowerState to the unversioned namespace."/>
+      <Annotation Term="OData.Description" String="This version moves the former definition of `PowerState` to the unversioned namespace."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_1">
@@ -1269,7 +1293,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add PowerCycle enumeration to ResetType."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `PowerCycle` enumeration to `ResetType`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_1">
@@ -1997,6 +2021,11 @@
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_11_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `Conditions` may include conditions that require attention but do not necessarily affect the `Health` or `HealthRollup` of the resource."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -2033,10 +2062,15 @@
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_12_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `Conditions` may include conditions that require attention but do not necessarily affect the `Health` or `HealthRollup` of the resource."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add `Embedded` to `LocationType` within `PartLocation`.  It was also created to add the `Pause`, `Resume`, and `Suspend` enumerations to ResetType.  It was also created to add `Paused` to PowerState."/>
+      <Annotation Term="OData.Description" String="This version was created to add `Embedded` to `LocationType` within `PartLocation`.  It was also created to add the `Pause`, `Resume`, and `Suspend` enumerations to `ResetType`.  It was also created to add `Paused` to `PowerState`."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_1">
@@ -2062,6 +2096,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_13_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `Conditions` may include conditions that require attention but do not necessarily affect the `Health` or `HealthRollup` of the resource."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_14_0">
@@ -2090,6 +2129,11 @@
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_14_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `Conditions` may include conditions that require attention but do not necessarily affect the `Health` or `HealthRollup` of the resource."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -2109,6 +2153,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_15_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_15_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `Conditions` may include conditions that require attention but do not necessarily affect the `Health` or `HealthRollup` of the resource."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_16_0">
@@ -2137,6 +2186,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_16_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_16_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `Conditions` may include conditions that require attention but do not necessarily affect the `Health` or `HealthRollup` of the resource."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_17_0">
@@ -2209,6 +2263,11 @@
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_17_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `Conditions` may include conditions that require attention but do not necessarily affect the `Health` or `HealthRollup` of the resource."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_18_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -2225,6 +2284,11 @@
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_18_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `Conditions` may include conditions that require attention but do not necessarily affect the `Health` or `HealthRollup` of the resource."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
@@ -2236,10 +2300,26 @@
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_19_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `Conditions` may include conditions that require attention but do not necessarily affect the `Health` or `HealthRollup` of the resource."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_20_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
       <Annotation Term="OData.Description" String="This version was created to add `Username` and `UserAuthenticationSource` to the `Condition` property in `Status`."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_20_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `Conditions` may include conditions that require attention but do not necessarily affect the `Health` or `HealthRollup` of the resource."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `FullPowerCycle` enumeration to `ResetType`.  It was also created to add the `Oem` property to the `Condition` property in `Status`."/>
     </Schema>
 
   </edmx:DataServices>

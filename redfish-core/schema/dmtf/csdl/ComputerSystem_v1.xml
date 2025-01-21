@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.23.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.23.1                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -2646,8 +2646,8 @@
         </Property>
         <Property Name="PowerOnDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The number of seconds to delay power on after a power cycle or during a reset.  Zero seconds indicates no delay to power up."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a power cycle or during a reset.  The value `0` shall indicate no delay to power on."/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power on after an externally performed power cycle or during a reset.  Zero seconds indicates no delay to power up."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after an externally performed power cycle or during a reset.  The value `0` shall indicate no delay to power on."/>
         </Property>
         <Property Name="PowerOffDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -2656,8 +2656,8 @@
         </Property>
         <Property Name="PowerCycleDelaySeconds" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The number of seconds to delay power on after a `Reset` action requesting `PowerCycle`.  Zero seconds indicates no delay."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a `Reset` action requesting `PowerCycle`.  The value `0` shall indicate no delay to power on."/>
+          <Annotation Term="OData.Description" String="The number of seconds to delay power on after a `Reset` action requesting `PowerCycle` or `FullPowerCycle`.  Zero seconds indicates no delay."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of seconds to delay power on after a `Reset` action requesting `PowerCycle` or `FullPowerCycle`.  The value `0` shall indicate no delay to power on."/>
         </Property>
         <Property Name="SerialConsole" Type="ComputerSystem.v1_13_0.HostSerialConsole" Nullable="false">
           <Annotation Term="OData.Description" String="The serial console services that this system provides."/>
@@ -2930,6 +2930,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_9.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_13_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_13_10.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -3037,6 +3043,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_8.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_14_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_14_9.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_0">
@@ -3191,6 +3203,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_7.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_15_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_15_8.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -3343,6 +3361,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_8.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_16_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_16_9.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -3406,6 +3430,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_7.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_17_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_17_8.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_0">
@@ -3496,6 +3526,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_6.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_18_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_18_7.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -3553,6 +3589,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_6.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_19_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_19_7.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_0">
@@ -3618,6 +3660,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_5.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_20_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_20_6.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_0">
@@ -3705,6 +3753,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_21_3.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_21_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_21_4.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_22_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -3729,6 +3783,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_22_2.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_22_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_22_3.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_23_0">
@@ -3785,6 +3845,12 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the system start or restart cause is unknown."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_23_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_23_0.ComputerSystem"/>
     </Schema>
 
   </edmx:DataServices>

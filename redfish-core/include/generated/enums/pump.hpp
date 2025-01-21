@@ -13,10 +13,22 @@ enum class PumpType{
     Compressor,
 };
 
+enum class PumpMode{
+    Invalid,
+    Enabled,
+    Disabled,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PumpType, {
     {PumpType::Invalid, "Invalid"},
     {PumpType::Liquid, "Liquid"},
     {PumpType::Compressor, "Compressor"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PumpMode, {
+    {PumpMode::Invalid, "Invalid"},
+    {PumpMode::Enabled, "Enabled"},
+    {PumpMode::Disabled, "Disabled"},
 });
 
 }

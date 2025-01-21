@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################               -->
-<!--# Redfish Schema:  Drive v1.20.1                                                               -->
+<!--# Redfish Schema:  Drive v1.21.0                                                               -->
 <!--#                                                                                              -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,              -->
 <!--# available at http://www.dmtf.org/standards/redfish                                           -->
@@ -208,8 +208,8 @@
         </Property>
         <Property Name="Revision" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The revision of this drive.  For SCSI-based drives, this is the version of the drive from the 'Inquiry' command, which can be the firmware or hardware version.  For other types of drives, this is the hardware version."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the manufacturer-defined revision for the associated drive.  For SCSI-based drives, this is the version of the drive from the 'Inquiry' command, which can be the firmware or hardware version.  For other types of drives, this is the hardware version."/>
+          <Annotation Term="OData.Description" String="The revision of a SCSI-based drive, as returned from the 'Inquiry' command, which can be the firmware or hardware version.  For other types of drives, the `HardwareVersion` and `FirmwareVersion` properties are recommended in favor of this property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the manufacturer-defined revision for a SCSI-based drive, as returned in the 'Product Revision Level' field from the 'Inquiry' command, which can be the firmware or hardware version.  For other types of drives, this property should not be present and services should support the `HardwareVersion` and `FirmwareVersion` properties in favor of this property.  If this property is present for drives that are not SCSI-based, the value may contain a firmware version, hardware version, or a combination."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
@@ -2219,6 +2219,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Drive" BaseType="Drive.v1_20_0.Drive"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+
+      <EntityType Name="Drive" BaseType="Drive.v1_20_1.Drive">
+        <Property Name="HardwareVersion" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hardware version of this drive."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hardware version of this drive as determined by the vendor or supplier."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

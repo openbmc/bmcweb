@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Control v1.5.2                                                      -->
+<!--# Redfish Schema:  Control v1.6.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -235,7 +235,7 @@
         <NavigationProperty Name="Sensor" Type="Sensor.Sensor">
           <Annotation Term="Redfish.ExcerptCopy"/>
           <Annotation Term="OData.Description" String="The sensor reading associated with this control."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the Sensor excerpt directly associated with this control.  The value of the `DataSourceUri` property shall reference a resource of type `Sensor`.  This property shall not be present if multiple sensors are associated with a single control."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the `Sensor` excerpt directly associated with this control.  The value of the `DataSourceUri` property shall reference a resource of type `Sensor`.  This property shall not be present if multiple sensors are associated with a single control."/>
         </NavigationProperty>
         <NavigationProperty Name="AssociatedSensors" Type="Collection(Sensor.Sensor)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -321,7 +321,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This value has been deprecated in favor of `PressurekPa` for units consistency with the equivalent Sensor resource ReadingType value."/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of `PressurekPa` for units consistency with the equivalent `Sensor` resource `ReadingType` value."/>
               </Record>
             </Collection>
           </Annotation>
@@ -370,6 +370,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="LiquidFlowLPM">
+          <Annotation Term="OData.Description" String="Liquid flow (L/min) control."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust the volume of liquid per unit of time, in liters per minute units, that flows through a particular junction.  The `SetPointUnits` property shall contain `L/min`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -590,6 +602,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `SetPointUnits`."/>
       <EntityType Name="Control" BaseType="Control.v1_5_1.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add `LiquidFlowLPM` to `ControlType`."/>
+
+      <EntityType Name="Control" BaseType="Control.v1_5_2.Control"/>
     </Schema>
 
   </edmx:DataServices>

@@ -45,6 +45,7 @@ enum class ResetType{
     Suspend,
     Pause,
     Resume,
+    FullPowerCycle,
 };
 
 enum class IndicatorLED{
@@ -152,6 +153,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetType, {
     {ResetType::Suspend, "Suspend"},
     {ResetType::Pause, "Pause"},
     {ResetType::Resume, "Resume"},
+    {ResetType::FullPowerCycle, "FullPowerCycle"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(IndicatorLED, {
