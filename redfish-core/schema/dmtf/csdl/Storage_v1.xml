@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.17.1                                                                 -->
+<!--# Redfish Schema:  Storage v1.18.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -96,6 +96,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ConnectionCollection_v1.xml">
     <edmx:Include Namespace="ConnectionCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/StorageMetrics_v1.xml">
+    <edmx:Include Namespace="StorageMetrics"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -1813,6 +1816,40 @@
       <Annotation Term="OData.Description" String="This version was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Storage" BaseType="Storage.v1_17_0.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_17_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_18_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_17_1.Storage">
+        <Property Name="BlockSecurityIDPolicy" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if the storage controller sends a command to block establishment of a TCG-defined security ID (SID) during each drive boot sequence for drives that support it."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the storage controller sends the TCG-defined 'Block SID' command to block establishment of a TCG-defined security ID (SID) during each drive boot sequence for drives that support it.  The value `true` shall indicate the TCG-defined 'Block SID' command is sent to supporting drives during each drive boot sequence."/>
+        </Property>
+        <NavigationProperty Name="Metrics" Type="StorageMetrics.StorageMetrics">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the metrics associated with this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `StorageMetrics` that represents the metrics associated with this storage subsystem."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Storage.v1_15_0.Links">
+        <NavigationProperty Name="BlockSecurityIDUnsupportedDrives" Type="Collection(Drive.Drive)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of drives in this storage subsystem that do not support blocking of TCG-defined security ID (SID)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Drive` that represent the drives in this storage subsystem that do not support the TCG-defined 'Block SID' command.  This property should only be present if at least one drive does not support the TCG-defined 'Block SID' command."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="BlockSecurityIDUpdateUnsuccessfulDrives" Type="Collection(Drive.Drive)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of drives in this storage subsystem for which the most recent attempt to block TCG-defined security ID (SID) failed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Drive` that represent the drives in this storage subsystem for which the most recent attempt to block TCG-defined security ID (SID) with the TCG-defined 'Block SID' command failed.  This property should only be present if the most recent attempt to block TCG-defined security ID (SID) with the TCG-defined 'Block SID' command failed for at least one drive."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

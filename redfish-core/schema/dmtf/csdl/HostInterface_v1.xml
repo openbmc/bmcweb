@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  HostInterface v1.3.2                                                -->
+<!--# Redfish Schema:  HostInterface v1.3.3                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -90,7 +90,7 @@
         <Property Name="InterfaceEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether this interface is enabled."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this interface is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this interface is enabled.  Modifying this property may modify the `InterfaceEnabled` property in the `EthernetInterface` resource for this host interface."/>
         </Property>
         <Property Name="ExternallyAccessible" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -289,6 +289,12 @@
       <EntityType Name="HostInterface" BaseType="HostInterface.v1_0_6.HostInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `InterfaceEnabled` to show `EthernetInterface` and `HostInterface` may have ties."/>
+      <EntityType Name="HostInterface" BaseType="HostInterface.v1_0_7.HostInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -359,6 +365,12 @@
       <EntityType Name="HostInterface" BaseType="HostInterface.v1_1_6.HostInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `InterfaceEnabled` to show `EthernetInterface` and `HostInterface` may have ties."/>
+      <EntityType Name="HostInterface" BaseType="HostInterface.v1_1_7.HostInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -403,6 +415,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="HostInterface" BaseType="HostInterface.v1_2_3.HostInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `InterfaceEnabled` to show `EthernetInterface` and `HostInterface` may have ties."/>
+      <EntityType Name="HostInterface" BaseType="HostInterface.v1_2_4.HostInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_3_0">
@@ -457,6 +475,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="HostInterface" BaseType="HostInterface.v1_3_1.HostInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="HostInterface.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for `InterfaceEnabled` to show `EthernetInterface` and `HostInterface` may have ties."/>
+      <EntityType Name="HostInterface" BaseType="HostInterface.v1_3_2.HostInterface"/>
     </Schema>
 
   </edmx:DataServices>

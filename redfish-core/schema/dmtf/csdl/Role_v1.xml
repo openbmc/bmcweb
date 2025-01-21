@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Role v1.3.2                                                         -->
+<!--# Redfish Schema:  Role v1.3.3                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -69,7 +69,7 @@
         <Property Name="IsPredefined" Type="Edm.Boolean" Nullable="false" DefaultValue="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether the role is predefined by Redfish or an OEM rather than a client-defined role."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the role is predefined by Redfish or an OEM as contrasted with a client-defined role."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the role is predefined by Redfish or an OEM as contrasted with a client-defined role.  If this property is not present, the value should be assumed to be `false`."/>
         </Property>
         <Property Name="AssignedPrivileges" Type="Collection(Privileges.PrivilegeType)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -130,6 +130,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Role" BaseType="Role.v1_0_8.Role"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_0_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend assuming `IsPredefined` to be `false` if not present."/>
+      <EntityType Name="Role" BaseType="Role.v1_0_9.Role"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_1_0">
@@ -202,16 +208,23 @@
       <EntityType Name="Role" BaseType="Role.v1_1_6.Role"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend assuming `IsPredefined` to be `false` if not present."/>
+      <EntityType Name="Role" BaseType="Role.v1_1_7.Role"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.2"/>
 
       <EntityType Name="Role" BaseType="Role.v1_1_0.Role">
         <Property Name="RoleId" Type="Edm.String" Nullable="false">
-          <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The name of the role."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the string name of the role.  This property shall contain the same value as the `Id` property."/>
+          <Annotation Term="Redfish.Required"/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
         </Property>
       </EntityType>
     </Schema>
@@ -258,6 +271,12 @@
       <EntityType Name="Role" BaseType="Role.v1_2_6.Role"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend assuming `IsPredefined` to be `false` if not present.  It was also created to indicate `RoleId` is a required property."/>
+      <EntityType Name="Role" BaseType="Role.v1_2_7.Role"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -286,6 +305,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Role" BaseType="Role.v1_3_1.Role"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to recommend assuming `IsPredefined` to be `false` if not present.  It was also created to indicate `RoleId` is a required property."/>
+      <EntityType Name="Role" BaseType="Role.v1_3_2.Role"/>
     </Schema>
 
   </edmx:DataServices>
