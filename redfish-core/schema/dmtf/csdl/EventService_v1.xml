@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventService v1.10.2                                                -->
+<!--# Redfish Schema:  EventService v1.10.3                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -170,8 +170,8 @@
         </Property>
         <Property Name="DeliveryRetryAttempts" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The number of times that the `POST` of an event is retried before the subscription terminates.  This retry occurs at the service level, which means that the HTTP `POST` to the event destination fails with an HTTP `4XX` or `5XX` status code or an HTTP timeout occurs this many times before the event destination subscription terminates."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of times that the `POST` of an event is retried before the subscription terminates.  This retry occurs at the service level, which means that the HTTP `POST` to the event destination fails with an HTTP `4XX` or `5XX` status code or an HTTP timeout occurs this many times before the event destination subscription terminates."/>
+          <Annotation Term="OData.Description" String="The number of times that the `POST` of an event is retried before the subscription terminates or is suspended.  This retry occurs at the service level, which means that the HTTP `POST` to the event destination fails with an HTTP `4XX` or `5XX` status code or an HTTP timeout occurs this many times before the event destination subscription terminates or is suspended."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of times that the `POST` of an event is retried before the subscription terminates or is suspended.  This retry occurs at the service level, which means that the HTTP `POST` to the event destination fails with an HTTP `4XX` or `5XX` status code or an HTTP timeout occurs this many times before the event destination subscription terminates or is suspended.  The service shall delete the `EventDestination` resource to terminate the subscription.  The service shall set the value of the `State` property within `Status` of the `EventDestination` resource to `Disabled` for a suspended subscription."/>
         </Property>
         <Property Name="DeliveryRetryIntervalSeconds" Type="Edm.Int64" Nullable="false">
           <Annotation Term="Measures.Unit" String="s"/>
@@ -322,6 +322,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_0_16.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_0_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_0_17.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -394,6 +400,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="EventService" BaseType="EventService.v1_1_9.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_1_10.EventService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_2_0">
@@ -538,6 +550,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_2_9.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_2_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_2_10.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -598,6 +616,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="EventService" BaseType="EventService.v1_3_8.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_3_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_3_9.EventService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_4_0">
@@ -661,6 +685,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="EventService" BaseType="EventService.v1_4_8.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_4_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_4_9.EventService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_5_0">
@@ -828,6 +858,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_5_8.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_5_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_5_9.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -889,6 +925,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_6_7.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_6_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_6_8.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -939,6 +981,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_7_6.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_7_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_7_7.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -981,6 +1029,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_8_3.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_8_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_8_4.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -1020,6 +1074,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_9_2.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_9_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_9_3.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -1038,6 +1098,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="EventService" BaseType="EventService.v1_10_1.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_10_2.EventService"/>
     </Schema>
 
   </edmx:DataServices>

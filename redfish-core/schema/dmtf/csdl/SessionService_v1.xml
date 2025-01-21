@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SessionService v1.1.9                                               -->
+<!--# Redfish Schema:  SessionService v1.2.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -230,6 +230,27 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_1_8.SessionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+
+      <EntityType Name="SessionService" BaseType="SessionService.v1_1_9.SessionService">
+        <Property Name="AbsoluteSessionTimeout" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum number of seconds that a session is open before the service closes the session regardless of activity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of seconds that a session is open before the service closes the session regardless of activity."/>
+          <Annotation Term="Validation.Minimum" Int="30"/>
+          <Annotation Term="Validation.Maximum" Int="86400"/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+        <Property Name="AbsoluteSessionTimeoutEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether an absolute session timeout is applied to sessions."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether an absolute session timeout is applied to sessions.  If `true`, the service shall close sessions that are open for the number of seconds specified by the `AbsoluteSessionTimeout` property regardless of session activity.  If `false` or if this property is not present, the service shall not apply an absolute session timeout."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

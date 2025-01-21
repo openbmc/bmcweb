@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CertificateService v1.0.5                                           -->
+<!--# Redfish Schema:  CertificateService v1.0.6                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -76,23 +76,23 @@
           <Annotation Term="OData.Description" String="The additional host names of the component to secure."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of additional host names of the component to secure, as defined by the RFC5280 'subjectAltName' attribute."/>
         </Parameter>
-        <Parameter Name="Organization" Type="Edm.String" Nullable="false">
+        <Parameter Name="Organization" Type="Edm.String">
           <Annotation Term="OData.Description" String="The name of the organization making the request."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the name of the organization making the request, as defined by the RFC5280 'organizationName' attribute."/>
         </Parameter>
-        <Parameter Name="OrganizationalUnit" Type="Edm.String" Nullable="false">
+        <Parameter Name="OrganizationalUnit" Type="Edm.String">
           <Annotation Term="OData.Description" String="The name of the unit or division of the organization making the request."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the name of the unit or division of the organization making the request, as defined by the RFC5280 'organizationalUnitName' attribute."/>
         </Parameter>
-        <Parameter Name="City" Type="Edm.String" Nullable="false">
+        <Parameter Name="City" Type="Edm.String">
           <Annotation Term="OData.Description" String="The city or locality of the organization making the request."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the city or locality of the organization making the request, as defined by the RFC5280 'localityName' attribute."/>
         </Parameter>
-        <Parameter Name="State" Type="Edm.String" Nullable="false">
+        <Parameter Name="State" Type="Edm.String">
           <Annotation Term="OData.Description" String="The state, province, or region of the organization making the request."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the state, province, or region of the organization making the request, as defined by the RFC5280 'stateOrProvinceName' attribute."/>
         </Parameter>
-        <Parameter Name="Country" Type="Edm.String" Nullable="false">
+        <Parameter Name="Country" Type="Edm.String">
           <Annotation Term="OData.Description" String="The two-letter country code of the organization making the request."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the two-letter ISO code for the country of the organization making the request, as defined by the RFC5280 'countryName' attribute."/>
         </Parameter>
@@ -246,6 +246,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_4.CertificateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change several parameters in the `GenerateCSR` action to be optional instead of required."/>
+      <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_5.CertificateService"/>
     </Schema>
 
   </edmx:DataServices>

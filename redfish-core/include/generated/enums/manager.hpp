@@ -44,6 +44,15 @@ enum class ResetToDefaultsType{
     PreserveNetwork,
 };
 
+enum class DateTimeSource{
+    Invalid,
+    RTC,
+    Firmware,
+    Host,
+    NTP,
+    PTP,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ManagerType, {
     {ManagerType::Invalid, "Invalid"},
     {ManagerType::ManagementController, "ManagementController"},
@@ -81,6 +90,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ResetToDefaultsType, {
     {ResetToDefaultsType::ResetAll, "ResetAll"},
     {ResetToDefaultsType::PreserveNetworkAndUsers, "PreserveNetworkAndUsers"},
     {ResetToDefaultsType::PreserveNetwork, "PreserveNetwork"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(DateTimeSource, {
+    {DateTimeSource::Invalid, "Invalid"},
+    {DateTimeSource::RTC, "RTC"},
+    {DateTimeSource::Firmware, "Firmware"},
+    {DateTimeSource::Host, "Host"},
+    {DateTimeSource::NTP, "NTP"},
+    {DateTimeSource::PTP, "PTP"},
 });
 
 }

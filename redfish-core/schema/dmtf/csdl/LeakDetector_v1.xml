@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LeakDetector v1.2.0                                                 -->
+<!--# Redfish Schema:  LeakDetector v1.3.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -63,6 +63,15 @@
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/LeakDetection/LeakDetectors/{LeakDetectorId}</String>
+            <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/LeakDetection/LeakDetectors/{LeakDetectorId}</String>
+            <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/LeakDetection/LeakDetectors/{LeakDetectorId}</String>
+            <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection/LeakDetectors/{LeakDetectorId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/LeakDetectors/{LeakDetectorId}</String>
+          </Collection>
+        </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
           <Collection>
             <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/LeakDetection/LeakDetectors/{LeakDetectorId}</String>
             <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/LeakDetection/LeakDetectors/{LeakDetectorId}</String>
@@ -231,6 +240,19 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the name of the device associated with this leak detector.  If the device is represented by a resource, the value shall contain the value of the `Name` property of the associated resource."/>
           <Annotation Term="Redfish.Excerpt" String="Array"/>
           <Annotation Term="Redfish.ExcerptCopyOnly"/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+
+      <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_2_0.LeakDetector">
+        <Property Name="Enabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether the leak detector is enabled and provides a status."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the leak detector is enabled and provides a `DetectorState`.  The value `true` shall indicate the leak detector is enabled and returns the `DetectorState` property with a valid value.  The value `false` shall indicate the leak detector is disabled, shall not return the `DetectorState` property, and shall not trigger events, logging, or other functionality.  This property allows a user to disable a faulty leak detector or to otherwise remove it from use."/>
         </Property>
       </EntityType>
     </Schema>

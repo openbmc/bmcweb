@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Session v1.7.2                                                      -->
+<!--# Redfish Schema:  Session v1.8.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -493,6 +493,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Session" BaseType="Session.v1_7_1.Session"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Session.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+
+      <EntityType Name="Session" BaseType="Session.v1_7_2.Session">
+        <Property Name="ExpirationTime" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the session expires regardless of session activity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the session expires regardless of session activity.  The service shall delete this resource when the expiration time is reached.  If this property is not present, the session does not expire based on an absolute time."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

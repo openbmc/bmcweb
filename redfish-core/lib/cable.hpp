@@ -517,7 +517,7 @@ inline void afterHandleCableGet(
             continue;
         }
 
-        asyncResp->res.jsonValue["@odata.type"] = "#Cable.v1_2_0.Cable";
+        asyncResp->res.jsonValue["@odata.type"] = "#Cable.v1_2_4.Cable";
         asyncResp->res.jsonValue["@odata.id"] =
             boost::urls::format("/redfish/v1/Cables/{}", cableId);
         asyncResp->res.jsonValue["Id"] = cableId;
