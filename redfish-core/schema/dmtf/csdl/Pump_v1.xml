@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Pump v1.1.0                                                         -->
+<!--# Redfish Schema:  Pump v1.2.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -86,6 +86,24 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <Action Name="SetMode" IsBound="true">
+        <Annotation Term="OData.Description" String="This action sets the operating mode of the pump."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set the operating mode of the pump."/>
+        <Parameter Name="Pump" Type="Pump.v1_0_0.Actions"/>
+        <Parameter Name="Mode" Type="Pump.v1_2_0.PumpMode">
+          <Annotation Term="OData.Description" String="The desired operating mode of the pump."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the desired operating mode of the pump."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_2_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Pump.v1_0_0">
@@ -246,6 +264,32 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the desired speed, in percent units, of this pump.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `Percent`."/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Pump.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `SetMode` action."/>
+
+      <EntityType Name="Pump" BaseType="Pump.v1_1_0.Pump">
+        <NavigationProperty Name="InletPressurekPa" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The inlet pressure (kPa)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the pressure, in kilopascal units, for the inlet to this pump.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `PressurekPa`."/>
+        </NavigationProperty>
+      </EntityType>
+
+      <EnumType Name="PumpMode">
+        <Member Name="Enabled">
+          <Annotation Term="OData.Description" String="Enable the pump."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a request to enable the pump.  Upon successful completion, the `State` property within `Status`, shall contain the value `Enabled`."/>
+        </Member>
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="Disable the pump."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a request to disable the pump.  Upon successful completion, the `State` property within `Status`, shall contain the value `Disabled`."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

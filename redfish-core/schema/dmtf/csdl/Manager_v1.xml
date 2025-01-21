@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.19.2                                                     -->
+<!--# Redfish Schema:  Manager v1.20.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -111,7 +111,7 @@
 
       <Action Name="Reset" IsBound="true">
         <Annotation Term="OData.Description" String="The reset action resets/reboots the manager."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset the manager."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the manager.  If this manager provides the Redfish service, the service shall send the action response before resetting to prevent client timeouts."/>
         <Parameter Name="Manager" Type="Manager.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
@@ -547,6 +547,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_0_18.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_20">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_0_19.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -665,6 +671,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_1_16.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_1_17.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -780,6 +792,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_2_16.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_18">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_2_17.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -890,6 +908,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_3_15.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_3_16.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -990,6 +1014,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_4_12.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_4_13.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -1082,6 +1112,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_5_11.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_5_12.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1156,6 +1192,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Manager" BaseType="Manager.v1_6_8.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_6_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_6_9.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_0">
@@ -1235,6 +1277,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_7_8.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_7_9.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1301,6 +1349,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Manager" BaseType="Manager.v1_8_7.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_8_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_8_8.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_0">
@@ -1373,6 +1427,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_9_6.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_9_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_9_7.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1421,6 +1481,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Manager" BaseType="Manager.v1_10_5.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_10_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_10_6.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_11_0">
@@ -1475,6 +1541,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_11_4.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_11_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_11_5.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -1509,6 +1581,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Manager" BaseType="Manager.v1_12_3.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_12_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_12_4.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_13_0">
@@ -1556,6 +1634,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_13_2.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_13_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_13_3.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -1586,6 +1670,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Manager" BaseType="Manager.v1_14_2.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_14_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_14_3.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_15_0">
@@ -1621,6 +1711,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Manager" BaseType="Manager.v1_15_2.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_15_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_15_3.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_16_0">
@@ -1662,6 +1758,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_16_2.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_16_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_16_3.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -1691,6 +1793,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Manager" BaseType="Manager.v1_17_2.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_17_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_17_3.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_18_0">
@@ -1724,6 +1832,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Manager" BaseType="Manager.v1_18_2.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_18_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_18_3.Manager"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_19_0">
@@ -1774,6 +1888,43 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of the `CommandShell` property.  It was also was created to correct the OpenAPI usage of payload annotations in action request bodies."/>
       <EntityType Name="Manager" BaseType="Manager.v1_19_1.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_19_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description the `Reset` action to state that a response is required before resetting to avoid client timeouts."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_19_2.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_20_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+
+      <EntityType Name="Manager" BaseType="Manager.v1_19_3.Manager">
+        <Property Name="DateTimeSource" Type="Manager.v1_20_0.DateTimeSource">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The source of the date and time of this manager, such as NTP, RTC, or firmware."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the source of the `DateTime` property of this manager.  The service shall update this property if the source changes internally, for example if an NTP server is unavailable and the source falls back to the time stored by the RTC."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="DateTimeSource">
+        <Member Name="RTC">
+          <Annotation Term="OData.Description" String="The date and time is retrieved from the manager's real time clock (RTC)."/>
+        </Member>
+        <Member Name="Firmware">
+          <Annotation Term="OData.Description" String="The date and time is set and held by firmware."/>
+        </Member>
+        <Member Name="Host">
+          <Annotation Term="OData.Description" String="The date and time is retrieved from the host."/>
+        </Member>
+        <Member Name="NTP">
+          <Annotation Term="OData.Description" String="The date and time source is a Network Time Protocol (NTP) server."/>
+        </Member>
+        <Member Name="PTP">
+          <Annotation Term="OData.Description" String="The date and time source is a Precision Time Protocol (PTP) server."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

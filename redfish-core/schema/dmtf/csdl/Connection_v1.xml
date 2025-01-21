@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Connection v1.3.2                                                   -->
+<!--# Redfish Schema:  Connection v1.4.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -74,6 +74,54 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <Action Name="AddVolumeInfo" IsBound="true">
+        <Annotation Term="OData.Description" String="This action adds a volume to the connection.  Volumes are added to the `VolumeInfo` property."/>
+        <Annotation Term="OData.LongDescription" String="This action shall add a volume to the connection.  Services shall add the volume to the `VolumeInfo` property."/>
+        <Parameter Name="Connection" Type="Connection.v1_0_0.Actions"/>
+        <Parameter Name="Volume" Type="Volume.Volume" Nullable="false">
+          <Annotation Term="OData.Description" String="The volume to add."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to a resource of type `Volume` that represents the volume to add."/>
+        </Parameter>
+        <Parameter Name="LUN" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The initiator-visible logical unit number (LUN) to assign to the volume.  Clients are required to provide either `LUN`, `AccessCapabilities`, or both."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the initiator-visible logical unit number (LUN) to assign to the volume.  Services shall reject requests that do not contain either `LUN` or `AccessCapabilities`."/>
+        </Parameter>
+        <Parameter Name="AccessCapabilities" Type="Collection(Connection.v1_0_0.AccessCapability)">
+          <Annotation Term="OData.Description" String="The supported I/O access capabilities to assign to the volume.  Clients are required to provide either `LUN`, `AccessCapabilities`, or both."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of the storage access capabilities to assign to the volume.  Services shall reject requests that do not contain either `LUN` or `AccessCapabilities`."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="RemoveVolumeInfo" IsBound="true">
+        <Annotation Term="OData.Description" String="This action removes a volume from the connection.  Volumes are removed from the `VolumeInfo` property."/>
+        <Annotation Term="OData.LongDescription" String="This action shall remove a volume to the connection.  Services shall remove the volume from the `VolumeInfo` property."/>
+        <Parameter Name="Connection" Type="Connection.v1_0_0.Actions"/>
+        <Parameter Name="Volume" Type="Volume.Volume" Nullable="false">
+          <Annotation Term="OData.Description" String="The volume to remove."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to a resource of type `Volume` that represents the volume to remove."/>
+        </Parameter>
+        <Parameter Name="LUN" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The initiator-visible logical unit number (LUN) assigned to the volume to remove."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the initiator-visible logical unit number (LUN) assigned to this volume to remove.  If this parameter is not provided, the service shall remove all entries associated with volume referenced by the `Volume` parameter."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_0_0">
@@ -427,7 +475,7 @@
         <NavigationProperty Name="MemoryRegion" Type="MemoryRegion.MemoryRegion">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The specified memory region."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `MemoryRegion`.  The endpoints referenced by the `InitiatorEndpoints` or `InitiatorEndpointGroups` properties shall be given access to this memory region as described by this object.  If `TargetEndpoints` or `TargetEndpointGroups` is present, the referenced initiator endpoints shall be required to access the referenced memory region through one of the referenced target endpoints."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `MemoryRegion`.  The endpoints referenced by the `InitiatorEndpoints` or `InitiatorEndpointGroups` properties shall be given access to this memory region as described by this object.  If `TargetEndpoints` or `TargetEndpointGroups` is present, the referenced initiator endpoints shall be required to access the referenced memory region through one of the referenced target endpoints.  For CXL fabrics, memory regions from `Connection` resources are not allowed."/>
         </NavigationProperty>
       </ComplexType>
     </Schema>
@@ -442,6 +490,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Connection" BaseType="Connection.v1_3_1.Connection"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the description of the `MemoryRegions` property for CXL fabrics."/>
+      <EntityType Name="Connection" BaseType="Connection.v1_3_2.Connection"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Connection.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `AddVolumeInfo` and `RemoveVolumeInfo` actions."/>
+
+      <EntityType Name="Connection" BaseType="Connection.v1_3_3.Connection"/>
     </Schema>
 
   </edmx:DataServices>

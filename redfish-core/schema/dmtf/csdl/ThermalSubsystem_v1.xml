@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ThermalSubsystem v1.3.2                                             -->
+<!--# Redfish Schema:  ThermalSubsystem v1.3.3                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -210,7 +210,7 @@
         <NavigationProperty Name="LeakDetection" Type="LeakDetection.LeakDetection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the leak detection system within this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `LeakDetection`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `LeakDetection`.  This link should be used when the leak detection capabilities are tied to, or are internal to, a particular `Chassis`.  For detection capabilties that are tied to a `CoolingUnit` resource, which may span multiple `Chassis` resources, populating the `LeakDetection` resource under `CoolingUnit` for the relevant equipment is the preferred approach."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -226,6 +226,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_3_1.ThermalSubsystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `LeakDetection` in single-chassis equipments as compared to multi-chassis cooling equipment."/>
+      <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_3_2.ThermalSubsystem"/>
     </Schema>
 
   </edmx:DataServices>

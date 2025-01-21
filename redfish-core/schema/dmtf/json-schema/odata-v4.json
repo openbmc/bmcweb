@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/odata-v4.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_5.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "definitions": {
         "context": {

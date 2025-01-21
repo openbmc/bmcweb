@@ -64,7 +64,6 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/IOStatistics_v1.xml">
     <edmx:Include Namespace="IOStatistics"/>
-    <edmx:Include Namespace="IOStatistics.v1_0_1"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/SpareResourceSet_v1.xml">
     <edmx:Include Namespace="SpareResourceSet"/>
@@ -1037,7 +1036,7 @@
       <EntityType Name="Volume" BaseType="Volume.v1_1_1.Volume">
         <Annotation Term="OData.Description" String="Add volume statistics."/>
 
-        <Property Name="IOStatistics" Type="IOStatistics.v1_0_1.IOStatistics" Nullable="false">
+        <Property Name="IOStatistics" Type="IOStatistics.IOStatistics" Nullable="false">
           <Annotation Term="OData.Description" String="Statistics for this volume."/>
           <Annotation Term="OData.LongDescription" String="The value shall represent IO statistics for this volume."/>
           <Annotation Term="Redfish.Revisions">
@@ -1100,6 +1099,12 @@
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="OData.Description" String="This version was added to fix typographical errors."/>
       <EntityType Name="Volume" BaseType="Volume.v1_2_4.Volume"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+     <Annotation Term="OData.LongDescription" String="Change IOStatistics references to unversioned."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_2_5.Volume"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_3_0">
@@ -1165,6 +1170,12 @@
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="OData.Description" String="This version was added to fix typographical errors."/>
       <EntityType Name="Volume" BaseType="Volume.v1_3_3.Volume"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+     <Annotation Term="OData.LongDescription" String="Change IOStatistics references to unversioned."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_3_4.Volume"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_4_0">
@@ -1291,6 +1302,12 @@
       <EntityType Name="Volume" BaseType="Volume.v1_4_2.Volume"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+     <Annotation Term="OData.LongDescription" String="Change IOStatistics references to unversioned."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_4_3.Volume"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="Redfish.Release" String="1.2.0"/>
@@ -1413,6 +1430,12 @@
       <EntityType Name="Volume" BaseType="Volume.v1_5_0.Volume"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+     <Annotation Term="OData.LongDescription" String="Change IOStatistics references to unversioned."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_5_1.Volume"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="Redfish.Release" String="1.2.1"/>
@@ -1454,6 +1477,12 @@
       <EntityType Name="Volume" BaseType="Volume.v1_6_0.Volume"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+     <Annotation Term="OData.LongDescription" String="Change IOStatistics references to unversioned."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_6_2.Volume"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="OData.Description" String="This version was created to add the IsBootCapable property."/>
@@ -1467,6 +1496,12 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+     <Annotation Term="OData.LongDescription" String="Change IOStatistics references to unversioned."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_7_0.Volume"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_8_0">
@@ -1494,6 +1529,12 @@
           <Annotation Term="OData.LongDescription" String="This shall identify the type of namespace."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+     <Annotation Term="OData.LongDescription" String="Change IOStatistics references to unversioned."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_8_0.Volume"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_9_0">
@@ -1590,6 +1631,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+     <Annotation Term="OData.LongDescription" String="Change IOStatistics references to unversioned."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_9_0.Volume"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="OData.Description" String="This version was created to add ChangeStripSize to the OperationType enum, add the ALUA property for Reservations, and add ProvidingStoragePool to Links. It adds SupportsMultipleNamespaceAttachments and SupportsIOPerformanceHints to NVMeNamespaceProperties. It also deprecates IOStatistics in favor of IOStatistics in VolumeMetrics."/>
@@ -1634,5 +1681,12 @@
       </ComplexType>
 
     </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+     <Annotation Term="OData.LongDescription" String="Change IOStatistics references to unversioned."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_10_0.Volume"/>
+    </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

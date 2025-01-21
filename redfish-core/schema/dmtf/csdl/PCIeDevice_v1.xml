@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.16.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.17.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -788,6 +788,17 @@
         <Member Name="U2">
           <Annotation Term="OData.Description" String="U.2 / SFF-8639 slot or bay."/>
         </Member>
+        <Member Name="EDSFF">
+          <Annotation Term="OData.Description" String="EDSFF slot."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_17_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="LaneSplittingType">
@@ -1156,8 +1167,17 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Gen6` to `PCIeType` and `MaxPCIeType`."/>
 
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_15_0.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_17_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add `EDSFF` to `SlotType`."/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_16_0.PCIeDevice"/>
     </Schema>
 
   </edmx:DataServices>
