@@ -93,8 +93,12 @@ inline void
         [asyncResp](const boost::system::error_code& ec) {
         if (ec)
         {
-            BMCWEB_LOG_ERROR("Failed to reset bios: {}", ec);
-            messages::internalError(asyncResp->res);
+            int systemRet = system("/sbin/amd-clear-cmos.sh Y  &");
+            if (systemRet == -1)
+            {
+                BMCWEB_LOG_ERROR("Failed to clear CMOS");
+                messages::internalError(asyncResp->res);
+            }
             return;
         }
     },
