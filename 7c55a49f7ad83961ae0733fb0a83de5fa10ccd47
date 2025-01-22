@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4cca33d_43701bc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-22T16:51:22Z",
+      "side": 1,
+      "message": "doesn\u0027t the backend return an error if the operation is in an error state?",
+      "parentUuid": "5770e44f_e79c4689",
+      "range": {
+        "startLine": 12,
+        "startChar": 56,
+        "endLine": 14,
+        "endChar": 6
+      },
+      "revId": "7c55a49f7ad83961ae0733fb0a83de5fa10ccd47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "53a0dee8_21d236b1",
