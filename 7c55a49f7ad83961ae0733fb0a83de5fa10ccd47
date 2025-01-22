@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53a0dee8_21d236b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2025-01-22T09:21:55Z",
+      "side": 1,
+      "message": "This is a reupload of previously abandoned patch: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60208. I\u0027m aware of comments that were posted there. I\u0027ve fixed some of them but left the rest for now in order to deliver anything that You could use for backend testing as well.",
+      "revId": "7c55a49f7ad83961ae0733fb0a83de5fa10ccd47",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
