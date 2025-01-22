@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95ffc20a_e2896bf2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-22T16:49:44Z",
+      "side": 1,
+      "message": "I\u0027m fine with this once the daemon itself merges.",
+      "revId": "a51b554fb00a341e31dc5cfa3325674c77189970",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
