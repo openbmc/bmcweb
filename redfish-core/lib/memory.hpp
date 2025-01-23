@@ -640,9 +640,9 @@ inline void getDimmDataByService(
     BMCWEB_LOG_DEBUG("Get available system components.");
     sdbusplus::asio::getAllProperties(
         *crow::connections::systemBus, service, objPath, "",
-        [dimmId, asyncResp{std::move(asyncResp)}](
-            const boost::system::error_code& ec,
-            const dbus::utility::DBusPropertiesMap& properties) {
+        [dimmId, asyncResp{std::move(asyncResp)},
+         objPath](const boost::system::error_code& ec,
+                  const dbus::utility::DBusPropertiesMap& properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG("DBUS response error");
@@ -651,6 +651,11 @@ inline void getDimmDataByService(
             }
             assembleDimmProperties(dimmId, asyncResp, properties,
                                    ""_json_pointer);
+            if constexpr (BMCWEB_HW_ISOLATION)
+            {
+                // Check for the hardware status event
+                hw_isolation_utils::getHwIsolationStatus(asyncResp, objPath);
+            }
         });
 }
 
