@@ -356,9 +356,14 @@ class OrMorePaths
 {};
 
 template <typename... AV>
-inline void appendUrlPieces(boost::urls::url& url, const AV... args)
+inline void appendUrlPieces(boost::urls::url& url, AV&&... args)
 {
-    details::appendUrlPieces(url, {args...});
+    // Unclear the correct fix here.
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
+    for (const std::string_view arg : {args...})
+    {
+        url.segments().push_back(arg);
+    }
 }
 
 namespace details

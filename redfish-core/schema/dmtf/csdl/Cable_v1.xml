@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Cable v1.2.3                                                        -->
+<!--# Redfish Schema:  Cable v1.2.4                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -357,13 +357,13 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Port` that represent the physical upstream connections connected to this cable."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
-        <NavigationProperty Name="DownstreamResources" Type="Collection(Resource.Resource)">
+        <NavigationProperty Name="DownstreamResources" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the downstream resources connected to this cable."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources that represent the physical downstream connections connected to this cable.  Even if the resource is already referenced in another property within `Links`, such as `DownstreamPorts` or `DownstreamChassis`, it shall also be referenced in this property."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
-        <NavigationProperty Name="UpstreamResources" Type="Collection(Resource.Resource)">
+        <NavigationProperty Name="UpstreamResources" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An array of links to the upstream resources connected to this cable."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources that represent the physical upstream connections connected to this cable.  Even if the resource is already referenced in another property within `Links`, such as `UpstreamPorts` or `UpstreamChassis`, it shall also be referenced in this property."/>
@@ -388,6 +388,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Cable" BaseType="Cable.v1_0_2.Cable"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the `DownstreamResources` and `UpstreamResources` properties to allow them to link to referenceable members."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_0_3.Cable"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_1_0">
@@ -421,6 +427,12 @@
       <EntityType Name="Cable" BaseType="Cable.v1_1_2.Cable"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the `DownstreamResources` and `UpstreamResources` properties to allow them to link to referenceable members."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_1_3.Cable"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -445,6 +457,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Cable" BaseType="Cable.v1_2_2.Cable"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Cable.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the `DownstreamResources` and `UpstreamResources` properties to allow them to link to referenceable members."/>
+      <EntityType Name="Cable" BaseType="Cable.v1_2_3.Cable"/>
     </Schema>
 
   </edmx:DataServices>

@@ -34,6 +34,8 @@ limitations under the License.
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/errc.hpp>
 #include <boost/url/format.hpp>
@@ -75,8 +77,7 @@ Subscription::Subscription(crow::sse_socket::Connection& connIn) :
 {}
 
 // callback for subscription sendData
-void Subscription::resHandler(const std::shared_ptr<Subscription>& /*unused*/,
-                              const crow::Response& res)
+void Subscription::resHandler(const crow::Response& res)
 {
     BMCWEB_LOG_DEBUG("Response handled with return code: {}", res.resultInt());
 
@@ -192,13 +193,15 @@ bool Subscription::sendEventToSubscriber(std::string&& msg)
 
     if (client)
     {
+        boost::beast::http::fields httpHeadersCopy(userSub->httpHeaders);
+        httpHeadersCopy.set(boost::beast::http::field::content_type,
+                            "application/json");
         client->sendDataWithCallback(
             std::move(msg), userSub->destinationUrl,
             static_cast<ensuressl::VerifyCertificate>(
                 userSub->verifyCertificate),
-            userSub->httpHeaders, boost::beast::http::verb::post,
-            std::bind_front(&Subscription::resHandler, this,
-                            shared_from_this()));
+            httpHeadersCopy, boost::beast::http::verb::post,
+            std::bind_front(&Subscription::resHandler, this));
         return true;
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CoolantConnector v1.0.2                                             -->
+<!--# Redfish Schema:  CoolantConnector v1.1.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -266,6 +266,44 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="CoolantConnector" BaseType="CoolantConnector.v1_0_1.CoolantConnector"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolantConnector.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+
+      <EntityType Name="CoolantConnector" BaseType="CoolantConnector.v1_0_2.CoolantConnector">
+        <NavigationProperty Name="FlowControlLitersPerMinute" Type="Control.Control">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="SingleLoop"/>
+          <Annotation Term="OData.Description" String="The desired liquid flow rate (L/min)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired liquid flow rate, in liters per minute units, of this coolant connector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `LiquidFlowLPM`.  This property shall only be present for secondary coolant connectors.  Services may automatically change other controls if a client attempts to enable this control to prevent conflicts."/>
+        </NavigationProperty>
+        <NavigationProperty Name="SupplyTemperatureControlCelsius" Type="Control.Control">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="SingleLoop"/>
+          <Annotation Term="OData.Description" String="The desired supply temperature (C)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired supply temperature, in degree Celsius units, of this coolant connector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `Temperature`.  This property shall only be present for secondary coolant connectors.  Services may automatically change other controls if a client attempts to enable this control to prevent conflicts."/>
+        </NavigationProperty>
+        <NavigationProperty Name="ReturnTemperatureControlCelsius" Type="Control.Control">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="SingleLoop"/>
+          <Annotation Term="OData.Description" String="The desired return temperature (C)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired return temperature, in degree Celsius units, of this coolant connector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `Temperature`.  This property shall only be present for secondary coolant connectors.  Services may automatically change other controls if a client attempts to enable this control to prevent conflicts."/>
+        </NavigationProperty>
+        <NavigationProperty Name="DeltaPressureControlkPa" Type="Control.Control">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="SingleLoop"/>
+          <Annotation Term="OData.Description" String="The desired differential pressure (kPa)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired differential pressure, in kilopascal units, of this coolant connector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `PressurekPa`.  This property shall only be present for secondary coolant connectors.  Services may automatically change other controls if a client attempts to enable this control to prevent conflicts."/>
+        </NavigationProperty>
+        <NavigationProperty Name="DeltaTemperatureControlCelsius" Type="Control.Control">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="SingleLoop"/>
+          <Annotation Term="OData.Description" String="The desired differential temperature (C)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired differential temperature, in degree Celsius units, of this coolant connector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `Temperature`.  This property shall only be present for secondary coolant connectors.  Services may automatically change other controls if a client attempts to enable this control to prevent conflicts."/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

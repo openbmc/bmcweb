@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AccountService v1.16.0                                              -->
+<!--# Redfish Schema:  AccountService v1.17.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1635,7 +1635,7 @@
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of CA certificates used to validate client certificates."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that represents the CA certificates used to validate client certificates during TLS handshaking.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the `SecurityPolicy` resource.  If the service supports the `RevokedCertificates` or `TrustedCertificates` properties within the `Client` property within TLS property of the `SecurityPolicy` resource, the service shall verify the provided client certificate with the `SecurityPolicy` resource prior to verifying it with this collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that represents the CA certificates used to validate client certificates during TLS handshaking.  Regardless of the contents of this collection, services may perform additional verification based on other factors, such as the configuration of the `SecurityPolicy` resource.  If the service supports the `RevokedCertificates` or `TrustedCertificates` properties within the `Server` property within the `TLS` property of the `SecurityPolicy` resource, the service shall verify the provided client certificate with the `SecurityPolicy` resource prior to verifying it with this collection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1701,6 +1701,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_12_4.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_12_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the reference made to `SecurityPolicy` in the `ClientCertificate` multi-factor authentication object."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_12_5.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_13_0">
       <Annotation Term="Redfish.Release" String="2023.1"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1764,6 +1770,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_13_3.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_13_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the reference made to `SecurityPolicy` in the `ClientCertificate` multi-factor authentication object."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_13_4.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_14_0">
       <Annotation Term="Redfish.Release" String="2023.2"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1820,6 +1832,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_14_1.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_14_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the reference made to `SecurityPolicy` in the `ClientCertificate` multi-factor authentication object."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_14_2.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_15_0">
       <Annotation Term="Redfish.Release" String="2023.3"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1852,6 +1870,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_15_0.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_15_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the reference made to `SecurityPolicy` in the `ClientCertificate` multi-factor authentication object."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_15_1.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_16_0">
@@ -1897,6 +1921,26 @@
           <Annotation Term="Validation.Minimum" Int="1"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_16_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the reference made to `SecurityPolicy` in the `ClientCertificate` multi-factor authentication object."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_16_0.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_17_0">
+      <Annotation Term="Redfish.Release" String="2024.4"/>
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="AccountService" BaseType="AccountService.v1_16_1.AccountService">
+        <Property Name="EnforcePasswordHistoryCount" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of unique new passwords that need to be associated with a user account before a previous password is accepted when modifying the password.  If `0`, a user does not need to provide a unique new password."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of unique new passwords that need to be associated with a user account before a previous password is accepted when modifying the password.  If not `0`, services shall reject modification requests of the `Password` property and `ChangePassword` actions that contain a previously used password in the specified count.  If `0`, services shall not require the user to provide a unique new password.  This property does not apply to accounts from external account providers."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -197,7 +197,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 self->messages.emplace_back(messages::taskAborted(
                     std::to_string(self->index), "None", "None", "None"));
                 // Send event :TaskAborted
-                self->sendTaskEvent(self->state, self->index);
+                sendTaskEvent(self->state, self->index);
                 self->callback(ec, msg, self);
             });
     }
@@ -281,7 +281,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                     self->finishTask();
 
                     // Send event
-                    self->sendTaskEvent(self->state, self->index);
+                    sendTaskEvent(self->state, self->index);
 
                     // reset the match after the callback was successful
                     boost::asio::post(
