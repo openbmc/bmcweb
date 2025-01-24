@@ -16,6 +16,24 @@
       "message": "Just copy and paste here right? And got rid of the inlines?",
       "revId": "e4b9f806b21ac53035093c72dd8ad14a389b6be2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02a127e6_3582ec27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-24T16:17:36Z",
+      "side": 1,
+      "message": "yep, copy/paste is the intent (although surviving rebases is a pain).",
+      "parentUuid": "bd001dd1_6379ec1b",
+      "revId": "e4b9f806b21ac53035093c72dd8ad14a389b6be2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
