@@ -222,6 +222,12 @@ inline void processAfterSessionCreation(
         "/redfish/v1/SessionService/Sessions/{}", session->uniqueId);
     asyncResp->res.addHeader("Location", sessionUrl.buffer());
     asyncResp->res.result(boost::beast::http::status::created);
+
+    if constexpr (BMCWEB_AUDIT_EVENTS)
+    {
+        audit::auditEvent(req, session->username, true);
+    }
+
     if (session->isConfigureSelfOnly)
     {
         boost::urls::url accountUri = boost::urls::format(
