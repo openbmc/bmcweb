@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55225516_f406d776",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-24T16:26:02Z",
+      "side": 1,
+      "message": "I\u0027m not following where the \"free\" is happening.  I\u0027m assuming we have iterator invalidation happening somewhere, but I\u0027m not sure how this patch would fix that. Shouldn\u0027t we make sure the iterator is valid?",
+      "revId": "2178b9d67d9b05c08a775fc1188c06a015ac6739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
