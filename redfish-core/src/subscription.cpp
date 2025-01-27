@@ -107,9 +107,6 @@ void Subscription::sendHeartbeatEvent()
 {
     // send the heartbeat message
     nlohmann::json eventMessage = messages::redfishServiceFunctional();
-
-    std::string heartEventId = std::to_string(eventSeqNum);
-    eventMessage["EventId"] = heartEventId;
     eventMessage["EventTimestamp"] = time_utils::getDateTimeOffsetNow().first;
     eventMessage["OriginOfCondition"] =
         std::format("/redfish/v1/EventService/Subscriptions/{}", userSub->id);
@@ -121,13 +118,15 @@ void Subscription::sendHeartbeatEvent()
     nlohmann::json msgJson;
     msgJson["@odata.type"] = "#Event.v1_4_0.Event";
     msgJson["Name"] = "Heartbeat";
-    msgJson["Id"] = heartEventId;
     msgJson["Events"] = std::move(eventRecord);
 
     std::string strMsg =
         msgJson.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
-    sendEventToSubscriber(std::move(strMsg));
-    eventSeqNum++;
+
+    // Note, eventId here is always zero, because this is a a per subscription
+    // event and doesn't have an "ID"
+    uint64_t eventId = 0;
+    sendEventToSubscriber(eventId, std::move(strMsg));
 }
 
 void Subscription::scheduleNextHeartbeatEvent()
@@ -180,7 +179,7 @@ void Subscription::onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
     scheduleNextHeartbeatEvent();
 }
 
-bool Subscription::sendEventToSubscriber(std::string&& msg)
+bool Subscription::sendEventToSubscriber(uint64_t eventId, std::string&& msg)
 {
     persistent_data::EventServiceConfig eventServiceConfig =
         persistent_data::EventServiceStore::getInstance()
@@ -206,77 +205,13 @@ bool Subscription::sendEventToSubscriber(std::string&& msg)
 
     if (sseConn != nullptr)
     {
-        eventSeqNum++;
-        sseConn->sendSseEvent(std::to_string(eventSeqNum), msg);
+        sseConn->sendSseEvent(std::to_string(eventId), msg);
     }
     return true;
 }
 
-bool Subscription::sendTestEventLog(TestEvent& testEvent)
-{
-    nlohmann::json::array_t logEntryArray;
-    nlohmann::json& logEntryJson = logEntryArray.emplace_back();
-
-    if (testEvent.eventGroupId)
-    {
-        logEntryJson["EventGroupId"] = *testEvent.eventGroupId;
-    }
-
-    if (testEvent.eventId)
-    {
-        logEntryJson["EventId"] = *testEvent.eventId;
-    }
-
-    if (testEvent.eventTimestamp)
-    {
-        logEntryJson["EventTimestamp"] = *testEvent.eventTimestamp;
-    }
-
-    if (testEvent.originOfCondition)
-    {
-        logEntryJson["OriginOfCondition"]["@odata.id"] =
-            *testEvent.originOfCondition;
-    }
-    if (testEvent.severity)
-    {
-        logEntryJson["Severity"] = *testEvent.severity;
-    }
-
-    if (testEvent.message)
-    {
-        logEntryJson["Message"] = *testEvent.message;
-    }
-
-    if (testEvent.resolution)
-    {
-        logEntryJson["Resolution"] = *testEvent.resolution;
-    }
-
-    if (testEvent.messageId)
-    {
-        logEntryJson["MessageId"] = *testEvent.messageId;
-    }
-
-    if (testEvent.messageArgs)
-    {
-        logEntryJson["MessageArgs"] = *testEvent.messageArgs;
-    }
-    // MemberId is 0 : since we are sending one event record.
-    logEntryJson["MemberId"] = "0";
-
-    nlohmann::json msg;
-    msg["@odata.type"] = "#Event.v1_4_0.Event";
-    msg["Id"] = std::to_string(eventSeqNum);
-    msg["Name"] = "Event Log";
-    msg["Events"] = logEntryArray;
-
-    std::string strMsg =
-        msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
-    return sendEventToSubscriber(std::move(strMsg));
-}
-
 void Subscription::filterAndSendEventLogs(
-    const std::vector<EventLogObjectsType>& eventRecords)
+    uint64_t eventId, const std::vector<EventLogObjectsType>& eventRecords)
 {
     nlohmann::json::array_t logEntryArray;
     for (const EventLogObjectsType& logEntry : eventRecords)
@@ -288,7 +223,7 @@ void Subscription::filterAndSendEventLogs(
 
         nlohmann::json::object_t bmcLogEntry;
         if (event_log::formatEventLogEntry(
-                logEntry.id, logEntry.messageId, messageArgsView,
+                eventId, logEntry.id, logEntry.messageId, messageArgsView,
                 logEntry.timestamp, userSub->customText, bmcLogEntry) != 0)
         {
             BMCWEB_LOG_WARNING("Read eventLog entry failed");
@@ -312,6 +247,7 @@ void Subscription::filterAndSendEventLogs(
         }
 
         logEntryArray.emplace_back(std::move(bmcLogEntry));
+        eventId++;
     }
 
     if (logEntryArray.empty())
@@ -322,16 +258,16 @@ void Subscription::filterAndSendEventLogs(
 
     nlohmann::json msg;
     msg["@odata.type"] = "#Event.v1_4_0.Event";
-    msg["Id"] = std::to_string(eventSeqNum);
+    msg["Id"] = std::to_string(eventId);
     msg["Name"] = "Event Log";
     msg["Events"] = std::move(logEntryArray);
     std::string strMsg =
         msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
-    sendEventToSubscriber(std::move(strMsg));
-    eventSeqNum++;
+    sendEventToSubscriber(eventId, std::move(strMsg));
 }
 
-void Subscription::filterAndSendReports(const std::string& reportId,
+void Subscription::filterAndSendReports(uint64_t eventId,
+                                        const std::string& reportId,
                                         const telemetry::TimestampReadings& var)
 {
     boost::urls::url mrdUri = boost::urls::format(
@@ -366,7 +302,7 @@ void Subscription::filterAndSendReports(const std::string& reportId,
 
     std::string strMsg =
         msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
-    sendEventToSubscriber(std::move(strMsg));
+    sendEventToSubscriber(eventId, std::move(strMsg));
 }
 
 void Subscription::updateRetryConfig(uint32_t retryAttempts,
@@ -379,11 +315,6 @@ void Subscription::updateRetryConfig(uint32_t retryAttempts,
     }
     policy->maxRetryAttempts = retryAttempts;
     policy->retryIntervalSecs = std::chrono::seconds(retryTimeoutInterval);
-}
-
-uint64_t Subscription::getEventSeqNum() const
-{
-    return eventSeqNum;
 }
 
 bool Subscription::matchSseId(const crow::sse_socket::Connection& thisConn)
