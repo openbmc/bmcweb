@@ -692,7 +692,9 @@ inline std::string dbusToRfBootMode(const std::string& dbusMode)
  * @return Returns as a string, the boot progress in Redfish terms. If
  *         translation cannot be done, returns "None".
  */
-inline std::string dbusToRfBootProgress(const std::string& dbusBootProgress)
+inline std::string dbusToRfBootProgress(
+    const std::shared_ptr<bmcweb::AsyncResp>& aResp,
+    const std::string& dbusBootProgress)
 {
     // Now convert the D-Bus BootProgress to the appropriate Redfish
     // enum
@@ -755,6 +757,42 @@ inline std::string dbusToRfBootProgress(const std::string& dbusBootProgress)
              "OSRunning")
     {
         rfBpLastState = "OSRunning";
+    }
+    else if (dbusBootProgress ==
+             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+             "OEM")
+    {
+        rfBpLastState = "OEM";
+
+        using BootRawRecord =
+            std::tuple<std::vector<uint8_t>, std::vector<uint8_t>>;
+
+        sdbusplus::asio::getProperty<BootRawRecord>(
+            *crow::connections::systemBus, "xyz.openbmc_project.State.Boot.Raw",
+            "/xyz/openbmc_project/state/boot/raw0",
+            "xyz.openbmc_project.State.Boot.Raw", "Value",
+            [aResp](const boost::system::error_code ec,
+                    const BootRawRecord& bootProgressOem) {
+                if (ec)
+                {
+                    // BootProgressOem is an optional object so just do nothing
+                    // if not found
+                    BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+                    return;
+                }
+
+                auto respBootProgressCode = std::get<0>(bootProgressOem);
+                std::stringstream hexCode;
+
+                hexCode << "0x" << std::hex << std::setfill('0');
+                for (const auto& byte : respBootProgressCode)
+                {
+                    hexCode << std::setw(2) << std::setfill('0')
+                            << static_cast<int>(byte);
+                }
+                aResp->res.jsonValue["BootProgress"]["OemLastState"] =
+                    hexCode.str();
+            });
     }
     else
     {
@@ -846,7 +884,7 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
             BMCWEB_LOG_DEBUG("Boot Progress: {}", bootProgressStr);
 
             asyncResp->res.jsonValue["BootProgress"]["LastState"] =
-                dbusToRfBootProgress(bootProgressStr);
+                dbusToRfBootProgress(asyncResp, bootProgressStr);
         });
 }
 
