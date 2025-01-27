@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1dcf171d_70bd116d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-27T21:05:12Z",
+      "side": 1,
+      "message": "Please fix this if you can",
+      "parentUuid": "384d8df0_a8af8757",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bec11c62_e6367d82",
         "filename": "/COMMIT_MSG",
         "patchSetId": 39
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "Yes allow registration of per OEM route handler per resource. Example for manager I can add Oem/Nvidia, Oem/Ibm etc.",
       "parentUuid": "bec11c62_e6367d82",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 13
+      },
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09cfce77_b3c51f15",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-27T21:05:12Z",
+      "side": 1,
+      "message": "Can you add more about this to the commit msg, more about what the end goal is",
+      "parentUuid": "df5f7742_de891f79",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -254,6 +296,24 @@
       "side": 1,
       "message": "Sorry did not get this. Can you provide more details.",
       "parentUuid": "e39bc9a8_adac03ba",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dda280e_62780550",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-27T21:05:12Z",
+      "side": 1,
+      "message": "#include \u003cmemory\u003e \n\nPlease don\u0027t resolve the comment if you haven\u0027t addressed. Thanks!",
+      "parentUuid": "90b3a8d1_2c8dd1c6",
       "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

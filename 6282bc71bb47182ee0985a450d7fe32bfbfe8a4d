@@ -69,6 +69,30 @@
       },
       "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e523c6f8_06c9102e",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-27T21:05:12Z",
+      "side": 0,
+      "message": "You are still removing the link here but leaving the code still there.. \n\nWith your code, if BMCWEB_OPENBMC_OEM_SCHEMA \u003d False can still get to /redfish/v1/Managers/\u003cstr\u003e/Truststore/Certificates/\u003cstr\u003e/ \nwhich is wrong",
+      "parentUuid": "bd6e0550_78bed440",
+      "range": {
+        "startLine": 2082,
+        "startChar": 0,
+        "endLine": 2086,
+        "endChar": 65
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
