@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "384d8df0_a8af8757",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "248eb8e3_cce20f6f",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bec11c62_e6367d82",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-01-17T20:31:04Z",
       "side": 1,
       "message": "Why do we need this? What is the end goal? \n\"/redfish/v1/Managers/\u003cstr\u003e#Oem/Ibm\" ?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 13
+      },
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df5f7742_de891f79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "Yes allow registration of per OEM route handler per resource. Example for manager I can add Oem/Nvidia, Oem/Ibm etc.",
+      "parentUuid": "bec11c62_e6367d82",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f83b96c_cb8ffc65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "the goal is to have vedor specific OEM code live in OEM files and we dont need any common function which fulls the reference of all these. The infra can call the handler if the registration is done.",
+      "parentUuid": "ea93289e_625c0108",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cedfc2e_9c7824f1",
@@ -71,6 +131,24 @@
       "writtenOn": "2025-01-17T20:31:04Z",
       "side": 1,
       "message": "Why not just BMCWEB_REDFISH_MANAGER_TRUSTSTORE_CERTIFICATE ?",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e79e6ef7_db013d94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "if want we could add this but need not be done part of this MR.",
+      "parentUuid": "1cedfc2e_9c7824f1",
       "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -92,6 +170,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c263220f_cd5ac4f1",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "removed.",
+      "parentUuid": "7a726e1f_615df7dd",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac7e9230_9ca48407",
@@ -109,6 +205,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "628c0d99_24ac0ff8",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ac7e9230_9ca48407",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e39bc9a8_adac03ba",
@@ -122,6 +236,24 @@
       "writtenOn": "2025-01-17T20:31:04Z",
       "side": 1,
       "message": "include memory",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90b3a8d1_2c8dd1c6",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "Sorry did not get this. Can you provide more details.",
+      "parentUuid": "e39bc9a8_adac03ba",
       "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

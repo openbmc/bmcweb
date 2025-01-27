@@ -107,6 +107,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0015c795_7035495a",
+        "filename": "config/meson.build",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "I am sorry did not follow it completely. Are you referring to the flag BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA. \n\nI want to shut all NVIDIA OEM with a single flag. Some I want to enble/disable OpenBMC OEM code. In that context does openbmc-oem-schema make sense ? I could have different flags on need basis if there are certain features i want to turn ON/OFF inside OEM. This MR can we create single flag per OEM which is associated with OpenBMC.",
+      "parentUuid": "9362fdf6_dc039c03",
+      "range": {
+        "startLine": 24,
+        "startChar": 17,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14559bfe_93c6ac92",
@@ -168,6 +192,30 @@
       "side": 1,
       "message": "Can you post what code you tried?  I\u0027m not really understanding the problem",
       "parentUuid": "8581fc66_87989fc3",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 9
+      },
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2e5adf8_0c9d7a52",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "auto result \u003d url.parse(urlIn);\n    if (!result) {\n       // hits error here. This is because urlIn is the URL used in the registration and contains tags like \u003cstr\u003e. /redfish/v1/Managers/\u003cstr\u003e\n    }",
+      "parentUuid": "31581dd9_541f2e4d",
       "range": {
         "startLine": 255,
         "startChar": 0,

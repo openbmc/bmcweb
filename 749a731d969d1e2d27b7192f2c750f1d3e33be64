@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ad77196_c8872d25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 48
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "Please review the new patch set which adds code for Redfish OEM Router.",
+      "revId": "749a731d969d1e2d27b7192f2c750f1d3e33be64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

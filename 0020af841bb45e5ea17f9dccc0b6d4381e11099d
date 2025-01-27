@@ -52,6 +52,24 @@
       "parentUuid": "9543b9c3_dcd2eb56",
       "revId": "0020af841bb45e5ea17f9dccc0b6d4381e11099d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faf70540_71c06ff4",
+        "filename": "http/routing.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-27T06:49:00Z",
+      "side": 1,
+      "message": "I have added new RfOemRouter now. The app class provides APIs to invoke the RF OEM handlers.",
+      "parentUuid": "a268524b_cba263f3",
+      "revId": "0020af841bb45e5ea17f9dccc0b6d4381e11099d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
