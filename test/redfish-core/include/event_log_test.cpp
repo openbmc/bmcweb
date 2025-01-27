@@ -3,6 +3,7 @@
 #include <nlohmann/json.hpp>
 
 #include <cerrno>
+#include <cstdint>
 #include <cstddef>
 #include <ctime>
 #include <string>
@@ -126,6 +127,7 @@ TEST(RedfishEventLog, GetEventLogParamsFailNoComma)
 TEST(RedfishEventLog, FormatEventLogEntrySuccess)
 {
     int status = 0;
+    uint64_t eventId = 0;
     std::string logEntryID = "23849423_3";
     std::string messageID = "OpenBMC.0.1.PowerSupplyFanFailed";
     std::vector<std::string_view> messageArgs = {"PSU 1", "FAN 2"};
@@ -133,13 +135,13 @@ TEST(RedfishEventLog, FormatEventLogEntrySuccess)
     std::string customText = "customText";
 
     nlohmann::json::object_t logEntryJson;
-    status = formatEventLogEntry(logEntryID, messageID, messageArgs, timestamp,
-                                 customText, logEntryJson);
+    status = formatEventLogEntry(eventId, logEntryID, messageID, messageArgs,
+                                 timestamp, customText, logEntryJson);
 
     ASSERT_EQ(status, 0);
 
     ASSERT_TRUE(logEntryJson.contains("EventId"));
-    ASSERT_EQ(logEntryJson["EventId"], "23849423_3");
+    ASSERT_EQ(logEntryJson["EventId"], "0");
 
     ASSERT_TRUE(logEntryJson.contains("Message"));
     ASSERT_EQ(logEntryJson["Message"], "Power supply PSU 1 fan FAN 2 failed.");
@@ -164,6 +166,7 @@ TEST(RedfishEventLog, FormatEventLogEntrySuccess)
 TEST(RedfishEventLog, FormatEventLogEntryFail)
 {
     int status = 0;
+    uint64_t eventId = 0;
     std::string logEntryID = "malformed";
     std::string messageID;
     std::vector<std::string_view> messageArgs;
@@ -171,8 +174,8 @@ TEST(RedfishEventLog, FormatEventLogEntryFail)
     std::string customText;
 
     nlohmann::json::object_t logEntryJson;
-    status = formatEventLogEntry(logEntryID, messageID, messageArgs, timestamp,
-                                 customText, logEntryJson);
+    status = formatEventLogEntry(eventId, logEntryID, messageID, messageArgs,
+                                 timestamp, customText, logEntryJson);
 
     ASSERT_EQ(status, -1);
 }

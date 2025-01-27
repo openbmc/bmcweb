@@ -120,10 +120,11 @@ int getEventLogParams(const std::string& logEntry, std::string& timestamp,
     return 0;
 }
 
-int formatEventLogEntry(
-    const std::string& logEntryID, const std::string& messageID,
-    const std::span<std::string_view> messageArgs, std::string timestamp,
-    const std::string& customText, nlohmann::json::object_t& logEntryJson)
+int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
+                        const std::string& messageID,
+                        const std::span<std::string_view> messageArgs,
+                        std::string timestamp, const std::string& customText,
+                        nlohmann::json::object_t& logEntryJson)
 {
     // Get the Message from the MessageRegistry
     const registries::Message* message = registries::getMessage(messageID);
@@ -156,7 +157,7 @@ int formatEventLogEntry(
     }
 
     // Fill in the log entry with the gathered data
-    logEntryJson["EventId"] = logEntryID;
+    logEntryJson["EventId"] = std::to_string(eventId);
 
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Message"] = std::move(msg);
