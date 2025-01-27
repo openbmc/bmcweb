@@ -36,7 +36,6 @@ static constexpr const uint8_t maxNoOfSSESubscriptions = 10;
 struct TestEvent
 {
     std::optional<int64_t> eventGroupId;
-    std::optional<std::string> eventId;
     std::optional<std::string> eventTimestamp;
     std::optional<std::string> message;
     std::optional<std::vector<std::string>> messageArgs;
@@ -44,18 +43,6 @@ struct TestEvent
     std::optional<std::string> originOfCondition;
     std::optional<std::string> resolution;
     std::optional<std::string> severity;
-    // default constructor
-    TestEvent() = default;
-    // default assignment operator
-    TestEvent& operator=(const TestEvent&) = default;
-    // default copy constructor
-    TestEvent(const TestEvent&) = default;
-    // default move constructor
-    TestEvent(TestEvent&&) = default;
-    // default move assignment operator
-    TestEvent& operator=(TestEvent&&) = default;
-    // default destructor
-    ~TestEvent() = default;
 };
 
 class Subscription : public std::enable_shared_from_this<Subscription>
@@ -83,20 +70,16 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     void onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
                      const boost::system::error_code& ec);
 
-    bool sendEventToSubscriber(std::string&& msg);
-
-    bool sendTestEventLog(TestEvent& testEvent);
+    bool sendEventToSubscriber(uint64_t eventId, std::string&& msg);
 
     void filterAndSendEventLogs(
-        const std::vector<EventLogObjectsType>& eventRecords);
+        uint64_t eventId, const std::vector<EventLogObjectsType>& eventRecords);
 
-    void filterAndSendReports(const std::string& reportId,
+    void filterAndSendReports(uint64_t eventId, const std::string& reportId,
                               const telemetry::TimestampReadings& var);
 
     void updateRetryConfig(uint32_t retryAttempts,
                            uint32_t retryTimeoutInterval);
-
-    uint64_t getEventSeqNum() const;
 
     bool matchSseId(const crow::sse_socket::Connection& thisConn);
 
@@ -108,7 +91,6 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     std::function<void()> deleter;
 
   private:
-    uint64_t eventSeqNum = 1;
     boost::urls::url host;
     std::shared_ptr<crow::ConnectionPolicy> policy;
     crow::sse_socket::Connection* sseConn = nullptr;
