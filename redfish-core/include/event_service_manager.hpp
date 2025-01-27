@@ -65,7 +65,7 @@ class EventServiceManager
 
     struct Event
     {
-        std::string id;
+        uint64_t id;
         nlohmann::json message;
     };
 
@@ -469,14 +469,15 @@ class EventServiceManager
             boost::circular_buffer<Event>::iterator lastEvent =
                 std::find_if(messages.begin(), messages.end(),
                              [&lastEventId](const Event& event) {
-                                 return event.id == lastEventId;
+                                 return std::to_string(event.id) == lastEventId;
                              });
             // Can't find a matching ID
             if (lastEvent == messages.end())
             {
                 nlohmann::json msg = messages::eventBufferExceeded();
+                eventId++;
                 // If the buffer overloaded, send all messages.
-                subValue->sendEventToSubscriber(msg);
+                subValue->sendEventToSubscriber(eventId, msg);
                 lastEvent = messages.begin();
             }
             else
@@ -489,7 +490,7 @@ class EventServiceManager
                      lastEvent;
                  lastEvent != messages.end(); lastEvent++)
             {
-                subValue->sendEventToSubscriber(event->message);
+                subValue->sendEventToSubscriber(event->id, event->message);
             }
         }
         return id;
@@ -582,10 +583,11 @@ class EventServiceManager
 
     bool sendTestEventLog(TestEvent& testEvent)
     {
+        eventId++;
         for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
-            if (!entry->sendTestEventLog(testEvent))
+            if (!entry->sendTestEventLog(eventId, testEvent))
             {
                 return false;
             }
@@ -596,28 +598,32 @@ class EventServiceManager
     static void
         sendEventsToSubs(const std::vector<EventLogObjectsType>& eventRecords)
     {
-        for (const auto& it :
-             EventServiceManager::getInstance().subscriptionsMap)
+        EventServiceManager& mgr = EventServiceManager::getInstance();
+        mgr.eventId++;
+        for (const auto& it : mgr.subscriptionsMap)
         {
             Subscription& entry = *it.second;
-            entry.filterAndSendEventLogs(eventRecords);
+            entry.filterAndSendEventLogs(mgr.eventId, eventRecords);
         }
     }
 
     static void sendTelemetryReportToSubs(
         const std::string& reportId, const telemetry::TimestampReadings& var)
     {
-        for (const auto& it :
-             EventServiceManager::getInstance().subscriptionsMap)
+        EventServiceManager& mgr = EventServiceManager::getInstance();
+        mgr.eventId++;
+
+        for (const auto& it : mgr.subscriptionsMap)
         {
             Subscription& entry = *it.second;
-            entry.filterAndSendReports(reportId, var);
+            entry.filterAndSendReports(mgr.eventId, reportId, var);
         }
     }
 
     void sendEvent(nlohmann::json::object_t eventMessage,
                    std::string_view origin, std::string_view resourceType)
     {
+        eventId++;
         eventMessage["EventId"] = eventId;
 
         eventMessage["EventTimestamp"] =
@@ -627,7 +633,7 @@ class EventServiceManager
         // MemberId is 0 : since we are sending one event record.
         eventMessage["MemberId"] = "0";
 
-        messages.push_back(Event(std::to_string(eventId), eventMessage));
+        messages.push_back(Event(eventId, eventMessage));
 
         for (auto& it : subscriptionsMap)
         {
@@ -651,9 +657,8 @@ class EventServiceManager
 
             std::string strMsg = msgJson.dump(
                 2, ' ', true, nlohmann::json::error_handler_t::replace);
-            entry->sendEventToSubscriber(std::move(strMsg));
+            entry->sendEventToSubscriber(eventId, std::move(strMsg));
         }
-        eventId++; // increment the eventId
     }
 };
 
