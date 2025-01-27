@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b03b2d77_e502581f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-01-27T16:28:04Z",
+      "side": 1,
+      "message": "Looks like a rebase error, this is a repeat of L 181-183?",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 187,
+        "endChar": 51
+      },
+      "revId": "29258cb4968f516f5ac4c0c2d39d7ae957b68742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
