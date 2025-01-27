@@ -34,6 +34,23 @@
       "parentUuid": "55225516_f406d776",
       "revId": "2178b9d67d9b05c08a775fc1188c06a015ac6739",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ddf64e0_ea0ed539",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-01-27T08:19:10Z",
+      "side": 1,
+      "message": "This patch corrects the way the input gateway is passed to async functions to avoid the bmcweb crash (as, lifetime of the input data that the string_view was referring to goes out of scope before it was accessed).",
+      "revId": "2178b9d67d9b05c08a775fc1188c06a015ac6739",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
