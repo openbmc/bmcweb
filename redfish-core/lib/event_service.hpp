@@ -197,12 +197,17 @@ inline void requestRoutesSubmitTestEvent(App& app)
                     return;
                 }
 
+                // From the Redfish spec on EventId
+                // A service can ignore this value and replace it with its own.
+                // note that this parameter is intentionally ignored
+
+                std::optional<std::string> eventId;
                 TestEvent testEvent;
                 // clang-format off
                 if (!json_util::readJsonAction(
                         req, asyncResp->res,
                         "EventGroupId", testEvent.eventGroupId,
-                        "EventId", testEvent.eventId,
+                        "EventId", eventId,
                         "EventTimestamp", testEvent.eventTimestamp,
                         "Message", testEvent.message,
                         "MessageArgs", testEvent.messageArgs,
