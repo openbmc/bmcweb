@@ -70,8 +70,8 @@ class EventServiceManager
 
     struct Event
     {
-        std::string id;
-        nlohmann::json message;
+        uint64_t id;
+        nlohmann::json::object_t message;
     };
 
     constexpr static size_t maxMessages = 200;
@@ -469,29 +469,37 @@ class EventServiceManager
             BMCWEB_LOG_INFO("Attempting to find message for last id {}",
                             lastEventId);
             boost::circular_buffer<Event>::iterator lastEvent =
-                std::find_if(messages.begin(), messages.end(),
-                             [&lastEventId](const Event& event) {
-                                 return event.id == lastEventId;
-                             });
+                std::ranges::find_if(
+                    messages, [&lastEventId](const Event& event) {
+                        return std::to_string(event.id) == lastEventId;
+                    });
             // Can't find a matching ID
             if (lastEvent == messages.end())
             {
                 nlohmann::json msg = messages::eventBufferExceeded();
-                // If the buffer overloaded, send all messages.
-                subValue->sendEventToSubscriber(msg);
-                lastEvent = messages.begin();
+
+                std::string strMsg = msg.dump(
+                    2, ' ', true, nlohmann::json::error_handler_t::replace);
+                eventId++;
+                subValue->sendEventToSubscriber(eventId, std::move(strMsg));
             }
             else
             {
                 // Skip the last event the user already has
                 lastEvent++;
-            }
 
-            for (boost::circular_buffer<Event>::const_iterator event =
-                     lastEvent;
-                 lastEvent != messages.end(); lastEvent++)
-            {
-                subValue->sendEventToSubscriber(event->message);
+                for (boost::circular_buffer<Event>::const_iterator event =
+                         lastEvent;
+                     event != messages.end(); event++)
+                {
+                    std::string strMsg =
+                        nlohmann::json(event->message)
+                            .dump(2, ' ', true,
+                                  nlohmann::json::error_handler_t::replace);
+
+                    subValue->sendEventToSubscriber(event->id,
+                                                    std::move(strMsg));
+                }
             }
         }
         return id;
@@ -584,10 +592,66 @@ class EventServiceManager
 
     bool sendTestEventLog(TestEvent& testEvent)
     {
+        eventId++;
+        nlohmann::json::array_t logEntryArray;
+        nlohmann::json& logEntryJson = logEntryArray.emplace_back();
+
+        if (testEvent.eventGroupId)
+        {
+            logEntryJson["EventGroupId"] = *testEvent.eventGroupId;
+        }
+
+        if (testEvent.eventTimestamp)
+        {
+            logEntryJson["EventTimestamp"] = *testEvent.eventTimestamp;
+        }
+
+        if (testEvent.originOfCondition)
+        {
+            logEntryJson["OriginOfCondition"]["@odata.id"] =
+                *testEvent.originOfCondition;
+        }
+        if (testEvent.severity)
+        {
+            logEntryJson["Severity"] = *testEvent.severity;
+        }
+
+        if (testEvent.message)
+        {
+            logEntryJson["Message"] = *testEvent.message;
+        }
+
+        if (testEvent.resolution)
+        {
+            logEntryJson["Resolution"] = *testEvent.resolution;
+        }
+
+        if (testEvent.messageId)
+        {
+            logEntryJson["MessageId"] = *testEvent.messageId;
+        }
+
+        if (testEvent.messageArgs)
+        {
+            logEntryJson["MessageArgs"] = *testEvent.messageArgs;
+        }
+        // MemberId is 0 : since we are sending one event record.
+        logEntryJson["MemberId"] = "0";
+
+        nlohmann::json msg;
+        msg["@odata.type"] = "#Event.v1_4_0.Event";
+        msg["Id"] = std::to_string(eventId);
+        msg["Name"] = "Event Log";
+        msg["Events"] = logEntryArray;
+
+        std::string strMsg =
+            msg.dump(2, ' ', true, nlohmann::json::error_handler_t::replace);
+
+        messages.push_back(Event(eventId, msg));
         for (const auto& it : subscriptionsMap)
         {
             std::shared_ptr<Subscription> entry = it.second;
-            if (!entry->sendTestEventLog(testEvent))
+            if (!entry->sendEventToSubscriber(eventId, std::string(strMsg)))
             {
                 return false;
             }
@@ -598,38 +662,46 @@ class EventServiceManager
     static void
         sendEventsToSubs(const std::vector<EventLogObjectsType>& eventRecords)
     {
-        for (const auto& it :
-             EventServiceManager::getInstance().subscriptionsMap)
+        EventServiceManager& mgr = EventServiceManager::getInstance();
+        mgr.eventId++;
+        for (const auto& it : mgr.subscriptionsMap)
         {
             Subscription& entry = *it.second;
-            entry.filterAndSendEventLogs(eventRecords);
+            entry.filterAndSendEventLogs(mgr.eventId, eventRecords);
         }
     }
 
     static void sendTelemetryReportToSubs(
         const std::string& reportId, const telemetry::TimestampReadings& var)
     {
-        for (const auto& it :
-             EventServiceManager::getInstance().subscriptionsMap)
+        EventServiceManager& mgr = EventServiceManager::getInstance();
+        mgr.eventId++;
+
+        for (const auto& it : mgr.subscriptionsMap)
         {
             Subscription& entry = *it.second;
-            entry.filterAndSendReports(reportId, var);
+            entry.filterAndSendReports(mgr.eventId, reportId, var);
         }
     }
 
     void sendEvent(nlohmann::json::object_t eventMessage,
                    std::string_view origin, std::string_view resourceType)
     {
+        eventId++;
         eventMessage["EventId"] = eventId;
 
         eventMessage["EventTimestamp"] =
             redfish::time_utils::getDateTimeOffsetNow().first;
-        eventMessage["OriginOfCondition"] = origin;
+
+        if (!origin.empty())
+        {
+            eventMessage["OriginOfCondition"] = origin;
+        }
 
         // MemberId is 0 : since we are sending one event record.
         eventMessage["MemberId"] = "0";
 
-        messages.push_back(Event(std::to_string(eventId), eventMessage));
+        messages.push_back(Event(eventId, eventMessage));
 
         for (auto& it : subscriptionsMap)
         {
@@ -653,9 +725,8 @@ class EventServiceManager
 
             std::string strMsg = msgJson.dump(
                 2, ' ', true, nlohmann::json::error_handler_t::replace);
-            entry->sendEventToSubscriber(std::move(strMsg));
+            entry->sendEventToSubscriber(eventId, std::move(strMsg));
         }
-        eventId++; // increment the eventId
     }
 };
 
