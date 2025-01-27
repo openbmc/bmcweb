@@ -23,6 +23,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/asset_utils.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/pcie_util.hpp"
 #include "utils/sw_utils.hpp"
@@ -38,6 +39,7 @@
 #include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -680,6 +682,12 @@ inline std::string dbusToRfBootProgress(const std::string& dbusBootProgress)
     {
         rfBpLastState = "OSRunning";
     }
+    else if (dbusBootProgress ==
+             "xyz.openbmc_project.State.Boot.Progress.ProgressStages."
+             "OEM")
+    {
+        rfBpLastState = "OEM";
+    }
     else
     {
         BMCWEB_LOG_DEBUG("Unsupported D-Bus BootProgress {}", dbusBootProgress);
@@ -751,19 +759,21 @@ inline int assignBootParameters(
  *
  * @param[in] asyncResp  Shared pointer for generating response message.
  * @param[in] computerSystemIndex Index associated with the requested system
+ * @param[in] rawPostCode  Post code value for OEM state
  *
  * @return None.
  */
 inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const uint64_t computerSystemIndex)
+                            const uint64_t computerSystemIndex,
+                            const std::vector<uint8_t>& rawPostCode)
 {
     sdbusplus::message::object_path path =
         systems_utils::getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::string>(
         systems_utils::getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
-        [asyncResp](const boost::system::error_code ec,
-                    const std::string& bootProgressStr) {
+        [asyncResp, rawPostCode](const boost::system::error_code ec,
+                                 const std::string& bootProgressStr) {
             if (ec)
             {
                 // BootProgress is an optional object so just do nothing if
@@ -773,9 +783,66 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
             BMCWEB_LOG_DEBUG("Boot Progress: {}", bootProgressStr);
 
-            asyncResp->res.jsonValue["BootProgress"]["LastState"] =
-                dbusToRfBootProgress(bootProgressStr);
+            std::string lastState = dbusToRfBootProgress(bootProgressStr);
+            asyncResp->res.jsonValue["BootProgress"]["LastState"] = lastState;
+
+            if (lastState == "OEM" && !rawPostCode.empty())
+            {
+                std::string hexCode =
+                    std::format("OpenBMC 0x{}", bytesToHexString(rawPostCode));
+                asyncResp->res.jsonValue["BootProgress"]["OemLastState"] =
+                    hexCode;
+            }
         });
+}
+
+/**
+ * @brief Retrieves boot progress and post code value of the system
+ *
+ * @param[in] asyncResp  Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
+ *
+ * @return None.
+ */
+inline void getBootProgressWithPostCode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
+{
+    std::string serviceName = std::format(
+        "xyz.openbmc_project.State.Boot.PostCode{}", computerSystemIndex);
+    std::string objectPath = std::format(
+        "/xyz/openbmc_project/State/Boot/PostCode{}", computerSystemIndex);
+    constexpr const char* interfaceName =
+        "xyz.openbmc_project.State.Boot.PostCode";
+    constexpr const char* method = "GetPostCodes";
+    uint16_t index = 1; // For the most recent boot cycle
+
+    dbus::utility::async_method_call(
+        asyncResp,
+        [asyncResp, computerSystemIndex](
+            const boost::system::error_code& ec,
+            const std::vector<std::tuple<std::vector<uint8_t>,
+                                         std::vector<uint8_t>>>& postcodes) {
+            if (ec)
+            {
+                // PostCode is an optional object so just skip if
+                // not found
+                BMCWEB_LOG_DEBUG(" Skip PostCode object : {}", ec);
+            }
+
+            std::vector<uint8_t> postCode{};
+            if (!postcodes.empty())
+            {
+                postCode =
+                    std::get<0>(postcodes.back()); // Get the latest POST code
+            }
+
+            sdbusplus::message::object_path path =
+                systems_utils::getHostStateObjectPath(computerSystemIndex);
+
+            getBootProgress(asyncResp, computerSystemIndex, postCode);
+        },
+        serviceName, objectPath, interfaceName, method, index);
 }
 
 /**
@@ -3157,7 +3224,7 @@ inline void processComputerSystemGet(
     }
     getHostState(asyncResp, computerSystemIndex);
     getBootProperties(asyncResp, computerSystemIndex);
-    getBootProgress(asyncResp, computerSystemIndex);
+    getBootProgressWithPostCode(asyncResp, computerSystemIndex);
     getBootProgressLastStateTime(asyncResp, computerSystemIndex);
     getHostWatchdogTimer(asyncResp);
     getPowerRestorePolicy(asyncResp, computerSystemIndex);
