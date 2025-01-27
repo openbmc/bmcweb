@@ -83,20 +83,18 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     void onHbTimeout(const std::weak_ptr<Subscription>& weakSelf,
                      const boost::system::error_code& ec);
 
-    bool sendEventToSubscriber(std::string&& msg);
+    bool sendEventToSubscriber(uint64_t eventId, std::string&& msg);
 
-    bool sendTestEventLog(TestEvent& testEvent);
+    bool sendTestEventLog(uint64_t eventId, TestEvent& testEvent);
 
     void filterAndSendEventLogs(
-        const std::vector<EventLogObjectsType>& eventRecords);
+        uint64_t eventId, const std::vector<EventLogObjectsType>& eventRecords);
 
-    void filterAndSendReports(const std::string& reportId,
+    void filterAndSendReports(uint64_t eventId, const std::string& reportId,
                               const telemetry::TimestampReadings& var);
 
     void updateRetryConfig(uint32_t retryAttempts,
                            uint32_t retryTimeoutInterval);
-
-    uint64_t getEventSeqNum() const;
 
     bool matchSseId(const crow::sse_socket::Connection& thisConn);
 
@@ -108,7 +106,6 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     std::function<void()> deleter;
 
   private:
-    uint64_t eventSeqNum = 1;
     boost::urls::url host;
     std::shared_ptr<crow::ConnectionPolicy> policy;
     crow::sse_socket::Connection* sseConn = nullptr;
