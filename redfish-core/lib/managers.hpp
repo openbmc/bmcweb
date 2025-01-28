@@ -6,10 +6,16 @@
 #include "bmcweb_config.h"
 
 #include "app.hpp"
+#include "async_resp.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "generated/enums/action_info.hpp"
 #include "generated/enums/manager.hpp"
 #include "generated/enums/resource.hpp"
+#include "http_request.hpp"
+#include "logging.hpp"
+#include "persistent_data.hpp"
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
@@ -19,21 +25,37 @@
 #include "utils/systemd_utils.hpp"
 #include "utils/time_utils.hpp"
 
+#include <systemd/sd-bus.h>
+
+#include <boost/asio/post.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/beast/http/verb.hpp>
+#include <boost/container/flat_map.hpp>
+#include <boost/container/flat_set.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <boost/url/url.hpp>
+#include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/message.hpp>
+#include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <algorithm>
 #include <array>
+#include <cstddef>
 #include <cstdint>
+#include <format>
+#include <functional>
+#include <map>
 #include <memory>
 #include <optional>
 #include <ranges>
-#include <sstream>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {

@@ -2,24 +2,31 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "http_request.hpp"
-#include "privileges.hpp"
+#include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
-#include "routing.hpp"
 
+#include <boost/asio/error.hpp>
+#include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
-#include <sdbusplus/asio/property.hpp>
 
+#include <chrono>
+#include <cmath>
+#include <cstdint>
 #include <functional>
-#include <limits>
 #include <memory>
+#include <ratio>
+#include <source_location>
 #include <string>
 
 namespace redfish

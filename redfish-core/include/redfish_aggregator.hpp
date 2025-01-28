@@ -3,15 +3,47 @@
 #pragma once
 
 #include "aggregation_utils.hpp"
+#include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_client.hpp"
-#include "http_connection.hpp"
+#include "http_request.hpp"
+#include "http_response.hpp"
+#include "logging.hpp"
 #include "parsing.hpp"
+#include "ssl_key_handler.hpp"
+#include "utility.hpp"
 
+#include <boost/asio/io_context.hpp>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/beast/http/verb.hpp>
+#include <boost/system/errc.hpp>
+#include <boost/system/result.hpp>
+#include <boost/url/param.hpp>
+#include <boost/url/parse.hpp>
+#include <boost/url/segments_ref.hpp>
+#include <boost/url/segments_view.hpp>
+#include <boost/url/url.hpp>
+#include <boost/url/url_view.hpp>
+#include <nlohmann/json.hpp>
+#include <sdbusplus/message/native_types.hpp>
+
+#include <algorithm>
 #include <array>
+#include <chrono>
+#include <cstddef>
+#include <cstdint>
+#include <functional>
+#include <limits>
+#include <memory>
 #include <ranges>
+#include <string>
 #include <string_view>
+#include <system_error>
+#include <unordered_map>
+#include <utility>
+#include <variant>
 
 namespace redfish
 {

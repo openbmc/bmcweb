@@ -2,12 +2,24 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "logging.hpp"
+
+#include <security/_pam_types.h>
 #include <security/pam_appl.h>
 
+// misc-include-cleaner complains if this isn't included,
+// modernize-deprecated-headers complains if it is included.
+// NOLINTNEXTLINE(modernize-deprecated-headers)
+#include <string.h>
+
+#include <algorithm>
 #include <cstring>
 #include <memory>
+#include <optional>
 #include <span>
+#include <string>
 #include <string_view>
+#include <vector>
 
 struct PasswordData
 {
