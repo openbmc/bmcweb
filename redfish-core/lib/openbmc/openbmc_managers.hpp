@@ -1501,11 +1501,78 @@ inline void getHandleOemOpenBmc(
     }
 }
 
+inline void patchHandleOemOpenBmc(
+    const crow::Request& /*req*/,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    nlohmann::json::object_t& payload, const std::string& /*managerId*/)
+{
+    std::optional<nlohmann::json::object_t> pidControllers;
+    std::optional<nlohmann::json::object_t> fanControllers;
+    std::optional<nlohmann::json::object_t> fanZones;
+    std::optional<nlohmann::json::object_t> stepwiseControllers;
+    std::optional<std::string> profile;
+
+    if (!json_util::readJsonObject(               //
+            payload, asyncResp->res,              //
+            "Fan/FanControllers", fanControllers, //
+            "Fan/FanZones", fanZones,             //
+            "Fan/PidControllers", pidControllers, //
+            "Fan/Profile", profile,               //
+            "Fan/StepwiseControllers",
+            stepwiseControllers                   //
+            ))
+    {
+        return;
+    }
+
+    if (pidControllers || fanControllers || fanZones || stepwiseControllers ||
+        profile)
+    {
+        if constexpr (BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA)
+        {
+            std::vector<
+                std::pair<std::string, std::optional<nlohmann::json::object_t>>>
+                configuration;
+            if (pidControllers)
+            {
+                configuration.emplace_back("PidControllers",
+                                           std::move(pidControllers));
+            }
+            if (fanControllers)
+            {
+                configuration.emplace_back("FanControllers",
+                                           std::move(fanControllers));
+            }
+            if (fanZones)
+            {
+                configuration.emplace_back("FanZones", std::move(fanZones));
+            }
+            if (stepwiseControllers)
+            {
+                configuration.emplace_back("StepwiseControllers",
+                                           std::move(stepwiseControllers));
+            }
+            auto pid = std::make_shared<SetPIDValues>(
+                asyncResp, std::move(configuration), profile);
+            pid->run();
+        }
+        else
+        {
+            messages::propertyUnknown(asyncResp->res, "Oem");
+            return;
+        }
+    }
+}
+
 inline void requestRoutesOpenBmcManager(App& /*app*/)
 {
     BMCWEB_OEM_ROUTE(getOemRouter(), "/redfish/v1/Managers/<str>#Oem/OpenBmc")
         .privileges(redfish::privileges::getManager)
         .setGetHandler(getHandleOemOpenBmc);
+
+    BMCWEB_OEM_ROUTE(getOemRouter(), "/redfish/v1/Managers/<str>#Oem/OpenBmc")
+        .privileges(redfish::privileges::patchManager)
+        .setPatchHandler(patchHandleOemOpenBmc);
 }
 
 } // namespace redfish

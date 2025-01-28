@@ -38,6 +38,7 @@
 #include <memory>
 #include <optional>
 #include <ranges>
+#include <span>
 #include <string>
 #include <string_view>
 #include <system_error>
@@ -841,6 +842,85 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
             {
                 multi->addAwaitingResponse(rsp, *jsonFragmentPtr);
                 fragmentRule.handle(*req, rsp, *params);
+            }
+        }
+    }
+
+    static void startMultiFragmentPatch(
+        const std::shared_ptr<crow::Request>& req,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::shared_ptr<std::vector<OemBaseRule*>>& fragments,
+        const std::shared_ptr<std::vector<std::string>>& params,
+        nlohmann::json::object_t& payload, const crow::Response& resIn)
+    {
+        asyncResp->res.jsonValue = resIn.jsonValue;
+        auto multi = std::make_shared<MultiAsyncResp>(asyncResp);
+        auto& fragRules = *fragments;
+
+        std::vector<std::optional<nlohmann::json::object_t>> jsonObjects(
+            fragRules.size());
+        std::vector<redfish::json_util::PerUnpack> keyValueContainer(
+            fragRules.size());
+        std::vector<std::pair<std::string, nlohmann::json::json_pointer>>
+            jsonPointers(fragRules.size());
+
+        for (size_t i = 0; i < fragRules.size(); i++)
+        {
+            auto& fragmentRule = *(fragRules[i]);
+            const auto& jsonPointer =
+                redfish::json_util::createJsonPointerFromFragment(
+                    fragmentRule.rule);
+            if (jsonPointer)
+            {
+                std::string key = (*jsonPointer).to_string();
+                const std::string oemPrefix = "/Oem/";
+                std::string oemKey;
+                if (key.starts_with(oemPrefix))
+                {
+                    oemKey = key.substr(oemPrefix.length());
+                }
+                if (!oemKey.empty())
+                {
+                    jsonPointers[i] = {oemKey, *jsonPointer};
+                    keyValueContainer[i] = redfish::json_util::PerUnpack{
+                        jsonPointers[i].first, &jsonObjects[i]};
+                }
+                else
+                {
+                    // Should not happen
+                    BMCWEB_LOG_CRITICAL(
+                        "Failed to get oem Key from the fragment");
+                    return;
+                }
+            }
+            else
+            {
+                // Should not happen
+                BMCWEB_LOG_CRITICAL("Failed to get fragment rule JSON pointer");
+                return;
+            }
+        }
+
+        std::span<redfish::json_util::PerUnpack> jsonKeyValuePair(
+            keyValueContainer);
+        readJsonHelperObject(payload, asyncResp->res, jsonKeyValuePair);
+
+        for (size_t i = 0; i < fragRules.size(); i++)
+        {
+            // We have json object which matches the key in the rule
+            auto& fragPayload = jsonObjects[i];
+            if (fragPayload)
+            {
+                auto& fragmentRule = *(fragRules[i]);
+                BMCWEB_LOG_DEBUG("Matched fragment PATCH rule '{}' {} / {}",
+                                 fragmentRule.rule, req->methodString(),
+                                 fragmentRule.getMethods());
+                auto rsp = std::make_shared<bmcweb::AsyncResp>();
+                BMCWEB_LOG_DEBUG(
+                    "Handling fragment rules: setting completion handler on {}",
+                    logPtr(&rsp->res));
+                multi->addAwaitingResponse(rsp, jsonPointers[i].second);
+                fragmentRule.handle(*req, rsp, *params, *fragPayload);
             }
         }
     }
