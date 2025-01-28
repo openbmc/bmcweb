@@ -457,7 +457,7 @@ inline void handleChassisAssemblyGet(
     BMCWEB_LOG_DEBUG("Get chassis path");
 
     getChassisAssembly(
-        asyncResp, "chassis",
+        asyncResp, chassisID,
         [asyncResp,
          chassisID](const std::optional<std::string>& validChassisPath,
                     const std::vector<std::string>& assemblyList) {
@@ -777,7 +777,7 @@ inline void handleChassisAssemblyPatch(
     BMCWEB_LOG_DEBUG("Patch chassis path");
 
     getChassisAssembly(
-        asyncResp, "chassis",
+        asyncResp, chassisID,
         [req, asyncResp,
          chassisID](const std::optional<std::string>& validChassisPath,
                     const std::vector<std::string>& assemblyList) {
