@@ -2,16 +2,32 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include "app.hpp"
-#include "generated/enums/log_entry.hpp"
-#include "query.hpp"
-#include "registries/openbmc_message_registry.hpp"
-#include "registries/privilege_registry.hpp"
-#include "utils/time_utils.hpp"
+#include "bmcweb_config.h"
 
+#include "app.hpp"
+#include "async_resp.hpp"
+#include "error_messages.hpp"
+#include "generated/enums/log_entry.hpp"
+#include "http_request.hpp"
+#include "logging.hpp"
+#include "query.hpp"
+#include "registries/privilege_registry.hpp"
+#include "utils/query_param.hpp"
+
+#include <boost/beast/http/verb.hpp>
+#include <boost/url/format.hpp>
+#include <nlohmann/json.hpp>
+
+#include <charconv>
+#include <cstddef>
 #include <cstdint>
+#include <filesystem>
+#include <format>
+#include <functional>
 #include <memory>
+#include <string>
 #include <string_view>
+#include <system_error>
 #include <utility>
 #include <vector>
 

@@ -9,9 +9,14 @@
 
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
+#include <boost/beast/http/status.hpp>
 
+#include <cstddef>
+#include <limits>
 #include <memory>
 #include <string>
+#include <utility>
+#include <vector>
 
 namespace crow
 {

@@ -17,14 +17,21 @@ limitations under the License.
 #include "event_logs_object_type.hpp"
 #include "event_service_store.hpp"
 #include "filter_expr_parser_ast.hpp"
+#include "http_client.hpp"
+#include "http_response.hpp"
 #include "metric_report.hpp"
 #include "server_sent_event.hpp"
 
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/url/url_view_base.hpp>
 
+#include <cstdint>
+#include <functional>
 #include <memory>
+#include <optional>
 #include <string>
+#include <vector>
 
 namespace redfish
 {
