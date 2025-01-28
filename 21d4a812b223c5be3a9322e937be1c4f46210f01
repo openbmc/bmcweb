@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2025798f_6ff3dd4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:23:22Z",
+      "side": 1,
+      "message": "nit, This would be \"OEM namespace\" not really per oem \"Type\".",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 12
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85b8b27b_1b073c98",
         "filename": "redfish-core/include/utils/error_code.hpp",
         "patchSetId": 55
