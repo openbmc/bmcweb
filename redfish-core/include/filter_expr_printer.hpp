@@ -4,8 +4,9 @@
 
 #include "filter_expr_parser_ast.hpp"
 
-#include <memory>
+#include <cstdint>
 #include <optional>
+#include <string>
 #include <string_view>
 
 namespace redfish

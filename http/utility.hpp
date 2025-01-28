@@ -4,25 +4,23 @@
 
 #include "bmcweb_config.h"
 
-#include <boost/callable_traits.hpp>
-#include <boost/url/parse.hpp>
+#include <sys/types.h>
+
+#include <boost/url/segments_view.hpp>
 #include <boost/url/url.hpp>
-#include <boost/url/url_view.hpp>
 #include <boost/url/url_view_base.hpp>
 #include <nlohmann/json.hpp>
 
 #include <array>
-#include <chrono>
+#include <concepts>
 #include <cstddef>
 #include <cstdint>
 #include <ctime>
 #include <functional>
-#include <iomanip>
+#include <initializer_list>
 #include <limits>
-#include <stdexcept>
 #include <string>
 #include <string_view>
-#include <tuple>
 #include <type_traits>
 #include <utility>
 #include <variant>
