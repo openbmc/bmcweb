@@ -3,25 +3,35 @@
 #pragma once
 
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/sensor.hpp"
 #include "generated/enums/thermal.hpp"
+#include "logging.hpp"
 #include "str_utility.hpp"
 #include "utils/dbus_utils.hpp"
-#include "utils/json_utils.hpp"
 
 #include <boost/url/format.hpp>
+#include <nlohmann/json.hpp>
+#include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <algorithm>
+#include <cmath>
+#include <cstddef>
+#include <cstdint>
 #include <format>
 #include <functional>
+#include <iterator>
 #include <optional>
 #include <ranges>
+#include <set>
+#include <span>
 #include <string>
 #include <string_view>
 #include <tuple>
 #include <utility>
+#include <variant>
 #include <vector>
 
 namespace redfish
