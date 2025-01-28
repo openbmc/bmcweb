@@ -1,16 +1,17 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
+#include "async_resp.hpp"
 #include "baserule.hpp"
+#include "http_request.hpp"
 #include "ruleparametertraits.hpp"
-#include "websocket.hpp"
-
-#include <boost/beast/http/verb.hpp>
 
 #include <functional>
-#include <limits>
+#include <memory>
+#include <stdexcept>
 #include <string>
-#include <type_traits>
+#include <tuple>
+#include <vector>
 
 namespace crow
 {

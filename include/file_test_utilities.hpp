@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
+#include <unistd.h>
+
+#include <cstdlib>
 #include <filesystem>
 #include <string>
 #include <string_view>

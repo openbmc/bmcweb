@@ -2,17 +2,24 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include "dbus_utility.hpp"
 #include "generated/enums/metric_report_definition.hpp"
 #include "http/utility.hpp"
 #include "logging.hpp"
 #include "utility.hpp"
 
-#include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
+#include <boost/system/result.hpp>
+#include <boost/url/parse.hpp>
+#include <boost/url/url_view.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
+#include <cstddef>
+#include <functional>
+#include <optional>
+#include <span>
 #include <string>
+#include <string_view>
+#include <utility>
 
 namespace redfish
 {
