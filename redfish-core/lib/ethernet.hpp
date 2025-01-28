@@ -935,7 +935,7 @@ inline void
  * @return None
  */
 inline void createIPv6DefaultGateway(
-    std::string_view ifaceId, std::string_view gateway,
+    std::string_view ifaceId, const std::string& gateway,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::message::object_path path("/xyz/openbmc_project/network");
@@ -965,7 +965,7 @@ inline void createIPv6DefaultGateway(
  */
 inline void deleteAndCreateIPv6DefaultGateway(
     std::string_view ifaceId, std::string_view gatewayId,
-    std::string_view gateway,
+    const std::string& gateway,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::message::object_path path("/xyz/openbmc_project/network");
