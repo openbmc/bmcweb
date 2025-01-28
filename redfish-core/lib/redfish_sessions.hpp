@@ -9,6 +9,7 @@
 #include "cookies.hpp"
 #include "dbus_privileges.hpp"
 #include "error_messages.hpp"
+#include "http_privileges.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "pam_authenticate.hpp"
@@ -124,7 +125,7 @@ inline void
         session->username != req.session->username)
     {
         Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(*req.session);
+            crow::getUserPrivileges(*req.session);
 
         if (!effectiveUserPrivileges.isSupersetOf({"ConfigureUsers"}))
         {

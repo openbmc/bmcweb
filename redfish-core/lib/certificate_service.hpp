@@ -10,6 +10,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http/parsing.hpp"
+#include "http_privileges.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -462,8 +463,7 @@ inline void handleCertificateServiceGet(
     // /redfish/v1/CertificateService/CertificateLocations is something
     // only ConfigureManager can access then only display when the user
     // has permissions ConfigureManager
-    Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+    Privileges effectiveUserPrivileges = crow::getUserPrivileges(*req.session);
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
     {

@@ -9,10 +9,12 @@
 #include "async_resp.hpp"
 #include "boost_formatters.hpp"
 #include "certificate_service.hpp"
+#include "dbus_privileges.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/account_service.hpp"
+#include "http_privileges.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -1435,8 +1437,7 @@ inline void
     // /redfish/v1/AccountService/LDAP/Certificates is something only
     // ConfigureManager can access then only display when the user has
     // permissions ConfigureManager
-    Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+    Privileges effectiveUserPrivileges = crow::getUserPrivileges(*req.session);
 
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
@@ -1733,8 +1734,7 @@ inline void handleAccountCollectionGet(
     asyncResp->res.jsonValue["Name"] = "Accounts Collection";
     asyncResp->res.jsonValue["Description"] = "BMC User Accounts";
 
-    Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+    Privileges effectiveUserPrivileges = crow::getUserPrivileges(*req.session);
 
     std::string thisUser;
     if (req.session)
@@ -2023,7 +2023,7 @@ inline void
         // have permissions to modify other users, so re-run the auth
         // check with the same permissions, minus ConfigureSelf.
         Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(*req.session);
+            crow::getUserPrivileges(*req.session);
         Privileges requiredPermissionsToChangeNonSelf = {"ConfigureUsers",
                                                          "ConfigureManager"};
         if (!effectiveUserPrivileges.isSupersetOf(
@@ -2229,8 +2229,7 @@ inline void
 
     bool userSelf = (username == req.session->username);
 
-    Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+    Privileges effectiveUserPrivileges = crow::getUserPrivileges(*req.session);
     Privileges configureUsers = {"ConfigureUsers"};
     bool userHasConfigureUsers =
         effectiveUserPrivileges.isSupersetOf(configureUsers);

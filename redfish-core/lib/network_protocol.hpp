@@ -11,6 +11,7 @@
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
+#include "http_privileges.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
@@ -247,8 +248,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
     });
 
-    Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+    Privileges effectiveUserPrivileges = crow::getUserPrivileges(*req.session);
 
     // /redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates is
     // something only ConfigureManager can access then only display when

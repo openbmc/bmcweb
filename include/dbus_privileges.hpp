@@ -6,6 +6,7 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "http_privileges.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -26,6 +27,50 @@
 
 namespace crow
 {
+
+inline bmcweb::Privileges
+    getUserPrivileges(const persistent_data::UserSession& session)
+{
+    // default to no access
+    bmcweb::Privileges privs;
+
+    // Check if user is member of hostconsole group
+    for (const auto& userGroup : session.userGroups)
+    {
+        if (userGroup == "hostconsole")
+        {
+            // Redfish privilege : host console access
+            privs.setSinglePrivilege("OpenBMCHostConsole");
+            break;
+        }
+    }
+
+    if (session.userRole == "priv-admin")
+    {
+        // Redfish privilege : Administrator
+        privs.setSinglePrivilege("Login");
+        privs.setSinglePrivilege("ConfigureManager");
+        privs.setSinglePrivilege("ConfigureSelf");
+        privs.setSinglePrivilege("ConfigureUsers");
+        privs.setSinglePrivilege("ConfigureComponents");
+    }
+    else if (session.userRole == "priv-operator")
+    {
+        // Redfish privilege : Operator
+        privs.setSinglePrivilege("Login");
+        privs.setSinglePrivilege("ConfigureSelf");
+        privs.setSinglePrivilege("ConfigureComponents");
+    }
+    else if (session.userRole == "priv-user")
+    {
+        // Redfish privilege : Readonly
+        privs.setSinglePrivilege("Login");
+        privs.setSinglePrivilege("ConfigureSelf");
+    }
+
+    return privs;
+}
+
 // Populate session with user information.
 inline bool
     populateUserInfo(persistent_data::UserSession& session,
@@ -80,15 +125,14 @@ inline bool isUserPrivileged(
         return false;
     }
     // Get the user's privileges from the role
-    redfish::Privileges userPrivileges =
-        redfish::getUserPrivileges(*req.session);
+    bmcweb::Privileges userPrivileges = getUserPrivileges(*req.session);
 
     // Modify privileges if isConfigureSelfOnly.
     if (req.session->isConfigureSelfOnly)
     {
         // Remove all privileges except ConfigureSelf
         userPrivileges =
-            userPrivileges.intersection(redfish::Privileges{"ConfigureSelf"});
+            userPrivileges.intersection(bmcweb::Privileges{"ConfigureSelf"});
         BMCWEB_LOG_DEBUG("Operation limited to ConfigureSelf");
     }
 
