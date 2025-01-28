@@ -2,14 +2,15 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "http/http_request.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
-#include "str_utility.hpp"
 
+#include <boost/beast/http/field.hpp>
 #include <nlohmann/json.hpp>
 
-#include <algorithm>
 #include <cctype>
 #include <string_view>
 

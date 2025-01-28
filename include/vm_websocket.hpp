@@ -2,24 +2,42 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
-#include "privileges.hpp"
+#include "logging.hpp"
 #include "websocket.hpp"
 
+#include <signal.h>
+
+#include <boost/asio/buffer.hpp>
+#include <boost/asio/error.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/local/stream_protocol.hpp>
 #include <boost/asio/readable_pipe.hpp>
 #include <boost/asio/writable_pipe.hpp>
-#include <boost/asio/write.hpp>
 #include <boost/beast/core/buffers_to_string.hpp>
+#include <boost/beast/core/error.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/process/v2/process.hpp>
 #include <boost/process/v2/stdio.hpp>
-#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/message/native_types.hpp>
+#include <sdbusplus/unpack_properties.hpp>
 
+#include <cerrno>
 #include <csignal>
+#include <cstddef>
+#include <filesystem>
+#include <format>
+#include <functional>
+#include <memory>
+#include <string>
 #include <string_view>
+#include <system_error>
+#include <utility>
 
 namespace crow
 {
