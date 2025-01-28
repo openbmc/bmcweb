@@ -2,10 +2,11 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include "logging.hpp"
-
+#include <cstddef>
+#include <cstdint>
 #include <limits>
 #include <string>
+#include <string_view>
 
 namespace bmcweb
 {

@@ -2,10 +2,9 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include "bmcweb_config.h"
-
-#include "http_request.hpp"
 #include "http_response.hpp"
+
+#include <boost/beast/http/field.hpp>
 
 inline void addSecurityHeaders(crow::Response& res)
 {

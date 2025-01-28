@@ -423,6 +423,7 @@ def create_error_registry(
 #include <nlohmann/json.hpp>
 
 #include <source_location>
+#include <cstdint>
 #include <string_view>
 
 // IWYU pragma: no_forward_declare crow::Response

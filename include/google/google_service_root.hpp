@@ -4,18 +4,28 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "http_request.hpp"
+#include "logging.hpp"
 #include "utils/collection.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/message/native_types.hpp>
 
 #include <array>
+#include <cstdint>
+#include <functional>
+#include <memory>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 namespace crow
