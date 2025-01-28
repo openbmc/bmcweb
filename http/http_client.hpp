@@ -691,9 +691,9 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     {
         auto conn = connections[connId];
 
-        // Allow the connection's handler to be deleted
-        // This is needed because of Redfish Aggregation passing an
-        // AsyncResponse shared_ptr to this callback
+        // Allow the connection's handler to be deleted This is needed because
+        // a client like Redfish Aggregation might hold a reference to
+        // AsyncResp in this callback.
         conn->callback = nullptr;
 
         // Reuse the connection to send the next request in the queue
