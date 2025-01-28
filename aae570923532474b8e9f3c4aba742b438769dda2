@@ -34,6 +34,24 @@
       "parentUuid": "bea46753_dcd15bf8",
       "revId": "aae570923532474b8e9f3c4aba742b438769dda2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38a8dd78_3b1d7fa6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T17:55:29Z",
+      "side": 1,
+      "message": "\u003e The code is the same existing code with no modifications.\n\nThis is not a good reason for lack of testing.  Even copy/paste can result in errors being injected.\n\n\u003e Do you want me to split this into new test file as well ?\n\nThe unit tests for error_code.hpp should be in a file named error_code_test.  Move whatever tests are needed.",
+      "parentUuid": "2f11c8cd_c66c1898",
+      "revId": "aae570923532474b8e9f3c4aba742b438769dda2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
