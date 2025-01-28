@@ -1499,10 +1499,75 @@ inline void handleGetManagerOpenBmc(
     }
 }
 
+inline void handlePatchManagerOpenBmc(
+    const SubRequest& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& /*managerId*/)
+{
+    nlohmann::json::object_t payload = req.payload();
+
+    std::optional<nlohmann::json::object_t> pidControllers;
+    std::optional<nlohmann::json::object_t> fanControllers;
+    std::optional<nlohmann::json::object_t> fanZones;
+    std::optional<nlohmann::json::object_t> stepwiseControllers;
+    std::optional<std::string> profile;
+
+    if (!json_util::readJsonObject(
+            payload, asyncResp->res, "OpenBmc/Fan/PidControllers",
+            pidControllers, "OpenBmc/Fan/FanControllers", fanControllers,
+            "OpenBmc/Fan/FanZones", fanZones, "OpenBmc/Fan/StepwiseControllers",
+            stepwiseControllers, "OpenBmc/Fan/Profile", profile))
+    {
+        return;
+    }
+
+    if (pidControllers || fanControllers || fanZones || stepwiseControllers ||
+        profile)
+    {
+        if constexpr (BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA)
+        {
+            std::vector<
+                std::pair<std::string, std::optional<nlohmann::json::object_t>>>
+                configuration;
+
+            if (pidControllers)
+            {
+                configuration.emplace_back("PidControllers",
+                                           std::move(pidControllers));
+            }
+            if (fanControllers)
+            {
+                configuration.emplace_back("FanControllers",
+                                           std::move(fanControllers));
+            }
+            if (fanZones)
+            {
+                configuration.emplace_back("FanZones", std::move(fanZones));
+            }
+            if (stepwiseControllers)
+            {
+                configuration.emplace_back("StepwiseControllers",
+                                           std::move(stepwiseControllers));
+            }
+
+            auto pid = std::make_shared<SetPIDValues>(
+                asyncResp, std::move(configuration), profile);
+            pid->run();
+        }
+        else
+        {
+            messages::propertyUnknown(asyncResp->res, "Oem");
+            return;
+        }
+    }
+}
+
 inline void requestRoutesOpenBmcManager(RedfishService& service)
 {
     REDFISH_SUB_ROUTE<"/redfish/v1/Managers/<str>/#/Oem/OpenBmc">(
         service, HttpVerb::Get)(handleGetManagerOpenBmc);
+
+    REDFISH_SUB_ROUTE<"/redfish/v1/Managers/<str>/#/Oem/OpenBmc">(
+        service, HttpVerb::Patch)(handlePatchManagerOpenBmc);
 }
 
 } // namespace redfish

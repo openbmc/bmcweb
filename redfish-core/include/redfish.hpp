@@ -10,6 +10,7 @@
 #include "verb.hpp"
 
 #include <memory>
+#include <utility>
 
 namespace redfish
 {
@@ -52,6 +53,10 @@ class RedfishService
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
     {
         auto subReq = std::make_shared<SubRequest>(req);
+        if (!subReq->needHandling())
+        {
+            return;
+        }
         oemRouter.handle(subReq, asyncResp);
     }
 
