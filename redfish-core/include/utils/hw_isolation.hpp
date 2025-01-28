@@ -407,29 +407,27 @@ inline void processHardwareIsolationReq(
  * @return True on success
  *         False on failure and set the error in the redfish response.
  */
-inline bool
-    setSeverity(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const sdbusplus::message::object_path& objPath,
-                const nlohmann::json_pointer<nlohmann::json>& severityPropPath,
-                const std::string& severityVal)
+inline bool setSeverity(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const sdbusplus::message::object_path& objPath,
+                        const nlohmann::json::json_pointer& severityPropPath,
+                        const std::string& severityVal)
 {
-    std::string sevPropPath = severityPropPath.to_string();
     if (severityVal ==
         "xyz.openbmc_project.Logging.Event.SeverityLevel.Critical")
     {
-        asyncResp->res.jsonValue[sevPropPath] = "Critical";
+        asyncResp->res.jsonValue[severityPropPath] = "Critical";
     }
     else if ((severityVal ==
               "xyz.openbmc_project.Logging.Event.SeverityLevel.Warning") ||
              (severityVal ==
               "xyz.openbmc_project.Logging.Event.SeverityLevel.Unknown"))
     {
-        asyncResp->res.jsonValue[sevPropPath] = "Warning";
+        asyncResp->res.jsonValue[severityPropPath] = "Warning";
     }
     else if (severityVal ==
              "xyz.openbmc_project.Logging.Event.SeverityLevel.Ok")
     {
-        asyncResp->res.jsonValue[sevPropPath] = "OK";
+        asyncResp->res.jsonValue[severityPropPath] = "OK";
     }
     else
     {
@@ -473,7 +471,7 @@ static void
             {
                 sdbusplus::message::object_path errPath = std::get<2>(assoc);
                 // we have only one condition
-                nlohmann::json_pointer<nlohmann::json> logEntryPropPath(
+                nlohmann::json::json_pointer logEntryPropPath(
                     "/Status/Conditions/0/LogEntry");
                 error_log_utils::setErrorLogUri(asyncResp, errPath,
                                                 logEntryPropPath, true);
@@ -533,7 +531,7 @@ static void
     if (severity != nullptr)
     {
         // we have only one condition
-        nlohmann::json_pointer<nlohmann::json> severityPropPath(
+        nlohmann::json::json_pointer severityPropPath(
             "/Status/Conditions/0/Severity");
         if (!setSeverity(asyncResp, path, severityPropPath, *severity))
         {
