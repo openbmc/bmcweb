@@ -3,8 +3,8 @@
 #pragma once
 
 #include "async_resp.hpp"
+#include "http_privileges.hpp"
 #include "http_request.hpp"
-#include "privileges.hpp"
 #include "verb.hpp"
 
 #include <boost/asio/ip/tcp.hpp>
@@ -66,7 +66,7 @@ class BaseRule
         return methodsBitfield;
     }
 
-    bool checkPrivileges(const redfish::Privileges& userPrivileges)
+    bool checkPrivileges(const bmcweb::Privileges& userPrivileges)
     {
         // If there are no privileges assigned, assume no privileges
         // required
@@ -75,7 +75,7 @@ class BaseRule
             return true;
         }
 
-        for (const redfish::Privileges& requiredPrivileges : privilegesSet)
+        for (const bmcweb::Privileges& requiredPrivileges : privilegesSet)
         {
             if (userPrivileges.isSupersetOf(requiredPrivileges))
             {
@@ -94,7 +94,7 @@ class BaseRule
     bool isMethodNotAllowed = false;
     bool isUpgrade = false;
 
-    std::vector<redfish::Privileges> privilegesSet;
+    std::vector<bmcweb::Privileges> privilegesSet;
 
     std::string rule;
 

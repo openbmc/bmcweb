@@ -17,6 +17,7 @@
 #include "registries/privilege_registry.hpp"
 #include "sessions.hpp"
 #include "utils/json_utils.hpp"
+#include "http_privileges.hpp"
 
 #include <security/_pam_types.h>
 
@@ -124,7 +125,7 @@ inline void
         session->username != req.session->username)
     {
         Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(*req.session);
+            crow::getUserPrivileges(*req.session);
 
         if (!effectiveUserPrivileges.isSupersetOf({"ConfigureUsers"}))
         {

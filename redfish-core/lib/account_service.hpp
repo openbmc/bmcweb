@@ -11,6 +11,7 @@
 #include "certificate_service.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "dbus_privileges.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/account_service.hpp"
 #include "http_request.hpp"
@@ -25,6 +26,7 @@
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "http_privileges.hpp"
 
 #include <security/_pam_types.h>
 #include <systemd/sd-bus.h>
@@ -1436,7 +1438,7 @@ inline void
     // ConfigureManager can access then only display when the user has
     // permissions ConfigureManager
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+        crow::getUserPrivileges(*req.session);
 
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
@@ -1734,7 +1736,7 @@ inline void handleAccountCollectionGet(
     asyncResp->res.jsonValue["Description"] = "BMC User Accounts";
 
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+        crow::getUserPrivileges(*req.session);
 
     std::string thisUser;
     if (req.session)
@@ -2023,7 +2025,7 @@ inline void
         // have permissions to modify other users, so re-run the auth
         // check with the same permissions, minus ConfigureSelf.
         Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(*req.session);
+            crow::getUserPrivileges(*req.session);
         Privileges requiredPermissionsToChangeNonSelf = {"ConfigureUsers",
                                                          "ConfigureManager"};
         if (!effectiveUserPrivileges.isSupersetOf(
@@ -2230,7 +2232,7 @@ inline void
     bool userSelf = (username == req.session->username);
 
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+        crow::getUserPrivileges(*req.session);
     Privileges configureUsers = {"ConfigureUsers"};
     bool userHasConfigureUsers =
         effectiveUserPrivileges.isSupersetOf(configureUsers);
