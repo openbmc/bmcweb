@@ -2,20 +2,20 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include "authentication.hpp"
 #include "boost_formatters.hpp"
-#include "http_request.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
 #include "json_html_serializer.hpp"
 #include "logging.hpp"
 #include "security_headers.hpp"
-#include "utils/hex_utils.hpp"
 
-#include <boost/beast/http/message.hpp>
+#include <boost/beast/http/field.hpp>
 #include <nlohmann/json.hpp>
 
 #include <array>
+#include <string>
+#include <string_view>
+#include <utility>
 
 namespace crow
 {

@@ -8,18 +8,25 @@
 #include "error_messages.hpp"
 #include "event_service_manager.hpp"
 #include "generated/enums/event_destination.hpp"
-#include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "utils/dbus_utils.hpp"
 
+#include <asm-generic/errno.h>
+#include <systemd/sd-bus.h>
+
 #include <boost/system/error_code.hpp>
 #include <boost/url/format.hpp>
+#include <boost/url/url.hpp>
+#include <sdbusplus/message.hpp>
+#include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <string_view>
+#include <utility>
 
 namespace redfish
 {
