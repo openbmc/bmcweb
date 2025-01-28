@@ -88,6 +88,16 @@ option(
                     as paths under /.''',
 )
 
+# BMCWEB_REDFISH_BIOS_ATTRIBUTE_REGISTRY
+option(
+    'redfish-bios-attribute-registry',
+    type: 'string',
+    value: '',
+    description: '''If populated, defines the attribute registry id that is
+                    exposed in the AttributeRegistry property in Bios resource.
+                    Depends on redfish-bios-settings feature.'''
+)
+
 # BMCWEB_REDFISH_BIOS_SETTINGS
 option(
     'redfish-bios-settings',
