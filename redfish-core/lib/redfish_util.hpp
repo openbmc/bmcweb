@@ -4,16 +4,29 @@
 #pragma once
 
 #include "async_resp.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "logging.hpp"
 
+#include <boost/system/errc.hpp>
 #include <boost/system/error_code.hpp>
-#include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/message/native_types.hpp>
 
+#include <algorithm>
 #include <array>
 #include <charconv>
+#include <cstddef>
+#include <cstdint>
+#include <memory>
 #include <ranges>
+#include <span>
+#include <string>
 #include <string_view>
+#include <system_error>
+#include <tuple>
+#include <utility>
+#include <vector>
 
 namespace redfish
 {

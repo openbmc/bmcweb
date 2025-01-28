@@ -8,6 +8,7 @@
 #include "logging.hpp"
 
 #include <boost/system/error_code.hpp>
+#include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
@@ -18,7 +19,6 @@
 #include <functional>
 #include <regex>
 #include <span>
-#include <sstream>
 #include <string>
 #include <string_view>
 #include <tuple>

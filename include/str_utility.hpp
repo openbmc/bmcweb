@@ -3,6 +3,7 @@
 #pragma once
 
 #include <algorithm>
+#include <cstddef>
 #include <ranges>
 #include <string>
 #include <string_view>

@@ -2,18 +2,24 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "async_resp.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "privileges.hpp"
 #include "routing/baserule.hpp"
+#include "sessions.hpp"
 #include "utils/dbus_utils.hpp"
 
+#include <boost/beast/http/status.hpp>
 #include <boost/url/format.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>

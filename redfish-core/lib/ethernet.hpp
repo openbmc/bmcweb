@@ -3,28 +3,52 @@
 // SPDX-FileCopyrightText: Copyright 2018 Intel Corporation
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "app.hpp"
+#include "async_resp.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/ethernet_interface.hpp"
 #include "generated/enums/resource.hpp"
+#include "http_request.hpp"
+#include "http_response.hpp"
 #include "human_sort.hpp"
+#include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utility.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/ip_utils.hpp"
 #include "utils/json_utils.hpp"
 
-#include <boost/system/error_code.hpp>
-#include <boost/url/format.hpp>
+#include <systemd/sd-bus.h>
 
-#include <array>
+#include <boost/beast/http/verb.hpp>
+#include <boost/system/error_code.hpp>
+#include <boost/system/result.hpp>
+#include <boost/url/format.hpp>
+#include <boost/url/parse.hpp>
+#include <boost/url/url.hpp>
+#include <boost/url/url_view.hpp>
+#include <sdbusplus/message.hpp>
+#include <sdbusplus/message/native_types.hpp>
+#include <sdbusplus/unpack_properties.hpp>
+
+#include <algorithm>
+#include <cctype>
 #include <cstddef>
+#include <cstdint>
+#include <format>
+#include <functional>
 #include <memory>
 #include <optional>
 #include <ranges>
 #include <regex>
+#include <string>
 #include <string_view>
+#include <utility>
 #include <variant>
 #include <vector>
 
