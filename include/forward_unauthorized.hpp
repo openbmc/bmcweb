@@ -1,12 +1,16 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
-#include "http_request.hpp"
 #include "http_response.hpp"
 #include "http_utility.hpp"
+#include "sessions.hpp"
 
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/status.hpp>
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
+
+#include <string_view>
 
 namespace forward_unauthorized
 {

@@ -6,33 +6,41 @@
 #include "async_resp.hpp"
 #include "authentication.hpp"
 #include "complete_response_fields.hpp"
+#include "forward_unauthorized.hpp"
 #include "http_body.hpp"
+#include "http_request.hpp"
 #include "http_response.hpp"
-#include "http_utility.hpp"
 #include "logging.hpp"
-#include "mutual_tls.hpp"
-#include "nghttp2_adapters.hpp"
-#include "ssl_key_handler.hpp"
-#include "utility.hpp"
 
-#include <boost/asio/io_context.hpp>
+// NOLINTNEXTLINE(misc-include-cleaner)
+#include "nghttp2_adapters.hpp"
+
+#include <nghttp2/nghttp2.h>
+#include <unistd.h>
+
+#include <boost/asio/buffer.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
-#include <boost/asio/steady_timer.hpp>
-#include <boost/beast/http/error.hpp>
-#include <boost/beast/http/parser.hpp>
-#include <boost/beast/http/read.hpp>
-#include <boost/beast/http/serializer.hpp>
-#include <boost/beast/http/write.hpp>
-#include <boost/beast/websocket.hpp>
+#include <boost/beast/core/error.hpp>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/fields.hpp>
+#include <boost/beast/http/message.hpp>
+#include <boost/beast/http/verb.hpp>
+#include <boost/optional/optional.hpp>
 #include <boost/system/error_code.hpp>
 
 #include <array>
-#include <atomic>
-#include <chrono>
+#include <bit>
+#include <cstddef>
+#include <cstdint>
 #include <functional>
+#include <map>
 #include <memory>
+#include <optional>
+#include <span>
 #include <string>
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace crow

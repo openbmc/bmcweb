@@ -7,9 +7,18 @@
 
 #include <fcntl.h>
 
+#include <boost/beast/core/error.hpp>
+#include <boost/beast/core/file_base.hpp>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/status.hpp>
 #include <nlohmann/json.hpp>
 
+#include <cstddef>
+#include <cstdint>
+#include <filesystem>
+#include <functional>
 #include <optional>
 #include <string>
 #include <string_view>
