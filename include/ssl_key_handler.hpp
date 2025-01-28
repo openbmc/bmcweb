@@ -3,8 +3,11 @@
 
 #pragma once
 
+#include <openssl/crypto.h>
+
 #include <boost/asio/ssl/context.hpp>
 
+#include <memory>
 #include <optional>
 #include <string>
 

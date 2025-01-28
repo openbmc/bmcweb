@@ -4,14 +4,24 @@
 #pragma once
 
 #include "app.hpp"
+#include "async_resp.hpp"
+#include "error_messages.hpp"
+#include "http_request.hpp"
 #include "query.hpp"
 #include "registries.hpp"
+#include "registries/privilege_registry.hpp"
 #include "registries_selector.hpp"
 
+#include <boost/beast/http/verb.hpp>
 #include <boost/url/format.hpp>
 
 #include <array>
 #include <format>
+#include <functional>
+#include <memory>
+#include <optional>
+#include <span>
+#include <utility>
 
 namespace redfish
 {

@@ -2,10 +2,13 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "http_connection.hpp"
 #include "logging.hpp"
 #include "ssl_key_handler.hpp"
 
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/signal_set.hpp>
@@ -14,15 +17,15 @@
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/core/stream_traits.hpp>
 
-#include <atomic>
 #include <chrono>
-#include <cstdint>
-#include <filesystem>
-#include <future>
+#include <csignal>
+#include <cstddef>
+#include <ctime>
+#include <functional>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <utility>
-#include <vector>
 
 namespace crow
 {
@@ -37,6 +40,7 @@ class Server
            std::shared_ptr<boost::asio::ssl::context> adaptorCtxIn,
            std::shared_ptr<boost::asio::io_context> io) :
         ioService(std::move(io)), acceptor(std::move(acceptorIn)),
+        // NOLINTNEXTLINE(misc-include-cleaner)
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
         adaptorCtx(std::move(adaptorCtxIn))
     {}

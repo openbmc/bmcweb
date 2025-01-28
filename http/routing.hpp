@@ -4,33 +4,30 @@
 
 #include "async_resp.hpp"
 #include "dbus_privileges.hpp"
-#include "dbus_utility.hpp"
-#include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
-#include "privileges.hpp"
 #include "routing/baserule.hpp"
 #include "routing/dynamicrule.hpp"
-#include "routing/sserule.hpp"
 #include "routing/taggedrule.hpp"
-#include "routing/websocketrule.hpp"
-#include "sessions.hpp"
-#include "utility.hpp"
-#include "utils/dbus_utils.hpp"
 #include "verb.hpp"
-#include "websocket.hpp"
 
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/status.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/container/small_vector.hpp>
 
 #include <algorithm>
+#include <array>
 #include <cerrno>
 #include <cstdint>
 #include <cstdlib>
-#include <limits>
+#include <format>
+#include <functional>
 #include <memory>
 #include <optional>
+#include <stdexcept>
+#include <string>
 #include <string_view>
 #include <tuple>
 #include <utility>

@@ -5,13 +5,17 @@
 
 #include <boost/beast/http/fields.hpp>
 #include <boost/container/flat_map.hpp>
+#include <boost/system/result.hpp>
 #include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
 
+#include <cstdint>
 #include <limits>
 #include <memory>
+#include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace persistent_data
