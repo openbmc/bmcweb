@@ -26,6 +26,184 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c3e2cfe_8d33584d",
+        "filename": "http/app.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "This would be declared in a redfish layer somewhere.  \"OEM Route\" doesn\u0027t mean anything at an http level.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 67
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba462ca2_e8886356",
+        "filename": "http/redfish_oem_routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "Please pair this list down to what you actually use in this file.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 0
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "704404fb_59960686",
+        "filename": "http/redfish_oem_routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "Coding standard violation.  Do not use \"using namespace\"\n\nAs written this copies the entire redfish namespace into the crow namespace.  Certainly not something we want.",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a351a6a2_d3796d68",
+        "filename": "http/redfish_oem_routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "This looks like a copy of MultiResponse used for $expand?  Could we just use that with minor modifications instead of copy/pasting?",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7741a2dd_4b6c0ab2",
+        "filename": "http/redfish_oem_routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "Everything from here was copy/pasted from router.hpp with minor mods?  Do we really need that level of complexity?  Can anything be deduplicated?",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 2
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c720e0_95504835",
+        "filename": "http/routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "This is still a security issue.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 9
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc8a78ef_31c6fb67",
+        "filename": "http/routing/redfishoemrule.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "Nothing in the http layer should have a mention of anything \"redfish\".  Http folders and abstractions are for HTTP semantics.",
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b8304b0_ffe30123",
+        "filename": "http/routing/redfishoemrule.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "?  There might be no handler for most URLs?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 67
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85b8b27b_1b073c98",
         "filename": "redfish-core/include/utils/error_code.hpp",
         "patchSetId": 55
@@ -37,6 +215,63 @@
       "writtenOn": "2025-01-27T21:05:12Z",
       "side": 1,
       "message": "Rebase? Do you need the license text?",
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbd9b5aa_98a70ff2",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "Not an appropriate check.  URIs can be escaped any number of ways.",
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19fdbe77_c002d61d",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 2128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "Considering we now have a plugin that handles OEM OpenBMC, shouldn\u0027t this go into the separate part?",
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d623b339_fd77c8a7",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 2295,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 1,
+      "message": "This means that the oem routes will get called after all the normal routes have had a chance to error.  I suspect we want to call them in parallel.",
+      "range": {
+        "startLine": 2295,
+        "startChar": 0,
+        "endLine": 2295,
+        "endChar": 78
+      },
       "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

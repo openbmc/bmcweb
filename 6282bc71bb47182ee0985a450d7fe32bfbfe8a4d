@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27ff0c30_764bf093",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 2080,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-28T16:36:59Z",
+      "side": 0,
+      "message": "?  Isn\u0027t Manager.Reset a non OEM action?  Not following why we would put it behind the flag.",
+      "parentUuid": "1dd283b9_19869870",
+      "range": {
+        "startLine": 2071,
+        "startChar": 1,
+        "endLine": 2080,
+        "endChar": 69
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e945507_c6219b03",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 39
