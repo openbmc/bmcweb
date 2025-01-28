@@ -2,11 +2,14 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include <security/_pam_types.h>
 #include <security/pam_appl.h>
 
 #include <cstring>
 #include <memory>
+#include <optional>
 #include <span>
+#include <string>
 #include <string_view>
 
 struct PasswordData

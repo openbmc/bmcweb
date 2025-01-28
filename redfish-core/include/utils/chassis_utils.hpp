@@ -5,8 +5,14 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "logging.hpp"
+
+#include <sdbusplus/message/native_types.hpp>
 
 #include <array>
+#include <memory>
+#include <optional>
+#include <string>
 #include <string_view>
 
 namespace redfish

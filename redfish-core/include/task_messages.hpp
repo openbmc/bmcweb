@@ -10,12 +10,9 @@
  * github organization.
  ***************************************************************/
 
-#include "http_response.hpp"
-
-#include <boost/url/url_view_base.hpp>
 #include <nlohmann/json.hpp>
 
-#include <source_location>
+#include <cstdint>
 #include <string_view>
 
 // IWYU pragma: no_forward_declare crow::Response
