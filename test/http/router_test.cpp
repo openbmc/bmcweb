@@ -2,10 +2,12 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "async_resp.hpp"
 #include "http_request.hpp"
+#include "redfish_oem_routing.hpp"
 #include "routing.hpp"
 #include "utility.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <nlohmann/json.hpp>
 
 #include <memory>
 #include <string>
@@ -156,5 +158,44 @@ TEST(Router, 405)
     }
     EXPECT_TRUE(called);
 }
+
+TEST(RfOemRouter, PatchHandlerWithJsonObject)
+{
+    // Callback to test PATCH handler
+    bool patchCalled = false;
+    auto patchCallback =
+        [&patchCalled](
+            const Request&, const std::shared_ptr<bmcweb::AsyncResp>&,
+            const nlohmann::json::object_t& payload, const std::string& bar) {
+            patchCalled = true;
+            EXPECT_EQ(bar, "bar");
+            auto it = payload.find("OemKey");
+            ASSERT_NE(it, payload.end());
+            EXPECT_EQ(it->second, "testValue");
+        };
+
+    RfOemRouter router;
+    std::error_code ec;
+    constexpr std::string_view fragment = "/foo/<str>#Oem/OemKey";
+    router.newRfOemRule<getParameterTag(fragment)>(std::string(fragment))
+        .setPatchHandler(patchCallback);
+
+    router.validate();
+    {
+        constexpr std::string_view reqUrl = "/foo/bar";
+
+        auto req = std::make_shared<Request>(
+            Request::Body{boost::beast::http::verb::get, reqUrl, 11}, ec);
+
+        std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+            std::make_shared<bmcweb::AsyncResp>();
+
+        nlohmann::json::object_t jsonPayload;
+        jsonPayload["OemKey"] = {{"OemKey", "testValue"}};
+        router.handleOemPatch(req, asyncResp, jsonPayload);
+    }
+    EXPECT_TRUE(patchCalled);
+}
+
 } // namespace
 } // namespace crow
