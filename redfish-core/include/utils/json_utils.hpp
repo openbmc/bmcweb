@@ -4,7 +4,6 @@
 #pragma once
 
 #include "error_messages.hpp"
-#include "http_connection.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "human_sort.hpp"

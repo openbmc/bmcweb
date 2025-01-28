@@ -3,6 +3,9 @@
 #include "dbus_utility.hpp"
 #include "utils/dbus_utils.hpp"
 
+#include <sdbusplus/unpack_properties.hpp>
+
+#include <cstdint>
 #include <optional>
 #include <string>
 

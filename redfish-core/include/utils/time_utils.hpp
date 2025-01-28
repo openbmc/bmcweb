@@ -3,13 +3,15 @@
 #pragma once
 
 #include "http_response.hpp"
-#include "logging.hpp"
 
 #include <chrono>
-#include <cstddef>
+#include <cstdint>
+#include <ctime>
 #include <optional>
+#include <ratio>
 #include <string>
 #include <string_view>
+#include <utility>
 
 namespace redfish
 {

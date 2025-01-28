@@ -2,19 +2,30 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "logging.hpp"
 #include "ossl_random.hpp"
-#include "utility.hpp"
 #include "utils/ip_utils.hpp"
 
+// misc-include-cleaner complains if this isn't included,
+// modernize-deprecated-headers complains if it is included.
+// NOLINTNEXTLINE(modernize-deprecated-headers)
+#include <signal.h>
+
+#include <boost/asio/ip/address.hpp>
 #include <nlohmann/json.hpp>
 
-#include <algorithm>
+#include <chrono>
 #include <csignal>
+#include <cstddef>
+#include <cstdint>
+#include <functional>
 #include <memory>
 #include <optional>
-#include <random>
 #include <string>
+#include <string_view>
+#include <unordered_map>
 #include <vector>
 
 namespace persistent_data
