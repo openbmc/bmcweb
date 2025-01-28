@@ -12,6 +12,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/json_utils.hpp"
+#include "http_privileges.hpp"
 
 #include <boost/url/format.hpp>
 
@@ -108,7 +109,7 @@ inline void
         session->username != req.session->username)
     {
         Privileges effectiveUserPrivileges =
-            redfish::getUserPrivileges(*req.session);
+            crow::getUserPrivileges(*req.session);
 
         if (!effectiveUserPrivileges.isSupersetOf({"ConfigureUsers"}))
         {

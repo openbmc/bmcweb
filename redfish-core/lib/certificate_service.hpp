@@ -12,6 +12,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
+#include "http_privileges.hpp"
 
 #include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
@@ -428,7 +429,7 @@ inline void handleCertificateServiceGet(
     // only ConfigureManager can access then only display when the user
     // has permissions ConfigureManager
     Privileges effectiveUserPrivileges =
-        redfish::getUserPrivileges(*req.session);
+        crow::getUserPrivileges(*req.session);
     if (isOperationAllowedWithPrivileges({{"ConfigureManager"}},
                                          effectiveUserPrivileges))
     {

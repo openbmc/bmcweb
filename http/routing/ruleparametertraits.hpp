@@ -90,10 +90,10 @@ struct RuleParameterTraits
     }
 
     template <size_t N, typename... MethodArgs>
-    self_t& privileges(const std::array<redfish::Privileges, N>& p)
+    self_t& privileges(const std::array<bmcweb::Privileges, N>& p)
     {
         self_t* self = static_cast<self_t*>(this);
-        for (const redfish::Privileges& privilege : p)
+        for (const bmcweb::Privileges& privilege : p)
         {
             self->privilegesSet.emplace_back(privilege);
         }
