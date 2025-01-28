@@ -49,9 +49,10 @@ class RedfishService
 
     void handleSubRoute(
         const crow::Request& req,
-        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        nlohmann::json&& payload = nlohmann::json::object()) const
     {
-        auto subReq = std::make_shared<SubRequest>(req);
+        auto subReq = std::make_shared<SubRequest>(req, std::move(payload));
         oemRouter.handle(subReq, asyncResp);
     }
 

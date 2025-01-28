@@ -10,6 +10,8 @@
 #include "utils/query_param.hpp"
 #include "verb.hpp"
 
+#include <nlohmann/json.hpp>
+
 #include <array>
 #include <cstddef>
 #include <cstdint>

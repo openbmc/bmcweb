@@ -15,7 +15,6 @@
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
-#include "openbmc/openbmc_managers.hpp"
 #include "persistent_data.hpp"
 #include "query.hpp"
 #include "redfish.hpp"
@@ -895,67 +894,17 @@ inline void requestRoutesManager(App& app)
 
                 std::optional<std::string> activeSoftwareImageOdataId;
                 std::optional<std::string> datetime;
-                std::optional<nlohmann::json::object_t> pidControllers;
-                std::optional<nlohmann::json::object_t> fanControllers;
-                std::optional<nlohmann::json::object_t> fanZones;
-                std::optional<nlohmann::json::object_t> stepwiseControllers;
-                std::optional<std::string> profile;
+                std::optional<nlohmann::json::object_t> oemPayload;
 
-                if (!json_util::readJsonPatch(                            //
-                        req, asyncResp->res,                              //
-                        "DateTime", datetime,                             //
+                if (!json_util::readJsonPatch(      //
+                        req, asyncResp->res,        //
+                        "DateTime", datetime,       //
                         "Links/ActiveSoftwareImage/@odata.id",
-                        activeSoftwareImageOdataId,                       //
-                        "Oem/OpenBmc/Fan/FanControllers", fanControllers, //
-                        "Oem/OpenBmc/Fan/FanZones", fanZones,             //
-                        "Oem/OpenBmc/Fan/PidControllers", pidControllers, //
-                        "Oem/OpenBmc/Fan/Profile", profile,               //
-                        "Oem/OpenBmc/Fan/StepwiseControllers",
-                        stepwiseControllers                               //
+                        activeSoftwareImageOdataId, //
+                        "Oem", oemPayload           //
                         ))
                 {
                     return;
-                }
-
-                if (pidControllers || fanControllers || fanZones ||
-                    stepwiseControllers || profile)
-                {
-                    if constexpr (BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA)
-                    {
-                        std::vector<
-                            std::pair<std::string,
-                                      std::optional<nlohmann::json::object_t>>>
-                            configuration;
-                        if (pidControllers)
-                        {
-                            configuration.emplace_back(
-                                "PidControllers", std::move(pidControllers));
-                        }
-                        if (fanControllers)
-                        {
-                            configuration.emplace_back(
-                                "FanControllers", std::move(fanControllers));
-                        }
-                        if (fanZones)
-                        {
-                            configuration.emplace_back("FanZones",
-                                                       std::move(fanZones));
-                        }
-                        if (stepwiseControllers)
-                        {
-                            configuration.emplace_back(
-                                "StepwiseControllers",
-                                std::move(stepwiseControllers));
-                        }
-                        auto pid = std::make_shared<SetPIDValues>(
-                            asyncResp, std::move(configuration), profile);
-                        pid->run();
-                    }
-                    else
-                    {
-                        messages::propertyUnknown(asyncResp->res, "Oem");
-                        return;
-                    }
                 }
 
                 if (activeSoftwareImageOdataId)
@@ -967,6 +916,12 @@ inline void requestRoutesManager(App& app)
                 if (datetime)
                 {
                     setDateTime(asyncResp, *datetime);
+                }
+
+                if (oemPayload)
+                {
+                    RedfishService::getInstance(app).handleSubRoute(
+                        req, asyncResp, std::move(*oemPayload));
                 }
             });
 }

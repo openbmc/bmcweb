@@ -39,6 +39,7 @@
 #include <memory>
 #include <optional>
 #include <ranges>
+#include <span>
 #include <string>
 #include <string_view>
 #include <system_error>
@@ -829,24 +830,90 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     {
         asyncResp->res.jsonValue = resIn.jsonValue;
         auto multi = std::make_shared<MultiAsyncResp>(asyncResp);
-        for (OemBaseRule* fragment : *fragments)
+
+        if (req->method() != boost::beast::http::verb::patch)
         {
-            if (fragment != nullptr)
+            for (OemBaseRule* fragment : *fragments)
             {
-                OemBaseRule& fragmentRule = *fragment;
-                auto rsp = std::make_shared<bmcweb::AsyncResp>();
-                BMCWEB_LOG_DEBUG("Matched fragment rule '{}' method '{}'",
-                                 fragmentRule.rule,
-                                 boost::beast::http::to_string(req->method()));
-                BMCWEB_LOG_DEBUG(
-                    "Handling fragment rules: setting completion handler on {}",
-                    logPtr(&rsp->res));
-                std::optional<nlohmann::json::json_pointer> jsonFragmentPtr =
-                    json_util::createJsonPointerFromFragment(fragmentRule.rule);
-                if (jsonFragmentPtr)
+                if (fragment != nullptr)
                 {
-                    multi->addAwaitingResponse(rsp, *jsonFragmentPtr);
-                    fragmentRule.handle(*req, rsp, *params);
+                    OemBaseRule& fragmentRule = *fragment;
+                    auto rsp = std::make_shared<bmcweb::AsyncResp>();
+                    BMCWEB_LOG_DEBUG("Matched fragment rule '{}'",
+                                     fragmentRule.rule);
+                    BMCWEB_LOG_DEBUG(
+                        "Handling fragment rules: setting completion handler on {}",
+                        logPtr(&rsp->res));
+                    std::optional<nlohmann::json::json_pointer>
+                        jsonFragmentPtr =
+                            json_util::createJsonPointerFromFragment(
+                                fragmentRule.rule);
+                    if (jsonFragmentPtr)
+                    {
+                        multi->addAwaitingResponse(rsp, *jsonFragmentPtr);
+                        fragmentRule.handle(*req, rsp, *params);
+                    }
+                }
+            }
+        }
+        else
+        {
+            auto& fragRules = *fragments;
+            std::vector<std::optional<nlohmann::json::object_t>> jsonObjects(
+                fragRules.size());
+            std::vector<redfish::json_util::PerUnpack> keyValueContainer(
+                fragRules.size());
+            std::vector<std::pair<std::string, nlohmann::json::json_pointer>>
+                jsonPointers(fragRules.size());
+
+            // Create key-value containers for each fragment
+            for (size_t i = 0; i < fragRules.size(); i++)
+            {
+                if (fragRules[i] != nullptr)
+                {
+                    auto& fragmentRule = *(fragRules[i]);
+                    auto jsonPointer = json_util::createJsonPointerFromFragment(
+                        fragmentRule.rule);
+                    if (jsonPointer)
+                    {
+                        std::string key = (*jsonPointer).to_string();
+                        const std::string oemPrefix = "/Oem/";
+                        if (key.starts_with(oemPrefix))
+                        {
+                            std::string oemKey = key.substr(oemPrefix.length());
+                            jsonPointers[i] = {oemKey, *jsonPointer};
+                            keyValueContainer[i] =
+                                redfish::json_util::PerUnpack{
+                                    jsonPointers[i].first, &jsonObjects[i]};
+                        }
+                    }
+                }
+            }
+
+            std::span<redfish::json_util::PerUnpack> jsonKeyValuePair(
+                keyValueContainer);
+
+            // Get a mutable copy of the payload
+            nlohmann::json::object_t payloadCopy = req->payload();
+            readJsonHelperObject(payloadCopy, asyncResp->res, jsonKeyValuePair);
+
+            for (size_t i = 0; i < fragRules.size(); i++)
+            {
+                auto& fragPayload = jsonObjects[i];
+                if (fragPayload && fragRules[i] != nullptr)
+                {
+                    auto& fragmentRule = *(fragRules[i]);
+                    BMCWEB_LOG_DEBUG("Matched fragment PATCH rule '{}'",
+                                     fragmentRule.rule);
+                    auto rsp = std::make_shared<bmcweb::AsyncResp>();
+                    BMCWEB_LOG_DEBUG(
+                        "Handling fragment rules: setting completion handler on {}",
+                        logPtr(&rsp->res));
+                    multi->addAwaitingResponse(rsp, jsonPointers[i].second);
+
+                    // Create new SubRequest with fragment payload
+                    SubRequest fragmentReq(*req, std::move(*fragPayload));
+                    fragmentRule.handle(fragmentReq, rsp, *params);
                 }
             }
         }
