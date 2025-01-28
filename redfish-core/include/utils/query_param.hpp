@@ -39,6 +39,7 @@
 #include <memory>
 #include <optional>
 #include <ranges>
+#include <span>
 #include <string>
 #include <string_view>
 #include <system_error>
@@ -835,9 +836,8 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
             {
                 OemBaseRule& fragmentRule = *fragment;
                 auto rsp = std::make_shared<bmcweb::AsyncResp>();
-                BMCWEB_LOG_DEBUG("Matched fragment rule '{}' method '{}'",
-                                 fragmentRule.rule,
-                                 boost::beast::http::to_string(req->method()));
+                BMCWEB_LOG_DEBUG("Matched fragment rule '{}'",
+                                 fragmentRule.rule);
                 BMCWEB_LOG_DEBUG(
                     "Handling fragment rules: setting completion handler on {}",
                     logPtr(&rsp->res));

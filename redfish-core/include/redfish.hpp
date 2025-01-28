@@ -10,6 +10,7 @@
 #include "verb.hpp"
 
 #include <memory>
+#include <utility>
 
 namespace redfish
 {
@@ -47,11 +48,14 @@ class RedfishService
         return oemRouter.newRule<Rule>(method);
     }
 
-    void handleSubRoute(
-        const crow::Request& req,
-        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
+    void handleSubRoute(const crow::Request& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         auto subReq = std::make_shared<SubRequest>(req);
+        if (!subReq->needHandling())
+        {
+            return;
+        }
         oemRouter.handle(subReq, asyncResp);
     }
 
