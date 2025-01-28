@@ -2,11 +2,15 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "privileges.hpp"
 #include "sserule.hpp"
+#include "verb.hpp"
 #include "websocketrule.hpp"
 
 #include <boost/beast/http/verb.hpp>
 
+#include <array>
+#include <cstddef>
 #include <initializer_list>
 #include <optional>
 

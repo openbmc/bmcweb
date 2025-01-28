@@ -4,13 +4,22 @@
 #include "dbus_singleton.hpp"
 #include "logging.hpp"
 
+#include <sys/socket.h>
+
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
-#include <boost/asio/ip/basic_endpoint.hpp>
+#include <boost/asio/ip/address_v4.hpp>
+#include <boost/asio/ip/address_v6.hpp>
 #include <boost/asio/ip/tcp.hpp>
-#include <sdbusplus/message.hpp>
+#include <boost/system/errc.hpp>
 
 #include <charconv>
-#include <memory>
+#include <cstdint>
+#include <string>
+#include <string_view>
+#include <system_error>
+#include <tuple>
+#include <vector>
 
 namespace async_resolve
 {

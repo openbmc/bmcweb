@@ -10,25 +10,21 @@
 #include "dbus_utility.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
-#include "json_formatters.hpp"
 #include "logging.hpp"
 #include "parsing.hpp"
-#include "routing.hpp"
 #include "str_utility.hpp"
 
 #include <systemd/sd-bus-protocol.h>
 #include <systemd/sd-bus.h>
 #include <tinyxml2.h>
 
+#include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
-#include <boost/container/vector.hpp>
 #include <boost/system/error_code.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/connection.hpp>
-#include <sdbusplus/asio/property.hpp>
-#include <sdbusplus/exception.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
@@ -38,10 +34,8 @@
 #include <cstdint>
 #include <cstring>
 #include <filesystem>
-#include <fstream>
 #include <functional>
 #include <initializer_list>
-#include <iterator>
 #include <limits>
 #include <map>
 #include <memory>

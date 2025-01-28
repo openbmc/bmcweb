@@ -2,19 +2,24 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include "bmcweb_config.h"
-
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "http_request.hpp"
-#include "persistent_data.hpp"
-#include "query.hpp"
-#include "registries/privilege_registry.hpp"
-#include "utils/systemd_utils.hpp"
+#include "logging.hpp"
 
 #include <tinyxml2.h>
 
-#include <nlohmann/json.hpp>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/beast/http/verb.hpp>
+
+#include <filesystem>
+#include <format>
+#include <functional>
+#include <memory>
+#include <string>
+#include <system_error>
+#include <utility>
 
 namespace redfish
 {
