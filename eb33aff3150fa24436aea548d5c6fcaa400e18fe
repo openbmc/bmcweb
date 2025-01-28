@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae197328_c02c35a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-28T15:14:59Z",
+      "side": 1,
+      "message": "Can you add more background here ? Why is this needed? We already run clang-format-19\n\nCI is unhappy with this \n```\n \n template \u003ctypename... Args\u003e\n-BMCWEB_LOG_CRITICAL(std::format_string\u003cArgs...\u003e,\n-                    Args\u0026\u0026...) -\u003e BMCWEB_LOG_CRITICAL\u003cArgs...\u003e;\n+BMCWEB_LOG_CRITICAL(std::format_string\u003cArgs...\u003e, Args\u0026\u0026...)\n+    -\u003e BMCWEB_LOG_CRITICAL\u003cArgs...\u003e;\n \n template \u003ctypename... Args\u003e\n-BMCWEB_LOG_ERROR(std::format_string\u003cArgs...\u003e,\n-                 Args\u0026\u0026...) -\u003e BMCWEB_LOG_ERROR\u003cArgs...\u003e;\n+BMCWEB_LOG_ERROR(std::format_string\u003cArgs...\u003e, Args\u0026\u0026...)\n+    -\u003e BMCWEB_LOG_ERROR\u003cArgs...\u003e;\n \n template \u003ctypename... Args\u003e\n-BMCWEB_LOG_WARNING(std::format_string\u003cArgs...\u003e,\n-                   Args\u0026\u0026...) -\u003e BMCWEB_LOG_WARNING\u003cArgs...\u003e;\n+BMCWEB_LOG_WARNING(std::format_string\u003cArgs...\u003e, Args\u0026\u0026...)\n+    -\u003e BMCWEB_LOG_WARNING\u003cArgs...\u003e;\n \n template \u003ctypename... Args\u003e\n-BMCWEB_LOG_INFO(std::format_string\u003cArgs...\u003e,\n-                Args\u0026\u0026...) -\u003e BMCWEB_LOG_INFO\u003cArgs...\u003e;\n+BMCWEB_LOG_INFO(std::format_string\u003cArgs...\u003e, Args\u0026\u0026...)\n+    -\u003e BMCWEB_LOG_INFO\u003cArgs...\u003e;\n \n template \u003ctypename... Args\u003e\n-BMCWEB_LOG_DEBUG(std::format_string\u003cArgs...\u003e,\n-                 Args\u0026\u0026...) -\u003e BMCWEB_LOG_DEBUG\u003cArgs...\u003e;\n+BMCWEB_LOG_DEBUG(std::format_string\u003cArgs...\u003e, Args\u0026\u0026...)\n+    -\u003e BMCWEB_LOG_DEBUG\u003cArgs...\u003e;\nFormat: FAILED\n```\n\nCI is using clang-format-19 \nhttps://github.com/openbmc/openbmc-build-scripts/blob/52c3aec3fae38765fe9a56270c93c6f11303b974/scripts/build-unit-test-docker#L916",
+      "revId": "eb33aff3150fa24436aea548d5c6fcaa400e18fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
