@@ -5,6 +5,8 @@
 #include "http_response.hpp"
 #include "sessions.hpp"
 
+#include <boost/beast/http/field.hpp>
+
 namespace bmcweb
 {
 

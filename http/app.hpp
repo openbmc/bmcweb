@@ -2,28 +2,31 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "async_resp.hpp"
 #include "http_request.hpp"
 #include "http_server.hpp"
 #include "logging.hpp"
-#include "privileges.hpp"
 #include "routing.hpp"
-#include "utility.hpp"
+#include "routing/dynamicrule.hpp"
 
+#include <sys/socket.h>
 #include <systemd/sd-daemon.h>
 
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/ssl/stream.hpp>
 
-#include <chrono>
 #include <cstdint>
-#include <functional>
-#include <future>
 #include <memory>
+#include <optional>
 #include <string>
+#include <type_traits>
 #include <utility>
+#include <vector>
 
 // NOLINTNEXTLINE(cppcoreguidelines-macro-usage, clang-diagnostic-unused-macros)
 #define BMCWEB_ROUTE(app, url)                                                 \

@@ -4,7 +4,7 @@
 
 #include "http_response.hpp"
 
-#include <functional>
+#include <utility>
 
 namespace bmcweb
 {
