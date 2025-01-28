@@ -4,6 +4,7 @@
 
 #include <boost/beast/http/verb.hpp>
 
+#include <cstddef>
 #include <optional>
 #include <string_view>
 

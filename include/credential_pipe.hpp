@@ -13,6 +13,7 @@
 
 #include <array>
 #include <string>
+#include <utility>
 
 // Wrapper for boost::async_pipe ensuring proper pipe cleanup
 class CredentialsPipe
