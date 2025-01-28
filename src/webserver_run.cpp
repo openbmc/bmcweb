@@ -129,7 +129,7 @@ int run()
     bmcweb::registerUserRemovedSignal();
 
     bmcweb::ServiceWatchdog watchdog;
-    
+
     redfish::oemRouterInit();
 
     app.run();
