@@ -2,11 +2,14 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include <security/_pam_types.h>
 #include <security/pam_appl.h>
 
 #include <cstring>
 #include <memory>
+#include <optional>
 #include <span>
+#include <string>
 #include <string_view>
 
 struct PasswordData
@@ -19,7 +22,7 @@ struct PasswordData
 
     std::vector<Response> responseData;
 
-    int addPrompt(std::string_view prompt, std::string_view value)
+    static int addPrompt(std::string_view prompt, std::string_view value)
     {
         if (value.size() + 1 > PAM_MAX_MSG_SIZE)
         {
@@ -30,7 +33,7 @@ struct PasswordData
         return PAM_SUCCESS;
     }
 
-    int makeResponse(const pam_message& msg, pam_response& response)
+    static int makeResponse(const pam_message& msg, pam_response& response)
     {
         switch (msg.msg_style)
         {

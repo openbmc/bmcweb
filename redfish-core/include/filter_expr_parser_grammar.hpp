@@ -4,7 +4,11 @@
 
 #include "filter_expr_parser_ast.hpp"
 
-#include <boost/spirit/home/x3.hpp>
+#include <boost/spirit/home/x3/char/char.hpp>
+#include <boost/spirit/home/x3/directive/lexeme.hpp>
+#include <boost/spirit/home/x3/nonterminal/rule.hpp>
+#include <boost/spirit/home/x3/numeric/int.hpp>
+#include <boost/spirit/home/x3/string/literal_string.hpp>
 
 namespace redfish::filter_grammar
 {

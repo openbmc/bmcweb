@@ -4,8 +4,10 @@
 
 #include "logging.hpp"
 
+#include <string.h>
+
 #include <boost/asio/buffer.hpp>
-#include <boost/asio/connect_pipe.hpp>
+#include <boost/asio/impl/connect_pipe.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/readable_pipe.hpp>
 #include <boost/asio/writable_pipe.hpp>
@@ -13,6 +15,7 @@
 
 #include <array>
 #include <string>
+#include <utility>
 
 // Wrapper for boost::async_pipe ensuring proper pipe cleanup
 class CredentialsPipe

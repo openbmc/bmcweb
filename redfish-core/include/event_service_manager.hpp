@@ -2,40 +2,44 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 // SPDX-FileCopyrightText: Copyright 2020 Intel Corporation
 #pragma once
+#include "bmcweb_config.h"
+
 #include "dbus_log_watcher.hpp"
-#include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
-#include "event_log.hpp"
+#include "event_logs_object_type.hpp"
 #include "event_matches_filter.hpp"
 #include "event_service_store.hpp"
 #include "filesystem_log_watcher.hpp"
+#include "logging.hpp"
 #include "metric_report.hpp"
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
+#include "server_sent_event.hpp"
 #include "subscription.hpp"
-#include "utility.hpp"
-#include "utils/dbus_event_log_entry.hpp"
-#include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/io_context.hpp>
-#include <boost/asio/steady_timer.hpp>
-#include <boost/circular_buffer.hpp>
+#include <boost/circular_buffer/base.hpp>
 #include <boost/container/flat_map.hpp>
-#include <boost/url/format.hpp>
+#include <boost/system/result.hpp>
+#include <boost/url/parse.hpp>
 #include <boost/url/url_view_base.hpp>
 
 #include <algorithm>
+#include <cstdint>
 #include <cstdlib>
 #include <ctime>
+#include <filesystem>
 #include <format>
 #include <fstream>
 #include <memory>
+#include <optional>
+#include <random>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <utility>
-#include <variant>
+#include <vector>
 
 namespace redfish
 {

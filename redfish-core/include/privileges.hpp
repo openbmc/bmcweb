@@ -13,7 +13,6 @@
 #include <array>
 #include <bitset>
 #include <cstddef>
-#include <functional>
 #include <initializer_list>
 #include <string>
 #include <string_view>

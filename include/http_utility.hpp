@@ -2,15 +2,18 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include <boost/spirit/home/x3.hpp>
+#include <boost/spirit/home/x3/char/char.hpp>
+#include <boost/spirit/home/x3/char/char_class.hpp>
+#include <boost/spirit/home/x3/directive/no_case.hpp>
+#include <boost/spirit/home/x3/directive/omit.hpp>
+#include <boost/spirit/home/x3/numeric/uint.hpp>
+#include <boost/spirit/home/x3/string/literal_string.hpp>
 
 #include <algorithm>
+#include <array>
 #include <cctype>
-#include <iomanip>
-#include <ostream>
 #include <ranges>
 #include <span>
-#include <string>
 #include <string_view>
 #include <vector>
 

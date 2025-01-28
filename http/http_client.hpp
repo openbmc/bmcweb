@@ -3,38 +3,55 @@
 // SPDX-FileCopyrightText: Copyright 2020 Intel Corporation
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "async_resolve.hpp"
 #include "http_body.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "ssl_key_handler.hpp"
 
+#include <openssl/err.h>
+#include <openssl/ssl.h>
+#include <openssl/tls1.h>
+
 #include <boost/asio/connect.hpp>
+#include <boost/asio/error.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
-#include <boost/asio/ip/basic_endpoint.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/context.hpp>
 #include <boost/asio/ssl/error.hpp>
 #include <boost/asio/ssl/stream.hpp>
+#include <boost/asio/ssl/stream_base.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/beast/core/error.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/fields.hpp>
+#include <boost/beast/http/impl/read.hpp>
+#include <boost/beast/http/impl/write.hpp>
 #include <boost/beast/http/message.hpp>
-#include <boost/beast/http/message_generator.hpp>
 #include <boost/beast/http/parser.hpp>
-#include <boost/beast/http/read.hpp>
-#include <boost/beast/http/write.hpp>
-#include <boost/container/devector.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/beast/http/verb.hpp>
+#include <boost/optional/optional.hpp>
+#include <boost/system/errc.hpp>
 #include <boost/system/error_code.hpp>
-#include <boost/url/format.hpp>
+#include <boost/url/host_type.hpp>
 #include <boost/url/url.hpp>
 #include <boost/url/url_view_base.hpp>
 
+#include <chrono>
+#include <cstdint>
 #include <cstdlib>
 #include <functional>
 #include <memory>
-#include <queue>
+#include <optional>
 #include <string>
+#include <string_view>
+#include <type_traits>
+#include <utility>
 
 namespace crow
 {
@@ -634,15 +651,15 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
     std::string id;
     std::shared_ptr<ConnectionPolicy> connPolicy;
     boost::urls::url destIP;
-    std::vector<std::shared_ptr<ConnectionInfo>> connections;
-    boost::container::devector<PendingRequest> requestQueue;
+    std::vector<std::shared_ptr<ConnectionInfo>> connections{};
+    boost::container::devector<PendingRequest> requestQueue{};
     ensuressl::VerifyCertificate verifyCert;
 
     friend class HttpClient;
 
     // Configure a connections's request, callback, and retry info in
     // preparation to begin sending the request
-    void setConnProps(ConnectionInfo& conn)
+    static void setConnProps(ConnectionInfo& conn)
     {
         if (requestQueue.empty())
         {
@@ -801,9 +818,9 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
         self->sendNext(keepAlive, connId);
     }
 
-    std::shared_ptr<ConnectionInfo>& addConnection()
+    static std::shared_ptr<ConnectionInfo>& addConnection()
     {
-        unsigned int newId = static_cast<unsigned int>(connections.size());
+        unsigned int newId = 0 = static_cast<unsigned int>(connections.size());
 
         auto& ret = connections.emplace_back(std::make_shared<ConnectionInfo>(
             ioc, id, connPolicy, destIP, verifyCert, newId));
@@ -855,7 +872,7 @@ class HttpClient
 {
   private:
     std::unordered_map<std::string, std::shared_ptr<ConnectionPool>>
-        connectionPools;
+        connectionPools{};
 
     // reference_wrapper here makes HttpClient movable
     std::reference_wrapper<boost::asio::io_context> ioc;
@@ -896,12 +913,12 @@ class HttpClient
 
     // Send request to destIP and use the provided callback to
     // handle the response
-    void sendDataWithCallback(std::string&& data,
-                              const boost::urls::url_view_base& destUrl,
-                              ensuressl::VerifyCertificate verifyCert,
-                              const boost::beast::http::fields& httpHeader,
-                              const boost::beast::http::verb verb,
-                              const std::function<void(Response&)>& resHandler)
+    static void sendDataWithCallback(
+        std::string&& data, const boost::urls::url_view_base& destUrl,
+        ensuressl::VerifyCertificate verifyCert,
+        const boost::beast::http::fields& httpHeader,
+        const boost::beast::http::verb verb,
+        const std::function<void(Response&)>& resHandler)
     {
         std::string_view verify = "ssl_verify";
         if (verifyCert == ensuressl::VerifyCertificate::NoVerify)
@@ -924,7 +941,7 @@ class HttpClient
     }
 
     // Test whether all connections are terminated (after MaxRetryAttempts)
-    bool isTerminated()
+    static bool isTerminated()
     {
         for (const auto& pool : connectionPools)
         {

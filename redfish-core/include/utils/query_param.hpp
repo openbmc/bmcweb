@@ -8,16 +8,15 @@
 #include "error_message_utils.hpp"
 #include "error_messages.hpp"
 #include "filter_expr_executor.hpp"
+#include "filter_expr_parser_ast.hpp"
 #include "filter_expr_printer.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
-#include "json_formatters.hpp"
 #include "logging.hpp"
 #include "str_utility.hpp"
 
-#include <sys/types.h>
+#include <unistd.h>
 
-#include <boost/beast/http/message.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/params_view.hpp>
@@ -27,7 +26,7 @@
 #include <array>
 #include <cctype>
 #include <charconv>
-#include <compare>
+#include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <iterator>

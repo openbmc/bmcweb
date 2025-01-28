@@ -1,14 +1,24 @@
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "logging.hpp"
+#include "utility.hpp"
 #include "utils/time_utils.hpp"
 
 #include <systemd/sd-journal.h>
 
 #include <nlohmann/json.hpp>
 
+#include <algorithm>
+#include <charconv>
+#include <cstddef>
+#include <cstdint>
+#include <format>
+#include <memory>
 #include <string>
 #include <string_view>
+#include <utility>
 
 namespace redfish
 {
@@ -122,24 +132,24 @@ inline bool fillBMCJournalLogEntryJson(
     std::string entryIdBase64 =
         crow::utility::base64encode(bmcJournalLogEntryID);
 
-    bmcJournalLogEntryJson["@odata.id"] = boost::urls::format(
+    bmcJournalLogEntryJson["@odata.id"] = boost_swap_impl::format(
         "/redfish/v1/Managers/{}/LogServices/Journal/Entries/{}",
         BMCWEB_REDFISH_MANAGER_URI_NAME, entryIdBase64);
     bmcJournalLogEntryJson["Name"] = "BMC Journal Entry";
     bmcJournalLogEntryJson["Id"] = entryIdBase64;
     bmcJournalLogEntryJson["Message"] = std::move(message);
     bmcJournalLogEntryJson["EntryType"] = log_entry::LogEntryType::Oem;
-    log_entry::EventSeverity severityEnum = log_entry::EventSeverity::OK;
+    log_entry::EventSeverity severity = log_entry::EventSeverity::OK;
     if (severity <= 2)
     {
-        severityEnum = log_entry::EventSeverity::Critical;
+        severity = log_entry::EventSeverity::Critical;
     }
     else if (severity <= 4)
     {
-        severityEnum = log_entry::EventSeverity::Warning;
+        severity = log_entry::EventSeverity::Warning;
     }
 
-    bmcJournalLogEntryJson["Severity"] = severityEnum;
+    bmcJournalLogEntryJson["Severity"] = severity;
     bmcJournalLogEntryJson["OemRecordFormat"] = "BMC Journal Entry";
     bmcJournalLogEntryJson["Created"] = std::move(entryTimeStr);
     return true;
