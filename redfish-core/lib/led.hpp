@@ -3,13 +3,18 @@
 // SPDX-FileCopyrightText: Copyright 2019 Intel Corporation
 #pragma once
 
-#include "app.hpp"
 #include "async_resp.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "error_messages.hpp"
 #include "generated/enums/chassis.hpp"
-#include "redfish_util.hpp"
+#include "logging.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <sdbusplus/asio/property.hpp>
+#include <sdbusplus/message/native_types.hpp>
+
+#include <memory>
 
 namespace redfish
 {

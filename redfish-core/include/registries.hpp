@@ -11,10 +11,10 @@
 #include <charconv>
 #include <cstddef>
 #include <format>
-#include <numeric>
 #include <span>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <utility>
 
 namespace redfish::registries

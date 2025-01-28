@@ -4,6 +4,7 @@
 
 #include "logging.hpp"
 
+#include <cstddef>
 #include <format>
 #include <optional>
 #include <string>

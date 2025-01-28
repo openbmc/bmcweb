@@ -11,9 +11,15 @@
 #include "persistent_data.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
-#include "utils/systemd_utils.hpp"
 
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/verb.hpp>
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
+
+#include <functional>
+#include <memory>
+#include <string>
 
 namespace redfish
 {

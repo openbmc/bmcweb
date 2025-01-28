@@ -4,17 +4,27 @@
 #include "boost_formatters.hpp"
 #include "http_body.hpp"
 #include "http_request.hpp"
-#include "http_response.hpp"
+#include "logging.hpp"
 
 #include <boost/asio/buffer.hpp>
+#include <boost/asio/error.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/beast/core/error.hpp>
 #include <boost/beast/core/multi_buffer.hpp>
-#include <boost/beast/websocket.hpp>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/serializer.hpp>
+#include <boost/beast/http/write.hpp>
 
 #include <array>
+#include <chrono>
 #include <cstddef>
 #include <functional>
+#include <memory>
 #include <optional>
+#include <string>
+#include <string_view>
+#include <utility>
 
 namespace crow
 {
