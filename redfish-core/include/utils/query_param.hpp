@@ -12,7 +12,6 @@
 #include "filter_expr_printer.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
-#include "json_formatters.hpp"
 #include "logging.hpp"
 #include "str_utility.hpp"
 

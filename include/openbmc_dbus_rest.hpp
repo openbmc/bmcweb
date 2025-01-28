@@ -10,7 +10,6 @@
 #include "dbus_utility.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
-#include "json_formatters.hpp"
 #include "logging.hpp"
 #include "parsing.hpp"
 #include "str_utility.hpp"
