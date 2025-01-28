@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffc07cc3_fde56fc6",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-28T20:18:12Z",
+      "side": 1,
+      "message": "Where is this used?",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b369f13_35f6aa23",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-28T20:18:12Z",
+      "side": 1,
+      "message": "Where is vector used ?",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43687e78_392a5bb5",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-28T20:18:12Z",
+      "side": 1,
+      "message": "include limits",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e0992ec_5ca2ae17",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-28T20:18:12Z",
+      "side": 1,
+      "message": "include \u003calgorithm\u003e",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e10dd938_8bb63f53",
+        "filename": "test/redfish-core/include/utils/error_code_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-28T20:18:12Z",
+      "side": 1,
+      "message": "Is this needed? \nI thought it would was needed in test/redfish-core/include/utils/query_param_test.cpp because of \n```\n    if constexpr (BMCWEB_INSECURE_ENABLE_REDFISH_QUERY)\n    {\n        ASSERT_TRUE(query);\n        if (!query)\n        {\n            return;\n        }\n        EXPECT_TRUE(query.value().expandType \u003d\u003d\n                    redfish::query_param::ExpandType::Both);\n    }\n```\n\nbut I don\u0027t see why it would be needed here",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61a32129_63047f12",
+        "filename": "test/redfish-core/include/utils/error_code_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-28T20:18:12Z",
+      "side": 1,
+      "message": "#include array",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b592510_8fa28f63",
+        "filename": "test/redfish-core/include/utils/error_code_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-28T20:18:12Z",
+      "side": 1,
+      "message": "#include \u003cboost/beast/http/status.hpp\u003e",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7baba1fb_a06ae7b8",
+        "filename": "test/redfish-core/include/utils/error_code_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-28T20:18:12Z",
+      "side": 1,
+      "message": "#include string",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
