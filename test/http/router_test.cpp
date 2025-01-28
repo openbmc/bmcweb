@@ -6,6 +6,7 @@
 #include "utility.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <nlohmann/json.hpp>
 
 #include <memory>
 #include <string>
@@ -156,5 +157,6 @@ TEST(Router, 405)
     }
     EXPECT_TRUE(called);
 }
+
 } // namespace
 } // namespace crow
