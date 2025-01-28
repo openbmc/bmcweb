@@ -456,33 +456,6 @@ inline boost::urls::url
     return url;
 }
 
-inline void setProtocolDefaults(boost::urls::url& url,
-                                std::string_view protocol)
-{
-    if (url.has_scheme())
-    {
-        return;
-    }
-    if (protocol == "Redfish" || protocol.empty())
-    {
-        if (url.port_number() == 443)
-        {
-            url.set_scheme("https");
-        }
-        if (url.port_number() == 80)
-        {
-            if constexpr (BMCWEB_INSECURE_PUSH_STYLE_NOTIFICATION)
-            {
-                url.set_scheme("http");
-            }
-        }
-    }
-    else if (protocol == "SNMPv2c")
-    {
-        url.set_scheme("snmp");
-    }
-}
-
 inline void setPortDefaults(boost::urls::url& url)
 {
     uint16_t port = url.port_number();
