@@ -15,7 +15,6 @@
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
-#include "openbmc/openbmc_managers.hpp"
 #include "persistent_data.hpp"
 #include "query.hpp"
 #include "redfish.hpp"
@@ -917,47 +916,6 @@ inline void requestRoutesManager(App& app)
                     return;
                 }
 
-                if (pidControllers || fanControllers || fanZones ||
-                    stepwiseControllers || profile)
-                {
-                    if constexpr (BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA)
-                    {
-                        std::vector<
-                            std::pair<std::string,
-                                      std::optional<nlohmann::json::object_t>>>
-                            configuration;
-                        if (pidControllers)
-                        {
-                            configuration.emplace_back(
-                                "PidControllers", std::move(pidControllers));
-                        }
-                        if (fanControllers)
-                        {
-                            configuration.emplace_back(
-                                "FanControllers", std::move(fanControllers));
-                        }
-                        if (fanZones)
-                        {
-                            configuration.emplace_back("FanZones",
-                                                       std::move(fanZones));
-                        }
-                        if (stepwiseControllers)
-                        {
-                            configuration.emplace_back(
-                                "StepwiseControllers",
-                                std::move(stepwiseControllers));
-                        }
-                        auto pid = std::make_shared<SetPIDValues>(
-                            asyncResp, std::move(configuration), profile);
-                        pid->run();
-                    }
-                    else
-                    {
-                        messages::propertyUnknown(asyncResp->res, "Oem");
-                        return;
-                    }
-                }
-
                 if (activeSoftwareImageOdataId)
                 {
                     setActiveFirmwareImage(asyncResp,
@@ -968,6 +926,8 @@ inline void requestRoutesManager(App& app)
                 {
                     setDateTime(asyncResp, *datetime);
                 }
+
+                RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
             });
 }
 
