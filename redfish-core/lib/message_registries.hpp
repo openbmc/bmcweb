@@ -16,6 +16,27 @@
 namespace redfish
 {
 
+static constexpr const char* attributeRegistryDirPath =
+    "/var/lib/bmcweb/bios-registries/";
+
+inline void populateAttributeRegistries(nlohmann::json& members)
+{
+    std::error_code ec;
+    auto attributeRegistryFiles =
+        std::filesystem::directory_iterator(attributeRegistryDirPath, ec);
+    if (!ec)
+    {
+        for (const auto& attributeRegistryFile : attributeRegistryFiles)
+        {
+            nlohmann::json::object_t member;
+            member["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Registries/{}",
+                attributeRegistryFile.path().stem().string());
+            members.emplace_back(std::move(member));
+        }
+    }
+}
+
 inline void handleMessageRegistryFileCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
@@ -47,6 +68,9 @@ inline void handleMessageRegistryFileCollectionGet(
             boost::urls::format("/redfish/v1/Registries/{}", memberName);
         members.emplace_back(std::move(member));
     }
+
+    populateAttributeRegistries(members);
+
     asyncResp->res.jsonValue["Members@odata.count"] = members.size();
 }
 
@@ -62,30 +86,16 @@ inline void requestRoutesMessageRegistryFileCollection(App& app)
 }
 
 inline void handleMessageRoutesMessageRegistryFileGet(
-    crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& registry)
+    const std::string& registry, const registries::HeaderAndUrl& headerAndUrl)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
     std::string dmtf = "DMTF ";
-    std::optional<registries::HeaderAndUrl> headerAndUrl =
-        registries::getRegistryHeaderAndUrlFromPrefix(registry);
-
-    if (!headerAndUrl)
-    {
-        messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
-                                   registry);
-        return;
-    }
     if (registry == "OpenBMC")
     {
         dmtf.clear();
     }
-    const registries::Header& header = headerAndUrl->header;
-    const char* url = headerAndUrl->url;
+    const registries::Header& header = headerAndUrl.header;
+    const char* url = headerAndUrl.url;
 
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Registries/{}", registry);
@@ -116,35 +126,100 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     asyncResp->res.jsonValue["Location"] = std::move(locationMembers);
 }
 
-inline void requestRoutesMessageRegistryFile(App& app)
+inline void handleAttributeRegistryFileGet(crow::Response& response,
+                                           const std::string& registry)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/")
-        .privileges(redfish::privileges::getMessageRegistryFile)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleMessageRoutesMessageRegistryFileGet, std::ref(app)));
+    response.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Registries/{}", registry);
+    response.jsonValue["@odata.type"] =
+        "#MessageRegistryFile.v1_1_0.MessageRegistryFile";
+    response.jsonValue["Name"] = registry + " Registry File";
+    response.jsonValue["Description"] =
+        registry + " Attribute Registry File Location";
+    response.jsonValue["Id"] = registry;
+    response.jsonValue["Registry"] = registry;
+    nlohmann::json::array_t languages;
+    languages.emplace_back("en");
+    response.jsonValue["Languages@odata.count"] = languages.size();
+    response.jsonValue["Languages"] = std::move(languages);
+    nlohmann::json::array_t locationMembers;
+    nlohmann::json::object_t location;
+    location["Language"] = "en";
+    location["Uri"] = "/redfish/v1/Registries/" + registry + "/" + registry;
+    locationMembers.emplace_back(std::move(location));
+    response.jsonValue["Location@odata.count"] = locationMembers.size();
+    response.jsonValue["Location"] = std::move(locationMembers);
 }
 
-inline void handleMessageRegistryGet(
-    crow::App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& registry, const std::string& registryMatch)
+inline std::filesystem::path
+    getPathForAttributeRegistry(const std::string& registry)
+{
+    std::filesystem::path path;
+    std::error_code ec;
+    auto attributeRegistryFiles =
+        std::filesystem::directory_iterator(attributeRegistryDirPath, ec);
+    if (!ec)
+    {
+        for (const auto& attributeRegistryFile : attributeRegistryFiles)
+        {
+            if (attributeRegistryFile.path().stem().string() == registry)
+            {
+                path = attributeRegistryFile.path();
+                break;
+            }
+        }
+    }
+    return path;
+}
 
+inline void
+    handleRegistryFileGet(crow::App& app, const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& registry)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
-
     std::optional<registries::HeaderAndUrl> headerAndUrl =
         registries::getRegistryHeaderAndUrlFromPrefix(registry);
-    if (!headerAndUrl)
-    {
-        messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
-                                   registry);
-        return;
-    }
 
-    const registries::Header& header = headerAndUrl->header;
+    if (headerAndUrl)
+    {
+        handleMessageRoutesMessageRegistryFileGet(asyncResp, registry,
+                                                  headerAndUrl.value());
+    }
+    else
+    {
+        std::filesystem::path attributeRegistryPath =
+            getPathForAttributeRegistry(registry);
+        if (!attributeRegistryPath.empty())
+        {
+            handleAttributeRegistryFileGet(std::ref(asyncResp->res), registry);
+        }
+        else
+        {
+            messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
+                                       registry);
+        }
+    }
+}
+
+inline void requestRoutesMessageRegistryFile(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/")
+        .privileges(redfish::privileges::getMessageRegistryFile)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleRegistryFileGet, std::ref(app)));
+}
+
+inline void handleMessageRegistryGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& registry, const std::string& registryMatch,
+    const registries::HeaderAndUrl& headerAndUrl)
+
+{
+    const registries::Header& header = headerAndUrl.header;
     if (registry != registryMatch)
     {
         messages::resourceNotFound(asyncResp->res, header.type, registryMatch);
@@ -196,11 +271,54 @@ inline void handleMessageRegistryGet(
     }
 }
 
+inline void handleRegistryGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& registry, const std::string& registryMatch)
+
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    std::optional<registries::HeaderAndUrl> headerAndUrl =
+        registries::getRegistryHeaderAndUrlFromPrefix(registry);
+
+    if (headerAndUrl)
+    {
+        handleMessageRegistryGet(asyncResp, registry, registryMatch,
+                                 headerAndUrl.value());
+    }
+    else
+    {
+        std::filesystem::path attributeRegistryPath =
+            getPathForAttributeRegistry(registry);
+        if (!attributeRegistryPath.empty())
+        {
+            if (registry != registryMatch ||
+                asyncResp->res.openFile(attributeRegistryPath) !=
+                    crow::OpenCode::Success)
+            {
+                messages::resourceNotFound(asyncResp->res, "AttributeRegistry",
+                                           registryMatch);
+                return;
+            }
+            asyncResp->res.addHeader(boost::beast::http::field::content_type,
+                                     "application/json");
+        }
+        else
+        {
+            messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
+                                       registry);
+        }
+    }
+}
+
 inline void requestRoutesMessageRegistry(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Registries/<str>/<str>/")
         .privileges(redfish::privileges::getMessageRegistryFile)
         .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleMessageRegistryGet, std::ref(app)));
+            std::bind_front(handleRegistryGet, std::ref(app)));
 }
 } // namespace redfish
