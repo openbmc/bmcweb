@@ -367,6 +367,11 @@ inline void
     if constexpr (BMCWEB_REDFISH_BIOS_SETTINGS)
     {
         populateSettings(asyncResp->res);
+        if ((!BMCWEB_REDFISH_BIOS_ATTRIBUTE_REGISTRY.empty()))
+        {
+            asyncResp->res.jsonValue["AttributeRegistry"] =
+                BMCWEB_REDFISH_BIOS_ATTRIBUTE_REGISTRY;
+        }
         getBIOSManagerObject(
             asyncResp,
             std::bind_front(getBIOSManagerProperty<BaseTable>, asyncResp,

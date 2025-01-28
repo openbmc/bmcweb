@@ -47,6 +47,7 @@ feature_options = [
 string_options = [
     'dns-resolver',
     'mutual-tls-common-name-parsing-default',
+    'redfish-bios-attribute-registry',
     'redfish-manager-uri-name',
     'redfish-system-uri-name',
 ]
