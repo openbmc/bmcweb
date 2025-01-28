@@ -237,6 +237,38 @@ class OemRouter
         }
     }
 
+    void handleOemPatch(const std::shared_ptr<crow::Request>& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        nlohmann::json::object_t& jsonPayload) const
+    {
+        BMCWEB_LOG_DEBUG("Checking OEM routes");
+        FindRouteResponse foundRoute = findRoute(*req);
+        std::vector<OemBaseRule*> fragments =
+            std::move(foundRoute.route.fragmentRules);
+        std::vector<std::string> params = std::move(foundRoute.route.params);
+        if (!fragments.empty())
+        {
+            std::function<void(crow::Response&)> handler =
+                asyncResp->res.releaseCompleteRequestHandler();
+            auto multiResp = std::make_shared<bmcweb::AsyncResp>();
+            multiResp->res.setCompleteRequestHandler(std::move(handler));
+
+            // Copy so that they exists when completion handler is called.
+            auto uriFragments =
+                std::make_shared<std::vector<OemBaseRule*>>(fragments);
+            auto uriParams = std::make_shared<std::vector<std::string>>(params);
+
+            asyncResp->res.setCompleteRequestHandler(std::bind_front(
+                query_param::MultiAsyncResp::startMultiFragmentPatch,
+                std::make_shared<crow::Request>(*req), multiResp, uriFragments,
+                uriParams, jsonPayload));
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG("No OEM routes found");
+        }
+    }
+
     void debugPrint()
     {
         for (size_t i = 0; i < perMethods.size(); i++)
