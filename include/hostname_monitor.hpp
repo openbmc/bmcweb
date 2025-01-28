@@ -7,8 +7,24 @@
 #include "logging.hpp"
 #include "ssl_key_handler.hpp"
 
+#include <openssl/asn1.h>
+#include <openssl/crypto.h>
+#include <openssl/evp.h>
+#include <openssl/obj_mac.h>
+#include <openssl/x509.h>
+#include <systemd/sd-bus.h>
+
 #include <sdbusplus/bus/match.hpp>
-#include <sdbusplus/message/types.hpp>
+#include <sdbusplus/message.hpp>
+
+#include <array>
+#include <cstddef>
+#include <filesystem>
+#include <iterator>
+#include <memory>
+#include <string_view>
+#include <system_error>
+#include <variant>
 
 namespace crow
 {

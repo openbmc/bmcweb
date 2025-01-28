@@ -7,13 +7,20 @@
 
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/message.hpp>
-#include <boost/beast/websocket.hpp>
+#include <boost/beast/http/verb.hpp>
+#include <boost/beast/websocket/rfc6455.hpp>
+#include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
+#include <boost/url/url_view.hpp>
 
+#include <memory>
 #include <string>
 #include <string_view>
 #include <system_error>
+#include <utility>
 
 namespace crow
 {
@@ -146,6 +153,7 @@ struct Request
 
     bool isUpgrade() const
     {
+        // NOLINTNEXTLINE(misc-include-cleaner)
         return boost::beast::websocket::is_upgrade(req);
     }
 
