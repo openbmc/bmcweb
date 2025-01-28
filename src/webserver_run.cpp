@@ -12,7 +12,6 @@
 #include "hostname_monitor.hpp"
 #include "ibm/management_console_rest.hpp"
 #include "image_upload.hpp"
-#include "io_context_singleton.hpp"
 #include "kvm_websocket.hpp"
 #include "logging.hpp"
 #include "login_routes.hpp"
@@ -48,11 +47,11 @@ static void setLogLevel(const std::string& logLevel)
 
 int run()
 {
-    boost::asio::io_context& io = getIoContext();
-    App app;
+    auto io = std::make_shared<boost::asio::io_context>();
+    App app(io);
 
     std::shared_ptr<sdbusplus::asio::connection> systemBus =
-        std::make_shared<sdbusplus::asio::connection>(io);
+        std::make_shared<sdbusplus::asio::connection>(*io);
     crow::connections::systemBus = systemBus.get();
 
     auto server = sdbusplus::asio::object_server(systemBus);
@@ -83,12 +82,12 @@ int run()
         redfish::RedfishService redfish(app);
 
         // Create EventServiceManager instance and initialize Config
-        redfish::EventServiceManager::getInstance();
+        redfish::EventServiceManager::getInstance(&*io);
 
         if constexpr (BMCWEB_REDFISH_AGGREGATION)
         {
             // Create RedfishAggregator instance and initialize Config
-            redfish::RedfishAggregator::getInstance();
+            redfish::RedfishAggregator::getInstance(&*io);
         }
     }
 
@@ -130,7 +129,7 @@ int run()
 
     systemBus->request_name("xyz.openbmc_project.bmcweb");
 
-    io.run();
+    io->run();
 
     crow::connections::systemBus = nullptr;
 

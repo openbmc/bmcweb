@@ -7,7 +7,6 @@
 #include "async_resp.hpp"
 #include "http_request.hpp"
 #include "http_server.hpp"
-#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "routing.hpp"
 #include "routing/dynamicrule.hpp"
@@ -15,6 +14,7 @@
 #include <sys/socket.h>
 #include <systemd/sd-daemon.h>
 
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/context.hpp>
@@ -43,6 +43,11 @@ class App
     using socket_type = std::conditional_t<BMCWEB_INSECURE_DISABLE_SSL,
                                            raw_socket_t, ssl_socket_t>;
     using server_type = Server<App, socket_type>;
+
+    explicit App(std::shared_ptr<boost::asio::io_context> ioIn =
+                     std::make_shared<boost::asio::io_context>()) :
+        io(std::move(ioIn))
+    {}
 
     template <typename Adaptor>
     void handleUpgrade(const std::shared_ptr<Request>& req,
@@ -84,8 +89,13 @@ class App
         server->loadCertificate();
     }
 
-    static std::optional<boost::asio::ip::tcp::acceptor> setupSocket()
+    std::optional<boost::asio::ip::tcp::acceptor> setupSocket()
     {
+        if (io == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL("IO was nullptr?");
+            return std::nullopt;
+        }
         constexpr int defaultPort = 18080;
         if (sd_listen_fds(0) == 1)
         {
@@ -96,8 +106,7 @@ class App
                 BMCWEB_LOG_INFO("Starting webserver on socket handle {}",
                                 SD_LISTEN_FDS_START);
                 return boost::asio::ip::tcp::acceptor(
-                    getIoContext(), boost::asio::ip::tcp::v6(),
-                    SD_LISTEN_FDS_START);
+                    *io, boost::asio::ip::tcp::v6(), SD_LISTEN_FDS_START);
             }
             BMCWEB_LOG_ERROR(
                 "bad incoming socket, starting webserver on port {}",
@@ -105,9 +114,8 @@ class App
         }
         BMCWEB_LOG_INFO("Starting webserver on port {}", defaultPort);
         return boost::asio::ip::tcp::acceptor(
-            getIoContext(),
-            boost::asio::ip::tcp::endpoint(
-                boost::asio::ip::make_address("0.0.0.0"), defaultPort));
+            *io, boost::asio::ip::tcp::endpoint(
+                     boost::asio::ip::make_address("0.0.0.0"), defaultPort));
     }
 
     void run()
@@ -120,7 +128,7 @@ class App
             BMCWEB_LOG_CRITICAL("Couldn't start server");
             return;
         }
-        server.emplace(this, std::move(*acceptor), sslContext, getIoContext());
+        server.emplace(this, std::move(*acceptor), sslContext, io);
         server->run();
     }
 
@@ -149,6 +157,14 @@ class App
     }
 
     std::shared_ptr<boost::asio::ssl::context> sslContext = nullptr;
+
+    boost::asio::io_context& ioContext()
+    {
+        return *io;
+    }
+
+  private:
+    std::shared_ptr<boost::asio::io_context> io;
 
     std::optional<server_type> server;
 

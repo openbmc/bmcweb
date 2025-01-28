@@ -9,12 +9,12 @@
 #include "http_client.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
-#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "parsing.hpp"
 #include "ssl_key_handler.hpp"
 #include "utility.hpp"
 
+#include <boost/asio/io_context.hpp>
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -857,8 +857,8 @@ class RedfishAggregator
     }
 
   public:
-    explicit RedfishAggregator() :
-        client(getIoContext(),
+    explicit RedfishAggregator(boost::asio::io_context& ioc) :
+        client(ioc,
                std::make_shared<crow::ConnectionPolicy>(getAggregationPolicy()))
     {
         getSatelliteConfigs(constructorCallback);
@@ -869,9 +869,9 @@ class RedfishAggregator
     RedfishAggregator& operator=(RedfishAggregator&&) = delete;
     ~RedfishAggregator() = default;
 
-    static RedfishAggregator& getInstance()
+    static RedfishAggregator& getInstance(boost::asio::io_context* io = nullptr)
     {
-        static RedfishAggregator handler;
+        static RedfishAggregator handler(*io);
         return handler;
     }
 

@@ -1,6 +1,9 @@
 #include "app.hpp"
 #include "redfish.hpp"
 
+#include <boost/asio/io_context.hpp>
+
+#include <memory>
 #include <string>
 
 #include <gmock/gmock.h>
@@ -14,7 +17,8 @@ using ::testing::EndsWith;
 
 TEST(Redfish, PathsShouldValidate)
 {
-    crow::App app;
+    auto io = std::make_shared<boost::asio::io_context>();
+    crow::App app(io);
 
     RedfishService redfish(app);
 

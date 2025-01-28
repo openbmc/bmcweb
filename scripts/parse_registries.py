@@ -426,6 +426,7 @@ def create_error_registry(
 
 #include <cstdint>
 #include <source_location>
+#include <cstdint>
 #include <string_view>
 // NOLINTEND(misc-include-cleaner)
 

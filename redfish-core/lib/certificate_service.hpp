@@ -21,8 +21,6 @@
 #include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
 
-// NOLINTNEXTLINE(modernize-deprecated-headers)
-#include <stdlib.h>
 #include <systemd/sd-bus.h>
 
 #include <boost/asio/error.hpp>

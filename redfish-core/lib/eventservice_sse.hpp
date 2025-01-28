@@ -25,7 +25,8 @@ namespace redfish
 inline void createSubscription(crow::sse_socket::Connection& conn,
                                const crow::Request& req)
 {
-    EventServiceManager& manager = EventServiceManager::getInstance();
+    EventServiceManager& manager =
+        EventServiceManager::getInstance(&conn.getIoContext());
     if ((manager.getNumberOfSubscriptions() >= maxNoOfSubscriptions) ||
         manager.getNumberOfSSESubscriptions() >= maxNoOfSSESubscriptions)
     {
@@ -78,7 +79,8 @@ inline void createSubscription(crow::sse_socket::Connection& conn,
 
 inline void deleteSubscription(crow::sse_socket::Connection& conn)
 {
-    EventServiceManager::getInstance().deleteSseSubscription(conn);
+    redfish::EventServiceManager::getInstance(&conn.getIoContext())
+        .deleteSseSubscription(conn);
 }
 
 inline void requestRoutesEventServiceSse(App& app)

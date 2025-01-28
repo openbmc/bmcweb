@@ -38,10 +38,10 @@ class Server
   public:
     Server(Handler* handlerIn, boost::asio::ip::tcp::acceptor&& acceptorIn,
            std::shared_ptr<boost::asio::ssl::context> adaptorCtxIn,
-           boost::asio::io_context& io) :
-        ioService(io), acceptor(std::move(acceptorIn)),
+           std::shared_ptr<boost::asio::io_context> io) :
+        ioService(std::move(io)), acceptor(std::move(acceptorIn)),
         // NOLINTNEXTLINE(misc-include-cleaner)
-        signals(ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
+        signals(*ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
         adaptorCtx(std::move(adaptorCtxIn))
     {}
 
@@ -120,7 +120,7 @@ class Server
 
     void stop()
     {
-        ioService.stop();
+        ioService->stop();
     }
     using Socket = boost::beast::lowest_layer_type<Adaptor>;
     using SocketPtr = std::unique_ptr<Socket>;
@@ -133,7 +133,7 @@ class Server
             return;
         }
 
-        boost::asio::steady_timer timer(ioService);
+        boost::asio::steady_timer timer(*ioService);
         std::shared_ptr<Connection<Adaptor, Handler>> connection;
 
         if constexpr (std::is_same<Adaptor,
@@ -157,14 +157,20 @@ class Server
                 Adaptor(std::move(*socket)));
         }
 
-        boost::asio::post(ioService, [connection] { connection->start(); });
+        boost::asio::post(*ioService, [connection] { connection->start(); });
 
         doAccept();
     }
 
     void doAccept()
     {
-        SocketPtr socket = std::make_unique<Socket>(ioService);
+        if (ioService == nullptr)
+        {
+            BMCWEB_LOG_CRITICAL("IoService was null");
+            return;
+        }
+
+        SocketPtr socket = std::make_unique<Socket>(*ioService);
         // Keep a raw pointer so when the socket is moved, the pointer is still
         // valid
         Socket* socketPtr = socket.get();
@@ -175,7 +181,7 @@ class Server
     }
 
   private:
-    boost::asio::io_context& ioService;
+    std::shared_ptr<boost::asio::io_context> ioService;
     std::function<std::string()> getCachedDateStr;
     boost::asio::ip::tcp::acceptor acceptor;
     boost::asio::signal_set signals;
