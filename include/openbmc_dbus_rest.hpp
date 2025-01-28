@@ -10,7 +10,6 @@
 #include "dbus_utility.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
-#include "json_formatters.hpp"
 #include "logging.hpp"
 #include "parsing.hpp"
 #include "str_utility.hpp"
@@ -563,7 +562,7 @@ inline int convertJsonToDbus(sd_bus_message* m, const std::string& argType,
                              const nlohmann::json& inputJson)
 {
     int r = 0;
-    BMCWEB_LOG_DEBUG("Converting {} to type: {}", inputJson, argType);
+    BMCWEB_LOG_DEBUG("Converting {} to type: {}", inputJson.dump(), argType);
     const std::vector<std::string> argTypes = dbusArgSplit(argType);
 
     // Assume a single object for now.
