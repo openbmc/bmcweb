@@ -88,6 +88,13 @@ class App
         rfOemRouter.handleOemGet(req, asyncResp);
     }
 
+    void handleOemPatch(const std::shared_ptr<Request>& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const nlohmann::json::object_t& payload)
+    {
+        rfOemRouter.handleOemPatch(req, asyncResp, payload);
+    }
+
     void validate()
     {
         router.validate();
