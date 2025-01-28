@@ -3,16 +3,26 @@
 #pragma once
 
 #include "app.hpp"
+#include "async_resp.hpp"
 #include "cookies.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "logging.hpp"
 #include "multipart_parser.hpp"
 #include "pam_authenticate.hpp"
-#include "webassets.hpp"
+#include "sessions.hpp"
 
-#include <boost/container/flat_set.hpp>
+#include <security/_pam_types.h>
 
-#include <random>
+#include <boost/beast/http/fields.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/beast/http/verb.hpp>
+#include <nlohmann/json.hpp>
+
+#include <memory>
+#include <optional>
+#include <string>
+#include <string_view>
 
 namespace crow
 {

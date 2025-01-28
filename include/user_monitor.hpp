@@ -2,11 +2,13 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 #include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
-#include "persistent_data.hpp"
+#include "sessions.hpp"
 
 #include <sdbusplus/bus/match.hpp>
-#include <sdbusplus/message/types.hpp>
+#include <sdbusplus/message.hpp>
+#include <sdbusplus/message/native_types.hpp>
+
+#include <string>
 
 namespace bmcweb
 {
