@@ -22,6 +22,30 @@
       },
       "revId": "29258cb4968f516f5ac4c0c2d39d7ae957b68742",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cf9d384_8ca86e6f",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 89
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-01-28T18:33:00Z",
+      "side": 1,
+      "message": "Right. Removed the dups",
+      "parentUuid": "b03b2d77_e502581f",
+      "range": {
+        "startLine": 185,
+        "startChar": 4,
+        "endLine": 187,
+        "endChar": 51
+      },
+      "revId": "29258cb4968f516f5ac4c0c2d39d7ae957b68742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
