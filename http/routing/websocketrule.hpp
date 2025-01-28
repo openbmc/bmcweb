@@ -2,13 +2,21 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "async_resp.hpp"
 #include "baserule.hpp"
+#include "http_request.hpp"
+#include "logging.hpp"
 #include "websocket.hpp"
 
-#include <boost/beast/http/verb.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/ssl/stream.hpp>
+#include <boost/beast/http/status.hpp>
 
+#include <functional>
 #include <memory>
 #include <string>
+#include <string_view>
+#include <utility>
 #include <vector>
 
 namespace crow

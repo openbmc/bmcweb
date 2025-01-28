@@ -3,16 +3,29 @@
 #pragma once
 
 #include "app.hpp"
+#include "async_resp.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "http_request.hpp"
+#include "logging.hpp"
 #include "ossl_random.hpp"
 
+#include <boost/asio/error.hpp>
+#include <boost/asio/steady_timer.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/beast/http/verb.hpp>
 #include <sdbusplus/bus/match.hpp>
+#include <sdbusplus/message.hpp>
+#include <sdbusplus/message/native_types.hpp>
 
+#include <algorithm>
+#include <chrono>
 #include <cstdio>
 #include <fstream>
+#include <functional>
 #include <memory>
 #include <ranges>
+#include <string>
 
 namespace crow
 {

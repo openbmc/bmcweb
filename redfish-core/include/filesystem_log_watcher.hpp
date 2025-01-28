@@ -1,9 +1,11 @@
 #pragma once
 
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/posix/stream_descriptor.hpp>
 
-#include <optional>
-#include <string_view>
+#include <array>
+#include <cstddef>
+#include <iosfwd>
 namespace redfish
 {
 

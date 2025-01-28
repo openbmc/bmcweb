@@ -6,9 +6,11 @@
 
 #include <zlib.h>
 
-#include <array>
-#include <filesystem>
+#include <cstddef>
+#include <cstdint>
+#include <iterator>
 #include <string>
+#include <utility>
 #include <vector>
 
 class GzFileReader

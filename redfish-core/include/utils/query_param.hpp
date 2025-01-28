@@ -8,16 +8,15 @@
 #include "error_message_utils.hpp"
 #include "error_messages.hpp"
 #include "filter_expr_executor.hpp"
+#include "filter_expr_parser_ast.hpp"
 #include "filter_expr_printer.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
-#include "json_formatters.hpp"
 #include "logging.hpp"
 #include "str_utility.hpp"
 
-#include <sys/types.h>
+#include <unistd.h>
 
-#include <boost/beast/http/message.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/params_view.hpp>
@@ -27,7 +26,7 @@
 #include <array>
 #include <cctype>
 #include <charconv>
-#include <compare>
+#include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <iterator>
@@ -679,7 +678,7 @@ inline void findNavigationReferencesInObjectRecursive(
             continue;
         }
         nlohmann::json::json_pointer newPtr = jsonPtr / element.first;
-        BMCWEB_LOG_DEBUG("Traversing response at {}", newPtr);
+        BMCWEB_LOG_DEBUG("Traversing response at {}", newPtr.to_string());
 
         findNavigationReferencesRecursive(eType, element.second, newPtr,
                                           newDepth, skipDepth, localInLinks,
@@ -841,7 +840,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     void placeResult(const nlohmann::json::json_pointer& locationToPlace,
                      crow::Response& res)
     {
-        BMCWEB_LOG_DEBUG("placeResult for {}", locationToPlace);
+        BMCWEB_LOG_DEBUG("placeResult for {}", locationToPlace.to_string());
         propogateError(finalRes->res, res);
         if (!res.jsonValue.is_object() || res.jsonValue.empty())
         {
