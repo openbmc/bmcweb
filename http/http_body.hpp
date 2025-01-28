@@ -7,16 +7,27 @@
 #include "utility.hpp"
 
 #include <fcntl.h>
-#include <unistd.h>
 
+#include <boost/asio/buffer.hpp>
+#include <boost/beast/core/buffer_traits.hpp>
 #include <boost/beast/core/buffers_range.hpp>
+#include <boost/beast/core/error.hpp>
+#include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/none.hpp>
+#include <boost/optional/optional.hpp>
 #include <boost/system/error_code.hpp>
 
+#include <algorithm>
+#include <array>
+#include <cstddef>
 #include <cstdint>
+#include <limits>
 #include <optional>
+#include <string>
 #include <string_view>
+#include <utility>
 
 namespace bmcweb
 {

@@ -2,12 +2,13 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include "persistent_data.hpp"
+#include "sessions.hpp"
 
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ssl/verify_context.hpp>
 
 #include <memory>
+#include <string>
 #include <string_view>
 
 std::string getUsernameFromCommonName(std::string_view commonName);

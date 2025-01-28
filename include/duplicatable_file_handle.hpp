@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include <unistd.h>
+
 #include <boost/beast/core/file_posix.hpp>
 
 struct DuplicatableFileHandle
