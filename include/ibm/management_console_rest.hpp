@@ -4,19 +4,28 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "error_messages.hpp"
-#include "event_service_manager.hpp"
+#include "http_request.hpp"
 #include "ibm/utils.hpp"
-#include "resource_messages.hpp"
+#include "logging.hpp"
 #include "str_utility.hpp"
 #include "utils/json_utils.hpp"
 
-#include <boost/container/flat_set.hpp>
+#include <boost/beast/core/string_type.hpp>
+#include <boost/beast/http/field.hpp>
+#include <boost/beast/http/status.hpp>
+#include <boost/beast/http/verb.hpp>
 #include <nlohmann/json.hpp>
-#include <sdbusplus/message/types.hpp>
 
+#include <cstddef>
+#include <cstdint>
 #include <filesystem>
 #include <fstream>
+#include <iterator>
+#include <memory>
+#include <string>
+#include <system_error>
+#include <utility>
+#include <vector>
 
 namespace crow
 {
