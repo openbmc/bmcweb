@@ -1,12 +1,13 @@
 #pragma once
 
-#include "generated/enums/log_entry.hpp"
+#include "event_service_store.hpp"
 #include "logging.hpp"
-#include "persistent_data.hpp"
 #include "str_utility.hpp"
 
 #include <nlohmann/json.hpp>
 
+#include <algorithm>
+#include <format>
 #include <ranges>
 #include <string>
 #include <string_view>
