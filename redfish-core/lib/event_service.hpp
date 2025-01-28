@@ -60,6 +60,34 @@ static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
 static constexpr const std::array<const char*, 2> supportedResourceTypes = {
     "Task", "Heartbeat"};
 
+inline void setProtocolDefaults(boost::urls::url& url,
+                                std::string_view protocol)
+{
+    if (url.has_scheme())
+    {
+        return;
+    }
+    if (protocol == "Redfish" || protocol.empty())
+    {
+        if (url.port_number() == 443)
+        {
+            url.set_scheme("https");
+        }
+        if (url.port_number() == 80)
+        {
+            if constexpr (BMCWEB_INSECURE_PUSH_STYLE_NOTIFICATION)
+            {
+                url.set_scheme("http");
+            }
+        }
+    }
+    else if (protocol == "SNMPv2c")
+    {
+        url.set_scheme("snmp");
+    }
+}
+
+
 inline void requestRoutesEventService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/EventService/")
@@ -400,7 +428,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                 return;
             }
 
-            crow::utility::setProtocolDefaults(*url, protocol);
+            setProtocolDefaults(*url, protocol);
             crow::utility::setPortDefaults(*url);
 
             if (url->path().empty())
