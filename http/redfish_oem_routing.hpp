@@ -96,6 +96,76 @@ class MultiRouteResp : public std::enable_shared_from_this<MultiRouteResp>
         }
     }
 
+    static void handlePatchFragmentRules(
+        const std::shared_ptr<crow::Request>& req,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const std::shared_ptr<std::vector<RfOemBaseRule*>>& fragments,
+        const std::shared_ptr<std::vector<std::string>>& params,
+        nlohmann::json::object_t& payload, const crow::Response& resIn)
+    {
+        asyncResp->res.jsonValue = resIn.jsonValue;
+        auto multi = std::make_shared<MultiRouteResp>(asyncResp);
+        auto& fragRules = *fragments;
+
+        std::vector<std::optional<nlohmann::json::object_t>> jsonObjects;
+        std::vector<redfish::json_util::PerUnpack> objectStorage(
+            fragRules.size());
+        std::span<redfish::json_util::PerUnpack> jsonKeyValuePair(
+            objectStorage);
+        jsonObjects.resize(fragRules.size());
+        std::vector<nlohmann::json::json_pointer> jsonPointers;
+
+        for (size_t i = 0; i < fragRules.size(); ++i)
+        {
+            auto& fragmentRule = *(fragRules[i]);
+            const auto& jsonPointer =
+                redfish::json_util::createJsonPointerFromFragment(
+                    fragmentRule.rule);
+            if (jsonPointer)
+            {
+                std::string_view key = (*jsonPointer).to_string();
+                if (!key.empty() && key[0] == '/')
+                {
+                    key = key.substr(key.find('/', 1) + 1);
+                }
+                BMCWEB_LOG_CRITICAL("Adding OEM fragment key: {}", key);
+                jsonKeyValuePair[i] =
+                    redfish::json_util::PerUnpack{key, &jsonObjects[i]};
+                jsonPointers.emplace_back(*jsonPointer);
+            }
+            else
+            {
+                BMCWEB_LOG_CRITICAL("Failed to get fragment rule JSON pointer");
+                return;
+            }
+        }
+
+        readJsonHelperObject(payload, asyncResp->res, jsonKeyValuePair);
+
+        for (size_t i = 0; i < fragRules.size(); ++i)
+        {
+            // We have json object whcih matches the key in the rule
+            if (jsonObjects[i])
+            {
+                auto& fragmentRule = *(fragRules[i]);
+                BMCWEB_LOG_DEBUG("Matched fragment PATCH rule '{}' {} / {}",
+                                 fragmentRule.rule, req->methodString(),
+                                 fragmentRule.getMethods());
+                auto rsp = std::make_shared<bmcweb::AsyncResp>();
+                BMCWEB_LOG_DEBUG(
+                    "Handling fragment rules: setting completion handler on {}",
+                    logPtr(&rsp->res));
+                multi->addAwaitingResponse(rsp, jsonPointers[i]);
+                fragmentRule.handle(*req, rsp, *params, *jsonObjects[i]);
+            }
+            else
+            {
+                BMCWEB_LOG_CRITICAL("Patch object not found for key: {}",
+                                 jsonPointers[i].to_string());
+            }
+        }
+    }
+
   private:
     static void
         placeResultStatic(const std::shared_ptr<MultiRouteResp>& multi,
@@ -128,6 +198,29 @@ inline void handleMultiFragmentGetRouting(
         std::bind_front(MultiRouteResp::handleGetFragmentRules,
                         std::make_shared<crow::Request>(*req), multiResp,
                         uriFragments, uriParams));
+}
+
+inline void handleMultiFragmentPatchRouting(
+    const std::shared_ptr<Request>& req,
+    const std::vector<RfOemBaseRule*>& fragments,
+    const std::vector<std::string>& params,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::object_t& payload)
+{
+    std::function<void(crow::Response&)> handler =
+        asyncResp->res.releaseCompleteRequestHandler();
+    auto multiResp = std::make_shared<bmcweb::AsyncResp>();
+    multiResp->res.setCompleteRequestHandler(std::move(handler));
+
+    // Copy so that they exists when completion handler is called.
+    auto uriFragments =
+        std::make_shared<std::vector<RfOemBaseRule*>>(fragments);
+    auto uriParams = std::make_shared<std::vector<std::string>>(params);
+
+    asyncResp->res.setCompleteRequestHandler(
+        std::bind_front(MultiRouteResp::handlePatchFragmentRules,
+                        std::make_shared<crow::Request>(*req), multiResp,
+                        uriFragments, uriParams, payload));
 }
 
 class RfOemRouter
@@ -321,6 +414,26 @@ class RfOemRouter
         if (!fragments.empty())
         {
             handleMultiFragmentGetRouting(req, fragments, params, asyncResp);
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG("No OEM routes found");
+        }
+    }
+
+    void handleOemPatch(const std::shared_ptr<Request>& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const nlohmann::json::object_t& payload)
+    {
+        BMCWEB_LOG_DEBUG("Checking OEM routes");
+        FindRouteResponse foundRoute = findRoute(*req);
+        std::vector<RfOemBaseRule*> fragments =
+            std::move(foundRoute.route.fragmentRules);
+        std::vector<std::string> params = std::move(foundRoute.route.params);
+        if (!fragments.empty())
+        {
+            handleMultiFragmentPatchRouting(req, fragments, params, asyncResp,
+                                            payload);
         }
         else
         {
