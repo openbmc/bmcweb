@@ -36,7 +36,7 @@ class OemBaseRule : public crow::BaseRule
     virtual void handle(const crow::Request& /*req*/,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const std::vector<std::string>& /*params*/,
-                        const nlohmann::json& /*payload*/)
+                        nlohmann::json::object_t& /*payload*/)
     {
         asyncResp->res.result(boost::beast::http::status::not_found);
     }
@@ -72,7 +72,7 @@ class OemRule :
     void setPatchHandler(
         std::function<void(const crow::Request&,
                            const std::shared_ptr<bmcweb::AsyncResp>&,
-                           const nlohmann::json::object_t& payload, Args...)>
+                           nlohmann::json::object_t& payload, Args...)>
             newHandler)
     {
         patchHandler = std::move(newHandler);
@@ -114,9 +114,10 @@ class OemRule :
     void handle(const crow::Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 const std::vector<std::string>& params,
-                const nlohmann::json& payload) override
+                nlohmann::json::object_t& payload) override
     {
-        BMCWEB_LOG_DEBUG("OEM Patch Fragment JSON {}", payload.dump(4));
+        BMCWEB_LOG_DEBUG("OEM Patch Fragment JSON {}",
+                         nlohmann::json(payload).dump(4));
 
         if constexpr (sizeof...(Args) == 0)
         {
@@ -154,7 +155,7 @@ class OemRule :
         getHandler;
     std::function<void(const crow::Request&,
                        const std::shared_ptr<bmcweb::AsyncResp>&,
-                       const nlohmann::json::object_t& payload, Args...)>
+                       nlohmann::json::object_t& payload, Args...)>
         patchHandler;
 };
 } // namespace redfish
