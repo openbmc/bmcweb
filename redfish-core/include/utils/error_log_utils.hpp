@@ -5,6 +5,28 @@ namespace redfish
 namespace error_log_utils
 {
 
+static void getHiddenPropertyValue(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryId, std::function<void(bool hidden)>&& callback)
+{
+    sdbusplus::asio::getProperty<bool>(
+        *crow::connections::systemBus, "xyz.openbmc_project.Logging",
+        "/xyz/openbmc_project/logging/entry/" + entryId,
+        "org.open_power.Logging.PEL.Entry", "Hidden",
+        [callback = std::move(callback), asyncResp,
+         entryId](const boost::system::error_code& ec, bool hidden) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "Failed to get DBUS property 'Hidden' for entry {}: {}",
+                    entryId, ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            callback(hidden);
+        });
+}
+
 /*
  * @brief The helper API to set the Redfish error log URI in the given
  *        Redfish property JSON path based on the Hidden property

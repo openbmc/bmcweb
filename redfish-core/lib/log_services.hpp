@@ -2091,26 +2091,6 @@ inline void requestRoutesJournalEventLogEntry(App& app)
             });
 }
 
-template <typename Callback>
-void getHiddenPropertyValue(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& entryId, Callback&& callback)
-{
-    sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, "xyz.openbmc_project.Logging",
-        "/xyz/openbmc_project/logging/entry/" + entryId,
-        "org.open_power.Logging.PEL.Entry", "Hidden",
-        [callback{std::forward<Callback>(callback)},
-         asyncResp](const boost::system::error_code& ec, bool hidden) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            callback(hidden);
-        });
-}
-
 inline void updateProperty(const std::optional<bool>& resolved,
                            const std::optional<bool>& managementSystemAck,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2999,8 +2979,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         updateProperty(resolved, managementSystemAck, asyncResp,
                                        entryId);
                     };
-                getHiddenPropertyValue(asyncResp, entryId,
-                                       std::move(updatePropertyCallback));
+                redfish::error_log_utils::getHiddenPropertyValue(
+                    asyncResp, entryId, std::move(updatePropertyCallback));
             });
 
     BMCWEB_ROUTE(
@@ -3044,8 +3024,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                         }
                         deleteEventLogEntry(asyncResp, entryID);
                     };
-                getHiddenPropertyValue(asyncResp, entryID,
-                                       std::move(deleteEventLogCallback));
+                redfish::error_log_utils::getHiddenPropertyValue(
+                    asyncResp, entryID, std::move(deleteEventLogCallback));
             });
 }
 
@@ -3255,8 +3235,8 @@ inline void requestRoutesDBusCELogEntry(App& app)
                         updateProperty(resolved, managementSystemAck, asyncResp,
                                        entryId);
                     };
-                getHiddenPropertyValue(asyncResp, entryId,
-                                       std::move(updatePropertyCallback));
+                redfish::error_log_utils::getHiddenPropertyValue(
+                    asyncResp, entryId, std::move(updatePropertyCallback));
             });
 
     BMCWEB_ROUTE(app,
@@ -3293,8 +3273,8 @@ inline void requestRoutesDBusCELogEntry(App& app)
                         }
                         deleteEventLogEntry(asyncResp, entryID);
                     };
-                getHiddenPropertyValue(asyncResp, entryID,
-                                       std::move(deleteCELogCallback));
+                redfish::error_log_utils::getHiddenPropertyValue(
+                    asyncResp, entryID, std::move(deleteCELogCallback));
             });
 }
 
@@ -3376,8 +3356,8 @@ inline void requestRoutesDBusEventLogEntryDownloadPelJson(App& app)
                         }
                         displayOemPelAttachment(asyncResp, entryID);
                     };
-                getHiddenPropertyValue(asyncResp, entryID,
-                                       std::move(eventLogAttachmentCallback));
+                redfish::error_log_utils::getHiddenPropertyValue(
+                    asyncResp, entryID, std::move(eventLogAttachmentCallback));
             });
 }
 
@@ -3416,8 +3396,8 @@ inline void requestRoutesDBusCELogEntryDownloadPelJson(App& app)
                         }
                         displayOemPelAttachment(asyncResp, entryID);
                     };
-                getHiddenPropertyValue(asyncResp, entryID,
-                                       std::move(eventLogAttachmentCallback));
+                redfish::error_log_utils::getHiddenPropertyValue(
+                    asyncResp, entryID, std::move(eventLogAttachmentCallback));
             });
 }
 
@@ -4370,7 +4350,8 @@ inline void handleDBusEventLogEntryDownloadGet(
         }
         downloadEventLogEntry(asyncResp, systemName, entryID, dumpType);
     };
-    getHiddenPropertyValue(asyncResp, entryID, std::move(callback));
+    redfish::error_log_utils::getHiddenPropertyValue(asyncResp, entryID,
+                                                     std::move(callback));
 }
 
 inline void handleLogServicesDumpCollectDiagnosticDataPost(
@@ -7245,8 +7226,8 @@ inline void fillSystemHardwareIsolationLogEntry(
                                         "/redfish/v1/Systems/system/LogServices/{}/Entries/{}/attachment",
                                         logPath, entryID);
                             };
-                            getHiddenPropertyValue(asyncResp, entryID,
-                                                   updateAdditionalDataURI);
+                            redfish::error_log_utils::getHiddenPropertyValue(
+                                asyncResp, entryID, updateAdditionalDataURI);
                         }
                     }
                 }
