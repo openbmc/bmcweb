@@ -8,7 +8,6 @@
 #include "error_messages.hpp"
 #include "generated/enums/log_entry.hpp"
 #include "generated/enums/log_service.hpp"
-#include "gzfile.hpp"
 #include "http_utility.hpp"
 #include "human_sort.hpp"
 #include "query.hpp"
@@ -1918,66 +1917,6 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                 }
                 dBusEventLogEntryDelete(asyncResp, param);
             });
-}
-
-constexpr const char* hostLoggerFolderPath = "/var/log/console";
-
-inline bool
-    getHostLoggerFiles(const std::string& hostLoggerFilePath,
-                       std::vector<std::filesystem::path>& hostLoggerFiles)
-{
-    std::error_code ec;
-    std::filesystem::directory_iterator logPath(hostLoggerFilePath, ec);
-    if (ec)
-    {
-        BMCWEB_LOG_WARNING("{}", ec.message());
-        return false;
-    }
-    for (const std::filesystem::directory_entry& it : logPath)
-    {
-        std::string filename = it.path().filename();
-        // Prefix of each log files is "log". Find the file and save the
-        // path
-        if (filename.starts_with("log"))
-        {
-            hostLoggerFiles.emplace_back(it.path());
-        }
-    }
-    // As the log files rotate, they are appended with a ".#" that is higher for
-    // the older logs. Since we start from oldest logs, sort the name in
-    // descending order.
-    std::sort(hostLoggerFiles.rbegin(), hostLoggerFiles.rend(),
-              AlphanumLess<std::string>());
-
-    return true;
-}
-
-inline bool getHostLoggerEntries(
-    const std::vector<std::filesystem::path>& hostLoggerFiles, uint64_t skip,
-    uint64_t top, std::vector<std::string>& logEntries, size_t& logCount)
-{
-    GzFileReader logFile;
-
-    // Go though all log files and expose host logs.
-    for (const std::filesystem::path& it : hostLoggerFiles)
-    {
-        if (!logFile.gzGetLines(it.string(), skip, top, logEntries, logCount))
-        {
-            BMCWEB_LOG_ERROR("fail to expose host logs");
-            return false;
-        }
-    }
-    // Get lastMessage from constructor by getter
-    std::string lastMessage = logFile.getLastMessage();
-    if (!lastMessage.empty())
-    {
-        logCount++;
-        if (logCount > skip && logCount <= (skip + top))
-        {
-            logEntries.push_back(lastMessage);
-        }
-    }
-    return true;
 }
 
 inline void handleBMCLogServicesCollectionGet(
