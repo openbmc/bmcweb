@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7163a430_d7bc4301",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T11:59:28Z",
+      "side": 1,
+      "message": "used here https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/utils/query_param.hpp#L845. Needed for MultiAsyncResp error management part of query parameter handling.",
+      "parentUuid": "ffc07cc3_fde56fc6",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b369f13_35f6aa23",
@@ -48,6 +66,24 @@
       "writtenOn": "2025-01-28T20:18:12Z",
       "side": 1,
       "message": "Where is vector used ?",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bf0fa9d_3d5eba14",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T11:59:28Z",
+      "side": 1,
+      "message": "removed.",
+      "parentUuid": "8b369f13_35f6aa23",
       "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -69,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43af56a4_d898128e",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T11:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43687e78_392a5bb5",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e0992ec_5ca2ae17",
@@ -82,6 +136,24 @@
       "writtenOn": "2025-01-28T20:18:12Z",
       "side": 1,
       "message": "include \u003calgorithm\u003e",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6e1da83_358bb4ba",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T11:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e0992ec_5ca2ae17",
       "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -103,6 +175,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c738b6f_16be5fee",
+        "filename": "test/redfish-core/include/utils/error_code_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T11:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e10dd938_8bb63f53",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9acd8cb_204e3823",
+        "filename": "test/redfish-core/include/utils/error_code_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T11:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e10dd938_8bb63f53",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61a32129_63047f12",
@@ -116,6 +224,24 @@
       "writtenOn": "2025-01-28T20:18:12Z",
       "side": 1,
       "message": "#include array",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0737354_37ddb345",
+        "filename": "test/redfish-core/include/utils/error_code_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T11:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61a32129_63047f12",
       "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -137,6 +263,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2e3b360_e1b6f0fe",
+        "filename": "test/redfish-core/include/utils/error_code_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T11:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b592510_8fa28f63",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7baba1fb_a06ae7b8",
@@ -150,6 +294,24 @@
       "writtenOn": "2025-01-28T20:18:12Z",
       "side": 1,
       "message": "#include string",
+      "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ebdf575_80e30301",
+        "filename": "test/redfish-core/include/utils/error_code_test.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T11:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7baba1fb_a06ae7b8",
       "revId": "cd8c222732166798ad9729ba0345b5f2e9c54dab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
