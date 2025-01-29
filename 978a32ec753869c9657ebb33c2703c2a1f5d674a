@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9547df4e_fa227847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-01-29T05:08:58Z",
+      "side": 1,
+      "message": "This code (copied from bmcweb) run at https://www.programiz.com/cpp-programming/online-compiler/\nGiving an output of \"48A66EB93C00AD4F6327FB3FC2A338FC\"\n\n```\nint main() {\n    std::string_view cookieValue \u003d \"JSESSIONIDSSO\u003d4E999D77EF4E01CB72DE63949D5FF830; CCFWSESSION\u003d48A66EB93C00AD4F6327FB3FC2A338FC; LOGIN_MODE\u003dDashboard; SESSION\u003djfYYuI9STTiZl3tWMBVF\";\n     auto startIndex \u003d cookieValue.find(\"SESSION\u003d\");\n             if (startIndex \u003d\u003d std::string::npos)\n        {\n            std::cout \u003c\u003c \"no cookie found\";\n            return -1;\n        }\n        startIndex +\u003d sizeof(\"SESSION\u003d\") - 1;\n        auto endIndex \u003d cookieValue.find(\u0027;\u0027, startIndex);\n        if (endIndex \u003d\u003d std::string::npos)\n        {\n            endIndex \u003d cookieValue.size();\n        }\n        std::string_view authKey \u003d\n            cookieValue.substr(startIndex, endIndex - startIndex);\n        std::cout \u003c\u003c authKey;\n           \n    return 0;\n}\n```\nshows the problem",
+      "revId": "978a32ec753869c9657ebb33c2703c2a1f5d674a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
