@@ -179,6 +179,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "462fc6bf_9e8f5d04",
+        "filename": "config/meson.build",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:04:25Z",
+      "side": 1,
+      "message": "ok I have removed the openbmc-oem-schema flag. The OEM get is under no flag (same as current code).",
+      "parentUuid": "1d40851d_46d8dad7",
+      "range": {
+        "startLine": 24,
+        "startChar": 17,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "5f31cce06f2d6128d0ba51027c629262224feb0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14559bfe_93c6ac92",

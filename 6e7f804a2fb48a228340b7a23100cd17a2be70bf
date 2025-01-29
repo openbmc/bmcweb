@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99992e2c_e49df6e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:04:25Z",
+      "side": 1,
+      "message": "I have wrapped the body at 72. Please check if it looks good.",
+      "parentUuid": "1dcf171d_70bd116d",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bec11c62_e6367d82",
         "filename": "/COMMIT_MSG",
         "patchSetId": 39
@@ -115,6 +133,30 @@
       "side": 1,
       "message": "Can you add more about this to the commit msg, more about what the end goal is",
       "parentUuid": "df5f7742_de891f79",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 13
+      },
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa6ebfac_b595af26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 39
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:04:25Z",
+      "side": 1,
+      "message": "Yes added now.",
+      "parentUuid": "09cfce77_b3c51f15",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -314,6 +356,24 @@
       "side": 1,
       "message": "#include \u003cmemory\u003e \n\nPlease don\u0027t resolve the comment if you haven\u0027t addressed. Thanks!",
       "parentUuid": "90b3a8d1_2c8dd1c6",
+      "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d251f28d_5bc7fa05",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:04:25Z",
+      "side": 1,
+      "message": "Done. I am sorry it was a mistake.",
+      "parentUuid": "0dda280e_62780550",
       "revId": "6e7f804a2fb48a228340b7a23100cd17a2be70bf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

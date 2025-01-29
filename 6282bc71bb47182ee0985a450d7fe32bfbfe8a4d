@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e6cf963_ebcc84ba",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 2080,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:04:25Z",
+      "side": 0,
+      "message": "This handler is specific to GET and I push in another MR for PATCH. Currently I dont see BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA flag used for Manager OEM GET code.",
+      "parentUuid": "27ff0c30_764bf093",
+      "range": {
+        "startLine": 2071,
+        "startChar": 1,
+        "endLine": 2080,
+        "endChar": 69
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e945507_c6219b03",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 39
@@ -109,6 +133,30 @@
       "side": 0,
       "message": "You are still removing the link here but leaving the code still there.. \n\nWith your code, if BMCWEB_OPENBMC_OEM_SCHEMA \u003d False can still get to /redfish/v1/Managers/\u003cstr\u003e/Truststore/Certificates/\u003cstr\u003e/ \nwhich is wrong",
       "parentUuid": "bd6e0550_78bed440",
+      "range": {
+        "startLine": 2082,
+        "startChar": 0,
+        "endLine": 2086,
+        "endChar": 65
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9a001b0_e172b680",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:04:25Z",
+      "side": 0,
+      "message": "BMCWEB_OPENBMC_OEM_SCHEMA is been removed now. As per Ed\u0027s recommendation i will not add any new flag part of this MR and we can decide that on need basis for future evolution.",
+      "parentUuid": "e523c6f8_06c9102e",
       "range": {
         "startLine": 2082,
         "startChar": 0,
