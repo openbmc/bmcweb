@@ -16,6 +16,24 @@
       "message": "This is interesting with `redfish-core/lib/certificate_service.hpp`\n\nhttps://jenkins.openbmc.org/job/ci-repository/99083/console\n\nCI suggests\n```\n--- a/redfish-core/lib/certificate_service.hpp\n+++ b/redfish-core/lib/certificate_service.hpp\n@@ -21,6 +21,7 @@\n #include \"utils/json_utils.hpp\"\n #include \"utils/time_utils.hpp\"\n \n+#include \u003cstdlib.h\u003e       \u003c\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n #include \u003csystemd/sd-bus.h\u003e\n ```\n \n However, I add \u003cstdlib.h\u003e, the next CI suggests to remove it.\n \n https://jenkins.openbmc.org/job/ci-repository/99082/console\n \n ```\n diff --git a/redfish-core/lib/certificate_service.hpp b/redfish-core/lib/certificate_service.hpp\nindex 9cdbb774..36e238d4 100644\n--- a/redfish-core/lib/certificate_service.hpp\n+++ b/redfish-core/lib/certificate_service.hpp\n@@ -21,7 +21,6 @@\n #include \"utils/json_utils.hpp\"\n #include \"utils/time_utils.hpp\"\n \n-#include \u003cstdlib.h\u003e      \u003c\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n #include \u003csystemd/sd-bus.h\u003e\n \n```\n\nThis seems alternating.",
       "revId": "3d42c5c19ece6f59b21795f2b670e56c460036c2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9f64edc_1bebbc2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-29T20:25:49Z",
+      "side": 1,
+      "message": "Yep.  There\u0027s already a bunch of places I\u0027ve handled this.",
+      "parentUuid": "0edc02f3_46c38a38",
+      "revId": "3d42c5c19ece6f59b21795f2b670e56c460036c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
