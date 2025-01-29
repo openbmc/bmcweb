@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eeb7e1ce_f3500f5c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 55
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:37:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2025798f_6ff3dd4f",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 12
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c3e2cfe_8d33584d",
@@ -164,6 +188,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a364bd08_b0bcdfc4",
+        "filename": "http/routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:37:38Z",
+      "side": 1,
+      "message": "The code flow is only during rule registration and does not participate in finding external URI match. If the registered URIs in the code are good, do we still see this as issue.",
+      "parentUuid": "45c720e0_95504835",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 9
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc8a78ef_31c6fb67",
         "filename": "http/routing/redfishoemrule.hpp",
         "patchSetId": 55
@@ -192,6 +240,30 @@
       "writtenOn": "2025-01-28T16:36:59Z",
       "side": 1,
       "message": "?  There might be no handler for most URLs?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 67
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9cd20c5_99871632",
+        "filename": "http/routing/redfishoemrule.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:37:38Z",
+      "side": 1,
+      "message": "This is very specific to OEM Rule. A rule should have at least one of these handlers. Not applicable for the original rule. I have rephrased the sentence.",
+      "parentUuid": "4b8304b0_ffe30123",
       "range": {
         "startLine": 54,
         "startChar": 0,
@@ -238,6 +310,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1453b38_95793bea",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:37:38Z",
+      "side": 1,
+      "message": "The function is only called on internal rules which are registered not on external URIs. Do you any example of a rule against which I can test this code.",
+      "parentUuid": "dbd9b5aa_98a70ff2",
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19fdbe77_c002d61d",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 55
@@ -255,6 +345,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "697893b9_12639a62",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 2128,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:37:38Z",
+      "side": 1,
+      "message": "Yes agree. Will push in the next patch-set.",
+      "parentUuid": "19fdbe77_c002d61d",
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d623b339_fd77c8a7",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 55
@@ -266,6 +374,30 @@
       "writtenOn": "2025-01-28T16:36:59Z",
       "side": 1,
       "message": "This means that the oem routes will get called after all the normal routes have had a chance to error.  I suspect we want to call them in parallel.",
+      "range": {
+        "startLine": 2295,
+        "startChar": 0,
+        "endLine": 2295,
+        "endChar": 78
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c16ba462_312bb374",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 2295,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:37:38Z",
+      "side": 1,
+      "message": "Yes my initial design was to have the main handler finish and then we call the others in parallel later. I will update the code to call all handlers in parallel. So same async resp object will be shared with all handlers and basically we dont need any response aggregation right now ? please let me know if you agree with this and I will push the code.",
+      "parentUuid": "d623b339_fd77c8a7",
       "range": {
         "startLine": 2295,
         "startChar": 0,

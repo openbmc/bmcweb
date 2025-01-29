@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8cd29d3d_51aa178a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 2080,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:37:38Z",
+      "side": 0,
+      "message": "OK I see pid data part of OEM I will push a patch for it.",
+      "parentUuid": "4e6cf963_ebcc84ba",
+      "range": {
+        "startLine": 2071,
+        "startChar": 1,
+        "endLine": 2080,
+        "endChar": 69
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e945507_c6219b03",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 39

@@ -33,6 +33,24 @@
       "message": "Lets move these to a new file in its own commit, ahead of this one.  I suspect that refactor can merge immediately.",
       "revId": "fda37f9b6d12ff0852cba4dcdecfd633436e6152",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf5c317f_0b614acc",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-29T13:37:38Z",
+      "side": 0,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/77522",
+      "parentUuid": "d071b7a6_c10ae456",
+      "revId": "fda37f9b6d12ff0852cba4dcdecfd633436e6152",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
