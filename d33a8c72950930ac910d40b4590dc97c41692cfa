@@ -52,6 +52,24 @@
       "parentUuid": "f2ffec6d_2631cd3a",
       "revId": "d33a8c72950930ac910d40b4590dc97c41692cfa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7ce045d_f1f1ef7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-30T18:45:06Z",
+      "side": 1,
+      "message": "See https://gerrit.openbmc.org/c/openbmc/bmcweb/+/77578",
+      "parentUuid": "b5a5d019_ea0a81db",
+      "revId": "d33a8c72950930ac910d40b4590dc97c41692cfa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
