@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2b16135_864701d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-01-30T21:12:40Z",
+      "side": 1,
+      "message": "It looks good to me.\nOnce removal of WIP from the series, they can be merged.",
+      "revId": "3227eb12a8c77097301f9c8881d4a8152ac8af4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
