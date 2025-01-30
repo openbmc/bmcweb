@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c817457f_b5a0294b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-30T21:07:04Z",
+      "side": 1,
+      "message": "Myung I think this series got everything figured out:\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/77578",
+      "revId": "85c9c8ead7a87d4a2e99a2e3bce3bec6e6251eb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
