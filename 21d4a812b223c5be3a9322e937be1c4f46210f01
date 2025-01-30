@@ -291,6 +291,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c9c67b1_08f28b3f",
+        "filename": "redfish-core/include/utils/error_code.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T06:22:28Z",
+      "side": 1,
+      "message": "this change is been removed form this MR.",
+      "parentUuid": "85b8b27b_1b073c98",
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dbd9b5aa_98a70ff2",
