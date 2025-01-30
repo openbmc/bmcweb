@@ -1346,6 +1346,17 @@ inline void processAccountUpdate(
         }
     }
 
+    auto& sessionStore = persistent_data::SessionStore::getInstance();
+    std::shared_ptr<persistent_data::UserSession> userSession =
+        sessionStore.loginSessionByToken(session->sessionToken);
+
+    if (mfaBypass && userSession && userSession->isConfigureSelfOnly)
+    {
+        BMCWEB_LOG_ERROR("Bypassing MFA for self is not allowed");
+        messages::operationNotAllowed(asyncResp->res);
+        return;
+    }
+
     if (mfaBypass)
     {
         std::string mfaBypassDbusVal;
@@ -2521,14 +2532,21 @@ inline void
     std::optional<bool> locked;
     std::optional<std::vector<std::string>> accountTypes;
     std::optional<nlohmann::json> oem;
-    std::optional<std::vector<std::string>> mfaBypass;
+    std::optional<nlohmann::json> mfaBypassJson;
 
     if (!json_util::readJsonPatch(
             req, asyncResp->res, "UserName", newUserName, "Password", password,
             "RoleId", roleId, "Enabled", enabled, "Locked", locked, "Oem", oem,
-            "AccountTypes", accountTypes, "MFABypass/BypassTypes", mfaBypass))
+            "AccountTypes", accountTypes, "MFABypass", mfaBypassJson))
     {
         return;
+    }
+
+    std::optional<std::vector<std::string>> mfaBypass;
+    if (mfaBypassJson)
+    {
+        json_util::readJson(*mfaBypassJson, asyncResp->res, "BypassTypes",
+                            mfaBypass);
     }
 
     // Unauthenticated user
