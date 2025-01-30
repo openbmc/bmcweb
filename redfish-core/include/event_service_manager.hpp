@@ -10,6 +10,7 @@
 #include "event_matches_filter.hpp"
 #include "event_service_store.hpp"
 #include "filesystem_log_watcher.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "metric_report.hpp"
 #include "ossl_random.hpp"
@@ -18,7 +19,6 @@
 #include "subscription.hpp"
 #include "utils/time_utils.hpp"
 
-#include <boost/asio/io_context.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/circular_buffer/base.hpp>
 #include <boost/container/flat_map.hpp>
@@ -77,8 +77,6 @@ class EventServiceManager
     constexpr static size_t maxMessages = 200;
     boost::circular_buffer<Event> messages{maxMessages};
 
-    boost::asio::io_context& ioc;
-
   public:
     EventServiceManager(const EventServiceManager&) = delete;
     EventServiceManager& operator=(const EventServiceManager&) = delete;
@@ -86,16 +84,15 @@ class EventServiceManager
     EventServiceManager& operator=(EventServiceManager&&) = delete;
     ~EventServiceManager() = default;
 
-    explicit EventServiceManager(boost::asio::io_context& iocIn) : ioc(iocIn)
+    explicit EventServiceManager()
     {
         // Load config from persist store.
         initConfig();
     }
 
-    static EventServiceManager&
-        getInstance(boost::asio::io_context* ioc = nullptr)
+    static EventServiceManager& getInstance()
     {
-        static EventServiceManager handler(*ioc);
+        static EventServiceManager handler;
         return handler;
     }
 
@@ -127,7 +124,7 @@ class EventServiceManager
                 continue;
             }
             std::shared_ptr<Subscription> subValue =
-                std::make_shared<Subscription>(newSub, *url, ioc);
+                std::make_shared<Subscription>(newSub, *url, getIoContext());
             std::string id = subValue->userSub->id;
             subValue->deleter = [id]() {
                 EventServiceManager::getInstance().deleteSubscription(id);
@@ -283,7 +280,7 @@ class EventServiceManager
                 {
                     if (!filesystemLogMonitor)
                     {
-                        filesystemLogMonitor.emplace(ioc);
+                        filesystemLogMonitor.emplace(getIoContext());
                     }
                 }
             }
@@ -380,7 +377,7 @@ class EventServiceManager
             {
                 if (!filesystemLogMonitor)
                 {
-                    filesystemLogMonitor.emplace(ioc);
+                    filesystemLogMonitor.emplace(getIoContext());
                 }
             }
         }

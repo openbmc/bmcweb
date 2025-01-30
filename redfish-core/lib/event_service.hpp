@@ -12,6 +12,7 @@
 #include "generated/enums/event_destination.hpp"
 #include "http/utility.hpp"
 #include "http_request.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries.hpp"
@@ -491,7 +492,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
             std::shared_ptr<Subscription> subValue =
                 std::make_shared<Subscription>(
                     std::make_shared<persistent_data::UserSubscription>(), *url,
-                    app.ioContext());
+                    getIoContext());
 
             if (subscriptionType)
             {
