@@ -373,6 +373,7 @@ class Trie
     std::vector<Node> nodes;
 };
 
+template <template <typename...> class TaggedRuleT, typename BaseRuleT>
 class Router
 {
   public:
@@ -393,7 +394,7 @@ class Router
     {
         if constexpr (NumArgs == 0)
         {
-            using RuleT = TaggedRule<>;
+            using RuleT = TaggedRuleT<>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
@@ -401,7 +402,7 @@ class Router
         }
         else if constexpr (NumArgs == 1)
         {
-            using RuleT = TaggedRule<std::string>;
+            using RuleT = TaggedRuleT<std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
@@ -409,7 +410,7 @@ class Router
         }
         else if constexpr (NumArgs == 2)
         {
-            using RuleT = TaggedRule<std::string, std::string>;
+            using RuleT = TaggedRuleT<std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
@@ -417,7 +418,7 @@ class Router
         }
         else if constexpr (NumArgs == 3)
         {
-            using RuleT = TaggedRule<std::string, std::string, std::string>;
+            using RuleT = TaggedRuleT<std::string, std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
@@ -426,7 +427,7 @@ class Router
         else if constexpr (NumArgs == 4)
         {
             using RuleT =
-                TaggedRule<std::string, std::string, std::string, std::string>;
+                TaggedRuleT<std::string, std::string, std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
             allRules.emplace_back(std::move(ruleObject));
@@ -434,7 +435,7 @@ class Router
         }
         else
         {
-            using RuleT = TaggedRule<std::string, std::string, std::string,
+            using RuleT = TaggedRuleT<std::string, std::string, std::string,
                                      std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
@@ -446,13 +447,13 @@ class Router
 
     struct PerMethod
     {
-        std::vector<BaseRule*> rules;
+        std::vector<BaseRuleT*> rules;
         Trie trie;
         // rule index 0 has special meaning; preallocate it to avoid
         // duplication.
         PerMethod() : rules(1) {}
 
-        void internalAdd(std::string_view rule, BaseRule* ruleObject)
+        void internalAdd(std::string_view rule, BaseRuleT* ruleObject)
         {
             rules.emplace_back(ruleObject);
             trie.add(rule, static_cast<unsigned>(rules.size() - 1U));
@@ -466,7 +467,7 @@ class Router
         }
     };
 
-    void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
+    void internalAddRuleObject(const std::string& rule, BaseRuleT* ruleObject)
     {
         if (ruleObject == nullptr)
         {
@@ -499,11 +500,11 @@ class Router
 
     void validate()
     {
-        for (std::unique_ptr<BaseRule>& rule : allRules)
+        for (std::unique_ptr<BaseRuleT>& rule : allRules)
         {
             if (rule)
             {
-                std::unique_ptr<BaseRule> upgraded = rule->upgrade();
+                std::unique_ptr<BaseRuleT> upgraded = rule->upgrade();
                 if (upgraded)
                 {
                     rule = std::move(upgraded);
@@ -520,7 +521,7 @@ class Router
 
     struct FindRoute
     {
-        BaseRule* rule = nullptr;
+        BaseRuleT* rule = nullptr;
         std::vector<std::string> params;
     };
 
@@ -602,7 +603,7 @@ class Router
     {
         PerMethod& perMethod = upgradeRoutes;
         Trie& trie = perMethod.trie;
-        std::vector<BaseRule*>& rules = perMethod.rules;
+        std::vector<BaseRuleT*>& rules = perMethod.rules;
 
         Trie::FindResult found = trie.find(req->url().encoded_path());
         unsigned ruleIndex = found.ruleIndex;
@@ -619,7 +620,7 @@ class Router
             throw std::runtime_error("Trie internal structure corrupted!");
         }
 
-        BaseRule& rule = *rules[ruleIndex];
+        BaseRuleT& rule = *rules[ruleIndex];
 
         BMCWEB_LOG_DEBUG("Matched rule (upgrade) '{}'", rule.rule);
 
@@ -678,7 +679,7 @@ class Router
             return;
         }
 
-        BaseRule& rule = *foundRoute.route.rule;
+        BaseRuleT& rule = *foundRoute.route.rule;
         std::vector<std::string> params = std::move(foundRoute.route.params);
 
         BMCWEB_LOG_DEBUG("Matched rule '{}' {} / {}", rule.rule,
@@ -728,6 +729,6 @@ class Router
     PerMethod upgradeRoutes;
     PerMethod methodNotAllowedRoutes;
 
-    std::vector<std::unique_ptr<BaseRule>> allRules;
+    std::vector<std::unique_ptr<BaseRuleT>> allRules;
 };
 } // namespace crow

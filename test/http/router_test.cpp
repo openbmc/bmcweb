@@ -29,7 +29,7 @@ TEST(Router, AllowHeader)
     auto nullCallback =
         [](const Request&, const std::shared_ptr<bmcweb::AsyncResp>&) {};
 
-    Router router;
+    Router<crow::TaggedRule, crow::BaseRule> router;
     std::error_code ec;
 
     constexpr std::string_view url = "/foo";
@@ -73,7 +73,7 @@ TEST(Router, OverlapingRoutes)
             EXPECT_EQ(bar, "bar");
         };
 
-    Router router;
+    Router<crow::TaggedRule, crow::BaseRule> router;
     std::error_code ec;
 
     router.newRuleTagged<getParameterTag("/foo/<str>")>("/foo/<str>")(
@@ -104,7 +104,7 @@ TEST(Router, 404)
             notFoundCalled = true;
         };
 
-    Router router;
+    Router<crow::TaggedRule, crow::BaseRule> router;
     std::error_code ec;
 
     constexpr std::string_view url = "/foo/bar";
@@ -135,7 +135,7 @@ TEST(Router, 405)
             called = true;
         };
 
-    Router router;
+    Router<crow::TaggedRule, crow::BaseRule> router;
     std::error_code ec;
 
     constexpr std::string_view url = "/foo/bar";

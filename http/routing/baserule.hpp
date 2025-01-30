@@ -95,7 +95,9 @@ class BaseRule
 
     std::unique_ptr<BaseRule> ruleToUpgrade;
 
+    template <template <typename...> class TaggedRuleT, typename BaseRuleT>
     friend class Router;
+    
     template <typename T>
     friend struct RuleParameterTraits;
 };

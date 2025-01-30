@@ -165,7 +165,7 @@ class App
 
     std::optional<server_type> server;
 
-    Router router;
+    Router<crow::TaggedRule, crow::BaseRule> router;
 };
 } // namespace crow
 using App = crow::App;
