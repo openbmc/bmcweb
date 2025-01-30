@@ -233,6 +233,17 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
             return;
         }
 
+        /* Reset AMD u-boot variables,
+           Factory reset doesnt operate on uboot env partition
+        */
+        int systemRet = system("/usr/sbin/fw_setenv -s /etc/uboot_defenv ");
+        if (systemRet == -1)
+        {
+            BMCWEB_LOG_ERROR("Failed to clear u-boot configurations");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code& ec) {
             if (ec)
