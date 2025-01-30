@@ -96,6 +96,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5698fb5_cd4e25c9",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 2080,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T15:48:46Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "8cd29d3d_51aa178a",
+      "range": {
+        "startLine": 2071,
+        "startChar": 1,
+        "endLine": 2080,
+        "endChar": 69
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32e699d2_e249ba92",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 2080,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T15:48:46Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "8cd29d3d_51aa178a",
+      "range": {
+        "startLine": 2071,
+        "startChar": 1,
+        "endLine": 2080,
+        "endChar": 69
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e945507_c6219b03",
@@ -181,6 +229,54 @@
       "side": 0,
       "message": "BMCWEB_OPENBMC_OEM_SCHEMA is been removed now. As per Ed\u0027s recommendation i will not add any new flag part of this MR and we can decide that on need basis for future evolution.",
       "parentUuid": "e523c6f8_06c9102e",
+      "range": {
+        "startLine": 2082,
+        "startChar": 0,
+        "endLine": 2086,
+        "endChar": 65
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d96cf5b_76c38d9f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T15:48:46Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "e9a001b0_e172b680",
+      "range": {
+        "startLine": 2082,
+        "startChar": 0,
+        "endLine": 2086,
+        "endChar": 65
+      },
+      "revId": "6282bc71bb47182ee0985a450d7fe32bfbfe8a4d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b14e6de_77d576a6",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T15:48:46Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "e9a001b0_e172b680",
       "range": {
         "startLine": 2082,
         "startChar": 0,
