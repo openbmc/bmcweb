@@ -416,16 +416,18 @@ def create_error_registry(
         out.write(WARNING)
         out.write(
             """
-
+// These generated headers are a superset of what is needed.
+// clang sees them as an error, so ignore
+// NOLINTBEGIN(misc-include-cleaner)
 #include "http_response.hpp"
 
 #include <boost/url/url_view_base.hpp>
 #include <nlohmann/json.hpp>
 
+#include <cstdint>
 #include <source_location>
 #include <string_view>
-
-// IWYU pragma: no_forward_declare crow::Response
+// NOLINTEND(misc-include-cleaner)
 
 namespace redfish
 {
