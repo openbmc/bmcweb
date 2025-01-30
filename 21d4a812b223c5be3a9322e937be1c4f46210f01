@@ -71,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b45f9641_3350a82e",
+        "filename": "http/app.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T07:51:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c3e2cfe_8d33584d",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 67
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba462ca2_e8886356",
@@ -84,6 +108,30 @@
       "writtenOn": "2025-01-28T16:36:59Z",
       "side": 1,
       "message": "Please pair this list down to what you actually use in this file.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 0
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a7245b6_f39c14d7",
+        "filename": "http/redfish_oem_routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T07:51:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba462ca2_e8886356",
       "range": {
         "startLine": 3,
         "startChar": 0,
@@ -117,6 +165,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5abec66_3c0aafad",
+        "filename": "http/redfish_oem_routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T07:51:27Z",
+      "side": 1,
+      "message": "Yes all OEM route handling is been moved from crow to redfish namespace. Thanks for sporting this.",
+      "parentUuid": "704404fb_59960686",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a351a6a2_d3796d68",
@@ -140,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b95d5646_15ee23c7",
+        "filename": "http/redfish_oem_routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T07:51:27Z",
+      "side": 1,
+      "message": "I have made updates to the existing class. let me know if you are ok with that.",
+      "parentUuid": "a351a6a2_d3796d68",
+      "range": {
+        "startLine": 42,
+        "startChar": 6,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7741a2dd_4b6c0ab2",
@@ -153,6 +249,30 @@
       "writtenOn": "2025-01-28T16:36:59Z",
       "side": 1,
       "message": "Everything from here was copy/pasted from router.hpp with minor mods?  Do we really need that level of complexity?  Can anything be deduplicated?",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 2
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29d9a714_ef6d314c",
+        "filename": "http/redfish_oem_routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T07:51:27Z",
+      "side": 1,
+      "message": "I have reused Tries data structure and wanted to initially reuse most of the add/find methods but could not because of change in base rule object. We have defined new OemBaseRule which supports new handle operation with payload paramer required for patch operations.The other difference in the find apis is the response data structure \u0027FindRouteResponse\u0027 which includes fragments now compared to single rule. Keeping them separate can help with any future changes on OEM rule handling.",
+      "parentUuid": "7741a2dd_4b6c0ab2",
       "range": {
         "startLine": 110,
         "startChar": 0,
@@ -212,6 +332,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e241d9ed_ff8c5e28",
+        "filename": "http/routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T07:51:27Z",
+      "side": 1,
+      "message": "if you have any proposal on any extra checks which can be put in place. let me know.",
+      "parentUuid": "a364bd08_b0bcdfc4",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 9
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc8a78ef_31c6fb67",
         "filename": "http/routing/redfishoemrule.hpp",
         "patchSetId": 55
@@ -223,6 +367,24 @@
       "writtenOn": "2025-01-28T16:36:59Z",
       "side": 1,
       "message": "Nothing in the http layer should have a mention of anything \"redfish\".  Http folders and abstractions are for HTTP semantics.",
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b6cf244_7d899d0a",
+        "filename": "http/routing/redfishoemrule.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T07:51:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc8a78ef_31c6fb67",
       "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -264,6 +426,30 @@
       "side": 1,
       "message": "This is very specific to OEM Rule. A rule should have at least one of these handlers. Not applicable for the original rule. I have rephrased the sentence.",
       "parentUuid": "4b8304b0_ffe30123",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 67
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfea7af1_618de3bb",
+        "filename": "http/routing/redfishoemrule.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T07:51:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9cd20c5_99871632",
       "range": {
         "startLine": 54,
         "startChar": 0,
