@@ -283,6 +283,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5891ff69_17640686",
+        "filename": "http/redfish_oem_routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-01-30T12:10:03Z",
+      "side": 1,
+      "message": "One way to deduplicated is to make Rule type as a template argument and combine elements in the response data structure. We still need a class for RF OEM router to extend the GET and Patch handling. I did some quick change (does compile but not tested fully). https://gerrit.openbmc.org/c/openbmc/bmcweb/+/77571 -\u003e can you take a quick look. If this is a good direction then I can make it work.",
+      "parentUuid": "29d9a714_ef6d314c",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 2
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "45c720e0_95504835",
