@@ -6,8 +6,6 @@
 #include "logging.hpp"
 #include "ossl_random.hpp"
 #include "sessions.hpp"
-// NOLINTNEXTLINE(misc-include-cleaner)
-#include "utility.hpp"
 
 #include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
