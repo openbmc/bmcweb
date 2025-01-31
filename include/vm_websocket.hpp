@@ -10,9 +10,6 @@
 #include "logging.hpp"
 #include "websocket.hpp"
 
-// NOLINTNEXTLINE(modernize-deprecated-headers)
-#include <signal.h>
-
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_context.hpp>
@@ -75,6 +72,7 @@ class Handler : public std::enable_shared_from_this<Handler>
     {
         // boost::process::child::terminate uses SIGKILL, need to send SIGTERM
         // to allow the proxy to stop nbd-client and the USB device gadget.
+        // NOLINTNEXTLINE(misc-include-cleaner)
         int rc = kill(proxy.id(), SIGTERM);
         if (rc != 0)
         {
