@@ -7,11 +7,6 @@
 #include <security/_pam_types.h>
 #include <security/pam_appl.h>
 
-// misc-include-cleaner complains if this isn't included,
-// modernize-deprecated-headers complains if it is included.
-// NOLINTNEXTLINE(modernize-deprecated-headers)
-#include <string.h>
-
 #include <algorithm>
 #include <cstring>
 #include <memory>
