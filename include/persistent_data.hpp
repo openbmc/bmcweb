@@ -6,7 +6,6 @@
 #include "logging.hpp"
 #include "ossl_random.hpp"
 #include "sessions.hpp"
-// NOLINTNEXTLINE(misc-include-cleaner)
 #include "utility.hpp"
 
 #include <boost/beast/core/file_base.hpp>
@@ -22,6 +21,7 @@
 #include <optional>
 #include <string>
 #include <system_error>
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <utility>
 
 namespace persistent_data
