@@ -11,8 +11,6 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
-
-// NOLINTNEXTLINE(misc-include-cleaner)
 #include "nghttp2_adapters.hpp"
 
 #include <nghttp2/nghttp2.h>

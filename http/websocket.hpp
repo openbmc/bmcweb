@@ -22,12 +22,10 @@
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/websocket/error.hpp>
 #include <boost/beast/websocket/rfc6455.hpp>
+#include <boost/beast/websocket/ssl.hpp>
 #include <boost/beast/websocket/stream.hpp>
 #include <boost/beast/websocket/stream_base.hpp>
 #include <boost/url/url_view.hpp>
-
-// NOLINTNEXTLINE(misc-include-cleaner)
-#include <boost/beast/websocket/ssl.hpp>
 
 #include <cstddef>
 #include <functional>

@@ -6,8 +6,6 @@
 
 #include <cstddef>
 #include <optional>
-// boost/beast/http/verb for whatever reason requires this?
-// NOLINTNEXTLINE(misc-include-cleaner)
 #include <ostream>
 #include <string_view>
 
