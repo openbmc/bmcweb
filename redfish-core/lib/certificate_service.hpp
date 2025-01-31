@@ -21,8 +21,6 @@
 #include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
 
-// NOLINTNEXTLINE(modernize-deprecated-headers)
-#include <stdlib.h>
 #include <systemd/sd-bus.h>
 
 #include <boost/asio/error.hpp>
@@ -140,6 +138,7 @@ class CertificateFile
         std::array<char, 18> dirTemplate = {'/', 't', 'm', 'p', '/', 'C',
                                             'e', 'r', 't', 's', '.', 'X',
                                             'X', 'X', 'X', 'X', 'X', '\0'};
+        // NOLINTNEXTLINE(misc-include-cleaner)
         char* tempDirectory = mkdtemp(dirTemplate.data());
         if (tempDirectory != nullptr)
         {

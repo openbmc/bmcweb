@@ -8,11 +8,6 @@
 #include "ossl_random.hpp"
 #include "utils/ip_utils.hpp"
 
-// misc-include-cleaner complains if this isn't included,
-// modernize-deprecated-headers complains if it is included.
-// NOLINTNEXTLINE(modernize-deprecated-headers)
-#include <signal.h>
-
 #include <boost/asio/ip/address.hpp>
 #include <nlohmann/json.hpp>
 
@@ -422,6 +417,7 @@ class SessionStore
         if (isTLSchanged)
         {
             // recreate socket connections with new settings
+            // NOLINTNEXTLINE(misc-include-cleaner)
             std::raise(SIGHUP);
         }
     }
