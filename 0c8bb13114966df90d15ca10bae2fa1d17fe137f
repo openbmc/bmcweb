@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e757f0e_d0a2c3c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-31T20:39:20Z",
+      "side": 1,
+      "message": "Please wrap your commit message per the coding standard. 72 chars",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "0c8bb13114966df90d15ca10bae2fa1d17fe137f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55c38f74_cad1681b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-31T20:39:20Z",
+      "side": 1,
+      "message": "Minor updates required, then looks fine.",
+      "revId": "0c8bb13114966df90d15ca10bae2fa1d17fe137f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dad0da42_e1ca17be",
+        "filename": "test/redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-31T20:39:20Z",
+      "side": 1,
+      "message": "Nit, remove std::optional.  You don\u0027t need it to test this patch.",
+      "range": {
+        "startLine": 404,
+        "startChar": 4,
+        "endLine": 404,
+        "endChar": 17
+      },
+      "revId": "0c8bb13114966df90d15ca10bae2fa1d17fe137f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a478d5ef_c634f115",
+        "filename": "test/redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-31T20:39:20Z",
+      "side": 1,
+      "message": "Do we need the same test case for a std::array?  Looking at the coverage I think only one of the branches you changed is covered.",
+      "revId": "0c8bb13114966df90d15ca10bae2fa1d17fe137f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
