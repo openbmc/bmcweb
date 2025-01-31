@@ -394,6 +394,22 @@ TEST(ReadJsonPatch, VerifyReadJsonPatchIntegerReturnsOutOfRange)
     EXPECT_THAT(resExtInfo[0]["MessageSeverity"], "Warning");
 }
 
+TEST(ReadJsonPatch, VerifyReadJsonPatchBadVectorObject)
+{
+    crow::Response res;
+    std::error_code ec;
+    nlohmann::json jsonRequest = {{"NotVector", 1}};
+
+    std::vector<int> indices;
+    ASSERT_FALSE(readJson(jsonRequest, res, "NotVector", indices));
+    EXPECT_EQ(res.result(), boost::beast::http::status::bad_request);
+
+    const nlohmann::json& argsExtInfo =
+        res.jsonValue["NotVector@Message.ExtendedInfo"][0];
+    EXPECT_THAT(argsExtInfo["MessageArgs"][0], "1");
+    EXPECT_THAT(argsExtInfo["MessageArgs"][1], "NotVector");
+}
+
 TEST(ReadJsonAction, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 {
     crow::Response res;
