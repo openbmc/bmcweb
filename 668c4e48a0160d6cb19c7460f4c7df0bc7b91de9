@@ -22,6 +22,23 @@
       },
       "revId": "668c4e48a0160d6cb19c7460f4c7df0bc7b91de9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb6998a9_03457724",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-31T22:14:59Z",
+      "side": 1,
+      "message": "I thought the intent of this patch was that we wouldn\u0027t need to make per-resouce OEM inclusions.  Was this a mistake, or is this an incremental step toward that goal, but not complete?",
+      "revId": "668c4e48a0160d6cb19c7460f4c7df0bc7b91de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
