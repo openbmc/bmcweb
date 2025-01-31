@@ -26,9 +26,6 @@
 #include <boost/beast/websocket/stream_base.hpp>
 #include <boost/url/url_view.hpp>
 
-// NOLINTNEXTLINE(misc-include-cleaner)
-#include <boost/beast/websocket/ssl.hpp>
-
 #include <cstddef>
 #include <functional>
 #include <memory>
