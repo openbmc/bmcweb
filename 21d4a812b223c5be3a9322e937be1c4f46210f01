@@ -380,6 +380,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa167b35_71849c0c",
+        "filename": "http/routing.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-01-31T17:52:22Z",
+      "side": 1,
+      "message": "Use the url escaping/parsing mechanisms like we do in other places.\n\nboost::url::* classes.",
+      "parentUuid": "e241d9ed_ff8c5e28",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 9
+      },
+      "revId": "21d4a812b223c5be3a9322e937be1c4f46210f01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fc8a78ef_31c6fb67",
         "filename": "http/routing/redfishoemrule.hpp",
         "patchSetId": 55
