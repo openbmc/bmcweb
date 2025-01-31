@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
+
+// NOLINTNEXTLINE(modernize-deprecated-headers)
+#include <stdlib.h>
 #include <unistd.h>
 
 #include <cstdlib>
@@ -23,7 +26,6 @@ struct TemporaryFileHandle
     {
         stringPath = path.string();
 
-        // NOLINTNEXTLINE(misc-include-cleaner)
         int fd = mkstemp(stringPath.data());
         EXPECT_GT(fd, 0);
         EXPECT_EQ(write(fd, sampleData.data(), sampleData.size()),
