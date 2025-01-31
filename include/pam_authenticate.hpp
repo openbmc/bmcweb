@@ -7,12 +7,8 @@
 #include <security/_pam_types.h>
 #include <security/pam_appl.h>
 
-// misc-include-cleaner complains if this isn't included,
-// modernize-deprecated-headers complains if it is included.
-// NOLINTNEXTLINE(modernize-deprecated-headers)
-#include <string.h>
-
 #include <algorithm>
+#include <cstddef>
 #include <cstring>
 #include <memory>
 #include <optional>
@@ -59,6 +55,7 @@ struct PasswordData
                 {
                     return PAM_CONV_ERR;
                 }
+                // NOLINTNEXTLINE(misc-include-cleaner)
                 response.resp = strdup(iter->value.c_str());
                 return PAM_SUCCESS;
             }
