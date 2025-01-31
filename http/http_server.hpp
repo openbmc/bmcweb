@@ -40,7 +40,6 @@ class Server
            std::shared_ptr<boost::asio::ssl::context> adaptorCtxIn,
            boost::asio::io_context& io) :
         ioService(io), acceptor(std::move(acceptorIn)),
-        // NOLINTNEXTLINE(misc-include-cleaner)
         signals(ioService, SIGINT, SIGTERM, SIGHUP), handler(handlerIn),
         adaptorCtx(std::move(adaptorCtxIn))
     {}

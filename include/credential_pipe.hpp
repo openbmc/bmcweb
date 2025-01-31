@@ -24,8 +24,6 @@ class CredentialsPipe
     {
         boost::system::error_code ec;
 
-        // Unclear why tidy complains here.
-        // NOLINTNEXTLINE(misc-include-cleaner)
         boost::asio::connect_pipe(read, impl, ec);
         if (ec)
         {
@@ -40,7 +38,6 @@ class CredentialsPipe
 
     ~CredentialsPipe()
     {
-        // NOLINTNEXTLINE(misc-include-cleaner)
         explicit_bzero(user.data(), user.capacity());
         explicit_bzero(pass.data(), pass.capacity());
     }
