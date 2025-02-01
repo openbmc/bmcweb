@@ -139,6 +139,14 @@ struct nghttp2_session
         return nghttp2_submit_settings(ptr, NGHTTP2_FLAG_NONE, iv.data(),
                                        iv.size());
     }
+
+    int sessionUpgrade2(std::string_view settingsPayload, bool headRequest)
+    {
+        return nghttp2_session_upgrade2(
+            ptr, std::bit_cast<uint8_t*>(settingsPayload.data()),
+            settingsPayload.size(), headRequest ? 1 : 0, nullptr);
+    }
+
     void setUserData(void* object)
     {
         nghttp2_session_set_user_data(ptr, object);
