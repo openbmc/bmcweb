@@ -27,9 +27,8 @@ static TestEvent createTestEvent()
 
 TEST(EventServiceManager, submitTestEVent)
 {
-    boost::asio::io_context io;
     boost::urls::url url;
-    EventServiceManager& evt = EventServiceManager::getInstance(&io);
+    EventServiceManager& evt = EventServiceManager::getInstance();
     {
         TestEvent testEvent;
         EXPECT_TRUE(evt.sendTestEventLog(testEvent));
