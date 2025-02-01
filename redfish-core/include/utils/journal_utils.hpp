@@ -29,8 +29,20 @@ inline int getJournalMetadata(sd_journal* journal, const char* field,
         return ret;
     }
     contents = std::string_view(data, length);
+
+    size_t equalsPos = contents.find('=');
+    if (equalsPos == std::string::npos)
+    {
+        return -1;
+    }
+    equalsPos++;
+    if (equalsPos >= contents.size())
+    {
+        return -1;
+    }
+
     // Only use the content after the "=" character.
-    contents.remove_prefix(std::min(contents.find('=') + 1, contents.size()));
+    contents.remove_prefix(equalsPos);
     return ret;
 }
 
