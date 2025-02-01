@@ -138,9 +138,9 @@ enum class Encoding
     ANY, // represents *. Never returned.  Only used for string matching
 };
 
-inline Encoding
-    getPreferredEncoding(std::string_view acceptEncoding,
-                         const std::span<const Encoding> availableEncodings)
+inline Encoding getPreferredEncoding(
+    std::string_view acceptEncoding,
+    const std::span<const Encoding> availableEncodings)
 {
     if (acceptEncoding.empty())
     {

@@ -36,8 +36,8 @@ inline std::string getDbusTriggerPath(std::string_view id)
     return {triggersPath / id};
 }
 
-inline std::optional<std::string>
-    getTriggerIdFromDbusPath(const std::string& dbusPath)
+inline std::optional<std::string> getTriggerIdFromDbusPath(
+    const std::string& dbusPath)
 {
     sdbusplus::message::object_path converted(dbusPath);
 
@@ -158,8 +158,8 @@ inline std::string toDbusCollectionFunction(std::string_view redfishValue)
     return "";
 }
 
-inline std::optional<nlohmann::json::array_t>
-    toRedfishCollectionFunctions(std::span<const std::string> dbusEnums)
+inline std::optional<nlohmann::json::array_t> toRedfishCollectionFunctions(
+    std::span<const std::string> dbusEnums)
 {
     nlohmann::json::array_t redfishEnums;
     redfishEnums.reserve(dbusEnums.size());

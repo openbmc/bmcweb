@@ -23,7 +23,7 @@ struct DuplicatableFileHandle
         fileHandle.native_handle(dup(other.fileHandle.native_handle()));
         return *this;
     }
-    DuplicatableFileHandle&
-        operator=(DuplicatableFileHandle&& other) noexcept = default;
+    DuplicatableFileHandle& operator=(DuplicatableFileHandle&& other) noexcept =
+        default;
     ~DuplicatableFileHandle() = default;
 };

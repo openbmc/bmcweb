@@ -1296,8 +1296,8 @@ void resourceMissingAtURI(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json
-    resourceAtUriInUnknownFormat(const boost::urls::url_view_base& arg1)
+nlohmann::json resourceAtUriInUnknownFormat(
+    const boost::urls::url_view_base& arg1)
 {
     return getLog(
         redfish::registries::base::Index::resourceAtUriInUnknownFormat,
@@ -1340,8 +1340,8 @@ void resourceAtUriUnauthorized(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json
-    couldNotEstablishConnection(const boost::urls::url_view_base& arg1)
+nlohmann::json couldNotEstablishConnection(
+    const boost::urls::url_view_base& arg1)
 {
     return getLog(redfish::registries::base::Index::couldNotEstablishConnection,
                   std::to_array<std::string_view>({arg1.buffer()}));
@@ -1818,8 +1818,8 @@ void resourceCreationConflict(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json
-    actionParameterValueConflict(std::string_view arg1, std::string_view arg2)
+nlohmann::json actionParameterValueConflict(std::string_view arg1,
+                                            std::string_view arg2)
 {
     return getLog(
         redfish::registries::base::Index::actionParameterValueConflict,

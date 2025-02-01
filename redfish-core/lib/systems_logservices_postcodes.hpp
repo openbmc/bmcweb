@@ -289,9 +289,9 @@ static bool fillPostCodeEntry(
     return false;
 }
 
-inline void
-    getPostCodeForEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& entryId)
+inline void getPostCodeForEntry(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryId)
 {
     uint16_t bootIndex = 0;
     uint64_t codeIndex = 0;
@@ -340,10 +340,10 @@ inline void
         bootIndex);
 }
 
-inline void
-    getPostCodeForBoot(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const uint16_t bootIndex, const uint16_t bootCount,
-                       const uint64_t entryCount, size_t skip, size_t top)
+inline void getPostCodeForBoot(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint16_t bootIndex, const uint16_t bootCount,
+    const uint64_t entryCount, size_t skip, size_t top)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp, bootIndex, bootCount, entryCount, skip,
@@ -399,9 +399,9 @@ inline void
         bootIndex);
 }
 
-inline void
-    getCurrentBootNumber(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         size_t skip, size_t top)
+inline void getCurrentBootNumber(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, size_t skip,
+    size_t top)
 {
     uint64_t entryCount = 0;
     dbus::utility::getProperty<uint16_t>(

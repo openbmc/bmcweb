@@ -24,10 +24,10 @@ namespace crow
 
 struct FakeHandler
 {
-    static void
-        handleUpgrade(const std::shared_ptr<Request>& /*req*/,
-                      const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
-                      boost::beast::test::stream&& /*adaptor*/)
+    static void handleUpgrade(
+        const std::shared_ptr<Request>& /*req*/,
+        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
+        boost::beast::test::stream&& /*adaptor*/)
     {
         // Handle Upgrade should never be called
         EXPECT_FALSE(true);

@@ -73,9 +73,9 @@ inline void redfish405(App& app, const crow::Request& req,
     }
 }
 
-inline void
-    jsonSchemaIndexGet(App& app, const crow::Request& req,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void jsonSchemaIndexGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -178,10 +178,10 @@ inline void jsonSchemaGet(App& app, const crow::Request& req,
     messages::resourceNotFound(asyncResp->res, "JsonSchemaFile", schema);
 }
 
-inline void
-    jsonSchemaGetFile(const crow::Request& /*req*/,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& schema, const std::string& schemaFile)
+inline void jsonSchemaGetFile(
+    const crow::Request& /*req*/,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& schema, const std::string& schemaFile)
 {
     // Sanity check the filename
     if (schemaFile.find_first_not_of(

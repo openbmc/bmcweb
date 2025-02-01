@@ -9,8 +9,8 @@
 #include <string>
 #include <string_view>
 
-inline std::optional<std::string_view>
-    mtlsMetaParseSslUser(std::string_view sslUser)
+inline std::optional<std::string_view> mtlsMetaParseSslUser(
+    std::string_view sslUser)
 {
     // Parses a Meta internal TLS client certificate Subject CN in
     // '<entityType>:<entity>[/<hostname>]' format and returns the resulting

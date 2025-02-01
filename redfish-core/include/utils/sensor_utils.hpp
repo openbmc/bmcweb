@@ -139,8 +139,8 @@ inline std::string getSensorId(std::string_view sensorName,
     return std::format("{}_{}", normalizedType, sensorName);
 }
 
-inline std::pair<std::string, std::string>
-    splitSensorNameAndType(std::string_view sensorId)
+inline std::pair<std::string, std::string> splitSensorNameAndType(
+    std::string_view sensorId)
 {
     size_t index = sensorId.find('_');
     if (index == std::string::npos)

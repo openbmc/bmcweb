@@ -228,10 +228,10 @@ inline bool getUserGroupFromAccountType(
  * @param[in] dbusObjectPath D-Bus Object Path
  * @param[in] userSelf true if User is updating OWN Account Types
  */
-inline void
-    patchAccountTypes(const std::vector<std::string>& accountTypes,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& dbusObjectPath, bool userSelf)
+inline void patchAccountTypes(
+    const std::vector<std::string>& accountTypes,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dbusObjectPath, bool userSelf)
 {
     // Check if User is disabling own Redfish Account Type
     if (userSelf &&
@@ -405,9 +405,9 @@ inline void handleRoleMapPatch(
             std::optional<std::string> remoteGroup;
             std::optional<std::string> localRole;
 
-            if (!json_util::readJsonObject( //
-                    *obj, asyncResp->res, //
-                    "LocalRole", localRole, //
+            if (!json_util::readJsonObject(    //
+                    *obj, asyncResp->res,      //
+                    "LocalRole", localRole,    //
                     "RemoteGroup", remoteGroup //
                     ))
             {
@@ -513,8 +513,8 @@ inline void handleRoleMapPatch(
  * into JSON
  */
 template <typename CallbackFunc>
-inline void
-    getLDAPConfigData(const std::string& ldapType, CallbackFunc&& callback)
+inline void getLDAPConfigData(const std::string& ldapType,
+                              CallbackFunc&& callback)
 {
     constexpr std::array<std::string_view, 2> interfaces = {
         ldapEnableInterface, ldapConfigInterface};
@@ -713,11 +713,11 @@ inline void handleServiceAddressPatch(
  server(openLDAP/ActiveDirectory)
  */
 
-inline void
-    handleUserNamePatch(const std::string& username,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& ldapServerElementName,
-                        const std::string& ldapConfigObject)
+inline void handleUserNamePatch(
+    const std::string& username,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& ldapServerElementName,
+    const std::string& ldapConfigObject)
 {
     setDbusProperty(asyncResp,
                     ldapServerElementName + "/Authentication/Username",
@@ -733,11 +733,11 @@ inline void
  *        server(openLDAP/ActiveDirectory)
  */
 
-inline void
-    handlePasswordPatch(const std::string& password,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& ldapServerElementName,
-                        const std::string& ldapConfigObject)
+inline void handlePasswordPatch(
+    const std::string& password,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& ldapServerElementName,
+    const std::string& ldapConfigObject)
 {
     setDbusProperty(asyncResp,
                     ldapServerElementName + "/Authentication/Password",
@@ -754,11 +754,11 @@ inline void
  server(openLDAP/ActiveDirectory)
  */
 
-inline void
-    handleBaseDNPatch(const std::vector<std::string>& baseDNList,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& ldapServerElementName,
-                      const std::string& ldapConfigObject)
+inline void handleBaseDNPatch(
+    const std::vector<std::string>& baseDNList,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& ldapServerElementName,
+    const std::string& ldapConfigObject)
 {
     setDbusProperty(asyncResp,
                     ldapServerElementName +
@@ -836,9 +836,9 @@ struct AuthMethods
     std::optional<bool> tls;
 };
 
-inline void
-    handleAuthMethodsPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const AuthMethods& auth)
+inline void handleAuthMethodsPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const AuthMethods& auth)
 {
     persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
@@ -1092,9 +1092,9 @@ struct UserUpdateParams
     std::string dbusObjectPath;
 };
 
-inline void
-    afterVerifyUserExists(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const UserUpdateParams& params, int rc)
+inline void afterVerifyUserExists(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const UserUpdateParams& params, int rc)
 {
     if (rc <= 0)
     {
@@ -1214,9 +1214,9 @@ inline void handleAccountServiceHead(
         "</redfish/v1/JsonSchemas/AccountService/AccountService.json>; rel=describedby");
 }
 
-inline void
-    getClientCertificates(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const nlohmann::json::json_pointer& keyLocation)
+inline void getClientCertificates(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& keyLocation)
 {
     boost::urls::url url(
         "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates");
@@ -1290,8 +1290,8 @@ inline void handleAccountServiceClientCertificatesGet(
 
 using account_service::CertificateMappingAttribute;
 using persistent_data::MTLSCommonNameParseMode;
-inline CertificateMappingAttribute
-    getCertificateMapping(MTLSCommonNameParseMode parse)
+inline CertificateMappingAttribute getCertificateMapping(
+    MTLSCommonNameParseMode parse)
 {
     switch (parse)
     {
@@ -1327,9 +1327,9 @@ inline CertificateMappingAttribute
     }
 }
 
-inline void
-    handleAccountServiceGet(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleAccountServiceGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -1551,52 +1551,52 @@ inline void handleAccountServicePatch(
     AuthMethods auth;
     std::optional<std::string> httpBasicAuth;
 
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
-            "AccountLockoutDuration", unlockTimeout, //
-            "AccountLockoutThreshold", lockoutThreshold, //
+    if (!json_util::readJsonPatch(                                         //
+            req, asyncResp->res,                                           //
+            "AccountLockoutDuration", unlockTimeout,                       //
+            "AccountLockoutThreshold", lockoutThreshold,                   //
             "ActiveDirectory/Authentication/AuthenticationType",
-            activeDirectoryObject.authType, //
+            activeDirectoryObject.authType,                                //
             "ActiveDirectory/Authentication/Password",
-            activeDirectoryObject.password, //
+            activeDirectoryObject.password,                                //
             "ActiveDirectory/Authentication/Username",
-            activeDirectoryObject.userName, //
+            activeDirectoryObject.userName,                                //
             "ActiveDirectory/LDAPService/SearchSettings/BaseDistinguishedNames",
-            activeDirectoryObject.baseDNList, //
+            activeDirectoryObject.baseDNList,                              //
             "ActiveDirectory/LDAPService/SearchSettings/GroupsAttribute",
-            activeDirectoryObject.groupsAttribute, //
+            activeDirectoryObject.groupsAttribute,                         //
             "ActiveDirectory/LDAPService/SearchSettings/UsernameAttribute",
-            activeDirectoryObject.userNameAttribute, //
+            activeDirectoryObject.userNameAttribute,                       //
             "ActiveDirectory/RemoteRoleMapping",
-            activeDirectoryObject.remoteRoleMapData, //
+            activeDirectoryObject.remoteRoleMapData,                       //
             "ActiveDirectory/ServiceAddresses",
-            activeDirectoryObject.serviceAddressList, //
+            activeDirectoryObject.serviceAddressList,                      //
             "ActiveDirectory/ServiceEnabled",
-            activeDirectoryObject.serviceEnabled, //
-            "HTTPBasicAuth", httpBasicAuth, //
+            activeDirectoryObject.serviceEnabled,                          //
+            "HTTPBasicAuth", httpBasicAuth,                                //
             "LDAP/Authentication/AuthenticationType", ldapObject.authType, //
-            "LDAP/Authentication/Password", ldapObject.password, //
-            "LDAP/Authentication/Username", ldapObject.userName, //
+            "LDAP/Authentication/Password", ldapObject.password,           //
+            "LDAP/Authentication/Username", ldapObject.userName,           //
             "LDAP/LDAPService/SearchSettings/BaseDistinguishedNames",
-            ldapObject.baseDNList, //
+            ldapObject.baseDNList,                                         //
             "LDAP/LDAPService/SearchSettings/GroupsAttribute",
-            ldapObject.groupsAttribute, //
+            ldapObject.groupsAttribute,                                    //
             "LDAP/LDAPService/SearchSettings/UsernameAttribute",
-            ldapObject.userNameAttribute, //
-            "LDAP/RemoteRoleMapping", ldapObject.remoteRoleMapData, //
-            "LDAP/ServiceAddresses", ldapObject.serviceAddressList, //
-            "LDAP/ServiceEnabled", ldapObject.serviceEnabled, //
-            "MaxPasswordLength", maxPasswordLength, //
-            "MinPasswordLength", minPasswordLength, //
+            ldapObject.userNameAttribute,                                  //
+            "LDAP/RemoteRoleMapping", ldapObject.remoteRoleMapData,        //
+            "LDAP/ServiceAddresses", ldapObject.serviceAddressList,        //
+            "LDAP/ServiceEnabled", ldapObject.serviceEnabled,              //
+            "MaxPasswordLength", maxPasswordLength,                        //
+            "MinPasswordLength", minPasswordLength,                        //
             "MultiFactorAuth/ClientCertificate/CertificateMappingAttribute",
-            certificateMappingAttribute, //
+            certificateMappingAttribute,                                   //
             "MultiFactorAuth/ClientCertificate/RespondToUnauthenticatedClients",
-            respondToUnauthenticatedClients, //
-            "Oem/OpenBMC/AuthMethods/BasicAuth", auth.basicAuth, //
-            "Oem/OpenBMC/AuthMethods/Cookie", auth.cookie, //
-            "Oem/OpenBMC/AuthMethods/SessionToken", auth.sessionToken, //
-            "Oem/OpenBMC/AuthMethods/TLS", auth.tls, //
-            "Oem/OpenBMC/AuthMethods/XToken", auth.xToken //
+            respondToUnauthenticatedClients,                               //
+            "Oem/OpenBMC/AuthMethods/BasicAuth", auth.basicAuth,           //
+            "Oem/OpenBMC/AuthMethods/Cookie", auth.cookie,                 //
+            "Oem/OpenBMC/AuthMethods/SessionToken", auth.sessionToken,     //
+            "Oem/OpenBMC/AuthMethods/TLS", auth.tls,                       //
+            "Oem/OpenBMC/AuthMethods/XToken", auth.xToken                  //
             ))
     {
         return;
@@ -1905,13 +1905,13 @@ inline void handleAccountCollectionPost(
     std::optional<std::string> roleIdJson;
     std::optional<bool> enabledJson;
     std::optional<std::vector<std::string>> accountTypes;
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
+    if (!json_util::readJsonPatch(        //
+            req, asyncResp->res,          //
             "AccountTypes", accountTypes, //
-            "Enabled", enabledJson, //
-            "Password", password, //
-            "RoleId", roleIdJson, //
-            "UserName", username //
+            "Enabled", enabledJson,       //
+            "Password", password,         //
+            "RoleId", roleIdJson,         //
+            "UserName", username          //
             ))
     {
         return;
@@ -1953,10 +1953,10 @@ inline void handleAccountCollectionPost(
         });
 }
 
-inline void
-    handleAccountHead(App& app, const crow::Request& req,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& /*accountName*/)
+inline void handleAccountHead(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& /*accountName*/)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -1967,10 +1967,10 @@ inline void
         "</redfish/v1/JsonSchemas/ManagerAccount/ManagerAccount.json>; rel=describedby");
 }
 
-inline void
-    handleAccountGet(App& app, const crow::Request& req,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& accountName)
+inline void handleAccountGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& accountName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -2141,10 +2141,10 @@ inline void
         });
 }
 
-inline void
-    handleAccountDelete(App& app, const crow::Request& req,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& username)
+inline void handleAccountDelete(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -2176,10 +2176,10 @@ inline void
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
-inline void
-    handleAccountPatch(App& app, const crow::Request& req,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& username)
+inline void handleAccountPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& username)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -2214,14 +2214,14 @@ inline void
     if (userHasConfigureUsers)
     {
         // Users with ConfigureUsers can modify for all users
-        if (!json_util::readJsonPatch( //
-                req, asyncResp->res, //
+        if (!json_util::readJsonPatch(        //
+                req, asyncResp->res,          //
                 "AccountTypes", accountTypes, //
-                "Enabled", enabled, //
-                "Locked", locked, //
-                "Password", password, //
-                "RoleId", roleId, //
-                "UserName", newUserName //
+                "Enabled", enabled,           //
+                "Locked", locked,             //
+                "Password", password,         //
+                "RoleId", roleId,             //
+                "UserName", newUserName       //
                 ))
         {
             return;

@@ -652,8 +652,8 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res,
                           std::forward<UnpackTypes&&>(in)...);
 }
 
-inline std::optional<nlohmann::json::object_t>
-    readJsonPatchHelper(const crow::Request& req, crow::Response& res)
+inline std::optional<nlohmann::json::object_t> readJsonPatchHelper(
+    const crow::Request& req, crow::Response& res)
 {
     nlohmann::json jsonRequest;
     if (!json_util::processJsonFromRequest(res, req, jsonRequest))

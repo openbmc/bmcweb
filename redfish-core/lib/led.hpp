@@ -21,8 +21,8 @@ namespace redfish
  * @return None.
  */
 // TODO (Gunnar): Remove IndicatorLED after enough time has passed
-inline void
-    getIndicatorLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getIndicatorLedState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get led groups");
     dbus::utility::getProperty<bool>(
@@ -90,9 +90,9 @@ inline void
  * @return None.
  */
 // TODO (Gunnar): Remove IndicatorLED after enough time has passed
-inline void
-    setIndicatorLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& ledState)
+inline void setIndicatorLedState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& ledState)
 {
     BMCWEB_LOG_DEBUG("Set led groups");
     bool ledOn = false;

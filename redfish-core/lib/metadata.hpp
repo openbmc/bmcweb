@@ -19,8 +19,8 @@
 namespace redfish
 {
 
-inline std::string
-    getMetadataPieceForFile(const std::filesystem::path& filename)
+inline std::string getMetadataPieceForFile(
+    const std::filesystem::path& filename)
 {
     std::string xml;
     tinyxml2::XMLDocument doc;
@@ -66,9 +66,9 @@ inline std::string
     return xml;
 }
 
-inline void
-    handleMetadataGet(App& /*app*/, const crow::Request& /*req*/,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleMetadataGet(
+    App& /*app*/, const crow::Request& /*req*/,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::filesystem::path schema("/usr/share/www/redfish/v1/schema");
     std::error_code ec;

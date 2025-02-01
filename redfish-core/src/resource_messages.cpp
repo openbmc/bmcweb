@@ -107,8 +107,8 @@ nlohmann::json resourceErrorsCorrected(std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json
-    resourceErrorThresholdExceeded(std::string_view arg1, std::string_view arg2)
+nlohmann::json resourceErrorThresholdExceeded(std::string_view arg1,
+                                              std::string_view arg2)
 {
     return getLog(redfish::registries::resource_event::Index::
                       resourceErrorThresholdExceeded,
@@ -122,8 +122,8 @@ nlohmann::json
  * See header file for more information
  * @endinternal
  */
-nlohmann::json
-    resourceErrorThresholdCleared(std::string_view arg1, std::string_view arg2)
+nlohmann::json resourceErrorThresholdCleared(std::string_view arg1,
+                                             std::string_view arg2)
 {
     return getLog(redfish::registries::resource_event::Index::
                       resourceErrorThresholdCleared,
@@ -182,8 +182,8 @@ nlohmann::json resourceStatusChangedOK(std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json
-    resourceStatusChangedWarning(std::string_view arg1, std::string_view arg2)
+nlohmann::json resourceStatusChangedWarning(std::string_view arg1,
+                                            std::string_view arg2)
 {
     return getLog(redfish::registries::resource_event::Index::
                       resourceStatusChangedWarning,
@@ -197,8 +197,8 @@ nlohmann::json
  * See header file for more information
  * @endinternal
  */
-nlohmann::json
-    resourceStatusChangedCritical(std::string_view arg1, std::string_view arg2)
+nlohmann::json resourceStatusChangedCritical(std::string_view arg1,
+                                             std::string_view arg2)
 {
     return getLog(redfish::registries::resource_event::Index::
                       resourceStatusChangedCritical,

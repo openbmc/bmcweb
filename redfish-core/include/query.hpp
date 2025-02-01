@@ -182,9 +182,9 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
 }
 
 // Sets up the Redfish Route. All parameters are handled by the default handler.
-[[nodiscard]] inline bool
-    setUpRedfishRoute(crow::App& app, const crow::Request& req,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+[[nodiscard]] inline bool setUpRedfishRoute(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // This route |delegated| is never used
     query_param::Query delegated;

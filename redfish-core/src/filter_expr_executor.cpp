@@ -121,14 +121,14 @@ ValueVisitor::result_type ValueVisitor::operator()(int64_t x)
     return {x};
 }
 
-ValueVisitor::result_type
-    ValueVisitor::operator()(const filter_ast::QuotedString& x)
+ValueVisitor::result_type ValueVisitor::operator()(
+    const filter_ast::QuotedString& x)
 {
     return {x};
 }
 
-ValueVisitor::result_type
-    ValueVisitor::operator()(const filter_ast::UnquotedString& x)
+ValueVisitor::result_type ValueVisitor::operator()(
+    const filter_ast::UnquotedString& x)
 {
     // find key including paths with / in them
     const nlohmann::json* it =

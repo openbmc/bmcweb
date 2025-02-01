@@ -231,9 +231,9 @@ inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
-inline void
-    softwareInterfaceAdded(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           sdbusplus::message_t& m, task::Payload&& payload)
+inline void softwareInterfaceAdded(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    sdbusplus::message_t& m, task::Payload&& payload)
 {
     dbus::utility::DBusInterfacesMap interfacesProperties;
 
@@ -322,9 +322,9 @@ inline void afterAvailbleTimerAsyncWait(
     }
 }
 
-inline void
-    handleUpdateErrorType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& url, const std::string& type)
+inline void handleUpdateErrorType(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& url,
+    const std::string& type)
 {
     // NOLINTBEGIN(bugprone-branch-clone)
     if (type == "xyz.openbmc_project.Software.Image.Error.UnTarFailure")
@@ -381,9 +381,9 @@ inline void
     fwAvailableTimer = nullptr;
 }
 
-inline void
-    afterUpdateErrorMatcher(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& url, sdbusplus::message_t& m)
+inline void afterUpdateErrorMatcher(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& url,
+    sdbusplus::message_t& m)
 {
     dbus::utility::DBusInterfacesMap interfacesProperties;
     sdbusplus::message::object_path objPath;
@@ -571,9 +571,9 @@ inline void handleUpdateServiceSimpleUpdateAction(
     // 1) TransferProtocol:TFTP ImageURI:1.1.1.1/myfile.bin
     // 2) ImageURI:tftp://1.1.1.1/myfile.bin
 
-    if (!json_util::readJsonAction( //
-            req, asyncResp->res, //
-            "ImageURI", imageURI, //
+    if (!json_util::readJsonAction(              //
+            req, asyncResp->res,                 //
+            "ImageURI", imageURI,                //
             "TransferProtocol", transferProtocol //
             ))
     {
@@ -669,8 +669,8 @@ struct MultiPartUpdateParameters
     std::vector<std::string> targets;
 };
 
-inline std::optional<std::string>
-    processUrl(boost::system::result<boost::urls::url_view>& url)
+inline std::optional<std::string> processUrl(
+    boost::system::result<boost::urls::url_view>& url)
 {
     if (!url)
     {
@@ -746,10 +746,10 @@ inline std::optional<MultiPartUpdateParameters>
                     return std::nullopt;
                 }
 
-                if (!json_util::readJsonObject( //
-                        *obj, asyncResp->res, //
+                if (!json_util::readJsonObject(                            //
+                        *obj, asyncResp->res,                              //
                         "@Redfish.OperationApplyTime", multiRet.applyTime, //
-                        "Targets", tempTargets //
+                        "Targets", tempTargets                             //
                         ))
                 {
                     return std::nullopt;
@@ -952,9 +952,9 @@ inline void processUpdateRequest(
     }
 }
 
-inline void
-    updateMultipartContext(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const crow::Request& req, MultipartParser&& parser)
+inline void updateMultipartContext(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const crow::Request& req, MultipartParser&& parser)
 {
     std::optional<MultiPartUpdateParameters> multipart =
         extractMultipartUpdateParameters(asyncResp, std::move(parser));
@@ -1020,9 +1020,9 @@ inline void doHTTPUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
-inline void
-    handleUpdateServicePost(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleUpdateServicePost(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -1061,9 +1061,9 @@ inline void
     }
 }
 
-inline void
-    handleUpdateServiceGet(App& app, const crow::Request& req,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleUpdateServiceGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -1160,10 +1160,10 @@ inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
-inline void
-    getSoftwareVersion(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& service, const std::string& path,
-                       const std::string& swId)
+inline void getSoftwareVersion(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path,
+    const std::string& swId)
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Software.Version",

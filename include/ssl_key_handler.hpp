@@ -39,7 +39,7 @@ std::string ensureOpensslKeyPresentAndValid(const std::string& filepath);
 
 std::shared_ptr<boost::asio::ssl::context> getSslServerContext();
 
-std::optional<boost::asio::ssl::context>
-    getSSLClientContext(VerifyCertificate verifyCertificate);
+std::optional<boost::asio::ssl::context> getSSLClientContext(
+    VerifyCertificate verifyCertificate);
 
 } // namespace ensuressl

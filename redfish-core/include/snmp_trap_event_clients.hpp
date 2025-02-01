@@ -53,9 +53,9 @@ inline void afterGetSnmpTrapClientdata(
         boost::urls::format("snmp://{}:{}", address, port);
 }
 
-inline void
-    getSnmpTrapClientdata(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& id, const std::string& objectPath)
+inline void getSnmpTrapClientdata(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
+    const std::string& objectPath)
 {
     asyncResp->res.jsonValue["@odata.type"] =
         "#EventDestination.v1_8_0.EventDestination";
@@ -168,9 +168,9 @@ inline void afterSnmpClientCreate(
     messages::created(asyncResp->res);
 }
 
-inline void
-    addSnmpTrapClient(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& host, uint16_t snmpTrapPort)
+inline void addSnmpTrapClient(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& host, uint16_t snmpTrapPort)
 {
     crow::connections::systemBus->async_method_call(
         [asyncResp,
@@ -198,9 +198,9 @@ inline void getSnmpSubscriptionList(
     asyncResp->res.jsonValue["Members@odata.count"] = memberArray.size();
 }
 
-inline void
-    deleteSnmpTrapClient(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& param)
+inline void deleteSnmpTrapClient(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& param)
 {
     std::string_view snmpTrapId = param;
 

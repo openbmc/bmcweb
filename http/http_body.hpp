@@ -165,14 +165,14 @@ class HttpBody::writer
         ec = {};
     }
 
-    boost::optional<std::pair<const_buffers_type, bool>>
-        get(boost::beast::error_code& ec)
+    boost::optional<std::pair<const_buffers_type, bool>> get(
+        boost::beast::error_code& ec)
     {
         return getWithMaxSize(ec, std::numeric_limits<size_t>::max());
     }
 
-    boost::optional<std::pair<const_buffers_type, bool>>
-        getWithMaxSize(boost::beast::error_code& ec, size_t maxSize)
+    boost::optional<std::pair<const_buffers_type, bool>> getWithMaxSize(
+        boost::beast::error_code& ec, size_t maxSize)
     {
         std::pair<const_buffers_type, bool> ret;
         if (!body.file().is_open())

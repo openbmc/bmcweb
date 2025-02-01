@@ -280,10 +280,10 @@ inline void handleNTPProtocolEnabled(
 using IpAddress =
     std::variant<std::string, nlohmann::json::object_t, std::nullptr_t>;
 
-inline void
-    handleNTPServersPatch(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::vector<IpAddress>& ntpServerObjects,
-                          std::vector<std::string> currentNtpServers)
+inline void handleNTPServersPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::vector<IpAddress>& ntpServerObjects,
+    std::vector<std::string> currentNtpServers)
 {
     std::vector<std::string>::iterator currentNtpServer =
         currentNtpServers.begin();
@@ -384,10 +384,10 @@ inline void
         });
 }
 
-inline void
-    handleProtocolEnabled(const bool protocolEnabled,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& netBasePath)
+inline void handleProtocolEnabled(
+    const bool protocolEnabled,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& netBasePath)
 {
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Control.Service.Attributes"};
@@ -433,8 +433,8 @@ inline std::string getHostName()
     return hostName;
 }
 
-inline void
-    getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getNTPProtocolEnabled(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     dbus::utility::getProperty<bool>(
         "org.freedesktop.timedate1", "/org/freedesktop/timedate1",
@@ -496,12 +496,12 @@ inline void handleManagersNetworkProtocolPatch(
     std::optional<bool> sshEnabled;
 
     if (!json_util::readJsonPatch(
-            req, asyncResp->res, //
-            "HostName", newHostName, //
-            "NTP/NTPServers", ntpServerObjects, //
-            "NTP/ProtocolEnabled", ntpEnabled, //
+            req, asyncResp->res,                 //
+            "HostName", newHostName,             //
+            "NTP/NTPServers", ntpServerObjects,  //
+            "NTP/ProtocolEnabled", ntpEnabled,   //
             "IPMI/ProtocolEnabled", ipmiEnabled, //
-            "SSH/ProtocolEnabled", sshEnabled //
+            "SSH/ProtocolEnabled", sshEnabled    //
             ))
     {
         return;

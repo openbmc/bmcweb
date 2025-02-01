@@ -153,8 +153,8 @@ inline bool getUniqueEntryID(const std::string& logEntry, std::string& entryID,
     return true;
 }
 
-inline bool
-    getRedfishLogFiles(std::vector<std::filesystem::path>& redfishLogFiles)
+inline bool getRedfishLogFiles(
+    std::vector<std::filesystem::path>& redfishLogFiles)
 {
     static const std::filesystem::path redfishLogDir = "/var/log";
     static const std::string redfishLogFilename = "redfish";
@@ -178,8 +178,8 @@ inline bool
     return !redfishLogFiles.empty();
 }
 
-inline log_entry::OriginatorTypes
-    mapDbusOriginatorTypeToRedfish(const std::string& originatorType)
+inline log_entry::OriginatorTypes mapDbusOriginatorTypeToRedfish(
+    const std::string& originatorType)
 {
     if (originatorType ==
         "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Client")
@@ -331,9 +331,9 @@ static std::string getDumpEntriesPath(const std::string& dumpType)
     return entriesPath;
 }
 
-inline void
-    getDumpEntryCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& dumpType)
+inline void getDumpEntryCollection(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dumpType)
 {
     std::string entriesPath = getDumpEntriesPath(dumpType);
     if (entriesPath.empty())
@@ -447,9 +447,9 @@ inline void
         });
 }
 
-inline void
-    getDumpEntryById(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& entryID, const std::string& dumpType)
+inline void getDumpEntryById(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryID, const std::string& dumpType)
 {
     std::string entriesPath = getDumpEntriesPath(dumpType);
     if (entriesPath.empty())
@@ -663,9 +663,9 @@ inline void downloadEntryCallback(
                              "application/octet-stream");
 }
 
-inline void
-    downloadDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& entryID, const std::string& dumpType)
+inline void downloadDumpEntry(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryID, const std::string& dumpType)
 {
     if (dumpType != "BMC")
     {
@@ -724,8 +724,8 @@ inline void downloadEventLogEntry(
         entryPath, "xyz.openbmc_project.Logging.Entry", "GetEntry");
 }
 
-inline DumpCreationProgress
-    mapDbusStatusToDumpProgress(const std::string& status)
+inline DumpCreationProgress mapDbusStatusToDumpProgress(
+    const std::string& status)
 {
     if (status ==
             "xyz.openbmc_project.Common.Progress.OperationStatus.Failed" ||
@@ -741,8 +741,8 @@ inline DumpCreationProgress
     return DumpCreationProgress::DUMP_CREATE_INPROGRESS;
 }
 
-inline DumpCreationProgress
-    getDumpCompletionStatus(const dbus::utility::DBusPropertiesMap& values)
+inline DumpCreationProgress getDumpCompletionStatus(
+    const dbus::utility::DBusPropertiesMap& values)
 {
     for (const auto& [key, val] : values)
     {
@@ -929,9 +929,9 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     std::optional<std::string> diagnosticDataType;
     std::optional<std::string> oemDiagnosticDataType;
 
-    if (!redfish::json_util::readJsonAction( //
-            req, asyncResp->res, //
-            "DiagnosticDataType", diagnosticDataType, //
+    if (!redfish::json_util::readJsonAction(               //
+            req, asyncResp->res,                           //
+            "DiagnosticDataType", diagnosticDataType,      //
             "OEMDiagnosticDataType", oemDiagnosticDataType //
             ))
     {
@@ -1778,10 +1778,10 @@ inline void dBusEventLogEntryGet(
         });
 }
 
-inline void
-    dBusEventLogEntryPatch(const crow::Request& req,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& entryId)
+inline void dBusEventLogEntryPatch(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryId)
 {
     std::optional<bool> resolved;
 
@@ -1922,9 +1922,9 @@ inline void requestRoutesDBusEventLogEntry(App& app)
 
 constexpr const char* hostLoggerFolderPath = "/var/log/console";
 
-inline bool
-    getHostLoggerFiles(const std::string& hostLoggerFilePath,
-                       std::vector<std::filesystem::path>& hostLoggerFiles)
+inline bool getHostLoggerFiles(
+    const std::string& hostLoggerFilePath,
+    std::vector<std::filesystem::path>& hostLoggerFiles)
 {
     std::error_code ec;
     std::filesystem::directory_iterator logPath(hostLoggerFilePath, ec);
@@ -2076,9 +2076,9 @@ inline void requestRoutesBMCLogServiceCollection(App& app)
             std::bind_front(handleBMCLogServicesCollectionGet, std::ref(app)));
 }
 
-inline void
-    getDumpServiceInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& dumpType)
+inline void getDumpServiceInfo(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dumpType)
 {
     std::string dumpPath;
     log_service::OverWritePolicy overWritePolicy =
@@ -2709,9 +2709,9 @@ void inline requestRoutesCrashdumpClear(App& app)
             });
 }
 
-inline void
-    logCrashdumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& logID, nlohmann::json& logEntryJson)
+inline void logCrashdumpEntry(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& logID, nlohmann::json& logEntryJson)
 {
     auto getStoredLogCallback =
         [asyncResp, logID,
@@ -3044,9 +3044,9 @@ inline void requestRoutesCrashdumpCollect(App& app)
 
                 std::string diagnosticDataType;
                 std::string oemDiagnosticDataType;
-                if (!redfish::json_util::readJsonAction( //
-                        req, asyncResp->res, //
-                        "DiagnosticDataType", diagnosticDataType, //
+                if (!redfish::json_util::readJsonAction(               //
+                        req, asyncResp->res,                           //
+                        "DiagnosticDataType", diagnosticDataType,      //
                         "OEMDiagnosticDataType", oemDiagnosticDataType //
                         ))
                 {

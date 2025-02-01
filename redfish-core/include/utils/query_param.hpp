@@ -382,8 +382,8 @@ inline bool getFilterParam(std::string_view value, Query& query)
     return query.filter.has_value();
 }
 
-inline std::optional<Query>
-    parseParameters(boost::urls::params_view urlParams, crow::Response& res)
+inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
+                                            crow::Response& res)
 {
     Query ret{};
     for (const boost::urls::params_view::value_type& it : urlParams)
@@ -890,10 +890,10 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     }
 
   private:
-    static void
-        placeResultStatic(const std::shared_ptr<MultiAsyncResp>& multi,
-                          const nlohmann::json::json_pointer& locationToPlace,
-                          crow::Response& res)
+    static void placeResultStatic(
+        const std::shared_ptr<MultiAsyncResp>& multi,
+        const nlohmann::json::json_pointer& locationToPlace,
+        crow::Response& res)
     {
         multi->placeResult(locationToPlace, res);
     }
@@ -1019,10 +1019,10 @@ inline void processSelect(crow::Response& intermediateResponse,
     recursiveSelect(intermediateResponse.jsonValue, trieRoot);
 }
 
-inline void
-    processAllParams(crow::App& app, const Query& query, const Query& delegated,
-                     std::function<void(crow::Response&)>& completionHandler,
-                     crow::Response& intermediateResponse)
+inline void processAllParams(
+    crow::App& app, const Query& query, const Query& delegated,
+    std::function<void(crow::Response&)>& completionHandler,
+    crow::Response& intermediateResponse)
 {
     if (!completionHandler)
     {

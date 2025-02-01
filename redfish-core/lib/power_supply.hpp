@@ -196,9 +196,9 @@ inline void getValidPowerSupplyPath(
         });
 }
 
-inline void
-    getPowerSupplyState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& service, const std::string& path)
+inline void getPowerSupplyState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path)
 {
     dbus::utility::getProperty<bool>(
         service, path, "xyz.openbmc_project.Inventory.Item", "Present",
@@ -222,9 +222,9 @@ inline void
         });
 }
 
-inline void
-    getPowerSupplyHealth(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& service, const std::string& path)
+inline void getPowerSupplyHealth(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path)
 {
     dbus::utility::getProperty<bool>(
         service, path, "xyz.openbmc_project.State.Decorator.OperationalStatus",
@@ -249,9 +249,9 @@ inline void
         });
 }
 
-inline void
-    getPowerSupplyAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& service, const std::string& path)
+inline void getPowerSupplyAsset(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path)
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Inventory.Decorator.Asset",
@@ -343,9 +343,9 @@ inline void getPowerSupplyFirmwareVersion(
         });
 }
 
-inline void
-    getPowerSupplyLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& service, const std::string& path)
+inline void getPowerSupplyLocation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path)
 {
     dbus::utility::getProperty<std::string>(
         service, path, "xyz.openbmc_project.Inventory.Decorator.LocationCode",
@@ -436,8 +436,8 @@ inline void handlePowerSupplyAttributesSubTreeResponse(
         });
 }
 
-inline void
-    getEfficiencyPercent(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getEfficiencyPercent(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     constexpr std::array<std::string_view, 1> efficiencyIntf = {
         "xyz.openbmc_project.Control.PowerSupplyAttributes"};

@@ -251,8 +251,8 @@ inline void getCpuDataByService(
  * @return Returns as a string, the throttle cause in Redfish terms. If
  * translation cannot be done, returns "Unknown" throttle reason.
  */
-inline processor::ThrottleCause
-    dbusToRfThrottleCause(const std::string& dbusSource)
+inline processor::ThrottleCause dbusToRfThrottleCause(
+    const std::string& dbusSource)
 {
     if (dbusSource ==
         "xyz.openbmc_project.Control.Power.Throttle.ThrottleReasons.ClockLimit")
@@ -282,10 +282,10 @@ inline processor::ThrottleCause
     return processor::ThrottleCause::Invalid;
 }
 
-inline void
-    readThrottleProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const boost::system::error_code& ec,
-                           const dbus::utility::DBusPropertiesMap& properties)
+inline void readThrottleProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
 {
     if (ec)
     {
@@ -555,10 +555,10 @@ inline void highSpeedCoreIdsHandler(
  * @param[in]       service     D-Bus service to query.
  * @param[in]       objPath     D-Bus object to query.
  */
-inline void
-    getCpuConfigData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& cpuId, const std::string& service,
-                     const std::string& objPath)
+inline void getCpuConfigData(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& cpuId, const std::string& service,
+    const std::string& objPath)
 {
     BMCWEB_LOG_INFO("Getting CPU operating configs for {}", cpuId);
 
@@ -1345,7 +1345,7 @@ inline void requestRoutesProcessor(App& app)
 
                 std::optional<std::string> appliedConfigUri;
                 if (!json_util::readJsonPatch(
-                        req, asyncResp->res, //
+                        req, asyncResp->res,                                 //
                         "AppliedOperatingConfig/@odata.id", appliedConfigUri //
                         ))
                 {
