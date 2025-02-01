@@ -73,6 +73,26 @@ class HTTP2Connection :
         doRead();
     }
 
+    void startFromSettings(std::string_view http2UpgradeSettings)
+    {
+        int ret = ngSession.sessionUpgrade2(http2UpgradeSettings,
+                                            false /*head_request*/);
+        if (ret != 0)
+        {
+            BMCWEB_LOG_ERROR("Failed to load upgrade header");
+            return;
+        }
+        // Create the control stream
+        streams[0];
+
+        if (sendServerConnectionHeader() != 0)
+        {
+            BMCWEB_LOG_ERROR("send_server_connection_header failed");
+            return;
+        }
+        doRead();
+    }
+
     int sendServerConnectionHeader()
     {
         BMCWEB_LOG_DEBUG("send_server_connection_header()");
