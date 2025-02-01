@@ -16,6 +16,24 @@
       "message": "Please move this code in a different commit than where we add the new routing infrastructure.  They are different tasks.",
       "revId": "208786870973418daa60a95ee81154530b2c1499",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94149343_c4439007",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-01T14:36:37Z",
+      "side": 0,
+      "message": "Ok I will create new commit for Manager OEM changes. Reverted all changes in this commit.",
+      "parentUuid": "664e16fa_a7389131",
+      "revId": "208786870973418daa60a95ee81154530b2c1499",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

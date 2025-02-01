@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f91773c3_d6cda7c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 65
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-01T14:36:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b8f1e7e_0d0a2ee6",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "668c4e48a0160d6cb19c7460f4c7df0bc7b91de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb6998a9_03457724",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-01-31T22:14:59Z",
       "side": 1,
       "message": "I thought the intent of this patch was that we wouldn\u0027t need to make per-resouce OEM inclusions.  Was this a mistake, or is this an incremental step toward that goal, but not complete?",
+      "revId": "668c4e48a0160d6cb19c7460f4c7df0bc7b91de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86afd610_ea4f41d4",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-01T14:36:37Z",
+      "side": 1,
+      "message": "For patch we need to make per resource OEM handler call. I have kept it consistent for get handling also. I think it would be confusing if GET handlers are called at router level and PATCH is called per resource level. I earlier shared the same mock API over discord here https://discord.com/channels/775381525260664832/855566794994221117/1331086462707433512",
+      "parentUuid": "cb6998a9_03457724",
       "revId": "668c4e48a0160d6cb19c7460f4c7df0bc7b91de9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
