@@ -81,6 +81,7 @@ if (cxx.get_id() == 'clang')
         '-Wformat=2',
         '-Wno-c++98-compat-pedantic',
         '-Wno-c++98-compat',
+        '-Wno-c++20-compat',
         '-Wno-c++20-extensions',
         '-Wno-documentation-unknown-command',
         '-Wno-documentation',
