@@ -128,32 +128,19 @@ inline std::shared_ptr<persistent_data::UserSession>
     for (auto it = cookies.first; it != cookies.second; it++)
     {
         std::string_view cookieValue = it->value();
+        std::string_view authToken;
         BMCWEB_LOG_DEBUG("Checking cookie {}", cookieValue);
-        auto startIndex = cookieValue.find("SESSION=");
-        if (startIndex == std::string::npos)
+        for (auto param : boost::beast::http::param_list(cookieValue))
         {
-            BMCWEB_LOG_DEBUG(
-                "Cookie was present, but didn't look like a session {}",
-                cookieValue);
-            continue;
+            if (param.first != "SESSION")
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Cookie was present, but didn't look like a session {}",
+                    cookieValue);
+                continue;
+            }
+            authToken = param.second;
         }
-        startIndex += sizeof("SESSION=") - 1;
-        auto endIndex = cookieValue.find(';', startIndex);
-        if (endIndex == std::string::npos)
-        {
-            endIndex = cookieValue.size();
-        }
-        std::string_view authKey =
-            cookieValue.substr(startIndex, endIndex - startIndex);
-
-        std::shared_ptr<persistent_data::UserSession> sessionOut =
-            persistent_data::SessionStore::getInstance().loginSessionByToken(
-                authKey);
-        if (sessionOut == nullptr)
-        {
-            return nullptr;
-        }
-        sessionOut->cookieAuth = true;
 
         if constexpr (!BMCWEB_INSECURE_DISABLE_CSRF)
         {
@@ -179,6 +166,15 @@ inline std::shared_ptr<persistent_data::UserSession>
                 }
             }
         }
+        std::shared_ptr<persistent_data::UserSession> sessionOut =
+            persistent_data::SessionStore::getInstance().loginSessionByToken(
+                authToken);
+        if (sessionOut == nullptr)
+        {
+            // Only allow one session attempt per request
+            return nullptr;
+        }
+        sessionOut->cookieAuth = true;
         return sessionOut;
     }
     return nullptr;
