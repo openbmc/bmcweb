@@ -16,13 +16,11 @@ namespace bmcweb
 inline void split(std::vector<std::string>& strings, std::string_view str,
                   char delim)
 {
-    size_t start = 0;
-    size_t end = 0;
-    while (end <= str.size())
-    {
-        end = str.find(delim, start);
-        strings.emplace_back(str.substr(start, end - start));
-        start = end + 1;
+    if (str.empty()){
+        strings.emplace_back("");
+    }
+    for (const auto value : std::views::split(str, delim)){
+        strings.emplace_back(std::string_view{value});
     }
 }
 
