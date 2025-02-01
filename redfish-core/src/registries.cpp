@@ -16,12 +16,12 @@
 namespace redfish::registries
 {
 
-const Message* getMessageFromRegistry(const std::string& messageKey,
+const Message* getMessageFromRegistry(std::string_view messageKey,
                                       std::span<const MessageEntry> registry)
 {
     std::span<const MessageEntry>::iterator messageIt = std::ranges::find_if(
         registry, [&messageKey](const MessageEntry& messageEntry) {
-            return std::strcmp(messageEntry.first, messageKey.c_str()) == 0;
+            return messageKey.compare(messageEntry.first) == 0;
         });
     if (messageIt != registry.end())
     {
@@ -36,16 +36,14 @@ const Message* getMessage(std::string_view messageID)
     // Redfish MessageIds are in the form
     // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
     // the right Message
-    std::vector<std::string> fields;
-    fields.reserve(4);
-    bmcweb::split(fields, messageID, '.');
-    if (fields.size() != 4)
+    std::array<std::string_view, 4> fields;
+    if (!bmcweb::splitn(fields, messageID, '.'))
     {
         return nullptr;
     }
 
-    const std::string& registryName = fields[0];
-    const std::string& messageKey = fields[3];
+    std::string_view registryName = fields[0];
+    std::string_view messageKey = fields[3];
 
     // Find the right registry and check it for the MessageKey
     // Find the right registry and check it for the MessageKey
