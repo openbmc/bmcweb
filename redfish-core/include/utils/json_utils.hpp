@@ -510,6 +510,10 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
             std::string_view leftover;
             if (keysplitIndex != std::string_view::npos)
             {
+                if (keysplitIndex == 0 || keysplitIndex >= key.size())
+                {
+                    continue;
+                }
                 leftover = key.substr(keysplitIndex + 1);
                 key = key.substr(0, keysplitIndex);
             }
