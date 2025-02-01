@@ -60,6 +60,15 @@ class HTTP2Connection :
         handler(handlerIn), getCachedDateStr(getCachedDateStrF)
     {}
 
+    HTTP2Connection(Adaptor&& adaptorIn, Handler* handlerIn,
+                    std::function<std::string()>& getCachedDateStrF,
+                    std::string_view http2UpgradeSettings) :
+        adaptor(std::move(adaptorIn)), ngSession(initializeNghttp2Session()),
+        handler(handlerIn), getCachedDateStr(getCachedDateStrF)
+    {
+        ngSession.sessionUpgrade2(http2UpgradeSettings, false /*head_request*/);
+    }
+
     void start()
     {
         // Create the control stream

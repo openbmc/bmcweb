@@ -240,6 +240,57 @@ class Connection :
         instance.body_limit(boost::none);
     }
 
+    // returns whether connection was upgraded
+    bool doUpgrade(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    {
+        // This is a version of the code below that implements more than just
+        // rfc6455. include/boost/beast/websocket/impl/rfc6455.hpp
+        if (req->req.method() != boost::beast::http::verb::get)
+        {
+            return false;
+        }
+        using boost::beast::http::field;
+        using boost::beast::http::token_list;
+
+        bool isSse =
+            isContentTypeAllowed(req->getHeaderValue("Accept"),
+                                 http_helpers::ContentType::EventStream, false);
+
+        bool isWebsocket = false;
+        bool isH2c = false;
+        if (token_list{req->req[field::connection]}.exists("upgrade"))
+        {
+            token_list upgrade{req->req[field::upgrade]};
+            isWebsocket = upgrade.exists("websocket");
+            isH2c = upgrade.exists("h2c");
+        }
+
+        if constexpr (BMCWEB_EXPERIMENTAL_HTTP2 && isH2c)
+        {
+            std::string_view base64settings = req->req[field::http2_settings];
+            std::string unencodedsettings;
+            if (utility::base64Decode(base64settings, unencodedsettings))
+            {
+                auto http2 =
+                    std::make_shared<HTTP2Connection<Adaptor, Handler>>(
+                        std::move(adaptor), handler, getCachedDateStr);
+                http2->start();
+                return true;
+            }
+            else
+            {
+                BMCWEB_LOG_WARNING("Unable to decode http2 settings");
+            }
+        }
+
+        if (isWebsocket || isSse)
+        {
+            handler->handleUpgrade(req, asyncResp, std::move(adaptor));
+            return true;
+        }
+        return false;
+    }
+
     void handle()
     {
         std::error_code reqEc;
@@ -309,30 +360,8 @@ class Connection :
             [self(shared_from_this())](crow::Response& thisRes) {
                 self->completeRequest(thisRes);
             });
-        bool isSse =
-            isContentTypeAllowed(req->getHeaderValue("Accept"),
-                                 http_helpers::ContentType::EventStream, false);
-        std::string_view upgradeType(
-            req->getHeaderValue(boost::beast::http::field::upgrade));
-        if ((req->isUpgrade() &&
-             bmcweb::asciiIEquals(upgradeType, "websocket")) ||
-            isSse)
+        if (doUpgrade(asyncResp))
         {
-            asyncResp->res.setCompleteRequestHandler(
-                [self(shared_from_this())](crow::Response& thisRes) {
-                    if (thisRes.result() != boost::beast::http::status::ok)
-                    {
-                        // When any error occurs before handle upgradation,
-                        // the result in response will be set to respective
-                        // error. By default the Result will be OK (200),
-                        // which implies successful handle upgrade. Response
-                        // needs to be sent over this connection only on
-                        // failure.
-                        self->completeRequest(thisRes);
-                        return;
-                    }
-                });
-            handler->handleUpgrade(req, asyncResp, std::move(adaptor));
             return;
         }
         std::string_view expected =
