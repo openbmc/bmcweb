@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a7b57f0_9b973636",
+        "filename": "http/http_server.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-01T19:53:35Z",
+      "side": 1,
+      "message": "Same as below comment.  misc-include-cleaner is the one wrong here, so that\u0027s the error I chose to ignore.",
+      "revId": "d49381e6e1b383766fb2716c678489ee62c97959",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eace8340_598067ad",
+        "filename": "include/credential_pipe.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-01T19:53:35Z",
+      "side": 1,
+      "message": "Switching between ignoring misc-include-cleaner versus modernize-deprecated-headers is a tradeoff.\n\nI picked to ignore misc-include-cleaner because I believe it\u0027s incorrect in this case.  \u003ccstring\u003e should include these definitions.",
+      "revId": "d49381e6e1b383766fb2716c678489ee62c97959",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b89a15dd_0e00c6d6",
+        "filename": "include/credential_pipe.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-01T19:53:35Z",
+      "side": 1,
+      "message": "impl headers aren\u0027t intended to be included in headers only exposing functionality.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 2
+      },
+      "revId": "d49381e6e1b383766fb2716c678489ee62c97959",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
