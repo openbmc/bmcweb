@@ -254,6 +254,51 @@ class Connection :
         instance.body_limit(boost::none);
     }
 
+    // returns whether connection was upgraded
+    bool doUpgrade()
+    {
+        using boost::beast::http::field;
+        using boost::beast::http::token_list;
+
+        bool isSse =
+            isContentTypeAllowed(req->getHeaderValue("Accept"),
+                                 http_helpers::ContentType::EventStream, false);
+
+        bool isWebsocket = false;
+        bool isH2c = false;
+        // Check connection header is upgrade
+        if (token_list{req->req[field::connection]}.exists("upgrade"))
+        {
+            // Parse if upgrade is h2c or websocket
+            token_list upgrade{req->req[field::upgrade]};
+            isWebsocket = upgrade.exists("websocket");
+            isH2c = upgrade.exists("h2c");
+        }
+
+        if (BMCWEB_EXPERIMENTAL_HTTP2 && isH2c)
+        {
+            std::string_view base64settings = req->req[field::http2_settings];
+            if (utility::base64Decode<true>(base64settings, http2settings))
+            {
+                res.result(boost::beast::http::status::switching_protocols);
+                res.addHeader(boost::beast::http::field::connection, "Upgrade");
+                res.addHeader(boost::beast::http::field::upgrade, "h2c");
+            }
+        }
+
+        // websocket and SSE are only allowed on GET
+        if (req->req.method() != boost::beast::http::verb::get)
+        {
+            if (isWebsocket || isSse)
+            {
+                auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
+                handler->handleUpgrade(req, asyncResp, std::move(adaptor));
+                return true;
+            }
+        }
+        return false;
+    }
+
     void handle()
     {
         std::error_code reqEc;
@@ -323,30 +368,8 @@ class Connection :
             [self(shared_from_this())](crow::Response& thisRes) {
                 self->completeRequest(thisRes);
             });
-        bool isSse =
-            isContentTypeAllowed(req->getHeaderValue("Accept"),
-                                 http_helpers::ContentType::EventStream, false);
-        std::string_view upgradeType(
-            req->getHeaderValue(boost::beast::http::field::upgrade));
-        if ((req->isUpgrade() &&
-             bmcweb::asciiIEquals(upgradeType, "websocket")) ||
-            isSse)
+        if (doUpgrade())
         {
-            asyncResp->res.setCompleteRequestHandler(
-                [self(shared_from_this())](crow::Response& thisRes) {
-                    if (thisRes.result() != boost::beast::http::status::ok)
-                    {
-                        // When any error occurs before handle upgradation,
-                        // the result in response will be set to respective
-                        // error. By default the Result will be OK (200),
-                        // which implies successful handle upgrade. Response
-                        // needs to be sent over this connection only on
-                        // failure.
-                        self->completeRequest(thisRes);
-                        return;
-                    }
-                });
-            handler->handleUpgrade(req, asyncResp, std::move(adaptor));
             return;
         }
         std::string_view expected =
@@ -680,6 +703,14 @@ class Connection :
             return;
         }
 
+        if (res.result() == boost::beast::http::status::switching_protocols)
+        {
+            auto http2 = std::make_shared<HTTP2Connection<Adaptor, Handler>>(
+                std::move(adaptor), handler, getCachedDateStr);
+            http2->startFromSettings(http2settings);
+            return;
+        }
+
         if (res.result() == boost::beast::http::status::continue_)
         {
             // Reset the result to ok
@@ -797,7 +828,7 @@ class Connection :
 
     std::shared_ptr<crow::Request> req;
     std::string accept;
-
+    std::string http2settings;
     crow::Response res;
 
     std::shared_ptr<persistent_data::UserSession> userSession;
