@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9ae8f8eb_369e0419",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-01T11:40:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e757f0e_d0a2c3c4",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "0c8bb13114966df90d15ca10bae2fa1d17fe137f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "55c38f74_cad1681b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9167cfb0_de1b7e5b",
+        "filename": "test/redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-01T11:40:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dad0da42_e1ca17be",
+      "range": {
+        "startLine": 404,
+        "startChar": 4,
+        "endLine": 404,
+        "endChar": 17
+      },
+      "revId": "0c8bb13114966df90d15ca10bae2fa1d17fe137f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a478d5ef_c634f115",
@@ -77,6 +125,24 @@
       "writtenOn": "2025-01-31T20:39:20Z",
       "side": 1,
       "message": "Do we need the same test case for a std::array?  Looking at the coverage I think only one of the branches you changed is covered.",
+      "revId": "0c8bb13114966df90d15ca10bae2fa1d17fe137f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ee254be_14dfc8e3",
+        "filename": "test/redfish-core/include/utils/json_utils_test.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-01T11:40:39Z",
+      "side": 1,
+      "message": "The readJson would expect std::variant and we cant fill in a std::array object. I could try adding specific test case for unpackValue function alone but not sure if we need that now.",
+      "parentUuid": "a478d5ef_c634f115",
       "revId": "0c8bb13114966df90d15ca10bae2fa1d17fe137f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
