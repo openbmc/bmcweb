@@ -16,14 +16,31 @@ namespace bmcweb
 inline void split(std::vector<std::string>& strings, std::string_view str,
                   char delim)
 {
-    size_t start = 0;
-    size_t end = 0;
-    while (end <= str.size())
+    if (str.empty())
     {
-        end = str.find(delim, start);
-        strings.emplace_back(str.substr(start, end - start));
-        start = end + 1;
+        strings.emplace_back("");
     }
+    for (const auto value : std::views::split(str, delim))
+    {
+        strings.emplace_back(std::string_view{value});
+    }
+}
+
+template <size_t N>
+inline bool splitn(std::array<std::string_view, N>& strings,
+                   std::string_view str, char delim)
+{
+    auto sv = std::views::split(str, delim);
+    if (static_cast<size_t>(std::ranges::distance(sv.begin(), sv.end())) !=
+        strings.size())
+    {
+        return false;
+    }
+    for (const auto& [out, split] : std::views::zip(strings, sv))
+    {
+        out = std::string_view(split);
+    }
+    return true;
 }
 
 inline char asciiToLower(char c)

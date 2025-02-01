@@ -118,7 +118,7 @@ inline nlohmann::json::object_t getLogFromRegistry(
 
 const Message* getMessage(std::string_view messageID);
 
-const Message* getMessageFromRegistry(const std::string& messageKey,
+const Message* getMessageFromRegistry(std::string_view messageKey,
                                       std::span<const MessageEntry> registry);
 
 } // namespace redfish::registries
