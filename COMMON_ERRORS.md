@@ -370,3 +370,25 @@ See also the
 [Cpp Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f11-use-an-unnamed-lambda-if-you-need-a-simple-function-object-in-one-place-only)
 for generalized guidelines on when lambdas are appropriate. The above
 recommendation is aligned with the C++ Core Guidelines.
+## 15. Directly calling dbus async method calls 
+
+```cpp
+crow::connections::systemBus->async_method_call(
+    respHandler, "xyz.openbmc_project.ObjectMapper",
+    "/xyz/openbmc_project/object_mapper",
+    "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+    "/xyz/openbmc_project/inventory", 0, interfaces);
+```
+It's required to use dbus utility functions provided in the file redfish-core/include/utils/dbus_utils.hpp instead of invoking them directly. Using the exiting util functions will help to reduce the compilation time. 
+## 16. Using strings for DMTF schema Enums 
+
+```cpp
+sensorJson["ReadingType"] = "Frequency";
+
+```
+Schema Enums and types are auto generated using scripts/generate_schema_enums.py. It's recommended to add and enhance the new schema support here and use the generated header file and types as shows below. 
+
+```cpp
+#include "generated/enums/sensor.hpp"
+sensorJson["ReadingType"] = sensor::ReadingType::Frequency;
+```
