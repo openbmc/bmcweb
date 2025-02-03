@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bc830a80_b8108619",
+        "filename": "redfish-core/include/task_generation.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-03T22:24:43Z",
+      "side": 1,
+      "message": "I intentionally didn\u0027t do that because failure to parse one message shouldn\u0027t really fail the task.  At most we could log InternalError, which isn\u0027t really that helpful to a user watching the task.  At least that was my thinking.\n\nIs there a use case where logging this to the task would be important?  The only way I think it can happen is if a service publishes a bad dbus interface.",
+      "parentUuid": "a5a511d5_f9faf44d",
+      "revId": "d8198f149d9d213c2502ebc7709f7bb5578671c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b459fc6e_9aeb80c0",
         "filename": "redfish-core/include/task_generation.hpp",
         "patchSetId": 7
