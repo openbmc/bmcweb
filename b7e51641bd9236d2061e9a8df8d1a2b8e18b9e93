@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3c2b38e_1506c819",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-03T15:57:38Z",
+      "side": 1,
+      "message": "Thank you for adding these. I have a couple of corrections, but agree these should be in the document.",
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64fb4290_923b70dc",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-03T15:57:38Z",
+      "side": 1,
+      "message": "The utilities are in the file include/dbus_utility.hpp",
+      "range": {
+        "startLine": 385,
+        "startChar": 0,
+        "endLine": 385,
+        "endChar": 41
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de9abd02_c2584b9e",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-03T15:57:38Z",
+      "side": 1,
+      "message": "typo: existing utility",
+      "range": {
+        "startLine": 386,
+        "startChar": 10,
+        "endLine": 386,
+        "endChar": 22
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38a29910_d7af9054",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-03T15:57:38Z",
+      "side": 1,
+      "message": "typo: shown",
+      "range": {
+        "startLine": 397,
+        "startChar": 67,
+        "endLine": 397,
+        "endChar": 73
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
