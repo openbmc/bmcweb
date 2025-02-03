@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8f19a76_62bf8673",
+        "filename": "redfish-core/include/task_generation.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-02-03T23:25:18Z",
+      "side": 1,
+      "message": "\u003e but the task itself might not be in error state?  Sure, I can do it.\n\nNo, i don\u0027t think task shall fail, it should still be mark completed with an error added to the the task messages as on line# 169.\nhttps://grok.openbmc.org/xref/openbmc/bmcweb/redfish-core/lib/update_service.hpp?r\u003dd78572018fc2022091ff8b8eb5a7fef2172ba3d6#169",
+      "parentUuid": "daf37b0b_ad7c7e1a",
+      "revId": "d8198f149d9d213c2502ebc7709f7bb5578671c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b459fc6e_9aeb80c0",
         "filename": "redfish-core/include/task_generation.hpp",
         "patchSetId": 7
