@@ -102,8 +102,8 @@ inline std::shared_ptr<persistent_data::UserSession> performBasicAuth(
         isConfigureSelfOnly);
 }
 
-inline std::shared_ptr<persistent_data::UserSession>
-    performTokenAuth(std::string_view authHeader)
+inline std::shared_ptr<persistent_data::UserSession> performTokenAuth(
+    std::string_view authHeader)
 {
     BMCWEB_LOG_DEBUG("[AuthMiddleware] Token authentication");
     if (!authHeader.starts_with("Token "))
@@ -116,8 +116,8 @@ inline std::shared_ptr<persistent_data::UserSession>
     return sessionOut;
 }
 
-inline std::shared_ptr<persistent_data::UserSession>
-    performXtokenAuth(const boost::beast::http::header<true>& reqHeader)
+inline std::shared_ptr<persistent_data::UserSession> performXtokenAuth(
+    const boost::beast::http::header<true>& reqHeader)
 {
     BMCWEB_LOG_DEBUG("[AuthMiddleware] X-Auth-Token authentication");
 
@@ -131,9 +131,9 @@ inline std::shared_ptr<persistent_data::UserSession>
     return sessionOut;
 }
 
-inline std::shared_ptr<persistent_data::UserSession>
-    performCookieAuth(boost::beast::http::verb method [[maybe_unused]],
-                      const boost::beast::http::header<true>& reqHeader)
+inline std::shared_ptr<persistent_data::UserSession> performCookieAuth(
+    boost::beast::http::verb method [[maybe_unused]],
+    const boost::beast::http::header<true>& reqHeader)
 {
     using headers = boost::beast::http::header<true>;
     std::pair<headers::const_iterator, headers::const_iterator> cookies =
@@ -224,8 +224,8 @@ inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
     }
     if (boost::beast::http::verb::get == method)
     {
-        if ((url == "/redfish") || //
-            (url == "/redfish/v1") || //
+        if ((url == "/redfish") ||          //
+            (url == "/redfish/v1") ||       //
             (url == "/redfish/v1/odata") || //
             (url == "/redfish/v1/$metadata"))
         {

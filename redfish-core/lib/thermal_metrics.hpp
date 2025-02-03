@@ -126,10 +126,10 @@ inline void getTemperatureReadingsCelsius(
                         chassisId));
 }
 
-inline void
-    doThermalMetrics(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& chassisId,
-                     const std::optional<std::string>& validChassisPath)
+inline void doThermalMetrics(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const std::optional<std::string>& validChassisPath)
 {
     if (!validChassisPath)
     {
@@ -176,10 +176,10 @@ inline void handleThermalMetricsHead(
         });
 }
 
-inline void
-    handleThermalMetricsGet(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& chassisId)
+inline void handleThermalMetricsGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {

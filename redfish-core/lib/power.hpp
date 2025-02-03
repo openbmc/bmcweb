@@ -93,9 +93,9 @@ inline void afterGetChassisPath(
     auto& item = powerControlCollections[0];
 
     std::optional<uint32_t> value;
-    if (!json_util::readJsonObject( //
+    if (!json_util::readJsonObject(                 //
             item, sensorsAsyncResp->asyncResp->res, //
-            "PowerLimit/LimitInWatts", value //
+            "PowerLimit/LimitInWatts", value        //
             ))
     {
         return;
@@ -263,10 +263,10 @@ inline void afterGetChassis(
         ) { afterPowerCapSettingGet(sensorAsyncResp, ec, properties); });
 }
 
-inline void
-    handleChassisPowerGet(App& app, const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& chassisName)
+inline void handleChassisPowerGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -295,10 +295,10 @@ inline void
         std::bind_front(afterGetChassis, sensorAsyncResp));
 }
 
-inline void
-    handleChassisPowerPatch(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& chassisName)
+inline void handleChassisPowerPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -312,10 +312,10 @@ inline void
     std::optional<std::vector<nlohmann::json::object_t>> voltageCollections;
     std::optional<std::vector<nlohmann::json::object_t>> powerCtlCollections;
 
-    if (!json_util::readJsonPatch( //
+    if (!json_util::readJsonPatch(                //
             req, sensorAsyncResp->asyncResp->res, //
-            "PowerControl", powerCtlCollections, //
-            "Voltages", voltageCollections //
+            "PowerControl", powerCtlCollections,  //
+            "Voltages", voltageCollections        //
             ))
     {
         return;

@@ -413,8 +413,8 @@ class EventServiceManager
         return subValue;
     }
 
-    std::string
-        addSubscriptionInternal(const std::shared_ptr<Subscription>& subValue)
+    std::string addSubscriptionInternal(
+        const std::shared_ptr<Subscription>& subValue)
     {
         std::uniform_int_distribution<uint32_t> dist(0);
         bmcweb::OpenSSLGenerator gen;
@@ -458,9 +458,9 @@ class EventServiceManager
         return id;
     }
 
-    std::string
-        addSSESubscription(const std::shared_ptr<Subscription>& subValue,
-                           std::string_view lastEventId)
+    std::string addSSESubscription(
+        const std::shared_ptr<Subscription>& subValue,
+        std::string_view lastEventId)
     {
         std::string id = addSubscriptionInternal(subValue);
 
@@ -497,8 +497,8 @@ class EventServiceManager
         return id;
     }
 
-    std::string
-        addPushSubscription(const std::shared_ptr<Subscription>& subValue)
+    std::string addPushSubscription(
+        const std::shared_ptr<Subscription>& subValue)
     {
         std::string id = addSubscriptionInternal(subValue);
         subValue->deleter = [id]() {
@@ -595,8 +595,8 @@ class EventServiceManager
         return true;
     }
 
-    static void
-        sendEventsToSubs(const std::vector<EventLogObjectsType>& eventRecords)
+    static void sendEventsToSubs(
+        const std::vector<EventLogObjectsType>& eventRecords)
     {
         for (const auto& it :
              EventServiceManager::getInstance().subscriptionsMap)

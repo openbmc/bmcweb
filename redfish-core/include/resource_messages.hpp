@@ -40,8 +40,8 @@ nlohmann::json resourceErrorsCorrected(std::string_view arg1,
 nlohmann::json resourceErrorThresholdExceeded(std::string_view arg1,
                                               std::string_view arg2);
 
-nlohmann::json
-    resourceErrorThresholdCleared(std::string_view arg1, std::string_view arg2);
+nlohmann::json resourceErrorThresholdCleared(std::string_view arg1,
+                                             std::string_view arg2);
 
 nlohmann::json resourceWarningThresholdExceeded(std::string_view arg1,
                                                 std::string_view arg2);
@@ -52,11 +52,11 @@ nlohmann::json resourceWarningThresholdCleared(std::string_view arg1,
 nlohmann::json resourceStatusChangedOK(std::string_view arg1,
                                        std::string_view arg2);
 
-nlohmann::json
-    resourceStatusChangedWarning(std::string_view arg1, std::string_view arg2);
+nlohmann::json resourceStatusChangedWarning(std::string_view arg1,
+                                            std::string_view arg2);
 
-nlohmann::json
-    resourceStatusChangedCritical(std::string_view arg1, std::string_view arg2);
+nlohmann::json resourceStatusChangedCritical(std::string_view arg1,
+                                             std::string_view arg2);
 
 nlohmann::json resourceStateChanged(std::string_view arg1,
                                     std::string_view arg2);

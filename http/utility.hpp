@@ -424,9 +424,9 @@ inline bool readUrlSegments(const boost::urls::url_view_base& url,
     return details::readUrlSegments(url, {std::forward<Args>(args)...});
 }
 
-inline boost::urls::url
-    replaceUrlSegment(const boost::urls::url_view_base& urlView,
-                      const uint replaceLoc, std::string_view newSegment)
+inline boost::urls::url replaceUrlSegment(
+    const boost::urls::url_view_base& urlView, const uint replaceLoc,
+    std::string_view newSegment)
 {
     const boost::urls::segments_view& urlSegments = urlView.segments();
     boost::urls::url url("/");

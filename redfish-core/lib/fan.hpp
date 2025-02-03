@@ -35,10 +35,10 @@ namespace redfish
 constexpr std::array<std::string_view, 1> fanInterface = {
     "xyz.openbmc_project.Inventory.Item.Fan"};
 
-inline void
-    updateFanList(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                  const std::string& chassisId,
-                  const dbus::utility::MapperGetSubTreePathsResponse& fanPaths)
+inline void updateFanList(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId,
+    const dbus::utility::MapperGetSubTreePathsResponse& fanPaths)
 {
     nlohmann::json& fanList = asyncResp->res.jsonValue["Members"];
     for (const std::string& fanPath : fanPaths)
@@ -117,10 +117,10 @@ inline void doFanCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 std::bind_front(updateFanList, asyncResp, chassisId));
 }
 
-inline void
-    handleFanCollectionHead(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& chassisId)
+inline void handleFanCollectionHead(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -143,10 +143,10 @@ inline void
         });
 }
 
-inline void
-    handleFanCollectionGet(App& app, const crow::Request& req,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& chassisId)
+inline void handleFanCollectionGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -374,10 +374,10 @@ inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
-inline void
-    afterGetValidFanPath(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& chassisId, const std::string& fanId,
-                         const std::string& fanPath, const std::string& service)
+inline void afterGetValidFanPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId, const std::string& fanId,
+    const std::string& fanPath, const std::string& service)
 {
     addFanCommonProperties(asyncResp->res, chassisId, fanId);
     getFanState(asyncResp, fanPath, service);

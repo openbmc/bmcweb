@@ -50,8 +50,8 @@ namespace redfish
  *
  * @return None.
  */
-inline void
-    getHypervisorState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getHypervisorState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get hypervisor state information.");
     dbus::utility::getProperty<std::string>(
@@ -135,8 +135,8 @@ inline void
  *
  * @return None.
  */
-inline void
-    getHypervisorActions(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getHypervisorActions(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get hypervisor actions.");
     constexpr std::array<std::string_view, 1> interfaces = {
@@ -385,9 +385,9 @@ inline void setHypervisorIPv4Address(
  *
  * @return None.
  */
-inline void
-    setHypervisorIPv4Subnet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& ethIfaceId, const uint8_t subnet)
+inline void setHypervisorIPv4Subnet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& ethIfaceId, const uint8_t subnet)
 {
     BMCWEB_LOG_DEBUG("Setting the Hypervisor subnet : {} on Iface: {}", subnet,
                      ethIfaceId);
@@ -434,10 +434,10 @@ inline void setHypervisorIPv4Gateway(
  *
  * @return None
  */
-inline void
-    createHypervisorIPv4(const std::string& ifaceId, uint8_t prefixLength,
-                         const std::string& gateway, const std::string& address,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void createHypervisorIPv4(
+    const std::string& ifaceId, uint8_t prefixLength,
+    const std::string& gateway, const std::string& address,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     setHypervisorIPv4Address(asyncResp, ifaceId, address);
     setHypervisorIPv4Gateway(asyncResp, gateway);
@@ -452,9 +452,9 @@ inline void
  *
  * @return None
  */
-inline void
-    deleteHypervisorIPv4(const std::string& ifaceId,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void deleteHypervisorIPv4(
+    const std::string& ifaceId,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::string address = "0.0.0.0";
     std::string gateway = "0.0.0.0";
@@ -559,10 +559,10 @@ inline void handleHypervisorIPv4StaticPatch(
     std::string address;
     std::string subnetMask;
     std::string gateway;
-    if (!json_util::readJsonObject( //
-            *obj, asyncResp->res, //
-            "Address", address, //
-            "Gateway", gateway, //
+    if (!json_util::readJsonObject(  //
+            *obj, asyncResp->res,    //
+            "Address", address,      //
+            "Gateway", gateway,      //
             "SubnetMask", subnetMask //
             ))
     {
@@ -617,9 +617,9 @@ inline void handleHypervisorHostnamePatch(
                     "HostName", hostName);
 }
 
-inline void
-    setIPv4InterfaceEnabled(const std::string& ifaceId, bool isActive,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void setIPv4InterfaceEnabled(
+    const std::string& ifaceId, bool isActive,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     setDbusProperty(
         asyncResp, "InterfaceEnabled", "xyz.openbmc_project.Settings",
@@ -747,12 +747,12 @@ inline void handleHypervisorEthernetInterfacePatch(
     std::optional<std::vector<nlohmann::json::object_t>> ipv4Addresses;
     std::optional<bool> ipv4DHCPEnabled;
 
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
-            "DHCPv4/DHCPEnabled", ipv4DHCPEnabled, //
-            "IPv4Addresses", ipv4Addresses, //
+    if (!json_util::readJsonPatch(                      //
+            req, asyncResp->res,                        //
+            "DHCPv4/DHCPEnabled", ipv4DHCPEnabled,      //
+            "IPv4Addresses", ipv4Addresses,             //
             "IPv4StaticAddresses", ipv4StaticAddresses, //
-            "HostName", hostName //
+            "HostName", hostName                        //
             ))
     {
         return;

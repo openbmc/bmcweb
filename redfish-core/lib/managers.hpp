@@ -83,8 +83,8 @@ inline std::string getBMCUpdateServicePath()
  *
  * @param[in] asyncResp - Shared pointer for completing asynchronous calls
  */
-inline void
-    doBMCGracefulRestart(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void doBMCGracefulRestart(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.BMC";
     const char* objectPath = "/xyz/openbmc_project/state/bmc0";
@@ -110,8 +110,8 @@ inline void
         });
 }
 
-inline void
-    doBMCForceRestart(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void doBMCForceRestart(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     const char* processName = "xyz.openbmc_project.State.BMC";
     const char* objectPath = "/xyz/openbmc_project/state/bmc0";
@@ -241,10 +241,10 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
             std::optional<std::string> resetType;
             std::optional<std::string> resetToDefaultsType;
 
-            if (!json_util::readJsonAction( //
-                    req, asyncResp->res, //
+            if (!json_util::readJsonAction(                     //
+                    req, asyncResp->res,                        //
                     "ResetToDefaultsType", resetToDefaultsType, //
-                    "ResetType", resetType //
+                    "ResetType", resetType                      //
                     ))
             {
                 BMCWEB_LOG_DEBUG("Missing property ResetType.");
@@ -351,11 +351,11 @@ static constexpr const char* stepwiseConfigurationIface =
 static constexpr const char* thermalModeIface =
     "xyz.openbmc_project.Control.ThermalMode";
 
-inline void
-    asyncPopulatePid(const std::string& connection, const std::string& path,
-                     const std::string& currentProfile,
-                     const std::vector<std::string>& supportedProfiles,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void asyncPopulatePid(
+    const std::string& connection, const std::string& path,
+    const std::string& currentProfile,
+    const std::vector<std::string>& supportedProfiles,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     sdbusplus::message::object_path objPath(path);
     dbus::utility::getManagedObjects(
@@ -790,10 +790,10 @@ enum class CreatePIDRet
     patch
 };
 
-inline bool
-    getZonesFromJsonReq(const std::shared_ptr<bmcweb::AsyncResp>& response,
-                        std::vector<nlohmann::json::object_t>& config,
-                        std::vector<std::string>& zones)
+inline bool getZonesFromJsonReq(
+    const std::shared_ptr<bmcweb::AsyncResp>& response,
+    std::vector<nlohmann::json::object_t>& config,
+    std::vector<std::string>& zones)
 {
     if (config.empty())
     {
@@ -827,9 +827,9 @@ inline bool
     return true;
 }
 
-inline const dbus::utility::ManagedObjectType::value_type*
-    findChassis(const dbus::utility::ManagedObjectType& managedObj,
-                std::string_view value, std::string& chassis)
+inline const dbus::utility::ManagedObjectType::value_type* findChassis(
+    const dbus::utility::ManagedObjectType& managedObj, std::string_view value,
+    std::string& chassis)
 {
     BMCWEB_LOG_DEBUG("Find Chassis: {}", value);
 
@@ -997,25 +997,25 @@ inline CreatePIDRet createPidInterface(
         std::optional<std::vector<std::string>> outputs;
         std::map<std::string, std::optional<double>> doubles;
         std::optional<std::string> setpointOffset;
-        if (!redfish::json_util::readJson( //
-                jsonValue, response->res, //
-                "FFGainCoefficient", doubles["FFGainCoefficient"], //
-                "FFOffCoefficient", doubles["FFOffCoefficient"], //
-                "ICoefficient", doubles["ICoefficient"], //
-                "ILimitMax", doubles["ILimitMax"], //
-                "ILimitMin", doubles["ILimitMin"], //
-                "Inputs", inputs, //
+        if (!redfish::json_util::readJson(                           //
+                jsonValue, response->res,                            //
+                "FFGainCoefficient", doubles["FFGainCoefficient"],   //
+                "FFOffCoefficient", doubles["FFOffCoefficient"],     //
+                "ICoefficient", doubles["ICoefficient"],             //
+                "ILimitMax", doubles["ILimitMax"],                   //
+                "ILimitMin", doubles["ILimitMin"],                   //
+                "Inputs", inputs,                                    //
                 "NegativeHysteresis", doubles["NegativeHysteresis"], //
-                "OutLimitMax", doubles["OutLimitMax"], //
-                "OutLimitMin", doubles["OutLimitMin"], //
-                "Outputs", outputs, //
-                "PCoefficient", doubles["PCoefficient"], //
+                "OutLimitMax", doubles["OutLimitMax"],               //
+                "OutLimitMin", doubles["OutLimitMin"],               //
+                "Outputs", outputs,                                  //
+                "PCoefficient", doubles["PCoefficient"],             //
                 "PositiveHysteresis", doubles["PositiveHysteresis"], //
-                "SetPoint", doubles["SetPoint"], //
-                "SetPointOffset", setpointOffset, //
-                "SlewNeg", doubles["SlewNeg"], //
-                "SlewPos", doubles["SlewPos"], //
-                "Zones", zones //
+                "SetPoint", doubles["SetPoint"],                     //
+                "SetPointOffset", setpointOffset,                    //
+                "SlewNeg", doubles["SlewNeg"],                       //
+                "SlewPos", doubles["SlewPos"],                       //
+                "Zones", zones                                       //
                 ))
         {
             return CreatePIDRet::fail;
@@ -1106,9 +1106,9 @@ inline CreatePIDRet createPidInterface(
         std::optional<std::string> chassisId;
         std::optional<double> failSafePercent;
         std::optional<double> minThermalOutput;
-        if (!redfish::json_util::readJson( //
-                jsonValue, response->res, //
-                "Chassis/@odata.id", chassisId, //
+        if (!redfish::json_util::readJson(          //
+                jsonValue, response->res,           //
+                "Chassis/@odata.id", chassisId,     //
                 "FailSafePercent", failSafePercent, //
                 "MinThermalOutput", minThermalOutput))
         {
@@ -1146,14 +1146,14 @@ inline CreatePIDRet createPidInterface(
         std::optional<double> positiveHysteresis;
         std::optional<double> negativeHysteresis;
         std::optional<std::string> direction; // upper clipping curve vs lower
-        if (!redfish::json_util::readJson( //
-                jsonValue, response->res, //
-                "Direction", direction, //
-                "Inputs", inputs, //
+        if (!redfish::json_util::readJson(    //
+                jsonValue, response->res,     //
+                "Direction", direction,       //
+                "Inputs", inputs,             //
                 "NegativeHysteresis", negativeHysteresis, //
                 "PositiveHysteresis", positiveHysteresis, //
-                "Steps", steps, //
-                "Zones", zones //
+                "Steps", steps,                           //
+                "Zones", zones                            //
                 ))
         {
             return CreatePIDRet::fail;
@@ -1188,9 +1188,9 @@ inline CreatePIDRet createPidInterface(
                 double out = 0.0;
 
                 if (!redfish::json_util::readJsonObject( //
-                        step, response->res, //
-                        "Output", out, //
-                        "Target", target //
+                        step, response->res,             //
+                        "Output", out,                   //
+                        "Target", target                 //
                         ))
                 {
                     return CreatePIDRet::fail;
@@ -1341,9 +1341,9 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
             });
     }
 
-    static void
-        processingComplete(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const CompletionValues& completion)
+    static void processingComplete(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        const CompletionValues& completion)
     {
         if (asyncResp->res.result() != boost::beast::http::status::ok)
         {
@@ -1806,8 +1806,8 @@ inline void getLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 // avoid name collision systems.hpp
-inline void
-    managerGetLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void managerGetLastResetTime(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Getting Manager Last Reset Time");
 
@@ -1840,9 +1840,9 @@ inline void
  *
  * @return void
  */
-inline void
-    setActiveFirmwareImage(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& runningFirmwareTarget)
+inline void setActiveFirmwareImage(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& runningFirmwareTarget)
 {
     // Get the Id from /redfish/v1/UpdateService/FirmwareInventory/<Id>
     std::string::size_type idPos = runningFirmwareTarget.rfind('/');
@@ -1994,8 +1994,8 @@ inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         interactive);
 }
 
-inline void
-    checkForQuiesced(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void checkForQuiesced(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     dbus::utility::getProperty<std::string>(
         "org.freedesktop.systemd1",
@@ -2358,17 +2358,17 @@ inline void requestRoutesManager(App& app)
                 std::optional<nlohmann::json::object_t> stepwiseControllers;
                 std::optional<std::string> profile;
 
-                if (!json_util::readJsonPatch( //
-                        req, asyncResp->res, //
-                        "DateTime", datetime, //
+                if (!json_util::readJsonPatch(                            //
+                        req, asyncResp->res,                              //
+                        "DateTime", datetime,                             //
                         "Links/ActiveSoftwareImage/@odata.id",
-                        activeSoftwareImageOdataId, //
+                        activeSoftwareImageOdataId,                       //
                         "Oem/OpenBmc/Fan/FanControllers", fanControllers, //
-                        "Oem/OpenBmc/Fan/FanZones", fanZones, //
+                        "Oem/OpenBmc/Fan/FanZones", fanZones,             //
                         "Oem/OpenBmc/Fan/PidControllers", pidControllers, //
-                        "Oem/OpenBmc/Fan/Profile", profile, //
+                        "Oem/OpenBmc/Fan/Profile", profile,               //
                         "Oem/OpenBmc/Fan/StepwiseControllers",
-                        stepwiseControllers //
+                        stepwiseControllers                               //
                         ))
                 {
                     return;

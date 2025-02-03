@@ -576,8 +576,8 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
     return std::make_shared<boost::asio::ssl::context>(std::move(sslCtx));
 }
 
-std::optional<boost::asio::ssl::context>
-    getSSLClientContext(VerifyCertificate verifyCertificate)
+std::optional<boost::asio::ssl::context> getSSLClientContext(
+    VerifyCertificate verifyCertificate)
 {
     namespace fs = std::filesystem;
 

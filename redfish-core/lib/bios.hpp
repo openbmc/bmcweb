@@ -26,10 +26,10 @@ namespace redfish
 /**
  * BiosService class supports handle get method for bios.
  */
-inline void
-    handleBiosServiceGet(crow::App& app, const crow::Request& req,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::string& systemName)
+inline void handleBiosServiceGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -78,10 +78,10 @@ inline void requestRoutesBiosService(App& app)
  * Function handles POST method request.
  * Analyzes POST body message before sends Reset request data to D-Bus.
  */
-inline void
-    handleBiosResetPost(crow::App& app, const crow::Request& req,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& systemName)
+inline void handleBiosResetPost(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {

@@ -35,9 +35,9 @@ namespace image_upload
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static std::unique_ptr<sdbusplus::bus::match_t> fwUpdateMatcher;
 
-inline void
-    uploadImageHandler(const crow::Request& req,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void uploadImageHandler(
+    const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // Only allow one FW update at a time
     if (fwUpdateMatcher != nullptr)

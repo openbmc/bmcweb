@@ -192,9 +192,9 @@ inline void getProcessorProperties(
  *
  * @return None.
  */
-inline void
-    getProcessorSummary(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& service, const std::string& path)
+inline void getProcessorSummary(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path)
 {
     auto getCpuPresenceState = [asyncResp](const boost::system::error_code& ec3,
                                            const bool cpuPresenceCheck) {
@@ -234,9 +234,9 @@ inline void
  *
  * @return None.
  */
-inline void
-    processMemoryProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const dbus::utility::DBusPropertiesMap& properties)
+inline void processMemoryProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::DBusPropertiesMap& properties)
 {
     BMCWEB_LOG_DEBUG("Got {} Dimm properties.", properties.size());
 
@@ -285,9 +285,9 @@ inline void
  *
  * @return None.
  */
-inline void
-    getMemorySummary(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& service, const std::string& path)
+inline void getMemorySummary(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path)
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Inventory.Item.Dimm",
@@ -342,10 +342,10 @@ inline void afterGetUUID(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
-inline void
-    afterGetInventory(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const boost::system::error_code& ec,
-                      const dbus::utility::DBusPropertiesMap& propertiesList)
+inline void afterGetInventory(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& propertiesList)
 {
     if (ec)
     {
@@ -505,8 +505,8 @@ inline void afterSystemGetSubTree(
  *
  * @return None.
  */
-inline void
-    getComputerSystem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getComputerSystem(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get available system components.");
     constexpr std::array<std::string_view, 5> interfaces = {
@@ -891,8 +891,8 @@ inline void getBootProgressLastStateTime(
  * @return None.
  */
 
-inline void
-    getBootOverrideType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getBootOverrideType(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.Settings",
@@ -932,8 +932,8 @@ inline void
  * @return None.
  */
 
-inline void
-    getBootOverrideMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getBootOverrideMode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.Settings",
@@ -984,8 +984,8 @@ inline void
  * @return None.
  */
 
-inline void
-    getBootOverrideSource(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getBootOverrideSource(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.Settings",
@@ -1075,8 +1075,8 @@ inline void processBootOverrideEnable(
  * @return None.
  */
 
-inline void
-    getBootOverrideEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getBootOverrideEnable(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     dbus::utility::getProperty<bool>(
         "xyz.openbmc_project.Settings",
@@ -1106,8 +1106,8 @@ inline void
  *
  * @return None.
  */
-inline void
-    getBootProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getBootProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get boot information.");
 
@@ -1128,8 +1128,8 @@ inline void
  *
  * @return None.
  */
-inline void
-    getLastResetTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getLastResetTime(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Getting System Last Reset Time");
 
@@ -1223,8 +1223,8 @@ inline void getAutomaticRebootAttempts(
  *
  * @return None.
  */
-inline void
-    getAutomaticRetryPolicy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getAutomaticRetryPolicy(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get Automatic Retry policy");
 
@@ -1323,8 +1323,8 @@ inline computer_system::PowerRestorePolicyTypes
  *
  * @return None.
  */
-inline void
-    getPowerRestorePolicy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getPowerRestorePolicy(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get power restore policy");
 
@@ -1358,8 +1358,8 @@ inline void
  *
  * @return None.
  */
-inline void
-    getStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getStopBootOnFault(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get Stop Boot On Fault");
 
@@ -1678,9 +1678,9 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  *
  * @return Integer error code.
  */
-inline void
-    setBootModeOrSource(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::optional<std::string>& bootSource)
+inline void setBootModeOrSource(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::optional<std::string>& bootSource)
 {
     std::string bootSourceStr;
     std::string bootModeStr;
@@ -1733,11 +1733,11 @@ inline void
  * @return Integer error code.
  */
 
-inline void
-    setBootProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::optional<std::string>& bootSource,
-                      const std::optional<std::string>& bootType,
-                      const std::optional<std::string>& bootEnable)
+inline void setBootProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::optional<std::string>& bootSource,
+    const std::optional<std::string>& bootType,
+    const std::optional<std::string>& bootEnable)
 {
     BMCWEB_LOG_DEBUG("Set boot information.");
 
@@ -1816,8 +1816,8 @@ inline void setAssetTag(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  *
  * @return stopBootOnFault value or empty  if incoming value is not valid
  */
-inline std::optional<bool>
-    validstopBootOnFault(const std::string& stopBootOnFaultString)
+inline std::optional<bool> validstopBootOnFault(
+    const std::string& stopBootOnFaultString)
 {
     if (stopBootOnFaultString == "AnyFault")
     {
@@ -1840,9 +1840,9 @@ inline std::optional<bool>
  *
  * @return None.
  */
-inline void
-    setStopBootOnFault(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& stopBootOnFault)
+inline void setStopBootOnFault(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& stopBootOnFault)
 {
     BMCWEB_LOG_DEBUG("Set Stop Boot On Fault.");
 
@@ -1872,9 +1872,9 @@ inline void
  *
  * @return None.
  */
-inline void
-    setAutomaticRetry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& automaticRetryConfig)
+inline void setAutomaticRetry(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& automaticRetryConfig)
 {
     BMCWEB_LOG_DEBUG("Set Automatic Retry.");
 
@@ -1931,9 +1931,9 @@ inline std::string dbusPowerRestorePolicyFromRedfish(std::string_view policy)
  *
  * @return None.
  */
-inline void
-    setPowerRestorePolicy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          std::string_view policy)
+inline void setPowerRestorePolicy(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::string_view policy)
 {
     BMCWEB_LOG_DEBUG("Set power restore policy.");
 
@@ -1962,8 +1962,8 @@ inline void
  *
  * @return None.
  */
-inline void
-    getProvisioningStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getProvisioningStatus(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get OEM information.");
     dbus::utility::getAllProperties(
@@ -2036,8 +2036,8 @@ inline void
  *
  * @return PowerMode enum
  */
-inline computer_system::PowerMode
-    translatePowerModeString(const std::string& modeString)
+inline computer_system::PowerMode translatePowerModeString(
+    const std::string& modeString)
 {
     using PowerMode = computer_system::PowerMode;
 
@@ -2079,10 +2079,10 @@ inline computer_system::PowerMode
     return PowerMode::Invalid;
 }
 
-inline void
-    afterGetPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const boost::system::error_code& ec,
-                      const dbus::utility::DBusPropertiesMap& properties)
+inline void afterGetPowerMode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& properties)
 {
     if (ec)
     {
@@ -2214,9 +2214,9 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
  *
  * @return PowerMode value or empty string if mode is not valid
  */
-inline std::string
-    validatePowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const nlohmann::json& modeValue)
+inline std::string validatePowerMode(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json& modeValue)
 {
     using PowerMode = computer_system::PowerMode;
     std::string mode;
@@ -2401,8 +2401,8 @@ inline std::string rfToDbusWDTTimeOutAct(const std::string& rfAction)
  *
  * @return None.
  */
-inline void
-    getHostWatchdogTimer(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getHostWatchdogTimer(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get host watchodg");
     dbus::utility::getAllProperties(
@@ -2466,10 +2466,10 @@ inline void
  *
  * @return None.
  */
-inline void
-    setWDTProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::optional<bool> wdtEnable,
-                     const std::optional<std::string>& wdtTimeOutAction)
+inline void setWDTProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::optional<bool> wdtEnable,
+    const std::optional<std::string>& wdtTimeOutAction)
 {
     BMCWEB_LOG_DEBUG("Set host watchdog");
 
@@ -2513,9 +2513,9 @@ inline void
  *
  * @return true if successful
  */
-inline bool
-    parseIpsProperties(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const dbus::utility::DBusPropertiesMap& properties)
+inline bool parseIpsProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::DBusPropertiesMap& properties)
 {
     const bool* enabled = nullptr;
     const uint8_t* enterUtilizationPercent = nullptr;
@@ -2577,8 +2577,8 @@ inline bool
  *
  * @return None.
  */
-inline void
-    getIdlePowerSaver(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getIdlePowerSaver(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     BMCWEB_LOG_DEBUG("Get idle power saver parameters");
 
@@ -3009,10 +3009,10 @@ inline void afterPortRequest(
     }
 }
 
-inline void
-    handleComputerSystemGet(crow::App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& systemName)
+inline void handleComputerSystemGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -3192,27 +3192,27 @@ inline void handleComputerSystemPatch(
     std::optional<uint8_t> ipsExitUtil;
     std::optional<uint64_t> ipsExitTime;
 
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
-            "AssetTag", assetTag, //
-            "Boot/AutomaticRetryAttempts", bootAutomaticRetryAttempts, //
-            "Boot/AutomaticRetryConfig", bootAutomaticRetry, //
-            "Boot/BootSourceOverrideEnabled", bootEnable, //
-            "Boot/BootSourceOverrideMode", bootType, //
-            "Boot/BootSourceOverrideTarget", bootSource, //
-            "Boot/StopBootOnFault", stopBootOnFault, //
+    if (!json_util::readJsonPatch(                                         //
+            req, asyncResp->res,                                           //
+            "AssetTag", assetTag,                                          //
+            "Boot/AutomaticRetryAttempts", bootAutomaticRetryAttempts,     //
+            "Boot/AutomaticRetryConfig", bootAutomaticRetry,               //
+            "Boot/BootSourceOverrideEnabled", bootEnable,                  //
+            "Boot/BootSourceOverrideMode", bootType,                       //
+            "Boot/BootSourceOverrideTarget", bootSource,                   //
+            "Boot/StopBootOnFault", stopBootOnFault,                       //
             "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired, //
-            "HostWatchdogTimer/FunctionEnabled", wdtEnable, //
-            "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction, //
-            "IdlePowerSaver/Enabled", ipsEnable, //
-            "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime, //
-            "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil, //
-            "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime, //
-            "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil, //
-            "IndicatorLED", indicatorLed, //
-            "LocationIndicatorActive", locationIndicatorActive, //
-            "PowerMode", powerMode, //
-            "PowerRestorePolicy", powerRestorePolicy //
+            "HostWatchdogTimer/FunctionEnabled", wdtEnable,                //
+            "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction,           //
+            "IdlePowerSaver/Enabled", ipsEnable,                           //
+            "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,          //
+            "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,        //
+            "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime,            //
+            "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,          //
+            "IndicatorLED", indicatorLed,                                  //
+            "LocationIndicatorActive", locationIndicatorActive,            //
+            "PowerMode", powerMode,                                        //
+            "PowerRestorePolicy", powerRestorePolicy                       //
             ))
     {
         return;
@@ -3311,9 +3311,9 @@ inline void handleSystemCollectionResetActionHead(
  * allowableValues. If translation not possible, does nothing to
  * allowableValues.
  */
-inline void
-    dbusToRfAllowedHostTransitions(const std::string& dbusAllowedHostTran,
-                                   nlohmann::json::array_t& allowableValues)
+inline void dbusToRfAllowedHostTransitions(
+    const std::string& dbusAllowedHostTran,
+    nlohmann::json::array_t& allowableValues)
 {
     if (dbusAllowedHostTran == "xyz.openbmc_project.State.Host.Transition.On")
     {

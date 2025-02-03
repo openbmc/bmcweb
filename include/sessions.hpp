@@ -73,8 +73,8 @@ struct UserSession
      * @return a shared pointer if data has been loaded properly, nullptr
      * otherwise
      */
-    static std::shared_ptr<UserSession>
-        fromJson(const nlohmann::json::object_t& j)
+    static std::shared_ptr<UserSession> fromJson(
+        const nlohmann::json::object_t& j)
     {
         std::shared_ptr<UserSession> userSession =
             std::make_shared<UserSession>();

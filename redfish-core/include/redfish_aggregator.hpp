@@ -573,9 +573,9 @@ class RedfishAggregator
         Resource,
     };
 
-    static void
-        startAggregation(AggregationType aggType, const crow::Request& thisReq,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    static void startAggregation(
+        AggregationType aggType, const crow::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         if (thisReq.method() != boost::beast::http::verb::get)
         {
@@ -921,10 +921,10 @@ class RedfishAggregator
 
     // Processes the response returned by a satellite BMC and loads its
     // contents into asyncResp
-    static void
-        processResponse(std::string_view prefix,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        crow::Response& resp)
+    static void processResponse(
+        std::string_view prefix,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+        crow::Response& resp)
     {
         // 429 and 502 mean we didn't actually send the request so don't
         // overwrite the response headers in that case
@@ -1247,9 +1247,9 @@ class RedfishAggregator
     // Entry point to Redfish Aggregation
     // Returns Result stating whether or not we still need to locally handle the
     // request
-    static Result
-        beginAggregation(const crow::Request& thisReq,
-                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    static Result beginAggregation(
+        const crow::Request& thisReq,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;

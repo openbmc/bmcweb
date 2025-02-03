@@ -27,9 +27,9 @@
 namespace crow
 {
 // Populate session with user information.
-inline bool
-    populateUserInfo(persistent_data::UserSession& session,
-                     const dbus::utility::DBusPropertiesMap& userInfoMap)
+inline bool populateUserInfo(
+    persistent_data::UserSession& session,
+    const dbus::utility::DBusPropertiesMap& userInfoMap)
 {
     std::string userRole;
     bool remoteUser = false;

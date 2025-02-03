@@ -57,10 +57,10 @@ inline void fillSessionObject(crow::Response& res,
     }
 }
 
-inline void
-    handleSessionHead(crow::App& app, const crow::Request& req,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& /*sessionId*/)
+inline void handleSessionHead(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& /*sessionId*/)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -71,10 +71,10 @@ inline void
         "</redfish/v1/JsonSchemas/Session/Session.json>; rel=describedby");
 }
 
-inline void
-    handleSessionGet(crow::App& app, const crow::Request& req,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& sessionId)
+inline void handleSessionGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& sessionId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -97,10 +97,10 @@ inline void
     fillSessionObject(asyncResp->res, *session);
 }
 
-inline void
-    handleSessionDelete(crow::App& app, const crow::Request& req,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& sessionId)
+inline void handleSessionDelete(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& sessionId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -251,11 +251,11 @@ inline void handleSessionCollectionPost(
     std::optional<std::string> clientId;
     std::optional<std::string> token;
     if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
-            "Context", clientId, //
-            "Password", password, //
-            "Token", token, //
-            "UserName", username //
+            req, asyncResp->res,   //
+            "Context", clientId,   //
+            "Password", password,  //
+            "Token", token,        //
+            "UserName", username   //
             ))
     {
         return;
@@ -310,9 +310,9 @@ inline void handleSessionServiceHead(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/SessionService/SessionService.json>; rel=describedby");
 }
-inline void
-    handleSessionServiceGet(crow::App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void handleSessionServiceGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -346,8 +346,8 @@ inline void handleSessionServicePatch(
         return;
     }
     std::optional<int64_t> sessionTimeout;
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
+    if (!json_util::readJsonPatch(           //
+            req, asyncResp->res,             //
             "SessionTimeout", sessionTimeout //
             ))
     {

@@ -12,9 +12,9 @@ class DbusEventLogMonitor
     DbusEventLogMonitor();
     sdbusplus::bus::match_t dbusEventLogMonitor;
 
-    static bool
-        eventLogObjectFromDBus(const dbus::utility::DBusPropertiesMap& map,
-                               EventLogObjectsType& event);
+    static bool eventLogObjectFromDBus(
+        const dbus::utility::DBusPropertiesMap& map,
+        EventLogObjectsType& event);
 };
 
 class DbusTelemetryMonitor

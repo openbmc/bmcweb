@@ -71,9 +71,9 @@ inline void requestRoutesThermal(App& app)
                     sensor_utils::chassisSubNodeToString(
                         sensor_utils::ChassisSubNode::thermalNode));
 
-                if (!json_util::readJsonPatch( //
+                if (!json_util::readJsonPatch(                 //
                         req, sensorsAsyncResp->asyncResp->res, //
-                        "Fans", fanCollections, //
+                        "Fans", fanCollections,                //
                         "Temperatures", temperatureCollections //
                         ))
                 {
