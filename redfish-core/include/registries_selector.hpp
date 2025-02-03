@@ -51,8 +51,8 @@ inline std::optional<registries::HeaderAndUrl>
     return std::nullopt;
 }
 
-inline std::span<const MessageEntry>
-    getRegistryFromPrefix(std::string_view registryName)
+inline std::span<const MessageEntry> getRegistryFromPrefix(
+    std::string_view registryName)
 {
     if (base::header.registryPrefix == registryName)
     {

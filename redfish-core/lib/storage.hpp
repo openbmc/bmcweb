@@ -259,10 +259,10 @@ inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["Links"]["StorageServices@odata.count"] = 1;
 }
 
-inline void
-    handleStorageGet(App& app, const crow::Request& req,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& storageId)
+inline void handleStorageGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& storageId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -411,8 +411,8 @@ inline std::optional<drive::MediaType> convertDriveType(std::string_view type)
     return drive::MediaType::Invalid;
 }
 
-inline std::optional<protocol::Protocol>
-    convertDriveProtocol(std::string_view proto)
+inline std::optional<protocol::Protocol> convertDriveProtocol(
+    std::string_view proto)
 {
     if (proto == "xyz.openbmc_project.Inventory.Item.Drive.DriveProtocol.SAS")
     {

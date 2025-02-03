@@ -35,8 +35,8 @@ std::string FilterExpressionPrinter::operator()(int64_t x) const
 {
     return std::format("int({})", x);
 }
-std::string
-    FilterExpressionPrinter::operator()(const filter_ast::QuotedString& x) const
+std::string FilterExpressionPrinter::operator()(
+    const filter_ast::QuotedString& x) const
 {
     return std::format("quoted_string(\"{}\")", static_cast<std::string>(x));
 }
@@ -46,8 +46,8 @@ std::string FilterExpressionPrinter::operator()(
     return std::format("unquoted_string(\"{}\")", static_cast<std::string>(x));
 }
 
-std::string
-    FilterExpressionPrinter::operator()(const filter_ast::LogicalNot& x) const
+std::string FilterExpressionPrinter::operator()(
+    const filter_ast::LogicalNot& x) const
 {
     std::string prefix;
     std::string postfix;
@@ -58,8 +58,8 @@ std::string
     }
     return std::format("{}{}{}", prefix, (*this)(x.operand), postfix);
 }
-std::string
-    FilterExpressionPrinter::operator()(const filter_ast::LogicalOr& x) const
+std::string FilterExpressionPrinter::operator()(
+    const filter_ast::LogicalOr& x) const
 {
     std::string prefix;
     std::string postfix;
@@ -77,8 +77,8 @@ std::string
     return out;
 }
 
-std::string
-    FilterExpressionPrinter::operator()(const filter_ast::LogicalAnd& x) const
+std::string FilterExpressionPrinter::operator()(
+    const filter_ast::LogicalAnd& x) const
 {
     std::string prefix;
     std::string postfix;
@@ -117,8 +117,8 @@ static std::string toString(filter_ast::ComparisonOpEnum rel)
     }
 }
 
-std::string
-    FilterExpressionPrinter::operator()(const filter_ast::Comparison& x) const
+std::string FilterExpressionPrinter::operator()(
+    const filter_ast::Comparison& x) const
 {
     std::string left = boost::apply_visitor(*this, x.left);
     std::string right = boost::apply_visitor(*this, x.right);

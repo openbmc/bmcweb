@@ -429,11 +429,11 @@ using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static SessionMap sessions;
 
-inline void
-    afterGetSocket(crow::websocket::Connection& conn,
-                   const sdbusplus::message::object_path& path,
-                   const boost::system::error_code& ec,
-                   const dbus::utility::DBusPropertiesMap& propertiesList)
+inline void afterGetSocket(
+    crow::websocket::Connection& conn,
+    const sdbusplus::message::object_path& path,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& propertiesList)
 {
     if (ec)
     {

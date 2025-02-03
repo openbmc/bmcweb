@@ -92,10 +92,10 @@ using CheckItemHandler =
                        const std::pair<sdbusplus::message::object_path,
                                        dbus::utility::DBusInterfacesMap>&)>;
 
-inline void
-    findAndParseObject(const std::string& service, const std::string& resName,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       CheckItemHandler&& handler)
+inline void findAndParseObject(
+    const std::string& service, const std::string& resName,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    CheckItemHandler&& handler)
 {
     sdbusplus::message::object_path path("/xyz/openbmc_project/VirtualMedia");
     dbus::utility::getManagedObjects(
@@ -152,9 +152,9 @@ inline std::string getTransferProtocolTypeFromUri(const std::string& imageUri)
 /**
  * @brief Read all known properties from VM object interfaces
  */
-inline void
-    vmParseInterfaceObject(const dbus::utility::DBusInterfacesMap& interfaces,
-                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void vmParseInterfaceObject(
+    const dbus::utility::DBusInterfacesMap& interfaces,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     for (const auto& [interface, values] : interfaces)
     {
@@ -308,12 +308,12 @@ inline void getVmResourceList(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         });
 }
 
-inline void
-    afterGetVmData(const std::string& name, const std::string& /*service*/,
-                   const std::string& resName,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::pair<sdbusplus::message::object_path,
-                                   dbus::utility::DBusInterfacesMap>& item)
+inline void afterGetVmData(
+    const std::string& name, const std::string& /*service*/,
+    const std::string& resName,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::pair<sdbusplus::message::object_path,
+                    dbus::utility::DBusInterfacesMap>& item)
 {
     VmMode mode = parseObjectPathAndGetMode(item.first, resName);
     if (mode == VmMode::Invalid)
@@ -368,8 +368,8 @@ enum class TransferProtocol
  * @brief Function extracts transfer protocol type from URI.
  *
  */
-inline std::optional<TransferProtocol>
-    getTransferProtocolFromUri(const boost::urls::url_view_base& imageUri)
+inline std::optional<TransferProtocol> getTransferProtocolFromUri(
+    const boost::urls::url_view_base& imageUri)
 {
     std::string_view scheme = imageUri.scheme();
     if (scheme == "smb")
@@ -711,15 +711,15 @@ inline void handleManagersVirtualMediaActionInsertPost(
     InsertMediaActionParams actionParams;
 
     // Read obligatory parameters (url of image)
-    if (!json_util::readJsonAction( //
-            req, asyncResp->res, //
-            "Image", actionParams.imageUrl, //
-            "Inserted", actionParams.inserted, //
-            "Password", actionParams.password, //
-            "TransferMethod", actionParams.transferMethod, //
+    if (!json_util::readJsonAction(                                    //
+            req, asyncResp->res,                                       //
+            "Image", actionParams.imageUrl,                            //
+            "Inserted", actionParams.inserted,                         //
+            "Password", actionParams.password,                         //
+            "TransferMethod", actionParams.transferMethod,             //
             "TransferProtocolType", actionParams.transferProtocolType, //
-            "UserName", actionParams.userName, //
-            "WriteProtected", actionParams.writeProtected //
+            "UserName", actionParams.userName,                         //
+            "WriteProtected", actionParams.writeProtected              //
             ))
     {
         return;
@@ -884,10 +884,10 @@ inline void handleManagersVirtualMediaCollectionGet(
         });
 }
 
-inline void
-    handleVirtualMediaGet(crow::App& app, const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& name, const std::string& resName)
+inline void handleVirtualMediaGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& name, const std::string& resName)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {

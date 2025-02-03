@@ -807,8 +807,8 @@ void resourceMissingAtURI(crow::Response& res,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ResourceAtUriInUnknownFormat formatted to JSON */
-nlohmann::json
-    resourceAtUriInUnknownFormat(const boost::urls::url_view_base& arg1);
+nlohmann::json resourceAtUriInUnknownFormat(
+    const boost::urls::url_view_base& arg1);
 
 void resourceAtUriInUnknownFormat(crow::Response& res,
                                   const boost::urls::url_view_base& arg1);
@@ -837,8 +837,8 @@ void resourceAtUriUnauthorized(crow::Response& res,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message CouldNotEstablishConnection formatted to JSON */
-nlohmann::json
-    couldNotEstablishConnection(const boost::urls::url_view_base& arg1);
+nlohmann::json couldNotEstablishConnection(
+    const boost::urls::url_view_base& arg1);
 
 void couldNotEstablishConnection(crow::Response& res,
                                  const boost::urls::url_view_base& arg1);
@@ -1151,8 +1151,8 @@ void resourceCreationConflict(crow::Response& res,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ActionParameterValueConflict formatted to JSON */
-nlohmann::json
-    actionParameterValueConflict(std::string_view arg1, std::string_view arg2);
+nlohmann::json actionParameterValueConflict(std::string_view arg1,
+                                            std::string_view arg2);
 
 void actionParameterValueConflict(crow::Response& res, std::string_view arg1,
                                   std::string_view arg2);
@@ -1448,8 +1448,8 @@ void propertyModified(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message GenerateSecretKeyRequired formatted to JSON */
-nlohmann::json
-    generateSecretKeyRequired(const boost::urls::url_view_base& arg1);
+nlohmann::json generateSecretKeyRequired(
+    const boost::urls::url_view_base& arg1);
 
 void generateSecretKeyRequired(crow::Response& res,
                                const boost::urls::url_view_base& arg1);

@@ -42,8 +42,8 @@ constexpr const char* biosPurpose =
 constexpr const char* bmcPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
 
-inline std::optional<sdbusplus::message::object_path>
-    getFunctionalSoftwarePath(const std::string& swType)
+inline std::optional<sdbusplus::message::object_path> getFunctionalSoftwarePath(
+    const std::string& swType)
 {
     if (swType == bmcPurpose)
     {
@@ -452,10 +452,10 @@ inline void handleUpdateableEndpoints(
     }
 }
 
-inline void
-    handleUpdateableObject(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const boost::system::error_code& ec,
-                           const dbus::utility::MapperGetObject& objectInfo)
+inline void handleUpdateableObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& objectInfo)
 {
     if (ec)
     {
@@ -484,9 +484,9 @@ inline void
  * @param[i,o] asyncResp  Async response object
  * @param[i]   swId       The software ID
  */
-inline void
-    getSwUpdatableStatus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const std::shared_ptr<std::string>& swId)
+inline void getSwUpdatableStatus(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<std::string>& swId)
 {
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {

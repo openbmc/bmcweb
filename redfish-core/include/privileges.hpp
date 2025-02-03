@@ -146,8 +146,8 @@ class Privileges
      * the setSinglePrivilege is called, or the Privilege structure is destroyed
      *
      */
-    std::vector<std::string>
-        getActivePrivilegeNames(const PrivilegeType type) const
+    std::vector<std::string> getActivePrivilegeNames(
+        const PrivilegeType type) const
     {
         std::vector<std::string> activePrivileges;
 

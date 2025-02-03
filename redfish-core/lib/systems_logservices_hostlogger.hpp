@@ -38,9 +38,9 @@ namespace redfish
 {
 constexpr const char* hostLoggerFolderPath = "/var/log/console";
 
-inline bool
-    getHostLoggerFiles(const std::string& hostLoggerFilePath,
-                       std::vector<std::filesystem::path>& hostLoggerFiles)
+inline bool getHostLoggerFiles(
+    const std::string& hostLoggerFilePath,
+    std::vector<std::filesystem::path>& hostLoggerFiles)
 {
     std::error_code ec;
     std::filesystem::directory_iterator logPath(hostLoggerFilePath, ec);

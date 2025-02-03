@@ -705,8 +705,8 @@ inline void populateFanRedundancy(
         });
 }
 
-inline void
-    sortJSONResponse(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
+inline void sortJSONResponse(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
     nlohmann::json& response = sensorsAsyncResp->asyncResp->res.jsonValue;
     std::array<std::string, 2> sensorHeaders{"Temperatures", "Fans"};
@@ -1681,10 +1681,10 @@ void getPowerSupplyAttributes(
  * @param callback Callback to invoke when inventory items have been obtained.
  */
 template <typename Callback>
-inline void
-    getInventoryItems(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-                      const std::shared_ptr<std::set<std::string>>& sensorNames,
-                      Callback&& callback)
+inline void getInventoryItems(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::shared_ptr<std::set<std::string>>& sensorNames,
+    Callback&& callback)
 {
     BMCWEB_LOG_DEBUG("getInventoryItems enter");
     auto getInventoryItemAssociationsCb =
@@ -2069,9 +2069,9 @@ inline void getSensorData(
     BMCWEB_LOG_DEBUG("getSensorData exit");
 }
 
-inline void
-    processSensorList(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
-                      const std::shared_ptr<std::set<std::string>>& sensorNames)
+inline void processSensorList(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
+    const std::shared_ptr<std::set<std::string>>& sensorNames)
 {
     auto getConnectionCb = [sensorsAsyncResp, sensorNames](
                                const std::set<std::string>& connections) {
@@ -2103,8 +2103,8 @@ inline void
  *        chassis.
  * @param SensorsAsyncResp   Pointer to object holding response data
  */
-inline void
-    getChassisData(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
+inline void getChassisData(
+    const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp)
 {
     BMCWEB_LOG_DEBUG("getChassisData enter");
     auto getChassisCb =
@@ -2192,10 +2192,10 @@ inline void setSensorsOverride(
         }
         for (auto& item : collectionItems.second)
         {
-            if (!json_util::readJsonObject( //
+            if (!json_util::readJsonObject(                //
                     item, sensorAsyncResp->asyncResp->res, //
-                    "MemberId", memberId, //
-                    propertyValueName, value //
+                    "MemberId", memberId,                  //
+                    propertyValueName, value               //
                     ))
             {
                 return;
@@ -2399,10 +2399,10 @@ inline void handleSensorCollectionGet(
                                chassisId, sensors::sensorsNodeStr));
 }
 
-inline void
-    getSensorFromDbus(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& sensorPath,
-                      const ::dbus::utility::MapperGetObject& mapperResponse)
+inline void getSensorFromDbus(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& sensorPath,
+    const ::dbus::utility::MapperGetObject& mapperResponse)
 {
     if (mapperResponse.size() != 1)
     {

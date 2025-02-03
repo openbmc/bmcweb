@@ -49,8 +49,8 @@
 namespace redfish
 {
 
-inline chassis::ChassisType
-    translateChassisTypeToRedfish(const std::string_view& chassisType)
+inline chassis::ChassisType translateChassisTypeToRedfish(
+    const std::string_view& chassisType)
 {
     if (chassisType ==
         "xyz.openbmc_project.Inventory.Item.Chassis.ChassisType.Blade")
@@ -723,10 +723,10 @@ inline void handleChassisGetSubTree(
     messages::resourceNotFound(asyncResp->res, "Chassis", chassisId);
 }
 
-inline void
-    handleChassisGet(App& app, const crow::Request& req,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     const std::string& chassisId)
+inline void handleChassisGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisId)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -748,10 +748,10 @@ inline void
         std::bind_front(handlePhysicalSecurityGetSubTree, asyncResp));
 }
 
-inline void
-    handleChassisPatch(App& app, const crow::Request& req,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& param)
+inline void handleChassisPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& param)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -765,9 +765,9 @@ inline void
         return;
     }
 
-    if (!json_util::readJsonPatch( //
-            req, asyncResp->res, //
-            "IndicatorLED", indicatorLed, //
+    if (!json_util::readJsonPatch(                             //
+            req, asyncResp->res,                               //
+            "IndicatorLED", indicatorLed,                      //
             "LocationIndicatorActive", locationIndicatorActive //
             ))
     {
@@ -893,8 +893,8 @@ inline void requestRoutesChassis(App& app)
             std::bind_front(handleChassisPatch, std::ref(app)));
 }
 
-inline void
-    doChassisPowerCycle(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void doChassisPowerCycle(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.State.Chassis"};

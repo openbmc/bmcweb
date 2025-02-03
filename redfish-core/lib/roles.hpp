@@ -41,8 +41,8 @@ inline std::string getRoleFromPrivileges(std::string_view priv)
     return "";
 }
 
-inline std::optional<nlohmann::json::array_t>
-    getAssignedPrivFromRole(std::string_view role)
+inline std::optional<nlohmann::json::array_t> getAssignedPrivFromRole(
+    std::string_view role)
 {
     nlohmann::json::array_t privArray;
     if (role == "Administrator")
