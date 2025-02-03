@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "273e2685_1f6d5d65",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-03T17:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cc68b69_ee223f87",
+      "range": {
+        "startLine": 374,
+        "startChar": 7,
+        "endLine": 374,
+        "endChar": 47
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64fb4290_923b70dc",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2ef3b86_6c1f7936",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-03T17:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64fb4290_923b70dc",
+      "range": {
+        "startLine": 385,
+        "startChar": 0,
+        "endLine": 385,
+        "endChar": 41
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de9abd02_c2584b9e",
@@ -77,6 +125,30 @@
       "writtenOn": "2025-02-03T15:57:38Z",
       "side": 1,
       "message": "typo: existing utility",
+      "range": {
+        "startLine": 386,
+        "startChar": 10,
+        "endLine": 386,
+        "endChar": 22
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db76efef_cb7bb14b",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-03T17:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de9abd02_c2584b9e",
       "range": {
         "startLine": 386,
         "startChar": 10,
@@ -127,6 +199,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42426638_089aef19",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-03T17:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38a29910_d7af9054",
+      "range": {
+        "startLine": 397,
+        "startChar": 67,
+        "endLine": 397,
+        "endChar": 73
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8b3dc9c1_e798fb86",
@@ -140,6 +236,30 @@
       "writtenOn": "2025-02-03T16:54:08Z",
       "side": 1,
       "message": "We need to rephrase this to be more clear.  this is ONLY when using redfish enumerations.  Redfish still has quite a few strings.",
+      "range": {
+        "startLine": 395,
+        "startChar": 0,
+        "endLine": 398,
+        "endChar": 0
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2711836_ac20ca83",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-03T17:30:49Z",
+      "side": 1,
+      "message": "Do you think we can enhance the script to generate const strings which can used to compare the JSON input for patch requests.",
+      "parentUuid": "8b3dc9c1_e798fb86",
       "range": {
         "startLine": 395,
         "startChar": 0,
