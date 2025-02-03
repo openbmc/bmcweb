@@ -3,6 +3,69 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee555ae1_d6ffc118",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-03T18:01:38Z",
+      "side": 1,
+      "message": "Is something like \"calling mapper\" better? \nI.e. \n\n\"It\u0027s required to use the D-Bus utility functions provided in the file include/dbus_utility.hpp instead of calling mapper directly.\"",
+      "range": {
+        "startLine": 385,
+        "startChar": 36,
+        "endLine": 385,
+        "endChar": 49
+      },
+      "revId": "2f52e5fd15f4a2736f1536e864c7cf1b97bb069b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58e636bc_35e6653d",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-03T18:01:38Z",
+      "side": 1,
+      "message": "code reuse, common errors, etc. More benefits than just compile time. Oh well.",
+      "revId": "2f52e5fd15f4a2736f1536e864c7cf1b97bb069b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26ec6bf6_ba42d760",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-03T18:01:38Z",
+      "side": 1,
+      "message": "contain",
+      "range": {
+        "startLine": 396,
+        "startChar": 61,
+        "endLine": 396,
+        "endChar": 70
+      },
+      "revId": "2f52e5fd15f4a2736f1536e864c7cf1b97bb069b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72d51d64_2d4ebabb",
         "filename": "COMMON_ERRORS.md",
         "patchSetId": 6
