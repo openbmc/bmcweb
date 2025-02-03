@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7cc68b69_ee223f87",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-03T16:54:08Z",
+      "side": 1,
+      "message": "Lets call this:\n\n\"Using async_method_call where there are existing helper methods\"\n\nasync_method_call on its own is not bad.",
+      "range": {
+        "startLine": 374,
+        "startChar": 7,
+        "endLine": 374,
+        "endChar": 47
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64fb4290_923b70dc",
         "filename": "COMMON_ERRORS.md",
         "patchSetId": 5
@@ -66,6 +89,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "894932b4_2544dbb3",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-03T16:54:08Z",
+      "side": 1,
+      "message": "Lets list all the dbus calls we expect helper functions to be used for.  I believe it\u0027s approximately 8, so lets just add them here.",
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38a29910_d7af9054",
         "filename": "COMMON_ERRORS.md",
         "patchSetId": 5
@@ -82,6 +122,29 @@
         "startChar": 67,
         "endLine": 397,
         "endChar": 73
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b3dc9c1_e798fb86",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-03T16:54:08Z",
+      "side": 1,
+      "message": "We need to rephrase this to be more clear.  this is ONLY when using redfish enumerations.  Redfish still has quite a few strings.",
+      "range": {
+        "startLine": 395,
+        "startChar": 0,
+        "endLine": 398,
+        "endChar": 0
       },
       "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
