@@ -2592,6 +2592,14 @@ inline void
             return;
         }
 
+        // Read only users should not be allowed to bypass self
+        if (mfaBypass)
+        {
+            BMCWEB_LOG_ERROR("User has insufficient privilege to bypass self");
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+
         // ConfigureSelf accounts can only modify their password
         if (!json_util::readJsonPatch(req, asyncResp->res, "Password",
                                       password))
