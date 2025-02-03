@@ -34,6 +34,24 @@
       "parentUuid": "c1197e72_576b4a29",
       "revId": "36decf0c74cae6368a8bef108352b4d2f968a637",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba8d29b0_46cf5bb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-03T06:29:07Z",
+      "side": 1,
+      "message": "CI is good after rebase.",
+      "parentUuid": "b612dc96_50ed20a5",
+      "revId": "36decf0c74cae6368a8bef108352b4d2f968a637",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
