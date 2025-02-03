@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f0b37e7_df56b914",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-02-03T21:57:41Z",
+      "side": 1,
+      "message": "I checked from update service side and you have brought in required changes into common task generation logic, except few comments. \n\nPending UT.",
+      "revId": "d8198f149d9d213c2502ebc7709f7bb5578671c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a511d5_f9faf44d",
+        "filename": "redfish-core/include/task_generation.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-02-03T21:57:41Z",
+      "side": 1,
+      "message": "I think this should also add an error message into taskData, isn\u0027t it?",
+      "revId": "d8198f149d9d213c2502ebc7709f7bb5578671c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
