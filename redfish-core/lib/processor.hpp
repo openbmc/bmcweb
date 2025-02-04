@@ -19,6 +19,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/location_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -812,10 +813,31 @@ inline void getProcessorData(
     const std::string& processorId, const std::string& objectPath,
     const dbus::utility::MapperServiceMap& serviceMap)
 {
+    bool foundConnector = false;
+    location_utils::ConnectorType locationType =
+        location_utils::ConnectorType::Invalid;
+
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
         for (const auto& interface : interfaceList)
         {
+            // Check for connector type first
+            location_utils::ConnectorType type =
+                location_utils::getConnectorType(interface);
+
+            if (type != location_utils::ConnectorType::Invalid)
+            {
+                if (foundConnector)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                locationType = type;
+                foundConnector = true;
+                continue; // Skip to next interface
+            }
+
+            // Process other interfaces
             if (interface == "xyz.openbmc_project.Inventory.Decorator.Asset")
             {
                 getCpuAssetData(asyncResp, serviceName, objectPath);
@@ -862,6 +884,21 @@ inline void getProcessorData(
                 getThrottleProperties(asyncResp, serviceName, objectPath);
             }
         }
+    }
+
+    // Set LocationType if connector was found
+    if (foundConnector)
+    {
+        std::string_view locationTypeStr =
+            redfish::location_utils::toString(locationType);
+        if (locationTypeStr.empty())
+        {
+            BMCWEB_LOG_ERROR("Invalid LocationType: {}", locationTypeStr);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        asyncResp->res.jsonValue["Location"]["PartLocation"]["LocationType"] =
+            locationTypeStr;
     }
 }
 
