@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a23366cf_72fe0a94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-04T15:49:38Z",
+      "side": 1,
+      "message": "This undoes https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75190 \nI don\u0027t think these changes help or hurt readability much so in the name of matching the rest of the project, I am good here",
+      "revId": "ad3dc3b5fa3109fb40f048dd2ddfe3b952df3c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c58f2eb8_aa4baceb",
