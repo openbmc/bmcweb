@@ -12,6 +12,7 @@
 #include <nlohmann/json.hpp>
 
 #include <array>
+#include <bit>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
@@ -73,18 +74,43 @@ constexpr uint64_t getParameterTag(std::string_view url)
     return tagValue;
 }
 
+constexpr static std::array<char, 64> base64key = {
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
+
+static constexpr char nop = static_cast<char>(-1);
+constexpr std::array<char, 256> getDecodeTable(bool urlSafe)
+{
+    std::array<char, 256> decodeTable{};
+    decodeTable.fill(nop);
+
+    for (size_t index = 0; index < base64key.size(); index++)
+    {
+        char character = base64key[index];
+        decodeTable[std::bit_cast<uint8_t>(character)] =
+            static_cast<char>(index);
+    }
+
+    if (urlSafe)
+    {
+        // Urlsafe decode tables replace the last two characters with - and _
+        decodeTable['+'] = nop;
+        decodeTable['/'] = nop;
+        decodeTable['-'] = 62;
+        decodeTable['_'] = 63;
+    }
+
+    return decodeTable;
+}
+
 class Base64Encoder
 {
     char overflow1 = '\0';
     char overflow2 = '\0';
     uint8_t overflowCount = 0;
-
-    constexpr static std::array<char, 64> key = {
-        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
 
     // Takes 3 ascii chars, and encodes them as 4 base64 chars
     static void encodeTriple(char first, char second, char third,
@@ -93,18 +119,18 @@ class Base64Encoder
         size_t keyIndex = 0;
 
         keyIndex = static_cast<size_t>(first & 0xFC) >> 2;
-        output += key[keyIndex];
+        output += base64key[keyIndex];
 
         keyIndex = static_cast<size_t>(first & 0x03) << 4;
         keyIndex += static_cast<size_t>(second & 0xF0) >> 4;
-        output += key[keyIndex];
+        output += base64key[keyIndex];
 
         keyIndex = static_cast<size_t>(second & 0x0F) << 2;
         keyIndex += static_cast<size_t>(third & 0xC0) >> 6;
-        output += key[keyIndex];
+        output += base64key[keyIndex];
 
         keyIndex = static_cast<size_t>(third & 0x3F);
-        output += key[keyIndex];
+        output += base64key[keyIndex];
     }
 
   public:
@@ -163,19 +189,19 @@ class Base64Encoder
             return;
         }
         size_t keyIndex = static_cast<size_t>(overflow1 & 0xFC) >> 2;
-        output += key[keyIndex];
+        output += base64key[keyIndex];
 
         keyIndex = static_cast<size_t>(overflow1 & 0x03) << 4;
         if (overflowCount == 2)
         {
             keyIndex += static_cast<size_t>(overflow2 & 0xF0) >> 4;
-            output += key[keyIndex];
+            output += base64key[keyIndex];
             keyIndex = static_cast<size_t>(overflow2 & 0x0F) << 2;
-            output += key[keyIndex];
+            output += base64key[keyIndex];
         }
         else
         {
-            output += key[keyIndex];
+            output += base64key[keyIndex];
             output += '=';
         }
         output += '=';
@@ -203,40 +229,18 @@ inline std::string base64encode(std::string_view data)
     return out;
 }
 
-// TODO this is temporary and should be deleted once base64 is refactored out of
-// crow
+template <bool urlsafe = false>
 inline bool base64Decode(std::string_view input, std::string& output)
 {
-    static const char nop = static_cast<char>(-1);
-    // See note on encoding_data[] in above function
-    static const std::array<char, 256> decodingData = {
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, 62,  nop, nop, nop, 63,  52,  53,  54,  55,  56,  57,  58,  59,
-        60,  61,  nop, nop, nop, nop, nop, nop, nop, 0,   1,   2,   3,   4,
-        5,   6,   7,   8,   9,   10,  11,  12,  13,  14,  15,  16,  17,  18,
-        19,  20,  21,  22,  23,  24,  25,  nop, nop, nop, nop, nop, nop, 26,
-        27,  28,  29,  30,  31,  32,  33,  34,  35,  36,  37,  38,  39,  40,
-        41,  42,  43,  44,  45,  46,  47,  48,  49,  50,  51,  nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
-        nop, nop, nop, nop};
-
     size_t inputLength = input.size();
 
     // allocate space for output string
     output.clear();
     output.reserve(((inputLength + 2) / 3) * 4);
 
-    auto getCodeValue = [](char c) {
+    static constexpr auto decodingData = getDecodeTable(urlsafe);
+
+    auto getCodeValue = [&decodingData](char c) {
         auto code = static_cast<unsigned char>(c);
         // Ensure we cannot index outside the bounds of the decoding array
         static_assert(
