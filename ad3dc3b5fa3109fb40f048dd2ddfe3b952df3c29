@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c58f2eb8_aa4baceb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-04T15:46:44Z",
+      "side": 1,
+      "message": "So we will just do this for readJson ?\nI could live with that",
+      "range": {
+        "startLine": 1579,
+        "startChar": 1,
+        "endLine": 1590,
+        "endChar": 77
+      },
+      "revId": "ad3dc3b5fa3109fb40f048dd2ddfe3b952df3c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
