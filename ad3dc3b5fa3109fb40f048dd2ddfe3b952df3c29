@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b71e3d1d_9b6048f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-02-04T17:41:58Z",
+      "side": 1,
+      "message": "I think - this format seems good (or better) by aligning comment lines (by https://gerrit.openbmc.org/c/openbmc/bmcweb/+/75190), though Ed may have the different opinion",
+      "parentUuid": "0a562a73_21d2ba58",
+      "revId": "ad3dc3b5fa3109fb40f048dd2ddfe3b952df3c29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c58f2eb8_aa4baceb",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 2
