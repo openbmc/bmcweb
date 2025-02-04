@@ -984,6 +984,7 @@ other.
 #### Processor
 
 - InstructionSet
+- Location/PartLocation/LocationType
 - Manufacturer
 - MaxSpeedMHz
 - PartNumber
