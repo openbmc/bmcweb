@@ -19,6 +19,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/location_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -812,10 +813,33 @@ inline void getProcessorData(
     const std::string& processorId, const std::string& objectPath,
     const dbus::utility::MapperServiceMap& serviceMap)
 {
+    bool foundConnector = false;
+    resource::LocationType locationType = resource::LocationType::Invalid;
+
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
         for (const auto& interface : interfaceList)
         {
+            // Check for connector type first
+            resource::LocationType type =
+                location_utils::getLocationType(interface);
+
+            if (type != resource::LocationType::Invalid)
+            {
+                if (foundConnector)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "Multiple connectors found for processor: {}",
+                        processorId);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                locationType = type;
+                foundConnector = true;
+                continue; // Skip to next interface
+            }
+
+            // Process other interfaces
             if (interface == "xyz.openbmc_project.Inventory.Decorator.Asset")
             {
                 getCpuAssetData(asyncResp, serviceName, objectPath);
@@ -862,6 +886,13 @@ inline void getProcessorData(
                 getThrottleProperties(asyncResp, serviceName, objectPath);
             }
         }
+    }
+
+    // Set LocationType if connector was found
+    if (foundConnector)
+    {
+        asyncResp->res.jsonValue["Location"]["PartLocation"]["LocationType"] =
+            locationType;
     }
 }
 
