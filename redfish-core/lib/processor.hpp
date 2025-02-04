@@ -19,6 +19,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/processor_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -347,6 +348,28 @@ inline void getThrottleProperties(
         [asyncResp](const boost::system::error_code& ec,
                     const dbus::utility::DBusPropertiesMap& properties) {
             readThrottleProperties(asyncResp, ec, properties);
+        });
+}
+
+inline void getCpuLocationType(std::shared_ptr<bmcweb::AsyncResp> aResp,
+                               const std::string& service,
+                               const std::string& objPath)
+{
+    BMCWEB_LOG_DEBUG("Get Cpu LocationType");
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, service, objPath,
+        "xyz.openbmc_project.Inventory.Decorator.Location", "LocationType",
+        [objPath, aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                           const std::string& property) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error");
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            aResp->res.jsonValue["Location"]["PartLocation"]["LocationType"] =
+                redfish::processor_utils::toLocationType(property);
         });
 }
 
@@ -860,6 +883,10 @@ inline void getProcessorData(
             else if (interface == "xyz.openbmc_project.Control.Power.Throttle")
             {
                 getThrottleProperties(asyncResp, serviceName, objectPath);
+            }
+            else if (interface == "xyz.openbmc_project.Inventory.Decorator.Location")
+            {
+                getCpuLocationType(asyncResp, serviceName, objectPath);
             }
         }
     }
