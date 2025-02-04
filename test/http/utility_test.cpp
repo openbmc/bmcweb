@@ -32,6 +32,13 @@ TEST(Utility, Base64DecodeAuthString)
     EXPECT_EQ(result, "usern4me:passw0rd");
 }
 
+TEST(Utility, Base64DecodeUrlsafe)
+{
+    std::string result;
+    EXPECT_TRUE(base64Decode<true>("-_abcde", result));
+    EXPECT_EQ(result, "\xfb\xf6\x9b\x71\xd7");
+}
+
 TEST(Utility, Base64DecodeNonAscii)
 {
     std::string junkString("\xff\xee\xdd\xcc\x01\x11\x22\x33");
