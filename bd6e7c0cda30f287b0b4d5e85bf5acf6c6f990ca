@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17add819_0633e36d",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-05T21:18:00Z",
+      "side": 1,
+      "message": "This doesn\u0027t work as is. The Post to Sessions works. Then all future commits fail with 401. \n\n1. I think this needs to start with \";\"\n\nOn chrome the headers looks like  \n```\nAccept-Encoding: gzip, deflate, br, zstd\nAccept-Language: en-US,en;q\u003d0.9\nConnection: keep-alive\nCookie: XSRF-TOKEN\u003dDCX038loqlOH9DOPvHVj; SESSION\u003d0wJIsqdO5ew2Xn2pmKwh\nDNT: 1\n```\n\n2. https://github.com/boostorg/beast/issues/1425#issuecomment-860849146  concerns me",
+      "revId": "bd6e7c0cda30f287b0b4d5e85bf5acf6c6f990ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
