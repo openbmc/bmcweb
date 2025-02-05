@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d614bf57_32b63e72",
+        "filename": "redfish-core/include/utils/processor_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-05T05:36:51Z",
+      "side": 1,
+      "message": "I will remove the unecessary includes and I see your point of moving to a common place, as its not specific to processor. \n\nMoved to localtion_utils.hpp\nThanks",
+      "parentUuid": "4ee14a34_47040afc",
+      "revId": "8ab3f02b643e7845699c2cc410e173873ea914d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9cc737b1_45075da1",
         "filename": "redfish-core/include/utils/processor_utils.hpp",
         "patchSetId": 1
@@ -122,6 +140,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a48cacf1_459e3231",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-05T05:36:51Z",
+      "side": 1,
+      "message": "updated",
+      "parentUuid": "50401803_bc870edb",
+      "revId": "8ab3f02b643e7845699c2cc410e173873ea914d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3cd2886a_aff01aa2",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 1
@@ -133,6 +169,24 @@
       "writtenOn": "2025-02-04T15:54:57Z",
       "side": 1,
       "message": "Unknown is going to throw a Redfish Validator error here \n\n\n        \"LocationType\": {\n            \"description\": \"The types of locations for a part within an enclosure.\",\n            \"enum\": [\n                \"Slot\",\n                \"Bay\",\n                \"Connector\",\n                \"Socket\",\n                \"Backplane\",\n                \"Embedded\"\n            ],",
+      "revId": "8ab3f02b643e7845699c2cc410e173873ea914d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e11b8dab_56d86f1b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-05T05:36:51Z",
+      "side": 1,
+      "message": "Made the change to address Unknown",
+      "parentUuid": "3cd2886a_aff01aa2",
       "revId": "8ab3f02b643e7845699c2cc410e173873ea914d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
