@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e809fdf_d5fcc05d",
+        "filename": "http/utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-02-05T15:04:16Z",
+      "side": 1,
+      "message": "Would it be safer to use `static` to make sure this `decodingData` table should be evaluated once ( as `base64Decode()` invoked multiple times) ?\n\n```static constexpr auto decodingData \u003d getDecodeTable(urlsafe);```",
+      "range": {
+        "startLine": 241,
+        "startChar": 4,
+        "endLine": 241,
+        "endChar": 58
+      },
+      "revId": "f0c8f95cc9049af2fa27e94aeb97aebae9118b03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
