@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75a386fb_6bc9247a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2149,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-02-06T03:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8da76248_0799220e",
+      "range": {
+        "startLine": 2142,
+        "startChar": 0,
+        "endLine": 2149,
+        "endChar": 13
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caaa3eaa_b0b78b5b",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-01-14T21:03:09Z",
       "side": 1,
       "message": "Reading this as optional, then setting internal error if it\u0027s not present makes no sense.  Either the property is optional on the interface, in which case don\u0027t set an error, or (as I suspect) it\u0027s non optional on the interface, so just unpack it and make it required.",
+      "range": {
+        "startLine": 2278,
+        "startChar": 0,
+        "endLine": 2278,
+        "endChar": 64
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c8d67a0_d003ebb5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2278,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-02-06T03:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caaa3eaa_b0b78b5b",
       "range": {
         "startLine": 2278,
         "startChar": 0,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fda5f37_fbe3a51c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2281,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-02-06T03:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef68e520_d90d8a6d",
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68564f1d_9d66462e",
@@ -77,6 +143,30 @@
       "writtenOn": "2025-01-14T21:03:09Z",
       "side": 1,
       "message": "Same here.  Don\u0027t read as optional then make it functionally required",
+      "range": {
+        "startLine": 2296,
+        "startChar": 0,
+        "endLine": 2296,
+        "endChar": 64
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59c2d44d_c63458fb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2296,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-02-06T03:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68564f1d_9d66462e",
       "range": {
         "startLine": 2296,
         "startChar": 0,
@@ -123,6 +213,30 @@
       "writtenOn": "2025-01-14T21:03:09Z",
       "side": 1,
       "message": "This lambda is also still too long",
+      "range": {
+        "startLine": 2462,
+        "startChar": 60,
+        "endLine": 2474,
+        "endChar": 9
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40b30b1a_2cabb6e5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2474,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-02-06T03:05:20Z",
+      "side": 1,
+      "message": "I thought this one was simple involving a single D-Bus call and populating the Redfish response without nested asynchronous calls.\nHowever, I am considering if any further simplifications could be made.",
+      "parentUuid": "aa6c0f26_2e18190e",
       "range": {
         "startLine": 2462,
         "startChar": 60,
@@ -209,6 +323,24 @@
       "writtenOn": "2025-01-14T21:03:09Z",
       "side": 1,
       "message": "For the new routes, lets put them into a new file\n\naccount_service_actions_generatesecretkey.hpp\n\n\naccount_service.hpp is already very long.  we shouldn\u0027t make it longer by adding actions to it.",
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8354fe22_72aab994",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2646,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-02-06T03:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b45481a7_62464958",
       "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
