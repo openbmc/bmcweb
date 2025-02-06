@@ -2820,32 +2820,64 @@ inline void
 inline void
     verifyTotpDbusUtil(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const std::string& totp, const std::string& userPath,
-                       const std::function<void(bool)>& callback)
+                       std::function<void(bool)>&& callback)
 {
-    crow::connections::systemBus->async_method_call(
-        [asyncResp,
-         callback](const boost::system::error_code& ec, bool status) {
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.User.Manager",
+        "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.MultiFactorAuthConfiguration", "Enabled",
+        [asyncResp, totp, userPath, callback = std::move(callback)](
+            const boost::system::error_code& ec,
+            const std::string& multiFactorAuthEnabledVal) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR("D-Bus response error: {}", ec.value());
+                BMCWEB_LOG_ERROR(
+                    "DBUS response error while fetching MultiFactorAuth property. Error: {}",
+                    ec);
                 messages::internalError(asyncResp->res);
                 callback(false);
                 return;
             }
-            if (!status)
-            {
-                messages::actionParameterValueError(
-                    asyncResp->res,
-                    "ManagerAccount.VerifyTimeBasedOneTimePassword",
-                    "TimeBasedOneTimePassword");
-                callback(false);
-                return;
-            }
-            messages::success(asyncResp->res);
-            callback(true);
-        },
-        "xyz.openbmc_project.User.Manager", userPath,
-        "xyz.openbmc_project.User.TOTPAuthenticator", "VerifyOTP", totp);
+
+            constexpr std::string_view mfaGoogleAuthDbusVal =
+                "xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator";
+            bool googleAuthEnabled =
+                (multiFactorAuthEnabledVal == mfaGoogleAuthDbusVal);
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, callback = callback, googleAuthEnabled](
+                    const boost::system::error_code& ec1, bool status) {
+                    if (ec1)
+                    {
+                        BMCWEB_LOG_ERROR("D-Bus response error: {}",
+                                         ec1.value());
+                        messages::internalError(asyncResp->res);
+                        callback(false);
+                        return;
+                    }
+                    if (!status)
+                    {
+                        messages::actionParameterValueError(
+                            asyncResp->res,
+                            "ManagerAccount.VerifyTimeBasedOneTimePassword",
+                            "TimeBasedOneTimePassword");
+                        callback(false);
+                        return;
+                    }
+                    if (!googleAuthEnabled)
+                    {
+                        messages::success(asyncResp->res);
+                        callback(false);
+                        return;
+                    }
+
+                    messages::success(asyncResp->res);
+                    callback(true);
+                },
+                "xyz.openbmc_project.User.Manager", userPath,
+                "xyz.openbmc_project.User.TOTPAuthenticator", "VerifyOTP",
+                totp);
+        });
 }
 
 inline void handleManagerAccountVerifyTotpAction(
