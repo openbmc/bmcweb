@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715d811f_df8bed2e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-06T21:06:47Z",
+      "side": 1,
+      "message": "Can you give a little more definitions for \"proper\".  I\u0027m not doubting it\u0027s correct, but linking the specification in question (in this case I think it\u0027s redfish) helps a lot to keep this correct in the future.",
+      "range": {
+        "startLine": 9,
+        "startChar": 17,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "541071a6d811d04f87e83c71db7bf14a5bb227ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "955ce6f2_af2abce4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-06T21:06:47Z",
+      "side": 1,
+      "message": "Please wrap your commit message on 72 char boundaries.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "541071a6d811d04f87e83c71db7bf14a5bb227ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
