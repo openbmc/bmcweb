@@ -794,11 +794,11 @@ inline void handleGenerateCSRAction(
     {
         if (optKeyUsage->empty())
         {
-            optKeyUsage->emplace_back("ServerAuthentication");
+            optKeyUsage->emplace_back("serverAuth");
         }
         else if (optKeyUsage->size() == 1)
         {
-            if ((*optKeyUsage)[0] != "ServerAuthentication")
+            if ((*optKeyUsage)[0] != "serverAuth")
             {
                 messages::propertyValueNotInList(asyncResp->res,
                                                  (*optKeyUsage)[0], "KeyUsage");
@@ -817,11 +817,11 @@ inline void handleGenerateCSRAction(
     {
         if (optKeyUsage->empty())
         {
-            optKeyUsage->emplace_back("ClientAuthentication");
+            optKeyUsage->emplace_back("clientAuth");
         }
         else if (optKeyUsage->size() == 1)
         {
-            if ((*optKeyUsage)[0] != "ClientAuthentication")
+            if ((*optKeyUsage)[0] != "clientAuth")
             {
                 messages::propertyValueNotInList(asyncResp->res,
                                                  (*optKeyUsage)[0], "KeyUsage");
