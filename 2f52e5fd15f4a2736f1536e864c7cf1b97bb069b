@@ -145,6 +145,24 @@
       "message": "You will have to run shellcheck (the CI fail)",
       "revId": "2f52e5fd15f4a2736f1536e864c7cf1b97bb069b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b709581_9e424f20",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-06T07:11:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72d51d64_2d4ebabb",
+      "revId": "2f52e5fd15f4a2736f1536e864c7cf1b97bb069b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
