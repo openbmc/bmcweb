@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc30a0ef_0c0de478",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 61
+      },
+      "lineNbr": 1154,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-02-06T13:57:20Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this be better doing like this?\n\n```\n    if (mfaBypassVal !\u003d \"GoogleAuthenticator\")\n    {\n        messages::propertyValueNotInList(asyncResp-\u003eres, mfaBypassVal,\n                                             \"MFABypass/BypassTypes/1\");\n        return;\n    }\n            \n    mfaBypassDbusVal \u003d\n             \"xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator\";\n             \n```",
+      "range": {
+        "startLine": 1144,
+        "startChar": 1,
+        "endLine": 1154,
+        "endChar": 9
+      },
+      "revId": "d936056c36fe8337c1ab342ac695b8d399550926",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
