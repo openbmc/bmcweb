@@ -34,6 +34,24 @@
       "parentUuid": "2e8e64f3_c0560f24",
       "revId": "b26ae8ec8948015cbbbe7b012eefb1d20ff7f63f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62a5beae_3aa5d349",
+        "filename": "http/utility.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-06T00:12:40Z",
+      "side": 1,
+      "message": "Ah, i see, changing it to static caused the build issue.",
+      "parentUuid": "3621e86e_2ca3e932",
+      "revId": "b26ae8ec8948015cbbbe7b012eefb1d20ff7f63f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
