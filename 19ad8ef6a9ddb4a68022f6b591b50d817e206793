@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b1f5321_04d42099",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 57
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-02-06T03:07:54Z",
+      "side": 1,
+      "message": "I have split this commit into two.\nThe base commit has support for enabling MFA at account service level and account level bypass settings.\n\nThe next commit will have a new file, that has MFA related actions, such as GenerateSecretKey, ClearSecretKey and VerifyTotp.",
+      "revId": "19ad8ef6a9ddb4a68022f6b591b50d817e206793",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
