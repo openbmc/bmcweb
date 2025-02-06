@@ -96,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f8684c2_f914a99a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-06T21:32:45Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "a6335f5c_b852b177",
+      "range": {
+        "startLine": 17,
+        "startChar": 15,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "541071a6d811d04f87e83c71db7bf14a5bb227ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "23fd60cf_802c53ec",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
