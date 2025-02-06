@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f2558e9a_40f91906",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-06T04:27:27Z",
+      "side": 1,
+      "message": "Updated Redfish.md",
+      "parentUuid": "07c0e822_63742d54",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 29
+      },
+      "revId": "b23dffc2bd52d21be10297f8c65c8806354a7c97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2adb69bf_246e635a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -37,6 +61,23 @@
       "writtenOn": "2025-02-05T15:59:33Z",
       "side": 1,
       "message": "Just a few minor comments.",
+      "revId": "b23dffc2bd52d21be10297f8c65c8806354a7c97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04f6ad08_d74e5307",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-06T04:27:27Z",
+      "side": 1,
+      "message": "Addressed review comments from Janet",
       "revId": "b23dffc2bd52d21be10297f8c65c8806354a7c97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +95,30 @@
       "writtenOn": "2025-02-05T15:59:33Z",
       "side": 1,
       "message": "Please use common variable name asyncResp to match coding conventions of this repo.",
+      "range": {
+        "startLine": 354,
+        "startChar": 66,
+        "endLine": 354,
+        "endChar": 71
+      },
+      "revId": "b23dffc2bd52d21be10297f8c65c8806354a7c97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b6f576d_b95529fd",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-06T04:27:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0974cd8a_d98a7f8b",
       "range": {
         "startLine": 354,
         "startChar": 66,
@@ -110,6 +175,54 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c026138c_2682e66b",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-06T04:27:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "04709d24_6cfa80ee",
+      "range": {
+        "startLine": 362,
+        "startChar": 75,
+        "endLine": 362,
+        "endChar": 77
+      },
+      "revId": "b23dffc2bd52d21be10297f8c65c8806354a7c97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a803636_f22685d3",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-06T04:27:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f235269b_d77508dd",
+      "range": {
+        "startLine": 362,
+        "startChar": 24,
+        "endLine": 362,
+        "endChar": 39
+      },
+      "revId": "b23dffc2bd52d21be10297f8c65c8806354a7c97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d3279d1_0dbc4e43",
@@ -123,6 +236,30 @@
       "writtenOn": "2025-02-05T15:59:33Z",
       "side": 1,
       "message": "If property didn\u0027t match any of the strings expected we will be setting the \"LocationType\" to a null string here. Is that an allowed value?",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 2
+      },
+      "revId": "b23dffc2bd52d21be10297f8c65c8806354a7c97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a539f27d_15382521",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-06T04:27:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9d3279d1_0dbc4e43",
       "range": {
         "startLine": 378,
         "startChar": 0,
