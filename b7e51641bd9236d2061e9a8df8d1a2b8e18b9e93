@@ -176,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84ce96df_b6af640c",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-06T07:11:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "894932b4_2544dbb3",
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38a29910_d7af9054",
@@ -260,6 +278,30 @@
       "side": 1,
       "message": "Do you think we can enhance the script to generate const strings which can used to compare the JSON input for patch requests.",
       "parentUuid": "8b3dc9c1_e798fb86",
+      "range": {
+        "startLine": 395,
+        "startChar": 0,
+        "endLine": 398,
+        "endChar": 0
+      },
+      "revId": "b7e51641bd9236d2061e9a8df8d1a2b8e18b9e93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03731656_a412c74b",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-06T07:11:29Z",
+      "side": 1,
+      "message": "rephrasing done.",
+      "parentUuid": "b2711836_ac20ca83",
       "range": {
         "startLine": 395,
         "startChar": 0,

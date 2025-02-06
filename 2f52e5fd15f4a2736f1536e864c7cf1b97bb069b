@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8b76e3b_1cfd7ff2",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-06T07:11:29Z",
+      "side": 1,
+      "message": "The guideline is asking to use existing dbus utils and avoid writing code which does the same function. There are utils other than mapper calls.",
+      "parentUuid": "ee555ae1_d6ffc118",
+      "range": {
+        "startLine": 385,
+        "startChar": 36,
+        "endLine": 385,
+        "endChar": 49
+      },
+      "revId": "2f52e5fd15f4a2736f1536e864c7cf1b97bb069b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58e636bc_35e6653d",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "632649da_7f9ecf4c",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-06T07:11:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58e636bc_35e6653d",
+      "revId": "2f52e5fd15f4a2736f1536e864c7cf1b97bb069b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26ec6bf6_ba42d760",
@@ -54,6 +96,30 @@
       "writtenOn": "2025-02-03T18:01:38Z",
       "side": 1,
       "message": "contain",
+      "range": {
+        "startLine": 396,
+        "startChar": 61,
+        "endLine": 396,
+        "endChar": 70
+      },
+      "revId": "2f52e5fd15f4a2736f1536e864c7cf1b97bb069b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f207339e_751c8ad5",
+        "filename": "COMMON_ERRORS.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-02-06T07:11:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26ec6bf6_ba42d760",
       "range": {
         "startLine": 396,
         "startChar": 61,
