@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c91fb9d1_f8118986",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-06T19:33:20Z",
+      "side": 1,
+      "message": "Thank you for adding the updates to Redfish.md.\n\nI would still like to see the command output as part of the commit message,\nand a link to the schema defining the new property.",
+      "parentUuid": "f2558e9a_40f91906",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 29
+      },
+      "revId": "b23dffc2bd52d21be10297f8c65c8806354a7c97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2adb69bf_246e635a",

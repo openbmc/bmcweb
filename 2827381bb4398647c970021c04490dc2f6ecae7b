@@ -56,6 +56,24 @@
       "message": "Should we really return an internalError on Unknown since it is the default ? Something like this \nhttps://github.com/openbmc/bmcweb/blob/8b0783859c1d0f50b1e1a6fe7ca9b12b5bfeaa18/redfish-core/lib/pcie.hpp#L192\nmakes more sense to me \n```\nif (locationType.empty())\n{\n    BMCWEB_LOG_ERROR(\"Invalid LocationType: {}\", locationType);\n    messages::internalError(asyncResp-\u003eres);\n    return\n}\nif ( locationType \u003d\u003d \"Unknown\") \n{\n   BMCWEB_LOG_WARNING(\"Unknown locationType\");\n}\n\n```\n\nWe just had this with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/76406",
       "revId": "2827381bb4398647c970021c04490dc2f6ecae7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e8ca45d_7c8f5078",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-06T19:33:20Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "0d3a3e24_19ce3c2f",
+      "revId": "2827381bb4398647c970021c04490dc2f6ecae7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
