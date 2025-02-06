@@ -34,6 +34,24 @@
       "parentUuid": "17add819_0633e36d",
       "revId": "bd6e7c0cda30f287b0b4d5e85bf5acf6c6f990ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8937405e_d61f4f32",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-06T22:08:10Z",
+      "side": 1,
+      "message": "I need to get a unit test written for this anyway.",
+      "parentUuid": "f7ebb1ba_359e7fa5",
+      "revId": "bd6e7c0cda30f287b0b4d5e85bf5acf6c6f990ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
