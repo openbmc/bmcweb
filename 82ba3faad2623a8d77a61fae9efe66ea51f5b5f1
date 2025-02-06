@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c25812f_eb3bc7d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 55
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-02-06T14:17:48Z",
+      "side": 1,
+      "message": "It looks good to me",
+      "revId": "82ba3faad2623a8d77a61fae9efe66ea51f5b5f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01f37203_aeff517a",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-02-06T14:17:48Z",
+      "side": 1,
+      "message": "This `return;` may not be needed",
+      "range": {
+        "startLine": 317,
+        "startChar": 12,
+        "endLine": 317,
+        "endChar": 19
+      },
+      "revId": "82ba3faad2623a8d77a61fae9efe66ea51f5b5f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
