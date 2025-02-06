@@ -45,6 +45,23 @@
       },
       "revId": "541071a6d811d04f87e83c71db7bf14a5bb227ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23fd60cf_802c53ec",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-06T21:12:26Z",
+      "side": 1,
+      "message": "https://github.com/DMTF/Redfish-Publications/blob/5cc369c5c0fb39698259071b7a597f7504b24e55/csdl/Certificate_v1.xml#L193\n\nShows that what we had looks correct to the redfish spec.",
+      "revId": "541071a6d811d04f87e83c71db7bf14a5bb227ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
