@@ -39,6 +39,30 @@
       },
       "revId": "82ba3faad2623a8d77a61fae9efe66ea51f5b5f1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c0d712e_955113b3",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 55
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-06T19:23:03Z",
+      "side": 1,
+      "message": "Yes you are correct. I\u0027ve removed it.",
+      "parentUuid": "01f37203_aeff517a",
+      "range": {
+        "startLine": 317,
+        "startChar": 12,
+        "endLine": 317,
+        "endChar": 19
+      },
+      "revId": "82ba3faad2623a8d77a61fae9efe66ea51f5b5f1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
