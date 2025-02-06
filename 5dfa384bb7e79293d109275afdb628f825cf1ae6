@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85a7209c_4ced7bd5",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 46
+      },
+      "lineNbr": 2625,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-02-06T13:00:05Z",
+      "side": 1,
+      "message": "For the style that bmcweb uses in many places, I think this can be written like\n\n```\n                    if (!googleAuthEnabled)\n                    {\n                        messages::success(asyncResp-\u003eres);\n                        callback(false);\n                        return;\n                    }\n                    messages::success(asyncResp-\u003eres);\n                    callback(false);\n```",
+      "range": {
+        "startLine": 2616,
+        "startChar": 0,
+        "endLine": 2625,
+        "endChar": 21
+      },
+      "revId": "5dfa384bb7e79293d109275afdb628f825cf1ae6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
