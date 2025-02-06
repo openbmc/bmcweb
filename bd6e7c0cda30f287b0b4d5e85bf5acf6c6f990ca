@@ -16,6 +16,24 @@
       "message": "This doesn\u0027t work as is. The Post to Sessions works. Then all future commits fail with 401. \n\n1. I think this needs to start with \";\"\n\nOn chrome the headers looks like  \n```\nAccept-Encoding: gzip, deflate, br, zstd\nAccept-Language: en-US,en;q\u003d0.9\nConnection: keep-alive\nCookie: XSRF-TOKEN\u003dDCX038loqlOH9DOPvHVj; SESSION\u003d0wJIsqdO5ew2Xn2pmKwh\nDNT: 1\n```\n\n2. https://github.com/boostorg/beast/issues/1425#issuecomment-860849146  concerns me",
       "revId": "bd6e7c0cda30f287b0b4d5e85bf5acf6c6f990ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7ebb1ba_359e7fa5",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-06T21:25:18Z",
+      "side": 1,
+      "message": "\u003e This doesn\u0027t work as is. The Post to Sessions works. Then all future commits fail with 401. \n\u003e \n\u003e 1. I think this needs to start with \";\"\n\u003e \n\u003e On chrome the headers looks like  \n\u003e ```\n\u003e Accept-Encoding: gzip, deflate, br, zstd\n\u003e Accept-Language: en-US,en;q\u003d0.9\n\u003e Connection: keep-alive\n\u003e Cookie: XSRF-TOKEN\u003dDCX038loqlOH9DOPvHVj; SESSION\u003d0wJIsqdO5ew2Xn2pmKwh\n\u003e DNT: 1\n\u003e ```\n\n\nFWIW, I lifted this code from I think the same comment below.  I can triage a bit.\n\n\u003e \n\u003e 2. https://github.com/boostorg/beast/issues/1425#issuecomment-860849146  concerns me\n\nThat\u0027s annoying.",
+      "parentUuid": "17add819_0633e36d",
+      "revId": "bd6e7c0cda30f287b0b4d5e85bf5acf6c6f990ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16c98949_6d298fae",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-06T21:25:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb476c65_51d1ad80",
+      "revId": "aa58b104e94ef05b272a25599ddac7b79f4f0ad9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1097380a_bf379106",
