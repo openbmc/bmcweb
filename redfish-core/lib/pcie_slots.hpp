@@ -23,96 +23,110 @@ namespace redfish
 {
 
 inline void
-    onPcieSlotGetAllDone(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const boost::system::error_code& ec,
-                         const dbus::utility::DBusPropertiesMap& propertiesList)
+    processPcieSlot(const dbus::utility::DBusInterfacesMap& interfacesList,
+                    nlohmann::json& slots)
 {
-    if (ec)
+    nlohmann::json slot = nlohmann::json::object();
+    bool slotHasData = false;
+
+    for (const auto& [interface, properties] : interfacesList)
     {
-        BMCWEB_LOG_ERROR("Can't get PCIeSlot properties!");
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    nlohmann::json& slots = asyncResp->res.jsonValue["Slots"];
-
-    nlohmann::json::array_t* slotsPtr =
-        slots.get_ptr<nlohmann::json::array_t*>();
-    if (slotsPtr == nullptr)
-    {
-        BMCWEB_LOG_ERROR("Slots key isn't an array???");
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    nlohmann::json::object_t slot;
-
-    const std::string* generation = nullptr;
-    const size_t* lanes = nullptr;
-    const std::string* slotType = nullptr;
-    const bool* hotPluggable = nullptr;
-
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), propertiesList, "Generation",
-        generation, "Lanes", lanes, "SlotType", slotType, "HotPluggable",
-        hotPluggable);
-
-    if (!success)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    if (generation != nullptr)
-    {
-        std::optional<pcie_device::PCIeTypes> pcieType =
-            pcie_util::redfishPcieGenerationFromDbus(*generation);
-        if (!pcieType)
+        if (interface == "xyz.openbmc_project.Inventory.Item.PCIeSlot")
         {
-            BMCWEB_LOG_WARNING("Unknown PCIe Slot Generation: {}", *generation);
-        }
-        else
-        {
-            if (*pcieType == pcie_device::PCIeTypes::Invalid)
+            auto it = std::find_if(
+                properties.begin(), properties.end(),
+                [](const auto& pair) { return pair.first == "Generation"; });
+            if (it != properties.end())
             {
-                messages::internalError(asyncResp->res);
-                return;
+                const std::string* generation =
+                    std::get_if<std::string>(&it->second);
+                if (generation)
+                {
+                    std::optional<pcie_device::PCIeTypes> pcieType =
+                        pcie_util::redfishPcieGenerationFromDbus(*generation);
+                    if (pcieType &&
+                        *pcieType != pcie_device::PCIeTypes::Invalid)
+                    {
+                        slot["PCIeType"] = *pcieType;
+                        slotHasData = true;
+                    }
+                }
             }
-            slot["PCIeType"] = *pcieType;
-        }
-    }
 
-    if (lanes != nullptr && *lanes != 0)
-    {
-        slot["Lanes"] = *lanes;
-    }
-
-    if (slotType != nullptr)
-    {
-        std::optional<pcie_slots::SlotTypes> redfishSlotType =
-            pcie_util::dbusSlotTypeToRf(*slotType);
-        if (!redfishSlotType)
-        {
-            BMCWEB_LOG_WARNING("Unknown PCIe Slot Type: {}", *slotType);
-        }
-        else
-        {
-            if (*redfishSlotType == pcie_slots::SlotTypes::Invalid)
+            it = std::find_if(properties.begin(), properties.end(),
+                              [](const auto& pair) {
+                                  return pair.first == "Lanes";
+                              });
+            if (it != properties.end())
             {
-                BMCWEB_LOG_ERROR("Unknown PCIe Slot Type: {}", *slotType);
-                messages::internalError(asyncResp->res);
-                return;
+                const size_t* lanes = std::get_if<size_t>(&it->second);
+                if (lanes)
+                {
+                    slot["Lanes"] = *lanes;
+                    slotHasData = true;
+                }
             }
-            slot["SlotType"] = *redfishSlotType;
+
+            it = std::find_if(properties.begin(), properties.end(),
+                              [](const auto& pair) {
+                                  return pair.first == "SlotType";
+                              });
+            if (it != properties.end())
+            {
+                const std::string* slotType =
+                    std::get_if<std::string>(&it->second);
+                if (slotType)
+                {
+                    std::optional<pcie_slots::SlotTypes> redfishSlotType =
+                        pcie_util::dbusSlotTypeToRf(*slotType);
+                    if (redfishSlotType &&
+                        *redfishSlotType != pcie_slots::SlotTypes::Invalid)
+                    {
+                        slot["SlotType"] = *redfishSlotType;
+                        slotHasData = true;
+                    }
+                }
+            }
+        }
+        else if (interface ==
+                 "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+        {
+            auto it = std::find_if(
+                properties.begin(), properties.end(),
+                [](const auto& pair) { return pair.first == "LocationCode"; });
+            if (it != properties.end())
+            {
+                const std::string* locationCode =
+                    std::get_if<std::string>(&it->second);
+                if (locationCode)
+                {
+                    slot["Location"]["PartLocation"]["ServiceLabel"] =
+                        *locationCode;
+                    slotHasData = true;
+                }
+            }
+        }
+        else if (interface == "xyz.openbmc_project.Inventory.Item")
+        {
+            auto it = std::find_if(
+                properties.begin(), properties.end(),
+                [](const auto& pair) { return pair.first == "Present"; });
+            if (it != properties.end())
+            {
+                const bool* present = std::get_if<bool>(&it->second);
+                if (present)
+                {
+                    slot["Status"]["State"] = *present ? "Enabled" : "Absent";
+                    slotHasData = true;
+                }
+            }
         }
     }
 
-    if (hotPluggable != nullptr)
+    if (slotHasData)
     {
-        slot["HotPluggable"] = *hotPluggable;
+        slots.push_back(slot);
     }
-
-    slots.emplace_back(std::move(slot));
 }
 
 inline void onMapperAssociationDone(
@@ -148,12 +162,34 @@ inline void onMapperAssociationDone(
         return;
     }
 
-    sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, connectionName, pcieSlotPath,
-        "xyz.openbmc_project.Inventory.Item.PCIeSlot",
-        [asyncResp](const boost::system::error_code& ec2,
-                    const dbus::utility::DBusPropertiesMap& propertiesList) {
-            onPcieSlotGetAllDone(asyncResp, ec2, propertiesList);
+    sdbusplus::message::object_path invPath("/xyz/openbmc_project/inventory");
+    dbus::utility::getManagedObjects(
+        connectionName, invPath,
+        [asyncResp, connectionName,
+         pcieSlotPath](const boost::system::error_code& ec1,
+                       const dbus::utility::ManagedObjectType& pcieSlotObjs) {
+            if (ec1)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            auto& slots = asyncResp->res.jsonValue["Slots"];
+
+            const auto pcieSlotIt = std::ranges::find_if(
+                pcieSlotObjs,
+                [pcieSlotPath](
+                    const std::pair<sdbusplus::message::object_path,
+                                    dbus::utility::DBusInterfacesMap>&
+                        pcieSlot) { return pcieSlotPath == pcieSlot.first; });
+
+            if (pcieSlotIt == pcieSlotObjs.end())
+            {
+                messages::resourceNotFound(asyncResp->res, "PCIeSlots",
+                                           "PCIeSlots_To_Be_Changed");
+                return;
+            }
+
+            processPcieSlot(pcieSlotIt->second, slots);
         });
 }
 
