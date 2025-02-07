@@ -2110,6 +2110,44 @@ inline void handleAccountHead(
         "</redfish/v1/JsonSchemas/ManagerAccount/ManagerAccount.json>; rel=describedby");
 }
 
+inline void checkAndAddGenerateSecretKeyActionCallback(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& accountName)
+{
+    nlohmann::json& actions = asyncResp->res.jsonValue["Actions"];
+    actions["#ManagerAccount.GenerateSecretKey"]["target"] = boost::urls::format(
+        "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.GenerateSecretKey",
+        accountName);
+}
+
+inline void checkAndAddGenerateSecretKeyAction(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& accountName)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.User.TOTPAuthenticator"};
+    dbus::utility::getDbusObject(
+        sdbusplus::message::object_path(
+            "/xyz/openbmc_project/user/" + accountName),
+        interfaces,
+        [asyncResp, accountName](const boost::system::error_code& ec,
+                                 const dbus::utility::MapperGetObject&) {
+            if (ec)
+            {
+                if (ec == boost::system::errc::no_message)
+                {
+                    BMCWEB_LOG_DEBUG(
+                        "TOTPAuthenticator interface is not found for user {}",
+                        accountName);
+                    return;
+                }
+                BMCWEB_LOG_WARNING("Dbus error: {}", ec.message());
+                return;
+            }
+            checkAndAddGenerateSecretKeyActionCallback(asyncResp, accountName);
+        });
+}
+
 inline void handleGetTOTPAuthenticatorInterfaceData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const auto& properties)
 {
@@ -2315,6 +2353,8 @@ inline void handleAccountGet(
                 "/redfish/v1/AccountService/Accounts/{}", accountName);
             asyncResp->res.jsonValue["Id"] = accountName;
             asyncResp->res.jsonValue["UserName"] = accountName;
+
+            checkAndAddGenerateSecretKeyAction(asyncResp, accountName);
         });
 }
 
