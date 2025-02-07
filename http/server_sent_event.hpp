@@ -4,6 +4,7 @@
 #include "boost_formatters.hpp"
 #include "http_body.hpp"
 #include "http_request.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 
 #include <boost/asio/buffer.hpp>
@@ -42,7 +43,6 @@ struct Connection : public std::enable_shared_from_this<Connection>
     Connection& operator=(const Connection&&) = delete;
     virtual ~Connection() = default;
 
-    virtual boost::asio::io_context& getIoContext() = 0;
     virtual void close(std::string_view msg = "quit") = 0;
     virtual void sendSseEvent(std::string_view id, std::string_view msg) = 0;
 };
@@ -55,9 +55,7 @@ class ConnectionImpl : public Connection
         Adaptor&& adaptorIn,
         std::function<void(Connection&, const Request&)> openHandlerIn,
         std::function<void(Connection&)> closeHandlerIn) :
-        adaptor(std::move(adaptorIn)),
-        timer(static_cast<boost::asio::io_context&>(
-            adaptor.get_executor().context())),
+        adaptor(std::move(adaptorIn)), timer(getIoContext()),
         openHandler(std::move(openHandlerIn)),
         closeHandler(std::move(closeHandlerIn))
 
@@ -73,12 +71,6 @@ class ConnectionImpl : public Connection
     ~ConnectionImpl() override
     {
         BMCWEB_LOG_DEBUG("SSE ConnectionImpl: SSE destructor {}", logPtr(this));
-    }
-
-    boost::asio::io_context& getIoContext() override
-    {
-        return static_cast<boost::asio::io_context&>(
-            adaptor.get_executor().context());
     }
 
     void start(const Request& req)
