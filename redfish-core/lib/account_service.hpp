@@ -2118,6 +2118,40 @@ inline void handleAccountHead(
         "</redfish/v1/JsonSchemas/ManagerAccount/ManagerAccount.json>; rel=describedby");
 }
 
+void checkAndAddGenerateSecretKeyAction(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& accountName)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, accountName](const boost::system::error_code& ec,
+                                 const dbus::utility::MapperGetObject&) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "TOTPAuthenticator interface is not found for user {}",
+                    accountName);
+                return;
+            }
+            checkAndAddGenerateSecretKeyActionCallback(asyncResp, accountName);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/user/" + accountName,
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.User.TOTPAuthenticator"});
+}
+
+void checkAndAddGenerateSecretKeyActionCallback(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& accountName)
+{
+    nlohmann::json& actions = asyncResp->res.jsonValue["Actions"];
+    actions["#ManagerAccount.GenerateSecretKey"]["target"] = boost::urls::format(
+        "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.GenerateSecretKey",
+        accountName);
+}
+
 inline void handleGetTOTPAuthenticatorInterfaceData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const auto& properties)
 {
@@ -2323,6 +2357,8 @@ inline void handleAccountGet(
                 "/redfish/v1/AccountService/Accounts/{}", accountName);
             asyncResp->res.jsonValue["Id"] = accountName;
             asyncResp->res.jsonValue["UserName"] = accountName;
+
+            checkAndAddGenerateSecretKeyAction(asyncResp, accountName);
         });
 }
 
