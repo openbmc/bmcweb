@@ -9,6 +9,7 @@
 #include "http_request.hpp"
 #include "logging.hpp"
 #include "ossl_random.hpp"
+#include "io_context_singleton.hpp"
 
 #include <boost/asio/error.hpp>
 #include <boost/asio/steady_timer.hpp>
@@ -46,14 +47,8 @@ inline void uploadImageHandler(
         asyncResp->res.result(boost::beast::http::status::service_unavailable);
         return;
     }
-    if (req.ioService == nullptr)
-    {
-        asyncResp->res.result(
-            boost::beast::http::status::internal_server_error);
-        return;
-    }
     // Make this const static so it survives outside this method
-    static boost::asio::steady_timer timeout(*req.ioService,
+    static boost::asio::steady_timer timeout(getIoContext(),
                                              std::chrono::seconds(5));
 
     timeout.expires_after(std::chrono::seconds(15));
