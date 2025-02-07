@@ -511,6 +511,8 @@ inline void handleChassisGetSubTree(
             .jsonValue["Actions"]["#Chassis.Reset"]["@Redfish.ActionInfo"] =
             boost::urls::format("/redfish/v1/Chassis/{}/ResetActionInfo",
                                 chassisId);
+	asyncResp->res.jsonValue["PCIeSlots"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/PCIeSlots", chassisId);
         dbus::utility::getAssociationEndPoints(
             path + "/drive",
             [asyncResp, chassisId](const boost::system::error_code& ec3,
