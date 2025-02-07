@@ -51,6 +51,24 @@
       "message": "#include \u003cstring_view\u003e\n#include \u003cbit\u003e",
       "revId": "9c945f843d3b02105237e8511e337b63dd85be16",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d768de3_1659b0f0",
+        "filename": "http/nghttp2_adapters.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-07T17:45:40Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "ff8b78d8_e0be73d9",
+      "revId": "9c945f843d3b02105237e8511e337b63dd85be16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
