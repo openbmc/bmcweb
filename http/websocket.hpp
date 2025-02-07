@@ -64,7 +64,6 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual void close(std::string_view msg = "quit") = 0;
     virtual void deferRead() = 0;
     virtual void resumeRead() = 0;
-    virtual boost::asio::io_context& getIoContext() = 0;
     virtual ~Connection() = default;
     virtual boost::urls::url_view url() = 0;
 };
@@ -98,12 +97,6 @@ class ConnectionImpl : public Connection
         ws.set_option(boost::beast::websocket::stream_base::timeout::suggested(
             boost::beast::role_type::server));
         BMCWEB_LOG_DEBUG("Creating new connection {}", logPtr(this));
-    }
-
-    boost::asio::io_context& getIoContext() override
-    {
-        return static_cast<boost::asio::io_context&>(
-            ws.get_executor().context());
     }
 
     void start(const crow::Request& req)
