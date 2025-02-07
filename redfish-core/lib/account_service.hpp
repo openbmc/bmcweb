@@ -2305,6 +2305,12 @@ inline void handleAccountGet(
                 "/redfish/v1/AccountService/Accounts/{}", accountName);
             asyncResp->res.jsonValue["Id"] = accountName;
             asyncResp->res.jsonValue["UserName"] = accountName;
+
+            nlohmann::json& actions = asyncResp->res.jsonValue["Actions"];
+            actions["#ManagerAccount.GenerateSecretKey"]["target"] =
+                boost::urls::format(
+                    "/redfish/v1/AccountService/Accounts/{}/Actions/ManagerAccount.GenerateSecretKey",
+                    accountName);
         });
 }
 
