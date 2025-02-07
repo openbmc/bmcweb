@@ -277,9 +277,6 @@ class HTTP2Connection :
             }
         }
         crow::Request& thisReq = *it->second.req;
-        thisReq.ioService = static_cast<decltype(thisReq.ioService)>(
-            &adaptor.get_executor().context());
-
         it->second.accept = thisReq.getHeaderValue("Accept");
 
         BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
