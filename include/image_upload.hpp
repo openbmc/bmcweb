@@ -7,6 +7,7 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "http_request.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "ossl_random.hpp"
 
@@ -46,14 +47,8 @@ inline void uploadImageHandler(
         asyncResp->res.result(boost::beast::http::status::service_unavailable);
         return;
     }
-    if (req.ioService == nullptr)
-    {
-        asyncResp->res.result(
-            boost::beast::http::status::internal_server_error);
-        return;
-    }
     // Make this const static so it survives outside this method
-    static boost::asio::steady_timer timeout(*req.ioService,
+    static boost::asio::steady_timer timeout(getIoContext(),
                                              std::chrono::seconds(5));
 
     timeout.expires_after(std::chrono::seconds(15));
