@@ -7,9 +7,9 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "http_request.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "ossl_random.hpp"
-#include "io_context_singleton.hpp"
 
 #include <boost/asio/error.hpp>
 #include <boost/asio/steady_timer.hpp>
