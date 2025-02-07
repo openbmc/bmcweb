@@ -5,6 +5,7 @@
 #include "bmcweb_config.h"
 
 #include "account_service.hpp"
+#include "account_service_mfa_actions.hpp"
 #include "aggregation_service.hpp"
 #include "app.hpp"
 #include "bios.hpp"
@@ -61,6 +62,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesOdata(app);
 
     requestAccountServiceRoutes(app);
+    requestAccountServiceMFARoutes(app);
     if constexpr (BMCWEB_REDFISH_AGGREGATION)
     {
         requestRoutesAggregationService(app);
