@@ -52,6 +52,24 @@
       "parentUuid": "f7ebb1ba_359e7fa5",
       "revId": "bd6e7c0cda30f287b0b4d5e85bf5acf6c6f990ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b0288e5_5d8496b0",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-07T19:13:53Z",
+      "side": 1,
+      "message": "Yea... unit tests show this this is totally broken.",
+      "parentUuid": "8937405e_d61f4f32",
+      "revId": "bd6e7c0cda30f287b0b4d5e85bf5acf6c6f990ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
