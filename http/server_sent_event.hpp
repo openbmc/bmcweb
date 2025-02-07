@@ -4,8 +4,8 @@
 #include "boost_formatters.hpp"
 #include "http_body.hpp"
 #include "http_request.hpp"
-#include "logging.hpp"
 #include "io_context_singleton.hpp"
+#include "logging.hpp"
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/error.hpp>

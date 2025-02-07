@@ -4,9 +4,9 @@
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "websocket.hpp"
-#include "io_context_singleton.hpp"
 
 #include <sys/types.h>
 #include <unistd.h>

@@ -131,10 +131,17 @@ inline std::shared_ptr<persistent_data::UserSession> performXtokenAuth(
     return sessionOut;
 }
 
-inline std::shared_ptr<persistent_data::UserSession> performCookieAuth(
-    boost::beast::http::verb method [[maybe_unused]],
+struct Cookie
+{
+    std::string sessionToken;
+    std::string csrfToken;
+};
+
+inline std::optional<Cookie> getCookieHeaders(
     const boost::beast::http::header<true>& reqHeader)
 {
+    Cookie cookie;
+    cookie.csrfToken = reqHeader["X-XSRF-TOKEN"];
     using headers = boost::beast::http::header<true>;
     std::pair<headers::const_iterator, headers::const_iterator> cookies =
         reqHeader.equal_range(boost::beast::http::field::cookie);
@@ -143,59 +150,67 @@ inline std::shared_ptr<persistent_data::UserSession> performCookieAuth(
     {
         std::string_view cookieValue = it->value();
         BMCWEB_LOG_DEBUG("Checking cookie {}", cookieValue);
-        auto startIndex = cookieValue.find("SESSION=");
-        if (startIndex == std::string::npos)
+        for (auto param : boost::beast::http::param_list(cookieValue))
         {
-            BMCWEB_LOG_DEBUG(
-                "Cookie was present, but didn't look like a session {}",
-                cookieValue);
-            continue;
-        }
-        startIndex += sizeof("SESSION=") - 1;
-        auto endIndex = cookieValue.find(';', startIndex);
-        if (endIndex == std::string::npos)
-        {
-            endIndex = cookieValue.size();
-        }
-        std::string_view authKey =
-            cookieValue.substr(startIndex, endIndex - startIndex);
-
-        std::shared_ptr<persistent_data::UserSession> sessionOut =
-            persistent_data::SessionStore::getInstance().loginSessionByToken(
-                authKey);
-        if (sessionOut == nullptr)
-        {
-            return nullptr;
-        }
-        sessionOut->cookieAuth = true;
-
-        if constexpr (!BMCWEB_INSECURE_DISABLE_CSRF)
-        {
-            // RFC7231 defines methods that need csrf protection
-            if (method != boost::beast::http::verb::get)
+            BMCWEB_LOG_DEBUG("Checking cookie {}={}", std::string_view(param.first), std::string_view(param.second));
+            if (param.first != "SESSION")
             {
-                std::string_view csrf = reqHeader["X-XSRF-TOKEN"];
-                // Make sure both tokens are filled
-                if (csrf.empty() || sessionOut->csrfToken.empty())
-                {
-                    return nullptr;
-                }
+                BMCWEB_LOG_DEBUG(
+                    "Cookie was present, but didn't look like a session {}",
+                    cookieValue);
+                continue;
+            }
+            cookie.sessionToken = param.second;
+            return cookie;
+        }
 
-                if (csrf.size() != persistent_data::sessionTokenSize)
-                {
-                    return nullptr;
-                }
-                // Reject if csrf token not available
-                if (!bmcweb::constantTimeStringCompare(csrf,
-                                                       sessionOut->csrfToken))
-                {
-                    return nullptr;
-                }
+    }
+    return std::nullopt;
+}
+
+inline std::shared_ptr<persistent_data::UserSession> performCookieAuth(
+    boost::beast::http::verb method [[maybe_unused]],
+    const boost::beast::http::header<true>& reqHeader)
+{
+    std::optional<Cookie> cookie = getCookieHeaders(reqHeader);
+    if (!cookie)
+    {
+        return nullptr;
+    }
+
+    std::shared_ptr<persistent_data::UserSession> sessionOut =
+        persistent_data::SessionStore::getInstance().loginSessionByToken(
+            cookie->sessionToken);
+    if (sessionOut == nullptr)
+    {
+        return nullptr;
+    }
+    sessionOut->cookieAuth = true;
+
+    if constexpr (!BMCWEB_INSECURE_DISABLE_CSRF)
+    {
+        // RFC7231 defines methods that need csrf protection
+        if (method != boost::beast::http::verb::get)
+        {
+            // Make sure both tokens are filled
+            if (cookie->csrfToken.empty() || sessionOut->csrfToken.empty())
+            {
+                return nullptr;
+            }
+
+            if (cookie->csrfToken.size() != persistent_data::sessionTokenSize)
+            {
+                return nullptr;
+            }
+            // Reject if csrf token not available
+            if (!bmcweb::constantTimeStringCompare(cookie->csrfToken,
+                                                   sessionOut->csrfToken))
+            {
+                return nullptr;
             }
         }
-        return sessionOut;
     }
-    return nullptr;
+    return sessionOut;
 }
 
 inline std::shared_ptr<persistent_data::UserSession> performTLSAuth(
