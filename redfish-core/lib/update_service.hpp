@@ -13,6 +13,7 @@
 #include "generated/enums/resource.hpp"
 #include "generated/enums/update_service.hpp"
 #include "http_request.hpp"
+#include "io_context_singleton.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "multipart_parser.hpp"
@@ -458,14 +459,8 @@ inline void monitorForSoftwareAvailable(
         return;
     }
 
-    if (req.ioService == nullptr)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
     fwAvailableTimer =
-        std::make_unique<boost::asio::steady_timer>(*req.ioService);
+        std::make_unique<boost::asio::steady_timer>(getIoContext());
 
     fwAvailableTimer->expires_after(std::chrono::seconds(timeoutTimeSeconds));
 
