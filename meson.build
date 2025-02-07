@@ -427,6 +427,7 @@ srcfiles_unittest = files(
     'test/http/utility_test.cpp',
     'test/http/verb_test.cpp',
     'test/include/async_resolve_test.cpp',
+    'test/include/authentication.cpp',
     'test/include/credential_pipe_test.cpp',
     'test/include/dbus_utility_test.cpp',
     'test/include/google/google_service_root_test.cpp',
