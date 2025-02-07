@@ -7,6 +7,7 @@
 #include "app.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "websocket.hpp"
 
@@ -205,8 +206,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                    const std::string& endpointIdIn, const std::string& pathIn) :
         socketId(socketIdIn), endpointId(endpointIdIn), path(pathIn),
 
-        peerSocket(connIn.getIoContext()),
-        acceptor(connIn.getIoContext(), stream_protocol::endpoint(socketId)),
+        peerSocket(getIoContext()),
+        acceptor(getIoContext(), stream_protocol::endpoint(socketId)),
         connection(connIn)
     {}
 
@@ -585,7 +586,7 @@ inline void requestRoutes(App& app)
                 // media is the last digit of the endpoint /vm/0/0. A future
                 // enhancement can include supporting different endpoint values.
                 const char* media = "0";
-                handler = std::make_shared<Handler>(media, conn.getIoContext());
+                handler = std::make_shared<Handler>(media, getIoContext());
                 handler->connect();
             })
             .onclose([](crow::websocket::Connection& conn,

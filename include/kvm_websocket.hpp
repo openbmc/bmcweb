@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 #include "app.hpp"
+#include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "websocket.hpp"
 
@@ -29,7 +30,7 @@ class KvmSession : public std::enable_shared_from_this<KvmSession>
 {
   public:
     explicit KvmSession(crow::websocket::Connection& connIn) :
-        conn(connIn), hostSocket(conn.getIoContext())
+        conn(connIn), hostSocket(getIoContext())
     {
         boost::asio::ip::tcp::endpoint endpoint(
             boost::asio::ip::make_address("127.0.0.1"), 5900);
