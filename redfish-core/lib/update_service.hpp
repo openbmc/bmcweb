@@ -1262,7 +1262,15 @@ inline void requestRoutesSoftwareInventory(App& app)
                             continue;
                         }
 
-                        found = true;
+                        std::string swIdpath = "/xyz/openbmc_project/software/";
+                        if (obj.first == (swIdpath + *swId))
+                        {
+                            found = true;
+                        }
+                        else
+                        {
+                            continue;
+                        }
                         sw_util::getSwStatus(asyncResp, swId,
                                              obj.second[0].first);
                         sw_util::getSwMinimumVersion(asyncResp, swId,
