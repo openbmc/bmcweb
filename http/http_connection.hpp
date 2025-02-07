@@ -421,9 +421,6 @@ class Connection :
                         req->methodString(), req->target(),
                         req->ipAddress.to_string());
 
-        req->ioService = static_cast<decltype(req->ioService)>(
-            &adaptor.get_executor().context());
-
         if (res.completed)
         {
             completeRequest(res);
