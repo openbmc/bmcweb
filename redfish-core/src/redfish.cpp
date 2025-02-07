@@ -5,6 +5,7 @@
 #include "bmcweb_config.h"
 
 #include "account_service.hpp"
+#include "account_service_mfa_actions.hpp"
 #include "aggregation_service.hpp"
 #include "app.hpp"
 #include "bios.hpp"
