@@ -124,8 +124,10 @@ TEST(http_connection, RequestPropogates)
     FakeHandler handler;
     boost::asio::steady_timer timer(io);
     std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
     auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
-        std::move(stream), &handler, date);
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP);
     conn->start();
 
     std::string_view expectedPrefix =
