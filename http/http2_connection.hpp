@@ -8,6 +8,7 @@
 #include "complete_response_fields.hpp"
 #include "forward_unauthorized.hpp"
 #include "http_body.hpp"
+#include "http_connect_types.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
@@ -46,14 +47,6 @@
 namespace crow
 {
 
-template <typename>
-struct IsTls : std::false_type
-{};
-
-template <typename T>
-struct IsTls<boost::asio::ssl::stream<T>> : std::true_type
-{};
-
 struct Http2StreamData
 {
     std::shared_ptr<Request> req = std::make_shared<Request>();
@@ -70,10 +63,13 @@ class HTTP2Connection :
     using self_type = HTTP2Connection<Adaptor, Handler>;
 
   public:
-    HTTP2Connection(Adaptor&& adaptorIn, Handler* handlerIn,
-                    std::function<std::string()>& getCachedDateStrF) :
-        adaptor(std::move(adaptorIn)), ngSession(initializeNghttp2Session()),
-        handler(handlerIn), getCachedDateStr(getCachedDateStrF)
+    HTTP2Connection(boost::asio::ssl::stream<Adaptor>&& adaptorIn,
+                    Handler* handlerIn,
+                    std::function<std::string()>& getCachedDateStrF,
+                    HttpType httpTypeIn) :
+        httpType(httpTypeIn), adaptor(std::move(adaptorIn)),
+        ngSession(initializeNghttp2Session()), handler(handlerIn),
+        getCachedDateStr(getCachedDateStrF)
     {}
 
     void start()
@@ -573,21 +569,24 @@ class HTTP2Connection :
             return;
         }
         isWriting = true;
-        boost::asio::async_write(
-            adaptor, boost::asio::const_buffer(data.data(), data.size()),
-            std::bind_front(afterWriteBuffer, shared_from_this()));
+        if (httpType == HttpType::HTTPS)
+        {
+            boost::asio::async_write(
+                adaptor, boost::asio::const_buffer(data.data(), data.size()),
+                std::bind_front(afterWriteBuffer, shared_from_this()));
+        }
+        else if (httpType == HttpType::HTTP)
+        {
+            boost::asio::async_write(
+                adaptor.next_layer(),
+                boost::asio::const_buffer(data.data(), data.size()),
+                std::bind_front(afterWriteBuffer, shared_from_this()));
+        }
     }
 
     void close()
     {
-        if constexpr (IsTls<Adaptor>::value)
-        {
-            adaptor.next_layer().close();
-        }
-        else
-        {
-            adaptor.close();
-        }
+        adaptor.next_layer().close();
     }
 
     void afterDoRead(const std::shared_ptr<self_type>& /*self*/,
@@ -622,9 +621,19 @@ class HTTP2Connection :
     void doRead()
     {
         BMCWEB_LOG_DEBUG("{} doRead", logPtr(this));
-        adaptor.async_read_some(
-            boost::asio::buffer(inBuffer),
-            std::bind_front(&self_type::afterDoRead, this, shared_from_this()));
+        if (httpType == HttpType::HTTPS)
+        {
+            adaptor.async_read_some(boost::asio::buffer(inBuffer),
+                                    std::bind_front(&self_type::afterDoRead,
+                                                    this, shared_from_this()));
+        }
+        else if (httpType == HttpType::HTTP)
+        {
+            adaptor.next_layer().async_read_some(
+                boost::asio::buffer(inBuffer),
+                std::bind_front(&self_type::afterDoRead, this,
+                                shared_from_this()));
+        }
     }
 
     // A mapping from http2 stream ID to Stream Data
@@ -632,7 +641,8 @@ class HTTP2Connection :
 
     std::array<uint8_t, 8192> inBuffer{};
 
-    Adaptor adaptor;
+    HttpType httpType = HttpType::BOTH;
+    boost::asio::ssl::stream<Adaptor> adaptor;
     bool isWriting = false;
 
     nghttp2_session ngSession;
