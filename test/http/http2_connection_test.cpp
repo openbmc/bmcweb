@@ -4,6 +4,7 @@
 #include "http/http2_connection.hpp"
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
+#include "http_connect_types.hpp"
 #include "nghttp2_adapters.hpp"
 #include "test_stream.hpp"
 
@@ -12,6 +13,8 @@
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/io_context.hpp>
+#include <boost/asio/ssl/context.hpp>
+#include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/asio/write.hpp>
 #include <boost/beast/http/field.hpp>
@@ -124,8 +127,10 @@ TEST(http_connection, RequestPropogates)
     FakeHandler handler;
     boost::asio::steady_timer timer(io);
     std::function<std::string()> date(getDateStr);
+    boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
     auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
-        std::move(stream), &handler, date);
+        boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
+        &handler, date, HttpType::HTTP);
     conn->start();
 
     std::string_view expectedPrefix =
