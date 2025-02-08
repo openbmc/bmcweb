@@ -76,7 +76,6 @@ class Connection :
   public:
     Connection(Handler* handlerIn, HttpType httpTypeIn,
                boost::asio::steady_timer&& timerIn,
-
                std::function<std::string()>& getCachedDateStrF,
                boost::asio::ssl::stream<Adaptor>&& adaptorIn) :
         httpType(httpTypeIn), adaptor(std::move(adaptorIn)), handler(handlerIn),
@@ -280,34 +279,15 @@ class Connection :
 
     void upgradeToHttp2()
     {
-        // TODO HTTP2Connection needs adaptor moved to a similar abstraction as
-        // HTTPConnection
-        if (httpType == HttpType::HTTP)
+        auto http2 = std::make_shared<HTTP2Connection<Adaptor, Handler>>(
+            std::move(adaptor), handler, getCachedDateStr, httpType);
+        if (http2settings.empty())
         {
-            auto http2 = std::make_shared<HTTP2Connection<Adaptor, Handler>>(
-                std::move(adaptor.next_layer()), handler, getCachedDateStr);
-            if (http2settings.empty())
-            {
-                http2->start();
-            }
-            else
-            {
-                http2->startFromSettings(http2settings);
-            }
+            http2->start();
         }
         else
         {
-            auto http2 = std::make_shared<
-                HTTP2Connection<boost::asio::ssl::stream<Adaptor>, Handler>>(
-                std::move(adaptor), handler, getCachedDateStr);
-            if (http2settings.empty())
-            {
-                http2->start();
-            }
-            else
-            {
-                http2->startFromSettings(http2settings);
-            }
+            http2->startFromSettings(http2settings);
         }
     }
 
