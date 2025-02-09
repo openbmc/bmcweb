@@ -30,7 +30,6 @@
 #include <boost/url/format.hpp>
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
-#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -694,7 +693,7 @@ inline void handleChassisGetSubTree(
                                                propertiesList);
             });
 
-        sdbusplus::asio::getAllProperties(
+        dbus::utility::getAllProperties(
             *crow::connections::systemBus, connectionName, path,
             "xyz.openbmc_project.Inventory.Item.Chassis",
             [asyncResp](
