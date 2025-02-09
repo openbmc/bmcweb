@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "edb4935f_dabb6d51",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-09T20:30:40Z",
+      "side": 1,
+      "message": "Is there a change in phosphor-post-codes to support the backend for this?",
+      "revId": "350596eacc81709c0b12fa09e62a103023df7311",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "091b1603_beb3db1e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -14,6 +31,46 @@
       "writtenOn": "2025-02-09T20:27:22Z",
       "side": 1,
       "message": "Redfish service validator tests?",
+      "revId": "350596eacc81709c0b12fa09e62a103023df7311",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74856325_bcee7799",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-09T20:30:40Z",
+      "side": 1,
+      "message": "Overall, seems like a feature we could support, but needs some code cleanup.",
+      "revId": "350596eacc81709c0b12fa09e62a103023df7311",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2307c253_e353a423",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-09T20:30:40Z",
+      "side": 1,
+      "message": "We should not be depending on a specific value on dbus to chain another dbus operation.  Chaining in that way leads to slow APIs.\n\nWhat I suspect its that the second query can be done unconditionally.",
+      "range": {
+        "startLine": 761,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 19
+      },
       "revId": "350596eacc81709c0b12fa09e62a103023df7311",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -37,6 +94,23 @@
         "endLine": 792,
         "endChar": 17
       },
+      "revId": "350596eacc81709c0b12fa09e62a103023df7311",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eacabf3a_e4d930c5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 794,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-09T20:30:40Z",
+      "side": 1,
+      "message": "Given this is an oem parameter, value needs prefixed with the openbmc OEM namespace, so something like\n\n\"OpenBMC 0X20\"",
       "revId": "350596eacc81709c0b12fa09e62a103023df7311",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
