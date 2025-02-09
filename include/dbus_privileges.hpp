@@ -18,6 +18,7 @@
 #include <boost/url/format.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <functional>
 #include <memory>
 #include <optional>
 #include <string>
@@ -132,13 +133,14 @@ inline bool afterGetUserInfoValidate(
     return true;
 }
 
-template <typename CallbackFn>
-void requestUserInfo(const std::string& username,
-                     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                     CallbackFn&& callback)
+inline void requestUserInfo(
+    const std::string& username,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::move_only_function<void(const dbus::utility::DBusPropertiesMap&)>&&
+        callback)
 {
     crow::connections::systemBus->async_method_call(
-        [asyncResp, callback = std::forward<CallbackFn>(callback)](
+        [asyncResp, callback = std::move(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
             if (ec)
@@ -154,10 +156,10 @@ void requestUserInfo(const std::string& username,
         "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
 }
 
-template <typename CallbackFn>
-void validatePrivilege(const std::shared_ptr<Request>& req,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       BaseRule& rule, CallbackFn&& callback)
+inline void validatePrivilege(
+    const std::shared_ptr<Request>& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, BaseRule& rule,
+    std::move_only_function<void()>&& callback)
 {
     if (req->session == nullptr)
     {
@@ -166,7 +168,7 @@ void validatePrivilege(const std::shared_ptr<Request>& req,
 
     requestUserInfo(
         req->session->username, asyncResp,
-        [req, asyncResp, &rule, callback = std::forward<CallbackFn>(callback)](
+        [req, asyncResp, &rule, callback = std::move(callback)](
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
             if (afterGetUserInfoValidate(*req, asyncResp, rule, userInfoMap))
             {
@@ -175,16 +177,15 @@ void validatePrivilege(const std::shared_ptr<Request>& req,
         });
 }
 
-template <typename CallbackFn>
-void getUserInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                 const std::string& username,
-                 std::shared_ptr<persistent_data::UserSession>& session,
-                 CallbackFn&& callback)
+inline void getUserInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& username,
+                        std::shared_ptr<persistent_data::UserSession>& session,
+                        std::move_only_function<void()>&& callback)
 {
     requestUserInfo(
         username, asyncResp,
-        [asyncResp, session, callback = std::forward<CallbackFn>(callback)](
-            const dbus::utility::DBusPropertiesMap& userInfoMap) {
+        [asyncResp, session, callback = std::move(callback)](
+            const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
             if (!populateUserInfo(*session, userInfoMap))
             {
                 BMCWEB_LOG_ERROR("Failed to populate user information");
