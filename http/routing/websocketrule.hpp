@@ -16,7 +16,6 @@
 #include <memory>
 #include <string>
 #include <string_view>
-#include <utility>
 #include <vector>
 
 namespace crow
@@ -47,32 +46,12 @@ class WebSocketRule : public BaseRule
 
     void handleUpgrade(const Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
-                       boost::asio::ip::tcp::socket&& adaptor) override
-    {
-        BMCWEB_LOG_DEBUG("Websocket handles upgrade");
-        std::shared_ptr<
-            crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
-            myConnection = std::make_shared<
-                crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
-                req.url(), req.session, std::move(adaptor), openHandler,
-                messageHandler, messageExHandler, closeHandler, errorHandler);
-        myConnection->start(req);
-    }
+                       boost::asio::ip::tcp::socket&& adaptor) override;
 
     void handleUpgrade(const Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
                        boost::asio::ssl::stream<boost::asio::ip::tcp::socket>&&
-                           adaptor) override
-    {
-        BMCWEB_LOG_DEBUG("Websocket handles upgrade");
-        std::shared_ptr<crow::websocket::ConnectionImpl<
-            boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>
-            myConnection = std::make_shared<crow::websocket::ConnectionImpl<
-                boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
-                req.url(), req.session, std::move(adaptor), openHandler,
-                messageHandler, messageExHandler, closeHandler, errorHandler);
-        myConnection->start(req);
-    }
+                           adaptor) override;
 
     template <typename Func>
     self_t& onopen(Func f)
