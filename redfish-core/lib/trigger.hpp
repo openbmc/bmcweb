@@ -33,7 +33,6 @@
 #include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
-#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
@@ -1011,7 +1010,7 @@ inline void requestRoutesTrigger(App& app)
                 {
                     return;
                 }
-                sdbusplus::asio::getAllProperties(
+                dbus::utility::getAllProperties(
                     *crow::connections::systemBus, telemetry::service,
                     telemetry::getDbusTriggerPath(id),
                     telemetry::triggerInterface,
