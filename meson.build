@@ -356,6 +356,7 @@ fs = import('fs')
 
 srcfiles_bmcweb = files(
     'http/mutual_tls.cpp',
+    'http/routing/websocketrule.cpp',
     'redfish-core/src/dbus_log_watcher.cpp',
     'redfish-core/src/error_message_utils.cpp',
     'redfish-core/src/error_messages.cpp',
