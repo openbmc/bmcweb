@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3f4522a_e3232f70",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-09T21:43:39Z",
+      "side": 1,
+      "message": "I realize this is WIP, but please ensure that the backend for this is actually usable and correct before moving this out of WIP.",
+      "revId": "3d6facaeac9838e083a175752c79438b54612ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e99a939e_a829b3dd",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-09T21:43:39Z",
+      "side": 1,
+      "message": "Please don\u0027t chain lambdas like this.  the old code was already correct, so please don\u0027t make it worse",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 9
+      },
+      "revId": "3d6facaeac9838e083a175752c79438b54612ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
