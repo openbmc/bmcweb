@@ -71,7 +71,8 @@ if (get_option('tests').allowed())
 endif
 
 # Add compiler arguments
-
+boost_flags = ['-Wno-unused-parameter']
+nghttp2_flags = []
 if (cxx.get_id() == 'clang')
     if (cxx.version().version_compare('<17.0'))
         error('This project requires clang-17 or higher')
@@ -80,6 +81,8 @@ if (cxx.get_id() == 'clang')
         '-Weverything',
         '-Wformat=2',
         '-Wno-c++20-extensions',
+        '-Wno-c++23-extensions',
+        '-Wno-c++26-extensions',
         '-Wno-c++98-compat',
         '-Wno-c++98-compat-pedantic',
         '-Wno-covered-switch-default',
@@ -88,6 +91,7 @@ if (cxx.get_id() == 'clang')
         '-Wno-documentation-unknown-command',
         '-Wno-exit-time-destructors',
         '-Wno-global-constructors',
+        '-Wno-missing-include-dirs',
         '-Wno-newline-eof',
         '-Wno-padded',
         '-Wno-shadow',
@@ -99,6 +103,8 @@ if (cxx.get_id() == 'clang')
         '-Wno-weak-vtables',
         language: 'cpp',
     )
+    boost_flags += ['-Wno-strict-prototypes', '-Wno-unused-but-set-variable']
+    nghttp2_flags += ['-Wno-extra-semi']
 endif
 
 if (cxx.get_id() == 'gcc')
@@ -218,7 +224,12 @@ if not nghttp2.found()
     cmake = import('cmake')
     opt_var = cmake.subproject_options()
     opt_var.add_cmake_defines(
-        {'ENABLE_LIB_ONLY': true, 'ENABLE_STATIC_LIB': true},
+        {
+            'CMAKE_C_FLAGS': ' '.join(nghttp2_flags),
+            'CMAKE_CXX_FLAGS': ' '.join(nghttp2_flags),
+            'ENABLE_LIB_ONLY': true,
+            'ENABLE_STATIC_LIB': true,
+        },
     )
     nghttp2_ex = cmake.subproject('nghttp2', options: opt_var)
     nghttp2 = nghttp2_ex.dependency('nghttp2')
@@ -314,8 +325,8 @@ else
     ]
     opt.add_cmake_defines(
         {
-            # 1.86.0 fails this.  Hopefully fixed in 1.86.1
-            'CMAKE_CXX_FLAGS': '-Wno-unused-parameter',
+            'CMAKE_CXX_FLAGS': ' '.join(boost_flags),
+            'CMAKE_C_FLAGS': ' '.join(boost_flags),
             'BOOST_INCLUDE_LIBRARIES': ';'.join(boost_libs),
             'BUILD_SHARED_LIBS': 'OFF',
         },
