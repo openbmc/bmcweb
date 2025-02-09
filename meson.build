@@ -24,7 +24,6 @@ project_issues_url = project_url + '/issues/new'
 summary('Issues', project_issues_url, section: 'Report Issues')
 
 # Validate the c++ Standard
-
 if get_option('cpp_std') != 'c++23'
     error('This project requires c++23 support')
 endif
@@ -71,34 +70,38 @@ if (get_option('tests').allowed())
 endif
 
 # Add compiler arguments
-
+boost_flags = ['-Wno-unused-parameter']
 if (cxx.get_id() == 'clang')
     if (cxx.version().version_compare('<17.0'))
         error('This project requires clang-17 or higher')
     endif
     add_project_arguments(
         '-Weverything',
+        '-ftime-trace',
         '-Wformat=2',
-        '-Wno-c++98-compat-pedantic',
-        '-Wno-c++98-compat',
         '-Wno-c++20-extensions',
-        '-Wno-documentation-unknown-command',
+        '-Wno-c++26-extensions',
+        '-Wno-c++98-compat',
+        '-Wno-c++98-compat-pedantic',
+        '-Wno-covered-switch-default',
+        '-Wno-disabled-macro-expansion',
         '-Wno-documentation',
+        '-Wno-documentation-unknown-command',
         '-Wno-exit-time-destructors',
         '-Wno-global-constructors',
+        '-Wno-missing-include-dirs',
         '-Wno-newline-eof',
         '-Wno-padded',
         '-Wno-shadow',
-        '-Wno-used-but-marked-unused',
-        '-Wno-weak-vtables',
         '-Wno-switch-enum',
-        '-Wno-unused-macros',
-        '-Wno-covered-switch-default',
-        '-Wno-disabled-macro-expansion',
         '-Wno-unneeded-internal-declaration',
         '-Wno-unsafe-buffer-usage-in-container',
+        '-Wno-unused-macros',
+        '-Wno-used-but-marked-unused',
+        '-Wno-weak-vtables',
         language: 'cpp',
     )
+    boost_flags += ['-Wno-strict-prototypes', '-Wno-unused-but-set-variable']
 endif
 
 if (cxx.get_id() == 'gcc')
@@ -314,8 +317,8 @@ else
     ]
     opt.add_cmake_defines(
         {
-            # 1.86.0 fails this.  Hopefully fixed in 1.86.1
-            'CMAKE_CXX_FLAGS': '-Wno-unused-parameter',
+            'CMAKE_CXX_FLAGS': ' '.join(boost_flags),
+            'CMAKE_C_FLAGS': ' '.join(boost_flags),
             'BOOST_INCLUDE_LIBRARIES': ';'.join(boost_libs),
             'BUILD_SHARED_LIBS': 'OFF',
         },
@@ -356,6 +359,7 @@ fs = import('fs')
 
 srcfiles_bmcweb = files(
     'http/mutual_tls.cpp',
+    'http/routing/websocketrule.cpp',
     'redfish-core/src/dbus_log_watcher.cpp',
     'redfish-core/src/error_message_utils.cpp',
     'redfish-core/src/error_messages.cpp',
@@ -376,6 +380,7 @@ srcfiles_bmcweb = files(
     'src/boost_asio_ssl.cpp',
     'src/boost_beast.cpp',
     'src/dbus_singleton.cpp',
+    'src/dbus_utility.cpp',
     'src/json_html_serializer.cpp',
     'src/ossl_random.cpp',
     'src/ssl_key_handler.cpp',
