@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "104c14ef_0d87e81d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 63
+      },
+      "lineNbr": 1412,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-09T21:40:30Z",
+      "side": 1,
+      "message": "Common error.  Don\u0027t do imprecise matching of errors.  \u003d\u003d is the appropriate check here.",
+      "range": {
+        "startLine": 1412,
+        "startChar": 33,
+        "endLine": 1412,
+        "endChar": 37
+      },
+      "revId": "b919c6e45bb0b8da5aaeb38bb7a7fefccf2cc948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4768def0_a34e9274",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 63
+      },
+      "lineNbr": 1419,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-09T21:40:30Z",
+      "side": 1,
+      "message": "if it\u0027s not supported, should be populate with \"enabled\"?  That seems wrong.",
+      "revId": "b919c6e45bb0b8da5aaeb38bb7a7fefccf2cc948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8207007_fb783358",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 63
+      },
+      "lineNbr": 1437,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-09T21:40:30Z",
+      "side": 1,
+      "message": "When I ask that lambdas be shortened please actually shorten them.  Closing out comments that aren\u0027t done causes your patch to be in review for longer than neccesary.  If you\u0027re still working on things, please don\u0027t close out comments as done.",
+      "range": {
+        "startLine": 1408,
+        "startChar": 0,
+        "endLine": 1437,
+        "endChar": 9
+      },
+      "revId": "b919c6e45bb0b8da5aaeb38bb7a7fefccf2cc948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
