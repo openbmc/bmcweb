@@ -33,6 +33,24 @@
       "message": "Similar to naming of `http/routing/websocketrule.cpp`, would this be better named as `http/websocket.cpp`?\n\nOr, the other way around like `http/routing/websocketrule_impl.cpp`?",
       "revId": "baa053ff59d101d2166e830e35a07aa2597b1c35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2eff185_4563052a",
+        "filename": "http/websocket_impl.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-10T21:37:18Z",
+      "side": 1,
+      "message": "\u003e Similar to naming of `http/routing/websocketrule.cpp`, would this be better named as `http/websocket.cpp`?\n\u003e \n\u003e Or, the other way around like `http/routing/websocketrule_impl.cpp`?\n\nI\u0027m not following how that would be correct.\n1. This is a header, not a compile unit, so .cpp isn\u0027t correct\n2. We need some way to differentiate ConnectionImpl from Connection.  If we named this websocket.cpp, that could conflict if we ever moved Connection and methods to a compile unit.\n\nIs there another name you could suggest that captures that this is a \"ConnectionImpl\". My thought process here was\n\nConnection -\u003e lives in websocket.hpp\nConnectionImpl -\u003e can live in websocket_impl.hpp",
+      "parentUuid": "f389f76a_670ec79c",
+      "revId": "baa053ff59d101d2166e830e35a07aa2597b1c35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
