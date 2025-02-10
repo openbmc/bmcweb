@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87178a97_7427e445",
+        "filename": "redfish-core/include/task_generation.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-10T21:46:07Z",
+      "side": 1,
+      "message": "\u003e it should still be mark completed with an error \n\nBut one bad message does not necessarily mean that the task completed?",
+      "parentUuid": "c8f19a76_62bf8673",
+      "revId": "d8198f149d9d213c2502ebc7709f7bb5578671c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b459fc6e_9aeb80c0",
         "filename": "redfish-core/include/task_generation.hpp",
         "patchSetId": 7
