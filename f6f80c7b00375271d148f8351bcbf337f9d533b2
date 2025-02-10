@@ -22,6 +22,30 @@
       },
       "revId": "f6f80c7b00375271d148f8351bcbf337f9d533b2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c857d20_05a7bab1",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-10T18:42:01Z",
+      "side": 1,
+      "message": "\u003e Should this short-circuit the work of parsing the tokens and check for verb::get at the top of the function and just return false there?\n\nNo, because http2 requests can be started with any any verb.\n\n\u003e \n\u003e Or is the res header update needed/desired even if not doing the verb::get?\n\nCorrect.  Http header update is required on any verb.",
+      "parentUuid": "35c2e842_2e6c5ba9",
+      "range": {
+        "startLine": 292,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 2
+      },
+      "revId": "f6f80c7b00375271d148f8351bcbf337f9d533b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
