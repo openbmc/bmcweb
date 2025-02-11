@@ -454,8 +454,11 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& imageUrl, bool rw,
                             std::string&& userName, std::string&& password)
 {
-    int fd = -1;
-    std::shared_ptr<CredentialsPipe> secretPipe;
+    // Open pipe
+    std::shared_ptr<CredentialsPipe> secretPipe =
+        std::make_shared<CredentialsPipe>(
+            crow::connections::systemBus->get_io_context());
+    int fd = secretPipe->releaseFd();
     if (!userName.empty() || !password.empty())
     {
         // Payload must contain data + NULL delimiters
@@ -466,11 +469,6 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             messages::unrecognizedRequestBody(asyncResp->res);
             return;
         }
-
-        // Open pipe
-        secretPipe = std::make_shared<CredentialsPipe>(
-            crow::connections::systemBus->get_io_context());
-        fd = secretPipe->releaseFd();
 
         // Pass secret over pipe
         secretPipe->asyncWrite(
@@ -485,15 +483,13 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             });
     }
 
-    std::variant<sdbusplus::message::unix_fd> unixFd(
-        std::in_place_type<sdbusplus::message::unix_fd>, fd);
+    sdbusplus::message::unix_fd unixFd(fd);
 
     sdbusplus::message::object_path path(
         "/xyz/openbmc_project/VirtualMedia/Legacy");
     path /= name;
     crow::connections::systemBus->async_method_call(
-        [asyncResp,
-         secretPipe](const boost::system::error_code& ec, bool success) {
+        [asyncResp](const boost::system::error_code& ec, bool success) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
