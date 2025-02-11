@@ -16,6 +16,29 @@
       "message": "Can you run the Redfish Validator?\n\nRedfish validator is good here with the new property \n[\"BootProgress\"][\"OemLastState\"] ?",
       "revId": "6c42637cefdd42ec2752ba55e1edd8bf3624d443",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e273a0a_20e98c23",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-11T17:07:08Z",
+      "side": 1,
+      "message": "Don\u0027t use auto like this.  It hides the type from review.",
+      "range": {
+        "startLine": 897,
+        "startChar": 12,
+        "endLine": 897,
+        "endChar": 16
+      },
+      "revId": "6c42637cefdd42ec2752ba55e1edd8bf3624d443",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
