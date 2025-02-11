@@ -454,8 +454,11 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& imageUrl, bool rw,
                             std::string&& userName, std::string&& password)
 {
-    int fd = -1;
-    std::shared_ptr<CredentialsPipe> secretPipe;
+    // Open pipe
+    std::shared_ptr<CredentialsPipe> secretPipe =
+        std::make_shared<CredentialsPipe>(
+            crow::connections::systemBus->get_io_context());
+    int fd = secretPipe->releaseFd();
     if (!userName.empty() || !password.empty())
     {
         // Payload must contain data + NULL delimiters
@@ -466,11 +469,6 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             messages::unrecognizedRequestBody(asyncResp->res);
             return;
         }
-
-        // Open pipe
-        secretPipe = std::make_shared<CredentialsPipe>(
-            crow::connections::systemBus->get_io_context());
-        fd = secretPipe->releaseFd();
 
         // Pass secret over pipe
         secretPipe->asyncWrite(
