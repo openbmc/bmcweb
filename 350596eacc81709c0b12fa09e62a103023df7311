@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "06ea4ef0_60240bc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-11T17:05:42Z",
+      "side": 1,
+      "message": "Please put that in your commit message tested statement.",
+      "parentUuid": "6631aed3_f116f42f",
+      "revId": "350596eacc81709c0b12fa09e62a103023df7311",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "74856325_bcee7799",
@@ -125,6 +143,30 @@
       "side": 1,
       "message": "According to Redfish schema[1], it mentioned that `OemLastState` shall only be present if `LastState` is `OEM`. So I think it depends on OEM state.\n\n[1] https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_23_1.json",
       "parentUuid": "2307c253_e353a423",
+      "range": {
+        "startLine": 761,
+        "startChar": 0,
+        "endLine": 763,
+        "endChar": 19
+      },
+      "revId": "350596eacc81709c0b12fa09e62a103023df7311",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed59125e_f060f575",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-11T17:05:42Z",
+      "side": 1,
+      "message": "Sure, then query the two values together (using getProperties) and you can enforce that constraint without chaining dbus calls.",
+      "parentUuid": "81adedf0_c9cd4382",
       "range": {
         "startLine": 761,
         "startChar": 0,
