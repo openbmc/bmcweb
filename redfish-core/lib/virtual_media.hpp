@@ -26,6 +26,7 @@
 #include <sdbusplus/message/native_types.hpp>
 
 #include <cstddef>
+#include <cstdint>
 #include <filesystem>
 #include <functional>
 #include <memory>
@@ -454,46 +455,54 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& imageUrl, bool rw,
                             std::string&& userName, std::string&& password)
 {
-    int fd = -1;
-    std::shared_ptr<CredentialsPipe> secretPipe;
-    if (!userName.empty() || !password.empty())
+    if (userName.contains('\0'))
     {
-        // Payload must contain data + NULL delimiters
-        constexpr const size_t secretLimit = 1024;
-        if (userName.size() + password.size() + 2 > secretLimit)
-        {
-            BMCWEB_LOG_ERROR("Credentials too long to handle");
-            messages::unrecognizedRequestBody(asyncResp->res);
-            return;
-        }
-
-        // Open pipe
-        secretPipe = std::make_shared<CredentialsPipe>(
-            crow::connections::systemBus->get_io_context());
-        fd = secretPipe->releaseFd();
-
-        // Pass secret over pipe
-        secretPipe->asyncWrite(
-            std::move(userName), std::move(password),
-            [asyncResp,
-             secretPipe](const boost::system::error_code& ec, std::size_t) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("Failed to pass secret: {}", ec);
-                    messages::internalError(asyncResp->res);
-                }
-            });
+        messages::actionParameterValueFormatError(
+            asyncResp->res, userName, "Username", "VirtualMedia.InsertMedia");
+        return;
     }
+    constexpr uint64_t limit = 512;
+    if (userName.size() > limit)
+    {
+        messages::stringValueTooLong(asyncResp->res, userName, limit);
+        return;
+    }
+    if (password.contains('\0'))
+    {
+        messages::actionParameterValueFormatError(
+            asyncResp->res, password, "Password", "VirtualMedia.InsertMedia");
+        return;
+    }
+    if (password.size() > limit)
+    {
+        messages::stringValueTooLong(asyncResp->res, password, limit);
+        return;
+    }
+    // Open pipe
+    std::shared_ptr<CredentialsPipe> secretPipe =
+        std::make_shared<CredentialsPipe>(
+            crow::connections::systemBus->get_io_context());
+    int fd = secretPipe->releaseFd();
 
-    std::variant<sdbusplus::message::unix_fd> unixFd(
-        std::in_place_type<sdbusplus::message::unix_fd>, fd);
+    // Pass secret over pipe
+    secretPipe->asyncWrite(
+        std::move(userName), std::move(password),
+        [asyncResp,
+         secretPipe](const boost::system::error_code& ec, std::size_t) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to pass secret: {}", ec);
+                messages::internalError(asyncResp->res);
+            }
+        });
+
+    sdbusplus::message::unix_fd unixFd(fd);
 
     sdbusplus::message::object_path path(
         "/xyz/openbmc_project/VirtualMedia/Legacy");
     path /= name;
     crow::connections::systemBus->async_method_call(
-        [asyncResp,
-         secretPipe](const boost::system::error_code& ec, bool success) {
+        [asyncResp](const boost::system::error_code& ec, bool success) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR("Bad D-Bus request error: {}", ec);
