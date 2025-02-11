@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48f5c428_88e83d0f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2149,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-02-11T10:31:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5b9a2872_f62247d8",
+      "revId": "948c9986954df830a0a8531e0bb929e7d04039e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3014dd0_527f7915",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-01-15T21:35:49Z",
       "side": 1,
       "message": "This and the 2 below are getting a little long for a lambdas\n\nhttps://github.com/openbmc/bmcweb/blob/60e995cd6ab15aac32e146860c2a99c069ea111f/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "range": {
+        "startLine": 2152,
+        "startChar": 0,
+        "endLine": 2165,
+        "endChar": 11
+      },
+      "revId": "948c9986954df830a0a8531e0bb929e7d04039e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b55187d_e52127c5",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2165,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-02-11T10:31:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d3014dd0_527f7915",
       "range": {
         "startLine": 2152,
         "startChar": 0,
@@ -77,6 +119,30 @@
       "writtenOn": "2025-01-15T21:35:49Z",
       "side": 1,
       "message": "shouldn\u0027t this be a getEthernetInterface ?",
+      "range": {
+        "startLine": 2637,
+        "startChar": 41,
+        "endLine": 2637,
+        "endChar": 63
+      },
+      "revId": "948c9986954df830a0a8531e0bb929e7d04039e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1bba420_c89a84d8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 2637,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-02-11T10:31:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ae508032_0149080e",
       "range": {
         "startLine": 2637,
         "startChar": 41,
