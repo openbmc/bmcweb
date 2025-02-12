@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "660faa91_ed59d469",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-12T18:48:16Z",
+      "side": 1,
+      "message": "Add tested?\n\nTested:\nBolesław Ogończyk Mąkowski\nI can confirm that FD got passed successfully in both cases",
+      "revId": "403c4bdb8f96e53764b5bf74e7f9bd6087f50066",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0528ee71_ec7f96bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-12T18:48:16Z",
+      "side": 1,
+      "message": "Seems reasonable to me",
+      "revId": "403c4bdb8f96e53764b5bf74e7f9bd6087f50066",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
