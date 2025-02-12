@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0c71dca_bccb355d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 96
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-12T05:06:15Z",
+      "side": 1,
+      "message": "This follows https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/62881 \nIt seems reasonable to me. \nIt would need support for multiple system like everywhere else. \nFabric Adapter is already there, this is just adding the port based on the association",
+      "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
