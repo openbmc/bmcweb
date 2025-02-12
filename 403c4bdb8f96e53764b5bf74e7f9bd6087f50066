@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "69a92588_4ba3af00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-12T20:45:51Z",
+      "side": 1,
+      "message": "Yeah, I can add that once we think this is ready and he\u0027s tested the \"final\" version.",
+      "parentUuid": "660faa91_ed59d469",
+      "revId": "403c4bdb8f96e53764b5bf74e7f9bd6087f50066",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0528ee71_ec7f96bb",
