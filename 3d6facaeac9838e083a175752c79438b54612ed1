@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "448c0619_01402c94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-02-12T17:16:56Z",
+      "side": 1,
+      "message": "I have verified this with an OpenBMC image built for system1 and once with p10bmc to cover the use case where the interfaces are not present.",
+      "parentUuid": "f3f4522a_e3232f70",
+      "revId": "3d6facaeac9838e083a175752c79438b54612ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e99a939e_a829b3dd",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-02-09T21:43:39Z",
       "side": 1,
       "message": "Please don\u0027t chain lambdas like this.  the old code was already correct, so please don\u0027t make it worse",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 9
+      },
+      "revId": "3d6facaeac9838e083a175752c79438b54612ed1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "843926ba_e4ef333c",
+        "filename": "redfish-core/lib/pcie_slots.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-02-12T17:16:56Z",
+      "side": 1,
+      "message": "Got it.\n\nBut, earlier all properties of only one interface was fetched and populated into Slots array. Now, for the same object, the other two interfaces\u0027 properties also should be fetched and populated into the same slot entry of the array.\n\nWill shorten the \"processPcieSlot\" method by having separate methods for each interface. Otherwise, do you think this still can be simplified?",
+      "parentUuid": "e99a939e_a829b3dd",
       "range": {
         "startLine": 182,
         "startChar": 0,
