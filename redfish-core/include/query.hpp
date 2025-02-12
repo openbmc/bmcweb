@@ -144,6 +144,19 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
         return false;
     }
 
+    if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+    {
+        // Handle unauthorized expand query parameters for service root example
+        // /redfish/v1/?$expand=< >
+        if (req.session == nullptr &&
+            queryOpt->expandType != query_param::ExpandType::None)
+        {
+            messages::resourceAtUriUnauthorized(asyncResp->res, req.url(),
+                                                "Invalid username or password");
+            return false;
+        }
+    }
+
     if (!handleIfMatch(app, req, asyncResp))
     {
         return false;
@@ -168,14 +181,25 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
         return needToCallHandlers;
     }
 
+    // make a copy of the request because older request goes out of scope
+    // trying to access it after it goes out of scope will cause a crash
+    // Create a copy of the request using shared_ptr
+
+    // The lambda capture of newReq by value in the lambda is causing problems
+    // because the lambda needs to be copy-constructible, but crow::Request
+    // isn't copy-constructible. So we use a shared_ptr to the request to avoid
+    // copying the request.
+    auto newReq = std::make_shared<crow::Request>(req.copy());
+
     delegated = query_param::delegate(queryCapabilities, *queryOpt);
     std::function<void(crow::Response&)> handler =
         asyncResp->res.releaseCompleteRequestHandler();
 
     asyncResp->res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)), query{std::move(*queryOpt)},
-         delegated{delegated}](crow::Response& resIn) mutable {
-            processAllParams(app, query, delegated, handler, resIn);
+         delegated{delegated},
+         newReq{std::move(newReq)}](crow::Response& resIn) mutable {
+            processAllParams(app, query, delegated, handler, resIn, *newReq);
         });
 
     return needToCallHandlers;
