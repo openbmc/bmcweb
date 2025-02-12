@@ -144,6 +144,16 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
         return false;
     }
 
+    // Handle unauthorized expand query parameters for service root example
+    // /redfish/v1/?$expand=< >
+    if (req.session == nullptr &&
+        queryOpt->expandType != query_param::ExpandType::None)
+    {
+        messages::resourceAtUriUnauthorized(asyncResp->res, req.url(),
+                                            "Invalid username or password");
+        return false;
+    }
+
     if (!handleIfMatch(app, req, asyncResp))
     {
         return false;
@@ -168,14 +178,18 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
         return needToCallHandlers;
     }
 
+    // make a copy of the request
+    auto newReq = std::make_shared<crow::Request>(req);
+
     delegated = query_param::delegate(queryCapabilities, *queryOpt);
     std::function<void(crow::Response&)> handler =
         asyncResp->res.releaseCompleteRequestHandler();
 
     asyncResp->res.setCompleteRequestHandler(
         [&app, handler(std::move(handler)), query{std::move(*queryOpt)},
-         delegated{delegated}](crow::Response& resIn) mutable {
-            processAllParams(app, query, delegated, handler, resIn);
+         delegated{delegated},
+         newReq{std::move(newReq)}](crow::Response& resIn) mutable {
+            processAllParams(app, query, delegated, handler, resIn, newReq);
         });
 
     return needToCallHandlers;
