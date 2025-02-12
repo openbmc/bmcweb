@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "ebc68fd6_7b44bba2",
         "filename": "redfish-core/lib/memory.hpp",
@@ -20,10 +21,10 @@
         "endChar": 17
       },
       "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4534a6bc_2dd8ab0b",
         "filename": "redfish-core/lib/memory.hpp",
@@ -44,10 +45,10 @@
         "endChar": 17
       },
       "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "798efa13_74beb800",
         "filename": "redfish-core/lib/memory.hpp",
@@ -68,10 +69,34 @@
         "endChar": 17
       },
       "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbd41110_bc0761ce",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "Looking at the comments from the original code it looks like there are multiple objects returned here and being processed. (Comments and code show the \"xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition\" objects are under the dimms in the D-Bus tree.)\n\nI agree that there is no need to search for any object which implements the \"xyz.openbmc_project.Association.Definitions\" interface here. The GetSubTree() call will return all of the interfaces implemented by the objects which implement any of the interfaces in the interface list passed to the call.\n\nI\u0027ve restructured to keep the old behavior of finding both of these types of objects. Then for the Dimm objects only handling the LocationIndicatorActive if the \"xyz.openbmc_project.Association.Definitions\" interface is present.",
+      "parentUuid": "798efa13_74beb800",
+      "range": {
+        "startLine": 871,
+        "startChar": 0,
+        "endLine": 885,
+        "endChar": 17
+      },
+      "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "0a38d038_7fa1ee90",
         "filename": "redfish-core/lib/memory.hpp",
@@ -91,10 +116,10 @@
         "endChar": 17
       },
       "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "92cea6c0_586e3f11",
         "filename": "redfish-core/lib/memory.hpp",
@@ -115,10 +140,10 @@
         "endChar": 17
       },
       "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6bbd7ba5_c34bc90a",
         "filename": "redfish-core/lib/memory.hpp",
@@ -138,10 +163,10 @@
         "endChar": 17
       },
       "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "10a45693_5c647a06",
         "filename": "redfish-core/lib/memory.hpp",
@@ -162,8 +187,31 @@
         "endChar": 17
       },
       "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5044e657_7663a747",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 86
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "Restructure of the code handles this. See above comment for full explanation.",
+      "parentUuid": "10a45693_5c647a06",
+      "range": {
+        "startLine": 1022,
+        "startChar": 0,
+        "endLine": 1032,
+        "endChar": 17
+      },
+      "revId": "c9b7c883d4ef6773b3edd8660db8ff6170af5662",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

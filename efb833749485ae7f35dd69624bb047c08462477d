@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "4f3c3e86_0108b0f2",
         "filename": "/COMMIT_MSG",
@@ -20,10 +21,10 @@
         "endChar": 31
       },
       "revId": "efb833749485ae7f35dd69624bb047c08462477d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "aa311fec_2e4754e9",
         "filename": "/COMMIT_MSG",
@@ -44,10 +45,10 @@
         "endChar": 31
       },
       "revId": "efb833749485ae7f35dd69624bb047c08462477d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "802000fd_5cd1a8af",
         "filename": "/COMMIT_MSG",
@@ -68,10 +69,10 @@
         "endChar": 31
       },
       "revId": "efb833749485ae7f35dd69624bb047c08462477d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "51e043a3_9a530783",
         "filename": "/COMMIT_MSG",
@@ -92,10 +93,10 @@
         "endChar": 31
       },
       "revId": "efb833749485ae7f35dd69624bb047c08462477d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3b591b61_d1677eb4",
         "filename": "/COMMIT_MSG",
@@ -116,8 +117,31 @@
         "endChar": 31
       },
       "revId": "efb833749485ae7f35dd69624bb047c08462477d",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb3627cc_a4f9ea70",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b591b61_d1677eb4",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "efb833749485ae7f35dd69624bb047c08462477d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

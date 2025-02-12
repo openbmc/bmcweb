@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "dcd94460_bb7b2c0b",
         "filename": "redfish-core/lib/memory.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "hmm.. I see this is just ONE.. However, in the GetSubTree, we seem to be looking for \n\nDimm || PersistentMemory.Partition",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "67e218da_7bc33654",
         "filename": "redfish-core/lib/memory.hpp",
@@ -32,10 +33,10 @@
       "message": "Yes, the prerequisite to find all interfaces is that `xyz.openbmc_project.Inventory.Item.Dimm` must exist, So here is only ONE",
       "parentUuid": "dcd94460_bb7b2c0b",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "344fd333_577b0816",
         "filename": "redfish-core/lib/memory.hpp",
@@ -50,10 +51,10 @@
       "message": "And why not Item.Persistent ?",
       "parentUuid": "67e218da_7bc33654",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cf628155_b7de330d",
         "filename": "redfish-core/lib/memory.hpp",
@@ -67,10 +68,46 @@
       "side": 1,
       "message": "Sorry, I do not know that does `Item.Persistene` belong to the Memory type?",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f664ab4_2049f8a9",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "This code has been restructured. But for the PATCH path the Memory LocationIndicatorActive is only associated with an object implementing the \"xyz.openbmc_project.Inventory.Item.Dimm\" interface. So we will only look for those objects to find the one we are trying to patch.",
+      "parentUuid": "cf628155_b7de330d",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56029faf_c58e88db",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "Code has been restructured. Common function getValidDimmPath() filters for both Inventory.Item.Dimm and Inventory.Item.PersistentMemory.Partition to match the existing code.",
+      "parentUuid": "344fd333_577b0816",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "05342f39_76926935",
         "filename": "redfish-core/lib/memory.hpp",
@@ -84,10 +121,10 @@
       "side": 1,
       "message": "This comment has references to CPU.. seems a copy-paste from prior commit ?.. Please fix the comment",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "1ea6f919_4f1df74a",
         "filename": "redfish-core/lib/memory.hpp",
@@ -102,10 +139,10 @@
       "message": "Ack",
       "parentUuid": "05342f39_76926935",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ee6d46be_7bf81615",
         "filename": "redfish-core/lib/memory.hpp",
@@ -119,10 +156,10 @@
       "side": 1,
       "message": "std::find_first_of returns an iterator if there are more than 1 matches, and in that case, we need to walk the iterator.",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "29e7e7fc_3551ced3",
         "filename": "redfish-core/lib/memory.hpp",
@@ -137,10 +174,10 @@
       "message": "Done",
       "parentUuid": "ee6d46be_7bf81615",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d1276cb4_7dc7c349",
         "filename": "redfish-core/lib/memory.hpp",
@@ -155,10 +192,10 @@
       "message": "See: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/38/redfish-core/lib/processor.hpp#1200",
       "parentUuid": "29e7e7fc_3551ced3",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e349993a_8a0d9ca9",
         "filename": "redfish-core/lib/memory.hpp",
@@ -173,10 +210,10 @@
       "message": "Not sure I understand how this is mapped to the comment ?",
       "parentUuid": "d1276cb4_7dc7c349",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c05bdcfc_911f4644",
         "filename": "redfish-core/lib/memory.hpp",
@@ -191,10 +228,10 @@
       "message": "never mind.. I get the context now.. and the comment below answers it",
       "parentUuid": "e349993a_8a0d9ca9",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "aec98182_a0465f59",
         "filename": "redfish-core/lib/memory.hpp",
@@ -209,10 +246,10 @@
       "message": "Ack",
       "parentUuid": "c05bdcfc_911f4644",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d89c0851_e577220b",
         "filename": "redfish-core/lib/memory.hpp",
@@ -226,10 +263,10 @@
       "side": 1,
       "message": "residues from cpu commit",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "5ecf09eb_fed75dec",
         "filename": "redfish-core/lib/memory.hpp",
@@ -244,10 +281,10 @@
       "message": "Done",
       "parentUuid": "d89c0851_e577220b",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f61f56c4_1174cfa1",
         "filename": "redfish-core/lib/memory.hpp",
@@ -261,10 +298,10 @@
       "side": 1,
       "message": "same comment as in getDimm",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "246aeedc_2215c7b8",
         "filename": "redfish-core/lib/memory.hpp",
@@ -279,10 +316,10 @@
       "message": "Done",
       "parentUuid": "f61f56c4_1174cfa1",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a300794b_899e9220",
         "filename": "redfish-core/lib/memory.hpp",
@@ -296,10 +333,10 @@
       "side": 1,
       "message": "setDimmData only cares about Associations.Definition.. So, we won\u0027d need to add Item.Dimm here.\n\nOR, are there any other patchable  properties for DIMM resource ?",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "867c1365_26492254",
         "filename": "redfish-core/lib/memory.hpp",
@@ -314,10 +351,28 @@
       "message": "\u003e setDimmData only cares about Associations.Definition.. So, we won\u0027d need to add Item.Dimm here.\n\nI do not think so, logicaly, the premise for us to obtain all interfaces is to include xyz.openbmc_project.Inventory.Item.Dimm",
       "parentUuid": "a300794b_899e9220",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c77160a7_92817741",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "Here we are searching for the object we are tying to patch. After we have found the object we will determine if it supports the interface being patched. If it does not an error will be returned.\n\nWe limit the GetSubTree() search to just Dimms to find the correct object and not have to filter every object that has associations on the D-Bus.",
+      "parentUuid": "867c1365_26492254",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f8d00d6a_0d8d2cff",
         "filename": "redfish-core/lib/memory.hpp",
@@ -331,10 +386,10 @@
       "side": 1,
       "message": "hmm.. we do need objectPath as expected by setLocationIndicatorActive.. So, how is this working ?.. May be I am confused.",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "31a1dcc9_079b1f7c",
         "filename": "redfish-core/lib/memory.hpp",
@@ -349,10 +404,28 @@
       "message": "Sorry, This is wrong, Updated.",
       "parentUuid": "f8d00d6a_0d8d2cff",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49141d48_2c89793e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31a1dcc9_079b1f7c",
+      "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "477a6658_b29e5c92",
         "filename": "redfish-core/lib/memory.hpp",
@@ -366,10 +439,10 @@
       "side": 1,
       "message": "We need objectPath right ?",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "81a099ee_cd652e3c",
         "filename": "redfish-core/lib/memory.hpp",
@@ -384,8 +457,7 @@
       "message": "Done",
       "parentUuid": "477a6658_b29e5c92",
       "revId": "c8dcfe49281ff9f5d53b713af78e029fc51b5254",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

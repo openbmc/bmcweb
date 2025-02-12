@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "5b09f132_8c29b3a8",
         "filename": "redfish-core/lib/memory.hpp",
@@ -20,10 +21,10 @@
         "endChar": 17
       },
       "revId": "d982fd45aa028a2ddeb9778c05c7f334cdfb1f95",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "37759d90_8731704e",
         "filename": "redfish-core/lib/memory.hpp",
@@ -44,10 +45,10 @@
         "endChar": 17
       },
       "revId": "d982fd45aa028a2ddeb9778c05c7f334cdfb1f95",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "3614a9ba_a4180922",
         "filename": "redfish-core/lib/memory.hpp",
@@ -68,8 +69,31 @@
         "endChar": 17
       },
       "revId": "d982fd45aa028a2ddeb9778c05c7f334cdfb1f95",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ca2815b_e6c93727",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "I had hoped to use a common function for the GET and PATCH paths to find the objects. However, the GET path has to also search for the \"xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition\" objects. So I\u0027ve left these as separate paths.",
+      "parentUuid": "3614a9ba_a4180922",
+      "range": {
+        "startLine": 865,
+        "startChar": 0,
+        "endLine": 879,
+        "endChar": 17
+      },
+      "revId": "d982fd45aa028a2ddeb9778c05c7f334cdfb1f95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

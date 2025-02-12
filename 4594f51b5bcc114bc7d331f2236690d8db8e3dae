@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "3df32437_f308b30c",
         "filename": "redfish-core/lib/memory.hpp",
@@ -20,10 +21,10 @@
         "endChar": 41
       },
       "revId": "4594f51b5bcc114bc7d331f2236690d8db8e3dae",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ea5097d8_7082bab7",
         "filename": "redfish-core/lib/memory.hpp",
@@ -44,10 +45,10 @@
         "endChar": 41
       },
       "revId": "4594f51b5bcc114bc7d331f2236690d8db8e3dae",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "426cd6d1_4bedf3c1",
         "filename": "redfish-core/lib/memory.hpp",
@@ -68,10 +69,10 @@
         "endChar": 41
       },
       "revId": "4594f51b5bcc114bc7d331f2236690d8db8e3dae",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "5a966876_5e8cbb04",
         "filename": "redfish-core/lib/memory.hpp",
@@ -92,10 +93,10 @@
         "endChar": 41
       },
       "revId": "4594f51b5bcc114bc7d331f2236690d8db8e3dae",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2b158e1e_1df5d3e6",
         "filename": "redfish-core/lib/memory.hpp",
@@ -116,8 +117,31 @@
         "endChar": 41
       },
       "revId": "4594f51b5bcc114bc7d331f2236690d8db8e3dae",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ad5e0ec_a9a84b41",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "The code has been restructured and this check has been removed.",
+      "parentUuid": "2b158e1e_1df5d3e6",
+      "range": {
+        "startLine": 795,
+        "startChar": 32,
+        "endLine": 795,
+        "endChar": 41
+      },
+      "revId": "4594f51b5bcc114bc7d331f2236690d8db8e3dae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

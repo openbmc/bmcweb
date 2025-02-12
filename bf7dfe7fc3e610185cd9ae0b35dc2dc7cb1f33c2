@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "e032bd24_1b9d2986",
         "filename": "redfish-core/lib/memory.hpp",
@@ -20,10 +21,10 @@
         "endChar": 51
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a0afe2d5_e24bf433",
         "filename": "redfish-core/lib/memory.hpp",
@@ -44,10 +45,10 @@
         "endChar": 51
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "554cd4d2_eb27055f",
         "filename": "redfish-core/lib/memory.hpp",
@@ -68,10 +69,10 @@
         "endChar": 51
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "10d75abc_0590783c",
         "filename": "redfish-core/lib/memory.hpp",
@@ -92,10 +93,34 @@
         "endChar": 51
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b74f8c5e_ffb65cda",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 850,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "The code has been restructured. The afterGetDimmData() function handles the GetSubTree results. It will only call the getLocationIndicatorActive() on an object which implements both the \"xyz.openbmc_project.Inventory.Item.Dimm\" and \"xyz.openbmc_project.Association.Definitions\" interfaces.",
+      "parentUuid": "10d75abc_0590783c",
+      "range": {
+        "startLine": 848,
+        "startChar": 0,
+        "endLine": 850,
+        "endChar": 51
+      },
+      "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "f03d4577_8508459f",
         "filename": "redfish-core/lib/memory.hpp",
@@ -115,10 +140,10 @@
         "endChar": 52
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "7db44bcc_653466de",
         "filename": "redfish-core/lib/memory.hpp",
@@ -139,10 +164,10 @@
         "endChar": 52
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "362b5812_0a6cfb65",
         "filename": "redfish-core/lib/memory.hpp",
@@ -162,10 +187,10 @@
         "endChar": 64
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "6a246670_2d0feebe",
         "filename": "redfish-core/lib/memory.hpp",
@@ -186,10 +211,10 @@
         "endChar": 64
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "fd3f697b_92479645",
         "filename": "redfish-core/lib/memory.hpp",
@@ -209,10 +234,10 @@
         "endChar": 66
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3d91e573_a15188bc",
         "filename": "redfish-core/lib/memory.hpp",
@@ -233,10 +258,10 @@
         "endChar": 66
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "46368248_21cf64e3",
         "filename": "redfish-core/lib/memory.hpp",
@@ -256,10 +281,10 @@
         "endChar": 68
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "a0471da4_e0e76f2d",
         "filename": "redfish-core/lib/memory.hpp",
@@ -280,10 +305,10 @@
         "endChar": 68
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "0547ff29_b42df3a4",
         "filename": "redfish-core/lib/memory.hpp",
@@ -303,10 +328,10 @@
         "endChar": 74
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c2e25a4e_074a46e9",
         "filename": "redfish-core/lib/memory.hpp",
@@ -327,8 +352,7 @@
         "endChar": 74
       },
       "revId": "bf7dfe7fc3e610185cd9ae0b35dc2dc7cb1f33c2",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

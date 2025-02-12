@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "f9f5811f_82b0434a",
         "filename": "redfish-core/lib/memory.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "hmm.. is this really needed ?.. The dictionary anyway gives Associations.Definitions..\n\nExample:\n\ndbus-send --system --print-reply --dest\u003dxyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper.GetSubTree string:\"/xyz/openbmc_project/inventory\" int32:0 array:string:\"xyz.openbmc_project.Inventory.Item.Fan\"\n\n      dict entry(\n         string \"/xyz/openbmc_project/inventory/system/chassis/motherboard/fan3\"\n         array [\n            dict entry(\n               string \"xyz.openbmc_project.Inventory.Manager\"\n               array [\n                  string \"org.freedesktop.DBus.Introspectable\"\n                  string \"org.freedesktop.DBus.Peer\"\n                  string \"org.freedesktop.DBus.Properties\"\n                  string \"xyz.openbmc_project.Association.Definitions\"\n                  string \"xyz.openbmc_project.Inventory.Item\"\n                  string \"xyz.openbmc_project.Inventory.Item.Fan\"\n                  string \"xyz.openbmc_project.State.Decorator.OperationalStatus\"\n               ]\n            )\n         ]\n\n-----\n\nAlso, in doPatch(), I don\u0027t see we pass Associations.Definitions",
       "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9c9f9ab7_90047ca2",
         "filename": "redfish-core/lib/memory.hpp",
@@ -32,10 +33,10 @@
       "message": "\u003e is this really needed ?\n\nI do not think so.\n\n@ Matt said: \n\n```\nThis is missing from the array down below.\n\nIgnoring the issue on if it\u0027s a good idea to use this interface, there could be other associations in it besides the LED one so just it being here doesn\u0027t mean there is an associated LED.\n```\n\n\u003e  The dictionary anyway gives Associations.Definitions..\n\nI agree with @Vishwa, But I think adding this interface is only logically clearer, So I agree to add.\n\n@Matt, @Vishwa\nWhat do you think?\n\n\u003e Also, in doPatch(), I don\u0027t see we pass Associations.Definitions\n\nYes, I will add it.",
       "parentUuid": "f9f5811f_82b0434a",
       "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "41a3f063_c25f2bfe",
         "filename": "redfish-core/lib/memory.hpp",
@@ -50,10 +51,28 @@
       "message": "Sure.. If it makes it clean to have it explicitly mentioned, then yes: agree with you.",
       "parentUuid": "9c9f9ab7_90047ca2",
       "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdd0125c_2413a7d8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "The GetSubTree method uses the interface list to limit the objects returned to just those which implement any of the interfaces in the list. So when including the Associations.Definitions interface in the list many objects are returned which are not actually Dimms.\n\nOn my system 32 objects are returned when the Associations.Definitions is not included. All 32 objects are Dimms.\n\nWhen Associations.Definitions is included 123 objects are returned. 32 of them the same Dimms returned without it. The additional 91 objects returned are not Dimms.\n\nSo it is much more efficient to limit the objects returned to the potentially relevant ones. The GetSubTree method will return all of the interfaces implemented by each object, so there is no need to include the Associations.Definitions in the list.\n\nI\u0027ve removed it.",
+      "parentUuid": "41a3f063_c25f2bfe",
+      "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "619065c5_96825829",
         "filename": "redfish-core/lib/memory.hpp",
@@ -67,10 +86,10 @@
       "side": 1,
       "message": "this can go after the below if() check",
       "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "37c3c984_bd84fe86",
         "filename": "redfish-core/lib/memory.hpp",
@@ -85,8 +104,7 @@
       "message": "Done",
       "parentUuid": "619065c5_96825829",
       "revId": "8622f93605976c37d76a3febc7481c197cd3f683",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

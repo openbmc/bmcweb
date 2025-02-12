@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "6a38243c_515a844d",
         "filename": "redfish-core/lib/memory.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "I\u0027m not sure how you can get this back if you didn\u0027t pass it with the array on line 838?\n\nAlso, I have the same comment as before, about how the intended use of associations is not to use the Associations.Definition interface. That being said I\u0027m not a maintainer.",
       "revId": "23f70aeec8d217bbb047890e12366f9f4d3f3026",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "2e87fcc9_f3e12b90",
         "filename": "redfish-core/lib/memory.hpp",
@@ -32,10 +33,10 @@
       "message": "Ack",
       "parentUuid": "6a38243c_515a844d",
       "revId": "23f70aeec8d217bbb047890e12366f9f4d3f3026",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "053a50e8_1eac3a9c",
         "filename": "redfish-core/lib/memory.hpp",
@@ -50,10 +51,10 @@
       "message": "\"Also, I have the same comment as before, about how the intended use of associations is not to use the Associations.Definition interface. That being said I\u0027m not a maintainer.\"\n\nYep, this was my suspicion as well, but I forgot exactly how they\u0027re supposed to work.",
       "parentUuid": "2e87fcc9_f3e12b90",
       "revId": "23f70aeec8d217bbb047890e12366f9f4d3f3026",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "83891798_d7a5a2cf",
         "filename": "redfish-core/lib/memory.hpp",
@@ -68,8 +69,25 @@
       "message": "This has been addressed in the later patch sets in this commit.",
       "parentUuid": "053a50e8_1eac3a9c",
       "revId": "23f70aeec8d217bbb047890e12366f9f4d3f3026",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "533dab56_7b46c7d3",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "The GetSubTree interface limits the objects returned to the ones implementing any of the specified interfaces. However, it returns all of the interfaces implemented by that object not just the ones in the interfaces list.\n\nI updated the document to clarify this: https://gerrit.openbmc.org/c/openbmc/docs/+/77100\n\nSee: https://github.com/openbmc/docs/blob/master/architecture/object-mapper.md#getsubtree",
+      "parentUuid": "83891798_d7a5a2cf",
+      "revId": "23f70aeec8d217bbb047890e12366f9f4d3f3026",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "4632441c_985e4f14",
         "filename": "redfish-core/lib/memory.hpp",
@@ -20,10 +21,10 @@
         "endChar": 13
       },
       "revId": "aa38604f6ef4a16fe5d12672cda3c6de14f97342",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "074f970b_1fdb7b66",
         "filename": "redfish-core/lib/memory.hpp",
@@ -44,10 +45,10 @@
         "endChar": 13
       },
       "revId": "aa38604f6ef4a16fe5d12672cda3c6de14f97342",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "64cf9f4f_371e5eb0",
         "filename": "redfish-core/lib/memory.hpp",
@@ -67,10 +68,10 @@
         "endChar": 64
       },
       "revId": "aa38604f6ef4a16fe5d12672cda3c6de14f97342",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "af5703b8_9e445321",
         "filename": "redfish-core/lib/memory.hpp",
@@ -91,8 +92,31 @@
         "endChar": 64
       },
       "revId": "aa38604f6ef4a16fe5d12672cda3c6de14f97342",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4ff6720_314e0da9",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "Agree with Gunnar here. I\u0027ve removed it.",
+      "parentUuid": "af5703b8_9e445321",
+      "range": {
+        "startLine": 1031,
+        "startChar": 21,
+        "endLine": 1031,
+        "endChar": 64
+      },
+      "revId": "aa38604f6ef4a16fe5d12672cda3c6de14f97342",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

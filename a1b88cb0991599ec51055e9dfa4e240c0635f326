@@ -33,6 +33,24 @@
       "message": "This is wrong and needs to be patchMemory",
       "revId": "a1b88cb0991599ec51055e9dfa4e240c0635f326",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9b1f391_a77382ee",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 87
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2539663_affc76d7",
+      "revId": "a1b88cb0991599ec51055e9dfa4e240c0635f326",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []

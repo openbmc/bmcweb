@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "c185bea3_7f3f3f3e",
         "filename": "redfish-core/lib/memory.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "I still think we need if (locationIndicatorActive) at this place. I understand this gets called from PATCH.. but when we get here, we have lost the context of locationIndicatorActive and we have the same concern that I mentioned before.",
       "revId": "e74bff4201f5d4db525458f45e48e6e641bb3abc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "989d8aa3_3c697746",
         "filename": "redfish-core/lib/memory.hpp",
@@ -32,8 +33,25 @@
       "message": "Yes, Please check L:1141",
       "parentUuid": "c185bea3_7f3f3f3e",
       "revId": "e74bff4201f5d4db525458f45e48e6e641bb3abc",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34eb4b2b_b60b4203",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 64
+      },
+      "lineNbr": 968,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-12T20:33:30Z",
+      "side": 1,
+      "message": "This code has been restructured. In the latest patchset handleMemoryPatch() only calls to do the patch if we have locationIndicatorActive in the JSON request. The value is passed down to be handled.",
+      "parentUuid": "989d8aa3_3c697746",
+      "revId": "e74bff4201f5d4db525458f45e48e6e641bb3abc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
