@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a98a6e6a_50939c17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001555
+      },
+      "writtenOn": "2025-02-13T09:05:05Z",
+      "side": 1,
+      "message": "I have tested patchset 7 and everything works (mount/unmount with username/password \u0026 without username/password)",
+      "parentUuid": "69a92588_4ba3af00",
+      "revId": "403c4bdb8f96e53764b5bf74e7f9bd6087f50066",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0528ee71_ec7f96bb",
