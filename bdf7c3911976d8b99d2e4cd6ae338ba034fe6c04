@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81777309_75ee2edc",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-13T18:13:10Z",
+      "side": 1,
+      "message": "Why are we making a copy here?",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 33
+      },
+      "revId": "bdf7c3911976d8b99d2e4cd6ae338ba034fe6c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b8cdb80_f49739a1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-13T18:13:10Z",
+      "side": 1,
+      "message": "nit, this isn\u0027t a copy.",
+      "range": {
+        "startLine": 804,
+        "startChar": 15,
+        "endLine": 804,
+        "endChar": 19
+      },
+      "revId": "bdf7c3911976d8b99d2e4cd6ae338ba034fe6c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
