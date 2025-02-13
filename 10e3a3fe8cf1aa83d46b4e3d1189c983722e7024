@@ -16,6 +16,24 @@
       "message": "Interestingly when I ran the Redfish validator the ResolutionStep_v1.xml file did end up in the SchemaFiles/metadata directory. Not sure where it was coming from. But I don\u0027t see anything wrong with this change, it mirrors the other files.",
       "revId": "10e3a3fe8cf1aa83d46b4e3d1189c983722e7024",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de1efe6e_75101ff0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-13T19:40:32Z",
+      "side": 1,
+      "message": "To clarify, that was without this change I still ended up with the xml file.",
+      "parentUuid": "904f990c_c18b613a",
+      "revId": "10e3a3fe8cf1aa83d46b4e3d1189c983722e7024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
