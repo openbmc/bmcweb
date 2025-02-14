@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "937f3746_80a658e5",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-14T03:05:12Z",
+      "side": 1,
+      "message": "This will break if auth is disabled and you try to do an expand.",
+      "revId": "bdf7c3911976d8b99d2e4cd6ae338ba034fe6c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81777309_75ee2edc",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 1
@@ -19,6 +36,29 @@
         "startChar": 0,
         "endLine": 181,
         "endChar": 33
+      },
+      "revId": "bdf7c3911976d8b99d2e4cd6ae338ba034fe6c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8736532_0f554b96",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-14T03:05:12Z",
+      "side": 1,
+      "message": "this function doesn\u0027t appear to be using the shared_ptr at all, so pass by the contained value (Request\u0026)",
+      "range": {
+        "startLine": 778,
+        "startChar": 31,
+        "endLine": 778,
+        "endChar": 41
       },
       "revId": "bdf7c3911976d8b99d2e4cd6ae338ba034fe6c04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
