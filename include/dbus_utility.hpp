@@ -3,6 +3,7 @@
 // SPDX-FileCopyrightText: Copyright 2018 Intel Corporation
 #pragma once
 
+#include "async_resp.hpp"
 #include "boost_formatters.hpp"
 #include "dbus_singleton.hpp"
 
@@ -14,6 +15,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <memory>
 #include <span>
 #include <string>
 #include <string_view>
@@ -98,6 +100,29 @@ void getAllProperties(const std::string& service, const std::string& objectPath,
                       const std::string& interface,
                       std::function<void(const boost::system::error_code&,
                                          const DBusPropertiesMap&)>&& callback);
+
+template <typename MessageHandler, typename... InputArgs>
+// NOLINTNEXTLINE(readability-identifier-naming)
+void async_method_call(MessageHandler&& handler, const std::string& service,
+                       const std::string& objpath, const std::string& interf,
+                       const std::string& method, const InputArgs&... a)
+{
+    crow::connections::systemBus->async_method_call(
+        std::forward<MessageHandler>(handler), service, objpath, interf, method,
+        a...);
+}
+
+template <typename MessageHandler, typename... InputArgs>
+// NOLINTNEXTLINE(readability-identifier-naming)
+void async_method_call(const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
+                       MessageHandler&& handler, const std::string& service,
+                       const std::string& objpath, const std::string& interf,
+                       const std::string& method, const InputArgs&... a)
+{
+    crow::connections::systemBus->async_method_call(
+        std::forward<MessageHandler>(handler), service, objpath, interf, method,
+        a...);
+}
 
 template <typename PropertyType>
 void getProperty(const std::string& service, const std::string& objectPath,

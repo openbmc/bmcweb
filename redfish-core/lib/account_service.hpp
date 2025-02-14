@@ -9,7 +9,6 @@
 #include "async_resp.hpp"
 #include "boost_formatters.hpp"
 #include "certificate_service.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/account_service.hpp"
@@ -392,7 +391,8 @@ inline void handleRoleMapPatch(
             // delete the existing object
             if (index < roleMapObjData.size())
             {
-                crow::connections::systemBus->async_method_call(
+                dbus::utility::async_method_call(
+                    asyncResp,
                     [asyncResp, roleMapObjData, serverType,
                      index](const boost::system::error_code& ec) {
                         if (ec)
@@ -506,7 +506,8 @@ inline void handleRoleMapPatch(
                 BMCWEB_LOG_DEBUG("Remote Group={},LocalRole={}", *remoteGroup,
                                  *localRole);
 
-                crow::connections::systemBus->async_method_call(
+                dbus::utility::async_method_call(
+                    asyncResp,
                     [asyncResp, serverType, localRole,
                      remoteGroup](const boost::system::error_code& ec) {
                         if (ec)
@@ -1820,7 +1821,8 @@ inline void processAfterCreateUser(
         tempObjPath /= username;
         const std::string userPath(tempObjPath);
 
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
+            asyncResp,
             [asyncResp, password](const boost::system::error_code& ec3) {
                 if (ec3)
                 {
@@ -1912,7 +1914,8 @@ inline void processAfterGetAllGroups(
         messages::internalError(asyncResp->res);
         return;
     }
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
+        asyncResp,
         [asyncResp, username, password](const boost::system::error_code& ec2,
                                         sdbusplus::message_t& m) {
             processAfterCreateUser(asyncResp, username, password, ec2, m);
@@ -2191,7 +2194,8 @@ inline void handleAccountDelete(
     tempObjPath /= username;
     const std::string userPath(tempObjPath);
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
+        asyncResp,
         [asyncResp, username](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -2285,7 +2289,8 @@ inline void handleAccountPatch(
                              locked, accountTypes, userSelf, req.session);
         return;
     }
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
+        asyncResp,
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
          locked, userSelf, session = req.session,
