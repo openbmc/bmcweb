@@ -501,7 +501,8 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     sdbusplus::message::object_path path(
         "/xyz/openbmc_project/VirtualMedia/Legacy");
     path /= name;
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
+        asyncResp,
         [asyncResp](const boost::system::error_code& ec, bool success) {
             if (ec)
             {
@@ -670,7 +671,8 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Legacy mount requires parameter with image
     if (legacy)
     {
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
+            asyncResp,
             [asyncResp](const boost::system::error_code& ec) {
                 if (ec)
                 {
@@ -685,7 +687,8 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
     else // proxy
     {
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
+            asyncResp,
             [asyncResp](const boost::system::error_code& ec) {
                 if (ec)
                 {
