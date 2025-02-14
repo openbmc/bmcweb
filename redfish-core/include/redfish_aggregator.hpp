@@ -4,7 +4,6 @@
 
 #include "aggregation_utils.hpp"
 #include "async_resp.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_client.hpp"
 #include "http_request.hpp"
@@ -14,6 +13,7 @@
 #include "parsing.hpp"
 #include "ssl_key_handler.hpp"
 #include "utility.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>

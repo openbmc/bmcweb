@@ -4,8 +4,7 @@
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
+#include "boost_formatters.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
 #include "logging.hpp"
@@ -21,7 +20,6 @@
 
 #include <algorithm>
 #include <array>
-#include <functional>
 #include <memory>
 #include <optional>
 #include <ranges>

@@ -2,6 +2,7 @@
 
 #include "dbus_utility.hpp"
 #include "event_logs_object_type.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <sdbusplus/bus/match.hpp>
 namespace redfish
