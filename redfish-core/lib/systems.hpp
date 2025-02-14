@@ -21,6 +21,7 @@
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/bios_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/pcie_util.hpp"
@@ -3079,8 +3080,10 @@ inline void handleComputerSystemGet(
 
     asyncResp->res.jsonValue["LogServices"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/LogServices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    asyncResp->res.jsonValue["Bios"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Bios", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    redfish::bios_utils::checkBiosSupport([asyncResp]() {
+        asyncResp->res.jsonValue["Bios"]["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/Bios", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    });
 
     nlohmann::json::array_t managedBy;
     nlohmann::json& manager = managedBy.emplace_back();
