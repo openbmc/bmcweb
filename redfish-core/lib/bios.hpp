@@ -6,7 +6,7 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
@@ -103,7 +103,7 @@ inline void handleBiosResetPost(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {

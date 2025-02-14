@@ -3,6 +3,7 @@
 #pragma once
 
 #include "async_resp.hpp"
+#include "boost_formatters.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "logging.hpp"
