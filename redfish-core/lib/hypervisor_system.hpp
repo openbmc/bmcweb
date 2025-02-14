@@ -6,7 +6,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "ethernet.hpp"
 #include "generated/enums/action_info.hpp"

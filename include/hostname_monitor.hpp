@@ -35,7 +35,7 @@ static std::unique_ptr<sdbusplus::bus::match_t> hostnameSignalMonitor;
 
 inline void installCertificate(const std::filesystem::path& certPath)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [certPath](const boost::system::error_code& ec) {
             if (ec)
             {
