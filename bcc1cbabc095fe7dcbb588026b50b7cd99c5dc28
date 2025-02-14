@@ -119,6 +119,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16442866_5a8e57e9",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-14T21:34:30Z",
+      "side": 1,
+      "message": "That\u0027s what the old script did.... and it\u0027s wrong behavior.  I need to go hunt that down at some point why this returns a 500.  If anything it should be 400 bad request, with a property conflict but eh, this script works for now.",
+      "parentUuid": "53386e7d_badb58ae",
+      "revId": "bcc1cbabc095fe7dcbb588026b50b7cd99c5dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aeca9bd7_9093c32a",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 5
@@ -130,6 +148,30 @@
       "writtenOn": "2025-02-14T21:28:56Z",
       "side": 1,
       "message": "Redfish says 200 and 204 are both valid. \nOh well, but hardcoded scripts like this is why I hear complaints about https://github.com/openbmc/bmcweb/commit/247ae89bc26024d335f1317566bebeee52c75089",
+      "range": {
+        "startLine": 310,
+        "startChar": 31,
+        "endLine": 310,
+        "endChar": 34
+      },
+      "revId": "bcc1cbabc095fe7dcbb588026b50b7cd99c5dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dc0bd80_d40d14fc",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-14T21:34:30Z",
+      "side": 1,
+      "message": "Yeah, this came from the other script.  I need to go through and refactor everything to r.raise_for_status()",
+      "parentUuid": "aeca9bd7_9093c32a",
       "range": {
         "startLine": 310,
         "startChar": 31,
