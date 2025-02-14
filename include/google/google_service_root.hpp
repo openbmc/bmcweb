@@ -4,7 +4,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
@@ -188,7 +187,7 @@ inline void invokeRoTCommand(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp{asyncResp}](const boost::system::error_code& ec,
                                const std::vector<uint8_t>& responseBytes) {
             invocationCallback(asyncResp, ec, responseBytes);
