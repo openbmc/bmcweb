@@ -34,6 +34,24 @@
       "parentUuid": "904f990c_c18b613a",
       "revId": "10e3a3fe8cf1aa83d46b4e3d1189c983722e7024",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ba0c747_063f322d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-14T03:03:09Z",
+      "side": 1,
+      "message": "Redfish service validator depending on the config will download the full schema pack from DMTF, not from the BMC",
+      "parentUuid": "de1efe6e_75101ff0",
+      "revId": "10e3a3fe8cf1aa83d46b4e3d1189c983722e7024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
