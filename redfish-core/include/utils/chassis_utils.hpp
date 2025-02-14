@@ -3,9 +3,9 @@
 #pragma once
 
 #include "async_resp.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "logging.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <sdbusplus/message/native_types.hpp>
 

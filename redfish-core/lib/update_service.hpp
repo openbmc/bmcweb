@@ -7,8 +7,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/update_service.hpp"
@@ -844,7 +842,7 @@ inline void startUpdate(
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
     const std::string& objectPath, const std::string& serviceName)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, payload = std::move(payload),
          objectPath](const boost::system::error_code& ec1,
                      const sdbusplus::message::object_path& retPath) mutable {

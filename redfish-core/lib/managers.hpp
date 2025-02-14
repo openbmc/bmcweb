@@ -7,8 +7,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/action_info.hpp"
 #include "generated/enums/manager.hpp"
@@ -271,7 +269,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
                 return;
             }
 
-            crow::connections::systemBus->async_method_call(
+            dbus::utility::async_method_call(
                 [asyncResp](const boost::system::error_code& ec) {
                     if (ec)
                     {
@@ -891,7 +889,7 @@ inline CreatePIDRet createPidInterface(
 
         BMCWEB_LOG_DEBUG("del {} {}", path, iface);
         // delete interface
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
             [response, path](const boost::system::error_code& ec) {
                 if (ec)
                 {
@@ -1684,7 +1682,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 {
                     for (const auto& property : output)
                     {
-                        crow::connections::systemBus->async_method_call(
+                        dbus::utility::async_method_call(
                             [response,
                              propertyName{std::string(property.first)}](
                                 const boost::system::error_code& ec) {
@@ -1731,7 +1729,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         return;
                     }
 
-                    crow::connections::systemBus->async_method_call(
+                    dbus::utility::async_method_call(
                         [response](const boost::system::error_code& ec) {
                             if (ec)
                             {
@@ -1984,7 +1982,7 @@ inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Set the absolute datetime
     bool relative = false;
     bool interactive = false;
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp](const boost::system::error_code& ec,
                     const sdbusplus::message_t& msg) {
             afterSetDateTime(asyncResp, ec, msg);

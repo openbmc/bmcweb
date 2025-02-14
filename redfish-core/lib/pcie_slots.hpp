@@ -4,7 +4,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/pcie_device.hpp"
 #include "generated/enums/pcie_slots.hpp"
