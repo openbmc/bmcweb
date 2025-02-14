@@ -138,6 +138,46 @@
       },
       "revId": "bcc1cbabc095fe7dcbb588026b50b7cd99c5dc28",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9c94d3b_28c4c3b9",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-14T21:32:58Z",
+      "side": 1,
+      "message": "could exit here, oh well",
+      "revId": "bcc1cbabc095fe7dcbb588026b50b7cd99c5dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9212dd84_45da8866",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-14T21:32:58Z",
+      "side": 1,
+      "message": "inconsistent naming between  ca_keyDump and  ca_cert_dump",
+      "range": {
+        "startLine": 415,
+        "startChar": 8,
+        "endLine": 415,
+        "endChar": 20
+      },
+      "revId": "bcc1cbabc095fe7dcbb588026b50b7cd99c5dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
