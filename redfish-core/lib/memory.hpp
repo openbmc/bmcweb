@@ -7,7 +7,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/memory.hpp"
 #include "generated/enums/resource.hpp"
