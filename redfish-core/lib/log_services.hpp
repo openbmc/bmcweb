@@ -7,8 +7,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/log_entry.hpp"
 #include "generated/enums/log_service.hpp"
@@ -590,7 +588,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         }
     };
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         respHandler, "xyz.openbmc_project.Dump.Manager",
         std::format("{}/entry/{}", getDumpPath(dumpType), entryID),
         "xyz.openbmc_project.Object.Delete", "Delete");
@@ -706,7 +704,7 @@ inline void downloadDumpEntry(
             downloadEntryCallback(asyncResp, entryID, dumpType, ec, unixfd);
         };
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         std::move(downloadDumpEntryHandler), "xyz.openbmc_project.Dump.Manager",
         dumpEntryPath, "xyz.openbmc_project.Dump.Entry", "GetFileHandle");
 }
@@ -741,7 +739,7 @@ inline void downloadEventLogEntry(
             downloadEntryCallback(asyncResp, entryID, dumpType, ec, unixfd);
         };
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         std::move(downloadEventLogEntryHandler), "xyz.openbmc_project.Logging",
         entryPath, "xyz.openbmc_project.Logging.Entry", "GetEntry");
 }
@@ -814,7 +812,7 @@ inline void createDumpTaskCallback(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, payload = std::move(payload), createdObjPath,
          dumpEntryPath{std::move(dumpEntryPath)},
          dumpId](const boost::system::error_code& ec,
@@ -1021,7 +1019,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Client");
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, payload(task::Payload(req)),
          dumpPath](const boost::system::error_code& ec,
                    const sdbusplus::message_t& msg,
@@ -1079,7 +1077,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       const std::string& dumpType)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -1316,7 +1314,7 @@ inline void handleSystemsLogServicesEventLogActionsClearPost(
     }
 
     // Reload rsyslog so it knows to start new log files
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -1849,7 +1847,7 @@ inline void dBusEventLogEntryDelete(
     };
 
     // Make call to Logging service to request Delete Log
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         respHandler, "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging/entry/" + entryID,
         "xyz.openbmc_project.Object.Delete", "Delete");
@@ -2656,7 +2654,7 @@ void inline requestRoutesCrashdumpClear(App& app)
                                                systemName);
                     return;
                 }
-                crow::connections::systemBus->async_method_call(
+                dbus::utility::async_method_call(
                     [asyncResp](const boost::system::error_code& ec,
                                 const std::string&) {
                         if (ec)
@@ -3107,7 +3105,7 @@ inline void requestRoutesCrashdumpCollect(App& app)
                         task->payload.emplace(std::move(payload));
                     };
 
-                crow::connections::systemBus->async_method_call(
+                dbus::utility::async_method_call(
                     std::move(collectCrashdumpCallback), crashdumpObject,
                     crashdumpPath, iface, method);
             });
@@ -3134,7 +3132,7 @@ inline void dBusLogServiceActionsClear(
     };
 
     // Make call to Logging service to request Clear Log
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         respHandler, "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging",
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");

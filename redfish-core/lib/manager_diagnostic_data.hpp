@@ -6,12 +6,12 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/asio/error.hpp>
 #include <boost/beast/http/verb.hpp>

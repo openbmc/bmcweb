@@ -7,8 +7,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/action_info.hpp"
 #include "generated/enums/chassis.hpp"
@@ -153,7 +151,7 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  */
 inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
-    // crow::connections::systemBus->async_method_call(
+    // dbus::utility::async_method_call(
     dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",

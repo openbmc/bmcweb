@@ -4,8 +4,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/metric_report_definition.hpp"
 #include "generated/enums/resource.hpp"
@@ -840,7 +838,7 @@ class AddReport
                 std::move(sensorParams), metric.collectionFunction,
                 metric.collectionTimeScope, metric.collectionDuration);
         }
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
             [asyncResp, args](const boost::system::error_code& ec,
                               const sdbusplus::message_t& msg,
                               const std::string& /*arg1*/) {
@@ -958,7 +956,7 @@ inline void setReadingParams(
         }
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, reportId](const boost::system::error_code& ec,
                               const sdbusplus::message_t& msg) {
             afterSetReadingParams(asyncResp, reportId, ec, msg);
@@ -1025,7 +1023,7 @@ inline void setReportEnabled(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view id,
     bool enabled)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec) {
             if (!verifyCommonErrors(asyncResp->res, id, ec))
             {
@@ -1102,7 +1100,7 @@ inline void setReportTypeAndInterval(
         recurrenceInterval = static_cast<uint64_t>(durationNum->count());
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec,
                                           const sdbusplus::message_t& msg) {
             afterSetReportingProperties(asyncResp, id, ec, msg);
@@ -1153,7 +1151,7 @@ inline void setReportUpdates(
                                          "ReportUpdates");
         return;
     }
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec,
                                           const sdbusplus::message_t& msg) {
             afterSetReportUpdates(asyncResp, id, ec, msg);
@@ -1202,7 +1200,7 @@ inline void setReportActions(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec,
                                           const sdbusplus::message_t& msg) {
             afterSetReportActions(asyncResp, id, ec, msg);
@@ -1427,7 +1425,7 @@ inline void handleReportDelete(
 
     const std::string reportPath = getDbusReportPath(id);
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp,
          reportId = std::string(id)](const boost::system::error_code& ec) {
             if (!verifyCommonErrors(asyncResp->res, reportId, ec))
@@ -1541,7 +1539,7 @@ inline void handleMetricReportDelete(
 
     const std::string reportPath = telemetry::getDbusReportPath(id);
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, id](const boost::system::error_code& ec) {
             /*
              * boost::system::errc and std::errc are missing value

@@ -3,10 +3,10 @@
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "chassis.hpp"
-#include "dbus_utility.hpp"
 #include "generated/enums/chassis.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/beast/core/string_type.hpp>
 #include <boost/beast/http/status.hpp>

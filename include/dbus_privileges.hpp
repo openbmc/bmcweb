@@ -139,7 +139,7 @@ inline void requestUserInfo(
     std::move_only_function<void(const dbus::utility::DBusPropertiesMap&)>&&
         callback)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, callback = std::move(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
