@@ -2,7 +2,6 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 #include "app.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "io_context_singleton.hpp"
 #include "logging.hpp"
@@ -263,7 +262,7 @@ inline void processConsoleObject(
     BMCWEB_LOG_DEBUG("Looking up unixFD for Service {} Path {}", consoleService,
                      consoleObjPath);
     // Call Connect() method to get the unix FD
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [&conn](const boost::system::error_code& ec1,
                 const sdbusplus::message::unix_fd& unixfd) {
             connectConsoleSocket(conn, ec1, unixfd);

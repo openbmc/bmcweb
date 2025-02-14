@@ -15,6 +15,7 @@
 #include <sdbusplus/message/native_types.hpp>
 
 #include <memory>
+#include <string>
 
 namespace redfish
 {

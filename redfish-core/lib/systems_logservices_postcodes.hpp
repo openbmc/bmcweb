@@ -6,7 +6,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/log_service.hpp"
@@ -123,7 +122,7 @@ inline void handleSystemsLogServicesPostCodesPost(
     BMCWEB_LOG_DEBUG("Do delete all postcodes entries.");
 
     // Make call to post-code service to request clear all
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -341,7 +340,7 @@ inline void getPostCodeForEntry(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, entryId, bootIndex,
          codeIndex](const boost::system::error_code& ec,
                     const boost::container::flat_map<
@@ -377,7 +376,7 @@ inline void getPostCodeForBoot(
     const uint16_t bootIndex, const uint16_t bootCount,
     const uint64_t entryCount, size_t skip, size_t top)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, bootIndex, bootCount, entryCount, skip,
          top](const boost::system::error_code& ec,
               const boost::container::flat_map<
@@ -534,7 +533,7 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, postCodeID, currentValue](
             const boost::system::error_code& ec,
             const std::vector<std::tuple<std::vector<uint8_t>,

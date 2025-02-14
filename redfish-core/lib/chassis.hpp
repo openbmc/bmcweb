@@ -152,7 +152,7 @@ inline void getStorageLink(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  */
 inline void getChassisState(std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
-    // crow::connections::systemBus->async_method_call(
+    // dbus::utility::async_method_call(
     dbus::utility::getProperty<std::string>(
         "xyz.openbmc_project.State.Chassis",
         "/xyz/openbmc_project/state/chassis0",

@@ -3,7 +3,6 @@
 #pragma once
 
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_service_manager.hpp"
@@ -91,7 +90,7 @@ inline void getSnmpTrapClientdata(
 inline void getSnmpTrapClient(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, id](const boost::system::error_code& ec,
                         dbus::utility::ManagedObjectType& resp) {
             if (ec)
@@ -179,7 +178,7 @@ inline void addSnmpTrapClient(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& host, uint16_t snmpTrapPort)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp,
          host](const boost::system::error_code& ec,
                const sdbusplus::message_t& msg, const std::string& dbusSNMPid) {
@@ -221,7 +220,7 @@ inline void deleteSnmpTrapClient(
             "/xyz/openbmc_project/network/snmp/manager") /
         std::string(snmpTrapId);
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, param](const boost::system::error_code& ec) {
             if (ec)
             {

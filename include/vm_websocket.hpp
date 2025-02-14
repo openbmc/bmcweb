@@ -5,7 +5,6 @@
 #include "bmcweb_config.h"
 
 #include "app.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "io_context_singleton.hpp"
 #include "logging.hpp"
@@ -232,7 +231,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
             BMCWEB_LOG_DEBUG("Failed to remove file, ignoring");
         }
 
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
             dbus::utility::logError, "xyz.openbmc_project.VirtualMedia", path,
             "xyz.openbmc_project.VirtualMedia.Proxy", "Unmount");
     }
@@ -290,7 +289,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         acceptor.async_accept(
             std::bind_front(&NbdProxyServer::afterAccept, weak_from_this()));
 
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
             [weak{weak_from_this()}](const boost::system::error_code& ec,
                                      bool isBinary) {
                 afterMount(weak, ec, isBinary);

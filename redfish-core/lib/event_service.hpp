@@ -4,7 +4,6 @@
 #pragma once
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "event_service_manager.hpp"
@@ -298,7 +297,7 @@ inline void requestRoutesEventDestinationCollection(App& app)
                         "/redfish/v1/EventService/Subscriptions/{}" + id);
                     memberArray.emplace_back(std::move(member));
                 }
-                crow::connections::systemBus->async_method_call(
+                dbus::utility::async_method_call(
                     [asyncResp](const boost::system::error_code& ec,
                                 const dbus::utility::ManagedObjectType& resp) {
                         doSubscriptionCollection(ec, asyncResp, resp);

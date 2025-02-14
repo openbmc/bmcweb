@@ -4,6 +4,7 @@
 #pragma once
 
 #include "async_resp.hpp"
+#include "boost_formatters.hpp"
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
@@ -103,7 +104,7 @@ void getPortStatusAndPath(
         protocolToDBus,
     CallbackFunc&& callback)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [protocolToDBus, callback = std::forward<CallbackFunc>(callback)](
             const boost::system::error_code& ec,
             const std::vector<UnitStruct>& r) {

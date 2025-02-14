@@ -3,7 +3,6 @@
 #pragma once
 
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_request.hpp"
@@ -139,7 +138,7 @@ inline void requestUserInfo(
     std::move_only_function<void(const dbus::utility::DBusPropertiesMap&)>&&
         callback)
 {
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, callback = std::move(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {

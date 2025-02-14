@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
-#include "dbus_singleton.hpp"
+#include "dbus_utility.hpp"
 #include "logging.hpp"
 
 #include <sys/socket.h>
@@ -90,7 +90,7 @@ class Resolver
         }
 
         uint64_t flag = 0;
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
             [host{std::string(host)}, portNum,
              handler = std::forward<ResolveHandler>(handler)](
                 const boost::system::error_code& ec,

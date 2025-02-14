@@ -954,7 +954,7 @@ inline void handleTriggerCollectionPost(
         return;
     }
 
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp, id = ctx.id](const boost::system::error_code& ec,
                                  const std::string& dbusPath) {
             afterCreateTrigger(ec, dbusPath, asyncResp, id);
@@ -1052,7 +1052,7 @@ inline void requestRoutesTrigger(App& app)
                 const std::string triggerPath =
                     telemetry::getDbusTriggerPath(id);
 
-                crow::connections::systemBus->async_method_call(
+                dbus::utility::async_method_call(
                     [asyncResp, id](const boost::system::error_code& ec) {
                         if (ec.value() == EBADR)
                         {
