@@ -5,7 +5,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "error_messages.hpp"
 #include "event_service_manager.hpp"
 #include "generated/enums/resource.hpp"
@@ -17,6 +16,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "task_messages.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/error.hpp>

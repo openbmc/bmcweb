@@ -15,7 +15,6 @@ limitations under the License.
 */
 #include "subscription.hpp"
 
-#include "dbus_singleton.hpp"
 #include "event_log.hpp"
 #include "event_logs_object_type.hpp"
 #include "event_matches_filter.hpp"
@@ -28,6 +27,7 @@ limitations under the License.
 #include "metric_report.hpp"
 #include "server_sent_event.hpp"
 #include "ssl_key_handler.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/error.hpp>

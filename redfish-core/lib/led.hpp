@@ -4,8 +4,6 @@
 #pragma once
 
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/chassis.hpp"
 #include "logging.hpp"

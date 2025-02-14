@@ -1,6 +1,5 @@
 #pragma once
 
-#include "dbus_utility.hpp"
 #include "utils/dbus_utils.hpp"
 
 #include <sdbusplus/unpack_properties.hpp>

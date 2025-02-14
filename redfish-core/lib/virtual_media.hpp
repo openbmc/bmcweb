@@ -6,14 +6,13 @@
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "credential_pipe.hpp"
-#include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/virtual_media.hpp"
 #include "http_request.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
 #include <boost/beast/http/status.hpp>
@@ -491,7 +490,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     sdbusplus::message::object_path path(
         "/xyz/openbmc_project/VirtualMedia/Legacy");
     path /= name;
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         [asyncResp,
          secretPipe](const boost::system::error_code& ec, bool success) {
             if (ec)
@@ -661,7 +660,7 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Legacy mount requires parameter with image
     if (legacy)
     {
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
             [asyncResp](const boost::system::error_code& ec) {
                 if (ec)
                 {
@@ -676,7 +675,7 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
     else // proxy
     {
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
             [asyncResp](const boost::system::error_code& ec) {
                 if (ec)
                 {
