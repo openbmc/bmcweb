@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0fa9195_b38d1129",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-14T21:28:56Z",
+      "side": 1,
+      "message": "a certificate or certificates ;)",
+      "range": {
+        "startLine": 3,
+        "startChar": 19,
+        "endLine": 3,
+        "endChar": 33
+      },
+      "revId": "bcc1cbabc095fe7dcbb588026b50b7cd99c5dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f54d812_8c20ddcc",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-14T21:28:56Z",
+      "side": 1,
+      "message": "Either a comment, print this trace or just remove it. probably just remove it",
+      "revId": "bcc1cbabc095fe7dcbb588026b50b7cd99c5dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53386e7d_badb58ae",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-14T21:28:56Z",
+      "side": 1,
+      "message": "This is quite the assumption.. a 500 error is because of an existing certificate",
+      "revId": "bcc1cbabc095fe7dcbb588026b50b7cd99c5dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeca9bd7_9093c32a",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-14T21:28:56Z",
+      "side": 1,
+      "message": "Redfish says 200 and 204 are both valid. \nOh well, but hardcoded scripts like this is why I hear complaints about https://github.com/openbmc/bmcweb/commit/247ae89bc26024d335f1317566bebeee52c75089",
+      "range": {
+        "startLine": 310,
+        "startChar": 31,
+        "endLine": 310,
+        "endChar": 34
+      },
+      "revId": "bcc1cbabc095fe7dcbb588026b50b7cd99c5dc28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
