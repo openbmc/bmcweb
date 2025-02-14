@@ -7,8 +7,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
@@ -284,7 +282,7 @@ inline void handleNTPProtocolEnabled(
     auto callback = [asyncResp](const boost::system::error_code& ec) {
         afterSetNTP(asyncResp, ec);
     };
-    crow::connections::systemBus->async_method_call(
+    dbus::utility::async_method_call(
         std::move(callback), "org.freedesktop.timedate1",
         "/org/freedesktop/timedate1", "org.freedesktop.timedate1", "SetNTP",
         ntpEnabled, interactive);

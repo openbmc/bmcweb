@@ -212,7 +212,7 @@ whole.
 ```cpp
 BMCWEB_ROUTE("/myendpoint/<str>",
     [](Request& req, Response& res, const std::string& id){
-     crow::connections::systemBus->async_method_call(
+     dbus::utility::async_method_call(
           [asyncResp](const boost::system::error_code& ec,
                       const std::string& myProperty) {
               if (ec)
@@ -244,7 +244,7 @@ An implementation of the above that handles 404 would look like:
 ```cpp
 BMCWEB_ROUTE("/myendpoint/<str>",
     [](Request& req, Response& res, const std::string& id){
-     crow::connections::systemBus->async_method_call(
+     dbus::utility::async_method_call(
           [asyncResp](const boost::system::error_code& ec,
                       const std::string& myProperty) {
               if (ec == <error code that gets returned by not found>){
@@ -374,7 +374,7 @@ recommendation is aligned with the C++ Core Guidelines.
 ## 15. Using async_method_call where there are existing helper methods
 
 ```cpp
-crow::connections::systemBus->async_method_call(
+dbus::utility::async_method_call(
     respHandler, "xyz.openbmc_project.ObjectMapper",
     "/xyz/openbmc_project/object_mapper",
     "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",

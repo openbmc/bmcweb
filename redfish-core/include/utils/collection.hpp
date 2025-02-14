@@ -3,11 +3,11 @@
 #pragma once
 
 #include "async_resp.hpp"
-#include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http/utility.hpp"
 #include "human_sort.hpp"
 #include "logging.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <boost/url/url.hpp>
 #include <nlohmann/json.hpp>
