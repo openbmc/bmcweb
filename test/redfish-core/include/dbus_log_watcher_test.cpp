@@ -1,6 +1,6 @@
 #include "dbus_log_watcher.hpp"
-#include "dbus_utility.hpp"
 #include "event_logs_object_type.hpp"
+#include "utils/dbus_utils.hpp"
 
 #include <cstdint>
 #include <string>

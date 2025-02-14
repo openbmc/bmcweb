@@ -590,7 +590,7 @@ inline CreatePIDRet createPidInterface(
 
         BMCWEB_LOG_DEBUG("del {} {}", path, iface);
         // delete interface
-        crow::connections::systemBus->async_method_call(
+        dbus::utility::async_method_call(
             [response, path](const boost::system::error_code& ec) {
                 if (ec)
                 {
@@ -1103,7 +1103,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 
     ~GetPIDValues()
     {
-        boost::asio::post(crow::connections::systemBus->get_io_context(),
+        boost::asio::post(getIoContext(),
                           std::bind_front(&processingComplete, asyncResp,
                                           std::move(complete)));
     }
@@ -1384,7 +1384,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 {
                     for (const auto& property : output)
                     {
-                        crow::connections::systemBus->async_method_call(
+                        dbus::utility::async_method_call(
                             [response,
                              propertyName{std::string(property.first)}](
                                 const boost::system::error_code& ec) {
@@ -1431,7 +1431,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         return;
                     }
 
-                    crow::connections::systemBus->async_method_call(
+                    dbus::utility::async_method_call(
                         [response](const boost::system::error_code& ec) {
                             if (ec)
                             {
