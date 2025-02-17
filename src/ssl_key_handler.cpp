@@ -562,7 +562,7 @@ std::shared_ptr<boost::asio::ssl::context> getSslServerContext()
 
     SSL_CTX_set_options(sslCtx.native_handle(), SSL_OP_NO_RENEGOTIATION);
 
-    if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
+    if constexpr (BMCWEB_HTTP2)
     {
         SSL_CTX_set_next_protos_advertised_cb(sslCtx.native_handle(),
                                               nextProtoCallback, nullptr);
