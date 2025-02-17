@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e5202e7_22d80878",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-17T17:17:47Z",
+      "side": 1,
+      "message": "This script could use some work but your just moving it around and it is better than it was. ¯\\_(ツ)_/¯\n\nYou could add some TODOs for the 500/400 error, etc. \n\nI am good with this going.",
+      "revId": "e9f8403c3e625d47c79fb514e3e96e329a922d78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "775fae84_276901e7",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-17T17:17:47Z",
+      "side": 1,
+      "message": "mixedCase or snake_case or something else?\nThese functions are a mix or snake_case and snake_case",
+      "range": {
+        "startLine": 115,
+        "startChar": 19,
+        "endLine": 115,
+        "endChar": 29
+      },
+      "revId": "e9f8403c3e625d47c79fb514e3e96e329a922d78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4355a7f_9ab71e39",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-17T17:17:47Z",
+      "side": 1,
+      "message": "The rest mostly uses snake_case",
+      "range": {
+        "startLine": 435,
+        "startChar": 11,
+        "endLine": 435,
+        "endChar": 18
+      },
+      "revId": "e9f8403c3e625d47c79fb514e3e96e329a922d78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "315f752b_7e224cb8",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-17T17:17:47Z",
+      "side": 1,
+      "message": "snake_case ?",
+      "revId": "e9f8403c3e625d47c79fb514e3e96e329a922d78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
