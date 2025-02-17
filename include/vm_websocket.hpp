@@ -233,7 +233,9 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         }
 
         dbus::utility::async_method_call(
-            dbus::utility::logError, "xyz.openbmc_project.VirtualMedia", path,
+            std::move_only_function<void(const boost::system::error_code&)>(
+                dbus::utility::logError),
+            "xyz.openbmc_project.VirtualMedia", path,
             "xyz.openbmc_project.VirtualMedia.Proxy", "Unmount");
     }
 

@@ -177,7 +177,7 @@ inline void addSnmpTrapClient(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& host, uint16_t snmpTrapPort)
 {
-    dbus::utility::async_method_call(
+    crow::connections::systemBus->async_method_call(
         [asyncResp,
          host](const boost::system::error_code& ec,
                const sdbusplus::message_t& msg, const std::string& dbusSNMPid) {

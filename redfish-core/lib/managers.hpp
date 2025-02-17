@@ -1982,7 +1982,7 @@ inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Set the absolute datetime
     bool relative = false;
     bool interactive = false;
-    dbus::utility::async_method_call(
+    crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec,
                     const sdbusplus::message_t& msg) {
             afterSetDateTime(asyncResp, ec, msg);

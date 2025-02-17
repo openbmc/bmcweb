@@ -608,7 +608,7 @@ inline void handleReplaceCertificateAction(
 
     std::shared_ptr<CertificateFile> certFile =
         std::make_shared<CertificateFile>(certificate);
-    dbus::utility::async_method_call(
+    crow::connections::systemBus->async_method_call(
         [asyncResp, certFile, objectPath, service, url{*parsedUrl}, id, name,
          certificate](const boost::system::error_code& ec,
                       sdbusplus::message_t& m) {
