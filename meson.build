@@ -453,7 +453,6 @@ srcfiles_unittest = files(
     'test/http/verb_test.cpp',
     'test/include/async_resolve_test.cpp',
     'test/include/credential_pipe_test.cpp',
-    'test/include/dbus_utility_test.cpp',
     'test/include/http_utility_test.cpp',
     'test/include/human_sort_test.cpp',
     'test/include/json_html_serializer.cpp',
