@@ -245,7 +245,7 @@ class Connection :
         }
         BMCWEB_LOG_DEBUG("{} SSL handshake succeeded", logPtr(this));
         // If http2 is enabled, negotiate the protocol
-        if constexpr (BMCWEB_EXPERIMENTAL_HTTP2)
+        if constexpr (BMCWEB_HTTP2)
         {
             const unsigned char* alpn = nullptr;
             unsigned int alpnlen = 0;
@@ -319,7 +319,7 @@ class Connection :
                              logPtr(this), isWebsocket, isH2c);
         }
 
-        if (BMCWEB_EXPERIMENTAL_HTTP2 && isH2c)
+        if (BMCWEB_HTTP2 && isH2c)
         {
             std::string_view base64settings = req->req[field::http2_settings];
             if (utility::base64Decode<true>(base64settings, http2settings))

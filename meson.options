@@ -451,14 +451,12 @@ option(
     production environment, or where API stability is required.''',
 )
 
-# BMCWEB_EXPERIMENTAL_HTTP2
+# BMCWEB_HTTP2
 option(
-    'experimental-http2',
+    'http2',
     type: 'feature',
-    value: 'disabled',
-    description: '''Enable HTTP/2 protocol support using nghttp2.  Do not rely
-                    on this option for any production systems.  It may have
-                    behavior changes or be removed at any time.''',
+    value: 'enabled',
+    description: '''Enable HTTP/2 protocol support using nghttp2.''',
 )
 
 # Insecure options. Every option that starts with a `insecure` flag should
