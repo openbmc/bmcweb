@@ -110,7 +110,7 @@ TEST(Utility, Base64EncodeDecodeString)
 TEST(Utility, readUrlSegments)
 {
     boost::system::result<boost::urls::url_view> parsed =
-        boost::urls::parse_relative_ref("/redfish/v1/Chassis#/Fans/0/Reading");
+        boost::urls::parse_relative_ref("/redfish/v1/Chassis");
 
     EXPECT_TRUE(readUrlSegments(*parsed, "redfish", "v1", "Chassis"));
 
@@ -164,6 +164,19 @@ TEST(Utility, readUrlSegments)
     EXPECT_TRUE(readUrlSegments(*parsed, "excellent", "path", OrMorePaths()));
     EXPECT_TRUE(readUrlSegments(*parsed, "excellent", OrMorePaths()));
     EXPECT_TRUE(readUrlSegments(*parsed, OrMorePaths()));
+}
+
+TEST(Utility, readUrlSegmentsManager)
+{
+    boost::urls::url_view url(
+        "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/Left");
+    std::string managerId;
+    std::string input;
+    EXPECT_TRUE(
+        readUrlSegments(url, "redfish", "v1", "Managers", std::ref(managerId),
+                        "Oem", "OpenBmc", "Fan", "FanZones", std::ref(input)));
+    EXPECT_EQ(managerId, "bmc");
+    EXPECT_EQ(input, "Left");
 }
 
 TEST(Router, ParameterTagging)
