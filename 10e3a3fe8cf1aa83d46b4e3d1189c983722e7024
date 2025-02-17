@@ -54,6 +54,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c39506f_6d8edfeb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-17T14:45:13Z",
+      "side": 1,
+      "message": "Do you need the json too ?\nhttps://github.com/openbmc/bmcweb/blob/ee993dc84b1e9917b545fdd7367f1127a358084a/redfish-core/schema/dmtf/json-schema-installed/AggregationService.v1_0_3.json#L1",
+      "revId": "10e3a3fe8cf1aa83d46b4e3d1189c983722e7024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "db47c31a_116290db",
