@@ -90,11 +90,6 @@ void escapePathForDbus(std::string& path);
 
 void logError(const boost::system::error_code& ec);
 
-// gets the string N strings deep into a path
-// i.e.  /0th/1st/2nd/3rd
-bool getNthStringFromPath(const std::string& path, int index,
-                          std::string& result);
-
 void getAllProperties(const std::string& service, const std::string& objectPath,
                       const std::string& interface,
                       std::function<void(const boost::system::error_code&,
