@@ -16,6 +16,57 @@
       "message": "It looks good to me",
       "revId": "3ec1b3363432450cf0a0c00a39f657a7cc80be39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89356d68_6e7bb0f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 56
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-17T04:50:42Z",
+      "side": 1,
+      "message": "This largely seems reasonable to me. \nThis is a pretty standard property",
+      "revId": "3ec1b3363432450cf0a0c00a39f657a7cc80be39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be2ddd3a_0f6cae38",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-17T04:50:42Z",
+      "side": 1,
+      "message": "This is called on both the set and the get right? On the set shouldn\u0027t this be an error?",
+      "revId": "3ec1b3363432450cf0a0c00a39f657a7cc80be39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30ddd693_38dd6de1",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-17T04:50:42Z",
+      "side": 1,
+      "message": "This if isn\u0027t needed, but fine since later if other properties are added, this is safer",
+      "revId": "3ec1b3363432450cf0a0c00a39f657a7cc80be39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
