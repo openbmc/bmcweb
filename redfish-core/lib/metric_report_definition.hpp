@@ -838,7 +838,7 @@ class AddReport
                 std::move(sensorParams), metric.collectionFunction,
                 metric.collectionTimeScope, metric.collectionDuration);
         }
-        dbus::utility::async_method_call(
+        crow::connections::systemBus->async_method_call(
             [asyncResp, args](const boost::system::error_code& ec,
                               const sdbusplus::message_t& msg,
                               const std::string& /*arg1*/) {
@@ -956,7 +956,7 @@ inline void setReadingParams(
         }
     }
 
-    dbus::utility::async_method_call(
+    crow::connections::systemBus->async_method_call(
         [asyncResp, reportId](const boost::system::error_code& ec,
                               const sdbusplus::message_t& msg) {
             afterSetReadingParams(asyncResp, reportId, ec, msg);
@@ -1100,7 +1100,7 @@ inline void setReportTypeAndInterval(
         recurrenceInterval = static_cast<uint64_t>(durationNum->count());
     }
 
-    dbus::utility::async_method_call(
+    crow::connections::systemBus->async_method_call(
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec,
                                           const sdbusplus::message_t& msg) {
             afterSetReportingProperties(asyncResp, id, ec, msg);
@@ -1151,7 +1151,7 @@ inline void setReportUpdates(
                                          "ReportUpdates");
         return;
     }
-    dbus::utility::async_method_call(
+    crow::connections::systemBus->async_method_call(
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec,
                                           const sdbusplus::message_t& msg) {
             afterSetReportUpdates(asyncResp, id, ec, msg);
@@ -1200,7 +1200,7 @@ inline void setReportActions(
         return;
     }
 
-    dbus::utility::async_method_call(
+    crow::connections::systemBus->async_method_call(
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec,
                                           const sdbusplus::message_t& msg) {
             afterSetReportActions(asyncResp, id, ec, msg);
