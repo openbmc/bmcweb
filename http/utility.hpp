@@ -4,6 +4,8 @@
 
 #include "bmcweb_config.h"
 
+#include "str_utility.hpp"
+
 #include <sys/types.h>
 
 #include <boost/url/segments_view.hpp>
@@ -391,14 +393,47 @@ inline bool readUrlSegments(const boost::urls::url_view_base& url,
     boost::urls::segments_view::const_iterator it = urlSegments.begin();
     boost::urls::segments_view::const_iterator end = urlSegments.end();
 
+    std::string fragment = url.fragment();
+    std::vector<std::string> fragmentParts;
+    bmcweb::split(fragmentParts, fragment, '/');
+    auto fragIt = fragmentParts.begin();
+    auto fragEnd = fragmentParts.end();
+
+    // Url fragments start with a /, so we need to skip the first empty string
+    if (fragIt != fragEnd)
+    {
+        if (fragIt->empty())
+        {
+            fragIt++;
+        }
+    }
+
+    // There will be an empty segment at the end if the URI ends with a "/"
+    // e.g. /redfish/v1/Chassis/
+    if ((it != end) && urlSegments.back().empty())
+    {
+        end--;
+    }
+
     for (const auto& segment : segments)
     {
+        std::string_view part;
         if (it == end)
         {
-            // If the request ends with an "any" path, this was successful
-            return std::holds_alternative<OrMorePaths>(segment);
+            if (fragIt == fragEnd)
+            {
+                return std::holds_alternative<OrMorePaths>(segment);
+            }
+            part = *fragIt;
+            fragIt++;
         }
-        UrlParseResult res = std::visit(UrlSegmentMatcherVisitor(*it), segment);
+        else
+        {
+            part = *it;
+            it++;
+        }
+        UrlParseResult res =
+            std::visit(UrlSegmentMatcherVisitor(part), segment);
         if (res == UrlParseResult::Done)
         {
             return true;
@@ -407,15 +442,8 @@ inline bool readUrlSegments(const boost::urls::url_view_base& url,
         {
             return false;
         }
-        it++;
     }
 
-    // There will be an empty segment at the end if the URI ends with a "/"
-    // e.g. /redfish/v1/Chassis/
-    if ((it != end) && urlSegments.back().empty())
-    {
-        it++;
-    }
     return it == end;
 }
 
