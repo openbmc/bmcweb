@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "46065fad_8c20a4f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-17T16:41:32Z",
+      "side": 1,
+      "message": "We don\u0027t actually use the schema, so we don\u0027t \"need\" it, but sure, probably makes sense to have it.",
+      "parentUuid": "07cdf5ce_f7790638",
+      "revId": "10e3a3fe8cf1aa83d46b4e3d1189c983722e7024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "db47c31a_116290db",
