@@ -1903,7 +1903,7 @@ inline void processAfterGetAllGroups(
         messages::internalError(asyncResp->res);
         return;
     }
-    dbus::utility::async_method_call(
+    crow::connections::systemBus->async_method_call(
         [asyncResp, username, password](const boost::system::error_code& ec2,
                                         sdbusplus::message_t& m) {
             processAfterCreateUser(asyncResp, username, password, ec2, m);
@@ -2276,7 +2276,7 @@ inline void handleAccountPatch(
                              locked, accountTypes, userSelf, req.session);
         return;
     }
-    dbus::utility::async_method_call(
+    crow::connections::systemBus->async_method_call(
         [asyncResp, username, password(std::move(password)),
          roleId(std::move(roleId)), enabled, newUser{std::string(*newUserName)},
          locked, userSelf, req, accountTypes(std::move(accountTypes))](

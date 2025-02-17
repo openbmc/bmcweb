@@ -2246,7 +2246,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
 
                 std::string vlanInterface =
                     parentInterface + "_" + std::to_string(vlanId);
-                dbus::utility::async_method_call(
+                crow::connections::systemBus->async_method_call(
                     [asyncResp, parentInterfaceUri,
                      vlanInterface](const boost::system::error_code& ec,
                                     const sdbusplus::message_t& m) {
@@ -2499,7 +2499,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                     return;
                 }
 
-                dbus::utility::async_method_call(
+                crow::connections::systemBus->async_method_call(
                     [asyncResp, ifaceId](const boost::system::error_code& ec,
                                          const sdbusplus::message_t& m) {
                         afterDelete(asyncResp, ifaceId, ec, m);

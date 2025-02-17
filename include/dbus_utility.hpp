@@ -5,6 +5,7 @@
 
 #include "boost_formatters.hpp"
 #include "dbus_singleton.hpp"
+#include "logging.hpp"
 
 #include <boost/system/error_code.hpp>
 #include <sdbusplus/asio/connection.hpp>
@@ -99,14 +100,88 @@ void getAllProperties(const std::string& service, const std::string& objectPath,
                       std::function<void(const boost::system::error_code&,
                                          const DBusPropertiesMap&)>&& callback);
 
+template <std::size_t N, typename FirstArg, typename... Rest>
+struct strip_first_n_args;
+
+template <std::size_t N, typename FirstArg, typename... Rest>
+struct strip_first_n_args<N, std::tuple<FirstArg, Rest...>> :
+    strip_first_n_args<N - 1, std::tuple<Rest...>>
+{};
+
+template <typename FirstArg, typename... Rest>
+struct strip_first_n_args<0, std::tuple<FirstArg, Rest...>>
+{
+    using type = std::tuple<FirstArg, Rest...>;
+};
+template <std::size_t N>
+struct strip_first_n_args<N, std::tuple<>>
+{
+    using type = std::tuple<>;
+};
+
+template <std::size_t N, typename... Args>
+using strip_first_n_args_t = typename strip_first_n_args<N, Args...>::type;
+
+// Small helper class for stripping off the error code from the function
+// argument definitions so unpack can be called appropriately
+template <typename T>
+using strip_first_arg = strip_first_n_args<1, T>;
+
+template <typename T>
+using strip_first_arg_t = typename strip_first_arg<T>::type;
+
+template <typename MessageHandler>
+void handle_async_method_call_response(MessageHandler&& handler,
+                                       const boost::system::error_code& ec,
+                                       sdbusplus::message::message& msg)
+{
+    using ResultType =
+        strip_first_arg_t<boost::callable_traits::args_t<MessageHandler>>;
+    using FunctionTupleType = sdbusplus::utility::decay_tuple_t<ResultType>;
+    FunctionTupleType responseData;
+    if (!ec)
+    {
+        try
+        {
+            sdbusplus::utility::read_into_tuple(responseData, msg);
+        }
+        catch (const std::exception&)
+        {
+            // Set error code if not already set
+            boost::system::error_code ec2 =
+                boost::system::errc::make_error_code(
+                    boost::system::errc::invalid_argument);
+
+            auto response =
+                std::tuple_cat(std::make_tuple(ec2), std::move(responseData));
+            std::apply(handler, response);
+            return;
+        }
+    }
+    auto response =
+        std::tuple_cat(std::make_tuple(ec), std::move(responseData));
+    std::apply(handler, response);
+}
+
 template <typename MessageHandler, typename... InputArgs>
 void async_method_call(MessageHandler&& handler, const std::string& service,
                        const std::string& objpath, const std::string& interf,
                        const std::string& method, const InputArgs&... a)
 {
+    static uint64_t callId = 0;
+    callId++;
+
+    BMCWEB_LOG_DEBUG("{} Method Call {} {} {} {}", callId, service, objpath,
+                     interf, method);
+    auto handler2 = [handler = std::move(handler)](
+                        const boost::system::error_code& ec,
+                        sdbusplus::message::message& msg) mutable {
+        handle_async_method_call_response<MessageHandler>(
+            std::forward<MessageHandler>(handler), ec, msg);
+    };
+
     crow::connections::systemBus->async_method_call(
-        std::forward<MessageHandler>(handler), service, objpath, interf, method,
-        a...);
+        std::move(handler2), service, objpath, interf, method, a...);
 }
 
 template <typename PropertyType>

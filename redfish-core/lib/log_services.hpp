@@ -589,7 +589,7 @@ inline void deleteDumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     };
 
     dbus::utility::async_method_call(
-        respHandler, "xyz.openbmc_project.Dump.Manager",
+        std::move(respHandler), "xyz.openbmc_project.Dump.Manager",
         std::format("{}/entry/{}", getDumpPath(dumpType), entryID),
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
@@ -1019,7 +1019,7 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             "xyz.openbmc_project.Common.OriginatedBy.OriginatorTypes.Client");
     }
 
-    dbus::utility::async_method_call(
+    crow::connections::systemBus->async_method_call(
         [asyncResp, payload(task::Payload(req)),
          dumpPath](const boost::system::error_code& ec,
                    const sdbusplus::message_t& msg,
@@ -1848,7 +1848,7 @@ inline void dBusEventLogEntryDelete(
 
     // Make call to Logging service to request Delete Log
     dbus::utility::async_method_call(
-        respHandler, "xyz.openbmc_project.Logging",
+        std::move(respHandler), "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging/entry/" + entryID,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
@@ -3133,7 +3133,7 @@ inline void dBusLogServiceActionsClear(
 
     // Make call to Logging service to request Clear Log
     dbus::utility::async_method_call(
-        respHandler, "xyz.openbmc_project.Logging",
+        std::move(respHandler), "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging",
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
 }
