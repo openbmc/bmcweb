@@ -14,6 +14,7 @@
 #include <string>
 #include <string_view>
 #include <type_traits>
+#include <utility>
 
 // NOLINTBEGIN(readability-convert-member-functions-to-static, cert-dcl58-cpp)
 template <>
@@ -46,7 +47,7 @@ enum class LogLevel
 
 constexpr int toSystemdLevel(LogLevel level)
 {
-    std::array<std::pair<LogLevel, int>, 5> mapping{
+    constexpr std::array<std::pair<LogLevel, int>, 5> mapping{
         {// EMERGENCY 0
          // ALERT 1
          {LogLevel::Critical, 2},
