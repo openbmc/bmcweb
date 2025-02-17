@@ -42,33 +42,6 @@ void logError(const boost::system::error_code& ec)
     }
 }
 
-// gets the string N strings deep into a path
-// i.e.  /0th/1st/2nd/3rd
-bool getNthStringFromPath(const std::string& path, int index,
-                          std::string& result)
-{
-    if (index < 0)
-    {
-        return false;
-    }
-
-    std::filesystem::path p1(path);
-    int count = -1;
-    for (const auto& element : p1)
-    {
-        if (element.has_filename())
-        {
-            ++count;
-            if (count == index)
-            {
-                result = element.stem().string();
-                break;
-            }
-        }
-    }
-    return count >= index;
-}
-
 void getAllProperties(const std::string& service, const std::string& objectPath,
                       const std::string& interface,
                       std::function<void(const boost::system::error_code&,
