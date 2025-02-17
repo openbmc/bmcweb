@@ -5,11 +5,11 @@ conf_data = configuration_data()
 feature_options = [
     'basic-auth',
     'cookie-auth',
-    'experimental-http2',
-    'experimental-redfish-multi-computer-system',
     'experimental-redfish-dbus-log-subscription',
+    'experimental-redfish-multi-computer-system',
     'google-api',
     'host-serial-socket',
+    'http2',
     'hypervisor-computer-system',
     'ibm-management-console',
     'insecure-disable-auth',
