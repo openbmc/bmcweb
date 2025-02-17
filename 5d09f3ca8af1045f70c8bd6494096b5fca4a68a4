@@ -33,6 +33,42 @@
       "message": "Want to add a few sentences to the README?\nhttps://github.com/openbmc/bmcweb/blob/master/README.md#redfish-aggregation",
       "revId": "5d09f3ca8af1045f70c8bd6494096b5fca4a68a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba953a3_ba6846f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-17T20:44:16Z",
+      "side": 1,
+      "message": "Probably fair to add.  Honestly, I want to rewrite the readme entirely at some point to match the reality of 2024 (pretty sure what I wrote in 2018 is mostly obsolete), I just haven\u0027t gotten there.",
+      "parentUuid": "198ca1c7_23c26d39",
+      "revId": "5d09f3ca8af1045f70c8bd6494096b5fca4a68a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74fa46da_e2789313",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-17T20:44:16Z",
+      "side": 1,
+      "message": "Yep...  missed the file.",
+      "parentUuid": "e297fc1b_b248a657",
+      "revId": "5d09f3ca8af1045f70c8bd6494096b5fca4a68a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
