@@ -54,6 +54,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "45f8f3ef_7ee4ef1e",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-17T19:29:08Z",
+      "side": 1,
+      "message": "Good catch. I\u0027ve restructured to return the error to the callback function to handle. The get/set path have different callback functions so they can handle the error appropriately there.",
+      "parentUuid": "be2ddd3a_0f6cae38",
+      "revId": "3ec1b3363432450cf0a0c00a39f657a7cc80be39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "30ddd693_38dd6de1",
         "filename": "redfish-core/lib/power_supply.hpp",
         "patchSetId": 56
@@ -65,6 +83,24 @@
       "writtenOn": "2025-02-17T04:50:42Z",
       "side": 1,
       "message": "This if isn\u0027t needed, but fine since later if other properties are added, this is safer",
+      "revId": "3ec1b3363432450cf0a0c00a39f657a7cc80be39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01942451_77cf4487",
+        "filename": "redfish-core/lib/power_supply.hpp",
+        "patchSetId": 56
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-17T19:29:08Z",
+      "side": 1,
+      "message": "👍",
+      "parentUuid": "30ddd693_38dd6de1",
       "revId": "3ec1b3363432450cf0a0c00a39f657a7cc80be39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
