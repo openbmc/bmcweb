@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "07cdf5ce_f7790638",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-17T14:46:20Z",
+      "side": 1,
+      "message": "There is both a json and xml install \nhttps://github.com/openbmc/bmcweb/tree/ee993dc84b1e9917b545fdd7367f1127a358084a/redfish-core/schema/dmtf",
+      "parentUuid": "8c39506f_6d8edfeb",
+      "revId": "10e3a3fe8cf1aa83d46b4e3d1189c983722e7024",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "db47c31a_116290db",
