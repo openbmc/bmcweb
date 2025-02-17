@@ -14,6 +14,7 @@
 #include <string>
 #include <string_view>
 #include <type_traits>
+#include <utility>
 
 // NOLINTBEGIN(readability-convert-member-functions-to-static, cert-dcl58-cpp)
 template <>
@@ -46,7 +47,7 @@ enum class LogLevel
 
 constexpr int toSystemdLevel(LogLevel level)
 {
-    std::array<std::pair<LogLevel, int>, 5> mapping{
+    constexpr std::array<std::pair<LogLevel, int>, 5> mapping{
         {// EMERGENCY 0
          // ALERT 1
          {LogLevel::Critical, 2},
@@ -56,7 +57,7 @@ constexpr int toSystemdLevel(LogLevel level)
          {LogLevel::Info, 6},
          {LogLevel::Debug, 7}}};
 
-    auto* it = std::ranges::find_if(
+    const auto* it = std::ranges::find_if(
         mapping, [level](const std::pair<LogLevel, int>& elem) {
             return elem.first == level;
         });
