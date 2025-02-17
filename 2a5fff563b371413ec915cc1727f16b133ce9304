@@ -16,6 +16,24 @@
       "message": "@ed@tanous.net - do you have further comments here ? Can you help with re-review.",
       "revId": "2a5fff563b371413ec915cc1727f16b133ce9304",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baba85bf_24975fc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 73
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-17T22:23:44Z",
+      "side": 1,
+      "message": "Existing comments are still open.  We discussed on discord about the url parsing issues.",
+      "parentUuid": "1d43ece0_2bdd4615",
+      "revId": "2a5fff563b371413ec915cc1727f16b133ce9304",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
