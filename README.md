@@ -19,7 +19,8 @@ The webserver implements a few distinct interfaces:
 ## Protocols
 
 bmcweb at a protocol level supports http and https. TLS is supported through
-OpenSSL.
+OpenSSL. Http1 and http2 are supported using ALPN registration for TLS
+connections and h2c upgrade header for http connections.
 
 ## AuthX
 
