@@ -14,6 +14,7 @@
 #include <string>
 #include <string_view>
 #include <type_traits>
+#include <utility>
 
 // NOLINTBEGIN(readability-convert-member-functions-to-static, cert-dcl58-cpp)
 template <>
