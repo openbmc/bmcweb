@@ -34,6 +34,24 @@
       "parentUuid": "d0c4a326_8b12fa46",
       "revId": "0081963f606428dc8d73f1cb0d23c8bd069c77dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26c8efbd_054dd740",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-18T17:19:23Z",
+      "side": 1,
+      "message": "Added a sentence to the readme.",
+      "parentUuid": "8234607f_c4603e19",
+      "revId": "0081963f606428dc8d73f1cb0d23c8bd069c77dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
