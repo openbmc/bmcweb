@@ -34,6 +34,24 @@
       "parentUuid": "e21c5897_7f2cf7c8",
       "revId": "18041edf75678d1b95244081fee1462a92e382c8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7a00015_d0f5d4e4",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 47
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2025-02-18T17:09:31Z",
+      "side": 1,
+      "message": "updated the d-bus interface property SecretKeyRequired to method to address the LDAP users and the call is updated accordingly.",
+      "parentUuid": "2901a94f_4936fd59",
+      "revId": "18041edf75678d1b95244081fee1462a92e382c8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
