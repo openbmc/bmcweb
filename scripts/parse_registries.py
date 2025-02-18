@@ -39,19 +39,19 @@ REGISTRY_HEADER = f"{COPYRIGHT}{PRAGMA_ONCE}{WARNING}{INCLUDES}"
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-include_path = os.path.realpath(
+INCLUDE_PATH = os.path.realpath(
     os.path.join(SCRIPT_DIR, "..", "redfish-core", "include", "registries")
 )
 
-proxies = {"https": os.environ.get("https_proxy", None)}
+PROXIES = {"https": os.environ.get("https_proxy", None)}
 
 
 def make_getter(dmtf_name, header_name, type_name):
     url = "https://redfish.dmtf.org/registries/{}".format(dmtf_name)
-    dmtf = requests.get(url, proxies=proxies)
+    dmtf = requests.get(url, proxies=PROXIES)
     dmtf.raise_for_status()
     json_file = json.loads(dmtf.text, object_pairs_hook=OrderedDict)
-    path = os.path.join(include_path, header_name)
+    path = os.path.join(INCLUDE_PATH, header_name)
     return (path, json_file, type_name, url)
 
 
@@ -67,10 +67,10 @@ def openbmc_local_getter():
             "openbmc.json",
         ),
         "rb",
-    ) as json_file:
-        json_file = json.load(json_file)
+    ) as json_file_fd:
+        json_file = json.load(json_file_fd)
 
-    path = os.path.join(include_path, "openbmc_message_registry.hpp")
+    path = os.path.join(INCLUDE_PATH, "openbmc_message_registry.hpp")
     return (path, json_file, "openbmc", url)
 
 
@@ -196,7 +196,7 @@ namespace redfish::privileges
 )
 
 
-def get_response_code(entry_id, entry):
+def get_response_code(entry_id):
     codes = {
         "InternalError": "internal_server_error",
         "OperationTimeout": "internal_server_error",
@@ -237,11 +237,7 @@ def get_response_code(entry_id, entry):
         "GenerateSecretKeyRequired": "forbidden",
     }
 
-    code = codes.get(entry_id, "NOCODE")
-    if code != "NOCODE":
-        return code
-
-    return "bad_request"
+    return codes.get(entry_id, "bad_request")
 
 
 def make_error_function(
@@ -359,7 +355,7 @@ def make_error_function(
             if entry_id == "ServiceTemporarilyUnavailable":
                 out += "res.addHeader(boost::beast::http::field::retry_after, arg1);"
 
-            res = get_response_code(entry_id, entry)
+            res = get_response_code(entry_id)
             if res:
                 out += f"    res.result(boost::beast::http::status::{res});\n"
             args_out = ", ".join([f"arg{x+1}" for x in range(len(argtypes))])
@@ -651,24 +647,20 @@ def main():
     args = parser.parse_args()
 
     registries = set(args.registries.split(","))
-    files = []
     registries_map = OrderedDict()
 
     for registry, version in dmtf_registries.items():
         if registry in registries:
             registry_pascal_case = to_pascal_case(registry)
-            files.append(
-                make_getter(
-                    f"{registry_pascal_case}.{version}.json",
-                    f"{registry}_message_registry.hpp",
-                    registry,
-                )
+            registries_map[registry] = make_getter(
+                f"{registry_pascal_case}.{version}.json",
+                f"{registry}_message_registry.hpp",
+                registry,
             )
-            registries_map[registry] = files[-1]
     if "openbmc" in registries:
-        files.append(openbmc_local_getter())
+        registries_map["openbmc"] = openbmc_local_getter()
 
-    update_registries(files)
+    update_registries(registries_map.values())
 
     if "base" in registries_map:
         create_error_registry(
