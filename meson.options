@@ -373,7 +373,7 @@ option(
 option(
     'additional-ports',
     type: 'array',
-    value: [],
+    value: ['18080'],
     description: '''Additional ports to listen to.  Allows bmcweb to listen to
                     multiple ports at a given protocol''',
 )

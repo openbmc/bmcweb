@@ -121,20 +121,20 @@ endif
 
 ports = get_option('additional-ports')
 binds = get_option('additional-bind-to-device')
-auth = get_option('additional-auth')
+auths = get_option('additional-auth')
 foreach index : range(ports.length())
     port_number = ports[index]
     bind_to_device = '0.0.0.0'
     auth = 'auth'
     if index < binds.length()
-        bind = auth[index]
+        bind_to_device = binds[index]
     endif
 
-    if index < auth.length()
-        auth = auth[index]
+    if index < auths.length()
+        auth = auths[index]
     endif
 
-    filename = 'bmcweb_' + port_number.to_string()
+    filename = 'bmcweb_' + port_number
     configure_file(
         input: 'bmcweb.socket.in',
         output: filename,
@@ -144,7 +144,7 @@ foreach index : range(ports.length())
             {
                 'BMCWEB_HTTPS_PORT': port_number,
                 'HTTP_LEVEL_ALLOWED': 'https',
-                'HTTP_BIND': bind,
+                'HTTP_BIND': bind_to_device,
                 'HTTP_AUTH_LEVEL': auth,
             },
         ),
