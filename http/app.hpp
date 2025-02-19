@@ -144,6 +144,16 @@ class App
             socketIndex++;
         }
 
+        if (acceptors.empty())
+        {
+            constexpr int defaultPort = 18080;
+            BMCWEB_LOG_INFO("Starting webserver on port {}", defaultPort);
+            using boost::asio::ip::tcp;
+            tcp::endpoint end(tcp::v6(), defaultPort);
+            tcp::acceptor acc(getIoContext(), end);
+            acceptors.emplace_back(std::move(acc), HttpType::HTTPS);
+        }
+
         return acceptors;
     }
 
