@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bc2475c_4352db13",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-19T23:54:10Z",
+      "side": 1,
+      "message": "This isn\u0027t how to do it.  WE just need to handle the case where there\u0027s no socket files.",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 21
+      },
+      "revId": "54edd661f98666fccd06f600ac8d8c776bb01d36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
