@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33c077d6_11a9cff2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-20T22:00:14Z",
+      "side": 1,
+      "message": "Put in startupSocket(). Had to create endpoint to create the acceptor. Used v6() to match the other current code, but not sure if that is correct.",
+      "parentUuid": "92653081_f900bbfc",
+      "revId": "54edd661f98666fccd06f600ac8d8c776bb01d36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3bc2475c_4352db13",
         "filename": "meson.options",
         "patchSetId": 1
@@ -102,6 +120,30 @@
       "writtenOn": "2025-02-19T23:54:10Z",
       "side": 1,
       "message": "This isn\u0027t how to do it.  WE just need to handle the case where there\u0027s no socket files.",
+      "range": {
+        "startLine": 376,
+        "startChar": 0,
+        "endLine": 376,
+        "endChar": 21
+      },
+      "revId": "54edd661f98666fccd06f600ac8d8c776bb01d36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbf9d2f4_882be567",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-20T22:00:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bc2475c_4352db13",
       "range": {
         "startLine": 376,
         "startChar": 0,
