@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11e2c512_0e3b8cc3",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-20T22:19:07Z",
+      "side": 1,
+      "message": "TL; DR, After this HttpBody is no longer copyable, because the zstd decompressor is not copyable.  The old constructor relied on a copy constructor.  operator[] constructs in place.",
+      "parentUuid": "d508941f_85f07d2e",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 526,
+        "endChar": 2
+      },
+      "revId": "01f512f5009c454c29c85a4c3247347f3b3916de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0993493_61b5b4c5",
