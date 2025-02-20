@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d508941f_85f07d2e",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 54
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-02-20T21:55:39Z",
+      "side": 1,
+      "message": "👍I don\u0027t understand why the change is necessary, but looks like the same result. The subtleties of C++...",
+      "parentUuid": "1c36c464_5ed242e5",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 526,
+        "endChar": 2
+      },
+      "revId": "01f512f5009c454c29c85a4c3247347f3b3916de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0993493_61b5b4c5",
