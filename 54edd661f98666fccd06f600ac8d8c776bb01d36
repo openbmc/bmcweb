@@ -36,6 +36,41 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c011d5a6_9fb49790",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-20T19:22:37Z",
+      "side": 1,
+      "message": "btw, this removal was unintentional.  Let me know if my fix makes.",
+      "revId": "54edd661f98666fccd06f600ac8d8c776bb01d36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92653081_f900bbfc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-20T19:22:37Z",
+      "side": 1,
+      "message": "Actually, do it here instead:\n\nhttps://github.com/openbmc/bmcweb/blob/cc67d0a0fed101c930b334a583d9ca9b222ceb77/http/app.hpp#L146\n\nsame logic.  At one point the patch that broke this had that else case, but I think it got dropped in a rebase.",
+      "parentUuid": "ef53ddbf_d4b40872",
+      "revId": "54edd661f98666fccd06f600ac8d8c776bb01d36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3bc2475c_4352db13",
