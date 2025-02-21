@@ -88,6 +88,7 @@ def update_registries(files):
 
             registry.write(REGISTRY_HEADER.format(namespace))
             # Parse the Registry header info
+            description = json_dict.get("Description", "")
             registry.write(
                 "const Header header = {{\n"
                 '    "{json_dict[@Redfish.Copyright]}",\n'
@@ -97,7 +98,7 @@ def update_registries(files):
                 "    {version_split[2]},\n"
                 '    "{json_dict[Name]}",\n'
                 '    "{json_dict[Language]}",\n'
-                '    "{json_dict[Description]}",\n'
+                '    "{description}",\n'
                 '    "{json_dict[RegistryPrefix]}",\n'
                 '    "{json_dict[OwningEntity]}",\n'
                 "}};\n"
@@ -109,6 +110,7 @@ def update_registries(files):
                     json_dict=json_dict,
                     url=url,
                     version_split=version_split,
+                    description=description,
                 )
             )
 
