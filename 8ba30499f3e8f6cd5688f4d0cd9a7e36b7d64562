@@ -16,6 +16,24 @@
       "message": "I assume the redfish validator is good?",
       "revId": "8ba30499f3e8f6cd5688f4d0cd9a7e36b7d64562",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18aa0f9b_7417d8dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-02-21T07:46:45Z",
+      "side": 1,
+      "message": "Yes. Updated the commit message.",
+      "parentUuid": "f092ddfc_d84cf394",
+      "revId": "8ba30499f3e8f6cd5688f4d0cd9a7e36b7d64562",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
