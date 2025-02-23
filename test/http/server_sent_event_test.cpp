@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "http/server_sent_event.hpp"
+#include "http/server_sent_event_impl.hpp"
 #include "http_request.hpp"
 #include "test_stream.hpp"
 

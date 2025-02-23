@@ -5,18 +5,14 @@
 #include "async_resp.hpp"
 #include "baserule.hpp"
 #include "http_request.hpp"
-#include "http_response.hpp"
-#include "logging.hpp"
 #include "server_sent_event.hpp"
 
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl/stream.hpp>
-#include <boost/beast/http/status.hpp>
 
 #include <functional>
 #include <memory>
 #include <string>
-#include <utility>
 #include <vector>
 
 namespace crow
@@ -27,48 +23,21 @@ class SseSocketRule : public BaseRule
     using self_t = SseSocketRule;
 
   public:
-    explicit SseSocketRule(const std::string& ruleIn) : BaseRule(ruleIn)
-    {
-        isUpgrade = true;
-        // Clear GET handler
-        methodsBitfield = 0;
-    }
+    explicit SseSocketRule(const std::string& ruleIn);
 
-    void validate() override {}
+    void validate() override;
 
     void handle(const Request& /*req*/,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const std::vector<std::string>& /*params*/) override
-    {
-        BMCWEB_LOG_ERROR(
-            "Handle called on websocket rule.  This should never happen");
-        asyncResp->res.result(
-            boost::beast::http::status::internal_server_error);
-    }
+                const std::vector<std::string>& /*params*/) override;
 
     void handleUpgrade(const Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
-                       boost::asio::ip::tcp::socket&& adaptor) override
-    {
-        std::shared_ptr<
-            crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>
-            myConnection = std::make_shared<
-                crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
-                std::move(adaptor), openHandler, closeHandler);
-        myConnection->start(req);
-    }
+                       boost::asio::ip::tcp::socket&& adaptor) override;
     void handleUpgrade(const Request& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
                        boost::asio::ssl::stream<boost::asio::ip::tcp::socket>&&
-                           adaptor) override
-    {
-        std::shared_ptr<crow::sse_socket::ConnectionImpl<
-            boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>
-            myConnection = std::make_shared<crow::sse_socket::ConnectionImpl<
-                boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
-                std::move(adaptor), openHandler, closeHandler);
-        myConnection->start(req);
-    }
+                           adaptor) override;
 
     template <typename Func>
     self_t& onopen(Func f)
