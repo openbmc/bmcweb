@@ -8,14 +8,17 @@
 #include <cstdint>
 #include <optional>
 #include <string>
+#include <unordered_map>
 
 namespace redfish
 {
+
 struct DbusEventLogEntry
 {
     // represents a subset of an instance of dbus interface
     // xyz.openbmc_project.Logging.Entry
 
+    std::unordered_map<std::string, std::string> AdditionalData;
     uint32_t Id = 0;
     std::string Message;
     const std::string* Path = nullptr;
@@ -35,6 +38,7 @@ inline std::optional<DbusEventLogEntry> fillDbusEventLogEntryFromPropertyMap(
     // clang-format off
     bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), resp,
+        "AdditionalData", entry.AdditionalData,
         "Id", entry.Id,
         "Message", entry.Message,
         "Path", entry.Path,

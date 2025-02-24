@@ -4,6 +4,7 @@
 #include "event_logs_object_type.hpp"
 #include "event_service_manager.hpp"
 #include "logging.hpp"
+#include "registries.hpp"
 
 #include <sys/inotify.h>
 
@@ -19,6 +20,7 @@
 #include <fstream>
 #include <functional>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace redfish
@@ -92,7 +94,27 @@ void FilesystemLogWatcher::readEventLogsFromFile()
             continue;
         }
 
-        eventRecords.emplace_back(idStr, timestamp, messageID, messageArgs);
+        std::vector<std::string_view> messageArgsView(messageArgs.begin(),
+                                                      messageArgs.end());
+        const registries::Message* message = registries::getMessage(messageID);
+        if (message == nullptr)
+        {
+            BMCWEB_LOG_DEBUG("Could not find messageID '{}' in registry",
+                             messageID);
+            continue;
+        }
+        std::string msg = redfish::registries::fillMessageArgs(
+            messageArgsView, message->message);
+        if (msg.empty())
+        {
+            BMCWEB_LOG_DEBUG("Read eventLog could not build message {}",
+                             logEntry);
+            continue;
+        }
+
+        eventRecords.emplace_back(idStr, msg, messageID, messageArgs,
+                                  message->resolution, message->messageSeverity,
+                                  timestamp);
     }
 
     if (eventRecords.empty())
