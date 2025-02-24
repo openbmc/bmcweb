@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a606c173_205ff5ac",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-24T21:29:01Z",
+      "side": 1,
+      "message": "From https://www.dmtf.org/sites/default/files/Redfish%20Release%202024.3%20Overview.pdf \n\n```\nHTTP/1.1 200 OK\n{\n\"SecretKey\": \"12345678901234567890\"  User needs to save this key\n}\n```\n\nWhat is the thought behind these other properties ? E.g. Description and @odata.type ?",
+      "revId": "01b9683a41821bfda9c0191241df17fe325b4149",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bc7a022_b8091b89",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-24T21:29:01Z",
+      "side": 1,
+      "message": "How does this handle \n\n/redfish/v1/AccountService/Accounts/badaccountid/Actions/ManagerAccount.GenerateSecretKey\n\n?",
+      "revId": "01b9683a41821bfda9c0191241df17fe325b4149",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
