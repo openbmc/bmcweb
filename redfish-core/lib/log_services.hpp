@@ -10,6 +10,7 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "event_logs_object_type.hpp"
 #include "generated/enums/log_entry.hpp"
 #include "generated/enums/log_service.hpp"
 #include "http_body.hpp"
@@ -25,6 +26,7 @@
 #include "task.hpp"
 #include "task_messages.hpp"
 #include "utils/dbus_event_log_entry.hpp"
+#include "utils/dbus_registries_map_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/query_param.hpp"
@@ -1436,18 +1438,51 @@ inline bool fillEventLogLogEntryFromPropertyMap(
 
     if (!optEntry.has_value())
     {
+        BMCWEB_LOG_ERROR(
+            "Could not construct event log entry from dbus properties");
         messages::internalError(asyncResp->res);
         return false;
     }
     DbusEventLogEntry entry = optEntry.value();
 
+    if constexpr (BMCWEB_REDFISH_ALLOW_DBUS_MESSAGES_MAPPING)
+    {
+        EventLogObjectsType eventLogObjectsType;
+        auto success =
+            dbus_registries_map::dbusEventLogEntryToEventLogObjectsType(
+                entry, eventLogObjectsType);
+        if (!success)
+        {
+            messages::internalError(asyncResp->res);
+            return false;
+        }
+        objectToFillOut["Message"] = std::move(eventLogObjectsType.message);
+        objectToFillOut["MessageId"] = std::move(eventLogObjectsType.messageId);
+        objectToFillOut["MessageArgs"] =
+            std::move(eventLogObjectsType.messageArgs);
+        objectToFillOut["Resolution"] =
+            std::move(eventLogObjectsType.resolution);
+        objectToFillOut["Severity"] = std::move(eventLogObjectsType.severity);
+    }
+    else
+    {
+        objectToFillOut["Message"] = entry.Message;
+        if ((entry.Resolution != nullptr) && !entry.Resolution->empty())
+        {
+            objectToFillOut["Resolution"] = *entry.Resolution;
+        }
+        objectToFillOut["Severity"] =
+            translateSeverityDbusToRedfish(entry.Severity);
+    }
+
+    auto logEntryID = std::to_string(entry.Id);
+
     objectToFillOut["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
     objectToFillOut["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(entry.Id));
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, logEntryID);
     objectToFillOut["Name"] = "System Event Log Entry";
-    objectToFillOut["Id"] = std::to_string(entry.Id);
-    objectToFillOut["Message"] = entry.Message;
+    objectToFillOut["Id"] = logEntryID;
     objectToFillOut["Resolved"] = entry.Resolved;
     std::optional<bool> notifyAction =
         getProviderNotifyAction(entry.ServiceProviderNotify);
@@ -1455,13 +1490,7 @@ inline bool fillEventLogLogEntryFromPropertyMap(
     {
         objectToFillOut["ServiceProviderNotified"] = *notifyAction;
     }
-    if ((entry.Resolution != nullptr) && !entry.Resolution->empty())
-    {
-        objectToFillOut["Resolution"] = *entry.Resolution;
-    }
     objectToFillOut["EntryType"] = "Event";
-    objectToFillOut["Severity"] =
-        translateSeverityDbusToRedfish(entry.Severity);
     objectToFillOut["Created"] =
         redfish::time_utils::getDateTimeUintMs(entry.Timestamp);
     objectToFillOut["Modified"] =
@@ -1470,7 +1499,7 @@ inline bool fillEventLogLogEntryFromPropertyMap(
     {
         objectToFillOut["AdditionalDataURI"] = boost::urls::format(
             "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}/attachment",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(entry.Id));
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, logEntryID);
     }
     return true;
 }

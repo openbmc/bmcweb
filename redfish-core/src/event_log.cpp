@@ -15,8 +15,8 @@ limitations under the License.
 */
 #include "event_log.hpp"
 
+#include "event_logs_object_type.hpp"
 #include "logging.hpp"
-#include "registries.hpp"
 #include "str_utility.hpp"
 
 #include <nlohmann/json.hpp>
@@ -26,7 +26,6 @@ limitations under the License.
 #include <cstdint>
 #include <ctime>
 #include <iomanip>
-#include <span>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -121,35 +120,15 @@ int getEventLogParams(const std::string& logEntry, std::string& timestamp,
     return 0;
 }
 
-int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
-                        const std::string& messageID,
-                        const std::span<std::string_view> messageArgs,
-                        std::string timestamp, const std::string& customText,
-                        nlohmann::json::object_t& logEntryJson)
+void formatEventLogEntry(uint64_t eventId,
+                         const redfish::EventLogObjectsType& logEntry,
+                         const std::string& customText,
+                         nlohmann::json::object_t& logEntryJson)
 {
-    // Get the Message from the MessageRegistry
-    const registries::Message* message = registries::getMessage(messageID);
-
-    if (message == nullptr)
-    {
-        BMCWEB_LOG_DEBUG(
-            "{}: could not find messageID '{}' for log entry {} in registry",
-            __func__, messageID, logEntryID);
-        return -1;
-    }
-
-    std::string msg =
-        redfish::registries::fillMessageArgs(messageArgs, message->message);
-    if (msg.empty())
-    {
-        BMCWEB_LOG_DEBUG("{}: message is empty after filling fillMessageArgs",
-                         __func__);
-        return -1;
-    }
-
     // Get the Created time from the timestamp. The log timestamp is in
     // RFC3339 format which matches the Redfish format except for the
     // fractional seconds between the '.' and the '+', so just remove them.
+    std::string timestamp = logEntry.timestamp;
     std::size_t dot = timestamp.find_first_of('.');
     std::size_t plus = timestamp.find_first_of('+', dot);
     if (dot != std::string::npos && plus != std::string::npos)
@@ -160,13 +139,12 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
     // Fill in the log entry with the gathered data
     logEntryJson["EventId"] = std::to_string(eventId);
 
-    logEntryJson["Severity"] = message->messageSeverity;
-    logEntryJson["Message"] = std::move(msg);
-    logEntryJson["MessageId"] = messageID;
-    logEntryJson["MessageArgs"] = messageArgs;
+    logEntryJson["Severity"] = logEntry.severity;
+    logEntryJson["Message"] = logEntry.message;
+    logEntryJson["MessageId"] = logEntry.messageId;
+    logEntryJson["MessageArgs"] = logEntry.messageArgs;
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;
-    return 0;
 }
 
 } // namespace event_log

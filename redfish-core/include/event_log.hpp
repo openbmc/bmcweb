@@ -1,11 +1,11 @@
 #pragma once
 
+#include "event_logs_object_type.hpp"
+
 #include <nlohmann/json.hpp>
 
 #include <cstdint>
-#include <span>
 #include <string>
-#include <string_view>
 #include <vector>
 
 namespace redfish
@@ -20,11 +20,10 @@ int getEventLogParams(const std::string& logEntry, std::string& timestamp,
                       std::string& messageID,
                       std::vector<std::string>& messageArgs);
 
-int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
-                        const std::string& messageID,
-                        std::span<std::string_view> messageArgs,
-                        std::string timestamp, const std::string& customText,
-                        nlohmann::json::object_t& logEntryJson);
+void formatEventLogEntry(uint64_t eventId,
+                         const redfish::EventLogObjectsType& logEntry,
+                         const std::string& customText,
+                         nlohmann::json::object_t& logEntryJson);
 
 } // namespace event_log
 
