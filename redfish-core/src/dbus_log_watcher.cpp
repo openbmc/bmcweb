@@ -7,6 +7,7 @@
 #include "logging.hpp"
 #include "metric_report.hpp"
 #include "utils/dbus_event_log_entry.hpp"
+#include "utils/dbus_registries_map_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <sdbusplus/bus/match.hpp>
@@ -14,6 +15,7 @@
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
+#include <format>
 #include <optional>
 #include <string>
 #include <variant>
@@ -38,19 +40,19 @@ bool DbusEventLogMonitor::eventLogObjectFromDBus(
     event.id = std::to_string(entry.Id);
     event.timestamp = redfish::time_utils::getDateTimeUintMs(entry.Timestamp);
 
-    // This dbus property is not documented to contain the Redfish Message Id,
-    // but can be used as such. As a temporary solution that is sufficient,
-    // the event filtering code will drop the event anyways if event.messageId
-    // is not valid.
-    //
-    // This will need resolved before
-    // experimental-redfish-dbus-log-subscription is stabilized
-    event.messageId = entry.Message;
+    auto optMappedInfo = dbus_registries_map::getMappedInfo(entry);
 
-    // The order of 'AdditionalData' is not what's specified in an e.g.
-    // busctl call to create the Event Log Entry. So it cannot be used
-    // to map to the message args. Leaving this branch here for it to be
-    // implemented when the mapping is available
+    if (!optMappedInfo.has_value())
+    {
+        BMCWEB_LOG_ERROR(
+            "Could not get Redfish Message Id and Args from dbus event log entry");
+        return false;
+    }
+
+    const auto& mappedInfo = optMappedInfo.value();
+
+    event.messageId = mappedInfo.messageId;
+    event.messageArgs = mappedInfo.dbusArgNames;
 
     return true;
 }
