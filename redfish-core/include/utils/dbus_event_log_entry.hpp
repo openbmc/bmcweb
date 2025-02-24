@@ -8,9 +8,11 @@
 #include <cstdint>
 #include <optional>
 #include <string>
+#include <unordered_map>
 
 namespace redfish
 {
+
 struct DbusEventLogEntry
 {
     // represents a subset of an instance of dbus interface
@@ -25,6 +27,7 @@ struct DbusEventLogEntry
     std::string Severity;
     uint64_t Timestamp = 0;
     uint64_t UpdateTimestamp = 0;
+    std::unordered_map<std::string, std::string> AdditionalData = {};
 };
 
 inline std::optional<DbusEventLogEntry> fillDbusEventLogEntryFromPropertyMap(
@@ -43,7 +46,8 @@ inline std::optional<DbusEventLogEntry> fillDbusEventLogEntryFromPropertyMap(
         "ServiceProviderNotify", entry.ServiceProviderNotify,
         "Severity", entry.Severity,
         "Timestamp", entry.Timestamp,
-        "UpdateTimestamp", entry.UpdateTimestamp
+        "UpdateTimestamp", entry.UpdateTimestamp,
+        "AdditionalData", entry.AdditionalData
     );
     // clang-format on
     if (!success)
