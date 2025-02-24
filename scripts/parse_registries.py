@@ -4,6 +4,7 @@ import json
 import os
 import typing as t
 from collections import OrderedDict
+from dataclasses import dataclass
 
 import requests
 
@@ -47,14 +48,37 @@ REGISTRY_HEADER: t.Final[str] = f"{COPYRIGHT}{PRAGMA_ONCE}{WARNING}{INCLUDES}"
 SCRIPT_DIR: t.Final[str] = os.path.dirname(os.path.realpath(__file__))
 
 INCLUDE_PATH: t.Final[str] = os.path.realpath(
-    os.path.join(SCRIPT_DIR, "..", "redfish-core", "include", "registries")
+    os.path.join(SCRIPT_DIR, "..", "redfish-core", "include")
+)
+INCLUDE_REG_PATH: t.Final[str] = os.path.realpath(
+    os.path.join(INCLUDE_PATH, "registries")
 )
 
 PROXIES: t.Final[t.Dict[str, str]] = {
     "https": os.environ.get("https_proxy", "")
 }
 
-RegistryInfo: t.TypeAlias = t.Tuple[str, t.Dict[str, t.Any], str, str]
+OPENBMC_REGISTRIES_BASE_URL: t.Final[str] = (
+    "https://raw.githubusercontent.com/openbmc/bmcweb/refs/heads/master/redfish-core/include/registries/"
+)
+
+RegistryInfo: t.TypeAlias = t.Tuple[
+    str, t.Dict[str, t.Any], str, t.Optional[str]
+]
+
+
+@dataclass
+class DBusFileInfo:
+    path: str
+    version: str
+
+
+@dataclass
+class DBusToRedfish:
+    dbus_event_name: str
+    registry_prefix: str
+    redfish_message_id: str
+    args: t.List[t.Tuple[str, str]]
 
 
 def make_getter(
@@ -64,12 +88,12 @@ def make_getter(
     dmtf = requests.get(url, proxies=PROXIES)
     dmtf.raise_for_status()
     json_file = json.loads(dmtf.text, object_pairs_hook=OrderedDict)
-    path = os.path.join(INCLUDE_PATH, header_name)
+    path = os.path.join(INCLUDE_REG_PATH, header_name)
     return (path, json_file, type_name, url)
 
 
 def openbmc_local_getter() -> RegistryInfo:
-    url = "https://raw.githubusercontent.com/openbmc/bmcweb/refs/heads/master/redfish-core/include/registries/openbmc.json"
+    url = os.path.join(OPENBMC_REGISTRIES_BASE_URL, "openbmc.json")
     with open(
         os.path.join(
             SCRIPT_DIR,
@@ -83,22 +107,15 @@ def openbmc_local_getter() -> RegistryInfo:
     ) as json_file_fd:
         json_file = json.load(json_file_fd)
 
-    path = os.path.join(INCLUDE_PATH, "openbmc_message_registry.hpp")
+    path = os.path.join(INCLUDE_REG_PATH, "openbmc_message_registry.hpp")
     return (path, json_file, "openbmc", url)
 
 
-def generate_selector(files: t.List[RegistryInfo]) -> None:
+def generate_selector(
+    path: str, header: str, files: t.List[RegistryInfo]
+) -> None:
     # Create the top-level header.
-    with open(
-        os.path.join(
-            SCRIPT_DIR,
-            "..",
-            "redfish-core",
-            "include",
-            "registries_selector.hpp",
-        ),
-        "w",
-    ) as selector:
+    with open(os.path.join(path, header), "w") as selector:
         selector.write(f"{COPYRIGHT}{PRAGMA_ONCE}")
         selector.write("// NOLINTBEGIN(misc-include-cleaner)\n")
         for file in sorted([os.path.basename(x[0]) for x in files]):
@@ -106,8 +123,10 @@ def generate_selector(files: t.List[RegistryInfo]) -> None:
         selector.write("// NOLINTEND(misc-include-cleaner)\n")
 
 
-def update_registries(files: t.List[RegistryInfo]) -> None:
-    generate_selector(files)
+def update_registries(
+    path: str, header: str, files: t.List[RegistryInfo]
+) -> None:
+    generate_selector(path, header, files)
 
     # Remove the old files
     for file, json_dict, namespace, url in files:
@@ -116,6 +135,7 @@ def update_registries(files: t.List[RegistryInfo]) -> None:
         except BaseException:
             print("{} not found".format(file))
 
+        os.makedirs(os.path.dirname(file), exist_ok=True)
         with open(file, "w") as registry:
             version_split = json_dict["RegistryVersion"].split(".")
 
@@ -137,12 +157,12 @@ def update_registries(files: t.List[RegistryInfo]) -> None:
                 "}};\n"
                 "\n"
                 "static constexpr const char* url =\n"
-                '    "{url}";\n'
+                "    {url};\n"
                 "\n"
                 "static constexpr std::array registry =\n"
                 "{{\n".format(
                     json_dict=json_dict,
-                    url=url,
+                    url=f'"{url}"' if url else "nullptr",
                     version_split=version_split,
                 )
             )
@@ -672,6 +692,247 @@ def to_pascal_case(text: str) -> str:
     return "".join(i.capitalize() for i in s1[0:])
 
 
+def to_snake_case(text: str) -> str:
+    ret = ""
+    for i, c in enumerate(text):
+        if c.isupper():
+            if i == 0:
+                ret += c.lower()
+            else:
+                ret += "_" + c.lower()
+        else:
+            ret += c
+    return ret
+
+
+def openbmc_name_to_snake_case(text: str) -> str:
+    if "openbmc_" not in text.lower():
+        raise ValueError(f"Invalid OpenBMC name {text}")
+    return to_snake_case(text.replace("OpenBMC_", "openbmc_")).replace(
+        "__", "_"
+    )
+
+
+def update_dbus_mapping(
+    path: str,
+    dbus_registries_map: t.Dict[str, DBusToRedfish],
+    with_format: bool = True,
+) -> None:
+    NUMBER_OF_ARGS = 10
+    file_name = os.path.join(path, "external_registries_map.hpp")
+
+    try:
+        os.remove(file_name)
+    except BaseException:
+        print("{} not found".format(file_name))
+
+    with open(file_name, "w") as dbus_registries_map_fh:
+        dbus_registries_map_fh.write(COPYRIGHT)
+        dbus_registries_map_fh.write(PRAGMA_ONCE)
+        dbus_registries_map_fh.write(WARNING)
+        dbus_registries_map_fh.write(
+            """
+#include <array>
+#include <cstddef>
+
+#include "external_registries.hpp"
+
+namespace redfish::dbus_registries_map
+{{
+
+struct ArgInfo
+{{
+    const char* name;
+    const char* type;
+}};
+
+struct EntryInfo
+{{
+    const char* registryName;
+    const char* redfishMessageId;
+    const std::array<ArgInfo, {number_of_args}> argsInfo;
+    const size_t numberOfArgs;
+}};
+
+using DbusMessageEntry = std::pair<const char*, const EntryInfo>;
+
+constexpr std::array dbusToRedfishMessageId = {{
+""".format(
+                number_of_args=NUMBER_OF_ARGS,
+            )
+        )
+
+        for dbus_name, entry in OrderedDict(
+            sorted(dbus_registries_map.items())
+        ).items():
+            args = entry.args
+            dbus_registries_map_fh.write(
+                "    DbusMessageEntry{\n"
+                f'       "{dbus_name}",\n'
+                "        {\n"
+                f'            "{entry.registry_prefix}",\n'
+                f'            "{entry.redfish_message_id}",\n'
+            )
+            if not args:
+                dbus_registries_map_fh.write("            {},\n")
+            else:
+                args_cpp_lines = [
+                    f'                ArgInfo{{"{arg[0]}", "{arg[1]}"}},\n'
+                    for arg in args
+                ]
+                dbus_registries_map_fh.write("            {\n")
+                for line in args_cpp_lines:
+                    dbus_registries_map_fh.write(line)
+                dbus_registries_map_fh.write("                },\n")
+            number_of_args = len(args)
+            if number_of_args > NUMBER_OF_ARGS:
+                raise RuntimeError(
+                    f"Number of args ({number_of_args}) > than the limit "
+                    f"({NUMBER_OF_ARGS}) for {dbus_name} in {file_name}"
+                )
+            dbus_registries_map_fh.write(f"            {len(args)},\n")
+            dbus_registries_map_fh.write("            },\n")
+            dbus_registries_map_fh.write("    },\n")
+
+        dbus_registries_map_fh.write(
+            "};\n} // namespace redfish::dbus_registries_map\n"
+        )
+    if with_format:
+        os.system(f"clang-format -i {file_name}")
+
+
+def parse_oem_openbmc_mapping(
+    dbus_name: str,
+    retistry_prefix: str,
+    message_id: str,
+    args: t.List[t.Dict[str, str]],
+) -> DBusToRedfish:
+    return DBusToRedfish(
+        dbus_name,
+        retistry_prefix,
+        message_id,
+        args=[(arg["Name"], arg["Type"]) for arg in args],
+    )
+
+
+def parse_dbus_oem_file_messages(
+    path: str,
+    file: str,
+    registries: t.Dict[str, RegistryInfo],
+    dbus_registries_map: t.Dict[str, DBusToRedfish],
+) -> None:
+    with open(file, "rb") as fd:
+        json_file = json.load(fd)
+        messages = json_file.get("Messages", {})
+
+        if not messages:
+            return
+
+        registry_prefix = json_file["RegistryPrefix"]
+        registry_name = openbmc_name_to_snake_case(registry_prefix)
+        path = os.path.join(
+            path, "registries", f"{registry_name}_message_registry.hpp"
+        )
+        if registry_name not in registries:
+            registries[registry_name] = (
+                path,
+                json_file,
+                registry_name,
+                None,
+            )
+        else:
+            for message_id, message in messages.items():
+                if message_id in registries[registry_name][1]["Messages"]:
+                    raise ValueError(
+                        f"Message {message_id} already exists in registry "
+                        f"{registry_name}. Required by {file}"
+                    )
+                registries[registry_name][1]["Messages"][message_id] = message
+
+        # Parse oem openbmc mapping
+        for message_id, message in messages.items():
+            oem_openbmc_mapping = message.get("Oem", {}).get(
+                "OpenBMC_Mapping", {}
+            )
+            if not oem_openbmc_mapping:
+                continue
+
+            dbus_event_name = oem_openbmc_mapping.get("Event")
+
+            if dbus_event_name in dbus_registries_map:
+                info = dbus_registries_map[dbus_event_name]
+                raise ValueError(
+                    f"Message {dbus_event_name} already exists in "
+                    f"dbus_registries_map for {info}. Required by {file}"
+                )
+
+            dbus_registries_map[dbus_event_name] = parse_oem_openbmc_mapping(
+                dbus_event_name,
+                registry_prefix,
+                message_id,
+                oem_openbmc_mapping.get("Args", []),
+            )
+
+
+def parse_dbus_oem_file_oem(
+    file: str,
+    registries: t.Dict[str, RegistryInfo],
+    dbus_registries_map: t.Dict[str, DBusToRedfish],
+) -> None:
+    with open(file, "rb") as fd:
+        json_file = json.load(fd)
+        # If Oem dict contains mapping of DBus messages to existing messages
+        # in other registries
+        oem_openbmc_mapping = json_file.get("Oem", {}).get(
+            "OpenBMC_Mapping", {}
+        )
+        if not oem_openbmc_mapping:
+            return
+
+        for dbus_event_name, dbus_event_info in oem_openbmc_mapping.items():
+            if dbus_event_name in dbus_registries_map:
+                info = dbus_registries_map[dbus_event_name]
+                raise ValueError(
+                    f"Message {dbus_event_name} already exists in "
+                    f"dbus_registries_map for {info}. Required by {file}"
+                )
+
+            registry_prefix, message_id = dbus_event_info[
+                "RedfishEvent"
+            ].split(".")
+            dbus_registries_map[dbus_event_name] = parse_oem_openbmc_mapping(
+                dbus_event_name,
+                registry_prefix,
+                message_id,
+                dbus_event_info.get("Args", []),
+            )
+
+
+def parse_dbus_oem_files(
+    path: str,
+    registry: str,
+    registries: t.Dict[str, RegistryInfo],
+    dbus_registries_map: t.Dict[str, DBusToRedfish],
+) -> None:
+    files: t.List[str] = []
+
+    for root, _, filenames in os.walk(registry):
+        for f in filenames:
+            if not f.endswith(".json"):
+                continue
+            files.append(os.path.join(root, f))
+
+    # Do 2 passes, first pass to parse the messages, second pass to parse the oem
+    # Reason is that we need to know the messages before we can parse the oem
+    for file in files:
+        parse_dbus_oem_file_messages(
+            path, file, registries, dbus_registries_map
+        )
+
+    for file in files:
+        parse_dbus_oem_file_oem(file, registries, dbus_registries_map)
+
+
 def main() -> None:
     dmtf_registries = OrderedDict(
         [
@@ -704,56 +965,72 @@ def main() -> None:
         + ",".join([dmtf for dmtf in dmtf_registries]),
         help="Comma delimited list of registries to update",
     )
+    parser.add_argument(
+        "--output-dir", type=str, help="Output path", default=INCLUDE_PATH
+    )
+    parser.add_argument("--with-registry", type=str, help="Path to registry")
 
     args = parser.parse_args()
 
     registries = set(args.registries.split(","))
     registries_map: t.OrderedDict[str, RegistryInfo] = OrderedDict()
+    dbus_registries_map: t.Dict[str, DBusToRedfish] = {}
 
-    for registry, version in dmtf_registries.items():
-        if registry in registries:
-            registry_pascal_case = to_pascal_case(registry)
-            registries_map[registry] = make_getter(
-                f"{registry_pascal_case}.{version}.json",
-                f"{registry}_message_registry.hpp",
-                registry,
+    if args.with_registry:
+        parse_dbus_oem_files(
+            args.output_dir,
+            args.with_registry,
+            registries_map,
+            dbus_registries_map,
+        )
+        update_dbus_mapping(args.output_dir, dbus_registries_map, False)
+        header = "external_registries.hpp"
+    else:
+        for registry, version in dmtf_registries.items():
+            if registry in registries:
+                registry_pascal_case = to_pascal_case(registry)
+                registries_map[registry] = make_getter(
+                    f"{registry_pascal_case}.{version}.json",
+                    f"{registry}_message_registry.hpp",
+                    registry,
+                )
+        if "openbmc" in registries:
+            registries_map["openbmc"] = openbmc_local_getter()
+        header = "registries_selector.hpp"
+
+    update_registries(args.output_dir, header, list(registries_map.values()))
+
+    if not args.with_registry:
+        if "base" in registries_map:
+            create_error_registry(
+                registries_map["base"],
+                "Base",
+                "base",
+                "error",
             )
-    if "openbmc" in registries:
-        registries_map["openbmc"] = openbmc_local_getter()
-
-    update_registries(list(registries_map.values()))
-
-    if "base" in registries_map:
-        create_error_registry(
-            registries_map["base"],
-            "Base",
-            "base",
-            "error",
-        )
-    if "heartbeat_event" in registries_map:
-        create_error_registry(
-            registries_map["heartbeat_event"],
-            "HeartbeatEvent",
-            "heartbeat_event",
-            "heartbeat",
-        )
-    if "resource_event" in registries_map:
-        create_error_registry(
-            registries_map["resource_event"],
-            "ResourceEvent",
-            "resource_event",
-            "resource",
-        )
-    if "task_event" in registries_map:
-        create_error_registry(
-            registries_map["task_event"],
-            "TaskEvent",
-            "task_event",
-            "task",
-        )
-
-    if "privilege" in registries:
-        make_privilege_registry()
+        if "heartbeat_event" in registries_map:
+            create_error_registry(
+                registries_map["heartbeat_event"],
+                "HeartbeatEvent",
+                "heartbeat_event",
+                "heartbeat",
+            )
+        if "resource_event" in registries_map:
+            create_error_registry(
+                registries_map["resource_event"],
+                "ResourceEvent",
+                "resource_event",
+                "resource",
+            )
+        if "task_event" in registries_map:
+            create_error_registry(
+                registries_map["task_event"],
+                "TaskEvent",
+                "task_event",
+                "task",
+            )
+        if "privilege" in registries:
+            make_privilege_registry()
 
 
 if __name__ == "__main__":
