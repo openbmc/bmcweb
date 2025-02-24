@@ -36,6 +36,149 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18d2f899_ae01b752",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-24T18:15:04Z",
+      "side": 1,
+      "message": "Bunch of minor changes, and some documentation, then should be good.",
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "123e540d_e331ff84",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-24T18:15:04Z",
+      "side": 1,
+      "message": "How was this chosen?  Please answer in your commit message.  I\u0027m assuming it was some level of \"If an http request takes longer than 2 minutes, something is clearly wrong\"",
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e0fbf59_edbf9762",
+        "filename": "config/meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-24T18:15:04Z",
+      "side": 1,
+      "message": "please add to your commit message why this needs to be configurable?  2 minutes is... insanely long for an http blocking request.  Setting it higher would be an error.\n\nI really suspect we can just keep a sane default for now.",
+      "range": {
+        "startLine": 53,
+        "startChar": 35,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a949e3b_ab2697a6",
+        "filename": "include/watchdog.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-24T18:15:04Z",
+      "side": 1,
+      "message": "Please handle errors.  Presumably if this errors we should just log and then not continue, but we need to check regardless.  If you\u0027ve intentionally ignored the error, please state that in a comment as to why.",
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4303f6c8_1007466b",
+        "filename": "include/watchdog.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-24T18:15:04Z",
+      "side": 1,
+      "message": "nit, remove this-\u003e",
+      "range": {
+        "startLine": 33,
+        "startChar": 53,
+        "endLine": 33,
+        "endChar": 59
+      },
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51279c93_e2262acc",
+        "filename": "include/watchdog.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-24T18:15:04Z",
+      "side": 1,
+      "message": "Please roll this out into a member method, not a lambda.",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e19424e1_023fd9b9",
+        "filename": "include/watchdog.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-24T18:15:04Z",
+      "side": 1,
+      "message": "Can this just be std::chrono::seconds?",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 13
+      },
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89ab4ca9_c62fd999",
@@ -49,6 +192,24 @@
       "writtenOn": "2025-02-24T14:15:27Z",
       "side": 1,
       "message": "How does someone disable this?",
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "611d952a_f5141319",
+        "filename": "meson.options",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-24T18:15:04Z",
+      "side": 1,
+      "message": "+1.  Please also document how to disable in your commit message.",
+      "parentUuid": "89ab4ca9_c62fd999",
       "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
