@@ -22,6 +22,7 @@
 #include "redfish_aggregator.hpp"
 #include "user_monitor.hpp"
 #include "vm_websocket.hpp"
+#include "watchdog.hpp"
 #include "webassets.hpp"
 
 #include <boost/asio/io_context.hpp>
@@ -125,6 +126,11 @@ int run()
     }
 
     bmcweb::registerUserRemovedSignal();
+
+    if constexpr (BMCWEB_WATCHDOG_TIMEOUT > 0)
+    {
+        bmcweb::ServiceWD watchdog(io);
+    }
 
     app.run();
 
