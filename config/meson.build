@@ -2,6 +2,15 @@
 
 conf_data = configuration_data()
 
+# Add watchdog configuration
+watchdog_timeout = get_option('watchdog-timeout')
+if watchdog_timeout == 0
+    watchdog_config = ''
+else
+    watchdog_config = 'WatchdogSec=' + watchdog_timeout.to_string() + 's'
+endif
+conf_data.set('WATCHDOG_CONFIG', watchdog_config)
+
 feature_options = [
     'basic-auth',
     'cookie-auth',
@@ -50,7 +59,7 @@ string_options = [
     'redfish-system-uri-name',
 ]
 
-int_options = ['http-body-limit']
+int_options = ['http-body-limit', 'watchdog-timeout']
 
 feature_options_string = '\n//Feature options\n'
 string_options_string = '\n// String options\n'
@@ -157,7 +166,10 @@ configure_file(
     install_dir: systemd_system_unit_dir,
     install: true,
     configuration: configuration_data(
-        {'MESON_INSTALL_PREFIX': get_option('prefix')},
+        {
+            'MESON_INSTALL_PREFIX': get_option('prefix'),
+            'WATCHDOG_CONFIG': watchdog_config,
+        },
     ),
 )
 

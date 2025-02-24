@@ -10,6 +10,7 @@ ExecStart=@MESON_INSTALL_PREFIX@/libexec/bmcwebd
 Type=simple
 WorkingDirectory=/home/root
 SyslogLevelPrefix=true
+@WATCHDOG_CONFIG@
 
 [Install]
 WantedBy=network.target
