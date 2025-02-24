@@ -50,7 +50,7 @@ string_options = [
     'redfish-system-uri-name',
 ]
 
-int_options = ['http-body-limit']
+int_options = ['http-body-limit', 'watchdog-timeout-seconds']
 
 feature_options_string = '\n//Feature options\n'
 string_options_string = '\n// String options\n'
@@ -157,7 +157,10 @@ configure_file(
     install_dir: systemd_system_unit_dir,
     install: true,
     configuration: configuration_data(
-        {'MESON_INSTALL_PREFIX': get_option('prefix')},
+        {
+            'MESON_INSTALL_PREFIX': get_option('prefix'),
+            'WATCHDOG_TIMEOUT_SECONDS': get_option('watchdog-timeout-seconds'),
+        },
     ),
 )
 
