@@ -49,7 +49,6 @@ limitations under the License.
 #include <format>
 #include <functional>
 #include <memory>
-#include <span>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -223,13 +222,8 @@ void Subscription::filterAndSendEventLogs(
 
         nlohmann::json::object_t bmcLogEntry;
         uint64_t memberId = 0;
-        if (event_log::formatEventLogEntry(
-                eventId, logEntry.id, logEntry.messageId, messageArgsView,
-                logEntry.timestamp, userSub->customText, bmcLogEntry) != 0)
-        {
-            BMCWEB_LOG_WARNING("Read eventLog entry failed");
-            continue;
-        }
+        event_log::formatEventLogEntry(eventId, logEntry, userSub->customText,
+                                       bmcLogEntry);
 
         if (!eventMatchesFilter(*userSub, bmcLogEntry, ""))
         {

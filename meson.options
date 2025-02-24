@@ -315,6 +315,21 @@ option(
                     will be disabled by default June 2024. ''',
 )
 
+# BMCWEB_REDFISH_ALLOW_DBUS_MESSAGES_MAPPING
+option(
+    'redfish-allow-dbus-messages-mapping',
+    type: 'feature',
+    value: 'disabled',
+    description: '''
+        Allows LogServices to map DBus messages to Redfish registry messages.
+        When it's enabled, the DBus messages get converted to Redfish messages
+        using Registry data. If there is no entry on the map, the DBus message
+        is dropped. When the option is disabled the message gets presented to
+        the user as is - message property contains the raw DBus message,
+        and it does not contain Redfish MessageId and MessageArgs.
+    ''',
+)
+
 # BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA
 option(
     'redfish-oem-manager-fan-data',
