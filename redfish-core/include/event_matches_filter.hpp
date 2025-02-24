@@ -34,7 +34,7 @@ inline void getRegistryAndMessageKey(const std::string& messageID,
 }
 
 inline bool eventMatchesFilter(const persistent_data::UserSubscription& userSub,
-                               const nlohmann::json::object_t& eventMessage,
+                               const nlohmann::json& eventMessage,
                                std::string_view resType)
 {
     // If resourceTypes list is empty, assume all
@@ -58,14 +58,13 @@ inline bool eventMatchesFilter(const persistent_data::UserSubscription& userSub,
     // send everything.
     if (!userSub.registryPrefixes.empty())
     {
-        auto eventJson = eventMessage.find("MessageId");
-        if (eventJson == eventMessage.end())
+        if (!eventMessage.contains("MessageId"))
         {
             return false;
         }
 
         const std::string* messageId =
-            eventJson->second.get_ptr<const std::string*>();
+            eventMessage["MessageId"].get_ptr<const std::string*>();
         if (messageId == nullptr)
         {
             BMCWEB_LOG_ERROR("MessageId wasn't a string???");
@@ -85,14 +84,13 @@ inline bool eventMatchesFilter(const persistent_data::UserSubscription& userSub,
 
     if (!userSub.originResources.empty())
     {
-        auto eventJson = eventMessage.find("OriginOfCondition");
-        if (eventJson == eventMessage.end())
+        if (!eventMessage.contains("OriginOfCondition"))
         {
             return false;
         }
 
         const std::string* originOfCondition =
-            eventJson->second.get_ptr<const std::string*>();
+            eventMessage["OriginOfCondition"].get_ptr<const std::string*>();
         if (originOfCondition == nullptr)
         {
             BMCWEB_LOG_ERROR("OriginOfCondition wasn't a string???");
@@ -111,15 +109,14 @@ inline bool eventMatchesFilter(const persistent_data::UserSubscription& userSub,
     // If registryMsgIds list is empty, assume all
     if (!userSub.registryMsgIds.empty())
     {
-        auto eventJson = eventMessage.find("MessageId");
-        if (eventJson == eventMessage.end())
+        if (!eventMessage.contains("MessageId"))
         {
             BMCWEB_LOG_DEBUG("'MessageId' not present");
             return false;
         }
 
         const std::string* messageId =
-            eventJson->second.get_ptr<const std::string*>();
+            eventMessage["MessageId"].get_ptr<const std::string*>();
         if (messageId == nullptr)
         {
             BMCWEB_LOG_ERROR("EventType wasn't a string???");

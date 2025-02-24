@@ -221,7 +221,8 @@ void Subscription::filterAndSendEventLogs(
         std::vector<std::string_view> messageArgsView(
             logEntry.messageArgs.begin(), logEntry.messageArgs.end());
 
-        nlohmann::json::object_t bmcLogEntry;
+        nlohmann::json bmcLogEntry;
+        uint64_t memberId = 0;
         if (event_log::formatEventLogEntry(
                 eventId, logEntry.id, logEntry.messageId, messageArgsView,
                 logEntry.timestamp, userSub->customText, bmcLogEntry) != 0)
@@ -246,6 +247,7 @@ void Subscription::filterAndSendEventLogs(
             }
         }
 
+        bmcLogEntry["MemberId"] = std::to_string(memberId++);
         logEntryArray.emplace_back(std::move(bmcLogEntry));
         eventId++;
     }

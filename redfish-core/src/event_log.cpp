@@ -18,6 +18,7 @@ limitations under the License.
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
+#include "utils/log_utils.hpp"
 
 #include <nlohmann/json.hpp>
 
@@ -125,25 +126,13 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
                         const std::string& messageID,
                         const std::span<std::string_view> messageArgs,
                         std::string timestamp, const std::string& customText,
-                        nlohmann::json::object_t& logEntryJson)
+                        nlohmann::json& logEntryJson)
 {
-    // Get the Message from the MessageRegistry
-    const registries::Message* message = registries::getMessage(messageID);
-
-    if (message == nullptr)
+    auto success =
+        log_utils::fillLogObjPartially(logEntryID, messageID, messageArgs,
+                                       false /*fillResolution*/, logEntryJson);
+    if (!success)
     {
-        BMCWEB_LOG_DEBUG(
-            "{}: could not find messageID '{}' for log entry {} in registry",
-            __func__, messageID, logEntryID);
-        return -1;
-    }
-
-    std::string msg =
-        redfish::registries::fillMessageArgs(messageArgs, message->message);
-    if (msg.empty())
-    {
-        BMCWEB_LOG_DEBUG("{}: message is empty after filling fillMessageArgs",
-                         __func__);
         return -1;
     }
 
@@ -160,10 +149,6 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
     // Fill in the log entry with the gathered data
     logEntryJson["EventId"] = std::to_string(eventId);
 
-    logEntryJson["Severity"] = message->messageSeverity;
-    logEntryJson["Message"] = std::move(msg);
-    logEntryJson["MessageId"] = messageID;
-    logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;
     return 0;

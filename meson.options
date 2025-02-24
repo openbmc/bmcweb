@@ -315,6 +315,19 @@ option(
                     will be disabled by default June 2024. ''',
 )
 
+# BMCWEB_REDFISH_ALLOW_LOG_ENTRY_FROM_DBUS_WO_MAPPING
+option(
+    'redfish-allow-log-entry-from-dbus-wo-mapping',
+    type: 'feature',
+    value: 'enabled',
+    description: '''
+        Allows LogServices to build entries from DBus without mapping to
+        them to Redfish registry messages. Such messages do not contain Redfish
+        MessageId and MessageArgs, and use arbitrary text from DBus event as message.
+        If it's disabled such entries will be dropped.
+    ''',
+)
+
 # BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA
 option(
     'redfish-oem-manager-fan-data',

@@ -134,7 +134,7 @@ TEST(RedfishEventLog, FormatEventLogEntrySuccess)
     std::string timestamp = "my-timestamp";
     std::string customText = "customText";
 
-    nlohmann::json::object_t logEntryJson;
+    nlohmann::json logEntryJson;
     status = formatEventLogEntry(eventId, logEntryID, messageID, messageArgs,
                                  timestamp, customText, logEntryJson);
 
@@ -173,7 +173,7 @@ TEST(RedfishEventLog, FormatEventLogEntryFail)
     std::string timestamp;
     std::string customText;
 
-    nlohmann::json::object_t logEntryJson;
+    nlohmann::json logEntryJson;
     status = formatEventLogEntry(eventId, logEntryID, messageID, messageArgs,
                                  timestamp, customText, logEntryJson);
 
