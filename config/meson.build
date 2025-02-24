@@ -24,6 +24,7 @@ feature_options = [
     'redfish',
     'redfish-aggregation',
     'redfish-allow-deprecated-power-thermal',
+    'redfish-allow-dbus-messages-mapping',
     'redfish-allow-simple-update',
     'redfish-bmc-journal',
     'redfish-cpu-log',
