@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "740755f3_183f5e3d",
+        "filename": "Redfish.md",
+        "patchSetId": 65
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-24T21:39:00Z",
+      "side": 1,
+      "message": "And \nMultiFactorAuth/GoogleAuthenticator/SecretKeySet  ?",
+      "revId": "fda6a58501caafdbb97a1c40f82f3823113d06c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee68a648_a5a05423",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 65
