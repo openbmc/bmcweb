@@ -1,0 +1,50 @@
+{
+    "@Redfish.Copyright": "Copyright 2024-2025 OpenBMC.",
+    "@odata.type": "#MessageRegistry.v1_6_3.MessageRegistry",
+    "Id": "OpenBMC_StateCable.1.0.0",
+    "Language": "en",
+    "Messages": {
+        "CableDisconnected": {
+            "Description": "An expected cable is not connected.",
+            "Message": "An expected cable on port %1 is not connected.",
+            "Resolution": "Check and fix cable connections.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Oem": {
+                "OpenBMC_Mapping": {
+                    "Event": "xyz.openbmc_project.State.Cable.CableDisconnected",
+                    "Args": [
+                        {
+                            "Name": "PORT_ID",
+                            "Type": "std::string"
+                        }
+                    ]
+                }
+            }
+        },
+        "CableConnected": {
+            "Description": "An expected cable is connected.",
+            "Message": "An expected cable on port %1 is connected.",
+            "Resolution": "None.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Oem": {
+                "OpenBMC_Mapping": {
+                    "Event": "xyz.openbmc_project.State.Cable.CableConnected",
+                    "Args": [
+                        {
+                            "Name": "PORT_ID",
+                            "Type": "std::string"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "Name": "OpenBMC Message Registry for xyz.openbmc_project.State.Cable",
+    "OwningEntity": "OpenBMC",
+    "RegistryPrefix": "OpenBMC_StateCable",
+    "RegistryVersion": "1.0.0"
+}

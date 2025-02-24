@@ -1,0 +1,69 @@
+{
+    "@Redfish.Copyright": "Copyright 2024-2025 OpenBMC.",
+    "@odata.type": "#MessageRegistry.v1_6_3.MessageRegistry",
+    "Id": "OpenBMC_StateLeakDetectorGroup.1.0.0",
+    "Language": "en",
+    "Messages": {
+        "DetectorGroupCritical": {
+            "Description": "Detector group has a critical status.",
+            "Message": "Detector group %1 is in a critical state.",
+            "Resolution": "Inspect the detectors in the group.",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Oem": {
+                "OpenBMC_Mapping": {
+                    "Event": "xyz.openbmc_project.State.Leak.DetectorGroup.DetectorGroupCritical",
+                    "Args": [
+                        {
+                            "Name": "DETECTOR_GROUP_NAME",
+                            "Type": "sdbusplus::message::object_path"
+                        }
+                    ]
+                }
+            }
+        },
+        "DetectorGroupWarning": {
+            "Description": "Detector group has a warning status.",
+            "Message": "Detector group %1 is in a warning state.",
+            "Resolution": "Inspect the detectors in the group.",
+            "MessageSeverity": "Warning",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Oem": {
+                "OpenBMC_Mapping": {
+                    "Event": "xyz.openbmc_project.State.Leak.DetectorGroup.DetectorGroupWarning",
+                    "Args": [
+                        {
+                            "Name": "DETECTOR_GROUP_NAME",
+                            "Type": "sdbusplus::message::object_path"
+                        }
+                    ]
+                }
+            }
+        },
+        "DetectorGroupNormal": {
+            "Description": "The detector group has returned to its normal operating state.",
+            "Message": "Detector group {DetectorName} is operating normally.",
+            "Resolution": "None.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Oem": {
+                "OpenBMC_Mapping": {
+                    "Event": "xyz.openbmc_project.State.Leak.DetectorGroup.DetectorGroupNormal",
+                    "Args": [
+                        {
+                            "Name": "DETECTOR_GROUP_NAME",
+                            "Type": "sdbusplus::message::object_path"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "Name": "OpenBMC Message Registry for xyz.openbmc_project.State.Leak.DetectorGroup",
+    "OwningEntity": "OpenBMC",
+    "RegistryPrefix": "OpenBMC_StateLeakDetectorGroup",
+    "RegistryVersion": "1.0.0"
+}
