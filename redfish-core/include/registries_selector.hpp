@@ -3,9 +3,14 @@
 #pragma once
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
+#include "registries/environmental_message_registry.hpp"
 #include "registries/heartbeat_event_message_registry.hpp"
+#include "registries/openbmc_logging_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
+#include "registries/openbmc_state_cable_message_registry.hpp"
+#include "registries/openbmc_state_leak_detector_group_message_registry.hpp"
 #include "registries/resource_event_message_registry.hpp"
+#include "registries/sensor_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
 #include "registries/telemetry_message_registry.hpp"
 
@@ -48,6 +53,29 @@ inline std::optional<registries::HeaderAndUrl>
     {
         return HeaderAndUrl{telemetry::header, telemetry::url};
     }
+    if (environmental::header.registryPrefix == registryName)
+    {
+        return HeaderAndUrl{environmental::header, environmental::url};
+    }
+    if (sensor_event::header.registryPrefix == registryName)
+    {
+        return HeaderAndUrl{sensor_event::header, sensor_event::url};
+    }
+    if (openbmc_logging::header.registryPrefix == registryName)
+    {
+        return HeaderAndUrl{openbmc_logging::header, openbmc_logging::url};
+    }
+    if (openbmc_state_cable::header.registryPrefix == registryName)
+    {
+        return HeaderAndUrl{openbmc_state_cable::header,
+                            openbmc_state_cable::url};
+    }
+    if (openbmc_state_leak_detector_group::header.registryPrefix ==
+        registryName)
+    {
+        return HeaderAndUrl{openbmc_state_leak_detector_group::header,
+                            openbmc_state_leak_detector_group::url};
+    }
     return std::nullopt;
 }
 
@@ -77,6 +105,27 @@ inline std::span<const MessageEntry> getRegistryFromPrefix(
     if (telemetry::header.registryPrefix == registryName)
     {
         return {telemetry::registry};
+    }
+    if (environmental::header.registryPrefix == registryName)
+    {
+        return {environmental::registry};
+    }
+    if (sensor_event::header.registryPrefix == registryName)
+    {
+        return {sensor_event::registry};
+    }
+    if (openbmc_logging::header.registryPrefix == registryName)
+    {
+        return {openbmc_logging::registry};
+    }
+    if (openbmc_state_cable::header.registryPrefix == registryName)
+    {
+        return {openbmc_state_cable::registry};
+    }
+    if (openbmc_state_leak_detector_group::header.registryPrefix ==
+        registryName)
+    {
+        return {openbmc_state_leak_detector_group::registry};
     }
     return {openbmc::registry};
 }
