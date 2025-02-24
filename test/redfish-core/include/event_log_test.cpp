@@ -126,19 +126,19 @@ TEST(RedfishEventLog, GetEventLogParamsFailNoComma)
 
 TEST(RedfishEventLog, FormatEventLogEntrySuccess)
 {
-    int status = 0;
     uint64_t eventId = 0;
     std::string logEntryID = "23849423_3";
+    std::string message = "Power supply PSU 1 fan FAN 2 failed.";
     std::string messageID = "OpenBMC.0.1.PowerSupplyFanFailed";
-    std::vector<std::string_view> messageArgs = {"PSU 1", "FAN 2"};
+    std::vector<std::string> messageArgs = {"PSU 1", "FAN 2"};
     std::string timestamp = "my-timestamp";
     std::string customText = "customText";
 
-    nlohmann::json::object_t logEntryJson;
-    status = formatEventLogEntry(eventId, logEntryID, messageID, messageArgs,
-                                 timestamp, customText, logEntryJson);
+    const redfish::EventLogObjectsType& logEntry{
+        logEntryID, message, messageID, messageArgs, "", "", timestamp};
 
-    ASSERT_EQ(status, 0);
+    nlohmann::json::object_t logEntryJson;
+    formatEventLogEntry(eventId, logEntry, customText, logEntryJson);
 
     ASSERT_TRUE(logEntryJson.contains("EventId"));
     ASSERT_EQ(logEntryJson["EventId"], "0");
@@ -162,23 +162,5 @@ TEST(RedfishEventLog, FormatEventLogEntrySuccess)
     ASSERT_TRUE(logEntryJson.contains("Context"));
     ASSERT_EQ(logEntryJson["Context"], "customText");
 }
-
-TEST(RedfishEventLog, FormatEventLogEntryFail)
-{
-    int status = 0;
-    uint64_t eventId = 0;
-    std::string logEntryID = "malformed";
-    std::string messageID;
-    std::vector<std::string_view> messageArgs;
-    std::string timestamp;
-    std::string customText;
-
-    nlohmann::json::object_t logEntryJson;
-    status = formatEventLogEntry(eventId, logEntryID, messageID, messageArgs,
-                                 timestamp, customText, logEntryJson);
-
-    ASSERT_EQ(status, -1);
-}
-
 } // namespace
 } // namespace redfish::event_log
