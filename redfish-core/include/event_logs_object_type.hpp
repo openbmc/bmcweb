@@ -18,8 +18,11 @@ namespace redfish
 struct EventLogObjectsType
 {
     std::string id;
-    std::string timestamp;
+    std::string message;
     std::string messageId;
     std::vector<std::string> messageArgs;
+    std::string resolution;
+    std::string severity;
+    std::string timestamp;
 };
 } // namespace redfish
