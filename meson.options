@@ -524,3 +524,13 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.''',
 )
+
+# BMCWEB_WATCHDOG_TIMEOUT
+option(
+    'watchdog-timeout',
+    type: 'integer',
+    min: 1,
+    max: 600,
+    value: 30,
+    description: 'Specifies the watchdog timeout interval in seconds',
+)
