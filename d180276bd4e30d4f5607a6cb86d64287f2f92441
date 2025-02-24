@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e90c221_cef17c5e",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-24T21:34:42Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "revId": "d180276bd4e30d4f5607a6cb86d64287f2f92441",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc69835a_44ac370f",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-24T21:34:42Z",
+      "side": 1,
+      "message": "Sure we can\u0027t do this without callbacks? \nThis code confusing to follow",
+      "revId": "d180276bd4e30d4f5607a6cb86d64287f2f92441",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc2fc594_4e07a829",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-24T21:34:42Z",
+      "side": 1,
+      "message": "Why do we need to set success ?",
+      "revId": "d180276bd4e30d4f5607a6cb86d64287f2f92441",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c23cdcc_9b2b28bf",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-24T21:34:42Z",
+      "side": 1,
+      "message": "typically a littler easier to read with //\n\nhttps://github.com/openbmc/bmcweb/blob/58d3aabc81589c43e15fe2dbbe71f82439d36318/redfish-core/lib/managers.hpp#L240",
+      "revId": "d180276bd4e30d4f5607a6cb86d64287f2f92441",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab771872_bc39e8b5",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-24T21:34:42Z",
+      "side": 1,
+      "message": "How does this and id like \"badaccountid\"\n\nE.g. \n\n POST /redfish/v1/AccountService/Accounts/badaccountid/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword\n\n\n?",
+      "revId": "d180276bd4e30d4f5607a6cb86d64287f2f92441",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
