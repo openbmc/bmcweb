@@ -1,0 +1,26 @@
+{
+    "@Redfish.Copyright": "Copyright 2024-2025 OpenBMC.",
+    "@odata.type": "#MessageRegistry.v1_6_3.MessageRegistry",
+    "Id": "OpenBMC_Logging.1.0.1",
+    "Language": "en",
+    "Messages": {
+        "Cleared": {
+            "Description": "Indicate the user cleared all logs.",
+            "Message": "Event log cleared by user.",
+            "Resolution": "None.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 0,
+            "ParamTypes": [],
+            "Oem": {
+                "OpenBMC_Mapping": {
+                    "Event": "xyz.openbmc_project.Logging.Cleared",
+                    "Args": []
+                }
+            }
+        }
+    },
+    "Name": "OpenBMC Message Registry for xyz.openbmc_project.Logging",
+    "OwningEntity": "OpenBMC",
+    "RegistryPrefix": "OpenBMC_Logging",
+    "RegistryVersion": "1.0.1"
+}
