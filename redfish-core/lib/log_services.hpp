@@ -25,6 +25,7 @@
 #include "task.hpp"
 #include "task_messages.hpp"
 #include "utils/dbus_event_log_entry.hpp"
+#include "utils/dbus_registries_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/query_param.hpp"
@@ -1441,6 +1442,10 @@ inline void fillEventLogLogEntryFromPropertyMap(
     }
     DbusEventLogEntry entry = optEntry.value();
 
+    std::optional<std::pair<std::string, std::vector<std::string>>>
+        optRfMessageIdAndArgs =
+            redfish::dbus_registries::getRfMessageIdAndArgs(entry);
+
     objectToFillOut["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
     objectToFillOut["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
@@ -1466,6 +1471,11 @@ inline void fillEventLogLogEntryFromPropertyMap(
         redfish::time_utils::getDateTimeUintMs(entry.Timestamp);
     objectToFillOut["Modified"] =
         redfish::time_utils::getDateTimeUintMs(entry.UpdateTimestamp);
+    if (optRfMessageIdAndArgs.has_value())
+    {
+        objectToFillOut["MessageId"] = optRfMessageIdAndArgs->first;
+        objectToFillOut["MessageArgs"] = optRfMessageIdAndArgs->second;
+    }
     if (entry.Path != nullptr)
     {
         objectToFillOut["AdditionalDataURI"] = boost::urls::format(
