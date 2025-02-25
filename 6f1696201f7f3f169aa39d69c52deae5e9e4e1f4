@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17818658_d6179a95",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-25T22:59:28Z",
+      "side": 1,
+      "message": "lots of new capabilities here which is great to see, but we need to make sure we\u0027re consolidating into the common registry handling code we already have rather than just writing new stuff.  I see lots of helpers that have been replaced with \"new\" not necessarily better versions.  Please make sure you\u0027re looking through the existing registry flows and reusing where appropriate.",
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c3be0a25_a53db208",
         "filename": "include/dbus_utility.hpp",
         "patchSetId": 2
