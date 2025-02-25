@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e50255c5_804cebb2",
+        "filename": "http/server_sent_event_impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-25T23:04:19Z",
+      "side": 1,
+      "message": "Agree with you.  I can open up that change, because too many things are called \"Connection\" right now.",
+      "parentUuid": "8ba71c0f_1f095c33",
+      "revId": "eff7222de18de0afd1774051cb85f8bd24fcd431",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ef20943_b9339ca4",
         "filename": "http/server_sent_event_impl.hpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-25T17:30:36Z",
       "side": 1,
       "message": "I guess these could be moved to a .cpp file one day?",
+      "revId": "eff7222de18de0afd1774051cb85f8bd24fcd431",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a49475da_412e5870",
+        "filename": "http/server_sent_event_impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-25T23:04:19Z",
+      "side": 1,
+      "message": "We\u0027d have to invent a new, non template class to do that.  It\u0027s certainly all possible, but definitely not a today thing.  Funtionally it would look very similar to what I just did with HTTPconnection and HTTP2 connection, but that\u0027s not refactoring I\u0027m going to do today.",
+      "parentUuid": "1ef20943_b9339ca4",
       "revId": "eff7222de18de0afd1774051cb85f8bd24fcd431",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
