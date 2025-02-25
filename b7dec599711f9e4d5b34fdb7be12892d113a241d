@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abed1517_966b6bbe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-25T22:20:05Z",
+      "side": 1,
+      "message": "Need to document \"why\".  All DMTF schemas include a description, and all well-formed registries should include a description.  I see no problem for OpenBMC to require a human readable description at this level.  Is there a registry you\u0027re trying to ingest that doesn\u0027t have a description?  I\u0027m assuming that\u0027s something that you should ask the registry author to fix, but without knowing the registry, I can\u0027t suggest how to go about that..",
+      "revId": "b7dec599711f9e4d5b34fdb7be12892d113a241d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e8916da_ef16033d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-25T22:20:05Z",
+      "side": 1,
+      "message": "CSDL is the source of truth for any of these \"is it required\"",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 67
+      },
+      "revId": "b7dec599711f9e4d5b34fdb7be12892d113a241d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
