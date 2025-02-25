@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "227214c5_3f0fab67",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2160,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-02-25T07:41:02Z",
+      "side": 1,
+      "message": "The implementation is as per schema https://redfish.dmtf.org/schemas/v1/PortCollection.json\nhttps://redfish.dmtf.org/schemas/v1/Port.v1_14_0.json",
+      "parentUuid": "744ff44a_d2f5895b",
+      "revId": "e1ada85a19825ccc9bd4db294ffb7d1fc565be41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "20996133_8d24498f",
         "filename": "redfish-core/lib/ethernet.hpp",
         "patchSetId": 13
