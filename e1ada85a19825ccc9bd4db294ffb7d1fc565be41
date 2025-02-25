@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "763a792b_186b0713",
+        "filename": "Redfish.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-02-25T07:35:01Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "032e7307_11480a41",
+      "revId": "e1ada85a19825ccc9bd4db294ffb7d1fc565be41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "744ff44a_d2f5895b",
@@ -48,6 +66,30 @@
       "writtenOn": "2025-02-11T19:38:08Z",
       "side": 1,
       "message": "Looks like DedicatedNetworkPorts wasn\u0027t\u0027 added to the docs?",
+      "range": {
+        "startLine": 2642,
+        "startChar": 50,
+        "endLine": 2642,
+        "endChar": 71
+      },
+      "revId": "e1ada85a19825ccc9bd4db294ffb7d1fc565be41",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37def040_832561e0",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 2642,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-02-25T07:35:01Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "20996133_8d24498f",
       "range": {
         "startLine": 2642,
         "startChar": 50,
