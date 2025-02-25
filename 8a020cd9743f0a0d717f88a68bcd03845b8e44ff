@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2960327f_c63c2a36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-02-25T07:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffbd1064_1d5bffa4",
+      "revId": "8a020cd9743f0a0d717f88a68bcd03845b8e44ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "662f2f51_d76a68aa",
@@ -48,6 +66,24 @@
       "writtenOn": "2024-12-17T07:48:37Z",
       "side": 1,
       "message": "I don\u0027t see port schema details populated, please populate \"odata.id\" and odata.type\" properties.",
+      "revId": "8a020cd9743f0a0d717f88a68bcd03845b8e44ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2195720d_cf9619a1",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2109,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-02-25T07:37:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "662f2f51_d76a68aa",
       "revId": "8a020cd9743f0a0d717f88a68bcd03845b8e44ff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
