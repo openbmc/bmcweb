@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba71c0f_1f095c33",
+        "filename": "http/server_sent_event_impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-25T17:30:36Z",
+      "side": 1,
+      "message": "Kind of wish the Class / namespace / file shared a similar name. E.g. names like SSEConnectionImpl and SSEConnection IMO would better fit here. Oh well, different problem",
+      "revId": "eff7222de18de0afd1774051cb85f8bd24fcd431",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ef20943_b9339ca4",
+        "filename": "http/server_sent_event_impl.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-02-25T17:30:36Z",
+      "side": 1,
+      "message": "I guess these could be moved to a .cpp file one day?",
+      "revId": "eff7222de18de0afd1774051cb85f8bd24fcd431",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
