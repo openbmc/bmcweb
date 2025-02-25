@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8d2a8e4_c363f407",
+        "filename": "redfish-core/include/registries/openbmc_state_cable_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-25T22:36:42Z",
+      "side": 1,
+      "message": "This doesn\u0027t look like it\u0027s modeled correctly in Redfish.  I\u0027d expect this would normally be a \"ResourceCreated\" message (when the cable object was created).\n\nWas this discussed with DMTF somewhere?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "f483127ae23e0600ca1374f7075d587429bc70be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bbfff75_88514bcd",
+        "filename": "redfish-core/include/registries/openbmc_state_leak_detector_group.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-25T22:36:42Z",
+      "side": 1,
+      "message": "This looks like it\u0027s intending to create LOTS of registries.  There\u0027s no reason to take on the registry overhead if a registry isn\u0027t optional.  Just put them all into one registry until we find individual functions that need to be optional (and have code to do that).",
+      "revId": "f483127ae23e0600ca1374f7075d587429bc70be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
