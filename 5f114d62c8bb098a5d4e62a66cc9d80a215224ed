@@ -39,6 +39,30 @@
       },
       "revId": "5f114d62c8bb098a5d4e62a66cc9d80a215224ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d012ab0_ce964dd9",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-25T23:07:05Z",
+      "side": 1,
+      "message": "Also, this list was previously alphabetical.  Please keep it that way.",
+      "parentUuid": "41725c43_301ffd55",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 5
+      },
+      "revId": "5f114d62c8bb098a5d4e62a66cc9d80a215224ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
