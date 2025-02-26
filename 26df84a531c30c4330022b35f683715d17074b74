@@ -22,6 +22,30 @@
       },
       "revId": "26df84a531c30c4330022b35f683715d17074b74",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd81a529_b985f2f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T17:59:46Z",
+      "side": 1,
+      "message": "Thanks. I\u0027ve just actually run the validator, I will update the commit message..",
+      "parentUuid": "928bf364_73f6ae52",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 10
+      },
+      "revId": "26df84a531c30c4330022b35f683715d17074b74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
