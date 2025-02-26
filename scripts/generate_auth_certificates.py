@@ -9,10 +9,13 @@ import argparse
 import datetime
 import errno
 import ipaddress
+import json
 import os
 import socket
 import time
+from typing import Optional
 
+import asn1
 import httpx
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
@@ -24,6 +27,7 @@ from cryptography.hazmat.primitives.serialization import (
 from cryptography.x509.oid import NameOID
 
 replaceCertPath = "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate"
+upnObjectIdentifier = "1.2.840.113556.1.4.656"
 
 
 class RedfishSessionContext:
@@ -112,7 +116,9 @@ def signCsr(csr, ca_key):
     return
 
 
-def generate_client_key_and_cert(commonName, ca_cert, ca_key):
+def generate_client_key_and_cert(
+    commonName, ca_cert, ca_key, upn: Optional[str]
+):
     private_key = ec.generate_private_key(ec.SECP256R1())
     public_key = private_key.public_key()
     builder = x509.CertificateBuilder()
@@ -160,6 +166,23 @@ def generate_client_key_and_cert(commonName, ca_cert, ca_key):
 
     auth_key = x509.AuthorityKeyIdentifier.from_issuer_public_key(public_key)
     builder = builder.add_extension(auth_key, critical=False)
+
+    if upn is not None:
+        encoder = asn1.Encoder()
+        encoder.start()
+        encoder.write(upn, asn1.Numbers.UTF8String)
+
+        builder = builder.add_extension(
+            x509.SubjectAlternativeName(
+                [
+                    x509.OtherName(
+                        x509.ObjectIdentifier(upnObjectIdentifier),
+                        encoder.output(),
+                    )
+                ]
+            ),
+            critical=False,
+        )
 
     signed = builder.sign(private_key=ca_key, algorithm=hashes.SHA256())
 
@@ -348,6 +371,67 @@ def test_mtls_auth(url, certs_dir):
     response.raise_for_status()
 
 
+def test_mtls_auth_upn(url, certs_dir, upn):
+    print("Changing CertificateMappingAttribute to use UPN")
+    patch_json = {
+        "MultiFactorAuth": {
+            "ClientCertificate": {
+                "CertificateMappingAttribute": "UserPrincipalName"
+            }
+        }
+    }
+    response = httpx.patch(
+        f"https://{url}/redfish/v1/AccountService",
+        data=json.dumps(patch_json),
+        headers={"content-type": "application/json"},
+        verify=os.path.join(certs_dir, "CA-cert.cer"),
+        cert=(
+            os.path.join(certs_dir, "client-cert.pem"),
+            os.path.join(certs_dir, "client-key.pem"),
+        ),
+    )
+    response.raise_for_status()
+
+    print("Testing mTLS auth with UPN")
+    response = httpx.get(
+        f"https://{url}/redfish/v1/SessionService/Sessions",
+        verify=os.path.join(certs_dir, "CA-cert.cer"),
+        cert=(
+            os.path.join(certs_dir, "client-cert.pem"),
+            os.path.join(certs_dir, "client-key.pem"),
+        ),
+    )
+    response.raise_for_status()
+
+    print("Changing CertificateMappingAttribute to use CommonName")
+    patch_json = {
+        "MultiFactorAuth": {
+            "ClientCertificate": {"CertificateMappingAttribute": "CommonName"}
+        }
+    }
+    response = httpx.patch(
+        f"https://{url}/redfish/v1/AccountService",
+        json=patch_json,
+        verify=os.path.join(certs_dir, "CA-cert.cer"),
+        cert=(
+            os.path.join(certs_dir, "client-cert.pem"),
+            os.path.join(certs_dir, "client-key.pem"),
+        ),
+    )
+    response.raise_for_status()
+
+    print("Retesting mTLS auth with CommonName")
+    response = httpx.get(
+        f"https://{url}/redfish/v1/SessionService/Sessions",
+        verify=os.path.join(certs_dir, "CA-cert.cer"),
+        cert=(
+            os.path.join(certs_dir, "client-cert.pem"),
+            os.path.join(certs_dir, "client-key.pem"),
+        ),
+    )
+    response.raise_for_status()
+
+
 def setup_server_cert(
     redfish_session,
     ca_cert_dump,
@@ -390,7 +474,7 @@ def setup_server_cert(
     install_server_cert(redfish_session, manager_uri, server_cert_dump)
 
 
-def generate_and_load_certs(url, username, password):
+def generate_and_load_certs(url, username, password, upn: Optional[str]):
     certs_dir = os.path.expanduser("~/certs")
     print(f"Writing certs to {certs_dir}")
     try:
@@ -430,7 +514,7 @@ def generate_and_load_certs(url, username, password):
     ca_key = load_pem_private_key(ca_key_dump, None)
 
     client_key, client_cert = generate_client_key_and_cert(
-        username, ca_cert, ca_key
+        username, ca_cert, ca_key, upn
     )
     client_key_dump = client_key.private_bytes(
         encoding=serialization.Encoding.PEM,
@@ -473,6 +557,8 @@ def generate_and_load_certs(url, username, password):
 
     time.sleep(2)
     test_mtls_auth(url, certs_dir)
+    if upn is not None:
+        test_mtls_auth_upn(url, certs_dir, upn)
     print("Redfish TLS authentication success!")
 
 
@@ -488,10 +574,15 @@ def main():
         help="Password for user in order to install certs over Redfish.",
         default="0penBmc",
     )
+    parser.add_argument(
+        "--upn",
+        help="Use user principal name instead",
+        default=None,
+    )
     parser.add_argument("host", help="Host to connect to")
 
     args = parser.parse_args()
-    generate_and_load_certs(args.host, args.username, args.password)
+    generate_and_load_certs(args.host, args.username, args.password, args.upn)
 
 
 if __name__ == "__main__":
