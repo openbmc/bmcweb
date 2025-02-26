@@ -1,0 +1,112 @@
+{
+    "@Redfish.Copyright": "Copyright 2024 Nvidia. All rights reserved.",
+    "@odata.type": "#MessageRegistry.v1_4_0.MessageRegistry",
+    "Description": "This registry defines the update messages for Nvidia.",
+    "Id": "NvidiaUpdate.1.0.0",
+    "Language": "en",
+    "Messages": {
+        "ComponentUpdateSkipped": {
+            "Description": "Indicates that update of component has been skipped",
+            "Message": "The update operation for the component %1 is skipped because %2.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "DebugTokenAlreadyInstalled": {
+            "Description": "Indicates that the device has a token already installed and cannot finish current request.",
+            "Message": "Debug token for device '%1' has already been installed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "DebugTokenInstallationSuccess": {
+            "Description": "Signifies the successful completion of debug token installation.",
+            "Message": "The operation to install a debug token for device '%1' has been successfully completed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "DebugTokenRequestSuccess": {
+            "Description": "Signifies the successful completion of the debug token request.",
+            "Message": "The operation to request a debug token for device '%1' has been successfully completed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "DebugTokenStatusSuccess": {
+            "Description": "Signifies the successful completion of the debug token status request.",
+            "Message": "The operation to obtain a token status for device '%1' has been successfully completed.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "DebugTokenUnsupported": {
+            "Description": "Indicates that the device does not support debug token functionality.",
+            "Message": "Device '%1' does not support debug token functionality.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "DebugTokenEraseFailed": {
+            "Description": "Indicates that debug token erase operation has failed for the device.",
+            "Message": "The operation to erase a debug token for device '%1' has failed with error '%2'",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "RecoveryStarted": {
+            "Description": "Indicates that recovery has started on a component",
+            "Message": "Firmware Recovery Started on %1.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "RecoverySuccessful": {
+            "Description": "Indicates that recovery has successfully completed on a component",
+            "Message": "Firmware %1 is successfully recovered.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "FirmwareNotInRecovery": {
+            "Description": "Indicates that a firmware is not in Recovery Mode",
+            "Message": "Firmware %1 is not in Recovery.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 1,
+            "ParamTypes": ["string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        },
+        "StageSuccessful": {
+            "Description": "Indicates that image is successfully staged on the device",
+            "Message": "Device %1 successfully staged with image %2.",
+            "MessageSeverity": "OK",
+            "NumberOfArgs": 2,
+            "ParamTypes": ["string", "string"],
+            "Resolution": "None.",
+            "Severity": "OK"
+        }
+    },
+    "Name": "Nvidia Update Message Registry",
+    "OwningEntity": "Nvidia",
+    "RegistryPrefix": "NvidiaUpdate",
+    "RegistryVersion": "1.0.0"
+}
