@@ -177,8 +177,7 @@ inline MTLSCommonNameParseMode getMTLSCommonNameParseMode(std::string_view name)
     }
     if (name == "UserPrincipalName")
     {
-        // Not yet supported
-        // return MTLSCommonNameParseMode::UserPrincipalName;
+        return MTLSCommonNameParseMode::UserPrincipalName;
     }
     if constexpr (BMCWEB_META_TLS_COMMON_NAME_PARSING)
     {
@@ -248,14 +247,18 @@ struct AuthConfigMethods
             {
                 if (element.first == "MTLSCommonNameParseMode")
                 {
-                    if (*intValue <= 2 || *intValue == 100)
+                    MTLSCommonNameParseMode tmpMTLSCommonNameParseMode =
+                        static_cast<MTLSCommonNameParseMode>(*intValue);
+                    if (tmpMTLSCommonNameParseMode <=
+                            MTLSCommonNameParseMode::UserPrincipalName ||
+                        tmpMTLSCommonNameParseMode ==
+                            MTLSCommonNameParseMode::Meta)
                     {
-                        mTLSCommonNameParsingMode =
-                            static_cast<MTLSCommonNameParseMode>(*intValue);
+                        mTLSCommonNameParsingMode = tmpMTLSCommonNameParseMode;
                     }
                     else
                     {
-                        BMCWEB_LOG_ERROR(
+                        BMCWEB_LOG_WARNING(
                             "Json value of {} was out of range of the enum.  Ignoring",
                             *intValue);
                     }
