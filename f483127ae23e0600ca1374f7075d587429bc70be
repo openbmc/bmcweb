@@ -92,6 +92,24 @@
       "message": "We shouldn’t be checking these in here (nor the generated header files) anyhow. We should be [optionally] depending on the results from PDI and dynamically building these. If we check this code in it is going to be out of date.",
       "revId": "f483127ae23e0600ca1374f7075d587429bc70be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60739179_349224a6",
+        "filename": "redfish-core/include/registries/openbmc_state_leak_detector_group.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T12:33:37Z",
+      "side": 1,
+      "message": "The reason behind I checking these in, is, to have these accessible. But it seems the PublicationUri is optional in the code https://github.com/openbmc/bmcweb/blob/6b0d0c1751208a09e0be300a52c82925547cdfe8/redfish-core/lib/message_registries.hpp#L120-L123 and spec https://redfish.dmtf.org/schemas/v1/MessageRegistryFile.v1_1_0.json, so I will remove checking the jsons and use null URIs.",
+      "parentUuid": "abff94ab_ff89794f",
+      "revId": "f483127ae23e0600ca1374f7075d587429bc70be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
