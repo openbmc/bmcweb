@@ -17,13 +17,12 @@ import httpx
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import ec
-from cryptography.hazmat.primitives.serialization import (
-    load_pem_private_key,
-    pkcs12,
-)
+from cryptography.hazmat.primitives.serialization import load_pem_private_key, pkcs12
 from cryptography.x509.oid import NameOID
 
-replaceCertPath = "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate"
+replaceCertPath = (
+    "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate"
+)
 
 
 class RedfishSessionContext:
@@ -100,9 +99,7 @@ def generateCA():
 
     builder = builder.add_extension(auth_key, critical=False)
 
-    root_cert = builder.sign(
-        private_key=private_key, algorithm=hashes.SHA256()
-    )
+    root_cert = builder.sign(private_key=private_key, algorithm=hashes.SHA256())
 
     return private_key, root_cert
 
@@ -121,9 +118,7 @@ def generate_client_key_and_cert(commonName, ca_cert, ca_key):
         x509.Name(
             [
                 x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
-                x509.NameAttribute(
-                    NameOID.STATE_OR_PROVINCE_NAME, "California"
-                ),
+                x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "California"),
                 x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco"),
                 x509.NameAttribute(NameOID.ORGANIZATION_NAME, "OpenBMC"),
                 x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "bmcweb"),
@@ -273,10 +268,7 @@ def install_ca_cert(redfish_session, ca_cert_dump, manager_uri):
 
     response = redfish_session.post(ca_certPath, json=ca_certJSON)
     if response.status_code == 500:
-        print(
-            "An existing CA certificate is likely already installed."
-            " Replacing..."
-        )
+        print("An existing CA certificate is likely already installed." " Replacing...")
         ca_certJSON["CertificateUri"] = {
             "@odata.id": ca_certPath + "/1",
         }
@@ -314,9 +306,7 @@ def install_server_cert(redfish_session, manager_uri, server_cert_dump):
 
     tls_patch_json = {"Oem": {"OpenBMC": {"AuthMethods": {"TLS": True}}}}
     print("Ensuring TLS authentication is enabled.")
-    response = redfish_session.patch(
-        "/redfish/v1/AccountService", json=tls_patch_json
-    )
+    response = redfish_session.patch("/redfish/v1/AccountService", json=tls_patch_json)
     if response.status_code == 200:
         print("Successfully enabled TLS authentication.")
     else:
@@ -361,10 +351,10 @@ def setup_server_cert(
 ):
     service_root = redfish_session.get("/redfish/v1/")
     service_root.raise_for_status()
+    resp = service_root.json()
+    print(f"service_root: {resp}")
 
-    manager_uri = service_root.json()["Links"]["ManagerProvidingService"][
-        "@odata.id"
-    ]
+    manager_uri = resp["Links"]["ManagerProvidingService"]["@odata.id"]
 
     install_ca_cert(redfish_session, ca_cert_dump, manager_uri)
     generate_pk12(certs_dir, client_key, client_cert, username)
@@ -380,9 +370,7 @@ def setup_server_cert(
         ca_cert,
         csr,
     )
-    server_cert_dump = serverCert.public_bytes(
-        encoding=serialization.Encoding.PEM
-    )
+    server_cert_dump = serverCert.public_bytes(encoding=serialization.Encoding.PEM)
     with open(os.path.join(certs_dir, "server-cert.pem"), "wb") as f:
         f.write(server_cert_dump)
         print("Server cert generated.")
@@ -410,9 +398,7 @@ def generate_and_load_certs(url, username, password):
             format=serialization.PrivateFormat.TraditionalOpenSSL,
             encryption_algorithm=serialization.NoEncryption(),
         )
-        ca_cert_dump = ca_cert.public_bytes(
-            encoding=serialization.Encoding.PEM
-        )
+        ca_cert_dump = ca_cert.public_bytes(encoding=serialization.Encoding.PEM)
 
         with open(ca_cert_filename, "wb") as f:
             f.write(ca_cert_dump)
@@ -429,9 +415,7 @@ def generate_and_load_certs(url, username, password):
         ca_key_dump = ca_key_file.read()
     ca_key = load_pem_private_key(ca_key_dump, None)
 
-    client_key, client_cert = generate_client_key_and_cert(
-        username, ca_cert, ca_key
-    )
+    client_key, client_cert = generate_client_key_and_cert(username, ca_cert, ca_key)
     client_key_dump = client_key.private_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PrivateFormat.TraditionalOpenSSL,
@@ -441,9 +425,7 @@ def generate_and_load_certs(url, username, password):
     with open(os.path.join(certs_dir, "client-key.pem"), "wb") as f:
         f.write(client_key_dump)
         print("Client key generated.")
-    client_cert_dump = client_cert.public_bytes(
-        encoding=serialization.Encoding.PEM
-    )
+    client_cert_dump = client_cert.public_bytes(encoding=serialization.Encoding.PEM)
 
     with open(os.path.join(certs_dir, "client-cert.pem"), "wb") as f:
         f.write(client_cert_dump)
@@ -453,9 +435,7 @@ def generate_and_load_certs(url, username, password):
     with httpx.Client(
         base_url=f"https://{url}", verify=False, follow_redirects=False
     ) as redfish_session:
-        with RedfishSessionContext(
-            redfish_session, username, password
-        ) as rf_session:
+        with RedfishSessionContext(redfish_session, username, password) as rf_session:
             redfish_session.headers["X-Auth-Token"] = rf_session.x_auth_token
             setup_server_cert(
                 redfish_session,
