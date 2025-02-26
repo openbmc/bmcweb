@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a480453_2cda604a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T18:15:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4b8a48db_49daaa1c",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f42d40b5_9c53e6c8",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-02-25T22:31:51Z",
       "side": 1,
       "message": "Please take a look at the existing structures we have for redfish Message registries. What you\u0027ve implemented here looks like a duplicate.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 22
+      },
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf48aff9_0058c1ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T18:15:33Z",
+      "side": 1,
+      "message": "The reason I\u0027m doing this (making a separate structure) is, because the code using message registries get registry name and message ID, so it can load the registry and look for the message id in there.\nThe code I\u0027m writing gets dbus event id as an input, and here we have 2 options:\n1. Put lists of dbus events that should be mapped to particular message ID into existing message registry structures. In this case we will not need an additional structure, but we will need to traverse ALL the message registries looking for a messageID associated with the received dbus event name.\n2. Have a separate structure where each key points to particular registry and message id. You may think of it as an index. Since it\u0027s pre-generated and requires traversal only thru this index, it\u0027s much faster and cheaper that #1.",
+      "parentUuid": "f42d40b5_9c53e6c8",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -124,6 +172,24 @@
       "writtenOn": "2025-02-25T22:31:51Z",
       "side": 1,
       "message": "Some issues with this structure:\n1. It\u0027s going to consume memory the whole time bmcweb is running\n2. It needs to be constructed/malloced/sorted at startup which effects the startup time on socket activation.\n\nPlease look at the existing Registry structures and model your code after them.  They don\u0027t have either of these problems, give essentially the same result.\n\nIf there\u0027s modifications we need to make to them, great, but I don\u0027t want to maintain two different structure definitions for storing a \"registry\" in the binary.",
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46789b17_0bbe88e8",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T18:15:33Z",
+      "side": 1,
+      "message": "I will look into making this static.\n\nBut I think we need a separate structure to make it efficient (see my point about this in the previous comment).",
+      "parentUuid": "df4da75f_1e4e5493",
       "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
