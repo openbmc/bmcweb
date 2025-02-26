@@ -12,6 +12,7 @@
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
+#include "identity.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
 #include "query.hpp"
@@ -20,8 +21,6 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/stl_utils.hpp"
-
-#include <unistd.h>
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
@@ -46,7 +45,6 @@ namespace redfish
 {
 
 void getNTPProtocolEnabled(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp);
-std::string getHostName();
 
 static constexpr std::string_view sshServiceName = "dropbear";
 static constexpr std::string_view httpsServiceName = "bmcweb";
@@ -438,18 +436,6 @@ inline void handleProtocolEnabled(
                 }
             }
         });
-}
-
-inline std::string getHostName()
-{
-    std::string hostName;
-
-    std::array<char, HOST_NAME_MAX> hostNameCStr{};
-    if (gethostname(hostNameCStr.data(), hostNameCStr.size()) == 0)
-    {
-        hostName = hostNameCStr.data();
-    }
-    return hostName;
 }
 
 inline void getNTPProtocolEnabled(
