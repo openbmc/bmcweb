@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d067fe9_458e3c24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T18:26:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bb25ee74_2fe8faeb",
+      "revId": "5f114d62c8bb098a5d4e62a66cc9d80a215224ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41725c43_301ffd55",
@@ -55,6 +73,30 @@
       "side": 1,
       "message": "Also, this list was previously alphabetical.  Please keep it that way.",
       "parentUuid": "41725c43_301ffd55",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 5
+      },
+      "revId": "5f114d62c8bb098a5d4e62a66cc9d80a215224ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "403575a6_4c803f15",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T18:26:21Z",
+      "side": 1,
+      "message": "I did not notice it had been alphabetical, will make it that way. What to combining into one registry, according to Patrick, it was designed to be separate registries. I don\u0027t have strong opinion here, I\u0027m following the design. If you disagree with this design, please discuss this with Patrick.\n\nIf we keep the design, I think in the future we will need to generate this file.",
+      "parentUuid": "3d012ab0_ce964dd9",
       "range": {
         "startLine": 56,
         "startChar": 0,
