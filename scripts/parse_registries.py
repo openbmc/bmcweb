@@ -2,11 +2,14 @@
 import argparse
 import json
 import os
+import typing as t
 from collections import OrderedDict
 
 import requests
 
-PRAGMA_ONCE = """#pragma once
+PRAGMA_ONCE: t.Final[
+    str
+] = """#pragma once
 """
 
 WARNING = """/****************************************************************
@@ -20,7 +23,9 @@ WARNING = """/****************************************************************
  * github organization.
  ***************************************************************/"""
 
-COPYRIGHT = """// SPDX-License-Identifier: Apache-2.0
+COPYRIGHT: t.Final[
+    str
+] = """// SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 """
 
@@ -35,18 +40,24 @@ namespace redfish::registries::{}
 {{
 """
 
-REGISTRY_HEADER = f"{COPYRIGHT}{PRAGMA_ONCE}{WARNING}{INCLUDES}"
+REGISTRY_HEADER: t.Final[str] = f"{COPYRIGHT}{PRAGMA_ONCE}{WARNING}{INCLUDES}"
 
-SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+SCRIPT_DIR: t.Final[str] = os.path.dirname(os.path.realpath(__file__))
 
-INCLUDE_PATH = os.path.realpath(
+INCLUDE_PATH: t.Final[str] = os.path.realpath(
     os.path.join(SCRIPT_DIR, "..", "redfish-core", "include", "registries")
 )
 
-PROXIES = {"https": os.environ.get("https_proxy", None)}
+PROXIES: t.Final[t.Dict[str, str]] = {
+    "https": os.environ.get("https_proxy", "")
+}
+
+RegistryInfo: t.TypeAlias = t.Tuple[str, t.Dict[str, t.Any], str, str]
 
 
-def make_getter(dmtf_name, header_name, type_name):
+def make_getter(
+    dmtf_name: str, header_name: str, type_name: str
+) -> RegistryInfo:
     url = "https://redfish.dmtf.org/registries/{}".format(dmtf_name)
     dmtf = requests.get(url, proxies=PROXIES)
     dmtf.raise_for_status()
@@ -55,7 +66,7 @@ def make_getter(dmtf_name, header_name, type_name):
     return (path, json_file, type_name, url)
 
 
-def openbmc_local_getter():
+def openbmc_local_getter() -> RegistryInfo:
     url = "https://raw.githubusercontent.com/openbmc/bmcweb/refs/heads/master/redfish-core/include/registries/openbmc.json"
     with open(
         os.path.join(
@@ -74,7 +85,7 @@ def openbmc_local_getter():
     return (path, json_file, "openbmc", url)
 
 
-def update_registries(files):
+def update_registries(files: t.List[RegistryInfo]) -> None:
     # Remove the old files
     for file, json_dict, namespace, url in files:
         try:
@@ -151,18 +162,22 @@ def update_registries(files):
             )
 
 
-def get_privilege_string_from_list(privilege_list):
+def get_privilege_string_from_list(
+    privilege_list: t.List[t.Dict[str, t.Any]],
+) -> str:
     privilege_string = "{{\n"
     for privilege_json in privilege_list:
         privileges = privilege_json["Privilege"]
         privilege_string += "    {"
+        last_privelege = ""
         for privilege in privileges:
+            last_privelege = privilege
             if privilege == "NoAuth":
                 continue
             privilege_string += '"'
             privilege_string += privilege
             privilege_string += '",\n'
-        if privilege != "NoAuth":
+        if last_privelege != "NoAuth":
             privilege_string = privilege_string[:-2]
         privilege_string += "}"
         privilege_string += ",\n"
@@ -171,7 +186,9 @@ def get_privilege_string_from_list(privilege_list):
     return privilege_string
 
 
-def get_variable_name_for_privilege_set(privilege_list):
+def get_variable_name_for_privilege_set(
+    privilege_list: t.List[t.Dict[str, t.Any]],
+) -> str:
     names = []
     for privilege_json in privilege_list:
         privileges = privilege_json["Privilege"]
@@ -196,7 +213,7 @@ namespace redfish::privileges
 )
 
 
-def get_response_code(entry_id):
+def get_response_code(entry_id: str) -> str:
     codes = {
         "InternalError": "internal_server_error",
         "OperationTimeout": "internal_server_error",
@@ -241,8 +258,12 @@ def get_response_code(entry_id):
 
 
 def make_error_function(
-    entry_id, entry, is_header, registry_name, namespace_name
-):
+    entry_id: str,
+    entry: t.Dict[str, t.Any],
+    is_header: bool,
+    registry_name: str,
+    namespace_name: str,
+) -> str:
     arg_nonstring_types = {
         "const boost::urls::url_view_base&": {
             "AccessDenied": [1],
@@ -302,6 +323,7 @@ def make_error_function(
     else:
         out += "\n{\n"
         to_array_type = ""
+        arg_param = "{}"
         if argtypes:
             outargs = []
             for index, typename in enumerate(argtypes):
@@ -325,11 +347,7 @@ def make_error_function(
                 else:
                     outargs.append(f"arg{index}")
             argstring = ", ".join(outargs)
-
-        if argtypes:
             arg_param = f"std::to_array{to_array_type}({{{argstring}}})"
-        else:
-            arg_param = "{}"
         out += f"    return getLog(redfish::registries::{namespace_name}::Index::{function_name}, {arg_param});"
         out += "\n}\n\n"
     if registry_name == "Base":
@@ -394,9 +412,12 @@ def make_error_function(
 
 
 def create_error_registry(
-    entry, registry_version, registry_name, namespace_name, filename
-):
-    file, json_dict, namespace, url = entry
+    registry_info: RegistryInfo,
+    registry_name: str,
+    namespace_name: str,
+    filename: str,
+) -> None:
+    file, json_dict, namespace, url = registry_info
     base_filename = filename + "_messages"
 
     error_messages_hpp = os.path.join(
@@ -556,7 +577,7 @@ static nlohmann::json getLog(redfish::registries::{namespace_name}::Index name,
     os.system(f"clang-format -i {error_messages_hpp} {error_messages_cpp}")
 
 
-def make_privilege_registry():
+def make_privilege_registry() -> None:
     path, json_file, type_name, url = make_getter(
         "Redfish_1.5.0_PrivilegeRegistry.json",
         "privilege_registry.hpp",
@@ -603,7 +624,7 @@ def make_privilege_registry():
         )
 
 
-def to_pascal_case(text):
+def to_pascal_case(text: str) -> str:
     s = text.replace("_", " ")
     s = s.split()
     if len(text) == 0:
@@ -647,7 +668,7 @@ def main():
     args = parser.parse_args()
 
     registries = set(args.registries.split(","))
-    registries_map = OrderedDict()
+    registries_map: t.OrderedDict[str, RegistryInfo] = OrderedDict()
 
     for registry, version in dmtf_registries.items():
         if registry in registries:
@@ -660,12 +681,11 @@ def main():
     if "openbmc" in registries:
         registries_map["openbmc"] = openbmc_local_getter()
 
-    update_registries(registries_map.values())
+    update_registries(list(registries_map.values()))
 
     if "base" in registries_map:
         create_error_registry(
             registries_map["base"],
-            dmtf_registries["base"],
             "Base",
             "base",
             "error",
@@ -673,7 +693,6 @@ def main():
     if "heartbeat_event" in registries_map:
         create_error_registry(
             registries_map["heartbeat_event"],
-            dmtf_registries["heartbeat_event"],
             "HeartbeatEvent",
             "heartbeat_event",
             "heartbeat",
@@ -681,7 +700,6 @@ def main():
     if "resource_event" in registries_map:
         create_error_registry(
             registries_map["resource_event"],
-            dmtf_registries["resource_event"],
             "ResourceEvent",
             "resource_event",
             "resource",
@@ -689,7 +707,6 @@ def main():
     if "task_event" in registries_map:
         create_error_registry(
             registries_map["task_event"],
-            dmtf_registries["task_event"],
             "TaskEvent",
             "task_event",
             "task",
