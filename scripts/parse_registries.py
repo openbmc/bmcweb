@@ -74,6 +74,27 @@ def openbmc_local_getter():
     return (path, json_file, "openbmc", url)
 
 
+def oem_registry_local_getter(registry_name):
+    url = ""
+    json_path = os.path.join(
+        SCRIPT_DIR,
+        "..",
+        "redfish-core",
+        "include",
+        "registries",
+        "oem",
+        f"{registry_name}.json",
+    )
+
+    with open(json_path, "rb") as json_file:
+        json_data = json.load(json_file)
+
+    path = os.path.join(
+        include_path, "oem", f"{registry_name}_message_registry.hpp"
+    )
+    return (path, json_data, registry_name, url)
+
+
 def update_registries(files):
     # Remove the old files
     for file, json_dict, namespace, url in files:
@@ -664,7 +685,11 @@ def main():
                     registry,
                 )
             )
-            registries_map[registry] = files[-1]
+
+    for registry in registries:
+        if registry not in ["openbmc", "privilege"]:
+            files.append(oem_registry_local_getter(registry))
+
     if "openbmc" in registries:
         files.append(openbmc_local_getter())
 
