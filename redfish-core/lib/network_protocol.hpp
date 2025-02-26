@@ -12,6 +12,7 @@
 #include "error_messages.hpp"
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
+#include "identity.hpp"
 #include "logging.hpp"
 #include "privileges.hpp"
 #include "query.hpp"
@@ -438,18 +439,6 @@ inline void handleProtocolEnabled(
                 }
             }
         });
-}
-
-inline std::string getHostName()
-{
-    std::string hostName;
-
-    std::array<char, HOST_NAME_MAX> hostNameCStr{};
-    if (gethostname(hostNameCStr.data(), hostNameCStr.size()) == 0)
-    {
-        hostName = hostNameCStr.data();
-    }
-    return hostName;
 }
 
 inline void getNTPProtocolEnabled(
