@@ -11,7 +11,9 @@
 
 extern "C"
 {
+#include <openssl/asn1.h>
 #include <openssl/obj_mac.h>
+#include <openssl/objects.h>
 #include <openssl/types.h>
 #include <openssl/x509.h>
 #include <openssl/x509_vfy.h>
@@ -27,7 +29,82 @@ extern "C"
 #include <memory>
 #include <string_view>
 
-std::string getUsernameFromCommonName(std::string_view commonName)
+std::string getCommonNameFromCert(X509* cert)
+{
+    std::string commonName;
+    // Extract username contained in CommonName
+    commonName.resize(256, '\0');
+    int length = X509_NAME_get_text_by_NID(
+        X509_get_subject_name(cert), NID_commonName, commonName.data(),
+        static_cast<int>(commonName.size()));
+    if (length <= 0)
+    {
+        BMCWEB_LOG_DEBUG("TLS cannot get common name to create session");
+        return "";
+    }
+    commonName.resize(static_cast<size_t>(length));
+    return commonName;
+}
+
+std::string getUPNFromCert(X509* peerCert)
+{
+    GENERAL_NAMES* gs = static_cast<GENERAL_NAMES*>(
+        X509_get_ext_d2i(peerCert, NID_subject_alt_name, nullptr, nullptr));
+    if (gs == nullptr)
+    {
+        return "";
+    }
+
+    std::string upn;
+    for (int i = 0; i < sk_GENERAL_NAME_num(gs); i++)
+    {
+        GENERAL_NAME* g = sk_GENERAL_NAME_value(gs, i);
+        if (g->type != GEN_OTHERNAME)
+        {
+            continue;
+        }
+
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access)
+        int nid = OBJ_obj2nid(g->d.otherName->type_id);
+        if (nid != NID_ms_upn)
+        {
+            continue;
+        }
+
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access)
+        int type = g->d.otherName->value->type;
+        if (type != V_ASN1_UTF8STRING)
+        {
+            continue;
+        }
+
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast,
+        // cppcoreguidelines-pro-type-union-access)
+        char* upnChar = reinterpret_cast<char*>(
+            g->d.otherName->value->value.utf8string->data);
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access)
+        unsigned int upnLen = static_cast<unsigned int>(
+            g->d.otherName->value->value.utf8string->length);
+        upn = std::string(upnChar, upnLen);
+        break;
+    }
+    GENERAL_NAMES_free(gs);
+    return upn;
+}
+
+std::string getMetaUserNameFromCert(X509* cert)
+{
+    // Meta Inc. CommonName parsing
+    std::optional<std::string_view> sslUserMeta =
+        mtlsMetaParseSslUser(getCommonNameFromCert(cert));
+    if (!sslUserMeta)
+    {
+        return "";
+    }
+    return std::string{*sslUserMeta};
+}
+
+std::string getUsernameFromCert(X509* cert)
 {
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
@@ -35,25 +112,21 @@ std::string getUsernameFromCommonName(std::string_view commonName)
     {
         case persistent_data::MTLSCommonNameParseMode::Invalid:
         case persistent_data::MTLSCommonNameParseMode::Whole:
-        case persistent_data::MTLSCommonNameParseMode::UserPrincipalName:
         {
             // Not yet supported
             return "";
         }
+        case persistent_data::MTLSCommonNameParseMode::UserPrincipalName:
+        {
+            return getUPNFromCert(cert);
+        }
         case persistent_data::MTLSCommonNameParseMode::CommonName:
         {
-            return std::string{commonName};
+            return getCommonNameFromCert(cert);
         }
         case persistent_data::MTLSCommonNameParseMode::Meta:
         {
-            // Meta Inc. CommonName parsing
-            std::optional<std::string_view> sslUserMeta =
-                mtlsMetaParseSslUser(commonName);
-            if (!sslUserMeta)
-            {
-                return "";
-            }
-            return std::string{*sslUserMeta};
+            return getMetaUserNameFromCert(cert);
         }
         default:
         {
@@ -131,11 +204,10 @@ std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
     }
 
     commonName.resize(static_cast<size_t>(length));
-    std::string sslUser = getUsernameFromCommonName(commonName);
+    std::string sslUser = getUsernameFromCert(peerCert);
     if (sslUser.empty())
     {
-        BMCWEB_LOG_WARNING("Failed to get user from common name {}",
-                           commonName);
+        BMCWEB_LOG_WARNING("Failed to get user from peer certificate");
         return nullptr;
     }
 
