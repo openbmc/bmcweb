@@ -2,7 +2,11 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "mutual_tls.hpp"
 
+#include "mutual_tls_private.hpp"
 #include "sessions.hpp"
+
+#include <cstring>
+#include <string>
 
 extern "C"
 {
@@ -10,6 +14,7 @@ extern "C"
 #include <openssl/ec.h>
 #include <openssl/evp.h>
 #include <openssl/obj_mac.h>
+#include <openssl/objects.h>
 #include <openssl/types.h>
 #include <openssl/x509.h>
 #include <openssl/x509_vfy.h>
@@ -169,5 +174,170 @@ TEST(MutualTLS, MissingCert)
     std::shared_ptr<persistent_data::UserSession> session =
         verifyMtlsUser(ip, ctx);
     ASSERT_THAT(session, IsNull());
+}
+
+TEST(GetCommonNameFromCert, EmptyCommonName)
+{
+    OSSLX509 x509;
+    std::string commonName = getCommonNameFromCert(x509.get());
+    EXPECT_THAT(commonName, "");
+}
+
+TEST(GetCommonNameFromCert, ValidCommonName)
+{
+    OSSLX509 x509;
+    x509.setSubjectName();
+    std::string commonName = getCommonNameFromCert(x509.get());
+    EXPECT_THAT(commonName, "user");
+}
+
+TEST(GetUPNFromCert, EmptySubjectAlternativeName)
+{
+    OSSLX509 x509;
+    std::string upn = getUPNFromCert(x509.get(), "");
+    EXPECT_THAT(upn, "");
+}
+
+TEST(GetUPNFromCert, NonOthernameSubjectAlternativeName)
+{
+    OSSLX509 x509;
+
+    ASN1_IA5STRING* ia5 = ASN1_IA5STRING_new();
+    ASSERT_THAT(ia5, NotNull());
+
+    const char* user = "user@domain.com";
+    ASSERT_NE(ASN1_STRING_set(ia5, user, static_cast<int>(strlen(user))), 0);
+
+    GENERAL_NAMES* gens = sk_GENERAL_NAME_new_null();
+    ASSERT_THAT(gens, NotNull());
+
+    GENERAL_NAME* gen = GENERAL_NAME_new();
+    ASSERT_THAT(gen, NotNull());
+
+    GENERAL_NAME_set0_value(gen, GEN_EMAIL, ia5);
+    ASSERT_EQ(sk_GENERAL_NAME_push(gens, gen), 1);
+
+    ASSERT_EQ(X509_add1_ext_i2d(x509.get(), NID_subject_alt_name, gens, 0, 0),
+              1);
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "");
+
+    GENERAL_NAME_free(gen);
+    sk_GENERAL_NAME_free(gens);
+}
+
+TEST(GetUPNFromCert, NonUPNSubjectAlternativeName)
+{
+    OSSLX509 x509;
+
+    GENERAL_NAMES* gens = sk_GENERAL_NAME_new_null();
+    ASSERT_THAT(gens, NotNull());
+
+    GENERAL_NAME* gen = GENERAL_NAME_new();
+    ASSERT_THAT(gen, NotNull());
+
+    ASN1_OBJECT* othType = OBJ_nid2obj(NID_SRVName);
+
+    ASN1_TYPE* value = ASN1_TYPE_new();
+    ASSERT_THAT(value, NotNull());
+    value->type = V_ASN1_UTF8STRING;
+
+    // NOLINTBEGIN(cppcoreguidelines-pro-type-union-access)
+    value->value.utf8string = ASN1_UTF8STRING_new();
+    ASSERT_THAT(value->value.utf8string, NotNull());
+    const char* user = "user@domain.com";
+    ASN1_STRING_set(value->value.utf8string, user,
+                    static_cast<int>(strlen(user)));
+    // NOLINTEND(cppcoreguidelines-pro-type-union-access)
+
+    ASSERT_EQ(GENERAL_NAME_set0_othername(gen, othType, value), 1);
+    ASSERT_EQ(sk_GENERAL_NAME_push(gens, gen), 1);
+    ASSERT_EQ(X509_add1_ext_i2d(x509.get(), NID_subject_alt_name, gens, 0, 0),
+              1);
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "");
+
+    sk_GENERAL_NAME_pop_free(gens, GENERAL_NAME_free);
+}
+
+TEST(GetUPNFromCert, NonUTF8UPNSubjectAlternativeName)
+{
+    OSSLX509 x509;
+
+    GENERAL_NAMES* gens = sk_GENERAL_NAME_new_null();
+    ASSERT_THAT(gens, NotNull());
+
+    GENERAL_NAME* gen = GENERAL_NAME_new();
+    ASSERT_THAT(gen, NotNull());
+
+    ASN1_OBJECT* othType = OBJ_nid2obj(NID_ms_upn);
+
+    ASN1_TYPE* value = ASN1_TYPE_new();
+    ASSERT_THAT(value, NotNull());
+    value->type = V_ASN1_OCTET_STRING;
+
+    // NOLINTBEGIN(cppcoreguidelines-pro-type-union-access)
+    value->value.octet_string = ASN1_OCTET_STRING_new();
+    ASSERT_THAT(value->value.octet_string, NotNull());
+    const char* user = "0123456789";
+    ASN1_STRING_set(value->value.octet_string, user,
+                    static_cast<int>(strlen(user)));
+    // NOLINTEND(cppcoreguidelines-pro-type-union-access)
+
+    ASSERT_EQ(GENERAL_NAME_set0_othername(gen, othType, value), 1);
+    ASSERT_EQ(sk_GENERAL_NAME_push(gens, gen), 1);
+    ASSERT_EQ(X509_add1_ext_i2d(x509.get(), NID_subject_alt_name, gens, 0, 0),
+              1);
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "");
+
+    sk_GENERAL_NAME_pop_free(gens, GENERAL_NAME_free);
+}
+
+TEST(GetUPNFromCert, ValidUPN)
+{
+    OSSLX509 x509;
+
+    GENERAL_NAMES* gens = sk_GENERAL_NAME_new_null();
+    ASSERT_THAT(gens, NotNull());
+
+    GENERAL_NAME* gen = GENERAL_NAME_new();
+    ASSERT_THAT(gen, NotNull());
+
+    ASN1_OBJECT* othType = OBJ_nid2obj(NID_ms_upn);
+
+    ASN1_TYPE* value = ASN1_TYPE_new();
+    ASSERT_THAT(value, NotNull());
+    value->type = V_ASN1_UTF8STRING;
+
+    // NOLINTBEGIN(cppcoreguidelines-pro-type-union-access)
+    value->value.utf8string = ASN1_UTF8STRING_new();
+    ASSERT_THAT(value->value.utf8string, NotNull());
+    const char* user = "user@domain.com";
+    ASN1_STRING_set(value->value.utf8string, user,
+                    static_cast<int>(strlen(user)));
+    // NOLINTEND(cppcoreguidelines-pro-type-union-access)
+
+    ASSERT_EQ(GENERAL_NAME_set0_othername(gen, othType, value), 1);
+    ASSERT_EQ(sk_GENERAL_NAME_push(gens, gen), 1);
+    ASSERT_EQ(X509_add1_ext_i2d(x509.get(), NID_subject_alt_name, gens, 0, 0),
+              1);
+
+    std::string upn = getUPNFromCert(x509.get(), "hostname.domain.com");
+    EXPECT_THAT(upn, "user");
+
+    sk_GENERAL_NAME_pop_free(gens, GENERAL_NAME_free);
+}
+
+TEST(IsUPNMatch, MultipleCases)
+{
+    EXPECT_FALSE(isUPNMatch("user", "hostname.domain.com"));
+    EXPECT_TRUE(isUPNMatch("user@domain.com", "hostname.domain.com"));
+    EXPECT_FALSE(isUPNMatch("user@domain.com", "hostname.domain.org"));
+    EXPECT_FALSE(isUPNMatch("user@region.com", "hostname.domain.com"));
+    EXPECT_TRUE(isUPNMatch("user@com", "hostname.region.domain.com"));
 }
 } // namespace
