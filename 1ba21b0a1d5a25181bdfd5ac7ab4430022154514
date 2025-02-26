@@ -153,6 +153,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a778050d_47758f60",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T16:17:12Z",
+      "side": 1,
+      "message": "Added a change before this one for that.",
+      "parentUuid": "3e5d42e7_cd5da478",
+      "range": {
+        "startLine": 742,
+        "startChar": 13,
+        "endLine": 742,
+        "endChar": 19
+      },
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "304a09fd_d9dfd6de",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 1
