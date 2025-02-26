@@ -152,6 +152,24 @@
       "parentUuid": "60739179_349224a6",
       "revId": "f483127ae23e0600ca1374f7075d587429bc70be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d75047cd_a222fd1c",
+        "filename": "redfish-core/include/registries/openbmc_state_leak_detector_group.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T18:23:06Z",
+      "side": 1,
+      "message": "I spoke with Patrick and confirmed that it had been designed this way.",
+      "parentUuid": "8cd503c4_af05035e",
+      "revId": "f483127ae23e0600ca1374f7075d587429bc70be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
