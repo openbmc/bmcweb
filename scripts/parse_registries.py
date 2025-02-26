@@ -85,7 +85,32 @@ def openbmc_local_getter() -> RegistryInfo:
     return (path, json_file, "openbmc", url)
 
 
+<<<<<<< PATCH SET (ec8c51 OEM Nvidia Update Message Registry)
+def oem_registry_local_getter(registry_name):
+    url = ""
+    json_path = os.path.join(
+        SCRIPT_DIR,
+        "..",
+        "redfish-core",
+        "include",
+        "registries",
+        "oem",
+        f"{registry_name}.json",
+    )
+
+    with open(json_path, "rb") as json_file:
+        json_data = json.load(json_file)
+
+    path = os.path.join(
+        include_path, "oem", f"{registry_name}_message_registry.hpp"
+    )
+    return (path, json_data, registry_name, url)
+
+
+def update_registries(files):
+=======
 def update_registries(files: t.List[RegistryInfo]) -> None:
+>>>>>>> BASE      (194067 Up the default code update timeout)
     # Remove the old files
     for file, json_dict, namespace, url in files:
         try:
@@ -681,6 +706,15 @@ def main() -> None:
                 f"{registry}_message_registry.hpp",
                 registry,
             )
+<<<<<<< PATCH SET (ec8c51 OEM Nvidia Update Message Registry)
+            registries_map[registry] = files[-1]
+
+    for registry in registries:
+        if registry not in ["openbmc", "privilege"]:
+            files.append(oem_registry_local_getter(registry))
+
+=======
+>>>>>>> BASE      (194067 Up the default code update timeout)
     if "openbmc" in registries:
         registries_map["openbmc"] = openbmc_local_getter()
 
