@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6647d541_dcd95c54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T12:16:40Z",
+      "side": 1,
+      "message": "While I completely agree with your statement \"all well-formed registries should include a description\", and I will modify PDI registries that do not have descriptions, it is not what the standard requires.\n\nIt\u0027s your call as a maintainer of the repo to \"require a human readable description\" despite the standard does not.",
+      "parentUuid": "735b61ff_12f99153",
+      "revId": "b7dec599711f9e4d5b34fdb7be12892d113a241d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e8916da_ef16033d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -49,6 +67,30 @@
       "writtenOn": "2025-02-25T22:20:05Z",
       "side": 1,
       "message": "CSDL is the source of truth for any of these \"is it required\"",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 67
+      },
+      "revId": "b7dec599711f9e4d5b34fdb7be12892d113a241d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aa4d05b_e41e0bc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T12:16:40Z",
+      "side": 1,
+      "message": "Here is what I see/found:\n1. The MessageRegistry.v1_4_0.json has 2 definitions - MessageRegistry and Message, both of them have Description field, but only Message requires it:\n```\n$ curl -s https://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_4_0.json | jq .definitions.MessageRegistry.required\n[\n  \"Language\",\n  \"RegistryPrefix\",\n  \"RegistryVersion\",\n  \"OwningEntity\",\n  \"Messages\",\n  \"@odata.type\",\n  \"Id\",\n  \"Name\"\n]\n$ curl -s https://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_4_0.json | jq .definitions.Message.required\n[\n  \"Description\",\n  \"Message\",\n  \"Severity\",\n  \"NumberOfArgs\",\n  \"Resolution\",\n  \"MessageSeverity\"\n]\n```\n2. According to the SPEC, even if the property is present, its value may be null:\n```\n$ curl -s https://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_4_0.json | jq .definitions.MessageRegistry.properties.Description\n{\n  \"anyOf\": [\n    {\n      \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description\"\n    },\n    {\n      \"type\": \"null\"\n    }\n  ],\n  \"readonly\": true\n}\n```\n3. I did not find CSDL for the particular version, but just MessageRegistry - https://redfish.dmtf.org/schemas/v1/MessageRegistry.xml and here the Description property for the Message complex type annotated with Redfish.Required, while MessageRegistry does not have this property at all. Not sure what that means though, the CSDL refers to 1.0.0, and in the JSON for that version the property is there, but it\u0027s not required.\n\nAll I found about this suggests me that the Description property is an optional and can be empty according to the standard. Please point me to the right CSDL if I\u0027m wrong.\n\nOn the other hand, it makes total sense to have a description. So instead of requiring a property that is not required by the standard, we may show a warning in this case and ask to have it. What do you think?",
+      "parentUuid": "4e8916da_ef16033d",
       "range": {
         "startLine": 17,
         "startChar": 0,
