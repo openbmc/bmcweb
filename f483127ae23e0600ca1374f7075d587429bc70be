@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9daf609a_8fad1460",
+        "filename": "redfish-core/include/registries/openbmc_state_cable_message_registry.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T18:20:23Z",
+      "side": 1,
+      "message": "This is what comes from the PDI repo and not what my code changes. I think if it does not look right, it should be discussed and corrected in PDI repo.",
+      "parentUuid": "d8d2a8e4_c363f407",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "f483127ae23e0600ca1374f7075d587429bc70be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9bbfff75_88514bcd",
         "filename": "redfish-core/include/registries/openbmc_state_leak_detector_group.json",
         "patchSetId": 1
