@@ -11,7 +11,13 @@
 #include <string>
 #include <string_view>
 
-std::string getUsernameFromCommonName(std::string_view commonName);
+std::string getCommonNameFromCert(X509* cert);
+
+std::string getUPNFromCert(X509* peerCert);
+
+std::string getMetaUserNameFromCert(X509* cert);
+
+std::string getUsernameFromCert(X509* cert);
 
 std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
     const boost::asio::ip::address& clientIp,
