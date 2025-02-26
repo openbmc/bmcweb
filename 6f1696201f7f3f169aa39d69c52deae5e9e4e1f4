@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4833015e_e35aa091",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T12:47:04Z",
+      "side": 1,
+      "message": "I actually tried that, and it did not work. The type is being used by https://github.com/openbmc/sdbusplus/blob/e029082701db95ab6aa4cf89bbe9092445e9fd39/include/sdbusplus/unpack_properties.hpp#L32 and it fails if it\u0027s not a map.",
+      "parentUuid": "c3be0a25_a53db208",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 48
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48315f5c_4a6e39ed",
         "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
         "patchSetId": 2
@@ -54,6 +78,30 @@
       "writtenOn": "2025-02-25T22:55:37Z",
       "side": 1,
       "message": "This type looks incorrect compared to:\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/0e78828ce927548b4dd679e06fdaf2f294983289/yaml/xyz/openbmc_project/Logging/Event.interface.yaml#L30",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 46
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "340abd50_70c0a5a9",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-26T12:47:04Z",
+      "side": 1,
+      "message": "No, it is not. The interface you refer to is the Event - something, we want to convert this thing to an present to the client. It\u0027s defined in https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/event_logs_object_type.hpp#L18 and its AdditionalData type is indeed std::vector\u003cstd::string\u003e.\n\nThis structure though, represents what we receive from DBus and its interface is defined here:\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Logging/Entry.interface.yaml#L34\n\nAnd this is the reason I added this type to the include/dbus_utility.hpp.",
+      "parentUuid": "48315f5c_4a6e39ed",
       "range": {
         "startLine": 50,
         "startChar": 0,
