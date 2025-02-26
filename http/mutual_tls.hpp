@@ -4,14 +4,23 @@
 
 #include "sessions.hpp"
 
+#include <openssl/crypto.h>
+
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ssl/verify_context.hpp>
 
 #include <memory>
 #include <string>
-#include <string_view>
 
-std::string getUsernameFromCommonName(std::string_view commonName);
+std::string getCommonNameFromCert(X509* cert);
+
+std::string getUPNFromCert(X509* peerCert, std::string hostname);
+
+std::string getMetaUserNameFromCert(X509* cert);
+
+std::string getUsernameFromCert(X509* cert);
+
+bool isUPNMatch(std::string upn, std::string hostname);
 
 std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
     const boost::asio::ip::address& clientIp,
