@@ -177,8 +177,7 @@ inline MTLSCommonNameParseMode getMTLSCommonNameParseMode(std::string_view name)
     }
     if (name == "UserPrincipalName")
     {
-        // Not yet supported
-        // return MTLSCommonNameParseMode::UserPrincipalName;
+        return MTLSCommonNameParseMode::UserPrincipalName;
     }
     if constexpr (BMCWEB_META_TLS_COMMON_NAME_PARSING)
     {
@@ -248,7 +247,7 @@ struct AuthConfigMethods
             {
                 if (element.first == "MTLSCommonNameParseMode")
                 {
-                    if (*intValue <= 2 || *intValue == 100)
+                    if (*intValue <= 3 || *intValue == 100)
                     {
                         mTLSCommonNameParsingMode =
                             static_cast<MTLSCommonNameParseMode>(*intValue);
