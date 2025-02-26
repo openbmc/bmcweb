@@ -4,6 +4,7 @@
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/heartbeat_event_message_registry.hpp"
+#include "registries/oem/nvidia_update_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/resource_event_message_registry.hpp"
 #include "registries/task_event_message_registry.hpp"
@@ -48,6 +49,10 @@ inline std::optional<registries::HeaderAndUrl>
     {
         return HeaderAndUrl{telemetry::header, telemetry::url};
     }
+    if (nvidia_update::header.registryPrefix == registryName)
+    {
+        return HeaderAndUrl{nvidia_update::header, nvidia_update::url};
+    }
     return std::nullopt;
 }
 
@@ -78,6 +83,11 @@ inline std::span<const MessageEntry> getRegistryFromPrefix(
     {
         return {telemetry::registry};
     }
+    if (nvidia_update::header.registryPrefix == registryName)
+    {
+        return {nvidia_update::registry};
+    }
+
     return {openbmc::registry};
 }
 } // namespace redfish::registries
