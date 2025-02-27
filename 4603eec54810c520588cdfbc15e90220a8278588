@@ -49,6 +49,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "72a590d5_d355e703",
+        "filename": "redfish-core/include/registries/openbmc_logging_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T02:46:59Z",
+      "side": 1,
+      "message": "Mentioned this on the previous commit, but if these are now coming from PDI, we can\u0027t check them in as a fixed header anymore, we need to generate them at build time with something like a meson custom target or generator.\n\nThe whole point of PDI is to have one \"source of truth\" for what is allowed.\n\nPS, please implement the subproject wrap file when you do this.",
+      "revId": "4603eec54810c520588cdfbc15e90220a8278588",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0cf5aa85_c37de201",
         "filename": "redfish-core/include/registries/openbmc_state_leak_detector_group_message_registry.hpp",
         "patchSetId": 3
