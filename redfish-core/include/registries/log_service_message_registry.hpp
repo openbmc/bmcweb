@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::log_service
+namespace redfish::registries
 {
-const Header header = {
+struct LogService
+{
+static constexpr Header header = {
     "Copyright 2020-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "LogService",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/LogService.1.0.1.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "DiagnosticDataCollected",
@@ -55,4 +58,9 @@ enum class Index
 {
     diagnosticDataCollected = 0,
 };
-} // namespace redfish::registries::log_service
+}; // struct log_service
+
+[[gnu::constructor]] inline void registerLogService()
+{ registerRegistry<LogService>(); }
+
+} // namespace redfish::registries
