@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d342609_cc47573e",
+        "filename": "redfish-core/include/dbus_registries_map.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-27T16:23:53Z",
+      "side": 1,
+      "message": "It was an attempt to save some bytes by stripping a common prefix, and use it in the code, maybe it should\u0027ve been added to another header, but I\u0027m dropping this, and going to store full names to avoid confusions and additional operations.",
+      "parentUuid": "0867cfed_72175b75",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 77
+      },
+      "revId": "4603eec54810c520588cdfbc15e90220a8278588",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10d0fbc3_a17dd0ae",
         "filename": "redfish-core/include/dbus_registries_map.hpp",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2025-02-27T02:42:35Z",
       "side": 1,
       "message": "Message Ids by convention are CamelCase",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 46
+      },
+      "revId": "4603eec54810c520588cdfbc15e90220a8278588",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eca054eb_0aa1dcfb",
+        "filename": "redfish-core/include/dbus_registries_map.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-27T16:23:53Z",
+      "side": 1,
+      "message": "This is not a message ID, this is a DBus message name suffix (without \"xyz.openbmc_project.\")",
+      "parentUuid": "10d0fbc3_a17dd0ae",
       "range": {
         "startLine": 42,
         "startChar": 9,
