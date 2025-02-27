@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbbc536c_307d6047",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-02-27T23:32:13Z",
+      "side": 1,
+      "message": "Got it! I have added the unit tests for `getCommonNameFromCert` and `getUPNFromCert` functions. Let me know if you have any feedback on the test",
+      "parentUuid": "8bc4bb02_0ca4f36b",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0510a711_2b8e4464",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa93e46a_bde52148",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-02-27T23:32:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0510a711_2b8e4464",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfccad75_9ffa029e",
@@ -65,6 +101,30 @@
       "writtenOn": "2025-02-27T00:13:44Z",
       "side": 1,
       "message": "Can this be split on a couple of lines with some intermediates for the params?  as-written it\u0027s a little rough to read.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 79
+      },
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8697e1c_18d17f71",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-02-27T23:32:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cfccad75_9ffa029e",
       "range": {
         "startLine": 70,
         "startChar": 0,

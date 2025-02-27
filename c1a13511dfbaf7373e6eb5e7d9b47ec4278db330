@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0428c483_d8b0b06f",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-02-27T23:32:13Z",
+      "side": 1,
+      "message": "I am not entirely sure whether this is the best approach to bypass the lint error `cppcoreguidelines-pro-type-union-access`\n\n- This lint rule prevent us to access union value and strongly suggest to use the std::variant\n  - However, in this case, the union definition is defined in the openssl library and we need to access the union if we want to access the value\n  - We also add validation using the `nid` and `type`\n- I have tried to check any presedence on this lint rule, but I cannot find any\n\nPlease let me know if we have better approach on this",
+      "revId": "c1a13511dfbaf7373e6eb5e7d9b47ec4278db330",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
