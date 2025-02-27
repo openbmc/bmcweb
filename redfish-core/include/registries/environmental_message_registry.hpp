@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::environmental
+namespace redfish::registries
 {
-const Header header = {
+struct Environmental
+{
+static constexpr Header header = {
     "Copyright 2024 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "Environmental",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/Environmental.1.1.0.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "FanFailed",
@@ -1280,4 +1283,9 @@ enum class Index
     temperatureNormal = 85,
     temperatureWarning = 86,
 };
-} // namespace redfish::registries::environmental
+}; // struct environmental
+
+[[gnu::constructor]] inline void registerEnvironmental()
+{ registerRegistry<Environmental>(); }
+
+} // namespace redfish::registries

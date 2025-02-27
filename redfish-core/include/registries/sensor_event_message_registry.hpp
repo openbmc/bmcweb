@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::sensor_event
+namespace redfish::registries
 {
-const Header header = {
+struct SensorEvent
+{
+static constexpr Header header = {
     "Copyright 2022-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "SensorEvent",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/SensorEvent.1.0.1.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "InvalidSensorReading",
@@ -301,4 +304,9 @@ enum class Index
     sensorReadingNormalRange = 15,
     sensorRestored = 16,
 };
-} // namespace redfish::registries::sensor_event
+}; // struct sensor_event
+
+[[gnu::constructor]] inline void registerSensorEvent()
+{ registerRegistry<SensorEvent>(); }
+
+} // namespace redfish::registries
