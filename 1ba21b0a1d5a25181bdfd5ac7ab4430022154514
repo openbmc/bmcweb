@@ -119,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "475786ab_eed3fe3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-27T16:13:19Z",
+      "side": 1,
+      "message": "Here is what I\u0027m dealing with. Say we know that \"xyz.openbmc_project.State.Leak.Detector.LeakDetectedCritical\" DBus message ID, corresponds to the \"LeakDetectedCritical\" message in the \"Environmental\" registry. This Redfish message, also suppose to have 1 argument.\n\nBMCWeb receives a message from DBus. This message comes as DBusPropertiesMap, which is pretty much an array of key value pairs. We know what keys to expect and this [code](https://github.com/openbmc/bmcweb/blob/e60300aee76b7875f5fc407acede2f05ddbdd9bc/redfish-core/include/utils/dbus_event_log_entry.hpp#L30) converts it to the DbusEventLogEntry structure.\nAfter conversion, in the structure we have DBus message (in the example it\u0027s \"xyz.openbmc_project.State.Leak.Detector.LeakDetectedCritical\"), and arguments (this particular message supposed to have 1 argument), they are stored in the \"AdditionalData\" map along with other information. Redfish returns arguments as an array, so there are no names, but position/index, the AdditionalData is a Map, so we need to know, what key each argument is associated with.\n\nNow, the job is:\n1. To find Redfish registry and MessageID that correspond to the DBus message name (\"xyz.openbmc_project.State.Leak.Detector.LeakDetectedCritical\").\n2. Find keys in the AdditionalData map for each of the arguments.\n\nAs you can see, on the input, there is no Redfish data whatsoever.\n\nWe have 2 options to do this.\n### Use existing structures. \nTo do so, we will need to\n   1. Define a new structure like:\n```\nstruct DBusMapInfo {\n  const char* dbusMessageName;\n  const std::array\u003cconst char*, 5\u003e agrumentNames;\n  const size_t numberOfArgumentsNames;\n  // we will also need types in the future, so the struct above will be more complicated.\n}\n```\n   2. Modify [redfish::registries::Message structure](https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/registries.hpp#L43) by adding fields:\n```\n  const std::array\u003cDBusMapInfo, 10\u003e dbusMessageInfos,\n  const size_t numberOfDbusMessageInfos,\n```\n   3. Modifying search code like this:\n```\n// pseudo code\ndbusMessageName \u003d \"xyz.openbmc_project.State.Leak.Detector.LeakDetectedCritical;\nregistries \u003d getAllRegistries();\nfor (registry: registries) {\n  registryEntries \u003d registry.getAllEntries();\n  for (entry : registryEntries) {\n    for (i\u003d0; i\u003c entry.numberOfDbusMessageInfos; i++) {\n      if (strcmp(entry.dbusMessageInfos.dbusMessageName, dbusMessageName) \u003d\u003d 0) {\n         // Found corresponding message info\n         // So, we need to return DBusMapInfo as caller needs key names in the DBus AdditionalData for arguments; registry name and the entry for other info. \n         return std::tuple(entry.dbusMessageInfos, registry, entry);\n  }\n}\n```\n\n### Use a separate map\nIn this case, the map is pre-generated, it\u0027s a map (I\u0027ve converted it to an array of structs that use const/constexpr types) - dbusMessageName to a struct with registry and entry names and Dbus keys for arguments.\n\nWith this structure the lookup looks like:\n```\ndbusMessageName \u003d \"xyz.openbmc_project.State.Leak.Detector.LeakDetectedCritical;\nfor ([name, info]: dbusToRfMap) {\n  if (name \u003d\u003d dbusMessageName) {\n    registry \u003d getRegistryByName(info.registryName);\n    entry \u003d getEntryFromRegistry(registry, info.redfishMessageName);\n    return std::tuple(info, info.registryName, entry);\n  } \n}\n```\n\nIt mostly uses existing code to deal with registries, and it\u0027s much faster, as there are more redfish messages than dbus names, so it traverses smaller dataset.\n\nThe separate map option is better organized - the redfish::registries::Message remains clean, it contains only data related to the Redfish message, and nothing else that may or may not be in use.",
+      "parentUuid": "c20b91bb_d8304efc",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 22
+      },
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "63dcefc9_045ec591",
