@@ -2,19 +2,52 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "registries.hpp"
 
+// We need the registries_selector pulled into some cpp part so that the
+// registration hooks run.
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include "registries_selector.hpp"
 #include "str_utility.hpp"
 
 #include <algorithm>
 #include <cstring>
+#include <functional>
+#include <optional>
 #include <ranges>
 #include <span>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <vector>
 
 namespace redfish::registries
 {
+
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+[[gnu::init_priority(
+    101)]] std::unordered_map<std::string, RegistryEntry> allRegistries;
+
+auto getRegistryFromPrefix(const std::string& registryName)
+    -> std::optional<RegistryEntryRef>
+{
+    if (auto it = allRegistries.find(registryName); it != allRegistries.end())
+    {
+        return std::ref(it->second);
+    }
+
+    return std::nullopt;
+}
+
+auto getRegistryMessagesFromPrefix(const std::string& registryName)
+    -> MessageEntries
+{
+    auto registry = getRegistryFromPrefix(registryName);
+    if (!registry)
+    {
+        return {};
+    }
+
+    return std::get<MessageEntries>(registry->get());
+}
 
 const Message* getMessageFromRegistry(const std::string& messageKey,
                                       std::span<const MessageEntry> registry)
@@ -48,9 +81,8 @@ const Message* getMessage(std::string_view messageID)
     const std::string& messageKey = fields[3];
 
     // Find the right registry and check it for the MessageKey
-    // Find the right registry and check it for the MessageKey
     return getMessageFromRegistry(messageKey,
-                                  getRegistryFromPrefix(registryName));
+                                  getRegistryMessagesFromPrefix(registryName));
 }
 
 } // namespace redfish::registries
