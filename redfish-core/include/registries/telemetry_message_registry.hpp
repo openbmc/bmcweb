@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::telemetry
+namespace redfish::registries
 {
-const Header header = {
+struct telemetry
+{
+static constexpr Header header = {
     "Copyright 2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "Telemetry",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/Telemetry.1.0.0.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "TriggerDiscreteConditionMet",
@@ -168,4 +171,9 @@ enum class Index
     triggerNumericBelowUpperCritical = 6,
     triggerNumericReadingNormal = 7,
 };
-} // namespace redfish::registries::telemetry
+}; // struct telemetry
+
+[[gnu::constructor]] inline void register_telemetry()
+{ registerRegistry<telemetry>(); }
+
+} // namespace redfish::registries

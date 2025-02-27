@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::network_device
+namespace redfish::registries
 {
-const Header header = {
+struct network_device
+{
+static constexpr Header header = {
     "Copyright 2019-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "NetworkDevice",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/NetworkDevice.1.0.3.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "CableInserted",
@@ -132,4 +135,9 @@ enum class Index
     degradedConnectionEstablished = 4,
     linkFlapDetected = 5,
 };
-} // namespace redfish::registries::network_device
+}; // struct network_device
+
+[[gnu::constructor]] inline void register_network_device()
+{ registerRegistry<network_device>(); }
+
+} // namespace redfish::registries

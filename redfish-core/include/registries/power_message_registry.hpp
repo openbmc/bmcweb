@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::power
+namespace redfish::registries
 {
-const Header header = {
+struct power
+{
+static constexpr Header header = {
     "Copyright 2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "Power",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/Power.1.0.1.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "BreakerFault",
@@ -1053,4 +1056,9 @@ enum class Index
     voltageNormal = 69,
     voltageWarning = 70,
 };
-} // namespace redfish::registries::power
+}; // struct power
+
+[[gnu::constructor]] inline void register_power()
+{ registerRegistry<power>(); }
+
+} // namespace redfish::registries

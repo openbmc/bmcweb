@@ -10,7 +10,6 @@
 #include "query.hpp"
 #include "registries.hpp"
 #include "registries/privilege_registry.hpp"
-#include "registries_selector.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/format.hpp>
@@ -20,6 +19,7 @@
 #include <functional>
 #include <memory>
 #include <optional>
+#include <ranges>
 #include <span>
 #include <utility>
 
@@ -46,11 +46,7 @@ inline void handleMessageRegistryFileCollectionGet(
 
     nlohmann::json& members = asyncResp->res.jsonValue["Members"];
 
-    static constexpr const auto registryFiles = std::to_array(
-        {"Base", "TaskEvent", "ResourceEvent", "OpenBMC", "Telemetry",
-         "HeartbeatEvent"});
-
-    for (const char* memberName : registryFiles)
+    for (const auto& memberName : std::views::keys(registries::allRegistries))
     {
         nlohmann::json::object_t member;
         member["@odata.id"] =
@@ -81,10 +77,10 @@ inline void handleMessageRoutesMessageRegistryFileGet(
         return;
     }
     std::string dmtf = "DMTF ";
-    std::optional<registries::HeaderAndUrl> headerAndUrl =
-        registries::getRegistryHeaderAndUrlFromPrefix(registry);
+    std::optional<registries::RegistryEntryRef> registryEntry =
+        registries::getRegistryFromPrefix(registry);
 
-    if (!headerAndUrl)
+    if (!registryEntry)
     {
         messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
                                    registry);
@@ -94,8 +90,9 @@ inline void handleMessageRoutesMessageRegistryFileGet(
     {
         dmtf.clear();
     }
-    const registries::Header& header = headerAndUrl->header;
-    const char* url = headerAndUrl->url;
+    const registries::Header& header =
+        std::get<const registries::Header&>(registryEntry->get());
+    const char* url = std::get<const char*>(registryEntry->get());
 
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Registries/{}", registry);
@@ -145,16 +142,17 @@ inline void handleMessageRegistryGet(
         return;
     }
 
-    std::optional<registries::HeaderAndUrl> headerAndUrl =
-        registries::getRegistryHeaderAndUrlFromPrefix(registry);
-    if (!headerAndUrl)
+    std::optional<registries::RegistryEntryRef> registryEntry =
+        registries::getRegistryFromPrefix(registry);
+    if (!registryEntry)
     {
         messages::resourceNotFound(asyncResp->res, "MessageRegistryFile",
                                    registry);
         return;
     }
 
-    const registries::Header& header = headerAndUrl->header;
+    const registries::Header& header =
+        std::get<const registries::Header&>(registryEntry->get());
     if (registry != registryMatch)
     {
         messages::resourceNotFound(asyncResp->res, header.type, registryMatch);
@@ -178,8 +176,8 @@ inline void handleMessageRegistryGet(
     nlohmann::json& messageObj = asyncResp->res.jsonValue["Messages"];
 
     // Go through the Message Registry and populate each Message
-    const std::span<const registries::MessageEntry> registryEntries =
-        registries::getRegistryFromPrefix(registry);
+    const registries::MessageEntries registryEntries =
+        registries::getRegistryMessagesFromPrefix(registry);
 
     for (const registries::MessageEntry& message : registryEntries)
     {

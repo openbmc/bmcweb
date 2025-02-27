@@ -11,6 +11,7 @@
 #include <charconv>
 #include <cstddef>
 #include <format>
+#include <functional>
 #include <span>
 #include <string>
 #include <string_view>
@@ -43,6 +44,25 @@ struct Message
     const char* resolution;
 };
 using MessageEntry = std::pair<const char*, const Message>;
+using MessageEntries = std::span<const MessageEntry>;
+
+using RegistryEntry = std::tuple<const Header&, const char*, MessageEntries>;
+using RegistryEntryRef = std::reference_wrapper<RegistryEntry>;
+
+extern std::unordered_map<std::string, RegistryEntry> allRegistries;
+
+auto getRegistryFromPrefix(const std::string& registryName)
+    -> std::optional<RegistryEntryRef>;
+
+auto getRegistryMessagesFromPrefix(const std::string& registryName)
+    -> MessageEntries;
+
+template <typename T>
+void registerRegistry()
+{
+    allRegistries.emplace(T::header.registryPrefix,
+                          RegistryEntry{T::header, T::url, T::registry});
+}
 
 inline std::string fillMessageArgs(
     const std::span<const std::string_view> messageArgs, std::string_view msg)

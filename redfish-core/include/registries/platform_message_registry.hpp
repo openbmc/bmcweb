@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::platform
+namespace redfish::registries
 {
-const Header header = {
+struct platform
+{
+static constexpr Header header = {
     "Copyright 2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "Platform",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/Platform.1.0.1.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "OperatingSystemCrash",
@@ -88,4 +91,9 @@ enum class Index
     platformErrorAtLocation = 2,
     unhandledExceptionDetectedAfterReset = 3,
 };
-} // namespace redfish::registries::platform
+}; // struct platform
+
+[[gnu::constructor]] inline void register_platform()
+{ registerRegistry<platform>(); }
+
+} // namespace redfish::registries

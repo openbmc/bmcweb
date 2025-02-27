@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::resource_event
+namespace redfish::registries
 {
-const Header header = {
+struct resource_event
+{
+static constexpr Header header = {
     "Copyright 2014-2023 DMTF in cooperation with the Storage Networking Industry Association (SNIA). All rights reserved.",
     "#MessageRegistry.v1_6_0.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "ResourceEvent",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/ResourceEvent.1.3.0.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "AggregationSourceDiscovered",
@@ -395,4 +398,9 @@ enum class Index
     testMessage = 25,
     uRIForResourceChanged = 26,
 };
-} // namespace redfish::registries::resource_event
+}; // struct resource_event
+
+[[gnu::constructor]] inline void register_resource_event()
+{ registerRegistry<resource_event>(); }
+
+} // namespace redfish::registries

@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::ethernet_fabric
+namespace redfish::registries
 {
-const Header header = {
+struct ethernet_fabric
+{
+static constexpr Header header = {
     "Copyright 2020-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "EthernetFabric",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/EthernetFabric.1.0.1.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "LLDPInterfaceDisabled",
@@ -154,4 +157,9 @@ enum class Index
     mLAGPeerUp = 6,
     routingFailureThresholdExceeded = 7,
 };
-} // namespace redfish::registries::ethernet_fabric
+}; // struct ethernet_fabric
+
+[[gnu::constructor]] inline void register_ethernet_fabric()
+{ registerRegistry<ethernet_fabric>(); }
+
+} // namespace redfish::registries

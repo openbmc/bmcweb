@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::base
+namespace redfish::registries
 {
-const Header header = {
+struct base
+{
+static constexpr Header header = {
     "Copyright 2014-2024 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "Base",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/Base.1.19.0.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "AccessDenied",
@@ -1479,4 +1482,9 @@ enum class Index
     undeterminedFault = 112,
     unrecognizedRequestBody = 113,
 };
-} // namespace redfish::registries::base
+}; // struct base
+
+[[gnu::constructor]] inline void register_base()
+{ registerRegistry<base>(); }
+
+} // namespace redfish::registries

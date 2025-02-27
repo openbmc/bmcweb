@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::fabric
+namespace redfish::registries
 {
-const Header header = {
+struct fabric
+{
+static constexpr Header header = {
     "Copyright 2014-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "Fabric",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/Fabric.1.0.2.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "AddressPoolCreated",
@@ -634,4 +637,9 @@ enum class Index
     zoneModified = 40,
     zoneRemoved = 41,
 };
-} // namespace redfish::registries::fabric
+}; // struct fabric
+
+[[gnu::constructor]] inline void register_fabric()
+{ registerRegistry<fabric>(); }
+
+} // namespace redfish::registries

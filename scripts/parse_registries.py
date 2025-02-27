@@ -36,7 +36,9 @@ INCLUDES = """
 
 // clang-format off
 
-namespace redfish::registries::{}
+namespace redfish::registries
+{{
+struct {}
 {{
 """
 
@@ -99,7 +101,7 @@ def update_registries(files: t.List[RegistryInfo]) -> None:
             registry.write(REGISTRY_HEADER.format(namespace))
             # Parse the Registry header info
             registry.write(
-                "const Header header = {{\n"
+                "static constexpr Header header = {{\n"
                 '    "{json_dict[@Redfish.Copyright]}",\n'
                 '    "{json_dict[@odata.type]}",\n'
                 "    {version_split[0]},\n"
@@ -111,10 +113,11 @@ def update_registries(files: t.List[RegistryInfo]) -> None:
                 '    "{json_dict[RegistryPrefix]}",\n'
                 '    "{json_dict[OwningEntity]}",\n'
                 "}};\n"
-                "constexpr const char* url =\n"
+                "\n"
+                "static constexpr const char* url =\n"
                 '    "{url}";\n'
                 "\n"
-                "constexpr std::array registry =\n"
+                "static constexpr std::array registry =\n"
                 "{{\n".format(
                     json_dict=json_dict,
                     url=url,
@@ -155,11 +158,17 @@ def update_registries(files: t.List[RegistryInfo]) -> None:
             for index, (messageId, message) in enumerate(messages_sorted):
                 messageId = messageId[0].lower() + messageId[1:]
                 registry.write("    {} = {},\n".format(messageId, index))
+            registry.write("};\n")
+            registry.write("}}; // struct {}\n".format(namespace))
+            registry.write("\n")
             registry.write(
-                "}};\n}} // namespace redfish::registries::{}\n".format(
+                "[[gnu::constructor]] inline void register_{}()\n".format(
                     namespace
                 )
             )
+            registry.write("{{ registerRegistry<{}>(); }}\n".format(namespace))
+            registry.write("\n")
+            registry.write("} // namespace redfish::registries\n")
 
 
 def get_privilege_string_from_list(

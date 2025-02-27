@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::license
+namespace redfish::registries
 {
-const Header header = {
+struct license
+{
+static constexpr Header header = {
     "Copyright 2014-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "License",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/License.1.0.3.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "DaysBeforeExpiration",
@@ -142,4 +145,9 @@ enum class Index
     notApplicableToTarget = 6,
     targetsRequired = 7,
 };
-} // namespace redfish::registries::license
+}; // struct license
+
+[[gnu::constructor]] inline void register_license()
+{ registerRegistry<license>(); }
+
+} // namespace redfish::registries

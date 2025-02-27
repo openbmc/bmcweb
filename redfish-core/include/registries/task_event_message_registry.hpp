@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::task_event
+namespace redfish::registries
 {
-const Header header = {
+struct task_event
+{
+static constexpr Header header = {
     "Copyright 2014-2020 DMTF in cooperation with the Storage Networking Industry Association (SNIA). All rights reserved.",
     "#MessageRegistry.v1_4_1.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "TaskEvent",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/TaskEvent.1.0.3.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "TaskAborted",
@@ -160,4 +163,9 @@ enum class Index
     taskResumed = 7,
     taskStarted = 8,
 };
-} // namespace redfish::registries::task_event
+}; // struct task_event
+
+[[gnu::constructor]] inline void register_task_event()
+{ registerRegistry<task_event>(); }
+
+} // namespace redfish::registries
