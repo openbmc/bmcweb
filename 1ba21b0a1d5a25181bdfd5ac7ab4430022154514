@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20b91bb_d8304efc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T02:33:58Z",
+      "side": 1,
+      "message": "\u003e The reason I\u0027m doing this (making a separate structure) is, because the code using message registries get registry name and message ID, so it can load the registry and look for the message id in there.\n\nAs a description, that code is identical to what exists.  Aside from pulling this information from dbus instead of journald, the differences in the actual redfish code here is negligeble, and a lot of effort has been spent already to keep the existing structures:\nA. No cost to construct at startup\nB. No sustained memory usage\n\n\u003e The code I\u0027m writing gets dbus event id as an input, and here we have 2 options:\n\u003e 1. Put lists of dbus events that should be mapped to particular message ID into existing message registry structures. In this case we will not need an additional structure, but we will need to traverse ALL the message registries looking for a messageID associated with the received dbus event name.\n\nKeep in mind, the existing lists are sorted, so this is a Log(N) search per registry to search, but given we know the prefix..... don\u0027t we know which registry to search for the ID?\n\n\u003e 2. Have a separate structure where each key points to particular registry and message id. You may think of it as an index. Since it\u0027s pre-generated and requires traversal only thru this index, it\u0027s much faster and cheaper that #1.\n\nLets start with the naive, simple version (keep changes incremental) and we can write a patch that \"shows\" (ideally with performance numbers) that we need a new structure.",
+      "parentUuid": "bf48aff9_0058c1ba",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 22
+      },
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "63dcefc9_045ec591",
@@ -190,6 +214,24 @@
       "side": 1,
       "message": "I will look into making this static.\n\nBut I think we need a separate structure to make it efficient (see my point about this in the previous comment).",
       "parentUuid": "df4da75f_1e4e5493",
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4602f98b_68a470d3",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T02:33:58Z",
+      "side": 1,
+      "message": "see my last comment above.  Happy to have efficiency discussions and \"better data structure\" discussions.  Lets have them in a commit message with some testing so we can show:\nA. How much extra code we have to maintain to get this performance.\nB. How much performance we get out of it.\n\nAnd we can make a maintainability tradeoff.",
+      "parentUuid": "46789b17_0bbe88e8",
       "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
