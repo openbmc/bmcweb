@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cf5aa85_c37de201",
+        "filename": "redfish-core/include/registries/openbmc_state_leak_detector_group_message_registry.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T02:40:30Z",
+      "side": 1,
+      "message": "This registry looks like it\u0027s a copy of the DMTF registry (It\u0027s too similar to not be a coincidence). Given the rules we have in OEM_SCHEMAS.md, we try not to duplicate things that have already been standardized.\n\nIn your other commit you Reved the environmental registry to one that had this define in it, so it\u0027s not clear what your intent is there.\n\nThoughts?",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "4603eec54810c520588cdfbc15e90220a8278588",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
