@@ -11,10 +11,14 @@
 #include <charconv>
 #include <cstddef>
 #include <format>
+#include <functional>
+#include <optional>
 #include <span>
 #include <string>
 #include <string_view>
 #include <system_error>
+#include <tuple>
+#include <unordered_map>
 #include <utility>
 
 namespace redfish::registries
@@ -43,6 +47,30 @@ struct Message
     const char* resolution;
 };
 using MessageEntry = std::pair<const char*, const Message>;
+using MessageEntries = std::span<const MessageEntry>;
+
+struct RegistryEntry
+{
+    const Header& header;
+    const char* url;
+    MessageEntries entries;
+};
+using RegistryEntryRef = std::reference_wrapper<RegistryEntry>;
+
+auto allRegistries() -> std::unordered_map<std::string, RegistryEntry>&;
+
+auto getRegistryFromPrefix(const std::string& registryName)
+    -> std::optional<RegistryEntryRef>;
+
+auto getRegistryMessagesFromPrefix(const std::string& registryName)
+    -> MessageEntries;
+
+template <typename T>
+void registerRegistry()
+{
+    allRegistries().emplace(T::header.registryPrefix,
+                            RegistryEntry{T::header, T::url, T::registry});
+}
 
 inline std::string fillMessageArgs(
     const std::span<const std::string_view> messageArgs, std::string_view msg)
