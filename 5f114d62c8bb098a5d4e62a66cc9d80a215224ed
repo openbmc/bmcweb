@@ -105,6 +105,30 @@
       },
       "revId": "5f114d62c8bb098a5d4e62a66cc9d80a215224ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f071738_000aa658",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T02:44:43Z",
+      "side": 1,
+      "message": "If it\u0027s separate (and therefore optional) registries, this commit needs to implement them as optional (which I think was patricks intent).",
+      "parentUuid": "403575a6_4c803f15",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 5
+      },
+      "revId": "5f114d62c8bb098a5d4e62a66cc9d80a215224ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
