@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa55a1d4_42bf8362",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T00:13:44Z",
+      "side": 1,
+      "message": "Love to see progress here.  I\u0027m in full support of getting this done.",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bc4bb02_0ca4f36b",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T00:13:44Z",
+      "side": 1,
+      "message": "Because this is security code, can we can a simple unit test or two for this?  Doesn\u0027t have to be extensive.",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0510a711_2b8e4464",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T00:13:44Z",
+      "side": 1,
+      "message": "nit, declare your variables where they\u0027re used.  Static analyzers complain if variables aren\u0027t initialized, so we tend to declare in the scope they\u0027re used.",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfccad75_9ffa029e",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T00:13:44Z",
+      "side": 1,
+      "message": "Can this be split on a couple of lines with some intermediates for the params?  as-written it\u0027s a little rough to read.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 79
+      },
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05dccb2e_608b99d9",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T00:13:44Z",
+      "side": 1,
+      "message": "This looks like it\u0027s going to return the UPN as-is?  getUsernameFromCert is expecting to return a username string local to this bmc.  I think some level of UPN parsing is required to verify:\n\nA. This bmc matches the hostname the UPN points to.\nB. Extract the username from the UPN string.",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e29155ad_bfdb9996",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T00:13:44Z",
+      "side": 1,
+      "message": "We should really make this not a magic number, but oh well.... problem for another day.",
+      "range": {
+        "startLine": 250,
+        "startChar": 37,
+        "endLine": 250,
+        "endChar": 38
+      },
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
