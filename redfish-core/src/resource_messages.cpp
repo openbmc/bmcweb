@@ -31,16 +31,16 @@ namespace redfish
 namespace messages
 {
 
-static nlohmann::json getLog(redfish::registries::resource_event::Index name,
+static nlohmann::json getLog(redfish::registries::ResourceEvent::Index name,
                              std::span<const std::string_view> args)
 {
     size_t index = static_cast<size_t>(name);
-    if (index >= redfish::registries::resource_event::registry.size())
+    if (index >= redfish::registries::ResourceEvent::registry.size())
     {
         return {};
     }
-    return getLogFromRegistry(redfish::registries::resource_event::header,
-                              redfish::registries::resource_event::registry,
+    return getLogFromRegistry(redfish::registries::ResourceEvent::header,
+                              redfish::registries::ResourceEvent::registry,
                               index, args);
 }
 
@@ -53,7 +53,7 @@ static nlohmann::json getLog(redfish::registries::resource_event::Index name,
  */
 nlohmann::json resourceCreated()
 {
-    return getLog(redfish::registries::resource_event::Index::resourceCreated,
+    return getLog(redfish::registries::ResourceEvent::Index::resourceCreated,
                   {});
 }
 
@@ -66,7 +66,7 @@ nlohmann::json resourceCreated()
  */
 nlohmann::json resourceRemoved()
 {
-    return getLog(redfish::registries::resource_event::Index::resourceRemoved,
+    return getLog(redfish::registries::ResourceEvent::Index::resourceRemoved,
                   {});
 }
 
@@ -81,7 +81,7 @@ nlohmann::json resourceErrorsDetected(std::string_view arg1,
                                       std::string_view arg2)
 {
     return getLog(
-        redfish::registries::resource_event::Index::resourceErrorsDetected,
+        redfish::registries::ResourceEvent::Index::resourceErrorsDetected,
         std::to_array({arg1, arg2}));
 }
 
@@ -96,7 +96,7 @@ nlohmann::json resourceErrorsCorrected(std::string_view arg1,
                                        std::string_view arg2)
 {
     return getLog(
-        redfish::registries::resource_event::Index::resourceErrorsCorrected,
+        redfish::registries::ResourceEvent::Index::resourceErrorsCorrected,
         std::to_array({arg1, arg2}));
 }
 
@@ -110,7 +110,7 @@ nlohmann::json resourceErrorsCorrected(std::string_view arg1,
 nlohmann::json resourceErrorThresholdExceeded(std::string_view arg1,
                                               std::string_view arg2)
 {
-    return getLog(redfish::registries::resource_event::Index::
+    return getLog(redfish::registries::ResourceEvent::Index::
                       resourceErrorThresholdExceeded,
                   std::to_array({arg1, arg2}));
 }
@@ -125,7 +125,7 @@ nlohmann::json resourceErrorThresholdExceeded(std::string_view arg1,
 nlohmann::json resourceErrorThresholdCleared(std::string_view arg1,
                                              std::string_view arg2)
 {
-    return getLog(redfish::registries::resource_event::Index::
+    return getLog(redfish::registries::ResourceEvent::Index::
                       resourceErrorThresholdCleared,
                   std::to_array({arg1, arg2}));
 }
@@ -140,7 +140,7 @@ nlohmann::json resourceErrorThresholdCleared(std::string_view arg1,
 nlohmann::json resourceWarningThresholdExceeded(std::string_view arg1,
                                                 std::string_view arg2)
 {
-    return getLog(redfish::registries::resource_event::Index::
+    return getLog(redfish::registries::ResourceEvent::Index::
                       resourceWarningThresholdExceeded,
                   std::to_array({arg1, arg2}));
 }
@@ -155,7 +155,7 @@ nlohmann::json resourceWarningThresholdExceeded(std::string_view arg1,
 nlohmann::json resourceWarningThresholdCleared(std::string_view arg1,
                                                std::string_view arg2)
 {
-    return getLog(redfish::registries::resource_event::Index::
+    return getLog(redfish::registries::ResourceEvent::Index::
                       resourceWarningThresholdCleared,
                   std::to_array({arg1, arg2}));
 }
@@ -171,7 +171,7 @@ nlohmann::json resourceStatusChangedOK(std::string_view arg1,
                                        std::string_view arg2)
 {
     return getLog(
-        redfish::registries::resource_event::Index::resourceStatusChangedOK,
+        redfish::registries::ResourceEvent::Index::resourceStatusChangedOK,
         std::to_array({arg1, arg2}));
 }
 
@@ -185,9 +185,9 @@ nlohmann::json resourceStatusChangedOK(std::string_view arg1,
 nlohmann::json resourceStatusChangedWarning(std::string_view arg1,
                                             std::string_view arg2)
 {
-    return getLog(redfish::registries::resource_event::Index::
-                      resourceStatusChangedWarning,
-                  std::to_array({arg1, arg2}));
+    return getLog(
+        redfish::registries::ResourceEvent::Index::resourceStatusChangedWarning,
+        std::to_array({arg1, arg2}));
 }
 
 /**
@@ -200,7 +200,7 @@ nlohmann::json resourceStatusChangedWarning(std::string_view arg1,
 nlohmann::json resourceStatusChangedCritical(std::string_view arg1,
                                              std::string_view arg2)
 {
-    return getLog(redfish::registries::resource_event::Index::
+    return getLog(redfish::registries::ResourceEvent::Index::
                       resourceStatusChangedCritical,
                   std::to_array({arg1, arg2}));
 }
@@ -216,7 +216,7 @@ nlohmann::json resourceStateChanged(std::string_view arg1,
                                     std::string_view arg2)
 {
     return getLog(
-        redfish::registries::resource_event::Index::resourceStateChanged,
+        redfish::registries::ResourceEvent::Index::resourceStateChanged,
         std::to_array({arg1, arg2}));
 }
 
@@ -229,7 +229,7 @@ nlohmann::json resourceStateChanged(std::string_view arg1,
  */
 nlohmann::json resourcePoweredOn(std::string_view arg1)
 {
-    return getLog(redfish::registries::resource_event::Index::resourcePoweredOn,
+    return getLog(redfish::registries::ResourceEvent::Index::resourcePoweredOn,
                   std::to_array({arg1}));
 }
 
@@ -242,9 +242,8 @@ nlohmann::json resourcePoweredOn(std::string_view arg1)
  */
 nlohmann::json resourcePoweringOn(std::string_view arg1)
 {
-    return getLog(
-        redfish::registries::resource_event::Index::resourcePoweringOn,
-        std::to_array({arg1}));
+    return getLog(redfish::registries::ResourceEvent::Index::resourcePoweringOn,
+                  std::to_array({arg1}));
 }
 
 /**
@@ -256,9 +255,8 @@ nlohmann::json resourcePoweringOn(std::string_view arg1)
  */
 nlohmann::json resourcePoweredOff(std::string_view arg1)
 {
-    return getLog(
-        redfish::registries::resource_event::Index::resourcePoweredOff,
-        std::to_array({arg1}));
+    return getLog(redfish::registries::ResourceEvent::Index::resourcePoweredOff,
+                  std::to_array({arg1}));
 }
 
 /**
@@ -271,7 +269,7 @@ nlohmann::json resourcePoweredOff(std::string_view arg1)
 nlohmann::json resourcePoweringOff(std::string_view arg1)
 {
     return getLog(
-        redfish::registries::resource_event::Index::resourcePoweringOff,
+        redfish::registries::ResourceEvent::Index::resourcePoweringOff,
         std::to_array({arg1}));
 }
 
@@ -284,7 +282,7 @@ nlohmann::json resourcePoweringOff(std::string_view arg1)
  */
 nlohmann::json resourcePaused(std::string_view arg1)
 {
-    return getLog(redfish::registries::resource_event::Index::resourcePaused,
+    return getLog(redfish::registries::ResourceEvent::Index::resourcePaused,
                   std::to_array({arg1}));
 }
 
@@ -298,7 +296,7 @@ nlohmann::json resourcePaused(std::string_view arg1)
 nlohmann::json uRIForResourceChanged()
 {
     return getLog(
-        redfish::registries::resource_event::Index::uRIForResourceChanged, {});
+        redfish::registries::ResourceEvent::Index::uRIForResourceChanged, {});
 }
 
 /**
@@ -310,7 +308,7 @@ nlohmann::json uRIForResourceChanged()
  */
 nlohmann::json resourceChanged()
 {
-    return getLog(redfish::registries::resource_event::Index::resourceChanged,
+    return getLog(redfish::registries::ResourceEvent::Index::resourceChanged,
                   {});
 }
 
@@ -324,7 +322,7 @@ nlohmann::json resourceChanged()
 nlohmann::json resourceVersionIncompatible(std::string_view arg1)
 {
     return getLog(
-        redfish::registries::resource_event::Index::resourceVersionIncompatible,
+        redfish::registries::ResourceEvent::Index::resourceVersionIncompatible,
         std::to_array({arg1}));
 }
 
@@ -338,7 +336,7 @@ nlohmann::json resourceVersionIncompatible(std::string_view arg1)
 nlohmann::json resourceSelfTestFailed(std::string_view arg1)
 {
     return getLog(
-        redfish::registries::resource_event::Index::resourceSelfTestFailed,
+        redfish::registries::ResourceEvent::Index::resourceSelfTestFailed,
         std::to_array({arg1}));
 }
 
@@ -352,7 +350,7 @@ nlohmann::json resourceSelfTestFailed(std::string_view arg1)
 nlohmann::json resourceSelfTestCompleted()
 {
     return getLog(
-        redfish::registries::resource_event::Index::resourceSelfTestCompleted,
+        redfish::registries::ResourceEvent::Index::resourceSelfTestCompleted,
         {});
 }
 
@@ -365,7 +363,7 @@ nlohmann::json resourceSelfTestCompleted()
  */
 nlohmann::json testMessage()
 {
-    return getLog(redfish::registries::resource_event::Index::testMessage, {});
+    return getLog(redfish::registries::ResourceEvent::Index::testMessage, {});
 }
 
 /**
@@ -379,7 +377,7 @@ nlohmann::json aggregationSourceDiscovered(std::string_view arg1,
                                            std::string_view arg2)
 {
     return getLog(
-        redfish::registries::resource_event::Index::aggregationSourceDiscovered,
+        redfish::registries::ResourceEvent::Index::aggregationSourceDiscovered,
         std::to_array({arg1, arg2}));
 }
 
@@ -392,7 +390,7 @@ nlohmann::json aggregationSourceDiscovered(std::string_view arg1,
  */
 nlohmann::json licenseExpired(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::resource_event::Index::licenseExpired,
+    return getLog(redfish::registries::ResourceEvent::Index::licenseExpired,
                   std::to_array({arg1, arg2}));
 }
 
@@ -405,7 +403,7 @@ nlohmann::json licenseExpired(std::string_view arg1, std::string_view arg2)
  */
 nlohmann::json licenseChanged(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::resource_event::Index::licenseChanged,
+    return getLog(redfish::registries::ResourceEvent::Index::licenseChanged,
                   std::to_array({arg1, arg2}));
 }
 
@@ -418,7 +416,7 @@ nlohmann::json licenseChanged(std::string_view arg1, std::string_view arg2)
  */
 nlohmann::json licenseAdded(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::resource_event::Index::licenseAdded,
+    return getLog(redfish::registries::ResourceEvent::Index::licenseAdded,
                   std::to_array({arg1, arg2}));
 }
 

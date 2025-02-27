@@ -25,12 +25,12 @@ TEST(RedfishRegistries, GetMessageFromRegistry)
 {
     const redfish::registries::Message* msg =
         redfish::registries::getMessageFromRegistry(
-            "Non-Existent", redfish::registries::openbmc::registry);
+            "Non-Existent", redfish::registries::Openbmc::registry);
     ASSERT_EQ(msg, nullptr);
 
     const redfish::registries::Message* msg1 =
         redfish::registries::getMessageFromRegistry(
-            "ServiceStarted", redfish::registries::openbmc::registry);
+            "ServiceStarted", redfish::registries::Openbmc::registry);
     ASSERT_NE(msg1, nullptr);
 
     EXPECT_EQ(std::string(msg1->description),

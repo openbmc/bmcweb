@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::job_event
+namespace redfish::registries
 {
-const Header header = {
+struct JobEvent
+{
+static constexpr Header header = {
     "Copyright 2014-2023 DMTF in cooperation with the Storage Networking Industry Association (SNIA). All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "JobEvent",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/JobEvent.1.0.1.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "JobCancelled",
@@ -147,4 +150,9 @@ enum class Index
     jobStarted = 6,
     jobSuspended = 7,
 };
-} // namespace redfish::registries::job_event
+}; // struct job_event
+
+[[gnu::constructor]] inline void registerJobEvent()
+{ registerRegistry<JobEvent>(); }
+
+} // namespace redfish::registries

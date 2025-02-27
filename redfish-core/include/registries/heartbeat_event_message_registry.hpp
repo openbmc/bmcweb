@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::heartbeat_event
+namespace redfish::registries
 {
-const Header header = {
+struct HeartbeatEvent
+{
+static constexpr Header header = {
     "Copyright 2021-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "HeartbeatEvent",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/HeartbeatEvent.1.0.1.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "RedfishServiceFunctional",
@@ -53,4 +56,9 @@ enum class Index
 {
     redfishServiceFunctional = 0,
 };
-} // namespace redfish::registries::heartbeat_event
+}; // struct heartbeat_event
+
+[[gnu::constructor]] inline void registerHeartbeatEvent()
+{ registerRegistry<HeartbeatEvent>(); }
+
+} // namespace redfish::registries

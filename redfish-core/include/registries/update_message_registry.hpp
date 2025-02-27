@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::update
+namespace redfish::registries
 {
-const Header header = {
+struct Update
+{
+static constexpr Header header = {
     "Copyright 2014-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "Update",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/Update.1.0.2.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "ActivateFailed",
@@ -245,4 +248,9 @@ enum class Index
     verificationFailed = 13,
     verifyingAtComponent = 14,
 };
-} // namespace redfish::registries::update
+}; // struct update
+
+[[gnu::constructor]] inline void registerUpdate()
+{ registerRegistry<Update>(); }
+
+} // namespace redfish::registries
