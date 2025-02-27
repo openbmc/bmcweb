@@ -87,7 +87,28 @@ def openbmc_local_getter() -> RegistryInfo:
     return (path, json_file, "openbmc", url)
 
 
+def generate_selector(files: t.List[RegistryInfo]) -> None:
+    # Create the top-level header.
+    with open(
+        os.path.join(
+            SCRIPT_DIR,
+            "..",
+            "redfish-core",
+            "include",
+            "registries_selector.hpp",
+        ),
+        "w",
+    ) as selector:
+        selector.write(f"{COPYRIGHT}{PRAGMA_ONCE}")
+        selector.write("// NOLINTBEGIN(misc-include-cleaner)\n")
+        for file in sorted([os.path.basename(x[0]) for x in files]):
+            selector.write(f'#include "registries/{file}"\n')
+        selector.write("// NOLINTEND(misc-include-cleaner)\n")
+
+
 def update_registries(files: t.List[RegistryInfo]) -> None:
+    generate_selector(files)
+
     # Remove the old files
     for file, json_dict, namespace, url in files:
         try:
