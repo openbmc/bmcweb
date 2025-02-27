@@ -17,9 +17,11 @@
 
 // clang-format off
 
-namespace redfish::registries::composition
+namespace redfish::registries
 {
-const Header header = {
+struct Composition
+{
+static constexpr Header header = {
     "Copyright 2019-2023 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
@@ -31,10 +33,11 @@ const Header header = {
     "Composition",
     "DMTF",
 };
-constexpr const char* url =
+
+static constexpr const char* url =
     "https://redfish.dmtf.org/registries/Composition.1.1.2.json";
 
-constexpr std::array registry =
+static constexpr std::array registry =
 {
     MessageEntry{
         "ConstrainedResourceAlreadyReserved",
@@ -209,4 +212,9 @@ enum class Index
     specifiedResourceAlreadyReserved = 11,
     unableToProcessStanzaRequest = 12,
 };
-} // namespace redfish::registries::composition
+}; // struct composition
+
+[[gnu::constructor]] inline void registerComposition()
+{ registerRegistry<Composition>(); }
+
+} // namespace redfish::registries
