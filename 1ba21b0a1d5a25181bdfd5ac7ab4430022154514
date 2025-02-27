@@ -262,6 +262,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d599cf2a_762dc6a1",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-02-27T16:19:34Z",
+      "side": 1,
+      "message": "I replied above. Option to reuse existing structure will require adding more code as well. I see only getRegistryFromPrefix and getMessageFromRegistry, but to implement traversal over registries, we will need to implement getAllRegistries, and traversal code.",
+      "parentUuid": "4602f98b_68a470d3",
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e5d42e7_cd5da478",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 1
