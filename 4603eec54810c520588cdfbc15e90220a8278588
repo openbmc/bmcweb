@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0867cfed_72175b75",
+        "filename": "redfish-core/include/dbus_registries_map.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T02:42:35Z",
+      "side": 1,
+      "message": "Doesn\u0027t look used in this commit?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 77
+      },
+      "revId": "4603eec54810c520588cdfbc15e90220a8278588",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d0fbc3_a17dd0ae",
+        "filename": "redfish-core/include/dbus_registries_map.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-27T02:42:35Z",
+      "side": 1,
+      "message": "Message Ids by convention are CamelCase",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 46
+      },
+      "revId": "4603eec54810c520588cdfbc15e90220a8278588",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0cf5aa85_c37de201",
         "filename": "redfish-core/include/registries/openbmc_state_leak_detector_group_message_registry.hpp",
         "patchSetId": 3
