@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75fb1beb_f9a9d843",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:26:32Z",
+      "side": 1,
+      "message": "Looks fine overall",
+      "revId": "dba51710177d83f0b066f1de6fe413c3ed5ea003",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7fc6d92_47489350",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:26:32Z",
+      "side": 1,
+      "message": "nit\n\n// NOLINTBEGIN(misc-include-cleaner)\n\n// NOLINTEND(misc-include-cleaner)\n\nMight save some lines here.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 39
+      },
+      "revId": "dba51710177d83f0b066f1de6fe413c3ed5ea003",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2abf7b5_46f0c09a",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:26:32Z",
+      "side": 1,
+      "message": "nit, this could probably be its own function?\n\nNot that worried either way.  Fix if you feel like",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 61
+      },
+      "revId": "dba51710177d83f0b066f1de6fe413c3ed5ea003",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
