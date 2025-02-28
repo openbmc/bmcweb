@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11b4b131_d674c61b",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T00:04:53Z",
+      "side": 1,
+      "message": "Thank you.",
+      "parentUuid": "cbbc536c_307d6047",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0510a711_2b8e4464",
@@ -166,6 +184,24 @@
       "side": 1,
       "message": "Hi Ed, is there a spec dictating how an UPN should look like? AFAICT the UPN field can be free-form. The redfish spec mentions:\n\n\u003e This value shall indicate the service matches the User Principal Name (UPN) field in the provided certificate to the UserName property in a ManagerAccount resource or the appropriate field from an external account provider.\n\nIn our usage, we\u0027ve added the UPN field to match a local BMC username as an exact match (as we didn\u0027t want to introduce parsing logic that\u0027s specific to our org here)",
       "parentUuid": "05dccb2e_608b99d9",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f67624_3d4061a3",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T00:04:53Z",
+      "side": 1,
+      "message": "UPNs look like email addresses, so it would be something like\n\nmarco@this_bmc.facebook.com\n\nOr if you want to authorize a given cert against all BMCs (which seems like a bad idea from a security perspective, but you do you)\n\nmarco@facebook.com\n\nPresumably we need to strip of the portion that looks like an email.",
+      "parentUuid": "39f904ef_bb41b2b4",
       "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
