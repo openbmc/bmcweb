@@ -143,6 +143,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ee2135b_128669f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:01:55Z",
+      "side": 1,
+      "message": "Stepping back from data structures for a second:\n\nThis is the part I\u0027m not understanding.  Redfish needs arguments as indexes (%1, %2, %3, etc) to be able to do message string replacement from the registry template string and args.\n\nhttps://github.com/openbmc/bmcweb/blob/da9dc905da4e6d30125bcca160537cf2cdb2ddf4/redfish-core/include/registries.hpp#L47C20-L47C35\n\nAs we\u0027ve defined the dbus interface, where is that mapping coming from?  PDI?\n\nI have a minor preference for \"Use existing structures.\" option (because it keeps the structs the same). There\u0027s already some args that are per-argument, so combining them into a new struct, like\n\nMessageArg{\n   std::string_view dbusArgName;  \u003c- will be empty string for registries not generated from PDI\n   std::string_view argType;  \u003c- needs retained in both cases.\n}\n\nstruct Message\n{\n...\nstd::array\u003cconst MessageArg, 5\u003e paramTypes;\n}\n\nSeems worthwhile.  \n\nCan you elaborate on what the dbusMessageName arg would be or do?  I expected that PDI -\u003e messageId translation would be a mechanical transform (snake case to CamelCase, etc) and not that we\u0027d have to store a separate string.  I\u0027m happy to declare the mapping around \"Openbmc LeakDetectedCritical translates to Redfish Environmental LeakDetectedCritical\" type map here... but I think Patricks intent was for that to live in PDI (and that\u0027s probably a more proper place for it).\n\nKeep in mind, there\u0027s a boatload of Redfish MessageIds, and we have 1MB of binary space to play with, so some of the data structure intent here is trying to keep the binary data small, constexpr, in RODATA, and deduplicated as much as possible down to only what redfish needs so that we don\u0027t explode the binary when we pull in DMTF  where where we might use 10% of the messages in them.",
+      "parentUuid": "475786ab_eed3fe3e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 22
+      },
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "63dcefc9_045ec591",
@@ -278,6 +302,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92e1c4a8_6133fa33",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:01:55Z",
+      "side": 1,
+      "message": "I\u0027m just going to close this out to avoid duplication.  Resolving the above discussion will resolve this one.",
+      "parentUuid": "d599cf2a_762dc6a1",
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e5d42e7_cd5da478",
@@ -338,6 +380,30 @@
       "writtenOn": "2025-02-25T22:31:51Z",
       "side": 1,
       "message": "Lets start by working through adding a single new shcema.",
+      "range": {
+        "startLine": 889,
+        "startChar": 0,
+        "endLine": 890,
+        "endChar": 10
+      },
+      "revId": "1ba21b0a1d5a25181bdfd5ac7ab4430022154514",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "669468f4_44d9076c",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:01:55Z",
+      "side": 1,
+      "message": "Obsolete",
+      "parentUuid": "304a09fd_d9dfd6de",
       "range": {
         "startLine": 889,
         "startChar": 0,
