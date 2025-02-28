@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4c6ce27_a09f28f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T20:53:36Z",
+      "side": 1,
+      "message": "there are not yet any nvidia platforms upstream, so it isn\u0027t clear how this is possible.",
+      "range": {
+        "startLine": 14,
+        "startChar": 25,
+        "endLine": 14,
+        "endChar": 40
+      },
+      "revId": "18e13a76792ada9c27a8a2d759a05abaa66e2569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2d4ac81c_673aa792",
