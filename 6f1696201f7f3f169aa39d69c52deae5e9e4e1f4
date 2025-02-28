@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9877270_cf8d206c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:08:20Z",
+      "side": 1,
+      "message": "Redfish service validator.  Testing also needs done for both modes of log service (the one that uses this code, and the one that doesn\u0027t).",
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17818658_d6179a95",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -67,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "167dea12_e57533f5",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:08:20Z",
+      "side": 1,
+      "message": "Can you give more indication as to what \"fails\" means?  I would\u0027ve expected that to work, and as you can see from further up in this file we do it in a lot of other places in this variant\n\nstd::vector\u003cstd::pair\u003csdbusplus::message::object_path, std::string\u003e\u003e\n\nmaybe there\u0027s something subtly different here, but I\u0027d like to understand it.",
+      "parentUuid": "4833015e_e35aa091",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 48
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48315f5c_4a6e39ed",
         "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
         "patchSetId": 2
@@ -102,6 +143,30 @@
       "side": 1,
       "message": "No, it is not. The interface you refer to is the Event - something, we want to convert this thing to an present to the client. It\u0027s defined in https://github.com/openbmc/bmcweb/blob/master/redfish-core/include/event_logs_object_type.hpp#L18 and its AdditionalData type is indeed std::vector\u003cstd::string\u003e.\n\nThis structure though, represents what we receive from DBus and its interface is defined here:\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Logging/Entry.interface.yaml#L34\n\nAnd this is the reason I added this type to the include/dbus_utility.hpp.",
       "parentUuid": "48315f5c_4a6e39ed",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 46
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fffe6ea_b9aa633b",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:08:20Z",
+      "side": 1,
+      "message": "Closing this out:\nhttps://github.com/openbmc/phosphor-dbus-interfaces/commit/25b1bcba49c71ffa0ca70a32ae696e25795843a0\n\nI wasn\u0027t aware this change had been made.\n\nYes, you are right, I linked event.",
+      "parentUuid": "340abd50_70c0a5a9",
       "range": {
         "startLine": 50,
         "startChar": 0,
