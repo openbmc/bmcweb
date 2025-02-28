@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1bd2a85d_82825a1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:03:22Z",
+      "side": 1,
+      "message": "One minor thing around the meson option then looks fine.",
+      "revId": "234d781fb2425b5d4554d480653957050ed3666f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a99fcf18_055b4d32",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:03:22Z",
+      "side": 1,
+      "message": "We probably need to check the dbus_logging meson option here and only generate this if we\u0027re in dbus logger mode i suspect?",
+      "range": {
+        "startLine": 420,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 50
+      },
+      "revId": "234d781fb2425b5d4554d480653957050ed3666f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
