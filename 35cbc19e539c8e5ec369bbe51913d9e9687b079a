@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe743365_afce219e",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-02-28T23:08:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "388d5f11_04700dc7",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 19
+      },
+      "revId": "35cbc19e539c8e5ec369bbe51913d9e9687b079a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e4988d2_6ba21212",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-02-28T22:33:15Z",
       "side": 1,
       "message": "Wouldn\u0027t have expected reference_wrapper to be needed here... must be something weird with a copy?",
+      "range": {
+        "startLine": 53,
+        "startChar": 30,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "35cbc19e539c8e5ec369bbe51913d9e9687b079a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f0289fa_31e18cdc",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-02-28T23:08:40Z",
+      "side": 1,
+      "message": "You cannot have a std::optional\u003cFoo\u0026\u003e, so you have to use a reference_wrapper.  The `getRegistryFromPrefix` function returns an optional\u003cRegistryEntry\u0026\u003e (ideally) so that\u0027s where the reference_wrapper comes from.\n\nhttps://godbolt.org/z/31e5xWsds",
+      "parentUuid": "6e4988d2_6ba21212",
       "range": {
         "startLine": 53,
         "startChar": 30,
