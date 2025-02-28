@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "199ec80b_61ee6708",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-28T10:40:56Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3f19d545_b4e8ba65",
+      "range": {
+        "startLine": 8,
+        "startChar": 10,
+        "endLine": 8,
+        "endChar": 25
+      },
+      "revId": "2827381bb4398647c970021c04490dc2f6ecae7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d3a3e24_19ce3c2f",
@@ -72,6 +96,24 @@
       "side": 1,
       "message": "👍",
       "parentUuid": "0d3a3e24_19ce3c2f",
+      "revId": "2827381bb4398647c970021c04490dc2f6ecae7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59a0f323_1923ff84",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-02-28T10:40:56Z",
+      "side": 1,
+      "message": "Updated the code as per suggestion",
+      "parentUuid": "1e8ca45d_7c8f5078",
       "revId": "2827381bb4398647c970021c04490dc2f6ecae7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
