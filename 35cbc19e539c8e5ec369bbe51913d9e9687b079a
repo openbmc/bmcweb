@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "388d5f11_04700dc7",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:33:15Z",
+      "side": 1,
+      "message": "Could this be a normal struct (with named args)?  We don\u0027t really use this as a tuple in this code?",
+      "range": {
+        "startLine": 52,
+        "startChar": 6,
+        "endLine": 52,
+        "endChar": 19
+      },
+      "revId": "35cbc19e539c8e5ec369bbe51913d9e9687b079a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e4988d2_6ba21212",
+        "filename": "redfish-core/include/registries.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T22:33:15Z",
+      "side": 1,
+      "message": "Wouldn\u0027t have expected reference_wrapper to be needed here... must be something weird with a copy?",
+      "range": {
+        "startLine": 53,
+        "startChar": 30,
+        "endLine": 53,
+        "endChar": 47
+      },
+      "revId": "35cbc19e539c8e5ec369bbe51913d9e9687b079a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
