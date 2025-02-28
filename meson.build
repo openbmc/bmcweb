@@ -236,14 +236,17 @@ if not nghttp2.found()
 endif
 bmcweb_dependencies += nghttp2
 
-sdbusplus = dependency('sdbusplus', required: false, include_type: 'system')
-if not sdbusplus.found()
-    sdbusplus_proj = subproject('sdbusplus', required: true)
-    sdbusplus = sdbusplus_proj.get_variable('sdbusplus_dep')
-    sdbusplus = sdbusplus.as_system('system')
-endif
+sdbusplus = dependency(
+    'sdbusplus',
+    include_type: 'system',
+    default_options: ['cpp_rtti=true'],
+)
 bmcweb_dependencies += sdbusplus
 bmcweb_cli_dependencies += sdbusplus
+
+pdi_dep = dependency('phosphor-dbus-interfaces', include_type: 'system')
+registry_dir = pdi_dep.get_variable('registry_dir')
+bmcweb_dependencies += pdi_dep
 
 cli11 = dependency('CLI11', required: false, include_type: 'system')
 if not cli11.found()
@@ -365,6 +368,29 @@ bmcweb_cli_dependencies += conf_h_dep
 # Source files
 fs = import('fs')
 
+# This is a bogus executable that "links" against PDI just for dependency
+# ordering.  The registry generation requires PDI to have been fully built,
+# if it is built as a subproject, so that the registry directory is populated.
+# Meson only lets custom_target's depend on [local] build-targets, so this
+# bogus executable satisfies that.
+pdi_registry_dep = executable(
+    'pdi-hello',
+    'src/pdi_hello.cpp',
+    dependencies: pdi_dep,
+)
+gen_registry = custom_target(
+    'gen_registry',
+    command: [
+        'scripts/parse_registries.py',
+        '--with-registry',
+        registry_dir,
+        '--output-dir',
+        meson.current_build_dir(),
+    ],
+    depends: pdi_registry_dep,
+    output: ['external_registries_map.hpp', 'external_registries.hpp'],
+)
+
 srcfiles_bmcweb = files(
     'http/mutual_tls.cpp',
     'http/routing/sserule.cpp',
@@ -400,7 +426,10 @@ bmcweblib = static_library(
     'bmcweblib',
     srcfiles_bmcweb,
     include_directories: incdir,
-    dependencies: bmcweb_dependencies,
+    dependencies: [
+        bmcweb_dependencies,
+        declare_dependency(sources: gen_registry),
+    ],
 )
 
 # Generate the bmcwebd daemon
