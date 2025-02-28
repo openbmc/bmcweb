@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f429da82_1b90d750",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-02-28T22:59:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7fc6d92_47489350",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 39
+      },
+      "revId": "dba51710177d83f0b066f1de6fe413c3ed5ea003",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2abf7b5_46f0c09a",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-02-28T22:26:32Z",
       "side": 1,
       "message": "nit, this could probably be its own function?\n\nNot that worried either way.  Fix if you feel like",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 61
+      },
+      "revId": "dba51710177d83f0b066f1de6fe413c3ed5ea003",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "436b677c_63229404",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-02-28T22:59:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2abf7b5_46f0c09a",
       "range": {
         "startLine": 91,
         "startChar": 0,
