@@ -39,6 +39,30 @@
       },
       "revId": "234d781fb2425b5d4554d480653957050ed3666f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "589e59f8_1baad6b0",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-02-28T22:15:18Z",
+      "side": 1,
+      "message": "There are still some dependency issue here that I\u0027m going to fix shortly.\n\nDo we want to add a dbus_logging check here?  I have two reasons for not doing so:\n\n1. Generally things set up where all of the code compiles no matter what the settings are; dbus-logging is disabled by default which means we\u0027ll end up getting no coverage in CI if it gets broken.\n\n2. There was requested in the design that we add the OPENBMC_MESSAGE_ID in the journal when dbus-logging is disabled so that the old rsyslog path could be used.  This path (while not fully implemented right this moment) would also use the registries.\n\nhttps://github.com/openbmc/docs/blob/master/designs/event-logging.md#phosphor-logging",
+      "parentUuid": "a99fcf18_055b4d32",
+      "range": {
+        "startLine": 420,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 50
+      },
+      "revId": "234d781fb2425b5d4554d480653957050ed3666f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
