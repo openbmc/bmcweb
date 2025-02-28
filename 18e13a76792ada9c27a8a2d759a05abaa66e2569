@@ -62,6 +62,52 @@
       },
       "revId": "18e13a76792ada9c27a8a2d759a05abaa66e2569",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7dbad0e_6ccd3107",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T20:55:20Z",
+      "side": 1,
+      "message": "Presumably you meant to return here?",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 56
+      },
+      "revId": "18e13a76792ada9c27a8a2d759a05abaa66e2569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9fcacfc_255961da",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-02-28T20:55:20Z",
+      "side": 1,
+      "message": "Please don\u0027t make this a lambda.  make it a normal method.",
+      "range": {
+        "startLine": 364,
+        "startChar": 0,
+        "endLine": 384,
+        "endChar": 11
+      },
+      "revId": "18e13a76792ada9c27a8a2d759a05abaa66e2569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
