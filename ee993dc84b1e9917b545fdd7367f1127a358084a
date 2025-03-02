@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32b9f122_75c3697b",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-02T20:00:20Z",
+      "side": 1,
+      "message": "Ed,\n\nWith this commit, I\u0027m not able to get bmcweb log entries from journal.\n\n```\nbmcweb loglevel debug\n```\n\nAfter this, I would expect to see the debug entries from journal (e.g. GET etc).\n```\njournalctl -u bmcweb -f\n```\n\nAm I missing something?  Or, should I configure something more?\n\n(If I switch to `SyslogLevelPrefix\u003dfalse`, bmcweb logs appear in journal)",
+      "revId": "ee993dc84b1e9917b545fdd7367f1127a358084a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
