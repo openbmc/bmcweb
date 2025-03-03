@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7399a60d_f0a821d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T23:06:24Z",
+      "side": 1,
+      "message": "What does this mean?  Presumably step one would be to set up your certificates?  \n\nIdeally lets get the testing laid out in terms of things a user would do:\n\nGET \u003credfish URI\u003e\nPATCH \u003credfish URI\u003e\netc\n\nso that it\u0027s reproducible by others.\n\nThe script we use for that is below.  Maybe we could add a UPN mode to that for testing so we\u0027re not being overly wordy in a commit message?\n\nhttps://github.com/openbmc/bmcweb/blob/master/scripts/generate_auth_certificates.py",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5daf3a9b_7e24f674",
         "filename": "http/mutual_tls.cpp",
         "patchSetId": 24
