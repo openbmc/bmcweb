@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5daf3a9b_7e24f674",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T23:03:47Z",
+      "side": 1,
+      "message": "lets break out the getHostName() method into a utils class now that this call is shared between multiple things (Should go in include/ because it\u0027s not redfish specific).  We shouldn\u0027t need to #include a whole redfish router implementation just to get one method.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c98f4579_0f1b6a75",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T23:03:47Z",
+      "side": 1,
+      "message": "nit, we\u0027re in the redfish namespace here.  no need for redfish::",
+      "range": {
+        "startLine": 172,
+        "startChar": 40,
+        "endLine": 172,
+        "endChar": 49
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8694cd1b_2355d2c4",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T23:03:47Z",
+      "side": 1,
+      "message": "openssl includes need to be in the extern \"C\" call, otherwise static analyzers treat them as c++",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
