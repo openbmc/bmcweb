@@ -55,7 +55,10 @@ constexpr int toSystemdLevel(LogLevel level)
          {LogLevel::Warning, 4},
          // NOTICE 5
          {LogLevel::Info, 6},
-         {LogLevel::Debug, 7}}};
+         // Note, debug here is actually mapped to info level, because OpenBMC
+         // has a MaxLevelSyslog and MaxLevelStore of info, so DEBUG level will
+         // never be stored.
+         {LogLevel::Debug, 6}}};
 
     const auto* it = std::ranges::find_if(
         mapping, [level](const std::pair<LogLevel, int>& elem) {
@@ -65,7 +68,7 @@ constexpr int toSystemdLevel(LogLevel level)
     // Unknown log level.  Just assume debug
     if (it != mapping.end())
     {
-        return 7;
+        return 6;
     }
 
     return it->second;
