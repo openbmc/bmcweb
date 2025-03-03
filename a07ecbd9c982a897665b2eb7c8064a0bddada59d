@@ -109,6 +109,29 @@
       "message": "When I test this patch, I\u0027m seeing:\n\n```\nroot@s7106:~# journalctl -u bmcweb\nDec 19 21:26:09 s7106 systemd[1]: Started Start bmcwebd server.\nDec 19 21:26:55 s7106 systemd[1]: bmcweb.service: Watchdog timeout (limit 30s)!\nDec 19 21:26:55 s7106 systemd[1]: bmcweb.service: Killing process 231 (bmcwebd) with signal SIGABRT.\nDec 19 21:26:58 s7106 systemd-coredump[389]: [LNK] Process 231 (bmcwebd) of user 0 dumped core.\nDec 19 21:26:58 s7106 systemd[1]: bmcweb.service: Main process exited, code\u003ddumped, status\u003d11/SEGV\nDec 19 21:26:58 s7106 systemd[1]: bmcweb.service: Failed with result \u0027watchdog\u0027.\nDec 19 21:26:58 s7106 systemd[1]: bmcweb.service: Consumed 1.237s CPU time.\n```\n\nWhat environment did you test under?",
       "revId": "a07ecbd9c982a897665b2eb7c8064a0bddada59d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf774919_23d8953f",
+        "filename": "meson.options",
+        "patchSetId": 6
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T18:09:37Z",
+      "side": 1,
+      "message": "It says set to 0 below for disable, but the minimum is 1.",
+      "range": {
+        "startLine": 532,
+        "startChar": 1,
+        "endLine": 532,
+        "endChar": 11
+      },
+      "revId": "a07ecbd9c982a897665b2eb7c8064a0bddada59d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
