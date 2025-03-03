@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1a2f879_45728d80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T16:05:05Z",
+      "side": 1,
+      "message": "Why only patch?",
+      "range": {
+        "startLine": 7,
+        "startChar": 35,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "3c96bfc5c3114d9673eacf3bb20f99f86a47271a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfa0eded_bdb7a77f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T16:05:05Z",
+      "side": 1,
+      "message": "\"make sense\" isn\u0027t really a description of why someone would want to disable this feature.  please add a little more prose.",
+      "range": {
+        "startLine": 10,
+        "startChar": 34,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "3c96bfc5c3114d9673eacf3bb20f99f86a47271a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71cd79af_b97cde32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T16:05:05Z",
+      "side": 1,
+      "message": "1. The determination for this should be coming from dbus, not a bmcweb option flag\n\n2. Please add a tested statement, testing on one such upstream platform",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "3c96bfc5c3114d9673eacf3bb20f99f86a47271a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cccb2fc_1d963104",
+        "filename": "config/meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T16:05:05Z",
+      "side": 1,
+      "message": "THis list is alphabetical.  Please keep it that way\n\nAlso, generally this would start with \"redfish-\"",
+      "revId": "3c96bfc5c3114d9673eacf3bb20f99f86a47271a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
