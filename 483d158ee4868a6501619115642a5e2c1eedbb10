@@ -224,6 +224,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "276f73f1_03cb2ad5",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T23:00:20Z",
+      "side": 1,
+      "message": "\u003e steps that you mentioned\n\nThis kind of statement worries me.  This shouldn\u0027t be an \"Ed told you to do it this way\" It should be in some kind of spec.  I highly recommend reaching out to DMTF (Where I\u0027m also present in the forums and on github) and see how this is intended to be implemented at a Redfish level and if they used any other specs for that.  I would ideally like to see that show up in your commit message, again, so we\u0027re not playing the \"Ed told us to do it this way\" game.  If we\u0027re making decisions beyond what the spec allows, that\u0027s when I can help you decide how OpenBMC should implement things where the spec gives backends freedom, but I don\u0027t believe the parsing of UPN is one of those things.",
+      "parentUuid": "27b91e97_ba715485",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e29155ad_bfdb9996",

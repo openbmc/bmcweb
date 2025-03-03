@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec88cd61_3ec83b35",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T23:00:20Z",
+      "side": 1,
+      "message": "Lets swap this to a \n\nNOLINTBEGIN(cppcoreguidelines-pro-type-union-access)\n\nand\n\nNOLINTEND(cppcoreguidelines-pro-type-union-access)\n\nwithin this code block.  We know that utf8string is a union we can\u0027t fix, we know accessing it is reviewed in this context.  We can avoid specifying this 4 times in this block.",
+      "range": {
+        "startLine": 67,
+        "startChar": 11,
+        "endLine": 67,
+        "endChar": 25
+      },
+      "revId": "7e0321ce967887c5d4a1247a002c4a2fba041c94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d8b5fd9_f764ab2d",
         "filename": "http/mutual_tls.cpp",
         "patchSetId": 19
