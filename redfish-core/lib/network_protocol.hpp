@@ -563,8 +563,16 @@ inline void handleManagersNetworkProtocolPatch(
 
     if (sshEnabled)
     {
-        handleProtocolEnabled(*sshEnabled, asyncResp,
-                              encodeServiceObjectPath(sshServiceName));
+        if constexpr (BMCWEB_REDFISH_PATCH_SSH)
+        {
+            handleProtocolEnabled(*sshEnabled, asyncResp,
+                                  encodeServiceObjectPath(sshServiceName));
+        }
+        else
+        {
+            messages::propertyNotWritable(asyncResp->res,
+                                          "SSH/ProtocolEnabled");
+        }
     }
 }
 

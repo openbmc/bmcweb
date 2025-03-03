@@ -33,6 +33,7 @@ feature_options = [
     'redfish-new-powersubsystem-thermalsubsystem',
     'redfish-oem-manager-fan-data',
     'redfish-provisioning-feature',
+    'redfish-patch-ssh',
     'redfish-updateservice-use-dbus',
     'redfish-use-3-digit-messageid',
     'rest',
