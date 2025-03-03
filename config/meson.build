@@ -41,6 +41,7 @@ feature_options = [
     'tests',
     'vm-websocket',
     'xtoken-auth',
+    'patch-ssh',
 ]
 
 string_options = [
