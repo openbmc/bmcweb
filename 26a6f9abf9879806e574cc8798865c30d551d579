@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0407862c_25d93915",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "update the commit message. Please let me know if anything else is required.",
+      "parentUuid": "18801ec3_2ddb65f7",
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "18d2f899_ae01b752",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -70,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7423a1ce_3941f5b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "READY\u003d1 not sure if its needed for service type \u0027simple\u0027. Once the main process is started the service is considered ready. We might not need RELOADING\u003d1 unless our reloading sequence is expected to take more than the watchdog timeout. Not having this can help to recover if if get hung in reloading.",
+      "parentUuid": "f5580309_ce11936f",
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "123e540d_e331ff84",
@@ -87,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cec91315_7e008b37",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "123e540d_e331ff84",
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e0fbf59_edbf9762",
@@ -100,6 +154,30 @@
       "writtenOn": "2025-02-24T18:15:04Z",
       "side": 1,
       "message": "please add to your commit message why this needs to be configurable?  2 minutes is... insanely long for an http blocking request.  Setting it higher would be an error.\n\nI really suspect we can just keep a sane default for now.",
+      "range": {
+        "startLine": 53,
+        "startChar": 35,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "106afbc6_6740a71f",
+        "filename": "config/meson.build",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e0fbf59_edbf9762",
       "range": {
         "startLine": 53,
         "startChar": 35,
@@ -133,6 +211,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2a3301f_148659ae",
+        "filename": "include/watchdog.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79125f61_8773f9eb",
+      "range": {
+        "startLine": 22,
+        "startChar": 24,
+        "endLine": 22,
+        "endChar": 33
+      },
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a949e3b_ab2697a6",
@@ -150,6 +252,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "623e5126_5223535d",
+        "filename": "include/watchdog.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a949e3b_ab2697a6",
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4303f6c8_1007466b",
@@ -163,6 +283,30 @@
       "writtenOn": "2025-02-24T18:15:04Z",
       "side": 1,
       "message": "nit, remove this-\u003e",
+      "range": {
+        "startLine": 33,
+        "startChar": 53,
+        "endLine": 33,
+        "endChar": 59
+      },
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b6956c7_db52aac6",
+        "filename": "include/watchdog.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4303f6c8_1007466b",
       "range": {
         "startLine": 33,
         "startChar": 53,
@@ -196,6 +340,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9079e9eb_124003b4",
+        "filename": "include/watchdog.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51279c93_e2262acc",
+      "range": {
+        "startLine": 26,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 5
+      },
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e19424e1_023fd9b9",
@@ -219,6 +387,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c6e8195_11a77426",
+        "filename": "include/watchdog.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e19424e1_023fd9b9",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 13
+      },
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e5acb7b_90ea7940",
@@ -232,6 +424,30 @@
       "writtenOn": "2025-02-24T18:22:47Z",
       "side": 1,
       "message": "Our expiry is 120s, our update is on a 30s loop.  How was that 4x ratio chosen? if it\u0027s arbitrary, please state that somewhere in the commit message.",
+      "range": {
+        "startLine": 534,
+        "startChar": 11,
+        "endLine": 534,
+        "endChar": 13
+      },
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a5524a0_e7601aed",
+        "filename": "meson.options",
+        "patchSetId": 3
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "updated the commit message.",
+      "parentUuid": "1e5acb7b_90ea7940",
       "range": {
         "startLine": 534,
         "startChar": 11,
@@ -273,6 +489,24 @@
       "side": 1,
       "message": "+1.  Please also document how to disable in your commit message.",
       "parentUuid": "89ab4ca9_c62fd999",
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86874add_5feacaa3",
+        "filename": "meson.options",
+        "patchSetId": 3
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-03T16:51:57Z",
+      "side": 1,
+      "message": "set to 0 to disable it.",
+      "parentUuid": "611d952a_f5141319",
       "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
