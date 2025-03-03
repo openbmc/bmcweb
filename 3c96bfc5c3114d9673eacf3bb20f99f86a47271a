@@ -72,6 +72,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "802a61a0_49b62383",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-03T17:54:31Z",
+      "side": 1,
+      "message": "+1. Why can\u0027t the backend return a dbus error and bmcweb returns propertyNotWritable  ?",
+      "parentUuid": "71cd79af_b97cde32",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 21
+      },
+      "revId": "3c96bfc5c3114d9673eacf3bb20f99f86a47271a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9cccb2fc_1d963104",
         "filename": "config/meson.build",
         "patchSetId": 2
