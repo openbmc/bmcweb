@@ -49,6 +49,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2d19bcd_2130c0ef",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T23:10:36Z",
+      "side": 1,
+      "message": "Don\u0027t pass strings by value/copy please.  For new code pass by string_view",
+      "range": {
+        "startLine": 53,
+        "startChar": 40,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12be0cfc_c50e7528",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-03T23:10:36Z",
+      "side": 1,
+      "message": "Are UPNs required to have an @?  Lets get some references to the UPN parsing rules here.",
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c98f4579_0f1b6a75",
         "filename": "http/mutual_tls.cpp",
         "patchSetId": 24
