@@ -34,6 +34,24 @@
       "parentUuid": "32b9f122_75c3697b",
       "revId": "ee993dc84b1e9917b545fdd7367f1127a358084a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b938b8f3_adb314bd",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-03T18:42:48Z",
+      "side": 1,
+      "message": "Thanks for the reference to setup the filter.\n\nWhat I\u0027m wondering is where the default bmcweb logs (eg. info or error level by) would go. (or configured by -Dbmcweb-logging\u003d\u003clevel\u003e, or https://github.com/openbmc/bmcweb/blob/da9dc905da4e6d30125bcca160537cf2cdb2ddf4/meson.options#L200)?\n\nFor example, I added an error entry - like\n\n```\nvoid getValidChassisPath(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n                          const std::string\u0026 chassisId, Callback\u0026\u0026 callback)\n {\n     BMCWEB_LOG_DEBUG(\"checkChassisId enter\");\n+    BMCWEB_LOG_ERROR(\"TEST: checkChassisId enter\");  //\u003c---\n     ...\n }\n\n```\n\nThen, I would get the logs from `journalctl`, if I do \n```curl -k -X GET https://${bmc}/redfish/v1/Chassis/chassis```\n\nHowever, none of bmcweb log entries (regardless of the logging-level) are seen from journal.",
+      "parentUuid": "e9d5df57_8dcf7409",
+      "revId": "ee993dc84b1e9917b545fdd7367f1127a358084a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
