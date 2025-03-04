@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e840fbd7_62b29585",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-04T16:37:07Z",
+      "side": 1,
+      "message": "Hi Ed, I put the details of the test steps on the link here https://justpaste.it/adq6g . I forgot to mention to setup the UPN certificate as the first step\n\nI also tried to use the `generate_auth_certificate.py` script, but unfortunately it is not working properly on my end. It failed on `test_mtls_auth` func. Let me know if my test plan is already sufficient. In the meantime, I will try to investigate why the error happens and get back to this later  \n\n---\n- Check UPN field on X509 certificate\n```\n$ sudo openssl x509 -in $THRIFT_TLS_CL_CERT_PATH -text | grep \"UPN\"\n                othername: UPN::obmc.user_malikrafsan\n```\n- Make sure the UPN name exist inside the bmcweb accounts\n```\n$ curl --cert $THRIFT_TLS_CL_CERT_PATH --key $THRIFT_TLS_CL_KEY_PATH https://$HOSTNAME/redfish/v1/AccountService/Accounts | grep \"obmc.user_malikrafsan\"\n      \"@odata.id\": \"/redfish/v1/AccountService/Accounts/obmc.user_malikrafsan\"\n```\n- Change the `CertificateMappingAttribute` to use UPN\n```\n$ curl --data \u0027{\"MultiFactorAuth\": {\"ClientCertificate\": {\"CertificateMappingAttribute\": \"UserPrincipalName\"}}}\u0027 -H \"content-type: application/json\" -X PATCH --cert $\nTHRIFT_TLS_CL_CERT_PATH --key $THRIFT_TLS_CL_CERT_PATH https://$HOSTNAME/redfish/v1/AccountService\n{\n  \"@Message.ExtendedInfo\": [\n    {\n      \"@odata.type\": \"#Message.v1_1_1.Message\",\n      \"Message\": \"The request completed successfully.\",\n      \"MessageArgs\": [],\n      \"MessageId\": \"Base.1.19.Success\",\n      \"MessageSeverity\": \"OK\",\n      \"Resolution\": \"None.\"\n    }\n  ]\n}\n```\n- Make sure we are still able to query the device\n```\n$ curl --cert $THRIFT_TLS_CL_CERT_PATH --key $THRIFT_TLS_CL_KEY_PATH https://$HOSTNAME/redfish/v1/AccountService/Accounts\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts\",\n  \"@odata.type\": \"#ManagerAccountCollection.ManagerAccountCollection\",\n...\n}\n```",
+      "parentUuid": "7399a60d_f0a821d1",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5daf3a9b_7e24f674",
         "filename": "http/mutual_tls.cpp",
         "patchSetId": 24
