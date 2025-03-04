@@ -16,6 +16,24 @@
       "message": "I guess this is fine, but doesn\u0027t all this code go away in short order now that the dbus stuff is implemented on the backend?",
       "revId": "6a897ff3caf74c85107bd08a7e921a7929f4deae",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7fcdfcba_275d825c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-04T21:09:52Z",
+      "side": 1,
+      "message": "Yes, in the long term, I think this is moot. However, as a reference, this serves to note that code updates can be slow due to the BMC\u0027s limited resources and larger code update images...\nI added a sentence here about that.",
+      "parentUuid": "0da5d231_24cce8e8",
+      "revId": "6a897ff3caf74c85107bd08a7e921a7929f4deae",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
