@@ -144,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e1b7cf1_cec3161e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-04T07:43:19Z",
+      "side": 1,
+      "message": "Yes tested the reload and its works\n```\nroot@gb200nvl-bmc:~# systemctl reload bmcweb\nroot@gb200nvl-bmc:~# journalctl -fu bmcweb\nMar 04 07:32:32 gb200nvl-bmc bmcwebd[5345]: [DEBUG redfish_aggregator.hpp:464] There were 1 satellite configs found at startup\nMar 04 07:33:01 gb200nvl-bmc bmcwebd[5345]: [ERROR watchdog.hpp:61] Kicking watchdog\nMar 04 07:33:10 gb200nvl-bmc systemd[1]: Reloading Start bmcweb server...\nMar 04 07:33:10 gb200nvl-bmc bmcwebd[5345]: [INFO http_server.hpp:154] Receivied reload signal\nMar 04 07:33:10 gb200nvl-bmc bmcwebd[5345]: [INFO ssl_key_handler.cpp:461] Building SSL Context file\u003d /etc/ssl/certs/https/server.pem\nMar 04 07:33:10 gb200nvl-bmc bmcwebd[5345]: [INFO ssl_key_handler.cpp:138] Checking certs in file /etc/ssl/certs/https/server.pem\nMar 04 07:33:10 gb200nvl-bmc systemd[1]: Reloaded Start bmcweb server.\nMar 04 07:33:10 gb200nvl-bmc bmcwebd[5345]: [DEBUG ssl_key_handler.cpp:119] Ignoring Trust Chain error. Reason: self-signed certificate\nMar 04 07:33:10 gb200nvl-bmc bmcwebd[5345]: [DEBUG ssl_key_handler.cpp:503] Using default TrustStore location: /etc/ssl/certs/authority\nMar 04 07:33:11 gb200nvl-bmc bmcwebd[5345]: [INFO app.hpp:194] app::ssl context use_count\u003d2\nMar 04 07:33:31 gb200nvl-bmc bmcwebd[5345]: [ERROR watchdog.hpp:61] Kicking watchdog\nMar 04 07:34:01 gb200nvl-bmc bmcwebd[5345]: [ERROR watchdog.hpp:61] Kicking watchdog\nMar 04 07:37:35 gb200nvl-bmc bmcwebd[5345]: [INFO http_connection.hpp:283] Request:  0x28fdbf0 HTTP/1.1 GET /redfish/v1/ ::ffff:10.41.25.249\n```",
+      "parentUuid": "950ee630_8091ec05",
+      "revId": "26a6f9abf9879806e574cc8798865c30d551d579",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "123e540d_e331ff84",
         "filename": "config/bmcweb.service.in",
         "patchSetId": 3
