@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41579488_deef02eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-04T19:43:00Z",
+      "side": 1,
+      "message": "Can the backend return the proper error and then bmcweb can return propertyNotWritable ?",
+      "revId": "4004e37e7d2c78595abea8f9900847201b58cf39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
