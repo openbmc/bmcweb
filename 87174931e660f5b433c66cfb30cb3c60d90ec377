@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a24046d1_3d47d862",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-04T17:41:41Z",
+      "side": 1,
+      "message": "\u003e details of the test steps on the link here\n\nWe can\u0027t really be linking a personal pastebin in a commit message.  We don\u0027t have to go crazy with the tested section, just enough that someone as an expert in this stuff could replicate what you did. High level tested statements are fine.\n\n\n\n\u003e but unfortunately it is not working properly on my end. It failed on test_mtls_auth func\n\nHave you tried running it a second time?  There\u0027s a known race condition where we don\u0027t wait for the new root cert to be applied and reloaded before bmcweb returns success.  The second time the script generally suceeds.\n\nIf the script is consistently failing on your system, that\u0027s worrying.  Could you maybe back up to prior to this commit and see if it still fails?\n\n\n\u003e Let me know if my test plan is already sufficient\n\nWhat\u0027s in your commit message is still insufficient.  I have no idea what \"Query using UPN certificate\" means without going to pastebin.\n\nLets get the commit message self contained, or scripts added that test this.",
+      "parentUuid": "e840fbd7_62b29585",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5daf3a9b_7e24f674",
         "filename": "http/mutual_tls.cpp",
         "patchSetId": 24
