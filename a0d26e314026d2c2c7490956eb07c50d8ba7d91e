@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f8b4dc1_24dc5c02",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 96
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-04T21:02:18Z",
+      "side": 1,
+      "message": "This is a 2 sentence commit message for a new user facing feature.  Why is it useful, what does it do?\n\nhttps://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#commit-messages",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c351231a_a6de8a27",
         "filename": "/COMMIT_MSG",
         "patchSetId": 96
@@ -14,6 +37,24 @@
       "writtenOn": "2025-02-26T21:04:58Z",
       "side": 1,
       "message": "Can you add more of what the future properties will be ? What the use case for port will be ?",
+      "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17dfe7c7_16c42f28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 96
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-04T21:02:18Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "c351231a_a6de8a27",
       "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -31,6 +72,69 @@
       "writtenOn": "2025-02-12T05:06:15Z",
       "side": 1,
       "message": "This follows https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/62881 \nIt seems reasonable to me. \nIt would need support for multiple system like everywhere else. \nFabric Adapter is already there, this is just adding the port based on the association",
+      "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37f687ea_feb8d861",
+        "filename": "Redfish.md",
+        "patchSetId": 96
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-04T21:02:18Z",
+      "side": 1,
+      "message": "This would be the only schema we have that has no properties implemented on it.  I\u0027m assuming this changes pretty quickly in the next commit?",
+      "range": {
+        "startLine": 864,
+        "startChar": 0,
+        "endLine": 864,
+        "endChar": 15
+      },
+      "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a100e0da_3d77e778",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 96
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-04T21:02:18Z",
+      "side": 1,
+      "message": "This is going to unconditionally add Ports to all fabric adapters.  was that the intent?",
+      "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7413835_90023339",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 96
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-04T21:02:18Z",
+      "side": 1,
+      "message": "This looks like it has several paths where callback never gets called?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 67
+      },
       "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
