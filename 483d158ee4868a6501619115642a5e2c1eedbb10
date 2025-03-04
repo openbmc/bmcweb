@@ -242,6 +242,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9b65bec_daf1cde1",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-04T15:05:06Z",
+      "side": 1,
+      "message": "Hi Ed, thanks for your feedbacks. I tried to search for official spec of the UPN format/parsing. The best sources that I can find are the official Microsoft website\n\nIt is stated that the UPN follows the RFC 822[1][2], which explain about the email format. The format is: someone@example.com (in the form of an email address) [3]. By convention, this should map to the user email name [1][2]. The UPN consists of 3 parts[4]:\n\n---\n| **Part**                                         | **Example**           |\n|--------------------------------------------------|-----------------------|\n| User account name. Also known as the logon name. | UserName              |\n| Separator. A character literal, the at sign (@). | @                     |\n| UPN suffix. Also known as the domain name.       | Example.Microsoft.com |\n---\n\nDomain name in the UPN identifies the domain in which the user account is located [3].\n\nBased on the explanation from the specs, I believe our implementation is aligned with the specifications. However, If you feel that this specification may not be entirely sufficient, please let us know. We would be more than happy to reach out to DMTF, to gather more information and ensure we are implementing it correctly\n\n---\n[1] UPN Attributes: https://learn.microsoft.com/en-us/windows/win32/adschema/a-userprincipalname\n[2] UPN Properties: https://learn.microsoft.com/en-us/windows/win32/ad/naming-properties#userprincipalname\n[3] UPN Glossary: https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-wcce/719b890d-62e6-4322-b9b1-1f34d11535b4#gt_9d606f55-b798-4def-bf96-97b878bb92c6\n[4] UPN Format: https://learn.microsoft.com/en-us/windows/win32/secauthn/user-name-formats#user-principal-name",
+      "parentUuid": "276f73f1_03cb2ad5",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e29155ad_bfdb9996",

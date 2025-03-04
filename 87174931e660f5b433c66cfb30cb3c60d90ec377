@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0847935b_d43d714b",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-04T15:05:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5daf3a9b_7e24f674",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2d19bcd_2130c0ef",
@@ -60,6 +84,30 @@
       "writtenOn": "2025-03-03T23:10:36Z",
       "side": 1,
       "message": "Don\u0027t pass strings by value/copy please.  For new code pass by string_view",
+      "range": {
+        "startLine": 53,
+        "startChar": 40,
+        "endLine": 53,
+        "endChar": 51
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9118416a_41b6c6ee",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-04T15:05:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d2d19bcd_2130c0ef",
       "range": {
         "startLine": 53,
         "startChar": 40,
@@ -87,6 +135,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e718a47_cab48506",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-04T15:05:06Z",
+      "side": 1,
+      "message": "From the specifications that I attached in previous comments, I believe the UPNs are required to have `@` as the format is following the email format (RFC 822) and explicitly stated to be consisted of 3 parts and one of them is `@`",
+      "parentUuid": "12be0cfc_c50e7528",
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c98f4579_0f1b6a75",
@@ -110,6 +176,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21cab6e6_7e4a42fb",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-04T15:05:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c98f4579_0f1b6a75",
+      "range": {
+        "startLine": 172,
+        "startChar": 40,
+        "endLine": 172,
+        "endChar": 49
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8694cd1b_2355d2c4",
@@ -123,6 +213,30 @@
       "writtenOn": "2025-03-03T23:03:47Z",
       "side": 1,
       "message": "openssl includes need to be in the extern \"C\" call, otherwise static analyzers treat them as c++",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aa7387f_af7ea68a",
+        "filename": "test/http/mutual_tls.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-04T15:05:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8694cd1b_2355d2c4",
       "range": {
         "startLine": 7,
         "startChar": 0,
