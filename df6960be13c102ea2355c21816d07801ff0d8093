@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5b9bb7dc_07e4578e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-04T17:33:51Z",
+      "side": 1,
+      "message": "nit, sign offs together please.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 13
+      },
+      "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e1e6bb5b_2a7ab37a",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 13
