@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0583e3fb_7612b003",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 96
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-04T23:01:28Z",
+      "side": 1,
+      "message": "I rewrote this part of the commit message.",
+      "parentUuid": "4f8b4dc1_24dc5c02",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 0
+      },
+      "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c351231a_a6de8a27",
         "filename": "/COMMIT_MSG",
         "patchSetId": 96
@@ -117,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0651cb5b_57d72c52",
+        "filename": "Redfish.md",
+        "patchSetId": 96
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-04T23:01:28Z",
+      "side": 1,
+      "message": "Yes, it will be changed by the consecutive commits - e.g. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/62849",
+      "parentUuid": "37f687ea_feb8d861",
+      "range": {
+        "startLine": 864,
+        "startChar": 0,
+        "endLine": 864,
+        "endChar": 15
+      },
+      "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a100e0da_3d77e778",
@@ -134,6 +182,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85e79f2d_cfb40fc1",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 96
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-04T23:01:28Z",
+      "side": 1,
+      "message": "Yes, this approach would avoid the unnecessary checks of the port existences at the FabricAdapter GET. If the ports for the adapter are needed, Ports GET will return either EMPTY output (in case no ports are associated).",
+      "parentUuid": "a100e0da_3d77e778",
+      "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7413835_90023339",
@@ -147,6 +213,30 @@
       "writtenOn": "2025-03-04T21:02:18Z",
       "side": 1,
       "message": "This looks like it has several paths where callback never gets called?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 67
+      },
+      "revId": "a0d26e314026d2c2c7490956eb07c50d8ba7d91e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "898cc6e4_214e9929",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 96
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-04T23:01:28Z",
+      "side": 1,
+      "message": "Right, if there are no valid ports, no callback is invoked for port GET/HEAD and it will give error or not found.\n\nPerhaps, I may restructure the code logic so that callback is always invoked with the ec and portPath condition?",
+      "parentUuid": "a7413835_90023339",
       "range": {
         "startLine": 71,
         "startChar": 0,
