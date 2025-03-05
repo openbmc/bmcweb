@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8de1ec0_052b0da1",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-05T15:38:20Z",
+      "side": 1,
+      "message": "Question on this one: For the GET paths looking for a particular id, the common path is to accept the first one found that matches it and then just return.\nE.g. https://github.com/openbmc/bmcweb/blob/da9dc905da4e6d30125bcca160537cf2cdb2ddf4/redfish-core/lib/fan.hpp#L181\n\nSo is that the expectation here as well? Or is it desired to return an error if there is more than one sensor that implements this purpose?",
+      "parentUuid": "78706cdd_a2a93b4b",
+      "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8e9f64c_082d4b58",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 13
