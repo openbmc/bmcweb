@@ -108,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb3ceead_5cd8c49a",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-05T10:33:48Z",
+      "side": 1,
+      "message": "It cannot unpack properties as it cannot find appropriate container/structure. Here is the error I get without this line: https://gist.github.com/ifel/7aeec33afd7f030d8dc03b29abf775b4",
+      "parentUuid": "167dea12_e57533f5",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 48
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "48315f5c_4a6e39ed",
         "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
         "patchSetId": 2
@@ -202,6 +226,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8bbf13d_30a0318a",
+        "filename": "redfish-core/include/utils/dbus_registries_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-05T10:33:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "601470cc_fa4670be",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0146b4c_dc85a633",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 2
@@ -259,6 +307,30 @@
       "writtenOn": "2025-02-25T22:55:37Z",
       "side": 1,
       "message": "can some of this code be combined between the two cases?  They\u0027re ultimately generating the same json now, from the same request (a json properties map).",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 36
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "528e712f_31cd26dd",
+        "filename": "redfish-core/src/dbus_log_watcher.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-05T10:33:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f10914ae_a2c58681",
       "range": {
         "startLine": 43,
         "startChar": 0,
@@ -329,6 +401,30 @@
       "writtenOn": "2025-02-25T22:55:37Z",
       "side": 1,
       "message": "Please restructure this to make it readable. We\u0027re in the redfish namespace here, so that can be omitted.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 67
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acbee714_ee36bf22",
+        "filename": "redfish-core/src/utils/dbus_registries_utils.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-05T10:33:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "310baf56_4f22a716",
       "range": {
         "startLine": 23,
         "startChar": 0,
