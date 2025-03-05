@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0561fd6_fa81fadb",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-05T14:58:31Z",
+      "side": 1,
+      "message": "objectExcerptToJson() calls objectPropertiesToJson(), which takes a nlohmann::json\u0026 sensorJson. When I tried to chang this local variable to be of type nlohmann:object_t I got compile errors and could only pass it if I cast it. That seemed more problematic. Is there another way I could handle it?\n\nhttps://github.com/openbmc/bmcweb/blob/da9dc905da4e6d30125bcca160537cf2cdb2ddf4/redfish-core/include/utils/sensor_utils.hpp#L402",
+      "parentUuid": "e1e6bb5b_2a7ab37a",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 18
+      },
+      "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "79e99407_bf915705",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 13
@@ -66,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78706cdd_a2a93b4b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-05T14:58:31Z",
+      "side": 1,
+      "message": "I\u0027ll address this along with changes based on the Sensor.Purpose discussion.",
+      "parentUuid": "79e99407_bf915705",
+      "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8e9f64c_082d4b58",
         "filename": "redfish-core/lib/environment_metrics.hpp",
         "patchSetId": 13
@@ -77,6 +119,30 @@
       "writtenOn": "2025-03-04T17:32:57Z",
       "side": 1,
       "message": "Getting all sensors for a chassis to find a single one seems worrying.  Is there any way to avoid this (see discussion on discord).",
+      "range": {
+        "startLine": 135,
+        "startChar": 18,
+        "endLine": 135,
+        "endChar": 37
+      },
+      "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a28c361d_870006a4",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-05T14:58:31Z",
+      "side": 1,
+      "message": "I did try to limit the number of sensors pulled by specifying just power sensors. Additionally it is only going to pull the ones which implement the Sensor.Purpose interface. My expectation is that is a small list of just special purpose sensors.",
+      "parentUuid": "f8e9f64c_082d4b58",
       "range": {
         "startLine": 135,
         "startChar": 18,
