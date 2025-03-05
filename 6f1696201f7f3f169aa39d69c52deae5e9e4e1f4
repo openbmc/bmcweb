@@ -296,6 +296,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ae652a9_2d25fbc6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-05T21:03:31Z",
+      "side": 1,
+      "message": "Technically speaking, it has to have MessageId populated as the type is being built here is Event, and for that case the spec says \"If the entry type is Event, this property contains a Redfish Specification-defined MessageId property of the event.\", so you are right.\n\n1 seems really ugly indeed. 2 sounds the right thing as this function always produces invalid objects because it never populates MessageId. However, this may/will break existing use cases. I will dig into callers and see what is/can be affected before publishing changes I made earlier today to address this comment and the one above.\n3 looks probably the best option short term, but long term I would prefer users to start using proper objects.\n\nA concern I have here is - BMCs do not/may not have decent telemetry, so, admins/users will not be able determine that some entires are being dropped. I propose to make an option, if it\u0027s enabled and MessageId cannot be determined, instead of dropping such entries, produce an entry with OpenBMC.InvalidMessageId or similar message Id, put the DBus event name to args. I briefly checked standard registries, but did not find anything suitable, so we might need to add one to the Openbmc one. What do you think?",
+      "parentUuid": "8f3e5aa3_983c7820",
+      "range": {
+        "startLine": 1474,
+        "startChar": 8,
+        "endLine": 1474,
+        "endChar": 29
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f10914ae_a2c58681",
         "filename": "redfish-core/src/dbus_log_watcher.cpp",
         "patchSetId": 2
