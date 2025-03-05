@@ -27,26 +27,32 @@
 
 #include <array>
 #include <cmath>
+#include <functional>
 #include <memory>
 #include <string>
 #include <string_view>
 
 namespace redfish
 {
+
+constexpr std::array<std::string_view, 1> cableInterfaces = {
+    "xyz.openbmc_project.Inventory.Item.Cable"};
+
 /**
  * @brief Fill cable specific properties.
- * @param[in,out]   resp        HTTP response.
+ * @param[in,out]   asyncResp   Async HTTP response.
  * @param[in]       ec          Error code corresponding to Async method call.
  * @param[in]       properties  List of Cable Properties key/value pairs.
  */
 inline void fillCableProperties(
-    crow::Response& resp, const boost::system::error_code& ec,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& properties)
 {
     if (ec)
     {
         BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-        messages::internalError(resp);
+        messages::internalError(asyncResp->res);
         return;
     }
 
@@ -59,13 +65,13 @@ inline void fillCableProperties(
 
     if (!success)
     {
-        messages::internalError(resp);
+        messages::internalError(asyncResp->res);
         return;
     }
 
     if (cableTypeDescription != nullptr)
     {
-        resp.jsonValue["CableType"] = *cableTypeDescription;
+        asyncResp->res.jsonValue["CableType"] = *cableTypeDescription;
     }
 
     if (length != nullptr)
@@ -75,15 +81,45 @@ inline void fillCableProperties(
             // Cable length is NaN by default, do not throw an error
             if (!std::isnan(*length))
             {
-                messages::internalError(resp);
+                BMCWEB_LOG_ERROR("Cable length value is invalid");
+                messages::internalError(asyncResp->res);
                 return;
             }
         }
         else
         {
-            resp.jsonValue["LengthMeters"] = *length;
+            asyncResp->res.jsonValue["LengthMeters"] = *length;
         }
     }
+}
+
+inline void fillCableHealthState(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& cableObjectPath, const std::string& service)
+{
+    dbus::utility::getProperty<bool>(
+        *crow::connections::systemBus, service, cableObjectPath,
+        "xyz.openbmc_project.Inventory.Item", "Present",
+        [asyncResp,
+         cableObjectPath](const boost::system::error_code& ec, bool present) {
+            if (ec)
+            {
+                if (ec.value() != EBADR)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "get presence failed for Cable {} with error {}",
+                        cableObjectPath, ec.value());
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+
+            if (!present)
+            {
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Absent;
+            }
+        });
 }
 
 /**
@@ -108,40 +144,88 @@ inline void getCableProperties(
             {
                 dbus::utility::getAllProperties(
                     *crow::connections::systemBus, service, cableObjectPath,
-                    interface,
-                    [asyncResp](
-                        const boost::system::error_code& ec,
-                        const dbus::utility::DBusPropertiesMap& properties) {
-                        fillCableProperties(asyncResp->res, ec, properties);
-                    });
+                    interface, std::bind_front(fillCableProperties, asyncResp));
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item")
             {
-                dbus::utility::getProperty<bool>(
-                    service, cableObjectPath, interface, "Present",
-                    [asyncResp, cableObjectPath](
-                        const boost::system::error_code& ec, bool present) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_DEBUG(
-                                "get presence failed for Cable {} with error {}",
-                                cableObjectPath, ec);
-                            if (ec.value() != EBADR)
-                            {
-                                messages::internalError(asyncResp->res);
-                            }
-                            return;
-                        }
-
-                        if (!present)
-                        {
-                            asyncResp->res.jsonValue["Status"]["State"] =
-                                resource::State::Absent;
-                        }
-                    });
+                fillCableHealthState(asyncResp, cableObjectPath, service);
             }
         }
     }
+}
+
+inline void afterHandleCableGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& cableId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec.value() == EBADR)
+    {
+        messages::resourceNotFound(asyncResp->res, "Cable", cableId);
+        return;
+    }
+
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& [objectPath, serviceMap] : subtree)
+    {
+        sdbusplus::message::object_path path(objectPath);
+        if (path.filename() != cableId)
+        {
+            continue;
+        }
+
+        asyncResp->res.jsonValue["@odata.type"] = "#Cable.v1_0_0.Cable";
+        asyncResp->res.jsonValue["@odata.id"] =
+            boost::urls::format("/redfish/v1/Cables/{}", cableId);
+        asyncResp->res.jsonValue["Id"] = cableId;
+        asyncResp->res.jsonValue["Name"] = "Cable";
+        asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
+
+        getCableProperties(asyncResp, objectPath, serviceMap);
+        return;
+    }
+    messages::resourceNotFound(asyncResp->res, "Cable", cableId);
+}
+
+inline void handleCableGet(App& app, const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& cableId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG("Cable Id: {}", cableId);
+
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, cableInterfaces,
+        std::bind_front(afterHandleCableGet, asyncResp, cableId));
+}
+
+inline void handleCableCollectionGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#CableCollection.CableCollection";
+    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Cables";
+    asyncResp->res.jsonValue["Name"] = "Cable Collection";
+    asyncResp->res.jsonValue["Description"] = "Collection of Cable Entries";
+    collection_util::getCollectionMembers(
+        asyncResp, boost::urls::url("/redfish/v1/Cables"), cableInterfaces,
+        "/xyz/openbmc_project/inventory");
 }
 
 /**
@@ -152,62 +236,7 @@ inline void requestRoutesCable(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Cables/<str>/")
         .privileges(redfish::privileges::getCable)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& cableId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-                BMCWEB_LOG_DEBUG("Cable Id: {}", cableId);
-                constexpr std::array<std::string_view, 1> interfaces = {
-                    "xyz.openbmc_project.Inventory.Item.Cable"};
-                dbus::utility::getSubTree(
-                    "/xyz/openbmc_project/inventory", 0, interfaces,
-                    [asyncResp,
-                     cableId](const boost::system::error_code& ec,
-                              const dbus::utility::MapperGetSubTreeResponse&
-                                  subtree) {
-                        if (ec.value() == EBADR)
-                        {
-                            messages::resourceNotFound(asyncResp->res, "Cable",
-                                                       cableId);
-                            return;
-                        }
-
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-
-                        for (const auto& [objectPath, serviceMap] : subtree)
-                        {
-                            sdbusplus::message::object_path path(objectPath);
-                            if (path.filename() != cableId)
-                            {
-                                continue;
-                            }
-
-                            asyncResp->res.jsonValue["@odata.type"] =
-                                "#Cable.v1_0_0.Cable";
-                            asyncResp->res.jsonValue["@odata.id"] =
-                                boost::urls::format("/redfish/v1/Cables/{}",
-                                                    cableId);
-                            asyncResp->res.jsonValue["Id"] = cableId;
-                            asyncResp->res.jsonValue["Name"] = "Cable";
-                            asyncResp->res.jsonValue["Status"]["State"] =
-                                resource::State::Enabled;
-
-                            getCableProperties(asyncResp, objectPath,
-                                               serviceMap);
-                            return;
-                        }
-                        messages::resourceNotFound(asyncResp->res, "Cable",
-                                                   cableId);
-                    });
-            });
+            std::bind_front(handleCableGet, std::ref(app)));
 }
 
 /**
@@ -218,24 +247,7 @@ inline void requestRoutesCableCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Cables/")
         .privileges(redfish::privileges::getCableCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#CableCollection.CableCollection";
-                asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Cables";
-                asyncResp->res.jsonValue["Name"] = "Cable Collection";
-                asyncResp->res.jsonValue["Description"] =
-                    "Collection of Cable Entries";
-                constexpr std::array<std::string_view, 1> interfaces{
-                    "xyz.openbmc_project.Inventory.Item.Cable"};
-                collection_util::getCollectionMembers(
-                    asyncResp, boost::urls::url("/redfish/v1/Cables"),
-                    interfaces, "/xyz/openbmc_project/inventory");
-            });
+            std::bind_front(handleCableCollectionGet, std::ref(app)));
 }
 
 } // namespace redfish
