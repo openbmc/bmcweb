@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bf7941d_d839fdcd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-06T16:32:48Z",
+      "side": 1,
+      "message": "please add more test details about if registry is accessible over the URI ? wether UT testing is good.",
+      "revId": "89f6c71a985f68b5053097a34cb748895682a144",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f4cf06a_7a12272f",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-06T16:32:48Z",
+      "side": 1,
+      "message": "how someone can disable this ?",
+      "revId": "89f6c71a985f68b5053097a34cb748895682a144",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
