@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5594da65_9d2fb0b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-06T04:42:47Z",
+      "side": 1,
+      "message": "1) In some platform where bmc is not managing bios. Performing a GET on /Systems/\u003c\u003e/Bios would throw error\n2) Adding a check before creating resource would help us to conditionally add the resource.\n3) Would help us avoid performing action such as bios password change or reset on non-existing resource",
+      "parentUuid": "a83168da_c03e6eed",
+      "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4bb8d97b_ae2e62d0",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-14T18:07:57Z",
       "side": 1,
       "message": "This breaks us. \nhttps://github.com/openbmc/bmcweb/blob/ebe4c574caac9dfd8b2754bda51c0cf869f1978f/redfish-core/lib/bios.hpp#L62\nWe have host (bios) firmware that isn\u0027t using /xyz/openbmc_project/bios_config/manager",
+      "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "051265ab_da01a687",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3083,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-06T04:42:47Z",
+      "side": 1,
+      "message": "yes, thanks for pointing out. \nAdding check here also would help right ? Can I take that path ? \nIf there is any better way please suggest I can try and test that approach.",
+      "parentUuid": "4bb8d97b_ae2e62d0",
       "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
