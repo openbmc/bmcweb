@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee2a08fb_23d9efb4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-06T21:29:05Z",
+      "side": 1,
+      "message": "A couple of nit comments, but main comments are why change from the dbus::utility function calls?",
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe1b30d3_b24a543d",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-06T21:29:05Z",
+      "side": 1,
+      "message": "nit: nice to line up service with above params in comment",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 100,
+        "endChar": 27
+      },
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a0e0df4_c7f02442",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-06T21:29:05Z",
+      "side": 1,
+      "message": "nit: This function looks to be just a pass-through. Is the future direction to add more into this function? If not, maybe just get rid of it.",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 31
+      },
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "731f4e65_345970df",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-06T21:29:05Z",
+      "side": 1,
+      "message": "Why change this from dbus::utility::getAllProperties()?",
+      "range": {
+        "startLine": 106,
+        "startChar": 21,
+        "endLine": 106,
+        "endChar": 37
+      },
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f50725da_ca6ba93f",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-06T21:29:05Z",
+      "side": 1,
+      "message": "Why change this from dbus::utility::getProperty()?",
+      "range": {
+        "startLine": 119,
+        "startChar": 21,
+        "endLine": 119,
+        "endChar": 32
+      },
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22822dc9_68e26941",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-06T21:29:05Z",
+      "side": 1,
+      "message": "nit: Add to commit message that schema version being updated.",
+      "range": {
+        "startLine": 200,
+        "startChar": 58,
+        "endLine": 200,
+        "endChar": 64
+      },
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
