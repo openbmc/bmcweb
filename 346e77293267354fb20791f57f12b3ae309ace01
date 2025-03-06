@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b7bbc04_5f04f491",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-06T17:52:27Z",
+      "side": 1,
+      "message": "There isn\u0027t a hard recommendation here.. \n\"seems too generic of a name and something like \"BMCWEB-SESSION\" better matches [2], [3], and [4].\"\n\nbut if looking at the sites listed, their examples are all more exact naming than \"SESSION\". \n\nE.g. \n```\nSet-Cookie: __Secure-ID\u003d123; Secure; Domain\u003dexample.com\nSet-Cookie: __Host-example\u003d34d8g; SameSite\u003dNone; Secure; Path\u003d/; Partitioned;\nSet-Cookie: qwerty\u003d219ffwef9w0f; Domain\u003dsome-company.co.uk\nset-cookie: 1P_JAR\u003d2019-10-24-18; expires\u003d…in\u003d.google.com; SameSite\u003dnone\n```\n\nhttps://stackoverflow.com/questions/2097843/naming-cookies-best-practices\nwith the top comment being \n\nappname_meaningfulname\n\nbut that isn\u0027t an official source, just a 100 people upvoting that comment",
+      "parentUuid": "42b67788_425c088c",
+      "revId": "346e77293267354fb20791f57f12b3ae309ace01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "74873935_6fc29515",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "BTW, I\u0027m happy to have both patches if that\u0027s what you still want, although it\u0027s going to break existing sessions, but I\u0027m not that worried about it.",
       "parentUuid": "bc109cdb_ff859bfb",
+      "revId": "346e77293267354fb20791f57f12b3ae309ace01",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f74940af_3d5e6a7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-06T17:52:27Z",
+      "side": 1,
+      "message": "77836 did not work but I think it could be corrected to work. \nI searched the exisiting code and made changes in those places I found.",
+      "parentUuid": "de2ef096_6917bb78",
       "revId": "346e77293267354fb20791f57f12b3ae309ace01",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
