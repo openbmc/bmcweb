@@ -85,6 +85,29 @@ def openbmc_local_getter() -> RegistryInfo:
     return (path, json_file, "openbmc", url)
 
 
+def oem_registry_local_getter(registry_name) -> RegistryInfo:
+    url = ""
+
+    json_path = os.path.join(
+        SCRIPT_DIR,
+        "..",
+        "redfish-core",
+        "include",
+        "registries",
+        "oem",
+        f"{registry_name}.json",
+    )
+
+    with open(json_path, "rb") as json_file_fd:
+        json_file = json.load(json_file_fd)
+
+    path = os.path.join(
+        INCLUDE_PATH, "oem", f"{registry_name}_message_registry.hpp"
+    )
+
+    return (path, json_file, registry_name, url)
+
+
 def update_registries(files: t.List[RegistryInfo]) -> None:
     # Remove the old files
     for file, json_dict, namespace, url in files:
@@ -681,6 +704,27 @@ def main() -> None:
                 f"{registry}_message_registry.hpp",
                 registry,
             )
+
+    for registry in registries:
+        if registry in ["openbmc", "privilege"] or registry in dmtf_registries:
+            continue  # Skip because it's already handled
+
+        json_path = os.path.join(
+            SCRIPT_DIR,
+            "..",
+            "redfish-core",
+            "include",
+            "registries",
+            "oem",
+            f"{registry}.json",
+        )
+
+        # Check if the file exists before proceeding
+        if os.path.exists(json_path):
+            registries_map[registry] = oem_registry_local_getter(registry)
+        else:
+            print(f"Warning: Skipping {registry} - Missing file: {json_path}")
+
     if "openbmc" in registries:
         registries_map["openbmc"] = openbmc_local_getter()
 
