@@ -15,6 +15,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/query_param.hpp"
+#include "utils/systems_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/format.hpp>
@@ -38,10 +39,38 @@ namespace redfish
 {
 constexpr const char* hostLoggerFolderPath = "/var/log/console";
 
+// default output dir for phosphor-hostlogger in buffer mode
+constexpr const char* multiHostLoggerFolderPath = "/var/lib/obmc/hostlogs";
+
 inline bool getHostLoggerFiles(
     const std::string& hostLoggerFilePath,
-    std::vector<std::filesystem::path>& hostLoggerFiles)
+    std::vector<std::filesystem::path>& hostLoggerFiles,
+    const uint64_t computerSystemIndex)
 {
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        std::string logFilesPath = multiHostLoggerFolderPath;
+        logFilesPath.append("/host" + std::to_string(computerSystemIndex));
+
+        BMCWEB_LOG_DEBUG("LogFilesPath: {}", logFilesPath);
+
+        std::error_code ec;
+        std::filesystem::directory_iterator logPath(logFilesPath, ec);
+
+        if (ec)
+        {
+            BMCWEB_LOG_WARNING("{}", ec.message());
+            return false;
+        }
+        for (const std::filesystem::directory_entry& it : logPath)
+        {
+            BMCWEB_LOG_DEBUG("Logfile: {}", it.path().filename().string());
+            hostLoggerFiles.emplace_back(it.path());
+        }
+        // TODO  07/13/25-19:58 olek: need to sort vector by timestamps
+        return true;
+    }
+
     std::error_code ec;
     std::filesystem::directory_iterator logPath(hostLoggerFilePath, ec);
     if (ec)
@@ -96,15 +125,15 @@ inline bool getHostLoggerEntries(
     return true;
 }
 
-inline void fillHostLoggerEntryJson(std::string_view logEntryID,
-                                    std::string_view msg,
-                                    nlohmann::json::object_t& logEntryJson)
+inline void fillHostLoggerEntryJson(
+    const std::string& systemName, std::string_view logEntryID,
+    std::string_view msg, nlohmann::json::object_t& logEntryJson)
 {
     // Fill in the log entry with the gathered data.
     logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
     logEntryJson["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/LogServices/HostLogger/Entries/{}",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, logEntryID);
+        "/redfish/v1/Systems/{}/LogServices/HostLogger/Entries/{}", systemName,
+        logEntryID);
     logEntryJson["Name"] = "Host Logger Entry";
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = msg;
@@ -122,62 +151,33 @@ inline void handleSystemsLogServicesHostloggerGet(
     {
         return;
     }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+
+    if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
     {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
     }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/LogServices/HostLogger",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/LogServices/HostLogger", systemName);
     asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
     asyncResp->res.jsonValue["Name"] = "Host Logger Service";
     asyncResp->res.jsonValue["Description"] = "Host Logger Service";
     asyncResp->res.jsonValue["Id"] = "HostLogger";
-    asyncResp->res.jsonValue["Entries"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/LogServices/HostLogger/Entries",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["Entries"]["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/LogServices/HostLogger/Entries", systemName);
 }
 
-inline void handleSystemsLogServicesHostloggerEntriesGet(
-    App& app, const crow::Request& req,
+inline void processSystemsLogServicesHostloggerEntriesGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName)
+    const std::string& systemName, query_param::Query& delegatedQuery,
+    const uint64_t computerSystemIndex)
 {
-    query_param::QueryCapabilities capabilities = {
-        .canDelegateTop = true,
-        .canDelegateSkip = true,
-    };
-    query_param::Query delegatedQuery;
-    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
-                                                  delegatedQuery, capabilities))
-    {
-        return;
-    }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/LogServices/HostLogger/Entries",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/LogServices/HostLogger/Entries", systemName);
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogEntryCollection.LogEntryCollection";
     asyncResp->res.jsonValue["Name"] = "HostLogger Entries";
@@ -188,7 +188,9 @@ inline void handleSystemsLogServicesHostloggerEntriesGet(
     asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
     std::vector<std::filesystem::path> hostLoggerFiles;
-    if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles))
+
+    if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles,
+                            computerSystemIndex))
     {
         BMCWEB_LOG_DEBUG("Failed to get host log file path");
         return;
@@ -217,8 +219,8 @@ inline void handleSystemsLogServicesHostloggerEntriesGet(
         for (size_t i = 0; i < logEntries.size(); i++)
         {
             nlohmann::json::object_t hostLogEntry;
-            fillHostLoggerEntryJson(std::to_string(skip + i), logEntries[i],
-                                    hostLogEntry);
+            fillHostLoggerEntryJson(systemName, std::to_string(skip + i),
+                                    logEntries[i], hostLogEntry);
             logEntryArray.emplace_back(std::move(hostLogEntry));
         }
 
@@ -228,36 +230,48 @@ inline void handleSystemsLogServicesHostloggerEntriesGet(
             asyncResp->res.jsonValue["Members@odata.nextLink"] =
                 std::format(
                     "/redfish/v1/Systems/{}/LogServices/HostLogger/Entries?$skip=",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME) +
+                    systemName) +
                 std::to_string(skip + top);
         }
     }
 }
-
-inline void handleSystemsLogServicesHostloggerEntriesEntryGet(
+inline void handleSystemsLogServicesHostloggerEntriesGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName, const std::string& param)
+    const std::string& systemName)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    query_param::QueryCapabilities capabilities = {
+        .canDelegateTop = true,
+        .canDelegateSkip = true,
+    };
+    query_param::Query delegatedQuery;
+    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
+                                                  delegatedQuery, capabilities))
     {
         return;
     }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
     {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
     }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    std::string_view targetID = param;
 
+    systems_utils::getComputerSystemIndex(
+        asyncResp, systemName,
+        std::bind_front(processSystemsLogServicesHostloggerEntriesGet,
+                        asyncResp, systemName, delegatedQuery));
+}
+
+inline void processSystemsLogServicesHostloggerEntriesEntryGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& param,
+    const uint64_t computerSystemIndex)
+{
+    std::string_view targetID = param;
     uint64_t idInt = 0;
 
     auto [ptr, ec] = std::from_chars(targetID.begin(), targetID.end(), idInt);
@@ -268,7 +282,8 @@ inline void handleSystemsLogServicesHostloggerEntriesEntryGet(
     }
 
     std::vector<std::filesystem::path> hostLoggerFiles;
-    if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles))
+    if (!getHostLoggerFiles(hostLoggerFolderPath, hostLoggerFiles,
+                            computerSystemIndex))
     {
         BMCWEB_LOG_DEBUG("Failed to get host log file path");
         return;
@@ -290,13 +305,39 @@ inline void handleSystemsLogServicesHostloggerEntriesEntryGet(
     if (!logEntries.empty())
     {
         nlohmann::json::object_t hostLogEntry;
-        fillHostLoggerEntryJson(targetID, logEntries[0], hostLogEntry);
+        fillHostLoggerEntryJson(systemName, targetID, logEntries[0],
+                                hostLogEntry);
         asyncResp->res.jsonValue.update(hostLogEntry);
         return;
     }
 
     // Requested ID was not found
     messages::resourceNotFound(asyncResp->res, "LogEntry", param);
+}
+
+inline void handleSystemsLogServicesHostloggerEntriesEntryGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& param)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
+    {
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+    }
+
+    systems_utils::getComputerSystemIndex(
+        asyncResp, systemName,
+        std::bind_front(processSystemsLogServicesHostloggerEntriesEntryGet,
+                        asyncResp, systemName, param));
 }
 
 inline void requestRoutesSystemsLogServiceHostlogger(App& app)
