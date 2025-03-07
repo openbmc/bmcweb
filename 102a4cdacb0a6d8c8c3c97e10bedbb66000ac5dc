@@ -1,4 +1,28 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ede13b0_6923d0d6",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-07T21:22:06Z",
+      "side": 1,
+      "message": "This implies that `req` is always duplicated and this would cause the excessive memory consumption (if the body is big - e.g. code update).\n\nTo avoid it, I think we have 2 approaches\n1)\nUse this `shared_ptr\u003cRequest\u003e` and extend it to BMCWEB_ROUTE to pass `const shared_ptr\u003cRequest\u003e\u0026 req` instead of `const Request\u0026`.\n```\n[[nodiscard]] inline bool setUpRedfishRouteWithDelegation(\n-    crow::App\u0026 app, const crow::Request\u0026 req,\n+    crow::App\u0026 app, const std::shared_ptr\u003ccrow::Request\u003e\u0026 req,\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n```\n\nHowever, this would need to change a lot of codes.\n\n2) Keep this, and make `Body req` as `shared_ptr\u003cBody\u003e req` inside `Request` structure (as like what I attempted - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70355, and then copy the body (i.e. shared_ptr) to make a new request.  This would avoid the deep-copy.\n\n```\n    getReqAsyncResp-\u003eres.setCompleteRequestHandler(std::bind_front(\n        afterIfMatchRequest, std::ref(app), asyncResp,\n        std::make_shared\u003ccrow::Request\u003e(req.body), std::move(ifMatch)));\n        \n    // Here we can add Request constructor to use shared_ptr\u003cBody\u003e\n    Request(const std::shared_ptr\u003cBody\u003e \u0026shared_body, ...);\n```\n\nFor now, I\u0027ll attempt to try this again -- https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70355\n\n\n2) Revert this (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71006)  and make `Body req` as `shared_ptr\u003cBody\u003e req` inside `Request` structure (as like what I attempted - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70355.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 67
+      },
+      "revId": "102a4cdacb0a6d8c8c3c97e10bedbb66000ac5dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
