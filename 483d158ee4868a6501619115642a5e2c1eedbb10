@@ -280,6 +280,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "72649de4_74a722cb",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-07T14:12:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "ada15292_75b743d0",
+      "revId": "483d158ee4868a6501619115642a5e2c1eedbb10",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e29155ad_bfdb9996",
         "filename": "include/sessions.hpp",
         "patchSetId": 6

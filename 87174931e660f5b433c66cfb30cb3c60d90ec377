@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9685bf77_e33c79fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-07T14:12:27Z",
+      "side": 1,
+      "message": "Hi Ed, thanks for the guidance and feedback! After some digging, turned out the error that I encountered is because our internal devices are using `Meta` parse mode by default. It is resolved by changing the `CertificateMappingAttribute` to `CommonName` first\n\nWe have extended the existing `generate_auth_certificate.py` script to also test the UPN case. We also have added some code comments and updated the commit message to better explain the UPN format and the testing that we do. \n\nPlease let us know if you have any further feedback",
+      "parentUuid": "a24046d1_3d47d862",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 61
+      },
+      "revId": "87174931e660f5b433c66cfb30cb3c60d90ec377",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5daf3a9b_7e24f674",
         "filename": "http/mutual_tls.cpp",
         "patchSetId": 24
