@@ -20,6 +20,7 @@
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utility.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
@@ -697,6 +698,49 @@ inline void requestRoutesManager(App& app)
                 asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
                     std::move(managerForServers);
             }
+            else
+            {
+                // multi-host bmc manages multiple hosts
+                constexpr std::array<std::string_view, 1> interfaces{
+                    "xyz.openbmc_project.Inventory.Decorator.ManagedHost"};
+                dbus::utility::getSubTree(
+                    "/xyz/openbmc_project/inventory", 0, interfaces,
+                    [asyncResp](const boost::system::error_code& ec,
+                                const dbus::utility::MapperGetSubTreeResponse&
+                                    subtree) {
+                        if (ec)
+                        {
+                            if (ec.value() == boost::system::errc::io_error)
+                            {
+                                // TODO  03/07/25-15:45 olek: proper error
+                                // return
+                                return;
+                            }
+
+                            BMCWEB_LOG_ERROR(
+                                "DBus method call failed with error {}",
+                                ec.value());
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        nlohmann::json::array_t managerForServers;
+                        for (const auto& [path, serviceMap] : subtree)
+                        {
+                            boost::urls::url url("/redfish/v1/Systems");
+                            std::string systemId =
+                                sdbusplus::message::object_path(path)
+                                    .filename();
+                            crow::utility::appendUrlPieces(url, systemId);
+                            BMCWEB_LOG_DEBUG("Got url: {}", url);
+                            nlohmann::json::object_t member;
+                            member["@odata.id"] = std::move(url);
+                            managerForServers.emplace_back(member);
+                        }
+                        asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
+                            std::move(managerForServers);
+                    });
+            }
 
             sw_util::populateSoftwareInformation(asyncResp, sw_util::bmcPurpose,
                                                  "FirmwareVersion", true);
@@ -716,22 +760,28 @@ inline void requestRoutesManager(App& app)
                 pids->run();
             }
 
-            getMainChassisId(asyncResp, [](const std::string& chassisId,
-                                           const std::shared_ptr<
-                                               bmcweb::AsyncResp>& aRsp) {
-                aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] =
-                    1;
-                nlohmann::json::array_t managerForChassis;
-                nlohmann::json::object_t managerObj;
-                boost::urls::url chassiUrl =
-                    boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
-                managerObj["@odata.id"] = chassiUrl;
-                managerForChassis.emplace_back(std::move(managerObj));
-                aRsp->res.jsonValue["Links"]["ManagerForChassis"] =
-                    std::move(managerForChassis);
-                aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
-                    chassiUrl;
-            });
+            // 'Main' chassis is currently not supported on multi-host.
+            if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+            {
+                getMainChassisId(
+                    asyncResp,
+                    [](const std::string& chassisId,
+                       const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+                        aRsp->res.jsonValue["Links"]
+                                           ["ManagerForChassis@odata.count"] =
+                            1;
+                        nlohmann::json::array_t managerForChassis;
+                        nlohmann::json::object_t managerObj;
+                        boost::urls::url chassiUrl = boost::urls::format(
+                            "/redfish/v1/Chassis/{}", chassisId);
+                        managerObj["@odata.id"] = chassiUrl;
+                        managerForChassis.emplace_back(std::move(managerObj));
+                        aRsp->res.jsonValue["Links"]["ManagerForChassis"] =
+                            std::move(managerForChassis);
+                        aRsp->res.jsonValue["Links"]["ManagerInChassis"]
+                                           ["@odata.id"] = chassiUrl;
+                    });
+            }
 
             dbus::utility::getProperty<double>(
                 "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
@@ -987,8 +1037,8 @@ inline void requestRoutesManagerCollection(App& app)
                 {
                     return;
                 }
-                // Collections don't include the static data added by SubRoute
-                // because it has a duplicate entry for members
+                // Collections don't include the static data added by
+                // SubRoute because it has a duplicate entry for members
                 asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#ManagerCollection.ManagerCollection";
