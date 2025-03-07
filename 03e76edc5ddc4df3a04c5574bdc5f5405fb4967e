@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a40f0c71_9c94cd30",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-07T12:19:17Z",
+      "side": 1,
+      "message": "It is coming from the `MTLSCommonNameParseMode`. I have changed it to reflect the enum instead and add unit tests as well\n\n\n```\nenum class MTLSCommonNameParseMode\n{\n    Invalid \u003d 0,\n    // This section approximately matches Redfish AccountService\n    // CertificateMappingAttribute,  plus bmcweb defined OEM ones.\n    // Note, IDs in this enum must be maintained between versions, as they are\n    // persisted to disk\n    Whole \u003d 1,\n    CommonName \u003d 2,\n    UserPrincipalName \u003d 3,\n\n    // Intentional gap for future DMTF-defined enums\n\n    // OEM parsing modes for various OEMs\n    Meta \u003d 100,\n};\n```\n\nPreviously we set it as less than or equal to 2 or equal to 100, because we only implement the CommonName and Meta parse mode. As these changes introduce the `UserPrincipalName` parse mode, we change it to be less than or equal to 3",
+      "parentUuid": "c846d248_a6713530",
+      "revId": "03e76edc5ddc4df3a04c5574bdc5f5405fb4967e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b034660f_857fd91c",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-04T19:45:21Z",
       "side": 1,
       "message": "Probably should have been a WARNING, since we just ignore and move on. Oh well.",
+      "revId": "03e76edc5ddc4df3a04c5574bdc5f5405fb4967e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b587d68_65ffdd49",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-07T12:19:17Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b034660f_857fd91c",
       "revId": "03e76edc5ddc4df3a04c5574bdc5f5405fb4967e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
