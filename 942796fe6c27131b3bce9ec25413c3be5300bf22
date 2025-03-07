@@ -16,6 +16,24 @@
       "message": "I haven\u0027t seen potential situations that this helps, but I am not opposed to this. It is an option and can be turned off",
       "revId": "942796fe6c27131b3bce9ec25413c3be5300bf22",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89c1bfce_700bd294",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-07T16:03:01Z",
+      "side": 1,
+      "message": "Take a look at the meson.options.  It describes how to shut it off.",
+      "parentUuid": "0466581f_9caee2e7",
+      "revId": "942796fe6c27131b3bce9ec25413c3be5300bf22",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
