@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6b61f4c_8c717007",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-08T19:16:14Z",
+      "side": 1,
+      "message": "I meant - Request copy may be expensive if body is larger.\nI modified it.",
+      "parentUuid": "f9286f0e_f691af78",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 6
+      },
+      "revId": "0e4608de124a55070e4a6fa7c6f6acaf16ef0fa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0cdb5dac_7a92bd47",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-03-08T16:56:37Z",
       "side": 1,
       "message": "HandleIfMatch only runs on gets, which by definitions should have no body, so why is this an issue?\n\nCode update is a POST, and would never hit handleIfMatch.",
+      "revId": "0e4608de124a55070e4a6fa7c6f6acaf16ef0fa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c1ce1f1_99879516",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-08T19:16:14Z",
+      "side": 1,
+      "message": "Thanks for clarification.\nI mistakenly stated that HandleIfMatch could be used in other cases.\n\nThis implies that this (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/70355) seems not needed.  I\u0027ll abandon this again.",
+      "parentUuid": "0cdb5dac_7a92bd47",
       "revId": "0e4608de124a55070e4a6fa7c6f6acaf16ef0fa8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -72,6 +114,24 @@
       "side": 1,
       "message": "I\u0027d also point out that move operators work just fine on request objects.  This further reduces the need to make a proper copy.",
       "parentUuid": "05885131_db2566b6",
+      "revId": "0e4608de124a55070e4a6fa7c6f6acaf16ef0fa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d146426_3545ad08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-08T19:16:14Z",
+      "side": 1,
+      "message": "Acknowledged.\nThanks for the clarification.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/71547 makes clearer in making sure to do Request copy only when necessary.\n\nI also see that there are 3 places that are doing the copy.\n- http/server_sent_event_impl.hpp\n- redfish-core/include/query.hpp\n- redfish-core/lib/account_service.hpp",
+      "parentUuid": "10ee44ac_35406d90",
       "revId": "0e4608de124a55070e4a6fa7c6f6acaf16ef0fa8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
