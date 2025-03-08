@@ -56,6 +56,24 @@
       "message": "This isn\u0027t really something I\u0027m keen to support.  It seems like the overall goal is to allow making arbitrary copies of PARTS of the request object without having to think about whether the payload is different.  I don\u0027t really understand the use case for that.\n\nFWIW, I have https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71547 that\u0027s trying to make us call out where we have copies, and when it\u0027s done on purpose.  I think that\u0027s a better next step.\n\nAs written, this causes the Request object to have a pointer indirection, and to not allow it to reuse buffers in between requests.  That seems worse than what we have today.",
       "revId": "0e4608de124a55070e4a6fa7c6f6acaf16ef0fa8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10ee44ac_35406d90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-08T16:57:40Z",
+      "side": 1,
+      "message": "I\u0027d also point out that move operators work just fine on request objects.  This further reduces the need to make a proper copy.",
+      "parentUuid": "05885131_db2566b6",
+      "revId": "0e4608de124a55070e4a6fa7c6f6acaf16ef0fa8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
