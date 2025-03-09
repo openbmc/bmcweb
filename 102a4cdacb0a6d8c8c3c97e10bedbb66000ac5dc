@@ -22,6 +22,30 @@
       },
       "revId": "102a4cdacb0a6d8c8c3c97e10bedbb66000ac5dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf6ea2e1_f5b8b784",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-09T23:23:23Z",
+      "side": 1,
+      "message": "The current code is running HandleIfMatch as long as \"If-Match: $ETAG\" is passed (POST/PATCH) and Request copy still happens as long as ETag is not empty (or wild).\n\nI submitted - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78759 - for this issue.",
+      "parentUuid": "9ede13b0_6923d0d6",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 67
+      },
+      "revId": "102a4cdacb0a6d8c8c3c97e10bedbb66000ac5dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
