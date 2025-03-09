@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b97f1d1b_b912bc31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-09T23:14:15Z",
+      "side": 1,
+      "message": "Instead of this approach, I submit a new commit - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78759 to avoid Request copy on If-Match/ETag.",
+      "revId": "18f7e6fd3f7f1903ed4ba1a4bcf6452c861703cc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }

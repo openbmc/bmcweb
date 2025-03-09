@@ -313,6 +313,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "244cf94c_7750c1d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-09T23:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fecb434b_5641bf15",
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5d9f5d5_ebc8f39b",
@@ -422,6 +440,30 @@
       "side": 1,
       "message": "\u003e \u003eYes, very similar to what\u0027s been done with Response.\n\u003e \n\u003e Right. It will be similar to asyncResp.\n\u003e \n\u003e \u003eOnly in the core, not in handlers, right?\n\u003e \n\u003e Not the main logics, but the places would be the area to hold it, and the areas of passing args etc.\n\u003e \n\u003e \u003eIf we do shared_ptr\u003cRequest\u003e, this change isn\u0027t required at all.\n\u003e \n\u003e You mean - the change of body as shared_ptr is not needed if we do change req to shared_ptr.\n\u003e Yes, I agree.  That was my original thought too. (I just chose this to reduce the total code changes).\n\u003e \n\nLets focus on making sure the end code is as correct as we can make it, not reducing the total # of lines changed.\n\n\u003e I\u0027ll work on making it as shared_ptr\u003ccrow::Request\u003e.\n\nSounds good.",
       "parentUuid": "515a7dcf_cf57a5aa",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 74
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb2f2465_7516cabd",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-09T23:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5edd6baf_ded880d4",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -588,6 +630,30 @@
       "side": 1,
       "message": "Ok, I\u0027ll do.",
       "parentUuid": "9a4141bd_edcafe5a",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 26
+      },
+      "revId": "2ebde16133c7407ba10f0e1c2f231e0b242d16d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20f37226_8440b294",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-09T23:14:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67c22e66_e28e7088",
       "range": {
         "startLine": 77,
         "startChar": 8,
