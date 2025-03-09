@@ -24,7 +24,7 @@
 namespace crow
 {
 
-struct Request
+struct Request : std::enable_shared_from_this<Request>
 {
     using Body = boost::beast::http::request<bmcweb::HttpBody>;
     Body req;
