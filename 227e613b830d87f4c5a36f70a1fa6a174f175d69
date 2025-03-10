@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e3e7395_a9d79d00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-10T19:30:26Z",
+      "side": 1,
+      "message": "Where is the Change Password action? \n\nWhat if we leave those actions off? Instead of leaving the whole resource off ?",
+      "parentUuid": "9fab72cf_4215a7df",
+      "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4bb8d97b_ae2e62d0",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -139,6 +157,24 @@
       "side": 1,
       "message": "https://github.com/openbmc/bios-settings-mgr is initializing that path. \nbios-settings-manager is responsible for BMC-BIOS communication. \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml exposes methods to reset bios, change bios password etc. \nIf `xyz.openbmc_project.biosconfig_manager.service` does not exists we would end up throwing internalError. This patch checks if the dbusPath exists and then allow operations.",
       "parentUuid": "b49ba0c9_647224f4",
+      "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76c8eae0_0bb4b139",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3083,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-10T19:30:26Z",
+      "side": 1,
+      "message": "What about Bios/host firmware https://github.com/openbmc/bmcweb/blob/ebe4c574caac9dfd8b2754bda51c0cf869f1978f/redfish-core/lib/bios.hpp#L62  \nwhich in our case doesn\u0027t use https://github.com/openbmc/bios-settings-mgr ?",
+      "parentUuid": "ee0f357a_b3538822",
       "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
