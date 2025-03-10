@@ -138,16 +138,33 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
         if (tasks.size() >= maxTaskCount)
         {
-            const auto& last = tasks.front();
+            const auto last = getTaskToRemove();
 
             // destroy all references
-            last->timer.cancel();
-            last->match.reset();
-            tasks.pop_front();
+            (*last)->timer.cancel();
+            (*last)->match.reset();
+            tasks.erase(last);
         }
 
         return tasks.emplace_back(std::make_shared<MakeSharedHelper>(
             std::move(handler), match, lastTask++));
+    }
+
+    /**
+     * @brief Get the first completed/aborted task or oldest running task to
+     * remove
+     */
+    static std::deque<std::shared_ptr<TaskData>>::iterator getTaskToRemove()
+    {
+        static const std::unordered_set<std::string> activeStates = {
+            "Running", "Pending", "Starting", "Suspended", "Interrupted"};
+
+        auto it =
+            std::find_if(tasks.begin(), tasks.end(), [](const auto& task) {
+                return activeStates.find(task->state) == activeStates.end();
+            });
+
+        return (it != tasks.end()) ? it : tasks.begin();
     }
 
     void populateResp(crow::Response& res, size_t retryAfterSeconds = 30)
