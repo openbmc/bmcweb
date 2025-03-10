@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f659d3b8_5c35555a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-10T17:11:15Z",
+      "side": 1,
+      "message": "I ran the validator.\n\nI assume [this option](https://github.com/openbmc/bmcweb/blob/1940677a35870b51eaffc50406609124668743d0/meson.options#L121) is responsible for the mode you\u0027re referring to. I disabled it on my machine, rebuilt the image and ran validator, it produced same results.\nThe other mode uses fillEventLogEntryJson function I did not touch, to generate response.",
+      "parentUuid": "b9877270_cf8d206c",
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17818658_d6179a95",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2025-02-25T22:59:28Z",
       "side": 1,
       "message": "lots of new capabilities here which is great to see, but we need to make sure we\u0027re consolidating into the common registry handling code we already have rather than just writing new stuff.  I see lots of helpers that have been replaced with \"new\" not necessarily better versions.  Please make sure you\u0027re looking through the existing registry flows and reusing where appropriate.",
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0ddd201_f712c8a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-10T17:11:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "17818658_d6179a95",
       "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -248,6 +284,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dfb5388_a5d7f1f3",
+        "filename": "redfish-core/include/utils/dbus_registries_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-10T17:11:15Z",
+      "side": 1,
+      "message": "It\u0027s changed, now it\u0027s redfish::dbus_registries_map::MappedInfo.",
+      "parentUuid": "f8bbf13d_30a0318a",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0146b4c_dc85a633",
@@ -261,6 +321,30 @@
       "writtenOn": "2025-02-25T22:55:37Z",
       "side": 1,
       "message": "If you\u0027re going to make this now use a registry, this code now needs to use getMessage and fillMessageArgs to fill in the message from the registry.",
+      "range": {
+        "startLine": 1455,
+        "startChar": 0,
+        "endLine": 1455,
+        "endChar": 47
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b76a1086_a2359e1f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-10T17:11:15Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f0146b4c_dc85a633",
       "range": {
         "startLine": 1455,
         "startChar": 0,
@@ -308,6 +392,30 @@
       "side": 1,
       "message": "Technically speaking, it has to have MessageId populated as the type is being built here is Event, and for that case the spec says \"If the entry type is Event, this property contains a Redfish Specification-defined MessageId property of the event.\", so you are right.\n\n1 seems really ugly indeed. 2 sounds the right thing as this function always produces invalid objects because it never populates MessageId. However, this may/will break existing use cases. I will dig into callers and see what is/can be affected before publishing changes I made earlier today to address this comment and the one above.\n3 looks probably the best option short term, but long term I would prefer users to start using proper objects.\n\nA concern I have here is - BMCs do not/may not have decent telemetry, so, admins/users will not be able determine that some entires are being dropped. I propose to make an option, if it\u0027s enabled and MessageId cannot be determined, instead of dropping such entries, produce an entry with OpenBMC.InvalidMessageId or similar message Id, put the DBus event name to args. I briefly checked standard registries, but did not find anything suitable, so we might need to add one to the Openbmc one. What do you think?",
       "parentUuid": "8f3e5aa3_983c7820",
+      "range": {
+        "startLine": 1474,
+        "startChar": 8,
+        "endLine": 1474,
+        "endChar": 29
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7be5345_6456fed4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-10T17:11:15Z",
+      "side": 1,
+      "message": "I\u0027ve published an update, with meson option that controls the behavior, i.e. option #3.\nBut still, dropping messages is a concern.",
+      "parentUuid": "2ae652a9_2d25fbc6",
       "range": {
         "startLine": 1474,
         "startChar": 8,
