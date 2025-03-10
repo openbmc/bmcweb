@@ -138,7 +138,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
         if (tasks.size() >= maxTaskCount)
         {
-            const auto& last = tasks.front();
+            const auto& last = tasks.getTaskToRemove();
 
             // destroy all references
             last->timer.cancel();
@@ -148,6 +148,28 @@ struct TaskData : std::enable_shared_from_this<TaskData>
 
         return tasks.emplace_back(std::make_shared<MakeSharedHelper>(
             std::move(handler), match, lastTask++));
+    }
+
+    /**
+     * @brief Get the first completed task or oldest running task to remove
+     *
+     * Since tasks are added chronologically to the back of the deque:
+     * - Scan for first completed task to remove
+     * - If no completed task found, remove oldest running task (front)
+     */
+    static TaskQueue::iterator getTaskToRemove()
+    {
+        // First try to find any completed task
+        for (TaskQueue::iterator it = tasks.begin(); it != tasks.end(); ++it)
+        {
+            if ((*it)->state != "Running")
+            {
+                return it;
+            }
+        }
+
+        // No completed tasks found, return oldest running task (front)
+        return tasks.begin();
     }
 
     void populateResp(crow::Response& res, size_t retryAfterSeconds = 30)
