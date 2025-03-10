@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9fab72cf_4215a7df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-10T18:14:43Z",
+      "side": 1,
+      "message": "Bios resource is not a collection. \nActions of the resource such as Reset, Change Password would throw error when bios-settings-manager service is not running (https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/bios.hpp#L111)",
+      "parentUuid": "864397fd_720d3a8e",
+      "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4bb8d97b_ae2e62d0",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "This doesn\u0027t work because not everyone using Bios is using that path \n/xyz/openbmc_project/bios_config/manager\n\nWhat app is putting that out ? Can you add more to the commit msg about this?",
       "parentUuid": "051265ab_da01a687",
+      "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee0f357a_b3538822",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3083,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-10T18:14:43Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bios-settings-mgr is initializing that path. \nbios-settings-manager is responsible for BMC-BIOS communication. \nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml exposes methods to reset bios, change bios password etc. \nIf `xyz.openbmc_project.biosconfig_manager.service` does not exists we would end up throwing internalError. This patch checks if the dbusPath exists and then allow operations.",
+      "parentUuid": "b49ba0c9_647224f4",
       "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
