@@ -447,7 +447,7 @@ option(
     value: 'disabled',
     description: '''This is a temporary option flag for staging the
     ComputerSystemCollection transition to multi-host.  It, as well as the code
-    still beneath it will be removed on 3/1/2025.  Do not enable in a
+    still beneath it will be removed on 6/1/2025.  Do not enable in a
     production environment, or where API stability is required.''',
 )
 
