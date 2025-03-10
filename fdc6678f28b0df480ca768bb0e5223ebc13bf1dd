@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcd8e0ad_c40aa0c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-10T14:59:47Z",
+      "side": 1,
+      "message": "What is the behavior if there are no completed tasks in the queue?\n\nFrom looking at the code change it looks like it will still remove the oldest. Maybe clarify the commit message to indicate it will first try to remove the oldest completed task.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 2
+      },
+      "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1cb83ac_d6f4c2c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-03-10T14:59:47Z",
+      "side": 1,
+      "message": "One suggestion on adjustment to commit message, but otherwise looks good to me.",
+      "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
