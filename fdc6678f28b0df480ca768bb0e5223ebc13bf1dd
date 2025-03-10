@@ -39,6 +39,46 @@
       "message": "One suggestion on adjustment to commit message, but otherwise looks good to me.",
       "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af7755e8_dac38734",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-10T17:34:23Z",
+      "side": 1,
+      "message": "aren\u0027t there more states than just !\u003d running we should avoid deleting?",
+      "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf1c3e40_005c8ab8",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-10T17:34:23Z",
+      "side": 1,
+      "message": "This probably needs to be to disallow new requests, right, rather than delete an in-flight task?",
+      "range": {
+        "startLine": 168,
+        "startChar": 8,
+        "endLine": 168,
+        "endChar": 29
+      },
+      "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
