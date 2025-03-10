@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5b4bb22_9cb3f23e",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-03-10T18:21:21Z",
+      "side": 1,
+      "message": "Added check",
+      "parentUuid": "937f3746_80a658e5",
+      "revId": "bdf7c3911976d8b99d2e4cd6ae338ba034fe6c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81777309_75ee2edc",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-02-13T18:13:10Z",
       "side": 1,
       "message": "Why are we making a copy here?",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 181,
+        "endChar": 33
+      },
+      "revId": "bdf7c3911976d8b99d2e4cd6ae338ba034fe6c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a90b7ae9_71631972",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-03-10T18:21:21Z",
+      "side": 1,
+      "message": "The old request goes out of scope while running query expand level therefore need to make copy here",
+      "parentUuid": "81777309_75ee2edc",
       "range": {
         "startLine": 181,
         "startChar": 0,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d303dd6_399c4f9f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 778,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-03-10T18:21:21Z",
+      "side": 1,
+      "message": "Acknowledged and replaced with crow::Request object.",
+      "parentUuid": "a8736532_0f554b96",
+      "range": {
+        "startLine": 778,
+        "startChar": 31,
+        "endLine": 778,
+        "endChar": 41
+      },
+      "revId": "bdf7c3911976d8b99d2e4cd6ae338ba034fe6c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b8cdb80_f49739a1",
@@ -77,6 +143,30 @@
       "writtenOn": "2025-02-13T18:13:10Z",
       "side": 1,
       "message": "nit, this isn\u0027t a copy.",
+      "range": {
+        "startLine": 804,
+        "startChar": 15,
+        "endLine": 804,
+        "endChar": 19
+      },
+      "revId": "bdf7c3911976d8b99d2e4cd6ae338ba034fe6c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f10aa3d_4a96474c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-03-10T18:21:21Z",
+      "side": 1,
+      "message": "it is just nullcheck, moved down the comment",
+      "parentUuid": "6b8cdb80_f49739a1",
       "range": {
         "startLine": 804,
         "startChar": 15,
