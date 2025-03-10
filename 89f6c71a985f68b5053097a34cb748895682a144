@@ -33,6 +33,24 @@
       "message": "how someone can disable this ?",
       "revId": "89f6c71a985f68b5053097a34cb748895682a144",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8343c440_74dee7e2",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-03-10T18:22:49Z",
+      "side": 1,
+      "message": "I will propose meson option",
+      "parentUuid": "9f4cf06a_7a12272f",
+      "revId": "89f6c71a985f68b5053097a34cb748895682a144",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
