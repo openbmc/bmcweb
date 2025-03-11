@@ -16,6 +16,24 @@
       "message": "So we want both this commit and 71547 ? \nShould these be stacked on top of each other?",
       "revId": "037745f58ddde3497ef82e814835036b777d82f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b154a86_1a770e29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-11T21:27:35Z",
+      "side": 1,
+      "message": "As you suggested, I rebase this on top of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71547",
+      "parentUuid": "8840c476_c29a0e63",
+      "revId": "037745f58ddde3497ef82e814835036b777d82f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
