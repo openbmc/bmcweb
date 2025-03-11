@@ -80,6 +80,8 @@ constexpr auto getSensorPaths(){
         "/xyz/openbmc_project/sensors/fan_pwm",
         "/xyz/openbmc_project/sensors/altitude",
         "/xyz/openbmc_project/sensors/energy",
+        "/xyz/openbmc_project/sensors/liquidflow",
+        "/xyz/openbmc_project/sensors/pressure",
         "/xyz/openbmc_project/sensors/utilization"});
     } else {
       return  std::to_array<std::string_view>({"/xyz/openbmc_project/sensors/power",
