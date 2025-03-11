@@ -51,6 +51,24 @@
       "parentUuid": "9f4cf06a_7a12272f",
       "revId": "89f6c71a985f68b5053097a34cb748895682a144",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cba5f62e_d222e3fa",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-11T18:01:39Z",
+      "side": 1,
+      "message": "I think what you need to consider is how can someone enable/disable registry part of static content too.",
+      "parentUuid": "8343c440_74dee7e2",
+      "revId": "89f6c71a985f68b5053097a34cb748895682a144",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
