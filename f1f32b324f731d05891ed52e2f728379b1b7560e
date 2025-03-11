@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f88cf76a_749b1397",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T15:23:58Z",
+      "side": 1,
+      "message": "Please complete TODO",
+      "range": {
+        "startLine": 714,
+        "startChar": 0,
+        "endLine": 715,
+        "endChar": 41
+      },
+      "revId": "f1f32b324f731d05891ed52e2f728379b1b7560e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e92d13f_8df6d8e5",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T15:23:58Z",
+      "side": 1,
+      "message": "No lambdas more than a few lines.",
+      "range": {
+        "startLine": 707,
+        "startChar": 0,
+        "endLine": 741,
+        "endChar": 21
+      },
+      "revId": "f1f32b324f731d05891ed52e2f728379b1b7560e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f24e1b2c_23110879",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T15:23:58Z",
+      "side": 1,
+      "message": "This doesn\u0027t look correct for multi-host.  This should be returning an array of size N",
+      "range": {
+        "startLine": 769,
+        "startChar": 0,
+        "endLine": 771,
+        "endChar": 30
+      },
+      "revId": "f1f32b324f731d05891ed52e2f728379b1b7560e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af6344b0_553daf53",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T15:23:58Z",
+      "side": 1,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 767,
+        "startChar": 18,
+        "endLine": 782,
+        "endChar": 21
+      },
+      "revId": "f1f32b324f731d05891ed52e2f728379b1b7560e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
