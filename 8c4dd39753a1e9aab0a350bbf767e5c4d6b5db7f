@@ -131,6 +131,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab032f62_833fd11f",
+        "filename": "redfish-core/include/event_matches_filter.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T15:08:50Z",
+      "side": 1,
+      "message": "\u003e No, it is not. You asked \"can some of this code be combined between the two cases? They\u0027re ultimately generating the same json now, from the same request (a json properties map).\". I got this as you suggest to combine the way we generate a log entry in the service log and event. Since they operate different structures nlohmann::json vs nlohmann::json::object_t I had to modify that.\n\u003e \n\u003e Apparently, this is not what you meant. I will revert this.\n\nRight.  A object_t can be generated from a json object.  Object_t is the more specific type and is the right one to use.",
+      "parentUuid": "1b74bd44_b0d0ca31",
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "160d21e0_11702bee",
         "filename": "redfish-core/include/event_matches_filter.hpp",
         "patchSetId": 10
