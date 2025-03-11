@@ -79,6 +79,30 @@
       },
       "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445c1fb3_eb17db37",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-11T04:12:17Z",
+      "side": 1,
+      "message": "Do you mean, if all the tasks are running tasks and queue is full, we should not allow creation of new tasks ?",
+      "parentUuid": "bf1c3e40_005c8ab8",
+      "range": {
+        "startLine": 168,
+        "startChar": 8,
+        "endLine": 168,
+        "endChar": 29
+      },
+      "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
