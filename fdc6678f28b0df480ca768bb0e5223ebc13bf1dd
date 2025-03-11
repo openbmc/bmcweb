@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "eb875bd7_4da27782",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-11T17:46:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcd8e0ad_c40aa0c1",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 2
+      },
+      "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a1cb83ac_d6f4c2c5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -54,6 +78,24 @@
       "writtenOn": "2025-03-10T17:34:23Z",
       "side": 1,
       "message": "aren\u0027t there more states than just !\u003d running we should avoid deleting?",
+      "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54f70d0f_b709708b",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-11T17:46:46Z",
+      "side": 1,
+      "message": "I think only \u0027Running\u0027 and \u0027Pending\u0027 might be worth considering here. Others are just stopped in different states and not active.",
+      "parentUuid": "af7755e8_dac38734",
       "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -95,6 +137,30 @@
       "side": 1,
       "message": "Do you mean, if all the tasks are running tasks and queue is full, we should not allow creation of new tasks ?",
       "parentUuid": "bf1c3e40_005c8ab8",
+      "range": {
+        "startLine": 168,
+        "startChar": 8,
+        "endLine": 168,
+        "endChar": 29
+      },
+      "revId": "fdc6678f28b0df480ca768bb0e5223ebc13bf1dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b498c3f1_569a3ed5",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-11T17:46:46Z",
+      "side": 1,
+      "message": "Not sure we will ever hit a production case where all tasks are in running state. I would prefer to allow the new task creation than to block it.",
+      "parentUuid": "445c1fb3_eb17db37",
       "range": {
         "startLine": 168,
         "startChar": 8,
