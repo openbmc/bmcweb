@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3786c7a7_7793ad7a",
+        "filename": "redfish-core/include/registries/composition_message_registry.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T03:04:57Z",
+      "side": 1,
+      "message": "If we\u0027re doing this in the constructor before main(), how do we select which registries exist for this specific config?",
+      "range": {
+        "startLine": 217,
+        "startChar": 33,
+        "endLine": 217,
+        "endChar": 52
+      },
+      "revId": "b8581e99f8c73908a32f8788a16f2ebbe9450eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
