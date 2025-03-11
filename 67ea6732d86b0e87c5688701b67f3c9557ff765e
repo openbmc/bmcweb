@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44aa701e_85aa6b20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T03:11:24Z",
+      "side": 1,
+      "message": "Right, this was on purpose.  We shouldn\u0027t be publishing registries we don\u0027t implement.",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "67ea6732d86b0e87c5688701b67f3c9557ff765e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f14c3584_a5a2f208",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T03:11:24Z",
+      "side": 1,
+      "message": "Any reason this output is random?  Could we make it alphabetical?  Generally we enforce that for collections.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "67ea6732d86b0e87c5688701b67f3c9557ff765e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
