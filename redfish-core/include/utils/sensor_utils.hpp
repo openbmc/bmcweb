@@ -208,6 +208,14 @@ inline std::string_view toReadingUnits(std::string_view sensorType)
     {
         return "J";
     }
+    if (sensorType == "liquidflow")
+    {
+        return "LPM";
+    }
+    if (sensorType == "pressure")
+    {
+        return "Pa";
+    }
     return "";
 }
 
@@ -252,6 +260,14 @@ inline sensor::ReadingType toReadingType(std::string_view sensorType)
     if (sensorType == "energy")
     {
         return sensor::ReadingType::EnergyJoules;
+    }
+    if (sensorType == "liquidflow")
+    {
+        return sensor::ReadingType::LiquidFlowLPM;
+    }
+    if (sensorType == "pressure")
+    {
+        return sensor::ReadingType::PressurePa;
     }
     return sensor::ReadingType::Invalid;
 }
