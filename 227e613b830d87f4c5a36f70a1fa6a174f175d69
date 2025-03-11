@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f88c98c_7f879ac1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-11T04:50:42Z",
+      "side": 1,
+      "message": "yes, we can do this. \nI will add check in respective function instead of whole resource.",
+      "parentUuid": "0e3e7395_a9d79d00",
+      "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4bb8d97b_ae2e62d0",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -175,6 +193,24 @@
       "side": 1,
       "message": "What about Bios/host firmware https://github.com/openbmc/bmcweb/blob/ebe4c574caac9dfd8b2754bda51c0cf869f1978f/redfish-core/lib/bios.hpp#L62  \nwhich in our case doesn\u0027t use https://github.com/openbmc/bios-settings-mgr ?",
       "parentUuid": "ee0f357a_b3538822",
+      "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8306d6e_a04ddeda",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3083,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-11T04:50:42Z",
+      "side": 1,
+      "message": "yes for boot related operations and bios version related information we don\u0027t use bios-seting-manager",
+      "parentUuid": "76c8eae0_0bb4b139",
       "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
