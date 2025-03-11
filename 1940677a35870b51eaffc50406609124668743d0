@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53515ab5_995342ec",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T03:08:56Z",
+      "side": 0,
+      "message": "Presumably this code below needs to be maintained if the logging option isn\u0027t set to dbus?",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 37
+      },
+      "revId": "1940677a35870b51eaffc50406609124668743d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

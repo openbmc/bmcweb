@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c46766f3_f3994a11",
+        "filename": "redfish-core/include/registries/environmental_message_registry.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T03:08:56Z",
+      "side": 1,
+      "message": "does static do anything if we\u0027re in a header here?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 6
+      },
+      "revId": "0880be3dab1f305399bba8cb55d197b02e844d08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a2e6a24_653c6d97",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T03:08:56Z",
+      "side": 1,
+      "message": "Do we need this header anymore?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 52
+      },
+      "revId": "0880be3dab1f305399bba8cb55d197b02e844d08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "259652ee_0b07379b",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T03:08:56Z",
+      "side": 1,
+      "message": "nit, put this on its own line please.",
+      "range": {
+        "startLine": 101,
+        "startChar": 50,
+        "endLine": 101,
+        "endChar": 75
+      },
+      "revId": "0880be3dab1f305399bba8cb55d197b02e844d08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6710aa7_44adae6c",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T03:08:56Z",
+      "side": 1,
+      "message": "Do we need a registration function if these are all static?  Just generate a file with the correct std::array in it?\n\nThis might be fine, I just don\u0027t understand why we have the complexity.",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 13
+      },
+      "revId": "0880be3dab1f305399bba8cb55d197b02e844d08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
