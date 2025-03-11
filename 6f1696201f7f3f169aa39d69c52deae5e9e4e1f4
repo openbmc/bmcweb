@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4d3186a_451803ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "\u003e I ran the validator.\n\u003e \n\u003e I assume [this option](https://github.com/openbmc/bmcweb/blob/1940677a35870b51eaffc50406609124668743d0/meson.options#L121) is responsible for the mode you\u0027re referring to. I disabled it on my machine, rebuilt the image and ran validator, it produced same results.\n\nThat\u0027s surprising, considering that the registries available should change based on whether or not the option is enabled.  Maybe take a deeper look?\n\n\u003e The other mode uses fillEventLogEntryJson function I did not touch, to generate response.",
+      "parentUuid": "f659d3b8_5c35555a",
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17818658_d6179a95",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2

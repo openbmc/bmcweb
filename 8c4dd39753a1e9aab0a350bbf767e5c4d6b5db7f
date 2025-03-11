@@ -1,0 +1,469 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8680093_79439a01",
+        "filename": "meson.options",
+        "patchSetId": 10
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "Please don\u0027t shorten the most important part of this option (Without).",
+      "range": {
+        "startLine": 318,
+        "startChar": 43,
+        "endLine": 318,
+        "endChar": 45
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17bd56b9_ce3f4588",
+        "filename": "meson.options",
+        "patchSetId": 10
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "Do we really need this entry?",
+      "range": {
+        "startLine": 324,
+        "startChar": 8,
+        "endLine": 325,
+        "endChar": 41
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23477d62_c24e0d95",
+        "filename": "meson.options",
+        "patchSetId": 10
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "This needs to be built as an either OR\n\nEither:\nA: You get MessageId support, and messages without MessageId are dropped.\nB: MessageId is not supported.  message is run directly.",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 54
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d940bbc3_547a53ae",
+        "filename": "redfish-core/include/event_matches_filter.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "This seems like a regression?",
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "160d21e0_11702bee",
+        "filename": "redfish-core/include/event_matches_filter.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "As does this.  This is now duplicating a lookup, whereas previously it was not duplicated.",
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6eac423_c0db6413",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "This list was alphabetical.  Please keep it that way.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 46
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0745b189_9e6b77de",
+        "filename": "redfish-core/include/utils/log_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "__func__ is aleady included in the log statements.  Please don\u0027t duplicate it.",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06ebf6a5_f07bb6a6",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1463,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "See comment on the option.  This needs to be a conditional at a higher level.  We should not be calling getMappedInfo at all if this is enabled.",
+      "range": {
+        "startLine": 1463,
+        "startChar": 0,
+        "endLine": 1463,
+        "endChar": 75
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aef4c41c_c5c37818",
+        "filename": "redfish-core/src/dbus_log_watcher.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "This all looks duplicated with fillEventLogLogEntryFromPropertyMap.\n\nCan we make that code call into this function now that we have a messageId?",
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8caf57ce_33d9e297",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 61
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49479867_3d055356",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "Why take the cstr here?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "692aebce_43ebbdef",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "Please fill in with the type,",
+      "range": {
+        "startLine": 24,
+        "startChar": 25,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9961d56d_bc8c093a",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "Please use normal string_view comparison here.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 60
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e91e40f9_ebdfb196",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "?  That seems like an important part of publishing a Redfish registry, publishing an immutable and semver version.  This isn\u0027t really optional in the redfish spec, so what\u0027s the plan here?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa4846e2_4ef81cab",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "nit, remove \u003d {};",
+      "range": {
+        "startLine": 39,
+        "startChar": 33,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65ad7c65_a47d9944",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "Remove.  This is redundant.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efa41300_3f41390f",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "Remove the parts of this that aren\u0027t used in the unit test.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "828d577b_112835ca",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "Should be ASSERT_EQ if you then go index into it.\n\nOr use ASSERT_THAT(ArrayElementsAre(....)",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 13
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fba2d61_5eff1b4b",
+        "filename": "test/redfish-core/lib/log_services_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "Please just hardcode this to what the test expects.  We shouldn\u0027t be using the same function in both the test and the code path.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 61
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50772e1e_46f07522",
+        "filename": "test/redfish-core/lib/log_services_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "This looks like a use after free (taking a cstr to an rvalue).\n\nJust put this on its own variable line.",
+      "range": {
+        "startLine": 59,
+        "startChar": 18,
+        "endLine": 59,
+        "endChar": 26
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7fdacae_b15fbb5e",
+        "filename": "test/redfish-core/lib/log_services_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "remove.   We shouldn\u0027t be in the business of asserting everything that ISN\"T in the payload.  If we want to check for no excess keys, check objectToFillOut.size()",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

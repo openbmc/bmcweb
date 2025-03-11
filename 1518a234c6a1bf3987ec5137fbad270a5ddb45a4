@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07776b7b_3428df1f",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T02:58:49Z",
+      "side": 1,
+      "message": "nit, lets construct this on its own line with its own variable.",
+      "revId": "1518a234c6a1bf3987ec5137fbad270a5ddb45a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
