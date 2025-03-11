@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715200dc_8e3d9897",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-03-11T19:50:02Z",
+      "side": 1,
+      "message": "I assume the motive is to remove the tasks with states - Stopping, Completed, Killed, Exception, Cancelled.\n\nSo, should you check for other task states as well - Starting, Suspended, Interrupted?",
+      "revId": "e338b859d3232b0b1639cc5781b1648112e678d1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
