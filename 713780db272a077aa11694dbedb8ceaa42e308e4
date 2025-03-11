@@ -16,6 +16,24 @@
       "message": "liquidflow was only added 4 months ago.\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blame/d120d2ec96b4312436644129791f9d586e1ae171/yaml/xyz/openbmc_project/Sensor/Value.interface.yaml#L11 \npressure has been around a while so not sure why it wasn\u0027t here before. \n\nA link to PDI defining this would be helpful",
       "revId": "713780db272a077aa11694dbedb8ceaa42e308e4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94803053_e42368d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-11T15:18:40Z",
+      "side": 1,
+      "message": "Yep, lets get this rephrased to be accurate then this seems fine.\n\n\nPressure was added a few years ago, and I don\u0027t see any systems that actually enabled pressure sensors, so I guess it never got added.\n\nhttps://github.com/openbmc/phosphor-dbus-interfaces/commit/69d821b0368b8c6943a91c7f96528e2c0047f432",
+      "parentUuid": "ff041e19_924e8e73",
+      "revId": "713780db272a077aa11694dbedb8ceaa42e308e4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
