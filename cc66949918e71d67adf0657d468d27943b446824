@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "cc66949918e71d67adf0657d468d27943b446824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4209a6b7_851a92fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 42
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-11T16:55:23Z",
+      "side": 1,
+      "message": "Hi team,\n\nI hope this email finds you well. I wanted to gently nudge about the pending review of this changes on implementing UPN on MTLS (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519). I completely understand that you might be very busy, but I would greatly appreciate it if you could spare some time to review the changes\n\nYour feedback is very invaluable, and I would like to hear your thoughts on the recent updates. Recently we have finalized the test script for testing the UPN using additional flag. If there\u0027s anything specific that\u0027s causing a delay or if you need any additional information from me, please don\u0027t hesitate to let me know\n\nThank you so much in advance for your time and consideration. I look forward to hearing back from you soon!\n\nBest regards,\nMalik Akbar Hashemi Rafsanjani\nmalikrafsan@meta.com",
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
