@@ -12,7 +12,9 @@ import ipaddress
 import os
 import socket
 import time
+from typing import Optional
 
+import asn1
 import httpx
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
@@ -24,6 +26,8 @@ from cryptography.hazmat.primitives.serialization import (
 from cryptography.x509.oid import NameOID
 
 replaceCertPath = "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate"
+# https://oidref.com/1.3.6.1.4.1.311.20.2.3
+upnObjectIdentifier = "1.3.6.1.4.1.311.20.2.3"
 
 
 class RedfishSessionContext:
@@ -54,6 +58,39 @@ class RedfishSessionContext:
             return
         r = self.client.delete(self.session_uri)
         r.raise_for_status()
+
+
+def get_hostname(username, password, url):
+    with httpx.Client(
+        base_url=f"https://{url}", verify=False, follow_redirects=False
+    ) as redfish_session:
+        with RedfishSessionContext(
+            redfish_session, username, password
+        ) as rf_session:
+            redfish_session.headers["X-Auth-Token"] = rf_session.x_auth_token
+
+            service_root = redfish_session.get("/redfish/v1/")
+            service_root.raise_for_status()
+
+            manager_uri = service_root.json()["Links"][
+                "ManagerProvidingService"
+            ]["@odata.id"]
+
+            manager_response = redfish_session.get(manager_uri)
+            manager_response.raise_for_status()
+
+            network_protocol_uri = manager_response.json()["NetworkProtocol"][
+                "@odata.id"
+            ]
+
+            network_protocol_response = redfish_session.get(
+                network_protocol_uri
+            )
+            network_protocol_response.raise_for_status()
+
+            hostname = network_protocol_response.json()["HostName"]
+
+            return hostname
 
 
 def generateCA():
@@ -112,7 +149,12 @@ def signCsr(csr, ca_key):
     return
 
 
-def generate_client_key_and_cert(commonName, ca_cert, ca_key):
+def generate_client_key_and_cert(
+    ca_cert,
+    ca_key,
+    common_name: Optional[str] = None,
+    upn: Optional[str] = None,
+):
     private_key = ec.generate_private_key(ec.SECP256R1())
     public_key = private_key.public_key()
     builder = x509.CertificateBuilder()
@@ -127,8 +169,12 @@ def generate_client_key_and_cert(commonName, ca_cert, ca_key):
                 x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco"),
                 x509.NameAttribute(NameOID.ORGANIZATION_NAME, "OpenBMC"),
                 x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "bmcweb"),
-                x509.NameAttribute(NameOID.COMMON_NAME, commonName),
             ]
+            + (
+                [x509.NameAttribute(NameOID.COMMON_NAME, common_name)]
+                if common_name is not None
+                else []
+            )
         )
     )
 
@@ -160,6 +206,23 @@ def generate_client_key_and_cert(commonName, ca_cert, ca_key):
 
     auth_key = x509.AuthorityKeyIdentifier.from_issuer_public_key(public_key)
     builder = builder.add_extension(auth_key, critical=False)
+
+    if upn is not None:
+        encoder = asn1.Encoder()
+        encoder.start()
+        encoder.write(upn, asn1.Numbers.UTF8String)
+
+        builder = builder.add_extension(
+            x509.SubjectAlternativeName(
+                [
+                    x509.OtherName(
+                        x509.ObjectIdentifier(upnObjectIdentifier),
+                        encoder.output(),
+                    )
+                ]
+            ),
+            critical=False,
+        )
 
     signed = builder.sign(private_key=ca_key, algorithm=hashes.SHA256())
 
@@ -337,15 +400,51 @@ def generate_pk12(certs_dir, key, client_cert, username):
 
 
 def test_mtls_auth(url, certs_dir):
-    response = httpx.get(
-        f"https://{url}/redfish/v1/SessionService/Sessions",
+    with httpx.Client(
+        base_url=f"https://{url}/redfish/v1",
         verify=os.path.join(certs_dir, "CA-cert.cer"),
         cert=(
             os.path.join(certs_dir, "client-cert.pem"),
             os.path.join(certs_dir, "client-key.pem"),
         ),
-    )
-    response.raise_for_status()
+    ) as client:
+        print("Testing mTLS auth with CommonName")
+        response = client.get("/SessionService/Sessions")
+        response.raise_for_status()
+
+        print("Changing CertificateMappingAttribute to use UPN")
+        patch_json = {
+            "MultiFactorAuth": {
+                "ClientCertificate": {
+                    "CertificateMappingAttribute": "UserPrincipalName"
+                }
+            }
+        }
+        response = client.patch("/AccountService", json=patch_json)
+        response.raise_for_status()
+
+    with httpx.Client(
+        base_url=f"https://{url}/redfish/v1",
+        verify=os.path.join(certs_dir, "CA-cert.cer"),
+        cert=(
+            os.path.join(certs_dir, "upn-client-cert.pem"),
+            os.path.join(certs_dir, "upn-client-key.pem"),
+        ),
+    ) as client:
+        print("Retesting mTLS auth with UPN")
+        response = client.get("/SessionService/Sessions")
+        response.raise_for_status()
+
+        print("Changing CertificateMappingAttribute to use CommonName")
+        patch_json = {
+            "MultiFactorAuth": {
+                "ClientCertificate": {
+                    "CertificateMappingAttribute": "CommonName"
+                }
+            }
+        }
+        response = client.patch("/AccountService", json=patch_json)
+        response.raise_for_status()
 
 
 def setup_server_cert(
@@ -389,6 +488,17 @@ def setup_server_cert(
 
     install_server_cert(redfish_session, manager_uri, server_cert_dump)
 
+    print("Make sure setting CertificateMappingAttribute to CommonName")
+    patch_json = {
+        "MultiFactorAuth": {
+            "ClientCertificate": {"CertificateMappingAttribute": "CommonName"}
+        }
+    }
+    response = redfish_session.patch(
+        "/redfish/v1/AccountService", json=patch_json
+    )
+    response.raise_for_status()
+
 
 def generate_and_load_certs(url, username, password):
     certs_dir = os.path.expanduser("~/certs")
@@ -430,7 +540,7 @@ def generate_and_load_certs(url, username, password):
     ca_key = load_pem_private_key(ca_key_dump, None)
 
     client_key, client_cert = generate_client_key_and_cert(
-        username, ca_cert, ca_key
+        ca_cert, ca_key, common_name=username
     )
     client_key_dump = client_key.private_bytes(
         encoding=serialization.Encoding.PEM,
@@ -448,6 +558,32 @@ def generate_and_load_certs(url, username, password):
     with open(os.path.join(certs_dir, "client-cert.pem"), "wb") as f:
         f.write(client_cert_dump)
         print("Client cert generated.")
+
+    hostname = get_hostname(username, password, url)
+    print(f"Hostname: {hostname}")
+
+    upn_client_key, upn_client_cert = generate_client_key_and_cert(
+        ca_cert,
+        ca_key,
+        upn=f"{username}@{hostname}",
+    )
+    upn_client_key_dump = upn_client_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.TraditionalOpenSSL,
+        encryption_algorithm=serialization.NoEncryption(),
+    )
+
+    with open(os.path.join(certs_dir, "upn-client-key.pem"), "wb") as f:
+        f.write(upn_client_key_dump)
+        print("UPN client key generated.")
+
+    upn_client_cert_dump = upn_client_cert.public_bytes(
+        encoding=serialization.Encoding.PEM
+    )
+
+    with open(os.path.join(certs_dir, "upn-client-cert.pem"), "wb") as f:
+        f.write(upn_client_cert_dump)
+        print("UPN client cert generated.")
 
     print(f"Connecting to {url}")
     with httpx.Client(
