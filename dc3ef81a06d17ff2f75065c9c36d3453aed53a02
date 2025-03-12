@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d930aa20_6a19ffe8",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T19:51:37Z",
+      "side": 1,
+      "message": "import doesn\u0027t look used after refactoring.  Remove?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 11
+      },
+      "revId": "dc3ef81a06d17ff2f75065c9c36d3453aed53a02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bde6ccc_79793341",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 1
