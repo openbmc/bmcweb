@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "211be089_c5f99793",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T21:36:43Z",
+      "side": 1,
+      "message": "\u003e Agreed to use the explicit copy when necessary.\n\u003e However, how can handle if we want to keep it rather than copying it during the needed scope and lifetime?\n\u003e \n\u003e The current code is always copying \u0027request body` at least if \"If-Match:\" is specified. (I don\u0027t think it is necessary for the case)\n\nGenerally you would do this with a std::move().",
+      "parentUuid": "01d95504_a18b5794",
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee762536_6f46336c",
         "filename": "http/http_request.hpp",
         "patchSetId": 4
