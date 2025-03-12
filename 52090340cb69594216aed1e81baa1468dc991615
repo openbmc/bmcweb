@@ -33,6 +33,24 @@
       "message": "With this, the accidental copy by doing lambda capture can be prevented. This is good.\n\nHowever, it makes also difficult to do the lambda capture (not for the purpose of copy).\n\n\nPreviously it can be done like\n```\n     [req, ...]() {    \n          // access via req. \n     }\n    or, \n     [req\u003dstd::move(req.copy(), ...](){ }\n```\n\nThis wouldn\u0027t work.\n\n\nSo, after this, to capture, it needs to create a shared_ptr\u003c\u003e to hold the copy of it.\n```\n     [req\u003dstd::make_shared\u003cRequest\u0026\u003e(req.copy(), ...]()\n     {  \n        // access via req-\u003e \n     }\n```\n\n\nOR \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78759 can make the lambda capture easier without duplicating it.\n\n```\n     [req{req.shared_from_this()}, ...]()\n     {  \n        // access via req-\u003e \n     }\n```",
       "revId": "52090340cb69594216aed1e81baa1468dc991615",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f68e48c_444eaac9",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T21:39:00Z",
+      "side": 1,
+      "message": "\u003e With this, the accidental copy by doing lambda capture can be prevented. This is good.\n\u003e \n\u003e However, it makes also difficult to do the lambda capture (not for the purpose of copy).\n\u003e \n\u003e \n\u003e Previously it can be done like\n\u003e ```\n\u003e      [req, ...]() {    \n\u003e           // access via req. \n\u003e      }\n\u003e     or, \n\u003e      [req\u003dstd::move(req.copy(), ...](){ }\n\u003e ```\n\u003e \n\u003e This wouldn\u0027t work.\n\nRight....  That is roughly the point of this patch.  We should never really be capturing a full request in an async callback.  We know the structures that exist, it should not require IO to be able to parse a request to a more specific data structure.\n\n\u003e \n\u003e \n\u003e So, after this, to capture, it needs to create a shared_ptr\u003c\u003e to hold the copy of it.\n\u003e ```\n\u003e      [req\u003dstd::make_shared\u003cRequest\u0026\u003e(req.copy(), ...]()\n\u003e      {  \n\u003e         // access via req-\u003e \n\u003e      }\n\u003e ```\n\u003e \n\u003e \n\u003e OR \n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78759 can make the lambda capture easier without duplicating it.\n\u003e \n\u003e ```\n\u003e      [req{req.shared_from_this()}, ...]()\n\u003e      {  \n\u003e         // access via req-\u003e \n\u003e      }\n\u003e ```\n\nor\n\n[req \u003d req.copy()] ()....",
+      "parentUuid": "86979111_6662c5eb",
+      "revId": "52090340cb69594216aed1e81baa1468dc991615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
