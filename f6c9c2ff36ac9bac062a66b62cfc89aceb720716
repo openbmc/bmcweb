@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19133d01_2bec73b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-12T22:41:06Z",
+      "side": 1,
+      "message": "In this case, callback is set so that it can be invoked as a handler of the object of `req` later.\nBecause it is defined as `(const Request \u0026req)` and it may be completed earlier than callback, it is done by creating a shared_ptr of req.copy.  \n\nI don\u0027t think it is the intention to copy it but there is no way around with the current code logic.\n\nAs an example, in other code, `req` was passed as `\u0026req` to validatePrivilege \n\n - https://github.com/baemyung/bmcweb/blob/7e9093e625961f533250a6c193c1a474e98007c4/http/routing.hpp#L1368C4-L1368C5  \n\n```\n   void validatePrivilege(Request\u0026 req,\n        ```)\n    {\n        crow::connections::systemBus-\u003easync_method_call(\n            [this, \u0026req, asyncResp, \u0026rule,\n```\nHowever, its lifetime can\u0027t be hold until all async calls are completed.\n\n- \nSo, it is changed to `[req{std::move}]` via https://github.com/baemyung/bmcweb/commit/915d2d4e59be56958b04a79ba96e0242ef735f44, but it still not work. So go partially back via https://github.com/baemyung/bmcweb/commit/d3c8ce63ce13b2094b01f7c9eb8be4d3d5daa52f\n\n- \nEventually it is fixed by https://github.com/baemyung/bmcweb/commit/102a4cdacb0a6d8c8c3c97e10bedbb66000ac5dc\nbut it causes the duplication if \"If-Match:\" is passed.\n\nIn other words, the goal is not necessarily to copy, but to hold its lifetime for Request in this case.\n\nPlease also take a look at my other responses.",
+      "parentUuid": "211be089_c5f99793",
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee762536_6f46336c",
         "filename": "http/http_request.hpp",
         "patchSetId": 4
