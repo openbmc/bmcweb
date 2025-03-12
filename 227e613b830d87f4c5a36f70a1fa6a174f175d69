@@ -231,6 +231,24 @@
       "parentUuid": "d8306d6e_a04ddeda",
       "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21e9ece7_1a6af5e5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3083,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-12T16:04:58Z",
+      "side": 1,
+      "message": "okay sure we can do that. Will follow that approach. \nWill abandon this MR. \nThanks a lot everyone for your time.",
+      "parentUuid": "627a4f21_83588e01",
+      "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
