@@ -56,6 +56,29 @@
       "message": "A bit more here or in the commit msg would be helpful \nE.g.  based on https://en.wikipedia.org/wiki/Object_identifier\n    1 ISO\n    1.3 identified-organization (ISO/IEC 6523),\n    1.3.6 DoD,\n    1.3.6.1 internet,\n    1.3.6.1.4 private,\n    1.3.6.1.4.1 IANA enterprise numbers,\n    1.3.6.1.4.1.343 Microsoft\n    ...",
       "revId": "dc3ef81a06d17ff2f75065c9c36d3453aed53a02",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ad4ee8_1a716f42",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T19:53:35Z",
+      "side": 1,
+      "message": "Still should be using http client.\n\nas written this is opening a new client/connection for every request, and there\u0027s a lot of duplication between the requests.\n\nrf_session avoids a lot of this duplication.",
+      "range": {
+        "startLine": 365,
+        "startChar": 0,
+        "endLine": 366,
+        "endChar": 23
+      },
+      "revId": "dc3ef81a06d17ff2f75065c9c36d3453aed53a02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
