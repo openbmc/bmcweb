@@ -132,6 +132,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e96b4bf_50e184ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-12T20:19:04Z",
+      "side": 1,
+      "message": "I didn\u0027t get a good answer from my team on why something like proxy_hide_header Clear-Site-Data wouldn\u0027t work, other than they do not touch any headers from OpenBMC today \n\nIf we want this patch, great. \nIf we don\u0027t want this patch, I am also fine with that",
+      "parentUuid": "3295a58b_be6ca9a4",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "625c7054_cecf500b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -265,6 +283,42 @@
       "writtenOn": "2024-10-17T16:45:47Z",
       "side": 1,
       "message": "I\u0027ve come to the conclusion that I don\u0027t care enough about passing venom and clearing headers has caused more bugs than expected.  Gunnar, if you get this patch rebased, I\u0027m ok for it to merge.",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0859dbb1_d9566563",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-12T20:19:04Z",
+      "side": 1,
+      "message": "I didn\u0027t get a good answer from my team on why something like \n\n\"In nginx proxies, this would be trivially solved by putting:\nproxy_hide_header Clear-Site-Data\" wouldn\u0027t work \n\nIf we decide against this, I can push more on that \n\nI don\u0027t think this is worth a meson option. Either\n1) IBM carries this downstream \n2) We decide that clearing site data isn\u0027t something we want to do in the upstream project and merge this patch",
+      "parentUuid": "5ec828a0_7fa175f0",
+      "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc509269_99906143",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-12T20:19:04Z",
+      "side": 1,
+      "message": "\u003e I\u0027ve come to the conclusion that I don\u0027t care enough about passing venom and clearing headers has caused more bugs than expected.  Gunnar, if you get this patch rebased, I\u0027m ok for it to merge.\n\nWe still carry this patch downstream. I rebased this to start the discussion again of \"is clearing site data something we want to do\".",
+      "parentUuid": "d2688540_65c90e5d",
       "revId": "9e2bc6b2c7fc1caf40cf77ba01055c1f8756becd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
