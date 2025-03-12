@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b890a1f9_c7acb3c0",
+        "filename": "meson.options",
+        "patchSetId": 10
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "According to (this search](https://github.com/search?q\u003drepo%3Aopenbmc%2Fopenbmc+-Dredfish-dbus-log\u0026type\u003dcode) AMD, IBM and ufispace have it enabled. Do they use it though, I don\u0027t know. It\u0027s also enabled for Facebook, but we\u0027re going to use the mapping.",
+      "parentUuid": "17bd56b9_ce3f4588",
+      "range": {
+        "startLine": 324,
+        "startChar": 8,
+        "endLine": 325,
+        "endChar": 41
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "23477d62_c24e0d95",
         "filename": "meson.options",
         "patchSetId": 10
@@ -147,6 +171,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "47bcaf8a_59232f59",
+        "filename": "redfish-core/include/event_matches_filter.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b74bd44_b0d0ca31",
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "160d21e0_11702bee",
@@ -160,6 +202,24 @@
       "writtenOn": "2025-03-11T02:58:49Z",
       "side": 1,
       "message": "As does this.  This is now duplicating a lookup, whereas previously it was not duplicated.",
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c5f0156_16f45825",
+        "filename": "redfish-core/include/event_matches_filter.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "160d21e0_11702bee",
       "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -187,6 +247,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b460c95a_b327a488",
+        "filename": "redfish-core/include/utils/dbus_event_log_entry.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6eac423_c0db6413",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 46
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0745b189_9e6b77de",
@@ -200,6 +284,30 @@
       "writtenOn": "2025-03-11T02:58:49Z",
       "side": 1,
       "message": "__func__ is aleady included in the log statements.  Please don\u0027t duplicate it.",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0311de77_83396ad5",
+        "filename": "redfish-core/include/utils/log_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0745b189_9e6b77de",
       "range": {
         "startLine": 32,
         "startChar": 12,
@@ -273,6 +381,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a5475cb_5849acbf",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Was described in commit message \"It also adds MemberId to the Event.EventRecords, as it\u0027s a required property [5] to make responses valid from the standard point of view.\". Moved to another change.",
+      "parentUuid": "8caf57ce_33d9e297",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 61
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49479867_3d055356",
@@ -286,6 +418,30 @@
       "writtenOn": "2025-03-11T02:58:49Z",
       "side": 1,
       "message": "Why take the cstr here?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 48
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be0bae81_2f92f456",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49479867_3d055356",
       "range": {
         "startLine": 21,
         "startChar": 0,
@@ -319,6 +475,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e197a58_8d6a743f",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "692aebce_43ebbdef",
+      "range": {
+        "startLine": 24,
+        "startChar": 25,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9961d56d_bc8c093a",
@@ -332,6 +512,30 @@
       "writtenOn": "2025-03-11T02:58:49Z",
       "side": 1,
       "message": "Please use normal string_view comparison here.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 60
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c8dd0d9_2daca31f",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9961d56d_bc8c093a",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -367,6 +571,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b054cc5d_0f8f5f52",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "The map is not stuck with registry version, and supposed to use any version. So, it has Registry name and Entry name, but no version. Code later, calls registries::getMessage which accepts fully qualified Message ID - with version, but it drops version. So as it\u0027s not in use there anyways, and we don\u0027t know it here, I used 0.0.\nThough there are 2 problems here:\n1. It\u0027s confusing, as we do this conversion here, and use it later this way; Moreover, the registries::getMessage implementation may change. So I will re-factor this.\n2. It does not update the version in the MessageId, so user receives Registry.0.0.Entry, which is wrong. So the plan here is to pull a version from the registry.",
+      "parentUuid": "e91e40f9_ebdfb196",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa4846e2_4ef81cab",
         "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
         "patchSetId": 10
@@ -378,6 +606,30 @@
       "writtenOn": "2025-03-11T02:58:49Z",
       "side": 1,
       "message": "nit, remove \u003d {};",
+      "range": {
+        "startLine": 39,
+        "startChar": 33,
+        "endLine": 39,
+        "endChar": 39
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de7d520f_04426848",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa4846e2_4ef81cab",
       "range": {
         "startLine": 39,
         "startChar": 33,
@@ -411,6 +663,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b35dc673_25ae3253",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65ad7c65_a47d9944",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "efa41300_3f41390f",
@@ -424,6 +700,30 @@
       "writtenOn": "2025-03-11T02:58:49Z",
       "side": 1,
       "message": "Remove the parts of this that aren\u0027t used in the unit test.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd6a3608_1023e9fa",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efa41300_3f41390f",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -457,6 +757,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d6df4af_79b45656",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "828d577b_112835ca",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 13
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fba2d61_5eff1b4b",
@@ -470,6 +794,30 @@
       "writtenOn": "2025-03-11T02:58:49Z",
       "side": 1,
       "message": "Please just hardcode this to what the test expects.  We shouldn\u0027t be using the same function in both the test and the code path.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 61
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87eacc15_1b03b436",
+        "filename": "test/redfish-core/lib/log_services_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fba2d61_5eff1b4b",
       "range": {
         "startLine": 56,
         "startChar": 0,
@@ -503,6 +851,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2da822ba_610d5850",
+        "filename": "test/redfish-core/lib/log_services_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50772e1e_46f07522",
+      "range": {
+        "startLine": 59,
+        "startChar": 18,
+        "endLine": 59,
+        "endChar": 26
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7fdacae_b15fbb5e",
@@ -516,6 +888,30 @@
       "writtenOn": "2025-03-11T02:58:49Z",
       "side": 1,
       "message": "remove.   We shouldn\u0027t be in the business of asserting everything that ISN\"T in the payload.  If we want to check for no excess keys, check objectToFillOut.size()",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0394345_e9e5cbee",
+        "filename": "test/redfish-core/lib/log_services_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f7fdacae_b15fbb5e",
       "range": {
         "startLine": 64,
         "startChar": 0,

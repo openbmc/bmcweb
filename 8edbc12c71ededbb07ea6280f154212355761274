@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc926a0c_c1c8d862",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "6fcbf455_742cc7a0",
+      "range": {
+        "startLine": 128,
+        "startChar": 40,
+        "endLine": 128,
+        "endChar": 48
+      },
+      "revId": "8edbc12c71ededbb07ea6280f154212355761274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd4b13a7_6f3a5925",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-11T02:58:49Z",
       "side": 0,
       "message": "why were these removed here.  These are common to all messages, right?",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 46
+      },
+      "revId": "8edbc12c71ededbb07ea6280f154212355761274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbf10ab5_37119e85",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-12T09:52:24Z",
+      "side": 0,
+      "message": "They were moved to fillLogObjPartially which was used from here and the log_services.cpp and this required change from nlohmann::json::object_t to nlohmann::json. Reverted.",
+      "parentUuid": "cd4b13a7_6f3a5925",
       "range": {
         "startLine": 163,
         "startChar": 0,
