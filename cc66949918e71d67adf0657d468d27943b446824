@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95bffaca_7cb0f0d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 42
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-12T19:16:44Z",
+      "side": 1,
+      "message": "Hi Ed, thank you so much for your thoughtful response and for the advices. I am interested to help with reviewing patches in my spare time\n\nRegarding the few months idle, we really apologize for this. Previously we deprioritize the solution because of other things going on in the team. Recently, I joined the team and we decided to revive the initiative. We really appreciate your effort on helping us coming with this solution!\n\nI also apologize for a bit unprepared on the testing previously. I will try to make sure to well test the patch before report to the reviewer\n\nOnce again, thank you for your review and guidance!",
+      "parentUuid": "9fdc9bac_7c6374fd",
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e76c829_3cc33d4e",
@@ -66,6 +84,30 @@
       "writtenOn": "2025-03-12T16:22:20Z",
       "side": 1,
       "message": "Do we need to handle errors here?  getHostName looks like it returns empty string if it \"fails\".",
+      "range": {
+        "startLine": 173,
+        "startChar": 40,
+        "endLine": 173,
+        "endChar": 51
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fb19bdd_773a5701",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-12T19:16:44Z",
+      "side": 1,
+      "message": "Ahh yes, got it!",
+      "parentUuid": "1e76c829_3cc33d4e",
       "range": {
         "startLine": 173,
         "startChar": 40,
@@ -99,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1b742bf_79d51b8b",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-12T19:16:44Z",
+      "side": 1,
+      "message": "Thanks! we decided to create a new hpp file for the functions that only being used inside the mutual_tls.cpp and its respective unit test file",
+      "parentUuid": "676600d3_3905b538",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f40186d5_28247d89",
@@ -112,6 +178,30 @@
       "writtenOn": "2025-03-12T16:22:20Z",
       "side": 1,
       "message": "any way to make this a little more readable?  \"using enum\" maybe?",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 71
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00ccfa58_532fb8fc",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-12T19:16:44Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f40186d5_28247d89",
       "range": {
         "startLine": 250,
         "startChar": 0,
@@ -147,6 +237,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87b87613_59265a4a",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-12T19:16:44Z",
+      "side": 1,
+      "message": "We previously changed the severity during our discussion here\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/b034660f_857fd91c/\n\nThe rationale is that we don\u0027t do anything when the value is out of range and we move on. Let me know if you have further input on this",
+      "parentUuid": "c928be7d_33479ca2",
+      "range": {
+        "startLine": 261,
+        "startChar": 24,
+        "endLine": 261,
+        "endChar": 42
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0080b564_d47d081a",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 42
@@ -158,6 +272,24 @@
       "writtenOn": "2025-03-12T16:22:20Z",
       "side": 1,
       "message": "Changes to this file could be put in their own commit just for separation.  Up to you.",
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36e0bb79_b15938e1",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-12T19:16:44Z",
+      "side": 1,
+      "message": "Thanks! We decided to separate the commit and open a new draft patch here. I will continue the development of the script there\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78837/1?tab\u003dcomments",
+      "parentUuid": "0080b564_d47d081a",
       "revId": "cc66949918e71d67adf0657d468d27943b446824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
