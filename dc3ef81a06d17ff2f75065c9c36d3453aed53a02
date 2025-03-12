@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99cc76a5_69b66c67",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-12T18:11:12Z",
+      "side": 1,
+      "message": "Can you add more to the commit msg? \nHow did you test? Why do we need this? How does this work?",
+      "revId": "dc3ef81a06d17ff2f75065c9c36d3453aed53a02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bde6ccc_79793341",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-12T18:11:12Z",
+      "side": 1,
+      "message": "A bit more here or in the commit msg would be helpful \nE.g.  based on https://en.wikipedia.org/wiki/Object_identifier\n    1 ISO\n    1.3 identified-organization (ISO/IEC 6523),\n    1.3.6 DoD,\n    1.3.6.1 internet,\n    1.3.6.1.4 private,\n    1.3.6.1.4.1 IANA enterprise numbers,\n    1.3.6.1.4.1.343 Microsoft\n    ...",
+      "revId": "dc3ef81a06d17ff2f75065c9c36d3453aed53a02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
