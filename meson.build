@@ -66,10 +66,6 @@ incdir = include_directories(
 )
 incdir_cli = include_directories('http', 'include')
 
-if (get_option('tests').allowed())
-    summary('unittest', 'NA', section: 'Features')
-endif
-
 # Add compiler arguments
 boost_flags = ['-Wno-unused-parameter']
 nghttp2_flags = []
