@@ -213,6 +213,24 @@
       "parentUuid": "76c8eae0_0bb4b139",
       "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "627a4f21_83588e01",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3083,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-12T07:20:43Z",
+      "side": 1,
+      "message": "instead of using one path for everything lets break it down based on the backend. We can also simply this and add checks where existing upstream implementation breaks on return HTTP error code on common system paths when BIOS is not present on SatMCs. We should be good with Empty collection and might not need any change there.",
+      "parentUuid": "d8306d6e_a04ddeda",
+      "revId": "227e613b830d87f4c5a36f70a1fa6a174f175d69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
