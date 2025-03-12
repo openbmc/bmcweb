@@ -16,6 +16,24 @@
       "message": "As Ed and I talked about, since HP Inc is not available to test the functionality with the current OBMC Bios Manager we cannot bring it all the way into bmcweb. We believe that due to our testing with our Workstation BIOS manager there shouldn\u0027t be be issues with the current OBMC one, due to using the same DBUS interfaces. We will be leaving this as a WIP for someone using the OBMC manager to finish implementation.",
       "revId": "17ba2ba0b22693335bbfcdd6d365455371f05b53",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5986d93f_a62ea19e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-03-12T19:37:58Z",
+      "side": 1,
+      "message": "Marking as unresolved",
+      "parentUuid": "07c009ad_a2292425",
+      "revId": "17ba2ba0b22693335bbfcdd6d365455371f05b53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
