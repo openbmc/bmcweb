@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3868477e_b0c05501",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T19:31:29Z",
+      "side": 1,
+      "message": "... and submit your patches to the appropriate repositories.",
+      "revId": "89f6c71a985f68b5053097a34cb748895682a144",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f4cf06a_7a12272f",
         "filename": "redfish-core/include/registries_selector.hpp",
         "patchSetId": 4
