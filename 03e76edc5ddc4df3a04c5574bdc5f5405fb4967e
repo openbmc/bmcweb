@@ -69,6 +69,24 @@
       "parentUuid": "b034660f_857fd91c",
       "revId": "03e76edc5ddc4df3a04c5574bdc5f5405fb4967e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c13ea85_e49f82a5",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T21:47:30Z",
+      "side": 1,
+      "message": "Gunnar, pretty sure this is an error by our definitions (It should never happen, regardless of user input).\n\nThe fact that we recover is immaterial to this being an error.  We\u0027re parsing an internal json file;  If that json file has content we can\u0027t handle, that\u0027s an error.",
+      "parentUuid": "5b587d68_65ffdd49",
+      "revId": "03e76edc5ddc4df3a04c5574bdc5f5405fb4967e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
