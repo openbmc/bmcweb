@@ -33,6 +33,282 @@
       "message": "Hi team,\n\nI hope this email finds you well. I wanted to gently nudge about the pending review of this changes on implementing UPN on MTLS (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519). I completely understand that you might be very busy, but I would greatly appreciate it if you could spare some time to review the changes\n\nYour feedback is very invaluable, and I would like to hear your thoughts on the recent updates. Recently we have finalized the test script for testing the UPN using additional flag. If there\u0027s anything specific that\u0027s causing a delay or if you need any additional information from me, please don\u0027t hesitate to let me know\n\nThank you so much in advance for your time and consideration. I look forward to hearing back from you soon!\n\nBest regards,\nMalik Akbar Hashemi Rafsanjani\nmalikrafsan@meta.com",
       "revId": "cc66949918e71d67adf0657d468d27943b446824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fdc9bac_7c6374fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 42
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "\u003e I completely understand that you might be very busy\n\nThank you for your understanding.  As you know, reviews take pretty significant effort, and rather than sacrifice the quality of your review, I personally tend to make sure patches have stabilized when comments have been addressed.  I understand you have deadlines (so do I), but some thing that you might consider to make reviews overall go faster:\n\nA. Becoming a (listed or not) reviewer, and reviewing other folks patches.  Now that you\u0027re an author on bmcweb and you understand what goes into a successful patch, you can help other people to get their reviews moving faster.  The more people that cross review, the faster everyones patches go.\nB. Keeping maintainers in the loop as to your priorities.  UPN was pointed out as a possible alternative 9 months ago and there was very little communication.  From that I assumed that UPN wasn\u0027t a priority.  Clearly it\u0027s a priority now which is great, but long gaps in between reviews make it harder for reviewers to \"context switch\" in the current state of your patch.\nC. Testing patches in process and reporting results.\nD. Ensuring that your patch passes the relevant testing ahead of pushing it.\n\nIt\u0027s been 8 days since the last round of comments, please bear with us.  There are 300+ patches in review for bmcweb alone.  We can\u0027t get to every patch every day.",
+      "parentUuid": "4209a6b7_851a92fa",
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e76c829_3cc33d4e",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "Do we need to handle errors here?  getHostName looks like it returns empty string if it \"fails\".",
+      "range": {
+        "startLine": 173,
+        "startChar": 40,
+        "endLine": 173,
+        "endChar": 51
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "676600d3_3905b538",
+        "filename": "http/mutual_tls.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "One of the intentions here is to keep from having to pull in 3rd party libraries into commonly used headers.  This seems to backtrack on that goal.\n\nI suspect that a lot of these methods can be declared in a new header/source file, that only mutual_tls.cpp calls from, and we can avoid the compile-time increases from having to parse these headers in a large number of units?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 27
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f40186d5_28247d89",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "any way to make this a little more readable?  \"using enum\" maybe?",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 71
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c928be7d_33479ca2",
+        "filename": "include/sessions.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "Why was this severity was changed?",
+      "range": {
+        "startLine": 261,
+        "startChar": 24,
+        "endLine": 261,
+        "endChar": 42
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0080b564_d47d081a",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "Changes to this file could be put in their own commit just for separation.  Up to you.",
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6364fa6d_6f7aeb0c",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "Any reason the asn1 encoders from python cryptography can\u0027t be used and we should take on this new dependency?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ff9c4cd_01e8e353",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "can we get a pointer (in a comment) to where this came from?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a47c50ee_45976654",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "nit json\u003d please.",
+      "range": {
+        "startLine": 385,
+        "startChar": 8,
+        "endLine": 385,
+        "endChar": 12
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89cf0ee6_8575894c",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "This is a little odd.  We\u0027re switching to UPN after we\u0027ve enabled mtls?  Wouldn\u0027t we enable it as part of mtls setup?",
+      "range": {
+        "startLine": 388,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 9
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed01fab4_491b01f6",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "Something looks broken here.  The same client certificate should not work in BOTH UPN and Common Name modes, right?",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 5
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59674fdb_f10fc164",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "This looks like the wrong spot for doing general setup.  General setup needs to happen under the RedfishSessionContext above, before the sleep. \n The sleep is really just a hack around a bug.",
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54c2a24d_926499ed",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T16:22:20Z",
+      "side": 1,
+      "message": "Given this is a test script, can we just make this a store_true and set a known UPN?  Users coming up with their own upn seems error prone, and this test script should be as easy to run as possible.",
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
