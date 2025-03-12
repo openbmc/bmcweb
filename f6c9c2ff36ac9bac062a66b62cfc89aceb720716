@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "01d95504_a18b5794",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-12T20:42:26Z",
+      "side": 1,
+      "message": "Agreed to use the explicit copy when necessary.\nHowever, how can handle if we want to keep it rather than copying it during the needed scope and lifetime?\n\nThe current code is always copying \u0027request body` at least if \"If-Match:\" is specified. (I don\u0027t think it is necessary for the case)",
+      "parentUuid": "10d888e3_30c521c1",
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee762536_6f46336c",
         "filename": "http/http_request.hpp",
         "patchSetId": 4
@@ -31,6 +49,30 @@
       "writtenOn": "2025-03-12T15:49:58Z",
       "side": 1,
       "message": "Enable shared from this isn\u0027t needed unless we want to manage the lifetime of this class from within the class.  I don\u0027t think we want to enforce that:\n\nA. All request structs are shared_ptr\nB. A request class manages its own lifecycle.\n\n\nRequest structure does no IO.  It shouldn\u0027t manage it\u0027s own pointer lifetime.",
+      "range": {
+        "startLine": 27,
+        "startChar": 14,
+        "endLine": 27,
+        "endChar": 54
+      },
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2253c7ab_5750c3d0",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-12T20:42:26Z",
+      "side": 1,
+      "message": "Currently, \n- all incoming Request structs are already `shared_ptr\u003ccrow::Request\u003e` - https://github.com/openbmc/bmcweb/blob/ef0b2d46d0245447bf21d6c74821599d5f7b7b05/http/http_connection.hpp#L925.\n\n\n- They are referenced as `crow::Request` during as a part of route handling\nhttps://github.com/openbmc/bmcweb/blob/ef0b2d46d0245447bf21d6c74821599d5f7b7b05/http/routing.hpp#L662.\n\nIt  is essentially a de-referenced object from `shared_ptr\u003ccrow::Request\u003e` to match with the existing codes that are specified like `routeXXX(..., const crow::Request\u0026 req, ...)` .\n\nIn other words, in bmcweb,  most cases (I think all cases), `crow::Request` are created/managed as std::shared_ptr\u003cRequest\u003e.\n\nS, I don\u0027t think that using `enable_shared_from_this\u003cRequest\u003e` causes the extra overhead.\n\n\n- In addition, there may be cases to capture `req` - e.g. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74938/69/redfish-core/lib/redfish_sessions.hpp#328.  This seems not easy to avoid.\nIf we use shared_ptr, the object can be captured as `shared_from_this()` rather than copying.",
+      "parentUuid": "ee762536_6f46336c",
       "range": {
         "startLine": 27,
         "startChar": 14,
@@ -66,6 +108,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5701e271_0cd8551b",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-12T20:42:26Z",
+      "side": 1,
+      "message": "This is used because\n`req-\u003eshared_from_this()` gives `std::shared_ptr\u003cconst crow::Request\u003e`.\nHowever, most of places are using as `std::shared_ptr\u003ccrow::Request\u003e`.\n\nI think this was a reason to keep the previous codes as `const crow::Request` in routing.hpp.\n\nIdeally, if we pass `std::shared_ptr\u003ccrow::Request\u003e req` all-way thru in doing routes, this back conversion (`const Request\u0026` to `const shared_ptr\u003cRequest\u003e\u0026` via \n const_cast) wouldn\u0027t be needed.\nHowever this would cause many changes of BMCWEB_ROUTE and called functions.",
+      "parentUuid": "3a4608a3_acedf18e",
+      "range": {
+        "startLine": 104,
+        "startChar": 40,
+        "endLine": 104,
+        "endChar": 41
+      },
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e8858f3_e5eebf78",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 4
@@ -77,6 +143,30 @@
       "writtenOn": "2025-03-12T15:49:58Z",
       "side": 1,
       "message": "I\u0027m very surprised this code doesn\u0027t crash.  req is not a shared pointer, so pulling shared_from_this should make a copy?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 77
+      },
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb65a0d3_368ac319",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-12T20:42:26Z",
+      "side": 1,
+      "message": "I don\u0027t think this is causing a crash, as the original `req` is kept in lifetime by capturing its original form (`shared_ptr\u003cRequest\u003e`) via bind_front() and shared_from_this().\n\n\nI think the issues(we\u0027ve seen before) related to `Request` are due to the lifetime of `Request` for the async-call (e.g. validatePrivilege() in older code) and caller.\n- how to hold `Request` lifetime inside or outside of the async calls.\n\nIt was resolved by making it as shared_ptr\u003cRequest\u003e - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71006.\nHowever, since it did not change `setUpRedfishRouteWithDelegation(const crow::Request\u0026 req)` and all places from the previous `route(const Request\u0026 req)` to `route(const std::shared_ptr\u003cRequest\u003e\u0026)`.\n\nAs the result, this setUpRedfishRouteWithDelegation() \u0026 handleIfMatch() also need to deal with `const Request\u0026` by copying it.\nIf it were passed as `const std::shared_ptr\u003cRequest\u003e\u0026`, it would not need to copy it, but it can be handled by capturing it without copying.",
+      "parentUuid": "7e8858f3_e5eebf78",
       "range": {
         "startLine": 107,
         "startChar": 0,
