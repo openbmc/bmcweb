@@ -133,6 +133,23 @@
       "message": "https://github.com/DMTF/Redfish-Publications/blob/5cc369c5c0fb39698259071b7a597f7504b24e55/csdl/Certificate_v1.xml#L193\n\nShows that what we had looks correct to the redfish spec.",
       "revId": "541071a6d811d04f87e83c71db7bf14a5bb227ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "112245d8_bdbf4a83",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-12T18:32:12Z",
+      "side": 1,
+      "message": "As Ed mentioned, this looks wrong.. \nFrom https://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/KeyUsage \n\n        \"KeyUsage\": {\n            \"description\": \"The usages of a key contained within a certificate.\",\n            \"enum\": [\n                \"DigitalSignature\",\n                \"NonRepudiation\",\n                \"KeyEncipherment\",\n                \"DataEncipherment\",\n                \"KeyAgreement\",\n                \"KeyCertSign\",\n                \"CRLSigning\",\n                \"EncipherOnly\",\n                \"DecipherOnly\",\n                \"ServerAuthentication\",\n                \"ClientAuthentication\",\n                \"CodeSigning\",\n                \"EmailProtection\",\n                \"Timestamping\",\n                \"OCSPSigning\"\n            ],",
+      "revId": "541071a6d811d04f87e83c71db7bf14a5bb227ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
