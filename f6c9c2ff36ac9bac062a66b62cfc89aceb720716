@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10d888e3_30c521c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T15:49:58Z",
+      "side": 1,
+      "message": "I\u0027m not really understanding this patch.\n\nI\u0027m in full support of trying to eradicate copies, I\u0027m just not sure this one does.  Lets move it away from shared_from_this, and it will be a lot more apparent whether we\u0027re making a copy or not.",
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee762536_6f46336c",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T15:49:58Z",
+      "side": 1,
+      "message": "Enable shared from this isn\u0027t needed unless we want to manage the lifetime of this class from within the class.  I don\u0027t think we want to enforce that:\n\nA. All request structs are shared_ptr\nB. A request class manages its own lifecycle.\n\n\nRequest structure does no IO.  It shouldn\u0027t manage it\u0027s own pointer lifetime.",
+      "range": {
+        "startLine": 27,
+        "startChar": 14,
+        "endLine": 27,
+        "endChar": 54
+      },
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a4608a3_acedf18e",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T15:49:58Z",
+      "side": 1,
+      "message": "Const_cast is banned for a reason.  if there are issues in const-ness that aren\u0027t part of our usage of a third party library, lets just fix them.",
+      "range": {
+        "startLine": 104,
+        "startChar": 40,
+        "endLine": 104,
+        "endChar": 41
+      },
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e8858f3_e5eebf78",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-12T15:49:58Z",
+      "side": 1,
+      "message": "I\u0027m very surprised this code doesn\u0027t crash.  req is not a shared pointer, so pulling shared_from_this should make a copy?",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 77
+      },
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
