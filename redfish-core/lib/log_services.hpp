@@ -1426,7 +1426,7 @@ static LogParseError fillEventLogEntryJson(
     return LogParseError::success;
 }
 
-inline void fillEventLogLogEntryFromPropertyMap(
+inline bool fillEventLogLogEntryFromPropertyMap(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const dbus::utility::DBusPropertiesMap& resp,
     nlohmann::json& objectToFillOut)
@@ -1437,7 +1437,7 @@ inline void fillEventLogLogEntryFromPropertyMap(
     if (!optEntry.has_value())
     {
         messages::internalError(asyncResp->res);
-        return;
+        return false;
     }
     DbusEventLogEntry entry = optEntry.value();
 
@@ -1472,6 +1472,7 @@ inline void fillEventLogLogEntryFromPropertyMap(
             "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}/attachment",
             BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(entry.Id));
     }
+    return true;
 }
 
 inline void afterLogEntriesGetManagedObjects(
@@ -1507,8 +1508,13 @@ inline void afterLogEntriesGetManagedObjects(
                                             propertyMap.second);
             }
         }
-        fillEventLogLogEntryFromPropertyMap(asyncResp, propsFlattened,
-                                            entriesArray.emplace_back());
+        nlohmann::json objectToFillOut;
+        bool success = fillEventLogLogEntryFromPropertyMap(
+            asyncResp, propsFlattened, objectToFillOut);
+        if (success)
+        {
+            entriesArray.push_back(objectToFillOut);
+        }
     }
 
     std::ranges::sort(entriesArray, [](const nlohmann::json& left,
