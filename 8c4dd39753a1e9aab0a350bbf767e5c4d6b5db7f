@@ -118,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27682d7f_1a00e7fa",
+        "filename": "meson.options",
+        "patchSetId": 10
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-13T13:42:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23477d62_c24e0d95",
+      "range": {
+        "startLine": 327,
+        "startChar": 8,
+        "endLine": 327,
+        "endChar": 54
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d940bbc3_547a53ae",
@@ -341,6 +365,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6fbbdc2_2d5c4be9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 1463,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-13T13:42:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06ebf6a5_f07bb6a6",
+      "range": {
+        "startLine": 1463,
+        "startChar": 0,
+        "endLine": 1463,
+        "endChar": 75
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aef4c41c_c5c37818",
@@ -354,6 +402,24 @@
       "writtenOn": "2025-03-11T02:58:49Z",
       "side": 1,
       "message": "This all looks duplicated with fillEventLogLogEntryFromPropertyMap.\n\nCan we make that code call into this function now that we have a messageId?",
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4f5e567_23c66fda",
+        "filename": "redfish-core/src/dbus_log_watcher.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-13T13:42:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aef4c41c_c5c37818",
       "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -583,6 +649,30 @@
       "side": 1,
       "message": "The map is not stuck with registry version, and supposed to use any version. So, it has Registry name and Entry name, but no version. Code later, calls registries::getMessage which accepts fully qualified Message ID - with version, but it drops version. So as it\u0027s not in use there anyways, and we don\u0027t know it here, I used 0.0.\nThough there are 2 problems here:\n1. It\u0027s confusing, as we do this conversion here, and use it later this way; Moreover, the registries::getMessage implementation may change. So I will re-factor this.\n2. It does not update the version in the MessageId, so user receives Registry.0.0.Entry, which is wrong. So the plan here is to pull a version from the registry.",
       "parentUuid": "e91e40f9_ebdfb196",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 63
+      },
+      "revId": "8c4dd39753a1e9aab0a350bbf767e5c4d6b5db7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5257d6f_3a29a81e",
+        "filename": "redfish-core/src/utils/dbus_registries_map_utils.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-13T13:42:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b054cc5d_0f8f5f52",
       "range": {
         "startLine": 34,
         "startChar": 0,

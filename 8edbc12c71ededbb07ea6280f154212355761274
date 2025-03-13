@@ -116,6 +116,30 @@
       },
       "revId": "8edbc12c71ededbb07ea6280f154212355761274",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eef71a2c_457dde41",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-13T13:42:15Z",
+      "side": 0,
+      "message": "Apparently this is the only way, though I don\u0027t like that as this means part of the code will not be covered by unit tests in CI as the option is disabled by default.",
+      "parentUuid": "35303c0b_9ea6a2e2",
+      "range": {
+        "startLine": 26,
+        "startChar": 49,
+        "endLine": 26,
+        "endChar": 67
+      },
+      "revId": "8edbc12c71ededbb07ea6280f154212355761274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

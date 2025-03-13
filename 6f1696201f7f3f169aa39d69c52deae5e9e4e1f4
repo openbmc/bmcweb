@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d912bf9_1ddf215b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-13T13:42:15Z",
+      "side": 1,
+      "message": "I think we confuse 2 options. BMCWEB_REDFISH_DBUS_LOG switches a source of the logs from FS to DBus. So, when BMCWEB_REDFISH_DBUS_LOG is disabled this function not in use in any case. The other switch we\u0027re talking about, is related to mapping, and does not affect anything if BMCWEB_REDFISH_DBUS_LOG is disabled.",
+      "parentUuid": "f4d3186a_451803ea",
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17818658_d6179a95",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -434,6 +452,30 @@
       "side": 1,
       "message": "I\u0027ve published an update, with meson option that controls the behavior, i.e. option #3.\nBut still, dropping messages is a concern.",
       "parentUuid": "2ae652a9_2d25fbc6",
+      "range": {
+        "startLine": 1474,
+        "startChar": 8,
+        "endLine": 1474,
+        "endChar": 29
+      },
+      "revId": "6f1696201f7f3f169aa39d69c52deae5e9e4e1f4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "231e9b0b_21eb3f96",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-13T13:42:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7be5345_6456fed4",
       "range": {
         "startLine": 1474,
         "startChar": 8,
