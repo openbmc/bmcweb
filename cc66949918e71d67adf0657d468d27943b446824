@@ -335,6 +335,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9050554f_70386125",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T13:22:04Z",
+      "side": 1,
+      "message": "Hi Ed, I move our discussion on the script to the patch for the script\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78837/comment/962b7403_8a68f1a1/",
+      "parentUuid": "6364fa6d_6f7aeb0c",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ff9c4cd_01e8e353",
@@ -348,6 +372,30 @@
       "writtenOn": "2025-03-12T16:22:20Z",
       "side": 1,
       "message": "can we get a pointer (in a comment) to where this came from?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f2dbc1_e6a3c3a0",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T13:22:04Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78837/comment/f0ad6818_246e0ff5/",
+      "parentUuid": "9ff9c4cd_01e8e353",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -381,6 +429,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "798fbc4e_93fbdaa8",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T13:22:04Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78837/comment/28b92a5e_c3711fb3/",
+      "parentUuid": "a47c50ee_45976654",
+      "range": {
+        "startLine": 385,
+        "startChar": 8,
+        "endLine": 385,
+        "endChar": 12
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89cf0ee6_8575894c",
@@ -394,6 +466,30 @@
       "writtenOn": "2025-03-12T16:22:20Z",
       "side": 1,
       "message": "This is a little odd.  We\u0027re switching to UPN after we\u0027ve enabled mtls?  Wouldn\u0027t we enable it as part of mtls setup?",
+      "range": {
+        "startLine": 388,
+        "startChar": 0,
+        "endLine": 391,
+        "endChar": 9
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa98dc08_69edd62d",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T13:22:04Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78837/comment/b97cb9f0_55a46de6/",
+      "parentUuid": "89cf0ee6_8575894c",
       "range": {
         "startLine": 388,
         "startChar": 0,
@@ -427,6 +523,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba6daf9_ce50ebc3",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T13:22:04Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78837/comment/9b0e3919_5508fa46/",
+      "parentUuid": "ed01fab4_491b01f6",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 421,
+        "endChar": 5
+      },
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59674fdb_f10fc164",
@@ -444,6 +564,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03137242_2003b5ed",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T13:22:04Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78837/comment/5e285de9_d5b86c86/",
+      "parentUuid": "59674fdb_f10fc164",
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54c2a24d_926499ed",
@@ -457,6 +595,24 @@
       "writtenOn": "2025-03-12T16:22:20Z",
       "side": 1,
       "message": "Given this is a test script, can we just make this a store_true and set a known UPN?  Users coming up with their own upn seems error prone, and this test script should be as easy to run as possible.",
+      "revId": "cc66949918e71d67adf0657d468d27943b446824",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab084ce_bcfb25c5",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 42
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T13:22:04Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78837/comment/a01189f5_b784b5ec/",
+      "parentUuid": "54c2a24d_926499ed",
       "revId": "cc66949918e71d67adf0657d468d27943b446824",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
