@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "338cc11a_bcd54253",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-13T22:48:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "248175b1_c8ade848",
+      "revId": "ca3d914c5c49ae90a941e0da890c934002b31e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "583cd477_336d2095",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-13T21:53:30Z",
       "side": 1,
       "message": "Could the https://gerrit.openbmc.org/c/openbmc/docs/+/78886 be the reason the CI is failing?",
+      "revId": "ca3d914c5c49ae90a941e0da890c934002b31e7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ba8656b_16e7a9bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-13T22:48:32Z",
+      "side": 1,
+      "message": "pretty sure it was https://gerrit.openbmc.org/c/openbmc/openbmc-build-scripts/+/78784",
+      "parentUuid": "583cd477_336d2095",
       "revId": "ca3d914c5c49ae90a941e0da890c934002b31e7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
