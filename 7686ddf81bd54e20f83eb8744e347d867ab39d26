@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "962b7403_8a68f1a1",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T12:44:27Z",
+      "side": 1,
+      "message": "\u003e Any reason the asn1 encoders from python cryptography can\u0027t be used and we should take on this new dependency?\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/6364fa6d_6f7aeb0c/\n\nAs far as I check from the `cryptography` library documentation[1], it doesn\u0027t have encoder for UTF-8. From the issue discussion[2] on the source code of the library, it implies that we need to add the DER format by ourselves (or by other library)\n\nI tried to double check on the client of this library on the GitHub[3] and every repo that I checked use external library to encode UTF-8. Some external libraries being used are pyasn1[4], asn1crypto[5], certipy[6].\n\nI used `asn1` library based on suggestion on this discussion[7]. Let me know if you have any further suggestions on this, thanks!\n\n[1] Documentation: https://cryptography.io/en/latest/  \n[2] Issue discussion: https://github.com/pyca/cryptography/issues/6970#issuecomment-1070328889\n[3] GitHub search: https://github.com/search?q\u003dx509.OtherName+language%3APython\u0026type\u003dcode\u0026l\u003dPython\n[4] Example1 (pyasn1): https://github.com/zer1t0/certi/blob/6cfa656c6c0fcbbe9b9bce847b052c881202354e/certilib/certificate.py#L53\n[5] Example2 (asn1crypto): https://github.com/skelsec/aiosmb/blob/c8edd2163be2e423bee0c4db1c39eb519833e1be/aiosmb/examples/smbcertreq.py#L63-L71\n[6] Example3 (certipy): https://github.com/zblurx/certsync/blob/7c4efc5930201cdf13c13a7cbd4846331b405cf3/certsync/entry.py#L57-L58\n[7] `asn1` library discussion: https://stackoverflow.com/questions/73003466/how-to-create-a-csr-with-a-upn-san-using-python-cryptography-module",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0ad6818_246e0ff5",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T12:44:27Z",
+      "side": 1,
+      "message": "\u003e can we get a pointer (in a comment) to where this came from?\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/9ff9c4cd_01e8e353/\n\nAcknowledge",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28b92a5e_c3711fb3",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T12:44:27Z",
+      "side": 1,
+      "message": "\u003e nit json\u003d please.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/a47c50ee_45976654/\n\nAcknowledge",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b97cb9f0_55a46de6",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T12:44:27Z",
+      "side": 1,
+      "message": "\u003e This is a little odd. We\u0027re switching to UPN after we\u0027ve enabled mtls? Wouldn\u0027t we enable it as part of mtls setup?\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/89cf0ee6_8575894c/\n\nI am not entirely sure about the comment. As far as I know, the default mapping is \"CommonName\", where we use \"CommonName\" from the certificate as the username. If we want to change to UPN, we need to send patch request to change `CertificateMappingAttribute` to \"UserPrincipalName\". By doing this, the bmcweb now will read the UPN field on the certificate instead of the \"CommonName\" of the certificate and use the UPN as the username (if meet the requirement)\n\nI decided to change the `CertificateMappingAttribute` in the testing so that we can still test \"CommonName\" as well. If we prefer to test only UPN if we pass the `--upn` flag, we might be able to do it by changing the `CertificateMappingAttribute` on the setup. Let me know your thoughts on this!",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b0e3919_5508fa46",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T12:44:27Z",
+      "side": 1,
+      "message": "\u003e Something looks broken here. The same client certificate should not work in BOTH UPN and Common Name modes, right?\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/ed01fab4_491b01f6/\n\nI am not entirely sure why same client certificate should not work in both UPN and CommonName modes. As far as I know, we can have CommonName (CN) and UPN at the same time. Here I use the script to generate the certificate, which has \"root\" as CN and \"obmc.user_malikrafsan@facebook.com\" as UPN\n\nLet me know if I understand it incorrectly\n\n```\n# openssl x509 -in ~/certs/client-cert.pem -text\nCertificate:\n    Data:\n        Version: 3 (0x2)\n        Serial Number:\n            39:9c:ed:d7:68:90:56:2d:34:67:e4:0e:02:0b:07:5b:98:93:85:26\n        Signature Algorithm: ecdsa-with-SHA256\n        Issuer: O\u003dOpenBMC, OU\u003dbmcweb, CN\u003dTest CA\n        Validity\n            Not Before: Jan  1 00:00:00 1970 GMT\n            Not After : Jan  1 00:00:00 2070 GMT\n        Subject: C\u003dUS, ST\u003dCalifornia, L\u003dSan Francisco, O\u003dOpenBMC, OU\u003dbmcweb, CN\u003droot\n        Subject Public Key Info:\n            Public Key Algorithm: id-ecPublicKey\n                Public-Key: (256 bit)\n                pub:\n                    04:03:0a:54:b7:73:34:26:7c:5c:df:cd:f5:6b:64:\n                    2e:29:ac:4c:ad:72:dc:57:f5:48:2e:4f:44:78:de:\n                    08:38:e0:cb:16:bf:8d:7d:09:da:3f:fb:97:66:80:\n                    9f:a4:8f:83:93:57:f4:1b:03:d2:ab:72:91:3e:f4:\n                    fa:a1:8c:a5:b4\n                ASN1 OID: prime256v1\n                NIST CURVE: P-256\n        X509v3 extensions:\n            X509v3 Key Usage: \n                Digital Signature, Key Agreement\n            X509v3 Extended Key Usage: critical\n                TLS Web Client Authentication\n            X509v3 Authority Key Identifier: \n                DD:93:D3:9A:2E:89:11:C1:AC:C5:0B:DA:E8:35:0F:43:B8:DF:9C:3F\n            X509v3 Subject Alternative Name: \n                othername: UPN::obmc.user_malikrafsan@facebook.com\n    Signature Algorithm: ecdsa-with-SHA256\n    Signature Value:\n        30:45:02:21:00:9b:08:0d:ac:ee:ce:60:52:99:5e:ea:e6:6f:\n        03:a4:d5:d3:bc:d7:f8:4b:20:63:ad:d8:ae:af:ac:63:41:07:\n        cc:02:20:5b:f4:6a:7d:af:4f:61:07:1c:01:c7:e3:2c:48:4f:\n        ea:f3:e1:d9:8e:40:9d:95:7b:b6:e5:9f:1f:3e:c4:8a:fc\n```",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

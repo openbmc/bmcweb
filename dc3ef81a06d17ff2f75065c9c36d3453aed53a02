@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "886b42ef_1589e9ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T12:44:27Z",
+      "side": 1,
+      "message": "I add more explanation, testing that I did, and the OID path. Let me know if you have further input the commit message, thanks!",
+      "parentUuid": "99cc76a5_69b66c67",
+      "revId": "dc3ef81a06d17ff2f75065c9c36d3453aed53a02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d930aa20_6a19ffe8",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 1
@@ -31,6 +49,30 @@
       "writtenOn": "2025-03-12T19:51:37Z",
       "side": 1,
       "message": "import doesn\u0027t look used after refactoring.  Remove?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 11
+      },
+      "revId": "dc3ef81a06d17ff2f75065c9c36d3453aed53a02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f71c7dae_85979c06",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T12:44:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d930aa20_6a19ffe8",
       "range": {
         "startLine": 12,
         "startChar": 0,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69173f32_507dd613",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T12:44:27Z",
+      "side": 1,
+      "message": "Thanks for the input! I decided to add it on the commit message",
+      "parentUuid": "7bde6ccc_79793341",
+      "revId": "dc3ef81a06d17ff2f75065c9c36d3453aed53a02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1ad4ee8_1a716f42",
@@ -71,6 +131,30 @@
       "writtenOn": "2025-03-12T19:53:35Z",
       "side": 1,
       "message": "Still should be using http client.\n\nas written this is opening a new client/connection for every request, and there\u0027s a lot of duplication between the requests.\n\nrf_session avoids a lot of this duplication.",
+      "range": {
+        "startLine": 365,
+        "startChar": 0,
+        "endLine": 366,
+        "endChar": 23
+      },
+      "revId": "dc3ef81a06d17ff2f75065c9c36d3453aed53a02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87dcb26e_c7e32a72",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T12:44:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a1ad4ee8_1a716f42",
       "range": {
         "startLine": 365,
         "startChar": 0,
