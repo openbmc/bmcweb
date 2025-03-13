@@ -612,6 +612,104 @@ inline void assembleDimmProperties(
     getPersistentMemoryProperties(asyncResp, properties, jsonPtr);
 }
 
+inline bool checkDbusErrors(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const std::source_location src = std::source_location::current())
+{
+    if (ec.value() == boost::asio::error::basic_errors::host_unreachable)
+    {
+        BMCWEB_LOG_WARNING("Failed to find server, Dbus error {}", ec);
+        return true;
+    }
+    if (ec.value() == boost::system::linux_error::bad_request_descriptor)
+    {
+        BMCWEB_LOG_WARNING("Invalid Path, Dbus error {}", ec);
+        return true;
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("{} failed, error {}", src.function_name(), ec);
+        messages::internalError(asyncResp->res);
+        return true;
+    }
+    return false;
+}
+
+/**
+ * @brief Process capacity utilization metric value
+ */
+inline void handleMetricPropertyOnRedfish(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jPtr,
+    const boost::system::error_code& ec, double metricValue)
+{
+    if (checkDbusErrors(asyncResp, ec))
+    {
+        return;
+    }
+    if (!std::isfinite(metricValue))
+    {
+        asyncResp->res.jsonValue[jPtr] = nullptr;
+        return;
+    }
+    asyncResp->res.jsonValue[jPtr] = metricValue;
+}
+
+inline void handleMetricProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path, const std::string& service,
+    const nlohmann::json::json_pointer& jPtr)
+{
+    // Get metric properties
+    dbus::utility::getProperty<double>(
+        service, path, "xyz.openbmc_project.Metric.Value", "Value",
+        std::bind_front(handleMetricPropertyOnRedfish, asyncResp, jPtr));
+}
+
+inline void handleMetricService(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path, const nlohmann::json::json_pointer& jPtr)
+{
+    // Get service name for metric from mapper
+    dbus::utility::getDbusObject(
+        path, {},
+        [asyncResp, path, jPtr](const boost::system::error_code& ec,
+                                const dbus::utility::MapperGetObject& object) {
+            if (ec || object.empty())
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error");
+                return;
+            }
+
+            const std::string& service = object.begin()->first;
+            handleMetricProperties(asyncResp, path, service, jPtr);
+        });
+}
+
+inline void processMetricEndpoints(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    for (const std::string& path : endpoints)
+    {
+        if (path.ends_with("memory/capacity_utilization"))
+        {
+            handleMetricService(
+                asyncResp, path,
+                nlohmann::json::json_pointer("/CapacityUtilizationPercent"));
+        }
+        /*
+        if (path.ends_with("memory/total_memory"))
+        {
+            handleMetricService(
+                asyncResp, path,
+                nlohmann::json::json_pointer("/TotalMemory"));
+        }
+        */
+    }
+}
+
 inline void getDimmDataByService(
     std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& dimmId,
     const std::string& service, const std::string& objPath)
@@ -760,6 +858,7 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     }
                 }
             }
+
             // Object not found
             if (!found)
             {
@@ -856,4 +955,109 @@ inline void requestRoutesMemory(App& app)
             });
 }
 
+inline void getMemoryMetricsData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                                 const std::string& dimmId)
+{
+    BMCWEB_LOG_DEBUG("Get available system dimm resources.");
+    constexpr std::array<std::string_view, 2> dimmInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, dimmInterfaces,
+        [dimmId, asyncResp{std::move(asyncResp)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error");
+                messages::internalError(asyncResp->res);
+
+                return;
+            }
+            bool found = false;
+            for (const auto& [rawPath, object] : subtree)
+            {
+                sdbusplus::message::object_path path(rawPath);
+                for (const auto& [service, interfaces] : object)
+                {
+                    for (const auto& interface : interfaces)
+                    {
+                        if (interface ==
+                                "xyz.openbmc_project.Inventory.Item.Dimm" &&
+                            path.filename() == dimmId)
+                        {
+                            // Get associated metric endpoints using measured_by
+                            // association
+                            const std::string associatedMetricPath =
+                                rawPath + "measured_by";
+                            dbus::utility::getAssociationEndPoints(
+                                associatedMetricPath,
+                                [asyncResp](
+                                    const boost::system::error_code& ec2,
+                                    const dbus::utility::MapperEndPoints&
+                                        endpoints) {
+                                    if (ec2)
+                                    {
+                                        BMCWEB_LOG_DEBUG(
+                                            "No measured_by assocition, No error");
+                                        return;
+                                    }
+                                    processMetricEndpoints(asyncResp,
+                                                           endpoints);
+                                });
+                            found = true;
+                        }
+                    }
+                }
+            }
+
+            // Object not found
+            if (!found)
+            {
+                messages::resourceNotFound(asyncResp->res, "Memory", dimmId);
+                return;
+            }
+            // Set @odata only if object is found
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#MemoryMetrics.v1_7_0.MemoryMetrics";
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/{}/Memory/{}/MemoryMetrics",
+                BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+            asyncResp->res.jsonValue["Name"] = dimmId + " Memory Metrics";
+            return;
+        });
+}
+
+inline void requestRoutesMemoryMetrics(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/MemoryMetrics")
+        .privileges(redfish::privileges::getMemory)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName, const std::string& dimmId) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                {
+                    return;
+                }
+
+                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+                {
+                    // Option currently returns no systems.  TBD
+                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                               systemName);
+                    return;
+                }
+
+                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+                {
+                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                               systemName);
+                    return;
+                }
+                getMemoryMetricsData(asyncResp, dimmId);
+            });
+}
 } // namespace redfish
