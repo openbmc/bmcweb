@@ -19,17 +19,23 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 
+#include <boost/asio/error.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/system/linux_error.hpp>
 #include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <array>
+#include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <functional>
+#include <limits>
 #include <memory>
+#include <source_location>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -37,6 +43,65 @@
 
 namespace redfish
 {
+
+struct CapacityUtilizationMetric
+{
+    // data type are as per "Value" data type in
+    // xyz.openbmc_project.Metric.Value
+    double total{std::numeric_limits<double>::quiet_NaN()};
+    double free{std::numeric_limits<double>::quiet_NaN()};
+    bool totalSet{false};
+    bool freeSet{false};
+
+    void calculateAndSetUtilization(
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
+    {
+        // Only calculate if both values are valid
+        if (!totalSet || !freeSet)
+        {
+            return;
+        }
+        bool validationPassed = validateValues();
+        if (!validationPassed)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        double utilization = ((total - free) / total) * 100;
+        asyncResp->res.jsonValue["CapacityUtilizationPercent"] = utilization;
+    }
+
+    bool validateValues() const
+    {
+        // Validate the numerical values
+        if (std::isnan(total) || std::isnan(free))
+        {
+            BMCWEB_LOG_ERROR("Invalid memory values: total={}, free={}", total,
+                             free);
+            return false;
+        }
+
+        if (total <= 0.0)
+        {
+            BMCWEB_LOG_ERROR("Invalid total memory value: {}", total);
+            return false;
+        }
+
+        if (free < 0.0)
+        {
+            BMCWEB_LOG_ERROR("Invalid free memory value: {}", free);
+            return false;
+        }
+
+        if (free > total)
+        {
+            BMCWEB_LOG_ERROR("Free memory ({}) exceeds total memory ({})", free,
+                             total);
+            return false;
+        }
+        return true;
+    }
+};
 
 inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
 {
@@ -612,6 +677,98 @@ inline void assembleDimmProperties(
     getPersistentMemoryProperties(asyncResp, properties, jsonPtr);
 }
 
+inline bool checkDbusErrors(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const std::source_location src = std::source_location::current())
+{
+    if (ec)
+    {
+        if (ec.value() == EBADR)
+        {
+            BMCWEB_LOG_DEBUG("No memory metrics itnerface, skipping");
+            return true;
+        }
+        BMCWEB_LOG_ERROR("{} failed, error {}", src.function_name(), ec);
+        messages::internalError(asyncResp->res);
+        return true;
+    }
+    return false;
+}
+
+inline void handleTotalAndFreeMemory(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<CapacityUtilizationMetric>& metrics,
+    const std::string& path, const boost::system::error_code& ec,
+    double metricValue)
+{
+    if (!checkDbusErrors(asyncResp, ec) && std::isfinite(metricValue))
+    {
+        if (path.ends_with("memory/total"))
+        {
+            metrics->total = metricValue;
+        }
+        else if (path.ends_with("memory/free"))
+        {
+            metrics->free = metricValue;
+        }
+    }
+    metrics->calculateAndSetUtilization(asyncResp);
+}
+
+inline void fetchPropertyForCapacityUtil(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<CapacityUtilizationMetric>& metrics,
+    const std::string& service, const std::string& path)
+{
+    dbus::utility::getProperty<double>(
+        service, path, "xyz.openbmc_project.Metric.Value", "Value",
+        std::bind_front(handleTotalAndFreeMemory, asyncResp, metrics, path));
+}
+
+inline void getServiceNameforCapacityUtil(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<CapacityUtilizationMetric>& metrics,
+    const std::string& path)
+{
+    // Get service name for metric from mapper
+    dbus::utility::getDbusObject(
+        path, {},
+        [asyncResp, metrics,
+         path](const boost::system::error_code& ec,
+               const dbus::utility::MapperGetObject& object) {
+            if (ec || object.empty())
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error {}", ec.message());
+                return;
+            }
+
+            const std::string& service = object.begin()->first;
+            fetchPropertyForCapacityUtil(asyncResp, metrics, service, path);
+        });
+}
+
+inline void handleMetricEndpoints(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperEndPoints& endpoints)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("No measured_by association, No error");
+        return;
+    }
+
+    auto metrics = std::make_shared<CapacityUtilizationMetric>();
+    for (const std::string& path : endpoints)
+    {
+        if (path.ends_with("memory/total") || path.ends_with("memory/free"))
+        {
+            getServiceNameforCapacityUtil(asyncResp, metrics, path);
+        }
+    }
+}
+
 inline void getDimmDataByService(
     std::shared_ptr<bmcweb::AsyncResp> asyncResp, const std::string& dimmId,
     const std::string& service, const std::string& objPath)
@@ -771,6 +928,9 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
             asyncResp->res.jsonValue["@odata.id"] =
                 boost::urls::format("/redfish/v1/Systems/{}/Memory/{}",
                                     BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+            asyncResp->res.jsonValue["Metrics"] = boost::urls::format(
+                "/redfish/v1/Systems/{}/Memory/{}/MemoryMetrics",
+                BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
             return;
         });
 }
@@ -856,4 +1016,96 @@ inline void requestRoutesMemory(App& app)
             });
 }
 
+inline void handleMemoryMetricsSubTree(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dimmId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("DBUS response error {}", ec.message());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Set base response data
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#MemoryMetrics.v1_7_0.MemoryMetrics";
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Memory/{}/MemoryMetrics",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+    asyncResp->res.jsonValue["Name"] = dimmId + " Memory Metrics";
+
+    bool dimmFound = false;
+    // Iterate over all retrieved ObjectPaths
+    std::string dimmPath;
+    for (const auto& [path, connectionNames] : subtree)
+    {
+        sdbusplus::message::object_path objPath(path);
+        if (objPath.filename() != dimmId)
+        {
+            continue;
+        }
+
+        if (connectionNames.empty())
+        {
+            BMCWEB_LOG_ERROR("Got 0 Connection names");
+            continue;
+        }
+        const std::string associatedMetricPath = dimmPath + "measured_by";
+        dbus::utility::getAssociationEndPoints(
+            associatedMetricPath,
+            std::bind_front(handleMetricEndpoints, asyncResp));
+        return;
+    }
+
+    messages::resourceNotFound(asyncResp->res, "MemoryMetrics", dimmId);
+}
+
+inline void getMemoryMetricsData(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& dimmId)
+{
+    BMCWEB_LOG_DEBUG("Get available system dimm resources.");
+    constexpr std::array<std::string_view, 2> dimmInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, dimmInterfaces,
+        std::bind_front(handleMemoryMetricsSubTree, asyncResp, dimmId));
+}
+
+inline void requestRoutesMemoryMetrics(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/MemoryMetrics")
+        .privileges(redfish::privileges::getMemoryMetrics)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName, const std::string& dimmId) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                {
+                    return;
+                }
+
+                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+                {
+                    // Option currently returns no systems.  TBD
+                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                               systemName);
+                    return;
+                }
+
+                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+                {
+                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                               systemName);
+                    return;
+                }
+                getMemoryMetricsData(asyncResp, dimmId);
+            });
+}
 } // namespace redfish
