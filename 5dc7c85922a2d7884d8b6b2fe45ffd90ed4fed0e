@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e285de9_d5b86c86",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T13:21:19Z",
+      "side": 1,
+      "message": "\u003e This looks like the wrong spot for doing general setup. General setup needs to happen under the RedfishSessionContext above, before the sleep.\nThe sleep is really just a hack around a bug.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/59674fdb_f10fc164/\n\nAcknowledge",
+      "revId": "5dc7c85922a2d7884d8b6b2fe45ffd90ed4fed0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a01189f5_b784b5ec",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-13T13:21:19Z",
+      "side": 1,
+      "message": "\u003e Given this is a test script, can we just make this a store_true and set a known UPN? Users coming up with their own upn seems error prone, and this test script should be as easy to run as possible.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/54c2a24d_926499ed/\n\nI am not entirely sure about this because the domain part of the UPN need to match the device domain right? If we have bmc device `macbmc1r0019p0030-oob.02.cco2.facebook.com`, we should be able to use upn `malikrafsan@facebook.com` but not `malikrafsan@facebook.net` right?",
+      "revId": "5dc7c85922a2d7884d8b6b2fe45ffd90ed4fed0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
