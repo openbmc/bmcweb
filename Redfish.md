@@ -942,8 +942,8 @@ other.
 
 #### MemoryMetrics
 
-- Description
-- HealthData
+- Name
+- CapacityUtilizationPercent
 
 ### /redfish/v1/Systems/system/PCIeDevices/
 
