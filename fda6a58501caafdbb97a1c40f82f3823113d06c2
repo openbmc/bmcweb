@@ -18,6 +18,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac29406b_15d40842",
+        "filename": "Redfish.md",
+        "patchSetId": 65
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-03-14T08:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "740755f3_183f5e3d",
+      "revId": "fda6a58501caafdbb97a1c40f82f3823113d06c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "322ed5bf_b10c646e",
+        "filename": "Redfish.md",
+        "patchSetId": 65
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-03-14T08:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "740755f3_183f5e3d",
+      "revId": "fda6a58501caafdbb97a1c40f82f3823113d06c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee68a648_a5a05423",
@@ -31,6 +67,30 @@
       "writtenOn": "2025-02-24T21:24:37Z",
       "side": 1,
       "message": "Where does this 1 come from?",
+      "range": {
+        "startLine": 1153,
+        "startChar": 54,
+        "endLine": 1153,
+        "endChar": 55
+      },
+      "revId": "fda6a58501caafdbb97a1c40f82f3823113d06c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfa667e7_707ed0ba",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-03-14T08:26:35Z",
+      "side": 1,
+      "message": "Came in as a review comment. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74667/52..65/redfish-core/lib/account_service.hpp#b1140\n\nSince this is an array, this /1 is pointing to the position of the element in the array.",
+      "parentUuid": "ee68a648_a5a05423",
       "range": {
         "startLine": 1153,
         "startChar": 54,
@@ -58,6 +118,42 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b2ba589_817442db",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-03-14T08:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28d37bcb_6b5b1a23",
+      "revId": "fda6a58501caafdbb97a1c40f82f3823113d06c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "482443eb_34f52e6f",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-03-14T08:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28d37bcb_6b5b1a23",
+      "revId": "fda6a58501caafdbb97a1c40f82f3823113d06c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "943f7cf9_5ac1695d",
@@ -75,6 +171,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f52f2be_4ef6b831",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 1440,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-03-14T08:26:35Z",
+      "side": 1,
+      "message": "Got it, but we get to compare the exact error message if we do it this way while we check ec.value() with EBADR.\n\nBut i can see in bmcweb, ec.value() is used. I will change it to the same.",
+      "parentUuid": "943f7cf9_5ac1695d",
+      "revId": "fda6a58501caafdbb97a1c40f82f3823113d06c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e422cfd_a4c00efb",
@@ -88,6 +202,24 @@
       "writtenOn": "2025-02-24T21:24:37Z",
       "side": 1,
       "message": "Why can\u0027t this just be \n```\n  std::optional\u003cstd::vector\u003cstd::string\u003e\u003e mfaBypass;\n...\n\"MFABypass/BypassTypes\", mfaBypass\n```\n\nLike lines 1684 above \n```\n    std::optional\u003cbool\u003e googleAuthenticatorEnabled;\n    if (!json_util::readJsonPatch(                                         //\n            req, asyncResp-\u003eres,                                           //\n            \"AccountLockoutDuration\", unlockTimeout,                       //\n            \"AccountLockoutThreshold\", lockoutThreshold,                   //\n            \"ActiveDirectory/Authentication/AuthenticationType\",\n            activeDirectoryObject.authType,                                //\n            \"ActiveDirectory/Authentication/Password\",\n            activeDirectoryObject.password,                                //\n```",
+      "revId": "fda6a58501caafdbb97a1c40f82f3823113d06c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9d0dc40_8227e92b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 65
+      },
+      "lineNbr": 2409,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-03-14T08:26:35Z",
+      "side": 1,
+      "message": "I remember getting a 400 Bad Request when enabling MFA Bypass for a user, with \"MFABypass\" property unknown error, when we use the following patch command:\n\nPATCH\u0027{\"MFABypass\":{\"BypassTypes\":[\"None\"]}}\u0027  https://${bmc}/redfish/v1/AccountService/Accounts/\u003caccount\u003e\n\nWith this way, I was able to read the json containing the bypassTypes key and read its value.",
+      "parentUuid": "3e422cfd_a4c00efb",
       "revId": "fda6a58501caafdbb97a1c40f82f3823113d06c2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
