@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90499a28_b1e8ade0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-14T15:50:27Z",
+      "side": 1,
+      "message": "How would this even happen?  By definition aren\u0027t admin users the ones that need to put the account in configure only mode?\n\nMaybe some steps that show the issue would be good here\n1. create user.\n2. .....\netc",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "1380dcab604530296ee64d2e397097caaefd5ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "207a74d5_1c6aeadc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-14T15:50:27Z",
+      "side": 1,
+      "message": "Missing testing.",
+      "revId": "1380dcab604530296ee64d2e397097caaefd5ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee5911c2_16439b73",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2237,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-14T15:50:27Z",
+      "side": 1,
+      "message": "if we\u0027re configure-self only, don\u0027t we need to be doing some level of comparison against userSelf?",
+      "range": {
+        "startLine": 2237,
+        "startChar": 22,
+        "endLine": 2237,
+        "endChar": 41
+      },
+      "revId": "1380dcab604530296ee64d2e397097caaefd5ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
