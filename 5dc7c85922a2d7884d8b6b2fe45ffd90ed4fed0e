@@ -33,6 +33,24 @@
       "message": "\u003e Given this is a test script, can we just make this a store_true and set a known UPN? Users coming up with their own upn seems error prone, and this test script should be as easy to run as possible.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/54c2a24d_926499ed/\n\nI am not entirely sure about this because the domain part of the UPN need to match the device domain right? If we have bmc device `macbmc1r0019p0030-oob.02.cco2.facebook.com`, we should be able to use upn `malikrafsan@facebook.com` but not `malikrafsan@facebook.net` right?",
       "revId": "5dc7c85922a2d7884d8b6b2fe45ffd90ed4fed0e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ed04e86_c081af90",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-14T00:47:26Z",
+      "side": 1,
+      "message": "\u003e I am not entirely sure about this because the domain part of the UPN need to match the device domain right?\n\nAh, you\u0027re right.  Defaults don\u0027t make any sense in that case. should we grab the hostname from redfish/v1/ManagerProvidingService -\u003e Manager -\u003e NetworkProtocol (HostName property)\n\nso we know exactly the hostname the system is expecting?  I think that would solve it and be less error prone for users, right?",
+      "parentUuid": "a01189f5_b784b5ec",
+      "revId": "5dc7c85922a2d7884d8b6b2fe45ffd90ed4fed0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

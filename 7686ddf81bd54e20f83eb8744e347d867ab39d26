@@ -71,6 +71,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "22d38f8a_d284d62b",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-14T00:47:26Z",
+      "side": 1,
+      "message": "\u003e \u003e This is a little odd. We\u0027re switching to UPN after we\u0027ve enabled mtls? Wouldn\u0027t we enable it as part of mtls setup?\n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/89cf0ee6_8575894c/\n\u003e \n\u003e I am not entirely sure about the comment. As far as I know, the default mapping is \"CommonName\", where we use \"CommonName\" from the certificate as the username. If we want to change to UPN, we need to send patch request to change `CertificateMappingAttribute` to \"UserPrincipalName\". By doing this, the bmcweb now will read the UPN field on the certificate instead of the \"CommonName\" of the certificate and use the UPN as the username (if meet the requirement)\n\nExactly.  The comment was that we should be doing that as part of the setup portion.  \"test\" should really only be checking that our settings worked for whatever was set (upn or common name).\n\u003e \n\u003e I decided to change the `CertificateMappingAttribute` in the testing so that we can still test \"CommonName\" as well. If we prefer to test only UPN if we pass the `--upn` flag, we might be able to do it by changing the `CertificateMappingAttribute` on the setup. Let me know your thoughts on this!\n\n\nWe could decide to test both, but then we\u0027d need to generate two client certs (one with common name, one with UPN).  I\u0027m up for that (and that would be much better) but I don\u0027t think that\u0027s what this patchset does at this point?",
+      "parentUuid": "b97cb9f0_55a46de6",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b0e3919_5508fa46",
         "filename": "scripts/generate_auth_certificates.py",
         "patchSetId": 3
@@ -82,6 +100,24 @@
       "writtenOn": "2025-03-13T12:44:27Z",
       "side": 1,
       "message": "\u003e Something looks broken here. The same client certificate should not work in BOTH UPN and Common Name modes, right?\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/ed01fab4_491b01f6/\n\nI am not entirely sure why same client certificate should not work in both UPN and CommonName modes. As far as I know, we can have CommonName (CN) and UPN at the same time. Here I use the script to generate the certificate, which has \"root\" as CN and \"obmc.user_malikrafsan@facebook.com\" as UPN\n\nLet me know if I understand it incorrectly\n\n```\n# openssl x509 -in ~/certs/client-cert.pem -text\nCertificate:\n    Data:\n        Version: 3 (0x2)\n        Serial Number:\n            39:9c:ed:d7:68:90:56:2d:34:67:e4:0e:02:0b:07:5b:98:93:85:26\n        Signature Algorithm: ecdsa-with-SHA256\n        Issuer: O\u003dOpenBMC, OU\u003dbmcweb, CN\u003dTest CA\n        Validity\n            Not Before: Jan  1 00:00:00 1970 GMT\n            Not After : Jan  1 00:00:00 2070 GMT\n        Subject: C\u003dUS, ST\u003dCalifornia, L\u003dSan Francisco, O\u003dOpenBMC, OU\u003dbmcweb, CN\u003droot\n        Subject Public Key Info:\n            Public Key Algorithm: id-ecPublicKey\n                Public-Key: (256 bit)\n                pub:\n                    04:03:0a:54:b7:73:34:26:7c:5c:df:cd:f5:6b:64:\n                    2e:29:ac:4c:ad:72:dc:57:f5:48:2e:4f:44:78:de:\n                    08:38:e0:cb:16:bf:8d:7d:09:da:3f:fb:97:66:80:\n                    9f:a4:8f:83:93:57:f4:1b:03:d2:ab:72:91:3e:f4:\n                    fa:a1:8c:a5:b4\n                ASN1 OID: prime256v1\n                NIST CURVE: P-256\n        X509v3 extensions:\n            X509v3 Key Usage: \n                Digital Signature, Key Agreement\n            X509v3 Extended Key Usage: critical\n                TLS Web Client Authentication\n            X509v3 Authority Key Identifier: \n                DD:93:D3:9A:2E:89:11:C1:AC:C5:0B:DA:E8:35:0F:43:B8:DF:9C:3F\n            X509v3 Subject Alternative Name: \n                othername: UPN::obmc.user_malikrafsan@facebook.com\n    Signature Algorithm: ecdsa-with-SHA256\n    Signature Value:\n        30:45:02:21:00:9b:08:0d:ac:ee:ce:60:52:99:5e:ea:e6:6f:\n        03:a4:d5:d3:bc:d7:f8:4b:20:63:ad:d8:ae:af:ac:63:41:07:\n        cc:02:20:5b:f4:6a:7d:af:4f:61:07:1c:01:c7:e3:2c:48:4f:\n        ea:f3:e1:d9:8e:40:9d:95:7b:b6:e5:9f:1f:3e:c4:8a:fc\n```",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "735901df_1adcd141",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-14T00:47:26Z",
+      "side": 1,
+      "message": "Oh.... so the cert we\u0027re generating has both in it.  We should probably have a test that only has one or the other, right?\n\nWe could generate two certs if we wanted, but having one cert with both doesn\u0027t really prove that either mode works correctly, right?",
+      "parentUuid": "9b0e3919_5508fa46",
       "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
