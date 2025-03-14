@@ -51,6 +51,24 @@
       "parentUuid": "a01189f5_b784b5ec",
       "revId": "5dc7c85922a2d7884d8b6b2fe45ffd90ed4fed0e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c6545d1_ffb5a9d9",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-14T15:06:02Z",
+      "side": 1,
+      "message": "Yup! I think that is better approach as the user might or might not aware of the details of the UPN requirements or typo or other stuff\n\nI decided to remove the UPN flag, and use the `\u003cusername\u003e@\u003chostname\u003e` as upn string. By using common username (default \"root\") and get the hostname as the domain part of the UPN, this should make it less error prone",
+      "parentUuid": "5ed04e86_c081af90",
+      "revId": "5dc7c85922a2d7884d8b6b2fe45ffd90ed4fed0e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -87,6 +87,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d1dd7c9_cf5d5faf",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-14T15:06:02Z",
+      "side": 1,
+      "message": "Yup! This test previously only generated one certificate that contains both UPN and common name. And as I mentioned on another comment, I believe your approach makes more sense -\u003e higher confidence in the system and higher maintainability. I decided to generate two sets cert, one for common name and one for UPN\n\nOther than that, the cert generation is on earlier part of the script, on the \"setup\" phase (along with the common name cert generation)\n\nThanks for the suggestion!",
+      "parentUuid": "22d38f8a_d284d62b",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b0e3919_5508fa46",
@@ -118,6 +136,24 @@
       "side": 1,
       "message": "Oh.... so the cert we\u0027re generating has both in it.  We should probably have a test that only has one or the other, right?\n\nWe could generate two certs if we wanted, but having one cert with both doesn\u0027t really prove that either mode works correctly, right?",
       "parentUuid": "9b0e3919_5508fa46",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbc84bdd_825e832e",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-14T15:06:02Z",
+      "side": 1,
+      "message": "Got it! Previously it still prove that either mode works correctly because we can set which mode we use (CommonName or UserPrincipalName). But I think your suggestion to separate them as two certificate makes more sense so that we have higher confidence in the system and higher maintainability as well\n\nI decided to generate two sets of certificate, one for testing common name and one for UPN. The common name certificate doesn\u0027t contain UPN extension, and the UPN certificate doesn\u0027t contain common name",
+      "parentUuid": "735901df_1adcd141",
       "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
