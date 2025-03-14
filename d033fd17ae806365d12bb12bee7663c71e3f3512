@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7e8a912_482bf34b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-14T14:18:23Z",
+      "side": 1,
+      "message": "Going to merge and start rebasing",
+      "revId": "d033fd17ae806365d12bb12bee7663c71e3f3512",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
