@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c22eb65_d9d40b69",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-15T16:57:55Z",
+      "side": 1,
+      "message": "whoops.. should\u0027ve actually posted a reply.\n\nIs the issue here that we just need to make upnObjectIdentifier a bytes object instead of a string.  I don\u0027t see any utf-8 in that string itself that we would need to encode, just ascii bytes, and python has a decoder for that already if we really want to decode?\n\nAlso, if we need an asn1 encoder....\n\nfrom cryptography.hazmat.backends.openssl.encode_asn1\n\nSeems like it fulfills that purpose without needing a new dependency, right?",
+      "parentUuid": "a85d5727_ad5d56e0",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f0ad6818_246e0ff5",
