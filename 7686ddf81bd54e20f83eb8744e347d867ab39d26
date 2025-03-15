@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a85d5727_ad5d56e0",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-15T16:40:07Z",
+      "side": 1,
+      "message": "\u003e \u003e Any reason the asn1 encoders from python cryptography can\u0027t be used and we should take on this new dependency?\n\u003e https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78519/comment/6364fa6d_6f7aeb0c/\n\u003e \n\u003e As far as I check from the `cryptography` library documentation[1], it doesn\u0027t have encoder for UTF-8. From the issue discussion[2] on the source code of the library, it implies that we need to add the DER format by ourselves (or by other library)\n\u003e \n\u003e I tried to double check on the client of this library on the GitHub[3] and every repo that I checked use external library to encode UTF-8. Some external libraries being used are pyasn1[4], asn1crypto[5], certipy[6].\n\u003e \n\u003e I used `asn1` library based on suggestion on this discussion[7]. Let me know if you have any further suggestions on this, thanks!\n\u003e \n\u003e [1] Documentation: https://cryptography.io/en/latest/  \n\u003e [2] Issue discussion: https://github.com/pyca/cryptography/issues/6970#issuecomment-1070328889\n\u003e [3] GitHub search: https://github.com/search?q\u003dx509.OtherName+language%3APython\u0026type\u003dcode\u0026l\u003dPython\n\u003e [4] Example1 (pyasn1): https://github.com/zer1t0/certi/blob/6cfa656c6c0fcbbe9b9bce847b052c881202354e/certilib/certificate.py#L53\n\u003e [5] Example2 (asn1crypto): https://github.com/skelsec/aiosmb/blob/c8edd2163be2e423bee0c4db1c39eb519833e1be/aiosmb/examples/smbcertreq.py#L63-L71\n\u003e [6] Example3 (certipy): https://github.com/zblurx/certsync/blob/7c4efc5930201cdf13c13a7cbd4846331b405cf3/certsync/entry.py#L57-L58\n\u003e [7] `asn1` library discussion: https://stackoverflow.com/questions/73003466/how-to-create-a-csr-with-a-upn-san-using-python-cryptography-module",
+      "parentUuid": "962b7403_8a68f1a1",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f0ad6818_246e0ff5",
@@ -154,6 +172,24 @@
       "side": 1,
       "message": "Got it! Previously it still prove that either mode works correctly because we can set which mode we use (CommonName or UserPrincipalName). But I think your suggestion to separate them as two certificate makes more sense so that we have higher confidence in the system and higher maintainability as well\n\nI decided to generate two sets of certificate, one for testing common name and one for UPN. The common name certificate doesn\u0027t contain UPN extension, and the UPN certificate doesn\u0027t contain common name",
       "parentUuid": "735901df_1adcd141",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bea57fc_cf0da784",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-15T16:40:07Z",
+      "side": 1,
+      "message": "Wonderful.  Thank you for making the change.",
+      "parentUuid": "cbc84bdd_825e832e",
       "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
