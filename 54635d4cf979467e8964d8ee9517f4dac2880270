@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df9c27b2_038bf80e",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-16T20:43:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe1b30d3_b24a543d",
+      "range": {
+        "startLine": 100,
+        "startChar": 19,
+        "endLine": 100,
+        "endChar": 27
+      },
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a0e0df4_c7f02442",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-03-06T21:29:05Z",
       "side": 1,
       "message": "nit: This function looks to be just a pass-through. Is the future direction to add more into this function? If not, maybe just get rid of it.",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 31
+      },
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "891ed0b2_1a13a79d",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-16T20:43:18Z",
+      "side": 1,
+      "message": "I undo this part to keep the previous one to call `fillCableProperties()` from `getCableProperties()`",
+      "parentUuid": "9a0e0df4_c7f02442",
       "range": {
         "startLine": 102,
         "startChar": 12,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41c431c1_5f76c114",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-16T20:43:18Z",
+      "side": 1,
+      "message": "My mistake. Changed to dbus::utility::getAllProperties()",
+      "parentUuid": "731f4e65_345970df",
+      "range": {
+        "startLine": 106,
+        "startChar": 21,
+        "endLine": 106,
+        "endChar": 37
+      },
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f50725da_ca6ba93f",
@@ -110,6 +182,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab65661_867dc401",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-16T20:43:18Z",
+      "side": 1,
+      "message": "My mistake. Changed to dbus::utility:: getProperty()",
+      "parentUuid": "f50725da_ca6ba93f",
+      "range": {
+        "startLine": 119,
+        "startChar": 21,
+        "endLine": 119,
+        "endChar": 32
+      },
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22822dc9_68e26941",
@@ -123,6 +219,30 @@
       "writtenOn": "2025-03-06T21:29:05Z",
       "side": 1,
       "message": "nit: Add to commit message that schema version being updated.",
+      "range": {
+        "startLine": 200,
+        "startChar": 58,
+        "endLine": 200,
+        "endChar": 64
+      },
+      "revId": "54635d4cf979467e8964d8ee9517f4dac2880270",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb077213_981c8553",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-16T20:43:18Z",
+      "side": 1,
+      "message": "This schema version update will be needed in the next upcoming changes.\nSo for this refactoring, I undo this to the previous version `v1_0_0`.",
+      "parentUuid": "22822dc9_68e26941",
       "range": {
         "startLine": 200,
         "startChar": 58,
