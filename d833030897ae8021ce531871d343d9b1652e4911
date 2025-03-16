@@ -46,6 +46,30 @@
       },
       "revId": "d833030897ae8021ce531871d343d9b1652e4911",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ecde00f_4290bd5b",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-16T21:23:50Z",
+      "side": 1,
+      "message": "Got it! I combined all of the httpx.Client initialized in the script. However, I am not entirely sure that my approach is good. I overrided `_transport` property of the `httpx.Client` as the certificate is attached to the `_transport` property [1] (so we need to override it)\n\nI tried to check `httpx` source that whether we can pass the cert directly to the `get` method but I didn\u0027t find any other better approach. I also am not sure whether we retain connection here if we override the `_transport` property\n\nLet me know if you have any input on this, thanks!\n\n\n[1] `httpx` src: https://github.com/encode/httpx/blob/master/httpx/_client.py#L688-L696",
+      "parentUuid": "f31a70b5_ba0bd227",
+      "range": {
+        "startLine": 403,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 16
+      },
+      "revId": "d833030897ae8021ce531871d343d9b1652e4911",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
