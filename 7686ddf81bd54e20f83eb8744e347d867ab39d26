@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c0d8273_29538f6f",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-03-16T00:08:35Z",
+      "side": 1,
+      "message": "Hi Ed, I believe the issue is the need to encode the UPN name using the DER format. For instance, the UPN name malikrafsan@mac1.abc.facebook.com would be represented as b\u0027\\x0c!malikrafsan@mac1.abc.facebook.com\u0027.\n\n```\n\u003e\u003e\u003e # assuming that upn name is less than 128 long\n\u003e\u003e\u003e upn \u003d \"malikrafsan@mac1.abc.facebook.com\"\n\u003e\u003e\u003e bupn \u003d bytes(upn, \"utf-8\")\n\u003e\u003e\u003e values \u003d [12, len(bupn)] # 12 means printable string\n\u003e\u003e\u003e header \u003d bytes(values)\n\u003e\u003e\u003e data \u003d header + bupn\n\u003e\u003e\u003e data\nb\u0027\\x0c!malikrafsan@mac1.abc.facebook.com\u0027\n```\n\nIt seems necessary to use the DER format (bytes of types + length + value); otherwise, the cryptography library will throw an exception like this [5].\n\nI suspect that `cryptography.hazmat.backends.openssl.encode_asn1` is not part of the official `pyca/cryptography` library. It appears to originate from this fork [2], which seems to provide the UTF-8 encoding functionality. However, I don\u0027t believe this functionality is available in the library we are currently using. I have attempted to search for and utilize existing functionality from the cryptography library, but unfortunately without success. The closest result I obtained is as follows, but it does not produce the expected outcome:\n\n```\n\u003e\u003e\u003e x509.Name([x509.NameAttribute(x509.ObjectIdentifier(\"1.3.6.1.4.1.311.20.2.3\"), \"malikrafsan@mac1.abc.facebook.com\", x509.name._ASN1Type.UTF8String)]).public_bytes()\nb\u002703110/\\x06\\n+\\x06\\x01\\x04\\x01\\x827\\x14\\x02\\x03\\x0c!malikrafsan@mac1.abc.facebook.com\u0027\n```\n\nIf we prefer not to import a new library, another approach we might consider is implementing a simple encoding method like this [3] or using the asn1 library [4]. What do you think about it Ed? Thank you!\n\n\n[1] `pyca/cryptography` related directory: https://github.com/pyca/cryptography/tree/main/src/cryptography/hazmat/backends/openssl\n[2] Fork of `pyca/cryptography`: https://github.com/birchmd/cryptography/blob/87b660d5802e22d56a8d17a18bdadfc1082739fd/src/cryptography/hazmat/backends/openssl/encode_asn1.py#L59\n[3] Simple implementation of DER encoding UTF-8: https://github.com/Venafi/vcert-python/blob/0f3625d23ff33dad4a945ec610928dde8874d80e/vcert/common.py#L473-L492\n[4] ASN1 library implementation: https://github.com/andrivet/python-asn1/blob/master/src/asn1.py#L365-L369\n[5] Error on not using DER format\n```\nTraceback (most recent call last):\n  File \"/home/malikrafsan/bmcweb/scripts/generate_auth_certificates.py\", line 634, in \u003cmodule\u003e\n    main()\n  File \"/home/malikrafsan/bmcweb/scripts/generate_auth_certificates.py\", line 630, in main\n    generate_and_load_certs(args.host, args.username, args.password)\n  File \"/home/malikrafsan/bmcweb/scripts/generate_auth_certificates.py\", line 567, in generate_and_load_certs\n    upn_client_key, upn_client_cert \u003d generate_client_key_and_cert(\n                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/malikrafsan/bmcweb/scripts/generate_auth_certificates.py\", line 246, in generate_client_key_and_cert\n    signed \u003d builder.sign(private_key\u003dca_key, algorithm\u003dhashes.SHA256())\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3/dist-packages/cryptography/x509/base.py\", line 997, in sign\n    return rust_x509.create_x509_certificate(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: OtherName value must be valid DER: ParseError { kind: ShortData }\n```",
+      "parentUuid": "7c22eb65_d9d40b69",
+      "revId": "7686ddf81bd54e20f83eb8744e347d867ab39d26",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f0ad6818_246e0ff5",
