@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0de96664_adc4bf01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-17T05:56:43Z",
+      "side": 1,
+      "message": "what is the relationship with Ethernet-over-USB ? this is irrespective of the type of network interface right ?",
+      "revId": "4004e37e7d2c78595abea8f9900847201b58cf39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31b7007f_ee5f578f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-17T05:56:43Z",
+      "side": 1,
+      "message": "On prod setups, ssh is not the primary. SSH is getting debug dump.",
+      "revId": "4004e37e7d2c78595abea8f9900847201b58cf39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41579488_deef02eb",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -14,6 +48,40 @@
       "writtenOn": "2025-03-04T19:43:00Z",
       "side": 1,
       "message": "Can the backend return the proper error and then bmcweb can return propertyNotWritable ?",
+      "revId": "4004e37e7d2c78595abea8f9900847201b58cf39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c0381c1_62dc1ea8",
+        "filename": "meson.options",
+        "patchSetId": 7
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-17T05:56:43Z",
+      "side": 1,
+      "message": "looks misleading. Is it to disable ssh service OR to prevent disabling of ssh service ?",
+      "revId": "4004e37e7d2c78595abea8f9900847201b58cf39",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88f1b912_4e8c870c",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-17T05:56:43Z",
+      "side": 1,
+      "message": "lets not do this in bmcweb. push the configurability to networkd and bmcweb handle notwritable message when disabled.",
       "revId": "4004e37e7d2c78595abea8f9900847201b58cf39",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
