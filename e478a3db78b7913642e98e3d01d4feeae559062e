@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "403ffb3e_1544ae6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-17T19:17:23Z",
+      "side": 1,
+      "message": "As its cookie name is more specific to bmcweb, the collision would become very unlikely.  So, it looks good to me.",
+      "revId": "e478a3db78b7913642e98e3d01d4feeae559062e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
