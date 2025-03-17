@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f878fe1_8199af1d",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-17T04:43:27Z",
+      "side": 1,
+      "message": "@janeta@us.ibm.com Thanks for pointing out existing redfish enums. I have updated the MR",
+      "parentUuid": "1e7f25b4_b66d1f00",
+      "range": {
+        "startLine": 11,
+        "startChar": 11,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "2b3c2544488a653d09f97808fe8323906fadfcf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21195a98_532ef33b",
