@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8158211a_6eba6c6a",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2025-03-17T04:27:56Z",
+      "side": 1,
+      "message": "these are other active task states which are not included here.\n\"Stopping\" \u003d taskAborted\n\"Completed\" \u003d taskCompletedOK\n\"Killed\" \u003d taskRemoved\n\"Exception\" \u003d taskCompletedWarning\n\"Cancelled\" \u003d taskCancelled\nis there any reason why these states are skipped?",
+      "revId": "69970ed8c804d8e520d6049a364bd7436340be03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
