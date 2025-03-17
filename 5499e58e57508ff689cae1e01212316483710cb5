@@ -16,6 +16,57 @@
       "message": "I will include the redfish results once meta-nvidia is created with a valid platform. I understand including results in the commit message helps with faster review having said that I would still appreicate a review.\ncc: @ed@tanous.net, @gunnar@gmills.xyz and @janeta@us.ibm.com",
       "revId": "5499e58e57508ff689cae1e01212316483710cb5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dd06662_54acf07a",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-17T05:47:17Z",
+      "side": 1,
+      "message": "can we have this utility function update the JSON as well ?",
+      "revId": "5499e58e57508ff689cae1e01212316483710cb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cd7476a_a01e56ff",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-17T05:47:17Z",
+      "side": 1,
+      "message": "what does the internal error suggest here ? capture that in debug log message. Please make sure that the interface is optional.",
+      "revId": "5499e58e57508ff689cae1e01212316483710cb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "260df10e_4fcb79c0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-17T05:47:17Z",
+      "side": 1,
+      "message": "can this be moved to the utility function ?",
+      "revId": "5499e58e57508ff689cae1e01212316483710cb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
