@@ -52,6 +52,24 @@
       "parentUuid": "e9d5df57_8dcf7409",
       "revId": "ee993dc84b1e9917b545fdd7367f1127a358084a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61283575_11482ef4",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-17T16:20:08Z",
+      "side": 1,
+      "message": "The setup seems moved to https://github.com/openbmc/openbmc/commit/0e72d71a67f8d29df926af2a8c249a521ee62680.\n\nI also verified the system has the expected `/usr/lib/systemd/journald.conf.d/journald-maxlevel-policy.conf`.\n\nHowever, I don\u0027t see any info/error log entries from journal.\n\nDo have any additional conf on bmc to make it working?\n\nBTW, it is producing the output (stdout) if bmcweb is running from /tmp/. \n\nThe problem happens when it is running as systemd service - e.g. no bmcweb journal entries.\n\n```\nroot@p10bmc:/# systemctl status bmcweb\n* bmcweb.service - Start bmcwebd server\n     Loaded: loaded (/usr/lib/systemd/system/bmcweb.service; enabled; preset: enabled)\n     Active: active (running) since Mon 2025-03-17 15:17:16 UTC; 1h 0min ago\n Invocation: 0559fff53a5d4bee8b02793156f07af8\nTriggeredBy: * bmcweb.socket\n   Main PID: 303 (bmcwebd)\n        CPU: 294ms\n     CGroup: /system.slice/bmcweb.service\n             `-303 /usr/libexec/bmcwebd\n\nMar 17 15:17:16 p10bmc systemd[1]: Started Start bmcwebd server.\nMar 17 15:57:19 p10bmc bmcwebd[303]: pam_succeed_if(webserver:auth): requirement \"user ingroup redfish\" was met by user \"root\"\nMar 17 16:12:45 p10bmc bmcwebd[303]: pam_succeed_if(webserver:auth): requirement \"user ingroup redfish\" was met by user \"root\"\nMar 17 16:13:50 p10bmc bmcwebd[303]: pam_succeed_if(webserver:auth): requirement \"user ingroup redfish\" was met by user \"root\"\n```",
+      "parentUuid": "b938b8f3_adb314bd",
+      "revId": "ee993dc84b1e9917b545fdd7367f1127a358084a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
