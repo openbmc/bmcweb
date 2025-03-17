@@ -94,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f3ee58_5a76bbf0",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-17T06:15:09Z",
+      "side": 1,
+      "message": "Updated UT test cases please review",
+      "parentUuid": "21195a98_532ef33b",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 37
+      },
+      "revId": "2b3c2544488a653d09f97808fe8323906fadfcf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13bc6ea6_b98ea0e7",
@@ -117,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ee1999d_61b2c80f",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-17T06:15:09Z",
+      "side": 1,
+      "message": "Updated UT test cases please review",
+      "parentUuid": "13bc6ea6_b98ea0e7",
+      "range": {
+        "startLine": 49,
+        "startChar": 24,
+        "endLine": 49,
+        "endChar": 32
+      },
+      "revId": "2b3c2544488a653d09f97808fe8323906fadfcf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdf90abe_2a17c81e",
@@ -130,6 +178,30 @@
       "writtenOn": "2025-03-10T16:11:10Z",
       "side": 1,
       "message": "Please add BMCWEB_LOG_ERROR() here to help with debug on this failure.",
+      "range": {
+        "startLine": 832,
+        "startChar": 0,
+        "endLine": 832,
+        "endChar": 2
+      },
+      "revId": "2b3c2544488a653d09f97808fe8323906fadfcf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41d9afd4_6adbd9b9",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-17T06:15:09Z",
+      "side": 1,
+      "message": "Added relevant log message",
+      "parentUuid": "fdf90abe_2a17c81e",
       "range": {
         "startLine": 832,
         "startChar": 0,

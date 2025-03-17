@@ -88,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c50de446_dc458a76",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-17T06:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c75b195a_bc26b19b",
+      "range": {
+        "startLine": 362,
+        "startChar": 9,
+        "endLine": 362,
+        "endChar": 16
+      },
+      "revId": "18e13a76792ada9c27a8a2d759a05abaa66e2569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7dbad0e_6ccd3107",
@@ -125,6 +149,30 @@
       "side": 1,
       "message": "Implementation is updated as per the recommendation on the PDI MR",
       "parentUuid": "d7dbad0e_6ccd3107",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 375,
+        "endChar": 56
+      },
+      "revId": "18e13a76792ada9c27a8a2d759a05abaa66e2569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1129ed8_ddc8be97",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-17T06:15:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f8ce19c_01253791",
       "range": {
         "startLine": 375,
         "startChar": 0,
