@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d00ec0c_c867c157",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-17T06:11:48Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a241f03c_73764451",
+      "revId": "5499e58e57508ff689cae1e01212316483710cb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "260df10e_4fcb79c0",
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Its done this way so that utility is not tied up with redfish hierarchy.",
       "parentUuid": "260df10e_4fcb79c0",
+      "revId": "5499e58e57508ff689cae1e01212316483710cb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c94ed8e_de3a931f",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-17T06:11:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49c62de3_3f29248d",
       "revId": "5499e58e57508ff689cae1e01212316483710cb5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
