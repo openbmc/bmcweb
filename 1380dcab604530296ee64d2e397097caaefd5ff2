@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb0f18ae_96ae6751",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-03-17T04:37:21Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "90499a28_b1e8ade0",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "1380dcab604530296ee64d2e397097caaefd5ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "207a74d5_1c6aeadc",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-03-14T15:50:27Z",
       "side": 1,
       "message": "if we\u0027re configure-self only, don\u0027t we need to be doing some level of comparison against userSelf?",
+      "range": {
+        "startLine": 2237,
+        "startChar": 22,
+        "endLine": 2237,
+        "endChar": 41
+      },
+      "revId": "1380dcab604530296ee64d2e397097caaefd5ff2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acb019eb_fe20e415",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2237,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-03-17T04:37:21Z",
+      "side": 1,
+      "message": "else block starting at line 2254 will not do the job?",
+      "parentUuid": "ee5911c2_16439b73",
       "range": {
         "startLine": 2237,
         "startChar": 22,
