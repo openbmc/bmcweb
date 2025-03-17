@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86834e5e_02e3d43f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-17T19:47:53Z",
+      "side": 1,
+      "message": "I changed it back to the previous Cable schema version.",
+      "parentUuid": "8e6bcb63_b50d3446",
+      "revId": "105a6be885cb250e3a64cb6768f01bdfcad84571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6864e5c_b8ff493f",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "abe81a7d_cafdeaac",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-17T19:47:53Z",
+      "side": 1,
+      "message": "This is needed for https://gerrit.openbmc.org/c/openbmc/bmcweb/+/61122 - DownstreamResources \u0026 UpstreamResources.\nSo, version update will be changed as a part of 61122.",
+      "parentUuid": "e6864e5c_b8ff493f",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 2
+      },
+      "revId": "105a6be885cb250e3a64cb6768f01bdfcad84571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3211e6d7_eba4d0b5",
@@ -54,6 +96,30 @@
       "writtenOn": "2025-03-17T18:52:43Z",
       "side": 1,
       "message": "Can these be together at the bottom at they normally are?",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 1
+      },
+      "revId": "105a6be885cb250e3a64cb6768f01bdfcad84571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bb75f1e_a23e424d",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-17T19:47:53Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3211e6d7_eba4d0b5",
       "range": {
         "startLine": 212,
         "startChar": 0,
