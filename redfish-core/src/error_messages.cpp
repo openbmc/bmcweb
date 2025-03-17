@@ -8,6 +8,7 @@
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
  ***************************************************************/
+// NOLINTBEGIN(misc-include-cleaner)
 #include "error_messages.hpp"
 
 #include "error_message_utils.hpp"
@@ -28,6 +29,7 @@
 #include <span>
 #include <string>
 #include <string_view>
+// NOLINTEND(misc-include-cleaner)
 
 // Clang can't seem to decide whether this header needs to be included or not,
 // and is inconsistent.  Include it for now

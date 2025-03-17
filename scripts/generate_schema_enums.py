@@ -73,6 +73,7 @@ def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
         "// SPDX-License-Identifier: Apache-2.0\n"
         "// SPDX-FileCopyrightText: Copyright OpenBMC Authors\n"
         "#pragma once\n"
+        "// NOLINTNEXTLINE(misc-include-cleaner)\n"
         "#include <nlohmann/json.hpp>\n\n"
         "namespace {}\n"
         "{{\n"

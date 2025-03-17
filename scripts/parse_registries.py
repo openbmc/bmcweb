@@ -492,7 +492,8 @@ namespace messages
         "w",
     ) as out:
         out.write(WARNING)
-        out.write(f'\n#include "{base_filename}.hpp"\n')
+        out.write("\n// NOLINTBEGIN(misc-include-cleaner)\n")
+        out.write(f'#include "{base_filename}.hpp"\n')
         headers = []
 
         headers.append('"registries.hpp"')
@@ -521,6 +522,7 @@ namespace messages
 
         for header in headers:
             out.write(f"#include {header}\n")
+        out.write("// NOLINTEND(misc-include-cleaner)\n")
 
         out.write(
             """

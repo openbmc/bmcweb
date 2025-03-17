@@ -12,6 +12,7 @@
 #include <boost/asio/error.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/system/error_code.hpp>
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message.hpp>
 

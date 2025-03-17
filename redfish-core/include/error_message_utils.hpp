@@ -1,4 +1,6 @@
 #pragma once
+
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <nlohmann/json.hpp>
 
 #include <string_view>

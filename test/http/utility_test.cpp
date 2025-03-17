@@ -7,6 +7,7 @@
 #include <boost/url/parse.hpp>
 #include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <nlohmann/json.hpp>
 
 #include <algorithm>

@@ -4,6 +4,7 @@
 
 #include "filter_expr_parser_ast.hpp"
 
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <nlohmann/json.hpp>
 
 namespace redfish

@@ -6,6 +6,7 @@
 #include "dbus_singleton.hpp"
 #include "logging.hpp"
 
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/exception.hpp>

@@ -8,6 +8,7 @@
  * should be first pushed to the relevant registry in the DMTF
  * github organization.
  ***************************************************************/
+// NOLINTBEGIN(misc-include-cleaner)
 #include "heartbeat_messages.hpp"
 
 #include "registries.hpp"
@@ -19,6 +20,7 @@
 #include <cstddef>
 #include <span>
 #include <string_view>
+// NOLINTEND(misc-include-cleaner)
 
 // Clang can't seem to decide whether this header needs to be included or not,
 // and is inconsistent.  Include it for now
