@@ -9,6 +9,7 @@
 #include <boost/url/segments_view.hpp>
 #include <boost/url/url.hpp>
 #include <boost/url/url_view_base.hpp>
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <nlohmann/json.hpp>
 
 #include <array>

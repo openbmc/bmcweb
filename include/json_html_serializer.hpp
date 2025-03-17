@@ -4,6 +4,7 @@
 
 #include "http_response.hpp"
 
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <nlohmann/json.hpp>
 
 #include <string>
