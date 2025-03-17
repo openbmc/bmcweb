@@ -15,6 +15,7 @@
 #include "http_response.hpp"
 
 #include <boost/url/url_view_base.hpp>
+// NOLINTBEGIN(misc-include-cleaner)
 #include <nlohmann/json.hpp>
 
 #include <cstdint>

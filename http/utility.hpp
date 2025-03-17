@@ -9,7 +9,7 @@
 #include <boost/url/segments_view.hpp>
 #include <boost/url/url.hpp>
 #include <boost/url/url_view_base.hpp>
-#include <nlohmann/json.hpp>
+include <nlohmann/adl_serializer.hpp>
 
 #include <array>
 #include <bit>

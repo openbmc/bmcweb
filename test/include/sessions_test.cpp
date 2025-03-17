@@ -1,5 +1,6 @@
 #include "sessions.hpp"
 
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <nlohmann/json.hpp>
 
 #include <gtest/gtest.h>

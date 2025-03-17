@@ -4,8 +4,6 @@
 
 #include "filter_expr_parser_ast.hpp"
 
-#include <nlohmann/json.hpp>
-
 namespace redfish
 {
 
