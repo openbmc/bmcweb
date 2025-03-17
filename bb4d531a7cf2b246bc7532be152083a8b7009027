@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a073e22c_14cfcf00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "Tested ?  Redfish Validator?",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3afbb67b_e87e62be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "Redfish.md ?",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38963f12_8f859c8f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "We typically don\u0027t have commented out code, can you remove and add in the commit you need it?",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "925c6445_09fd3301",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "Don\u0027t you need a link here to redfish/v1/Systems/\u003cstr\u003e/Memory/\u003cstr\u003e/MemoryMetrics\" ?",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eeae8d89_ad0b294b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "Why size 2 ?\n\nline 819 has a different definition.. Do you need to support  .PersistentMemory.Partition ?\n\n    constexpr std::array\u003cstd::string_view, 2\u003e dimmInterfaces \u003d {\n        \"xyz.openbmc_project.Inventory.Item.Dimm\",\n        \"xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition\"};",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3302003_4261f01d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75bf18e3_5c16d1a0",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "this is way more useful with the ec being logged",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3db5414a_66c567e8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "typically I see this not as 2 for loops but as \nhttps://github.com/openbmc/bmcweb/blob/cf9085acd78ed83bfbc075d3fa70babed49a8a9b/redfish-core/lib/chassis.hpp#L560",
+      "range": {
+        "startLine": 983,
+        "startChar": 0,
+        "endLine": 986,
+        "endChar": 21
+      },
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7fcbd09_285274aa",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "We are idk, 8 indentions deep here. Let\u0027s not have 2 for loops and not the long lamdba",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e11730_67559520",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "I see no value in this comment and I do see where you got it from.. Oh well, I guess it doesn\u0027t hurt",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95b2686c_84afb172",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T19:20:55Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be getMemoryMetrics ?",
+      "range": {
+        "startLine": 1039,
+        "startChar": 41,
+        "endLine": 1039,
+        "endChar": 50
+      },
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
