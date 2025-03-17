@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a241f03c_73764451",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-17T06:10:06Z",
+      "side": 1,
+      "message": "added. Idea is to not have multiple connector on the processor.",
+      "parentUuid": "4cd7476a_a01e56ff",
+      "revId": "5499e58e57508ff689cae1e01212316483710cb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "260df10e_4fcb79c0",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 12
@@ -65,6 +83,24 @@
       "writtenOn": "2025-03-17T05:47:17Z",
       "side": 1,
       "message": "can this be moved to the utility function ?",
+      "revId": "5499e58e57508ff689cae1e01212316483710cb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49c62de3_3f29248d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-17T06:10:06Z",
+      "side": 1,
+      "message": "Its done this way so that utility is not tied up with redfish hierarchy.",
+      "parentUuid": "260df10e_4fcb79c0",
       "revId": "5499e58e57508ff689cae1e01212316483710cb5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
