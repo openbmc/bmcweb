@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e6bcb63_b50d3446",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T18:52:43Z",
+      "side": 1,
+      "message": "Why this change? This feel beyond a refactor..",
+      "revId": "105a6be885cb250e3a64cb6768f01bdfcad84571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6864e5c_b8ff493f",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T18:52:43Z",
+      "side": 1,
+      "message": "Can we do this separately? I.e. move code around as 1 commit but don\u0027t change any function",
+      "range": {
+        "startLine": 183,
+        "startChar": 0,
+        "endLine": 183,
+        "endChar": 2
+      },
+      "revId": "105a6be885cb250e3a64cb6768f01bdfcad84571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3211e6d7_eba4d0b5",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-17T18:52:43Z",
+      "side": 1,
+      "message": "Can these be together at the bottom at they normally are?",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 1
+      },
+      "revId": "105a6be885cb250e3a64cb6768f01bdfcad84571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
