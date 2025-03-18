@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5013ec1d_878db0f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-03-18T16:06:23Z",
+      "side": 1,
+      "message": "Hmm.  What\u0027s the best way for us to figure this out?  I can make another config-file of sorts that we can specify which ones we actually need.  Or, I can go back to this file being static for the Redfish standard ones and then only the dbus ones we generate.  I was trying to make the paths as least different as possible, so that\u0027s why I put this in place.\n\nIs it a big concern if we do expose registries even if we don\u0027t use them?  Are you concerned about the resulting image size or is there a Redfish-reason for not exposing registries you don\u0027t emit?",
+      "parentUuid": "44aa701e_85aa6b20",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "67ea6732d86b0e87c5688701b67f3c9557ff765e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f14c3584_a5a2f208",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
