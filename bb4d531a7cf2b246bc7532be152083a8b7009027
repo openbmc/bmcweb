@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1491558_503c29dc",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-18T05:43:51Z",
+      "side": 1,
+      "message": "intention was to show how new metric could be added. I will move to commit message",
+      "parentUuid": "38963f12_8f859c8f",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "925c6445_09fd3301",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
@@ -162,6 +180,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "127a6e52_2af79a7c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-18T05:43:51Z",
+      "side": 1,
+      "message": "ok will fix this",
+      "parentUuid": "b7fcbd09_285274aa",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "32e11730_67559520",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
@@ -190,6 +226,30 @@
       "writtenOn": "2025-03-17T19:20:55Z",
       "side": 1,
       "message": "shouldn\u0027t this be getMemoryMetrics ?",
+      "range": {
+        "startLine": 1039,
+        "startChar": 41,
+        "endLine": 1039,
+        "endChar": 50
+      },
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5bda794_a1e48587",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-18T05:43:51Z",
+      "side": 1,
+      "message": "should it be a different privilege than getMemory ?",
+      "parentUuid": "95b2686c_84afb172",
       "range": {
         "startLine": 1039,
         "startChar": 41,
