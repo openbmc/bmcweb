@@ -16,6 +16,24 @@
       "message": "@mox669.dev@gmail.com - it seems like mapper triggers this case for when interface doesn’t exist?  Do we need to ignore the mapper error entirely or be more specific on the errors that come back?",
       "revId": "acc01f6db18fb8eca9bc3c41d6ec7007b937bd4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ece2afeb_9e6d3411",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-03-18T15:24:57Z",
+      "side": 1,
+      "message": "This does not trigger during testing on single-host (romulus). I checked the call manually via busctl and there is no indication of an error. I would assume an empty result to be a valid response?",
+      "parentUuid": "f10cbb7e_94985c49",
+      "revId": "acc01f6db18fb8eca9bc3c41d6ec7007b937bd4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
