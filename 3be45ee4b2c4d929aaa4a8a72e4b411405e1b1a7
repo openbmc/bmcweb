@@ -46,6 +46,30 @@
       },
       "revId": "3be45ee4b2c4d929aaa4a8a72e4b411405e1b1a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b88cbd98_74d16485",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-18T02:13:36Z",
+      "side": 1,
+      "message": "looks like you were right.  I see several patches.\n\n.clang-tidy is supposed to be ignoring these issues.  I\u0027m not sure why it\u0027s retriggered.  Did something change in CI?",
+      "parentUuid": "2adf9d9b_9a53c9ff",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 68
+      },
+      "revId": "3be45ee4b2c4d929aaa4a8a72e4b411405e1b1a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
