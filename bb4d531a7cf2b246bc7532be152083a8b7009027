@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98cd8234_13e12143",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-18T05:44:43Z",
+      "side": 1,
+      "message": "as updated in the commit message Conformance results are pending.",
+      "parentUuid": "a073e22c_14cfcf00",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3afbb67b_e87e62be",
