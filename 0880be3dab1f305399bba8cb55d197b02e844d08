@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26e4c0f0_9249ab98",
+        "filename": "redfish-core/include/registries/environmental_message_registry.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-03-18T15:20:15Z",
+      "side": 1,
+      "message": "These are static members of a struct, not static variables in the namespace.  So yes, they are required to be static.",
+      "parentUuid": "c46766f3_f3994a11",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 6
+      },
+      "revId": "0880be3dab1f305399bba8cb55d197b02e844d08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a2e6a24_653c6d97",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-03-11T03:08:56Z",
       "side": 1,
       "message": "Do we need this header anymore?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 52
+      },
+      "revId": "0880be3dab1f305399bba8cb55d197b02e844d08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "605d11f9_78e1f08a",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-03-18T15:20:15Z",
+      "side": 1,
+      "message": "Yes, we still need this header.  Overall, this commit is keeping effectively the same behavior as we use to have.  Except that rather than the hand-written `getRegistryHeaderAndUrlFromPrefix` function the crux of it is implemented by the registration hook (which you left comments about later).  Whatever headers are used, those registries are added to the map, so those registries are exported.",
+      "parentUuid": "2a2e6a24_653c6d97",
       "range": {
         "startLine": 4,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9fe0366_4683cf5c",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-03-18T15:20:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "259652ee_0b07379b",
+      "range": {
+        "startLine": 101,
+        "startChar": 50,
+        "endLine": 101,
+        "endChar": 75
+      },
+      "revId": "0880be3dab1f305399bba8cb55d197b02e844d08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6710aa7_44adae6c",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-03-11T03:08:56Z",
       "side": 1,
       "message": "Do we need a registration function if these are all static?  Just generate a file with the correct std::array in it?\n\nThis might be fine, I just don\u0027t understand why we have the complexity.",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 13
+      },
+      "revId": "0880be3dab1f305399bba8cb55d197b02e844d08",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63caf296_4facbc59",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-03-18T15:20:15Z",
+      "side": 1,
+      "message": "\u003e Do we need a registration function if these are all static? Just generate a file with the correct std::array in it?\n\nI\u0027m not really getting what you mean by this.\n\nIn the next commit, I generate the full list of used registries (from the Redfish base registries) in `redfish-core/include/registries_selector.hpp`.  I guess rather than just generating an \"include the header file\" I could also generate a \"here are the list of registries used\".  That doesn\u0027t really seem much different one way or the other.\n\nLater on when I add support for the dbus-generated registries, I then have to generate two different lists (with some kind of flag in this script to determine the name) and anyhow have some kind of \"registration\" code that loads the two lists into a combined list.\n\nThis hook function, to me, looks like less custom code because they\u0027re at least all done the same way.  It\u0027s just a one-line call here.\n\n```\ntemplate \u003ctypename T\u003e\nvoid registerRegistry()\n{\n    allRegistries().emplace(T::header.registryPrefix,\n                            RegistryEntry{T::header, T::url, T::registry});\n}\n```",
+      "parentUuid": "d6710aa7_44adae6c",
       "range": {
         "startLine": 169,
         "startChar": 0,
