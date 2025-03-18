@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f051561_d1af55de",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1267,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-18T18:32:27Z",
+      "side": 0,
+      "message": "So this got put out even if it wasn\u0027t found. Got it.",
+      "revId": "cf9085acd78ed83bfbc075d3fa70babed49a8a9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efdadd54_0793caf0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1291,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-18T18:32:27Z",
+      "side": 0,
+      "message": "swId is being passed in by the user? So \"a\" would match \"a234523bd\" and \"a9d3c724\"?",
+      "revId": "cf9085acd78ed83bfbc075d3fa70babed49a8a9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
