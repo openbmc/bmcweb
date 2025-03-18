@@ -52,6 +52,24 @@
       "parentUuid": "baba85bf_24975fc8",
       "revId": "2a5fff563b371413ec915cc1727f16b133ce9304",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3edf09f0_07d3742a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 73
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-18T15:19:21Z",
+      "side": 1,
+      "message": "I did further study to use boost::url::encode to convert string to percent decode string. \n```\n        char buf[300];\n        try {\n            // Encode the input using the \u0027pchars\u0027 character set (unreserved characters)\n            std::size_t len \u003d boost::urls::encode(\n                buf,                     // Destination buffer\n                sizeof(buf),             // Buffer size\n                urlIn,  // Input string\n                boost::urls::pchars       // Unreserved character set\n            );\n            std::string_view encodedUrl(buf, len);\n            BMCWEB_LOG_CRITICAL(\"Encoded: {}\", encodedUrl);\n            try {\n                // Create a url_view from the encoded URL\n                boost::urls::url_view urlwithFragment(encodedUrl);\n                 if (urlwithFragment.has_fragment()) {\n                     BMCWEB_LOG_CRITICAL(\"Fragment: {}\", urlwithFragment.fragment());\n                  } else {\n                     BMCWEB_LOG_CRITICAL(\"No fragment present in the URL.\");\n                 }\n            } catch (const std::exception\u0026 e) {\n                BMCWEB_LOG_CRITICAL(\"Encoding error:: {}\", e.what());\n            }\n\n        } catch (const std::exception\u0026 e) {\n            BMCWEB_LOG_CRITICAL(\"Encoding error:: {}\", e.what());\n        }\n```\nOutput \n- We are able to get a percent encoded string with includes the fragment \n- But when url object is created it cant find the fragment \n- has_fragment seem to work only when # is present and does not work when # is percent converted. \n\n\nMy alternate proposal is to cleanup the url string manually before we create the URL object out of it \n\n```\n        std::string cleaned(urlIn);\n        cleaned.erase(std::remove_if(cleaned.begin(), cleaned.end(), [](char c) {\n            return c \u003d\u003d \u0027\u003c\u0027 || c \u003d\u003d \u0027\u003e\u0027;\n        }), cleaned.end());\n\n        // Create a boost::urls::url_view from the cleaned URL\n        boost::urls::url_view urlwithFragment(cleaned);\n        // Check if the URL contains a fragment\n        if (urlwithFragment.has_fragment()) {\n            BMCWEB_LOG_CRITICAL(\"Fragment: {}\", urlwithFragment.fragment());\n        } else {\n            BMCWEB_LOG_CRITICAL(\"No fragment present in the URL.\");\n        }\n```\n\nThis works well and we are able to get the correct fragment. \n\n@ed@tanous.net - would you ok with this alternate till we find a better way to do this ?",
+      "parentUuid": "eed31751_d935fd88",
+      "revId": "2a5fff563b371413ec915cc1727f16b133ce9304",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
