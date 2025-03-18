@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed9660f6_c0f0ee47",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-18T10:41:19Z",
+      "side": 1,
+      "message": "yes moved to array.",
+      "parentUuid": "946b643a_beb09e3e",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 2
+      },
+      "revId": "69970ed8c804d8e520d6049a364bd7436340be03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8158211a_6eba6c6a",
@@ -55,6 +79,24 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "8158211a_6eba6c6a",
+      "revId": "69970ed8c804d8e520d6049a364bd7436340be03",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48b6876d_8c34bb6b",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-18T10:41:19Z",
+      "side": 1,
+      "message": "all the above tasks have reached completed state and some might not be successful. I have kept the logic simple to prefer only pending/running/suspended task and remove everything that is either completed or failed.",
+      "parentUuid": "342d75b1_e2211b9f",
       "revId": "69970ed8c804d8e520d6049a364bd7436340be03",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
