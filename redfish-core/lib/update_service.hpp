@@ -1264,13 +1264,10 @@ inline void handleUpdateServiceFirmwareInventoryGet(
     }
     std::shared_ptr<std::string> swId = std::make_shared<std::string>(param);
 
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId);
-
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Software.Version"};
     dbus::utility::getSubTree(
-        "/", 0, interfaces,
+        "/xyz/openbmc_project/software/", 0, interfaces,
         [asyncResp,
          swId](const boost::system::error_code& ec,
                const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -1288,7 +1285,15 @@ inline void handleUpdateServiceFirmwareInventoryGet(
                                      std::string, std::vector<std::string>>>>&
                      obj : subtree)
             {
-                if (!obj.first.ends_with(*swId))
+                sdbusplus::message::object_path path(obj.first);
+                std::string id = path.filename();
+                if (id.empty())
+                {
+                    BMCWEB_LOG_DEBUG("Failed to find software id in {}",
+                                     obj.first);
+                    continue;
+                }
+                if (id != *swId)
                 {
                     continue;
                 }
@@ -1313,6 +1318,8 @@ inline void handleUpdateServiceFirmwareInventoryGet(
                         *swId));
                 return;
             }
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId);
             asyncResp->res.jsonValue["@odata.type"] =
                 "#SoftwareInventory.v1_1_0.SoftwareInventory";
             asyncResp->res.jsonValue["Name"] = "Software Inventory";
