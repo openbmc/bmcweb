@@ -276,6 +276,30 @@
       },
       "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d28c3b22_1e6f5f55",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-18T15:19:40Z",
+      "side": 1,
+      "message": "It is a different schema so it should have a different value here, under the covers they should be the same privilege but for correctness, let\u0027s use the correct schema here",
+      "parentUuid": "b5bda794_a1e48587",
+      "range": {
+        "startLine": 1039,
+        "startChar": 41,
+        "endLine": 1039,
+        "endChar": 50
+      },
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
