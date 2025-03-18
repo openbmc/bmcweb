@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88c73c19_2d9f6986",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-18T23:59:00Z",
+      "side": 1,
+      "message": "This is the bug that needs fixed.  our sort code shouldn\u0027t assume ID exists.  Do you know the line where it actually crashes (throws an exception) on this?\n\nI\u0027m looking through odataObjectCmp, and it looks correct to me.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 57
+      },
+      "revId": "1cb1d2998e3e2350c85513470f3ae1d5f33421ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be6f8cd8_a0f17b65",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 3
