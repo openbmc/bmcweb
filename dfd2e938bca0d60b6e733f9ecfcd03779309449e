@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c76f29df_ab62125c",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T13:14:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cec021cd_f80da72a",
+      "revId": "dfd2e938bca0d60b6e733f9ecfcd03779309449e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d69e6f4_05004449",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-03-17T17:45:24Z",
       "side": 1,
       "message": "xyz.openbmc_project.Inventory.Connector.Port is another interface in the tree. Redfish doesn\u0027t have Port in its enum listz Maybe the test should specify this one to make it clear it is not being mapped to Redfish.\n\nOr should it be mapped to one of the existing Redfish enums?",
+      "revId": "dfd2e938bca0d60b6e733f9ecfcd03779309449e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53c94cdc_3df9c656",
+        "filename": "test/redfish-core/include/utils/location_utils_test.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T13:14:52Z",
+      "side": 1,
+      "message": "I have updated the test case for that.",
+      "parentUuid": "3d69e6f4_05004449",
       "revId": "dfd2e938bca0d60b6e733f9ecfcd03779309449e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
