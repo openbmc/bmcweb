@@ -154,6 +154,25 @@ inline void getCpuDataByInterface(
                     asyncResp->res.jsonValue["TotalThreads"] = *value;
                 }
             }
+            else if (property.first == "VendorId")
+            {
+                const std::string* value =
+                    std::get_if<std::string>(&property.second);
+                if (value != nullptr)
+                {
+                    asyncResp->res.jsonValue["VendorId"] = *value;
+                }
+            }
+            else if (property.first == "Family")
+            {
+                const std::string* value =
+                    std::get_if<std::string>(&property.second);
+                if (value != nullptr)
+                {
+                    asyncResp->res.jsonValue["ProcessorId"]["Family"] = "0x" +
+                                                                        *value;
+                }
+            }
             else if (property.first == "EffectiveFamily")
             {
                 const uint16_t* value = std::get_if<uint16_t>(&property.second);
