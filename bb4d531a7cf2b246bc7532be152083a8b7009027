@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f028b6b_a9dfe850",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:30:07Z",
+      "side": 1,
+      "message": "actually Redfish.md is already updated with MemoryMetrics",
+      "parentUuid": "3afbb67b_e87e62be",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "38963f12_8f859c8f",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "intention was to show how new metric could be added. I will move to commit message",
       "parentUuid": "38963f12_8f859c8f",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1969531_ccd26481",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:30:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d1491558_503c29dc",
       "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -124,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5544e04_83ae77a7",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:30:07Z",
+      "side": 1,
+      "message": "as per the PDI patch the association would exist between Item.DIMM and the metric.",
+      "parentUuid": "eeae8d89_ad0b294b",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b3302003_4261f01d",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 4
@@ -135,6 +189,24 @@
       "writtenOn": "2025-03-17T19:20:55Z",
       "side": 1,
       "message": "https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a53223ef_8376eccb",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:30:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b3302003_4261f01d",
       "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -156,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19e688b3_9738359b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:30:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "75bf18e3_5c16d1a0",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3db5414a_66c567e8",
@@ -169,6 +259,30 @@
       "writtenOn": "2025-03-17T19:20:55Z",
       "side": 1,
       "message": "typically I see this not as 2 for loops but as \nhttps://github.com/openbmc/bmcweb/blob/cf9085acd78ed83bfbc075d3fa70babed49a8a9b/redfish-core/lib/chassis.hpp#L560",
+      "range": {
+        "startLine": 983,
+        "startChar": 0,
+        "endLine": 986,
+        "endChar": 21
+      },
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2909e7a_6071c153",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:30:07Z",
+      "side": 1,
+      "message": "removed the 2 loops",
+      "parentUuid": "3db5414a_66c567e8",
       "range": {
         "startLine": 983,
         "startChar": 0,
@@ -210,6 +324,24 @@
       "side": 1,
       "message": "ok will fix this",
       "parentUuid": "b7fcbd09_285274aa",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc4912ef_7b5242fc",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:30:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "127a6e52_2af79a7c",
       "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -292,6 +424,30 @@
       "side": 1,
       "message": "It is a different schema so it should have a different value here, under the covers they should be the same privilege but for correctness, let\u0027s use the correct schema here",
       "parentUuid": "b5bda794_a1e48587",
+      "range": {
+        "startLine": 1039,
+        "startChar": 41,
+        "endLine": 1039,
+        "endChar": 50
+      },
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0c696ce_a8b2772b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1039,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:30:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d28c3b22_1e6f5f55",
       "range": {
         "startLine": 1039,
         "startChar": 41,
