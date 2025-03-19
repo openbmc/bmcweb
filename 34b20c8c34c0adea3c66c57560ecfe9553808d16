@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9ae850a_fece52a6",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-19T15:59:01Z",
+      "side": 1,
+      "message": "include string_view and #include \u003cunordered_map\u003e.. Not sure you still need string?",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 52
+      },
+      "revId": "34b20c8c34c0adea3c66c57560ecfe9553808d16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "530466ee_0222ae14",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 840,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-19T15:59:01Z",
+      "side": 1,
+      "message": "What is going on here? \nWhy not just \n\n            else if (interface \u003d\u003d\n                     \"xyz.openbmc_project.Inventory.Decorator.Location\") \n            {\n                \n                ... location_utils::getLocationType(interface);\n\n             }\n\nLike you had in a previous patch?\n\nWhy do you need any of\n\n                locationType \u003d type;\n                foundConnector \u003d true;\n                continue; // Skip to next interface",
+      "range": {
+        "startLine": 823,
+        "startChar": 0,
+        "endLine": 840,
+        "endChar": 13
+      },
+      "revId": "34b20c8c34c0adea3c66c57560ecfe9553808d16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
