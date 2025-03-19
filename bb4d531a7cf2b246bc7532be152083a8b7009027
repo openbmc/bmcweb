@@ -159,6 +159,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "95c47eb6_31e1d69e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:31:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "925c6445_09fd3301",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eeae8d89_ad0b294b",
@@ -190,6 +208,24 @@
       "side": 1,
       "message": "as per the PDI patch the association would exist between Item.DIMM and the metric.",
       "parentUuid": "eeae8d89_ad0b294b",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88d66892_4e41f5cb",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:31:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b5544e04_83ae77a7",
       "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -311,6 +347,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e11ff9e_4c6bda64",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 986,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:31:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f2909e7a_6071c153",
+      "range": {
+        "startLine": 983,
+        "startChar": 0,
+        "endLine": 986,
+        "endChar": 21
+      },
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7fcbd09_285274aa",
@@ -377,6 +437,24 @@
       "writtenOn": "2025-03-17T19:20:55Z",
       "side": 1,
       "message": "I see no value in this comment and I do see where you got it from.. Oh well, I guess it doesn\u0027t hurt",
+      "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f87bf2c_208b39a5",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-19T08:31:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "32e11730_67559520",
       "revId": "bb4d531a7cf2b246bc7532be152083a8b7009027",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
