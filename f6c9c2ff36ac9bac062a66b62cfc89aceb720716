@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94706f06_cce08fdc",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T15:00:40Z",
+      "side": 1,
+      "message": "Yes, all requests are in shared_ptr now, but again, this request object does no IO, it should not be managing its own complex lifetime.  FWIW, this is why there\u0027s a distinction made between AsyncResp and Response, one is a shared_ptr that always handles lifetime, and the other does not.",
+      "parentUuid": "2253c7ab_5750c3d0",
+      "range": {
+        "startLine": 27,
+        "startChar": 14,
+        "endLine": 27,
+        "endChar": 54
+      },
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a4608a3_acedf18e",
         "filename": "redfish-core/include/query.hpp",
         "patchSetId": 4
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "This is used because\n`req-\u003eshared_from_this()` gives `std::shared_ptr\u003cconst crow::Request\u003e`.\nHowever, most of places are using as `std::shared_ptr\u003ccrow::Request\u003e`.\n\nI think this was a reason to keep the previous codes as `const crow::Request` in routing.hpp.\n\nIdeally, if we pass `std::shared_ptr\u003ccrow::Request\u003e req` all-way thru in doing routes, this back conversion (`const Request\u0026` to `const shared_ptr\u003cRequest\u003e\u0026` via \n const_cast) wouldn\u0027t be needed.\nHowever this would cause many changes of BMCWEB_ROUTE and called functions.",
       "parentUuid": "3a4608a3_acedf18e",
+      "range": {
+        "startLine": 104,
+        "startChar": 40,
+        "endLine": 104,
+        "endChar": 41
+      },
+      "revId": "f6c9c2ff36ac9bac062a66b62cfc89aceb720716",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cba84a0b_5607e873",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T15:00:40Z",
+      "side": 1,
+      "message": "\u003e This is used because\n\u003e `req-\u003eshared_from_this()` gives `std::shared_ptr\u003cconst crow::Request\u003e`.\n\nIt only returns that if the value coming in is const.  There are two overloads:\nhttps://en.cppreference.com/w/cpp/memory/enable_shared_from_this/shared_from_this\n\n\u003e However, most of places are using as `std::shared_ptr\u003ccrow::Request\u003e`.\n\u003e \n\u003e I think this was a reason to keep the previous codes as `const crow::Request` in routing.hpp.\n\u003e \n\u003e Ideally, if we pass `std::shared_ptr\u003ccrow::Request\u003e req` all-way thru in doing routes, this back conversion (`const Request\u0026` to `const shared_ptr\u003cRequest\u003e\u0026` via \n\u003e  const_cast) wouldn\u0027t be needed.\n\u003e However this would cause many changes of BMCWEB_ROUTE and called functions.\n\nI\u0027m not sure that\u0027s what we want to do, but if we need to, that\u0027s preferable to const_cast",
+      "parentUuid": "5701e271_0cd8551b",
       "range": {
         "startLine": 104,
         "startChar": 40,
