@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9630d136_b8ae75a1",
+        "filename": "redfish-core/include/utils/location_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-20T06:11:20Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a9ae850a_fece52a6",
+      "range": {
+        "startLine": 22,
+        "startChar": 17,
+        "endLine": 22,
+        "endChar": 52
+      },
+      "revId": "34b20c8c34c0adea3c66c57560ecfe9553808d16",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "530466ee_0222ae14",
