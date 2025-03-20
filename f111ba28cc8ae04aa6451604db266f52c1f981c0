@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88d5527b_bbc73bde",
+        "filename": "http/routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T19:22:32Z",
+      "side": 1,
+      "message": "This",
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c079f8d2_0d8c94b5",
         "filename": "redfish-core/include/redfish_oem_routing.hpp",
         "patchSetId": 94
@@ -36,6 +53,29 @@
         "startChar": 0,
         "endLine": 26,
         "endChar": 72
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22739c3b_8db2a1d4",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T19:22:32Z",
+      "side": 1,
+      "message": "Does this need to be static.  This could just be on RedfishService class, and passed into the register calls, just like APP is?",
+      "range": {
+        "startLine": 270,
+        "startChar": 18,
+        "endLine": 270,
+        "endChar": 30
       },
       "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
@@ -192,6 +232,30 @@
       "writtenOn": "2025-03-20T19:20:52Z",
       "side": 1,
       "message": "This is a request copy.",
+      "range": {
+        "startLine": 875,
+        "startChar": 40,
+        "endLine": 875,
+        "endChar": 76
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca5a0348_690c7fe3",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T19:22:32Z",
+      "side": 1,
+      "message": "Theses cause OOM bugs.",
+      "parentUuid": "1f1db6bc_76c99282",
       "range": {
         "startLine": 875,
         "startChar": 40,
