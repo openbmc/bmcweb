@@ -20,6 +20,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c079f8d2_0d8c94b5",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T19:20:52Z",
+      "side": 1,
+      "message": "For new code, is it possible here to pass without disabling the tidy checks?\n\nArguably BMCWEB_ROUTE needs to be cleaned up at some point, but we should avoid regressing.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 72
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ffdc294_bc238c52",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T19:20:52Z",
+      "side": 1,
+      "message": "this is called init, then you call validate.  One of these is incorrect.",
+      "range": {
+        "startLine": 276,
+        "startChar": 12,
+        "endLine": 276,
+        "endChar": 25
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5f5a8458_b18ad2ed",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 94
@@ -128,6 +174,98 @@
         "startChar": 12,
         "endLine": 838,
         "endChar": 16
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f1db6bc_76c99282",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T19:20:52Z",
+      "side": 1,
+      "message": "This is a request copy.",
+      "range": {
+        "startLine": 875,
+        "startChar": 40,
+        "endLine": 875,
+        "endChar": 76
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c5ea96c_0ed5d2ca",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T19:20:52Z",
+      "side": 1,
+      "message": "Should be \"redfish\", right?",
+      "range": {
+        "startLine": 1506,
+        "startChar": 4,
+        "endLine": 1506,
+        "endChar": 10
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea6a9bb_5ecbb8ad",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T19:20:52Z",
+      "side": 1,
+      "message": "OEMs shouldn\u0027t have a privilege that\u0027s distinct from the root, right?",
+      "range": {
+        "startLine": 1507,
+        "startChar": 0,
+        "endLine": 1507,
+        "endChar": 52
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "032bd436_7f77361c",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T19:20:52Z",
+      "side": 1,
+      "message": "Is there a specific reason we went with setGetHandler and not the existing track of just specifying a verb in the call?",
+      "range": {
+        "startLine": 1508,
+        "startChar": 0,
+        "endLine": 1508,
+        "endChar": 44
       },
       "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
