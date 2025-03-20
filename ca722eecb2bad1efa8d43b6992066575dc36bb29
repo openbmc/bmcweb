@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78405ae7_d6824338",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 93
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T16:14:29Z",
+      "side": 1,
+      "message": "Missing required testing and execution of\n\nhttps://github.com/openbmc/bmcweb/blob/master/REDFISH_CHECKLIST.md",
+      "revId": "ca722eecb2bad1efa8d43b6992066575dc36bb29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
