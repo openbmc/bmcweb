@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f09e8e83_dea6d1ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-20T07:30:19Z",
+      "side": 1,
+      "message": "Will abandon this MR \nWill use dbus path check and raise a separate MR",
+      "parentUuid": "4f85743e_31729f6c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "975550fa50c9a84a7cc7c23f729425024708152a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19cdc936_5b5254e2",
@@ -85,6 +109,24 @@
       "writtenOn": "2025-02-01T11:52:30Z",
       "side": 1,
       "message": "list down all the impacted URIs.",
+      "revId": "975550fa50c9a84a7cc7c23f729425024708152a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "618aaaf3_87e252e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-20T07:30:19Z",
+      "side": 1,
+      "message": "Will abandon this MR \nWill use dbus path check and raise a separate MR",
+      "parentUuid": "19cdc936_5b5254e2",
       "revId": "975550fa50c9a84a7cc7c23f729425024708152a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -106,6 +148,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "498bb6f4_003b8006",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-20T07:30:19Z",
+      "side": 1,
+      "message": "Will abandon this MR \nWill use dbus path check and raise a separate MR",
+      "parentUuid": "de63fdaf_cab79e4d",
+      "revId": "975550fa50c9a84a7cc7c23f729425024708152a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b55e2cfe_c31b39ca",
@@ -119,6 +179,30 @@
       "writtenOn": "2025-01-21T20:59:03Z",
       "side": 1,
       "message": "isn\u0027t there also some links in system that would still exist?",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 1
+      },
+      "revId": "975550fa50c9a84a7cc7c23f729425024708152a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "497ab97a_0d52d31f",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-20T07:30:19Z",
+      "side": 1,
+      "message": "Will abandon this MR",
+      "parentUuid": "b55e2cfe_c31b39ca",
       "range": {
         "startLine": 163,
         "startChar": 0,
