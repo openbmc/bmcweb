@@ -117,6 +117,30 @@
       },
       "revId": "1cb1d2998e3e2350c85513470f3ae1d5f33421ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17df048b_ffb1ba9c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-20T19:09:57Z",
+      "side": 1,
+      "message": "The error messages gets added by the `messages::internalError(asyncResp-\u003eres);` call, so by this time, it\u0027s already there. We can start doing interesting stuff - keeping the state (whether there was at least one error) here, pass it to the fillEventLogLogEntryFromPropertyMap and it will invoke messages::internalError only in case if no errors have registered yet. I don\u0027t think we should do that. Now client sees how many invalid entries there are, and can work on fixing them.",
+      "parentUuid": "c71a6e0e_f918ff61",
+      "range": {
+        "startLine": 1514,
+        "startChar": 0,
+        "endLine": 1514,
+        "endChar": 20
+      },
+      "revId": "1cb1d2998e3e2350c85513470f3ae1d5f33421ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
