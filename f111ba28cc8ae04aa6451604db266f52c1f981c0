@@ -3,6 +3,121 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5f5a8458_b18ad2ed",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T18:40:09Z",
+      "side": 1,
+      "message": "Won\u0027t this cause crashes if this is used uninitialized?",
+      "range": {
+        "startLine": 757,
+        "startChar": 12,
+        "endLine": 757,
+        "endChar": 19
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2a78609_8def5599",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T18:40:09Z",
+      "side": 1,
+      "message": "nullptr dereference",
+      "range": {
+        "startLine": 815,
+        "startChar": 15,
+        "endLine": 815,
+        "endChar": 17
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38f753bc_a4c0d6e9",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T18:40:09Z",
+      "side": 1,
+      "message": "per the coding standard, don\u0027t use auto.\n\nAlso, nullptr dereference.",
+      "range": {
+        "startLine": 828,
+        "startChar": 13,
+        "endLine": 828,
+        "endChar": 17
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "262963c4_3bdf0aaa",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T18:40:09Z",
+      "side": 1,
+      "message": "Per the coding standard, don\u0027t use auto.",
+      "range": {
+        "startLine": 830,
+        "startChar": 12,
+        "endLine": 830,
+        "endChar": 16
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba7bc14f_97d13dc8",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T18:40:09Z",
+      "side": 1,
+      "message": "Per the coding standard, Don\u0027t use auto.",
+      "range": {
+        "startLine": 838,
+        "startChar": 12,
+        "endLine": 838,
+        "endChar": 16
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e89c82e_2f9e7772",
         "filename": "src/webserver_run.cpp",
         "patchSetId": 94
