@@ -93,6 +93,30 @@
       },
       "revId": "1cb1d2998e3e2350c85513470f3ae1d5f33421ed",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c71a6e0e_f918ff61",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T14:50:46Z",
+      "side": 1,
+      "message": "so then should this be \n\nif (!success){\n   return;\n}\n\nTo avoid duplicating internal error messages?",
+      "parentUuid": "60c797f8_f641dd71",
+      "range": {
+        "startLine": 1514,
+        "startChar": 0,
+        "endLine": 1514,
+        "endChar": 20
+      },
+      "revId": "1cb1d2998e3e2350c85513470f3ae1d5f33421ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
