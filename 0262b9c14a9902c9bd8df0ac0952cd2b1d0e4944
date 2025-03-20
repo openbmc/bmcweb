@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb004a6d_d01060c0",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-20T04:49:11Z",
+      "side": 1,
+      "message": "Added more validations for both total and free value",
+      "parentUuid": "3d9b4857_4bee87a7",
+      "range": {
+        "startLine": 58,
+        "startChar": 1,
+        "endLine": 69,
+        "endChar": 9
+      },
+      "revId": "0262b9c14a9902c9bd8df0ac0952cd2b1d0e4944",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "19b24b74_19a38d5d",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-03-19T20:16:45Z",
       "side": 1,
       "message": "The problem here is the other one checks \n\n     constexpr std::array\u003cstd::string_view, 2\u003e dimmInterfaces \u003d {\n        \"xyz.openbmc_project.Inventory.Item.Dimm\",\n        \"xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition\"};\n\nSo if you have a xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition, it has a /redfish/v1/Systems/{}/Memory/{}/MemoryMetrics link but if you call that /redfish/v1/Systems/{}/Memory/{}/MemoryMetrics it returns a NotFound.",
+      "revId": "0262b9c14a9902c9bd8df0ac0952cd2b1d0e4944",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e612d39d_3b0ba38f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-20T04:49:11Z",
+      "side": 1,
+      "message": "Have added to handle both Dimm and PersistenMemory.Partition",
+      "parentUuid": "19b24b74_19a38d5d",
       "revId": "0262b9c14a9902c9bd8df0ac0952cd2b1d0e4944",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
