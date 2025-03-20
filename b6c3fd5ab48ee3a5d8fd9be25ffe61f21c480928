@@ -16,6 +16,24 @@
       "message": "@ed@tanous.net - I\u0027m slightly surprised there was an ask for a new option for this.  Is there any case where we don\u0027t want to use the mapping if it exists?\n\nI\u0027d expect dbusEventLogEntryToEventLogObjectsType (wow that is a long function name) to handle cases where the dbus event id doesn\u0027t exist in the registry and then return the message/resolution/severity unchanged.\n\nCan we go that route rather than adding a new option?",
       "revId": "b6c3fd5ab48ee3a5d8fd9be25ffe61f21c480928",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a835f9a2_a21521cf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-20T14:49:30Z",
+      "side": 1,
+      "message": "\u003e @ed@tanous.net - I\u0027m slightly surprised there was an ask for a new option for this.  Is there any case where we don\u0027t want to use the mapping if it exists?\n\u003e \n\u003e I\u0027d expect dbusEventLogEntryToEventLogObjectsType (wow that is a long function name) to handle cases where the dbus event id doesn\u0027t exist in the registry and then return the message/resolution/severity unchanged.\n\nLogServices should be consistently exposing a MessageId or not;  If we wanted to have two different LogService collections (one with message id, and one without) we could do that and put each behind option keys?\n\nIf we want to avoid the option, we could just say that all messages now have MessageIds and just move forward.\n\n\n\u003e \n\u003e Can we go that route rather than adding a new option?",
+      "parentUuid": "ba035b92_9e198f55",
+      "revId": "b6c3fd5ab48ee3a5d8fd9be25ffe61f21c480928",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
