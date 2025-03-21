@@ -34,6 +34,24 @@
       "parentUuid": "314f2f12_aa7d1833",
       "revId": "8ce6c119cfe6cd7587a1f7dc2ea932bc5c9915d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f9828a7_cd3f0384",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-03-21T19:59:20Z",
+      "side": 1,
+      "message": "I did not notice you already reviewed that one. This one I will abandon keep https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79101 active",
+      "parentUuid": "e5198c27_4dd048de",
+      "revId": "8ce6c119cfe6cd7587a1f7dc2ea932bc5c9915d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
