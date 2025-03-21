@@ -535,3 +535,10 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.''',
 )
+# BMCWEB_NTP
+option(
+    'ntp',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Enable/disable ntp feature.',
+)
