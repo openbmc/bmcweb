@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3decae1a_b4570287",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 94
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "I see the same, I tested the pid flow, it seem to be invoked but no json objects are added part of this. I tested it without my change also and there was no data from pid. I added some test json in the PID and it correctly appeared under OEM. So it seem to be working fine but no on QEMU.",
+      "parentUuid": "d3264b69_03d423d9",
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88d5527b_bbc73bde",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62d0da2a_06f0c234",
+        "filename": "http/routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "hoping this is typo.",
+      "parentUuid": "88d5527b_bbc73bde",
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c079f8d2_0d8c94b5",
@@ -48,6 +84,30 @@
       "writtenOn": "2025-03-20T19:20:52Z",
       "side": 1,
       "message": "For new code, is it possible here to pass without disabling the tidy checks?\n\nArguably BMCWEB_ROUTE needs to be cleaned up at some point, but we should avoid regressing.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 72
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19e97b62_9ce96f65",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "My thinking is its better we keep BMCWEB_ROUTE and BMCWEB_OEM_ROUTE registration similar for consistency. \nIf I need to fix this clang issue then i would have to probably make it function. when we plan to clean up BMCWEB_ROUTE to what ever method we chose we could apply the same for even BMCWEB_OEM_ROUTE. In this way it would remain consistent even then.",
+      "parentUuid": "c079f8d2_0d8c94b5",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ec910c_00b7eed7",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "For registration what you suggested works. I still a need a method to access the singleton instance of the OEM router in each of the main handler to make api like this. \n```\n  getOemRouter().handleOemGet(req, asyncResp);\n```\nIn each of the handlers the only shared object is App and we dont want to link App with Redfish OEM. So we still need global API to access the oem router instance. \nI think for now making this static and have API to get the instance works calling this in all route handlers without much dependency.",
+      "parentUuid": "22739c3b_8db2a1d4",
+      "range": {
+        "startLine": 270,
+        "startChar": 18,
+        "endLine": 270,
+        "endChar": 30
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ffdc294_bc238c52",
@@ -94,6 +178,30 @@
       "writtenOn": "2025-03-20T19:20:52Z",
       "side": 1,
       "message": "this is called init, then you call validate.  One of these is incorrect.",
+      "range": {
+        "startLine": 276,
+        "startChar": 12,
+        "endLine": 276,
+        "endChar": 25
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0297df5_fa63fa1b",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "I had to kept oemRouterInit to take care of validate + any init but eventually its just validate so renamed it.",
+      "parentUuid": "6ffdc294_bc238c52",
       "range": {
         "startLine": 276,
         "startChar": 12,
@@ -127,6 +235,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9cea2c2_fa2cdbb1",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "it would not in its current form because this app is not used for OEM. But I get the point hence added a check in the usage. This is because I wanted to use the same MultiAsyncResp for OEm as well, in the original code I had a new one which did not use app.",
+      "parentUuid": "5f5a8458_b18ad2ed",
+      "range": {
+        "startLine": 757,
+        "startChar": 12,
+        "endLine": 757,
+        "endChar": 19
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2a78609_8def5599",
@@ -140,6 +272,30 @@
       "writtenOn": "2025-03-20T18:40:09Z",
       "side": 1,
       "message": "nullptr dereference",
+      "range": {
+        "startLine": 815,
+        "startChar": 15,
+        "endLine": 815,
+        "endChar": 17
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adad12ef_09f2703f",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2a78609_8def5599",
       "range": {
         "startLine": 815,
         "startChar": 15,
@@ -173,6 +329,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cffdd2f_8ff17576",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38f753bc_a4c0d6e9",
+      "range": {
+        "startLine": 828,
+        "startChar": 13,
+        "endLine": 828,
+        "endChar": 17
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "262963c4_3bdf0aaa",
@@ -196,6 +376,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2539e037_d6e3fc10",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "262963c4_3bdf0aaa",
+      "range": {
+        "startLine": 830,
+        "startChar": 12,
+        "endLine": 830,
+        "endChar": 16
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba7bc14f_97d13dc8",
@@ -209,6 +413,30 @@
       "writtenOn": "2025-03-20T18:40:09Z",
       "side": 1,
       "message": "Per the coding standard, Don\u0027t use auto.",
+      "range": {
+        "startLine": 838,
+        "startChar": 12,
+        "endLine": 838,
+        "endChar": 16
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cce55522_2acd0a35",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba7bc14f_97d13dc8",
       "range": {
         "startLine": 838,
         "startChar": 12,
@@ -266,6 +494,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6b71e40_6f501008",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "ca5a0348_690c7fe3",
+      "range": {
+        "startLine": 875,
+        "startChar": 40,
+        "endLine": 875,
+        "endChar": 76
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4c5ea96c_0ed5d2ca",
@@ -279,6 +531,30 @@
       "writtenOn": "2025-03-20T19:20:52Z",
       "side": 1,
       "message": "Should be \"redfish\", right?",
+      "range": {
+        "startLine": 1506,
+        "startChar": 4,
+        "endLine": 1506,
+        "endChar": 10
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2e80730_9e927bb1",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "kept it inline with BMCWEB_ROUTE. lets keep BMCWEB_OEM_ROUTE unless in future BMCWEB_ROUTE is going to become REDFISH_ROUTE.",
+      "parentUuid": "4c5ea96c_0ed5d2ca",
       "range": {
         "startLine": 1506,
         "startChar": 4,
@@ -312,6 +588,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2105c91b_55d773e8",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "Agree. Did the cleanup.",
+      "parentUuid": "8ea6a9bb_5ecbb8ad",
+      "range": {
+        "startLine": 1507,
+        "startChar": 0,
+        "endLine": 1507,
+        "endChar": 52
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "032bd436_7f77361c",
@@ -335,6 +635,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dec4b20_77d73f24",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "OEM is expected to have only GET/PATCH which is mapped two handlers the router exposes. OEM router does not have to deal with http verb because the routing is already by the main router and OEM router has to just support handler for GET and PATCH APIs. Since there is no http method mapping which is required I have kept this simple.",
+      "parentUuid": "032bd436_7f77361c",
+      "range": {
+        "startLine": 1508,
+        "startChar": 0,
+        "endLine": 1508,
+        "endChar": 44
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e89c82e_2f9e7772",
@@ -348,6 +672,30 @@
       "writtenOn": "2025-03-20T18:17:22Z",
       "side": 1,
       "message": "Presumably this should\u0027ve gone in RedfishService class?  So we\u0027re not initting Redfish if it\u0027s disabled?",
+      "range": {
+        "startLine": 133,
+        "startChar": 13,
+        "endLine": 133,
+        "endChar": 26
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95467151_c33c87fb",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-21T18:54:33Z",
+      "side": 1,
+      "message": "moved it under BMCWEB_REDFISH. And explained in the comment why its better to keep OEM separate.",
+      "parentUuid": "4e89c82e_2f9e7772",
       "range": {
         "startLine": 133,
         "startChar": 13,
