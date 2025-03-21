@@ -34,6 +34,24 @@
       "parentUuid": "ba035b92_9e198f55",
       "revId": "b6c3fd5ab48ee3a5d8fd9be25ffe61f21c480928",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af60048e_65fbf40a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-03-21T10:38:18Z",
+      "side": 1,
+      "message": "\u003e LogServices should be consistently exposing a MessageId or not\n\nCan you point me to what drew you to this conclusion?  I don\u0027t find it in my reading of either the Redfish Specification nor the `LogEntry`/`LogEntryCollection` schemas.  It seems quite reasonable, to me, for a `LogEntryCollection` to contain _both_ `SEL` and `Event` (`LogEntryType`) and I\u0027m not finding any reason to preclude it.\n\nI think we are already violating the schema in that our older dbus-based events are of type `LogEntryType::Event` but they don\u0027t have a `MessageId`; they really should be `LogEntryType::OEM`, right?  I recognize changing this potentially breaks backwards compatibility so I don\u0027t know if it is worth fixing.",
+      "parentUuid": "a835f9a2_a21521cf",
+      "revId": "b6c3fd5ab48ee3a5d8fd9be25ffe61f21c480928",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
