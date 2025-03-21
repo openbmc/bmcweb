@@ -120,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33e7dfa1_a9c35316",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-21T22:10:02Z",
+      "side": 1,
+      "message": "BMCWEB_OEM_ROUTE is getting renamed to REDFISH_OEM_ROUTE (because it\u0027s redfish specific) and a lot of the behaviors on the main router (like privileges) make no sense, nor do things like passing in the App\u0026 handle.\n\nThere\u0027s no need for them to be similar, lets just make it clear.",
+      "parentUuid": "19e97b62_9ce96f65",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 72
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22739c3b_8db2a1d4",
         "filename": "redfish-core/include/redfish_oem_routing.hpp",
         "patchSetId": 94
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "For registration what you suggested works. I still a need a method to access the singleton instance of the OEM router in each of the main handler to make api like this. \n```\n  getOemRouter().handleOemGet(req, asyncResp);\n```\nIn each of the handlers the only shared object is App and we dont want to link App with Redfish OEM. So we still need global API to access the oem router instance. \nI think for now making this static and have API to get the instance works calling this in all route handlers without much dependency.",
       "parentUuid": "22739c3b_8db2a1d4",
+      "range": {
+        "startLine": 270,
+        "startChar": 18,
+        "endLine": 270,
+        "endChar": 30
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "639fecf0_cf227d64",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-21T22:10:02Z",
+      "side": 1,
+      "message": "Why not just pass in RedfishService in place of app to the callback?",
+      "parentUuid": "24ec910c_00b7eed7",
       "range": {
         "startLine": 270,
         "startChar": 18,
@@ -567,6 +615,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9771e307_f0c33bff",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-21T22:10:02Z",
+      "side": 1,
+      "message": "BMCWEB_ROUTE will remain (because bmcweb has more than just redfish handlers in it)\n\nREDFISH_ROUTE was proposed at one point and is what gbmcweb does.  Lets just go with that.",
+      "parentUuid": "c2e80730_9e927bb1",
+      "range": {
+        "startLine": 1506,
+        "startChar": 4,
+        "endLine": 1506,
+        "endChar": 10
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ea6a9bb_5ecbb8ad",
         "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
         "patchSetId": 94
@@ -661,6 +733,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d7a59bab_24acb05e",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-21T22:10:02Z",
+      "side": 1,
+      "message": "OEM should have POST and DELETE handlers as well eventually?  Those are valid operations to do on an oem object.",
+      "parentUuid": "2dec4b20_77d73f24",
+      "range": {
+        "startLine": 1508,
+        "startChar": 0,
+        "endLine": 1508,
+        "endChar": 44
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4e89c82e_2f9e7772",
         "filename": "src/webserver_run.cpp",
         "patchSetId": 94
@@ -696,6 +792,30 @@
       "side": 1,
       "message": "moved it under BMCWEB_REDFISH. And explained in the comment why its better to keep OEM separate.",
       "parentUuid": "4e89c82e_2f9e7772",
+      "range": {
+        "startLine": 133,
+        "startChar": 13,
+        "endLine": 133,
+        "endChar": 26
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f822e3f2_d90e9f7a",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-21T22:10:02Z",
+      "side": 1,
+      "message": "would like to see it kept out of webserver_run.  In theory RedfishService should manage all Redfish (including the things here that need to be moved).\n\nThe things haven\u0027t been moved because it would cause compile time issues at the moment, but eventually RedfishService will be hermetic.\n\nPlease move the init.  If it needs to be static, so be it, but call it through RedfishService init.",
+      "parentUuid": "95467151_c33c87fb",
       "range": {
         "startLine": 133,
         "startChar": 13,
