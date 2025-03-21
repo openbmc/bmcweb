@@ -21,6 +21,7 @@ feature_options = [
     'kvm',
     'meta-tls-common-name-parsing',
     'mutual-tls-auth',
+    'ntp',
     'redfish',
     'redfish-aggregation',
     'redfish-allow-deprecated-power-thermal',
