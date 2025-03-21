@@ -1,4 +1,28 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41fe0a35_02b03539",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-21T17:12:21Z",
+      "side": 1,
+      "message": "THis information is all coming from dbus backends, so if we don\u0027t want NTP supported, the option needs to go into the backend, not into redfish itself.\n\nAs written, setting this option would still allow setting ntp through ipmi.",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 71
+      },
+      "revId": "fdc5ea257cb32a5c3a13a84c7e20c358e1f88797",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
