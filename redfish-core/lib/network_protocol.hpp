@@ -217,7 +217,10 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     asyncResp->res.jsonValue["HostName"] = hostName;
 
-    getNTPProtocolEnabled(asyncResp);
+    if constexpr (BMCWEB_NTP)
+    {
+        getNTPProtocolEnabled(asyncResp);
+    }
 
     getEthernetIfaceData([hostName, asyncResp](
                              const bool& success,
@@ -230,9 +233,13 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                                        "NetworkProtocol");
             return;
         }
-        asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
-        asyncResp->res.jsonValue["NTP"]["NetworkSuppliedServers"] =
-            dynamicNtpServers;
+
+        if constexpr (BMCWEB_NTP)
+        {
+            asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
+            asyncResp->res.jsonValue["NTP"]["NetworkSuppliedServers"] =
+                dynamicNtpServers;
+        }
         if (!hostName.empty())
         {
             std::string fqdn = hostName;
@@ -521,23 +528,40 @@ inline void handleManagersNetworkProtocolPatch(
 
     if (ntpEnabled)
     {
-        handleNTPProtocolEnabled(asyncResp, *ntpEnabled);
+        if constexpr (BMCWEB_NTP)
+        {
+            handleNTPProtocolEnabled(asyncResp, *ntpEnabled);
+        }
+        else
+        {
+            messages::propertyNotWritable(asyncResp->res,
+                                          "NTP/ProtocolEnabled");
+        }
     }
+
     if (ntpServerObjects)
     {
-        getEthernetIfaceData(
-            [asyncResp, ntpServerObjects](
-                const bool success, std::vector<std::string>& currentNtpServers,
-                const std::vector<std::string>& /*dynamicNtpServers*/,
-                const std::vector<std::string>& /*domainNames*/) {
-                if (!success)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                handleNTPServersPatch(asyncResp, *ntpServerObjects,
-                                      std::move(currentNtpServers));
-            });
+        if constexpr (BMCWEB_NTP)
+        {
+            getEthernetIfaceData(
+                [asyncResp, ntpServerObjects](
+                    const bool success,
+                    std::vector<std::string>& currentNtpServers,
+                    const std::vector<std::string>& /*dynamicNtpServers*/,
+                    const std::vector<std::string>& /*domainNames*/) {
+                    if (!success)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    handleNTPServersPatch(asyncResp, *ntpServerObjects,
+                                          std::move(currentNtpServers));
+                });
+        }
+        else
+        {
+            messages::propertyNotWritable(asyncResp->res, "NTP/NTPServers");
+        }
     }
 
     if (ipmiEnabled)
