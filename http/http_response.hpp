@@ -76,7 +76,7 @@ struct Response
     Response() = default;
     Response(Response&& res) noexcept :
         response(std::move(res.response)), jsonValue(std::move(res.jsonValue)),
-        completed(res.completed)
+        expectedHash(std::move(res.expectedHash)), completed(res.completed)
     {
         // See note in operator= move handler for why this is needed.
         if (!res.completed)
