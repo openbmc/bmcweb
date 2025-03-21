@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "314f2f12_aa7d1833",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-21T17:11:16Z",
+      "side": 1,
+      "message": "Looks like a duplicate of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79101\n\n?\n\nLets abandon this one and use the first review.",
+      "revId": "8ce6c119cfe6cd7587a1f7dc2ea932bc5c9915d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
