@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59cdefdf_a17903c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-24T14:46:50Z",
+      "side": 1,
+      "message": "Beyond just that, this information is repeated so many times, which goes against best practices. Up to you if you want to add that to the commit msg.",
+      "revId": "726f92e1d40589ef3651b4316fdb9c10bfc8fcdd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
