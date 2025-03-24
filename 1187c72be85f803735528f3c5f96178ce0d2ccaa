@@ -45,6 +45,54 @@
       },
       "revId": "1187c72be85f803735528f3c5f96178ce0d2ccaa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71677b09_f071d412",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-24T18:12:30Z",
+      "side": 1,
+      "message": "Thanks for finding a typo. Fixed.",
+      "parentUuid": "8078a9d4_a4817db1",
+      "range": {
+        "startLine": 15,
+        "startChar": 53,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "1187c72be85f803735528f3c5f96178ce0d2ccaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "059015bf_79d931aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-24T18:12:30Z",
+      "side": 1,
+      "message": "Acknowledged. Thanks for the suggestion.",
+      "parentUuid": "201f2440_5b6f098d",
+      "range": {
+        "startLine": 15,
+        "startChar": 32,
+        "endLine": 15,
+        "endChar": 35
+      },
+      "revId": "1187c72be85f803735528f3c5f96178ce0d2ccaa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
