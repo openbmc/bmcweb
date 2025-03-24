@@ -287,6 +287,7 @@ Fields common to all schemas
 
 #### Sensor
 
+- Description
 - Reading
 - ReadingRangeMax
 - ReadingRangeMin
@@ -297,6 +298,7 @@ Fields common to all schemas
 - Thresholds
 - ReadingBasis
 - Implementation
+- Description
 
 ### /redfish/v1/Chassis/{ChassisId}/Thermal/
 
