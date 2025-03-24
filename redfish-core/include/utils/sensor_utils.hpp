@@ -569,6 +569,8 @@ inline void objectPropertiesToJson(
             properties.emplace_back(
                 "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
                 "/Thresholds/LowerCritical/Reading"_json_pointer);
+            properties.emplace_back("xyz.openbmc_project.Inventory.Item",
+                                    "PrettyName", "/Description"_json_pointer);
 
             /* Add additional properties specific to sensorType */
             if (sensorType == "fan_tach")
@@ -640,33 +642,48 @@ inline void objectPropertiesToJson(
             // a json_pointer for easy indexing into the json structure.
             const nlohmann::json::json_pointer& key = std::get<2>(p);
 
+            // Try to get as double first
             const double* doubleValue = std::get_if<double>(&valueVariant);
-            if (doubleValue == nullptr)
+            if (doubleValue != nullptr)
             {
-                BMCWEB_LOG_ERROR("Got value interface that wasn't double");
-                continue;
-            }
-            if (!std::isfinite(*doubleValue))
-            {
-                if (valueName == "Value")
+                if (!std::isfinite(*doubleValue))
                 {
-                    // Readings are allowed to be NAN for unavailable;  coerce
-                    // them to null in the json response.
-                    sensorJson[key] = nullptr;
+                    if (valueName == "Value")
+                    {
+                        // Readings are allowed to be NAN for unavailable;
+                        // coerce them to null in the json response.
+                        sensorJson[key] = nullptr;
+                        continue;
+                    }
+                    BMCWEB_LOG_WARNING(
+                        "Sensor value for {} was unexpectedly {}", valueName,
+                        *doubleValue);
                     continue;
                 }
-                BMCWEB_LOG_WARNING("Sensor value for {} was unexpectedly {}",
-                                   valueName, *doubleValue);
+
+                if (forceToInt)
+                {
+                    sensorJson[key] = static_cast<int64_t>(*doubleValue);
+                }
+                else
+                {
+                    sensorJson[key] = *doubleValue;
+                }
                 continue;
             }
-            if (forceToInt)
+
+            // Try to get as string if not a double
+            const std::string* stringValue =
+                std::get_if<std::string>(&valueVariant);
+            if (stringValue != nullptr)
             {
-                sensorJson[key] = static_cast<int64_t>(*doubleValue);
+                sensorJson[key] = *stringValue;
+                continue;
             }
-            else
-            {
-                sensorJson[key] = *doubleValue;
-            }
+
+            // Neither double nor string
+            BMCWEB_LOG_ERROR(
+                "Got value interface that wasn't double or string");
         }
     }
 }
