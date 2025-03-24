@@ -2399,6 +2399,27 @@ inline void handleSensorCollectionGet(
                                chassisId, sensors::sensorsNodeStr));
 }
 
+inline void handleSensorStringProperties(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const ::dbus::utility::DBusPropertiesMap& valuesDict)
+{
+    const std::string* prettyName = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), valuesDict, "PrettyName", prettyName);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (prettyName != nullptr)
+    {
+        asyncResp->res.jsonValue["Description"] = *prettyName;
+    }
+}
+
 inline void getSensorFromDbus(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& sensorPath,
@@ -2431,6 +2452,7 @@ inline void getSensorFromDbus(
             sensor_utils::objectPropertiesToJson(
                 name, type, sensor_utils::ChassisSubNode::sensorsNode,
                 valuesDict, asyncResp->res.jsonValue, nullptr);
+            handleSensorStringProperties(asyncResp, valuesDict);
         });
 }
 
