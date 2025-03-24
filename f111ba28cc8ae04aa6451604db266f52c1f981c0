@@ -142,6 +142,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "785d0104_669f069f",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-24T11:47:31Z",
+      "side": 1,
+      "message": "OK I have changed to REDFISH_OEM_ROUTE.",
+      "parentUuid": "33e7dfa1_a9c35316",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 72
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22739c3b_8db2a1d4",
@@ -817,6 +841,30 @@
       "side": 1,
       "message": "Can we take up this has next enhancement to the framework ? would like to first get basic support with GET and PATCH working and merged.",
       "parentUuid": "d7a59bab_24acb05e",
+      "range": {
+        "startLine": 1508,
+        "startChar": 0,
+        "endLine": 1508,
+        "endChar": 44
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "195985eb_60dfd661",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-24T11:47:31Z",
+      "side": 1,
+      "message": "Since OEM is a fragment not sure we could have use case for DELETE handler to be invoked on OEM properties. For OEM POST actions we can have new URI registration and does not need a OEM specific handler. For POST on resource creation again not sure we will have a use case as the OEM properties are populated post the resource creation. Lets enhance it when we have strong use cases.",
+      "parentUuid": "59ddc6f0_a17cc655",
       "range": {
         "startLine": 1508,
         "startChar": 0,
