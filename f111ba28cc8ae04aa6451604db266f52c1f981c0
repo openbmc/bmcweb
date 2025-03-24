@@ -213,6 +213,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7e669fa_9ecf6125",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-24T08:29:05Z",
+      "side": 1,
+      "message": "The OEM route handling has no separate callbacks. The OEM is being called inside an existing main router handler function. The main route handler function just has App as reference and I would prefer not to change the signature of this callback to pass RedfishService instance.",
+      "parentUuid": "639fecf0_cf227d64",
+      "range": {
+        "startLine": 270,
+        "startChar": 18,
+        "endLine": 270,
+        "endChar": 30
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ffdc294_bc238c52",
@@ -637,6 +661,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8f871a6_6391a694",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-24T08:29:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9771e307_f0c33bff",
+      "range": {
+        "startLine": 1506,
+        "startChar": 4,
+        "endLine": 1506,
+        "endChar": 10
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ea6a9bb_5ecbb8ad",
@@ -755,6 +803,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ddc6f0_a17cc655",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 1508,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-24T08:29:05Z",
+      "side": 1,
+      "message": "Can we take up this has next enhancement to the framework ? would like to first get basic support with GET and PATCH working and merged.",
+      "parentUuid": "d7a59bab_24acb05e",
+      "range": {
+        "startLine": 1508,
+        "startChar": 0,
+        "endLine": 1508,
+        "endChar": 44
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e89c82e_2f9e7772",
@@ -816,6 +888,30 @@
       "side": 1,
       "message": "would like to see it kept out of webserver_run.  In theory RedfishService should manage all Redfish (including the things here that need to be moved).\n\nThe things haven\u0027t been moved because it would cause compile time issues at the moment, but eventually RedfishService will be hermetic.\n\nPlease move the init.  If it needs to be static, so be it, but call it through RedfishService init.",
       "parentUuid": "95467151_c33c87fb",
+      "range": {
+        "startLine": 133,
+        "startChar": 13,
+        "endLine": 133,
+        "endChar": 26
+      },
+      "revId": "f111ba28cc8ae04aa6451604db266f52c1f981c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b754fc5_5b516abc",
+        "filename": "src/webserver_run.cpp",
+        "patchSetId": 94
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-24T08:29:05Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f822e3f2_d90e9f7a",
       "range": {
         "startLine": 133,
         "startChar": 13,
