@@ -365,6 +365,26 @@ inline std::string getHealth(nlohmann::json& sensorJson,
     return "OK";
 }
 
+/**
+ * @brief Returns the description of a sensor.
+ * @param valuesDict Map of all sensor DBus values.
+ * @return Description of sensor.
+ */
+inline std::string getSensorDescription(
+    const ::dbus::utility::DBusPropertiesMap& valuesDict)
+{
+    std::optional<std::string> prettyName;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), valuesDict, "PrettyName", prettyName);
+
+    if (!prettyName.has_value() || !success)
+    {
+        messages::internalError();
+        return "";
+    }
+    return *prettyName;
+}
+
 inline void setLedState(nlohmann::json& sensorJson,
                         const InventoryItem* inventoryItem)
 {
@@ -431,6 +451,13 @@ inline void objectPropertiesToJson(
             std::string sensorNameEs(sensorName);
             std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
             sensorJson["Name"] = std::move(sensorNameEs);
+
+            std::string sensorDescription =
+                getSensorDescription(propertiesDict);
+            if (!sensorDescription.empty())
+            {
+                sensorJson["Description"] = std::move(sensorDescription);
+            }
         }
         else if (sensorType != "power")
         {
