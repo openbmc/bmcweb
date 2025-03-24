@@ -16,6 +16,29 @@
       "message": "Looks like we\u0027re still adding this at the main router level.  LIke we discussed, lets make this redfish specific.\n\nAt main router level, we don\u0027t know if:\nA. Responses are JSON\nB. Responses follow Redfish OEM semantics\n\nSo putting two assumptions at this level isn\u0027t really appropriate (and other subsystems like dbus might invent their own sub fragment handlers).\n\nMove this to RedfishService please, and call from SetupRedfishRouteWithDelegation",
       "revId": "c3a37f1341d8a1c37aa12118a9fdc7bb0bad3a8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ee7d6cf_9a6b26a9",
+        "filename": "meson.build",
+        "patchSetId": 108
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-24T18:37:08Z",
+      "side": 1,
+      "message": "Thank you for writing unit tests.  Much appreciated.",
+      "range": {
+        "startLine": 458,
+        "startChar": 31,
+        "endLine": 458,
+        "endChar": 55
+      },
+      "revId": "c3a37f1341d8a1c37aa12118a9fdc7bb0bad3a8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
