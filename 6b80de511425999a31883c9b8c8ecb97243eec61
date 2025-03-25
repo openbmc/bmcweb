@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6939cb06_77272653",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T14:48:02Z",
+      "side": 1,
+      "message": "Can you talk about the association this uses? Talk about the PDI ?",
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c64eefa_8d8ba399",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T14:48:02Z",
+      "side": 1,
+      "message": "Doesn\u0027t the redfish service validator also need to walk this schema?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 66
+      },
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0386fb59_30ec4108",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T14:48:02Z",
+      "side": 1,
+      "message": "Can you add a Redfish.md ?",
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db8df967_b805350b",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T14:48:02Z",
+      "side": 1,
+      "message": "Do you need Intel?",
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26b729ca_3c99bc46",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T14:48:02Z",
+      "side": 1,
+      "message": "nit pick, a space before {} makes these more readable",
+      "range": {
+        "startLine": 248,
+        "startChar": 69,
+        "endLine": 248,
+        "endChar": 71
+      },
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a1f9cb4_6875f57a",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T14:48:02Z",
+      "side": 1,
+      "message": "Typically we would have a HEAD too.",
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df71a23d_dc588e16",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T14:48:02Z",
+      "side": 1,
+      "message": "There isn\u0027t a getTrustedCompount privilege or whatever it would be ?",
+      "range": {
+        "startLine": 306,
+        "startChar": 41,
+        "endLine": 306,
+        "endChar": 58
+      },
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
