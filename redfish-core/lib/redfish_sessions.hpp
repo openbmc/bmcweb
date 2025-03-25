@@ -14,6 +14,7 @@
 #include "pam_authenticate.hpp"
 #include "privileges.hpp"
 #include "query.hpp"
+#include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
 #include "sessions.hpp"
 #include "utils/json_utils.hpp"
@@ -280,8 +281,7 @@ inline void handleSessionCollectionPost(
     bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
     if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
     {
-        messages::resourceAtUriUnauthorized(asyncResp->res, req.url(),
-                                            "Invalid username or password");
+        redfish::handleAccountLocked(username, asyncResp, req);
         return;
     }
 
