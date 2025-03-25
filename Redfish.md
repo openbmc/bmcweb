@@ -1120,6 +1120,7 @@ other.
 - HttpPushUri
 - HttpPushUriOptions
 - MaxImageSizeBytes
+- MultipartHttpPushUri
 - ServiceEnabled
 
 ### /redfish/v1/UpdateService/FirmwareInventory/
