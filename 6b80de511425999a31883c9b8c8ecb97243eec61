@@ -129,6 +129,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "495eaf40_ac4e296d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-25T16:12:27Z",
+      "side": 1,
+      "message": "Added changes in Redfish.md",
+      "parentUuid": "0386fb59_30ec4108",
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db8df967_b805350b",
@@ -187,6 +205,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00996b5a_f8e6f0ae",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-25T16:12:27Z",
+      "side": 1,
+      "message": "Addressed.",
+      "parentUuid": "26b729ca_3c99bc46",
+      "range": {
+        "startLine": 248,
+        "startChar": 69,
+        "endLine": 248,
+        "endChar": 71
+      },
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a1f9cb4_6875f57a",
@@ -217,6 +259,30 @@
       "writtenOn": "2025-03-25T14:48:02Z",
       "side": 1,
       "message": "There isn\u0027t a getTrustedCompount privilege or whatever it would be ?",
+      "range": {
+        "startLine": 306,
+        "startChar": 41,
+        "endLine": 306,
+        "endChar": 58
+      },
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a06e15bc_bcb9022e",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-25T16:12:27Z",
+      "side": 1,
+      "message": "Yes we have \nThanks for the catch.",
+      "parentUuid": "df71a23d_dc588e16",
       "range": {
         "startLine": 306,
         "startChar": 41,
