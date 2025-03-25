@@ -585,6 +585,8 @@ inline void objectPropertiesToJson(
             properties.emplace_back(
                 "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
                 "/Thresholds/LowerCritical/Reading"_json_pointer);
+            properties.emplace_back("xyz.openbmc_project.Sensor.PeakValue",
+                                    "PeakValue", "/PeakReading"_json_pointer);
 
             /* Add additional properties specific to sensorType */
             if (sensorType == "fan_tach")
