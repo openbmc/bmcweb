@@ -205,6 +205,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbd9fba2_76ee3441",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-03-25T14:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0567ce12_f846c244",
+      "revId": "55fcfa13bdf5f6c57d252b5be663cdaaddb41dbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "695293ca_7fa0cdcb",
@@ -218,6 +236,30 @@
       "writtenOn": "2025-03-25T13:11:01Z",
       "side": 1,
       "message": "It looks like this part is doing to find whether the user is locked or not, and handle the cases.\n\n\nCan be this like?\n\n```\n            bool userLocked \u003d false;\n            auto lockedIter \u003d userInfo.find(\"UserLockedForFailedAttempt\");\n            if (lockedIter !\u003d userInfo.end())\n            {\n                const bool* userLockedPtr \u003d std::get_if\u003cbool\u003e(\u0026lockedIter-\u003esecond);\n                if (userLockedPtr !\u003d nullptr)\n                {\n                    userLocked \u003d *userLockedPtr;\n                }    \n            }\n            \n            if(!userLocked) {\n                BMCWEB_LOG_DEBUG(\"User is not locked out\");\n                messages::resourceAtUriUnauthorized(\n                    asyncResp-\u003eres, req.url(), \"Invalid username or password\");\n                return;\n            }\n            \n            ... userlocked case ...\n            \n```",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 13
+      },
+      "revId": "55fcfa13bdf5f6c57d252b5be663cdaaddb41dbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5b3ce3b_df2e1320",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-03-25T14:02:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "695293ca_7fa0cdcb",
       "range": {
         "startLine": 282,
         "startChar": 0,
