@@ -1055,13 +1055,30 @@ inline void handleUpdateServicePost(
 
     BMCWEB_LOG_DEBUG("doPost: contentType={}", contentType);
 
-    // Make sure that content type is application/octet-stream or
-    // multipart/form-data
+    // Make sure that content type is application/octet-stream
     if (bmcweb::asciiIEquals(contentType, "application/octet-stream"))
     {
         doHTTPUpdate(asyncResp, req);
     }
-    else if (contentType.starts_with("multipart/form-data"))
+    else
+    {
+        BMCWEB_LOG_DEBUG("Bad content type specified:{}", contentType);
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+    }
+}
+
+inline void handleUpdateServiceMultipartUpdatePost(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    std::string_view contentType = req.getHeaderValue("Content-Type");
+    // Make sure that content type is multipart/form-data
+    if (contentType.starts_with("multipart/form-data"))
     {
         MultipartParser parser;
 
@@ -1102,7 +1119,7 @@ inline void handleUpdateServiceGet(
     asyncResp->res.jsonValue["HttpPushUri"] =
         "/redfish/v1/UpdateService/update";
     asyncResp->res.jsonValue["MultipartHttpPushUri"] =
-        "/redfish/v1/UpdateService/update";
+        "/redfish/v1/UpdateService/update-multipart";
 
     // UpdateService cannot be disabled
     asyncResp->res.jsonValue["ServiceEnabled"] = true;
@@ -1357,6 +1374,11 @@ inline void requestRoutesUpdateService(App& app)
         .privileges(redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleUpdateServicePost, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/update-multipart/")
+        .privileges(redfish::privileges::postUpdateService)
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleUpdateServiceMultipartUpdatePost, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/")
         .privileges(redfish::privileges::getSoftwareInventoryCollection)
