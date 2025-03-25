@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29e2000c_5108b5a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T20:40:32Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 21,
+        "startChar": 49,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d579f2ff_157c2e68",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T20:40:32Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 689,
+        "startChar": 48,
+        "endLine": 689,
+        "endChar": 57
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3d05147_201af53c",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T20:40:32Z",
+      "side": 1,
+      "message": "I haven\u0027t seen this in bmcweb.. The ec is useful but don\u0027t you already have the file and line number ? I guess I don\u0027t care much",
+      "range": {
+        "startLine": 692,
+        "startChar": 48,
+        "endLine": 692,
+        "endChar": 67
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "356bebb9_91141ac4",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T20:40:32Z",
+      "side": 1,
+      "message": "Typically we would also have HEAD here too \n\n    BMCWEB_ROUTE(app, \"/redfish/v1/Systems/\u003cstr\u003e/Memory/\u003cstr\u003e/MemoryMetrics\")\n        .privileges(redfish::privileges::headMemoryMetrics)\n        .methods(boost::beast::http::verb::head)(",
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
