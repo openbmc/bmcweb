@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "96a792fd_5f7ae95f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-25T04:26:30Z",
+      "side": 1,
+      "message": "marking unresolved",
+      "parentUuid": "efcb4d2d_a655567c",
+      "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1e7416c9_25e132c2",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 16
@@ -65,6 +83,30 @@
       "writtenOn": "2025-03-24T17:50:12Z",
       "side": 1,
       "message": "don\u0027t you already check this on 84 ?",
+      "range": {
+        "startLine": 77,
+        "startChar": 50,
+        "endLine": 77,
+        "endChar": 65
+      },
+      "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c804ec79_89952bb0",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-25T04:26:30Z",
+      "side": 1,
+      "message": "You are right. I have removed the extra validation check",
+      "parentUuid": "1e7416c9_25e132c2",
       "range": {
         "startLine": 77,
         "startChar": 50,
@@ -98,6 +140,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc2eb95c_4025d46f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-25T04:26:30Z",
+      "side": 1,
+      "message": "Yes the idea is to not process if the path if it doesn\u0027t implement the xyz.openbmc_project.Metric.Value interface",
+      "parentUuid": "edca8d99_32dbd600",
+      "range": {
+        "startLine": 678,
+        "startChar": 0,
+        "endLine": 683,
+        "endChar": 73
+      },
+      "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25610e30_8e40a102",
@@ -111,6 +177,24 @@
       "writtenOn": "2025-03-24T17:50:12Z",
       "side": 1,
       "message": "What you get an error above at checkDbusErrors ?",
+      "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7433d21a_0029c73b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-25T04:26:30Z",
+      "side": 1,
+      "message": "we arleady have validation in place for that.",
+      "parentUuid": "25610e30_8e40a102",
       "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -132,6 +216,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e0b58eb_3488eeef",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1057,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-25T04:26:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bcbef79d_22ff278f",
+      "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c54355d_d5b87e99",
@@ -145,6 +247,30 @@
       "writtenOn": "2025-03-24T17:50:12Z",
       "side": 1,
       "message": "Why do you need the dimmFound and if /else here? \n\nIf you find the dimmId call the function, if you don\u0027t fall through to resourceNotFound\n\nExamples below I think are cleaner code \n\nhttps://github.com/openbmc/bmcweb/blob/ab00bd8b43cbfba82c0baf5afe9f4c52ae934ca1/redfish-core/lib/processor.hpp#L1223\n\nhttps://github.com/openbmc/bmcweb/blob/ab00bd8b43cbfba82c0baf5afe9f4c52ae934ca1/redfish-core/lib/power_supply.hpp#L188",
+      "range": {
+        "startLine": 1068,
+        "startChar": 0,
+        "endLine": 1078,
+        "endChar": 5
+      },
+      "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18c5af8a_b9fc5251",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-25T04:26:30Z",
+      "side": 1,
+      "message": "Have optimized this piece of code. Please re-review",
+      "parentUuid": "3c54355d_d5b87e99",
       "range": {
         "startLine": 1068,
         "startChar": 0,
