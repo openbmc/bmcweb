@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "810a2115_f4c6f9e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-25T10:24:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a732c208_2258f939",
+      "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c37d18b2_ae999f1c",
@@ -49,6 +67,24 @@
       "writtenOn": "2025-03-24T17:50:12Z",
       "side": 1,
       "message": "This is WIP until it is tested and passes the redfish validator",
+      "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afbf28fc_4f1facf1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-25T10:24:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c37d18b2_ae999f1c",
       "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -84,6 +120,24 @@
       "side": 1,
       "message": "marking unresolved",
       "parentUuid": "efcb4d2d_a655567c",
+      "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "224e539b_f9edda8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-25T10:24:36Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "96a792fd_5f7ae95f",
       "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
