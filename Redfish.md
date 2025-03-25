@@ -1119,6 +1119,7 @@ other.
 - FirmwareInventory
 - HttpPushUri
 - HttpPushUriOptions
+- MultipartHttpPushUri
 - MaxImageSizeBytes
 - ServiceEnabled
 
