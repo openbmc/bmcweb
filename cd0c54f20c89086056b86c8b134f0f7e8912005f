@@ -16,6 +16,23 @@
       "message": "I think the symlinks seem still broken.\nFor example,\n\n```\n./redfish-core/schema/dmtf/json-schema/AccountService.v1_18_0.json\n\n./redfish-core/schema/dmtf/json-schema-installed/AccountService.v1_17_0.json -\u003e ../json-schema/AccountService.v1_17_0.json\n\n```",
       "revId": "cd0c54f20c89086056b86c8b134f0f7e8912005f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec958132_0467db65",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-25T19:27:29Z",
+      "side": 1,
+      "message": "Combining with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79180 is good.",
+      "revId": "cd0c54f20c89086056b86c8b134f0f7e8912005f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
