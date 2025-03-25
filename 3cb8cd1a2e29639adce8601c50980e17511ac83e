@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6a0c427c_129592ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T15:13:00Z",
+      "side": 1,
+      "message": "Seems to have some fundamental misunderstandings that bmcweb isn\u0027t JUST redfish that need to be corrected at a design level.\n\nTake a look at how 404 and 405 are implemented for Redfish (with a registered handler).  Presumably 401 would be the same for anything in the redfish/v1 tree",
+      "revId": "3cb8cd1a2e29639adce8601c50980e17511ac83e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78c49c24_ca70f4ec",
         "filename": "http/http_connection.hpp",
         "patchSetId": 8
@@ -37,6 +54,120 @@
         "endLine": 439,
         "endChar": 23
       },
+      "revId": "3cb8cd1a2e29639adce8601c50980e17511ac83e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a21a395b_7f546ee7",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T15:13:00Z",
+      "side": 1,
+      "message": "This code is now duplicated with the authorization layer, which pulls out the username and the password, please make sure there is only one implementation of this.",
+      "revId": "3cb8cd1a2e29639adce8601c50980e17511ac83e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "969fe362_e816c726",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T15:13:00Z",
+      "side": 1,
+      "message": "This doesn\u0027t belong in the connection class.  Http utility.",
+      "revId": "3cb8cd1a2e29639adce8601c50980e17511ac83e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "676140d1_9fd5ae3e",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T15:13:00Z",
+      "side": 1,
+      "message": "nit, most other places we use\n\nreturn \"\";\n\nbecause it\u0027s a little more clear.   Change if you like.",
+      "range": {
+        "startLine": 941,
+        "startChar": 19,
+        "endLine": 941,
+        "endChar": 21
+      },
+      "revId": "3cb8cd1a2e29639adce8601c50980e17511ac83e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b3d25de_92518e22",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T15:13:00Z",
+      "side": 1,
+      "message": "Remove.  This is not a redfish login route, it should not be responding with redfish.",
+      "revId": "3cb8cd1a2e29639adce8601c50980e17511ac83e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2ad596c_330bb207",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T15:13:00Z",
+      "side": 1,
+      "message": "Unsafe capture of req here.",
+      "range": {
+        "startLine": 299,
+        "startChar": 28,
+        "endLine": 299,
+        "endChar": 31
+      },
+      "revId": "3cb8cd1a2e29639adce8601c50980e17511ac83e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cab57ed0_ade249c3",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T15:13:00Z",
+      "side": 1,
+      "message": "Coding violation with 2 tiered embedded lambdas.  Please make these normal functions.\u0027\n\n\n\nalso another unsafe capture of req",
       "revId": "3cb8cd1a2e29639adce8601c50980e17511ac83e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
