@@ -26,6 +26,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac078f9a_d13093ee",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T22:08:45Z",
+      "side": 1,
+      "message": "This kind of generic thing is great to see!\n\nThis really doesn\u0027t belong in memory though, right?  Aside from the log that says \"no memory metrics\" this is really just a normal method call that could probably be used for anytime we call get, right?  Can we move it into a common function.",
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8a972dc_0bb214ab",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T22:08:45Z",
+      "side": 1,
+      "message": "Given we have one usage of this, can we avoid adding source_location for now?  When we have enough calls to this helper that it\u0027s needed, we can reevaluate",
+      "range": {
+        "startLine": 683,
+        "startChar": 31,
+        "endLine": 683,
+        "endChar": 34
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d579f2ff_157c2e68",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 21
@@ -65,6 +105,29 @@
         "startChar": 48,
         "endLine": 692,
         "endChar": 67
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f8889fd_ad27ca02",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T22:08:45Z",
+      "side": 1,
+      "message": "documented common error.",
+      "range": {
+        "startLine": 707,
+        "startChar": 17,
+        "endLine": 707,
+        "endChar": 26
       },
       "revId": "2733b50b326a50945825a5af145294096355fa72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
