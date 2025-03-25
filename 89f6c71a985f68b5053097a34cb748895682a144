@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bbdffbd6_a900f3f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-03-25T12:51:42Z",
+      "side": 1,
+      "message": "will create MR in phosphor-logging",
+      "parentUuid": "3868477e_b0c05501",
+      "revId": "89f6c71a985f68b5053097a34cb748895682a144",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f4cf06a_7a12272f",
         "filename": "redfish-core/include/registries_selector.hpp",
         "patchSetId": 4
@@ -118,6 +136,24 @@
       "writtenOn": "2025-03-20T15:20:08Z",
       "side": 1,
       "message": "This discussion is great, please have it in the correct repository (PDI/phosphor-logging).",
+      "parentUuid": "cba5f62e_d222e3fa",
+      "revId": "89f6c71a985f68b5053097a34cb748895682a144",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f80ed618_872812cb",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-03-25T12:51:42Z",
+      "side": 1,
+      "message": "I had discussion with Ed internally for the review and his comments were \n\nThe messages themselves I don\u0027t think are the important part or tall pole here.  The tall pole is:\nA. Determining how this integrates with the logging design\nB. Backend\nOne the registry is integrated with those two things, i\u0027ll review the patch (which at that point wouldnt\u0027 be a bmcweb patch anymore).",
       "parentUuid": "cba5f62e_d222e3fa",
       "revId": "89f6c71a985f68b5053097a34cb748895682a144",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
