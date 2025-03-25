@@ -55,6 +55,17 @@ enum class DateTimeSource{
     PTP,
 };
 
+enum class SecurityModeTypes{
+    Invalid,
+    FIPS_140_2,
+    FIPS_140_3,
+    CNSA_1_0,
+    CNSA_2_0,
+    SuiteB,
+    OEM,
+    Default,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ManagerType, {
     {ManagerType::Invalid, "Invalid"},
     {ManagerType::ManagementController, "ManagementController"},
@@ -101,6 +112,17 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DateTimeSource, {
     {DateTimeSource::Host, "Host"},
     {DateTimeSource::NTP, "NTP"},
     {DateTimeSource::PTP, "PTP"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(SecurityModeTypes, {
+    {SecurityModeTypes::Invalid, "Invalid"},
+    {SecurityModeTypes::FIPS_140_2, "FIPS_140_2"},
+    {SecurityModeTypes::FIPS_140_3, "FIPS_140_3"},
+    {SecurityModeTypes::CNSA_1_0, "CNSA_1_0"},
+    {SecurityModeTypes::CNSA_2_0, "CNSA_2_0"},
+    {SecurityModeTypes::SuiteB, "SuiteB"},
+    {SecurityModeTypes::OEM, "OEM"},
+    {SecurityModeTypes::Default, "Default"},
 });
 
 }

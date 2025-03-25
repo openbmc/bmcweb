@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_17_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_18_0.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -178,11 +178,13 @@
                 "OS",
                 "OEM",
                 "CPER",
-                "CPERSection"
+                "CPERSection",
+                "Device"
             ],
             "enumDescriptions": {
                 "CPER": "UEFI Common Platform Error Record.",
                 "CPERSection": "A Section of a UEFI Common Platform Error Record.",
+                "Device": "Device diagnostic data.",
                 "Manager": "Manager diagnostic data.",
                 "OEM": "OEM diagnostic data.",
                 "OS": "Operating system (OS) diagnostic data.",
@@ -190,11 +192,13 @@
             },
             "enumLongDescriptions": {
                 "CPER": "This value shall indicate the data provided at the URI specified by the `AdditionalDataURI` property is a complete UEFI Specification-defined Common Platform Error Record.  The CPER data shall contain a Record Header and at least one Section as defined by the UEFI Specification.",
-                "CPERSection": "This value shall indicate the data provided at the URI specified by the `AdditionalDataURI` property is a single Section of a UEFI Specification-defined Common Platform Error Record.  The CPER data shall contain one Section as defined by the UEFI Specification, with no Record Header."
+                "CPERSection": "This value shall indicate the data provided at the URI specified by the `AdditionalDataURI` property is a single Section of a UEFI Specification-defined Common Platform Error Record.  The CPER data shall contain one Section as defined by the UEFI Specification, with no Record Header.",
+                "Device": "This value shall indicate the data provided at the URI specified by the `AdditionalDataURI` property contains vendor-defined diagnostic data for a device."
             },
             "enumVersionAdded": {
                 "CPER": "v1_10_0",
-                "CPERSection": "v1_10_0"
+                "CPERSection": "v1_10_0",
+                "Device": "v1_18_0"
             },
             "type": "string"
         },
@@ -249,7 +253,7 @@
                 "AdditionalDataURI": {
                     "description": "The URI at which to access the additional data for this log entry, such as diagnostic data, image captures, or other files.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain the URI at which to access the additional data for this log entry, using the Redfish protocol and authentication methods.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property.",
+                    "longDescription": "This property shall contain the URI at which to access the additional data for this log entry, using the Redfish protocol and authentication methods.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain a Base64-encoded string, with padding characters, of the data retrieved from the URI specified by the `AdditionalDataURI` property.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -290,7 +294,7 @@
                 },
                 "DiagnosticData": {
                     "description": "A Base64-encoded set of diagnostic data associated with this log entry.",
-                    "longDescription": "This property shall contain a Base64-encoded string that represents diagnostic data associated with this log entry.  The contents shall depend on the value of the `DiagnosticDataType` property.  The length of the value should not exceed 4 KB.  Larger diagnostic data payloads should omit this property and use the `AdditionalDataURI` property to reference the data.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property.",
+                    "longDescription": "This property shall contain a Base64-encoded string, with padding characters, that represents diagnostic data associated with this log entry.  The contents shall depend on the value of the `DiagnosticDataType` property.  The length of the value should not exceed 4 KB.  Larger diagnostic data payloads should omit this property and use the `AdditionalDataURI` property to reference the data.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -308,7 +312,7 @@
                         }
                     ],
                     "description": "The type of data available in the `DiagnosticData` property or retrieved from the URI specified by the `AdditionalDataURI` property.",
-                    "longDescription": "This property shall contain the type of data available in the `DiagnosticData` property or retrieved from the URI specified by the `AdditionalDataURI` property.",
+                    "longDescription": "This property shall contain the type of data available in the `DiagnosticData` property or retrieved from the URI specified by the `AdditionalDataURI` property.  The `OriginOfCondition` property, if present, shall contain a link to the resource that represents the device from which the diagnostic data was collected.",
                     "readonly": true,
                     "versionAdded": "v1_7_0"
                 },
@@ -903,6 +907,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.3",
-    "title": "#LogEntry.v1_17_0.LogEntry"
+    "release": "2025.1",
+    "title": "#LogEntry.v1_18_0.LogEntry"
 }

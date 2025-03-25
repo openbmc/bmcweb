@@ -61,6 +61,15 @@ enum class CXLDynamicCapacityPolicies{
     TagBased,
 };
 
+enum class CXLProtocolVersion{
+    Invalid,
+    CXL1_1,
+    CXL2_0,
+    CXL3_0,
+    CXL3_1,
+    CXL3_2,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(PCIeTypes, {
     {PCIeTypes::Invalid, "Invalid"},
     {PCIeTypes::Gen1, "Gen1"},
@@ -113,6 +122,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CXLDynamicCapacityPolicies, {
     {CXLDynamicCapacityPolicies::Contiguous, "Contiguous"},
     {CXLDynamicCapacityPolicies::Prescriptive, "Prescriptive"},
     {CXLDynamicCapacityPolicies::TagBased, "TagBased"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(CXLProtocolVersion, {
+    {CXLProtocolVersion::Invalid, "Invalid"},
+    {CXLProtocolVersion::CXL1_1, "CXL1_1"},
+    {CXLProtocolVersion::CXL2_0, "CXL2_0"},
+    {CXLProtocolVersion::CXL3_0, "CXL3_0"},
+    {CXLProtocolVersion::CXL3_1, "CXL3_1"},
+    {CXLProtocolVersion::CXL3_2, "CXL3_2"},
 });
 
 }

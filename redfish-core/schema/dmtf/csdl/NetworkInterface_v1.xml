@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkInterface v1.2.2                                             -->
+<!--# Redfish Schema:  NetworkInterface v1.2.3                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -102,8 +102,8 @@
         </NavigationProperty>
         <NavigationProperty Name="NetworkDeviceFunctions" Type="NetworkDeviceFunctionCollection.NetworkDeviceFunctionCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the network device functions associated with this network interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `NetworkDeviceFunctionCollection`."/>
+          <Annotation Term="OData.Description" String="The link to the network device functions associated with this network interface.  This does not include Ethernet network device functions."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `NetworkDeviceFunctionCollection`.  The members of this collection shall not contain `NetworkDeviceFunction` resources whose `NetDevFuncType` property contains `Ethernet`."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -160,6 +160,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_0_6.NetworkInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that the members of `NetworkDeviceFunctions` do not contain Ethernet network device functions."/>
+      <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_0_7.NetworkInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_1_0">
@@ -226,6 +232,12 @@
       <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_1_5.NetworkInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that the members of `NetworkDeviceFunctions` do not contain Ethernet network device functions."/>
+      <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_1_6.NetworkInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -250,6 +262,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_2_1.NetworkInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that the members of `NetworkDeviceFunctions` do not contain Ethernet network device functions."/>
+      <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_2_2.NetworkInterface"/>
     </Schema>
 
   </edmx:DataServices>

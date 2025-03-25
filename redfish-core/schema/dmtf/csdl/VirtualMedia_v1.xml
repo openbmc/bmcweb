@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  VirtualMedia v1.6.4                                                 -->
+<!--# Redfish Schema:  VirtualMedia v1.6.5                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -70,7 +70,7 @@
 
       <Action Name="InsertMedia" IsBound="true">
         <Annotation Term="OData.Description" String="This action attaches remote media to virtual media."/>
-        <Annotation Term="OData.LongDescription" String="This action shall attach remote media to virtual media."/>
+        <Annotation Term="OData.LongDescription" String="This action shall attach remote media to virtual media.  Service should reject the request if the `Image` property in the resource does not contain `null`.  Users are expected to eject media prior to inserting new media."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -82,11 +82,11 @@
         <Parameter Name="VirtualMedia" Type="VirtualMedia.v1_1_0.Actions"/>
         <Parameter Name="Image" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The URI of the media to attach to the virtual media."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the URI of the media to be attached to the virtual media.  This parameter may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a `SoftwareInventory` resource."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the URI of the media to be attached to the virtual media.  This parameter may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a `SoftwareInventory` resource.  Services may reject this action if the URI is not accessible."/>
         </Parameter>
         <Parameter Name="Inserted" Type="Edm.Boolean">
-          <Annotation Term="OData.Description" String="An indication of whether the image is treated as inserted upon completion of the action.  The default is `true`."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain whether the image is treated as inserted upon completion of the action.  If the client does not provide this parameter, the service shall default this value to `true`."/>
+          <Annotation Term="OData.Description" String="An indication of whether the image is treated as mounted and visible to the host system upon completion of the action.  The default is `true`."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain whether the image is treated as mounted and visible to the host system upon completion of the action.  If the client does not provide this parameter, the service shall default this value to `true`."/>
         </Parameter>
         <Parameter Name="WriteProtected" Type="Edm.Boolean">
           <Annotation Term="OData.Description" String="An indication of whether the remote media is treated as write-protected.  The default is `true`."/>
@@ -170,7 +170,7 @@
         <Property Name="Image" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The URI of the location of the selected image."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the media attached to the virtual media.  This value may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a SoftwareInventory resource.  The value `null` shall indicate no image connection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the media attached to the virtual media.  This value may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a SoftwareInventory resource.  The value `null` shall indicate no image connection.  If the URI specified by this property is not accessible, services should populate the `Conditions` property in `Status` with messages that describe the condition."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="MediaTypes" Type="Collection(VirtualMedia.v1_0_0.MediaType)" Nullable="false">
@@ -185,8 +185,8 @@
         </Property>
         <Property Name="Inserted" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="An indication of whether virtual media is inserted into the virtual device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether media is present in the virtual media device."/>
+          <Annotation Term="OData.Description" String="An indication of whether the media is mounted and visible to the host system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the media is mounted and visible to the host system."/>
         </Property>
         <Property Name="WriteProtected" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -280,6 +280,12 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_0_9.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the `InsertMedia` action if there is already an image attached to the slot.  It was also created to clarify the usage of the `Inserted` property.  It was also created to give guidance to handling error conditions with accessing the URI of the image."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_0_10.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -356,6 +362,12 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_1_7.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the `InsertMedia` action if there is already an image attached to the slot.  It was also created to clarify the usage of the `Inserted` property.  It was also created to give guidance to handling error conditions with accessing the URI of the image."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_1_8.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -404,6 +416,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_2_6.VirtualMedia"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the `InsertMedia` action if there is already an image attached to the slot.  It was also created to clarify the usage of the `Inserted` property.  It was also created to give guidance to handling error conditions with accessing the URI of the image."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_2_7.VirtualMedia"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_3_0">
@@ -504,6 +522,12 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_3_4.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the `InsertMedia` action if there is already an image attached to the slot.  It was also created to clarify the usage of the `Inserted` property.  It was also created to give guidance to handling error conditions with accessing the URI of the image."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_3_5.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -557,6 +581,12 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_4_4.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the `InsertMedia` action if there is already an image attached to the slot.  It was also created to clarify the usage of the `Inserted` property.  It was also created to give guidance to handling error conditions with accessing the URI of the image."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_4_5.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -593,6 +623,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the description for the `SFTP` value to match IETF documentation.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_5_3.VirtualMedia"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the `InsertMedia` action if there is already an image attached to the slot.  It was also created to clarify the usage of the `Inserted` property.  It was also created to give guidance to handling error conditions with accessing the URI of the image."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_5_4.VirtualMedia"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_6_0">
@@ -653,6 +689,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the description for the `SFTP` value to match IETF documentation.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_6_3.VirtualMedia"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the behavior of the `InsertMedia` action if there is already an image attached to the slot.  It was also created to clarify the usage of the `Inserted` property.  It was also created to give guidance to handling error conditions with accessing the URI of the image."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_6_4.VirtualMedia"/>
     </Schema>
 
   </edmx:DataServices>

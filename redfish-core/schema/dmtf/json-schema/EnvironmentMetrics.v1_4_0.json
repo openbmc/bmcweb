@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.v1_3_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.v1_4_0.json",
     "$ref": "#/definitions/EnvironmentMetrics",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -79,13 +79,27 @@
                     ],
                     "description": "Absolute humidity (g/m^3).",
                     "excerptCopy": "SensorExcerpt",
-                    "longDescription": "This property shall contain the absolute (volumetric) humidity sensor reading, in grams per cubic meter units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `AbsoluteHumidity`.",
+                    "longDescription": "This property shall contain the absolute (volumetric) humidity sensor reading, in grams per cubic meter units, for this resource.  The value should reflect the humidity measured at the exterior of the containing `Chassis` instance, or the interior of the containing `Facility` instance.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `AbsoluteHumidity`.",
                     "versionAdded": "v1_2_0"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
                     "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "AmbientTemperatureCelsius": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/SensorExcerpt"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Ambient temperature (Celsius).",
+                    "excerptCopy": "SensorExcerpt",
+                    "longDescription": "This property shall contain the ambient temperature, in degree Celsius units, for this resource.  The ambient temperature shall be the temperature measured at a point exterior to the `Chassis` containing this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Temperature`.  This property shall only be present, if supported, in resource instances subordinate to a `Chassis` or `CoolingUnit` resource.",
+                    "versionAdded": "v1_4_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -162,7 +176,7 @@
                     ],
                     "description": "Humidity (percent).",
                     "excerptCopy": "SensorExcerpt",
-                    "longDescription": "This property shall contain the humidity, in percent units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Humidity`."
+                    "longDescription": "This property shall contain the humidity, in percent units, for this resource.  The value should reflect the humidity measured at the exterior of the containing `Chassis` instance, or the interior of the containing `Facility` instance.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Humidity`."
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -330,6 +344,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2022.2",
-    "title": "#EnvironmentMetrics.v1_3_2.EnvironmentMetrics"
+    "release": "2025.1",
+    "title": "#EnvironmentMetrics.v1_4_0.EnvironmentMetrics"
 }

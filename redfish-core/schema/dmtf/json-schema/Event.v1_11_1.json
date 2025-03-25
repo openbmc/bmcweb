@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Event.v1_11_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Event.v1_11_1.json",
     "$ref": "#/definitions/Event",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -225,7 +225,7 @@
                 "AdditionalDataURI": {
                     "description": "The URI at which to access the additional data for the event, such as diagnostic data, image captures, or other files.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain the URI at which to access the additional data for the event, using the Redfish protocol and authentication methods.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property.",
+                    "longDescription": "This property shall contain the URI at which to access the additional data for the event, using the Redfish protocol and authentication methods.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain a Base64-encoded string, with padding characters, of the data retrieved from the URI specified by the `AdditionalDataURI` property.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -249,7 +249,7 @@
                 },
                 "DiagnosticData": {
                     "description": "A Base64-encoded set of diagnostic data associated with this event.",
-                    "longDescription": "This property shall contain a Base64-encoded string that represents diagnostic data associated with this event.  The contents shall depend on the value of the `DiagnosticDataType` property.  The length of the value should not exceed 4 KB.  Larger diagnostic data payloads should omit this property and use the `AdditionalDataURI` property to reference the data.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property.",
+                    "longDescription": "This property shall contain a Base64-encoded string, with padding characters, that represents the diagnostic data associated with this event.  The contents shall depend on the value of the `DiagnosticDataType` property.  The length of the value should not exceed 4 KB.  Larger diagnostic data payloads should omit this property and use the `AdditionalDataURI` property to reference the data.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -495,5 +495,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2024.3",
-    "title": "#Event.v1_11_0.Event"
+    "title": "#Event.v1_11_1.Event"
 }

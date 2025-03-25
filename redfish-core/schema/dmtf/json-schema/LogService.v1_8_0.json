@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_8_0.json",
     "$ref": "#/definitions/LogService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -121,6 +121,12 @@
                     "longDescription": "This parameter shall contain the password to access the URI specified by the `TargetURI` parameter.",
                     "type": "string",
                     "versionAdded": "v1_6_0"
+                },
+                "TargetDevice": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef",
+                    "description": "The link to the device to collect diagnostic data.",
+                    "longDescription": "This parameter shall contain a link to the resource that represents the device to collect diagnostic data.  This parameter shall be required if `DiagnosticDataType` contains `Device`.",
+                    "versionAdded": "v1_8_0"
                 },
                 "TargetURI": {
                     "description": "The URI to access when sending the diagnostic data.",
@@ -242,13 +248,18 @@
                 "Manager",
                 "PreOS",
                 "OS",
-                "OEM"
+                "OEM",
+                "Device"
             ],
             "enumDescriptions": {
+                "Device": "Device diagnostic data.",
                 "Manager": "Manager diagnostic data.",
                 "OEM": "OEM diagnostic data.",
                 "OS": "Operating system (OS) diagnostic data.",
                 "PreOS": "Pre-OS diagnostic data."
+            },
+            "enumVersionAdded": {
+                "Device": "v1_8_0"
             },
             "type": "string"
         },
@@ -783,6 +794,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.1",
-    "title": "#LogService.v1_7_0.LogService"
+    "release": "2025.1",
+    "title": "#LogService.v1_8_0.LogService"
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.17.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.18.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -136,7 +136,6 @@
           </Annotation>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_0_0">
@@ -244,7 +243,6 @@
           </Annotation>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_0_1">
@@ -1178,6 +1176,44 @@
       <Annotation Term="OData.Description" String="This version was created to add `EDSFF` to `SlotType`."/>
 
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_16_0.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_18_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_17_0.PCIeDevice"/>
+
+      <ComplexType Name="CXLDevice" BaseType="PCIeDevice.v1_14_0.CXLDevice">
+        <Property Name="CurrentProtocolVersion" Type="PCIeDevice.v1_18_0.CXLProtocolVersion">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The revision of the CXL specification in use by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the negotiated CXL specification revision in use by this device."/>
+        </Property>
+        <Property Name="CapableProtocolVersions" Type="Collection(PCIeDevice.v1_18_0.CXLProtocolVersion)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of the CXL specification revisions supported by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the CXL specification revisions that this device supports."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="CXLProtocolVersion">
+        <Member Name="CXL1_1">
+          <Annotation Term="OData.Description" String="CXL protocol specification revision 1.1."/>
+        </Member>
+        <Member Name="CXL2_0">
+          <Annotation Term="OData.Description" String="CXL protocol specification revision 2.0."/>
+        </Member>
+        <Member Name="CXL3_0">
+          <Annotation Term="OData.Description" String="CXL protocol specification revision 3.0."/>
+        </Member>
+        <Member Name="CXL3_1">
+          <Annotation Term="OData.Description" String="CXL protocol specification revision 3.1."/>
+        </Member>
+        <Member Name="CXL3_2">
+          <Annotation Term="OData.Description" String="CXL protocol specification revision 3.2."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

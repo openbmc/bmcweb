@@ -2,7 +2,7 @@
     "$id": "http://redfish.dmtf.org/schemas/v1/RouteSetEntryCollection.json",
     "$ref": "#/definitions/RouteSetEntryCollection",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "RouteSetEntryCollection": {
             "anyOf": [

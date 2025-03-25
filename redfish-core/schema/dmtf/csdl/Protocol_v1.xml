@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -370,6 +370,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="2024.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="UEC">
+          <Annotation Term="OData.Description" String="Ultra Ethernet (UEC)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Ultra Ethernet specifications."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2025.1"/>
               </Record>
             </Collection>
           </Annotation>

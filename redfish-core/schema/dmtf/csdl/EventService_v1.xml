@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventService v1.10.3                                                -->
+<!--# Redfish Schema:  EventService v1.11.0                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -1104,6 +1104,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="Updated the description for `DeliveryRetryAttempts` to include subscription suspension."/>
       <EntityType Name="EventService" BaseType="EventService.v1_10_2.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+
+      <EntityType Name="EventService" BaseType="EventService.v1_10_3.EventService">
+        <Property Name="SSEIncludeOriginOfConditionSupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `includeoriginofcondition` query parameter for the `ServerSentEventUri`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the `includeoriginofcondition` query parameter for the `ServerSentEventUri`, as described by the Redfish Specification."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AccountService v1.17.0                                              -->
+<!--# Redfish Schema:  AccountService v1.18.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -650,8 +650,8 @@
         </Property>
         <Property Name="KerberosKeytab" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
-          <Annotation Term="OData.Description" String="The Base64-encoded version of the Kerberos keytab for this service.  A `PATCH` or `PUT` operation writes the keytab.  This property is `null` in responses."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded version of the Kerberos keytab for this service.  A `PATCH` or `PUT` operation writes the keytab.  The value shall be `null` in responses."/>
+          <Annotation Term="OData.Description" String="The Base64-encoded Kerberos keytab for this service.  A `PATCH` or `PUT` operation writes the keytab.  This property is `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, of the Kerberos keytab for this service.  A `PATCH` or `PUT` operation writes the keytab.  The value shall be `null` in responses."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="The OEM extension property."/>
@@ -821,6 +821,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_3_13.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_3_15">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_3_14.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -909,6 +915,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_4_11.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_4_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_4_12.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -989,6 +1001,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_5_10.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_5_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_5_11.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1055,6 +1073,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_6_9.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_6_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_6_10.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_0">
@@ -1130,6 +1154,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_7_9.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_7_10.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_8_0">
@@ -1278,6 +1308,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_8_7.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_8_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_8_8.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_9_0">
       <Annotation Term="Redfish.Release" String="2021.1"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1333,6 +1369,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_9_6.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_9_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_9_7.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -1373,7 +1415,7 @@
         <Property Name="OAuthServiceSigningKeys" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The Base64-encoded signing keys of the issuer of the OAuth 2.0 service.  Clients should configure this property if `Mode` contains `Offline`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string of the RFC7517-defined signing keys of the issuer of the OAuth 2.0 service.  Services shall verify the token provided in the `Authorization` header of the request with the value of this property.  If the `Mode` property contains the value `Discovery`, this property shall contain the keys found at the URI specified by the `jwks_uri` string from the OAuth 2.0 service's metadata and this property shall be read-only.  Clients should configure this property if `Mode` contains `Offline`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, of the RFC7517-defined signing keys of the issuer of the OAuth 2.0 service.  Services shall verify the token provided in the `Authorization` header of the request with the value of this property.  If the `Mode` property contains the value `Discovery`, this property shall contain the keys found at the URI specified by the `jwks_uri` string from the OAuth 2.0 service's metadata and this property shall be read-only.  Clients should configure this property if `Mode` contains `Offline`."/>
         </Property>
       </ComplexType>
 
@@ -1437,6 +1479,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_10_7.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_10_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_10_8.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1498,6 +1546,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_11_7.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_11_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_11_8.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_12_0">
@@ -1707,6 +1761,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_12_5.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_12_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_12_6.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_13_0">
       <Annotation Term="Redfish.Release" String="2023.1"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1776,6 +1836,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_13_4.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_13_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_13_5.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_14_0">
       <Annotation Term="Redfish.Release" String="2023.2"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1838,6 +1904,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_14_2.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_14_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_14_3.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_15_0">
       <Annotation Term="Redfish.Release" String="2023.3"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1876,6 +1948,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the reference made to `SecurityPolicy` in the `ClientCertificate` multi-factor authentication object."/>
       <EntityType Name="AccountService" BaseType="AccountService.v1_15_1.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_15_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_15_2.AccountService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_16_0">
@@ -1929,6 +2007,12 @@
       <EntityType Name="AccountService" BaseType="AccountService.v1_16_0.AccountService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_16_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_16_1.AccountService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_17_0">
       <Annotation Term="Redfish.Release" String="2024.4"/>
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -1939,6 +2023,30 @@
           <Annotation Term="OData.Description" String="The number of unique new passwords that need to be associated with a user account before a previous password is accepted when modifying the password.  If `0`, a user does not need to provide a unique new password."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the number of unique new passwords that need to be associated with a user account before a previous password is accepted when modifying the password.  If not `0`, services shall reject modification requests of the `Password` property and `ChangePassword` actions that contain a previously used password in the specified count.  If `0`, services shall not require the user to provide a unique new password.  This property does not apply to accounts from external account providers."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_17_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="AccountService" BaseType="AccountService.v1_17_0.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_18_0">
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="AccountService" BaseType="AccountService.v1_17_1.AccountService">
+        <Property Name="PasswordGuidanceMessage" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Password creation guidance for manager accounts."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain guidance for creating passwords that meet the password complexity or other related requirements for this service."/>
+        </Property>
+        <Property Name="PasswordGuidanceMessageId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A `MessageId` that contains password creation guidance for manager accounts."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a `MessageId` value that contains guidance for creating passwords that meet the password complexity or other related requirements for this service.  The value shall contain a `MessageId`, as defined in the 'MessageId format' clause of the Redfish Specification."/>
         </Property>
       </EntityType>
     </Schema>

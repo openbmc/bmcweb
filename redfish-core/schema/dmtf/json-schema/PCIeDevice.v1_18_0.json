@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_17_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.v1_18_0.json",
     "$ref": "#/definitions/PCIeDevice",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -51,6 +51,37 @@
                 }
             },
             "properties": {
+                "CapableProtocolVersions": {
+                    "description": "An array of the CXL specification revisions supported by this device.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/CXLProtocolVersion"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "This property shall contain an array of the CXL specification revisions that this device supports.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_18_0"
+                },
+                "CurrentProtocolVersion": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/CXLProtocolVersion"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The revision of the CXL specification in use by this device.",
+                    "longDescription": "This property shall contain the negotiated CXL specification revision in use by this device.",
+                    "readonly": true,
+                    "versionAdded": "v1_18_0"
+                },
                 "DeviceType": {
                     "anyOf": [
                         {
@@ -296,6 +327,23 @@
                 "Free": "This value shall indicate the CXL Specification-defined free add capacity policy.",
                 "Prescriptive": "This value shall indicate the CXL Specification-defined prescriptive add or release policy.",
                 "TagBased": "This value shall indicate the CXL Specification-defined tag-based release policy."
+            },
+            "type": "string"
+        },
+        "CXLProtocolVersion": {
+            "enum": [
+                "CXL1_1",
+                "CXL2_0",
+                "CXL3_0",
+                "CXL3_1",
+                "CXL3_2"
+            ],
+            "enumDescriptions": {
+                "CXL1_1": "CXL protocol specification revision 1.1.",
+                "CXL2_0": "CXL protocol specification revision 2.0.",
+                "CXL3_0": "CXL protocol specification revision 3.0.",
+                "CXL3_1": "CXL protocol specification revision 3.1.",
+                "CXL3_2": "CXL protocol specification revision 3.2."
             },
             "type": "string"
         },
@@ -1113,6 +1161,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.4",
-    "title": "#PCIeDevice.v1_17_0.PCIeDevice"
+    "release": "2025.1",
+    "title": "#PCIeDevice.v1_18_0.PCIeDevice"
 }
