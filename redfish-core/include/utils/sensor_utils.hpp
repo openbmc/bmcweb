@@ -23,6 +23,7 @@
 #include <format>
 #include <functional>
 #include <iterator>
+#include <map>
 #include <optional>
 #include <ranges>
 #include <set>
@@ -402,6 +403,53 @@ inline void setLedState(nlohmann::json& sensorJson,
         }
     }
 }
+/**
+ * @brief Fills the sensor json with peak reading details
+ * @param sensorJson The json object to fill peak reading details
+ * @param propertiesDict A dictionary of the properties to fetch peak reading
+ */
+
+inline void fillPeakReading(
+    nlohmann::json& sensorJson,
+    const dbus::utility::DBusPropertiesMap& propertiesDict)
+{
+    // First check if Limits property exists
+    const std::map<std::string, std::map<std::string, double>>* limits =
+        nullptr;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesDict, "Limits", limits);
+
+    if (!success || limits == nullptr)
+    {
+        BMCWEB_LOG_DEBUG("Limits property not found in sensor properties");
+        return;
+    }
+
+    // Find PeakValue in the Limits map
+    auto peakValueIt = limits->find(
+        "xyz.openbmc_project.Common.TelemetryLimits.LimitType.PeakValue");
+    if (peakValueIt == limits->end())
+    {
+        BMCWEB_LOG_DEBUG("PeakValue not found in Limits map");
+        return;
+    }
+
+    // Get Value and OccurrenceTime from PeakValue map
+    auto valueIt = peakValueIt->second.find(
+        "xyz.openbmc_project.Common.TelemetryLimits.LimitDataEnumType.Value");
+    auto timeIt = peakValueIt->second.find(
+        "xyz.openbmc_project.Common.TelemetryLimits.LimitDataEnumType.OccurrenceTime");
+
+    if (valueIt != peakValueIt->second.end())
+    {
+        sensorJson["PeakReading"] = valueIt->second;
+    }
+
+    if (timeIt != peakValueIt->second.end())
+    {
+        sensorJson["PeakReadingTime"] = static_cast<uint64_t>(timeIt->second);
+    }
+}
 
 /**
  * @brief Builds a json sensor representation of a sensor.
@@ -502,6 +550,7 @@ inline void objectPropertiesToJson(
             {
                 sensorJson["ReadingUnits"] = readingUnits;
             }
+            fillPeakReading(sensorJson, propertiesDict);
         }
         else if (sensorType == "temperature")
         {
@@ -585,6 +634,8 @@ inline void objectPropertiesToJson(
             properties.emplace_back(
                 "xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
                 "/Thresholds/LowerCritical/Reading"_json_pointer);
+            properties.emplace_back("xyz.openbmc_project.Sensor.PeakValue",
+                                    "PeakValue", "/PeakReading"_json_pointer);
 
             /* Add additional properties specific to sensorType */
             if (sensorType == "fan_tach")
