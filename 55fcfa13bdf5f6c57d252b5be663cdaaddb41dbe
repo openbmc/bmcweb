@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dc079fa_1d84239a",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-25T13:11:01Z",
+      "side": 1,
+      "message": "I think it is better to add a blank between functions.\n```\n}\n\n/* @brief ....\n```",
+      "revId": "55fcfa13bdf5f6c57d252b5be663cdaaddb41dbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28249844_355a4955",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-25T13:11:01Z",
+      "side": 1,
+      "message": "Would this be `(const crow::Request\u0026 reqIn)`?",
+      "revId": "55fcfa13bdf5f6c57d252b5be663cdaaddb41dbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3ae86ad_4b203133",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-25T13:11:01Z",
+      "side": 1,
+      "message": "Similarly, here to add another blank line",
+      "revId": "55fcfa13bdf5f6c57d252b5be663cdaaddb41dbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10fedc33_505d7e7b",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-25T13:11:01Z",
+      "side": 1,
+      "message": "A utility function for this async-call is written as `requestUserInfo()`.\nSo this can be written like\n\n```\nrequestUserInfo(user, asyncResp, \u003clambda-func\u003e);\n```",
+      "range": {
+        "startLine": 270,
+        "startChar": 0,
+        "endLine": 270,
+        "endChar": 52
+      },
+      "revId": "55fcfa13bdf5f6c57d252b5be663cdaaddb41dbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0567ce12_f846c244",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-25T13:11:01Z",
+      "side": 1,
+      "message": "This lambda is long.  This can be a separate function.",
+      "revId": "55fcfa13bdf5f6c57d252b5be663cdaaddb41dbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "695293ca_7fa0cdcb",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-25T13:11:01Z",
+      "side": 1,
+      "message": "It looks like this part is doing to find whether the user is locked or not, and handle the cases.\n\n\nCan be this like?\n\n```\n            bool userLocked \u003d false;\n            auto lockedIter \u003d userInfo.find(\"UserLockedForFailedAttempt\");\n            if (lockedIter !\u003d userInfo.end())\n            {\n                const bool* userLockedPtr \u003d std::get_if\u003cbool\u003e(\u0026lockedIter-\u003esecond);\n                if (userLockedPtr !\u003d nullptr)\n                {\n                    userLocked \u003d *userLockedPtr;\n                }    \n            }\n            \n            if(!userLocked) {\n                BMCWEB_LOG_DEBUG(\"User is not locked out\");\n                messages::resourceAtUriUnauthorized(\n                    asyncResp-\u003eres, req.url(), \"Invalid username or password\");\n                return;\n            }\n            \n            ... userlocked case ...\n            \n```",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 292,
+        "endChar": 13
+      },
+      "revId": "55fcfa13bdf5f6c57d252b5be663cdaaddb41dbe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
