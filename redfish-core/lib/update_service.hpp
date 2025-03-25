@@ -1060,7 +1060,24 @@ inline void handleUpdateServicePost(
     {
         doHTTPUpdate(asyncResp, req);
     }
-    else if (contentType.starts_with("multipart/form-data"))
+    else
+    {
+        BMCWEB_LOG_DEBUG("Bad content type specified:{}", contentType);
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+    }
+}
+
+inline void handleUpdateServiceMultipartUpdatePost(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    std::string_view contentType = req.getHeaderValue("Content-Type");
+
+    if (contentType.starts_with("multipart/form-data"))
     {
         MultipartParser parser;
 
@@ -1101,7 +1118,7 @@ inline void handleUpdateServiceGet(
     asyncResp->res.jsonValue["HttpPushUri"] =
         "/redfish/v1/UpdateService/update";
     asyncResp->res.jsonValue["MultipartHttpPushUri"] =
-        "/redfish/v1/UpdateService/update";
+        "/redfish/v1/UpdateService/update-multipart";
 
     // UpdateService cannot be disabled
     asyncResp->res.jsonValue["ServiceEnabled"] = true;
@@ -1356,6 +1373,11 @@ inline void requestRoutesUpdateService(App& app)
         .privileges(redfish::privileges::postUpdateService)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleUpdateServicePost, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/update-multipart")
+        .privileges(redfish::privileges::postUpdateService)
+        .methods(boost::beast::http::verb::post)(std::bind_front(
+            handleUpdateServiceMultipartUpdatePost, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/FirmwareInventory/")
         .privileges(redfish::privileges::getSoftwareInventoryCollection)
