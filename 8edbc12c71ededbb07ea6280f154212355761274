@@ -140,6 +140,30 @@
       },
       "revId": "8edbc12c71ededbb07ea6280f154212355761274",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b57240b3_10950c14",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-03-25T14:26:12Z",
+      "side": 0,
+      "message": "Maybe \n```\nsrcfiles_unittest\n```\n\nin ```meson.build``` can be modified to add the tests for this use-case\nwhen the options are set.\n\nSomething similar to:\n```\nif get_option(\u0027redfish-dbus-log\u0027).allowed()\n   srcfiles_unittest +\u003d files(\"test/redfish-core/include/dbus_log_watcher_test.cpp\")\nendif\n```\n\nThen it can be covered in CI and still work locally for people who disable the related meson options.",
+      "parentUuid": "eef71a2c_457dde41",
+      "range": {
+        "startLine": 26,
+        "startChar": 49,
+        "endLine": 26,
+        "endChar": 67
+      },
+      "revId": "8edbc12c71ededbb07ea6280f154212355761274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
