@@ -10,6 +10,7 @@
 #include "logging.hpp"
 #include "multipart_parser.hpp"
 #include "pam_authenticate.hpp"
+#include "redfish_util.hpp"
 #include "sessions.hpp"
 
 #include <security/_pam_types.h>
@@ -169,7 +170,7 @@ inline void handleLogin(const crow::Request& req,
         bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
         if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
         {
-            asyncResp->res.result(boost::beast::http::status::unauthorized);
+            redfish::handleAccountLocked(username, asyncResp, req);
         }
         else
         {
