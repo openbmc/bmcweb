@@ -11,6 +11,7 @@
 
 #include <boost/system/errc.hpp>
 #include <boost/system/error_code.hpp>
+#include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
@@ -18,6 +19,7 @@
 #include <charconv>
 #include <cstddef>
 #include <cstdint>
+#include <map>
 #include <memory>
 #include <ranges>
 #include <span>
@@ -26,6 +28,7 @@
 #include <system_error>
 #include <tuple>
 #include <utility>
+#include <variant>
 #include <vector>
 
 namespace redfish
@@ -256,6 +259,75 @@ void getPortNumber(const std::string& socketPath, CallbackFunc&& callback)
             }
             callback(ec, port);
         });
+}
+
+inline void handleAccountLocked(
+    const std::string_view username,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const crow::Request& req)
+{
+    const std::string user(username);
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, &req,
+         user](const boost::system::error_code& ec,
+               const std::map<std::string, dbus::utility::DbusVariantType>&
+                   userInfo) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("GetUserInfo failed...");
+                messages::resourceAtUriUnauthorized(
+                    asyncResp->res, req.url(), "Invalid username or password");
+                return;
+            }
+            bool userLocked = false;
+            const bool* userLockedPtr = nullptr;
+            auto lockedIter = userInfo.find("UserLockedForFailedAttempt");
+            if (lockedIter != userInfo.end())
+            {
+                userLockedPtr = std::get_if<bool>(&lockedIter->second);
+            }
+            if (userLockedPtr != nullptr)
+            {
+                userLocked = *userLockedPtr;
+            }
+
+            if (userLocked)
+            {
+                sdbusplus::asio::getProperty<uint32_t>(
+                    *crow::connections::systemBus,
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "xyz.openbmc_project.User.AccountPolicy",
+                    "AccountUnlockTimeout",
+                    [asyncResp, &req](const boost::system::error_code& ec1,
+                                      const uint32_t& unlockTimeout) {
+                        if (ec1)
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                        else
+                        {
+                            BMCWEB_LOG_DEBUG("unlock Timeout: {}",
+                                             unlockTimeout);
+                            std::string arg2 =
+                                "Account temporarily locked out for " +
+                                std::to_string(unlockTimeout) +
+                                " seconds"
+                                " due to multiple authentication failures";
+                            messages::resourceAtUriUnauthorized(
+                                asyncResp->res, req.url(), arg2);
+                        }
+                    });
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG("User is not locked out");
+                messages::resourceAtUriUnauthorized(
+                    asyncResp->res, req.url(), "Invalid username or password");
+            }
+        },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.Manager", "GetUserInfo", user);
 }
 
 } // namespace redfish
