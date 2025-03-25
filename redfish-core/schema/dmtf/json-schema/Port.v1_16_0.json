@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_15_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_16_0.json",
     "$ref": "#/definitions/Port",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -1261,9 +1261,23 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall contain the set of link speed and width pairs to which this port is restricted for autonegotiation purposes.",
+                    "longDescription": "This property shall contain the set of link speed and width pairs to which this port is restricted for autonegotiation purposes.  An empty array shall indicate autoconfiguration uses any available link speed and width pairs.",
                     "type": "array",
                     "versionAdded": "v1_3_0"
+                },
+                "LinkNetworkTechnology": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/LinkNetworkTechnology"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link network technology for this link configuration.",
+                    "longDescription": "This property shall contain the link network technology for this link configuration.",
+                    "readonly": true,
+                    "versionAdded": "v1_16_0"
                 }
             },
             "type": "object"
@@ -1523,6 +1537,27 @@
                     "type": "array",
                     "versionAdded": "v1_4_0"
                 },
+                "ConfiguredSpeedGbps": {
+                    "description": "The speed to which this port is configured to train when autonegotiation is disabled.",
+                    "longDescription": "This property shall contain the unidirectional speed to which this port is configured to train.  This value includes overhead associated with the protocol.  If `AutoSpeedNegotiationEnabled` contains `true`, this property shall be ignored.",
+                    "readonly": false,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "Gbit/s",
+                    "versionAdded": "v1_16_0"
+                },
+                "ConfiguredWidth": {
+                    "description": "The number of lanes, phys, or other physical transport links to which this port is configured to train when autonegotiation is disabled.",
+                    "longDescription": "This property shall contain the number of physical transport links to which this port is configured to train.  If `AutoSpeedNegotiationEnabled` contains `true`, this property shall be ignored.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_16_0"
+                },
                 "CurrentProtocolVersion": {
                     "description": "The protocol version being sent over this port.",
                     "longDescription": "This property shall contain the protocol version being sent over this port.  This property should only be used for protocols where the version and not the speed is of primary interest such as USB, DisplayPort, or HDMI.",
@@ -1679,8 +1714,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The link network technology capabilities of this port.",
-                    "longDescription": "This property shall contain a network technology capability of this port.",
+                    "description": "The current link network technology for this port.",
+                    "longDescription": "This property shall contain the current network technology for this port.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
                 },
@@ -2272,6 +2307,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.4",
-    "title": "#Port.v1_15_0.Port"
+    "release": "2025.1",
+    "title": "#Port.v1_16_0.Port"
 }

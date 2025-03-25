@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_10_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_11_0.json",
     "$ref": "#/definitions/EventService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -199,6 +199,16 @@
                     "description": "The set of properties that are supported in the `$filter` query parameter for the `ServerSentEventUri`.",
                     "longDescription": "This property shall contain the properties that are supported in the `$filter` query parameter for the URI indicated by the `ServerSentEventUri` property, as described by the Redfish Specification.",
                     "versionAdded": "v1_2_0"
+                },
+                "SSEIncludeOriginOfConditionSupported": {
+                    "description": "An indication of whether the service supports the `includeoriginofcondition` query parameter for the `ServerSentEventUri`.",
+                    "longDescription": "This property shall indicate whether the service supports the `includeoriginofcondition` query parameter for the `ServerSentEventUri`, as described by the Redfish Specification.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
                 },
                 "ServerSentEventUri": {
                     "description": "The link to a URI for receiving Server-Sent Event representations for the events that this service generates.",
@@ -666,6 +676,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.1",
-    "title": "#EventService.v1_10_3.EventService"
+    "release": "2025.1",
+    "title": "#EventService.v1_11_0.EventService"
 }

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_20_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_21_0.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -34,6 +34,9 @@
                 },
                 "#Manager.ResetToDefaults": {
                     "$ref": "#/definitions/ResetToDefaults"
+                },
+                "#Manager.UpdateSecurityMode": {
+                    "$ref": "#/definitions/UpdateSecurityMode"
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
@@ -640,6 +643,16 @@
                     "longDescription": "This property shall contain a link to a resource of type `ManagerNetworkProtocol`, which represents the network services for this manager.",
                     "readonly": true
                 },
+                "OEMSecurityMode": {
+                    "description": "The OEM-specific security compliance mode(s) that the manager is currently configured to enforce.",
+                    "longDescription": "This property shall the OEM-specific security compliance mode(s) that the manager is currently configured to enforce.  This property shall only be present if `SecurityMode` contains `OEM`.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_21_0"
+                },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
@@ -698,6 +711,13 @@
                         "null"
                     ],
                     "versionAdded": "v1_5_0"
+                },
+                "SecurityMode": {
+                    "$ref": "#/definitions/SecurityModeTypes",
+                    "description": "The security compliance mode that the manager is currently configured to enforce.",
+                    "longDescription": "This property shall contain the security compliance mode that the manager is currently configured to enforce.",
+                    "readonly": true,
+                    "versionAdded": "v1_21_0"
                 },
                 "SecurityPolicy": {
                     "anyOf": [
@@ -1000,7 +1020,7 @@
         "ResetToDefaults": {
             "additionalProperties": false,
             "description": "The reset action resets the manager settings to factory defaults.  This can cause the manager to reset.",
-            "longDescription": "This action shall reset the manager settings.  This action can impact other resources.",
+            "longDescription": "This action shall reset the manager settings.  This action may impact other resources.",
             "parameters": {
                 "ResetType": {
                     "$ref": "#/definitions/ResetToDefaultsType",
@@ -1047,6 +1067,36 @@
                 "PreserveNetwork": "Reset all settings except network settings to factory defaults.",
                 "PreserveNetworkAndUsers": "Reset all settings except network and local usernames/passwords to factory defaults.",
                 "ResetAll": "Reset all settings to factory defaults."
+            },
+            "type": "string"
+        },
+        "SecurityModeTypes": {
+            "enum": [
+                "FIPS_140_2",
+                "FIPS_140_3",
+                "CNSA_1_0",
+                "CNSA_2_0",
+                "SuiteB",
+                "OEM",
+                "Default"
+            ],
+            "enumDescriptions": {
+                "CNSA_1_0": "This security mode indicates the implementation meets NSA Commercial National Security Algorithm Suite 1.0 requirements.  This mode requires FIPS 140-2 compliance.",
+                "CNSA_2_0": "This security mode indicates the implementation meets NSA Commercial National Security Algorithm Suite 2.0 requirements.  This mode requires FIPS 140-3 compliance.",
+                "Default": "This security mode indicates the implementation is in a vendor-specific default security state that does not match any other value.",
+                "FIPS_140_2": "This security mode indicates the implementation complies with FIPS 140-2.",
+                "FIPS_140_3": "This security mode indicates the implementation complies with FIPS 140-3.",
+                "OEM": "This security mode indicates the implementation is in an OEM-specific security state.",
+                "SuiteB": "This security mode indicates the implementation meets NSA Suite B cryptographic standards for Top Secret installations.  This mode requires FIPS 140-2 compliance."
+            },
+            "enumLongDescriptions": {
+                "CNSA_1_0": "This value shall indicate that the implementation meets NSA Commercial National Security Algorithm Suite 1.0 requirements and FIPS 140-2 compliance.",
+                "CNSA_2_0": "This value shall indicate that the implementation meets NSA Commercial National Security Algorithm Suite 2.0 requirements and FIPS 140-3 compliance.",
+                "Default": "This value shall indicate that the implementation is in a vendor-specific default security state that does not match any other value.",
+                "FIPS_140_2": "This value shall indicate that the implementation complies with FIPS 140-2.",
+                "FIPS_140_3": "This value shall indicate that the implementation complies with FIPS 140-3.",
+                "OEM": "This value shall indicate that the implementation is in an OEM-specific security state.",
+                "SuiteB": "This value shall indicate that the implementation meets NSA Suite B cryptographic standards for Top Secret installations and FIPS 140-2 compliance."
             },
             "type": "string"
         },
@@ -1108,10 +1158,55 @@
                 }
             },
             "type": "object"
+        },
+        "UpdateSecurityMode": {
+            "additionalProperties": false,
+            "description": "The update security mode action updates the security mode for the manager.  This can cause the manager to reset and reset other settings to factory defaults.  Services might require the `ResetToDefaults` action to clear the security mode.",
+            "longDescription": "This action shall update the security mode for the manager.  Services may reset other settings to factory defaults.  Services may require the `ResetToDefaults` action to clear security settings.  This action may impact other resources.",
+            "parameters": {
+                "OEMSecurityMode": {
+                    "description": "The OEM-specific security mode to apply to the manager.",
+                    "longDescription": "This parameter shall contain the OEM-specific security mode to apply to the manager.  This parameter shall be required if `SecurityMode` is `OEM`.",
+                    "type": "string"
+                },
+                "SecurityMode": {
+                    "$ref": "#/definitions/SecurityModeTypes",
+                    "description": "The security mode to apply to the manager.",
+                    "longDescription": "This parameter shall contain the security mode to apply to the manager.",
+                    "requiredParameter": true
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_21_0"
         }
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.4",
-    "title": "#Manager.v1_20_0.Manager"
+    "release": "2025.1",
+    "title": "#Manager.v1_21_0.Manager"
 }

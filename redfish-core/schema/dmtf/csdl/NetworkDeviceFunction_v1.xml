@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkDeviceFunction v1.9.2                                        -->
+<!--# Redfish Schema:  NetworkDeviceFunction v1.10.0                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -60,6 +60,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AllowDenyCollection_v1.xml">
     <edmx:Include Namespace="AllowDenyCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Protocol_v1.xml">
+    <edmx:Include Namespace="Protocol"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -590,7 +593,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_0_11">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_0_10.NetworkDeviceFunction"/>
     </Schema>
 
@@ -678,7 +681,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_1_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_1_9.NetworkDeviceFunction"/>
     </Schema>
 
@@ -754,7 +757,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_2_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_2_9.NetworkDeviceFunction"/>
     </Schema>
 
@@ -857,7 +860,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_3_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_7.NetworkDeviceFunction"/>
     </Schema>
 
@@ -911,7 +914,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_4_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_4_4.NetworkDeviceFunction"/>
     </Schema>
 
@@ -1036,7 +1039,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_5_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_5_3.NetworkDeviceFunction"/>
     </Schema>
 
@@ -1062,7 +1065,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_6_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_6_1.NetworkDeviceFunction"/>
     </Schema>
 
@@ -1122,8 +1125,8 @@
 
       <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_5_0.Links">
         <NavigationProperty Name="EthernetInterfaces" Type="Collection(EthernetInterface.EthernetInterface)">
-          <Annotation Term="OData.Description" String="The links to Ethernet interfaces that were created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `EthernetInterface` that represent the virtual interfaces that were created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN."/>
+          <Annotation Term="OData.Description" String="The system Ethernet interfaces that use this network device function.  This includes physical Ethernet interfaces or VLANs.  Each member of this property is subordinate a `ComputerSystem` resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `EthernetInterface` that represent physical or VLAN Ethernet interfaces for systems that use this network device funciton.  The members shall be subordinate to a `ComputerSystem` resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="OffloadSystem" Type="ComputerSystem.ComputerSystem" Nullable="false">
@@ -1156,7 +1159,7 @@
         <NavigationProperty Name="EthernetInterfaces" Type="EthernetInterfaceCollection.EthernetInterfaceCollection">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Ethernet interface collection that contains the interfaces on this network device function."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a collection of type `EthernetInterfaceCollection` that represent the Ethernet interfaces present on this network device function.  This property shall not be present if this network device function is not referenced by a `NetworkInterface` resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a collection of type `EthernetInterfaceCollection` that represent the Ethernet interfaces present on this network device function.  This property shall only be present if this NetworkDeviceFunction is not associated with a ComputerSystem, such as when in a ResourcePool or representing an Ethernet based storage device."/>
         </NavigationProperty>
       </ComplexType>
     </Schema>
@@ -1169,8 +1172,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_7_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_7_1.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `EthernetInterfaces` property inside `Links` to reference both physical and VLAN system Ethernet interfaces."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_7_2.NetworkDeviceFunction"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_8_0">
@@ -1189,8 +1198,14 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_8_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_8_1.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `EthernetInterfaces` property inside `Links` to reference both physical and VLAN system Ethernet interfaces."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_8_2.NetworkDeviceFunction"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_9_0">
@@ -1225,8 +1240,29 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_9_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors.."/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the context of `MTUSize`.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_9_1.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `EthernetInterfaces` property inside `Links` to reference both physical and VLAN system Ethernet interfaces."/>
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_9_2.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_9_2.NetworkDeviceFunction"/>
+
+      <ComplexType Name="Ethernet" BaseType="NetworkDeviceFunction.v1_7_0.Ethernet">
+        <Property Name="AdditionalProtocols" Type="Collection(Protocol.Protocol)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The protocols supported by the hardware or firmware on the device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the list of protocols supported by the hardware or firmware on the device."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerDistributionMetrics v1.3.2                                     -->
+<!--# Redfish Schema:  PowerDistributionMetrics v1.4.0                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -171,6 +171,12 @@
       <EntityType Name="PowerDistributionMetrics" BaseType="PowerDistributionMetrics.v1_1_2.PowerDistributionMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistributionMetrics.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the HumidityPercent as a measurement exterior to a containing Chassis."/>
+      <EntityType Name="PowerDistributionMetrics" BaseType="PowerDistributionMetrics.v1_1_3.PowerDistributionMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistributionMetrics.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -202,6 +208,12 @@
       <EntityType Name="PowerDistributionMetrics" BaseType="PowerDistributionMetrics.v1_2_2.PowerDistributionMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistributionMetrics.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the HumidityPercent as a measurement exterior to a containing Chassis."/>
+      <EntityType Name="PowerDistributionMetrics" BaseType="PowerDistributionMetrics.v1_2_3.PowerDistributionMetrics"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistributionMetrics.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -225,6 +237,25 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="PowerDistributionMetrics" BaseType="PowerDistributionMetrics.v1_3_1.PowerDistributionMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistributionMetrics.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of the `HumidityPercent` and `AbsoluteHumidity` as measurements exterior to a containing `Chassis` resource."/>
+      <EntityType Name="PowerDistributionMetrics" BaseType="PowerDistributionMetrics.v1_3_2.PowerDistributionMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistributionMetrics.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+
+      <EntityType Name="PowerDistributionMetrics" BaseType="PowerDistributionMetrics.v1_3_3.PowerDistributionMetrics">
+        <NavigationProperty Name="AmbientTemperatureCelsius" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="Ambient temperature (Celsius)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the ambient temperature, in degree Celsius units, for this resource.  The ambient temperature shall be the temperature measured at a point exterior to the `Chassis` containing this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Temperature`.  This property shall only be present, if supported, in resource instances subordinate to a `Chassis` or `CoolingUnit` resource."/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

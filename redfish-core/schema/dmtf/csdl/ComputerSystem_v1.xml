@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.23.1                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.24.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -3726,6 +3726,18 @@
           <Annotation Term="OData.Description" String="Clear all logs."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the service clears all logs.  This shall be equivalent to performing the `ClearLog` action on each `LogService` resource."/>
         </Member>
+        <Member Name="TPM">
+          <Annotation Term="OData.Description" String="Reset all user-accessible TPM settings to factory defaults."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the service resets all user-accessible TPM device settings to factory defaults.  All sensitive data stored within the applicable TPMs shall be erased."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_24_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -3851,6 +3863,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="Updated the description of `PowerCycleDelaySeconds` to include the usage with `FullPowerCycle`."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_23_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_24_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `TPM` value to `DecommissionType`."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_23_1.ComputerSystem"/>
     </Schema>
 
   </edmx:DataServices>

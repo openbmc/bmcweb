@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_10_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_11_0.json",
     "$ref": "#/definitions/ManagerNetworkProtocol",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -317,6 +317,12 @@
                     "$ref": "#/definitions/Protocol",
                     "description": "The settings for this manager's virtual media support that apply to all system instances controlled by this manager.",
                     "longDescription": "This object shall contain the virtual media protocol settings for this manager.  The `Port` property shall contain the TCP port assigned for virtual media usage.  If multiple systems are supported by this manager, these properties, if present, apply to all instances of virtual media controlled by this manager."
+                },
+                "mDNS": {
+                    "$ref": "#/definitions/Protocol",
+                    "description": "The settings for this manager's Multicast Domain Name Service (mDNS) protocol support.",
+                    "longDescription": "This object shall contain the Multicast Domain Name Service (mDNS) settings for the manager.  The default `Port` property value should be `5353` for compatibility with established client implementations.",
+                    "versionAdded": "v1_11_0"
                 }
             },
             "required": [
@@ -968,6 +974,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.3",
-    "title": "#ManagerNetworkProtocol.v1_10_1.ManagerNetworkProtocol"
+    "release": "2025.1",
+    "title": "#ManagerNetworkProtocol.v1_11_0.ManagerNetworkProtocol"
 }

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkInterface.v1_2_2.json",
-    "$ref": "#/definitions/NetworkInterface",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerEquipment.v1_2_3.json",
+    "$ref": "#/definitions/PowerEquipment",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -26,8 +26,7 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "The available OEM-specific actions for this resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
-                    "versionAdded": "v1_1_0"
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
@@ -51,11 +50,17 @@
                 }
             },
             "properties": {
-                "NetworkAdapter": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.json#/definitions/NetworkAdapter",
-                    "description": "The link to the network adapter that contains this network interface.",
-                    "longDescription": "This property shall contain a link to a resource of type `NetworkAdapter` that represents the physical container associated with this network interface.",
-                    "readonly": true
+                "ManagedBy": {
+                    "description": "An array of links to the managers responsible for managing this power equipment.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `Manager` that represent the managers that manage this power equipment.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ManagedBy@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -65,10 +70,31 @@
             },
             "type": "object"
         },
-        "NetworkInterface": {
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "PowerEquipment": {
             "additionalProperties": false,
-            "description": "The `NetworkInterface` schema describes links to the network adapters, network ports, and network device functions, and represents the functionality available to the containing system.",
-            "longDescription": "This resource contains links to the network adapters, network ports, and network device functions, and represents the functionality available to the containing system.",
+            "description": "The `PowerEquipment` schema represents the set of power equipment managed by a Redfish service.",
+            "longDescription": "This resource shall represent the set of power equipment for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -99,8 +125,7 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "This property shall contain the available actions for this resource.",
-                    "versionAdded": "v1_1_0"
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "Description": {
                     "anyOf": [
@@ -111,6 +136,19 @@
                             "type": "null"
                         }
                     ],
+                    "readonly": true
+                },
+                "ElectricalBuses": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistributionCollection.json#/definitions/PowerDistributionCollection",
+                    "description": "The link to a collection of electrical buses.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of electrical bus units.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "FloorPDUs": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistributionCollection.json#/definitions/PowerDistributionCollection",
+                    "description": "A link to a collection of floor power distribution units.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of floor power distribution units.",
                     "readonly": true
                 },
                 "Id": {
@@ -126,36 +164,40 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
                 },
-                "NetworkDeviceFunctions": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunctionCollection.json#/definitions/NetworkDeviceFunctionCollection",
-                    "description": "The link to the network device functions associated with this network interface.",
-                    "longDescription": "This property shall contain a link to a resource collection of type `NetworkDeviceFunctionCollection`.",
-                    "readonly": true
-                },
-                "NetworkPorts": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPortCollection.json#/definitions/NetworkPortCollection",
-                    "deprecated": "This property has been deprecated in favor of the `Ports` property.",
-                    "description": "The link to the network ports associated with this network interface.",
-                    "longDescription": "This property shall contain a link to a resource collection of type `NetworkPortCollection`.",
-                    "readonly": true,
-                    "versionDeprecated": "v1_2_0"
-                },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
-                "Ports": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/PortCollection.json#/definitions/PortCollection",
-                    "description": "The link to the ports associated with this network interface.",
-                    "longDescription": "This property shall contain a link to a resource collection of type `PortCollection`.",
+                "PowerShelves": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistributionCollection.json#/definitions/PowerDistributionCollection",
+                    "description": "A link to a collection of power shelves.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of power shelves.",
                     "readonly": true,
-                    "versionAdded": "v1_2_0"
+                    "versionAdded": "v1_1_0"
+                },
+                "RackPDUs": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistributionCollection.json#/definitions/PowerDistributionCollection",
+                    "description": "A link to a collection of rack-level power distribution units.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of rack-level power distribution units.",
+                    "readonly": true
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the resource and its subordinate or dependent resources.",
                     "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "Switchgear": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistributionCollection.json#/definitions/PowerDistributionCollection",
+                    "description": "A link to a collection of switchgear.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of switchgear.",
+                    "readonly": true
+                },
+                "TransferSwitches": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PowerDistributionCollection.json#/definitions/PowerDistributionCollection",
+                    "description": "A link to a collection of transfer switches.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `PowerDistributionCollection` that contains a set of transfer switches.",
+                    "readonly": true
                 }
             },
             "required": [
@@ -165,31 +207,10 @@
                 "Name"
             ],
             "type": "object"
-        },
-        "OemActions": {
-            "additionalProperties": true,
-            "description": "The available OEM-specific actions for this resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
-            "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
-                    "description": "This property shall specify a valid odata or Redfish property.",
-                    "type": [
-                        "array",
-                        "boolean",
-                        "integer",
-                        "number",
-                        "null",
-                        "object",
-                        "string"
-                    ]
-                }
-            },
-            "properties": {},
-            "type": "object"
         }
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2020.3",
-    "title": "#NetworkInterface.v1_2_2.NetworkInterface"
+    "release": "2021.3",
+    "title": "#PowerEquipment.v1_2_3.PowerEquipment"
 }

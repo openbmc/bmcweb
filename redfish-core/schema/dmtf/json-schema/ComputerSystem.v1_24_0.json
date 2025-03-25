@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_23_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_24_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -1176,7 +1176,8 @@
                 "BIOSConfig",
                 "NetworkConfig",
                 "StorageConfig",
-                "Logs"
+                "Logs",
+                "TPM"
             ],
             "enumDescriptions": {
                 "All": "Remove all possible data from the server.",
@@ -1185,6 +1186,7 @@
                 "ManagerConfig": "Reset all manager settings to factory defaults.",
                 "NetworkConfig": "Reset all network settings to factory defaults.",
                 "StorageConfig": "Reset all storage controller settings to factory defaults.  This will leave the user data intact unless that is also specified.",
+                "TPM": "Reset all user-accessible TPM settings to factory defaults.",
                 "UserData": "Remove all possible data from block devices and other user or operating system accessible storage attached to the system."
             },
             "enumLongDescriptions": {
@@ -1194,7 +1196,11 @@
                 "ManagerConfig": "This value shall indicate the service resets all associated managers to factory defaults.  This shall be equivalent to performing the `ResetToDefaults` action on each `Manager` resource with the `ResetType` parameter of `ResetAll`.",
                 "NetworkConfig": "This value shall indicate the service resets all network settings on all network devices to factory defaults.",
                 "StorageConfig": "This value shall indicate the service resets all storage controller settings to factory defaults.  This shall be equivalent to performing the `ResetToDefaults` action on each `Storage` resource with the `ResetType` parameter of `PreserveVolumes`.",
+                "TPM": "This value shall indicate the service resets all user-accessible TPM device settings to factory defaults.  All sensitive data stored within the applicable TPMs shall be erased.",
                 "UserData": "This value shall indicate the service removes all the data from block devices or other operating system accessible storage.  If the `RequireSecureErase` parameter contains `true`, this shall be equivalent to performing the SecureErase action on each drive."
+            },
+            "enumVersionAdded": {
+                "TPM": "v1_24_0"
             },
             "type": "string"
         },
@@ -2615,6 +2621,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2024.3",
-    "title": "#ComputerSystem.v1_23_1.ComputerSystem"
+    "release": "2025.1",
+    "title": "#ComputerSystem.v1_24_0.ComputerSystem"
 }

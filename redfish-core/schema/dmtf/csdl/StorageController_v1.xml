@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  StorageController v1.9.0                                            -->
+<!--# Redfish Schema:  StorageController v1.9.1                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -165,7 +165,7 @@
         </Parameter>
         <Parameter Name="Data" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The data to transfer."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain a Base64-encoded string of the security protocol data to transfer."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a Base64-encoded string, with padding characters, of the security protocol data to transfer."/>
         </Parameter>
         <Annotation Term="Redfish.Revisions">
           <Collection>
@@ -867,7 +867,7 @@
         <Property Name="Data" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Base64-encoded security protocol data."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string of the security protocol data transferred from a controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, of the security protocol data transferred from a controller."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -896,6 +896,12 @@
       <EntityType Name="StorageController" BaseType="StorageController.v1_7_3.StorageController"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_7_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_7_4.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
@@ -912,6 +918,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_8_0.StorageController"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.4"/>
@@ -925,6 +937,12 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the NVMe discovery transport service identifier for the discovery controller.  This property shall only be present if `ControllerType` contains `Discovery`.  For NVMe/TCP, the default value should be `8009`."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="StorageController" BaseType="StorageController.v1_9_0.StorageController"/>
     </Schema>
 
   </edmx:DataServices>
