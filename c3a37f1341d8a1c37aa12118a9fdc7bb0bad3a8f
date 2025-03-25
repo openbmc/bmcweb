@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ec35ccde_924e5854",
+        "filename": "http/routing.hpp",
+        "patchSetId": 108
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-25T04:03:14Z",
+      "side": 1,
+      "message": "There is no change to the main router. I am not putting any OEM stuff at the main router level. The only change you see in routing.hpp is enhancement to class Trie to be able to manage and treat fragments. The oem routes re-uses the Ties class and maintains its own static model. All APIs of OEM router are already moved to RedfishService Class.",
+      "parentUuid": "37fa0baf_b96b654d",
+      "revId": "c3a37f1341d8a1c37aa12118a9fdc7bb0bad3a8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "8ee7d6cf_9a6b26a9",
         "filename": "meson.build",
         "patchSetId": 108
