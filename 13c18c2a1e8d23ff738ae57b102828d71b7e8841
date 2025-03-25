@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c18c54b9_f1ebe522",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T20:45:34Z",
+      "side": 1,
+      "message": "PDI needs to go first",
+      "revId": "13c18c2a1e8d23ff738ae57b102828d71b7e8841",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a42af5_bfa9f616",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T20:45:34Z",
+      "side": 1,
+      "message": "Needs to pass the Redfish Service Validator",
+      "revId": "13c18c2a1e8d23ff738ae57b102828d71b7e8841",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "169c62ad_38bdcae2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T20:45:34Z",
+      "side": 1,
+      "message": "Overall seems reasonable to me. Testing and PDI.",
+      "revId": "13c18c2a1e8d23ff738ae57b102828d71b7e8841",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
