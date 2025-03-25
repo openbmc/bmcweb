@@ -244,6 +244,7 @@ Fields common to all schemas
 - Status
 - Thermal
 - ThermalSubsystem
+- TrustedComponents
 - UUID
 - Version
 
@@ -460,6 +461,24 @@ Fields common to all schemas
 - SerialNumber
 - SparePartNumber
 - Status
+
+### /redfish/v1/Chassis/{ChassisId}/TrustedComponents
+
+#### TrustedComponentsCollection
+
+- Members
+- `Members@odata.count`
+- Name
+
+### /redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentsId}
+
+#### TrustedComponents
+
+- Description
+- FirmwareVersion
+- Id
+- Manufacture
+- Name
 
 ### /redfish/v1/EventService/
 
