@@ -605,7 +605,9 @@ inline void handleChassisGetSubTree(
                     "/redfish/v1/Chassis/{}/Drives", chassisId);
                 asyncResp->res.jsonValue["Drives"] = std::move(reference);
             });
-
+        asyncResp->res.jsonValue["TrustedComponents"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Chassis/{}/TrustedComponents",
+                                chassisId);
         const std::string& connectionName = connectionNames[0].first;
 
         const std::vector<std::string>& interfaces2 = connectionNames[0].second;

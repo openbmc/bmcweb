@@ -49,6 +49,7 @@
 #include "thermal_metrics.hpp"
 #include "thermal_subsystem.hpp"
 #include "trigger.hpp"
+#include "trusted_components.hpp"
 #include "update_service.hpp"
 #include "virtual_media.hpp"
 
@@ -230,6 +231,8 @@ RedfishService::RedfishService(App& app)
     requestRoutesMetricReport(app);
     requestRoutesTriggerCollection(app);
     requestRoutesTrigger(app);
+
+    requestRoutesTrustedComponents(app);
 
     // Note, this must be the last route registered
     requestRoutesRedfish(app);
