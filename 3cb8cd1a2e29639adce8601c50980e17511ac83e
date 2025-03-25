@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "364b4512_b7f65c6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T15:08:33Z",
+      "side": 1,
+      "message": "Please wrap your commit message appropriately.  This looks like it was wrapped manually or on the wrong length",
+      "revId": "3cb8cd1a2e29639adce8601c50980e17511ac83e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c49c24_ca70f4ec",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-25T15:08:33Z",
+      "side": 1,
+      "message": "Redfish should not be called from a common layer, because this connection class is used for more than redfish, and this would cause the dbus-rest API, static file hosting, and other things to respond with redfish rather than the correct code.  Take a look at how 404/405 is handled, and implement something similar for 401",
+      "range": {
+        "startLine": 439,
+        "startChar": 16,
+        "endLine": 439,
+        "endChar": 23
+      },
+      "revId": "3cb8cd1a2e29639adce8601c50980e17511ac83e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
