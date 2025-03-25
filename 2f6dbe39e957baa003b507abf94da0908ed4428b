@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a732c208_2258f939",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-25T04:32:33Z",
+      "side": 1,
+      "message": "updated the commit message with required details",
+      "parentUuid": "31407778_5a540010",
+      "revId": "2f6dbe39e957baa003b507abf94da0908ed4428b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c37d18b2_ae999f1c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 16
