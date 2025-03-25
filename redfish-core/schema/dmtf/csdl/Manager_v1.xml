@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.20.0                                                     -->
+<!--# Redfish Schema:  Manager v1.21.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -145,7 +145,7 @@
 
       <Action Name="ResetToDefaults" IsBound="true">
         <Annotation Term="OData.Description" String="The reset action resets the manager settings to factory defaults.  This can cause the manager to reset."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset the manager settings.  This action can impact other resources."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the manager settings.  This action may impact other resources."/>
         <Parameter Name="Manager" Type="Manager.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Manager.v1_8_0.ResetToDefaultsType" Nullable="false">
           <Annotation Term="OData.Description" String="The type of reset to defaults."/>
@@ -156,6 +156,28 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_8_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="UpdateSecurityMode" IsBound="true">
+        <Annotation Term="OData.Description" String="The update security mode action updates the security mode for the manager.  This can cause the manager to reset and reset other settings to factory defaults.  Services might require the `ResetToDefaults` action to clear the security mode."/>
+        <Annotation Term="OData.LongDescription" String="This action shall update the security mode for the manager.  Services may reset other settings to factory defaults.  Services may require the `ResetToDefaults` action to clear security settings.  This action may impact other resources."/>
+        <Parameter Name="Manager" Type="Manager.v1_0_0.Actions"/>
+        <Parameter Name="SecurityMode" Type="Manager.v1_21_0.SecurityModeTypes" Nullable="false">
+          <Annotation Term="OData.Description" String="The security mode to apply to the manager."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the security mode to apply to the manager."/>
+        </Parameter>
+        <Parameter Name="OEMSecurityMode" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The OEM-specific security mode to apply to the manager."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the OEM-specific security mode to apply to the manager.  This parameter shall be required if `SecurityMode` is `OEM`."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_21_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -1923,6 +1945,56 @@
         </Member>
         <Member Name="PTP">
           <Annotation Term="OData.Description" String="The date and time source is a Precision Time Protocol (PTP) server."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `UpdateSecurityMode` action."/>
+
+      <EntityType Name="Manager" BaseType="Manager.v1_20_0.Manager">
+        <Property Name="SecurityMode" Type="Manager.v1_21_0.SecurityModeTypes" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The security compliance mode that the manager is currently configured to enforce."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the security compliance mode that the manager is currently configured to enforce."/>
+        </Property>
+        <Property Name="OEMSecurityMode" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The OEM-specific security compliance mode(s) that the manager is currently configured to enforce."/>
+          <Annotation Term="OData.LongDescription" String="This property shall the OEM-specific security compliance mode(s) that the manager is currently configured to enforce.  This property shall only be present if `SecurityMode` contains `OEM`."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="SecurityModeTypes">
+        <Member Name="FIPS_140_2">
+          <Annotation Term="OData.Description" String="This security mode indicates the implementation complies with FIPS 140-2."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the implementation complies with FIPS 140-2."/>
+        </Member>
+        <Member Name="FIPS_140_3">
+          <Annotation Term="OData.Description" String="This security mode indicates the implementation complies with FIPS 140-3."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the implementation complies with FIPS 140-3."/>
+        </Member>
+        <Member Name="CNSA_1_0">
+          <Annotation Term="OData.Description" String="This security mode indicates the implementation meets NSA Commercial National Security Algorithm Suite 1.0 requirements.  This mode requires FIPS 140-2 compliance."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the implementation meets NSA Commercial National Security Algorithm Suite 1.0 requirements and FIPS 140-2 compliance."/>
+        </Member>
+        <Member Name="CNSA_2_0">
+          <Annotation Term="OData.Description" String="This security mode indicates the implementation meets NSA Commercial National Security Algorithm Suite 2.0 requirements.  This mode requires FIPS 140-3 compliance."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the implementation meets NSA Commercial National Security Algorithm Suite 2.0 requirements and FIPS 140-3 compliance."/>
+        </Member>
+        <Member Name="SuiteB">
+          <Annotation Term="OData.Description" String="This security mode indicates the implementation meets NSA Suite B cryptographic standards for Top Secret installations.  This mode requires FIPS 140-2 compliance."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the implementation meets NSA Suite B cryptographic standards for Top Secret installations and FIPS 140-2 compliance."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="This security mode indicates the implementation is in an OEM-specific security state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the implementation is in an OEM-specific security state."/>
+        </Member>
+        <Member Name="Default">
+          <Annotation Term="OData.Description" String="This security mode indicates the implementation is in a vendor-specific default security state that does not match any other value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the implementation is in a vendor-specific default security state that does not match any other value."/>
         </Member>
       </EnumType>
     </Schema>

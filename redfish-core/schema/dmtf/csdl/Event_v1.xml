@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Event v1.11.0                                                       -->
+<!--# Redfish Schema:  Event v1.11.1                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -836,7 +836,7 @@
         <Property Name="DiagnosticData" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A Base64-encoded set of diagnostic data associated with this event."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string that represents diagnostic data associated with this event.  The contents shall depend on the value of the `DiagnosticDataType` property.  The length of the value should not exceed 4 KB.  Larger diagnostic data payloads should omit this property and use the `AdditionalDataURI` property to reference the data.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, that represents the diagnostic data associated with this event.  The contents shall depend on the value of the `DiagnosticDataType` property.  The length of the value should not exceed 4 KB.  Larger diagnostic data payloads should omit this property and use the `AdditionalDataURI` property to reference the data.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property."/>
         </Property>
         <Property Name="DiagnosticDataType" Type="Event.v1_8_0.DiagnosticDataTypes">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -852,7 +852,7 @@
         <Property Name="AdditionalDataURI" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The URI at which to access the additional data for the event, such as diagnostic data, image captures, or other files."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the additional data for the event, using the Redfish protocol and authentication methods.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the additional data for the event, using the Redfish protocol and authentication methods.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain a Base64-encoded string, with padding characters, of the data retrieved from the URI specified by the `AdditionalDataURI` property."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
       </EntityType>
@@ -922,6 +922,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_8_2.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="Event" BaseType="Event.v1_8_3.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_8_3.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -956,6 +963,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_9_1.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="Event" BaseType="Event.v1_9_2.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_9_2.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -977,6 +991,13 @@
       <EntityType Name="EventRecord" BaseType="Event.v1_10_0.EventRecord"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="Event" BaseType="Event.v1_10_1.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_10_1.EventRecord"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
@@ -995,6 +1016,13 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the URL to the authentication service that is associated with the username property.  This should be used for events that result from a user action."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Event.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="Event" BaseType="Event.v1_11_0.Event"/>
+      <EntityType Name="EventRecord" BaseType="Event.v1_11_0.EventRecord"/>
     </Schema>
 
   </edmx:DataServices>

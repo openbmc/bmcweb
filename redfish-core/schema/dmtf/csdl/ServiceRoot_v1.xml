@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ServiceRoot v1.17.0                                                 -->
+<!--# Redfish Schema:  ServiceRoot v1.18.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -1268,6 +1268,21 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether the service supports the `()`, `and`, `not`, and `or` options for the `$filter` query parameter."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the Redfish Specification-defined grouping operators `()`, `and`, `not`, and `or` options for the `$filter` query parameter.  This property shall not be present if `FilterQuery` contains `false`."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_18_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_17_0.ServiceRoot"/>
+
+      <ComplexType Name="ProtocolFeaturesSupported" BaseType="ServiceRoot.v1_17_0.ProtocolFeaturesSupported">
+        <Property Name="IncludeOriginOfConditionQuery" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports the `includeoriginofcondition` query parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the `includeoriginofcondition` query parameter."/>
         </Property>
       </ComplexType>
     </Schema>

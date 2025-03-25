@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  License v1.1.3                                                      -->
+<!--# Redfish Schema:  License v1.1.4                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -111,7 +111,7 @@
         <Property Name="LicenseString" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Base64-encoded string of the license."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the Base64-encoded string of the license.  This property shall not appear in response payloads."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Base64-encoded string, with padding characters, of the license.  This property shall not appear in response payloads."/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
         </Property>
         <Property Name="EntitlementId" Type="Edm.String">
@@ -288,6 +288,12 @@
       <EntityType Name="License" BaseType="License.v1_0_3.License"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="License.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="License" BaseType="License.v1_0_4.License"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="License.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -319,6 +325,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="License" BaseType="License.v1_1_2.License"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="License.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="License" BaseType="License.v1_1_3.License"/>
     </Schema>
 
   </edmx:DataServices>

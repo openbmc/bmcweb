@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_6_4.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_6_5.json",
     "$ref": "#/definitions/VirtualMedia",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -106,17 +106,17 @@
         "InsertMedia": {
             "additionalProperties": false,
             "description": "This action attaches remote media to virtual media.",
-            "longDescription": "This action shall attach remote media to virtual media.",
+            "longDescription": "This action shall attach remote media to virtual media.  Service should reject the request if the `Image` property in the resource does not contain `null`.  Users are expected to eject media prior to inserting new media.",
             "parameters": {
                 "Image": {
                     "description": "The URI of the media to attach to the virtual media.",
-                    "longDescription": "This parameter shall contain the URI of the media to be attached to the virtual media.  This parameter may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a `SoftwareInventory` resource.",
+                    "longDescription": "This parameter shall contain the URI of the media to be attached to the virtual media.  This parameter may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a `SoftwareInventory` resource.  Services may reject this action if the URI is not accessible.",
                     "requiredParameter": true,
                     "type": "string"
                 },
                 "Inserted": {
-                    "description": "An indication of whether the image is treated as inserted upon completion of the action.  The default is `true`.",
-                    "longDescription": "This parameter shall contain whether the image is treated as inserted upon completion of the action.  If the client does not provide this parameter, the service shall default this value to `true`.",
+                    "description": "An indication of whether the image is treated as mounted and visible to the host system upon completion of the action.  The default is `true`.",
+                    "longDescription": "This parameter shall contain whether the image is treated as mounted and visible to the host system upon completion of the action.  If the client does not provide this parameter, the service shall default this value to `true`.",
                     "type": "boolean"
                 },
                 "Password": {
@@ -356,7 +356,7 @@
                 "Image": {
                     "description": "The URI of the location of the selected image.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain the URI of the media attached to the virtual media.  This value may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a SoftwareInventory resource.  The value `null` shall indicate no image connection.",
+                    "longDescription": "This property shall contain the URI of the media attached to the virtual media.  This value may specify an absolute URI to remote media or a relative URI to media local to the implementation.  A service may allow a relative URI to reference a SoftwareInventory resource.  The value `null` shall indicate no image connection.  If the URI specified by this property is not accessible, services should populate the `Conditions` property in `Status` with messages that describe the condition.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -373,8 +373,8 @@
                     ]
                 },
                 "Inserted": {
-                    "description": "An indication of whether virtual media is inserted into the virtual device.",
-                    "longDescription": "This property shall indicate whether media is present in the virtual media device.",
+                    "description": "An indication of whether the media is mounted and visible to the host system.",
+                    "longDescription": "This property shall indicate whether the media is mounted and visible to the host system.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -485,5 +485,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2022.3",
-    "title": "#VirtualMedia.v1_6_4.VirtualMedia"
+    "title": "#VirtualMedia.v1_6_5.VirtualMedia"
 }

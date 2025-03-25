@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/StorageController.v1_9_1.json",
     "$ref": "#/definitions/StorageController",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "ANAAccessState": {
             "enum": [
@@ -873,7 +873,7 @@
             "properties": {
                 "Data": {
                     "description": "The Base64-encoded security protocol data.",
-                    "longDescription": "This property shall contain a Base64-encoded string of the security protocol data transferred from a controller.",
+                    "longDescription": "This property shall contain a Base64-encoded string, with padding characters, of the security protocol data transferred from a controller.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_7_0"
@@ -888,7 +888,7 @@
             "parameters": {
                 "Data": {
                     "description": "The data to transfer.",
-                    "longDescription": "This parameter shall contain a Base64-encoded string of the security protocol data to transfer.",
+                    "longDescription": "This parameter shall contain a Base64-encoded string, with padding characters, of the security protocol data to transfer.",
                     "requiredParameter": true,
                     "type": "string"
                 },
@@ -1208,5 +1208,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2024.4",
-    "title": "#StorageController.v1_9_0.StorageController"
+    "title": "#StorageController.v1_9_1.StorageController"
 }

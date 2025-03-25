@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.17.0                                                    -->
+<!--# Redfish Schema:  LogEntry v1.18.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -1372,13 +1372,13 @@
         <Property Name="AdditionalDataURI" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The URI at which to access the additional data for this log entry, such as diagnostic data, image captures, or other files."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the additional data for this log entry, using the Redfish protocol and authentication methods.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the additional data for this log entry, using the Redfish protocol and authentication methods.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain a Base64-encoded string, with padding characters, of the data retrieved from the URI specified by the `AdditionalDataURI` property."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="DiagnosticDataType" Type="LogEntry.v1_7_0.LogDiagnosticDataTypes">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The type of data available in the `DiagnosticData` property or retrieved from the URI specified by the `AdditionalDataURI` property."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the type of data available in the `DiagnosticData` property or retrieved from the URI specified by the `AdditionalDataURI` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of data available in the `DiagnosticData` property or retrieved from the URI specified by the `AdditionalDataURI` property.  The `OriginOfCondition` property, if present, shall contain a link to the resource that represents the device from which the diagnostic data was collected."/>
         </Property>
         <Property Name="OEMDiagnosticDataType" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1420,6 +1420,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Device">
+          <Annotation Term="OData.Description" String="Device diagnostic data."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the data provided at the URI specified by the `AdditionalDataURI` property contains vendor-defined diagnostic data for a device."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_18_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1469,6 +1481,18 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_7_6.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_7_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_7_7.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_7_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_7_8.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -1516,6 +1540,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_8_5.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_8_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_8_6.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_8_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_8_7.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_9_0">
@@ -1578,6 +1614,18 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_6.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_9_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_7.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_9_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_9_8.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -1626,6 +1674,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_6.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_7.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_10_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_10_8.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_11_0">
@@ -1694,6 +1754,18 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_11_5.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_11_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_11_6.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_11_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_11_7.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -1752,6 +1824,18 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_12_5.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_12_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_12_6.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_12_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_12_7.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -1799,6 +1883,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that `RelatedLogEntries` should be used to link log entries that describe the initial condition from the log entry that describes the resolved condition."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_5.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_6.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_13_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_13_7.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_14_0">
@@ -1883,6 +1979,18 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_14_4.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_14_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_14_5.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_14_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_14_6.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -1895,7 +2003,7 @@
         <Property Name="DiagnosticData" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A Base64-encoded set of diagnostic data associated with this log entry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string that represents diagnostic data associated with this log entry.  The contents shall depend on the value of the `DiagnosticDataType` property.  The length of the value should not exceed 4 KB.  Larger diagnostic data payloads should omit this property and use the `AdditionalDataURI` property to reference the data.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, that represents diagnostic data associated with this log entry.  The contents shall depend on the value of the `DiagnosticDataType` property.  The length of the value should not exceed 4 KB.  Larger diagnostic data payloads should omit this property and use the `AdditionalDataURI` property to reference the data.  If both `DiagnosticData` and `AdditionalDataURI` are present, `DiagnosticData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property."/>
         </Property>
       </EntityType>
 
@@ -1944,6 +2052,18 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_15_3.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_15_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_15_4.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_15_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_15_5.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -1968,6 +2088,18 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_16_1.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_16_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_16_2.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_16_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_16_3.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
@@ -1984,6 +2116,26 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the URL to the authentication service that is associated with the username property.  This should be used for audit logs that result from a user action."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_17_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of `OriginOfCondition` with relation to the `DiagnosticDataType` property."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_17_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_17_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_17_1.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_18_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Device` to `DiagnosticDataType`."/>
+
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_17_2.LogEntry"/>
     </Schema>
 
   </edmx:DataServices>

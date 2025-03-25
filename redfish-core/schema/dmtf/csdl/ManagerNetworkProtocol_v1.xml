@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerNetworkProtocol v1.10.1                                      -->
+<!--# Redfish Schema:  ManagerNetworkProtocol v1.11.0                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -989,6 +989,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that setting `NotifyMulticastIntervalSeconds` to `0` impacts other NOTIFY usage beyond NOTIFY ALIVE.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_10_0.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_10_1.ManagerNetworkProtocol">
+        <Property Name="mDNS" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The settings for this manager's Multicast Domain Name Service (mDNS) protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the Multicast Domain Name Service (mDNS) settings for the manager.  The default `Port` property value should be `5353` for compatibility with established client implementations."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

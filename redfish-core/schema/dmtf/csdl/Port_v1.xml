@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Port v1.15.0                                                        -->
+<!--# Redfish Schema:  Port v1.16.0                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -408,8 +408,8 @@
         </Property>
         <Property Name="LinkNetworkTechnology" Type="Port.v1_2_0.LinkNetworkTechnology">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link network technology capabilities of this port."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a network technology capability of this port."/>
+          <Annotation Term="OData.Description" String="The current link network technology for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current network technology for this port."/>
         </Property>
         <Property Name="InterfaceEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -856,7 +856,7 @@
         </Property>
         <Property Name="ConfiguredNetworkLinks" Type="Collection(Port.v1_3_0.ConfiguredNetworkLink)">
           <Annotation Term="OData.Description" String="The set of link speed and width pairs this port is configured to use for autonegotiation."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the set of link speed and width pairs to which this port is restricted for autonegotiation purposes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of link speed and width pairs to which this port is restricted for autonegotiation purposes.  An empty array shall indicate autoconfiguration uses any available link speed and width pairs."/>
         </Property>
         <Property Name="AutoSpeedNegotiationCapable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1981,6 +1981,33 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate the port is connected to a manager device."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_16_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+
+      <EntityType Name="Port" BaseType="Port.v1_15_0.Port">
+        <Property Name="ConfiguredSpeedGbps" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The speed to which this port is configured to train when autonegotiation is disabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the unidirectional speed to which this port is configured to train.  This value includes overhead associated with the protocol.  If `AutoSpeedNegotiationEnabled` contains `true`, this property shall be ignored."/>
+          <Annotation Term="Measures.Unit" String="Gbit/s"/>
+        </Property>
+        <Property Name="ConfiguredWidth" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of lanes, phys, or other physical transport links to which this port is configured to train when autonegotiation is disabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of physical transport links to which this port is configured to train.  If `AutoSpeedNegotiationEnabled` contains `true`, this property shall be ignored."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="LinkConfiguration" BaseType="Port.v1_3_0.LinkConfiguration">
+        <Property Name="LinkNetworkTechnology" Type="Port.v1_2_0.LinkNetworkTechnology">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link network technology for this link configuration."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link network technology for this link configuration."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

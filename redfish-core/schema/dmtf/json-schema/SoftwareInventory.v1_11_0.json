@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.v1_10_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.v1_11_0.json",
     "$ref": "#/definitions/SoftwareInventory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -50,6 +50,16 @@
                 }
             },
             "properties": {
+                "BootParameters": {
+                    "description": "The version of the configuration file that contains the initial boot parameters of this software, such as parameters for U-Boot.",
+                    "longDescription": "This property shall contain the version of the configuration file that contains the initial boot parameters of this software.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
+                },
                 "Bootloader": {
                     "description": "The bootloader version contained in this software, such as U-Boot or UEFI.",
                     "longDescription": "This property shall contain the bootloader version contained in this software.",
@@ -59,6 +69,16 @@
                         "null"
                     ],
                     "versionAdded": "v1_7_0"
+                },
+                "FactoryConfiguration": {
+                    "description": "The version of the configuration that contains the factory default runtime configuration parameters of this software.",
+                    "longDescription": "This property shall contain the version of the configuration that contains the factory default runtime configuration parameters of this software.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_11_0"
                 },
                 "Kernel": {
                     "description": "The kernel version contained in this software.",
@@ -437,6 +457,6 @@
     },
     "language": "en",
     "owningEntity": "DMTF",
-    "release": "2023.2",
-    "title": "#SoftwareInventory.v1_10_2.SoftwareInventory"
+    "release": "2025.1",
+    "title": "#SoftwareInventory.v1_11_0.SoftwareInventory"
 }

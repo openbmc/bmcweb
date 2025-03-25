@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.v1_8_1.json",
     "$ref": "#/definitions/ExternalAccountProvider",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "AccountProviderTypes": {
             "enum": [
@@ -116,8 +116,8 @@
                     "versionAdded": "v1_2_0"
                 },
                 "KerberosKeytab": {
-                    "description": "The Base64-encoded version of the Kerberos keytab for this service.  A `PATCH` or `PUT` operation writes the keytab.  This property is `null` in responses.",
-                    "longDescription": "This property shall contain a Base64-encoded version of the Kerberos keytab for this service.  A `PATCH` or `PUT` operation writes the keytab.  The value shall be `null` in responses.",
+                    "description": "The Base64-encoded Kerberos keytab for this service.  A `PATCH` or `PUT` operation writes the keytab.  This property is `null` in responses.",
+                    "longDescription": "This property shall contain a Base64-encoded string, with padding characters, of the Kerberos keytab for this service.  A `PATCH` or `PUT` operation writes the keytab.  The value shall be `null` in responses.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -577,7 +577,7 @@
                 },
                 "OAuthServiceSigningKeys": {
                     "description": "The Base64-encoded signing keys of the issuer of the OAuth 2.0 service.  Clients should configure this property if `Mode` contains `Offline`.",
-                    "longDescription": "This property shall contain a Base64-encoded string of the RFC7517-defined signing keys of the issuer of the OAuth 2.0 service.  Services shall verify the token provided in the `Authorization` header of the request with the value of this property.  If the `Mode` property contains the value `Discovery`, this property shall contain the keys found at the URI specified by the `jwks_uri` string from the OAuth 2.0 service's metadata and this property shall be read-only.  Clients should configure this property if `Mode` contains `Offline`.",
+                    "longDescription": "This property shall contain a Base64-encoded string, with padding characters, of the RFC7517-defined signing keys of the issuer of the OAuth 2.0 service.  Services shall verify the token provided in the `Authorization` header of the request with the value of this property.  If the `Mode` property contains the value `Discovery`, this property shall contain the keys found at the URI specified by the `jwks_uri` string from the OAuth 2.0 service's metadata and this property shall be read-only.  Clients should configure this property if `Mode` contains `Offline`.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -802,5 +802,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2024.3",
-    "title": "#ExternalAccountProvider.v1_8_0.ExternalAccountProvider"
+    "title": "#ExternalAccountProvider.v1_8_1.ExternalAccountProvider"
 }

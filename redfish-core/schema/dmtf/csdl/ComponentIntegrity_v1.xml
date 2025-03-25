@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComponentIntegrity v1.3.0                                           -->
+<!--# Redfish Schema:  ComponentIntegrity v1.3.1                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2024 DMTF.                                                            -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -95,11 +95,11 @@
         </Parameter>
         <Parameter Name="Scheme" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The signing scheme to use for the TPM attestation key."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the Base64-encoded representation of the 'TPMT_SIG_SCHEME' object, as defined in the Trusted Platform Module Library Specification, that identifies the signing scheme to use for the TPM attestation key.  The service shall send this value to the TPM in the 'inScheme' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a Base64-encoded string, with padding characters, of the 'TPMT_SIG_SCHEME' object as defined in the Trusted Platform Module Library Specification, that identifies the signing scheme to use for the TPM attestation key.  The service shall send this value to the TPM in the 'inScheme' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
         </Parameter>
         <Parameter Name="PCRSelection" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="An object that identifies the PCRs to sign."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the Base64-encoded representation of the 'TPML_PCR_SELECTION' object, as defined by the Trusted Platform Module Library Specification, that identifies the PCRs to sign.  The service shall send this value to the TPM in the 'PCRselect' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a Base64-encoded string, with padding characters, of the 'TPML_PCR_SELECTION' object as defined by the Trusted Platform Module Library Specification, that identifies the PCRs to sign.  The service shall send this value to the TPM in the 'PCRselect' parameter of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
         </Parameter>
         <ReturnType Type="ComponentIntegrity.v1_2_0.TPMGetSignedMeasurementsResponse" Nullable="false"/>
         <Annotation Term="Redfish.Revisions">
@@ -292,7 +292,7 @@
         <Property Name="MeasurementSummary" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The measurement summary data."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the Base64-encoded measurement summary using the hash algorithm indicated by the `MeasurementSummaryHashAlgorithm` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, of the measurement summary using the hash algorithm indicated by the `MeasurementSummaryHashAlgorithm` property."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9+/]+={0,2}$"/>
         </Property>
         <Property Name="MeasurementSummaryHashAlgorithm" Type="Edm.String">
@@ -349,7 +349,7 @@
         <Property Name="Measurement" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The measurement data."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the Base64-encoded measurement using the hash algorithm indicated by the `MeasurementHashAlgorithm` property.  This property shall not contain a raw bit stream as a measurement.  If the SPDM Responder provides a raw bit stream, the SPDM Requester may apply a hash algorithm to the raw bit stream in order to report the measurement."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, of the measurement using the hash algorithm indicated by the `MeasurementHashAlgorithm` property.  This property shall not contain a raw bit stream as a measurement.  If the SPDM Responder provides a raw bit stream, the SPDM Requester may apply a hash algorithm to the raw bit stream in order to report the measurement."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9+/]+={0,2}$"/>
         </Property>
         <Property Name="MeasurementHashAlgorithm" Type="Edm.String">
@@ -414,7 +414,7 @@
         <Property Name="Measurement" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The measurement data."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the Base64-encoded PCR digest using the hashing algorithm indicated by the `MeasurementHashAlgorithm` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, of the PCR digest using the hashing algorithm indicated by the `MeasurementHashAlgorithm` property."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9+/]+={0,2}$"/>
         </Property>
         <Property Name="MeasurementHashAlgorithm" Type="Edm.String">
@@ -592,6 +592,12 @@
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_0_3.ComponentIntegrity"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_0_4.ComponentIntegrity"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -632,6 +638,12 @@
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_1_3.ComponentIntegrity"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_1_4.ComponentIntegrity"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -655,7 +667,7 @@
         <Property Name="SignedMeasurements" Type="Edm.String"  Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Base64-encoded cryptographic signed statement generated by the signer."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded cryptographic signed statement generated by the signer.  This value shall be the concatenation of the 'quoted' and 'signature' response values of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, of the cryptographic signed statement generated by the signer.  This value shall be the concatenation of the 'quoted' and 'signature' response values of the 'TPM2_Quote' command defined in the Trusted Platform Module Library Specification."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
@@ -683,12 +695,24 @@
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_2_2.ComponentIntegrity"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_2_3.ComponentIntegrity"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
       <Annotation Term="OData.Description" String="This version was created to add `TCM` and `TPCM` to `ComponentIntegrityType`."/>
 
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_2_3.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_3_0.ComponentIntegrity"/>
     </Schema>
 
   </edmx:DataServices>

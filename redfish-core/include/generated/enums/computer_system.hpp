@@ -198,6 +198,7 @@ enum class DecommissionType{
     NetworkConfig,
     StorageConfig,
     Logs,
+    TPM,
 };
 
 enum class LastResetCauses{
@@ -405,6 +406,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DecommissionType, {
     {DecommissionType::NetworkConfig, "NetworkConfig"},
     {DecommissionType::StorageConfig, "StorageConfig"},
     {DecommissionType::Logs, "Logs"},
+    {DecommissionType::TPM, "TPM"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(LastResetCauses, {

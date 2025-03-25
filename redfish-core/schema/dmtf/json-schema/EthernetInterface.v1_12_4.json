@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_12_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_12_4.json",
     "$ref": "#/definitions/EthernetInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2024 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -384,7 +384,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv4Address"
                     },
-                    "longDescription": "This property shall contain an array of objects that represent the IPv4 connection characteristics currently in use by this interface for any value of `AddressOrigin`.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within `IPv4StaticAddresses`.  Services may reject updates to this array for this reason.",
+                    "longDescription": "This property shall contain an array of objects that represent the IPv4 connection characteristics currently in use by this interface for any value of `AddressOrigin`.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within `IPv4StaticAddresses`.  Services may reject updates to this array for this reason.  This property should contain an empty array if there are no active IPv4 addresses.",
                     "type": "array"
                 },
                 "IPv4StaticAddresses": {
@@ -399,7 +399,7 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall contain an array of objects that represent all IPv4 static addresses assigned to, but not necessarily in use by, this interface.  The `IPv4Addresses` property shall also list the addresses that this interface uses.",
+                    "longDescription": "This property shall contain an array of objects that represent all IPv4 static addresses assigned to, but not necessarily in use by, this interface.  The `IPv4Addresses` property shall also list the addresses that this interface uses.  Services should represent static addresses that are not configured as `null` values, as described by the 'PATCH on array properties' clause of the Redfish Specification.  Services should not represent static addresses that are not configured as invalid IP addresses, such as `0.0.0.0`.",
                     "type": "array",
                     "versionAdded": "v1_4_0"
                 },
@@ -423,7 +423,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv6Address"
                     },
-                    "longDescription": "This property shall contain an array of objects that represent the IPv6 connection characteristics for this interface for any value of  `AddressOrigin`.",
+                    "longDescription": "This property shall contain an array of objects that represent the IPv6 connection characteristics for this interface for any value of  `AddressOrigin`.  This property should contain an empty array if there are no active IPv6 addresses.",
                     "type": "array"
                 },
                 "IPv6DefaultGateway": {
@@ -457,7 +457,7 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall contain an array of objects that represent the IPv6 static connection characteristics for this interface.",
+                    "longDescription": "This property shall contain an array of objects that represent the IPv6 static connection characteristics for this interface.  Services should represent static addresses that are not configured as `null` values, as described by the 'PATCH on array properties' clause of the Redfish Specification.  Services should not represent static addresses that are not configured as invalid IP addresses, such as `::`.",
                     "type": "array"
                 },
                 "IPv6StaticDefaultGateways": {
@@ -973,5 +973,5 @@
     "language": "en",
     "owningEntity": "DMTF",
     "release": "2023.3",
-    "title": "#EthernetInterface.v1_12_3.EthernetInterface"
+    "title": "#EthernetInterface.v1_12_4.EthernetInterface"
 }
