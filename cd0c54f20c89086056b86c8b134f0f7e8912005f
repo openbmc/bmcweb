@@ -33,6 +33,24 @@
       "message": "Combining with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79180 is good.",
       "revId": "cd0c54f20c89086056b86c8b134f0f7e8912005f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab3de305_0d00dc2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-25T19:31:26Z",
+      "side": 1,
+      "message": "Yeah, the next commit should fix it.",
+      "parentUuid": "a5b51f8a_93b8a4e5",
+      "revId": "cd0c54f20c89086056b86c8b134f0f7e8912005f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
