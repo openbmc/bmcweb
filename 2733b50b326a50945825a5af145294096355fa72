@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d94e817a_436ced40",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T13:09:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "80cff960_48b10533",
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8a972dc_0bb214ab",
@@ -238,6 +256,30 @@
       "side": 1,
       "message": "main idea was to have common function for dbus error handling and hence included the source_location here",
       "parentUuid": "f3d05147_201af53c",
+      "range": {
+        "startLine": 692,
+        "startChar": 48,
+        "endLine": 692,
+        "endChar": 67
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0187dab7_9597066f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T13:09:14Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f1cc2e0e_ed483f20",
       "range": {
         "startLine": 692,
         "startChar": 48,
