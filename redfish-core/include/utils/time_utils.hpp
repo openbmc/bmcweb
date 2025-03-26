@@ -82,5 +82,10 @@ std::optional<std::string> getDateTimeIso8601(std::string_view datetime);
  */
 void productionDateReport(crow::Response& res, const std::string& buildDate);
 
+/**
+ * @brief ReleaseDate report
+ */
+void releaseDateReport(crow::Response& res, const std::string& releaseDate);
+
 } // namespace time_utils
 } // namespace redfish
