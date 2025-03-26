@@ -10,6 +10,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "redfish.hpp"
 #include "utils/query_param.hpp"
 
 #include <boost/beast/http/field.hpp>

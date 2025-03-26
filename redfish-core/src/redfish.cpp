@@ -92,7 +92,6 @@ RedfishService::RedfishService(App& app)
     }
     requestRoutesManagerCollection(app);
     requestRoutesManager(app);
-    requestRoutesOpenBmcManager(app);
     requestRoutesManagerResetAction(app);
     requestRoutesManagerResetActionInfo(app);
     requestRoutesManagerResetToDefaultsAction(app);
@@ -236,7 +235,9 @@ RedfishService::RedfishService(App& app)
     // Note, this must be the last route registered
     requestRoutesRedfish(app);
 
-    RedfishService::oemRouterSetup();
+    requestRoutesOpenBmcManager(*this);
+
+    validate();
 }
 
 } // namespace redfish
