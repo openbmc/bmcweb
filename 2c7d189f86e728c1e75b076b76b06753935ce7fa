@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b002e7e1_4eb543f4",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-26T17:22:29Z",
+      "side": 1,
+      "message": "This is rewritten.",
+      "parentUuid": "6e335a95_fe0d91b4",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb072a8e_4a261535",
@@ -121,6 +139,24 @@
       "side": 1,
       "message": "DBUS doc says that the missing property should not result in as an error.\n\nhttps://github.com/openbmc/bmcweb/blob/master/DBUS_USAGE.md\n\n```\nAll DBus interfaces on all object paths are optional. An object missing an interface is never an error, and shall simply omit the relevant properties and/or actions from that Redfish Resource.\n```\n\nIf so, the code may need to look like\n\n```\n    if (sparePartNum !\u003d nullptr)\n    {\n        assemblyData[\"SparePartNumber\"] \u003d *sparePartNum;\n    }\n```",
       "parentUuid": "f927260e_25b37940",
+      "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca759803_7288df84",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-26T17:22:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "995d9ed7_6885c60c",
       "revId": "2c7d189f86e728c1e75b076b76b06753935ce7fa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

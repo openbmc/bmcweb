@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2701589_638cf6ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 79
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-26T17:22:29Z",
+      "side": 1,
+      "message": "I see this - which seems telling to use `containing/contained_by` for the assembly -  https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/64544.\n\n\u003ePatrick, Gunner \u0026 Ed decided to use containing/contained_by association. It is already documented here: https://github.com/openbmc/phosphor-dbus-interfaces/blob/88902e67bcd86b2122b4c1f3b1eaa550b329b08a/yaml/xyz/openbmc_project/Inventory/Item.interface.yaml#L20\n\n@sunnsr25@in.ibm.com\nDo you have any comments on it?\n\nBTW, the association `containing/contained_by` is currently not used here for this commit.\n\nOnce the backend (e.g. for p10bmc) uses the association, this commit will update the usage of the association, e.g., `containing` (instead of `assembly`).",
+      "parentUuid": "cf5a0f14_7500de05",
+      "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ae6959aa_e6807a08",
@@ -76,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba31996a_6acfe13d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-26T17:22:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "355ad0e8_c0b25136",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 5
+      },
+      "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cd22d06_1e09b6e5",
@@ -106,6 +148,24 @@
       "writtenOn": "2023-07-03T14:45:59Z",
       "side": 1,
       "message": "Is there a reason why you are not using getAssociatedSubTreePaths and instead writing a new function to perform the same work?",
+      "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0cc1c3c_0918d858",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-26T17:22:29Z",
+      "side": 1,
+      "message": "Agreed, the code is rewritten to use `getAssociatedSubTreePaths()` via https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79009",
+      "parentUuid": "25b0a824_1b1386d7",
       "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
