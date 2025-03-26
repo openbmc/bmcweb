@@ -29,6 +29,7 @@
 #include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
 
+#include <asm-generic/errno.h>
 #include <sys/mman.h>
 #include <unistd.h>
 
@@ -896,6 +897,73 @@ inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 swEntry->second.first.str, swEntry->second.second);
 }
 
+static void getSoftwareId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& service, const std::string& path)
+{
+    dbus::utility::getProperty<std::string>(
+        service, path, "xyz.openbmc_project.Software.ExtendedVersion",
+        "ExtendedVersion",
+        [asyncResp, path](const boost::system::error_code& ec,
+                          const std::string& softwareId) {
+            if (ec)
+            {
+                if (ec.value() == EBADR)
+                {
+                    BMCWEB_LOG_DEBUG("No software extended version info");
+                    return;
+                }
+                BMCWEB_LOG_ERROR("get software id failed for {} with error {}",
+                                 path, ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (!softwareId.empty())
+            {
+                asyncResp->res.jsonValue["SoftwareId"] = softwareId;
+            }
+        });
+}
+
+static void getSoftwareAssetInformation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path)
+{
+    dbus::utility::getAllProperties(
+        service, path, "xyz.openbmc_project.Inventory.Decorator.Asset",
+        [asyncResp,
+         path](const boost::system::error_code& ec,
+               const dbus::utility::DBusPropertiesMap& propertiesList) {
+            if (ec)
+            {
+                if (ec.value() == EBADR)
+                {
+                    BMCWEB_LOG_DEBUG("No software asset information");
+                    return;
+                }
+                BMCWEB_LOG_ERROR(
+                    "get software asset information failed for {} with error {}",
+                    path, ec.value());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            const std::string* manufacturer = nullptr;
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), propertiesList,
+                "Manufacturer", manufacturer);
+            if (!success)
+            {
+                BMCWEB_LOG_ERROR("get software asset information failed for {}",
+                                 path);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (manufacturer != nullptr && !manufacturer->empty())
+            {
+                asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
+            }
+        });
+}
+
 inline void handleBMCUpdate(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
@@ -1307,6 +1375,9 @@ inline void handleUpdateServiceFirmwareInventoryGet(
                 sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
                 getSoftwareVersion(asyncResp, obj.second[0].first, obj.first,
                                    *swId);
+                getSoftwareId(asyncResp, obj.second[0].first, obj.first);
+                getSoftwareAssetInformation(asyncResp, obj.second[0].first,
+                                            obj.first);
             }
             if (!found)
             {
