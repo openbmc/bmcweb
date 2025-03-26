@@ -896,6 +896,60 @@ inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 swEntry->second.first.str, swEntry->second.second);
 }
 
+inline void getSoftwareId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& service, const std::string& path)
+{
+    dbus::utility::getProperty<std::string>(
+        service, path, "xyz.openbmc_project.Software.ExtendedVersion",
+        "ExtendedVersion",
+        [asyncResp, path](const boost::system::error_code& ec,
+                          const std::string& softwareId) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("get software id failed for {} with error {}",
+                                 path, ec.value());
+                return;
+            }
+            if (!softwareId.empty())
+            {
+                asyncResp->res.jsonValue["SoftwareId"] = softwareId;
+            }
+        });
+}
+
+inline void getSoftwareAssetInformation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& service, const std::string& path)
+{
+    dbus::utility::getAllProperties(
+        service, path, "xyz.openbmc_project.Software.Asset",
+        [asyncResp,
+         path](const boost::system::error_code& ec,
+               const dbus::utility::DBusPropertiesMap& propertiesList) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "get software asset information failed for {} with error {}",
+                    path, ec.value());
+                return;
+            }
+            const std::string* manufacturer = nullptr;
+            const bool success = sdbusplus::unpackPropertiesNoThrow(
+                dbus_utils::UnpackErrorPrinter(), propertiesList,
+                "Manufacturer", manufacturer);
+            if (!success)
+            {
+                BMCWEB_LOG_ERROR("get software asset information failed for {}",
+                                 path);
+                return;
+            }
+            if (manufacturer != nullptr && !manufacturer->empty())
+            {
+                asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
+            }
+        });
+}
+
 inline void handleBMCUpdate(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
@@ -1307,6 +1361,9 @@ inline void handleUpdateServiceFirmwareInventoryGet(
                 sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
                 getSoftwareVersion(asyncResp, obj.second[0].first, obj.first,
                                    *swId);
+                getSoftwareId(asyncResp, obj.second[0].first, obj.first);
+                getSoftwareAssetInformation(asyncResp, obj.second[0].first,
+                                            obj.first);
             }
             if (!found)
             {
