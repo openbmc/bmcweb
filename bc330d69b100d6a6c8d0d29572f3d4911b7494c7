@@ -3,6 +3,86 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9e0287bc_847932cc",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T16:49:16Z",
+      "side": 1,
+      "message": "What if this interface doesn\u0027t exist?",
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "731cc313_dde94cff",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T16:49:16Z",
+      "side": 1,
+      "message": "Does something this make more sense?\n\n       if (ec)\n        {\n           if (ec.value() \u003d\u003d EBADR)\n           {\n               BMCWEB_LOG_DEBUG(\"No software extended version info\");\n\n             return;\n             }\n               BMCWEB_LOG_ERROR(\"get software id failed for {} with error {}\",\n                                 path, ec.value());\n                   messages::internalError(asyncResp-\u003eres);\n            return;\n        }\n\n??",
+      "range": {
+        "startLine": 907,
+        "startChar": 0,
+        "endLine": 912,
+        "endChar": 13
+      },
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f5e4b17_ce579eff",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T16:49:16Z",
+      "side": 1,
+      "message": "What if this interface doesn\u0027t exist ?\nDo you need an internal error if this fails? \n\n            if (ec)\n            {\n               if (ec.value() \u003d\u003d EBADR)\n               {\n                   BMCWEB_LOG_DEBUG(\"No software asset info\");\n\n                 return;\n                 }\n                \n                BMCWEB_LOG_ERROR(\n                    \"get software asset information failed for {} with error {}\",\n                    path, ec.value());\n                       messages::internalError(asyncResp-\u003eres);\n                return;\n            }",
+      "range": {
+        "startLine": 929,
+        "startChar": 0,
+        "endLine": 935,
+        "endChar": 13
+      },
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9341f21_ee2359db",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T16:49:16Z",
+      "side": 1,
+      "message": "internal error?",
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "079b98e6_f0f8513b",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
