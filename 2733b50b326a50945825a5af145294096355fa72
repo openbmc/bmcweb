@@ -150,6 +150,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3792a58a_8d814506",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T05:03:07Z",
+      "side": 1,
+      "message": "Thanks for the review on this one, These are not hardcoded path, but it is as per the path segment structure defined on xyz/openbmc_project/Metric/Value.interface.yaml interface",
+      "parentUuid": "ed36de5f_17048d0b",
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "356bebb9_91141ac4",
