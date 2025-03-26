@@ -158,7 +158,7 @@ class Trie
 
     struct FindResult
     {
-        unsigned ruleIndex;
+        unsigned ruleIndex = 0;
         std::vector<std::string> params;
     };
 
