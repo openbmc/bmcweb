@@ -12,9 +12,11 @@
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "human_sort.hpp"
+#include "led.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/json_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -28,6 +30,7 @@
 #include <array>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <ranges>
 #include <string>
 #include <string_view>
@@ -160,6 +163,7 @@ inline void getFabricPortProperties(
     getFabricPortLocation(asyncResp, portPath, serviceName);
     getFabricPortState(asyncResp, portPath, serviceName);
     getFabricPortHealth(asyncResp, portPath, serviceName);
+    getLocationIndicatorActive(asyncResp, portPath);
 }
 
 inline void afterGetValidFabricPortPath(
@@ -426,6 +430,62 @@ inline void handleFabricPortCollectionGet(
         std::bind_front(doHandleFabricPortCollectionGet, asyncResp, systemName,
                         adapterId));
 }
+
+inline void afterHandlePortPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& portId, const bool locationIndicatorActive,
+    const std::string& portPath, const std::string& /*serviceName*/)
+{
+    if (portPath.empty())
+    {
+        BMCWEB_LOG_WARNING("Port not found");
+        messages::resourceNotFound(asyncResp->res, "Port", portId);
+        return;
+    }
+
+    setLocationIndicatorActive(asyncResp, portPath, locationIndicatorActive);
+}
+
+inline void handlePortPatch(App& app, const crow::Request& req,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const std::string& systemName,
+                            const std::string& adapterId,
+                            const std::string& portId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    std::optional<bool> locationIndicatorActive;
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                  "LocationIndicatorActive",
+                                  locationIndicatorActive))
+    {
+        return;
+    }
+    if (locationIndicatorActive)
+    {
+        getValidFabricPortPath(
+            asyncResp, adapterId, portId,
+            std::bind_front(afterHandlePortPatch, asyncResp, portId,
+                            *locationIndicatorActive));
+    }
+}
+
 inline void requestRoutesFabricPort(App& app)
 {
     BMCWEB_ROUTE(app,
@@ -449,6 +509,12 @@ inline void requestRoutesFabricPort(App& app)
         .privileges(redfish::privileges::getPortCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleFabricPortCollectionGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Systems/<str>/FabricAdapters/<str>/Ports/<str>/")
+        .privileges(redfish::privileges::patchPort)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handlePortPatch, std::ref(app)));
 }
 
 } // namespace redfish
