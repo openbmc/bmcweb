@@ -1,11 +1,8 @@
 #pragma once
 #include "async_resp.hpp"
 #include "http_request.hpp"
-#include "logging.hpp"
 #include "routing/baserule.hpp"
-#include "routing/ruleparametertraits.hpp"
 
-#include <boost/beast/http/status.hpp>
 #include <nlohmann/json.hpp>
 
 #include <functional>
@@ -19,7 +16,7 @@ namespace redfish
 class OemBaseRule : public crow::BaseRule
 {
   public:
-    explicit OemBaseRule(const std::string& thisRule) : BaseRule(thisRule) {}
+    explicit OemBaseRule(std::string_view thisRule) : BaseRule(thisRule) {}
     ~OemBaseRule() override = default;
     OemBaseRule(const OemBaseRule&) = delete;
     OemBaseRule(OemBaseRule&&) = delete;
@@ -28,54 +25,41 @@ class OemBaseRule : public crow::BaseRule
 
     void handle(const crow::Request& /*req*/,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const std::vector<std::string>& /*params*/) override
-    {
-        asyncResp->res.result(boost::beast::http::status::not_found);
-    }
-
-    virtual void handle(const crow::Request& /*req*/,
-                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::vector<std::string>& /*params*/,
-                        const nlohmann::json& /*payload*/)
-    {
-        asyncResp->res.result(boost::beast::http::status::not_found);
-    }
+                const std::vector<std::string>& /*params*/) override = 0;
 };
 
 template <typename... Args>
-class OemRule :
-    public OemBaseRule,
-    public crow::RuleParameterTraits<OemRule<Args...>>
+class OemRule : public OemBaseRule
 {
   public:
     using self_t = OemRule<Args...>;
 
-    explicit OemRule(const std::string& ruleIn) : OemBaseRule(ruleIn) {}
+    explicit OemRule(std::string_view ruleIn) : OemBaseRule(ruleIn) {}
 
     void validate() override
     {
-        if (!getHandler && !patchHandler)
+        if (!handler)
         {
             throw std::runtime_error(
                 "no OEM fragment handler for the rule {}" + rule);
         }
     }
 
-    void setGetHandler(
-        std::function<void(const crow::Request&,
-                           const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>
-            newHandler)
+    template <typename Func>
+    void operator()(Func&& f)
     {
-        getHandler = std::move(newHandler);
-    }
+        static_assert(
+            std::is_invocable_v<Func, crow::Request,
+                                std::shared_ptr<bmcweb::AsyncResp>&, Args...>,
+            "Handler type is mismatched with URL parameters");
+        static_assert(
+            std::is_same_v<
+                void, std::invoke_result_t<Func, crow::Request,
+                                           std::shared_ptr<bmcweb::AsyncResp>&,
+                                           Args...>>,
+            "Handler function with response argument should have void return type");
 
-    void setPatchHandler(
-        std::function<void(const crow::Request&,
-                           const std::shared_ptr<bmcweb::AsyncResp>&,
-                           const nlohmann::json::object_t& payload, Args...)>
-            newHandler)
-    {
-        patchHandler = std::move(newHandler);
+        handler = std::forward<Func>(f);
     }
 
     void handle(const crow::Request& req,
@@ -84,66 +68,28 @@ class OemRule :
     {
         if constexpr (sizeof...(Args) == 0)
         {
-            getHandler(req, asyncResp);
+            handler(req, asyncResp);
         }
         else if constexpr (sizeof...(Args) == 1)
         {
-            getHandler(req, asyncResp, params[0]);
+            handler(req, asyncResp, params[0]);
         }
         else if constexpr (sizeof...(Args) == 2)
         {
-            getHandler(req, asyncResp, params[0], params[1]);
+            handler(req, asyncResp, params[0], params[1]);
         }
         else if constexpr (sizeof...(Args) == 3)
         {
-            getHandler(req, asyncResp, params[0], params[1], params[2]);
+            handler(req, asyncResp, params[0], params[1], params[2]);
         }
         else if constexpr (sizeof...(Args) == 4)
         {
-            getHandler(req, asyncResp, params[0], params[1], params[2],
-                       params[3]);
+            handler(req, asyncResp, params[0], params[1], params[2], params[3]);
         }
         else if constexpr (sizeof...(Args) == 5)
         {
-            getHandler(req, asyncResp, params[0], params[1], params[2],
-                       params[3], params[4]);
-        }
-        static_assert(sizeof...(Args) <= 5, "More args than are supported");
-    }
-
-    void handle(const crow::Request& req,
-                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                const std::vector<std::string>& params,
-                const nlohmann::json& payload) override
-    {
-        BMCWEB_LOG_DEBUG("OEM Patch Fragment JSON {}", payload.dump(4));
-
-        if constexpr (sizeof...(Args) == 0)
-        {
-            patchHandler(req, asyncResp, payload);
-        }
-        else if constexpr (sizeof...(Args) == 1)
-        {
-            patchHandler(req, asyncResp, payload, params[0]);
-        }
-        else if constexpr (sizeof...(Args) == 2)
-        {
-            patchHandler(req, asyncResp, payload, params[0], params[1]);
-        }
-        else if constexpr (sizeof...(Args) == 3)
-        {
-            patchHandler(req, asyncResp, payload, params[0], params[1],
-                         params[2]);
-        }
-        else if constexpr (sizeof...(Args) == 4)
-        {
-            patchHandler(req, asyncResp, payload, params[0], params[1],
-                         params[2], params[3]);
-        }
-        else if constexpr (sizeof...(Args) == 5)
-        {
-            patchHandler(req, asyncResp, payload, params[0], params[1],
-                         params[2], params[3], params[4]);
+            handler(req, asyncResp, params[0], params[1], params[2], params[3],
+                    params[4]);
         }
         static_assert(sizeof...(Args) <= 5, "More args than are supported");
     }
@@ -151,10 +97,6 @@ class OemRule :
   private:
     std::function<void(const crow::Request&,
                        const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>
-        getHandler;
-    std::function<void(const crow::Request&,
-                       const std::shared_ptr<bmcweb::AsyncResp>&,
-                       const nlohmann::json::object_t& payload, Args...)>
-        patchHandler;
+        handler;
 };
 } // namespace redfish

@@ -873,7 +873,7 @@ inline void requestRoutesManager(App& app)
                     }
                 });
 
-            RedfishService::getOemRouter().handleOemGet(req, asyncResp);
+            RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")

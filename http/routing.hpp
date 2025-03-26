@@ -58,7 +58,7 @@ class Trie
         bool isSimpleNode() const
         {
             return ruleIndex == 0 && stringParamChild == 0 &&
-                   pathParamChild == 0;
+                   pathParamChild == 0 && fragmentChildren.empty();
         }
     };
 

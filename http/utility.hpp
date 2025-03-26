@@ -72,6 +72,7 @@ constexpr uint64_t getParameterTag(std::string_view url)
     {
         return 0;
     }
+
     return tagValue;
 }
 

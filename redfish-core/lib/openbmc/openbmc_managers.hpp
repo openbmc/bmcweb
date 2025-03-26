@@ -1474,7 +1474,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
     size_t objectCount = 0;
 };
 
-inline void getHandleOemOpenBmc(
+inline void handleGetManagerOpenBmc(
     const crow::Request& /*req*/,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*managerId*/)
@@ -1499,11 +1499,10 @@ inline void getHandleOemOpenBmc(
     }
 }
 
-inline void requestRoutesOpenBmcManager(App& /*app*/)
+inline void requestRoutesOpenBmcManager(RedfishService& service)
 {
-    constexpr static std::string_view managerOemUrl =
-        "/redfish/v1/Managers/<str>#Oem/OpenBmc";
-    redfishOemRule<managerOemUrl>().setGetHandler(getHandleOemOpenBmc);
+    redfishSubRoute<"/redfish/v1/Managers/<str>/#/Oem/OpenBmc">(
+        service, HttpVerb::Get)(handleGetManagerOpenBmc);
 }
 
 } // namespace redfish

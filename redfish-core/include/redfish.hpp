@@ -26,24 +26,39 @@ class RedfishService
      */
     explicit RedfishService(App& app);
 
-    static OemRouter& getOemRouter()
+    // Temporary change to make redfish instance available in other places
+    // like query delegation.
+    static RedfishService& getInstance(App& app)
     {
-        static OemRouter instance;
-        return instance;
+        static RedfishService redfish(app);
+        return redfish;
     }
 
-    static void oemRouterSetup()
+    void validate()
     {
-        getOemRouter().validate();
+        oemRouter.validate();
     }
+
+    template <StringLiteral Rule>
+    auto& newRoute(HttpVerb method)
+    {
+        return oemRouter.newRule<Rule>(method);
+    }
+
+    void handleSubRoute(
+        const crow::Request& req,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
+    {
+        oemRouter.handle(req, asyncResp);
+    }
+
+    OemRouter oemRouter;
 };
 
-template <const std::string_view& url>
-constexpr auto& redfishOemRule()
+template <StringLiteral Path>
+auto& redfishSubRoute(RedfishService& service, HttpVerb method)
 {
-    return RedfishService::getOemRouter()
-        .template newOemRule<crow::utility::getParameterTag(url)>(
-            std::string(url));
+    return service.newRoute<Path>(method);
 }
 
 } // namespace redfish
