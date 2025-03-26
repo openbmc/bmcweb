@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf5a0f14_7500de05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 79
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T06:08:28Z",
+      "side": 1,
+      "message": "@sunnsr25@in.ibm.com: Is there plan to support or there is any direction to support the assembly schema ?\nCC: @gunnar@gmills.xyz",
+      "parentUuid": "f60959cc_cbda858e",
+      "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ae6959aa_e6807a08",
