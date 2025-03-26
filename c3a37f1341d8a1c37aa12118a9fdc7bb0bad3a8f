@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28f2bfb3_769c3cd3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 108
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-26T01:18:58Z",
+      "side": 1,
+      "message": "Isn\u0027t this incorrect to a fragment?  Is there an example this was sourced from?",
+      "range": {
+        "startLine": 17,
+        "startChar": 46,
+        "endLine": 17,
+        "endChar": 58
+      },
+      "revId": "c3a37f1341d8a1c37aa12118a9fdc7bb0bad3a8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37fa0baf_b96b654d",
         "filename": "http/routing.hpp",
         "patchSetId": 108
@@ -55,6 +78,63 @@
         "endLine": 458,
         "endChar": 55
       },
+      "revId": "c3a37f1341d8a1c37aa12118a9fdc7bb0bad3a8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "783492f6_1df65447",
+        "filename": "redfish-core/include/redfish.hpp",
+        "patchSetId": 108
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-26T01:18:58Z",
+      "side": 1,
+      "message": "We\u0027re in a class, this shouldn\u0027t be static anymore.",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 10
+      },
+      "revId": "c3a37f1341d8a1c37aa12118a9fdc7bb0bad3a8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aca46ef_1214d400",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 108
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-26T01:18:58Z",
+      "side": 1,
+      "message": "Can you walk me through what this is doing?  It looks like we\u0027re registering every fragment regardless of verb?",
+      "revId": "c3a37f1341d8a1c37aa12118a9fdc7bb0bad3a8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18fd53a9_c079c475",
+        "filename": "redfish-core/include/redfishoemrule.hpp",
+        "patchSetId": 108
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-26T01:18:58Z",
+      "side": 1,
+      "message": "By inheriting this class, subroutes now support websockets, server sent events, and a bunch of other things.  Is that what you intended?\n\nI can\u0027t imagine how a websocket sub route would work?",
       "revId": "c3a37f1341d8a1c37aa12118a9fdc7bb0bad3a8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
