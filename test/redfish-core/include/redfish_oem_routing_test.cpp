@@ -1,11 +1,8 @@
 
 #include "async_resp.hpp"
 #include "http_request.hpp"
-#include "redfish_oem_routing.hpp"
+#include "redfish.hpp"
 #include "utility.hpp"
-
-#include <boost/beast/http/verb.hpp>
-
 #include <memory>
 #include <string>
 #include <string_view>
@@ -28,27 +25,36 @@ TEST(OemRouter, FragmentRoutes)
         oemCalled = true;
         EXPECT_EQ(bar, "bar");
     };
+    bool standardCalled = false;
+    auto standardCallback = [&standardCalled](const crow::Request&,
+                                    const std::shared_ptr<bmcweb::AsyncResp>&,
+                                    const std::string& bar) {
+        standardCalled = true;
+        EXPECT_EQ(bar, "bar");
+    };
 
-    OemRouter router;
     std::error_code ec;
-    constexpr std::string_view fragment = "/foo/<str>#Oem";
-    router
-        .newOemRule<crow::utility::getParameterTag(fragment)>(
-            std::string(fragment))
-        .setGetHandler(oemCallback);
-    router.validate();
+    App app;
+    RedfishService service(app);
+    app.validate();
+    service.validate();
+    // Need the normal route registered for OEM to work
+    BMCWEB_ROUTE(app, "/foo/<str>")(standardCallback);
+    REDFISH_SUB_ROUTE<"/foo/<str>#Oem">(service, HttpVerb::Get)(oemCallback);
+
     {
         constexpr std::string_view reqUrl = "/foo/bar";
 
-        crow::Request req(
+        std::shared_ptr<crow::Request> req = std::make_shared<crow::Request>(
             crow::Request::Body{boost::beast::http::verb::get, reqUrl, 11}, ec);
 
         std::shared_ptr<bmcweb::AsyncResp> asyncResp =
             std::make_shared<bmcweb::AsyncResp>();
 
-        router.handleOemGet(req, asyncResp);
+        app.handle(req, asyncResp);
     }
     EXPECT_TRUE(oemCalled);
+    EXPECT_TRUE(standardCalled);
 }
 
 } // namespace
