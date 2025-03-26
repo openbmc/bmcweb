@@ -154,6 +154,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc4f5eea_d1423978",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-03-26T01:39:22Z",
+      "side": 1,
+      "message": "changed the commit message \n```\n*** /redfish/v1/Chassis/Chassis_0/TrustedComponents\n Type (TrustedComponentCollection.TrustedComponentCollection), GET SUCCESS (time: 0:00:00.000007)\nAttempt 1 of /redfish/v1/Chassis/Chassis_0/TrustedComponents/tpm\nResponse Time for GET to /redfish/v1/Chassis/Chassis_0/TrustedComponents/tpm: 0.6192130428971723 seconds.\n PASS\n\n*** /redfish/v1/Chassis/Chassis_0/TrustedComponents/tpm\n Type (TrustedComponent.v1_0_0.TrustedComponent), GET SUCCESS (time: 0:00:00.000008)\n PASS\n```",
+      "parentUuid": "bb5f6081_0a8401cd",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 66
+      },
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0386fb59_30ec4108",
