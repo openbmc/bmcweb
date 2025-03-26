@@ -24,20 +24,35 @@
 namespace redfish
 {
 
+template <size_t N>
+struct StringLiteral
+{
+    constexpr StringLiteral(const char (&str)[N])
+    {
+        std::copy_n(str, N, value);
+    }
+
+    char value[N];
+};
+
 class OemRouter
 {
   public:
     OemRouter() = default;
 
-    template <uint64_t NumArgs>
-    auto& newOemRule(const std::string& rule)
+    template <StringLiteral URI>
+    constexpr auto& newRule(HttpVerb method)
     {
+        auto& perMethod = perMethods[static_cast<size_t>(method)];
+
+        constexpr size_t NumArgs = crow::utility::getParameterTag(URI.value);
+        std::string_view rule = std::string_view(URI.value);
         if constexpr (NumArgs == 0)
         {
             using RuleT = OemRule<>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
-            allRules.emplace_back(std::move(ruleObject));
+            perMethod.internalAdd(rule, std::move(ruleObject));
             return *ptr;
         }
         else if constexpr (NumArgs == 1)
@@ -45,7 +60,7 @@ class OemRouter
             using RuleT = OemRule<std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
-            allRules.emplace_back(std::move(ruleObject));
+            perMethod.internalAdd(rule, std::move(ruleObject));
             return *ptr;
         }
         else if constexpr (NumArgs == 2)
@@ -53,7 +68,7 @@ class OemRouter
             using RuleT = OemRule<std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
-            allRules.emplace_back(std::move(ruleObject));
+            perMethod.internalAdd(rule, std::move(ruleObject));
             return *ptr;
         }
         else if constexpr (NumArgs == 3)
@@ -61,7 +76,7 @@ class OemRouter
             using RuleT = OemRule<std::string, std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
-            allRules.emplace_back(std::move(ruleObject));
+            perMethod.internalAdd(rule, std::move(ruleObject));
             return *ptr;
         }
         else if constexpr (NumArgs == 4)
@@ -70,7 +85,7 @@ class OemRouter
                 OemRule<std::string, std::string, std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
-            allRules.emplace_back(std::move(ruleObject));
+            perMethod.internalAdd(rule, std::move(ruleObject));
             return *ptr;
         }
         else
@@ -79,23 +94,23 @@ class OemRouter
                                   std::string, std::string>;
             std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
             RuleT* ptr = ruleObject.get();
-            allRules.emplace_back(std::move(ruleObject));
+            perMethod.internalAdd(rule, std::move(ruleObject));
             return *ptr;
         }
-        static_assert(NumArgs <= 5, "Max number of args supported is 5");
     }
 
     struct PerMethod
     {
-        std::vector<OemBaseRule*> rules;
+        std::vector<std::unique_ptr<OemBaseRule>> rules;
         crow::Trie trie;
         // rule index 0 has special meaning; preallocate it to avoid
         // duplication.
         PerMethod() : rules(1) {}
 
-        void internalAdd(std::string_view rule, OemBaseRule* ruleObject)
+        void internalAdd(std::string_view rule,
+                         std::unique_ptr<OemBaseRule>&& ruleObject)
         {
-            rules.emplace_back(ruleObject);
+            rules.emplace_back(std::move(ruleObject));
             trie.add(rule, static_cast<unsigned>(rules.size() - 1U));
             // request to /resource#frag url matches /resource/#frag
             size_t hashPos = rule.find('#');
@@ -109,38 +124,6 @@ class OemRouter
             }
         }
     };
-
-    void internalAddRuleObject(const std::string& rule, OemBaseRule* ruleObject)
-    {
-        if (ruleObject == nullptr)
-        {
-            return;
-        }
-        for (size_t method = 0; method <= maxVerbIndex; method++)
-        {
-            size_t methodBit = 1 << method;
-            if ((ruleObject->methodsBitfield & methodBit) > 0U)
-            {
-                perMethods[method].internalAdd(rule, ruleObject);
-            }
-        }
-    }
-
-    void validate()
-    {
-        for (std::unique_ptr<OemBaseRule>& rule : allRules)
-        {
-            if (rule)
-            {
-                rule->validate();
-                internalAddRuleObject(rule->rule, rule.get());
-            }
-        }
-        for (PerMethod& perMethod : perMethods)
-        {
-            perMethod.trie.validate();
-        }
-    }
 
     struct FindRoute
     {
@@ -167,8 +150,9 @@ class OemRouter
         for (auto fragmentRuleIndex : found.fragmentRuleIndexes)
         {
             route.fragmentRules.emplace_back(
-                perMethod.rules[fragmentRuleIndex]);
+                (perMethod.rules[fragmentRuleIndex]).get());
         }
+
         return route;
     }
 
@@ -203,8 +187,26 @@ class OemRouter
         return findRoute;
     }
 
-    void handleOemGet(const crow::Request& req,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
+    void validate()
+    {
+        for (PerMethod& perMethod : perMethods)
+        {
+            perMethod.trie.validate();
+        }
+    }
+
+    void debugPrint()
+    {
+        for (size_t i = 0; i < perMethods.size(); i++)
+        {
+            BMCWEB_LOG_CRITICAL("{}",
+                                httpVerbToString(static_cast<HttpVerb>(i)));
+            perMethods[i].trie.debugPrint();
+        }
+    }
+
+    void handle(const crow::Request& req,
+                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
     {
         BMCWEB_LOG_DEBUG("Checking OEM routes");
         FindRouteResponse foundRoute = findRoute(req);
@@ -234,33 +236,7 @@ class OemRouter
         }
     }
 
-    void debugPrint()
-    {
-        for (size_t i = 0; i < perMethods.size(); i++)
-        {
-            BMCWEB_LOG_DEBUG("{}", httpVerbToString(static_cast<HttpVerb>(i)));
-            perMethods[i].trie.debugPrint();
-        }
-    }
-
-    std::vector<const std::string*> getRoutes(const std::string& parent)
-    {
-        std::vector<const std::string*> ret;
-
-        for (const PerMethod& pm : perMethods)
-        {
-            std::vector<unsigned> x;
-            pm.trie.findRouteIndexes(parent, x);
-            for (unsigned index : x)
-            {
-                ret.push_back(&pm.rules[index]->rule);
-            }
-        }
-        return ret;
-    }
-
   private:
     std::array<PerMethod, static_cast<size_t>(HttpVerb::Max)> perMethods;
-    std::vector<std::unique_ptr<OemBaseRule>> allRules;
 };
 } // namespace redfish

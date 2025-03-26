@@ -10,6 +10,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "redfish.hpp"
 #include "utils/query_param.hpp"
 
 #include <boost/beast/http/field.hpp>
@@ -161,6 +162,9 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
         // want to write anything to the asyncResp since it will get overwritten
         // later.
     }
+
+    // check if any sub route needs to be invoked
+    RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
 
     // If this isn't a get, no need to do anything with parameters
     if (req.method() != boost::beast::http::verb::get)
