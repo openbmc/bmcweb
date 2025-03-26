@@ -10,6 +10,7 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
+#include "redfish.hpp"
 #include "utils/query_param.hpp"
 
 #include <boost/beast/http/field.hpp>
@@ -177,6 +178,9 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
          delegated{delegated}](crow::Response& resIn) mutable {
             processAllParams(app, query, delegated, handler, resIn);
         });
+
+    // check if any sub route needs to be invoked
+    RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
 
     return needToCallHandlers;
 }

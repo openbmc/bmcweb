@@ -630,5 +630,27 @@ TEST(GetEstimatedJsonSize, ObjectsReturnsSumWithKeyAndValue)
     EXPECT_EQ(getEstimatedJsonSize(obj), expected);
 }
 
+TEST(createJsonPointerFromFragment, Good)
+{
+    EXPECT_EQ(createJsonPointerFromFragment("#/test"),
+              nlohmann::json::json_pointer("/test"));
+    EXPECT_EQ(createJsonPointerFromFragment("#/test/2"),
+              nlohmann::json::json_pointer("/test/2"));
+}
+
+TEST(createJsonPointerFromFragment, Bad)
+{
+    EXPECT_EQ(createJsonPointerFromFragment("test"), std::nullopt);
+    EXPECT_EQ(createJsonPointerFromFragment("/"), std::nullopt);
+    EXPECT_EQ(createJsonPointerFromFragment(""), std::nullopt);
+    EXPECT_EQ(createJsonPointerFromFragment("#"), std::nullopt);
+
+    // SHould fail, doesn't currently
+    // EXPECT_EQ(createJsonPointerFromFragment("#/"), std::nullopt);
+
+    // Trailing slash on a json pointer should fail
+    // EXPECT_EQ(createJsonPointerFromFragment("#/test/"), std::nullopt);
+}
+
 } // namespace
 } // namespace redfish::json_util

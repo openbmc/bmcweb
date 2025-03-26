@@ -3,11 +3,12 @@
 #pragma once
 
 #include "app.hpp"
+#include "async_resp.hpp"
+#include "http_request.hpp"
 #include "redfish_oem_routing.hpp"
-#include "utility.hpp"
+#include "verb.hpp"
 
-#include <string>
-#include <string_view>
+#include <memory>
 
 namespace redfish
 {
@@ -26,24 +27,40 @@ class RedfishService
      */
     explicit RedfishService(App& app);
 
-    static OemRouter& getOemRouter()
+    // Temporary change to make redfish instance available in other places
+    // like query delegation.
+    static RedfishService& getInstance(App& app)
     {
-        static OemRouter instance;
-        return instance;
+        static RedfishService redfish(app);
+        return redfish;
     }
 
-    static void oemRouterSetup()
+    void validate()
     {
-        getOemRouter().validate();
+        oemRouter.validate();
     }
+
+    template <StringLiteral Rule>
+    auto& newRoute(HttpVerb method)
+    {
+        return oemRouter.newRule<Rule>(method);
+    }
+
+    void handleSubRoute(
+        const crow::Request& req,
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
+    {
+        oemRouter.handle(req, asyncResp);
+    }
+
+    OemRouter oemRouter;
 };
 
-template <const std::string_view& url>
-constexpr auto& redfishOemRule()
+template <StringLiteral Path>
+// NOLINTNEXTLINE(readability-identifier-naming)
+auto& REDFISH_SUB_ROUTE(RedfishService& service, HttpVerb method)
 {
-    return RedfishService::getOemRouter()
-        .template newOemRule<crow::utility::getParameterTag(url)>(
-            std::string(url));
+    return service.newRoute<Path>(method);
 }
 
 } // namespace redfish

@@ -18,8 +18,6 @@
 #include "openbmc/openbmc_managers.hpp"
 #include "persistent_data.hpp"
 #include "query.hpp"
-#include "redfish.hpp"
-#include "redfish_oem_routing.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
@@ -872,8 +870,6 @@ inline void requestRoutesManager(App& app)
                         }
                     }
                 });
-
-            RedfishService::getOemRouter().handleOemGet(req, asyncResp);
         });
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")
