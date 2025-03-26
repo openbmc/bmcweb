@@ -863,6 +863,7 @@ other.
 #### Port
 
 - Location
+- LocationIndicatorActive
 - Status
 
 ### /redfish/v1/Systems/system/LogServices/
