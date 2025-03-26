@@ -734,26 +734,7 @@ inline std::optional<nlohmann::json::json_pointer>
     }
 
     std::string_view fragment = input.substr(hashPos + 1);
-    std::string pointerPath;
-    size_t start = 0;
-    size_t end = 0;
-    while ((end = fragment.find('/', start)) != std::string_view::npos)
-    {
-        if (end > start)
-        {
-            pointerPath += "/";
-            pointerPath += fragment.substr(start, end - start);
-        }
-        start = end + 1;
-    }
-
-    if (start < fragment.size())
-    {
-        pointerPath += "/";
-        pointerPath += fragment.substr(start);
-    }
-
-    return nlohmann::json::json_pointer(pointerPath);
+    return nlohmann::json::json_pointer(std::string(fragment));
 }
 
 template <typename... UnpackTypes>
