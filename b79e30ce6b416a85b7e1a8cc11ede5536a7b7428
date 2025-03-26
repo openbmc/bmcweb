@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "663cca0f_1bfe3a75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T13:11:29Z",
+      "side": 1,
+      "message": "Can you add information about the PDI design here?",
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "c6401173_3749f0d1",
@@ -31,6 +48,189 @@
       "writtenOn": "2025-03-26T06:43:16Z",
       "side": 1,
       "message": "@Gunner @Ed  can you review these changes",
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ddf25b2_b1855b93",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2152,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T13:11:29Z",
+      "side": 1,
+      "message": "return here\n\nTypically this is wrote as \n\n    if (ec)\n    {\n        if (ec.value() \u003d\u003d EBADR)\n        {\n            BMCWEB_LOG_WARNING(\"Port {} Unreachable\", portId);\n            messages::resourceNotFound(asyncResp-\u003eres, \"Port\", portId);\n            return;\n        }\n        BMCWEB_LOG_ERROR(\"DBus error: {}\", ec);\n        messages::internalError(asyncResp-\u003eres);\n        return \n    }",
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ae7a90_b5fa0c8e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2187,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T13:11:29Z",
+      "side": 1,
+      "message": "These would still show up when \n\n/redfish/v1/Managers/bmc/DedicatedNetworkPorts/badportid",
+      "range": {
+        "startLine": 2181,
+        "startChar": 0,
+        "endLine": 2187,
+        "endChar": 72
+      },
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6767b80_b6b377d8",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2219,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T13:11:29Z",
+      "side": 1,
+      "message": "Don\u0027t you already have this at 2238",
+      "range": {
+        "startLine": 2217,
+        "startChar": 0,
+        "endLine": 2219,
+        "endChar": 61
+      },
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f4c27f4_e9f2f6fa",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2243,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T13:11:29Z",
+      "side": 1,
+      "message": "So we are assuming each ethernet is a Port?",
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6af69e09_1003b8c9",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2314,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T13:11:29Z",
+      "side": 1,
+      "message": "Ideally, this is the first commit, move / refactor code. \nOh well.",
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a55113b6_5716c79e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2662,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T13:11:29Z",
+      "side": 1,
+      "message": "patchPort ?",
+      "range": {
+        "startLine": 2662,
+        "startChar": 41,
+        "endLine": 2662,
+        "endChar": 63
+      },
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16bf30d3_14841dbd",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2666,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T13:11:29Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be getPort",
+      "range": {
+        "startLine": 2666,
+        "startChar": 41,
+        "endLine": 2666,
+        "endChar": 61
+      },
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e8391fa_526981ac",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2670,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T13:11:29Z",
+      "side": 1,
+      "message": "getPortCollection",
+      "range": {
+        "startLine": 2670,
+        "startChar": 41,
+        "endLine": 2670,
+        "endChar": 71
+      },
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5b1a46d_95458d2a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2673,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-03-26T13:11:29Z",
+      "side": 1,
+      "message": "Typically we support HEAD too \nhttps://github.com/openbmc/bmcweb/blob/37b912fd9596ca66736b9d20de856bf4e66e9898/redfish-core/lib/processor.hpp#L1038\n\nYou could support later",
       "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
