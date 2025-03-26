@@ -36,6 +36,7 @@
 namespace crow
 {
 
+template<typename ContainedType>
 class Trie
 {
   public:
@@ -80,13 +81,13 @@ class Trie
         while (true)
         {
             bool didMerge = false;
-            Node::ChildMap merged;
-            for (const Node::ChildMap::value_type& kv : node.children)
+            typename Node::ChildMap merged;
+            for (const typename Node::ChildMap::value_type& kv : node.children)
             {
                 Node& child = nodes[kv.second];
                 if (child.isSimpleNode())
                 {
-                    for (const Node::ChildMap::value_type& childKv :
+                    for (const typename Node::ChildMap::value_type& childKv :
                          child.children)
                     {
                         merged[kv.first + childKv.first] = childKv.second;
@@ -105,7 +106,7 @@ class Trie
             }
         }
 
-        for (const Node::ChildMap::value_type& kv : node.children)
+        for (const typename Node::ChildMap::value_type& kv : node.children)
         {
             optimizeNode(nodes[kv.second]);
         }
@@ -126,7 +127,7 @@ class Trie
                                 std::vector<unsigned>& routeIndexes,
                                 const Node& node) const
     {
-        for (const Node::ChildMap::value_type& kv : node.children)
+        for (const typename Node::ChildMap::value_type& kv : node.children)
         {
             const std::string& fragment = kv.first;
             const Node& child = nodes[kv.second];
@@ -157,7 +158,7 @@ class Trie
 
     struct FindResult
     {
-        unsigned ruleIndex;
+        unsigned ruleIndex = 0;
         std::vector<std::string> params;
     };
 
@@ -205,7 +206,7 @@ class Trie
             params.pop_back();
         }
 
-        for (const Node::ChildMap::value_type& kv : node.children)
+        for (const typename Node::ChildMap::value_type& kv : node.children)
         {
             const std::string& fragment = kv.first;
             const Node& child = nodes[kv.second];
@@ -307,7 +308,7 @@ class Trie
             BMCWEB_LOG_DEBUG("{} <path>", spaces);
             debugNodePrint(nodes[n.pathParamChild], level + 6);
         }
-        for (const Node::ChildMap::value_type& kv : n.children)
+        for (const typename Node::ChildMap::value_type& kv : n.children)
         {
             BMCWEB_LOG_DEBUG("{}{}", spaces, kv.first);
             debugNodePrint(nodes[kv.second], level + kv.first.size());
@@ -414,7 +415,7 @@ class Router
     struct PerMethod
     {
         std::vector<BaseRule*> rules;
-        Trie trie;
+        Trie<BaseRule> trie;
         // rule index 0 has special meaning; preallocate it to avoid
         // duplication.
         PerMethod() : rules(1) {}
@@ -502,7 +503,7 @@ class Router
     {
         FindRoute route;
 
-        Trie::FindResult found = perMethod.trie.find(url);
+        Trie<BaseRule>::FindResult found = perMethod.trie.find(url);
         if (found.ruleIndex >= perMethod.rules.size())
         {
             throw std::runtime_error("Trie internal structure corrupted!");
@@ -568,10 +569,10 @@ class Router
                        Adaptor&& adaptor)
     {
         PerMethod& perMethod = upgradeRoutes;
-        Trie& trie = perMethod.trie;
+        Trie<BaseRule>& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
 
-        Trie::FindResult found = trie.find(req->url().encoded_path());
+        Trie<BaseRule>::FindResult found = trie.find(req->url().encoded_path());
         unsigned ruleIndex = found.ruleIndex;
         if (ruleIndex == 0U)
         {
