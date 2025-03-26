@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "079b98e6_f0f8513b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-26T16:02:57Z",
+      "side": 1,
+      "message": "Please make this a normal method.",
+      "range": {
+        "startLine": 926,
+        "startChar": 2,
+        "endLine": 950,
+        "endChar": 9
+      },
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
