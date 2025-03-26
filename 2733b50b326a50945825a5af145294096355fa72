@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72355521_5b28cc92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T12:47:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "29e2000c_5108b5a6",
+      "range": {
+        "startLine": 21,
+        "startChar": 49,
+        "endLine": 21,
+        "endChar": 52
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac078f9a_d13093ee",
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80cff960_48b10533",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T12:47:07Z",
+      "side": 1,
+      "message": "I think we have two options here move this to common place and let source_loation be present so",
+      "parentUuid": "ac078f9a_d13093ee",
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8a972dc_0bb214ab",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 21
@@ -54,6 +96,30 @@
       "writtenOn": "2025-03-25T22:08:45Z",
       "side": 1,
       "message": "Given we have one usage of this, can we avoid adding source_location for now?  When we have enough calls to this helper that it\u0027s needed, we can reevaluate",
+      "range": {
+        "startLine": 683,
+        "startChar": 31,
+        "endLine": 683,
+        "endChar": 34
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7563fb0_431343d2",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T12:47:07Z",
+      "side": 1,
+      "message": "I think there are two options here \n1. Move to common place and keep source location. This is needed to identify source function name to identify handler caused the error\n2. Keep it here and remove source_location",
+      "parentUuid": "c8a972dc_0bb214ab",
       "range": {
         "startLine": 683,
         "startChar": 31,
@@ -135,6 +201,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f40564bd_99e39738",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T12:47:07Z",
+      "side": 1,
+      "message": "can you elaborate more on this comment ?Not sure I understand",
+      "parentUuid": "0f8889fd_ad27ca02",
+      "range": {
+        "startLine": 707,
+        "startChar": 17,
+        "endLine": 707,
+        "endChar": 26
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed36de5f_17048d0b",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 21
@@ -181,6 +271,24 @@
       "writtenOn": "2025-03-25T20:40:32Z",
       "side": 1,
       "message": "Typically we would also have HEAD here too \n\n    BMCWEB_ROUTE(app, \"/redfish/v1/Systems/\u003cstr\u003e/Memory/\u003cstr\u003e/MemoryMetrics\")\n        .privileges(redfish::privileges::headMemoryMetrics)\n        .methods(boost::beast::http::verb::head)(",
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0adc4619_d1ce98fd",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T12:47:07Z",
+      "side": 1,
+      "message": "I will add as part of a follow up patch, I see HEAD request routes are missing for many memory metrics URI",
+      "parentUuid": "356bebb9_91141ac4",
       "revId": "2733b50b326a50945825a5af145294096355fa72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
