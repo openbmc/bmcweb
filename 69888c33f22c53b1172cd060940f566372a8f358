@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7fb6bee_9655be1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2025-03-26T03:18:21Z",
+      "side": 1,
+      "message": "This design does not comply with OWASP recommendations\nhttps://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#authentication-responses\n\n\u003e Using any of the authentication mechanisms (login, password reset, or password recovery), an application must respond with a generic error message regardless of whether:\n\u003e\n\u003e    The user ID or password was incorrect.\n\u003e    The account does not exist.\n\u003e    The account is locked or disabled.",
+      "revId": "69888c33f22c53b1172cd060940f566372a8f358",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
