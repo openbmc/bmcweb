@@ -130,6 +130,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4ba4873_9a799d46",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T13:07:06Z",
+      "side": 1,
+      "message": "i have done #2 for now.",
+      "parentUuid": "b7563fb0_431343d2",
+      "range": {
+        "startLine": 683,
+        "startChar": 31,
+        "endLine": 683,
+        "endChar": 34
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d579f2ff_157c2e68",
@@ -337,6 +361,24 @@
       "side": 1,
       "message": "I will add as part of a follow up patch, I see HEAD request routes are missing for many memory metrics URI",
       "parentUuid": "356bebb9_91141ac4",
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32aedecd_7e283493",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-03-26T13:07:06Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0adc4619_d1ce98fd",
       "revId": "2733b50b326a50945825a5af145294096355fa72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
