@@ -482,6 +482,20 @@ void productionDateReport(crow::Response& res, const std::string& buildDate)
     res.jsonValue["ProductionDate"] = *valueStr;
 }
 
+/**
+ * @brief ReleaseDate report
+ */
+void releaseDateReport(crow::Response& res, const std::string& releaseDate)
+{
+    std::optional<std::string> valueStr = getDateTimeIso8601(releaseDate);
+    if (!valueStr)
+    {
+        messages::internalError();
+        return;
+    }
+    res.jsonValue["ReleaseDate"] = *valueStr;
+}
+
 std::optional<usSinceEpoch> dateStringToEpoch(std::string_view datetime)
 {
     for (const char* format : std::to_array(
