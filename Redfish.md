@@ -1139,8 +1139,10 @@ other.
 
 - Description
 - LowestSupportedVersion
+- Manufacturer
 - `RelatedItem@odata.count`
 - RelatedItem
+- ReleaseDate
 - Status
 - Updateable
 - Version
