@@ -819,7 +819,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
         }
     }
 
-    static void startMultiFragmentGet(
+    static void startMultiFragmentHandle(
         const std::shared_ptr<crow::Request>& req,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::shared_ptr<std::vector<OemBaseRule*>>& fragments,

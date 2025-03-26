@@ -81,7 +81,7 @@ int run()
 
     if constexpr (BMCWEB_REDFISH)
     {
-        redfish::RedfishService redfish(app);
+        redfish::RedfishService::getInstance(app);
 
         // Create EventServiceManager instance and initialize Config
         redfish::EventServiceManager::getInstance();
