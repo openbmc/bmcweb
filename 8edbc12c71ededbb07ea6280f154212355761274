@@ -164,6 +164,30 @@
       },
       "revId": "8edbc12c71ededbb07ea6280f154212355761274",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5784e6f2_a80d3863",
+        "filename": "test/redfish-core/include/dbus_log_watcher_test.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-26T15:44:28Z",
+      "side": 0,
+      "message": "\u003e Maybe \n\u003e ```\n\u003e srcfiles_unittest\n\u003e ```\n\u003e \n\u003e in ```meson.build``` can be modified to add the tests for this use-case\n\u003e when the options are set.\n\u003e \n\u003e Something similar to:\n\u003e ```\n\u003e if get_option(\u0027redfish-dbus-log\u0027).allowed()\n\u003e    srcfiles_unittest +\u003d files(\"test/redfish-core/include/dbus_log_watcher_test.cpp\")\n\u003e endif\n\u003e ```\n\u003e \n\u003e Then it can be covered in CI and still work locally for people who disable the related meson options.\n\nWe shouldn\u0027t disable the test for those that don\u0027t have these options turned on;  We just needs some amount of refactor to make the option flag at a level above the unit test so it can pass in all cases.",
+      "parentUuid": "b57240b3_10950c14",
+      "range": {
+        "startLine": 26,
+        "startChar": 49,
+        "endLine": 26,
+        "endChar": 67
+      },
+      "revId": "8edbc12c71ededbb07ea6280f154212355761274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
