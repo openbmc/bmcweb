@@ -819,15 +819,16 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
         }
     }
 
-    static void startMultiFragmentGet(
-        const std::shared_ptr<crow::Request>& req,
+    static void startMultiFragmentHandle(
+        const std::shared_ptr<crow::Request>& /*req*/,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        const std::shared_ptr<std::vector<OemBaseRule*>>& fragments,
-        const std::shared_ptr<std::vector<std::string>>& params,
+        const std::shared_ptr<OemBaseRule*>& /*fragments*/,
+        const std::shared_ptr<std::vector<std::string>>& /*params*/,
         const crow::Response& resIn)
     {
         asyncResp->res.jsonValue = resIn.jsonValue;
         auto multi = std::make_shared<MultiAsyncResp>(asyncResp);
+        /*
         for (OemBaseRule* fragment : *fragments)
         {
             if (fragment != nullptr)
@@ -849,6 +850,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
                 }
             }
         }
+        */
     }
 
   private:
