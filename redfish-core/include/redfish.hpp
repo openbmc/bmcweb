@@ -26,24 +26,24 @@ class RedfishService
      */
     explicit RedfishService(App& app);
 
-    static OemRouter& getOemRouter()
+    void validate()
     {
-        static OemRouter instance;
-        return instance;
+        // oemRouter.validate();
     }
 
-    static void oemRouterSetup()
+    template <StringLiteral Rule>
+    auto& newRoute(HttpVerb method)
     {
-        getOemRouter().validate();
+        return oemRouter.newRule<Rule>(method);
     }
+
+    OemRouter oemRouter;
 };
 
-template <const std::string_view& url>
-constexpr auto& redfishOemRule()
+template <StringLiteral Path>
+auto& REDFISH_SUB_ROUTE(RedfishService& service, HttpVerb method)
 {
-    return RedfishService::getOemRouter()
-        .template newOemRule<crow::utility::getParameterTag(url)>(
-            std::string(url));
+    return service.newRoute<Path>(method);
 }
 
 } // namespace redfish
