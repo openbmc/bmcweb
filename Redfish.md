@@ -1134,8 +1134,10 @@ other.
 #### SoftwareInventory
 
 - Description
+- Manufacture
 - `RelatedItem@odata.count`
 - RelatedItem
+- SoftwareId
 - Status
 - Updateable
 - Version
