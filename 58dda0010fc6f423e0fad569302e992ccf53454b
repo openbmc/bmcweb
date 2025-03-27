@@ -16,6 +16,92 @@
       "message": "addressed comments",
       "revId": "58dda0010fc6f423e0fad569302e992ccf53454b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d34d1b0_325c6a00",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-27T00:11:04Z",
+      "side": 1,
+      "message": "divide by zero error.",
+      "range": {
+        "startLine": 69,
+        "startChar": 47,
+        "endLine": 69,
+        "endChar": 52
+      },
+      "revId": "58dda0010fc6f423e0fad569302e992ccf53454b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e3de79c_28ee57ba",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-27T00:11:04Z",
+      "side": 1,
+      "message": "This is generally not an internal error, but set to null to indicate the value isn\u0027t available yet.",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 24
+      },
+      "revId": "58dda0010fc6f423e0fad569302e992ccf53454b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53b7cc9e_bfb6dc71",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-27T00:11:04Z",
+      "side": 1,
+      "message": "Remove all of these.  This is business logic that doesn\u0027t belong in bmcweb.\n\nIf an application chooses to break the interface, that\u0027s the applications problem, and needs resolved there.  bmcweb shouldn\u0027t need police correct interface usage.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "58dda0010fc6f423e0fad569302e992ccf53454b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4203fb6_da52071e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-27T00:11:04Z",
+      "side": 1,
+      "message": "Please make this a normal method.",
+      "revId": "58dda0010fc6f423e0fad569302e992ccf53454b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
