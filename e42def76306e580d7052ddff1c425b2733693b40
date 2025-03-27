@@ -22,6 +22,30 @@
       },
       "revId": "e42def76306e580d7052ddff1c425b2733693b40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9759e4d_a1c4b4e8",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-03-27T15:23:25Z",
+      "side": 1,
+      "message": "I cannot measure multi-host on real hw. Here are the curl timings in qemu: \n\nroute: /redfish/v1/Systems/{computerSystemId}\n\n```\ncurl-format        | romulus   | yosemite4\n-------------------+-----------+-----------\ntime_namelookup    | 0.000031s | 0.000033s\ntime_connect       | 0.000152s | 0.000213s\ntime_appconnect    | 0.039104s | 0.069695s\ntime_pretransfer   | 0.039131s | 0.069740s\ntime_redirect      | 0.000000s | 0.000000s\ntime_starttransfer | 0.069679s | 0.282222s\n-------------------+-----------+-----------\ntime_total         | 0.070615s | 0.283232s\n```",
+      "parentUuid": "7a9b9cf4_a10842d7",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 11
+      },
+      "revId": "e42def76306e580d7052ddff1c425b2733693b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

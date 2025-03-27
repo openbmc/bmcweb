@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "298cddea_02745e09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-03-27T15:23:25Z",
+      "side": 1,
+      "message": "To align with the rest of my patches I will continue using multi-host.",
+      "parentUuid": "97d16775_b286f06a",
+      "revId": "a417f1aa0c5a523d49a3006ab1b0da2581994b4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55f62ea4_1530800e",
@@ -49,6 +67,24 @@
       "writtenOn": "2024-09-30T12:56:02Z",
       "side": 1,
       "message": "*long-term",
+      "revId": "a417f1aa0c5a523d49a3006ab1b0da2581994b4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53506ce3_95c66bf7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-03-27T15:23:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "55f62ea4_1530800e",
       "revId": "a417f1aa0c5a523d49a3006ab1b0da2581994b4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -101,6 +137,24 @@
       "writtenOn": "2024-08-22T20:56:02Z",
       "side": 1,
       "message": "nit: After finding the match the systemId is set back to the entire path not just the Id. This masks a bit what is going on here. I think it might be better to just pass the path directly here for clarity.\n\nThat also implies the parameter in getManagedHostProperty() might be better named systemPath.",
+      "revId": "a417f1aa0c5a523d49a3006ab1b0da2581994b4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffc662a6_524ad17e",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-03-27T15:23:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "befcf218_27b8844c",
       "revId": "a417f1aa0c5a523d49a3006ab1b0da2581994b4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
