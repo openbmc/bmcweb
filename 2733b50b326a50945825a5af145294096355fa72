@@ -374,6 +374,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a109083_b7ff8d5e",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-27T00:07:47Z",
+      "side": 1,
+      "message": "Then hardcode the full path:\n\n/xyz/openbmc_project/metric/memory/total.\n\nDo not use startswith.\n\nThis is a documented common error.",
+      "parentUuid": "3792a58a_8d814506",
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "356bebb9_91141ac4",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 21
