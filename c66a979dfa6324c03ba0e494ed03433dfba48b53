@@ -16,6 +16,24 @@
       "message": "This is a security issue.  You\u0027ve added the fragment to the public handler that, outside of a unit test, is common, so:\nA. these fragments will be accessible directly by users if they craft the correct uri.\nB. These fragments will have collisions with one another if /Oem/\u003cthing\u003e is declared more than once.",
       "revId": "c66a979dfa6324c03ba0e494ed03433dfba48b53",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1d35447_658bbb49",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 111
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-27T04:39:27Z",
+      "side": 1,
+      "message": "1. These URIs should not be accessible to users. The main router is not aware of any #fragment URIs. It will throw not found if someone succeeds to send a # fragment in the URI \n2. We should be able to assert when two same fragments routes gets added.",
+      "parentUuid": "ee73a156_df8776fe",
+      "revId": "c66a979dfa6324c03ba0e494ed03433dfba48b53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
