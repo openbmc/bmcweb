@@ -98,6 +98,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ec1b8035_8655a0e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-27T11:59:58Z",
+      "side": 1,
+      "message": "Replaced \"return (left[\"Id\"] \u003c\u003d right[\"Id\"]);\" with \"return redfish::json_util::objectKeyCmp(\"Id\", left, right);\". This will prevent it from crashing even if fillEventLogLogEntryFromPropertyMap succeeds, but does not populate Id.",
+      "parentUuid": "d3c6fda2_caaee900",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 57
+      },
+      "revId": "1cb1d2998e3e2350c85513470f3ae1d5f33421ed",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c51db64e_cc4c00f5",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
