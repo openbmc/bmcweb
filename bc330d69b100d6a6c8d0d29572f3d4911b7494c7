@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dbc6a1e0_9938aaf2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-27T05:29:11Z",
+      "side": 1,
+      "message": "this is not applicable anymore right ?",
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e0287bc_847932cc",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
@@ -60,6 +77,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "266e9f10_8c2b9948",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-27T05:29:11Z",
+      "side": 1,
+      "message": "can you share reference to this PDI ?",
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f5e4b17_ce579eff",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
@@ -77,6 +111,23 @@
         "endLine": 935,
         "endChar": 13
       },
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19761b5a_79c3f943",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-03-27T05:29:11Z",
+      "side": 1,
+      "message": "std::optional\u003cstd::string\u003e ?",
       "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
