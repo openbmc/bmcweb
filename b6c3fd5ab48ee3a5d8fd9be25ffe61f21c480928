@@ -87,6 +87,24 @@
       "parentUuid": "af60048e_65fbf40a",
       "revId": "b6c3fd5ab48ee3a5d8fd9be25ffe61f21c480928",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eab319e_4b2a9864",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 1448,
+      "author": {
+        "id": 1002230
+      },
+      "writtenOn": "2025-03-27T11:37:34Z",
+      "side": 1,
+      "message": "Here is why I think all things with LogEntryType::Event are required to have a MessageId.\nThe MessageId property is not on the list of required properties for the LogEntry definition, but the reason behind that is, its purpose depends on value of the EntryType. Here is what long description of the MessageId property says:\n```\n% curl -s \u0027https://redfish.dmtf.org/schemas/v1/LogEntry.v1_15_0.json#/definitions/LogEntry\u0027 | jq .definitions.LogEntry.properties.MessageId.longDescription\n\"This property shall contain the MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId property of the event.  If the entry type is `SEL`, the format should follow the pattern \u0027^0[xX](([a-fA-F]|[0-9]){2}){4}$\u0027, which results in a string in the form \u00270xNNaabbcc\u0027, where \u0027NN\u0027 is the EventDir/EventType byte, \u0027aa\u0027 is the Event Data 1 byte, \u0027bb\u0027 is Event Data 2 byte, \u0027cc\u0027 is Event Data 3 byte, corresponding with bytes 13-16 in the IPMI SEL Event Record.  If the entry type is `CXL`, this property shall not be present.  Otherwise, this property contains OEM-specific information.\"\n```\n\nI read \"If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId property of the event.\" as \"it\u0027s required for LogEntryType::Event\".\nAnd it\u0027s not on the list of required props because \"If the entry type is `CXL`, this property shall not be present.\". In all the other cases, it is required to be populated with a value in particular format described.",
+      "parentUuid": "294d5ff8_abdbceeb",
+      "revId": "b6c3fd5ab48ee3a5d8fd9be25ffe61f21c480928",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
