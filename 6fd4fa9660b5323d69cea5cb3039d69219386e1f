@@ -33,6 +33,24 @@
       "message": "Should this be under chassis_utils namespace?",
       "revId": "6fd4fa9660b5323d69cea5cb3039d69219386e1f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11d2ceb4_da7fc6be",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-03-31T12:06:05Z",
+      "side": 1,
+      "message": "Yes, it makes sense. I moved it under chassis_utils.",
+      "parentUuid": "3c59fe4c_674649c2",
+      "revId": "6fd4fa9660b5323d69cea5cb3039d69219386e1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
