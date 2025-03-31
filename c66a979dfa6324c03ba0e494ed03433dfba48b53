@@ -51,6 +51,24 @@
       "parentUuid": "ee73a156_df8776fe",
       "revId": "c66a979dfa6324c03ba0e494ed03433dfba48b53",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d33ba33_2e84bdbf",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 111
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-03-31T22:25:01Z",
+      "side": 1,
+      "message": "\u003e 1. These URIs should not be accessible to users. The main router is not aware of any #fragment URIs. It will throw not found if someone succeeds to send a # fragment in the URI \n\nAnd we\u0027ve verified that with a test?  I didn\u0027t think that woudl be the behavior.\n\n\u003e 2. We should be able to assert when two same fragments routes gets added.\n\nAgreed, but this doesn\u0027t mean we add routes and fragments in the same router.",
+      "parentUuid": "c1d35447_658bbb49",
+      "revId": "c66a979dfa6324c03ba0e494ed03433dfba48b53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
