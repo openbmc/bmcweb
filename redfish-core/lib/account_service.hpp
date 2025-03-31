@@ -1308,6 +1308,13 @@ inline void handleAccountServiceClientCertificatesGet(
     {
         return;
     }
+
+    nlohmann::json& json = asyncResp->res.jsonValue;
+    json["@odata.id"] =
+        "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates";
+    json["@odata.type"] = "#CertificateCollection.CertificateCollection";
+    json["Name"] = "Certificates Collection";
+    json["Description"] = "Multi-factor Authentication Client Certificates";
     getClientCertificates(asyncResp, "/Members"_json_pointer);
 }
 
