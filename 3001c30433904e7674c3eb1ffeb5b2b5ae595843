@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ff09667c_e3bacd21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-01T16:44:15Z",
+      "side": 1,
+      "message": "nit, this whole block doesn\u0027t really add value to this commit message.  Just specify that bmcweb core dumped.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 3
+      },
+      "revId": "3001c30433904e7674c3eb1ffeb5b2b5ae595843",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54fcefe7_bed506c4",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 4
