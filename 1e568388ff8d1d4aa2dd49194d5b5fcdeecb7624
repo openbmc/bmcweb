@@ -200,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caae916b_3771a6bb",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2314,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-04-01T15:37:32Z",
+      "side": 1,
+      "message": "This change is no longer in this commit, it is moved to the next commit in this commit chain. This comment is addressed there.",
+      "parentUuid": "a650a357_abf8c7c5",
+      "range": {
+        "startLine": 2310,
+        "startChar": 0,
+        "endLine": 2314,
+        "endChar": 33
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa6c0f26_2e18190e",
@@ -237,6 +261,30 @@
       "side": 1,
       "message": "I thought this one was simple involving a single D-Bus call and populating the Redfish response without nested asynchronous calls.\nHowever, I am considering if any further simplifications could be made.",
       "parentUuid": "aa6c0f26_2e18190e",
+      "range": {
+        "startLine": 2462,
+        "startChar": 60,
+        "endLine": 2474,
+        "endChar": 9
+      },
+      "revId": "1e568388ff8d1d4aa2dd49194d5b5fcdeecb7624",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fcd362e_b4343499",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 2474,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-04-01T15:37:32Z",
+      "side": 1,
+      "message": "This change is no longer in this commit, it is moved to the next commit in this commit chain. This comment is addressed there.",
+      "parentUuid": "40b30b1a_2cabb6e5",
       "range": {
         "startLine": 2462,
         "startChar": 60,
