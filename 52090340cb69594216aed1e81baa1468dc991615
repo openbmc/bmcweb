@@ -141,6 +141,24 @@
       "parentUuid": "7824d709_ff44e120",
       "revId": "52090340cb69594216aed1e81baa1468dc991615",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "857f1356_500e7bdb",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-01T19:26:05Z",
+      "side": 1,
+      "message": "Ed,\n\nUnfortunately, this does not work\n`[req \u003d req.copy()] ()....`\n\nIt is because\n```\noperator\u003d(const Request\u0026) \u003d delete\nprivate:L Request(const Request\u0026 other) \u003d default;\n```\n\nThen, the method that I can think of is\n```\n     [req\u003dstd::make_shared\u003cRequest\u0026\u003e(req.copy(), ...]()\n     {  \n        // access via req-\u003e \n     }\n```\n\nIt may look like a little awkward, but overall, I think this commit seems still better as we can prevent the undesired copy.\n\nIf you agree it, let merge this.",
+      "parentUuid": "db7a0782_47b3cab0",
+      "revId": "52090340cb69594216aed1e81baa1468dc991615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
