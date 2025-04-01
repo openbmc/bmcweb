@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0d2ecbf8_526030de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2025-04-01T07:53:24Z",
+      "side": 1,
+      "message": "Friendly recall",
+      "parentUuid": "8eecbf5f_6e19ae98",
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dbc6a1e0_9938aaf2",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
