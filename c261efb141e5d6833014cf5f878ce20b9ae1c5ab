@@ -16,6 +16,69 @@
       "message": "Which platform/qemu instance was this tested on?",
       "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe00df4d_37624e4a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-01T20:24:46Z",
+      "side": 1,
+      "message": "What happens on a system that doesn\u0027t support this?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 1
+      },
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8b56412_e36b0263",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-01T20:24:46Z",
+      "side": 1,
+      "message": "Don\u0027t you also need a check for SYSTEM URI NAME?\n\n    if (!redfish::setUpRedfishRoute(app, req, asyncResp))\n    {\n        return;\n    }\n    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)\n    {\n        // Option currently returns no systems.  TBD\n        messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                   systemName);\n        return;\n    }\n    if (systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)\n    {\n        messages::resourceNotFound(asyncResp-\u003eres, \"ComputerSystem\",\n                                   systemName);\n        return;\n    }",
+      "range": {
+        "startLine": 127,
+        "startChar": 3,
+        "endLine": 130,
+        "endChar": 5
+      },
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ab870a4_6a0852c0",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-01T20:24:46Z",
+      "side": 1,
+      "message": "This is a POST, don\u0027t we still need to return an error ?",
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
