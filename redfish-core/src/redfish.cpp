@@ -198,6 +198,7 @@ RedfishService::RedfishService(App& app)
 
     requestRoutesBiosService(app);
     requestRoutesBiosReset(app);
+    requestRoutesBiosChangePassword(app);
 
     if constexpr (BMCWEB_VM_NBDPROXY)
     {
