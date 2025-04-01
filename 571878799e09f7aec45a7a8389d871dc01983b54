@@ -16,6 +16,24 @@
       "message": "Inspection only ?",
       "revId": "571878799e09f7aec45a7a8389d871dc01983b54",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7bb2a9a_9c232f1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-01T21:58:38Z",
+      "side": 1,
+      "message": "I ran redfish service validator on the first revision.  Will run it again before merging.",
+      "parentUuid": "99617446_074fea60",
+      "revId": "571878799e09f7aec45a7a8389d871dc01983b54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
