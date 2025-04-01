@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d0c3fc7_448ed2ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-01T19:49:38Z",
+      "side": 1,
+      "message": "Typically would wait a day or two but I can\u0027t image folks would have a problem with this. If someone does, happy to chat.",
+      "revId": "c802a09b2ecb0173c4216be8b92f5688f59a341a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
