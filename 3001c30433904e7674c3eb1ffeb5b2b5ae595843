@@ -22,6 +22,30 @@
       },
       "revId": "3001c30433904e7674c3eb1ffeb5b2b5ae595843",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d9e4a13_c20bcbc0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1522,
+      "author": {
+        "id": 1001127
+      },
+      "writtenOn": "2025-04-01T14:00:02Z",
+      "side": 1,
+      "message": "e.g. return redfish::json_util::objectKeyCmp(\"Id\", left, right) \u003c 0;\n\nobjectKeyCmp(\"Id\", left, right) will always be true (non-zero), which may cause sort() problem.",
+      "parentUuid": "54fcefe7_bed506c4",
+      "range": {
+        "startLine": 1522,
+        "startChar": 15,
+        "endLine": 1522,
+        "endChar": 67
+      },
+      "revId": "3001c30433904e7674c3eb1ffeb5b2b5ae595843",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
