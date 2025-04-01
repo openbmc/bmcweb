@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26bddf80_3118db6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-01T20:17:20Z",
+      "side": 1,
+      "message": "Any testing? Inspection only ?",
+      "revId": "481821e5fabb086332fe521ea4668495afc994cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b45354e8_d757ef0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-01T20:17:20Z",
+      "side": 1,
+      "message": "Seems reasonable",
+      "revId": "481821e5fabb086332fe521ea4668495afc994cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a9a877e_80235e1b",
+        "filename": "http/routing/trie.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-01T20:17:20Z",
+      "side": 1,
+      "message": "Do we care about\n\n// SPDX-FileCopyrightText: Copyright OpenBMC Authors \n\n?",
+      "revId": "481821e5fabb086332fe521ea4668495afc994cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
