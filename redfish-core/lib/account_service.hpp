@@ -2185,7 +2185,8 @@ inline void handleAccountDelete(
     const std::string userPath(tempObjPath);
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, username](const boost::system::error_code& ec) {
+        [asyncResp, username,
+         req(req.copy())](const boost::system::error_code& ec) {
             if (ec)
             {
                 messages::resourceNotFound(asyncResp->res, "ManagerAccount",
