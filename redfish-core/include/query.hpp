@@ -169,7 +169,7 @@ inline bool handleIfMatch(crow::App& app, const crow::Request& req,
     }
 
     delegated = query_param::delegate(queryCapabilities, *queryOpt);
-    std::function<void(crow::Response&)> handler =
+    std::move_only_function<void(crow::Response&)> handler =
         asyncResp->res.releaseCompleteRequestHandler();
 
     asyncResp->res.setCompleteRequestHandler(

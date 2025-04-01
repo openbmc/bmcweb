@@ -264,7 +264,8 @@ struct Response
         }
     }
 
-    void setCompleteRequestHandler(std::function<void(Response&)>&& handler)
+    void setCompleteRequestHandler(
+        std::move_only_function<void(Response&)>&& handler)
     {
         BMCWEB_LOG_DEBUG("{} setting completion handler", logPtr(this));
         completeRequestHandler = std::move(handler);
@@ -274,11 +275,12 @@ struct Response
         completed = false;
     }
 
-    std::function<void(Response&)> releaseCompleteRequestHandler()
+    std::move_only_function<void(Response&)> releaseCompleteRequestHandler()
     {
         BMCWEB_LOG_DEBUG("{} releasing completion handler{}", logPtr(this),
                          static_cast<bool>(completeRequestHandler));
-        std::function<void(Response&)> ret = completeRequestHandler;
+        std::move_only_function<void(Response&)> ret =
+            std::move(completeRequestHandler);
         completeRequestHandler = nullptr;
         completed = true;
         return ret;
@@ -347,6 +349,6 @@ struct Response
   private:
     std::optional<std::string> expectedHash;
     bool completed = false;
-    std::function<void(Response&)> completeRequestHandler;
+    std::move_only_function<void(Response&)> completeRequestHandler;
 };
 } // namespace crow

@@ -479,8 +479,9 @@ inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
     return ret;
 }
 
-inline bool processOnly(crow::App& app, crow::Response& res,
-                        std::function<void(crow::Response&)>& completionHandler)
+inline bool processOnly(
+    crow::App& app, crow::Response& res,
+    std::move_only_function<void(crow::Response&)>& completionHandler)
 {
     BMCWEB_LOG_DEBUG("Processing only query param");
     auto itMembers = res.jsonValue.find("Members");
@@ -942,7 +943,7 @@ inline void processSelect(crow::Response& intermediateResponse,
 
 inline void processAllParams(
     crow::App& app, const Query& query, const Query& delegated,
-    std::function<void(crow::Response&)>& completionHandler,
+    std::move_only_function<void(crow::Response&)>& completionHandler,
     crow::Response& intermediateResponse)
 {
     if (!completionHandler)
