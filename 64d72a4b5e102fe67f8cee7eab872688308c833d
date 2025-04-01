@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8feee3bb_b3c6c722",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-01T03:14:00Z",
+      "side": 1,
+      "message": "We model boards as Assemblies.. Upstream there was discussion about help in PDI to know if the board should be modeled as an assembly or a chassis.. But I think the first step would be getting Assemblies in\n\nThis is also slightly different than the \"single chassis\" because we have multiple chassis, just not boards as chassis.\n\nAlthough I could be moved by an argument of \"this helps downstream forks carry patches\", I am more moved by the fact this information is repeated 10+ times. This is a best practices commit IMO.",
+      "parentUuid": "bddf72e3_8cfa4a95",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "64d72a4b5e102fe67f8cee7eab872688308c833d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "acfa0db9_178b21ac",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
