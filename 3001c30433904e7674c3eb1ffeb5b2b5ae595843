@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54fcefe7_bed506c4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1522,
+      "author": {
+        "id": 1001264
+      },
+      "writtenOn": "2025-04-01T12:48:18Z",
+      "side": 1,
+      "message": "I guess this part needs something return boolen? \nWe fall in some problems when log entry count more than 16.",
+      "range": {
+        "startLine": 1522,
+        "startChar": 15,
+        "endLine": 1522,
+        "endChar": 67
+      },
+      "revId": "3001c30433904e7674c3eb1ffeb5b2b5ae595843",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
