@@ -177,6 +177,24 @@
       "parentUuid": "857f1356_500e7bdb",
       "revId": "52090340cb69594216aed1e81baa1468dc991615",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88311ae0_460e4ec7",
+        "filename": "http/http_request.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-01T20:46:41Z",
+      "side": 1,
+      "message": "n my experiment, it does not work as the matching constructor is private.",
+      "parentUuid": "11855055_013f8231",
+      "revId": "52090340cb69594216aed1e81baa1468dc991615",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
