@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c2f011b_2f7c0447",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-01T17:58:21Z",
+      "side": 1,
+      "message": "As suggested removed the tested details which are already covered by CI",
+      "parentUuid": "08877ebc_63e74441",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "273dea4f73935c15a9257425f5fd3cf8a907a75a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "be47f845_1916c4ea",
