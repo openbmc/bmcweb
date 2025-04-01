@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "feaea9af_b83a2485",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-01T07:50:04Z",
+      "side": 1,
+      "message": "Yes, we have a possibility as we are getting firmware inventory information from various sources (smbios, pldm etc). In that case we might to gracefully handle without any error.",
+      "parentUuid": "9e0287bc_847932cc",
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "731cc313_dde94cff",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
@@ -83,6 +101,30 @@
       "writtenOn": "2025-03-26T16:49:16Z",
       "side": 1,
       "message": "Does something this make more sense?\n\n       if (ec)\n        {\n           if (ec.value() \u003d\u003d EBADR)\n           {\n               BMCWEB_LOG_DEBUG(\"No software extended version info\");\n\n             return;\n             }\n               BMCWEB_LOG_ERROR(\"get software id failed for {} with error {}\",\n                                 path, ec.value());\n                   messages::internalError(asyncResp-\u003eres);\n            return;\n        }\n\n??",
+      "range": {
+        "startLine": 907,
+        "startChar": 0,
+        "endLine": 912,
+        "endChar": 13
+      },
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54408db7_45d0919f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-01T07:50:04Z",
+      "side": 1,
+      "message": "Yes as suggested added this code for dbus error handling",
+      "parentUuid": "731cc313_dde94cff",
       "range": {
         "startLine": 907,
         "startChar": 0,
@@ -135,6 +177,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aeb17842_b77dc1ab",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-01T07:50:04Z",
+      "side": 1,
+      "message": "added the code as suggested",
+      "parentUuid": "9f5e4b17_ce579eff",
+      "range": {
+        "startLine": 929,
+        "startChar": 0,
+        "endLine": 935,
+        "endChar": 13
+      },
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "19761b5a_79c3f943",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
@@ -169,6 +235,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47b239c7_748a7c2d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 942,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-01T07:50:04Z",
+      "side": 1,
+      "message": "added internal error",
+      "parentUuid": "c9341f21_ee2359db",
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "079b98e6_f0f8513b",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
@@ -180,6 +264,30 @@
       "writtenOn": "2025-03-26T16:02:57Z",
       "side": 1,
       "message": "Please make this a normal method.",
+      "range": {
+        "startLine": 926,
+        "startChar": 2,
+        "endLine": 950,
+        "endChar": 9
+      },
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19cc3af8_ac062c2f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-01T07:50:04Z",
+      "side": 1,
+      "message": "As suggested made this function as a normal function",
+      "parentUuid": "079b98e6_f0f8513b",
       "range": {
         "startLine": 926,
         "startChar": 2,
