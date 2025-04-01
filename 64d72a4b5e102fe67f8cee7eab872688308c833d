@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "20133f9c_9c212b64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-01T03:45:39Z",
+      "side": 1,
+      "message": "Yep, no problem with the patch itself, happy to have it, just want to understand the motivation, which you\u0027ve given.  Thanks.",
+      "parentUuid": "8feee3bb_b3c6c722",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "64d72a4b5e102fe67f8cee7eab872688308c833d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acfa0db9_178b21ac",
