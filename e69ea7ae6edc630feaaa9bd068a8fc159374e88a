@@ -16,6 +16,24 @@
       "message": "Do you also need to remove it?",
       "revId": "e69ea7ae6edc630feaaa9bd068a8fc159374e88a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84fac3bc_354905bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-01T19:46:59Z",
+      "side": 1,
+      "message": "Yep.  Fixed.... for whatever reason delete keeps getting dropped when I rebase.",
+      "parentUuid": "0d54f50f_44cb57d5",
+      "revId": "e69ea7ae6edc630feaaa9bd068a8fc159374e88a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
