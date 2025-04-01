@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a0329554_9fdb80ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-01T20:56:47Z",
+      "side": 1,
+      "message": "I also see that too with upstream...not sure why it does not trigger it \n    \nHowever, when I use the downstream, it triggers it... Probably our downstream may have the link used?",
+      "parentUuid": "93d8bf08_666f3868",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 62
+      },
+      "revId": "1f5f1241d1576c55ff545604a0d8c357f993d569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "fb864fd1_2406d7f9",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -71,6 +95,30 @@
       "writtenOn": "2025-04-01T20:01:03Z",
       "side": 1,
       "message": "We should probably spell this out, because Redfish doesn\u0027t shorten to MFA.",
+      "range": {
+        "startLine": 1317,
+        "startChar": 27,
+        "endLine": 1317,
+        "endChar": 30
+      },
+      "revId": "1f5f1241d1576c55ff545604a0d8c357f993d569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d711e081_132a9da1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-01T20:56:47Z",
+      "side": 1,
+      "message": "I modified it as \n```\njson[\"Description\"] \u003d \"Multi-factor Authentication Client Certificates\";\n```",
+      "parentUuid": "da524b0d_c1aeb088",
       "range": {
         "startLine": 1317,
         "startChar": 27,
