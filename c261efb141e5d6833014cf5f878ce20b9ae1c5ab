@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75553d59_8840e47c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-02T04:17:51Z",
+      "side": 1,
+      "message": "We will expose the Action URI to perform password change. \nIf the backend service is not running it needs to be taken care gracefully when dbus error occurs",
+      "parentUuid": "fe00df4d_37624e4a",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 1
+      },
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8b56412_e36b0263",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -66,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aa8aa47c_bffdea20",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-02T04:17:51Z",
+      "side": 1,
+      "message": "As suggested added the SYSTEM_URI_NAME",
+      "parentUuid": "c8b56412_e36b0263",
+      "range": {
+        "startLine": 127,
+        "startChar": 3,
+        "endLine": 130,
+        "endChar": 5
+      },
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ab870a4_6a0852c0",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -77,6 +125,24 @@
       "writtenOn": "2025-04-01T20:24:46Z",
       "side": 1,
       "message": "This is a POST, don\u0027t we still need to return an error ?",
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a126b545_e29515c9",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-02T04:17:51Z",
+      "side": 1,
+      "message": "Requesting your suggestion here\nDoes the below code looks good ? \n```\nmessages::actionNotSupported(\n                asyncResp-\u003eres,\n                \"Password Change functionality not supported\");\n```",
+      "parentUuid": "5ab870a4_6a0852c0",
       "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
