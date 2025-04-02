@@ -20,30 +20,27 @@
 namespace crow
 {
 
+struct Node
+{
+    unsigned ruleIndex = 0U;
+
+    size_t stringParamChild = 0U;
+    size_t pathParamChild = 0U;
+
+    using ChildMap = boost::container::flat_map<
+        std::string, unsigned, std::less<>,
+        boost::container::small_vector<std::pair<std::string, unsigned>, 1>>;
+    ChildMap children;
+
+    bool isSimpleNode() const
+    {
+        return ruleIndex == 0 && stringParamChild == 0 && pathParamChild == 0;
+    }
+};
 template <typename ContainedType>
 class Trie
 {
   public:
-    struct Node
-    {
-        unsigned ruleIndex = 0U;
-
-        size_t stringParamChild = 0U;
-        size_t pathParamChild = 0U;
-
-        using ChildMap = boost::container::flat_map<
-            std::string, unsigned, std::less<>,
-            boost::container::small_vector<std::pair<std::string, unsigned>,
-                                           1>>;
-        ChildMap children;
-
-        bool isSimpleNode() const
-        {
-            return ruleIndex == 0 && stringParamChild == 0 &&
-                   pathParamChild == 0;
-        }
-    };
-
     Trie() : nodes(1) {}
 
   private:
@@ -322,6 +319,6 @@ class Trie
         return static_cast<unsigned>(nodes.size() - 1);
     }
 
-    std::vector<Node> nodes{};
+    std::vector<ContainedType> nodes{};
 };
 } // namespace crow
