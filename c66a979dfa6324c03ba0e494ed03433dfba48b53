@@ -69,6 +69,24 @@
       "parentUuid": "c1d35447_658bbb49",
       "revId": "c66a979dfa6324c03ba0e494ed03433dfba48b53",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab9d256e_cdd29426",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 111
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-02T16:00:14Z",
+      "side": 1,
+      "message": "Verified that we stop on duplicate entries for OEM router \n```\n\u003c6\u003e[sub_route_trie.hpp:269] fragment handler already exists for \"/foo/\u003cstr\u003e/#/Oem\" fragment \"/Oem\"\nunknown file: Failure\nC++ exception with description \"handler already exists for url \"/foo/\u003cstr\u003e/#/Oem\" fragment \"/Oem\"\" thrown in the test body.\n```\nAlready separated the Tries class used by the router. \nTested to ensure we cant get fragments alone \n```\nropai@ROPAI:~$ curl -c cjar -b cjar -k -X GET \u0027https://127.0.0.1:2443/redfish/v1/Managers/bmc/%23/Oem/OpenBmc\u0027\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The requested resource of type  named \u0027OpenBmc\u0027 was not found.\",\n        \"MessageArgs\": [\n          \"\",\n          \"OpenBmc\"\n        ],\n        \"MessageId\": \"Base.1.19.ResourceNotFound\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Provide a valid resource identifier and resubmit the request.\"\n      }\n    ],\n    \"code\": \"Base.1.19.ResourceNotFound\",\n    \"message\": \"The requested resource of type  named \u0027OpenBmc\u0027 was not found.\"\n  }\n}ropai@ROPAI:~$\n```",
+      "parentUuid": "8d33ba33_2e84bdbf",
+      "revId": "c66a979dfa6324c03ba0e494ed03433dfba48b53",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
