@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72bc48cd_f2eb2b70",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-02T20:12:52Z",
+      "side": 1,
+      "message": "Not all our collections have Description, but some do so makes sense here. E.g. \n```\ncurl -k  https://$bmc/redfish/v1/Chassis/\n{\n  \"@odata.id\": \"/redfish/v1/Chassis\",\n  \"@odata.type\": \"#ChassisCollection.ChassisCollection\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Chassis/chassis\"\n    }\n  ],\n  \"Members@odata.count\": 1,\n  \"Name\": \"Chassis Collection\"\n}\n```\n```\ncurl -k  https://$bmc/redfish/v1/AccountService/Accounts/\n{\n  \"@odata.id\": \"/redfish/v1/AccountService/Accounts\",\n  \"@odata.type\": \"#ManagerAccountCollection.ManagerAccountCollection\",\n  \"Description\": \"BMC User Accounts\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/AccountService/Accounts/service\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/AccountService/Accounts/admin\"\n    }\n  ],\n  \"Members@odata.count\": 2,\n  \"Name\": \"Accounts Collection\"\n}\n```",
+      "revId": "3da718ec8628c4f371820ffd24b40a3e226b749c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "08dc72e5_635960b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-02T20:12:52Z",
+      "side": 1,
+      "message": "It makes sense we add these. \nRedfish says they are required \n\n                    \"required\": [\n                        \"Members\",\n                        \"Members@odata.count\",\n                        \"@odata.id\",\n                        \"@odata.type\",\n                        \"Name\"\n                    ],\n\nhttps://redfish.dmtf.org/schemas/v1/CertificateCollection.json\n\nThe Validator if it hits this endpoint should call it out as an error. IDK why we would have a link here and Ed would not.. but I feel that doesn\u0027t matter. As is, this moves the code forward",
+      "parentUuid": "a0329554_9fdb80ed",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 62
+      },
+      "revId": "1f5f1241d1576c55ff545604a0d8c357f993d569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "fb864fd1_2406d7f9",
