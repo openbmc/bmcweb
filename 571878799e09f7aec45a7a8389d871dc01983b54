@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73396674_4befec3d",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-02T15:56:43Z",
+      "side": 1,
+      "message": "Because the Node class uses it and this was a small change to accomplish what I intended.  I think your next patch breaking that out node and making it the template param is the right approach.",
+      "parentUuid": "1994dbf2_ef0215bb",
+      "revId": "571878799e09f7aec45a7a8389d871dc01983b54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7cafe1a5_3d7fc50a",
         "filename": "http/routing.hpp",
         "patchSetId": 5
@@ -66,6 +84,24 @@
       "writtenOn": "2025-04-02T04:05:35Z",
       "side": 1,
       "message": "using ChildEntry \u003d typename ChildMap::value_type to avoid further typename later ?",
+      "revId": "571878799e09f7aec45a7a8389d871dc01983b54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e104310d_507e7cd5",
+        "filename": "http/routing.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-02T15:56:43Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "7cafe1a5_3d7fc50a",
       "revId": "571878799e09f7aec45a7a8389d871dc01983b54",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
