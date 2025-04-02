@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a916eebe_3a8ab81a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-02T16:23:20Z",
+      "side": 1,
+      "message": "nit, extra space",
+      "range": {
+        "startLine": 1128,
+        "startChar": 26,
+        "endLine": 1128,
+        "endChar": 28
+      },
+      "revId": "e6cc173bdfac9d66fcfaca21ee8c49f3ebd74da3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6619e735_9cc7b770",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-02T16:23:20Z",
+      "side": 1,
+      "message": "we shouldn\u0027t be logging the user in again in an individual route handler.  The user is already logged in, the session is in the request.",
+      "range": {
+        "startLine": 1207,
+        "startChar": 0,
+        "endLine": 1208,
+        "endChar": 71
+      },
+      "revId": "e6cc173bdfac9d66fcfaca21ee8c49f3ebd74da3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1628bfe6_6c1ebf0e",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 70
+      },
+      "lineNbr": 1452,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-02T16:23:20Z",
+      "side": 1,
+      "message": "Can this whole lambda just be collapsed into getMultiFactorAuthConfigUtil please?",
+      "range": {
+        "startLine": 1439,
+        "startChar": 0,
+        "endLine": 1452,
+        "endChar": 13
+      },
+      "revId": "e6cc173bdfac9d66fcfaca21ee8c49f3ebd74da3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
