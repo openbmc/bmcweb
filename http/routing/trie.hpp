@@ -20,34 +20,31 @@
 namespace crow
 {
 
+struct Node
+{
+    unsigned ruleIndex = 0U;
+
+    size_t stringParamChild = 0U;
+    size_t pathParamChild = 0U;
+
+    using ChildMap = boost::container::flat_map<
+        std::string, unsigned, std::less<>,
+        boost::container::small_vector<std::pair<std::string, unsigned>, 1>>;
+    ChildMap children;
+
+    bool isSimpleNode() const
+    {
+        return ruleIndex == 0 && stringParamChild == 0 && pathParamChild == 0;
+    }
+};
 template <typename ContainedType>
 class Trie
 {
   public:
-    struct Node
-    {
-        unsigned ruleIndex = 0U;
-
-        size_t stringParamChild = 0U;
-        size_t pathParamChild = 0U;
-
-        using ChildMap = boost::container::flat_map<
-            std::string, unsigned, std::less<>,
-            boost::container::small_vector<std::pair<std::string, unsigned>,
-                                           1>>;
-        ChildMap children;
-
-        bool isSimpleNode() const
-        {
-            return ruleIndex == 0 && stringParamChild == 0 &&
-                   pathParamChild == 0;
-        }
-    };
-
     Trie() : nodes(1) {}
 
   private:
-    void optimizeNode(Node& node)
+    void optimizeNode(ContainedType& node)
     {
         if (node.stringParamChild != 0U)
         {
@@ -65,14 +62,15 @@ class Trie
         while (true)
         {
             bool didMerge = false;
-            typename Node::ChildMap merged;
-            for (const typename Node::ChildMap::value_type& kv : node.children)
+            typename ContainedType::ChildMap merged;
+            for (const typename ContainedType::ChildMap::value_type& kv :
+                 node.children)
             {
-                Node& child = nodes[kv.second];
+                ContainedType& child = nodes[kv.second];
                 if (child.isSimpleNode())
                 {
-                    for (const typename Node::ChildMap::value_type& childKv :
-                         child.children)
+                    for (const typename ContainedType::ChildMap::value_type&
+                             childKv : child.children)
                     {
                         merged[kv.first + childKv.first] = childKv.second;
                         didMerge = true;
@@ -90,7 +88,8 @@ class Trie
             }
         }
 
-        for (const typename Node::ChildMap::value_type& kv : node.children)
+        for (const typename ContainedType::ChildMap::value_type& kv :
+             node.children)
         {
             optimizeNode(nodes[kv.second]);
         }
@@ -109,12 +108,13 @@ class Trie
 
     void findRouteIndexesHelper(std::string_view reqUrl,
                                 std::vector<unsigned>& routeIndexes,
-                                const Node& node) const
+                                const ContainedType& node) const
     {
-        for (const typename Node::ChildMap::value_type& kv : node.children)
+        for (const typename ContainedType::ChildMap::value_type& kv :
+             node.children)
         {
             const std::string& fragment = kv.first;
-            const Node& child = nodes[kv.second];
+            const ContainedType& child = nodes[kv.second];
             if (reqUrl.empty())
             {
                 if (child.ruleIndex != 0 && fragment != "/")
@@ -147,7 +147,8 @@ class Trie
     };
 
   private:
-    FindResult findHelper(const std::string_view reqUrl, const Node& node,
+    FindResult findHelper(const std::string_view reqUrl,
+                          const ContainedType& node,
                           std::vector<std::string>& params) const
     {
         if (reqUrl.empty())
@@ -190,10 +191,11 @@ class Trie
             params.pop_back();
         }
 
-        for (const typename Node::ChildMap::value_type& kv : node.children)
+        for (const typename ContainedType::ChildMap::value_type& kv :
+             node.children)
         {
             const std::string& fragment = kv.first;
-            const Node& child = nodes[kv.second];
+            const ContainedType& child = nodes[kv.second];
 
             if (reqUrl.starts_with(fragment))
             {
@@ -236,7 +238,7 @@ class Trie
                         continue;
                     }
                     found = true;
-                    Node& node = nodes[idx];
+                    ContainedType& node = nodes[idx];
                     size_t* param = &node.stringParamChild;
                     if (str1 == "<path>")
                     {
@@ -268,7 +270,7 @@ class Trie
             idx = nodes[idx].children[piece];
             url.remove_prefix(1);
         }
-        Node& node = nodes[idx];
+        ContainedType& node = nodes[idx];
         if (node.ruleIndex != 0U)
         {
             BMCWEB_LOG_CRITICAL("handler already exists for \"{}\"", urlIn);
@@ -279,7 +281,7 @@ class Trie
     }
 
   private:
-    void debugNodePrint(Node& n, size_t level)
+    void debugNodePrint(ContainedType& n, size_t level)
     {
         std::string spaces(level, ' ');
         if (n.stringParamChild != 0U)
@@ -292,7 +294,8 @@ class Trie
             BMCWEB_LOG_DEBUG("{} <path>", spaces);
             debugNodePrint(nodes[n.pathParamChild], level + 6);
         }
-        for (const typename Node::ChildMap::value_type& kv : n.children)
+        for (const typename ContainedType::ChildMap::value_type& kv :
+             n.children)
         {
             BMCWEB_LOG_DEBUG("{}{}", spaces, kv.first);
             debugNodePrint(nodes[kv.second], level + kv.first.size());
@@ -306,12 +309,12 @@ class Trie
     }
 
   private:
-    const Node& head() const
+    const ContainedType& head() const
     {
         return nodes.front();
     }
 
-    Node& head()
+    ContainedType& head()
     {
         return nodes.front();
     }
@@ -322,6 +325,6 @@ class Trie
         return static_cast<unsigned>(nodes.size() - 1);
     }
 
-    std::vector<Node> nodes{};
+    std::vector<ContainedType> nodes{};
 };
 } // namespace crow
