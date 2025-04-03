@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d439504a_87ded1e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-03T19:43:07Z",
+      "side": 1,
+      "message": "Please update once validator passes with this change.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 2
+      },
+      "revId": "d01f4d849b57fbedc36825cc7f236567b1aa3825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c723f9cf_9adb279f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-03T19:43:07Z",
+      "side": 1,
+      "message": "Glad to see this, just a couple of comments.",
+      "revId": "d01f4d849b57fbedc36825cc7f236567b1aa3825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f7668c3_00f5cf7d",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2455,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-03T19:43:07Z",
+      "side": 1,
+      "message": "Why not incorporate this into objectPropertiesToJson() to handle generically for any sensor which has the PrettyName property implemented?\n\nI\u0027m wondering about other callers of objectPropertiesToJson() and whether they should have this populated as well, specifically objectInterfacesToJson().",
+      "range": {
+        "startLine": 2455,
+        "startChar": 12,
+        "endLine": 2455,
+        "endChar": 40
+      },
+      "revId": "d01f4d849b57fbedc36825cc7f236567b1aa3825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
