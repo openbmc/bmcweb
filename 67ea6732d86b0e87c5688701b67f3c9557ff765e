@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67b0e4e6_01f73ead",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-03T16:26:02Z",
+      "side": 1,
+      "message": "\u003e if we do expose registries even if we don\u0027t use them? \n\nYes, because this is how systems \"advertise\" to clients what they support so they can filter/set profiles accordingly.",
+      "parentUuid": "5013ec1d_878db0f4",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "67ea6732d86b0e87c5688701b67f3c9557ff765e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f14c3584_a5a2f208",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
