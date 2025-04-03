@@ -190,6 +190,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e6bfffa1_5508d490",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-03T08:18:07Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Decorator/Asset.interface.yaml",
+      "parentUuid": "266e9f10_8c2b9948",
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f5e4b17_ce579eff",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
@@ -248,6 +266,24 @@
       "writtenOn": "2025-03-27T05:29:11Z",
       "side": 1,
       "message": "std::optional\u003cstd::string\u003e ?",
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b8546b4_13ff591b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-03T08:18:07Z",
+      "side": 1,
+      "message": "Many files use this approach so I followed the same:\nhttps://github.com/openbmc/bmcweb/blob/193582b6c4acc1eb60eb8ca1f445e3af4f3fe6d8/redfish-core/lib/pcie_slots.hpp#L69\nhttps://github.com/openbmc/bmcweb/blob/193582b6c4acc1eb60eb8ca1f445e3af4f3fe6d8/redfish-core/lib/fabric_adapters.hpp#L87",
+      "parentUuid": "19761b5a_79c3f943",
       "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
