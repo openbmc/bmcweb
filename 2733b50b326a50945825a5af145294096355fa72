@@ -361,6 +361,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a57abc2_ce5a3c3f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-04-03T10:29:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3dfdd7dc_ea671e2c",
+      "range": {
+        "startLine": 707,
+        "startChar": 17,
+        "endLine": 707,
+        "endChar": 26
+      },
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed36de5f_17048d0b",
@@ -410,6 +434,24 @@
       "side": 1,
       "message": "Then hardcode the full path:\n\n/xyz/openbmc_project/metric/memory/total.\n\nDo not use startswith.\n\nThis is a documented common error.",
       "parentUuid": "3792a58a_8d814506",
+      "revId": "2733b50b326a50945825a5af145294096355fa72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99dd920a_24f02a9d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-04-03T10:29:16Z",
+      "side": 1,
+      "message": "I dont think its a good idea to have hardcoded path here as the dimm ids could vary.\nFor eg as per the design https://github.com/openbmc/docs/blob/master/designs/bmc-health-monitor.md, each dimm can have its own dbus path to report total memory \n\n/xyz/openbmc_project/metric/device-0/memory/total\n/xyz/openbmc_project/metric/device-1/memory/total",
+      "parentUuid": "5a109083_b7ff8d5e",
       "revId": "2733b50b326a50945825a5af145294096355fa72",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

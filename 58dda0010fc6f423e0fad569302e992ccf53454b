@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae7e7978_5d2bf1b4",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-04-03T10:29:16Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6d34d1b0_325c6a00",
+      "range": {
+        "startLine": 69,
+        "startChar": 47,
+        "endLine": 69,
+        "endChar": 52
+      },
+      "revId": "58dda0010fc6f423e0fad569302e992ccf53454b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e3de79c_28ee57ba",
@@ -77,6 +101,30 @@
       "writtenOn": "2025-03-27T00:11:04Z",
       "side": 1,
       "message": "Remove all of these.  This is business logic that doesn\u0027t belong in bmcweb.\n\nIf an application chooses to break the interface, that\u0027s the applications problem, and needs resolved there.  bmcweb shouldn\u0027t need police correct interface usage.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "58dda0010fc6f423e0fad569302e992ccf53454b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01971d09_1adffddf",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-04-03T10:29:16Z",
+      "side": 1,
+      "message": "Since its a utiization is a derived metrics  hence kept it here. Do you still think this logic should not be here ?",
+      "parentUuid": "53b7cc9e_bfb6dc71",
       "range": {
         "startLine": 82,
         "startChar": 0,
