@@ -242,8 +242,8 @@ class OemRouter
 
             asyncResp->res.setCompleteRequestHandler(std::bind_front(
                 query_param::MultiAsyncResp::startMultiFragmentHandle,
-                std::make_shared<crow::Request>(req), multiResp, uriFragments,
-                uriParams));
+                std::make_shared<crow::Request>(req.copy()), multiResp,
+                uriFragments, uriParams));
         }
         else
         {
