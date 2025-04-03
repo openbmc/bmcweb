@@ -74,6 +74,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9088780b_31f9d36c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-03T18:12:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c2f011b_2f7c0447",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "273dea4f73935c15a9257425f5fd3cf8a907a75a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "be47f845_1916c4ea",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -103,6 +127,24 @@
       "side": 1,
       "message": "Type 43 of SMBIOS records defines the data structure to expose\nTPM Device information. Once, smbios parses the records we would know about the TPM presence on the platform.",
       "parentUuid": "be47f845_1916c4ea",
+      "revId": "273dea4f73935c15a9257425f5fd3cf8a907a75a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9b27039_a04dd3a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-03T18:12:14Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "1b02bf54_dd198b8d",
       "revId": "273dea4f73935c15a9257425f5fd3cf8a907a75a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
