@@ -70,6 +70,30 @@
       },
       "revId": "1940677a35870b51eaffc50406609124668743d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65509ffa_7e53fdf2",
+        "filename": "redfish-core/include/registries_selector.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-04-03T16:30:25Z",
+      "side": 0,
+      "message": "\u003e If the logging option isn\u0027t set to dbus, we shouldn\u0027t be exposing registries that only exist on phosphor-logging, right?\n\nNo, this isn\u0027t true.  The design was requested (by you and Jason, I think) to support a new `OPENBMC_MESSAGE_ID` journal entry.  This is implemented in phosphor-logging:\n\nhttps://github.com/openbmc/phosphor-logging/blob/master/lib/lg2_commit.cpp#L122",
+      "parentUuid": "42da1f10_1f8c2a52",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 37
+      },
+      "revId": "1940677a35870b51eaffc50406609124668743d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
