@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80855f0e_baac0413",
+        "filename": "http/routing/trie.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-03T15:25:55Z",
+      "side": 1,
+      "message": "The above patch is fine.",
+      "parentUuid": "1e8041e9_577c153a",
+      "revId": "368501c7173c91e7f454c4062ea97cb323d767ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9fe946c3_2064865c",
         "filename": "http/routing/trie.hpp",
         "patchSetId": 15
@@ -66,6 +84,42 @@
       "writtenOn": "2025-04-02T06:48:30Z",
       "side": 1,
       "message": "If I need to extend Tries Class with something like ```SubRouteTrie : Public Trie``` then Node should be template parameter ?",
+      "revId": "368501c7173c91e7f454c4062ea97cb323d767ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f3637f8_a51e8b62",
+        "filename": "http/routing/trie.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-03T15:25:55Z",
+      "side": 1,
+      "message": "Yeah, lets do it for now.",
+      "parentUuid": "9fe946c3_2064865c",
+      "revId": "368501c7173c91e7f454c4062ea97cb323d767ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef535dd1_dce99f18",
+        "filename": "http/routing/trie.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-03T15:25:55Z",
+      "side": 1,
+      "message": "We generally want to go for composition over inheritence.",
+      "parentUuid": "323c0ebd_eac68870",
       "revId": "368501c7173c91e7f454c4062ea97cb323d767ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
