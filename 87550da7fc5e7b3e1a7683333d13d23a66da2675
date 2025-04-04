@@ -34,6 +34,24 @@
       "parentUuid": "18cc827e_9675a63a",
       "revId": "87550da7fc5e7b3e1a7683333d13d23a66da2675",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "155fe112_865ae556",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2025-04-04T04:02:38Z",
+      "side": 1,
+      "message": "This is for BMC Id.",
+      "parentUuid": "9dabfb92_ca53a607",
+      "revId": "87550da7fc5e7b3e1a7683333d13d23a66da2675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
