@@ -1,10 +1,10 @@
 #pragma once
 
 #include "async_resp.hpp"
-#include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "redfishoemrule.hpp"
+#include "sub_request.hpp"
 #include "sub_route_trie.hpp"
 #include "utility.hpp"
 #include "utils/query_param.hpp"
@@ -171,7 +171,7 @@ class OemRouter
         return route;
     }
 
-    FindRouteResponse findRoute(const crow::Request& req) const
+    FindRouteResponse findRoute(const SubRequest& req) const
     {
         FindRouteResponse findRoute;
         std::optional<HttpVerb> verb = httpVerbFromBoost(req.method());
@@ -185,8 +185,8 @@ class OemRouter
             return findRoute;
         }
 
-        FindRoute route = findRouteByPerMethod(req.url().encoded_path(),
-                                               perMethods[reqMethodIndex]);
+        FindRoute route =
+            findRouteByPerMethod(req.url(), perMethods[reqMethodIndex]);
         if (!route.fragmentRules.empty())
         {
             findRoute.route = route;
@@ -194,8 +194,7 @@ class OemRouter
         else
         {
             BMCWEB_LOG_DEBUG(
-                "No fragments for for url {}, method {}",
-                req.url().encoded_path(),
+                "No fragments for url {}, method {}", req.url(),
                 httpVerbToString(static_cast<HttpVerb>(reqMethodIndex)));
         }
 
@@ -220,11 +219,11 @@ class OemRouter
         }
     }
 
-    void handle(const crow::Request& req,
+    void handle(const std::shared_ptr<SubRequest>& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
     {
         BMCWEB_LOG_DEBUG("Checking OEM routes");
-        FindRouteResponse foundRoute = findRoute(req);
+        FindRouteResponse foundRoute = findRoute(*req);
         std::vector<OemBaseRule*> fragments =
             std::move(foundRoute.route.fragmentRules);
         std::vector<std::string> params = std::move(foundRoute.route.params);
@@ -241,9 +240,8 @@ class OemRouter
             auto uriParams = std::make_shared<std::vector<std::string>>(params);
 
             asyncResp->res.setCompleteRequestHandler(std::bind_front(
-                query_param::MultiAsyncResp::startMultiFragmentHandle,
-                std::make_shared<crow::Request>(req.copy()), multiResp,
-                uriFragments, uriParams));
+                query_param::MultiAsyncResp::startMultiFragmentHandle, req,
+                multiResp, uriFragments, uriParams));
         }
         else
         {
