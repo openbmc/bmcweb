@@ -1,8 +1,8 @@
-
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "http_request.hpp"
 #include "redfish.hpp"
+#include "sub_request.hpp"
 #include "verb.hpp"
 
 #include <boost/beast/http/verb.hpp>
@@ -27,7 +27,7 @@ TEST(OemRouter, FragmentRoutes)
 
     // Callback handler that does nothing
     bool oemCalled = false;
-    auto oemCallback = [&oemCalled](const crow::Request&,
+    auto oemCallback = [&oemCalled](const SubRequest&,
                                     const std::shared_ptr<bmcweb::AsyncResp>&,
                                     const std::string& bar) {
         oemCalled = true;
