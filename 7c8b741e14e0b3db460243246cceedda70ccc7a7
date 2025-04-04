@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40b03d76_3ee6e72b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-04T03:28:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "640115d3_3f4d70ae",
+      "revId": "7c8b741e14e0b3db460243246cceedda70ccc7a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12c46adf_945f7d28",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-03T09:05:35Z",
       "side": 1,
       "message": "Let update for ReleaseDate too",
+      "revId": "7c8b741e14e0b3db460243246cceedda70ccc7a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aae6c4a6_f1cd2135",
+        "filename": "Redfish.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 1140,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-04T03:28:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12c46adf_945f7d28",
       "revId": "7c8b741e14e0b3db460243246cceedda70ccc7a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
