@@ -130,6 +130,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93675fc2_00cc810f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-04T13:36:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa8aa47c_bffdea20",
+      "range": {
+        "startLine": 127,
+        "startChar": 3,
+        "endLine": 130,
+        "endChar": 5
+      },
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ab870a4_6a0852c0",
