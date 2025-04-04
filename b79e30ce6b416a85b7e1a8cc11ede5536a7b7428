@@ -157,6 +157,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff235096_ab697591",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2219,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-04-04T05:40:17Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b6767b80_b6b377d8",
+      "range": {
+        "startLine": 2217,
+        "startChar": 0,
+        "endLine": 2219,
+        "endChar": 61
+      },
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f4c27f4_e9f2f6fa",
@@ -282,6 +306,30 @@
       "side": 1,
       "message": "I thought do not invent any new privilege name as it is same as enthernetInterface.\nDo we really want to keep adding new levels?",
       "parentUuid": "a55113b6_5716c79e",
+      "range": {
+        "startLine": 2662,
+        "startChar": 41,
+        "endLine": 2662,
+        "endChar": 63
+      },
+      "revId": "b79e30ce6b416a85b7e1a8cc11ede5536a7b7428",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bff3030_e93800ad",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 2662,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-04-04T05:40:17Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1ab53a77_2d451664",
       "range": {
         "startLine": 2662,
         "startChar": 41,
