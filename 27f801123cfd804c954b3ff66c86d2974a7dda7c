@@ -52,6 +52,24 @@
       "parentUuid": "1b7567d7_647d57e7",
       "revId": "27f801123cfd804c954b3ff66c86d2974a7dda7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b273989_1cba59ec",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1000003
+      },
+      "writtenOn": "2025-04-04T20:12:06Z",
+      "side": 1,
+      "message": "Gunnar discussed with Redfish about adding an Extended Version property to the schema a while back, that\u0027s the reason we started populating the D-Bus property by default: https://gerrit.openbmc.org/c/openbmc/openbmc/+/56271\n\nI agree with Gunnar that SoftwareId (\"The implementation-specific label that identifies this software.\") doesn\u0027t really fit with Extended Version (\"The xyz.openbmc_project.Software.ExtendedVersion interface can be added to any Software.Version to express the versioning of the aggregation.\").\nSoftwareId can be seen more like a hash of the version string, like the \"version id\".\n\nI\u0027d suggest like Gunnar mentioned to follow-up with Redfish to add an \"Extended Version\" property to the schema. At that time Redfish was not opposed to the idea but did not see a use-case for it, so perhaps now showing them the smbios example they\u0027ll be willing to add it.",
+      "parentUuid": "66522712_0455b645",
+      "revId": "27f801123cfd804c954b3ff66c86d2974a7dda7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
