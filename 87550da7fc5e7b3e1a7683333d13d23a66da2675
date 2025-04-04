@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18cc827e_9675a63a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000992
+      },
+      "writtenOn": "2025-04-04T03:41:42Z",
+      "side": 1,
+      "message": "Look good to me except minor thing\n```\n{\n   \"@odata.id\": \"/redfish/v1/UpdateService/FirmwareInventory/43197e5e\",\n   \"@odata.type\": \"#SoftwareInventory.v1_1_0.SoftwareInventory\",\n   \"Description\": \"BMC image\",\n   \"Id\": \"43197e5e\",\n   \"Name\": \"Software Inventory\",\n   \"RelatedItem\": [\n       {\n           \"@odata.id\": \"/redfish/v1/Managers/bmc\"\n       }\n   ],\n   \"RelatedItem@odata.count\": 1,\n   \"SoftwareId\": \"2.15.0-dev-9365-gd5c16bb03b\", -\u003e Duplicate here\n   \"Status\": {\n      \"Health\": \"OK\",\n      \"HealthRollup\": \"OK\",\n      \"State\": \"Enabled\"\n   },\n   \"Updateable\": false,\n   \"Version\": \"2.15.0-dev-9365-gd5c16bb03b\"\n}\n```\nBoth `SoftwareID` and `Version` has the same value when getting bmc id.\nSee if @Ed and @Gunnar have any comment.",
+      "revId": "87550da7fc5e7b3e1a7683333d13d23a66da2675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
