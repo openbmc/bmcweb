@@ -1,6 +1,6 @@
 #pragma once
 #include "async_resp.hpp"
-#include "http_request.hpp"
+#include "sub_request.hpp"
 
 #include <nlohmann/json.hpp>
 
@@ -24,9 +24,9 @@ class OemBaseRule
     OemBaseRule& operator=(const OemBaseRule&) = delete;
     OemBaseRule& operator=(const OemBaseRule&&) = delete;
 
-    virtual void handle(const crow::Request& /*req*/,
+    virtual void handle(const SubRequest& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::vector<std::string>& /*params*/) = 0;
+                        const std::vector<std::string>& params) = 0;
     std::string rule;
 };
 
@@ -51,12 +51,12 @@ class OemRule : public OemBaseRule
     void operator()(Func&& f)
     {
         static_assert(
-            std::is_invocable_v<Func, crow::Request,
+            std::is_invocable_v<Func, SubRequest,
                                 std::shared_ptr<bmcweb::AsyncResp>&, Args...>,
             "Handler type is mismatched with URL parameters");
         static_assert(
             std::is_same_v<
-                void, std::invoke_result_t<Func, crow::Request,
+                void, std::invoke_result_t<Func, SubRequest,
                                            std::shared_ptr<bmcweb::AsyncResp>&,
                                            Args...>>,
             "Handler function with response argument should have void return type");
@@ -64,7 +64,7 @@ class OemRule : public OemBaseRule
         handler = std::forward<Func>(f);
     }
 
-    void handle(const crow::Request& req,
+    void handle(const SubRequest& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 const std::vector<std::string>& params) override
     {
@@ -97,7 +97,7 @@ class OemRule : public OemBaseRule
     }
 
   private:
-    std::function<void(const crow::Request&,
+    std::function<void(const SubRequest&,
                        const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>
         handler;
 };

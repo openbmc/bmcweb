@@ -6,10 +6,10 @@
 #include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
-#include "http_request.hpp"
 #include "io_context_singleton.hpp"
 #include "logging.hpp"
 #include "redfish.hpp"
+#include "sub_request.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "verb.hpp"
@@ -1479,7 +1479,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 };
 
 inline void handleGetManagerOpenBmc(
-    const crow::Request& /*req*/,
+    const SubRequest& /*req*/,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*managerId*/)
 {
