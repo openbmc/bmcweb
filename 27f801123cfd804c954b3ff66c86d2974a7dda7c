@@ -70,6 +70,24 @@
       "parentUuid": "66522712_0455b645",
       "revId": "27f801123cfd804c954b3ff66c86d2974a7dda7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23bb3aed_f0819ba9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-06T07:51:01Z",
+      "side": 1,
+      "message": "Smbios exposes `FirmwareID` as part of Type 45 record. \nWe mapped `FirmwareId` to extended version instead of creating new property under Version Dbus interface. \nHere is the MR https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/78934 which was abandoned where the dbus repo owners suggested to use ExtendedVersion instead of creating new dbus property",
+      "parentUuid": "5b273989_1cba59ec",
+      "revId": "27f801123cfd804c954b3ff66c86d2974a7dda7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
