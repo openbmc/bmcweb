@@ -503,7 +503,7 @@ static bool getSslContext(boost::asio::ssl::context& mSslContext,
         boost::system::error_code ec;
 
         boost::asio::const_buffer buf(sslPemFile.data(), sslPemFile.size());
-        mSslContext.use_certificate(buf, boost::asio::ssl::context::pem, ec);
+        mSslContext.use_certificate_chain(buf, ec);
         if (ec)
         {
             return false;
