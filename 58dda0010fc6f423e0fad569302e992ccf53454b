@@ -90,6 +90,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0a3e63d3_dcba92b1",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-04-07T04:58:59Z",
+      "side": 1,
+      "message": "since capacity utilization is derived metric computed using total memory and free memory , do you still think we should mark it null ?",
+      "parentUuid": "8e3de79c_28ee57ba",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 24
+      },
+      "revId": "58dda0010fc6f423e0fad569302e992ccf53454b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "53b7cc9e_bfb6dc71",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 22
