@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b90961c_ba66f6ea",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-07T11:53:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96e3accc_ddf695eb",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 1
+      },
+      "revId": "aa73c3eecbd13927ed4cd946beab3a2fad7f8019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8279c42e_b981e7ff",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0897dd1_a67a35f2",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-07T11:53:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8279c42e_b981e7ff",
+      "range": {
+        "startLine": 128,
+        "startChar": 25,
+        "endLine": 128,
+        "endChar": 29
+      },
+      "revId": "aa73c3eecbd13927ed4cd946beab3a2fad7f8019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50eb7a1d_84f1b09b",
@@ -60,6 +108,30 @@
       "writtenOn": "2025-04-03T19:22:05Z",
       "side": 1,
       "message": "Could this be simplified by using the getAssociatedSubTreePathsById() interface instead to make a single D-Bus call?",
+      "range": {
+        "startLine": 153,
+        "startChar": 28,
+        "endLine": 153,
+        "endChar": 47
+      },
+      "revId": "aa73c3eecbd13927ed4cd946beab3a2fad7f8019",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7d392db_4606d3a8",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-07T11:53:17Z",
+      "side": 1,
+      "message": "Right. That would be a better approach.",
+      "parentUuid": "50eb7a1d_84f1b09b",
       "range": {
         "startLine": 153,
         "startChar": 28,
