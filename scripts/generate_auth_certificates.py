@@ -448,8 +448,8 @@ def setup_server_cert(
     client_cert,
     username,
     url,
-    ca_key,
-    ca_cert,
+    server_intermediate_key,
+    server_intermediate_cert,
 ):
     service_root = redfish_session.get("/redfish/v1/")
     service_root.raise_for_status()
@@ -468,13 +468,24 @@ def setup_server_cert(
     )
     serverCert = generateServerCert(
         url,
-        ca_key,
-        ca_cert,
+        server_intermediate_key,
+        server_intermediate_cert,
         csr,
     )
     server_cert_dump = serverCert.public_bytes(
         encoding=serialization.Encoding.PEM
     )
+
+    # If using intermediate certificate, save server cert without intermediate for debugging
+    if isinstance(server_intermediate_cert, x509.Certificate) and server_intermediate_cert.subject != server_intermediate_cert.issuer:
+        with open(os.path.join(certs_dir, "server-cert-only.pem"), "wb") as f:
+            f.write(server_cert_dump)
+            print("Server cert (without intermediate) saved for debugging.")
+        intermediate_cert_dump = server_intermediate_cert.public_bytes(
+            encoding=serialization.Encoding.PEM
+        )
+        server_cert_dump = server_cert_dump + intermediate_cert_dump
+
     with open(os.path.join(certs_dir, "server-cert.pem"), "wb") as f:
         f.write(server_cert_dump)
         print("Server cert generated.")
@@ -493,7 +504,61 @@ def setup_server_cert(
     response.raise_for_status()
 
 
-def generate_and_load_certs(url, username, password):
+def generateIntermediateCA(ca_key, ca_cert, name_prefix):
+    private_key = ec.generate_private_key(ec.SECP256R1())
+    public_key = private_key.public_key()
+    builder = x509.CertificateBuilder()
+
+    name = x509.Name(
+        [
+            x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
+            x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "California"),
+            x509.NameAttribute(NameOID.LOCALITY_NAME, "Santa Clara"),
+            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "OpenBMC"),
+            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, "bmcweb"),
+            x509.NameAttribute(NameOID.COMMON_NAME, "Test Intermediate"),
+        ]
+    )
+    builder = builder.subject_name(name)
+    builder = builder.issuer_name(ca_cert.subject)
+
+    builder = builder.not_valid_before(
+        datetime.datetime(1970, 1, 1, 0, 0, tzinfo=datetime.timezone.utc)
+    )
+    builder = builder.not_valid_after(
+        datetime.datetime(2070, 1, 1, 0, 0, tzinfo=datetime.timezone.utc)
+    )
+
+    builder = builder.serial_number(x509.random_serial_number())
+    builder = builder.public_key(public_key)
+
+    basic_constraints = x509.BasicConstraints(ca=True, path_length=0)
+    builder = builder.add_extension(basic_constraints, critical=True)
+
+    usage = x509.KeyUsage(
+        content_commitment=False,
+        crl_sign=True,
+        data_encipherment=False,
+        decipher_only=False,
+        digital_signature=False,
+        encipher_only=False,
+        key_agreement=False,
+        key_cert_sign=True,
+        key_encipherment=False,
+    )
+    builder = builder.add_extension(usage, critical=True)
+
+    auth_key = x509.AuthorityKeyIdentifier.from_issuer_public_key(public_key)
+    builder = builder.add_extension(auth_key, critical=False)
+
+    intermediate_cert = builder.sign(
+        private_key=ca_key, algorithm=hashes.SHA256()
+    )
+
+    return private_key, intermediate_cert
+
+
+def generate_and_load_certs(url, username, password, use_intermediate=False):
     certs_dir = os.path.expanduser("~/certs")
     print(f"Writing certs to {certs_dir}")
     try:
@@ -532,8 +597,25 @@ def generate_and_load_certs(url, username, password):
         ca_key_dump = ca_key_file.read()
     ca_key = load_pem_private_key(ca_key_dump, None)
 
+    # Generate intermediate certificates if requested
+    if use_intermediate:
+        # Generate client intermediate
+        client_intermediate_key, client_intermediate_cert = generateIntermediateCA(ca_key, ca_cert, "client")
+        # ... save client intermediate certs ...
+
+        # Generate server intermediate
+        server_intermediate_key, server_intermediate_cert = generateIntermediateCA(ca_key, ca_cert, "server")
+    else:
+        client_intermediate_key = ca_key
+        client_intermediate_cert = ca_cert
+        server_intermediate_key = ca_key
+        server_intermediate_cert = ca_cert
+
+    # Update client cert generation to use intermediate
     client_key, client_cert = generate_client_key_and_cert(
-        ca_cert, ca_key, common_name=username
+        ca_cert=client_intermediate_cert,
+        ca_key=client_intermediate_key,
+        common_name=username
     )
     client_key_dump = client_key.private_bytes(
         encoding=serialization.Encoding.PEM,
@@ -547,6 +629,15 @@ def generate_and_load_certs(url, username, password):
     client_cert_dump = client_cert.public_bytes(
         encoding=serialization.Encoding.PEM
     )
+
+    # Save client certificate without intermediate for debugging
+    if use_intermediate:
+        with open(os.path.join(certs_dir, "client-cert-only.pem"), "wb") as f:
+            f.write(client_cert_dump)
+            print("Client cert (without intermediate) saved for debugging.")
+        client_cert_dump = client_cert_dump + client_intermediate_cert.public_bytes(
+            encoding=serialization.Encoding.PEM
+        )  # Append intermediate to create chain
 
     with open(os.path.join(certs_dir, "client-cert.pem"), "wb") as f:
         f.write(client_cert_dump)
@@ -597,8 +688,8 @@ def generate_and_load_certs(url, username, password):
                 client_cert,
                 username,
                 url,
-                ca_key,
-                ca_cert,
+                server_intermediate_key,
+                server_intermediate_cert,
             )
 
     print("Testing redfish TLS authentication with generated certs.")
@@ -619,10 +710,16 @@ def main():
         help="Password for user in order to install certs over Redfish.",
         default="0penBmc",
     )
+    parser.add_argument(
+        "--use-intermediate",
+        action="store_true",
+        default=False,
+        help="Generate and use an intermediate certificate",
+    )
     parser.add_argument("host", help="Host to connect to")
 
     args = parser.parse_args()
-    generate_and_load_certs(args.host, args.username, args.password)
+    generate_and_load_certs(args.host, args.username, args.password, args.use_intermediate)
 
 
 if __name__ == "__main__":
