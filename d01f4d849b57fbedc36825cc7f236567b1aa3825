@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f89a56fa_c1419329",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-04-08T06:40:22Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d439504a_87ded1e9",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 2
+      },
+      "revId": "d01f4d849b57fbedc36825cc7f236567b1aa3825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c723f9cf_9adb279f",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -78,6 +102,30 @@
       "side": 1,
       "message": "+1",
       "parentUuid": "8f7668c3_00f5cf7d",
+      "range": {
+        "startLine": 2455,
+        "startChar": 12,
+        "endLine": 2455,
+        "endChar": 40
+      },
+      "revId": "d01f4d849b57fbedc36825cc7f236567b1aa3825",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f134f79_b47c73a8",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2455,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-04-08T06:40:22Z",
+      "side": 1,
+      "message": "Please review, done as per the suggestion.",
+      "parentUuid": "2ddf83cd_04f04419",
       "range": {
         "startLine": 2455,
         "startChar": 12,
