@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "832b8334_46ece71f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-09T16:22:53Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "dcc121f9_97f9e7f0",
+      "revId": "ba15149ed39d8dac856633a083e1ffbbc3647ed2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e0892041_58f41c85",
         "filename": "redfish-core/src/error_messages.cpp",
         "patchSetId": 6
