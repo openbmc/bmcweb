@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7e9127a_4b58fc01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-09T22:27:21Z",
+      "side": 1,
+      "message": "Just a couple of nit comments, but otherwise looks good to me.",
+      "revId": "bda4a047c5c3667516e95fca20e723e4b3ee72af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a998f5_ba7eb3e9",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-09T22:27:21Z",
+      "side": 1,
+      "message": "nit: I don\u0027t see the purpose of this comment, should it be removed?",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 2
+      },
+      "revId": "bda4a047c5c3667516e95fca20e723e4b3ee72af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6826db_9599c805",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-09T22:27:21Z",
+      "side": 1,
+      "message": "nit: This change isn\u0027t called out in the commit message.",
+      "range": {
+        "startLine": 1109,
+        "startChar": 0,
+        "endLine": 1109,
+        "endChar": 2
+      },
+      "revId": "bda4a047c5c3667516e95fca20e723e4b3ee72af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
