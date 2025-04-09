@@ -52,6 +52,23 @@
       "parentUuid": "9dabfb92_ca53a607",
       "revId": "87550da7fc5e7b3e1a7683333d13d23a66da2675",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50aec2d9_10bb7e33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-09T06:02:49Z",
+      "side": 1,
+      "message": "@deepak.kodihalli.83@gmail.com @patrick@stwcx.xyz Can we add SoftwareId property to version interface ?",
+      "revId": "87550da7fc5e7b3e1a7683333d13d23a66da2675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
