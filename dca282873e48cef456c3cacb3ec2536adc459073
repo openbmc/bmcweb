@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f3b09fb_bd400a7e",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-09T03:56:48Z",
+      "side": 1,
+      "message": "explain why copy is required in the comment than just saying make copy which is understood.",
+      "revId": "dca282873e48cef456c3cacb3ec2536adc459073",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ddc8e98_921a3756",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-09T03:56:48Z",
+      "side": 1,
+      "message": "check with the rebase. this would fail.",
+      "revId": "dca282873e48cef456c3cacb3ec2536adc459073",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "077fcb09_bdaf170e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-09T03:56:48Z",
+      "side": 1,
+      "message": "why internally error on session null ? On no auth we never expect startQuery API to be used ?",
+      "revId": "dca282873e48cef456c3cacb3ec2536adc459073",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
