@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9108c5cf_f2f4cafd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-09T21:53:42Z",
+      "side": 1,
+      "message": "One minor comment on need of message. Still also needs Redfish Validator passing rather than pending. It looks good to me otherwise.",
+      "revId": "eb8113640950a1efb76cbea02408884fdaebdbf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ac4ab3f_7a1c25ef",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-09T21:53:42Z",
+      "side": 1,
+      "message": "Please add BMCWEB_LOG_ERROR() message here to help with debugging.",
+      "revId": "eb8113640950a1efb76cbea02408884fdaebdbf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
