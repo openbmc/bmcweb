@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0f18ec0_e9f38f6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-09T16:04:26Z",
+      "side": 1,
+      "message": "What did you actually test here?  We need to test something functional and visible to a user.  \"handlers are invoked\" isn\u0027t a proper test.",
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8eec20b_7b9b1f52",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-09T16:04:26Z",
+      "side": 1,
+      "message": "Can we make this an explicit object please that has no methods?  If we intend that this is how we\u0027ll do OEM schemas, then we should enforce it at some level.",
+      "range": {
+        "startLine": 897,
+        "startChar": 0,
+        "endLine": 897,
+        "endChar": 67
+      },
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7584aab_7751f5c3",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-09T16:04:26Z",
+      "side": 1,
+      "message": "For every patch handler, it seems like this (which is a copy) would always be the first handler.  Should we instead just pass in the object itself?",
+      "range": {
+        "startLine": 1506,
+        "startChar": 0,
+        "endLine": 1506,
+        "endChar": 53
+      },
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
