@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83e9b6a3_7f920130",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-09T17:48:59Z",
+      "side": 1,
+      "message": "I tested the patch on romulus qemu environment. I enabled `biosconfig-manager` recipe. \nThe test failed as in the qemu environment there was no json file which stores password(https://github.com/openbmc/bios-settings-mgr/blob/master/include/password.hpp#L34)\n```\nroot@romulus:~#\nroot@romulus:~# ls /var/lib/bios-settings-manager/\nroot@romulus:~#\n```",
+      "parentUuid": "d09bab45_561ab524",
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe00df4d_37624e4a",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
