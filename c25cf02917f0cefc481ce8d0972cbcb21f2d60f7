@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f4b8360_1a34fd52",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-09T16:45:44Z",
+      "side": 1,
+      "message": "sure will update.",
+      "parentUuid": "c0f18ec0_e9f38f6f",
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8eec20b_7b9b1f52",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 25
@@ -43,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9b87194_b5001c67",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-09T16:45:44Z",
+      "side": 1,
+      "message": "I am assuming by explicit you mean remove the optional one right ?. If we remove optional and patch does not contain the OEM i think the readJsonPatch would expect the OEM to be present as mandatory element right ?",
+      "parentUuid": "c8eec20b_7b9b1f52",
+      "range": {
+        "startLine": 897,
+        "startChar": 0,
+        "endLine": 897,
+        "endChar": 67
+      },
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7584aab_7751f5c3",
         "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
         "patchSetId": 25
@@ -54,6 +96,30 @@
       "writtenOn": "2025-04-09T16:04:26Z",
       "side": 1,
       "message": "For every patch handler, it seems like this (which is a copy) would always be the first handler.  Should we instead just pass in the object itself?",
+      "range": {
+        "startLine": 1506,
+        "startChar": 0,
+        "endLine": 1506,
+        "endChar": 53
+      },
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "498c88b2_76a16f20",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-09T16:45:44Z",
+      "side": 1,
+      "message": "I had this passing via reference but later had to change it to copy because the readJsonObject would except a const reference payload coming from const SubRequest\u0026 req. This is just fragment of the payload OEM handler is interested in which is copied. Not the whole patch payload or not the whole OEM payload which is passed by the main router.",
+      "parentUuid": "c7584aab_7751f5c3",
       "range": {
         "startLine": 1506,
         "startChar": 0,
