@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb8a33d6_c7f733fd",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1513,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:14:35Z",
+      "side": 1,
+      "message": "As written, errors will now be incorrect if the value fails to parse.",
+      "range": {
+        "startLine": 1513,
+        "startChar": 20,
+        "endLine": 1513,
+        "endChar": 34
+      },
+      "revId": "5db21b35e0893533d3862898b18beb8d9f39131d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
