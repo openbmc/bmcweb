@@ -3,6 +3,161 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d2309af0_11520ffe",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "Why move here, then copy below?",
+      "range": {
+        "startLine": 248,
+        "startChar": 34,
+        "endLine": 248,
+        "endChar": 43
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1639bc58_4776282d",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "none of these appear to be shared ownership.  Please use values where appropriate.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 79
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c13fbaa7_5cdd9e9c",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "Can this ever happen?  is this an error?",
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cab2351_44fc5e1c",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "Please use reserve and push_back to avoid getting default initialized values.",
+      "range": {
+        "startLine": 865,
+        "startChar": 25,
+        "endLine": 865,
+        "endChar": 41
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71697683_5f4ca3cf",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "WE\u0027re in the redfish namespace, there\u0027s no reason to specify redfish::.\n\n\nThis is done in several places, please fix all of them.",
+      "range": {
+        "startLine": 871,
+        "startChar": 16,
+        "endLine": 871,
+        "endChar": 25
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc931be6_71c4a8c6",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto in non obvious contexts, per the coding rules.",
+      "range": {
+        "startLine": 911,
+        "startChar": 12,
+        "endLine": 911,
+        "endChar": 16
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "129ff6c6_573c371d",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "same here.\n\nThere are lots of places where auto is misused, please fix all of them",
+      "range": {
+        "startLine": 914,
+        "startChar": 16,
+        "endLine": 914,
+        "endChar": 20
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8fbd506c_bc3eb37b",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 21
@@ -44,6 +199,93 @@
         "endLine": 925,
         "endChar": 60
       },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c36d873_b1dc557e",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "DOesn\u0027t appear fixed?",
+      "parentUuid": "3b74b9f9_4b567911",
+      "range": {
+        "startLine": 925,
+        "startChar": 24,
+        "endLine": 925,
+        "endChar": 60
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cde776d1_9f359d9c",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1505,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "Should we pass in the request object at all here?  Is there any use that\u0027s correct?",
+      "range": {
+        "startLine": 1505,
+        "startChar": 0,
+        "endLine": 1505,
+        "endChar": 33
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ed5294e_2b2957ff",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "This param shouldn\u0027t be ignored, right?  Otherwise this code will work for any manager",
+      "range": {
+        "startLine": 1507,
+        "startChar": 60,
+        "endLine": 1507,
+        "endChar": 69
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb59fc2b_f25402c3",
+        "filename": "test/redfish-core/include/redfish_oem_routing_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "Need more than one unit test here.",
       "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

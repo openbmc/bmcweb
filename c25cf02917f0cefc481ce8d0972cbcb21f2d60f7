@@ -194,6 +194,30 @@
       },
       "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eda9baba_00175a62",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:13:44Z",
+      "side": 1,
+      "message": "So make it non const?  We shouldn\u0027t be copying the payload.",
+      "parentUuid": "c2271bd7_abd1111d",
+      "range": {
+        "startLine": 1506,
+        "startChar": 0,
+        "endLine": 1506,
+        "endChar": 53
+      },
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
