@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b59b03f0_c8bc6892",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-10T11:43:25Z",
+      "side": 1,
+      "message": "It looks like - `SubRequest` copies a portion of the origin Request, but not body (which seems good).\n- url\n- method\n\nHowever, I\u0027m wondering how Oem route path can use the `body` if it is needed?  \nIt sounds like https://gerrit.openbmc.org/c/openbmc/bmcweb/+/77511 is passing only Oem portion to it.\n\nEven so, I\u0027m not sure how much can be saved by copying only Oem portion vs the original Request body?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "88f474db6aebde822c7b0d1d0e47be891e360cd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
