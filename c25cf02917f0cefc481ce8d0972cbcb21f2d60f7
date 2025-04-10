@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df5268df_6b44fa9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-10T13:39:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2f4b8360_1a34fd52",
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8eec20b_7b9b1f52",
@@ -120,6 +138,30 @@
       "side": 1,
       "message": "I had this passing via reference but later had to change it to copy because the readJsonObject would except a const reference payload coming from const SubRequest\u0026 req. This is just fragment of the payload OEM handler is interested in which is copied. Not the whole patch payload or not the whole OEM payload which is passed by the main router.",
       "parentUuid": "c7584aab_7751f5c3",
+      "range": {
+        "startLine": 1506,
+        "startChar": 0,
+        "endLine": 1506,
+        "endChar": 53
+      },
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2271bd7_abd1111d",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-10T13:39:54Z",
+      "side": 1,
+      "message": "*readJsonObject expects a non-const reference.",
+      "parentUuid": "498c88b2_76a16f20",
       "range": {
         "startLine": 1506,
         "startChar": 0,
