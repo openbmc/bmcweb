@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45f43f77_a8689cbb",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T04:55:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22a998f5_ba7eb3e9",
+      "range": {
+        "startLine": 156,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 2
+      },
+      "revId": "bda4a047c5c3667516e95fca20e723e4b3ee72af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d6826db_9599c805",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-04-09T22:27:21Z",
       "side": 1,
       "message": "nit: This change isn\u0027t called out in the commit message.",
+      "range": {
+        "startLine": 1109,
+        "startChar": 0,
+        "endLine": 1109,
+        "endChar": 2
+      },
+      "revId": "bda4a047c5c3667516e95fca20e723e4b3ee72af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b64b2ffe_0d6b1f87",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T04:55:06Z",
+      "side": 1,
+      "message": "This is a merge conflict.  We\u0027ll need to resolve it with Rohit.",
+      "parentUuid": "1d6826db_9599c805",
       "range": {
         "startLine": 1109,
         "startChar": 0,
