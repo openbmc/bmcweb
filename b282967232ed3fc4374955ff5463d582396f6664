@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08a243d8_d942ce5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-10T05:54:27Z",
+      "side": 1,
+      "message": "@manojkiran.eda@gmail.com I saw your design doc https://gerrit.openbmc.org/c/openbmc/docs/+/77874 so added you for review",
+      "revId": "b282967232ed3fc4374955ff5463d582396f6664",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
