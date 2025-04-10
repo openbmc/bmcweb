@@ -103,6 +103,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d244947_ff772435",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-10T15:07:51Z",
+      "side": 1,
+      "message": "No, I mean that we need an object that isn\u0027t object_t.  If the oem schemas don\u0027t parse, the next line needs to return an error and run no handlers.  Right now you have to start executing handlers before you know if there\u0027s an error.",
+      "parentUuid": "b9b87194_b5001c67",
+      "range": {
+        "startLine": 897,
+        "startChar": 0,
+        "endLine": 897,
+        "endChar": 67
+      },
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7584aab_7751f5c3",
         "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
         "patchSetId": 25
