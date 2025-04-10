@@ -8,4 +8,4 @@ source_fallback_url = https://github.com/mesonbuild/wrapdb/releases/download/nlo
 wrapdb_version = 3.11.3-1
 
 [provide]
-nlohmann_json = nlohmann_json_dep
+nlohmann_json = nlohmann_json_multiple_headers
