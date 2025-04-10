@@ -88,6 +88,24 @@
       "parentUuid": "5b273989_1cba59ec",
       "revId": "27f801123cfd804c954b3ff66c86d2974a7dda7c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "388fe923_b128f623",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-04-10T07:59:40Z",
+      "side": 1,
+      "message": "The SoftwareID can also be used for showing Component Identifier in the Firmware Inventory.\n\nI also don\u0027t think it should be mapped to Extended Version.\n\nWe should either add a new property in Version Interface or create a new interface with SoftwareID property.",
+      "parentUuid": "23bb3aed_f0819ba9",
+      "revId": "27f801123cfd804c954b3ff66c86d2974a7dda7c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
