@@ -125,6 +125,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "422c43d8_174dfecc",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 897,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "I have kept the payload parsing unchanged for now. Its main handler which will parse the schema of OEM and return if there are errors.",
+      "parentUuid": "5d244947_ff772435",
+      "range": {
+        "startLine": 897,
+        "startChar": 0,
+        "endLine": 897,
+        "endChar": 67
+      },
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7584aab_7751f5c3",
@@ -210,6 +234,30 @@
       "side": 1,
       "message": "So make it non const?  We shouldn\u0027t be copying the payload.",
       "parentUuid": "c2271bd7_abd1111d",
+      "range": {
+        "startLine": 1506,
+        "startChar": 0,
+        "endLine": 1506,
+        "endChar": 53
+      },
+      "revId": "c25cf02917f0cefc481ce8d0972cbcb21f2d60f7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6411ef4_cb1fa203",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1506,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "I have already tried that but code fails in lot many other places. I think I can push another MR separately for this.",
+      "parentUuid": "eda9baba_00175a62",
       "range": {
         "startLine": 1506,
         "startChar": 0,

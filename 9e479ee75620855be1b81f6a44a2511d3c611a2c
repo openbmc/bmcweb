@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27ef69e0_b3170c00",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "this code is been removed.",
+      "parentUuid": "d2309af0_11520ffe",
+      "range": {
+        "startLine": 248,
+        "startChar": 34,
+        "endLine": 248,
+        "endChar": 43
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1639bc58_4776282d",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-04-10T15:13:44Z",
       "side": 1,
       "message": "none of these appear to be shared ownership.  Please use values where appropriate.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 79
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f6eb85d_0effb843",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "removed this part of the code.",
+      "parentUuid": "1639bc58_4776282d",
       "range": {
         "startLine": 253,
         "startChar": 0,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b335302b_e296943e",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "removed this part of the code.",
+      "parentUuid": "c13fbaa7_5cdd9e9c",
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cab2351_44fc5e1c",
@@ -77,6 +143,30 @@
       "writtenOn": "2025-04-10T15:13:44Z",
       "side": 1,
       "message": "Please use reserve and push_back to avoid getting default initialized values.",
+      "range": {
+        "startLine": 865,
+        "startChar": 25,
+        "endLine": 865,
+        "endChar": 41
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ff88d5d_abb0b8b3",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "removed the code.",
+      "parentUuid": "4cab2351_44fc5e1c",
       "range": {
         "startLine": 865,
         "startChar": 25,
@@ -110,6 +200,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21e0e4ff_a4cd4d50",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "remvoed the code.",
+      "parentUuid": "71697683_5f4ca3cf",
+      "range": {
+        "startLine": 871,
+        "startChar": 16,
+        "endLine": 871,
+        "endChar": 25
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc931be6_71c4a8c6",
@@ -133,6 +247,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3470a18b_5ab12454",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "removed the code.",
+      "parentUuid": "fc931be6_71c4a8c6",
+      "range": {
+        "startLine": 911,
+        "startChar": 12,
+        "endLine": 911,
+        "endChar": 16
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "129ff6c6_573c371d",
@@ -146,6 +284,30 @@
       "writtenOn": "2025-04-10T15:13:44Z",
       "side": 1,
       "message": "same here.\n\nThere are lots of places where auto is misused, please fix all of them",
+      "range": {
+        "startLine": 914,
+        "startChar": 16,
+        "endLine": 914,
+        "endChar": 20
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b890956_70801a19",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "removed the code.",
+      "parentUuid": "129ff6c6_573c371d",
       "range": {
         "startLine": 914,
         "startChar": 16,
@@ -227,6 +389,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e08206aa_03e489b6",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "this is old patch. we dont have this code in the new patch.",
+      "parentUuid": "3c36d873_b1dc557e",
+      "range": {
+        "startLine": 925,
+        "startChar": 24,
+        "endLine": 925,
+        "endChar": 60
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cde776d1_9f359d9c",
@@ -240,6 +426,30 @@
       "writtenOn": "2025-04-10T15:13:44Z",
       "side": 1,
       "message": "Should we pass in the request object at all here?  Is there any use that\u0027s correct?",
+      "range": {
+        "startLine": 1505,
+        "startChar": 0,
+        "endLine": 1505,
+        "endChar": 33
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4abaccd8_2a5bad2b",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1505,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "We pass the sub_request object here. In contains the patch payload. I think your comment was first patchset which is been changed.",
+      "parentUuid": "cde776d1_9f359d9c",
       "range": {
         "startLine": 1505,
         "startChar": 0,
@@ -275,6 +485,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45083a36_8e6d497c",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "Since its validated in main handler before calling OEM, its optional to check here again.",
+      "parentUuid": "0ed5294e_2b2957ff",
+      "range": {
+        "startLine": 1507,
+        "startChar": 60,
+        "endLine": 1507,
+        "endChar": 69
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb59fc2b_f25402c3",
         "filename": "test/redfish-core/include/redfish_oem_routing_test.cpp",
         "patchSetId": 21
@@ -286,6 +520,24 @@
       "writtenOn": "2025-04-10T15:13:44Z",
       "side": 1,
       "message": "Need more than one unit test here.",
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a0eca26_ee309928",
+        "filename": "test/redfish-core/include/redfish_oem_routing_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-11T12:20:00Z",
+      "side": 1,
+      "message": "Sure. will update.",
+      "parentUuid": "cb59fc2b_f25402c3",
       "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
