@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0391353_511cc33a",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-04-11T09:02:43Z",
+      "side": 1,
+      "message": "I think we can use same organization name and unit as used in generate_client_key_and_cert.\n\n      x509.NameAttribute(NameOID.ORGANIZATION_NAME, \"OpenBMC\"),\n      x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, \"bmcweb\"),",
+      "revId": "b89783d6ee1e7ac3391c095b4fc2b98d35c1201f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dadf8cb8_e033ca34",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-04-11T09:02:43Z",
+      "side": 1,
+      "message": "Same for common name. Can we pass as optional field",
+      "revId": "b89783d6ee1e7ac3391c095b4fc2b98d35c1201f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81623b3e_c0054fa4",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-04-11T09:02:43Z",
+      "side": 1,
+      "message": "Can we have it from 1970 to 2070 to be consistent with all dates in this file?",
+      "revId": "b89783d6ee1e7ac3391c095b4fc2b98d35c1201f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
