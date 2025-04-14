@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93b93978_693ad777",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-14T22:56:16Z",
+      "side": 1,
+      "message": "no lambdas over a few lines. Certainly no lambdas two scopes deep.  Please break this into methods.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 16
+      },
+      "revId": "e26e404fde0ac7ce6e50ce7f6c0d16795bc2a7b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
