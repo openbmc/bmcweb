@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99611853_09b937ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-14T22:40:56Z",
+      "side": 1,
+      "message": "\u003e The test failed as in the qemu environment there was no json file which stores password\n\nThis is what I would\u0027ve expected.",
+      "parentUuid": "27ae3708_b8f016df",
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe00df4d_37624e4a",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
@@ -151,6 +169,30 @@
       "side": 1,
       "message": "I updated the patch set, we will first check the existence of dbus object path(\"/xyz/openbmc_project/bios_config/password\") and then only formulate the URI to perform password change",
       "parentUuid": "75553d59_8840e47c",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 1
+      },
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65b7401d_7982f207",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-14T22:40:56Z",
+      "side": 1,
+      "message": "\u003e We will expose the Action URI to perform password change.\n\nThis doesn\u0027t work in the way we develop.  For systems that don\u0027t have this interface, they can\u0027t be exposing a bios target.",
+      "parentUuid": "01905fd3_ce27eef4",
       "range": {
         "startLine": 60,
         "startChar": 0,
