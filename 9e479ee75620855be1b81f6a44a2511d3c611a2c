@@ -507,6 +507,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "59acf0e6_99ae97e8",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-14T13:47:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45083a36_8e6d497c",
+      "range": {
+        "startLine": 1507,
+        "startChar": 60,
+        "endLine": 1507,
+        "endChar": 69
+      },
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb59fc2b_f25402c3",
@@ -538,6 +562,24 @@
       "side": 1,
       "message": "Sure. will update.",
       "parentUuid": "cb59fc2b_f25402c3",
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "610c453e_2a9d9fda",
+        "filename": "test/redfish-core/include/redfish_oem_routing_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-14T13:47:24Z",
+      "side": 1,
+      "message": "I have added all the IT test cases ran on qemu daytonax image. Please review if anything else need to be added. I will push another MR to enhance the UT coverage.",
+      "parentUuid": "0a0eca26_ee309928",
       "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
