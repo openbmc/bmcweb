@@ -16,6 +16,24 @@
       "message": "Does python-cryptography have a way to dump this without us having to concatenate it ourselves?  I assume they have an object to represent a cert chain?",
       "revId": "8ee3831aadff7513b932a3ec4e4977086c91dc92",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcdaa646_0c44da43",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 1002434
+      },
+      "writtenOn": "2025-04-14T15:13:15Z",
+      "side": 1,
+      "message": "From what I checked python-cryptography does not have it, other libraries can return chain as a list of encoded certs, then you need to decode and merge.\nBut I haven\u0027t found one that dump the full chain",
+      "parentUuid": "b1e8ccad_94251f28",
+      "revId": "8ee3831aadff7513b932a3ec4e4977086c91dc92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
