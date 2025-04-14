@@ -582,6 +582,24 @@
       "parentUuid": "0a0eca26_ee309928",
       "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd42af3b_32fae26f",
+        "filename": "test/redfish-core/include/redfish_oem_routing_test.cpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-14T15:07:22Z",
+      "side": 1,
+      "message": "Considering daytonax doesn\u0027t support the URIs you\u0027ve changed (which are entity-manager), that doesn\u0027t seem like enough of a test.",
+      "parentUuid": "610c453e_2a9d9fda",
+      "revId": "9e479ee75620855be1b81f6a44a2511d3c611a2c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
