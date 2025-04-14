@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b6ae5b1_7ca1bfe6",
+        "filename": "redfish-core/include/sub_request.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-14T15:58:40Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4b3e9b92_84d6b87c",
+      "range": {
+        "startLine": 36,
+        "startChar": 34,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "dbf7385e25b8c171e98c4b3fc8d011dfcc3dc19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "254513b2_07872fac",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-04-14T15:07:22Z",
       "side": 1,
       "message": "Does this need to be more specific than just whether it\u0027s empty?",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 29
+      },
+      "revId": "dbf7385e25b8c171e98c4b3fc8d011dfcc3dc19d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e168d2f7_6320546d",
+        "filename": "redfish-core/include/sub_request.hpp",
+        "patchSetId": 32
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-14T15:58:40Z",
+      "side": 1,
+      "message": "I think its ok here to check for just being empty. SubRequest construction ensures it\u0027s not empty and its type is already object.",
+      "parentUuid": "254513b2_07872fac",
       "range": {
         "startLine": 65,
         "startChar": 12,
