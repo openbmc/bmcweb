@@ -86,6 +86,24 @@
       "message": "why internally error on session null ? On no auth we never expect startQuery API to be used ?",
       "revId": "dca282873e48cef456c3cacb3ec2536adc459073",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0f1774a_f2272012",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-14T22:44:28Z",
+      "side": 1,
+      "message": "If there is no session, we should never be able to get here, because startQuery can\u0027t be called, right?  Not really sure what this is doing.",
+      "parentUuid": "077fcb09_bdaf170e",
+      "revId": "dca282873e48cef456c3cacb3ec2536adc459073",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
