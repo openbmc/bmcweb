@@ -71,7 +71,7 @@ inline void asyncPopulatePid(
                 return;
             }
             nlohmann::json& configRoot =
-                asyncResp->res.jsonValue["Oem"]["OpenBmc"]["Fan"];
+                asyncResp->res.jsonValue["Fan"];
             nlohmann::json& fans = configRoot["FanControllers"];
             fans["@odata.type"] =
                 "#OpenBMCManager.v1_0_0.Manager.FanControllers";
