@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aea3cc4_3ddecfab",
+        "filename": "redfish-core/include/sub_request.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-14T22:38:09Z",
+      "side": 1,
+      "message": "naming convention doesn\u0027t allow for trailing _",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "bc170a4c60ea66af72f1d442386a4eca5888de8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
