@@ -86,6 +86,24 @@
       "message": "we should add ec.message() to the log as well.",
       "revId": "87550da7fc5e7b3e1a7683333d13d23a66da2675",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6ee7052_1005c1f0",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-14T05:00:23Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "ae4de296_01524958",
+      "revId": "87550da7fc5e7b3e1a7683333d13d23a66da2675",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
