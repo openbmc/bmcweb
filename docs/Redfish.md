@@ -903,6 +903,7 @@ functions the same like the default implementation under the System resource.
 #### Bios
 
 - Actions
+- Attributes
 - Description
 - Links/ActiveSoftwareImage
 - Links/SoftwareImages
