@@ -23,6 +23,166 @@
 
 namespace redfish
 {
+using BaseBIOSTable = std::map<
+    std::string,
+    std::tuple<
+        std::string, bool, std::string, std::string, std::string,
+        std::variant<int64_t, std::string, bool>,
+        std::variant<int64_t, std::string, bool>,
+        std::vector<std::tuple<std::string, std::variant<int64_t, std::string>,
+                               std::string>>>>;
+
+enum BaseBiosTableIndex
+{
+    baseBiosAttrType = 0,
+    baseBiosReadonlyStatus,
+    baseBiosDisplayName,
+    baseBiosDescription,
+    baseBiosMenuPath,
+    baseBiosCurrValue,
+    baseBiosDefaultValue,
+    baseBiosBoundValues
+};
+
+static std::string getBiosAttrType(const std::string& attrType)
+{
+    std::string type;
+    if (attrType ==
+        "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Enumeration")
+    {
+        type = "Enumeration";
+    }
+    else if (attrType ==
+             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.String")
+    {
+        type = "String";
+    }
+    else if (attrType ==
+             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Password")
+    {
+        type = "Password";
+    }
+    else if (attrType ==
+             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Integer")
+    {
+        type = "Integer";
+    }
+    else if (attrType ==
+             "xyz.openbmc_project.BIOSConfig.Manager.AttributeType.Boolean")
+    {
+        type = "Boolean";
+    }
+    else
+    {
+        type = "UNKNOWN";
+    }
+    return type;
+}
+
+static void getAttributes(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& biosService)
+{
+    dbus::utility::getProperty<BaseBIOSTable>(
+        biosService, "/xyz/openbmc_project/bios_config/manager",
+        "xyz.openbmc_project.BIOSConfig.Manager", "BaseBIOSTable",
+        [asyncResp](const boost::system::error_code& ec,
+                    const BaseBIOSTable& baseBiosTable) {
+            if (ec)
+            {
+                BMCWEB_LOG_WARNING("D-Bus Property Get error: {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (baseBiosTable.empty())
+            {
+                BMCWEB_LOG_ERROR("No BIOS attributes found");
+                return;
+            }
+            nlohmann::json& attributesJson =
+                asyncResp->res.jsonValue["Attributes"];
+            for (const auto& attrIt : baseBiosTable)
+            {
+                const std::string& attr = attrIt.first;
+                std::string attrType = getBiosAttrType(
+                    std::string(std::get<BaseBiosTableIndex::baseBiosAttrType>(
+                        attrIt.second)));
+                if ((attrType == "String") || (attrType == "Enumeration"))
+                {
+                    const std::string* attrCurrValue = std::get_if<std::string>(
+                        &std::get<BaseBiosTableIndex::baseBiosCurrValue>(
+                            attrIt.second));
+                    if (attrCurrValue != nullptr)
+                    {
+                        attributesJson.emplace(attr, *attrCurrValue);
+                    }
+                    else
+                    {
+                        attributesJson.emplace(attr, std::string(""));
+                    }
+                }
+                else if ((attrType == "Integer") || (attrType == "Boolean"))
+                {
+                    const int64_t* attrCurrValue = std::get_if<int64_t>(
+                        &std::get<BaseBiosTableIndex::baseBiosCurrValue>(
+                            attrIt.second));
+                    if (attrCurrValue != nullptr)
+                    {
+                        if (attrType == "Boolean")
+                        {
+                            if (*attrCurrValue)
+                            {
+                                attributesJson.emplace(attr, true);
+                            }
+                            else
+                            {
+                                attributesJson.emplace(attr, false);
+                            }
+                        }
+                        else
+                        {
+                            attributesJson.emplace(attr, *attrCurrValue);
+                        }
+                    }
+                    else
+                    {
+                        if (attrType == "Boolean")
+                        {
+                            attributesJson.emplace(attr, false);
+                        }
+                        else
+                        {
+                            attributesJson.emplace(attr, 0);
+                        }
+                    }
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR("Attribute type not supported");
+                }
+            }
+        });
+}
+
+static void getBiosAttributes(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/bios_config/manager",
+        std::array<std::string_view, 1>{
+            "xyz.openbmc_project.BIOSConfig.Manager"},
+        [asyncResp](const boost::system::error_code& ec,
+                    const dbus::utility::MapperGetObject& objInfo) {
+            if (ec || objInfo.empty())
+            {
+                BMCWEB_LOG_ERROR("Failed to get bios attributes: {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            const std::string& biosService = objInfo.front().first;
+            getAttributes(asyncResp, biosService);
+        });
+}
 /**
  * BiosService class supports handle get method for bios.
  */
@@ -57,7 +217,8 @@ inline void handleBiosServiceGet(
     asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"]["target"] =
         std::format("/redfish/v1/Systems/{}/Bios/Actions/Bios.ResetBios",
                     BMCWEB_REDFISH_SYSTEM_URI_NAME);
-
+    asyncResp->res.jsonValue["Attributes"] = nlohmann::json({});
+    getBiosAttributes(asyncResp);
     // Get the ActiveSoftwareImage and SoftwareImages
     sw_util::populateSoftwareInformation(asyncResp, sw_util::biosPurpose, "",
                                          true);
