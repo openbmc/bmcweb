@@ -12,17 +12,72 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/bios_utils.hpp"
 #include "utils/sw_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 
+#include <array>
+#include <cstdint>
 #include <format>
 #include <functional>
+#include <map>
 #include <memory>
 #include <string>
+#include <string_view>
+#include <tuple>
+#include <variant>
+#include <vector>
 
 namespace redfish
 {
+using BaseTableOption =
+    std::tuple<std::string, dbus::utility::DbusVariantType, std::string>;
+
+using BaseTableAttribute =
+    std::tuple<std::string, bool, std::string, std::string, std::string,
+               dbus::utility::DbusVariantType, dbus::utility::DbusVariantType,
+               std::vector<BaseTableOption>>;
+
+enum class BaseTableAttributeIndex
+{
+    Type = 0,
+    ReadOnly,
+    Name,
+    Description,
+    Path,
+    CurrentValue,
+    DefaultValue,
+    Options
+};
+
+using BaseTable = std::map<std::string, BaseTableAttribute>;
+
+inline void populateRedfishFromBaseTable(crow::Response& response,
+                                         const BaseTable& baseTable)
+{
+    nlohmann::json& attributes = response.jsonValue["Attributes"];
+    for (const auto& [name, baseTableAttribute] : baseTable)
+    {
+        bios_utils::addAttribute(
+            attributes, name,
+            std::get<uint(BaseTableAttributeIndex::Type)>(baseTableAttribute),
+            std::get<uint(BaseTableAttributeIndex::CurrentValue)>(
+                baseTableAttribute));
+    }
+}
+
+inline void getBiosAttributes(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    bios_utils::getBIOSManagerObject(
+        asyncResp,
+        std::bind_front(bios_utils::getBIOSManagerProperty<BaseTable>,
+                        asyncResp, "BaseBIOSTable",
+                        std::bind_front(populateRedfishFromBaseTable,
+                                        std::ref(asyncResp->res))));
+}
+
 /**
  * BiosService class supports handle get method for bios.
  */
@@ -57,7 +112,13 @@ inline void handleBiosServiceGet(
     asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"]["target"] =
         std::format("/redfish/v1/Systems/{}/Bios/Actions/Bios.ResetBios",
                     BMCWEB_REDFISH_SYSTEM_URI_NAME);
-
+    dbus::utility::checkDbusPathExists(
+        "/xyz/openbmc_project/bios_config/manager", [asyncResp](int rc) {
+            if (rc > 0)
+            {
+                getBiosAttributes(asyncResp);
+            }
+        });
     // Get the ActiveSoftwareImage and SoftwareImages
     sw_util::populateSoftwareInformation(asyncResp, sw_util::biosPurpose, "",
                                          true);
