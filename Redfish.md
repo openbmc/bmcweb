@@ -773,6 +773,7 @@ other.
 #### Bios
 
 - Actions
+- Attributes
 - Description
 - Links/ActiveSoftwareImage
 - Links/SoftwareImages
