@@ -177,7 +177,9 @@ configure_file(
     configuration: configuration_data(
         {
             'MESON_INSTALL_PREFIX': get_option('prefix'),
-            'WATCHDOG_TIMEOUT_SECONDS': get_option('watchdog-timeout-seconds'),
+            'BMCWEB_WATCHDOG_TIMEOUT_SECONDS': get_option(
+                'watchdog-timeout-seconds',
+            ),
         },
     ),
 )
