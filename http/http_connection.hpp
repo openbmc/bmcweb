@@ -240,7 +240,8 @@ class Connection :
         buffer.consume(bytesParsed);
         if (ec)
         {
-            BMCWEB_LOG_ERROR("{} SSL handshake failed", logPtr(this));
+            BMCWEB_LOG_ERROR("{} SSL handshake failed {}", logPtr(this),
+                             ec.message());
             return;
         }
         BMCWEB_LOG_DEBUG("{} SSL handshake succeeded", logPtr(this));
@@ -659,6 +660,7 @@ class Connection :
             handle();
             return;
         }
+        handler->prepareRequestBody(parser->get());
 
         doRead();
     }
@@ -897,7 +899,7 @@ class Connection :
             return;
         }
 
-        std::chrono::seconds timeout(15);
+        std::chrono::seconds timeout(15 * 60);
 
         std::weak_ptr<Connection<Adaptor, Handler>> weakSelf = weak_from_this();
         timer.expires_after(timeout);

@@ -84,6 +84,9 @@ class BaseRule
         }
         return false;
     }
+    virtual void prepareBody(
+        boost::beast::http::request<bmcweb::HttpBody>& /*req*/)
+    {}
 
     size_t methodsBitfield{1 << static_cast<size_t>(HttpVerb::Get)};
     static_assert(std::numeric_limits<decltype(methodsBitfield)>::digits >

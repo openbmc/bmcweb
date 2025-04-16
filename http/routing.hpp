@@ -515,8 +515,8 @@ class Router
         }
         return route;
     }
-
-    FindRouteResponse findRoute(const Request& req) const
+    FindRouteResponse findRoute(const boost::urls::url& url,
+                                boost::beast::http::verb bv) const
     {
         FindRouteResponse findRoute;
 
@@ -527,7 +527,7 @@ class Router
             // Make sure it's safe to deference the array at that index
             static_assert(
                 maxVerbIndex < std::tuple_size_v<decltype(perMethods)>);
-            FindRoute route = findRouteByPerMethod(req.url().encoded_path(),
+            FindRoute route = findRouteByPerMethod(url.encoded_path(),
                                                    perMethods[perMethodIndex]);
             if (route.rule == nullptr)
             {
@@ -541,7 +541,7 @@ class Router
             findRoute.allowHeader += httpVerbToString(thisVerb);
         }
 
-        std::optional<HttpVerb> verb = httpVerbFromBoost(req.method());
+        std::optional<HttpVerb> verb = httpVerbFromBoost(bv);
         if (!verb)
         {
             return findRoute;
@@ -552,7 +552,7 @@ class Router
             return findRoute;
         }
 
-        FindRoute route = findRouteByPerMethod(req.url().encoded_path(),
+        FindRoute route = findRouteByPerMethod(url.encoded_path(),
                                                perMethods[reqMethodIndex]);
         if (route.rule != nullptr)
         {
@@ -560,6 +560,10 @@ class Router
         }
 
         return findRoute;
+    }
+    FindRouteResponse findRoute(const Request& request) const
+    {
+        return findRoute(request.url(), request.method());
     }
 
     template <typename Adaptor>

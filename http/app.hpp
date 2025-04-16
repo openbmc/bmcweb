@@ -182,6 +182,20 @@ class App
     {
         return router.getRoutes(parent);
     }
+    void prepareRequestBody(boost::beast::http::request<bmcweb::HttpBody>& req)
+    {
+        auto result = boost::urls::parse_relative_ref(req.target());
+        if (!result)
+        {
+            return;
+        }
+        auto url = *result;
+        auto routeRes = router.findRoute(url, req.method());
+        if (routeRes.route.rule)
+        {
+            routeRes.route.rule->prepareBody(req);
+        }
+    }
 
     std::optional<server_type> server;
 
