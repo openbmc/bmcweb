@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fe5412a_16abf7c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:33:50Z",
+      "side": 1,
+      "message": "@joseph-jonathan.salzano@hp.com I can help with testing on OpenBMC platforms. \nI m interested in these patches. \nPlease update",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2baf7065_a434cc04",
