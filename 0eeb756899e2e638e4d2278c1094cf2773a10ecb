@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b766739_359ed65a",
+        "filename": "http/app.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-16T18:47:05Z",
+      "side": 1,
+      "message": "App is definitely not the right place for anything that happens on a per-request basis.  ALso, it shouldn\u0027t be passing boost types as arguments.",
+      "range": {
+        "startLine": 185,
+        "startChar": 9,
+        "endLine": 185,
+        "endChar": 27
+      },
+      "revId": "0eeb756899e2e638e4d2278c1094cf2773a10ecb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa7f3fce_f093f10a",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-16T18:47:05Z",
+      "side": 1,
+      "message": "I would prefer if this API only passed filename back to the users, and this were made a protected type (or a friend of the reader).  If we\u0027re using this API, nothing within the process should be using the real file handle, so exposing it to the individual routes just adds the potential for issues..",
+      "range": {
+        "startLine": 68,
+        "startChar": 30,
+        "endLine": 68,
+        "endChar": 36
+      },
+      "revId": "0eeb756899e2e638e4d2278c1094cf2773a10ecb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b72cd412_1ef78c55",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-16T18:47:05Z",
+      "side": 1,
+      "message": "This is making me think we should move to a variant for the base type.  Checking is_open for every chunk might be wasteful, and certainly doesn\u0027t match the intent of what we want.  (will give this more thought)",
+      "range": {
+        "startLine": 277,
+        "startChar": 0,
+        "endLine": 277,
+        "endChar": 39
+      },
+      "revId": "0eeb756899e2e638e4d2278c1094cf2773a10ecb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4090a86_199973ad",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-16T18:47:05Z",
+      "side": 1,
+      "message": "Remove.  This is just the timer for reading headers.  If headers take more than 15 seconds, we have a major issue.\n\nKeep in mind you\u0027ll need some re-thinking of the timer system if you\u0027re going to read this large file incrementally.",
+      "revId": "0eeb756899e2e638e4d2278c1094cf2773a10ecb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11fe051b_0848899d",
+        "filename": "http/routing/taggedrule.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-16T18:47:05Z",
+      "side": 1,
+      "message": "This is the wrong place for this logic.\n\ntagged rule should return something like\n\nbool read_as_file();\n\nThen the conection/body logic should deal with the rest accordingly.\n\nroutes that want to read as a file should be registered with something like\n\nBMCWEB_ROUTE(\"....\").readAsFile().....",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 5
+      },
+      "revId": "0eeb756899e2e638e4d2278c1094cf2773a10ecb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
