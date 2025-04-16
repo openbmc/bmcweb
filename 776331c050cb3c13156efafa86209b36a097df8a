@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17a88b85_0849f8a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-16T14:52:39Z",
+      "side": 1,
+      "message": "Please capture the complete POST API req/response as test details.",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21e63df5_21c5cf4d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-16T14:52:39Z",
+      "side": 1,
+      "message": "how this path is standardised ? should we look for interface rather. https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/BIOSConfig/Password.interface.yaml.",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e30e6ac4_9fbf29a1",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-16T14:52:39Z",
+      "side": 1,
+      "message": "did you forget to remove this.",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "652463e4_c27f9c60",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-16T14:52:39Z",
+      "side": 1,
+      "message": "handle resource not found when size is zero.",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0cb58c6_fa19a098",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-16T14:52:39Z",
+      "side": 1,
+      "message": "please make error say the condition that has failed instead of generic one.",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c395acb_2feb1198",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-16T14:52:39Z",
+      "side": 1,
+      "message": "use this pattern \n        const sd_bus_error* dbusError \u003d msg.get_error();\n        if (dbusError !\u003d nullptr)\n        {\n            std::string_view errorName(dbusError-\u003ename);\n\n            if (errorName \u003d\u003d \"xyz.openbmc_project.Common.Error.InvalidArgument\")\n            {\n            .....",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "396ed8d8_c858122a",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-16T14:52:39Z",
+      "side": 1,
+      "message": "since its post should it be 204 no content ?",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
