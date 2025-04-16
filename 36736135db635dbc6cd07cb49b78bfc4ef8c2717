@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2baf7065_a434cc04",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "Boolean type needs to be added",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0248dc79_71867cde",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "can we use `const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp` instead of `crow::Response\u0026 response`?",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d620aa8d_89355f06",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "This function could be moved to bios_utils.hpp under `redfish-core/include/utils`",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "725696d2_93b49e64",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "This function could be moved to bios_utils.hpp under `redfish-core/include/utils`",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc7c355b_ec535485",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "This function could be moved to bios_utils.hpp under `redfish-core/include/utils`",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efb11cca_e5e0be51",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "I dont think we need a meson option here \nWe can determine if the path exists with help of `dbus::utility::checkDbusPathExists`",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "650ee86f_97f5381c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "We can add Settings URI if dbus path exists(\"/xyz/openbmc_project/bios_config/manager\")\n```\n    dbus::utility::checkDbusPathExists(\n        \"/xyz/openbmc_project/bios_config/manager\", [asyncResp](int rc) {\n            if (rc \u003e 0)\n            {\n                //populate attributes\n            }\n        });\n```",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecda8e7e_d294102b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "Why do we need PendingPut ? \nUsually to update the Attributes user performs patch right ?",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "010e51e2_53f609a7",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "Not getting the use case of PUT. \nCan you please help understand the use case here",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80fe483f_fb29c2c6",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "We need not have meson option for this",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35c76803_af289400",
+        "filename": "test/redfish-core/lib/bios_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "Do we need this test case ?\nWe are just populating the information here right",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ca7afdb_b0344cae",
+        "filename": "test/redfish-core/lib/bios_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T10:29:07Z",
+      "side": 1,
+      "message": "No test for Boolean, Password and Enumeration included here. \nAnd also the function does not handle these types",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
