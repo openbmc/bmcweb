@@ -630,5 +630,29 @@ TEST(GetEstimatedJsonSize, ObjectsReturnsSumWithKeyAndValue)
     EXPECT_EQ(getEstimatedJsonSize(obj), expected);
 }
 
+TEST(ReadJson, ReadSameElementTwice)
+{
+    crow::Response res;
+    nlohmann::json jsonRequest = {{"string", "hello"}};
+
+    std::string str1;
+    std::string str2;
+
+    // First read
+    ASSERT_TRUE(readJson(jsonRequest, res, "string", str1));
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+    EXPECT_THAT(res.jsonValue, IsEmpty());
+    EXPECT_EQ(str1, "hello");
+
+    // Second read of same element
+    ASSERT_TRUE(readJson(jsonRequest, res, "string", str2));
+    EXPECT_EQ(res.result(), boost::beast::http::status::ok);
+    EXPECT_THAT(res.jsonValue, IsEmpty());
+    EXPECT_EQ(str2, "hello");
+
+    // Verify the original JSON still has the value
+    EXPECT_EQ(jsonRequest["string"], "hello");
+}
+
 } // namespace
 } // namespace redfish::json_util

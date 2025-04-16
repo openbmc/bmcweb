@@ -144,7 +144,7 @@ UnpackErrorCode unpackValueVariant(nlohmann::json& j, std::string_view key,
         UnpackErrorCode unpack = unpackValueWithErrorCode(j, key, type);
         if (unpack == UnpackErrorCode::success)
         {
-            v = std::move(type);
+            v = type;
             return unpack;
         }
 
@@ -215,7 +215,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
 
     else if constexpr (std::is_same_v<nlohmann::json, Type>)
     {
-        value = std::move(jsonValue);
+        value = jsonValue;
     }
     else if constexpr (std::is_same_v<std::nullptr_t, Type>)
     {
@@ -251,7 +251,7 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
                              jsonValue.type_name());
             return UnpackErrorCode::invalidType;
         }
-        value = std::move(*jsonPtr);
+        value = *jsonPtr;
     }
     return ret;
 }
