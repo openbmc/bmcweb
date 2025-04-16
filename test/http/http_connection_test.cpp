@@ -50,6 +50,26 @@ struct FakeHandler
 
         called = true;
     }
+    struct Router
+    {
+        struct FindRouteResponse
+        {
+            struct BaseRule
+            {
+                void prepareBody(auto /*req*/) {}
+            };
+            struct Route
+            {
+                BaseRule* rule = nullptr;
+            };
+            Route route;
+        };
+        FindRouteResponse findRoute(const boost::urls::url& /*url*/,
+                                    boost::beast::http::verb /*bv*/)
+        {
+            return FindRouteResponse{};
+        }
+    } router;
     bool called = false;
 };
 

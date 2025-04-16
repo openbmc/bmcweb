@@ -9,6 +9,7 @@
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/beast/websocket/rfc6455.hpp>
 #include <boost/url/parse.hpp>
@@ -27,7 +28,17 @@ namespace crow
 struct Request
 {
     using Body = boost::beast::http::request<bmcweb::HttpBody>;
+    struct BodyReader
+    {
+        virtual void updateRequest(Request&) = 0;
+        virtual boost::beast::http::request<bmcweb::HttpBody>& getRequest() = 0;
+        virtual void readBody(
+            std::function<void(boost::system::error_code)> cont) = 0;
+        virtual ~BodyReader() = default;
+    };
+
     Body req;
+    std::shared_ptr<BodyReader> reader;
 
   private:
     boost::urls::url urlBase;
@@ -38,14 +49,17 @@ struct Request
     std::shared_ptr<persistent_data::UserSession> session;
 
     std::string userRole;
-    Request(Body reqIn, std::error_code& ec) : req(std::move(reqIn))
+
+    Request(
+        Body body, std::error_code& ec,
+        std::shared_ptr<BodyReader> areader = std::shared_ptr<BodyReader>()) :
+        req(std::move(body)), reader(std::move(areader))
     {
         if (!setUrlInfo())
         {
             ec = std::make_error_code(std::errc::invalid_argument);
         }
     }
-
     Request(std::string_view bodyIn, std::error_code& /*ec*/) : req({}, bodyIn)
     {}
 
@@ -57,7 +71,14 @@ struct Request
     Request& operator=(const Request&) = default;
     Request& operator=(Request&&) = default;
     ~Request() = default;
-
+    auto& bodyReader()
+    {
+        return reader;
+    }
+    void setRequest(Body&& body)
+    {
+        req = std::move(body);
+    }
     void addHeader(std::string_view key, std::string_view value)
     {
         req.insert(key, value);

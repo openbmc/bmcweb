@@ -84,6 +84,7 @@ class BaseRule
         }
         return false;
     }
+    virtual void prepareBody(crow::Request& /*req*/) {}
 
     size_t methodsBitfield{1 << static_cast<size_t>(HttpVerb::Get)};
     static_assert(std::numeric_limits<decltype(methodsBitfield)>::digits >

@@ -12,6 +12,7 @@
 #include "http_connect_types.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "http_streamer.hpp"
 #include "http_utility.hpp"
 #include "logging.hpp"
 #include "mutual_tls.hpp"
@@ -72,6 +73,37 @@ class Connection :
     public std::enable_shared_from_this<Connection<Adaptor, Handler>>
 {
     using self_type = Connection<Adaptor, Handler>;
+    using Ssl_Adapter = boost::asio::ssl::stream<Adaptor>;
+    using HttpStreamer = HttpStreamerImpl<Ssl_Adapter>;
+    struct ReqBodyReader : Request::BodyReader
+    {
+        explicit ReqBodyReader(self_type& aConnection) : connection(aConnection)
+        {}
+        void updateRequest(Request& request) override
+        {
+            return request.setRequest(
+                connection.httpStreamer->releaseRequest());
+        }
+        boost::beast::http::request<bmcweb::HttpBody>& getRequest() override
+        {
+            return connection.httpStreamer->request();
+        }
+        void readBody(
+            std::function<void(boost::system::error_code)> cont) override
+        {
+            BMCWEB_LOG_DEBUG("{} readBody", logPtr(this));
+            if (connection.httpStreamer->isParserDone())
+            {
+                BMCWEB_LOG_DEBUG("{} Parser is done", logPtr(this));
+                cont(boost::system::error_code{});
+                return;
+            }
+            connection.doRead(std::move(cont));
+        }
+
+      private:
+        self_type& connection;
+    };
 
   public:
     Connection(Handler* handlerIn, HttpType httpTypeIn,
@@ -79,10 +111,9 @@ class Connection :
                std::function<std::string()>& getCachedDateStrF,
                boost::asio::ssl::stream<Adaptor>&& adaptorIn) :
         httpType(httpTypeIn), adaptor(std::move(adaptorIn)), handler(handlerIn),
+        httpStreamer(std::make_shared<HttpStreamer>(adaptor, httpType)),
         timer(std::move(timerIn)), getCachedDateStr(getCachedDateStrF)
     {
-        initParser();
-
         connectionCount++;
 
         BMCWEB_LOG_DEBUG("{} Connection created, total {}", logPtr(this),
@@ -184,7 +215,8 @@ class Connection :
             }
             httpType = HttpType::HTTPS;
             adaptor.async_handshake(
-                boost::asio::ssl::stream_base::server, buffer.data(),
+                boost::asio::ssl::stream_base::server,
+                httpStreamer->getBuffer().data(),
                 std::bind_front(&self_type::afterSslHandshake, this,
                                 shared_from_this()));
         }
@@ -228,7 +260,7 @@ class Connection :
 
         readClientIp();
         boost::beast::async_detect_ssl(
-            adaptor.next_layer(), buffer,
+            adaptor.next_layer(), httpStreamer->getBuffer(),
             std::bind_front(&self_type::afterDetectSsl, this,
                             shared_from_this()));
     }
@@ -237,10 +269,11 @@ class Connection :
                            const boost::system::error_code& ec,
                            size_t bytesParsed)
     {
-        buffer.consume(bytesParsed);
+        httpStreamer->getBuffer().consume(bytesParsed);
         if (ec)
         {
-            BMCWEB_LOG_ERROR("{} SSL handshake failed", logPtr(this));
+            BMCWEB_LOG_ERROR("{} SSL handshake failed {}", logPtr(this),
+                             ec.message());
             return;
         }
         BMCWEB_LOG_DEBUG("{} SSL handshake succeeded", logPtr(this));
@@ -263,23 +296,8 @@ class Connection :
                 }
             }
         }
-
         doReadHeaders();
     }
-
-    void initParser()
-    {
-        boost::beast::http::request_parser<bmcweb::HttpBody>& instance =
-            parser.emplace();
-
-        // reset header limit for newly created parser
-        instance.header_limit(httpHeaderLimit);
-
-        // Initially set no body limit. We don't yet know if the user is
-        // authenticated.
-        instance.body_limit(boost::none);
-    }
-
     void upgradeToHttp2()
     {
         auto http2 = std::make_shared<HTTP2Connection<Adaptor, Handler>>(
@@ -365,15 +383,45 @@ class Connection :
         }
         return false;
     }
-
+    auto makeReadCallback(std::function<void(boost::system::error_code)> cont)
+    {
+        return [self = shared_from_this(),
+                cont = std::move(cont)](boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("{} Error while reading: {}",
+                                 logPtr(self.get()), ec.message());
+                if (ec == boost::beast::http::error::body_limit)
+                {
+                    if (self->handleContentLengthError())
+                    {
+                        BMCWEB_LOG_CRITICAL("Body length limit reached, "
+                                            "but no content-length "
+                                            "available?  Should never happen");
+                        self->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        self->keepAlive = false;
+                        self->doWrite();
+                    }
+                    return;
+                }
+                cont(ec);
+                self->gracefulClose();
+                return;
+            }
+            cont(ec);
+        };
+    }
     void handle()
     {
         std::error_code reqEc;
-        if (!parser)
-        {
-            return;
-        }
-        req = std::make_shared<crow::Request>(parser->release(), reqEc);
+        auto reader = [self = shared_from_this()](
+                          std::function<void(boost::system::error_code)> cont) {
+            self->doRead(self->makeReadCallback(std::move(cont)));
+        };
+        auto bodyReader = std::make_shared<ReqBodyReader>(*this);
+        req = std::make_shared<crow::Request>(httpStreamer->request(), reqEc,
+                                              std::move(bodyReader));
         if (reqEc)
         {
             BMCWEB_LOG_DEBUG("Request failed to construct{}", reqEc.message());
@@ -540,13 +588,8 @@ class Connection :
     // Returns false if content length error has been returned
     bool handleContentLengthError()
     {
-        if (!parser)
-        {
-            BMCWEB_LOG_CRITICAL("Parser was null");
-            return false;
-        }
         const boost::optional<uint64_t> contentLength =
-            parser->content_length();
+            httpStreamer->contentLength();
         if (!contentLength)
         {
             BMCWEB_LOG_DEBUG("{} No content length available", logPtr(this));
@@ -625,21 +668,15 @@ class Connection :
             return;
         }
 
-        if (!parser)
-        {
-            BMCWEB_LOG_ERROR("Parser was unexpectedly null");
-            return;
-        }
-
         if (authenticationEnabled)
         {
-            boost::beast::http::verb method = parser->get().method();
+            boost::beast::http::verb method = httpStreamer->request().method();
             userSession = authentication::authenticate(
-                ip, res, method, parser->get().base(), mtlsSession);
+                ip, res, method, httpStreamer->base(), mtlsSession);
         }
 
         std::string_view expect =
-            parser->get()[boost::beast::http::field::expect];
+            httpStreamer->request()[boost::beast::http::field::expect];
         if (bmcweb::asciiIEquals(expect, "100-continue"))
         {
             res.result(boost::beast::http::status::continue_);
@@ -652,43 +689,19 @@ class Connection :
             return;
         }
 
-        parser->body_limit(getContentLengthLimit());
-
-        if (parser->is_done())
-        {
-            handle();
-            return;
-        }
-
-        doRead();
+        httpStreamer->bodyLimit(getContentLengthLimit());
+        handle();
     }
 
     void doReadHeaders()
     {
         BMCWEB_LOG_DEBUG("{} doReadHeaders", logPtr(this));
-        if (!parser)
-        {
-            BMCWEB_LOG_CRITICAL("Parser was not initialized.");
-            return;
-        }
-
-        if (httpType == HttpType::HTTP)
-        {
-            boost::beast::http::async_read_header(
-                adaptor.next_layer(), buffer, *parser,
-                std::bind_front(&self_type::afterReadHeaders, this,
-                                shared_from_this()));
-        }
-        else
-        {
-            boost::beast::http::async_read_header(
-                adaptor, buffer, *parser,
-                std::bind_front(&self_type::afterReadHeaders, this,
-                                shared_from_this()));
-        }
+        httpStreamer->doReadHeaders(std::bind_front(
+            &self_type::afterReadHeaders, this, shared_from_this()));
     }
 
     void afterRead(const std::shared_ptr<self_type>& /*self*/,
+                   std::function<void(boost::system::error_code)> cont,
                    const boost::system::error_code& ec,
                    std::size_t bytesTransferred)
     {
@@ -697,24 +710,7 @@ class Connection :
 
         if (ec)
         {
-            BMCWEB_LOG_ERROR("{} Error while reading: {}", logPtr(this),
-                             ec.message());
-            if (ec == boost::beast::http::error::body_limit)
-            {
-                if (handleContentLengthError())
-                {
-                    BMCWEB_LOG_CRITICAL("Body length limit reached, "
-                                        "but no content-length "
-                                        "available?  Should never happen");
-                    res.result(
-                        boost::beast::http::status::internal_server_error);
-                    keepAlive = false;
-                    doWrite();
-                }
-                return;
-            }
-
-            gracefulClose();
+            cont(ec);
             return;
         }
 
@@ -727,43 +723,22 @@ class Connection :
             cancelDeadlineTimer();
         }
 
-        if (!parser)
+        if (!httpStreamer->isParserDone())
         {
-            BMCWEB_LOG_ERROR("Parser was unexpectedly null");
-            return;
-        }
-        if (!parser->is_done())
-        {
-            doRead();
+            doRead(std::move(cont));
             return;
         }
 
         cancelDeadlineTimer();
-        handle();
+        cont(boost::system::error_code{});
     }
 
-    void doRead()
+    void doRead(std::function<void(boost::system::error_code)> cont)
     {
         BMCWEB_LOG_DEBUG("{} doRead", logPtr(this));
-        if (!parser)
-        {
-            return;
-        }
         startDeadline();
-        if (httpType == HttpType::HTTP)
-        {
-            boost::beast::http::async_read_some(
-                adaptor.next_layer(), buffer, *parser,
-                std::bind_front(&self_type::afterRead, this,
-                                shared_from_this()));
-        }
-        else
-        {
-            boost::beast::http::async_read_some(
-                adaptor, buffer, *parser,
-                std::bind_front(&self_type::afterRead, this,
-                                shared_from_this()));
-        }
+        httpStreamer->doRead(std::bind_front(
+            &self_type::afterRead, this, shared_from_this(), std::move(cont)));
     }
 
     void afterDoWrite(const std::shared_ptr<self_type>& /*self*/,
@@ -797,7 +772,9 @@ class Connection :
         {
             // Reset the result to ok
             res.result(boost::beast::http::status::ok);
-            doRead();
+            doRead(makeReadCallback([](boost::system::error_code /*unused*/) {
+
+            }));
             return;
         }
 
@@ -809,10 +786,9 @@ class Connection :
             gracefulClose();
             return;
         }
-
+        httpStreamer = std::make_shared<HttpStreamer>(adaptor, httpType);
         BMCWEB_LOG_DEBUG("{} Clearing response", logPtr(this));
         res.clear();
-        initParser();
 
         userSession = nullptr;
 
@@ -897,7 +873,7 @@ class Connection :
             return;
         }
 
-        std::chrono::seconds timeout(15);
+        std::chrono::seconds timeout(15 * 60);
 
         std::weak_ptr<Connection<Adaptor, Handler>> weakSelf = weak_from_this();
         timer.expires_after(timeout);
@@ -918,9 +894,8 @@ class Connection :
 
     // Making this a std::optional allows it to be efficiently destroyed and
     // re-created on Connection reset
-    std::optional<boost::beast::http::request_parser<bmcweb::HttpBody>> parser;
 
-    boost::beast::flat_static_buffer<8192> buffer;
+    std::shared_ptr<HttpStreamer> httpStreamer;
 
     std::shared_ptr<crow::Request> req;
     std::string accept;

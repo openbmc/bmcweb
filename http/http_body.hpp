@@ -65,6 +65,10 @@ class HttpBody::value_type
     {
         return fileHandle.fileHandle;
     }
+    boost::beast::file_posix& file()
+    {
+        return fileHandle.fileHandle;
+    }
 
     std::string& str()
     {
@@ -270,7 +274,22 @@ class HttpBody::reader
         for (const auto b : boost::beast::buffers_range_ref(buffers))
         {
             const char* ptr = static_cast<const char*>(b.data());
-            value.str() += std::string_view(ptr, b.size());
+            if (value.file().is_open())
+            {
+                boost::system::error_code writeEc;
+                value.file().write(ptr, b.size(), writeEc);
+                if (writeEc)
+                {
+                    BMCWEB_LOG_ERROR("Failed to write to file {}",
+                                     writeEc.message());
+                    ec = writeEc;
+                    return 0;
+                }
+            }
+            else
+            {
+                value.str() += std::string_view(ptr, b.size());
+            }
         }
         ec = {};
         return extra;

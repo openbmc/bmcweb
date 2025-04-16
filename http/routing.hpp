@@ -515,8 +515,8 @@ class Router
         }
         return route;
     }
-
-    FindRouteResponse findRoute(const Request& req) const
+    FindRouteResponse findRoute(const boost::urls::url& url,
+                                boost::beast::http::verb bv) const
     {
         FindRouteResponse findRoute;
 
@@ -527,7 +527,7 @@ class Router
             // Make sure it's safe to deference the array at that index
             static_assert(
                 maxVerbIndex < std::tuple_size_v<decltype(perMethods)>);
-            FindRoute route = findRouteByPerMethod(req.url().encoded_path(),
+            FindRoute route = findRouteByPerMethod(url.encoded_path(),
                                                    perMethods[perMethodIndex]);
             if (route.rule == nullptr)
             {
@@ -541,7 +541,7 @@ class Router
             findRoute.allowHeader += httpVerbToString(thisVerb);
         }
 
-        std::optional<HttpVerb> verb = httpVerbFromBoost(req.method());
+        std::optional<HttpVerb> verb = httpVerbFromBoost(bv);
         if (!verb)
         {
             return findRoute;
@@ -552,7 +552,7 @@ class Router
             return findRoute;
         }
 
-        FindRoute route = findRouteByPerMethod(req.url().encoded_path(),
+        FindRoute route = findRouteByPerMethod(url.encoded_path(),
                                                perMethods[reqMethodIndex]);
         if (route.rule != nullptr)
         {
@@ -560,6 +560,10 @@ class Router
         }
 
         return findRoute;
+    }
+    FindRouteResponse findRoute(const Request& request) const
+    {
+        return findRoute(request.url(), request.method());
     }
 
     template <typename Adaptor>
@@ -645,24 +649,41 @@ class Router
             return;
         }
 
-        BaseRule& rule = *foundRoute.route.rule;
+        BaseRule* rule = foundRoute.route.rule;
         std::vector<std::string> params = std::move(foundRoute.route.params);
 
-        BMCWEB_LOG_DEBUG("Matched rule '{}' {} / {}", rule.rule,
-                         req->methodString(), rule.getMethods());
+        BMCWEB_LOG_DEBUG("Matched rule '{}' {} / {}", rule->rule,
+                         req->methodString(), rule->getMethods());
 
         if (req->session == nullptr)
         {
-            rule.handle(*req, asyncResp, params);
+            processRequest(req, asyncResp, rule, params);
             return;
         }
         validatePrivilege(
-            req, asyncResp, rule,
-            [req, asyncResp, &rule, params = std::move(params)]() {
-                rule.handle(*req, asyncResp, params);
+            req, asyncResp, *rule,
+            [this, req, asyncResp, rule, params = std::move(params)]() {
+                BMCWEB_LOG_DEBUG("Validation success '{}' {} / {}", rule->rule,
+                                 req->methodString(), rule->getMethods());
+                processRequest(req, asyncResp, rule, params);
             });
     }
-
+    void processRequest(const std::shared_ptr<Request>& req,
+                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        BaseRule* rule, const std::vector<std::string>& params)
+    {
+        rule->prepareBody(*req);
+        req->bodyReader()->readBody(
+            [rule, req, asyncResp,
+             params = std::move(params)](boost::system::error_code ec) {
+                BMCWEB_LOG_DEBUG("Read body complete ");
+                if (!ec)
+                {
+                    req->bodyReader()->updateRequest(*req);
+                    rule->handle(*req, asyncResp, params);
+                }
+            });
+    }
     void debugPrint()
     {
         for (size_t i = 0; i < perMethods.size(); i++)

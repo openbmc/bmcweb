@@ -49,6 +49,24 @@ class TaggedRule :
 
         handler = std::forward<Func>(f);
     }
+    template <typename Func>
+    self_t& onPrepareRequestBody(Func&& f)
+    {
+        BMCWEB_LOG_DEBUG("onPrepareRequestBody");
+        static_assert(std::is_invocable_v<Func, Request&>,
+                      "prepare body type is mismatched void(crow::Request&)");
+
+        prepareRequestBody = std::forward<Func>(f);
+        return *this;
+    }
+    void prepareBody(crow::Request& req) override
+    {
+        BMCWEB_LOG_DEBUG("prepareBody");
+        if (prepareRequestBody)
+        {
+            prepareRequestBody(req);
+        }
+    }
 
     void handle(const Request& req,
                 const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -86,5 +104,6 @@ class TaggedRule :
     std::function<void(const crow::Request&,
                        const std::shared_ptr<bmcweb::AsyncResp>&, Args...)>
         handler;
+    std::function<void(crow::Request& req)> prepareRequestBody;
 };
 } // namespace crow
