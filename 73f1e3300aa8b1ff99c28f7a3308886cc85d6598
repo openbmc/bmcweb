@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "498c0da3_82be868b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T08:49:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "41461ea0_ae6aeb5c",
+      "revId": "73f1e3300aa8b1ff99c28f7a3308886cc85d6598",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52291a1d_a9b6d471",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-16T06:15:26Z",
       "side": 1,
       "message": "attributesJson.emplace(attr, \"\");",
+      "revId": "73f1e3300aa8b1ff99c28f7a3308886cc85d6598",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15c80987_13861ade",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T08:49:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "52291a1d_a9b6d471",
       "revId": "73f1e3300aa8b1ff99c28f7a3308886cc85d6598",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -65,6 +101,24 @@
       "writtenOn": "2025-04-16T06:15:26Z",
       "side": 1,
       "message": "This line is not required, as you are updating this in getBiosAttributes()",
+      "revId": "73f1e3300aa8b1ff99c28f7a3308886cc85d6598",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6428a35_78fecd41",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-16T08:49:18Z",
+      "side": 1,
+      "message": "Addressed",
+      "parentUuid": "45895d97_bf451768",
       "revId": "73f1e3300aa8b1ff99c28f7a3308886cc85d6598",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
