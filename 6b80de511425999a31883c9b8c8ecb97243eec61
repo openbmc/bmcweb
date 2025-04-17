@@ -103,6 +103,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4dcd6c14_5c020594",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T04:49:21Z",
+      "side": 1,
+      "message": "TPM are contained in chassis. This is similar to other implementations in smbios-mdr. \nExample:\nCPU https://github.com/openbmc/smbios-mdr/blob/master/src/cpu.cpp#L261\nDIMM https://github.com/openbmc/smbios-mdr/blob/master/src/dimm.cpp#L114\nPCIe Slot https://github.com/openbmc/smbios-mdr/blob/master/src/pcieslot.cpp#L65",
+      "parentUuid": "a618fa9a_1aa654ef",
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c64eefa_8d8ba399",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
