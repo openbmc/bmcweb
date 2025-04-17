@@ -126,6 +126,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0eaa4964_b5f4c6a6",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-17T04:42:53Z",
+      "side": 1,
+      "message": "so you have same thing inside checkDbusPathExists and here ?",
+      "parentUuid": "251b949a_11ef9c04",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "652463e4_c27f9c60",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 13
