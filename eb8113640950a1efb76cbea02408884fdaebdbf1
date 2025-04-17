@@ -20,6 +20,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f08cac93_7338680e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-17T05:02:40Z",
+      "side": 1,
+      "message": "use std::optional",
+      "revId": "eb8113640950a1efb76cbea02408884fdaebdbf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fce7d67_85f6257b",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-17T05:02:40Z",
+      "side": 1,
+      "message": "std::optional is preferred over raw pointers.",
+      "revId": "eb8113640950a1efb76cbea02408884fdaebdbf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ac4ab3f_7a1c25ef",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 8
@@ -49,6 +83,23 @@
       "side": 1,
       "message": "internalError already logs an error message with the line number.  No need to add an extra.",
       "parentUuid": "8ac4ab3f_7a1c25ef",
+      "revId": "eb8113640950a1efb76cbea02408884fdaebdbf1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee0e8634_c0d9817b",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-17T05:02:40Z",
+      "side": 1,
+      "message": "missing nullptr checking ?",
       "revId": "eb8113640950a1efb76cbea02408884fdaebdbf1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
