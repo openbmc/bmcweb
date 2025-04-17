@@ -7,6 +7,22 @@ namespace resource
 {
 // clang-format off
 
+enum class Id{
+    Invalid,
+};
+
+enum class Description{
+    Invalid,
+};
+
+enum class Name{
+    Invalid,
+};
+
+enum class UUID{
+    Invalid,
+};
+
 enum class State{
     Invalid,
     Enabled,
@@ -114,6 +130,22 @@ enum class Orientation{
     LeftToRight,
     RightToLeft,
 };
+
+NLOHMANN_JSON_SERIALIZE_ENUM(Id, {
+    {Id::Invalid, "Invalid"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(Description, {
+    {Description::Invalid, "Invalid"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(Name, {
+    {Name::Invalid, "Invalid"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(UUID, {
+    {UUID::Invalid, "Invalid"},
+});
 
 NLOHMANN_JSON_SERIALIZE_ENUM(State, {
     {State::Invalid, "Invalid"},
