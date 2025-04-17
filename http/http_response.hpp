@@ -74,9 +74,10 @@ struct Response
     }
 
     Response() = default;
-    Response(Response&& res) noexcept :
-        response(std::move(res.response)), jsonValue(std::move(res.jsonValue)),
-        expectedHash(std::move(res.expectedHash)), completed(res.completed)
+    Response(Response&& resIn) noexcept :
+        response(std::move(resIn.response)),
+        jsonValue(std::move(resIn.jsonValue)),
+        expectedHash(std::move(resIn.expectedHash)), completed(resIn.completed)
     {
         // See note in operator= move handler for why this is needed.
         if (!res.completed)
@@ -86,7 +87,10 @@ struct Response
         }
     }
 
-    ~Response() = default;
+    ~Response()
+    {
+        end();
+    };
 
     Response(const Response&) = delete;
     Response& operator=(const Response& r) = delete;
@@ -131,9 +135,9 @@ struct Response
         fields().result(v);
     }
 
-    void copyBody(const Response& res)
+    void copyBody(const Response& resToCopyFrom)
     {
-        response.body() = res.response.body();
+        response.body() = resToCopyFrom.response.body();
     }
 
     http::status result() const
@@ -343,6 +347,8 @@ struct Response
         }
         return true;
     }
+
+    Response& res = *this;
 
   private:
     std::optional<std::string> expectedHash;

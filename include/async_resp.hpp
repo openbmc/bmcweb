@@ -4,33 +4,14 @@
 
 #include "http_response.hpp"
 
-#include <utility>
-
 namespace bmcweb
 {
 
 /**
- * AsyncResp
- * Gathers data needed for response processing after async calls are done
- */
+This was a structure that forerly housed an RAII compatible response container.
+The logic has since been moved into the Response object itself, but keep it
+here for existing code that uses it.
+*/
 
-class AsyncResp
-{
-  public:
-    AsyncResp() = default;
-    explicit AsyncResp(crow::Response&& resIn) : res(std::move(resIn)) {}
-
-    AsyncResp(const AsyncResp&) = delete;
-    AsyncResp(AsyncResp&&) = delete;
-    AsyncResp& operator=(const AsyncResp&) = delete;
-    AsyncResp& operator=(AsyncResp&&) = delete;
-
-    ~AsyncResp()
-    {
-        res.end();
-    }
-
-    crow::Response res;
-};
-
+using AsyncResp = crow::Response;
 } // namespace bmcweb
