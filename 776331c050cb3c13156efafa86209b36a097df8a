@@ -20,6 +20,42 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "15c8ecfa_c74cdd3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T03:38:10Z",
+      "side": 1,
+      "message": "Captured the response payload in the test\nPerformed 3 sets of test",
+      "parentUuid": "17a88b85_0849f8a9",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2cdcc52_4a769dc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T03:38:10Z",
+      "side": 1,
+      "message": "Captured the response details below",
+      "parentUuid": "17a88b85_0849f8a9",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "21e63df5_21c5cf4d",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 13
@@ -31,6 +67,24 @@
       "writtenOn": "2025-04-16T14:52:39Z",
       "side": 1,
       "message": "how this path is standardised ? should we look for interface rather. https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/BIOSConfig/Password.interface.yaml.",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceb0dc8b_7e0e7de8",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T03:38:10Z",
+      "side": 1,
+      "message": "We use getDbusObject in this whole file. \nShould we switch to getSubtree ?",
+      "parentUuid": "21e63df5_21c5cf4d",
       "revId": "776331c050cb3c13156efafa86209b36a097df8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "251b949a_11ef9c04",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T03:38:10Z",
+      "side": 1,
+      "message": "This is required to showcase the action URI",
+      "parentUuid": "e30e6ac4_9fbf29a1",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "652463e4_c27f9c60",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 13
@@ -65,6 +137,24 @@
       "writtenOn": "2025-04-16T14:52:39Z",
       "side": 1,
       "message": "handle resource not found when size is zero.",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afb8caa5_8c0d9bd4",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T03:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "652463e4_c27f9c60",
       "revId": "776331c050cb3c13156efafa86209b36a097df8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a891297_e47a5841",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T03:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0cb58c6_fa19a098",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c395acb_2feb1198",
@@ -103,6 +211,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1988c21a_c918221b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T03:38:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c395acb_2feb1198",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "396ed8d8_c858122a",
@@ -116,6 +242,24 @@
       "writtenOn": "2025-04-16T14:52:39Z",
       "side": 1,
       "message": "since its post should it be 204 no content ?",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68598ae6_51be5ef9",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T03:38:10Z",
+      "side": 1,
+      "message": "For all ACTIONS in the codebase `messages::success(asyncResp-\u003eres)` is used",
+      "parentUuid": "396ed8d8_c858122a",
       "revId": "776331c050cb3c13156efafa86209b36a097df8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
