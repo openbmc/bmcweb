@@ -23,6 +23,14 @@ enum class IPv6AddressOrigin{
     SLAAC,
 };
 
+enum class SubnetMask{
+    Invalid,
+};
+
+enum class PrefixLength{
+    Invalid,
+};
+
 enum class AddressState{
     Invalid,
     Preferred,
@@ -45,6 +53,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(IPv6AddressOrigin, {
     {IPv6AddressOrigin::DHCPv6, "DHCPv6"},
     {IPv6AddressOrigin::LinkLocal, "LinkLocal"},
     {IPv6AddressOrigin::SLAAC, "SLAAC"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(SubnetMask, {
+    {SubnetMask::Invalid, "Invalid"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PrefixLength, {
+    {PrefixLength::Invalid, "Invalid"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(AddressState, {
