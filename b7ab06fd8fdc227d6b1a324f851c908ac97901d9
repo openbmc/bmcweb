@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb9a4cc0_0965a124",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T02:04:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2016126_0bcf674d",
+      "revId": "b7ab06fd8fdc227d6b1a324f851c908ac97901d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fba9265b_5901344e",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-16T15:04:41Z",
       "side": 1,
       "message": "Can you remove this include if not used",
+      "revId": "b7ab06fd8fdc227d6b1a324f851c908ac97901d9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "177ff244_0a01011d",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-17T02:04:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fba9265b_5901344e",
       "revId": "b7ab06fd8fdc227d6b1a324f851c908ac97901d9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
