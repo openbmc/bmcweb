@@ -41,6 +41,14 @@ def parse_schema(element, filename):
             for member in schema_element.findall(EDM + "Member"):
                 enums.append(member.attrib["Name"])
             EntityTypes.append(Enum(name, enums, namespace, filename))
+        if schema_element.tag == EDM + "TypeDefinition":
+            enums = []
+            for annotation in schema_element:
+                for collection in annotation:
+                    for record in collection.findall(EDM + "Record"):
+                        for member in record.findall(EDM + "PropertyValue"):
+                            enums.append(member.attrib["String"])
+            EntityTypes.append(Enum(name, enums, namespace, filename))
     return EntityTypes
 
 
@@ -86,8 +94,13 @@ def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
             values.insert(0, "Invalid")
 
         for value in values:
-            redfish_defs_file.write("    {},\n".format(value))
+            # If the value is numeric, prefix it with the enum name
+            if value.isdigit():
+                enum_value = f"{element.name}{value}"
+            else:
+                enum_value = re.sub(r"[^0-9_a-zA-Z]", "", value)
 
+            redfish_defs_file.write("    {},\n".format(enum_value))
         redfish_defs_file.write("};\n\n")
 
     for element in enum_list:
@@ -102,8 +115,15 @@ def write_enum_list(redfish_defs_file, enum_list, snake_case_namespace):
             "NLOHMANN_JSON_SERIALIZE_ENUM({}, {{\n".format(element.name)
         )
         for value in values:
+            # If the value is numeric, prefix it with the enum name
+            if value.isdigit():
+                enum_value = f"{element.name}{value}"
+            else:
+                enum_value = re.sub(r"[^0-9_a-zA-Z]", "", value)
             redfish_defs_file.write(
-                '    {{{}::{}, "{}"}},\n'.format(element.name, value, value)
+                '    {{{}::{}, "{}"}},\n'.format(
+                    element.name, enum_value, value
+                )
             )
 
         redfish_defs_file.write("});\n\n")

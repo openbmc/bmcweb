@@ -20,6 +20,32 @@ enum class ProcessorType{
     OEM,
 };
 
+enum class ProcessorArchitecture{
+    Invalid,
+    x86,
+    IA64,
+    ARM,
+    MIPS,
+    Power,
+    RISCV,
+    OEM,
+};
+
+enum class InstructionSet{
+    Invalid,
+    x86,
+    x8664,
+    IA64,
+    ARMA32,
+    ARMA64,
+    MIPS32,
+    MIPS64,
+    PowerISA,
+    RV32,
+    RV64,
+    OEM,
+};
+
 enum class ProcessorMemoryType{
     Invalid,
     Cache,
@@ -104,6 +130,32 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ProcessorType, {
     {ProcessorType::Thread, "Thread"},
     {ProcessorType::Partition, "Partition"},
     {ProcessorType::OEM, "OEM"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ProcessorArchitecture, {
+    {ProcessorArchitecture::Invalid, "Invalid"},
+    {ProcessorArchitecture::x86, "x86"},
+    {ProcessorArchitecture::IA64, "IA-64"},
+    {ProcessorArchitecture::ARM, "ARM"},
+    {ProcessorArchitecture::MIPS, "MIPS"},
+    {ProcessorArchitecture::Power, "Power"},
+    {ProcessorArchitecture::RISCV, "RISC-V"},
+    {ProcessorArchitecture::OEM, "OEM"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(InstructionSet, {
+    {InstructionSet::Invalid, "Invalid"},
+    {InstructionSet::x86, "x86"},
+    {InstructionSet::x8664, "x86-64"},
+    {InstructionSet::IA64, "IA-64"},
+    {InstructionSet::ARMA32, "ARM-A32"},
+    {InstructionSet::ARMA64, "ARM-A64"},
+    {InstructionSet::MIPS32, "MIPS32"},
+    {InstructionSet::MIPS64, "MIPS64"},
+    {InstructionSet::PowerISA, "PowerISA"},
+    {InstructionSet::RV32, "RV32"},
+    {InstructionSet::RV64, "RV64"},
+    {InstructionSet::OEM, "OEM"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ProcessorMemoryType, {

@@ -7,6 +7,15 @@ namespace redundancy
 {
 // clang-format off
 
+enum class RedundancyMode{
+    Invalid,
+    Failover,
+    Nm,
+    Sharing,
+    Sparing,
+    NotRedundant,
+};
+
 enum class RedundancyType{
     Invalid,
     Failover,
@@ -15,6 +24,15 @@ enum class RedundancyType{
     Sparing,
     NotRedundant,
 };
+
+NLOHMANN_JSON_SERIALIZE_ENUM(RedundancyMode, {
+    {RedundancyMode::Invalid, "Invalid"},
+    {RedundancyMode::Failover, "Failover"},
+    {RedundancyMode::Nm, "N+m"},
+    {RedundancyMode::Sharing, "Sharing"},
+    {RedundancyMode::Sparing, "Sparing"},
+    {RedundancyMode::NotRedundant, "NotRedundant"},
+});
 
 NLOHMANN_JSON_SERIALIZE_ENUM(RedundancyType, {
     {RedundancyType::Invalid, "Invalid"},
