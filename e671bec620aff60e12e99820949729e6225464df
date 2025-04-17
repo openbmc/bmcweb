@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5766678e_e47399df",
+        "filename": "scripts/generate_schema_enums.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-17T19:00:50Z",
+      "side": 1,
+      "message": "This is to handle the bitrate enums?",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 31
+      },
+      "revId": "e671bec620aff60e12e99820949729e6225464df",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
