@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f146aa2a_4f939fe8",
+        "filename": "Redfish.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-04-18T07:31:22Z",
+      "side": 1,
+      "message": "SerialNumber, TrustedComponentType is missing.",
+      "revId": "6da3706263b4942e9f11fea702f8848639e900ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d5636f3_c5f63dd6",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-04-18T07:31:22Z",
+      "side": 1,
+      "message": "I think we can change this method to getTrustedComponentPaths, so that we can extend this to TPM and SPDM.",
+      "revId": "6da3706263b4942e9f11fea702f8848639e900ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6ab6ae4_133d1418",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-04-18T07:31:22Z",
+      "side": 1,
+      "message": "SPDM design(https://github.com/openbmc/docs/blob/master/designs/redfish-spdm-attestation.md) uses /TrustedComponents in D-Bus object path itself. Where as smbios-mdr uses trusted components association(https://github.com/openbmc/smbios-mdr/blob/master/src/tpm.cpp#L50).\n\nCan we rely on tpm interface with base chassis path directly here?. With that when we add TrustedComponent interface path for SPDM objects we can extend this method.\n\nOr we need to come up with common path or association for TPM and SPDM.",
+      "revId": "6da3706263b4942e9f11fea702f8848639e900ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
