@@ -16,6 +16,23 @@
       "message": "Hi Ed\n\nThis patch is useful for testing aggregation and allows aggregation topology configurable via redfish interfaces\n\ncurl -vvvv -k --http1.1 -H \"X-Auth-Token: $bmc_token\" https://${bmc}/redfish/v1/AggregationService/AggregationSources -H \"Content-Type: application/json\" --request POST --data \u0027{\"HostName\":\"https://9.5.5.122:443\"}\u0027\n{\n \"@Message.ExtendedInfo\": [\n  {\n   \"@odata.type\": \"#Message.v1_1_1.Message\",\n   \"Message\": \"The resource was created successfully.\",\n   \"MessageArgs\": [],\n   \"MessageId\": \"Base.1.19.Created\",\n   \"MessageSeverity\": \"OK\",\n   \"Resolution\": \"None.\"\n  }\n ]\n\ncurl k -H \"X-Auth-Token: $bmc_token\" -X GET https://${bmc}/redfish/v1/AggregationService/AggregationSources\n{\n \"@odata.id\": \"/redfish/v1/AggregationService/AggregationSources\",\n \"@odata.type\": \"#AggregationSourceCollection.AggregationSourceCollection\",\n \"Members\": [\n  {\n   \"@odata.id\": \"/redfish/v1/AggregationService/AggregationSources/21BQ6Q1o\"\n  }\n ],\n \"Members@odata.count\": 1,\n \"Name\": \"Aggregation Source Collection\"\n}\n\ncurl -k -H \"X-Auth-Token: $bmc_token\" -X GET https://${bmc}/redfish/v1/AggregationService/AggregationSources/21BQ6Q1o\n{\n \"@odata.id\": \"/redfish/v1/AggregationService/AggregationSources/21BQ6Q1o\",\n \"@odata.type\": \"#AggregationSource.v1_3_1.AggregationSource\",\n \"HostName\": \"https://9.5.5.122:443\",\n \"Id\": \"21BQ6Q1o\",\n \"Name\": \"Aggregation source\",\n \"Password\": null\n}\n\nWhen I configure IP or hostname which is not accessible or not resolved then I see redfish/v1 output hangs for sometime..\n\npr 18 17:23:48 p10bmc bmcweb[1099]: [ERROR async_resolve.hpp:92] Resolve failed: Connection timed out\nApr 18 17:23:48 p10bmc bmcweb[1099]: [ERROR http_client.hpp:179] Resolve failed: Connection timed out https://9.5.5.122:80/redfish/v1/AggregationService/AggregationSources\n\n\nThis commit will be really useful for testing aggregation, Thank you for this commit.",
       "revId": "51c0cdaffac8b5d738f62185d0a49db45b1aca5c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e373b8e_d2e5f100",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-18T19:33:16Z",
+      "side": 1,
+      "message": "Now that other folks find this useful, I intend to merge this.\n\nleaving in review a little longer to give folks time to object.",
+      "revId": "51c0cdaffac8b5d738f62185d0a49db45b1aca5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
