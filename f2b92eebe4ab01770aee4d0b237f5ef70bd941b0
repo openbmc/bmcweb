@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1be691a4_52481bf9",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-04-21T06:26:35Z",
+      "side": 1,
+      "message": "The header #include \u003casm-generic/errno.h\u003e is a low-level, architecture-generic header in the Linux kernel source tree. It’s not intended for direct use in user-space applications. Instead, user-space programs should typically include: #include \u003ccerrno\u003e",
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
