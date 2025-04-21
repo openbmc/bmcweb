@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38971759_8c1eec40",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-21T14:05:27Z",
+      "side": 1,
+      "message": "Can this be written like this for easier reading?\n\n```\n\n    std::string mfaBypassDbusVal \u003d \"xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.None\";\n\n    if (!mfaBypassVectorIn.empty())\n    {\n        const std::string\u0026 mfaBypassVal \u003d mfaBypassVectorIn.front();\n        if (mfaBypassVal !\u003d \"GoogleAuthenticator\")\n        {\n            messages::propertyValueNotInList(asyncResp-\u003eres, mfaBypassVal,\n                                             \"MFABypass/BypassTypes/1\");\n            return;\n        }\n        mfaBypassDbusVal \u003d\n            \"xyz.openbmc_project.User.MultiFactorAuthConfiguration.Type.GoogleAuthenticator\";\n    }\n```",
+      "range": {
+        "startLine": 1138,
+        "startChar": 0,
+        "endLine": 1145,
+        "endChar": 5
+      },
+      "revId": "59cef4fc8196707e9bcaf85fb5a431519e662a64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "144bf2aa_55a0ff0b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-21T14:05:27Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this be better as BMCWEB_LOG_DEBUG if MFA service is not supported or not running?",
+      "range": {
+        "startLine": 1434,
+        "startChar": 0,
+        "endLine": 1434,
+        "endChar": 56
+      },
+      "revId": "59cef4fc8196707e9bcaf85fb5a431519e662a64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b0eddc1_404f7a5a",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 2440,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-21T14:05:27Z",
+      "side": 1,
+      "message": "I think this readJson can be merged into L2405 readJsonPatch, and we can remove `mfaBypassJson`.\n\n```\n        // Users with ConfigureUsers can modify for all users\n        if (!json_util::readJsonPatch(        //\n                req, asyncResp-\u003eres,          //\n                \"AccountTypes\", accountTypes, //\n                \"Enabled\", enabled,           //\n                \"Locked\", locked,             //\n                \"MFABypass/BypassTypes\", mfaBypass,   // \u003c\u003d\u003d\u003d\u003d\n                \"Password\", password,         //\n                \"RoleId\", roleId,             //\n                \"UserName\", newUserName       //\n                ))\n```",
+      "revId": "59cef4fc8196707e9bcaf85fb5a431519e662a64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
