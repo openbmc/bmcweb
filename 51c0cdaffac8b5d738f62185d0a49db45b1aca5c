@@ -124,6 +124,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2ad4163_24d6bdf2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-21T23:29:48Z",
+      "side": 1,
+      "message": "Added to the commit message.",
+      "parentUuid": "790bad80_09d2d810",
+      "range": {
+        "startLine": 453,
+        "startChar": 20,
+        "endLine": 460,
+        "endChar": 21
+      },
+      "revId": "51c0cdaffac8b5d738f62185d0a49db45b1aca5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3d9c121_7088c2af",
@@ -185,6 +209,30 @@
       "side": 1,
       "message": "I don\u0027t think it\u0027s correct if that single sat is added by POST.  Its key will be a randomized 8 character string instead of \"5B247A\".  The \"5B247A\" we use is hardcoded inside of the `findSatelliteConfigs()` and that\u0027s only for sats detected via dbus.\n\nWhat would happen is you\u0027d see aggregated resources listed when you query top level collections like `/redfish/v1/Chassis`, but then if you tried to actually query the aggregated resource then you\u0027ll get a 404 NOT FOUND because this check will fail and the aggregator won\u0027t forward the request.\n\nOne of these options should work for the short term:\n1. Change POST to always use \"5B247A\" since we\u0027re still only supporting a single satellite BMC for now\n2. Use the key from the new map if it\u0027s not empty and fall back to \"5B247A\" if it is.\n\nLonger term it\u0027d be something like one of these options:\n1. Retrieve all satellite configs before this comparison\n2. Cache dbus satellite configs in the new map and iterate over its keys here",
       "parentUuid": "ffd84976_c4d2fe22",
+      "range": {
+        "startLine": 1306,
+        "startChar": 16,
+        "endLine": 1306,
+        "endChar": 58
+      },
+      "revId": "51c0cdaffac8b5d738f62185d0a49db45b1aca5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a2df4d7_097e3bbc",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-21T23:29:48Z",
+      "side": 1,
+      "message": "AH, yeah, you\u0027re right.  Will take a look.",
+      "parentUuid": "7f32d5dd_c7833cca",
       "range": {
         "startLine": 1306,
         "startChar": 16,
