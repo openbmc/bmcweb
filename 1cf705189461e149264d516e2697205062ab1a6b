@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73e929eb_f639a1d7",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-21T20:25:34Z",
+      "side": 1,
+      "message": "I think this is better to be BMCWEB_LOG_ERROR() so that ec.value() can be put into journal",
+      "revId": "1cf705189461e149264d516e2697205062ab1a6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "803ec935_02ba07a4",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-21T20:25:34Z",
+      "side": 1,
+      "message": "emplace_back is better.\n```\npathName.emplace_back(std::move(leaf));\n```",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 34
+      },
+      "revId": "1cf705189461e149264d516e2697205062ab1a6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4f4cfe4_90b6d940",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-21T20:25:34Z",
+      "side": 1,
+      "message": "One char `l` seems not very readable.\nSomething like `systemName`?\n```\nfor (const std::string\u0026 systemName : pathName)\n```",
+      "range": {
+        "startLine": 86,
+        "startChar": 28,
+        "endLine": 86,
+        "endChar": 29
+      },
+      "revId": "1cf705189461e149264d516e2697205062ab1a6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
