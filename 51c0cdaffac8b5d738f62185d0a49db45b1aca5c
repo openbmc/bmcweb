@@ -33,6 +33,70 @@
       "message": "Now that other folks find this useful, I intend to merge this.\n\nleaving in review a little longer to give folks time to object.",
       "revId": "51c0cdaffac8b5d738f62185d0a49db45b1aca5c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "192493c8_8752499c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-04-21T22:10:32Z",
+      "side": 1,
+      "message": "\u003e When I configure IP or hostname which is not accessible or not resolved then I see redfish/v1 output hangs for sometime..\n\u003e \n\u003e pr 18 17:23:48 p10bmc bmcweb[1099]: [ERROR async_resolve.hpp:92] Resolve failed: Connection timed out\n\u003e Apr 18 17:23:48 p10bmc bmcweb[1099]: [ERROR http_client.hpp:179] Resolve failed: Connection timed out https://9.5.5.122:80/redfish/v1/AggregationService/AggregationSources\n\nAdding clarification in case others may think this is a bug.  `/redfish/v1` requires querying any satellite BMCs in case we need to add links to resource collection which do not appear on the aggregating BMC but do appear on a satellite BMC.\n\nThe timeout is thus because the aggregator has to timeout while waiting for a response from a BMC that does not exist.",
+      "parentUuid": "c987088c_ed491f04",
+      "revId": "51c0cdaffac8b5d738f62185d0a49db45b1aca5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b5c827e_48a13956",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-04-21T22:10:32Z",
+      "side": 1,
+      "message": "We\u0027ll hit a failure if we try to add a satellite HMC through POST when one already exists on dbus.  Same for adding multiple satellites through POST.\n\nShould we add handling to prevent these cases in the POST handler or add a check in the aggregator to avoid searching dbus (and hitting this check) if the `currentAggregationSources` unordered_map is not empty?",
+      "range": {
+        "startLine": 453,
+        "startChar": 20,
+        "endLine": 460,
+        "endChar": 21
+      },
+      "revId": "51c0cdaffac8b5d738f62185d0a49db45b1aca5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3d9c121_7088c2af",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 1306,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-04-21T22:10:32Z",
+      "side": 1,
+      "message": "This will need to be updated since the satellites added via POST will get randomized prefixes.",
+      "range": {
+        "startLine": 1306,
+        "startChar": 16,
+        "endLine": 1306,
+        "endChar": 58
+      },
+      "revId": "51c0cdaffac8b5d738f62185d0a49db45b1aca5c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
