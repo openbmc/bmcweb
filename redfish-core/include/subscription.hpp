@@ -69,7 +69,8 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     ~Subscription() = default;
 
     // callback for subscription sendData
-    void resHandler(const crow::Response& res);
+    void resHandler(const std::shared_ptr<Subscription>& /*self*/,
+                    const crow::Response& res);
 
     void sendHeartbeatEvent();
     void scheduleNextHeartbeatEvent();
@@ -102,8 +103,8 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     std::shared_ptr<crow::ConnectionPolicy> policy;
     crow::sse_socket::Connection* sseConn = nullptr;
 
-    std::optional<crow::HttpClient> client;
     boost::asio::steady_timer hbTimer;
+    std::optional<crow::HttpClient> client;
 
   public:
     std::optional<filter_ast::LogicalAnd> filter;
