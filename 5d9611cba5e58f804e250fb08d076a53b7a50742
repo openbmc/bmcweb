@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9704898e_74a6a4ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-22T16:22:38Z",
+      "side": 1,
+      "message": "Please wrap at 50/72 (and not a custom amount) from https://cbea.ms/git-commit/ \nOh well, can live with it this time.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 1
+      },
+      "revId": "5d9611cba5e58f804e250fb08d076a53b7a50742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a1289e7_ee6ea51c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-22T16:22:38Z",
+      "side": 1,
+      "message": "Seems reasonable to me. I am fine if this goes",
+      "revId": "5d9611cba5e58f804e250fb08d076a53b7a50742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

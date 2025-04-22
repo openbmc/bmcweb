@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d006f2c_f2ed59dc",
+        "filename": "redfish-core/include/query.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-22T16:22:38Z",
+      "side": 1,
+      "message": "Yeah, ideally we have a TODO here or have a commit on top that cleans this up",
+      "parentUuid": "17baa445_0a95796a",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 62
+      },
+      "revId": "c1431d22f12ece18632354cf37bb4b3b3d08f39c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c365327_0706cfd3",
         "filename": "redfish-core/include/utils/query_param.hpp",
         "patchSetId": 8
