@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1eb3edef_80f04454",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-22T22:39:55Z",
+      "side": 1,
+      "message": "Nope.....  Copy/paste error will fix.",
+      "parentUuid": "0481602b_fc9cc986",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62119706_b872b763",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 28
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-22T17:58:33Z",
       "side": 1,
       "message": "Does out of Range make sense here ? I think propertyValueIncorrect  like we use at \n\nhttps://github.com/openbmc/bmcweb/blob/d1a3caa4eda8ca07cd656b4e4e8aa1e4ffe53e1e/redfish-core/lib/trigger.hpp#L573\nmakese more sense\n\nOr even PropertyValueFormatError \nhttps://github.com/openbmc/bmcweb/blob/d1a3caa4eda8ca07cd656b4e4e8aa1e4ffe53e1e/redfish-core/lib/ethernet.hpp#L2228",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ded91e04_b1ec56b1",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-22T22:39:55Z",
+      "side": 1,
+      "message": "Happy to pick whatever between those.  which do you prefer?",
+      "parentUuid": "62119706_b872b763",
       "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f523d59e_813089af",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-22T22:39:55Z",
+      "side": 1,
+      "message": "I\u0027ll do whatever the above one does.",
+      "parentUuid": "9be73a46_80af29cb",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce6aa707_211b00e5",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 28
@@ -65,6 +119,24 @@
       "writtenOn": "2025-04-22T17:58:33Z",
       "side": 1,
       "message": "Should this be line 296? \nDo we want this header if resourceNotFound ?",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fb6e1e8_303b7402",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-22T22:39:55Z",
+      "side": 1,
+      "message": "This isn\u0027t the only place we need to fix if we start enforcing that, but sure.",
+      "parentUuid": "ce6aa707_211b00e5",
       "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
