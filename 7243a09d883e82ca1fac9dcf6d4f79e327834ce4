@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7dad444_1e169f6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-22T21:04:52Z",
+      "side": 1,
+      "message": "Can you try changing the declaration order of:\n\nhttps://github.com/openbmc/bmcweb/blob/d1a3caa4eda8ca07cd656b4e4e8aa1e4ffe53e1e/redfish-core/include/subscription.hpp#L105C1-L106C1\n\nclient and hbtimer here\n\nAnd see if the error codes away?  client should probably be the last thing declared.",
+      "revId": "7243a09d883e82ca1fac9dcf6d4f79e327834ce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
