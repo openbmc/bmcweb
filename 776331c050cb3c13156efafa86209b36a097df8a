@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40059279_6b54f24f",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-22T17:25:26Z",
+      "side": 1,
+      "message": "I am ok to use the object path as long as PDI repo documents it. We can push an MR for that and see how that goes. We ever we agree upon we can the same for discovery as well as POST. Lets not sure different mechanisms.",
+      "parentUuid": "ceb0dc8b_7e0e7de8",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e30e6ac4_9fbf29a1",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 13
@@ -296,6 +314,24 @@
       "side": 1,
       "message": "For all ACTIONS in the codebase `messages::success(asyncResp-\u003eres)` is used",
       "parentUuid": "396ed8d8_c858122a",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33546825_29b23246",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-22T17:25:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68598ae6_51be5ef9",
       "revId": "776331c050cb3c13156efafa86209b36a097df8a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
