@@ -69,7 +69,8 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     ~Subscription() = default;
 
     // callback for subscription sendData
-    void resHandler(const crow::Response& res);
+    void resHandler(const std::shared_ptr<Subscription>& /*self*/,
+                    const crow::Response& res);
 
     void sendHeartbeatEvent();
     void scheduleNextHeartbeatEvent();
