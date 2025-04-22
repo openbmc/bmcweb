@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33dcff5f_3200d179",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-22T12:18:02Z",
+      "side": 1,
+      "message": "I think this is better to be BMCWEB_LOG_WARNING",
+      "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e05819d7_81c91185",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-22T12:18:02Z",
+      "side": 1,
+      "message": "WARNING",
+      "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6bc4f7d_79dd017c",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-22T12:18:02Z",
+      "side": 1,
+      "message": "Can L188-L196 be done using `std::find_if()`?\n```\n      const auto\u0026 found \u003d std::find_if(subtree, \n                       [systemName](const auto\u0026 item){\n                           return item.first.filename() \u003d\u003d systemName;\n                   });\n      if(found \u003d\u003d subtree.end())\n      {\n             // NOT FOUND\n             return;\n      }\n      std::string systemName \u003d found.second.begin()-\u003efirst;\n```",
+      "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61d4dc80_476599b2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-22T12:18:02Z",
+      "side": 1,
+      "message": "What if making this as a function?\n```\nsdbusplus::message::object_path getHostStateObjectPath(\n        const uint64_t computerSystemIndex)\n{\n    return sdbusplus::message::object_path(\"/xyz/openbmc_project/state/host\" \n            + std::to_string(computerSystemIndex));\n}\n```",
+      "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edfb01b8_42da9640",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-22T12:18:02Z",
+      "side": 1,
+      "message": "I think it may be better to make L540-L545-L856 as a function like\n```\nstd::string getHostStateServiceName(const uint64_t computerSystemIndex)\n{\n    std::string service \u003d \"xyz.openbmc_project.State.Host\";\n\n    if (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)\n    {\n        service.append(std::to_string(computerSystemIndex));\n    }\n    return service;\n}\n```",
+      "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
