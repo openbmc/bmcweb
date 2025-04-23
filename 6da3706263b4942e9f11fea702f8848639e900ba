@@ -86,6 +86,24 @@
       "parentUuid": "b6ab6ae4_133d1418",
       "revId": "6da3706263b4942e9f11fea702f8848639e900ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6285dbab_b35b2ee1",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-04-23T10:13:43Z",
+      "side": 1,
+      "message": "I am thinking if we keep /xyz/openbmc_project/inventory as path and do a SubTree look up on path which implements TPM interface(now), TrustedComponent interface(later) we can easily re-use this function instead of adding trusted_components to the path.",
+      "parentUuid": "fbbb19d5_474412f0",
+      "revId": "6da3706263b4942e9f11fea702f8848639e900ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
