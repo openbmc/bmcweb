@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd910ed3_27870416",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-04-23T12:23:25Z",
+      "side": 1,
+      "message": "Is this included in the expected software design?  I don\u0027t know of any of the upstream daemons that create an Inventory.Asset to go along side a software version.\n\n@paligill@gmail.com",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
