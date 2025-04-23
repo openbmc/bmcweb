@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e36067f7_36651d3b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-23T05:55:18Z",
+      "side": 1,
+      "message": "checkDbusPath used get object at the backend and the password object path is not documented in PDIs but is defined in bios-settings-manager https://github.com/openbmc/bios-settings-mgr/blob/master/include/password.hpp#L33",
+      "parentUuid": "40059279_6b54f24f",
+      "revId": "776331c050cb3c13156efafa86209b36a097df8a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e30e6ac4_9fbf29a1",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 13
