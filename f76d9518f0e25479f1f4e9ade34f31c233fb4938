@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eac24fc1_46bd7003",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-04-23T19:49:51Z",
+      "side": 1,
+      "message": "It\u0027s not really helpful for one repository to do this random different thing than everywhere else though and then expect bmcweb to handle it.  We should get this added to the software-update design if we\u0027re expecting this to be general and/or optional practice.\n\nThe bad thing about what\u0027s been done here is that we now have code using some dbus object for software that isn\u0027t intended for software and there are a lot of fields that clearly are not being filled in by smbios-mdr.  So now, the properties are just ... blank?  People seem to forget that dbus properties aren\u0027t \"optional\".\n\nWe also have other code that assumes that Inventory.Decorator.Assets are hardware items, which is now not strictly true.",
+      "parentUuid": "186695f5_a1abc9cf",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82e0ae46_f2f2eee5",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 15
