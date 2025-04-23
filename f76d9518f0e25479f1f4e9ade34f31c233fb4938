@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b5e3e2b2_14e76639",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-23T17:34:41Z",
+      "side": 1,
+      "message": "I didn\u0027t think Redfish Date Format \u003d\u003d D-Bus Date Formwat \n\nhttps://github.com/openbmc/bmcweb/blob/d1a3caa4eda8ca07cd656b4e4e8aa1e4ffe53e1e/redfish-core/lib/power_supply.hpp#L343\n\n\nOverall I am fine with this",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd910ed3_27870416",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 15
@@ -14,6 +31,81 @@
       "writtenOn": "2025-04-23T12:23:25Z",
       "side": 1,
       "message": "Is this included in the expected software design?  I don\u0027t know of any of the upstream daemons that create an Inventory.Asset to go along side a software version.\n\n@paligill@gmail.com",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "186695f5_a1abc9cf",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-23T17:34:41Z",
+      "side": 1,
+      "message": "We don\u0027t, but I could see where you have these properties. https://gerrit.openbmc.org/c/openbmc/smbios-mdr/+/78911/16/include/firmware_inventory.hpp is referenced in the commit msg. ```¯\\_(ツ)_/¯```",
+      "parentUuid": "fd910ed3_27870416",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82e0ae46_f2f2eee5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-23T17:34:41Z",
+      "side": 1,
+      "message": "You copied this from getSoftwareVersion but you are getting into https://github.com/openbmc/bmcweb/blob/d1a3caa4eda8ca07cd656b4e4e8aa1e4ffe53e1e/COMMON_ERRORS.md#14-very-long-lambda-callbacks",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43088e13_4ffa0e7c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-23T17:34:41Z",
+      "side": 1,
+      "message": "we typically don\u0027t check for empty but I am okay with it here. https://github.com/openbmc/bmcweb/blob/d1a3caa4eda8ca07cd656b4e4e8aa1e4ffe53e1e/redfish-core/lib/power_supply.hpp#L335",
+      "range": {
+        "startLine": 935,
+        "startChar": 32,
+        "endLine": 935,
+        "endChar": 54
+      },
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a6b764c_a0fc8f47",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-23T17:34:41Z",
+      "side": 1,
+      "message": "I guess I would have thougth you would have to do something like productionDateReport\nhttps://github.com/openbmc/bmcweb/blob/d1a3caa4eda8ca07cd656b4e4e8aa1e4ffe53e1e/redfish-core/lib/power_supply.hpp#L343",
       "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
