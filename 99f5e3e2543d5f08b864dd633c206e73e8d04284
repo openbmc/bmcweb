@@ -16,6 +16,24 @@
       "message": "I think `emplace_back()` seems preferred.\n(And several other places)",
       "revId": "99f5e3e2543d5f08b864dd633c206e73e8d04284",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2e8631c_7f1331ee",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2167,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-04-24T11:11:04Z",
+      "side": 1,
+      "message": "If we have an already constructed object then push_back is better.",
+      "parentUuid": "67fe81be_3496061c",
+      "revId": "99f5e3e2543d5f08b864dd633c206e73e8d04284",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
