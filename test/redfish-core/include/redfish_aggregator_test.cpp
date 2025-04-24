@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "bmcweb_config.h"
+
 #include "async_resp.hpp"
 #include "error_messages.hpp"
 #include "http_response.hpp"
@@ -232,9 +234,11 @@ TEST(addPrefixes, FixHttpTaskMonitor)
     }
     )"_json;
 
-    addPrefixes(taskResp, "5B247A");
-    EXPECT_EQ(taskResp["TaskMonitor"],
-              "/redfish/v1/TaskService/Tasks/5B247A_0/Monitor");
+    addPrefixes(taskResp, BMCWEB_REDFISH_SATELLITE_PREFIX);
+    std::string expectedTaskMonitor =
+        std::string("/redfish/v1/TaskService/Tasks/") +
+        std::string(BMCWEB_REDFISH_SATELLITE_PREFIX) + "_0/Monitor";
+    EXPECT_EQ(taskResp["TaskMonitor"], expectedTaskMonitor);
 }
 
 TEST(addPrefixes, FixHttpHeadersInResponseBody)
@@ -260,14 +264,24 @@ TEST(addPrefixes, FixHttpHeadersInResponseBody)
     )",
                                                     nullptr, false);
 
-    addPrefixes(taskResp, "5B247A");
-    EXPECT_EQ(taskResp["@odata.id"], "/redfish/v1/TaskService/Tasks/5B247A_0");
-    EXPECT_EQ(taskResp["TaskMonitor"],
-              "/redfish/v1/TaskService/TaskMonitors/5B247A_0");
+    addPrefixes(taskResp, BMCWEB_REDFISH_SATELLITE_PREFIX);
+
+    std::string expectedOdataId =
+        std::string("/redfish/v1/TaskService/Tasks/") +
+        std::string(BMCWEB_REDFISH_SATELLITE_PREFIX) + "_0";
+    std::string expectedTaskMonitor =
+        std::string("/redfish/v1/TaskService/TaskMonitors/") +
+        std::string(BMCWEB_REDFISH_SATELLITE_PREFIX) + "_0";
+    std::string expectedLocation =
+        std::string("Location: /redfish/v1/Managers/") +
+        std::string(BMCWEB_REDFISH_SATELLITE_PREFIX) +
+        "_bmc/LogServices/Dump/Entries/0";
+
+    EXPECT_EQ(taskResp["@odata.id"], expectedOdataId);
+    EXPECT_EQ(taskResp["TaskMonitor"], expectedTaskMonitor);
+
     nlohmann::json& httpHeaders = taskResp["Payload"]["HttpHeaders"];
-    EXPECT_EQ(
-        httpHeaders[4],
-        "Location: /redfish/v1/Managers/5B247A_bmc/LogServices/Dump/Entries/0");
+    EXPECT_EQ(httpHeaders[4], expectedLocation);
 }
 
 // Attempts to perform prefix fixing on a response with response code "result".
