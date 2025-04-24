@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebf65251_13f277af",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-24T16:30:51Z",
+      "side": 1,
+      "message": "use generated enums",
+      "revId": "69aa9802f18a60c027a7fb95c68c791c0f73302d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
