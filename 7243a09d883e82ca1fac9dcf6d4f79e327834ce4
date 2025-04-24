@@ -34,6 +34,24 @@
       "parentUuid": "f7dad444_1e169f6e",
       "revId": "7243a09d883e82ca1fac9dcf6d4f79e327834ce4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5092939_bd5ddba8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-24T23:20:40Z",
+      "side": 1,
+      "message": "\u003e The variables are defined in this order, \n\u003e ```\n\u003e     std::optional\u003ccrow::HttpClient\u003e client;\n\u003e     boost::asio::steady_timer hbTimer;\n\u003e ```\n\u003e \n\u003e So, wouldn\u0027t the destruction order be \n\u003e (1) hbTimer is destroyed first\n\u003e (2) and then client is destroyed next?\n\u003e \n\nCorrect.\n\n\u003e Assuming if the order is changed (i.e. client destruction first before hbTimer), will deleteSubscription()[by API] clear up any async_io waits?\n\nThe bug I suspect is that the heartbeat timer might still hold a reference while this is being destroyed, and the callback doesn\u0027t handle it well.  IT\u0027s a guess.\n\n\u003e \n\u003e Would the race between the manual deleteSubscription (via Redfish API) and async_io callback may still happen in either order?\n\nAll async operations are canceled on destruction of the object.\n\n\u003e \n\u003e Anyway, as suggested, let\u0027s change the variable definition order -- but I still think the shared_from_this() to hold object would still be needed.",
+      "parentUuid": "eda74752_a012e322",
+      "revId": "7243a09d883e82ca1fac9dcf6d4f79e327834ce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
