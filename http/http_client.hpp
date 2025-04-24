@@ -219,8 +219,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         if (ec)
         {
             BMCWEB_LOG_ERROR("Connect {}:{}, id: {} failed: {}",
-                             endpoint.address().to_string(), endpoint.port(),
-                             connId, ec.message());
+                             host.encoded_host_address(), host.port(), connId,
+                             ec.message());
             state = ConnState::connectFailed;
             waitAndRetry();
             return;
