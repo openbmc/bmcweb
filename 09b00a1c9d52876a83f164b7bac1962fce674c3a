@@ -34,6 +34,24 @@
       "parentUuid": "ba0d4986_5b5a43d5",
       "revId": "09b00a1c9d52876a83f164b7bac1962fce674c3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e098c1_b4d28d8b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-24T22:41:59Z",
+      "side": 1,
+      "message": "\u003e Do you think we will have any use case Name to different than prefix\n\nIf we do, we can add that when we need it.  I think for now we can use name?  That works the same way sensors do today.",
+      "parentUuid": "31ca80b1_e2aec522",
+      "revId": "09b00a1c9d52876a83f164b7bac1962fce674c3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
