@@ -16,6 +16,24 @@
       "message": "Can you try changing the declaration order of:\n\nhttps://github.com/openbmc/bmcweb/blob/d1a3caa4eda8ca07cd656b4e4e8aa1e4ffe53e1e/redfish-core/include/subscription.hpp#L105C1-L106C1\n\nclient and hbtimer here\n\nAnd see if the error codes away?  client should probably be the last thing declared.",
       "revId": "7243a09d883e82ca1fac9dcf6d4f79e327834ce4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eda74752_a012e322",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-24T17:19:04Z",
+      "side": 1,
+      "message": "The variables are defined in this order, \n```\n    std::optional\u003ccrow::HttpClient\u003e client;\n    boost::asio::steady_timer hbTimer;\n```\n\nSo, wouldn\u0027t the destruction order be \n(1) hbTimer is destroyed first\n(2) and then client is destroyed next?\n\nAssuming if the order is changed (i.e. client destruction first before hbTimer), will deleteSubscription()[by API] clear up any async_io waits?\n\nWould the race between the manual deleteSubscription (via Redfish API) and async_io callback may still happen in either order?\n\nAnyway, as suggested, let\u0027s change the variable definition order -- but I still think the shared_from_this() to hold object would still be needed.",
+      "parentUuid": "f7dad444_1e169f6e",
+      "revId": "7243a09d883e82ca1fac9dcf6d4f79e327834ce4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
