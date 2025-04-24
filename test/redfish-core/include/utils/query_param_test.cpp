@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "config.h"
+
 #include "bmcweb_config.h"
 
 #include "http_response.hpp"
@@ -631,17 +633,17 @@ TEST(QueryParams, PreviouslyExpanded)
   "@odata.type": "#ChassisCollection.ChassisCollection",
   "Members": [
     {
-      "@odata.id": "/redfish/v1/Chassis/5B247A_Sat1",
+      "@odata.id": "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX "_Sat1",
       "@odata.type": "#Chassis.v1_17_0.Chassis",
       "Sensors": {
-        "@odata.id": "/redfish/v1/Chassis/5B247A_Sat1/Sensors"
+        "@odata.id": "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX "_Sat1/Sensors"
       }
     },
     {
-      "@odata.id": "/redfish/v1/Chassis/5B247A_Sat2",
+      "@odata.id": "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX "_Sat2",
       "@odata.type": "#Chassis.v1_17_0.Chassis",
       "Sensors": {
-        "@odata.id": "/redfish/v1/Chassis/5B247A_Sat2/Sensors"
+        "@odata.id": "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX "_Sat2/Sensors"
       }
     }
   ],
@@ -656,12 +658,15 @@ TEST(QueryParams, PreviouslyExpanded)
         findNavigationReferences(ExpandType::NotLinks, 1, 0, expNode).empty());
 
     // Previous expand was only a single level so we should further expand
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode),
-                UnorderedElementsAre(
-                    ExpandNode{json::json_pointer("/Members/0/Sensors"),
-                               "/redfish/v1/Chassis/5B247A_Sat1/Sensors"},
-                    ExpandNode{json::json_pointer("/Members/1/Sensors"),
-                               "/redfish/v1/Chassis/5B247A_Sat2/Sensors"}));
+    EXPECT_THAT(
+        findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode),
+        UnorderedElementsAre(
+            ExpandNode{json::json_pointer("/Members/0/Sensors"),
+                       "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX
+                       "_Sat1/Sensors"},
+            ExpandNode{json::json_pointer("/Members/1/Sensors"),
+                       "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX
+                       "_Sat2/Sensors"}));
 
     // Make sure we can handle when an array was expanded further down the tree
     json expNode2 = R"({"@odata.id" : "/redfish/v1"})"_json;
@@ -672,12 +677,15 @@ TEST(QueryParams, PreviouslyExpanded)
         findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode2).empty());
 
     // Previous expand was two levels so we should further expand
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 3, 0, expNode2),
-                UnorderedElementsAre(
-                    ExpandNode{json::json_pointer("/Chassis/Members/0/Sensors"),
-                               "/redfish/v1/Chassis/5B247A_Sat1/Sensors"},
-                    ExpandNode{json::json_pointer("/Chassis/Members/1/Sensors"),
-                               "/redfish/v1/Chassis/5B247A_Sat2/Sensors"}));
+    EXPECT_THAT(
+        findNavigationReferences(ExpandType::NotLinks, 3, 0, expNode2),
+        UnorderedElementsAre(
+            ExpandNode{json::json_pointer("/Chassis/Members/0/Sensors"),
+                       "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX
+                       "_Sat1/Sensors"},
+            ExpandNode{json::json_pointer("/Chassis/Members/1/Sensors"),
+                       "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX
+                       "_Sat2/Sensors"}));
 }
 
 TEST(QueryParams, DelegatedSkipExpanded)
@@ -728,10 +736,10 @@ TEST(QueryParams, PartiallyPreviouslyExpanded)
       "@odata.id": "/redfish/v1/Chassis/Local"
     },
     {
-      "@odata.id": "/redfish/v1/Chassis/5B247A_Sat1",
+      "@odata.id": "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX "_Sat1",
       "@odata.type": "#Chassis.v1_17_0.Chassis",
       "Sensors": {
-        "@odata.id": "/redfish/v1/Chassis/5B247A_Sat1/Sensors"
+        "@odata.id": "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX "_Sat1/Sensors"
       }
     }
   ],
@@ -750,12 +758,14 @@ TEST(QueryParams, PartiallyPreviouslyExpanded)
 
     // The 5B247A_Sat1 Chassis was already expanded a single level so we should
     // further expand it as well as the Local Chassis
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode),
-                UnorderedElementsAre(
-                    ExpandNode{json::json_pointer("/Members/0"),
-                               "/redfish/v1/Chassis/Local"},
-                    ExpandNode{json::json_pointer("/Members/1/Sensors"),
-                               "/redfish/v1/Chassis/5B247A_Sat1/Sensors"}));
+    EXPECT_THAT(
+        findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode),
+        UnorderedElementsAre(
+            ExpandNode{json::json_pointer("/Members/0"),
+                       "/redfish/v1/Chassis/Local"},
+            ExpandNode{json::json_pointer("/Members/1/Sensors"),
+                       "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX
+                       "_Sat1/Sensors"}));
 
     // Now the response has paths that have been expanded 0, 1, and 2 times
     json expNode2 = R"({"@odata.id" : "/redfish/v1",
@@ -780,7 +790,8 @@ TEST(QueryParams, PartiallyPreviouslyExpanded)
             ExpandNode{json::json_pointer("/Chassis/Members/0"),
                        "/redfish/v1/Chassis/Local"},
             ExpandNode{json::json_pointer("/Chassis/Members/1/Sensors"),
-                       "/redfish/v1/Chassis/5B247A_Sat1/Sensors"}));
+                       "/redfish/v1/Chassis/" BMCWEB_REDFISH_SATELLITE_PREFIX
+                       "_Sat1/Sensors"}));
 }
 
 } // namespace
