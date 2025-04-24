@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "777aa0bf_1fd13c05",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-24T04:51:17Z",
+      "side": 1,
+      "message": "Version.Interface doesn\u0027t have properties like BuildDate, Manufacturer information etc. If `Inventory.Asset` is not the right interface to be used please help me with the right interface I will work on backend repo and bmcweb also so that it is aligned with existing design.\nShould I work on extending Version.Interface to include Manufacture, BuildDate ?",
+      "parentUuid": "eac24fc1_46bd7003",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82e0ae46_f2f2eee5",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 15
