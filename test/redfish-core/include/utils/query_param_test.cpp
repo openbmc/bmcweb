@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+
 #include "bmcweb_config.h"
 
 #include "http_response.hpp"
@@ -656,12 +657,19 @@ TEST(QueryParams, PreviouslyExpanded)
         findNavigationReferences(ExpandType::NotLinks, 1, 0, expNode).empty());
 
     // Previous expand was only a single level so we should further expand
-    EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode),
-                UnorderedElementsAre(
-                    ExpandNode{json::json_pointer("/Members/0/Sensors"),
-                               "/redfish/v1/Chassis/5B247A_Sat1/Sensors"},
-                    ExpandNode{json::json_pointer("/Members/1/Sensors"),
-                               "/redfish/v1/Chassis/5B247A_Sat2/Sensors"}));
+    json::json_pointer member0Sensors("/Members/0/Sensors");
+    json::json_pointer member1Sensors("/Members/1/Sensors");
+    std::string sat1SensorsUri =
+        std::string("/redfish/v1/Chassis/") +
+        std::string(BMCWEB_REDFISH_SATELLITE_PREFIX) + "_Sat1/Sensors";
+    std::string sat2SensorsUri =
+        std::string("/redfish/v1/Chassis/") +
+        std::string(BMCWEB_REDFISH_SATELLITE_PREFIX) + "_Sat2/Sensors";
+
+    EXPECT_THAT(
+        findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode),
+        UnorderedElementsAre(ExpandNode{member0Sensors, sat1SensorsUri},
+                             ExpandNode{member1Sensors, sat2SensorsUri}));
 
     // Make sure we can handle when an array was expanded further down the tree
     json expNode2 = R"({"@odata.id" : "/redfish/v1"})"_json;
@@ -672,12 +680,13 @@ TEST(QueryParams, PreviouslyExpanded)
         findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode2).empty());
 
     // Previous expand was two levels so we should further expand
+    json::json_pointer chassisMember0Sensors("/Chassis/Members/0/Sensors");
+    json::json_pointer chassisMember1Sensors("/Chassis/Members/1/Sensors");
+
     EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 3, 0, expNode2),
                 UnorderedElementsAre(
-                    ExpandNode{json::json_pointer("/Chassis/Members/0/Sensors"),
-                               "/redfish/v1/Chassis/5B247A_Sat1/Sensors"},
-                    ExpandNode{json::json_pointer("/Chassis/Members/1/Sensors"),
-                               "/redfish/v1/Chassis/5B247A_Sat2/Sensors"}));
+                    ExpandNode{chassisMember0Sensors, sat1SensorsUri},
+                    ExpandNode{chassisMember1Sensors, sat2SensorsUri}));
 }
 
 TEST(QueryParams, DelegatedSkipExpanded)
@@ -750,16 +759,19 @@ TEST(QueryParams, PartiallyPreviouslyExpanded)
 
     // The 5B247A_Sat1 Chassis was already expanded a single level so we should
     // further expand it as well as the Local Chassis
+    std::string sat1SensorsUri =
+        std::string("/redfish/v1/Chassis/") +
+        std::string(BMCWEB_REDFISH_SATELLITE_PREFIX) + "_Sat1/Sensors";
     EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 2, 0, expNode),
                 UnorderedElementsAre(
                     ExpandNode{json::json_pointer("/Members/0"),
                                "/redfish/v1/Chassis/Local"},
                     ExpandNode{json::json_pointer("/Members/1/Sensors"),
-                               "/redfish/v1/Chassis/5B247A_Sat1/Sensors"}));
+                               sat1SensorsUri}));
 
     // Now the response has paths that have been expanded 0, 1, and 2 times
     json expNode2 = R"({"@odata.id" : "/redfish/v1",
-                        "Systems": {"@odata.id": "/redfish/v1/Systems"}})"_json;
+                         "Systems": {"@odata.id": "/redfish/v1/Systems"}})"_json;
     expNode2["Chassis"] = std::move(expNode);
 
     EXPECT_THAT(findNavigationReferences(ExpandType::NotLinks, 1, 0, expNode2),
@@ -780,7 +792,7 @@ TEST(QueryParams, PartiallyPreviouslyExpanded)
             ExpandNode{json::json_pointer("/Chassis/Members/0"),
                        "/redfish/v1/Chassis/Local"},
             ExpandNode{json::json_pointer("/Chassis/Members/1/Sensors"),
-                       "/redfish/v1/Chassis/5B247A_Sat1/Sensors"}));
+                       sat1SensorsUri}));
 }
 
 } // namespace
