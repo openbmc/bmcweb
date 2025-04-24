@@ -2,6 +2,8 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "aggregation_utils.hpp"
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
@@ -459,10 +461,7 @@ class RedfishAggregator
                         return;
                     }
 
-                    // For now assume there will only be one satellite config.
-                    // Assign it the name/prefix "5B247A"
-                    addSatelliteConfig("5B247A", interface.second,
-                                       satelliteInfo);
+                    addSatelliteConfig(interface.second, satelliteInfo);
                 }
             }
         }
@@ -471,11 +470,11 @@ class RedfishAggregator
     // Parse the properties of a satellite config object and add the
     // configuration if the properties are valid
     static void addSatelliteConfig(
-        const std::string& name,
         const dbus::utility::DBusPropertiesMap& properties,
         std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
         boost::urls::url url;
+        std::string prefix = std::string(BMCWEB_REDFISH_SATELLITE_PREFIX);
 
         for (const auto& prop : properties)
         {
@@ -534,24 +533,24 @@ class RedfishAggregator
         // Make sure all required config information was made available
         if (url.host().empty())
         {
-            BMCWEB_LOG_ERROR("Satellite config {} missing Host", name);
+            BMCWEB_LOG_ERROR("Satellite config {} missing Host", prefix);
             return;
         }
 
         if (!url.has_port())
         {
-            BMCWEB_LOG_ERROR("Satellite config {} missing Port", name);
+            BMCWEB_LOG_ERROR("Satellite config {} missing Port", prefix);
             return;
         }
 
         if (!url.has_scheme())
         {
-            BMCWEB_LOG_ERROR("Satellite config {} missing AuthType", name);
+            BMCWEB_LOG_ERROR("Satellite config {} missing AuthType", prefix);
             return;
         }
 
         std::string resultString;
-        auto result = satelliteInfo.insert_or_assign(name, std::move(url));
+        auto result = satelliteInfo.insert_or_assign(prefix, std::move(url));
         if (result.second)
         {
             resultString = "Added new satellite config ";
@@ -561,7 +560,7 @@ class RedfishAggregator
             resultString = "Updated existing satellite config ";
         }
 
-        BMCWEB_LOG_DEBUG("{}{} at {}://{}", resultString, name,
+        BMCWEB_LOG_DEBUG("{}{} at {}://{}", resultString, prefix,
                          result.first->second.scheme(),
                          result.first->second.encoded_host_and_port());
     }
@@ -1295,9 +1294,12 @@ class RedfishAggregator
                 // might contain an aggregation prefix
                 // TODO: This needs to be rethought when we can support multiple
                 // satellites due to
-                // /redfish/v1/AggregationService/AggregationSources/5B247A
+                // /redfish/v1/AggregationService/AggregationSources/BMCWEB_REDFISH_SATELLITE_PREFIX
                 // being a local resource describing the satellite
-                if (collectionItem.starts_with("5B247A_"))
+                std::string targetPrefix =
+                    std::string(BMCWEB_REDFISH_SATELLITE_PREFIX);
+                targetPrefix += "_";
+                if (collectionItem.starts_with(targetPrefix))
                 {
                     BMCWEB_LOG_DEBUG("Need to forward a request");
 
