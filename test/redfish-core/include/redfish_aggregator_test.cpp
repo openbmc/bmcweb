@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "config.h"
+
 #include "async_resp.hpp"
 #include "error_messages.hpp"
 #include "http_response.hpp"
@@ -232,9 +234,10 @@ TEST(addPrefixes, FixHttpTaskMonitor)
     }
     )"_json;
 
-    addPrefixes(taskResp, "5B247A");
+    addPrefixes(taskResp, BMCWEB_REDFISH_SATELLITE_PREFIX);
     EXPECT_EQ(taskResp["TaskMonitor"],
-              "/redfish/v1/TaskService/Tasks/5B247A_0/Monitor");
+              "/redfish/v1/TaskService/Tasks/" BMCWEB_REDFISH_SATELLITE_PREFIX
+              "_0/Monitor");
 }
 
 TEST(addPrefixes, FixHttpHeadersInResponseBody)
@@ -260,14 +263,18 @@ TEST(addPrefixes, FixHttpHeadersInResponseBody)
     )",
                                                     nullptr, false);
 
-    addPrefixes(taskResp, "5B247A");
-    EXPECT_EQ(taskResp["@odata.id"], "/redfish/v1/TaskService/Tasks/5B247A_0");
-    EXPECT_EQ(taskResp["TaskMonitor"],
-              "/redfish/v1/TaskService/TaskMonitors/5B247A_0");
-    nlohmann::json& httpHeaders = taskResp["Payload"]["HttpHeaders"];
+    addPrefixes(taskResp, BMCWEB_REDFISH_SATELLITE_PREFIX);
+    EXPECT_EQ(taskResp["@odata.id"],
+              "/redfish/v1/TaskService/Tasks/" BMCWEB_REDFISH_SATELLITE_PREFIX
+              "_0");
     EXPECT_EQ(
-        httpHeaders[4],
-        "Location: /redfish/v1/Managers/5B247A_bmc/LogServices/Dump/Entries/0");
+        taskResp["TaskMonitor"],
+        "/redfish/v1/TaskService/TaskMonitors/" BMCWEB_REDFISH_SATELLITE_PREFIX
+        "_0");
+    nlohmann::json& httpHeaders = taskResp["Payload"]["HttpHeaders"];
+    EXPECT_EQ(httpHeaders[4],
+              "Location: /redfish/v1/Managers/" BMCWEB_REDFISH_SATELLITE_PREFIX
+              "_bmc/LogServices/Dump/Entries/0");
 }
 
 // Attempts to perform prefix fixing on a response with response code "result".
