@@ -80,6 +80,24 @@
       "message": "this internal error because you dont expect this to happen ? ideally this should auth error.",
       "revId": "5d9611cba5e58f804e250fb08d076a53b7a50742",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d10deca_523fa384",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-24T23:21:34Z",
+      "side": 1,
+      "message": "internal error because we should never be able to hit this code.",
+      "parentUuid": "312906b1_425f7f5e",
+      "revId": "5d9611cba5e58f804e250fb08d076a53b7a50742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
