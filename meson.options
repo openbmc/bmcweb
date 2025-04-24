@@ -535,3 +535,11 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.''',
 )
+
+# BMCWEB_REDFISH_SATELLITE_PREFIX
+option(
+    'redfish-satellite-prefix',
+    type: 'string',
+    value: '5B247A',
+    description: '''Default prefix to use for satellite BMCs when not configured in Entity Manager'''
+)
