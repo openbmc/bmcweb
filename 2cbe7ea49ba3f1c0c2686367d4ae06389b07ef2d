@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9ea76b94_9cbb4d59",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-25T08:13:43Z",
+      "side": 1,
+      "message": "Addressed the concerns regarding to readability",
+      "parentUuid": "176bc333_ea684831",
+      "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "663b86e5_7eaff075",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 7
