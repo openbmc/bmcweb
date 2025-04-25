@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bbef2c7d_f9afaeeb",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-25T16:20:47Z",
+      "side": 1,
+      "message": "So I went back and forth here, and I can add if you think we should support this case ( only implemented MinimumVersion but no version). But I lean towards no, we don\u0027t support this odd case.\n\nWe already don\u0027t support this for getSwUpdatableStatus (xyz.openbmc_project.Software.Update), getRedfishSwHealth, getRedfishSwState, etc. And https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79207/15/redfish-core/lib/update_service.hpp#906 (xyz.openbmc_project.Inventory.Decorator.Asset) isn\u0027t doing this either. \n\nSo you have to implement a https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Software/Version.interface.yaml for your software to show up here, this has the software purpose, etc. Other interfaces like xyz.openbmc_project.Inventory.Decorator.Asset, xyz.openbmc_project.Software.MinimumVersion, Software.Update are optional and populate other properties.\n\nThis follows what we do for inventory (you want a fan, implement \"xyz.openbmc_project.Inventory.Item.Fan\" or a Chassis, implement https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Chassis.interface.yaml. State, Health, Location, PartNumber/SerialNumber/SubModel are optional interfaces https://github.com/openbmc/bmcweb/blob/99ff0ddcc083c149d3a64190e6c1b0caab1d77f2/redfish-core/lib/fan.hpp#L384\n\nRedfish says you could have a software inventory without a version or purpose, but have it be updatable or a MinimumVersion but Redfish requires so few properties, I don\u0027t take much stock in that so until we hear otherwise, I vote we go as wrote \n\n           \"required\": [\n                \"@odata.id\",\n                \"@odata.type\",\n                \"Id\",\n                \"Name\"\n            ],\n\nhttps://redfish.dmtf.org/schemas/v1/SoftwareInventory.v1_11_0.json",
+      "parentUuid": "2e758c3c_1eba3f9a",
+      "range": {
+        "startLine": 1370,
+        "startChar": 9,
+        "endLine": 1370,
+        "endChar": 45
+      },
+      "revId": "d6685b973319870be8ccd3af41d1da8d8620c201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a89e8e83_b69a999b",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 5
