@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c57f46b1_f8ca504e",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-25T06:53:27Z",
+      "side": 1,
+      "message": "Thanks a lot for your review. \nYes as suggested refactored the code",
+      "parentUuid": "150102ff_b7e5f4cb",
+      "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3fd1387_a9221127",
         "filename": "redfish-core/include/utils/bios_utils.hpp",
         "patchSetId": 7
@@ -72,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d7e0e52_2db5ec42",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-25T06:53:27Z",
+      "side": 1,
+      "message": "As suggested used the `AttributeType`",
+      "parentUuid": "a3fd1387_a9221127",
+      "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e880669_c462407f",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 7
@@ -83,6 +119,24 @@
       "writtenOn": "2025-04-23T18:19:49Z",
       "side": 1,
       "message": "The nested calls make the code somewhat difficult to read. Could you combine the functions using an operator like \"|\" or use method chaining with \".\", for example: getBIOSManagerObject().getBIOSManagerProperty(\"BaseBIOSTable\").populateRedfishFromBaseTable()(std::ref(asyncResp-\u003eres))? This would improve readability. This is just my opinion.",
+      "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "176bc333_ea684831",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-25T06:53:27Z",
+      "side": 1,
+      "message": "I will check on how I can make it more readable",
+      "parentUuid": "3e880669_c462407f",
       "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
