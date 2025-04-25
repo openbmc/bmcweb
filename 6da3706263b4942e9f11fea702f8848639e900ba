@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28203f2e_7d755668",
+        "filename": "Redfish.md",
+        "patchSetId": 11
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2025-04-25T12:41:39Z",
+      "side": 1,
+      "message": "Certificates,Model, SKU, Status,UUID are also missing",
+      "parentUuid": "f146aa2a_4f939fe8",
+      "revId": "6da3706263b4942e9f11fea702f8848639e900ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d5636f3_c5f63dd6",
         "filename": "redfish-core/lib/trusted_components.hpp",
         "patchSetId": 11
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "The reason I kept this as `getTPMPaths` is because after getting TPM paths we could add method to get SPDMPaths",
       "parentUuid": "2d5636f3_c5f63dd6",
+      "revId": "6da3706263b4942e9f11fea702f8848639e900ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60e518c0_4dc2de6e",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2025-04-25T12:41:39Z",
+      "side": 1,
+      "message": "I agree that this method can be generic to handle TPM or SPDM-capable devices",
+      "parentUuid": "b9458e67_8f273166",
       "revId": "6da3706263b4942e9f11fea702f8848639e900ba",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

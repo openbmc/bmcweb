@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9ff9a98b_01733d20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2025-04-25T12:41:39Z",
+      "side": 1,
+      "message": "are you planning to implement TrustedComponents for BMC TPM as well?",
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f1ded5c_6bee1752",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2025-04-25T12:41:39Z",
+      "side": 1,
+      "message": "can you please share redfish response of TrustedComponents resource?",
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1be691a4_52481bf9",
         "filename": "redfish-core/lib/trusted_components.hpp",
         "patchSetId": 12
@@ -32,6 +66,23 @@
       "side": 1,
       "message": "```\nif (ec.value() !\u003d EBADR)\n                {\n                    BMCWEB_LOG_ERROR(\n                        \"DBUS response error for getAssociatedSubTreePaths {}\",\n                        ec.value());\n                    messages::internalError(asyncResp-\u003eres);\n                }\n```\n`EBADR` requires this header. \nIt is used by other files as well \nclang-tidy suggested for the addition of this",
       "parentUuid": "1be691a4_52481bf9",
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5c7e1ff_46cb80de",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2025-04-25T12:41:39Z",
+      "side": 1,
+      "message": "are we sure that all SPDM capable devices are Discrete type?",
       "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
