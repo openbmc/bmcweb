@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "349b011b_a939ac3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-25T01:52:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a49b15f6_cd53a9c5",
+      "revId": "6738ece5663cc459501ac92d9eb040eaa27a3b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11d24dc1_8eb58679",
@@ -84,6 +102,42 @@
       "writtenOn": "2024-10-22T12:29:30Z",
       "side": 1,
       "message": "I think this usage does not return `ec`.\nSo, this part may need to leave as it was?",
+      "revId": "6738ece5663cc459501ac92d9eb040eaa27a3b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "806d7694_42ac7bc2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-25T01:52:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a156e15e_6e324d78",
+      "revId": "6738ece5663cc459501ac92d9eb040eaa27a3b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de430e17_7ee4b21b",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-25T01:52:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a156e15e_6e324d78",
       "revId": "6738ece5663cc459501ac92d9eb040eaa27a3b23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
