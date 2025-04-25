@@ -6,6 +6,7 @@
 
 #include "aggregation_utils.hpp"
 #include "async_resp.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_client.hpp"
@@ -29,6 +30,8 @@
 #include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/bus/match.hpp>
+#include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
@@ -46,6 +49,7 @@
 #include <unordered_map>
 #include <utility>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -421,10 +425,11 @@ class RedfishAggregator
     crow::HttpClient client;
 
     std::unordered_map<std::string, boost::urls::url> cachedSatelliteInfo;
+    std::shared_ptr<sdbusplus::bus::match_t> entityManagerMatch;
 
     // Dummy callback used by the Constructor so that it can report the number
     // of satellite configs when the class is first created
-    static void constructorCallback(
+    static void callbackUpdateSatelliteConfig(
         const boost::system::error_code& ec,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
@@ -442,6 +447,38 @@ class RedfishAggregator
 
         BMCWEB_LOG_DEBUG("There were {} satellite configs found at startup",
                          std::to_string(satelliteInfo.size()));
+    }
+
+    static void handleEntityManagerSignal(sdbusplus::message::message& msg)
+    {
+        std::string interfaceName;
+        std::vector<std::pair<std::string, std::variant<std::string>>>
+            properties;
+        msg.read(interfaceName, properties);
+
+        if (interfaceName !=
+            "xyz.openbmc_project.Configuration.SatelliteController")
+        {
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG(
+            "Received Entity Manager signal for Satellite Controller");
+        getSatelliteConfigs(callbackUpdateSatelliteConfig);
+    }
+
+    void registerEntityManagerSignals()
+    {
+        entityManagerMatch = std::make_shared<sdbusplus::bus::match_t>(
+            *crow::connections::systemBus,
+            sdbusplus::bus::match::rules::interfacesAdded() +
+                sdbusplus::bus::match::rules::sender(
+                    "xyz.openbmc_project.EntityManager") +
+                sdbusplus::bus::match::rules::interface(
+                    "xyz.openbmc_project.Configuration.SatelliteController"),
+            [](sdbusplus::message::message& msg) {
+                handleEntityManagerSignal(msg);
+            });
     }
 
     // Search D-Bus objects for satellite config objects and add their
@@ -675,6 +712,31 @@ class RedfishAggregator
         messages::resourceNotFound(asyncResp->res, "", nameStr);
     }
 
+    // Check if a collection item matches any satellite prefix
+    static bool isSatelliteItem(std::string_view itemName)
+    {
+        const auto& satelliteInfo = getInstance().cachedSatelliteInfo;
+        if (satelliteInfo.empty())
+        {
+            // If cache is empty, try to refresh it for future use
+            getSatelliteConfigs(callbackUpdateSatelliteConfig);
+            return false;
+        }
+
+        for (const auto& satellite : satelliteInfo)
+        {
+            std::string targetPrefix = satellite.first;
+            targetPrefix += "_";
+            if (itemName.starts_with(targetPrefix))
+            {
+                BMCWEB_LOG_DEBUG("{} matches satellite prefix {}", itemName,
+                                 satellite.first);
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Intended to handle an incoming request based on if Redfish Aggregation
     // is enabled.  Forwards request to satellite BMC if it exists.
     static void aggregateAndHandle(
@@ -868,7 +930,8 @@ class RedfishAggregator
         client(getIoContext(),
                std::make_shared<crow::ConnectionPolicy>(getAggregationPolicy()))
     {
-        getSatelliteConfigs(constructorCallback);
+        getSatelliteConfigs(callbackUpdateSatelliteConfig);
+        registerEntityManagerSignals();
     }
     RedfishAggregator(const RedfishAggregator&) = delete;
     RedfishAggregator& operator=(const RedfishAggregator&) = delete;
@@ -1317,14 +1380,7 @@ class RedfishAggregator
             {
                 // We've matched a resource collection so this current segment
                 // might contain an aggregation prefix
-                // TODO: This needs to be rethought when we can support multiple
-                // satellites due to
-                // /redfish/v1/AggregationService/AggregationSources/BMCWEB_REDFISH_SATELLITE_PREFIX
-                // being a local resource describing the satellite
-                std::string targetPrefix =
-                    std::string(BMCWEB_REDFISH_SATELLITE_PREFIX);
-                targetPrefix += "_";
-                if (collectionItem.starts_with(targetPrefix))
+                if (isSatelliteItem(collectionItem))
                 {
                     BMCWEB_LOG_DEBUG("Need to forward a request");
 
