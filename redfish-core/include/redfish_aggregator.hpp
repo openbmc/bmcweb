@@ -6,6 +6,7 @@
 
 #include "aggregation_utils.hpp"
 #include "async_resp.hpp"
+#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "http_client.hpp"
@@ -29,6 +30,8 @@
 #include <boost/url/url.hpp>
 #include <boost/url/url_view.hpp>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/bus/match.hpp>
+#include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
@@ -46,6 +49,7 @@
 #include <unordered_map>
 #include <utility>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -420,9 +424,12 @@ class RedfishAggregator
   private:
     crow::HttpClient client;
 
+    std::unordered_map<std::string, boost::urls::url> cachedSatelliteInfo;
+    std::shared_ptr<sdbusplus::bus::match_t> entityManagerMatch;
+
     // Dummy callback used by the Constructor so that it can report the number
     // of satellite configs when the class is first created
-    static void constructorCallback(
+    static void callbackUpdateSatelliteConfig(
         const boost::system::error_code& ec,
         const std::unordered_map<std::string, boost::urls::url>& satelliteInfo)
     {
@@ -432,8 +439,50 @@ class RedfishAggregator
             return;
         }
 
+        if (!satelliteInfo.empty())
+        {
+            RedfishAggregator& instance = getInstance();
+            instance.cachedSatelliteInfo = satelliteInfo;
+        }
+
         BMCWEB_LOG_DEBUG("There were {} satellite configs found at startup",
                          std::to_string(satelliteInfo.size()));
+    }
+
+    void registerEntityManagerSignals()
+    {
+        try
+        {
+            entityManagerMatch = std::make_shared<sdbusplus::bus::match_t>(
+                *crow::connections::systemBus,
+                sdbusplus::bus::match::rules::type::signal() +
+                    sdbusplus::bus::match::rules::member("InterfacesAdded") +
+                    sdbusplus::bus::match::rules::path("/xyz/openbmc_project/inventory") +
+                    sdbusplus::bus::match::rules::interface("org.freedesktop.DBus.ObjectManager"),
+                [this](sdbusplus::message::message& msg) {
+                    handleEntityManagerSignal(msg, *this);
+                });
+        }
+        catch (const sdbusplus::exception::SdBusError& e)
+        {
+            BMCWEB_LOG_ERROR("Failed to register Entity Manager signals: {}", e.what());
+        }
+    }
+
+    static void handleEntityManagerSignal(sdbusplus::message::message& msg, RedfishAggregator& instance)
+    {
+        sdbusplus::message::object_path objectPath;
+        std::map<std::string, dbus::utility::DBusPropertiesMap> interfaces;
+        msg.read(objectPath, interfaces);
+
+        auto it = interfaces.find("xyz.openbmc_project.Configuration.SatelliteController");
+        if (it == interfaces.end())
+        {
+            return;
+        }
+
+        addSatelliteConfig(it->second, instance.cachedSatelliteInfo);
+        BMCWEB_LOG_DEBUG("Updated satellite config from signal");
     }
 
     // Search D-Bus objects for satellite config objects and add their
@@ -451,16 +500,6 @@ class RedfishAggregator
                 {
                     BMCWEB_LOG_DEBUG("Found Satellite Controller at {}",
                                      objectPath.first.str);
-
-                    if (!satelliteInfo.empty())
-                    {
-                        BMCWEB_LOG_ERROR(
-                            "Redfish Aggregation only supports one satellite!");
-                        BMCWEB_LOG_DEBUG("Clearing all satellite data");
-                        satelliteInfo.clear();
-                        return;
-                    }
-
                     addSatelliteConfig(interface.second, satelliteInfo);
                 }
             }
@@ -876,7 +915,14 @@ class RedfishAggregator
         client(getIoContext(),
                std::make_shared<crow::ConnectionPolicy>(getAggregationPolicy()))
     {
-        getSatelliteConfigs(constructorCallback);
+        querySatelliteConfigs([this](const boost::system::error_code& ec,
+                                   const std::unordered_map<std::string, boost::urls::url>& satelliteInfo) {
+            if (!ec && !satelliteInfo.empty())
+            {
+                this->cachedSatelliteInfo = satelliteInfo;
+            }
+            registerEntityManagerSignals();
+        });
     }
     RedfishAggregator(const RedfishAggregator&) = delete;
     RedfishAggregator& operator=(const RedfishAggregator&) = delete;
@@ -890,15 +936,14 @@ class RedfishAggregator
         return handler;
     }
 
-    // Polls D-Bus to get all available satellite config information
-    // Expects a handler which interacts with the returned configs
-    static void getSatelliteConfigs(
+    static void querySatelliteConfigs(
         std::function<
             void(const boost::system::error_code&,
                  const std::unordered_map<std::string, boost::urls::url>&)>
             handler)
     {
-        BMCWEB_LOG_DEBUG("Gathering satellite configs");
+        BMCWEB_LOG_DEBUG("Gathering satellite configs without cache");
+
         sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
             "xyz.openbmc_project.EntityManager", path,
@@ -914,9 +959,6 @@ class RedfishAggregator
                     return;
                 }
 
-                // Maps a chosen alias representing a satellite BMC to a url
-                // containing the information required to create a http
-                // connection to the satellite
                 findSatelliteConfigs(objects, satelliteInfo);
 
                 if (!satelliteInfo.empty())
@@ -932,6 +974,31 @@ class RedfishAggregator
                 }
                 handler(ec, satelliteInfo);
             });
+    }
+
+    // Polls D-Bus to get all available satellite config information
+    // Expects a handler which interacts with the returned configs
+    static void getSatelliteConfigs(
+        std::function<
+            void(const boost::system::error_code&,
+                 const std::unordered_map<std::string, boost::urls::url>&)>
+            handler)
+    {
+        BMCWEB_LOG_DEBUG("Gathering satellite configs");
+
+        RedfishAggregator& instance = getInstance();
+        if (!instance.cachedSatelliteInfo.empty())
+        {
+            BMCWEB_LOG_DEBUG(
+                "Using cached satellite configs with {} entries",
+                std::to_string(instance.cachedSatelliteInfo.size()));
+            boost::system::error_code ec = boost::system::errc::make_error_code(
+                boost::system::errc::success);
+            handler(ec, instance.cachedSatelliteInfo);
+            return;
+        }
+
+        querySatelliteConfigs(handler);
     }
 
     // Processes the response returned by a satellite BMC and loads its
