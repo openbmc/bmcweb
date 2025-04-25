@@ -40,6 +40,16 @@ static constexpr std::array<std::string_view, 1> pcieDeviceInterface = {
 static constexpr std::array<std::string_view, 1> pcieSlotInterface = {
     "xyz.openbmc_project.Inventory.Item.PCIeSlot"};
 
+static inline std::string toUpperCase(const std::string& input)
+{
+    std::string result = input;
+    std::transform(result.begin(), result.end(), result.begin(),
+                   [](unsigned char c) { return std::toupper(c); });
+    return result;
+}
+using InnerMap = std::map<std::string, std::variant<int64_t, std::string>>;
+using OuterMap = std::map<std::string, InnerMap>;
+
 static inline void handlePCIeDevicePath(
     const std::string& pcieDeviceId,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -596,12 +606,86 @@ inline void
         std::bind_front(afterGetValidPcieDevicePath, asyncResp, pcieDeviceId));
 }
 
+/**
+ * @brief PCIeDevicePost will be used by BIOS to Post Pcie data to BMC
+ *
+ **/
+inline void
+    handlePCIeDevicePost(App& app, const crow::Request& req,
+
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& systemName,
+                         const std::string& pcieDeviceId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    nlohmann::json pciePostJsonObject = nlohmann::json::parse(req.body(),
+                                                              nullptr, false);
+    InnerMap pcieDataMap;
+    for (auto& [key, value] : pciePostJsonObject.items())
+    {
+        if (value.is_number_integer())
+        {
+            pcieDataMap[toUpperCase(key)] = value.get<int64_t>();
+        }
+        else if (value.is_string())
+        {
+            pcieDataMap[toUpperCase(key)] = value.get<std::string>();
+        }
+        else
+        {
+            // Handle other types as needed
+            BMCWEB_LOG_ERROR("Not a valid input");
+            asyncResp->res.jsonValue["Status"] = "Error";
+            asyncResp->res.jsonValue["message"] = "Not valid input";
+            return;
+        }
+    }
+
+    OuterMap pcieMap;
+    pcieMap[pcieDeviceId] = pcieDataMap;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("SetPcieData - D-Bus responses error: {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::success(asyncResp->res);
+    }, "xyz.openbmc_project.PCIe", "/xyz/openbmc_project/inventory/PCIe",
+        "xyz.openbmc_project.PCIe.PcieData", "SetPcieData", pcieMap);
+
+    asyncResp->res.jsonValue["Status"] = "OK";
+}
+
 inline void requestRoutesSystemPCIeDevice(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/<str>/")
         .privileges(redfish::privileges::getPCIeDevice)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handlePCIeDeviceGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/PCIeDevices/<str>/")
+        .privileges(redfish::privileges::postPCIeDevice)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handlePCIeDevicePost, std::ref(app)));
 }
 
 inline void addPCIeFunctionList(
