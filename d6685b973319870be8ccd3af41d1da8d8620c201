@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9c77de3_30769129",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-25T16:02:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c49a85b_2ea2d241",
+      "range": {
+        "startLine": 307,
+        "startChar": 8,
+        "endLine": 307,
+        "endChar": 49
+      },
+      "revId": "d6685b973319870be8ccd3af41d1da8d8620c201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e758c3c_1eba3f9a",
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "This was done at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79006",
       "parentUuid": "a89e8e83_b69a999b",
+      "range": {
+        "startLine": 1390,
+        "startChar": 27,
+        "endLine": 1390,
+        "endChar": 36
+      },
+      "revId": "d6685b973319870be8ccd3af41d1da8d8620c201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92418b4e_fa345567",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1390,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-25T16:02:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00016567_051d0b13",
       "range": {
         "startLine": 1390,
         "startChar": 27,
