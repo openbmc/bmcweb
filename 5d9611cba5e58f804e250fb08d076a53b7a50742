@@ -98,6 +98,24 @@
       "parentUuid": "312906b1_425f7f5e",
       "revId": "5d9611cba5e58f804e250fb08d076a53b7a50742",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b771b725_90bae35a",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-04-25T05:41:38Z",
+      "side": 1,
+      "message": "This code is to handle $expand query parameter, in first level user is authorized but in next deep level if the session is becoming nullptr means its internal error.",
+      "parentUuid": "312906b1_425f7f5e",
+      "revId": "5d9611cba5e58f804e250fb08d076a53b7a50742",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
