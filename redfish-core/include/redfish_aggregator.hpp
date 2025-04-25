@@ -727,6 +727,31 @@ class RedfishAggregator
         messages::resourceNotFound(asyncResp->res, "", nameStr);
     }
 
+    // Check if a collection item matches any satellite prefix
+    static bool isSatelliteItem(std::string_view itemName)
+    {
+        const auto& satelliteInfo = getInstance().cachedSatelliteInfo;
+        if (satelliteInfo.empty())
+        {
+            // If cache is empty, try to refresh it for future use
+            getSatelliteConfigs(callbackUpdateSatelliteConfig);
+            return false;
+        }
+
+        for (const auto& satellite : satelliteInfo)
+        {
+            std::string targetPrefix = satellite.first;
+            targetPrefix += "_";
+            if (itemName.starts_with(targetPrefix))
+            {
+                BMCWEB_LOG_DEBUG("{} matches satellite prefix {}", itemName,
+                                 satellite.first);
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Intended to handle an incoming request based on if Redfish Aggregation
     // is enabled.  Forwards request to satellite BMC if it exists.
     static void aggregateAndHandle(
@@ -1387,14 +1412,7 @@ class RedfishAggregator
             {
                 // We've matched a resource collection so this current segment
                 // might contain an aggregation prefix
-                // TODO: This needs to be rethought when we can support multiple
-                // satellites due to
-                // /redfish/v1/AggregationService/AggregationSources/BMCWEB_REDFISH_SATELLITE_PREFIX
-                // being a local resource describing the satellite
-                std::string targetPrefix =
-                    std::string(BMCWEB_REDFISH_SATELLITE_PREFIX);
-                targetPrefix += "_";
-                if (collectionItem.starts_with(targetPrefix))
+                if (isSatelliteItem(collectionItem))
                 {
                     BMCWEB_LOG_DEBUG("Need to forward a request");
 
