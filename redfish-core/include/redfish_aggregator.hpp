@@ -420,6 +420,8 @@ class RedfishAggregator
   private:
     crow::HttpClient client;
 
+    std::unordered_map<std::string, boost::urls::url> cachedSatelliteInfo;
+
     // Dummy callback used by the Constructor so that it can report the number
     // of satellite configs when the class is first created
     static void constructorCallback(
@@ -430,6 +432,12 @@ class RedfishAggregator
         {
             BMCWEB_LOG_ERROR("Something went wrong while querying dbus!");
             return;
+        }
+
+        if (!satelliteInfo.empty())
+        {
+            RedfishAggregator& instance = getInstance();
+            instance.cachedSatelliteInfo = satelliteInfo;
         }
 
         BMCWEB_LOG_DEBUG("There were {} satellite configs found at startup",
@@ -883,6 +891,19 @@ class RedfishAggregator
             handler)
     {
         BMCWEB_LOG_DEBUG("Gathering satellite configs");
+
+        RedfishAggregator& instance = getInstance();
+        if (!instance.cachedSatelliteInfo.empty())
+        {
+            BMCWEB_LOG_DEBUG(
+                "Using cached satellite configs with {} entries",
+                std::to_string(instance.cachedSatelliteInfo.size()));
+            boost::system::error_code ec = boost::system::errc::make_error_code(
+                boost::system::errc::success);
+            handler(ec, instance.cachedSatelliteInfo);
+            return;
+        }
+
         sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
             "xyz.openbmc_project.EntityManager", path,
@@ -905,6 +926,10 @@ class RedfishAggregator
 
                 if (!satelliteInfo.empty())
                 {
+                    // Update the cached satellite info in the singleton
+                    // instance
+                    getInstance().cachedSatelliteInfo = satelliteInfo;
+
                     BMCWEB_LOG_DEBUG(
                         "Redfish Aggregation enabled with {} satellite BMCs",
                         std::to_string(satelliteInfo.size()));
