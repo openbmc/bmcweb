@@ -528,6 +528,22 @@ class RedfishAggregator
                 }
                 url.set_scheme("http");
             }
+            else if (prop.first == "Name")
+            {
+                const std::string* propVal =
+                    std::get_if<std::string>(&prop.second);
+                if (propVal != nullptr && !propVal->empty())
+                {
+                    prefix = *propVal;
+                    BMCWEB_LOG_DEBUG("Using Name property {} as prefix",
+                                     prefix);
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG(
+                        "Invalid or empty Name property, using default prefix");
+                }
+            }
         } // Finished reading properties
 
         // Make sure all required config information was made available
