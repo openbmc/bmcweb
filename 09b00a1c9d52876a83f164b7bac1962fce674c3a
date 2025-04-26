@@ -70,6 +70,24 @@
       "parentUuid": "e5e098c1_b4d28d8b",
       "revId": "09b00a1c9d52876a83f164b7bac1962fce674c3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08cc198d_5fb1a4ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-04-26T06:40:23Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79918",
+      "parentUuid": "e951886d_1c4351b5",
+      "revId": "09b00a1c9d52876a83f164b7bac1962fce674c3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
