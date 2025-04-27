@@ -126,7 +126,7 @@ inline void handleLogin(const crow::Request& req,
     }
     else if (contentType.starts_with("multipart/form-data"))
     {
-        ParserError ec = parser.parse(req);
+        ParserError ec = parser.parse(contentType, req.body());
         if (ec != ParserError::PARSER_SUCCESS)
         {
             // handle error
@@ -151,11 +151,19 @@ inline void handleLogin(const crow::Request& req,
 
             if (it->value() == "form-data; name=\"username\"")
             {
-                username = formpart.content;
+                if (const auto* str =
+                        std::get_if<std::string>(&formpart.content))
+                {
+                    username = *str;
+                }
             }
             else if (it->value() == "form-data; name=\"password\"")
             {
-                password = formpart.content;
+                if (const auto* str =
+                        std::get_if<std::string>(&formpart.content))
+                {
+                    password = *str;
+                }
             }
             else
             {
