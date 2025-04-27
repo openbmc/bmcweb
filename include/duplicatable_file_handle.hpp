@@ -30,29 +30,37 @@ struct DuplicatableFileHandle
     // destruction.
     explicit DuplicatableFileHandle(std::string_view contents)
     {
-        std::filesystem::path tempDir("/tmp/bmcweb");
-        std::error_code ec;
-        std::filesystem::create_directories(tempDir, ec);
-        if (ec)
+        if (!initializeTemporaryFile())
         {
-            BMCWEB_LOG_ERROR("Failed to create directory {}: {}",
-                             tempDir.string(), ec.value());
-        }
-
-        filePath = (tempDir / "XXXXXXXXXXX").string();
-
-        int fd = mkstemp(filePath.data());
-        if (fd < 0)
-        {
-            BMCWEB_LOG_ERROR("Failed to create temporary file: {}", errno);
+            BMCWEB_LOG_ERROR("Failed to create temporary file");
             return;
         }
-        ssize_t written = write(fd, contents.data(), contents.size());
-        if (written < 0 || static_cast<size_t>(written) != contents.size())
+        boost::system::error_code ec;
+        fileHandle.write(contents.data(), contents.size(), ec);
+        if (ec)
         {
-            BMCWEB_LOG_ERROR("Failed to write to temporary file: {}", errno);
+            BMCWEB_LOG_ERROR("Failed to write to temporary file: {}",
+                             ec.message());
+            return;
         }
-        close(fd);
+        fileHandle.close(ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to close temporary file: {}",
+                             ec.message());
+            return;
+        }
+        BMCWEB_LOG_DEBUG("Created temporary file: {}", filePath);
+    }
+
+    static std::optional<DuplicatableFileHandle> createEmptyTemporaryFile()
+    {
+        DuplicatableFileHandle fh;
+        if (!fh.initializeTemporaryFile())
+        {
+            return std::nullopt;
+        }
+        return {fh};
     }
 
     void setFd(int fd)
@@ -84,7 +92,59 @@ struct DuplicatableFileHandle
     {
         if (!filePath.empty())
         {
-            std::filesystem::remove(filePath);
+            std::error_code ec;
+            std::filesystem::remove(filePath, ec);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to remove temporary file {}: {}",
+                                 filePath, ec.value());
+            }
         }
+    }
+
+    bool moveToPath(const std::filesystem::path& destination)
+    {
+        if (filePath.empty())
+        {
+            return false;
+        }
+
+        std::error_code ec;
+        std::filesystem::rename(filePath, destination, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to move file from {} to {}- {}", filePath,
+                             destination.string(), ec.message());
+            return false;
+        }
+        filePath = destination.string();
+        return true;
+    }
+
+  private:
+    bool initializeTemporaryFile()
+    {
+        std::filesystem::path tempDir("/tmp/bmcweb");
+        std::error_code ec;
+        std::filesystem::create_directories(tempDir, ec);
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to create directory {}: {}",
+                             tempDir.string(), ec.value());
+            return false;
+        }
+
+        filePath = (tempDir / "XXXXXXXXXXX").string();
+
+        int fd = mkstemp(filePath.data());
+        if (fd < 0)
+        {
+            BMCWEB_LOG_ERROR("Failed to create temporary file {}: {}", filePath,
+                             errno);
+            return false;
+        }
+        fileHandle.native_handle(fd);
+
+        return true;
     }
 };
