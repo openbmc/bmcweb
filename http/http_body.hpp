@@ -4,6 +4,7 @@
 
 #include "duplicatable_file_handle.hpp"
 #include "logging.hpp"
+#include "multipart_parser.hpp"
 #include "utility.hpp"
 #include "zstd_decompressor.hpp"
 
@@ -24,11 +25,13 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <limits>
 #include <optional>
 #include <string>
 #include <string_view>
 #include <utility>
+#include <variant>
 
 namespace bmcweb
 {
@@ -57,15 +60,45 @@ enum class CompressionType
     Zstd,
 };
 
+struct FileBody
+{
+    std::optional<size_t> fileSize;
+    DuplicatableFileHandle fileHandle;
+};
+
+struct MultiPartBody
+{
+    std::vector<FormPart> parts;
+};
+
 class HttpBody::value_type
 {
-    DuplicatableFileHandle fileHandle;
-    std::optional<size_t> fileSize;
-    std::string strBody;
+    friend HttpBody::reader;
+    friend HttpBody::writer;
+
+    std::variant<std::string, FileBody, MultiPartBody> bodyData;
+
+    std::span<const FormPart> getMimeFields() const
+    {
+        if (auto* multiPartBody = std::get_if<MultiPartBody>(&bodyData))
+        {
+            return {multiPartBody->parts};
+        }
+        return {};
+    }
+
+    std::span<FormPart> getMimeFields()
+    {
+        if (auto* multiPartBody = std::get_if<MultiPartBody>(&bodyData))
+        {
+            return {multiPartBody->parts};
+        }
+        return {};
+    }
 
   public:
     value_type() = default;
-    explicit value_type(std::string_view s) : strBody(s) {}
+    explicit value_type(std::string_view s) : bodyData(std::string(s)) {}
     explicit value_type(EncodingType e) : encodingType(e) {}
     EncodingType encodingType = EncodingType::Raw;
     CompressionType compressionType = CompressionType::Raw;
@@ -84,84 +117,113 @@ class HttpBody::value_type
 
     const boost::beast::file_posix& file() const
     {
-        return fileHandle.fileHandle;
+        if (const auto* fileBody = std::get_if<FileBody>(&bodyData))
+        {
+            return fileBody->fileHandle.fileHandle;
+        }
+        static boost::beast::file_posix emptyFile;
+        return emptyFile;
     }
 
     std::string& str()
     {
-        return strBody;
+        if (auto* s = std::get_if<std::string>(&bodyData))
+        {
+            return *s;
+        }
+        return bodyData.emplace<std::string>();
     }
 
     const std::string& str() const
     {
-        return strBody;
+        if (const auto* s = std::get_if<std::string>(&bodyData))
+        {
+            return *s;
+        }
+        static const std::string emptyString;
+        return emptyString;
+    }
+
+    std::span<FormPart> multipart()
+    {
+        if (auto* multiPartBody = std::get_if<MultiPartBody>(&bodyData))
+        {
+            return {multiPartBody->parts};
+        }
+        return {};
     }
 
     std::optional<size_t> payloadSize() const
     {
-        if (!fileHandle.fileHandle.is_open())
+        if (const auto* s = std::get_if<std::string>(&bodyData))
         {
-            return strBody.size();
+            return s->size();
         }
-        if (fileSize)
+        if (const auto* fileBody = std::get_if<FileBody>(&bodyData))
         {
-            if (encodingType == EncodingType::Base64)
+            if (fileBody->fileHandle.fileHandle.is_open() && fileBody->fileSize)
             {
-                return crow::utility::Base64Encoder::encodedSize(*fileSize);
+                if (encodingType == EncodingType::Base64)
+                {
+                    return crow::utility::Base64Encoder::encodedSize(
+                        *fileBody->fileSize);
+                }
             }
+            return fileBody->fileSize;
         }
-        return fileSize;
+        return std::nullopt;
     }
 
     void clear()
     {
-        strBody.clear();
-        strBody.shrink_to_fit();
-        fileHandle.fileHandle = boost::beast::file_posix();
-        fileSize = std::nullopt;
+        bodyData = std::string{};
         encodingType = EncodingType::Raw;
     }
 
     void open(const char* path, boost::beast::file_mode mode,
               boost::system::error_code& ec)
     {
-        fileHandle.fileHandle.open(path, mode, ec);
+        FileBody fileBody;
+        fileBody.fileHandle.fileHandle.open(path, mode, ec);
         if (ec)
         {
             return;
         }
         boost::system::error_code ec2;
-        uint64_t size = fileHandle.fileHandle.size(ec2);
+        uint64_t size = fileBody.fileHandle.fileHandle.size(ec2);
         if (!ec2)
         {
             BMCWEB_LOG_INFO("File size was {} bytes", size);
-            fileSize = static_cast<size_t>(size);
+            fileBody.fileSize = static_cast<size_t>(size);
         }
         else
         {
             BMCWEB_LOG_WARNING("Failed to read file size on {}", path);
         }
 
-        int fadvise = posix_fadvise(fileHandle.fileHandle.native_handle(), 0, 0,
-                                    POSIX_FADV_SEQUENTIAL);
+        int fadvise =
+            posix_fadvise(fileBody.fileHandle.fileHandle.native_handle(), 0, 0,
+                          POSIX_FADV_SEQUENTIAL);
         if (fadvise != 0)
         {
-            BMCWEB_LOG_WARNING("Fasvise returned {} ignoring", fadvise);
+            BMCWEB_LOG_WARNING("Fadvise returned {} ignoring", fadvise);
         }
+        bodyData = std::move(fileBody);
         ec = {};
     }
 
     void setFd(int fd, boost::system::error_code& ec)
     {
-        fileHandle.fileHandle.native_handle(fd);
+        FileBody& fileBody = bodyData.emplace<FileBody>();
+        fileBody.fileHandle.fileHandle.native_handle(fd);
 
         boost::system::error_code ec2;
-        uint64_t size = fileHandle.fileHandle.size(ec2);
+        uint64_t size = fileBody.fileHandle.fileHandle.size(ec2);
         if (!ec2)
         {
             if (size != 0 && size < std::numeric_limits<size_t>::max())
             {
-                fileSize = static_cast<size_t>(size);
+                fileBody.fileSize = static_cast<size_t>(size);
             }
         }
         ec = {};
@@ -283,16 +345,38 @@ class HttpBody::writer
 class HttpBody::reader
 {
     value_type& value;
+    std::optional<MultipartParser> multipartParser;
+    const boost::beast::http::fields& hdr;
 
   public:
     template <bool IsRequest, class Fields>
-    reader(boost::beast::http::header<IsRequest, Fields>& /*headers*/,
-           value_type& body) : value(body)
+    reader(boost::beast::http::header<IsRequest, Fields>& headers,
+           value_type& body) : value(body), hdr(headers)
     {}
 
     void init(const boost::optional<std::uint64_t>& contentLength,
               boost::beast::error_code& ec)
     {
+        std::string_view contentType =
+            hdr[boost::beast::http::field::content_type];
+
+        if (contentType.starts_with("multipart/form-data"))
+        {
+            BMCWEB_LOG_DEBUG("Processing multipart/form-data");
+            MultipartParser& mp = multipartParser.emplace();
+            ParserError state = mp.start(contentType);
+            if (state != ParserError::PARSER_SUCCESS)
+            {
+                BMCWEB_LOG_ERROR("Failed to parse content-type: {}",
+                                 contentType);
+                ec = {boost::system::errc::invalid_argument,
+                      boost::system::generic_category()};
+                return;
+            }
+
+            ec = {};
+        }
+
         if (contentLength)
         {
             if (!value.file().is_open())
@@ -311,14 +395,40 @@ class HttpBody::reader
         for (const auto b : boost::beast::buffers_range_ref(buffers))
         {
             const char* ptr = static_cast<const char*>(b.data());
-            value.str() += std::string_view(ptr, b.size());
+            if (multipartParser)
+            {
+                std::string_view buf(ptr, b.size());
+                ParserError state = multipartParser->parsePart(buf);
+                if (state != ParserError::PARSER_SUCCESS)
+                {
+                    BMCWEB_LOG_ERROR("Failed to parse part: {}",
+                                     static_cast<int>(state));
+                    ec = {boost::system::errc::invalid_argument,
+                          boost::system::generic_category()};
+                    return 0;
+                }
+            }
         }
         ec = {};
         return extra;
     }
 
-    static void finish(boost::system::error_code& ec)
+    void finish(boost::beast::error_code& ec)
     {
+        if (multipartParser)
+        {
+            ParserError state = multipartParser->finish();
+            if (state != ParserError::PARSER_SUCCESS)
+            {
+                BMCWEB_LOG_ERROR("Failed to finish multipart parser: {}",
+                                 static_cast<int>(state));
+                ec = {boost::system::errc::invalid_argument,
+                      boost::system::generic_category()};
+                return;
+            }
+            value.bodyData =
+                MultiPartBody{std::move(multipartParser->mime_fields)};
+        }
         ec = {};
     }
 };
