@@ -718,13 +718,149 @@ inline std::optional<std::string> processUrl(
     return std::make_optional(firmwareId);
 }
 
+inline std::optional<std::string> parseFormPartName(
+    const boost::beast::http::fields::const_iterator& contentDisposition)
+{
+    size_t semicolonPos = contentDisposition->value().find(';');
+    if (semicolonPos == std::string::npos)
+    {
+        return std::nullopt;
+    }
+
+    for (const auto& param : boost::beast::http::param_list{
+             contentDisposition->value().substr(semicolonPos)})
+    {
+        if (param.first == "name" && !param.second.empty())
+        {
+            return std::string(param.second);
+        }
+    }
+    return std::nullopt;
+}
+
+inline bool processUpdateParameters(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const FormPart& formpart, MultiPartUpdateParameters& multiRet)
+{
+    auto contentStr = formpart.getContentAsString();
+    if (!contentStr)
+    {
+        BMCWEB_LOG_ERROR("UpdateParameters is not a string");
+        messages::internalError(asyncResp->res);
+        return false;
+    }
+
+    nlohmann::json jsonContent =
+        nlohmann::json::parse(*contentStr, nullptr, false);
+    if (jsonContent.is_discarded())
+    {
+        BMCWEB_LOG_ERROR("Failed to parse JSON: {}", *contentStr);
+        messages::propertyValueTypeError(
+            asyncResp->res, std::string(*contentStr), "UpdateParameters");
+        return false;
+    }
+
+    nlohmann::json::object_t* obj =
+        jsonContent.get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
+    {
+        messages::propertyValueTypeError(
+            asyncResp->res, std::string(*contentStr), "UpdateParameters");
+        return false;
+    }
+
+    std::vector<std::string> tempTargets;
+    if (!json_util::readJsonObject(                            //
+            *obj, asyncResp->res,                              //
+            "@Redfish.OperationApplyTime", multiRet.applyTime, //
+            "Targets", tempTargets                             //
+            ))
+    {
+        return false;
+    }
+
+    for (size_t urlIndex = 0; urlIndex < tempTargets.size(); urlIndex++)
+    {
+        const std::string& target = tempTargets[urlIndex];
+        boost::system::result<boost::urls::url_view> url =
+            boost::urls::parse_origin_form(target);
+        auto res = processUrl(url);
+        if (!res.has_value())
+        {
+            messages::propertyValueFormatError(
+                asyncResp->res, target, std::format("Targets/{}", urlIndex));
+            return false;
+        }
+        multiRet.targets.emplace_back(res.value());
+    }
+
+    if (multiRet.targets.size() != 1)
+    {
+        messages::propertyValueFormatError(asyncResp->res, multiRet.targets,
+                                           "Targets");
+        return false;
+    }
+
+    return true;
+}
+
+inline bool processUpdateFile(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const FormPart& formpart, const std::filesystem::path& filepath,
+    std::string& uploadData)
+{
+    const auto* file = formpart.getMutableFileHandle();
+    if (file == nullptr)
+    {
+        BMCWEB_LOG_ERROR("UpdateFile is not a file handle");
+        messages::internalError(asyncResp->res);
+        return false;
+    }
+
+    DuplicatableFileHandle dupHandle(*file);
+    if (!dupHandle.releaseToPath(filepath))
+    {
+        BMCWEB_LOG_ERROR("Failed to move file to {}", filepath.string());
+        messages::internalError(asyncResp->res);
+        return false;
+    }
+
+    std::error_code ec;
+    // set the permission of the file to 640
+    std::filesystem::perms permission =
+        std::filesystem::perms::owner_read | std::filesystem::perms::group_read;
+    std::filesystem::permissions(filepath, permission, ec);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Failed to set permissions on {}: {}",
+                         filepath.string(), ec.message());
+        messages::internalError(asyncResp->res);
+        return false;
+    }
+
+    uploadData = filepath.string();
+    return true;
+}
+
 inline std::optional<MultiPartUpdateParameters>
     extractMultipartUpdateParameters(
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        MultipartParser parser)
+        const crow::Request& req)
 {
+    const auto& multipartOpt = req.multipart();
+    if (!multipartOpt.has_value())
+    {
+        BMCWEB_LOG_ERROR("No multipart data available");
+        return std::nullopt;
+    }
+
+    const auto& multipartData = multipartOpt.value();
+
     MultiPartUpdateParameters multiRet;
-    for (FormPart& formpart : parser.mime_fields)
+    bool hasUpdateFile = false;
+    std::filesystem::path filepath("/tmp/images/" + bmcweb::getRandomUUID());
+
+    for (const FormPart& formpart : multipartData)
     {
         boost::beast::http::fields::const_iterator it =
             formpart.fields.find("Content-Disposition");
@@ -735,74 +871,35 @@ inline std::optional<MultiPartUpdateParameters>
         }
         BMCWEB_LOG_INFO("Parsing value {}", it->value());
 
-        // The construction parameters of param_list must start with `;`
-        size_t index = it->value().find(';');
-        if (index == std::string::npos)
+        auto formFieldNameOpt = parseFormPartName(it);
+        if (!formFieldNameOpt.has_value())
         {
             continue;
         }
 
-        for (const auto& param :
-             boost::beast::http::param_list{it->value().substr(index)})
+        const std::string& formFieldName = formFieldNameOpt.value();
+
+        if (formFieldName == "UpdateParameters")
         {
-            if (param.first != "name" || param.second.empty())
+            if (!processUpdateParameters(asyncResp, formpart, multiRet))
             {
-                continue;
+                return std::nullopt;
             }
-
-            if (param.second == "UpdateParameters")
+        }
+        else if (formFieldName == "UpdateFile")
+        {
+            if (hasUpdateFile)
             {
-                std::vector<std::string> tempTargets;
-                nlohmann::json content =
-                    nlohmann::json::parse(formpart.content, nullptr, false);
-                if (content.is_discarded())
-                {
-                    return std::nullopt;
-                }
-                nlohmann::json::object_t* obj =
-                    content.get_ptr<nlohmann::json::object_t*>();
-                if (obj == nullptr)
-                {
-                    messages::propertyValueTypeError(
-                        asyncResp->res, formpart.content, "UpdateParameters");
-                    return std::nullopt;
-                }
-
-                if (!json_util::readJsonObject(                            //
-                        *obj, asyncResp->res,                              //
-                        "@Redfish.OperationApplyTime", multiRet.applyTime, //
-                        "Targets", tempTargets                             //
-                        ))
-                {
-                    return std::nullopt;
-                }
-
-                for (size_t urlIndex = 0; urlIndex < tempTargets.size();
-                     urlIndex++)
-                {
-                    const std::string& target = tempTargets[urlIndex];
-                    boost::system::result<boost::urls::url_view> url =
-                        boost::urls::parse_origin_form(target);
-                    auto res = processUrl(url);
-                    if (!res.has_value())
-                    {
-                        messages::propertyValueFormatError(
-                            asyncResp->res, target,
-                            std::format("Targets/{}", urlIndex));
-                        return std::nullopt;
-                    }
-                    multiRet.targets.emplace_back(res.value());
-                }
-                if (multiRet.targets.size() != 1)
-                {
-                    messages::propertyValueFormatError(
-                        asyncResp->res, multiRet.targets, "Targets");
-                    return std::nullopt;
-                }
+                BMCWEB_LOG_ERROR("Got 2 UpdateFiles");
+                messages::internalError(asyncResp->res);
+                return std::nullopt;
             }
-            else if (param.second == "UpdateFile")
+            hasUpdateFile = true;
+
+            if (!processUpdateFile(asyncResp, formpart, filepath,
+                                   multiRet.uploadData))
             {
-                multiRet.uploadData = std::move(formpart.content);
+                return std::nullopt;
             }
         }
     }
@@ -977,10 +1074,10 @@ inline void processUpdateRequest(
 
 inline void updateMultipartContext(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const crow::Request& req, MultipartParser&& parser)
+    const crow::Request& req)
 {
     std::optional<MultiPartUpdateParameters> multipart =
-        extractMultipartUpdateParameters(asyncResp, std::move(parser));
+        extractMultipartUpdateParameters(asyncResp, req);
     if (!multipart)
     {
         return;
@@ -1011,8 +1108,6 @@ inline void updateMultipartContext(
         // Setup callback for when new software detected
         monitorForSoftwareAvailable(asyncResp, req,
                                     "/redfish/v1/UpdateService");
-
-        uploadImageFile(asyncResp->res, multipart->uploadData);
     }
 }
 
@@ -1080,19 +1175,25 @@ inline void handleUpdateServiceMultipartUpdatePost(
     // Make sure that content type is multipart/form-data
     if (contentType.starts_with("multipart/form-data"))
     {
-        MultipartParser parser;
-
-        ParserError ec = parser.parse(req);
-        if (ec != ParserError::PARSER_SUCCESS)
+        // The multipart parsing is already done by the HTTP body reader
+        const auto& multipartData = req.multipart();
+        if (!multipartData.has_value())
         {
-            // handle error
-            BMCWEB_LOG_ERROR("MIME parse failed, ec : {}",
-                             static_cast<int>(ec));
-            messages::internalError(asyncResp->res);
+            // Parsing failed
+            BMCWEB_LOG_ERROR("Multipart parsing failed");
+            messages::missingOrMalformedPart(asyncResp->res);
             return;
         }
 
-        updateMultipartContext(asyncResp, req, std::move(parser));
+        if (multipartData->empty())
+        {
+            // Valid parsing but no parts found
+            BMCWEB_LOG_ERROR("No multipart parts found");
+            messages::missingOrMalformedPart(asyncResp->res);
+            return;
+        }
+
+        updateMultipartContext(asyncResp, req);
     }
     else
     {
