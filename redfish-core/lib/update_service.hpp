@@ -747,12 +747,17 @@ inline std::optional<std::string> parseFormPartName(
 
 inline std::optional<MultiPartUpdate::UpdateParameters> processUpdateParameters(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    std::string_view content)
+    const FormPart& formpart)
 {
     MultiPartUpdate::UpdateParameters multiRet;
+
+    const std::string& content = formpart.content;
     nlohmann::json jsonContent = nlohmann::json::parse(content, nullptr, false);
     if (jsonContent.is_discarded())
     {
+        BMCWEB_LOG_ERROR("Failed to parse JSON: {}", content);
+        messages::propertyValueTypeError(asyncResp->res, content,
+                                         "UpdateParameters");
         return std::nullopt;
     }
     nlohmann::json::object_t* obj =
@@ -800,11 +805,31 @@ inline std::optional<MultiPartUpdate::UpdateParameters> processUpdateParameters(
     return multiRet;
 }
 
+inline bool processUpdateFile(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const FormPart& formpart, const std::filesystem::path& filepath,
+    std::string& uploadData)
+{
+    const std::string& content = formpart.content;
+    if (content.empty())
+    {
+        BMCWEB_LOG_ERROR("Failed to move file to {}", filepath.string());
+        messages::internalError(asyncResp->res);
+        return false;
+    }
+
+    uploadData = filepath.string();
+    return true;
+}
+
 inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, MultipartParser parser)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::span<const FormPart> multipartData)
 {
     MultiPartUpdate multiRet;
-    for (FormPart& formpart : parser.mime_fields)
+    std::filesystem::path filepath("/tmp/images/" + bmcweb::getRandomUUID());
+
+    for (const FormPart& formpart : multipartData)
     {
         boost::beast::http::fields::const_iterator it =
             formpart.fields.find("Content-Disposition");
@@ -826,7 +851,7 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
         if (formFieldName == "UpdateParameters")
         {
             std::optional<MultiPartUpdate::UpdateParameters> params =
-                processUpdateParameters(asyncResp, formpart.content);
+                processUpdateParameters(asyncResp, formpart);
             if (!params)
             {
                 return std::nullopt;
@@ -835,7 +860,11 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
         }
         else if (formFieldName == "UpdateFile")
         {
-            multiRet.uploadData = std::move(formpart.content);
+            if (!processUpdateFile(asyncResp, formpart, filepath,
+                                   multiRet.uploadData))
+            {
+                return std::nullopt;
+            }
         }
     }
 
@@ -1058,10 +1087,10 @@ inline void processUpdateRequest(
 
 inline void updateMultipartContext(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const crow::Request& req, MultipartParser&& parser)
+    const crow::Request& req)
 {
     std::optional<MultiPartUpdate> multipart =
-        extractMultipartUpdateParameters(asyncResp, std::move(parser));
+        extractMultipartUpdateParameters(asyncResp, req.multipart());
     if (!multipart)
     {
         return;
@@ -1093,8 +1122,6 @@ inline void updateMultipartContext(
         // Setup callback for when new software detected
         monitorForSoftwareAvailable(asyncResp, req,
                                     "/redfish/v1/UpdateService");
-
-        uploadImageFile(asyncResp->res, multipart->uploadData);
     }
 }
 
@@ -1158,30 +1185,14 @@ inline void handleUpdateServiceMultipartUpdatePost(
         return;
     }
 
-    std::string_view contentType = req.getHeaderValue("Content-Type");
-    // Make sure that content type is multipart/form-data
-    if (contentType.starts_with("multipart/form-data"))
+    std::span<const FormPart> multipartData = req.multipart();
+    if (multipartData.empty())
     {
-        MultipartParser parser;
-
-        ParserError ec = parser.parse(req);
-        if (ec != ParserError::PARSER_SUCCESS)
-        {
-            // handle error
-            BMCWEB_LOG_ERROR("MIME parse failed, ec : {}",
-                             static_cast<int>(ec));
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        updateMultipartContext(asyncResp, req, std::move(parser));
+        messages::missingOrMalformedPart(asyncResp->res);
+        return;
     }
-    else
-    {
-        BMCWEB_LOG_DEBUG("Bad content type specified:{}", contentType);
-        asyncResp->res.result(
-            boost::beast::http::status::unsupported_media_type);
-    }
+
+    updateMultipartContext(asyncResp, req);
 }
 
 inline void handleUpdateServiceGet(

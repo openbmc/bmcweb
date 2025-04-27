@@ -16,6 +16,7 @@
 #include <boost/url/url_view.hpp>
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <system_error>
@@ -141,6 +142,11 @@ struct Request
     const std::string& body() const
     {
         return req.body().str();
+    }
+
+    std::span<const FormPart> multipart() const
+    {
+        return req.body().multipart();
     }
 
     bool target(std::string_view target)

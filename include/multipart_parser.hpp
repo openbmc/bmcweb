@@ -2,38 +2,45 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include "http_request.hpp"
+#include "logging.hpp"
 
 #include <boost/beast/http/fields.hpp>
 
 #include <algorithm>
 #include <array>
 #include <cstddef>
+#include <optional>
 #include <ranges>
 #include <string>
 #include <string_view>
+#include <variant>
 #include <vector>
 
 enum class ParserError
 {
     PARSER_SUCCESS,
     ERROR_BOUNDARY_FORMAT,
-    ERROR_BOUNDARY_CR,
-    ERROR_BOUNDARY_LF,
     ERROR_BOUNDARY_DATA,
     ERROR_EMPTY_HEADER,
     ERROR_HEADER_NAME,
+    ERROR_HEADER_NAME_TOO_LONG,
     ERROR_HEADER_VALUE,
+    ERROR_HEADER_VALUE_TOO_LONG,
     ERROR_HEADER_ENDING,
     ERROR_UNEXPECTED_END_OF_HEADER,
+    ERROR_UNEXPECTED_CHARACTER,
     ERROR_UNEXPECTED_END_OF_INPUT,
-    ERROR_OUT_OF_RANGE
+    ERROR_OUT_OF_RANGE,
+    ERROR_DATA_AFTER_TRAILER,
+    ERROR_DATA_AFTER_ERROR
 };
 
 enum class State
 {
     START,
     START_BOUNDARY,
+    BOUNDARY,
+    END_BOUNDARY,
     HEADER_FIELD_START,
     HEADER_FIELD,
     HEADER_VALUE_START,
@@ -42,14 +49,8 @@ enum class State
     HEADERS_ALMOST_DONE,
     PART_DATA_START,
     PART_DATA,
-    END
-};
-
-enum class Boundary
-{
-    NON_BOUNDARY,
-    PART_BOUNDARY,
-    END_BOUNDARY,
+    END,
+    ERROR
 };
 
 struct FormPart
@@ -61,33 +62,45 @@ struct FormPart
 class MultipartParser
 {
   public:
-    MultipartParser() = default;
-
-    [[nodiscard]] ParserError parse(const crow::Request& req)
+    [[nodiscard]] ParserError start(std::string_view contentType)
     {
-        std::string_view contentType = req.getHeaderValue("content-type");
-
-        const std::string boundaryFormat = "multipart/form-data; boundary=";
+        const std::string_view boundaryFormat =
+            "multipart/form-data; boundary=";
         if (!contentType.starts_with(boundaryFormat))
         {
+            state = State::ERROR;
             return ParserError::ERROR_BOUNDARY_FORMAT;
         }
-
-        std::string_view ctBoundary = contentType.substr(boundaryFormat.size());
-
-        boundary = "\r\n--";
-        boundary += ctBoundary;
-        indexBoundary();
-        lookbehind.resize(boundary.size() + 8);
+        std::string_view boundaryStr =
+            contentType.substr(boundaryFormat.size());
+        boundary = std::format("\r\n--{}\r\n", boundaryStr);
+        boundary_last = std::format("\r\n--{}--\r\n", boundaryStr);
+        boundary_first = std::format("--{}\r\n", boundaryStr);
         state = State::START;
+        return ParserError::PARSER_SUCCESS;
+    }
 
-        const std::string& buffer = req.body();
-        size_t len = buffer.size();
-        char cl = 0;
-
-        for (size_t i = 0; i < len; i++)
+    [[nodiscard]] ParserError parse(std::string_view contentType,
+                                    std::string_view body)
+    {
+        ParserError ret = start(contentType);
+        if (ret != ParserError::PARSER_SUCCESS)
         {
-            char c = buffer[i];
+            return ret;
+        }
+
+        ret = parsePart(body);
+        if (ret != ParserError::PARSER_SUCCESS)
+        {
+            return ret;
+        }
+        return finish();
+    }
+
+    ParserError parsePart(std::string_view buffer)
+    {
+        for (char c : buffer)
+        {
             switch (state)
             {
                 case State::START:
@@ -95,282 +108,186 @@ class MultipartParser
                     state = State::START_BOUNDARY;
                     [[fallthrough]];
                 case State::START_BOUNDARY:
-                    if (index == boundary.size() - 2)
+                {
+                    if (index < boundary_first.size())
                     {
-                        if (c != cr)
+                        if (c != boundary_first[index])
                         {
-                            return ParserError::ERROR_BOUNDARY_CR;
+                            state = State::ERROR;
+                            return ParserError::ERROR_BOUNDARY_DATA;
                         }
-                        index++;
-                        break;
-                    }
-                    else if (index - 1 == boundary.size() - 2)
-                    {
-                        if (c != lf)
-                        {
-                            return ParserError::ERROR_BOUNDARY_LF;
-                        }
-                        index = 0;
-                        mime_fields.emplace_back();
-                        state = State::HEADER_FIELD_START;
-                        break;
-                    }
-                    if (c != boundary[index + 2])
-                    {
-                        return ParserError::ERROR_BOUNDARY_DATA;
                     }
                     index++;
+                    if (index == boundary_first.size())
+                    {
+                        mime_fields.emplace_back();
+                        state = State::HEADER_FIELD_START;
+                        index = 0;
+                    }
+
                     break;
+                }
                 case State::HEADER_FIELD_START:
                     currentHeaderName.resize(0);
                     state = State::HEADER_FIELD;
-                    headerFieldMark = i;
                     index = 0;
                     [[fallthrough]];
                 case State::HEADER_FIELD:
-                    if (c == cr)
+                {
+                    if (currentHeaderName.size() > 400)
                     {
-                        headerFieldMark = 0;
+                        state = State::ERROR;
+                        return ParserError::ERROR_HEADER_NAME_TOO_LONG;
+                    }
+                    if (c == '\r')
+                    {
                         state = State::HEADERS_ALMOST_DONE;
                         break;
                     }
 
                     index++;
-                    if (c == hyphen)
-                    {
-                        break;
-                    }
 
-                    if (c == colon)
+                    if (c == ':')
                     {
-                        if (index == 1)
+                        if (currentHeaderName.empty())
                         {
+                            state = State::ERROR;
                             return ParserError::ERROR_EMPTY_HEADER;
                         }
 
-                        currentHeaderName.append(&buffer[headerFieldMark],
-                                                 i - headerFieldMark);
                         state = State::HEADER_VALUE_START;
                         break;
                     }
-                    cl = lower(c);
-                    if (cl < 'a' || cl > 'z')
+                    char cl = lower(c);
+                    if ((cl < 'a' || cl > 'z') && cl != '-')
                     {
+                        state = State::ERROR;
                         return ParserError::ERROR_HEADER_NAME;
                     }
+                    currentHeaderName.push_back(cl);
                     break;
+                }
                 case State::HEADER_VALUE_START:
-                    if (c == space)
+                    if (c == ' ')
                     {
                         break;
                     }
-                    headerValueMark = i;
+                    currentHeaderValue.resize(0);
                     state = State::HEADER_VALUE;
                     [[fallthrough]];
+
                 case State::HEADER_VALUE:
-                    if (c == cr)
+                {
+                    if (currentHeaderName.size() > 400)
                     {
-                        std::string_view value(&buffer[headerValueMark],
-                                               i - headerValueMark);
-                        mime_fields.rbegin()->fields.set(currentHeaderName,
-                                                         value);
-                        state = State::HEADER_VALUE_ALMOST_DONE;
+                        state = State::ERROR;
+                        return ParserError::ERROR_HEADER_VALUE_TOO_LONG;
                     }
-                    break;
-                case State::HEADER_VALUE_ALMOST_DONE:
-                    if (c != lf)
+                    if (c == '\r')
                     {
+                        mime_fields.back().fields.set(currentHeaderName,
+                                                      currentHeaderValue);
+                        state = State::HEADER_VALUE_ALMOST_DONE;
+                        break;
+                    }
+                    currentHeaderValue.push_back(c);
+                    break;
+                }
+                case State::HEADER_VALUE_ALMOST_DONE:
+                {
+                    if (c != '\n')
+                    {
+                        state = State::ERROR;
                         return ParserError::ERROR_HEADER_VALUE;
                     }
                     state = State::HEADER_FIELD_START;
                     break;
+                }
                 case State::HEADERS_ALMOST_DONE:
-                    if (c != lf)
+                {
+                    if (c != '\n')
                     {
+                        state = State::ERROR;
                         return ParserError::ERROR_HEADER_ENDING;
                     }
                     if (index > 0)
                     {
+                        state = State::ERROR;
                         return ParserError::ERROR_UNEXPECTED_END_OF_HEADER;
                     }
+
                     state = State::PART_DATA_START;
                     break;
+                }
                 case State::PART_DATA_START:
                     state = State::PART_DATA;
-                    partDataMark = i;
+                    index = 0;
                     [[fallthrough]];
+
                 case State::PART_DATA:
                 {
-                    if (index == 0)
+                    std::string& content = mime_fields.back().content;
+                    content += c;
+                    if (content.ends_with(boundary))
                     {
-                        skipNonBoundary(buffer, boundary.size() - 1, i);
-                        c = buffer[i];
+                        content.resize(content.size() - boundary.size());
+                        state = State::HEADER_FIELD_START;
+                        index = 0;
+                        mime_fields.emplace_back();
                     }
-                    if (auto ec = processPartData(buffer, i, c);
-                        ec != ParserError::PARSER_SUCCESS)
+                    else if (content.ends_with(boundary_last))
                     {
-                        return ec;
+                        content.resize(content.size() - boundary_last.size());
+                        state = State::END;
+                        index = 0;
                     }
                     break;
                 }
                 case State::END:
-                    break;
+                {
+                    return ParserError::ERROR_DATA_AFTER_TRAILER;
+                }
+                case State::ERROR:
+                {
+                    return ParserError::ERROR_DATA_AFTER_ERROR;
+                }
+
                 default:
+                {
+                    state = State::ERROR;
                     return ParserError::ERROR_UNEXPECTED_END_OF_INPUT;
+                }
             }
         }
 
+        return ParserError::PARSER_SUCCESS;
+    }
+
+    ParserError finish()
+    {
         if (state != State::END)
         {
+            state = State::ERROR;
             return ParserError::ERROR_UNEXPECTED_END_OF_INPUT;
         }
 
         return ParserError::PARSER_SUCCESS;
     }
+
     std::vector<FormPart> mime_fields;
     std::string boundary;
+    std::string boundary_last;
+    std::string boundary_first;
 
   private:
-    void indexBoundary()
-    {
-        std::ranges::fill(boundaryIndex, 0);
-        for (const char current : boundary)
-        {
-            boundaryIndex[static_cast<unsigned char>(current)] = true;
-        }
-    }
-
     static char lower(char c)
     {
         return static_cast<char>(c | 0x20);
     }
 
-    bool isBoundaryChar(char c) const
-    {
-        return boundaryIndex[static_cast<unsigned char>(c)];
-    }
-
-    void skipNonBoundary(const std::string& buffer, size_t boundaryEnd,
-                         size_t& i)
-    {
-        // boyer-moore derived algorithm to safely skip non-boundary data
-        while (i + boundary.size() <= buffer.length())
-        {
-            if (isBoundaryChar(buffer[i + boundaryEnd]))
-            {
-                break;
-            }
-            i += boundary.size();
-        }
-    }
-
-    ParserError processPartData(const std::string& buffer, size_t& i, char c)
-    {
-        size_t prevIndex = index;
-
-        if (index < boundary.size())
-        {
-            if (boundary[index] == c)
-            {
-                if (index == 0)
-                {
-                    const char* start = &buffer[partDataMark];
-                    size_t size = i - partDataMark;
-                    mime_fields.rbegin()->content +=
-                        std::string_view(start, size);
-                }
-                index++;
-            }
-            else
-            {
-                index = 0;
-            }
-        }
-        else if (index == boundary.size())
-        {
-            index++;
-            if (c == cr)
-            {
-                // cr = part boundary
-                flags = Boundary::PART_BOUNDARY;
-            }
-            else if (c == hyphen)
-            {
-                // hyphen = end boundary
-                flags = Boundary::END_BOUNDARY;
-            }
-            else
-            {
-                index = 0;
-            }
-        }
-        else
-        {
-            if (flags == Boundary::PART_BOUNDARY)
-            {
-                index = 0;
-                if (c == lf)
-                {
-                    // unset the PART_BOUNDARY flag
-                    flags = Boundary::NON_BOUNDARY;
-                    mime_fields.emplace_back();
-                    state = State::HEADER_FIELD_START;
-                    return ParserError::PARSER_SUCCESS;
-                }
-            }
-            if (flags == Boundary::END_BOUNDARY)
-            {
-                if (c == hyphen)
-                {
-                    state = State::END;
-                }
-                else
-                {
-                    flags = Boundary::NON_BOUNDARY;
-                    index = 0;
-                }
-            }
-        }
-
-        if (index > 0)
-        {
-            if ((index - 1) >= lookbehind.size())
-            {
-                // Should never happen, but when it does it won't cause crash
-                return ParserError::ERROR_OUT_OF_RANGE;
-            }
-            lookbehind[index - 1] = c;
-        }
-        else if (prevIndex > 0)
-        {
-            // if our boundary turned out to be rubbish, the captured
-            // lookbehind belongs to partData
-
-            mime_fields.rbegin()->content += lookbehind.substr(0, prevIndex);
-            partDataMark = i;
-
-            // reconsider the current character even so it interrupted
-            // the sequence it could be the beginning of a new sequence
-            i--;
-        }
-        return ParserError::PARSER_SUCCESS;
-    }
-
     std::string currentHeaderName;
     std::string currentHeaderValue;
 
-    static constexpr char cr = '\r';
-    static constexpr char lf = '\n';
-    static constexpr char space = ' ';
-    static constexpr char hyphen = '-';
-    static constexpr char colon = ':';
-
-    std::array<bool, 256> boundaryIndex{};
-    std::string lookbehind;
-    State state{State::START};
-    Boundary flags{Boundary::NON_BOUNDARY};
+    State state = State::START;
     size_t index = 0;
-    size_t partDataMark = 0;
-    size_t headerFieldMark = 0;
-    size_t headerValueMark = 0;
 };
