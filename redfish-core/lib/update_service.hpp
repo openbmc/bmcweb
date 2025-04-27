@@ -623,13 +623,22 @@ inline void handleUpdateServiceSimpleUpdateAction(
     BMCWEB_LOG_DEBUG("Exit UpdateService.SimpleUpdate doPost");
 }
 
-inline void uploadImageFile(crow::Response& res, std::string_view body)
+inline void uploadImageFile(crow::Response& res, std::string_view input)
 {
+    // Check if the input is a filepath (from a temporary file)
+    if (input.starts_with("/tmp/images/"))
+    {
+        BMCWEB_LOG_DEBUG("Using existing file at {}", input);
+        return;
+    }
+
     std::filesystem::path filepath("/tmp/images/" + bmcweb::getRandomUUID());
 
     BMCWEB_LOG_DEBUG("Writing file to {}", filepath.string());
+
     std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                     std::ofstream::trunc);
+
     // set the permission of the file to 640
     std::filesystem::perms permission =
         std::filesystem::perms::owner_read | std::filesystem::perms::group_read;
@@ -721,10 +730,13 @@ inline std::optional<std::string> processUrl(
 inline std::optional<MultiPartUpdateParameters>
     extractMultipartUpdateParameters(
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        MultipartParser parser)
+        const crow::Request& req)
 {
     MultiPartUpdateParameters multiRet;
-    for (FormPart& formpart : parser.mime_fields)
+    bool hasUpdateFile = false;
+    std::filesystem::path filepath("/tmp/images/" + bmcweb::getRandomUUID());
+
+    for (const FormPart& formpart : req.multipart())
     {
         boost::beast::http::fields::const_iterator it =
             formpart.fields.find("Content-Disposition");
@@ -753,18 +765,21 @@ inline std::optional<MultiPartUpdateParameters>
             if (param.second == "UpdateParameters")
             {
                 std::vector<std::string> tempTargets;
-                nlohmann::json content =
-                    nlohmann::json::parse(formpart.content, nullptr, false);
+                nlohmann::json content = nlohmann::json::parse(
+                    formpart.contentString(), nullptr, false);
                 if (content.is_discarded())
                 {
+                    BMCWEB_LOG_ERROR("Failed to parse JSON: {}",
+                                     formpart.contentString());
                     return std::nullopt;
                 }
                 nlohmann::json::object_t* obj =
                     content.get_ptr<nlohmann::json::object_t*>();
                 if (obj == nullptr)
                 {
-                    messages::propertyValueTypeError(
-                        asyncResp->res, formpart.content, "UpdateParameters");
+                    messages::propertyValueTypeError(asyncResp->res,
+                                                     formpart.contentString(),
+                                                     "UpdateParameters");
                     return std::nullopt;
                 }
 
@@ -802,7 +817,46 @@ inline std::optional<MultiPartUpdateParameters>
             }
             else if (param.second == "UpdateFile")
             {
-                multiRet.uploadData = std::move(formpart.content);
+                if (hasUpdateFile)
+                {
+                    BMCWEB_LOG_ERROR("Got 2 UpdateFiles");
+                    messages::internalError(asyncResp->res);
+                    return std::nullopt;
+                }
+                hasUpdateFile = true;
+                auto* file = std::get_if<TemporaryReleasableFileHandle>(
+                    &formpart.content);
+                if (file == nullptr)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "Failed to get file handle for UpdateFile content");
+                    messages::internalError(asyncResp->res);
+                    return std::nullopt;
+                }
+
+                if (!const_cast<TemporaryReleasableFileHandle*>(file)
+                         ->releaseToPath(filepath))
+                {
+                    BMCWEB_LOG_ERROR("Failed to move file to {}",
+                                     filepath.string());
+                    messages::internalError(asyncResp->res);
+                    return std::nullopt;
+                }
+
+                std::error_code ec;
+                // set the permission of the file to 640
+                std::filesystem::perms permission =
+                    std::filesystem::perms::owner_read |
+                    std::filesystem::perms::group_read;
+                std::filesystem::permissions(filepath, permission, ec);
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("Failed to set permissions on {}: {}",
+                                     filepath.string(), ec.message());
+                    messages::internalError(asyncResp->res);
+                    return std::nullopt;
+                }
+                multiRet.uploadData = filepath.string();
             }
         }
     }
@@ -977,10 +1031,10 @@ inline void processUpdateRequest(
 
 inline void updateMultipartContext(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const crow::Request& req, MultipartParser&& parser)
+    const crow::Request& req)
 {
     std::optional<MultiPartUpdateParameters> multipart =
-        extractMultipartUpdateParameters(asyncResp, std::move(parser));
+        extractMultipartUpdateParameters(asyncResp, req);
     if (!multipart)
     {
         return;
@@ -1063,19 +1117,15 @@ inline void handleUpdateServicePost(
     }
     else if (contentType.starts_with("multipart/form-data"))
     {
-        MultipartParser parser;
-
-        ParserError ec = parser.parse(req);
-        if (ec != ParserError::PARSER_SUCCESS)
+        // The multipart parsing is already done by the HTTP body reader
+        if (req.multipart().empty())
         {
-            // handle error
-            BMCWEB_LOG_ERROR("MIME parse failed, ec : {}",
-                             static_cast<int>(ec));
+            BMCWEB_LOG_ERROR("MIME parse failed");
             messages::internalError(asyncResp->res);
             return;
         }
 
-        updateMultipartContext(asyncResp, req, std::move(parser));
+        updateMultipartContext(asyncResp, req);
     }
     else
     {

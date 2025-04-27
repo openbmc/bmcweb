@@ -8,7 +8,6 @@
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
-#include "multipart_parser.hpp"
 #include "pam_authenticate.hpp"
 #include "sessions.hpp"
 
@@ -33,7 +32,6 @@ namespace login_routes
 inline void handleLogin(const crow::Request& req,
                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    MultipartParser parser;
     std::string_view contentType = req.getHeaderValue("content-type");
     std::string_view username;
     std::string_view password;
@@ -121,45 +119,6 @@ inline void handleLogin(const crow::Request& req,
                         }
                     }
                 }
-            }
-        }
-    }
-    else if (contentType.starts_with("multipart/form-data"))
-    {
-        ParserError ec = parser.parse(req);
-        if (ec != ParserError::PARSER_SUCCESS)
-        {
-            // handle error
-            BMCWEB_LOG_ERROR("MIME parse failed, ec : {}",
-                             static_cast<int>(ec));
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
-
-        for (const FormPart& formpart : parser.mime_fields)
-        {
-            boost::beast::http::fields::const_iterator it =
-                formpart.fields.find("Content-Disposition");
-            if (it == formpart.fields.end())
-            {
-                BMCWEB_LOG_ERROR("Couldn't find Content-Disposition");
-                asyncResp->res.result(boost::beast::http::status::bad_request);
-                continue;
-            }
-
-            BMCWEB_LOG_INFO("Parsing value {}", it->value());
-
-            if (it->value() == "form-data; name=\"username\"")
-            {
-                username = formpart.content;
-            }
-            else if (it->value() == "form-data; name=\"password\"")
-            {
-                password = formpart.content;
-            }
-            else
-            {
-                BMCWEB_LOG_INFO("Extra format, ignore it.{}", it->value());
             }
         }
     }
