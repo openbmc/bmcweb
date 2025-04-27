@@ -31,6 +31,11 @@ constexpr std::string_view goodMultipartParserBody =
     "{\r\n--------d74496d6695887}\r\n"
     "-----------------------------d74496d66958873e--\r\n";
 
+std::string_view sv(const FormPart::buffer_type& body)
+{
+    return std::string_view(body.data(), body.size());
+}
+
 TEST_F(MultipartTest, TestGoodMultipartParser)
 {
     ParserError rc =
@@ -45,16 +50,17 @@ TEST_F(MultipartTest, TestGoodMultipartParser)
 
     EXPECT_EQ(parser.mime_fields[0].fields["Content-Disposition"],
               "form-data; name=\"Test1\"");
-    EXPECT_EQ(parser.mime_fields[0].content,
+    EXPECT_EQ(sv(parser.mime_fields[0].content),
               "111111111111111111111111112222222222222222222222222222222");
 
     EXPECT_EQ(parser.mime_fields[1].fields["Content-Disposition"],
               "form-data; name=\"Test2\"");
-    EXPECT_EQ(parser.mime_fields[1].content,
+    EXPECT_EQ(sv(parser.mime_fields[1].content),
               "{\r\n-----------------------------d74496d66958873e123456");
     EXPECT_EQ(parser.mime_fields[2].fields["Content-Disposition"],
               "form-data; name=\"Test3\"");
-    EXPECT_EQ(parser.mime_fields[2].content, "{\r\n--------d74496d6695887}");
+    EXPECT_EQ(sv(parser.mime_fields[2].content),
+              "{\r\n--------d74496d6695887}");
 }
 
 TEST(MultipartTestChunked, TestGoodMultipartParserChunked)
@@ -65,7 +71,8 @@ TEST(MultipartTestChunked, TestGoodMultipartParserChunked)
 
         EXPECT_EQ(
             parser.start(
-                "multipart/form-data; boundary=---------------------------d74496d66958873e"),
+                "multipart/form-data; boundary=---------------------------d74496d66958873e",
+                goodMultipartParserBody.size()),
             ParserError::PARSER_SUCCESS);
 
         std::string_view remaining = goodMultipartParserBody;
@@ -85,17 +92,17 @@ TEST(MultipartTestChunked, TestGoodMultipartParserChunked)
         EXPECT_EQ(parser.mime_fields[0].fields["Content-Disposition"],
                   "form-data; name=\"Test1\"");
 
-        EXPECT_EQ(parser.mime_fields[0].content,
+        EXPECT_EQ(sv(parser.mime_fields[0].content),
                   "111111111111111111111111112222222222222222222222222222222");
 
         EXPECT_EQ(parser.mime_fields[1].fields["Content-Disposition"],
                   "form-data; name=\"Test2\"");
 
-        EXPECT_EQ(parser.mime_fields[1].content,
+        EXPECT_EQ(sv(parser.mime_fields[1].content),
                   "{\r\n-----------------------------d74496d66958873e123456");
         EXPECT_EQ(parser.mime_fields[2].fields["Content-Disposition"],
                   "form-data; name=\"Test3\"");
-        EXPECT_EQ(parser.mime_fields[2].content,
+        EXPECT_EQ(sv(parser.mime_fields[2].content),
                   "{\r\n--------d74496d6695887}");
     }
 }
@@ -299,7 +306,7 @@ TEST_F(MultipartTest, TestGoodMultipartParserMultipleHeaders)
     EXPECT_EQ(parser.mime_fields[0].fields["Content-Disposition"],
               "form-data; name=\"Test1\"");
     EXPECT_EQ(parser.mime_fields[0].fields["Other-Header"], "value=\"v1\"");
-    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+    EXPECT_EQ(sv(parser.mime_fields[0].content), "Data1");
 }
 
 TEST_F(MultipartTest, TestErrorHeaderWithoutColon)
@@ -339,7 +346,7 @@ TEST_F(MultipartTest, TestUnknownHeaderIsCorrectlyParsed)
     EXPECT_EQ(
         parser.mime_fields[0].fields["t-DiPpcccc"],
         "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccgcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaa");
-    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+    EXPECT_EQ(sv(parser.mime_fields[0].content), "Data1");
 }
 
 TEST_F(MultipartTest, TestErrorMissingSeparatorBetweenMimeFieldsAndData)
@@ -380,7 +387,7 @@ TEST_F(MultipartTest, TestDataWithoutMimeFields)
     EXPECT_EQ(std::distance(parser.mime_fields[0].fields.begin(),
                             parser.mime_fields[0].fields.end()),
               0);
-    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+    EXPECT_EQ(sv(parser.mime_fields[0].content), "Data1");
 }
 
 TEST_F(MultipartTest, TestErrorMissingFinalBoundry)
@@ -431,7 +438,7 @@ TEST_F(MultipartTest, TestFinalBoundaryIsCorrectlyRecognized)
 
     EXPECT_EQ(parser.mime_fields[0].fields["Content-Disposition"],
               "form-data; name=\"Test1\"");
-    EXPECT_EQ(parser.mime_fields[0].content,
+    EXPECT_EQ(sv(parser.mime_fields[0].content),
               "Data1\r\n"
               "----XX-abc-\r\n"
               "StillData1");
