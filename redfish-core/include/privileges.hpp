@@ -7,8 +7,8 @@
 #include "sessions.hpp"
 
 #include <boost/beast/http/verb.hpp>
+#include <boost/container/devector.hpp>
 #include <boost/container/flat_map.hpp>
-#include <boost/container/vector.hpp>
 
 #include <array>
 #include <bitset>
