@@ -17,27 +17,26 @@ class MultipartTest : public Test
 {
   public:
     MultipartParser parser;
-    std::error_code ec;
 };
+
+constexpr std::string_view goodMultipartParserBody =
+    "-----------------------------d74496d66958873e\r\n"
+    "Content-Disposition: form-data; name=\"Test1\"\r\n\r\n"
+    "111111111111111111111111112222222222222222222222222222222\r\n"
+    "-----------------------------d74496d66958873e\r\n"
+    "Content-Disposition: form-data; name=\"Test2\"\r\n\r\n"
+    "{\r\n-----------------------------d74496d66958873e123456\r\n"
+    "-----------------------------d74496d66958873e\r\n"
+    "Content-Disposition: form-data; name=\"Test3\"\r\n\r\n"
+    "{\r\n--------d74496d6695887}\r\n"
+    "-----------------------------d74496d66958873e--\r\n";
 
 TEST_F(MultipartTest, TestGoodMultipartParser)
 {
-    std::string_view body =
-        "-----------------------------d74496d66958873e\r\n"
-        "Content-Disposition: form-data; name=\"Test1\"\r\n\r\n"
-        "111111111111111111111111112222222222222222222222222222222\r\n"
-        "-----------------------------d74496d66958873e\r\n"
-        "Content-Disposition: form-data; name=\"Test2\"\r\n\r\n"
-        "{\r\n-----------------------------d74496d66958873e123456\r\n"
-        "-----------------------------d74496d66958873e\r\n"
-        "Content-Disposition: form-data; name=\"Test3\"\r\n\r\n"
-        "{\r\n--------d74496d6695887}\r\n"
-        "-----------------------------d74496d66958873e--\r\n";
-
     ParserError rc =
         parser.parse("multipart/form-data; "
                      "boundary=---------------------------d74496d66958873e",
-                     body);
+                     goodMultipartParserBody);
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
     EXPECT_EQ(parser.boundary,
@@ -56,6 +55,49 @@ TEST_F(MultipartTest, TestGoodMultipartParser)
     EXPECT_EQ(parser.mime_fields[2].fields["Content-Disposition"],
               "form-data; name=\"Test3\"");
     EXPECT_EQ(parser.mime_fields[2].content, "{\r\n--------d74496d6695887}");
+}
+
+TEST(MultipartTestChunked, TestGoodMultipartParserChunked)
+{
+    for (size_t chunkSize : {1UZ, 2UZ, 4UZ, goodMultipartParserBody.size()})
+    {
+        MultipartParser parser;
+
+        EXPECT_EQ(
+            parser.start(
+                "multipart/form-data; boundary=---------------------------d74496d66958873e"),
+            ParserError::PARSER_SUCCESS);
+
+        std::string_view remaining = goodMultipartParserBody;
+        while (!remaining.empty())
+        {
+            std::string_view chunk = remaining.substr(0, chunkSize);
+            remaining.remove_prefix(chunk.size());
+            ASSERT_EQ(parser.parsePart(chunk), ParserError::PARSER_SUCCESS);
+        }
+
+        EXPECT_EQ(parser.finish(), ParserError::PARSER_SUCCESS);
+
+        EXPECT_EQ(parser.boundary,
+                  "\r\n-----------------------------d74496d66958873e");
+        EXPECT_EQ(parser.mime_fields.size(), 3);
+
+        EXPECT_EQ(parser.mime_fields[0].fields["Content-Disposition"],
+                  "form-data; name=\"Test1\"");
+
+        EXPECT_EQ(parser.mime_fields[0].content,
+                  "111111111111111111111111112222222222222222222222222222222");
+
+        EXPECT_EQ(parser.mime_fields[1].fields["Content-Disposition"],
+                  "form-data; name=\"Test2\"");
+
+        EXPECT_EQ(parser.mime_fields[1].content,
+                  "{\r\n-----------------------------d74496d66958873e123456");
+        EXPECT_EQ(parser.mime_fields[2].fields["Content-Disposition"],
+                  "form-data; name=\"Test3\"");
+        EXPECT_EQ(parser.mime_fields[2].content,
+                  "{\r\n--------d74496d6695887}");
+    }
 }
 
 TEST_F(MultipartTest, TestBadMultipartParser1)
@@ -123,7 +165,7 @@ TEST_F(MultipartTest, TestErrorBoundaryCR)
         parser.parse("multipart/form-data; "
                      "boundary=---------------------------d74496d66958873e",
                      body),
-        ParserError::ERROR_BOUNDARY_CR);
+        ParserError::ERROR_BOUNDARY_FORMAT);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryLF)
@@ -141,7 +183,7 @@ TEST_F(MultipartTest, TestErrorBoundaryLF)
         parser.parse("multipart/form-data; "
                      "boundary=---------------------------d74496d66958873e",
                      body),
-        ParserError::ERROR_BOUNDARY_LF);
+        ParserError::ERROR_BOUNDARY_FORMAT);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryData)
@@ -159,7 +201,7 @@ TEST_F(MultipartTest, TestErrorBoundaryData)
         parser.parse("multipart/form-data; "
                      "boundary=---------------------------d7449sd6d66958873e",
                      body),
-        ParserError::ERROR_BOUNDARY_DATA);
+        ParserError::ERROR_BOUNDARY_FORMAT);
 }
 
 TEST_F(MultipartTest, TestErrorEmptyHeader)
