@@ -801,10 +801,10 @@ inline std::optional<MultiPartUpdate::UpdateParameters> processUpdateParameters(
 }
 
 inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, MultipartParser parser)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, crow::Request& req)
 {
     MultiPartUpdate multiRet;
-    for (FormPart& formpart : parser.mime_fields)
+    for (FormPart& formpart : req.multipart())
     {
         boost::beast::http::fields::const_iterator it =
             formpart.fields.find("Content-Disposition");
@@ -1057,11 +1057,10 @@ inline void processUpdateRequest(
 }
 
 inline void updateMultipartContext(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const crow::Request& req, MultipartParser&& parser)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, crow::Request& req)
 {
     std::optional<MultiPartUpdate> multipart =
-        extractMultipartUpdateParameters(asyncResp, std::move(parser));
+        extractMultipartUpdateParameters(asyncResp, req);
     if (!multipart)
     {
         return;
@@ -1150,7 +1149,7 @@ inline void handleUpdateServicePost(
 }
 
 inline void handleUpdateServiceMultipartUpdatePost(
-    App& app, const crow::Request& req,
+    App& app, crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1158,30 +1157,7 @@ inline void handleUpdateServiceMultipartUpdatePost(
         return;
     }
 
-    std::string_view contentType = req.getHeaderValue("Content-Type");
-    // Make sure that content type is multipart/form-data
-    if (contentType.starts_with("multipart/form-data"))
-    {
-        MultipartParser parser;
-
-        ParserError ec = parser.parse(contentType, req.body());
-        if (ec != ParserError::PARSER_SUCCESS)
-        {
-            // handle error
-            BMCWEB_LOG_ERROR("MIME parse failed, ec : {}",
-                             static_cast<int>(ec));
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        updateMultipartContext(asyncResp, req, std::move(parser));
-    }
-    else
-    {
-        BMCWEB_LOG_DEBUG("Bad content type specified:{}", contentType);
-        asyncResp->res.result(
-            boost::beast::http::status::unsupported_media_type);
-    }
+    updateMultipartContext(asyncResp, req);
 }
 
 inline void handleUpdateServiceGet(
