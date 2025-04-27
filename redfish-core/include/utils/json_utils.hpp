@@ -697,6 +697,19 @@ inline const nlohmann::json* findNestedKey(std::string_view key,
     it = value.find(key);
     if (it == value.end())
     {
+        // check if it is an Events Array
+        if (value.contains("Events") && value["Events"].is_array())
+        {
+            auto& events = value["Events"];
+            for (auto& event : events)
+            {
+                auto it = event.find(key);
+                if (it != event.end())
+                {
+                    return &*it;
+                }
+            }
+        }
         return nullptr;
     }
     return &*it;
