@@ -143,6 +143,16 @@ struct Request
         return req.body().str();
     }
 
+    const std::vector<FormPart>& multipart() const
+    {
+        return req.body().multipart();
+    }
+
+    std::vector<FormPart>& multipart()
+    {
+        return req.body().multipart();
+    }
+
     bool target(std::string_view target)
     {
         req.target(target);
