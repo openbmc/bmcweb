@@ -364,7 +364,8 @@ class HttpBody::reader
         {
             BMCWEB_LOG_DEBUG("Processing multipart/form-data");
             MultipartParser& mp = multipartParser.emplace();
-            ParserError state = mp.start(contentType);
+            size_t expectedBytes = contentLength.value_or(0U);
+            ParserError state = mp.start(contentType, expectedBytes);
             if (state != ParserError::PARSER_SUCCESS)
             {
                 BMCWEB_LOG_ERROR("Failed to parse content-type: {}",
@@ -397,7 +398,7 @@ class HttpBody::reader
             const char* ptr = static_cast<const char*>(b.data());
             if (multipartParser)
             {
-                std::string_view buf(ptr, b.size());
+                std::span<const char> buf(ptr, b.size());
                 ParserError state = multipartParser->parsePart(buf);
                 if (state != ParserError::PARSER_SUCCESS)
                 {
