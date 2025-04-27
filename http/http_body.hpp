@@ -69,6 +69,25 @@ struct FileBody
 struct MultiPartBody
 {
     std::vector<FormPart> parts;
+
+    MultiPartBody(std::vector<FormPart>&& partsIn) : parts(std::move(partsIn))
+    {}
+    MultiPartBody(MultiPartBody&& other) noexcept = default;
+    MultiPartBody& operator=(MultiPartBody&& other) noexcept = default;
+
+    // Explicitly disallow copying;  Because Response::CopyBody still exists, we
+    // need to have these not deleted, but we can make sure they don't do
+    // anything useful to prevent usage.  When copyBody is removed, we can
+    // delete these.
+    MultiPartBody(const MultiPartBody& /*other*/) noexcept
+    {
+        BMCWEB_LOG_CRITICAL("Copying MultiPartBody is not supported");
+    }
+    MultiPartBody& operator=(const MultiPartBody& /*other*/) noexcept
+    {
+        BMCWEB_LOG_CRITICAL("Copying MultiPartBody is not supported");
+        return *this;
+    }
 };
 
 class HttpBody::value_type
@@ -364,7 +383,17 @@ class HttpBody::reader
         {
             BMCWEB_LOG_DEBUG("Processing multipart/form-data");
             MultipartParser& mp = multipartParser.emplace();
-            ParserError state = mp.start(contentType);
+            uint64_t expectedBytes = contentLength.value_or(0);
+            if (expectedBytes > std::numeric_limits<size_t>::max())
+            {
+                BMCWEB_LOG_ERROR("Content length is too large: {}",
+                                 expectedBytes);
+                ec = {boost::system::errc::invalid_argument,
+                      boost::system::generic_category()};
+                return;
+            }
+            ParserError state =
+                mp.start(contentType, static_cast<size_t>(expectedBytes));
             if (state != ParserError::PARSER_SUCCESS)
             {
                 BMCWEB_LOG_ERROR("Failed to parse content-type: {}",
@@ -397,7 +426,7 @@ class HttpBody::reader
             const char* ptr = static_cast<const char*>(b.data());
             if (multipartParser)
             {
-                std::string_view buf(ptr, b.size());
+                std::span<const char> buf(ptr, b.size());
                 ParserError state = multipartParser->parsePart(buf);
                 if (state != ParserError::PARSER_SUCCESS)
                 {
@@ -426,8 +455,8 @@ class HttpBody::reader
                       boost::system::generic_category()};
                 return;
             }
-            value.bodyData =
-                MultiPartBody{std::move(multipartParser->mime_fields)};
+            value.bodyData.emplace<MultiPartBody>(
+                std::move(multipartParser->mime_fields));
         }
         ec = {};
     }
