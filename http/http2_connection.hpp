@@ -291,7 +291,7 @@ class HTTP2Connection :
         if (reqReader)
         {
             boost::beast::error_code ec;
-            bmcweb::HttpBody::reader::finish(ec);
+            reqReader->finish(ec);
             if (ec)
             {
                 BMCWEB_LOG_CRITICAL("Failed to finalize payload");
