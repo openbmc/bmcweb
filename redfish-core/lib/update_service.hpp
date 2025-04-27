@@ -263,6 +263,7 @@ inline void softwareInterfaceAdded(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     sdbusplus::message_t& m, task::Payload&& payload)
 {
+    BMCWEB_LOG_DEBUG("softwareInterfaceAdded: called");
     dbus::utility::DBusInterfacesMap interfacesProperties;
 
     sdbusplus::message::object_path objPath;
@@ -276,6 +277,7 @@ inline void softwareInterfaceAdded(
 
         if (interface.first == "xyz.openbmc_project.Software.Activation")
         {
+            BMCWEB_LOG_DEBUG("xyz.openbmc_project.Software.Activation: called");
             // Retrieve service and activate
             constexpr std::array<std::string_view, 1> interfaces = {
                 "xyz.openbmc_project.Software.Activation"};
@@ -449,6 +451,7 @@ inline void monitorForSoftwareAvailable(
     const crow::Request& req, const std::string& url,
     int timeoutTimeSeconds = 50)
 {
+    BMCWEB_LOG_DEBUG("monitorForSoftwareAvailable: called");
     // Only allow one FW update at a time
     if (fwUpdateInProgress)
     {
@@ -480,6 +483,8 @@ inline void monitorForSoftwareAvailable(
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);
+
+    BMCWEB_LOG_DEBUG("fwUpdateMatcher: created");
 
     fwUpdateErrorMatcher = std::make_unique<sdbusplus::bus::match_t>(
         *crow::connections::systemBus,
@@ -623,21 +628,49 @@ inline void handleUpdateServiceSimpleUpdateAction(
     BMCWEB_LOG_DEBUG("Exit UpdateService.SimpleUpdate doPost");
 }
 
-inline void uploadImageFile(crow::Response& res, std::string_view body)
+inline void uploadImageFile(crow::Response& res, std::string_view input)
 {
-    std::filesystem::path filepath("/tmp/images/" + bmcweb::getRandomUUID());
+    // Check if the input is a filepath (from a temporary file)
+    if (input.starts_with("/tmp/images/"))
+    {
+        BMCWEB_LOG_DEBUG("Using existing file at {}", input);
+        return;
+    }
 
-    BMCWEB_LOG_DEBUG("Writing file to {}", filepath.string());
+    std::filesystem::path filepath("/tmp/images/" + bmcweb::getRandomUUID());
+    std::error_code ec;
+    std::filesystem::create_directories(filepath.parent_path(), ec);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Failed to create directory {}: {}",
+                         filepath.parent_path().string(), ec.message());
+        messages::internalError(res);
+        return;
+    }
+
     std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                     std::ofstream::trunc);
+    if (!out)
+    {
+        BMCWEB_LOG_ERROR("Failed to open file {}", filepath.string());
+        messages::internalError(res);
+        return;
+    }
+
     // set the permission of the file to 640
     std::filesystem::perms permission =
         std::filesystem::perms::owner_read | std::filesystem::perms::group_read;
-    std::filesystem::permissions(filepath, permission);
-    out << body;
+    std::filesystem::permissions(filepath, permission, ec);
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("Failed to set permissions on {}: {}",
+                         filepath.string(), ec.message());
+    }
 
+    out.write(input.data(), static_cast<std::streamsize>(input.size()));
     if (out.bad())
     {
+        BMCWEB_LOG_ERROR("Failed to write file to {}", filepath.string());
         messages::internalError(res);
         cleanUp();
     }
@@ -721,10 +754,21 @@ inline std::optional<std::string> processUrl(
 inline std::optional<MultiPartUpdateParameters>
     extractMultipartUpdateParameters(
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        MultipartParser parser)
+        const crow::Request& req)
 {
+    if (req.multipart().empty())
+    {
+        // handle error
+        BMCWEB_LOG_ERROR("MIME parse failed");
+        messages::internalError(asyncResp->res);
+        return std::nullopt;
+    }
+
     MultiPartUpdateParameters multiRet;
-    for (FormPart& formpart : parser.mime_fields)
+    bool hasUpdateFile = false;
+    std::filesystem::path filepath("/tmp/images/" + bmcweb::getRandomUUID());
+
+    for (const FormPart& formpart : req.multipart())
     {
         boost::beast::http::fields::const_iterator it =
             formpart.fields.find("Content-Disposition");
@@ -753,18 +797,21 @@ inline std::optional<MultiPartUpdateParameters>
             if (param.second == "UpdateParameters")
             {
                 std::vector<std::string> tempTargets;
-                nlohmann::json content =
-                    nlohmann::json::parse(formpart.content, nullptr, false);
+                nlohmann::json content = nlohmann::json::parse(
+                    formpart.contentString(), nullptr, false);
                 if (content.is_discarded())
                 {
+                    BMCWEB_LOG_ERROR("Failed to parse JSON: {}",
+                                     formpart.contentString());
                     return std::nullopt;
                 }
                 nlohmann::json::object_t* obj =
                     content.get_ptr<nlohmann::json::object_t*>();
                 if (obj == nullptr)
                 {
-                    messages::propertyValueTypeError(
-                        asyncResp->res, formpart.content, "UpdateParameters");
+                    messages::propertyValueTypeError(asyncResp->res,
+                                                     formpart.contentString(),
+                                                     "UpdateParameters");
                     return std::nullopt;
                 }
 
@@ -802,7 +849,109 @@ inline std::optional<MultiPartUpdateParameters>
             }
             else if (param.second == "UpdateFile")
             {
-                multiRet.uploadData = std::move(formpart.content);
+                if (hasUpdateFile)
+                {
+                    BMCWEB_LOG_ERROR("Got 2 UpdateFiles");
+                    messages::internalError(asyncResp->res);
+                    return std::nullopt;
+                }
+                hasUpdateFile = true;
+                auto* file = std::get_if<TemporaryReleasableFileHandle>(
+                    &formpart.content);
+                if (file != nullptr)
+                {
+                    std::error_code ec;
+                    // Create directory if it doesn't exist
+                    std::filesystem::create_directories(filepath.parent_path(),
+                                                        ec);
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR("Failed to create directory {}: {}",
+                                         filepath.parent_path().string(),
+                                         ec.message());
+                        messages::internalError(asyncResp->res);
+                        return std::nullopt;
+                    }
+
+                    if (!const_cast<TemporaryReleasableFileHandle*>(file)
+                             ->releaseToPath(filepath))
+                    {
+                        BMCWEB_LOG_ERROR("Failed to move file to {}",
+                                         filepath.string());
+                        messages::internalError(asyncResp->res);
+                        return std::nullopt;
+                    }
+
+                    // set the permission of the file to 640
+                    std::filesystem::perms permission =
+                        std::filesystem::perms::owner_read |
+                        std::filesystem::perms::group_read;
+                    std::filesystem::permissions(filepath, permission, ec);
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR("Failed to set permissions on {}: {}",
+                                         filepath.string(), ec.message());
+                    }
+                    multiRet.uploadData = filepath.string();
+                }
+                else
+                {
+                    // For string content, we need to write it to a file
+                    std::string_view content = formpart.contentString();
+                    if (content.empty())
+                    {
+                        BMCWEB_LOG_ERROR("Empty update file content");
+                        messages::internalError(asyncResp->res);
+                        return std::nullopt;
+                    }
+
+                    // Create directory if it doesn't exist
+                    std::error_code ec;
+                    std::filesystem::create_directories(filepath.parent_path(),
+                                                        ec);
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR("Failed to create directory {}: {}",
+                                         filepath.parent_path().string(),
+                                         ec.message());
+                        messages::internalError(asyncResp->res);
+                        return std::nullopt;
+                    }
+
+                    std::ofstream out(filepath, std::ofstream::out |
+                                                    std::ofstream::binary |
+                                                    std::ofstream::trunc);
+                    if (!out)
+                    {
+                        BMCWEB_LOG_ERROR("Failed to open file {}",
+                                         filepath.string());
+                        messages::internalError(asyncResp->res);
+                        return std::nullopt;
+                    }
+
+                    out.write(content.data(),
+                              static_cast<std::streamsize>(content.size()));
+                    if (out.bad())
+                    {
+                        BMCWEB_LOG_ERROR("Failed to write to file {}",
+                                         filepath.string());
+                        messages::internalError(asyncResp->res);
+                        return std::nullopt;
+                    }
+
+                    // set the permission of the file to 640
+                    std::filesystem::perms permission =
+                        std::filesystem::perms::owner_read |
+                        std::filesystem::perms::group_read;
+                    std::filesystem::permissions(filepath, permission, ec);
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR("Failed to set permissions on {}: {}",
+                                         filepath.string(), ec.message());
+                    }
+
+                    multiRet.uploadData = filepath.string();
+                }
             }
         }
     }
@@ -977,10 +1126,10 @@ inline void processUpdateRequest(
 
 inline void updateMultipartContext(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const crow::Request& req, MultipartParser&& parser)
+    const crow::Request& req)
 {
     std::optional<MultiPartUpdateParameters> multipart =
-        extractMultipartUpdateParameters(asyncResp, std::move(parser));
+        extractMultipartUpdateParameters(asyncResp, req);
     if (!multipart)
     {
         return;
@@ -1063,19 +1212,15 @@ inline void handleUpdateServicePost(
     }
     else if (contentType.starts_with("multipart/form-data"))
     {
-        MultipartParser parser;
-
-        ParserError ec = parser.parse(req);
-        if (ec != ParserError::PARSER_SUCCESS)
+        // The multipart parsing is already done by the HTTP body reader
+        if (req.multipart().empty())
         {
-            // handle error
-            BMCWEB_LOG_ERROR("MIME parse failed, ec : {}",
-                             static_cast<int>(ec));
+            BMCWEB_LOG_ERROR("Multipart data empty or not parsed correctly");
             messages::internalError(asyncResp->res);
             return;
         }
 
-        updateMultipartContext(asyncResp, req, std::move(parser));
+        updateMultipartContext(asyncResp, req);
     }
     else
     {
