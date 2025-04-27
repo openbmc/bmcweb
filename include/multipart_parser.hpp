@@ -5,6 +5,8 @@
 #include "logging.hpp"
 
 #include <boost/beast/http/fields.hpp>
+#include <boost/container/devector.hpp>
+#include <boost/container/options.hpp>
 
 #include <algorithm>
 #include <array>
@@ -54,16 +56,39 @@ enum class State
     ERROR
 };
 
+using boost::container::growth_factor;
+using boost::container::growth_factor_50;
+using boost::container::relocate_on_90;
+using boost::container::stored_size;
+using bmcweb_buffer_options =
+    boost::container::devector_options<growth_factor<growth_factor_50>,
+                                       relocate_on_90>::type;
+
 struct FormPart
 {
     boost::beast::http::fields fields;
-    std::string content;
+
+    // Devector is used here because we need to be able to efficiently fill the
+    // content, then efficiently "drain" the content in chunks to avoid running
+    // the system out of ram.
+    using buffer_type =
+        boost::container::devector<char, void, bmcweb_buffer_options>;
+    buffer_type content;
+
+    FormPart() = default;
+    FormPart(FormPart&& other) noexcept = default;
+    FormPart& operator=(FormPart&& other) noexcept = default;
+
+    // These have the potential to be very large, so explicitly disallow copying
+    FormPart(const FormPart& other) = delete;
+    FormPart& operator=(const FormPart& other) = delete;
 };
 
 class MultipartParser
 {
   public:
-    [[nodiscard]] ParserError start(std::string_view contentType)
+    [[nodiscard]] ParserError start(std::string_view contentType,
+                                    size_t expectedBytesIn)
     {
         const std::string_view boundaryFormat =
             "multipart/form-data; boundary=";
@@ -76,6 +101,8 @@ class MultipartParser
             contentType.substr(boundaryFormat.size());
         boundary = std::format("\r\n--{}", boundaryStr);
         boundary_first = std::format("--{}\r\n", boundaryStr);
+
+        expectedBytes = expectedBytesIn;
         state = State::START;
         return ParserError::PARSER_SUCCESS;
     }
@@ -83,13 +110,13 @@ class MultipartParser
     [[nodiscard]] ParserError parse(std::string_view contentType,
                                     std::string_view body)
     {
-        ParserError ret = start(contentType);
+        ParserError ret = start(contentType, body.size());
         if (ret != ParserError::PARSER_SUCCESS)
         {
             return ret;
         }
-
-        ret = parsePart(body);
+        std::string_view bodyView = body;
+        ret = parsePart(bodyView);
         if (ret != ParserError::PARSER_SUCCESS)
         {
             return ret;
@@ -97,10 +124,11 @@ class MultipartParser
         return finish();
     }
 
-    ParserError parsePart(std::string_view buffer)
+    ParserError parsePart(std::span<const char> buffer)
     {
         for (const char c : buffer)
         {
+            bytesProcessed++;
             switch (state)
             {
                 case State::START:
@@ -215,6 +243,14 @@ class MultipartParser
                         state = State::ERROR;
                         return ParserError::ERROR_UNEXPECTED_END_OF_HEADER;
                     }
+                    // Assume that the next field contains all the remaining
+                    // data. If it doesn't, it will be shrunk again once the
+                    // boundary is found.
+                    if (expectedBytes > bytesProcessed)
+                    {
+                        mime_fields.back().content.reserve(
+                            expectedBytes - bytesProcessed);
+                    }
 
                     state = State::PART_DATA_START;
                     break;
@@ -226,9 +262,10 @@ class MultipartParser
 
                 case State::PART_DATA:
                 {
-                    std::string& content = mime_fields.back().content;
-                    content += c;
-                    if (content.ends_with(boundary))
+                    FormPart::buffer_type& content = mime_fields.back().content;
+                    content.push_back(c);
+                    if (std::string_view(content.data(), content.size())
+                            .ends_with(boundary))
                     {
                         state = State::FIRST_BOUNDARY_CHAR;
                     }
@@ -236,8 +273,8 @@ class MultipartParser
                 }
                 case State::FIRST_BOUNDARY_CHAR:
                 {
-                    std::string& content = mime_fields.back().content;
-                    content += c;
+                    FormPart::buffer_type& content = mime_fields.back().content;
+                    content.push_back(c);
                     if (c == '\r')
                     {
                         state = State::SECOND_BOUNDARY_CHAR_LF;
@@ -253,25 +290,26 @@ class MultipartParser
                 }
                 case State::SECOND_BOUNDARY_CHAR_LF:
                 {
-                    std::string& content = mime_fields.back().content;
+                    FormPart::buffer_type& content = mime_fields.back().content;
                     if (c != '\n')
                     {
-                        content += c;
+                        content.push_back(c);
                         state = State::PART_DATA;
                         break;
                     }
                     content.resize(content.size() - boundary.size() - 1);
                     state = State::HEADER_FIELD_START;
                     index = 0;
+                    mime_fields.back().content.shrink_to_fit();
                     mime_fields.emplace_back();
                     break;
                 }
                 case State::SECOND_BOUNDARY_CHAR_DASH:
                 {
-                    std::string& content = mime_fields.back().content;
+                    FormPart::buffer_type& content = mime_fields.back().content;
                     if (c != '-')
                     {
-                        content += c;
+                        content.push_back(c);
                         state = State::PART_DATA;
                         break;
                     }
@@ -344,7 +382,9 @@ class MultipartParser
 
     std::string currentHeaderName;
     std::string currentHeaderValue;
+    size_t expectedBytes = 0;
 
     State state = State::START;
     size_t index = 0;
+    size_t bytesProcessed = 0;
 };
