@@ -268,4 +268,21 @@ TEST(FilterParser, NestedProperty)
     filterFalse("Oem/OEM/ErrorId ne 'SWITCH_EC_STRAP_MISMATCH'", members);
 }
 
+TEST(FilterParser, EventsArray)
+{
+    const nlohmann::json members =
+        R"({"@odata.type":"#Event.v1_9_0.Event","Events":[{"EventId":"2","EventTimestamp":"2024-12-17T09:33:32Z","MemberId":"0","MessageId":"Base.1.13.ResetRecommended","Severity":"Warning"}],"Id":"2","Name":"Event Log"})"_json;
+    // Forward true conditions
+    filterTrue("EventId eq 2", members);
+    filterTrue("EventTimestamp eq '2024-12-17T09:33:32Z'", members);
+    filterTrue("Severity eq Warning", members);
+    filterTrue("Severity ne Critical", members);
+    filterTrue("MessageId eq 'Base.1.13.ResetRecommended'", members);
+    // forward False conditions
+    filterFalse("EventId eq 1", members);
+    filterFalse("EventTimestamp eq '2024-12-17T09:33:31Z'", members);
+    filterFalse("Severity eq Critical", members);
+    filterFalse("MessageId eq 'Base.1.13.ResetRequired'", members);
+}
+
 } // namespace redfish
