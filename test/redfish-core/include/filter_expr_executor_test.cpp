@@ -40,6 +40,42 @@ static void filterFalse(std::string_view filterExpr, nlohmann::json json)
     EXPECT_EQ(json["Members"].size(), 0);
 }
 
+static void filterEventsArrayTrue(std::string_view filterExpr,
+                                  nlohmann::json json)
+{
+    std::optional<filter_ast::LogicalAnd> ast = parseFilter(filterExpr);
+    EXPECT_TRUE(ast);
+    if (!ast)
+    {
+        return;
+    }
+    EXPECT_EQ(json["Events"].size(), 1);
+    // Create a temporary JSON with Members array for filtering
+    nlohmann::json tempJson = {{"Members", json["Events"]}};
+    EXPECT_TRUE(applyFilterToCollection(tempJson, *ast));
+    // Copy the filtered results back to Events array
+    json["Events"] = tempJson["Members"];
+    EXPECT_EQ(json["Events"].size(), 1);
+}
+
+static void filterEventsArrayFalse(std::string_view filterExpr,
+                                   nlohmann::json json)
+{
+    std::optional<filter_ast::LogicalAnd> ast = parseFilter(filterExpr);
+    EXPECT_TRUE(ast);
+    if (!ast)
+    {
+        return;
+    }
+    EXPECT_EQ(json["Events"].size(), 1);
+    // Create a temporary JSON with Members array for filtering
+    nlohmann::json tempJson = {{"Members", json["Events"]}};
+    EXPECT_TRUE(applyFilterToCollection(tempJson, *ast));
+    // Copy the filtered results back to Events array
+    json["Events"] = tempJson["Members"];
+    EXPECT_EQ(json["Events"].size(), 0);
+}
+
 TEST(FilterParser, Integers)
 {
     const nlohmann::json members = R"({"Members": [{"Count": 2}]})"_json;
@@ -266,6 +302,23 @@ TEST(FilterParser, NestedProperty)
     filterFalse("Oem/OEM/ErrorId eq 'EC_STRAP_MISMATCH'", members);
     filterFalse("Oem/OEM/ErrorId eq 'CX7_EC_STRAP_MISMATCH'", members);
     filterFalse("Oem/OEM/ErrorId ne 'SWITCH_EC_STRAP_MISMATCH'", members);
+}
+
+TEST(FilterParser, EventsArray)
+{
+    const nlohmann::json members =
+        R"({"@odata.type":"#Event.v1_9_0.Event","Events":[{"EventId":"2","EventTimestamp":"2024-12-17T09:33:32Z","MemberId":"0","MessageId":"Base.1.13.ResetRecommended","Severity":"Warning"}],"Id":"2","Name":"Event Log"})"_json;
+    // Forward true conditions
+    filterEventsArrayTrue("EventId eq 2", members);
+    filterEventsArrayTrue("EventTimestamp eq '2024-12-17T09:33:32Z'", members);
+    filterEventsArrayTrue("Severity eq Warning", members);
+    filterEventsArrayTrue("Severity ne Critical", members);
+    filterEventsArrayTrue("MessageId eq 'Base.1.13.ResetRecommended'", members);
+    // forward False conditions
+    filterEventsArrayFalse("EventId eq 1", members);
+    filterEventsArrayFalse("EventTimestamp eq '2024-12-17T09:33:31Z'", members);
+    filterEventsArrayFalse("Severity eq Critical", members);
+    filterEventsArrayFalse("MessageId eq 'Base.1.13.ResetRequired'", members);
 }
 
 } // namespace redfish
