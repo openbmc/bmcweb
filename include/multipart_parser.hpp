@@ -2,8 +2,9 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-#include "http_request.hpp"
+#include "temporary_releasable_file_handle.hpp"
 
+#include <boost/beast/core/file_posix.hpp>
 #include <boost/beast/http/fields.hpp>
 
 #include <algorithm>
@@ -12,6 +13,7 @@
 #include <ranges>
 #include <string>
 #include <string_view>
+#include <variant>
 #include <vector>
 
 enum class ParserError
@@ -27,7 +29,8 @@ enum class ParserError
     ERROR_HEADER_ENDING,
     ERROR_UNEXPECTED_END_OF_HEADER,
     ERROR_UNEXPECTED_END_OF_INPUT,
-    ERROR_OUT_OF_RANGE
+    ERROR_OUT_OF_RANGE,
+    ERROR_DATA_AFTER_TRAILER,
 };
 
 enum class State
@@ -42,7 +45,8 @@ enum class State
     HEADERS_ALMOST_DONE,
     PART_DATA_START,
     PART_DATA,
-    END
+    END,
+    ERROR
 };
 
 enum class Boundary
@@ -55,21 +59,49 @@ enum class Boundary
 struct FormPart
 {
     boost::beast::http::fields fields;
-    std::string content;
+
+    std::variant<std::string, TemporaryReleasableFileHandle> content{
+        std::string{}};
+
+    std::string_view contentString() const
+    {
+        const std::string* s = std::get_if<std::string>(&content);
+        return s ? std::string_view(*s) : std::string_view{};
+    }
 };
 
 class MultipartParser
 {
   public:
     MultipartParser() = default;
+    MultipartParser(const MultipartParser&)            = delete;
+    MultipartParser& operator=(const MultipartParser&) = delete;
+    MultipartParser(MultipartParser&&)                 = default;
+    MultipartParser& operator=(MultipartParser&&)      = default;
 
-    [[nodiscard]] ParserError parse(const crow::Request& req)
+    [[nodiscard]] ParserError parse(std::string_view contentType,
+                                    std::string_view body)
     {
-        std::string_view contentType = req.getHeaderValue("content-type");
+        ParserError ret = start(contentType);
+        if (ret != ParserError::PARSER_SUCCESS)
+        {
+            return ret;
+        }
 
+        ret = parsePart(body);
+        if (ret != ParserError::PARSER_SUCCESS)
+        {
+            return ret;
+        }
+        return finish();
+    }
+
+    [[nodiscard]] ParserError start(std::string_view contentType)
+    {
         const std::string boundaryFormat = "multipart/form-data; boundary=";
         if (!contentType.starts_with(boundaryFormat))
         {
+            state = State::ERROR;
             return ParserError::ERROR_BOUNDARY_FORMAT;
         }
 
@@ -80,12 +112,29 @@ class MultipartParser
         indexBoundary();
         lookbehind.resize(boundary.size() + 8);
         state = State::START;
+        return ParserError::PARSER_SUCCESS;
+    }
 
-        const std::string& buffer = req.body();
+    ParserError finish()
+    {
+        if (state != State::END)
+        {
+            state = State::ERROR;
+            return ParserError::ERROR_UNEXPECTED_END_OF_INPUT;
+        }
+
+        return ParserError::PARSER_SUCCESS;
+    }
+
+    ParserError parsePart(std::string_view buffer)
+    {
+        if (state == State::END)
+        {
+            return ParserError::PARSER_SUCCESS;
+        }
+
         size_t len = buffer.size();
-        char cl = 0;
-
-        for (size_t i = 0; i < len; i++)
+        for (size_t i = 0; i < len; ++i)
         {
             char c = buffer[i];
             switch (state)
@@ -99,6 +148,7 @@ class MultipartParser
                     {
                         if (c != cr)
                         {
+                            state = State::ERROR;
                             return ParserError::ERROR_BOUNDARY_CR;
                         }
                         index++;
@@ -108,6 +158,7 @@ class MultipartParser
                     {
                         if (c != lf)
                         {
+                            state = State::ERROR;
                             return ParserError::ERROR_BOUNDARY_LF;
                         }
                         index = 0;
@@ -117,6 +168,7 @@ class MultipartParser
                     }
                     if (c != boundary[index + 2])
                     {
+                        state = State::ERROR;
                         return ParserError::ERROR_BOUNDARY_DATA;
                     }
                     index++;
@@ -128,6 +180,7 @@ class MultipartParser
                     index = 0;
                     [[fallthrough]];
                 case State::HEADER_FIELD:
+                {
                     if (c == cr)
                     {
                         headerFieldMark = 0;
@@ -145,6 +198,7 @@ class MultipartParser
                     {
                         if (index == 1)
                         {
+                            state = State::ERROR;
                             return ParserError::ERROR_EMPTY_HEADER;
                         }
 
@@ -153,13 +207,16 @@ class MultipartParser
                         state = State::HEADER_VALUE_START;
                         break;
                     }
-                    cl = lower(c);
+                    char cl = lower(c);
                     if (cl < 'a' || cl > 'z')
                     {
+                        state = State::ERROR;
                         return ParserError::ERROR_HEADER_NAME;
                     }
                     break;
+                }
                 case State::HEADER_VALUE_START:
+                {
                     if (c == space)
                     {
                         break;
@@ -167,7 +224,9 @@ class MultipartParser
                     headerValueMark = i;
                     state = State::HEADER_VALUE;
                     [[fallthrough]];
+                }
                 case State::HEADER_VALUE:
+                {
                     if (c == cr)
                     {
                         std::string_view value(&buffer[headerValueMark],
@@ -177,28 +236,38 @@ class MultipartParser
                         state = State::HEADER_VALUE_ALMOST_DONE;
                     }
                     break;
+                }
                 case State::HEADER_VALUE_ALMOST_DONE:
+                {
                     if (c != lf)
                     {
+                        state = State::ERROR;
                         return ParserError::ERROR_HEADER_VALUE;
                     }
                     state = State::HEADER_FIELD_START;
                     break;
+                }
                 case State::HEADERS_ALMOST_DONE:
+                {
                     if (c != lf)
                     {
+                        state = State::ERROR;
                         return ParserError::ERROR_HEADER_ENDING;
                     }
                     if (index > 0)
                     {
+                        state = State::ERROR;
                         return ParserError::ERROR_UNEXPECTED_END_OF_HEADER;
                     }
                     state = State::PART_DATA_START;
                     break;
+                }
                 case State::PART_DATA_START:
+                {
                     state = State::PART_DATA;
                     partDataMark = i;
                     [[fallthrough]];
+                }
                 case State::PART_DATA:
                 {
                     if (index == 0)
@@ -214,19 +283,49 @@ class MultipartParser
                     break;
                 }
                 case State::END:
+                {
+                    /* RFC 7578 §4.1: ignore anything after the closing
+                     * delimiter (“epilogue”). */
+                    i = len;
                     break;
+                }
+                case State::ERROR:
+                {
+                    return ParserError::ERROR_DATA_AFTER_TRAILER;
+                }
                 default:
+                {
+                    state = State::ERROR;
                     return ParserError::ERROR_UNEXPECTED_END_OF_INPUT;
+                }
             }
         }
-
-        if (state != State::END)
+        /* ------------------------------------------------------------------
+         * Flush remainder **except** the still-unverified boundary prefix.
+         * 'index' holds the number of chars of <boundary> already matched.
+         * These bytes live at the very end of the current buffer and must
+         * NOT be committed yet – they will be re-examined with the next
+         * network chunk.  Without this guard we replicated those bytes,
+         * inflating the output by exactly "<CRLF>--<boundary>--<CRLF>".
+         * ------------------------------------------------------------------ */
+        if (state == State::PART_DATA)
         {
-            return ParserError::ERROR_UNEXPECTED_END_OF_INPUT;
+            size_t flushEnd = len;
+            if (index > 0)
+            {
+                flushEnd = len - index;
+            }
+
+            if (partDataMark < flushEnd)
+            {
+                writeData(buffer.substr(partDataMark, flushEnd - partDataMark));
+            }
+            partDataMark = 0;
         }
 
         return ParserError::PARSER_SUCCESS;
     }
+
     std::vector<FormPart> mime_fields;
     std::string boundary;
 
@@ -250,8 +349,7 @@ class MultipartParser
         return boundaryIndex[static_cast<unsigned char>(c)];
     }
 
-    void skipNonBoundary(const std::string& buffer, size_t boundaryEnd,
-                         size_t& i)
+    void skipNonBoundary(std::string_view buffer, size_t boundaryEnd, size_t& i)
     {
         // boyer-moore derived algorithm to safely skip non-boundary data
         while (i + boundary.size() <= buffer.length())
@@ -264,7 +362,52 @@ class MultipartParser
         }
     }
 
-    ParserError processPartData(const std::string& buffer, size_t& i, char c)
+    void writeData(std::string_view buffer)
+    {
+        constexpr std::size_t inMemoryLimit = 100 * 1024; // 100 KB
+
+        auto& content = mime_fields.back().content;
+
+        if (auto* str = std::get_if<std::string>(&content))
+        {
+            if (str->size() + buffer.size() > inMemoryLimit)
+            {
+                TemporaryReleasableFileHandle tmp;
+                boost::system::error_code ec;
+
+                tmp.file.write(str->data(), str->size(), ec);
+                if (!ec)
+                {
+                    tmp.file.write(buffer.data(), buffer.size(), ec);
+                }
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR("Failed to write multipart data: {}",
+                                     ec.message());
+                    return;
+                }
+                str->clear();
+                content = std::move(tmp);
+            }
+            else
+            {
+                str->append(buffer);
+            }
+            return;
+        }
+        if (auto* file = std::get_if<TemporaryReleasableFileHandle>(&content))
+        {
+            boost::system::error_code ec;
+            file->file.write(buffer.data(), buffer.size(), ec);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to write multipart data: {}",
+                                 ec.message());
+            }
+        }
+    }
+
+    ParserError processPartData(std::string_view buffer, size_t& i, char c)
     {
         size_t prevIndex = index;
 
@@ -276,8 +419,8 @@ class MultipartParser
                 {
                     const char* start = &buffer[partDataMark];
                     size_t size = i - partDataMark;
-                    mime_fields.rbegin()->content +=
-                        std::string_view(start, size);
+                    writeData(std::string_view(start, size));
+                    partDataMark = i;
                 }
                 index++;
             }
@@ -345,10 +488,8 @@ class MultipartParser
         {
             // if our boundary turned out to be rubbish, the captured
             // lookbehind belongs to partData
-
-            mime_fields.rbegin()->content += lookbehind.substr(0, prevIndex);
+            writeData(lookbehind.substr(0, prevIndex));
             partDataMark = i;
-
             // reconsider the current character even so it interrupted
             // the sequence it could be the beginning of a new sequence
             i--;
