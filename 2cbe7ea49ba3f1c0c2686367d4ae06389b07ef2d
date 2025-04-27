@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab9ff5b0_17998e2c",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-27T06:26:34Z",
+      "side": 1,
+      "message": "As suggested modified the code",
+      "parentUuid": "7ceb8154_a80054b0",
+      "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3fd1387_a9221127",
         "filename": "redfish-core/include/utils/bios_utils.hpp",
         "patchSetId": 7
@@ -138,6 +156,24 @@
       "side": 1,
       "message": "I was thinking about something like this https://godbolt.org/z/do9eGTqhW",
       "parentUuid": "8d7e0e52_2db5ec42",
+      "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b9d1733_a2aacd1a",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-27T06:26:34Z",
+      "side": 1,
+      "message": "As suggested modified the code",
+      "parentUuid": "ecb3cb74_497aeda7",
       "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
