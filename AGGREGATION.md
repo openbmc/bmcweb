@@ -1,4 +1,4 @@
-# Redfish Aggregation
+#Redfish Aggregation
 
 With Redfish aggregation the host BMC aggregates resources from specified
 satellite BMCs. Aggregated resources are accessed in the same way as local
@@ -42,9 +42,9 @@ reject satellite configs that do not comply with these requirements.
 
 ## Satellite BMC Restrictions
 
-- Can only aggregate a single satellite BMC
 - HTTP only connection to satellite BMC
 - No authentication on satellite BMC
+- Each satellite BMC must have a unique "Name" property in its configuration
 
 ## Supported Resources
 
@@ -79,18 +79,19 @@ not appear when querying the Service Root.
 
 Aggregated resources will have a prefix appended to their URIs in order to
 distinguish them from resources that are local to the aggregating BMC. The
-aggregation prefix is planned to be derived from the uuid of the aggregating
-BMC. This should result in the aggregation prefix being unique to each
-aggregating BMC.
+prefix is derived from the "Name" property specified in the satellite BMC's
+configuration in Entity Manager. This allows for meaningful and unique prefixes
+for each satellite BMC.
 
 The general URI format for aggregated resources is
 
 ```bash
-/redfish/v1/<resource_collection>/<prefix>_<resource_id>
+/redfish/v1/<resource_collection>/<name>_<resource_id>
 ```
 
-When support is added for aggregating more than one satellite BMC, then each
-satellite will be assigned its own unique satellite prefix.
+Where `<name>` is the value of the "Name" property from the satellite's
+configuration. For example, if a satellite is configured with `"Name": "sat0"`,
+its resources would appear as `/redfish/v1/Systems/sat0_system`.
 
 ### Aggregating Collections
 
@@ -122,10 +123,13 @@ curl -k -H "X-Auth-Token: $token" https://${bmc}/redfish/v1/Systems
       "@odata.id": "/redfish/v1/Systems/system"
     },
     {
-      "@odata.id": "/redfish/v1/Systems/5B247A_system"
+      "@odata.id": "/redfish/v1/Systems/sat0_system"
+    },
+    {
+      "@odata.id": "/redfish/v1/Systems/sat1_system"
     }
   ],
-  "Members@odata.count": 2,
+  "Members@odata.count": 3,
   "Name": "Computer System Collection"
 }
 ```
@@ -150,18 +154,16 @@ The following steps are used to retrieve the requested aggregated resource:
 5. Return the updated response from the satellite BMC
 
 ```bash
-curl -k -H "X-Auth-Token: $token" https://${bmc}/redfish/v1/Systems/5B247A_system
-{
-  "@odata.id": "/redfish/v1/Systems/5B247A_system",
-  ...
-  "LogServices": {
-    "@odata.id": "/redfish/v1/Systems/5B247A_system/LogServices"
-  },
-  "Memory": {
-    "@odata.id": "/redfish/v1/Systems/5B247A_system/Memory"
-  },
-  ...
-}
+curl -k -H "X-Auth-Token: $token" https://${bmc}/redfish/v1/Systems/sat0_system
+    {
+        "@odata.id" :
+            "/redfish/v1/Systems/sat0_system",
+            ... "LogServices" :
+            {"@odata.id" : "/redfish/v1/Systems/sat0_system/LogServices"},
+            "Memory" :
+            {"@odata.id" : "/redfish/v1/Systems/sat0_system/Memory"},
+            ...
+    }
 ```
 
 We consider any response to be a valid response code from the satellite BMC. The
@@ -179,9 +181,7 @@ are some features that must still be implemented before that can happen.
 
 1. Add links to satellite only collections in responses from service root and
    other appropriate locations
-2. Generate aggregation prefix from uuid
-3. Aggregate more than one satellite BMC
-4. Support HTTPS connection to satellite BMC
+2. Support HTTPS connection to satellite BMC
 
 Support for the following items should be added as well. However, their
 implementation is not a requirement to being able to enable Redfish aggregation
