@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6d641f6_3a90d3b8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2025-04-28T04:16:42Z",
+      "side": 1,
+      "message": "This seems to be only consider the fact that a TPM is only for host/bios.\n\nTPM\u0027s can also be connected to BMC, so we would probably also need to have TrustedComponents on `v1/Managers/{}/`\n\nAnd then based on which object Inventory.Item.Tpm object is associated to we would have to implement the route for it (it can be a chassis or even a BMC). If this is something that is being planned for another patch, atleast we should make sure this patch does not have any assumptions.",
+      "range": {
+        "startLine": 602,
+        "startChar": 8,
+        "endLine": 603,
+        "endChar": 73
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1be691a4_52481bf9",
         "filename": "redfish-core/lib/trusted_components.hpp",
         "patchSetId": 12
@@ -72,6 +95,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eff7c964_ea1060a5",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2025-04-28T04:16:42Z",
+      "side": 1,
+      "message": "`trusted_componets` association itself is not documented in the phosphor-dbus-interface. I am not sure why smbios-mdr did not mandate it.\n\nBut the association needs to be documented first in PDI, before it gets used in anywhere else.",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 41
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5c7e1ff_46cb80de",
         "filename": "redfish-core/lib/trusted_components.hpp",
         "patchSetId": 12
@@ -83,6 +129,29 @@
       "writtenOn": "2025-04-25T12:41:39Z",
       "side": 1,
       "message": "are we sure that all SPDM capable devices are Discrete type?",
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3fcf072_5ab413ba",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2025-04-28T04:16:42Z",
+      "side": 1,
+      "message": "This should ideally come from `TrustedComponentType` dbus property from who ever implements https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/TrustedComponent.interface.yaml#L5 and not hardcoded.",
+      "range": {
+        "startLine": 304,
+        "startChar": 3,
+        "endLine": 304,
+        "endChar": 66
+      },
       "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
