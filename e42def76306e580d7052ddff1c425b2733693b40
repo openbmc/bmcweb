@@ -46,6 +46,30 @@
       },
       "revId": "e42def76306e580d7052ddff1c425b2733693b40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ddaf922_b0f501ab",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-04-28T09:59:07Z",
+      "side": 1,
+      "message": "@ed@tanous.net\n\nwould it resolve the issue for you if that state was kept in bmcweb as a map?\n\nPossibly by initializing dbus matches on ```InterfacesAdded``` and ```InterfacesRemoved``` for ```xyz.openbmc_project.Inventory.Decorator.ManagedHost```, then doing an initial call to fetch that state?\n\nThat would then be an extra dbus call before bmcweb is fully initialized (in the case of multi-host). I am not sure if this would still fit within the documented performance target.\n\n```\n- Application startup time should be less than 1 second on target hardware\n  (AST2500)\n```\n\nAlternatively the initial call could be made asynchronously to be able to start serving requests which do not need the managed host information and those which do could block for a few milliseconds until that\u0027s available.\n\nKindly confirm which of these (if any) will satisfy the requirements.",
+      "parentUuid": "d9759e4d_a1c4b4e8",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 11
+      },
+      "revId": "e42def76306e580d7052ddff1c425b2733693b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
