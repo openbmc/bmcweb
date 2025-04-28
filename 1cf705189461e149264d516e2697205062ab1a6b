@@ -16,6 +16,24 @@
       "message": "I think this seems not related to this commit.",
       "revId": "1cf705189461e149264d516e2697205062ab1a6b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daeb9d29_68424181",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-04-28T03:31:20Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "a3b24545_206cc480",
+      "revId": "1cf705189461e149264d516e2697205062ab1a6b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

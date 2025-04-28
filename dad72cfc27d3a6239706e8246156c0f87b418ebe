@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dba6838b_98c3da0a",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-04-28T03:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33dcff5f_3200d179",
+      "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e05819d7_81c91185",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-04-22T12:18:02Z",
       "side": 1,
       "message": "WARNING",
+      "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9e9dedc_3142d15c",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-04-28T03:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e05819d7_81c91185",
       "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07997414_3ca0ccf1",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-04-28T03:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6bc4f7d_79dd017c",
+      "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61d4dc80_476599b2",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "05468a2d_bed416c3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-04-28T03:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61d4dc80_476599b2",
+      "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edfb01b8_42da9640",
@@ -82,6 +154,24 @@
       "writtenOn": "2025-04-22T12:18:02Z",
       "side": 1,
       "message": "I think it may be better to make L540-L545-L856 as a function like\n```\nstd::string getHostStateServiceName(const uint64_t computerSystemIndex)\n{\n    std::string service \u003d \"xyz.openbmc_project.State.Host\";\n\n    if (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)\n    {\n        service.append(std::to_string(computerSystemIndex));\n    }\n    return service;\n}\n```",
+      "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "980c0be4_8f9e5603",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-04-28T03:31:20Z",
+      "side": 1,
+      "message": "Yes that is much cleaner, thank you. Same for the above comment. Done.",
+      "parentUuid": "edfb01b8_42da9640",
       "revId": "dad72cfc27d3a6239706e8246156c0f87b418ebe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
