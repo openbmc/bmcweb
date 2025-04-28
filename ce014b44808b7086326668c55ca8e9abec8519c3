@@ -34,6 +34,24 @@
       "parentUuid": "11157395_44616ec8",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28b00b18_72a02ba0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-04-28T09:40:42Z",
+      "side": 1,
+      "message": "\u003e That would generally be incorrect in Redfish\n\nCan you kindly help me to understand this one? Had a look into the redfish data model spec and found this one:\n\n\u003e The LogService schema contains properties for monitoring and configuring a log service. When the Id property\ncontains DeviceLog , the log contains device-resident log entries that follow the physical device when moved from\nsystem-to-system, and not a replication or subset of a system event log\n\nWhen looking at a response from bmcweb, the ```Id``` property is ```EventLog``` so i assume that it is fine for the response to be a replication of a system event log?\n\nIf there is currently no way to filter event log entries for the host they belong to, what is the more useful behavior? Having no logs or a duplicate?",
+      "parentUuid": "00dfb4d4_f5f510c2",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
