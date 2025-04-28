@@ -78,6 +78,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2be18fc9_6c5cf850",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-28T13:00:14Z",
+      "side": 1,
+      "message": "Okay, the system which I use doesn\u0027t have TPM connected to BMC. So, I was not aware of this use-case. Thanks a lot for this info.\nI have no system where I can test TPM connected to BMC for testing any changes. Would you or anyone whom you suggested might be willing to take this functionality ?",
+      "parentUuid": "f6d641f6_3a90d3b8",
+      "range": {
+        "startLine": 602,
+        "startChar": 8,
+        "endLine": 603,
+        "endChar": 73
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1be691a4_52481bf9",
         "filename": "redfish-core/lib/trusted_components.hpp",
         "patchSetId": 12
@@ -124,6 +148,30 @@
       "writtenOn": "2025-04-28T04:16:42Z",
       "side": 1,
       "message": "`trusted_componets` association itself is not documented in the phosphor-dbus-interface. I am not sure why smbios-mdr did not mandate it.\n\nBut the association needs to be documented first in PDI, before it gets used in anywhere else.",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 41
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40a9c7a0_e7e8ed2e",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-28T13:00:14Z",
+      "side": 1,
+      "message": "We do have similar case for cpu and dimm in smbios-mdr. As per https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/TrustedComponent.interface.yaml we have reported_by and protecting association. Do we recommend we add the same to https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Tpm.interface.yaml ?",
+      "parentUuid": "eff7c964_ea1060a5",
       "range": {
         "startLine": 85,
         "startChar": 4,
@@ -188,6 +236,30 @@
       "side": 1,
       "message": "All TPM components are Discrete. Will have PDI for Item.TPM for TrustedComponentType",
       "parentUuid": "c5c7e1ff_46cb80de",
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04aacd90_a7c28c3b",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-28T13:00:14Z",
+      "side": 1,
+      "message": "The TPM interface I used was https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Tpm.interface.yaml\nThere is no property for indicating `TrustedComponentType`. Do you recommend adding it ?",
+      "parentUuid": "c3fcf072_5ab413ba",
+      "range": {
+        "startLine": 304,
+        "startChar": 3,
+        "endLine": 304,
+        "endChar": 66
+      },
       "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
