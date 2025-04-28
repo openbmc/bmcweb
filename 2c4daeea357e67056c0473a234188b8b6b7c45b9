@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f906b2a_100dd978",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-28T19:19:28Z",
+      "side": 1,
+      "message": "Overall all this looks good",
+      "revId": "2c4daeea357e67056c0473a234188b8b6b7c45b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1962853_6ddede9a",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-28T19:19:28Z",
+      "side": 1,
+      "message": "this doesn\u0027t look right",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "2c4daeea357e67056c0473a234188b8b6b7c45b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
