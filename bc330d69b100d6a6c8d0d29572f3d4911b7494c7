@@ -207,6 +207,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f91cae2f_ffe9ec41",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-28T15:08:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54408db7_45d0919f",
+      "range": {
+        "startLine": 907,
+        "startChar": 0,
+        "endLine": 912,
+        "endChar": 13
+      },
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "266e9f10_8c2b9948",
@@ -278,6 +302,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04c8a6e0_6e40947a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-28T15:08:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89527f0d_4e1a7b6e",
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f5e4b17_ce579eff",
@@ -315,6 +357,30 @@
       "side": 1,
       "message": "added the code as suggested",
       "parentUuid": "9f5e4b17_ce579eff",
+      "range": {
+        "startLine": 929,
+        "startChar": 0,
+        "endLine": 935,
+        "endChar": 13
+      },
+      "revId": "bc330d69b100d6a6c8d0d29572f3d4911b7494c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fe7008f_366ff25d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 935,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-28T15:08:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aeb17842_b77dc1ab",
       "range": {
         "startLine": 929,
         "startChar": 0,
