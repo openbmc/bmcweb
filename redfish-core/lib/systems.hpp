@@ -603,6 +603,62 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
         });
 }
 
+inline void getHostRestartCause(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    asyncResp->res.jsonValue["LastResetCause"] = "Unknown";
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
+        "/xyz/openbmc_project/control/host0/restart_cause", "xyz.openbmc_project.Control.Host.RestartCause",
+        "RestartCause",
+        [asyncResp](const boost::system::error_code& ec,
+                    const std::string& restartCause) {
+        if (ec)
+        {
+            if (ec == boost::system::errc::host_unreachable)
+            {
+                // Service not available, no error, just don't return
+                // host state info
+                BMCWEB_LOG_DEBUG("Service not available {}", ec);
+                return;
+            }
+            BMCWEB_LOG_ERROR("DBUS response error {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG("Host RestartCause: {}", restartCause);
+        if (restartCause == "xyz.openbmc_project.State.Host.RestartCause.IpmiCommand")
+        {
+            asyncResp->res.jsonValue["LastResetCause"] = "ManagementCommand";
+        }
+        else if (restartCause == "xyz.openbmc_project.State.Host.RestartCause.SoftReset")
+        {
+            asyncResp->res.jsonValue["LastResetCause"] = "OSSoftRestart";
+        }
+        else if (restartCause == "xyz.openbmc_project.State.Host.RestartCause.PowerButton")
+        {
+            asyncResp->res.jsonValue["LastResetCause"] = "PowerButton";
+        }
+        else if (restartCause == "xyz.openbmc_project.State.Host.RestartCause.PowerPolicyAlwaysOn" ||
+                 restartCause == "xyz.openbmc_project.State.Host.RestartCause.PowerPolicyPreviousState")
+        {
+            asyncResp->res.jsonValue["LastResetCause"] = "PowerRestorePolicy";
+        }
+        else if (restartCause == "xyz.openbmc_project.State.Host.RestartCause.ScheduledPowerOn")
+        {
+            asyncResp->res.jsonValue["LastResetCause"] = "RTCWakeup";
+        }
+        else if (restartCause == "xyz.openbmc_project.State.Host.RestartCause.HostCrash")
+        {
+            asyncResp->res.jsonValue["LastResetCause"] = "SystemCrash";
+        }
+        else if (restartCause == "xyz.openbmc_project.State.Host.RestartCause.WatchdogTimer")
+        {
+            asyncResp->res.jsonValue["LastResetCause"] = "WatchdogExpiration";
+        }
+    });
+}
+
 /**
  * @brief Translates boot source DBUS property value to redfish.
  *
@@ -3127,6 +3183,7 @@ inline void handleComputerSystemGet(
     getIndicatorLedState(asyncResp);
     getComputerSystem(asyncResp);
     getHostState(asyncResp);
+    getHostRestartCause(asyncResp);
     getBootProperties(asyncResp);
     getBootProgress(asyncResp);
     getBootProgressLastStateTime(asyncResp);
