@@ -56,6 +56,24 @@
       "message": "I like the idea of adding to COMMON_ERRORS.md. Not required to merge, could also come later.",
       "revId": "f833cfbb3d8c8459adc0b885478606504f7dfb7d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ef65ac_90de6d0c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-29T03:20:40Z",
+      "side": 1,
+      "message": "I wasn\u0027t really sure what to put because there are correct uses of operator[], but I\u0027ll give it some thought.",
+      "parentUuid": "e5386799_a14c4057",
+      "revId": "f833cfbb3d8c8459adc0b885478606504f7dfb7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
