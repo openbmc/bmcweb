@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a059e39_ad8eaf39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-29T06:31:58Z",
+      "side": 1,
+      "message": "I added this on request from @hieuh@os.amperecomputing.com. So @hieuh@os.amperecomputing.com can you please help test the changes that needs to be made for ReleaseDate ?",
+      "parentUuid": "b5e3e2b2_14e76639",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd910ed3_27870416",
@@ -108,6 +126,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "52ae01b1_a91b09b8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-29T06:31:58Z",
+      "side": 1,
+      "message": "Resolved",
+      "parentUuid": "82e0ae46_f2f2eee5",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "43088e13_4ffa0e7c",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 15
@@ -166,6 +202,24 @@
       "writtenOn": "2025-04-23T17:34:41Z",
       "side": 1,
       "message": "I guess I would have thougth you would have to do something like productionDateReport\nhttps://github.com/openbmc/bmcweb/blob/d1a3caa4eda8ca07cd656b4e4e8aa1e4ffe53e1e/redfish-core/lib/power_supply.hpp#L343",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35739d18_5b35a6a2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-29T06:31:58Z",
+      "side": 1,
+      "message": "Will work with @hieuh@os.amperecomputing.com and update code for ReleaseDate",
+      "parentUuid": "7a6b764c_a0fc8f47",
       "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
