@@ -286,6 +286,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "53ffc3f8_5bdc0865",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-29T11:39:06Z",
+      "side": 1,
+      "message": "Okay, the Interface used in smbios-mdr is `TPM.Interface` and NOT `TrustedComponent.Interface`. So, should we be using TrustedComponent.Interface in smbios-mdr ? instead of TPM ?",
+      "parentUuid": "4d7a4e6a_de54dd28",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 41
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5c7e1ff_46cb80de",
         "filename": "redfish-core/lib/trusted_components.hpp",
         "patchSetId": 12
@@ -398,6 +422,30 @@
       "side": 1,
       "message": "Not a redfish expert, but I thought TrsutedComponent dbus interface is added by keeping TrustedComponents redfish schema in mind, so we should be using that instead (IMO)",
       "parentUuid": "04aacd90_a7c28c3b",
+      "range": {
+        "startLine": 304,
+        "startChar": 3,
+        "endLine": 304,
+        "endChar": 66
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "895a2378_d7133c50",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-29T11:39:06Z",
+      "side": 1,
+      "message": "The reason TPM.Interface was used is the SMBIOS type 43 record defines TPM information. So thought TPM.Interface was the right one to be used",
+      "parentUuid": "712c31bf_d88ee72c",
       "range": {
         "startLine": 304,
         "startChar": 3,
