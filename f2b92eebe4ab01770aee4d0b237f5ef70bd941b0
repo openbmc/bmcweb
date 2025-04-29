@@ -310,6 +310,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31a6b7a5_2e5e0de7",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-29T18:57:52Z",
+      "side": 1,
+      "message": "This association needs to be documented in PDI",
+      "parentUuid": "53ffc3f8_5bdc0865",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 41
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c5c7e1ff_46cb80de",
         "filename": "redfish-core/lib/trusted_components.hpp",
         "patchSetId": 12

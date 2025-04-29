@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "480260f3_cd2bc084",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-29T18:57:52Z",
+      "side": 1,
+      "message": "we typically don\u0027t check for empty here. Is there a reason you do? \nWhy not add the other properties from the interface?",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 66
+      },
+      "revId": "b1767d3a66ff280e7fa536a7d1e1fa1455816f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
