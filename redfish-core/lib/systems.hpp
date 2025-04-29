@@ -2852,8 +2852,7 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
             return;
         }
         messages::success(asyncResp->res);
-    },
-        serviceName, objectPath, interfaceName, method);
+    }, serviceName, objectPath, interfaceName, method);
 }
 
 inline void handleComputerSystemResetActionPost(
@@ -2879,9 +2878,19 @@ inline void handleComputerSystemResetActionPost(
         return;
     }
     std::string resetType;
-    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
+    std::optional<uint8_t> hostNumberOpt;
+
+    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType,
+                                   "HostNumber", hostNumberOpt))
     {
+        BMCWEB_LOG_CRITICAL("Invalid input data ResetType or HostNumber");
         return;
+    }
+
+    uint8_t hostNumber = 0;
+    if (hostNumberOpt.has_value())
+    {
+        hostNumber = hostNumberOpt.value();
     }
 
     // Get the command and host vs. chassis
@@ -2928,19 +2937,27 @@ inline void handleComputerSystemResetActionPost(
         messages::actionParameterUnknown(asyncResp->res, "Reset", resetType);
         return;
     }
+
+    BMCWEB_LOG_CRITICAL("HostNumber: {} resetType: {}", hostNumber, resetType);
+
+    const std::string hostSvcName = "xyz.openbmc_project.State.Host";
+    const std::string chassisSvcName = "xyz.openbmc_project.State.Chassis";
     sdbusplus::message::object_path statePath("/xyz/openbmc_project/state");
+    std::string chassisName = "chassis" + std::to_string(hostNumber);
+    std::string hostName = "host" + std::to_string(hostNumber);
 
     if (hostCommand)
     {
-        setDbusProperty(asyncResp, "Reset", "xyz.openbmc_project.State.Host",
-                        statePath / "host0", "xyz.openbmc_project.State.Host",
+        setDbusProperty(asyncResp, "Reset",
+                        hostSvcName + std::to_string(hostNumber),
+                        statePath / hostName, hostSvcName,
                         "RequestedHostTransition", command);
     }
     else
     {
-        setDbusProperty(asyncResp, "Reset", "xyz.openbmc_project.State.Chassis",
-                        statePath / "chassis0",
-                        "xyz.openbmc_project.State.Chassis",
+        setDbusProperty(asyncResp, "Reset",
+                        chassisSvcName + std::to_string(hostNumber),
+                        statePath / chassisName, chassisSvcName,
                         "RequestedPowerTransition", command);
     }
 }
