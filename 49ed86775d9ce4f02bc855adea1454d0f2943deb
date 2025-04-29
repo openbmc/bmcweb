@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e611675c_68be14e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-29T03:06:19Z",
+      "side": 1,
+      "message": "Seems reasonable after the few minor comments are addressed",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0481602b_fc9cc986",
@@ -73,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8e69119_dfe50fcd",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-29T03:06:19Z",
+      "side": 1,
+      "message": "propertyValueIncorrect but I am also okay with PropertyValueFormatError",
+      "parentUuid": "ded91e04_b1ec56b1",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9be73a46_80af29cb",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 28
@@ -102,6 +137,24 @@
       "side": 1,
       "message": "I\u0027ll do whatever the above one does.",
       "parentUuid": "9be73a46_80af29cb",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0710106e_1df1708e",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-29T03:06:19Z",
+      "side": 1,
+      "message": "propertyValueIncorrect but I think there is a few choices that are better than this",
+      "parentUuid": "f523d59e_813089af",
       "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
