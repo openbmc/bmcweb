@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ed353d7_29091baa",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-04-29T21:30:56Z",
+      "side": 1,
+      "message": "Only numbers and strings are allowed per Redfish.",
+      "parentUuid": "2baf7065_a434cc04",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0248dc79_71867cde",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cf20fc4_ea9209e3",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-04-29T21:30:56Z",
+      "side": 1,
+      "message": "This was what I had originally. Ed suggested moving away from async here.",
+      "parentUuid": "0248dc79_71867cde",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d620aa8d_89355f06",
@@ -65,6 +101,24 @@
       "writtenOn": "2025-04-16T10:29:07Z",
       "side": 1,
       "message": "This function could be moved to bios_utils.hpp under `redfish-core/include/utils`",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb0fb710_be08acd9",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-04-29T21:30:56Z",
+      "side": 1,
+      "message": "Would it be used anywhere else?",
+      "parentUuid": "d620aa8d_89355f06",
       "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +193,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5728a49_cd201dc9",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-04-29T21:30:56Z",
+      "side": 1,
+      "message": "I would agree with you. But I believe others would want this to be an opt in option, at least to start.",
+      "parentUuid": "650ee86f_97f5381c",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ecda8e7e_d294102b",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 14
@@ -150,6 +222,24 @@
       "writtenOn": "2025-04-16T10:29:07Z",
       "side": 1,
       "message": "Why do we need PendingPut ? \nUsually to update the Attributes user performs patch right ?",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a1a654b_6c5a5b76",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-04-29T21:30:56Z",
+      "side": 1,
+      "message": "Not always. For example if you want to clear an item.",
+      "parentUuid": "ecda8e7e_d294102b",
       "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -173,6 +263,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2c6de34_fbbf1108",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-04-29T21:30:56Z",
+      "side": 1,
+      "message": "To clear an item(s) from attributes. In our implementation we also started only with PATCH but found that a PUT is very helpful.",
+      "parentUuid": "010e51e2_53f609a7",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80fe483f_fb29c2c6",
         "filename": "redfish-core/src/redfish.cpp",
         "patchSetId": 14
@@ -184,6 +292,24 @@
       "writtenOn": "2025-04-16T10:29:07Z",
       "side": 1,
       "message": "We need not have meson option for this",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7254e5d1_1d3bf20e",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-04-29T21:30:56Z",
+      "side": 1,
+      "message": "Adding the option is part of this PR.",
+      "parentUuid": "80fe483f_fb29c2c6",
       "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -207,6 +333,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e842a55_82c17f3e",
+        "filename": "test/redfish-core/lib/bios_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-04-29T21:30:56Z",
+      "side": 1,
+      "message": "Probably not, but I don\u0027t see the harm in ensuring the endpoint is returning static data correctly. It can be removed if someone takes up the cause.",
+      "parentUuid": "35c76803_af289400",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0ca7afdb_b0344cae",
         "filename": "test/redfish-core/lib/bios_test.cpp",
         "patchSetId": 14
@@ -218,6 +362,24 @@
       "writtenOn": "2025-04-16T10:29:07Z",
       "side": 1,
       "message": "No test for Boolean, Password and Enumeration included here. \nAnd also the function does not handle these types",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53ee4ddc_cdd0fc03",
+        "filename": "test/redfish-core/lib/bios_test.cpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-04-29T21:30:56Z",
+      "side": 1,
+      "message": "Redfish does not support any of those. Everything in Redfish is a number or string.",
+      "parentUuid": "0ca7afdb_b0344cae",
       "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
