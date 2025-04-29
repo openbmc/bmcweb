@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8488d2e7_91ebb6ed",
+        "filename": "test/redfish-core/include/redfish_aggregator_test.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-04-29T03:23:22Z",
+      "side": 1,
+      "message": "this is a unit test, so we don\u0027t have to be typesafe here, but please at least use std::format.",
+      "range": {
+        "startLine": 269,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 42
+      },
+      "revId": "b547fd79c4eeea77ec584acc8afee6dab66d1ce2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
