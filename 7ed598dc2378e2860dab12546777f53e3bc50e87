@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6b4b39f9_4eff73bd",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-04-29T19:01:28Z",
+      "side": 1,
+      "message": "### Object Path\n\n```txt\nxyz.openbmc_project.BIOSConfig.Password\n``` \n\ndoesn\u0027t match this..",
+      "parentUuid": "05606826_410ac440",
+      "range": {
+        "startLine": 66,
+        "startChar": 9,
+        "endLine": 66,
+        "endChar": 50
+      },
+      "revId": "7ed598dc2378e2860dab12546777f53e3bc50e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bedd8275_b0ef4b73",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 16
