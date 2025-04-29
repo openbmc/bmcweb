@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4160b4dd_19050b49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-29T09:43:13Z",
+      "side": 1,
+      "message": "{\n    \"@odata.id\": \"/redfish/v1/Chassis/Chassis_0/TrustedComponents/tpm\",\n    \"@odata.type\": \"#TrustedComponent.v1_0_0.TrustedComponent\",\n    \"Description\": \"TPM\",\n    \"FirmwareVersion\": \"15.21\",\n    \"Id\": \"tpm\",\n    \"Manufacturer\": \"IFX\",\n    \"Name\": \"tpm\",\n    \"TrustedComponentType\": \"Discrete\"\n}",
+      "parentUuid": "3f1ded5c_6bee1752",
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f6d641f6_3a90d3b8",
