@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d92de9f4_543278e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-29T03:27:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08157816_7ef62c4e",
+      "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "150102ff_b7e5f4cb",
@@ -136,6 +154,24 @@
         "id": 1002307
       },
       "writtenOn": "2025-04-28T14:55:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab9ff5b0_17998e2c",
+      "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2faa9e3_9a40c03e",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-29T03:27:22Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "ab9ff5b0_17998e2c",
@@ -232,6 +268,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "854b6571_3da1b6b7",
+        "filename": "redfish-core/include/utils/bios_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-29T03:27:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b9d1733_a2aacd1a",
+      "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e880669_c462407f",
@@ -296,6 +350,24 @@
         "id": 1002307
       },
       "writtenOn": "2025-04-28T14:55:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ea76b94_9cbb4d59",
+      "revId": "2cbe7ea49ba3f1c0c2686367d4ae06389b07ef2d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4ff8e5d_3d190ac6",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-29T03:27:22Z",
       "side": 1,
       "message": "Done",
       "parentUuid": "9ea76b94_9cbb4d59",
