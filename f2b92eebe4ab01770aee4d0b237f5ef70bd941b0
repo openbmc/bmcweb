@@ -138,6 +138,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "703bc4f9_1594507a",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2025-04-29T10:46:06Z",
+      "side": 1,
+      "message": "I can help you with the testing if needed.",
+      "parentUuid": "2be18fc9_6c5cf850",
+      "range": {
+        "startLine": 602,
+        "startChar": 8,
+        "endLine": 603,
+        "endChar": 73
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1be691a4_52481bf9",
         "filename": "redfish-core/lib/trusted_components.hpp",
         "patchSetId": 12
@@ -226,6 +250,30 @@
       "side": 1,
       "message": "We do have similar case for cpu and dimm in smbios-mdr. As per https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/TrustedComponent.interface.yaml we have reported_by and protecting association. Do we recommend we add the same to https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Inventory/Item/Tpm.interface.yaml ?",
       "parentUuid": "eff7c964_ea1060a5",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 41
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d7a4e6a_de54dd28",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2025-04-29T10:46:06Z",
+      "side": 1,
+      "message": "If `TrustedComponent.Interface.yaml` already documented the association, why did we add a new association `trusted_components` in smbios_mdr ? \n\nseems like `protecting` would be the one to use ? and i dont think we need to add a new association to the Tpm.Interface.yaml if we are using the TrustedComponent.Interface ?",
+      "parentUuid": "40a9c7a0_e7e8ed2e",
       "range": {
         "startLine": 85,
         "startChar": 4,
@@ -332,6 +380,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "ee195b1e_d73c8e12",
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "712c31bf_d88ee72c",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2025-04-29T10:46:06Z",
+      "side": 1,
+      "message": "Not a redfish expert, but I thought TrsutedComponent dbus interface is added by keeping TrustedComponents redfish schema in mind, so we should be using that instead (IMO)",
+      "parentUuid": "04aacd90_a7c28c3b",
+      "range": {
+        "startLine": 304,
+        "startChar": 3,
+        "endLine": 304,
+        "endChar": 66
+      },
       "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
