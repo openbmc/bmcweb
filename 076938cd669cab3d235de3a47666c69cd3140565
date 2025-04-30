@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb98abba_1074215d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-30T20:06:58Z",
+      "side": 1,
+      "message": "The code looks to me that the index is after filtering not before filtering. It seems like a different filter will end up with a different MemberId for the same event. That seems to go against the spec to \"uniquely identify the member within the collection\".",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 2
+      },
+      "revId": "076938cd669cab3d235de3a47666c69cd3140565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3cc39e9_b25e67c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-30T20:06:58Z",
+      "side": 1,
+      "message": "Does this imply the MemberId can be used to get details of a particular EventRecord? If so, please include demonstration of this in the commit message.",
+      "range": {
+        "startLine": 33,
+        "startChar": 47,
+        "endLine": 33,
+        "endChar": 81
+      },
+      "revId": "076938cd669cab3d235de3a47666c69cd3140565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98855676_c80850bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-30T20:06:58Z",
+      "side": 1,
+      "message": "Please add Tested statement. Please confirm Redfish Validator passes with this change.",
+      "revId": "076938cd669cab3d235de3a47666c69cd3140565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "778b6102_78e2dfbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-30T20:06:58Z",
+      "side": 1,
+      "message": "I haven\u0027t worked with Events, so I mostly have questions on this change.",
+      "revId": "076938cd669cab3d235de3a47666c69cd3140565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
