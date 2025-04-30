@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc7173d8_7a20676f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-04-30T18:23:05Z",
+      "side": 1,
+      "message": "Is there a follow-on commit which shows the benefit of splitting this out? (Since current callers are not needing this I\u0027m assuming this is in preparation for another commit.)",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 2
+      },
+      "revId": "5e380fdd3bbf04ffc2383e18866dd9accc183b35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
