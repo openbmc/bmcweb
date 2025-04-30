@@ -79,6 +79,40 @@
       "message": "I haven\u0027t worked with Events, so I mostly have questions on this change.",
       "revId": "076938cd669cab3d235de3a47666c69cd3140565",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d63bdd5_b558b859",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-30T20:33:55Z",
+      "side": 1,
+      "message": "This implies each bmcLogEntry has MemberId\u003d0.\nI think this would need to be moved output of the loop L217, so that MemberId starts from 0 and increments for each eventRecord.\n\n```\n   uint64_t memberId \u003d 0;\n   for (const EventLogObjectsType\u0026 logEntry : eventRecords)\n   {\n      ...\n      //uint64_t memberId \u003d 0;\n```",
+      "revId": "076938cd669cab3d235de3a47666c69cd3140565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be662b8b_55048518",
+        "filename": "redfish-core/src/subscription.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-04-30T20:33:55Z",
+      "side": 1,
+      "message": "I think this `bmcLogEntry` fillout would be better to be done inside `formatEventLogEntry()`.\n\n```\n        nlohmann::json::object_t bmcLogEntry;\n        uint64_t memberId \u003d 0;\n        if (event_log::formatEventLogEntry(\n                memberId, \n                eventId, logEntry.id, logEntry.messageId, messageArgsView,\n                logEntry.timestamp, userSub-\u003ecustomText, bmcLogEntry) !\u003d 0)\n                \n        ...\n        logEntryArray.emplace_back(std::move(bmcLogEntry));\n        memberId++;        \u003c--\n        eventId++;\n    }\n ```\n \n ```\n    \n    int formatEventLogEntry(uint64_t memberId,\n                        uint64_t eventId, const std::string\u0026 logEntryID,\n                        ...)\n    {\n        ...\n        bmcLogEntry[\"MemberId\"] \u003d std::to_string(memberId+);\n    }\n ```",
+      "revId": "076938cd669cab3d235de3a47666c69cd3140565",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
