@@ -70,6 +70,10 @@ constexpr const char* crashdumpOnDemandInterface =
 constexpr const char* crashdumpTelemetryInterface =
     "com.intel.crashdump.Telemetry";
 
+constexpr char const* pprFileObject = "xyz.openbmc_project.PostPackageRepair";
+constexpr char const* pprFilePath = "/xyz/openbmc_project/PostPackageRepair";
+constexpr char const* pprFileInterface = "xyz.openbmc_project.PostPackageRepair.PprData";
+
 enum class DumpCreationProgress
 {
     DUMP_CREATE_SUCCESS,
@@ -3876,6 +3880,403 @@ inline void requestRoutesCrashdumpCollect(App& app)
         crow::connections::systemBus->async_method_call(
             std::move(collectCrashdumpCallback), crashdumpObject, crashdumpPath,
             iface, method);
+    });
+}
+
+// PPR
+
+inline void requestRoutesPprService(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/PostPackageRepair/")
+        .privileges({{"ConfigureManager"}})
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        asyncResp->res.jsonValue["@odata.id"] =
+            std::format("/redfish/v1/Systems/{}/LogServices/PostPackageRepair",
+                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogService.v1_2_0.LogService";
+        asyncResp->res.jsonValue["Name"] = "Open BMC Oem PPR Service";
+        asyncResp->res.jsonValue["Description"] = "Oem Post Package Repair Service";
+        asyncResp->res.jsonValue["Id"] = "ppr";
+        asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+        asyncResp->res.jsonValue["MaxNumberOfRecords"] = 10;
+        std::pair<std::string, std::string> redfishDateTimeOffset =
+            redfish::time_utils::getDateTimeOffsetNow();
+        asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
+        asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+            redfishDateTimeOffset.second;
+
+        asyncResp->res.jsonValue["Actions"]["#LogService.pprStatus"]
+                                ["target"] = std::format(
+            "/redfish/v1/Systems/{}/LogServices/PostPackageRepair/Status",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        asyncResp->res.jsonValue["Actions"]["#LogService.pprConfig"]
+                                ["target"] = std::format(
+            "/redfish/v1/Systems/{}/LogServices/PostPackageRepair/Config",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        asyncResp->res.jsonValue["Actions"]["#LogService.pprFile"]
+                                ["target"] = std::format(
+            "/redfish/v1/Systems/{}/LogServices/PostPackageRepair/RepairData",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    });
+}
+
+// PPR Data
+
+#define MAX_RUNTIME_PPR_CNT      (8)
+#define PPR_TYPE_BOOTTIME_MASK   (0x8000)
+#define BT_SET_TO_HARD_MASK  0x0001;
+#define RT_TO_BT_MASK        0x0002;
+bool oobPprEnable = false;
+
+static void setPostPackageRepairData(
+    const std::shared_ptr<bmcweb::AsyncResp> &asyncResp,
+    uint16_t Index, uint16_t repairEntryNum, uint16_t repairType,
+    uint16_t socNum, std::vector<uint16_t> payload) {
+
+    std::optional<bool> RecordAdd = true;
+
+    crow::connections::systemBus->async_method_call(
+          [asyncResp, Index, RecordAdd, repairEntryNum, repairType, socNum, payload](
+          const boost::system::error_code ec1, bool &recordAdd) {
+
+        if (ec1) {
+            BMCWEB_LOG_ERROR("DBUS POST Package Repair Record Add error: {} ", ec1);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS POST Package Repair Record Add Start {} ", int(recordAdd));
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, RecordAdd, Index](const boost::system::error_code ec2) {
+            if (ec2) {
+                BMCWEB_LOG_ERROR("D-Bus responses error: {} ", ec2);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            BMCWEB_LOG_ERROR("DBUS POST Package Repair Record Add success ");
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, Index](
+                const boost::system::error_code ec3,
+                const uint32_t &startRuntimeRepair) {
+                if (ec3) {
+                    BMCWEB_LOG_ERROR("DBUS start Runtime Repair error: {} ", ec3);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                BMCWEB_LOG_ERROR("DBUS success start Runtime Repair : Start {}", startRuntimeRepair);
+            },
+            pprFileObject, pprFilePath, pprFileInterface,
+            "startRuntimeRepair", Index);
+        },
+        pprFileObject, pprFilePath,
+        "org.freedesktop.DBus.Properties", "Set", pprFileInterface,
+        "RecordAdd", std::variant<bool>(*RecordAdd));
+    },
+    pprFileObject, pprFilePath, pprFileInterface,
+    "setPostPackageRepairData", repairEntryNum, repairType, socNum, payload);
+}
+
+void inline requestRoutesPprFile(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/LogServices/PostPackageRepair/RepairData")
+        .privileges(redfish::privileges::patchLogEntry)
+        .methods(boost::beast::http::verb::patch)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        uint16_t RepairType;
+        uint16_t RepairEntryNum;
+        uint16_t SocNum;
+        uint16_t Index = 0;
+        uint16_t RuntimeIndex = 0;
+        nlohmann::json jsonRequest;
+
+        if (!json_util::processJsonFromRequest(asyncResp->res, req, jsonRequest)) {
+            BMCWEB_LOG_ERROR("requestRoutesPprFile error in processJsonFromRequest ");
+            messages::malformedJSON(asyncResp->res);
+            return;
+        }
+
+        for (auto &el : jsonRequest["pprDataIn"].items()) {
+            std::vector<uint16_t> Payload;
+
+            if (!json_util::readJson(el.value(), asyncResp->res,
+                "RepairType", RepairType,
+                "RepairEntryNum", RepairEntryNum,
+                "SocNum", SocNum,
+                "Payload", Payload)) {
+                BMCWEB_LOG_ERROR("requestRoutesPprFile Error: Issue with Json value read ");
+                messages::malformedJSON(asyncResp->res);
+                return;
+            }
+
+            if ((RepairType & PPR_TYPE_BOOTTIME_MASK) == 0) {
+                RuntimeIndex++;
+                if(RuntimeIndex > MAX_RUNTIME_PPR_CNT) {
+                    BMCWEB_LOG_ERROR("requestRoutesPprFile Error: Exceed Runtime PPR Max Entry of 8 ");
+                    //messages::invalidObject(asyncResp->res);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+            setPostPackageRepairData(asyncResp, Index, RepairEntryNum, RepairType, SocNum, Payload);
+            Index++;
+        } //end of for loop
+    });
+}
+
+// PPR Status
+
+void inline requestRoutesPprStatus(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/LogServices/PostPackageRepair/Status")
+        .privileges({{"ConfigureComponents"}})
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code& ec,
+            const std::vector<
+                std::tuple<uint16_t, uint16_t, uint16_t, uint16_t,
+                std::vector<uint16_t>>>& postpackagerepairstatus) {
+            BMCWEB_LOG_ERROR("requestRoutesPprStatus start {}", ec);
+            if (ec) {
+                BMCWEB_LOG_ERROR("requestRoutesPprStatus got error {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            nlohmann::json pprDataOut = nlohmann::json::array();
+            int count = 0;
+            for (auto resolveList : postpackagerepairstatus)
+            {
+                uint16_t repairEntryNum = std::get<0>(resolveList);
+                uint16_t repairType = std::get<1>(resolveList);
+                uint16_t socNum = std::get<2>(resolveList);
+                uint16_t repairResult = std::get<3>(resolveList);
+                std::vector<uint16_t> payload = std::get<4>(resolveList);
+
+                nlohmann::json jsonPpr = {
+                    { "repairEntryNum" , repairEntryNum },
+                    { "repairType" ,     repairType },
+                    { "socNum" ,         socNum },
+                    { "repairResult" ,   repairResult },
+                    { "payload" ,        payload }
+                };
+                pprDataOut.push_back(jsonPpr);
+                count++;
+            }
+
+            asyncResp->res.jsonValue["Members"] = pprDataOut;
+            asyncResp->res.jsonValue["Members@odata.count"] = count;
+
+            messages::success(asyncResp->res);
+        },
+        pprFileObject, pprFilePath, pprFileInterface, "getPostPackageRepairStatus");
+    });
+}
+
+// PPR Config
+
+void inline requestRoutesPprGetConfig(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/LogServices/PostPackageRepair/Config")
+        .privileges({{"ConfigureComponents"}})
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code& ec,
+            std::vector<uint16_t>& postpackagerepairconfig) {
+            BMCWEB_LOG_ERROR("requestRoutesGetPprConfig start {}", ec);
+            if (ec) {
+                BMCWEB_LOG_ERROR("requestRoutesGetPprConfig got error {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            nlohmann::json pprConfig = nlohmann::json::array();
+
+            bool RtToBt;
+            bool BtSetToHard;
+
+            if (postpackagerepairconfig[0] == 0)
+                oobPprEnable = false;
+            else
+                oobPprEnable = true;
+            if (postpackagerepairconfig[1] == 0)
+                RtToBt = false;
+            else
+                RtToBt = true;
+            if (postpackagerepairconfig[2] == 0)
+                BtSetToHard = false;
+            else
+                BtSetToHard = true;
+
+            nlohmann::json jsonPpr = {
+                { "OobPprEnable" , oobPprEnable },
+                { "autoScheduleRtAsBtPpr" , RtToBt },
+                { "autoScheduleBtAsHard" , BtSetToHard }
+            };
+            pprConfig.push_back(jsonPpr);
+
+            asyncResp->res.jsonValue["Members"] = pprConfig;
+            asyncResp->res.jsonValue["Members@odata.count"] = 1;
+
+            messages::success(asyncResp->res);
+        },
+        pprFileObject, pprFilePath, pprFileInterface, "getPostPackageRepairConfig");
+    });
+}
+
+void inline requestRoutesPprSetConfig(App& app)
+{
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/LogServices/PostPackageRepair/Config")
+        .privileges(redfish::privileges::patchLogService)
+        .methods(boost::beast::http::verb::patch)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        std::optional<bool> BtSetToHard;
+        std::optional<bool> RtToBt;
+        uint16_t flag = 0;
+        bool data = false;
+
+        if (!redfish::json_util::readJsonAction(
+            req, asyncResp->res,
+            "autoScheduleBtAsHard", BtSetToHard,
+            "autoScheduleRtAsBtPpr", RtToBt))
+        {
+            BMCWEB_LOG_ERROR("requestRoutesPprSetConfig readJson Error ");
+            return;
+        }
+
+        if(BtSetToHard)
+        {
+            flag = BT_SET_TO_HARD_MASK;
+            data = BtSetToHard.value();
+        }
+        if(RtToBt)
+        {
+            flag = RT_TO_BT_MASK;
+            data = RtToBt.value();
+        }
+        if (flag == 0)
+        {
+            BMCWEB_LOG_ERROR("requestRoutesPprSetConfig readJson Flag is 0 ");
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, flag, data]
+            (const boost::system::error_code& ec, bool &result) {
+            BMCWEB_LOG_ERROR("requestRoutesPprSetConfig start {}", ec);
+            if (ec) {
+                BMCWEB_LOG_ERROR("requestRoutesPprSetConfig got error {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+	    BMCWEB_LOG_ERROR("requestRoutesPprSetConfig end Result {}", int(result));
+            messages::success(asyncResp->res);
+        },
+        pprFileObject, pprFilePath, pprFileInterface, "setPostPackageRepairConfig", flag, data);
     });
 }
 

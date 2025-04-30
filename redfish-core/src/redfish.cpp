@@ -156,6 +156,11 @@ RedfishService::RedfishService(App& app)
         requestRoutesCrashdumpFile(app);
         requestRoutesCrashdumpClear(app);
         requestRoutesCrashdumpCollect(app);
+        requestRoutesPprService(app);
+        requestRoutesPprGetConfig(app);
+        requestRoutesPprSetConfig(app);
+        requestRoutesPprStatus(app);
+        requestRoutesPprFile(app);
     }
 
     requestRoutesProcessorCollection(app);
