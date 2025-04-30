@@ -127,6 +127,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfdd5c2f_bcdbfbee",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-04-30T11:11:42Z",
+      "side": 1,
+      "message": "Thanks a lot for your review and suggestions. \n\nI have raised a PR as suggested for Manufacturer and ReleaseDate under Software Namespace for Software Design workflows\n1) https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/79963\n2) https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/79966\n \nI will move current patch as WIP",
+      "parentUuid": "6ee21791_087e4495",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "82e0ae46_f2f2eee5",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 15
