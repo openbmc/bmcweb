@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8eeccb0_db06d511",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-01T19:24:23Z",
+      "side": 1,
+      "message": "It is an ERROR in the ones above. I am fine with Debug here. Warning might also be a good chioce",
+      "revId": "e6e7f257756fd88d72734d3b4e933fd9d42c9c92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
