@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9d14ac4_4eb91593",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-01T19:21:10Z",
+      "side": 0,
+      "message": "This 5B247A is in some tests and stuff still but I think it is fine there. \nThe sat name be 5B247A as much as it could be sat0 \n\nhttps://github.com/search?q\u003dorg%3Aopenbmc%205B247A\u0026type\u003dcode",
+      "range": {
+        "startLine": 125,
+        "startChar": 40,
+        "endLine": 125,
+        "endChar": 46
+      },
+      "revId": "0af610a4dc437bcb382fd48748d5c4d4a0db964c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
