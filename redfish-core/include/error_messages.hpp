@@ -1026,6 +1026,18 @@ nlohmann::json propertyMissing(std::string_view arg1);
 void propertyMissing(crow::Response& res, std::string_view arg1);
 
 /**
+ * @brief Formats PropertyNotUpdated message into JSON
+ * Message body: "The property <arg1> is a required property and must be
+ * included in the request."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message PropertyNotUpdated formatted to JSON */
+nlohmann::json propertyNotUpdated(std::string_view arg1);
+
+void propertyNotUpdated(crow::Response& res, std::string_view arg1);
+
+/**
  * @brief Formats ResourceExhaustion message into JSON
  * Message body: "The resource <arg1> was unable to satisfy the request due to
  * unavailability of resources."

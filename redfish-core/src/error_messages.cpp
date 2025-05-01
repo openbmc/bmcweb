@@ -1739,6 +1739,25 @@ void propertyMissing(crow::Response& res, std::string_view arg1)
 
 /**
  * @internal
+ * @brief Formats PropertyNotUpdated message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+nlohmann::json propertyNotUpdated(std::string_view arg1)
+{
+    return getLog(redfish::registries::base::Index::propertyNotUpdated,
+                  std::to_array({arg1}));
+}
+
+void propertyNotUpdated(crow::Response& res, std::string_view arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(res.jsonValue, propertyNotUpdated(arg1));
+}
+
+/**
+ * @internal
  * @brief Formats ResourceExhaustion message into JSON
  *
  * See header file for more information
