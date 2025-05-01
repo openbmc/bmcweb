@@ -16,6 +16,24 @@
       "message": "Tested? Tested when you tested one of the commits above ?",
       "revId": "bca23adf758cb808ac00c7dd547b103ff40828fc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aa1cad1_f9864d95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-05-01T14:33:06Z",
+      "side": 1,
+      "message": "updated the commit message with test details.",
+      "parentUuid": "87d2f6df_2a77ffa5",
+      "revId": "bca23adf758cb808ac00c7dd547b103ff40828fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
