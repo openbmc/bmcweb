@@ -22,6 +22,30 @@
       },
       "revId": "2345bcc73908abbd91e788b9438630c878a5578b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd9d624f_ce20c655",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-05-01T14:41:58Z",
+      "side": 1,
+      "message": "Yes if we get to a place where we have common reactor library for caching then we can refactor this to use that. Until then we need to have this cache to support overall aggregation functionality with multi satmc where we don\u0027t hardcode the prefix information \n\nMore than optimisation we need the SatMC configuration from EM locally available for function beginAggregation. \nPreviously beginAggregation was just checking hardcoded prefix for just one satMC which is been enhanced now. \n\nThe local SatMC info from EM helps with the next commit https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79913/18. \n\nWe are caching mostly static configuration from EM for the feature enhancement.",
+      "parentUuid": "083e570b_3e656f7d",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 68
+      },
+      "revId": "2345bcc73908abbd91e788b9438630c878a5578b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
