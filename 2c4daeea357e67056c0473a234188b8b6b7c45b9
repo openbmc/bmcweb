@@ -39,6 +39,30 @@
       },
       "revId": "2c4daeea357e67056c0473a234188b8b6b7c45b9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43b34f6f_1062da88",
+        "filename": "AGGREGATION.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-05-01T14:25:40Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d1962853_6ddede9a",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "2c4daeea357e67056c0473a234188b8b6b7c45b9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
