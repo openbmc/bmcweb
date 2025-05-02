@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10699483_bb063cf9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-02T16:35:35Z",
+      "side": 1,
+      "message": "I create a DMTF issue and got the response - https://github.com/DMTF/Redfish/issues/6439#issuecomment-2847317637\n\n@ed@tanous.net or @gunnar@gmills.xyz\nWould you reopen this?",
+      "revId": "e08328f5ceb0edaa59920a0fb28c54a2119842b7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
