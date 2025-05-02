@@ -838,5 +838,117 @@ TEST(processContainsSubordinateResponse, noValidLinks)
     EXPECT_FALSE(asyncResp->res.jsonValue.contains("UpdateService"));
 }
 
+TEST(addPrefixes, IdPropertyPrefixing)
+{
+    // Test basic Id property
+    nlohmann::json jsonRequest = nlohmann::json::parse(R"(
+    {
+        "@odata.id": "/redfish/v1/Chassis/chassis1",
+        "Id": "chassis1"
+    }
+    )",
+                                                       nullptr, false);
+
+    addPrefixes(jsonRequest, "prefix");
+    EXPECT_EQ(jsonRequest["Id"], "prefix_chassis1");
+
+    // Test Id in nested object
+    jsonRequest = nlohmann::json::parse(R"(
+    {
+        "Links": {
+            "Chassis": {
+                "@odata.id": "/redfish/v1/Chassis/chassis1",
+                "Id": "chassis1"
+            }
+        }
+    }
+    )",
+                                        nullptr, false);
+
+    addPrefixes(jsonRequest, "prefix");
+    EXPECT_EQ(jsonRequest["Links"]["Chassis"]["Id"], "prefix_chassis1");
+
+    // Test Id in array
+    jsonRequest = nlohmann::json::parse(R"(
+    {
+        "Members": [
+            {
+                "@odata.id": "/redfish/v1/Chassis/chassis1",
+                "Id": "chassis1"
+            },
+            {
+                "@odata.id": "/redfish/v1/Chassis/chassis2",
+                "Id": "chassis2"
+            }
+        ]
+    }
+    )",
+                                        nullptr, false);
+
+    addPrefixes(jsonRequest, "prefix");
+    EXPECT_EQ(jsonRequest["Members"][0]["Id"], "prefix_chassis1");
+    EXPECT_EQ(jsonRequest["Members"][1]["Id"], "prefix_chassis2");
+
+    // Test already prefixed Id
+    jsonRequest = nlohmann::json::parse(R"(
+    {
+        "@odata.id": "/redfish/v1/Chassis/prefix_chassis1",
+        "Id": "prefix_chassis1"
+    }
+    )",
+                                        nullptr, false);
+
+    addPrefixes(jsonRequest, "prefix");
+    EXPECT_EQ(jsonRequest["Id"], "prefix_chassis1"); // Should remain unchanged
+
+    // Test complex nested structure with Id
+    jsonRequest = nlohmann::json::parse(R"(
+    {
+        "Status": {
+            "Conditions": [
+                {
+                    "OriginOfCondition": {
+                        "@odata.id": "/redfish/v1/Chassis/chassis1",
+                        "Id": "chassis1"
+                    }
+                }
+            ]
+        },
+        "Links": {
+            "ManagedBy": [
+                {
+                    "@odata.id": "/redfish/v1/Managers/bmc1",
+                    "Id": "bmc1"
+                }
+            ]
+        }
+    }
+    )",
+                                        nullptr, false);
+
+    addPrefixes(jsonRequest, "prefix");
+    EXPECT_EQ(jsonRequest["Status"]["Conditions"][0]["OriginOfCondition"]["Id"],
+              "prefix_chassis1");
+    EXPECT_EQ(jsonRequest["Links"]["ManagedBy"][0]["Id"], "prefix_bmc1");
+}
+
+TEST(addPrefixes, IdPropertyPrefixingForSubordinates)
+{
+    nlohmann::json jsonRequest = nlohmann::json::parse(R"(
+    {
+        "@odata.id": "/redfish/v1/Chassis/Chassis_0/Assembly",
+        "Id": "Assembly"
+    }
+    )",
+                                                       nullptr, false);
+
+    addPrefixes(jsonRequest, "prefix");
+    // The Id should NOT be double-prefixed
+    EXPECT_EQ(jsonRequest["Id"], "Assembly");
+    // The @odata.id should also remain unchanged
+    EXPECT_EQ(jsonRequest["@odata.id"],
+              "/redfish/v1/Chassis/prefix_Chassis_0/Assembly");
+}
+
 } // namespace
 } // namespace redfish
