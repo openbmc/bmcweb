@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae42079e_ae566188",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-02T05:27:43Z",
+      "side": 1,
+      "message": "By design readjson should never allow unknown values.\n\nEither we know what value is read, or we host an error.",
+      "range": {
+        "startLine": 496,
+        "startChar": 40,
+        "endLine": 496,
+        "endChar": 56
+      },
+      "revId": "945d3454aea1186bedda62cf510a2514d647bb9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffb33db1_1e2a2e3d",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-02T05:27:43Z",
+      "side": 1,
+      "message": "Why are we packing a new variant here?  Something seems odd if we can\u0027t reuse the vairant pack?",
+      "range": {
+        "startLine": 927,
+        "startChar": 4,
+        "endLine": 927,
+        "endChar": 15
+      },
+      "revId": "945d3454aea1186bedda62cf510a2514d647bb9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
