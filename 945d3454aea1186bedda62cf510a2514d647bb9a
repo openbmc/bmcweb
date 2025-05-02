@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f63c707d_f4192adc",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-02T17:30:20Z",
+      "side": 1,
+      "message": "\u003e The default design remains the same with readJsonHelperObject when allowUnknownKeys is false. \n\u003e When we read a fragment of a JSON object (in sub router handlers), the caller will pass what keys to be extracted which we undergo type check but if there are other keys which is not passed by the caller the flag allowUnknownKeys allows not to throw error on that.\n\nAt the top level, when we read as an object_t, keys within that object aren\u0027t enforced, right?\n\n\u003e this API with  allowUnknownKeys set to true is used by readJsonSubObject where the goal is to read fragment inside the object.\n\u003e I can write new API for this but thought to reuse the code with readJsonHelperObject.\n\u003e Let me know your thoughts.\n\n\nI do want to reuse code, but the flow I would\u0027ve expected is:\n\nnlohmann::json::object_t obj;\nreadJson(...., \"Oem/Nvidia\", obj);\n\n\n// Then in the oem handler\nreadJsonObj(obj, \"NVKey\", ...);\n\n\nThat doesn\u0027t require parsing any key twice.  That\u0027s the whole point of being able to parse object_t.",
+      "parentUuid": "0e5af24a_f80e3ec2",
+      "range": {
+        "startLine": 496,
+        "startChar": 40,
+        "endLine": 496,
+        "endChar": 56
+      },
+      "revId": "945d3454aea1186bedda62cf510a2514d647bb9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffb33db1_1e2a2e3d",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 3
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "this API is exactly same as readJsonObject. Only diff is it uses readJsonHelperObject with allowUnknownKeys flag set to true. This allows parsing fragment of the object.",
       "parentUuid": "ffb33db1_1e2a2e3d",
+      "range": {
+        "startLine": 927,
+        "startChar": 4,
+        "endLine": 927,
+        "endChar": 15
+      },
+      "revId": "945d3454aea1186bedda62cf510a2514d647bb9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6a2758d_1ce1d4c1",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-02T17:30:20Z",
+      "side": 1,
+      "message": "Sure, lets close on the other comment.",
+      "parentUuid": "869d806b_71ff8a7b",
       "range": {
         "startLine": 927,
         "startChar": 4,
