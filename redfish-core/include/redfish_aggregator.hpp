@@ -286,6 +286,38 @@ inline void addPrefixToStringItem(std::string& strValue,
     }
 }
 
+inline void addPrefixToID(nlohmann::json::object_t& object,
+                          std::string_view prefix)
+{
+    auto odataIdIt = object.find("@odata.id");
+    auto idIt = object.find("Id");
+    if (odataIdIt != object.end() && idIt != object.end())
+    {
+        const std::string* odataIdPtr =
+            odataIdIt->second.get_ptr<std::string*>();
+        std::string* idStr = idIt->second.get_ptr<std::string*>();
+        if (odataIdPtr != nullptr && idStr != nullptr)
+        {
+            const std::string& odataId = *odataIdPtr;
+            size_t pos = odataId.rfind('/');
+            if (pos == std::string::npos || pos == odataId.size() - 1)
+            {
+                BMCWEB_LOG_ERROR("Invalid @odata.id: {}", odataId);
+                return;
+            }
+            std::string lastSegment = odataId.substr(pos + 1);
+            std::string prefixWithUnderscore = std::string(prefix) + "_";
+            if (lastSegment.starts_with(prefixWithUnderscore))
+            {
+                if (!idStr->starts_with(prefixWithUnderscore))
+                {
+                    idIt->second = prefixWithUnderscore + *idStr;
+                }
+            }
+        }
+    }
+}
+
 inline void addPrefixToItem(nlohmann::json& item, std::string_view prefix)
 {
     std::string* strValue = item.get_ptr<std::string*>();
@@ -388,6 +420,11 @@ inline void addPrefixes(nlohmann::json& json, std::string_view prefix)
 
             // Recursively parse the rest of the json
             addPrefixes(item.second, prefix);
+        }
+        // After all other properties, handle Id fixup if needed
+        if (object->find("@odata.id") != object->end())
+        {
+            addPrefixToID(*object, prefix);
         }
         return;
     }
