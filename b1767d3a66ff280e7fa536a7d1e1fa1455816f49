@@ -22,6 +22,30 @@
       },
       "revId": "b1767d3a66ff280e7fa536a7d1e1fa1455816f49",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58f9a7b7_c4f6595d",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-05-02T06:25:39Z",
+      "side": 1,
+      "message": "When we get TPM information from SMBIOS records currently there is no way to get serial number, uuid, etc. Hence, taking care of empty strings here",
+      "parentUuid": "480260f3_cd2bc084",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 66
+      },
+      "revId": "b1767d3a66ff280e7fa536a7d1e1fa1455816f49",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
