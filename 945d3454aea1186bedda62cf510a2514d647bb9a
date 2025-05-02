@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e5af24a_f80e3ec2",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-05-02T16:16:46Z",
+      "side": 1,
+      "message": "The default design remains the same with readJsonHelperObject when allowUnknownKeys is false. \nWhen we read a fragment of a JSON object (in sub router handlers), the caller will pass what keys to be extracted which we undergo type check but if there are other keys which is not passed by the caller the flag allowUnknownKeys allows not to throw error on that.\nthis API with  allowUnknownKeys set to true is used by readJsonSubObject where the goal is to read fragment inside the object. \nI can write new API for this but thought to reuse the code with readJsonHelperObject.\nLet me know your thoughts.",
+      "parentUuid": "ae42079e_ae566188",
+      "range": {
+        "startLine": 496,
+        "startChar": 40,
+        "endLine": 496,
+        "endChar": 56
+      },
+      "revId": "945d3454aea1186bedda62cf510a2514d647bb9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffb33db1_1e2a2e3d",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2025-05-02T05:27:43Z",
       "side": 1,
       "message": "Why are we packing a new variant here?  Something seems odd if we can\u0027t reuse the vairant pack?",
+      "range": {
+        "startLine": 927,
+        "startChar": 4,
+        "endLine": 927,
+        "endChar": 15
+      },
+      "revId": "945d3454aea1186bedda62cf510a2514d647bb9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "869d806b_71ff8a7b",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 927,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-05-02T16:16:46Z",
+      "side": 1,
+      "message": "this API is exactly same as readJsonObject. Only diff is it uses readJsonHelperObject with allowUnknownKeys flag set to true. This allows parsing fragment of the object.",
+      "parentUuid": "ffb33db1_1e2a2e3d",
       "range": {
         "startLine": 927,
         "startChar": 4,
