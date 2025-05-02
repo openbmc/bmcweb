@@ -125,6 +125,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0028c6bb_7c298dba",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-05-02T06:28:03Z",
+      "side": 1,
+      "message": "Resolved.",
+      "parentUuid": "60e518c0_4dc2de6e",
+      "revId": "6da3706263b4942e9f11fea702f8848639e900ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6ab6ae4_133d1418",
