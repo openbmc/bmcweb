@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b49d0d7_6ba309d8",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-05-03T08:26:14Z",
+      "side": 1,
+      "message": "Here the current flow we have. \n\nStep 1. \nThe main route handler validates all OEM schema and all Keys. Any missing key on non compliance will be caught here. \n\nStep 2. \nOem router extracts OEM object from the payload and stores that in the subRequest object. We pass the same subRequest object to all OEM route handlers. So we pass the same OEM object to oem route handler1, route handler2 etc. All routes handlers are registered for the same URI and they manager sub segments of the OEM object. \nSo the OEM object at SubRequest level would be something like this \n```\nOem:{\n OpenBmc: {Key1:value1},\n Nvidia: {Key2:value2}\n}\n```\n\nStep 3.\nOEM handler will be called with OEM payload we have above and we need API to read only the Keys OEM sub handler needs. What I know is that we don\u0027t have API today which can read sub objects. \nreadJson(...., \"Oem/Nvidia\", obj); would throw error if there is Oem/OpenBMC also present in the object. \n\nAlternatively OEM at Router level split the sub object like OpenBMC, Nvidia, etc and pass only sub objects to each sub router handler. This was also my very initial patch but I feel this is very complex code for debugging as this would happen at route level. \n\nIf my OEM object is compliant (does not any invalid keys) as this is validated by the main router. I feel the current patch is much simpler to just have same OEM object passed to each sub router handler. \n\nPlease let me know what you feel.",
+      "parentUuid": "f63c707d_f4192adc",
+      "range": {
+        "startLine": 496,
+        "startChar": 40,
+        "endLine": 496,
+        "endChar": 56
+      },
+      "revId": "945d3454aea1186bedda62cf510a2514d647bb9a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffb33db1_1e2a2e3d",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 3
