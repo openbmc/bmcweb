@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e320f81a_c161a7ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-05T18:02:59Z",
+      "side": 1,
+      "message": "The GUI is looking at the correct variable. \nhttps://github.com/openbmc/webui-vue/blob/06cfd5bf6f2389229f7580fbd47e5d5b9ab5661e/src/store/modules/Operations/FirmwareStore.js#L45\n\nSo it should all work there. I was pleasantly surprised. :)",
+      "revId": "c2b78b1001cae8e17c347c9cc180b79d82fc23e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
