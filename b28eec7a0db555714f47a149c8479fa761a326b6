@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb94b098_004aa324",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-05-05T09:32:02Z",
+      "side": 1,
+      "message": "Yes the OEM infra code that is merged does not have any issue. I had this MR part of old design which we don\u0027t need now.",
+      "parentUuid": "3d7885a7_6fdfe2e1",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 47
+      },
+      "revId": "b28eec7a0db555714f47a149c8479fa761a326b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d54183d5_cf08ffaf",
@@ -41,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e64746_91f2451f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-05-05T09:32:02Z",
+      "side": 1,
+      "message": "I was not aware that the optimisations are intended ones and readJson API is expected to remove stuff from the input object. \nOEM infra or route handlers don\u0027t need this change. \nI created this MR from one of our previous discussion where we wanted to make the input JSON object to the read API as const reference. \nSorry the misleading commit message which was stale and part of old OEM design.",
+      "parentUuid": "d54183d5_cf08ffaf",
+      "revId": "b28eec7a0db555714f47a149c8479fa761a326b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b52d32b1_2be0b5c7",
@@ -54,6 +96,30 @@
       "writtenOn": "2025-05-02T05:25:50Z",
       "side": 1,
       "message": "This was an intentional optimization to not make copies of large string objects.\n\nHow can we avoid removing this?",
+      "range": {
+        "startLine": 147,
+        "startChar": 16,
+        "endLine": 147,
+        "endChar": 20
+      },
+      "revId": "b28eec7a0db555714f47a149c8479fa761a326b6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f18620f2_b9dca64e",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-05-05T09:32:02Z",
+      "side": 1,
+      "message": "I did not know that.",
+      "parentUuid": "b52d32b1_2be0b5c7",
       "range": {
         "startLine": 147,
         "startChar": 16,
