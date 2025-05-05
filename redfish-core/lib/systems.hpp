@@ -3448,6 +3448,109 @@ inline void handleSystemCollectionResetActionGet(
         afterGetAllowedHostTransitions(asyncResp, ec, allowedHostTransitions);
     });
 }
+
+inline void handleMultiHostConfigPost(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    uint16_t configValue;
+    nlohmann::json PostJsonObject = nlohmann::json::parse(req.body(), nullptr,
+                                                          false);
+    if (!PostJsonObject.contains("Mode"))
+    {
+        asyncResp->res.jsonValue["message"] = "Not valid input";
+        return;
+    }
+    else
+    {
+        configValue = PostJsonObject["Mode"];
+        if (configValue != 0 && configValue != 1)
+        {
+            asyncResp->res.jsonValue["message"] = "Not valid input";
+            return;
+        }
+    }
+
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/HostMode",
+        "xyz.openbmc_project.Control.HostMode", "Mode", configValue,
+        [asyncResp](const boost::system::error_code& ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("D-BUS response error {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        asyncResp->res.jsonValue["status"] = "ok";
+    });
+}
+
+inline void handleMultiHostConfigGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    if (systemName == "hypervisor")
+    {
+        handleHypervisorResetActionGet(asyncResp);
+        return;
+    }
+
+    if (systemName != "system")
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    sdbusplus::asio::getProperty<uint16_t>(
+        *crow::connections::systemBus, "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/HostMode",
+        "xyz.openbmc_project.Control.HostMode", "Mode",
+        [asyncResp](const boost::system::error_code& ec,
+                    const uint16_t multihostConfig) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("D-BUS response error {}", ec);
+            return;
+        }
+        asyncResp->res.jsonValue["Mode"] = multihostConfig;
+    });
+}
 /**
  * SystemResetActionInfo derived class for delivering Computer Systems
  * ResetType AllowableValues using ResetInfo schema.
@@ -3492,5 +3595,15 @@ inline void requestRoutesSystems(App& app)
         .privileges(redfish::privileges::getActionInfo)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             handleSystemCollectionResetActionGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/MultiHost")
+        .privileges(redfish::privileges::postComputerSystem)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleMultiHostConfigPost, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/MultiHost")
+        .privileges(redfish::privileges::getActionInfo)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleMultiHostConfigGet, std::ref(app)));
 }
 } // namespace redfish
