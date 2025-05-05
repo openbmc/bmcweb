@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8127249_9f50a448",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-05T18:05:16Z",
+      "side": 1,
+      "message": "And I don\u0027t see the test automation using multipart https://github.com/search?q\u003drepo%3Aopenbmc%2Fopenbmc-test-automation%20multipart\u0026type\u003dcode",
+      "parentUuid": "e320f81a_c161a7ce",
+      "revId": "c2b78b1001cae8e17c347c9cc180b79d82fc23e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e7c5ad1_40d82ad8",
