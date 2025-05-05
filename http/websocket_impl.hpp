@@ -18,7 +18,7 @@
 #include <boost/beast/core/multi_buffer.hpp>
 #include <boost/beast/core/role.hpp>
 #include <boost/beast/http/field.hpp>
-#include <boost/beast/http/message.hpp>
+#include <boost/beast/http/message_fwd.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/websocket/error.hpp>
 #include <boost/beast/websocket/rfc6455.hpp>

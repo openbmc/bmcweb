@@ -8,7 +8,9 @@
 #include <boost/beast/core/buffers_to_string.hpp>
 #include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
-#include <boost/beast/http/message.hpp>
+#include <boost/beast/http/message_fwd.hpp>
+#include <boost/beast/http/serializer_fwd.hpp>
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <boost/beast/http/serializer.hpp>
 #include <boost/beast/http/status.hpp>
 

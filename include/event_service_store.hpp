@@ -3,6 +3,8 @@
 #pragma once
 #include "logging.hpp"
 
+#include <boost/beast/http/fields_fwd.hpp>
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <boost/beast/http/fields.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/result.hpp>

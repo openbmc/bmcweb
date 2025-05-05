@@ -22,6 +22,8 @@
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/steady_timer.hpp>
 #include <boost/beast/http/field.hpp>
+#include <boost/beast/http/fields_fwd.hpp>
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/errc.hpp>

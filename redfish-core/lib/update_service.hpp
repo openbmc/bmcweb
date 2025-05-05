@@ -34,6 +34,8 @@
 
 #include <boost/asio/error.hpp>
 #include <boost/asio/steady_timer.hpp>
+#include <boost/beast/http/fields_fwd.hpp>
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>

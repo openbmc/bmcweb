@@ -14,7 +14,7 @@
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
-#include <boost/beast/http/message.hpp>
+#include <boost/beast/http/message_fwd.hpp>
 #include <boost/none.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/system/error_code.hpp>
