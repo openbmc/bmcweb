@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a75a2be2_4cd74e6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-05T15:44:10Z",
+      "side": 1,
+      "message": "I\u0027m not seeing anything in those that would say that it\u0027s required the two URIs be separate?\n\nI do see that all the redfish examples use update-multipart, so keeping that the same makes sense to me.",
+      "revId": "f8ca792fd9ea1792d71c0bd1b5e210e79f44a192",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a28ee4eb_4a094a34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-05T15:44:10Z",
+      "side": 1,
+      "message": "I\u0027m not sure how far we want to go trying to get the commit message perfect here, but the justification of matching the spec examples makes sense to me.",
+      "revId": "f8ca792fd9ea1792d71c0bd1b5e210e79f44a192",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
