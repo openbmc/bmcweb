@@ -160,6 +160,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b598cc5_70f93be8",
+        "filename": "redfish-core/lib/chassis.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-05-05T10:05:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "703bc4f9_1594507a",
+      "range": {
+        "startLine": 602,
+        "startChar": 8,
+        "endLine": 603,
+        "endChar": 73
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1be691a4_52481bf9",
@@ -332,6 +356,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0409921_a014d789",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-05-05T10:05:51Z",
+      "side": 1,
+      "message": "Have raised MR to remove the association https://gerrit.openbmc.org/c/openbmc/smbios-mdr/+/79995. Will move this MR to WIP and once the smbios-mdr MR is merged will work on this",
+      "parentUuid": "31a6b7a5_2e5e0de7",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 86,
+        "endChar": 41
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5c7e1ff_46cb80de",
@@ -470,6 +518,30 @@
       "side": 1,
       "message": "The reason TPM.Interface was used is the SMBIOS type 43 record defines TPM information. So thought TPM.Interface was the right one to be used",
       "parentUuid": "712c31bf_d88ee72c",
+      "range": {
+        "startLine": 304,
+        "startChar": 3,
+        "endLine": 304,
+        "endChar": 66
+      },
+      "revId": "f2b92eebe4ab01770aee4d0b237f5ef70bd941b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50eee5f2_c349beed",
+        "filename": "redfish-core/lib/trusted_components.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-05-05T10:05:51Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/smbios-mdr/+/79995\nAs suggested used `TrustedComponent.interface`",
+      "parentUuid": "895a2378_d7133c50",
       "range": {
         "startLine": 304,
         "startChar": 3,

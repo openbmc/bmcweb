@@ -119,6 +119,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c399f308_727f66f3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-05-05T10:05:51Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/smbios-mdr/+/79995 removed associations",
+      "parentUuid": "4dcd6c14_5c020594",
+      "revId": "6b80de511425999a31883c9b8c8ecb97243eec61",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c64eefa_8d8ba399",
