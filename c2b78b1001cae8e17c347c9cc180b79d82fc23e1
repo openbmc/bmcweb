@@ -16,6 +16,23 @@
       "message": "The GUI is looking at the correct variable. \nhttps://github.com/openbmc/webui-vue/blob/06cfd5bf6f2389229f7580fbd47e5d5b9ab5661e/src/store/modules/Operations/FirmwareStore.js#L45\n\nSo it should all work there. I was pleasantly surprised. :)",
       "revId": "c2b78b1001cae8e17c347c9cc180b79d82fc23e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e7c5ad1_40d82ad8",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-05T18:03:25Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/d0a341b96370e44a815de13205d19552fb3b1650/Redfish.md?plain\u003d1#L1120 should be updated to have this. Oh well, can be later",
+      "revId": "c2b78b1001cae8e17c347c9cc180b79d82fc23e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
