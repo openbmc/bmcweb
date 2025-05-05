@@ -4,7 +4,6 @@
 
 #include "logging.hpp"
 
-#include <boost/asio/buffer.hpp>
 #include <boost/asio/connect_pipe.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/readable_pipe.hpp>

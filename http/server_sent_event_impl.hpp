@@ -14,7 +14,7 @@
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/core/multi_buffer.hpp>
 #include <boost/beast/http/field.hpp>
-#include <boost/beast/http/serializer.hpp>
+#include <boost/beast/http/serializer_fwd.hpp>
 #include <boost/beast/http/write.hpp>
 
 #include <array>
