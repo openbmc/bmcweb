@@ -23,8 +23,8 @@
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/http/field.hpp>
-#include <boost/beast/http/fields.hpp>
-#include <boost/beast/http/message.hpp>
+#include <boost/beast/http/fields_fwd.hpp>
+#include <boost/beast/http/message_fwd.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/system/error_code.hpp>
