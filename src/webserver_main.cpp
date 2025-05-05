@@ -4,5 +4,6 @@
 
 int main(int /*argc*/, char** /*argv*/) noexcept(false)
 {
+    BMCWEB_LOG_INFO("Starting BMC Web Server");
     return run();
 }
