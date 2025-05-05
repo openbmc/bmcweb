@@ -9,9 +9,12 @@
 
 #include <boost/beast/core/error.hpp>
 #include <boost/beast/core/file_base.hpp>
+#include <boost/beast/core/file_posix.hpp>
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/fields.hpp>
+#include <boost/beast/http/fields_fwd.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/message_fwd.hpp>
 #include <boost/beast/http/status.hpp>
 #include <nlohmann/json.hpp>
 
