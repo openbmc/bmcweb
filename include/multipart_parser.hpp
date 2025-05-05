@@ -4,6 +4,7 @@
 
 #include "http_request.hpp"
 
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <boost/beast/http/fields.hpp>
 
 #include <algorithm>
