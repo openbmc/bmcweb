@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2885c05c_4477ec89",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-05T20:14:45Z",
+      "side": 1,
+      "message": "Missing the copyright comments.",
+      "revId": "b233dcdcc38597f79f23b186f4489b3111eef6fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d31b9a09_a88a1954",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-05T20:14:45Z",
+      "side": 1,
+      "message": "Can\u0027t this just use boost::urls::format() to build the @odata.id?",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 45
+      },
+      "revId": "b233dcdcc38597f79f23b186f4489b3111eef6fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
