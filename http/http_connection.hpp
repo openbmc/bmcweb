@@ -34,6 +34,7 @@
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/message_generator.hpp>
 #include <boost/beast/http/parser.hpp>
+#include <boost/beast/http/parser_fwd.hpp>
 #include <boost/beast/http/read.hpp>
 #include <boost/beast/http/rfc7230.hpp>
 #include <boost/beast/http/status.hpp>
