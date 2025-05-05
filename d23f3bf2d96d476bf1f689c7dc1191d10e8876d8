@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a03d26e_77d7931a",
+        "filename": "include/login_routes.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-05T20:02:13Z",
+      "side": 1,
+      "message": "Why not just remove the next line?",
+      "revId": "d23f3bf2d96d476bf1f689c7dc1191d10e8876d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
