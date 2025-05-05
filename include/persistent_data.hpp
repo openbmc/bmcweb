@@ -11,6 +11,7 @@
 
 #include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
+// NOLINTNEXTLINE(misc-include-cleaner)
 #include <boost/beast/http/fields.hpp>
 #include <nlohmann/json.hpp>
 

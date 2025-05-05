@@ -8,7 +8,9 @@
 #include <boost/asio/ip/address.hpp>
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/fields.hpp>
+#include <boost/beast/http/fields_fwd.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/message_fwd.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/beast/websocket/rfc6455.hpp>
 #include <boost/url/parse.hpp>
