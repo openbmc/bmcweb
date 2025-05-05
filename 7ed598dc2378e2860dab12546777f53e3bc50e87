@@ -190,6 +190,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "649f7903_e54df020",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-05-05T10:08:01Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bios-settings-mgr/+/79958 MR has the updated path",
+      "parentUuid": "5abce0f0_3eae51db",
+      "range": {
+        "startLine": 66,
+        "startChar": 9,
+        "endLine": 66,
+        "endChar": 50
+      },
+      "revId": "7ed598dc2378e2860dab12546777f53e3bc50e87",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bedd8275_b0ef4b73",
