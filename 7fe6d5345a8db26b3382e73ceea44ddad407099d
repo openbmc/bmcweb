@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "929f29ce_5834db1d",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-06T21:52:21Z",
+      "side": 1,
+      "message": "Would\u0027ve really prefered that this value was set in one place. (ie, move this down to the other sets) but that\u0027s a nit, fix if you want.",
+      "revId": "7fe6d5345a8db26b3382e73ceea44ddad407099d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
