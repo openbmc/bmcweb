@@ -27,23 +27,32 @@ namespace redfish
 
 namespace messages
 {
-nlohmann::json taskStarted(std::string_view arg1);
+nlohmann::json::object_t taskStarted(std::string_view arg1);
 
-nlohmann::json taskCompletedOK(std::string_view arg1);
 
-nlohmann::json taskCompletedWarning(std::string_view arg1);
+nlohmann::json::object_t taskCompletedOK(std::string_view arg1);
 
-nlohmann::json taskAborted(std::string_view arg1);
 
-nlohmann::json taskCancelled(std::string_view arg1);
+nlohmann::json::object_t taskCompletedWarning(std::string_view arg1);
 
-nlohmann::json taskRemoved(std::string_view arg1);
 
-nlohmann::json taskPaused(std::string_view arg1);
+nlohmann::json::object_t taskAborted(std::string_view arg1);
 
-nlohmann::json taskResumed(std::string_view arg1);
 
-nlohmann::json taskProgressChanged(std::string_view arg1, uint64_t arg2);
+nlohmann::json::object_t taskCancelled(std::string_view arg1);
 
-} // namespace messages
-} // namespace redfish
+
+nlohmann::json::object_t taskRemoved(std::string_view arg1);
+
+
+nlohmann::json::object_t taskPaused(std::string_view arg1);
+
+
+nlohmann::json::object_t taskResumed(std::string_view arg1);
+
+
+nlohmann::json::object_t taskProgressChanged(std::string_view arg1, uint64_t arg2);
+
+
+    }
+}

@@ -27,70 +27,86 @@ namespace redfish
 
 namespace messages
 {
-nlohmann::json resourceCreated();
+nlohmann::json::object_t resourceCreated();
 
-nlohmann::json resourceRemoved();
 
-nlohmann::json resourceErrorsDetected(std::string_view arg1,
-                                      std::string_view arg2);
+nlohmann::json::object_t resourceRemoved();
 
-nlohmann::json resourceErrorsCorrected(std::string_view arg1,
-                                       std::string_view arg2);
 
-nlohmann::json resourceErrorThresholdExceeded(std::string_view arg1,
-                                              std::string_view arg2);
+nlohmann::json::object_t resourceErrorsDetected(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json resourceErrorThresholdCleared(std::string_view arg1,
-                                             std::string_view arg2);
 
-nlohmann::json resourceWarningThresholdExceeded(std::string_view arg1,
-                                                std::string_view arg2);
+nlohmann::json::object_t resourceErrorsCorrected(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json resourceWarningThresholdCleared(std::string_view arg1,
-                                               std::string_view arg2);
 
-nlohmann::json resourceStatusChangedOK(std::string_view arg1,
-                                       std::string_view arg2);
+nlohmann::json::object_t resourceErrorThresholdExceeded(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json resourceStatusChangedWarning(std::string_view arg1,
-                                            std::string_view arg2);
 
-nlohmann::json resourceStatusChangedCritical(std::string_view arg1,
-                                             std::string_view arg2);
+nlohmann::json::object_t resourceErrorThresholdCleared(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json resourceStateChanged(std::string_view arg1,
-                                    std::string_view arg2);
 
-nlohmann::json resourcePoweredOn(std::string_view arg1);
+nlohmann::json::object_t resourceWarningThresholdExceeded(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json resourcePoweringOn(std::string_view arg1);
 
-nlohmann::json resourcePoweredOff(std::string_view arg1);
+nlohmann::json::object_t resourceWarningThresholdCleared(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json resourcePoweringOff(std::string_view arg1);
 
-nlohmann::json resourcePaused(std::string_view arg1);
+nlohmann::json::object_t resourceStatusChangedOK(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json uRIForResourceChanged();
 
-nlohmann::json resourceChanged();
+nlohmann::json::object_t resourceStatusChangedWarning(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json resourceVersionIncompatible(std::string_view arg1);
 
-nlohmann::json resourceSelfTestFailed(std::string_view arg1);
+nlohmann::json::object_t resourceStatusChangedCritical(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json resourceSelfTestCompleted();
 
-nlohmann::json testMessage();
+nlohmann::json::object_t resourceStateChanged(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json aggregationSourceDiscovered(std::string_view arg1,
-                                           std::string_view arg2);
 
-nlohmann::json licenseExpired(std::string_view arg1, std::string_view arg2);
+nlohmann::json::object_t resourcePoweredOn(std::string_view arg1);
 
-nlohmann::json licenseChanged(std::string_view arg1, std::string_view arg2);
 
-nlohmann::json licenseAdded(std::string_view arg1, std::string_view arg2);
+nlohmann::json::object_t resourcePoweringOn(std::string_view arg1);
 
-} // namespace messages
-} // namespace redfish
+
+nlohmann::json::object_t resourcePoweredOff(std::string_view arg1);
+
+
+nlohmann::json::object_t resourcePoweringOff(std::string_view arg1);
+
+
+nlohmann::json::object_t resourcePaused(std::string_view arg1);
+
+
+nlohmann::json::object_t uRIForResourceChanged();
+
+
+nlohmann::json::object_t resourceChanged();
+
+
+nlohmann::json::object_t resourceVersionIncompatible(std::string_view arg1);
+
+
+nlohmann::json::object_t resourceSelfTestFailed(std::string_view arg1);
+
+
+nlohmann::json::object_t resourceSelfTestCompleted();
+
+
+nlohmann::json::object_t testMessage();
+
+
+nlohmann::json::object_t aggregationSourceDiscovered(std::string_view arg1, std::string_view arg2);
+
+
+nlohmann::json::object_t licenseExpired(std::string_view arg1, std::string_view arg2);
+
+
+nlohmann::json::object_t licenseChanged(std::string_view arg1, std::string_view arg2);
+
+
+nlohmann::json::object_t licenseAdded(std::string_view arg1, std::string_view arg2);
+
+
+    }
+}

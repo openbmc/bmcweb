@@ -9,23 +9,20 @@
  * github organization.
  ***************************************************************/
 #include "error_messages.hpp"
-
+#include "registries.hpp"
 #include "error_message_utils.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
-#include "registries.hpp"
-#include "registries/base_message_registry.hpp"
-
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/url/url_view_base.hpp>
+#include <source_location>
+#include "registries/base_message_registry.hpp"
 #include <nlohmann/json.hpp>
-
 #include <array>
 #include <cstddef>
-#include <cstdint>
-#include <source_location>
 #include <span>
+#include <cstdint>
 #include <string>
 #include <string_view>
 
@@ -40,7 +37,7 @@ namespace redfish
 namespace messages
 {
 
-static nlohmann::json getLog(redfish::registries::Base::Index name,
+static nlohmann::json::object_t getLog(redfish::registries::Base::Index name,
                              std::span<const std::string_view> args)
 {
     size_t index = static_cast<size_t>(name);
@@ -59,7 +56,7 @@ static nlohmann::json getLog(redfish::registries::Base::Index name,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json success()
+nlohmann::json::object_t success()
 {
     return getLog(redfish::registries::Base::Index::success, {});
 }
@@ -76,7 +73,7 @@ void success(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json generalError()
+nlohmann::json::object_t generalError()
 {
     return getLog(redfish::registries::Base::Index::generalError, {});
 }
@@ -94,7 +91,7 @@ void generalError(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json created()
+nlohmann::json::object_t created()
 {
     return getLog(redfish::registries::Base::Index::created, {});
 }
@@ -112,7 +109,7 @@ void created(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json noOperation()
+nlohmann::json::object_t noOperation()
 {
     return getLog(redfish::registries::Base::Index::noOperation, {});
 }
@@ -130,10 +127,9 @@ void noOperation(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyDuplicate(std::string_view arg1)
+nlohmann::json::object_t propertyDuplicate(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::propertyDuplicate,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::propertyDuplicate, std::to_array({arg1}));
 }
 
 void propertyDuplicate(crow::Response& res, std::string_view arg1)
@@ -149,10 +145,9 @@ void propertyDuplicate(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyUnknown(std::string_view arg1)
+nlohmann::json::object_t propertyUnknown(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::propertyUnknown,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::propertyUnknown, std::to_array({arg1}));
 }
 
 void propertyUnknown(crow::Response& res, std::string_view arg1)
@@ -168,17 +163,13 @@ void propertyUnknown(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueTypeError(const nlohmann::json& arg1,
-                                      std::string_view arg2)
+nlohmann::json::object_t propertyValueTypeError(const nlohmann::json& arg1, std::string_view arg2)
 {
-    std::string arg1Str =
-        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(redfish::registries::Base::Index::propertyValueTypeError,
-                  std::to_array<std::string_view>({arg1Str, arg2}));
+std::string arg1Str = arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::propertyValueTypeError, std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
-                            std::string_view arg2)
+void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(res.jsonValue, propertyValueTypeError(arg1, arg2), arg2);
@@ -191,17 +182,13 @@ void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueFormatError(const nlohmann::json& arg1,
-                                        std::string_view arg2)
+nlohmann::json::object_t propertyValueFormatError(const nlohmann::json& arg1, std::string_view arg2)
 {
-    std::string arg1Str =
-        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(redfish::registries::Base::Index::propertyValueFormatError,
-                  std::to_array<std::string_view>({arg1Str, arg2}));
+std::string arg1Str = arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::propertyValueFormatError, std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void propertyValueFormatError(crow::Response& res, const nlohmann::json& arg1,
-                              std::string_view arg2)
+void propertyValueFormatError(crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(res.jsonValue, propertyValueFormatError(arg1, arg2), arg2);
@@ -214,17 +201,13 @@ void propertyValueFormatError(crow::Response& res, const nlohmann::json& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueNotInList(const nlohmann::json& arg1,
-                                      std::string_view arg2)
+nlohmann::json::object_t propertyValueNotInList(const nlohmann::json& arg1, std::string_view arg2)
 {
-    std::string arg1Str =
-        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(redfish::registries::Base::Index::propertyValueNotInList,
-                  std::to_array<std::string_view>({arg1Str, arg2}));
+std::string arg1Str = arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::propertyValueNotInList, std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1,
-                            std::string_view arg2)
+void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(res.jsonValue, propertyValueNotInList(arg1, arg2), arg2);
@@ -237,17 +220,13 @@ void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueOutOfRange(const nlohmann::json& arg1,
-                                       std::string_view arg2)
+nlohmann::json::object_t propertyValueOutOfRange(const nlohmann::json& arg1, std::string_view arg2)
 {
-    std::string arg1Str =
-        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(redfish::registries::Base::Index::propertyValueOutOfRange,
-                  std::to_array<std::string_view>({arg1Str, arg2}));
+std::string arg1Str = arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::propertyValueOutOfRange, std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void propertyValueOutOfRange(crow::Response& res, const nlohmann::json& arg1,
-                             std::string_view arg2)
+void propertyValueOutOfRange(crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, propertyValueOutOfRange(arg1, arg2));
@@ -260,10 +239,9 @@ void propertyValueOutOfRange(crow::Response& res, const nlohmann::json& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueError(std::string_view arg1)
+nlohmann::json::object_t propertyValueError(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::propertyValueError,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::propertyValueError, std::to_array({arg1}));
 }
 
 void propertyValueError(crow::Response& res, std::string_view arg1)
@@ -279,10 +257,9 @@ void propertyValueError(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyNotWritable(std::string_view arg1)
+nlohmann::json::object_t propertyNotWritable(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::propertyNotWritable,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::propertyNotWritable, std::to_array({arg1}));
 }
 
 void propertyNotWritable(crow::Response& res, std::string_view arg1)
@@ -298,10 +275,9 @@ void propertyNotWritable(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyNotUpdated(std::string_view arg1)
+nlohmann::json::object_t propertyNotUpdated(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::propertyNotUpdated,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::propertyNotUpdated, std::to_array({arg1}));
 }
 
 void propertyNotUpdated(crow::Response& res, std::string_view arg1)
@@ -317,10 +293,9 @@ void propertyNotUpdated(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyMissing(std::string_view arg1)
+nlohmann::json::object_t propertyMissing(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::propertyMissing,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::propertyMissing, std::to_array({arg1}));
 }
 
 void propertyMissing(crow::Response& res, std::string_view arg1)
@@ -336,7 +311,7 @@ void propertyMissing(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json malformedJSON()
+nlohmann::json::object_t malformedJSON()
 {
     return getLog(redfish::registries::Base::Index::malformedJSON, {});
 }
@@ -354,10 +329,9 @@ void malformedJSON(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json invalidJSON(std::string_view arg1)
+nlohmann::json::object_t invalidJSON(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::invalidJSON,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::invalidJSON, std::to_array({arg1}));
 }
 
 void invalidJSON(crow::Response& res, std::string_view arg1)
@@ -373,7 +347,7 @@ void invalidJSON(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json emptyJSON()
+nlohmann::json::object_t emptyJSON()
 {
     return getLog(redfish::registries::Base::Index::emptyJSON, {});
 }
@@ -391,10 +365,9 @@ void emptyJSON(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionNotSupported(std::string_view arg1)
+nlohmann::json::object_t actionNotSupported(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::actionNotSupported,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::actionNotSupported, std::to_array({arg1}));
 }
 
 void actionNotSupported(crow::Response& res, std::string_view arg1)
@@ -410,15 +383,12 @@ void actionNotSupported(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionParameterMissing(std::string_view arg1,
-                                      std::string_view arg2)
+nlohmann::json::object_t actionParameterMissing(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::actionParameterMissing,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::actionParameterMissing, std::to_array({arg1, arg2}));
 }
 
-void actionParameterMissing(crow::Response& res, std::string_view arg1,
-                            std::string_view arg2)
+void actionParameterMissing(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, actionParameterMissing(arg1, arg2));
@@ -431,15 +401,12 @@ void actionParameterMissing(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionParameterDuplicate(std::string_view arg1,
-                                        std::string_view arg2)
+nlohmann::json::object_t actionParameterDuplicate(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::actionParameterDuplicate,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::actionParameterDuplicate, std::to_array({arg1, arg2}));
 }
 
-void actionParameterDuplicate(crow::Response& res, std::string_view arg1,
-                              std::string_view arg2)
+void actionParameterDuplicate(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, actionParameterDuplicate(arg1, arg2));
@@ -452,15 +419,12 @@ void actionParameterDuplicate(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionParameterUnknown(std::string_view arg1,
-                                      std::string_view arg2)
+nlohmann::json::object_t actionParameterUnknown(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::actionParameterUnknown,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::actionParameterUnknown, std::to_array({arg1, arg2}));
 }
 
-void actionParameterUnknown(crow::Response& res, std::string_view arg1,
-                            std::string_view arg2)
+void actionParameterUnknown(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, actionParameterUnknown(arg1, arg2));
@@ -473,23 +437,16 @@ void actionParameterUnknown(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionParameterValueTypeError(
-    const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3)
+nlohmann::json::object_t actionParameterValueTypeError(const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3)
 {
-    std::string arg1Str =
-        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(
-        redfish::registries::Base::Index::actionParameterValueTypeError,
-        std::to_array<std::string_view>({arg1Str, arg2, arg3}));
+std::string arg1Str = arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::actionParameterValueTypeError, std::to_array<std::string_view>({arg1Str, arg2, arg3}));
 }
 
-void actionParameterValueTypeError(crow::Response& res,
-                                   const nlohmann::json& arg1,
-                                   std::string_view arg2, std::string_view arg3)
+void actionParameterValueTypeError(crow::Response& res, const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          actionParameterValueTypeError(arg1, arg2, arg3));
+    addMessageToErrorJson(res.jsonValue, actionParameterValueTypeError(arg1, arg2, arg3));
 }
 
 /**
@@ -499,23 +456,16 @@ void actionParameterValueTypeError(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionParameterValueFormatError(
-    const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3)
+nlohmann::json::object_t actionParameterValueFormatError(const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3)
 {
-    std::string arg1Str =
-        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(
-        redfish::registries::Base::Index::actionParameterValueFormatError,
-        std::to_array<std::string_view>({arg1Str, arg2, arg3}));
+std::string arg1Str = arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::actionParameterValueFormatError, std::to_array<std::string_view>({arg1Str, arg2, arg3}));
 }
 
-void actionParameterValueFormatError(
-    crow::Response& res, const nlohmann::json& arg1, std::string_view arg2,
-    std::string_view arg3)
+void actionParameterValueFormatError(crow::Response& res, const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          actionParameterValueFormatError(arg1, arg2, arg3));
+    addMessageToErrorJson(res.jsonValue, actionParameterValueFormatError(arg1, arg2, arg3));
 }
 
 /**
@@ -525,20 +475,15 @@ void actionParameterValueFormatError(
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionParameterValueNotInList(
-    std::string_view arg1, std::string_view arg2, std::string_view arg3)
+nlohmann::json::object_t actionParameterValueNotInList(std::string_view arg1, std::string_view arg2, std::string_view arg3)
 {
-    return getLog(
-        redfish::registries::Base::Index::actionParameterValueNotInList,
-        std::to_array({arg1, arg2, arg3}));
+    return getLog(redfish::registries::Base::Index::actionParameterValueNotInList, std::to_array({arg1, arg2, arg3}));
 }
 
-void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
-                                   std::string_view arg2, std::string_view arg3)
+void actionParameterValueNotInList(crow::Response& res, std::string_view arg1, std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          actionParameterValueNotInList(arg1, arg2, arg3));
+    addMessageToErrorJson(res.jsonValue, actionParameterValueNotInList(arg1, arg2, arg3));
 }
 
 /**
@@ -548,21 +493,15 @@ void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionParameterValueOutOfRange(
-    std::string_view arg1, std::string_view arg2, std::string_view arg3)
+nlohmann::json::object_t actionParameterValueOutOfRange(std::string_view arg1, std::string_view arg2, std::string_view arg3)
 {
-    return getLog(
-        redfish::registries::Base::Index::actionParameterValueOutOfRange,
-        std::to_array({arg1, arg2, arg3}));
+    return getLog(redfish::registries::Base::Index::actionParameterValueOutOfRange, std::to_array({arg1, arg2, arg3}));
 }
 
-void actionParameterValueOutOfRange(crow::Response& res, std::string_view arg1,
-                                    std::string_view arg2,
-                                    std::string_view arg3)
+void actionParameterValueOutOfRange(crow::Response& res, std::string_view arg1, std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          actionParameterValueOutOfRange(arg1, arg2, arg3));
+    addMessageToErrorJson(res.jsonValue, actionParameterValueOutOfRange(arg1, arg2, arg3));
 }
 
 /**
@@ -572,17 +511,13 @@ void actionParameterValueOutOfRange(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionParameterValueError(const nlohmann::json& arg1,
-                                         std::string_view arg2)
+nlohmann::json::object_t actionParameterValueError(const nlohmann::json& arg1, std::string_view arg2)
 {
-    std::string arg1Str =
-        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(redfish::registries::Base::Index::actionParameterValueError,
-                  std::to_array<std::string_view>({arg1Str, arg2}));
+std::string arg1Str = arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::actionParameterValueError, std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1,
-                               std::string_view arg2)
+void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, actionParameterValueError(arg1, arg2));
@@ -595,19 +530,15 @@ void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionParameterNotSupported(std::string_view arg1,
-                                           std::string_view arg2)
+nlohmann::json::object_t actionParameterNotSupported(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::actionParameterNotSupported,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::actionParameterNotSupported, std::to_array({arg1, arg2}));
 }
 
-void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
-                                 std::string_view arg2)
+void actionParameterNotSupported(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          actionParameterNotSupported(arg1, arg2));
+    addMessageToErrorJson(res.jsonValue, actionParameterNotSupported(arg1, arg2));
 }
 
 /**
@@ -617,11 +548,10 @@ void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json arraySizeTooLong(std::string_view arg1, uint64_t arg2)
+nlohmann::json::object_t arraySizeTooLong(std::string_view arg1, uint64_t arg2)
 {
-    std::string arg2Str = std::to_string(arg2);
-    return getLog(redfish::registries::Base::Index::arraySizeTooLong,
-                  std::to_array<std::string_view>({arg1, arg2Str}));
+std::string arg2Str = std::to_string(arg2);
+    return getLog(redfish::registries::Base::Index::arraySizeTooLong, std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
 void arraySizeTooLong(crow::Response& res, std::string_view arg1, uint64_t arg2)
@@ -637,14 +567,12 @@ void arraySizeTooLong(crow::Response& res, std::string_view arg1, uint64_t arg2)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json arraySizeTooShort(std::string_view arg1, std::string_view arg2)
+nlohmann::json::object_t arraySizeTooShort(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::arraySizeTooShort,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::arraySizeTooShort, std::to_array({arg1, arg2}));
 }
 
-void arraySizeTooShort(crow::Response& res, std::string_view arg1,
-                       std::string_view arg2)
+void arraySizeTooShort(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, arraySizeTooShort(arg1, arg2));
@@ -657,22 +585,16 @@ void arraySizeTooShort(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryParameterValueTypeError(const nlohmann::json& arg1,
-                                            std::string_view arg2)
+nlohmann::json::object_t queryParameterValueTypeError(const nlohmann::json& arg1, std::string_view arg2)
 {
-    std::string arg1Str =
-        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(
-        redfish::registries::Base::Index::queryParameterValueTypeError,
-        std::to_array<std::string_view>({arg1Str, arg2}));
+std::string arg1Str = arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::queryParameterValueTypeError, std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void queryParameterValueTypeError(
-    crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
+void queryParameterValueTypeError(crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          queryParameterValueTypeError(arg1, arg2));
+    addMessageToErrorJson(res.jsonValue, queryParameterValueTypeError(arg1, arg2));
 }
 
 /**
@@ -682,22 +604,16 @@ void queryParameterValueTypeError(
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryParameterValueFormatError(const nlohmann::json& arg1,
-                                              std::string_view arg2)
+nlohmann::json::object_t queryParameterValueFormatError(const nlohmann::json& arg1, std::string_view arg2)
 {
-    std::string arg1Str =
-        arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(
-        redfish::registries::Base::Index::queryParameterValueFormatError,
-        std::to_array<std::string_view>({arg1Str, arg2}));
+std::string arg1Str = arg1.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::queryParameterValueFormatError, std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void queryParameterValueFormatError(
-    crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
+void queryParameterValueFormatError(crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          queryParameterValueFormatError(arg1, arg2));
+    addMessageToErrorJson(res.jsonValue, queryParameterValueFormatError(arg1, arg2));
 }
 
 /**
@@ -707,10 +623,9 @@ void queryParameterValueFormatError(
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryParameterValueError(std::string_view arg1)
+nlohmann::json::object_t queryParameterValueError(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::queryParameterValueError,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::queryParameterValueError, std::to_array({arg1}));
 }
 
 void queryParameterValueError(crow::Response& res, std::string_view arg1)
@@ -726,19 +641,15 @@ void queryParameterValueError(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryParameterOutOfRange(
-    std::string_view arg1, std::string_view arg2, std::string_view arg3)
+nlohmann::json::object_t queryParameterOutOfRange(std::string_view arg1, std::string_view arg2, std::string_view arg3)
 {
-    return getLog(redfish::registries::Base::Index::queryParameterOutOfRange,
-                  std::to_array({arg1, arg2, arg3}));
+    return getLog(redfish::registries::Base::Index::queryParameterOutOfRange, std::to_array({arg1, arg2, arg3}));
 }
 
-void queryParameterOutOfRange(crow::Response& res, std::string_view arg1,
-                              std::string_view arg2, std::string_view arg3)
+void queryParameterOutOfRange(crow::Response& res, std::string_view arg1, std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          queryParameterOutOfRange(arg1, arg2, arg3));
+    addMessageToErrorJson(res.jsonValue, queryParameterOutOfRange(arg1, arg2, arg3));
 }
 
 /**
@@ -748,10 +659,9 @@ void queryParameterOutOfRange(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryNotSupportedOnResource()
+nlohmann::json::object_t queryNotSupportedOnResource()
 {
-    return getLog(redfish::registries::Base::Index::queryNotSupportedOnResource,
-                  {});
+    return getLog(redfish::registries::Base::Index::queryNotSupportedOnResource, {});
 }
 
 void queryNotSupportedOnResource(crow::Response& res)
@@ -767,10 +677,9 @@ void queryNotSupportedOnResource(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryNotSupportedOnOperation()
+nlohmann::json::object_t queryNotSupportedOnOperation()
 {
-    return getLog(
-        redfish::registries::Base::Index::queryNotSupportedOnOperation, {});
+    return getLog(redfish::registries::Base::Index::queryNotSupportedOnOperation, {});
 }
 
 void queryNotSupportedOnOperation(crow::Response& res)
@@ -786,7 +695,7 @@ void queryNotSupportedOnOperation(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryNotSupported()
+nlohmann::json::object_t queryNotSupported()
 {
     return getLog(redfish::registries::Base::Index::queryNotSupported, {});
 }
@@ -804,10 +713,9 @@ void queryNotSupported(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryCombinationInvalid()
+nlohmann::json::object_t queryCombinationInvalid()
 {
-    return getLog(redfish::registries::Base::Index::queryCombinationInvalid,
-                  {});
+    return getLog(redfish::registries::Base::Index::queryCombinationInvalid, {});
 }
 
 void queryCombinationInvalid(crow::Response& res)
@@ -823,10 +731,9 @@ void queryCombinationInvalid(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json queryParameterUnsupported(std::string_view arg1)
+nlohmann::json::object_t queryParameterUnsupported(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::queryParameterUnsupported,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::queryParameterUnsupported, std::to_array({arg1}));
 }
 
 void queryParameterUnsupported(crow::Response& res, std::string_view arg1)
@@ -842,7 +749,7 @@ void queryParameterUnsupported(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json sessionLimitExceeded()
+nlohmann::json::object_t sessionLimitExceeded()
 {
     return getLog(redfish::registries::Base::Index::sessionLimitExceeded, {});
 }
@@ -860,10 +767,9 @@ void sessionLimitExceeded(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json eventSubscriptionLimitExceeded()
+nlohmann::json::object_t eventSubscriptionLimitExceeded()
 {
-    return getLog(
-        redfish::registries::Base::Index::eventSubscriptionLimitExceeded, {});
+    return getLog(redfish::registries::Base::Index::eventSubscriptionLimitExceeded, {});
 }
 
 void eventSubscriptionLimitExceeded(crow::Response& res)
@@ -879,10 +785,9 @@ void eventSubscriptionLimitExceeded(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceCannotBeDeleted()
+nlohmann::json::object_t resourceCannotBeDeleted()
 {
-    return getLog(redfish::registries::Base::Index::resourceCannotBeDeleted,
-                  {});
+    return getLog(redfish::registries::Base::Index::resourceCannotBeDeleted, {});
 }
 
 void resourceCannotBeDeleted(crow::Response& res)
@@ -898,7 +803,7 @@ void resourceCannotBeDeleted(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceInUse()
+nlohmann::json::object_t resourceInUse()
 {
     return getLog(redfish::registries::Base::Index::resourceInUse, {});
 }
@@ -916,19 +821,15 @@ void resourceInUse(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceAlreadyExists(
-    std::string_view arg1, std::string_view arg2, std::string_view arg3)
+nlohmann::json::object_t resourceAlreadyExists(std::string_view arg1, std::string_view arg2, std::string_view arg3)
 {
-    return getLog(redfish::registries::Base::Index::resourceAlreadyExists,
-                  std::to_array({arg1, arg2, arg3}));
+    return getLog(redfish::registries::Base::Index::resourceAlreadyExists, std::to_array({arg1, arg2, arg3}));
 }
 
-void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
-                           std::string_view arg2, std::string_view arg3)
+void resourceAlreadyExists(crow::Response& res, std::string_view arg1, std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, resourceAlreadyExists(arg1, arg2, arg3),
-                     arg2);
+    addMessageToJson(res.jsonValue, resourceAlreadyExists(arg1, arg2, arg3), arg2);
 }
 
 /**
@@ -938,14 +839,12 @@ void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceNotFound(std::string_view arg1, std::string_view arg2)
+nlohmann::json::object_t resourceNotFound(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::resourceNotFound,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::resourceNotFound, std::to_array({arg1, arg2}));
 }
 
-void resourceNotFound(crow::Response& res, std::string_view arg1,
-                      std::string_view arg2)
+void resourceNotFound(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::not_found);
     addMessageToErrorJson(res.jsonValue, resourceNotFound(arg1, arg2));
@@ -958,7 +857,7 @@ void resourceNotFound(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json payloadTooLarge()
+nlohmann::json::object_t payloadTooLarge()
 {
     return getLog(redfish::registries::Base::Index::payloadTooLarge, {});
 }
@@ -976,7 +875,7 @@ void payloadTooLarge(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json insufficientStorage()
+nlohmann::json::object_t insufficientStorage()
 {
     return getLog(redfish::registries::Base::Index::insufficientStorage, {});
 }
@@ -994,7 +893,7 @@ void insufficientStorage(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json missingOrMalformedPart()
+nlohmann::json::object_t missingOrMalformedPart()
 {
     return getLog(redfish::registries::Base::Index::missingOrMalformedPart, {});
 }
@@ -1012,10 +911,9 @@ void missingOrMalformedPart(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json invalidURI(std::string_view arg1)
+nlohmann::json::object_t invalidURI(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::invalidURI,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::invalidURI, std::to_array({arg1}));
 }
 
 void invalidURI(crow::Response& res, std::string_view arg1)
@@ -1031,19 +929,15 @@ void invalidURI(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json createFailedMissingReqProperties(std::string_view arg1)
+nlohmann::json::object_t createFailedMissingReqProperties(std::string_view arg1)
 {
-    return getLog(
-        redfish::registries::Base::Index::createFailedMissingReqProperties,
-        std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::createFailedMissingReqProperties, std::to_array({arg1}));
 }
 
-void createFailedMissingReqProperties(crow::Response& res,
-                                      std::string_view arg1)
+void createFailedMissingReqProperties(crow::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToJson(res.jsonValue, createFailedMissingReqProperties(arg1),
-                     arg1);
+    addMessageToJson(res.jsonValue, createFailedMissingReqProperties(arg1), arg1);
 }
 
 /**
@@ -1053,10 +947,9 @@ void createFailedMissingReqProperties(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json createLimitReachedForResource()
+nlohmann::json::object_t createLimitReachedForResource()
 {
-    return getLog(
-        redfish::registries::Base::Index::createLimitReachedForResource, {});
+    return getLog(redfish::registries::Base::Index::createLimitReachedForResource, {});
 }
 
 void createLimitReachedForResource(crow::Response& res)
@@ -1072,7 +965,7 @@ void createLimitReachedForResource(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json serviceShuttingDown()
+nlohmann::json::object_t serviceShuttingDown()
 {
     return getLog(redfish::registries::Base::Index::serviceShuttingDown, {});
 }
@@ -1090,7 +983,7 @@ void serviceShuttingDown(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json serviceInUnknownState()
+nlohmann::json::object_t serviceInUnknownState()
 {
     return getLog(redfish::registries::Base::Index::serviceInUnknownState, {});
 }
@@ -1108,7 +1001,7 @@ void serviceInUnknownState(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json noValidSession()
+nlohmann::json::object_t noValidSession()
 {
     return getLog(redfish::registries::Base::Index::noValidSession, {});
 }
@@ -1126,7 +1019,7 @@ void noValidSession(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json insufficientPrivilege()
+nlohmann::json::object_t insufficientPrivilege()
 {
     return getLog(redfish::registries::Base::Index::insufficientPrivilege, {});
 }
@@ -1144,7 +1037,7 @@ void insufficientPrivilege(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json accountModified()
+nlohmann::json::object_t accountModified()
 {
     return getLog(redfish::registries::Base::Index::accountModified, {});
 }
@@ -1162,7 +1055,7 @@ void accountModified(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json accountNotModified()
+nlohmann::json::object_t accountNotModified()
 {
     return getLog(redfish::registries::Base::Index::accountNotModified, {});
 }
@@ -1180,7 +1073,7 @@ void accountNotModified(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json accountRemoved()
+nlohmann::json::object_t accountRemoved()
 {
     return getLog(redfish::registries::Base::Index::accountRemoved, {});
 }
@@ -1198,10 +1091,9 @@ void accountRemoved(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json accountForSessionNoLongerExists()
+nlohmann::json::object_t accountForSessionNoLongerExists()
 {
-    return getLog(
-        redfish::registries::Base::Index::accountForSessionNoLongerExists, {});
+    return getLog(redfish::registries::Base::Index::accountForSessionNoLongerExists, {});
 }
 
 void accountForSessionNoLongerExists(crow::Response& res)
@@ -1217,10 +1109,9 @@ void accountForSessionNoLongerExists(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json invalidObject(const boost::urls::url_view_base& arg1)
+nlohmann::json::object_t invalidObject(const boost::urls::url_view_base& arg1)
 {
-    return getLog(redfish::registries::Base::Index::invalidObject,
-                  std::to_array<std::string_view>({arg1.buffer()}));
+    return getLog(redfish::registries::Base::Index::invalidObject, std::to_array<std::string_view>({arg1.buffer()}));
 }
 
 void invalidObject(crow::Response& res, const boost::urls::url_view_base& arg1)
@@ -1236,16 +1127,16 @@ void invalidObject(crow::Response& res, const boost::urls::url_view_base& arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json internalError()
+nlohmann::json::object_t internalError()
 {
     return getLog(redfish::registries::Base::Index::internalError, {});
 }
 
 void internalError(crow::Response& res, const std::source_location location)
 {
-    BMCWEB_LOG_CRITICAL("Internal Error {}({}:{}) `{}`: ", location.file_name(),
-                        location.line(), location.column(),
-                        location.function_name());
+BMCWEB_LOG_CRITICAL("Internal Error {}({}:{}) `{}`: ", location.file_name(),
+                            location.line(), location.column(),
+                            location.function_name());
     res.result(boost::beast::http::status::internal_server_error);
     addMessageToErrorJson(res.jsonValue, internalError());
 }
@@ -1257,10 +1148,9 @@ void internalError(crow::Response& res, const std::source_location location)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json unrecognizedRequestBody()
+nlohmann::json::object_t unrecognizedRequestBody()
 {
-    return getLog(redfish::registries::Base::Index::unrecognizedRequestBody,
-                  {});
+    return getLog(redfish::registries::Base::Index::unrecognizedRequestBody, {});
 }
 
 void unrecognizedRequestBody(crow::Response& res)
@@ -1276,14 +1166,12 @@ void unrecognizedRequestBody(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceMissingAtURI(const boost::urls::url_view_base& arg1)
+nlohmann::json::object_t resourceMissingAtURI(const boost::urls::url_view_base& arg1)
 {
-    return getLog(redfish::registries::Base::Index::resourceMissingAtURI,
-                  std::to_array<std::string_view>({arg1.buffer()}));
+    return getLog(redfish::registries::Base::Index::resourceMissingAtURI, std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void resourceMissingAtURI(crow::Response& res,
-                          const boost::urls::url_view_base& arg1)
+void resourceMissingAtURI(crow::Response& res, const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, resourceMissingAtURI(arg1));
@@ -1296,16 +1184,12 @@ void resourceMissingAtURI(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceAtUriInUnknownFormat(
-    const boost::urls::url_view_base& arg1)
+nlohmann::json::object_t resourceAtUriInUnknownFormat(const boost::urls::url_view_base& arg1)
 {
-    return getLog(
-        redfish::registries::Base::Index::resourceAtUriInUnknownFormat,
-        std::to_array<std::string_view>({arg1.buffer()}));
+    return getLog(redfish::registries::Base::Index::resourceAtUriInUnknownFormat, std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void resourceAtUriInUnknownFormat(crow::Response& res,
-                                  const boost::urls::url_view_base& arg1)
+void resourceAtUriInUnknownFormat(crow::Response& res, const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, resourceAtUriInUnknownFormat(arg1));
@@ -1318,16 +1202,12 @@ void resourceAtUriInUnknownFormat(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceAtUriUnauthorized(const boost::urls::url_view_base& arg1,
-                                         std::string_view arg2)
+nlohmann::json::object_t resourceAtUriUnauthorized(const boost::urls::url_view_base& arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::resourceAtUriUnauthorized,
-                  std::to_array<std::string_view>({arg1.buffer(), arg2}));
+    return getLog(redfish::registries::Base::Index::resourceAtUriUnauthorized, std::to_array<std::string_view>({arg1.buffer(), arg2}));
 }
 
-void resourceAtUriUnauthorized(crow::Response& res,
-                               const boost::urls::url_view_base& arg1,
-                               std::string_view arg2)
+void resourceAtUriUnauthorized(crow::Response& res, const boost::urls::url_view_base& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::unauthorized);
     addMessageToErrorJson(res.jsonValue, resourceAtUriUnauthorized(arg1, arg2));
@@ -1340,15 +1220,12 @@ void resourceAtUriUnauthorized(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json couldNotEstablishConnection(
-    const boost::urls::url_view_base& arg1)
+nlohmann::json::object_t couldNotEstablishConnection(const boost::urls::url_view_base& arg1)
 {
-    return getLog(redfish::registries::Base::Index::couldNotEstablishConnection,
-                  std::to_array<std::string_view>({arg1.buffer()}));
+    return getLog(redfish::registries::Base::Index::couldNotEstablishConnection, std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void couldNotEstablishConnection(crow::Response& res,
-                                 const boost::urls::url_view_base& arg1)
+void couldNotEstablishConnection(crow::Response& res, const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::not_found);
     addMessageToErrorJson(res.jsonValue, couldNotEstablishConnection(arg1));
@@ -1361,21 +1238,15 @@ void couldNotEstablishConnection(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json sourceDoesNotSupportProtocol(
-    const boost::urls::url_view_base& arg1, std::string_view arg2)
+nlohmann::json::object_t sourceDoesNotSupportProtocol(const boost::urls::url_view_base& arg1, std::string_view arg2)
 {
-    return getLog(
-        redfish::registries::Base::Index::sourceDoesNotSupportProtocol,
-        std::to_array<std::string_view>({arg1.buffer(), arg2}));
+    return getLog(redfish::registries::Base::Index::sourceDoesNotSupportProtocol, std::to_array<std::string_view>({arg1.buffer(), arg2}));
 }
 
-void sourceDoesNotSupportProtocol(crow::Response& res,
-                                  const boost::urls::url_view_base& arg1,
-                                  std::string_view arg2)
+void sourceDoesNotSupportProtocol(crow::Response& res, const boost::urls::url_view_base& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          sourceDoesNotSupportProtocol(arg1, arg2));
+    addMessageToErrorJson(res.jsonValue, sourceDoesNotSupportProtocol(arg1, arg2));
 }
 
 /**
@@ -1385,10 +1256,9 @@ void sourceDoesNotSupportProtocol(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json accessDenied(const boost::urls::url_view_base& arg1)
+nlohmann::json::object_t accessDenied(const boost::urls::url_view_base& arg1)
 {
-    return getLog(redfish::registries::Base::Index::accessDenied,
-                  std::to_array<std::string_view>({arg1.buffer()}));
+    return getLog(redfish::registries::Base::Index::accessDenied, std::to_array<std::string_view>({arg1.buffer()}));
 }
 
 void accessDenied(crow::Response& res, const boost::urls::url_view_base& arg1)
@@ -1404,17 +1274,14 @@ void accessDenied(crow::Response& res, const boost::urls::url_view_base& arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json serviceTemporarilyUnavailable(std::string_view arg1)
+nlohmann::json::object_t serviceTemporarilyUnavailable(std::string_view arg1)
 {
-    return getLog(
-        redfish::registries::Base::Index::serviceTemporarilyUnavailable,
-        std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::serviceTemporarilyUnavailable, std::to_array({arg1}));
 }
 
 void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1)
 {
-    res.addHeader(boost::beast::http::field::retry_after, arg1);
-    res.result(boost::beast::http::status::service_unavailable);
+res.addHeader(boost::beast::http::field::retry_after, arg1);    res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, serviceTemporarilyUnavailable(arg1));
 }
 
@@ -1425,11 +1292,10 @@ void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json invalidIndex(uint64_t arg1)
+nlohmann::json::object_t invalidIndex(uint64_t arg1)
 {
-    std::string arg1Str = std::to_string(arg1);
-    return getLog(redfish::registries::Base::Index::invalidIndex,
-                  std::to_array<std::string_view>({arg1Str}));
+std::string arg1Str = std::to_string(arg1);
+    return getLog(redfish::registries::Base::Index::invalidIndex, std::to_array<std::string_view>({arg1Str}));
 }
 
 void invalidIndex(crow::Response& res, uint64_t arg1)
@@ -1445,17 +1311,13 @@ void invalidIndex(crow::Response& res, uint64_t arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueModified(std::string_view arg1,
-                                     const nlohmann::json& arg2)
+nlohmann::json::object_t propertyValueModified(std::string_view arg1, const nlohmann::json& arg2)
 {
-    std::string arg2Str =
-        arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(redfish::registries::Base::Index::propertyValueModified,
-                  std::to_array<std::string_view>({arg1, arg2Str}));
+std::string arg2Str = arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::propertyValueModified, std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void propertyValueModified(crow::Response& res, std::string_view arg1,
-                           const nlohmann::json& arg2)
+void propertyValueModified(crow::Response& res, std::string_view arg1, const nlohmann::json& arg2)
 {
     res.result(boost::beast::http::status::ok);
     addMessageToJson(res.jsonValue, propertyValueModified(arg1, arg2), arg1);
@@ -1468,7 +1330,7 @@ void propertyValueModified(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceInStandby()
+nlohmann::json::object_t resourceInStandby()
 {
     return getLog(redfish::registries::Base::Index::resourceInStandby, {});
 }
@@ -1486,10 +1348,9 @@ void resourceInStandby(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceExhaustion(std::string_view arg1)
+nlohmann::json::object_t resourceExhaustion(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::resourceExhaustion,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::resourceExhaustion, std::to_array({arg1}));
 }
 
 void resourceExhaustion(crow::Response& res, std::string_view arg1)
@@ -1505,15 +1366,13 @@ void resourceExhaustion(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json stringValueTooLong(std::string_view arg1, uint64_t arg2)
+nlohmann::json::object_t stringValueTooLong(std::string_view arg1, uint64_t arg2)
 {
-    std::string arg2Str = std::to_string(arg2);
-    return getLog(redfish::registries::Base::Index::stringValueTooLong,
-                  std::to_array<std::string_view>({arg1, arg2Str}));
+std::string arg2Str = std::to_string(arg2);
+    return getLog(redfish::registries::Base::Index::stringValueTooLong, std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void stringValueTooLong(crow::Response& res, std::string_view arg1,
-                        uint64_t arg2)
+void stringValueTooLong(crow::Response& res, std::string_view arg1, uint64_t arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, stringValueTooLong(arg1, arg2));
@@ -1526,14 +1385,12 @@ void stringValueTooLong(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json stringValueTooShort(std::string_view arg1, std::string_view arg2)
+nlohmann::json::object_t stringValueTooShort(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::stringValueTooShort,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::stringValueTooShort, std::to_array({arg1, arg2}));
 }
 
-void stringValueTooShort(crow::Response& res, std::string_view arg1,
-                         std::string_view arg2)
+void stringValueTooShort(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, stringValueTooShort(arg1, arg2));
@@ -1546,7 +1403,7 @@ void stringValueTooShort(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json sessionTerminated()
+nlohmann::json::object_t sessionTerminated()
 {
     return getLog(redfish::registries::Base::Index::sessionTerminated, {});
 }
@@ -1564,7 +1421,7 @@ void sessionTerminated(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json subscriptionTerminated()
+nlohmann::json::object_t subscriptionTerminated()
 {
     return getLog(redfish::registries::Base::Index::subscriptionTerminated, {});
 }
@@ -1582,15 +1439,12 @@ void subscriptionTerminated(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceTypeIncompatible(std::string_view arg1,
-                                        std::string_view arg2)
+nlohmann::json::object_t resourceTypeIncompatible(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::resourceTypeIncompatible,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::resourceTypeIncompatible, std::to_array({arg1, arg2}));
 }
 
-void resourceTypeIncompatible(crow::Response& res, std::string_view arg1,
-                              std::string_view arg2)
+void resourceTypeIncompatible(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, resourceTypeIncompatible(arg1, arg2));
@@ -1603,14 +1457,12 @@ void resourceTypeIncompatible(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json passwordChangeRequired(const boost::urls::url_view_base& arg1)
+nlohmann::json::object_t passwordChangeRequired(const boost::urls::url_view_base& arg1)
 {
-    return getLog(redfish::registries::Base::Index::passwordChangeRequired,
-                  std::to_array<std::string_view>({arg1.buffer()}));
+    return getLog(redfish::registries::Base::Index::passwordChangeRequired, std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void passwordChangeRequired(crow::Response& res,
-                            const boost::urls::url_view_base& arg1)
+void passwordChangeRequired(crow::Response& res, const boost::urls::url_view_base& arg1)
 {
     addMessageToJsonRoot(res.jsonValue, passwordChangeRequired(arg1));
 }
@@ -1622,15 +1474,12 @@ void passwordChangeRequired(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resetRequired(const boost::urls::url_view_base& arg1,
-                             std::string_view arg2)
+nlohmann::json::object_t resetRequired(const boost::urls::url_view_base& arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::resetRequired,
-                  std::to_array<std::string_view>({arg1.buffer(), arg2}));
+    return getLog(redfish::registries::Base::Index::resetRequired, std::to_array<std::string_view>({arg1.buffer(), arg2}));
 }
 
-void resetRequired(crow::Response& res, const boost::urls::url_view_base& arg1,
-                   std::string_view arg2)
+void resetRequired(crow::Response& res, const boost::urls::url_view_base& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, resetRequired(arg1, arg2));
@@ -1643,14 +1492,12 @@ void resetRequired(crow::Response& res, const boost::urls::url_view_base& arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resetRecommended(std::string_view arg1, std::string_view arg2)
+nlohmann::json::object_t resetRecommended(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::resetRecommended,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::resetRecommended, std::to_array({arg1, arg2}));
 }
 
-void resetRecommended(crow::Response& res, std::string_view arg1,
-                      std::string_view arg2)
+void resetRecommended(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, resetRecommended(arg1, arg2));
@@ -1663,10 +1510,9 @@ void resetRecommended(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json chassisPowerStateOnRequired(std::string_view arg1)
+nlohmann::json::object_t chassisPowerStateOnRequired(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::chassisPowerStateOnRequired,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::chassisPowerStateOnRequired, std::to_array({arg1}));
 }
 
 void chassisPowerStateOnRequired(crow::Response& res, std::string_view arg1)
@@ -1682,11 +1528,9 @@ void chassisPowerStateOnRequired(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json chassisPowerStateOffRequired(std::string_view arg1)
+nlohmann::json::object_t chassisPowerStateOffRequired(std::string_view arg1)
 {
-    return getLog(
-        redfish::registries::Base::Index::chassisPowerStateOffRequired,
-        std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::chassisPowerStateOffRequired, std::to_array({arg1}));
 }
 
 void chassisPowerStateOffRequired(crow::Response& res, std::string_view arg1)
@@ -1702,15 +1546,12 @@ void chassisPowerStateOffRequired(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueConflict(std::string_view arg1,
-                                     std::string_view arg2)
+nlohmann::json::object_t propertyValueConflict(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::propertyValueConflict,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::propertyValueConflict, std::to_array({arg1, arg2}));
 }
 
-void propertyValueConflict(crow::Response& res, std::string_view arg1,
-                           std::string_view arg2)
+void propertyValueConflict(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, propertyValueConflict(arg1, arg2));
@@ -1723,24 +1564,16 @@ void propertyValueConflict(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueResourceConflict(
-    std::string_view arg1, const nlohmann::json& arg2,
-    const boost::urls::url_view_base& arg3)
+nlohmann::json::object_t propertyValueResourceConflict(std::string_view arg1, const nlohmann::json& arg2, const boost::urls::url_view_base& arg3)
 {
-    std::string arg2Str =
-        arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(
-        redfish::registries::Base::Index::propertyValueResourceConflict,
-        std::to_array<std::string_view>({arg1, arg2Str, arg3.buffer()}));
+std::string arg2Str = arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::propertyValueResourceConflict, std::to_array<std::string_view>({arg1, arg2Str, arg3.buffer()}));
 }
 
-void propertyValueResourceConflict(crow::Response& res, std::string_view arg1,
-                                   const nlohmann::json& arg2,
-                                   const boost::urls::url_view_base& arg3)
+void propertyValueResourceConflict(crow::Response& res, std::string_view arg1, const nlohmann::json& arg2, const boost::urls::url_view_base& arg3)
 {
     res.result(boost::beast::http::status::conflict);
-    addMessageToErrorJson(res.jsonValue,
-                          propertyValueResourceConflict(arg1, arg2, arg3));
+    addMessageToErrorJson(res.jsonValue, propertyValueResourceConflict(arg1, arg2, arg3));
 }
 
 /**
@@ -1750,22 +1583,16 @@ void propertyValueResourceConflict(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueExternalConflict(std::string_view arg1,
-                                             const nlohmann::json& arg2)
+nlohmann::json::object_t propertyValueExternalConflict(std::string_view arg1, const nlohmann::json& arg2)
 {
-    std::string arg2Str =
-        arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(
-        redfish::registries::Base::Index::propertyValueExternalConflict,
-        std::to_array<std::string_view>({arg1, arg2Str}));
+std::string arg2Str = arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::propertyValueExternalConflict, std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void propertyValueExternalConflict(crow::Response& res, std::string_view arg1,
-                                   const nlohmann::json& arg2)
+void propertyValueExternalConflict(crow::Response& res, std::string_view arg1, const nlohmann::json& arg2)
 {
     res.result(boost::beast::http::status::conflict);
-    addMessageToErrorJson(res.jsonValue,
-                          propertyValueExternalConflict(arg1, arg2));
+    addMessageToErrorJson(res.jsonValue, propertyValueExternalConflict(arg1, arg2));
 }
 
 /**
@@ -1775,17 +1602,13 @@ void propertyValueExternalConflict(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueIncorrect(std::string_view arg1,
-                                      const nlohmann::json& arg2)
+nlohmann::json::object_t propertyValueIncorrect(std::string_view arg1, const nlohmann::json& arg2)
 {
-    std::string arg2Str =
-        arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
-    return getLog(redfish::registries::Base::Index::propertyValueIncorrect,
-                  std::to_array<std::string_view>({arg1, arg2Str}));
+std::string arg2Str = arg2.dump(-1, ' ', true, nlohmann::json::error_handler_t::replace);
+    return getLog(redfish::registries::Base::Index::propertyValueIncorrect, std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
-                            const nlohmann::json& arg2)
+void propertyValueIncorrect(crow::Response& res, std::string_view arg1, const nlohmann::json& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, propertyValueIncorrect(arg1, arg2));
@@ -1798,14 +1621,12 @@ void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceCreationConflict(const boost::urls::url_view_base& arg1)
+nlohmann::json::object_t resourceCreationConflict(const boost::urls::url_view_base& arg1)
 {
-    return getLog(redfish::registries::Base::Index::resourceCreationConflict,
-                  std::to_array<std::string_view>({arg1.buffer()}));
+    return getLog(redfish::registries::Base::Index::resourceCreationConflict, std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void resourceCreationConflict(crow::Response& res,
-                              const boost::urls::url_view_base& arg1)
+void resourceCreationConflict(crow::Response& res, const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, resourceCreationConflict(arg1));
@@ -1818,20 +1639,15 @@ void resourceCreationConflict(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionParameterValueConflict(std::string_view arg1,
-                                            std::string_view arg2)
+nlohmann::json::object_t actionParameterValueConflict(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(
-        redfish::registries::Base::Index::actionParameterValueConflict,
-        std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::actionParameterValueConflict, std::to_array({arg1, arg2}));
 }
 
-void actionParameterValueConflict(crow::Response& res, std::string_view arg1,
-                                  std::string_view arg2)
+void actionParameterValueConflict(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(res.jsonValue,
-                          actionParameterValueConflict(arg1, arg2));
+    addMessageToErrorJson(res.jsonValue, actionParameterValueConflict(arg1, arg2));
 }
 
 /**
@@ -1841,7 +1657,7 @@ void actionParameterValueConflict(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json maximumErrorsExceeded()
+nlohmann::json::object_t maximumErrorsExceeded()
 {
     return getLog(redfish::registries::Base::Index::maximumErrorsExceeded, {});
 }
@@ -1859,7 +1675,7 @@ void maximumErrorsExceeded(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json preconditionFailed()
+nlohmann::json::object_t preconditionFailed()
 {
     return getLog(redfish::registries::Base::Index::preconditionFailed, {});
 }
@@ -1877,7 +1693,7 @@ void preconditionFailed(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json preconditionRequired()
+nlohmann::json::object_t preconditionRequired()
 {
     return getLog(redfish::registries::Base::Index::preconditionRequired, {});
 }
@@ -1895,10 +1711,9 @@ void preconditionRequired(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json headerMissing(std::string_view arg1)
+nlohmann::json::object_t headerMissing(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::headerMissing,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::headerMissing, std::to_array({arg1}));
 }
 
 void headerMissing(crow::Response& res, std::string_view arg1)
@@ -1914,10 +1729,9 @@ void headerMissing(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json headerInvalid(std::string_view arg1)
+nlohmann::json::object_t headerInvalid(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::headerInvalid,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::headerInvalid, std::to_array({arg1}));
 }
 
 void headerInvalid(crow::Response& res, std::string_view arg1)
@@ -1933,7 +1747,7 @@ void headerInvalid(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json operationFailed()
+nlohmann::json::object_t operationFailed()
 {
     return getLog(redfish::registries::Base::Index::operationFailed, {});
 }
@@ -1951,7 +1765,7 @@ void operationFailed(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json operationTimeout()
+nlohmann::json::object_t operationTimeout()
 {
     return getLog(redfish::registries::Base::Index::operationTimeout, {});
 }
@@ -1969,7 +1783,7 @@ void operationTimeout(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json operationNotAllowed()
+nlohmann::json::object_t operationNotAllowed()
 {
     return getLog(redfish::registries::Base::Index::operationNotAllowed, {});
 }
@@ -1987,10 +1801,9 @@ void operationNotAllowed(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json undeterminedFault(std::string_view arg1)
+nlohmann::json::object_t undeterminedFault(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::undeterminedFault,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::undeterminedFault, std::to_array({arg1}));
 }
 
 void undeterminedFault(crow::Response& res, std::string_view arg1)
@@ -2006,10 +1819,9 @@ void undeterminedFault(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json conditionInRelatedResource()
+nlohmann::json::object_t conditionInRelatedResource()
 {
-    return getLog(redfish::registries::Base::Index::conditionInRelatedResource,
-                  {});
+    return getLog(redfish::registries::Base::Index::conditionInRelatedResource, {});
 }
 
 void conditionInRelatedResource(crow::Response& res)
@@ -2025,10 +1837,9 @@ void conditionInRelatedResource(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json restrictedRole(std::string_view arg1)
+nlohmann::json::object_t restrictedRole(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::restrictedRole,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::restrictedRole, std::to_array({arg1}));
 }
 
 void restrictedRole(crow::Response& res, std::string_view arg1)
@@ -2044,10 +1855,9 @@ void restrictedRole(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json restrictedPrivilege(std::string_view arg1)
+nlohmann::json::object_t restrictedPrivilege(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::restrictedPrivilege,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::restrictedPrivilege, std::to_array({arg1}));
 }
 
 void restrictedPrivilege(crow::Response& res, std::string_view arg1)
@@ -2063,10 +1873,9 @@ void restrictedPrivilege(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json strictAccountTypes(std::string_view arg1)
+nlohmann::json::object_t strictAccountTypes(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::strictAccountTypes,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::strictAccountTypes, std::to_array({arg1}));
 }
 
 void strictAccountTypes(crow::Response& res, std::string_view arg1)
@@ -2082,10 +1891,9 @@ void strictAccountTypes(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyDeprecated(std::string_view arg1)
+nlohmann::json::object_t propertyDeprecated(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::propertyDeprecated,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::propertyDeprecated, std::to_array({arg1}));
 }
 
 void propertyDeprecated(crow::Response& res, std::string_view arg1)
@@ -2101,10 +1909,9 @@ void propertyDeprecated(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json resourceDeprecated(std::string_view arg1)
+nlohmann::json::object_t resourceDeprecated(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::resourceDeprecated,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::resourceDeprecated, std::to_array({arg1}));
 }
 
 void resourceDeprecated(crow::Response& res, std::string_view arg1)
@@ -2120,15 +1927,12 @@ void resourceDeprecated(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyValueDeprecated(std::string_view arg1,
-                                       std::string_view arg2)
+nlohmann::json::object_t propertyValueDeprecated(std::string_view arg1, std::string_view arg2)
 {
-    return getLog(redfish::registries::Base::Index::propertyValueDeprecated,
-                  std::to_array({arg1, arg2}));
+    return getLog(redfish::registries::Base::Index::propertyValueDeprecated, std::to_array({arg1, arg2}));
 }
 
-void propertyValueDeprecated(crow::Response& res, std::string_view arg1,
-                             std::string_view arg2)
+void propertyValueDeprecated(crow::Response& res, std::string_view arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, propertyValueDeprecated(arg1, arg2));
@@ -2141,10 +1945,9 @@ void propertyValueDeprecated(crow::Response& res, std::string_view arg1,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json actionDeprecated(std::string_view arg1)
+nlohmann::json::object_t actionDeprecated(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::actionDeprecated,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::actionDeprecated, std::to_array({arg1}));
 }
 
 void actionDeprecated(crow::Response& res, std::string_view arg1)
@@ -2160,11 +1963,9 @@ void actionDeprecated(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json networkNameResolutionNotConfigured()
+nlohmann::json::object_t networkNameResolutionNotConfigured()
 {
-    return getLog(
-        redfish::registries::Base::Index::networkNameResolutionNotConfigured,
-        {});
+    return getLog(redfish::registries::Base::Index::networkNameResolutionNotConfigured, {});
 }
 
 void networkNameResolutionNotConfigured(crow::Response& res)
@@ -2180,11 +1981,9 @@ void networkNameResolutionNotConfigured(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json networkNameResolutionNotSupported()
+nlohmann::json::object_t networkNameResolutionNotSupported()
 {
-    return getLog(
-        redfish::registries::Base::Index::networkNameResolutionNotSupported,
-        {});
+    return getLog(redfish::registries::Base::Index::networkNameResolutionNotSupported, {});
 }
 
 void networkNameResolutionNotSupported(crow::Response& res)
@@ -2200,10 +1999,9 @@ void networkNameResolutionNotSupported(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json serviceDisabled(std::string_view arg1)
+nlohmann::json::object_t serviceDisabled(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::serviceDisabled,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::serviceDisabled, std::to_array({arg1}));
 }
 
 void serviceDisabled(crow::Response& res, std::string_view arg1)
@@ -2219,7 +2017,7 @@ void serviceDisabled(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json eventBufferExceeded()
+nlohmann::json::object_t eventBufferExceeded()
 {
     return getLog(redfish::registries::Base::Index::eventBufferExceeded, {});
 }
@@ -2237,10 +2035,9 @@ void eventBufferExceeded(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json authenticationTokenRequired()
+nlohmann::json::object_t authenticationTokenRequired()
 {
-    return getLog(redfish::registries::Base::Index::authenticationTokenRequired,
-                  {});
+    return getLog(redfish::registries::Base::Index::authenticationTokenRequired, {});
 }
 
 void authenticationTokenRequired(crow::Response& res)
@@ -2256,10 +2053,9 @@ void authenticationTokenRequired(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json oneTimePasscodeSent(std::string_view arg1)
+nlohmann::json::object_t oneTimePasscodeSent(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::oneTimePasscodeSent,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::oneTimePasscodeSent, std::to_array({arg1}));
 }
 
 void oneTimePasscodeSent(crow::Response& res, std::string_view arg1)
@@ -2275,10 +2071,9 @@ void oneTimePasscodeSent(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json licenseRequired(std::string_view arg1)
+nlohmann::json::object_t licenseRequired(std::string_view arg1)
 {
-    return getLog(redfish::registries::Base::Index::licenseRequired,
-                  std::to_array({arg1}));
+    return getLog(redfish::registries::Base::Index::licenseRequired, std::to_array({arg1}));
 }
 
 void licenseRequired(crow::Response& res, std::string_view arg1)
@@ -2294,7 +2089,7 @@ void licenseRequired(crow::Response& res, std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json propertyModified()
+nlohmann::json::object_t propertyModified()
 {
     return getLog(redfish::registries::Base::Index::propertyModified, {});
 }
@@ -2312,18 +2107,16 @@ void propertyModified(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json generateSecretKeyRequired(const boost::urls::url_view_base& arg1)
+nlohmann::json::object_t generateSecretKeyRequired(const boost::urls::url_view_base& arg1)
 {
-    return getLog(redfish::registries::Base::Index::generateSecretKeyRequired,
-                  std::to_array<std::string_view>({arg1.buffer()}));
+    return getLog(redfish::registries::Base::Index::generateSecretKeyRequired, std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void generateSecretKeyRequired(crow::Response& res,
-                               const boost::urls::url_view_base& arg1)
+void generateSecretKeyRequired(crow::Response& res, const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(res.jsonValue, generateSecretKeyRequired(arg1));
 }
 
-} // namespace messages
-} // namespace redfish
+    }
+}

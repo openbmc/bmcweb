@@ -334,7 +334,7 @@ def make_error_function(
         args.append(f"{typename} arg{arg_index}")
     function_name = entry_id[0].lower() + entry_id[1:]
     arg = ", ".join(args)
-    out += f"nlohmann::json {function_name}({arg})"
+    out += f"nlohmann::json::object_t {function_name}({arg})"
 
     if is_header:
         out += ";\n\n"
@@ -557,7 +557,7 @@ namespace messages
         )
         out.write(
             """
-static nlohmann::json getLog(redfish::registries::{struct_name}::Index name,
+static nlohmann::json::object_t getLog(redfish::registries::{struct_name}::Index name,
                              std::span<const std::string_view> args)
 {{
     size_t index = static_cast<size_t>(name);

@@ -27,7 +27,8 @@ namespace redfish
 
 namespace messages
 {
-nlohmann::json redfishServiceFunctional();
+nlohmann::json::object_t redfishServiceFunctional();
 
+
+    }
 }
-} // namespace redfish

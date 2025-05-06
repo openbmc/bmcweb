@@ -9,12 +9,9 @@
  * github organization.
  ***************************************************************/
 #include "heartbeat_messages.hpp"
-
 #include "registries.hpp"
 #include "registries/heartbeat_event_message_registry.hpp"
-
 #include <nlohmann/json.hpp>
-
 #include <array>
 #include <cstddef>
 #include <span>
@@ -31,7 +28,7 @@ namespace redfish
 namespace messages
 {
 
-static nlohmann::json getLog(redfish::registries::HeartbeatEvent::Index name,
+static nlohmann::json::object_t getLog(redfish::registries::HeartbeatEvent::Index name,
                              std::span<const std::string_view> args)
 {
     size_t index = static_cast<size_t>(name);
@@ -40,8 +37,7 @@ static nlohmann::json getLog(redfish::registries::HeartbeatEvent::Index name,
         return {};
     }
     return getLogFromRegistry(redfish::registries::HeartbeatEvent::header,
-                              redfish::registries::HeartbeatEvent::registry,
-                              index, args);
+                              redfish::registries::HeartbeatEvent::registry, index, args);
 }
 
 /**
@@ -51,12 +47,11 @@ static nlohmann::json getLog(redfish::registries::HeartbeatEvent::Index name,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json redfishServiceFunctional()
+nlohmann::json::object_t redfishServiceFunctional()
 {
-    return getLog(
-        redfish::registries::HeartbeatEvent::Index::redfishServiceFunctional,
-        {});
+    return getLog(redfish::registries::HeartbeatEvent::Index::redfishServiceFunctional, {});
 }
 
-} // namespace messages
-} // namespace redfish
+
+    }
+}
