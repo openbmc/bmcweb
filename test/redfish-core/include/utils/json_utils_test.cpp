@@ -470,8 +470,11 @@ TEST(odataObjectCmp, PositiveCases)
 
 TEST(SortJsonArrayByOData, ElementMissingKeyReturnsFalseArrayIsPartlySorted)
 {
-    nlohmann::json::array_t array =
-        R"([{"@odata.id" : "/redfish/v1/100"}, {"@odata.id": "/redfish/v1/1"}, {"@odata.id" : "/redfish/v1/20"}])"_json;
+    nlohmann::json::array_t array;
+    array.push_back(R"({"@odata.id" : "/redfish/v1/100"})"_json);
+    array.push_back(R"({"@odata.id" : "/redfish/v1/1"})"_json);
+    array.push_back(R"({"@odata.id" : "/redfish/v1/20"})"_json);
+
     sortJsonArrayByOData(array);
     // Objects with other keys are always larger than those with the specified
     // key.
@@ -483,8 +486,11 @@ TEST(SortJsonArrayByOData, ElementMissingKeyReturnsFalseArrayIsPartlySorted)
 
 TEST(SortJsonArrayByOData, SortedByStringValueOnSuccessArrayIsSorted)
 {
-    nlohmann::json::array_t array =
-        R"([{"@odata.id": "/redfish/v1/20"}, {"@odata.id" : "/redfish/v1"}, {"@odata.id" : "/redfish/v1/100"}])"_json;
+    nlohmann::json::array_t array;
+    array.push_back(R"({"@odata.id" : "/redfish/v1/20"})"_json);
+    array.push_back(R"({"@odata.id" : "/redfish/v1"})"_json);
+    array.push_back(R"({"@odata.id" : "/redfish/v1/100"})"_json);
+
     sortJsonArrayByOData(array);
     EXPECT_THAT(array,
                 ElementsAre(R"({"@odata.id": "/redfish/v1"})"_json,
@@ -543,8 +549,11 @@ TEST(objectKeyCmp, PositiveCases)
 
 TEST(SortJsonArrayByKey, ElementMissingKeyReturnsFalseArrayIsPartlySorted)
 {
-    nlohmann::json::array_t array =
-        R"([{"@odata.id" : "/redfish/v1/100"}, {"Name" : "/redfish/v1/5"}, {"@odata.id": "/redfish/v1/1"}, {"@odata.id" : "/redfish/v1/20"}])"_json;
+    nlohmann::json::array_t array;
+    array.push_back(R"({"@odata.id" : "/redfish/v1/100"})"_json);
+    array.push_back(R"({"Name": "/redfish/v1/5"})"_json);
+    array.push_back(R"({"@odata.id" : "/redfish/v1/1"})"_json);
+    array.push_back(R"({"@odata.id" : "/redfish/v1/20"})"_json);
     sortJsonArrayByKey(array, "@odata.id");
     // Objects with other keys are always smaller than those with the specified
     // key.
@@ -557,8 +566,10 @@ TEST(SortJsonArrayByKey, ElementMissingKeyReturnsFalseArrayIsPartlySorted)
 
 TEST(SortJsonArrayByKey, SortedByStringValueOnSuccessArrayIsSorted)
 {
-    nlohmann::json::array_t array =
-        R"([{"@odata.id": "/redfish/v1/20", "Name": "a"}, {"@odata.id" : "/redfish/v1", "Name": "c"}, {"@odata.id" : "/redfish/v1/100", "Name": "b"}])"_json;
+    nlohmann::json::array_t array;
+    array.push_back(R"({"@odata.id" : "/redfish/v1/20", "Name": "a"})"_json);
+    array.push_back(R"({"@odata.id" : "/redfish/v1", "Name": "c"})"_json);
+    array.push_back(R"({"@odata.id" : "/redfish/v1/100", "Name": "b"})"_json);
 
     sortJsonArrayByKey(array, "@odata.id");
     EXPECT_THAT(

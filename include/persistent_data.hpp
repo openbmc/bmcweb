@@ -106,16 +106,28 @@ class ConfigFile
                     }
                     else if (item.first == "auth_config")
                     {
-                        SessionStore::getInstance()
-                            .getAuthMethodsConfig()
-                            .fromJson(item.second);
+                        const nlohmann::json::object_t* jObj =
+                            item.second
+                                .get_ptr<const nlohmann::json::object_t*>();
+                        if (jObj != nullptr)
+                        {
+                            SessionStore::getInstance()
+                                .getAuthMethodsConfig()
+                                .fromJson(*jObj);
+                        }
                     }
                     else if (item.first == "sessions")
                     {
                         for (const auto& elem : item.second)
                         {
+                            const nlohmann::json::object_t* jObj =
+                                elem.get_ptr<const nlohmann::json::object_t*>();
+                            if (jObj != nullptr)
+                            {
+                                continue;
+                            }
                             std::shared_ptr<UserSession> newSession =
-                                UserSession::fromJson(elem);
+                                UserSession::fromJson(*jObj);
 
                             if (newSession == nullptr)
                             {
@@ -168,8 +180,15 @@ class ConfigFile
                     {
                         for (const auto& elem : item.second)
                         {
+                            const nlohmann::json::object_t* subobj =
+                                elem.get_ptr<const nlohmann::json::object_t*>();
+                            if (subobj != nullptr)
+                            {
+                                continue;
+                            }
+
                             std::optional<UserSubscription> newSub =
-                                UserSubscription::fromJson(elem);
+                                UserSubscription::fromJson(*subobj);
 
                             if (!newSub)
                             {
