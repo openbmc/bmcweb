@@ -267,7 +267,7 @@ class ConfigFile
         authConfig["BasicAuth"] = c.basic;
         authConfig["TLS"] = c.tls;
         authConfig["TLSStrict"] = c.tlsStrict;
-        authConfig["TLSCommonNameParseMode"] =
+        authConfig["MTLSCommonNameParseMode"] =
             static_cast<int>(c.mTLSCommonNameParsingMode);
 
         nlohmann::json& eventserviceConfig = data["eventservice_config"];
