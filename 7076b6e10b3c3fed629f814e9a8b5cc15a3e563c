@@ -33,6 +33,24 @@
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/80055\n\nLets just disable include fixer for now while we figure out how to deal with this.",
       "revId": "7076b6e10b3c3fed629f814e9a8b5cc15a3e563c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c70b04b5_69c4a59c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-06T17:27:37Z",
+      "side": 1,
+      "message": "Ok, it looks like it\u0027s more subtle.  fields.hpp for example includes fields_fwd.hpp, so maybe include_cleaner is more correct than I thought.",
+      "parentUuid": "1dc4c4f4_17914b09",
+      "revId": "7076b6e10b3c3fed629f814e9a8b5cc15a3e563c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
