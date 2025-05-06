@@ -1092,6 +1092,7 @@ inline void clearDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 messages::internalError(asyncResp->res);
                 return;
             }
+            messages::success(asyncResp->res);
         },
         "xyz.openbmc_project.Dump.Manager", getDumpPath(dumpType),
         "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
@@ -3139,7 +3140,7 @@ inline void dBusLogServiceActionsClear(
             return;
         }
 
-        asyncResp->res.result(boost::beast::http::status::no_content);
+        messages::success(asyncResp->res);
     };
 
     // Make call to Logging service to request Clear Log
