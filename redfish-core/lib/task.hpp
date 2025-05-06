@@ -244,7 +244,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         // "Killed" = taskRemoved
         // "Exception" = taskCompletedWarning
         // "Cancelled" = taskCancelled
-        nlohmann::json event;
+        nlohmann::json::object_t event;
         std::string indexStr = std::to_string(index);
         if (state == "Starting")
         {
