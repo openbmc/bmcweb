@@ -9,9 +9,14 @@ namespace
 TEST(AuthConfigMethods, FromJsonHappyPath)
 {
     persistent_data::AuthConfigMethods methods;
+    nlohmann::json::object_t jsonValue;
+    jsonValue["BasicAuth"] = true;
+    jsonValue["CookieAuth"] = true;
+    jsonValue["SessionToken"] = true;
+    jsonValue["MTLSCommonNameParseMode"] = 2;
+    jsonValue["TLSStrict"] = false;
+    jsonValue["XToken"] = true;
 
-    nlohmann::json jsonValue = nlohmann::json::parse(
-        R"({"BasicAuth":true,"Cookie":true,"SessionToken":true,"TLS":true,"MTLSCommonNameParseMode":2,"TLSStrict":false,"XToken":true})");
     methods.fromJson(jsonValue);
 
     EXPECT_EQ(methods.basic, true);
@@ -29,9 +34,14 @@ TEST(AuthConfigMethods, FromJsonMTLSCommonNameParseModeOutOfRange)
     persistent_data::AuthConfigMethods methods;
     persistent_data::MTLSCommonNameParseMode prevValue =
         methods.mTLSCommonNameParsingMode;
+    nlohmann::json::object_t jsonValue;
+    jsonValue["BasicAuth"] = true;
+    jsonValue["CookieAuth"] = true;
+    jsonValue["SessionToken"] = true;
+    jsonValue["MTLSCommonNameParseMode"] = 4;
+    jsonValue["TLSStrict"] = false;
+    jsonValue["XToken"] = true;
 
-    nlohmann::json jsonValue = nlohmann::json::parse(
-        R"({"BasicAuth":true,"Cookie":true,"SessionToken":true,"TLS":true,"MTLSCommonNameParseMode":4,"TLSStrict":false,"XToken":true})");
     methods.fromJson(jsonValue);
 
     EXPECT_EQ(methods.basic, true);

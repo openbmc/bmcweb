@@ -84,7 +84,7 @@ inline void populateAggregationSourceCollection(
         messages::internalError(asyncResp->res);
         return;
     }
-    nlohmann::json::array_t members = nlohmann::json::array();
+    nlohmann::json::array_t members;
     for (const auto& sat : satelliteInfo)
     {
         nlohmann::json::object_t member;

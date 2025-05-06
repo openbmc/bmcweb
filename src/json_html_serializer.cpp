@@ -441,7 +441,12 @@ static void dump(std::string& out, const nlohmann::json& val)
                 {
                     inATag = true;
                     out += "<a href=\"";
-                    dumpEscaped(out, i.value());
+                    const std::string* str =
+                        i.value().get_ptr<const std::string*>();
+                    if (str != nullptr)
+                    {
+                        dumpEscaped(out, *str);
+                    }
                     out += "\">";
                 }
                 dump(out, i.value());
