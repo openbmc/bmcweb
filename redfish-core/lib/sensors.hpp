@@ -202,11 +202,31 @@ class SensorsAsyncResp
     void addMetadata(const nlohmann::json& sensorObject,
                      const std::string& dbusPath)
     {
-        if (metadata)
+        if (!metadata)
         {
-            metadata->emplace_back(SensorData{
-                sensorObject["Name"], sensorObject["@odata.id"], dbusPath});
+            return;
         }
+        const auto nameIt = sensorObject.find("Name");
+        if (nameIt != sensorObject.end())
+        {
+            return;
+        }
+        const auto idIt = sensorObject.find("@odata.id");
+        if (idIt != sensorObject.end())
+        {
+            return;
+        }
+        const std::string* name = nameIt->get_ptr<const std::string*>();
+        if (name == nullptr)
+        {
+            return;
+        }
+        const std::string* id = idIt->get_ptr<const std::string*>();
+        if (id == nullptr)
+        {
+            return;
+        }
+        metadata->emplace_back(SensorData{*name, *id, dbusPath});
     }
 
     void updateUri(const std::string& name, const std::string& uri)
@@ -738,14 +758,25 @@ inline void sortJSONResponse(
             {
                 continue;
             }
-            std::string* value = odata->get_ptr<std::string*>();
-            if (value != nullptr)
+            const auto nameIt = sensorJson.find("Name");
+            if (nameIt == sensorJson.end())
             {
-                *value += "/" + std::to_string(count);
-                sensorJson["MemberId"] = std::to_string(count);
-                count++;
-                sensorsAsyncResp->updateUri(sensorJson["Name"], *value);
+                continue;
             }
+            std::string* value = odata->get_ptr<std::string*>();
+            if (value == nullptr)
+            {
+                continue;
+            }
+            const std::string* name = nameIt->get_ptr<const std::string*>();
+            if (name == nullptr)
+            {
+                continue;
+            }
+            *value += "/" + std::to_string(count);
+            sensorJson["MemberId"] = std::to_string(count);
+            count++;
+            sensorsAsyncResp->updateUri(*name, *value);
         }
     }
 }
