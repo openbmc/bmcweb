@@ -262,9 +262,16 @@ inline void addPrefixToStringItem(std::string& strValue,
         if (std::binary_search(topCollections.begin(), topCollections.end(),
                                url.buffer()))
         {
-            std::string collectionItem(prefix);
-            collectionItem += "_" + (*it);
-            url.segments().push_back(collectionItem);
+            std::string segment = *it;
+            std::string prefixWithUnderscore = std::string(prefix) + "_";
+            
+            // Only add prefix if it doesn't already exist
+            if (!segment.starts_with(prefixWithUnderscore))
+            {
+                segment = prefixWithUnderscore + segment;
+            }
+            
+            url.segments().push_back(segment);
             it++;
             addedPrefix = true;
             break;
