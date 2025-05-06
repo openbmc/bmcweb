@@ -16,6 +16,24 @@
       "message": "I would like have feedback on how we solve the double prefix problem we have been having in our platform. \n\nNvidia HMCs have a prefix appended to most the the redfish resources. \nSo most the resources look HGX_CPU, HGX_System, HGX_GPU etc. \nWhen BMC aggregates these resources, it appends RFA prefix which now is configurable from EM. If we have EM config with name as HGX then all aggregation resources have double prefix.\nExample - \n```\ncurl -k -u root:0penBmc https://localhost:2443/redfish/v1/Systems\n{\n  \"@odata.id\": \"/redfish/v1/Systems\",\n  \"@odata.type\": \"#ComputerSystemCollection.ComputerSystemCollection\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Systems/system\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Systems/HGX_HGX_system\"\n    }\n  ],\n  \"Members@odata.count\": 2,\n  \"Name\": \"Computer System Collection\"\n}\n```\nThe goal is to have BMC not to append any prefix if the satMC resources already have the required prefix. \n\n1. Its simple to do this in aggregation. The MR has the code for this. \n2. It\u0027s not simple to do this while we forward the request to the SatMC. \n\nMy proposal would be to have topCollection list which is configurable where BMC would erase the prefix. \nIf empty it would erase on all collection by default.\n\nLet me know if you have any other thoughts or proposals on this.",
       "revId": "b8659b4f8fe4b71e1bfaa6f32d8637ade46aa741",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7411058b_94879bcb",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-06T20:28:14Z",
+      "side": 1,
+      "message": "Could we just make the prefix \"NV_\" so that resource show up as \"NV_HGX_\" and the problem goes away?\n\nFunctionally, the aggregator is intended to support N satellites, so if we do this, and aggregate more than one HMC, you now can\u0027t tell the difference between the two HMCs (unless the HMCs somehow knew their index, which would be odd and a break of protocol.).",
+      "parentUuid": "0b59916b_5d0b84c7",
+      "revId": "b8659b4f8fe4b71e1bfaa6f32d8637ade46aa741",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
