@@ -16,6 +16,24 @@
       "message": "How does this get turned off ? Like a normal POST on a resource if you don\u0027t support it in the backend, the backend app can return something like \"Not supported\", bmcweb could return that.. but this is purely a bmcweb concept. Let\u0027s say you want aggregation but not allow clients to create aggregation (idk, maybe this would be an weird corner use case?)",
       "revId": "010be380a9921fd9c25efbc2be4b2ab25a5fec5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c53fdbfc_676902a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-06T22:38:03Z",
+      "side": 1,
+      "message": "\u003e the backend app can return something like \"Not supported\"\n\nIn redfish you would generally do this by just not populating the appropriate tree.  In this case, AggregationSources.  I\u0027m not sure where we\u0027d return not supported, can you elaborate a little?\n\n\u003e Let\u0027s say you want aggregation but not allow clients to create aggregation\n\nIf there\u0027s a case where this exists (you want to disallow something), we could add a meson flag to remove \"dynamic\" support, but I don\u0027t think anyone needs that yet?",
+      "parentUuid": "55ce2ac4_d5bb2ee6",
+      "revId": "010be380a9921fd9c25efbc2be4b2ab25a5fec5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

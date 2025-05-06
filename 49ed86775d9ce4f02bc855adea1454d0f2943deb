@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89ae6c6d_159b91f8",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-06T22:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8e69119_dfe50fcd",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9be73a46_80af29cb",
@@ -155,6 +173,24 @@
       "side": 1,
       "message": "propertyValueIncorrect but I think there is a few choices that are better than this",
       "parentUuid": "f523d59e_813089af",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "138fb280_d6043e30",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-06T22:38:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0710106e_1df1708e",
       "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
