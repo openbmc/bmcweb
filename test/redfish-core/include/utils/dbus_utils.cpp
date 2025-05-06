@@ -41,8 +41,8 @@ TEST(DbusUtils, AfterActionPropertySetSuccess)
 
     boost::system::error_code ec;
     sdbusplus::message_t msg;
-    afterSetPropertyAction(asyncResp, "MyRedfishProperty",
-                           nlohmann::json("MyRedfishValue"), ec, msg);
+    afterSetPropertyAction(asyncResp, "MyRedfishProperty", "MyRedfishValue", ec,
+                           msg);
 
     EXPECT_EQ(asyncResp->res.result(), boost::beast::http::status::ok);
     EXPECT_EQ(asyncResp->res.jsonValue,
