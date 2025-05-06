@@ -611,19 +611,9 @@ class Connection :
                 doWrite();
                 return;
             }
-            if (ec == boost::beast::http::error::end_of_stream ||
-                ec == boost::asio::ssl::error::stream_truncated)
-            {
-                BMCWEB_LOG_WARNING("{} End of stream, closing {}", logPtr(this),
-                                   ec);
-                hardClose();
-                return;
-            }
-
-            BMCWEB_LOG_DEBUG("{} Closing socket due to read error {}",
-                             logPtr(this), ec.message());
-            gracefulClose();
-
+            BMCWEB_LOG_WARNING("{} End of stream, closing {}", logPtr(this),
+                               ec);
+            hardClose();
             return;
         }
 
@@ -717,6 +707,9 @@ class Connection :
                 return;
             }
 
+<<<<<<< PATCH SET (f07c6e WIP: Do hard close if client disobeys protocol)
+            hardClose();
+=======
             if (ec == boost::beast::http::error::end_of_stream ||
                 ec == boost::asio::ssl::error::stream_truncated)
             {
@@ -727,6 +720,7 @@ class Connection :
             }
 
             gracefulClose();
+>>>>>>> BASE      (c3e56c Fix DOS attack scenario)
             return;
         }
 
