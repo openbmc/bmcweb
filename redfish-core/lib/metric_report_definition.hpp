@@ -337,7 +337,7 @@ inline void fillReportDefinition(
 
     asyncResp->res.jsonValue["ReportActions"] = std::move(redfishReportActions);
 
-    nlohmann::json::array_t metrics = nlohmann::json::array();
+    nlohmann::json::array_t metrics;
     for (const auto& [sensorData, collectionFunction, collectionTimeScope,
                       collectionDuration] : readingParams)
     {

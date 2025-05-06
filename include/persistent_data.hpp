@@ -106,16 +106,24 @@ class ConfigFile
                     }
                     else if (item.first == "auth_config")
                     {
-                        SessionStore::getInstance()
-                            .getAuthMethodsConfig()
-                            .fromJson(item.second);
+                        const nlohmann::json::object_t* jAuth =
+                            item.second
+                                .get_ptr<const nlohmann::json::object_t*>();
+                        if (jAuth != nullptr)
+                        {
+                            SessionStore::getInstance()
+                                .getAuthMethodsConfig()
+                                .fromJson(*jAuth);
+                        }
                     }
                     else if (item.first == "sessions")
                     {
                         for (const auto& elem : item.second)
                         {
+                            const nlohmann::json::object_t* jSess =
+                                elem.get_ptr<const nlohmann::json::object_t*>();
                             std::shared_ptr<UserSession> newSession =
-                                UserSession::fromJson(elem);
+                                UserSession::fromJson(*jSess);
 
                             if (newSession == nullptr)
                             {
@@ -168,24 +176,31 @@ class ConfigFile
                     {
                         for (const auto& elem : item.second)
                         {
-                            std::optional<UserSubscription> newSub =
-                                UserSubscription::fromJson(elem);
-
-                            if (!newSub)
+                            const nlohmann::json::object_t* jSub =
+                                elem.get_ptr<const nlohmann::json::object_t*>();
+                            if (jSub != nullptr)
                             {
-                                BMCWEB_LOG_ERROR("Problem reading subscription "
-                                                 "from persistent store");
-                                continue;
+                                std::optional<UserSubscription> newSub =
+                                    UserSubscription::fromJson(*jSub);
+
+                                if (!newSub)
+                                {
+                                    BMCWEB_LOG_ERROR(
+                                        "Problem reading subscription "
+                                        "from persistent store");
+                                    continue;
+                                }
+
+                                BMCWEB_LOG_DEBUG("Restored subscription: {} {}",
+                                                 newSub->id,
+                                                 newSub->customText);
+
+                                EventServiceStore::getInstance()
+                                    .subscriptionsConfigMap.emplace(
+                                        newSub->id,
+                                        std::make_shared<UserSubscription>(
+                                            std::move(*newSub)));
                             }
-
-                            BMCWEB_LOG_DEBUG("Restored subscription: {} {}",
-                                             newSub->id, newSub->customText);
-
-                            EventServiceStore::getInstance()
-                                .subscriptionsConfigMap.emplace(
-                                    newSub->id,
-                                    std::make_shared<UserSubscription>(
-                                        std::move(*newSub)));
                         }
                     }
                     else
