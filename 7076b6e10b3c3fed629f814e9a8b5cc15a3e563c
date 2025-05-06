@@ -16,6 +16,23 @@
       "message": "everywhere we\u0027ve added the _fwd.hpp version of these appears to be incorrect.",
       "revId": "7076b6e10b3c3fed629f814e9a8b5cc15a3e563c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "039eb09c_741f765e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-06T17:22:30Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/80055\n\nLets just disable include fixer for now while we figure out how to deal with this.",
+      "revId": "7076b6e10b3c3fed629f814e9a8b5cc15a3e563c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
