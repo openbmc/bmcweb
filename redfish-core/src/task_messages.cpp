@@ -33,8 +33,9 @@ namespace redfish
 namespace messages
 {
 
-static nlohmann::json getLog(redfish::registries::task_event::Index name,
-                             std::span<const std::string_view> args)
+static nlohmann::json::object_t getLog(
+    redfish::registries::task_event::Index name,
+    std::span<const std::string_view> args)
 {
     size_t index = static_cast<size_t>(name);
     if (index >= redfish::registries::task_event::registry.size())
@@ -53,7 +54,7 @@ static nlohmann::json getLog(redfish::registries::task_event::Index name,
  * See header file for more information
  * @endinternal
  */
-nlohmann::json taskStarted(std::string_view arg1)
+nlohmann::json::object_t taskStarted(std::string_view arg1)
 {
     return getLog(redfish::registries::task_event::Index::taskStarted,
                   std::to_array({arg1}));
@@ -66,7 +67,7 @@ nlohmann::json taskStarted(std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json taskCompletedOK(std::string_view arg1)
+nlohmann::json::object_t taskCompletedOK(std::string_view arg1)
 {
     return getLog(redfish::registries::task_event::Index::taskCompletedOK,
                   std::to_array({arg1}));
@@ -79,7 +80,7 @@ nlohmann::json taskCompletedOK(std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json taskCompletedWarning(std::string_view arg1)
+nlohmann::json::object_t taskCompletedWarning(std::string_view arg1)
 {
     return getLog(redfish::registries::task_event::Index::taskCompletedWarning,
                   std::to_array({arg1}));
@@ -92,7 +93,7 @@ nlohmann::json taskCompletedWarning(std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json taskAborted(std::string_view arg1)
+nlohmann::json::object_t taskAborted(std::string_view arg1)
 {
     return getLog(redfish::registries::task_event::Index::taskAborted,
                   std::to_array({arg1}));
@@ -105,7 +106,7 @@ nlohmann::json taskAborted(std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json taskCancelled(std::string_view arg1)
+nlohmann::json::object_t taskCancelled(std::string_view arg1)
 {
     return getLog(redfish::registries::task_event::Index::taskCancelled,
                   std::to_array({arg1}));
@@ -118,7 +119,7 @@ nlohmann::json taskCancelled(std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json taskRemoved(std::string_view arg1)
+nlohmann::json::object_t taskRemoved(std::string_view arg1)
 {
     return getLog(redfish::registries::task_event::Index::taskRemoved,
                   std::to_array({arg1}));
@@ -131,7 +132,7 @@ nlohmann::json taskRemoved(std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json taskPaused(std::string_view arg1)
+nlohmann::json::object_t taskPaused(std::string_view arg1)
 {
     return getLog(redfish::registries::task_event::Index::taskPaused,
                   std::to_array({arg1}));
@@ -144,7 +145,7 @@ nlohmann::json taskPaused(std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json taskResumed(std::string_view arg1)
+nlohmann::json::object_t taskResumed(std::string_view arg1)
 {
     return getLog(redfish::registries::task_event::Index::taskResumed,
                   std::to_array({arg1}));
@@ -157,7 +158,8 @@ nlohmann::json taskResumed(std::string_view arg1)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json taskProgressChanged(std::string_view arg1, uint64_t arg2)
+nlohmann::json::object_t taskProgressChanged(std::string_view arg1,
+                                             uint64_t arg2)
 {
     std::string arg2Str = std::to_string(arg2);
     return getLog(redfish::registries::task_event::Index::taskProgressChanged,
