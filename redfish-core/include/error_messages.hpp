@@ -33,7 +33,7 @@ namespace messages
  *
  *
  * @returns Message Success formatted to JSON */
-nlohmann::json success();
+nlohmann::json::object_t success();
 
 void success(crow::Response& res);
 
@@ -45,7 +45,7 @@ void success(crow::Response& res);
  *
  *
  * @returns Message GeneralError formatted to JSON */
-nlohmann::json generalError();
+nlohmann::json::object_t generalError();
 
 void generalError(crow::Response& res);
 
@@ -55,7 +55,7 @@ void generalError(crow::Response& res);
  *
  *
  * @returns Message Created formatted to JSON */
-nlohmann::json created();
+nlohmann::json::object_t created();
 
 void created(crow::Response& res);
 
@@ -66,7 +66,7 @@ void created(crow::Response& res);
  *
  *
  * @returns Message NoOperation formatted to JSON */
-nlohmann::json noOperation();
+nlohmann::json::object_t noOperation();
 
 void noOperation(crow::Response& res);
 
@@ -77,7 +77,7 @@ void noOperation(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message PropertyDuplicate formatted to JSON */
-nlohmann::json propertyDuplicate(std::string_view arg1);
+nlohmann::json::object_t propertyDuplicate(std::string_view arg1);
 
 void propertyDuplicate(crow::Response& res, std::string_view arg1);
 
@@ -89,7 +89,7 @@ void propertyDuplicate(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message PropertyUnknown formatted to JSON */
-nlohmann::json propertyUnknown(std::string_view arg1);
+nlohmann::json::object_t propertyUnknown(std::string_view arg1);
 
 void propertyUnknown(crow::Response& res, std::string_view arg1);
 
@@ -102,8 +102,8 @@ void propertyUnknown(crow::Response& res, std::string_view arg1);
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueTypeError formatted to JSON */
-nlohmann::json propertyValueTypeError(const nlohmann::json& arg1,
-                                      std::string_view arg2);
+nlohmann::json::object_t propertyValueTypeError(const nlohmann::json& arg1,
+                                                std::string_view arg2);
 
 void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2);
@@ -117,8 +117,8 @@ void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueFormatError formatted to JSON */
-nlohmann::json propertyValueFormatError(const nlohmann::json& arg1,
-                                        std::string_view arg2);
+nlohmann::json::object_t propertyValueFormatError(const nlohmann::json& arg1,
+                                                  std::string_view arg2);
 
 void propertyValueFormatError(crow::Response& res, const nlohmann::json& arg1,
                               std::string_view arg2);
@@ -132,8 +132,8 @@ void propertyValueFormatError(crow::Response& res, const nlohmann::json& arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueNotInList formatted to JSON */
-nlohmann::json propertyValueNotInList(const nlohmann::json& arg1,
-                                      std::string_view arg2);
+nlohmann::json::object_t propertyValueNotInList(const nlohmann::json& arg1,
+                                                std::string_view arg2);
 
 void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2);
@@ -147,8 +147,8 @@ void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueOutOfRange formatted to JSON */
-nlohmann::json propertyValueOutOfRange(const nlohmann::json& arg1,
-                                       std::string_view arg2);
+nlohmann::json::object_t propertyValueOutOfRange(const nlohmann::json& arg1,
+                                                 std::string_view arg2);
 
 void propertyValueOutOfRange(crow::Response& res, const nlohmann::json& arg1,
                              std::string_view arg2);
@@ -160,7 +160,7 @@ void propertyValueOutOfRange(crow::Response& res, const nlohmann::json& arg1,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message PropertyValueError formatted to JSON */
-nlohmann::json propertyValueError(std::string_view arg1);
+nlohmann::json::object_t propertyValueError(std::string_view arg1);
 
 void propertyValueError(crow::Response& res, std::string_view arg1);
 
@@ -172,7 +172,7 @@ void propertyValueError(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message PropertyNotWritable formatted to JSON */
-nlohmann::json propertyNotWritable(std::string_view arg1);
+nlohmann::json::object_t propertyNotWritable(std::string_view arg1);
 
 void propertyNotWritable(crow::Response& res, std::string_view arg1);
 
@@ -184,7 +184,7 @@ void propertyNotWritable(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message PropertyNotUpdated formatted to JSON */
-nlohmann::json propertyNotUpdated(std::string_view arg1);
+nlohmann::json::object_t propertyNotUpdated(std::string_view arg1);
 
 void propertyNotUpdated(crow::Response& res, std::string_view arg1);
 
@@ -196,7 +196,7 @@ void propertyNotUpdated(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message PropertyMissing formatted to JSON */
-nlohmann::json propertyMissing(std::string_view arg1);
+nlohmann::json::object_t propertyMissing(std::string_view arg1);
 
 void propertyMissing(crow::Response& res, std::string_view arg1);
 
@@ -207,7 +207,7 @@ void propertyMissing(crow::Response& res, std::string_view arg1);
  *
  *
  * @returns Message MalformedJSON formatted to JSON */
-nlohmann::json malformedJSON();
+nlohmann::json::object_t malformedJSON();
 
 void malformedJSON(crow::Response& res);
 
@@ -219,7 +219,7 @@ void malformedJSON(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message InvalidJSON formatted to JSON */
-nlohmann::json invalidJSON(std::string_view arg1);
+nlohmann::json::object_t invalidJSON(std::string_view arg1);
 
 void invalidJSON(crow::Response& res, std::string_view arg1);
 
@@ -230,7 +230,7 @@ void invalidJSON(crow::Response& res, std::string_view arg1);
  *
  *
  * @returns Message EmptyJSON formatted to JSON */
-nlohmann::json emptyJSON();
+nlohmann::json::object_t emptyJSON();
 
 void emptyJSON(crow::Response& res);
 
@@ -241,7 +241,7 @@ void emptyJSON(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ActionNotSupported formatted to JSON */
-nlohmann::json actionNotSupported(std::string_view arg1);
+nlohmann::json::object_t actionNotSupported(std::string_view arg1);
 
 void actionNotSupported(crow::Response& res, std::string_view arg1);
 
@@ -254,8 +254,8 @@ void actionNotSupported(crow::Response& res, std::string_view arg1);
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ActionParameterMissing formatted to JSON */
-nlohmann::json actionParameterMissing(std::string_view arg1,
-                                      std::string_view arg2);
+nlohmann::json::object_t actionParameterMissing(std::string_view arg1,
+                                                std::string_view arg2);
 
 void actionParameterMissing(crow::Response& res, std::string_view arg1,
                             std::string_view arg2);
@@ -269,8 +269,8 @@ void actionParameterMissing(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ActionParameterDuplicate formatted to JSON */
-nlohmann::json actionParameterDuplicate(std::string_view arg1,
-                                        std::string_view arg2);
+nlohmann::json::object_t actionParameterDuplicate(std::string_view arg1,
+                                                  std::string_view arg2);
 
 void actionParameterDuplicate(crow::Response& res, std::string_view arg1,
                               std::string_view arg2);
@@ -284,8 +284,8 @@ void actionParameterDuplicate(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ActionParameterUnknown formatted to JSON */
-nlohmann::json actionParameterUnknown(std::string_view arg1,
-                                      std::string_view arg2);
+nlohmann::json::object_t actionParameterUnknown(std::string_view arg1,
+                                                std::string_view arg2);
 
 void actionParameterUnknown(crow::Response& res, std::string_view arg1,
                             std::string_view arg2);
@@ -300,7 +300,7 @@ void actionParameterUnknown(crow::Response& res, std::string_view arg1,
  * @param[in] arg3 Parameter of message that will replace %3 in its body.
  *
  * @returns Message ActionParameterValueTypeError formatted to JSON */
-nlohmann::json actionParameterValueTypeError(
+nlohmann::json::object_t actionParameterValueTypeError(
     const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3);
 
 void actionParameterValueTypeError(
@@ -317,7 +317,7 @@ void actionParameterValueTypeError(
  * @param[in] arg3 Parameter of message that will replace %3 in its body.
  *
  * @returns Message ActionParameterValueFormatError formatted to JSON */
-nlohmann::json actionParameterValueFormatError(
+nlohmann::json::object_t actionParameterValueFormatError(
     const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3);
 
 void actionParameterValueFormatError(
@@ -334,7 +334,7 @@ void actionParameterValueFormatError(
  * @param[in] arg3 Parameter of message that will replace %3 in its body.
  *
  * @returns Message ActionParameterValueNotInList formatted to JSON */
-nlohmann::json actionParameterValueNotInList(
+nlohmann::json::object_t actionParameterValueNotInList(
     std::string_view arg1, std::string_view arg2, std::string_view arg3);
 
 void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
@@ -351,7 +351,7 @@ void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
  * @param[in] arg3 Parameter of message that will replace %3 in its body.
  *
  * @returns Message ActionParameterValueOutOfRange formatted to JSON */
-nlohmann::json actionParameterValueOutOfRange(
+nlohmann::json::object_t actionParameterValueOutOfRange(
     std::string_view arg1, std::string_view arg2, std::string_view arg3);
 
 void actionParameterValueOutOfRange(crow::Response& res, std::string_view arg1,
@@ -367,8 +367,8 @@ void actionParameterValueOutOfRange(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ActionParameterValueError formatted to JSON */
-nlohmann::json actionParameterValueError(const nlohmann::json& arg1,
-                                         std::string_view arg2);
+nlohmann::json::object_t actionParameterValueError(const nlohmann::json& arg1,
+                                                   std::string_view arg2);
 
 void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1,
                                std::string_view arg2);
@@ -382,8 +382,8 @@ void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ActionParameterNotSupported formatted to JSON */
-nlohmann::json actionParameterNotSupported(std::string_view arg1,
-                                           std::string_view arg2);
+nlohmann::json::object_t actionParameterNotSupported(std::string_view arg1,
+                                                     std::string_view arg2);
 
 void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
                                  std::string_view arg2);
@@ -397,7 +397,7 @@ void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ArraySizeTooLong formatted to JSON */
-nlohmann::json arraySizeTooLong(std::string_view arg1, uint64_t arg2);
+nlohmann::json::object_t arraySizeTooLong(std::string_view arg1, uint64_t arg2);
 
 void arraySizeTooLong(crow::Response& res, std::string_view arg1,
                       uint64_t arg2);
@@ -411,7 +411,8 @@ void arraySizeTooLong(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ArraySizeTooShort formatted to JSON */
-nlohmann::json arraySizeTooShort(std::string_view arg1, std::string_view arg2);
+nlohmann::json::object_t arraySizeTooShort(std::string_view arg1,
+                                           std::string_view arg2);
 
 void arraySizeTooShort(crow::Response& res, std::string_view arg1,
                        std::string_view arg2);
@@ -425,8 +426,8 @@ void arraySizeTooShort(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message QueryParameterValueTypeError formatted to JSON */
-nlohmann::json queryParameterValueTypeError(const nlohmann::json& arg1,
-                                            std::string_view arg2);
+nlohmann::json::object_t queryParameterValueTypeError(
+    const nlohmann::json& arg1, std::string_view arg2);
 
 void queryParameterValueTypeError(
     crow::Response& res, const nlohmann::json& arg1, std::string_view arg2);
@@ -440,8 +441,8 @@ void queryParameterValueTypeError(
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message QueryParameterValueFormatError formatted to JSON */
-nlohmann::json queryParameterValueFormatError(const nlohmann::json& arg1,
-                                              std::string_view arg2);
+nlohmann::json::object_t queryParameterValueFormatError(
+    const nlohmann::json& arg1, std::string_view arg2);
 
 void queryParameterValueFormatError(
     crow::Response& res, const nlohmann::json& arg1, std::string_view arg2);
@@ -453,7 +454,7 @@ void queryParameterValueFormatError(
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message QueryParameterValueError formatted to JSON */
-nlohmann::json queryParameterValueError(std::string_view arg1);
+nlohmann::json::object_t queryParameterValueError(std::string_view arg1);
 
 void queryParameterValueError(crow::Response& res, std::string_view arg1);
 
@@ -467,7 +468,7 @@ void queryParameterValueError(crow::Response& res, std::string_view arg1);
  * @param[in] arg3 Parameter of message that will replace %3 in its body.
  *
  * @returns Message QueryParameterOutOfRange formatted to JSON */
-nlohmann::json queryParameterOutOfRange(
+nlohmann::json::object_t queryParameterOutOfRange(
     std::string_view arg1, std::string_view arg2, std::string_view arg3);
 
 void queryParameterOutOfRange(crow::Response& res, std::string_view arg1,
@@ -479,7 +480,7 @@ void queryParameterOutOfRange(crow::Response& res, std::string_view arg1,
  *
  *
  * @returns Message QueryNotSupportedOnResource formatted to JSON */
-nlohmann::json queryNotSupportedOnResource();
+nlohmann::json::object_t queryNotSupportedOnResource();
 
 void queryNotSupportedOnResource(crow::Response& res);
 
@@ -489,7 +490,7 @@ void queryNotSupportedOnResource(crow::Response& res);
  *
  *
  * @returns Message QueryNotSupportedOnOperation formatted to JSON */
-nlohmann::json queryNotSupportedOnOperation();
+nlohmann::json::object_t queryNotSupportedOnOperation();
 
 void queryNotSupportedOnOperation(crow::Response& res);
 
@@ -499,7 +500,7 @@ void queryNotSupportedOnOperation(crow::Response& res);
  *
  *
  * @returns Message QueryNotSupported formatted to JSON */
-nlohmann::json queryNotSupported();
+nlohmann::json::object_t queryNotSupported();
 
 void queryNotSupported(crow::Response& res);
 
@@ -510,7 +511,7 @@ void queryNotSupported(crow::Response& res);
  *
  *
  * @returns Message QueryCombinationInvalid formatted to JSON */
-nlohmann::json queryCombinationInvalid();
+nlohmann::json::object_t queryCombinationInvalid();
 
 void queryCombinationInvalid(crow::Response& res);
 
@@ -521,7 +522,7 @@ void queryCombinationInvalid(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message QueryParameterUnsupported formatted to JSON */
-nlohmann::json queryParameterUnsupported(std::string_view arg1);
+nlohmann::json::object_t queryParameterUnsupported(std::string_view arg1);
 
 void queryParameterUnsupported(crow::Response& res, std::string_view arg1);
 
@@ -532,7 +533,7 @@ void queryParameterUnsupported(crow::Response& res, std::string_view arg1);
  *
  *
  * @returns Message SessionLimitExceeded formatted to JSON */
-nlohmann::json sessionLimitExceeded();
+nlohmann::json::object_t sessionLimitExceeded();
 
 void sessionLimitExceeded(crow::Response& res);
 
@@ -543,7 +544,7 @@ void sessionLimitExceeded(crow::Response& res);
  *
  *
  * @returns Message EventSubscriptionLimitExceeded formatted to JSON */
-nlohmann::json eventSubscriptionLimitExceeded();
+nlohmann::json::object_t eventSubscriptionLimitExceeded();
 
 void eventSubscriptionLimitExceeded(crow::Response& res);
 
@@ -554,7 +555,7 @@ void eventSubscriptionLimitExceeded(crow::Response& res);
  *
  *
  * @returns Message ResourceCannotBeDeleted formatted to JSON */
-nlohmann::json resourceCannotBeDeleted();
+nlohmann::json::object_t resourceCannotBeDeleted();
 
 void resourceCannotBeDeleted(crow::Response& res);
 
@@ -565,7 +566,7 @@ void resourceCannotBeDeleted(crow::Response& res);
  *
  *
  * @returns Message ResourceInUse formatted to JSON */
-nlohmann::json resourceInUse();
+nlohmann::json::object_t resourceInUse();
 
 void resourceInUse(crow::Response& res);
 
@@ -579,7 +580,7 @@ void resourceInUse(crow::Response& res);
  * @param[in] arg3 Parameter of message that will replace %3 in its body.
  *
  * @returns Message ResourceAlreadyExists formatted to JSON */
-nlohmann::json resourceAlreadyExists(
+nlohmann::json::object_t resourceAlreadyExists(
     std::string_view arg1, std::string_view arg2, std::string_view arg3);
 
 void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
@@ -594,7 +595,8 @@ void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ResourceNotFound formatted to JSON */
-nlohmann::json resourceNotFound(std::string_view arg1, std::string_view arg2);
+nlohmann::json::object_t resourceNotFound(std::string_view arg1,
+                                          std::string_view arg2);
 
 void resourceNotFound(crow::Response& res, std::string_view arg1,
                       std::string_view arg2);
@@ -606,7 +608,7 @@ void resourceNotFound(crow::Response& res, std::string_view arg1,
  *
  *
  * @returns Message PayloadTooLarge formatted to JSON */
-nlohmann::json payloadTooLarge();
+nlohmann::json::object_t payloadTooLarge();
 
 void payloadTooLarge(crow::Response& res);
 
@@ -617,7 +619,7 @@ void payloadTooLarge(crow::Response& res);
  *
  *
  * @returns Message InsufficientStorage formatted to JSON */
-nlohmann::json insufficientStorage();
+nlohmann::json::object_t insufficientStorage();
 
 void insufficientStorage(crow::Response& res);
 
@@ -628,7 +630,7 @@ void insufficientStorage(crow::Response& res);
  *
  *
  * @returns Message MissingOrMalformedPart formatted to JSON */
-nlohmann::json missingOrMalformedPart();
+nlohmann::json::object_t missingOrMalformedPart();
 
 void missingOrMalformedPart(crow::Response& res);
 
@@ -639,7 +641,7 @@ void missingOrMalformedPart(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message InvalidURI formatted to JSON */
-nlohmann::json invalidURI(std::string_view arg1);
+nlohmann::json::object_t invalidURI(std::string_view arg1);
 
 void invalidURI(crow::Response& res, std::string_view arg1);
 
@@ -651,7 +653,8 @@ void invalidURI(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message CreateFailedMissingReqProperties formatted to JSON */
-nlohmann::json createFailedMissingReqProperties(std::string_view arg1);
+nlohmann::json::object_t createFailedMissingReqProperties(
+    std::string_view arg1);
 
 void createFailedMissingReqProperties(crow::Response& res,
                                       std::string_view arg1);
@@ -663,7 +666,7 @@ void createFailedMissingReqProperties(crow::Response& res,
  *
  *
  * @returns Message CreateLimitReachedForResource formatted to JSON */
-nlohmann::json createLimitReachedForResource();
+nlohmann::json::object_t createLimitReachedForResource();
 
 void createLimitReachedForResource(crow::Response& res);
 
@@ -674,7 +677,7 @@ void createLimitReachedForResource(crow::Response& res);
  *
  *
  * @returns Message ServiceShuttingDown formatted to JSON */
-nlohmann::json serviceShuttingDown();
+nlohmann::json::object_t serviceShuttingDown();
 
 void serviceShuttingDown(crow::Response& res);
 
@@ -685,7 +688,7 @@ void serviceShuttingDown(crow::Response& res);
  *
  *
  * @returns Message ServiceInUnknownState formatted to JSON */
-nlohmann::json serviceInUnknownState();
+nlohmann::json::object_t serviceInUnknownState();
 
 void serviceInUnknownState(crow::Response& res);
 
@@ -696,7 +699,7 @@ void serviceInUnknownState(crow::Response& res);
  *
  *
  * @returns Message NoValidSession formatted to JSON */
-nlohmann::json noValidSession();
+nlohmann::json::object_t noValidSession();
 
 void noValidSession(crow::Response& res);
 
@@ -708,7 +711,7 @@ void noValidSession(crow::Response& res);
  *
  *
  * @returns Message InsufficientPrivilege formatted to JSON */
-nlohmann::json insufficientPrivilege();
+nlohmann::json::object_t insufficientPrivilege();
 
 void insufficientPrivilege(crow::Response& res);
 
@@ -718,7 +721,7 @@ void insufficientPrivilege(crow::Response& res);
  *
  *
  * @returns Message AccountModified formatted to JSON */
-nlohmann::json accountModified();
+nlohmann::json::object_t accountModified();
 
 void accountModified(crow::Response& res);
 
@@ -728,7 +731,7 @@ void accountModified(crow::Response& res);
  *
  *
  * @returns Message AccountNotModified formatted to JSON */
-nlohmann::json accountNotModified();
+nlohmann::json::object_t accountNotModified();
 
 void accountNotModified(crow::Response& res);
 
@@ -738,7 +741,7 @@ void accountNotModified(crow::Response& res);
  *
  *
  * @returns Message AccountRemoved formatted to JSON */
-nlohmann::json accountRemoved();
+nlohmann::json::object_t accountRemoved();
 
 void accountRemoved(crow::Response& res);
 
@@ -749,7 +752,7 @@ void accountRemoved(crow::Response& res);
  *
  *
  * @returns Message AccountForSessionNoLongerExists formatted to JSON */
-nlohmann::json accountForSessionNoLongerExists();
+nlohmann::json::object_t accountForSessionNoLongerExists();
 
 void accountForSessionNoLongerExists(crow::Response& res);
 
@@ -760,7 +763,7 @@ void accountForSessionNoLongerExists(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message InvalidObject formatted to JSON */
-nlohmann::json invalidObject(const boost::urls::url_view_base& arg1);
+nlohmann::json::object_t invalidObject(const boost::urls::url_view_base& arg1);
 
 void invalidObject(crow::Response& res, const boost::urls::url_view_base& arg1);
 
@@ -771,7 +774,7 @@ void invalidObject(crow::Response& res, const boost::urls::url_view_base& arg1);
  *
  *
  * @returns Message InternalError formatted to JSON */
-nlohmann::json internalError();
+nlohmann::json::object_t internalError();
 
 void internalError(crow::Response& res, std::source_location location =
                                             std::source_location::current());
@@ -783,7 +786,7 @@ void internalError(crow::Response& res, std::source_location location =
  *
  *
  * @returns Message UnrecognizedRequestBody formatted to JSON */
-nlohmann::json unrecognizedRequestBody();
+nlohmann::json::object_t unrecognizedRequestBody();
 
 void unrecognizedRequestBody(crow::Response& res);
 
@@ -794,7 +797,8 @@ void unrecognizedRequestBody(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ResourceMissingAtURI formatted to JSON */
-nlohmann::json resourceMissingAtURI(const boost::urls::url_view_base& arg1);
+nlohmann::json::object_t resourceMissingAtURI(
+    const boost::urls::url_view_base& arg1);
 
 void resourceMissingAtURI(crow::Response& res,
                           const boost::urls::url_view_base& arg1);
@@ -807,7 +811,7 @@ void resourceMissingAtURI(crow::Response& res,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ResourceAtUriInUnknownFormat formatted to JSON */
-nlohmann::json resourceAtUriInUnknownFormat(
+nlohmann::json::object_t resourceAtUriInUnknownFormat(
     const boost::urls::url_view_base& arg1);
 
 void resourceAtUriInUnknownFormat(crow::Response& res,
@@ -822,8 +826,8 @@ void resourceAtUriInUnknownFormat(crow::Response& res,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ResourceAtUriUnauthorized formatted to JSON */
-nlohmann::json resourceAtUriUnauthorized(const boost::urls::url_view_base& arg1,
-                                         std::string_view arg2);
+nlohmann::json::object_t resourceAtUriUnauthorized(
+    const boost::urls::url_view_base& arg1, std::string_view arg2);
 
 void resourceAtUriUnauthorized(crow::Response& res,
                                const boost::urls::url_view_base& arg1,
@@ -837,7 +841,7 @@ void resourceAtUriUnauthorized(crow::Response& res,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message CouldNotEstablishConnection formatted to JSON */
-nlohmann::json couldNotEstablishConnection(
+nlohmann::json::object_t couldNotEstablishConnection(
     const boost::urls::url_view_base& arg1);
 
 void couldNotEstablishConnection(crow::Response& res,
@@ -852,7 +856,7 @@ void couldNotEstablishConnection(crow::Response& res,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message SourceDoesNotSupportProtocol formatted to JSON */
-nlohmann::json sourceDoesNotSupportProtocol(
+nlohmann::json::object_t sourceDoesNotSupportProtocol(
     const boost::urls::url_view_base& arg1, std::string_view arg2);
 
 void sourceDoesNotSupportProtocol(crow::Response& res,
@@ -867,7 +871,7 @@ void sourceDoesNotSupportProtocol(crow::Response& res,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message AccessDenied formatted to JSON */
-nlohmann::json accessDenied(const boost::urls::url_view_base& arg1);
+nlohmann::json::object_t accessDenied(const boost::urls::url_view_base& arg1);
 
 void accessDenied(crow::Response& res, const boost::urls::url_view_base& arg1);
 
@@ -879,7 +883,7 @@ void accessDenied(crow::Response& res, const boost::urls::url_view_base& arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ServiceTemporarilyUnavailable formatted to JSON */
-nlohmann::json serviceTemporarilyUnavailable(std::string_view arg1);
+nlohmann::json::object_t serviceTemporarilyUnavailable(std::string_view arg1);
 
 void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1);
 
@@ -890,7 +894,7 @@ void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message InvalidIndex formatted to JSON */
-nlohmann::json invalidIndex(uint64_t arg1);
+nlohmann::json::object_t invalidIndex(uint64_t arg1);
 
 void invalidIndex(crow::Response& res, uint64_t arg1);
 
@@ -903,8 +907,8 @@ void invalidIndex(crow::Response& res, uint64_t arg1);
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueModified formatted to JSON */
-nlohmann::json propertyValueModified(std::string_view arg1,
-                                     const nlohmann::json& arg2);
+nlohmann::json::object_t propertyValueModified(std::string_view arg1,
+                                               const nlohmann::json& arg2);
 
 void propertyValueModified(crow::Response& res, std::string_view arg1,
                            const nlohmann::json& arg2);
@@ -916,7 +920,7 @@ void propertyValueModified(crow::Response& res, std::string_view arg1,
  *
  *
  * @returns Message ResourceInStandby formatted to JSON */
-nlohmann::json resourceInStandby();
+nlohmann::json::object_t resourceInStandby();
 
 void resourceInStandby(crow::Response& res);
 
@@ -928,7 +932,7 @@ void resourceInStandby(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ResourceExhaustion formatted to JSON */
-nlohmann::json resourceExhaustion(std::string_view arg1);
+nlohmann::json::object_t resourceExhaustion(std::string_view arg1);
 
 void resourceExhaustion(crow::Response& res, std::string_view arg1);
 
@@ -940,7 +944,8 @@ void resourceExhaustion(crow::Response& res, std::string_view arg1);
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message StringValueTooLong formatted to JSON */
-nlohmann::json stringValueTooLong(std::string_view arg1, uint64_t arg2);
+nlohmann::json::object_t stringValueTooLong(std::string_view arg1,
+                                            uint64_t arg2);
 
 void stringValueTooLong(crow::Response& res, std::string_view arg1,
                         uint64_t arg2);
@@ -954,8 +959,8 @@ void stringValueTooLong(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message StringValueTooShort formatted to JSON */
-nlohmann::json stringValueTooShort(std::string_view arg1,
-                                   std::string_view arg2);
+nlohmann::json::object_t stringValueTooShort(std::string_view arg1,
+                                             std::string_view arg2);
 
 void stringValueTooShort(crow::Response& res, std::string_view arg1,
                          std::string_view arg2);
@@ -966,7 +971,7 @@ void stringValueTooShort(crow::Response& res, std::string_view arg1,
  *
  *
  * @returns Message SessionTerminated formatted to JSON */
-nlohmann::json sessionTerminated();
+nlohmann::json::object_t sessionTerminated();
 
 void sessionTerminated(crow::Response& res);
 
@@ -976,7 +981,7 @@ void sessionTerminated(crow::Response& res);
  *
  *
  * @returns Message SubscriptionTerminated formatted to JSON */
-nlohmann::json subscriptionTerminated();
+nlohmann::json::object_t subscriptionTerminated();
 
 void subscriptionTerminated(crow::Response& res);
 
@@ -989,8 +994,8 @@ void subscriptionTerminated(crow::Response& res);
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ResourceTypeIncompatible formatted to JSON */
-nlohmann::json resourceTypeIncompatible(std::string_view arg1,
-                                        std::string_view arg2);
+nlohmann::json::object_t resourceTypeIncompatible(std::string_view arg1,
+                                                  std::string_view arg2);
 
 void resourceTypeIncompatible(crow::Response& res, std::string_view arg1,
                               std::string_view arg2);
@@ -1004,7 +1009,8 @@ void resourceTypeIncompatible(crow::Response& res, std::string_view arg1,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message PasswordChangeRequired formatted to JSON */
-nlohmann::json passwordChangeRequired(const boost::urls::url_view_base& arg1);
+nlohmann::json::object_t passwordChangeRequired(
+    const boost::urls::url_view_base& arg1);
 
 void passwordChangeRequired(crow::Response& res,
                             const boost::urls::url_view_base& arg1);
@@ -1019,8 +1025,8 @@ void passwordChangeRequired(crow::Response& res,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ResetRequired formatted to JSON */
-nlohmann::json resetRequired(const boost::urls::url_view_base& arg1,
-                             std::string_view arg2);
+nlohmann::json::object_t resetRequired(const boost::urls::url_view_base& arg1,
+                                       std::string_view arg2);
 
 void resetRequired(crow::Response& res, const boost::urls::url_view_base& arg1,
                    std::string_view arg2);
@@ -1034,7 +1040,8 @@ void resetRequired(crow::Response& res, const boost::urls::url_view_base& arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ResetRecommended formatted to JSON */
-nlohmann::json resetRecommended(std::string_view arg1, std::string_view arg2);
+nlohmann::json::object_t resetRecommended(std::string_view arg1,
+                                          std::string_view arg2);
 
 void resetRecommended(crow::Response& res, std::string_view arg1,
                       std::string_view arg2);
@@ -1047,7 +1054,7 @@ void resetRecommended(crow::Response& res, std::string_view arg1,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ChassisPowerStateOnRequired formatted to JSON */
-nlohmann::json chassisPowerStateOnRequired(std::string_view arg1);
+nlohmann::json::object_t chassisPowerStateOnRequired(std::string_view arg1);
 
 void chassisPowerStateOnRequired(crow::Response& res, std::string_view arg1);
 
@@ -1059,7 +1066,7 @@ void chassisPowerStateOnRequired(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ChassisPowerStateOffRequired formatted to JSON */
-nlohmann::json chassisPowerStateOffRequired(std::string_view arg1);
+nlohmann::json::object_t chassisPowerStateOffRequired(std::string_view arg1);
 
 void chassisPowerStateOffRequired(crow::Response& res, std::string_view arg1);
 
@@ -1072,8 +1079,8 @@ void chassisPowerStateOffRequired(crow::Response& res, std::string_view arg1);
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueConflict formatted to JSON */
-nlohmann::json propertyValueConflict(std::string_view arg1,
-                                     std::string_view arg2);
+nlohmann::json::object_t propertyValueConflict(std::string_view arg1,
+                                               std::string_view arg2);
 
 void propertyValueConflict(crow::Response& res, std::string_view arg1,
                            std::string_view arg2);
@@ -1089,7 +1096,7 @@ void propertyValueConflict(crow::Response& res, std::string_view arg1,
  * @param[in] arg3 Parameter of message that will replace %3 in its body.
  *
  * @returns Message PropertyValueResourceConflict formatted to JSON */
-nlohmann::json propertyValueResourceConflict(
+nlohmann::json::object_t propertyValueResourceConflict(
     std::string_view arg1, const nlohmann::json& arg2,
     const boost::urls::url_view_base& arg3);
 
@@ -1107,8 +1114,8 @@ void propertyValueResourceConflict(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueExternalConflict formatted to JSON */
-nlohmann::json propertyValueExternalConflict(std::string_view arg1,
-                                             const nlohmann::json& arg2);
+nlohmann::json::object_t propertyValueExternalConflict(
+    std::string_view arg1, const nlohmann::json& arg2);
 
 void propertyValueExternalConflict(crow::Response& res, std::string_view arg1,
                                    const nlohmann::json& arg2);
@@ -1123,8 +1130,8 @@ void propertyValueExternalConflict(crow::Response& res, std::string_view arg1,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueIncorrect formatted to JSON */
-nlohmann::json propertyValueIncorrect(std::string_view arg1,
-                                      const nlohmann::json& arg2);
+nlohmann::json::object_t propertyValueIncorrect(std::string_view arg1,
+                                                const nlohmann::json& arg2);
 
 void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
                             const nlohmann::json& arg2);
@@ -1137,7 +1144,8 @@ void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ResourceCreationConflict formatted to JSON */
-nlohmann::json resourceCreationConflict(const boost::urls::url_view_base& arg1);
+nlohmann::json::object_t resourceCreationConflict(
+    const boost::urls::url_view_base& arg1);
 
 void resourceCreationConflict(crow::Response& res,
                               const boost::urls::url_view_base& arg1);
@@ -1151,8 +1159,8 @@ void resourceCreationConflict(crow::Response& res,
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message ActionParameterValueConflict formatted to JSON */
-nlohmann::json actionParameterValueConflict(std::string_view arg1,
-                                            std::string_view arg2);
+nlohmann::json::object_t actionParameterValueConflict(std::string_view arg1,
+                                                      std::string_view arg2);
 
 void actionParameterValueConflict(crow::Response& res, std::string_view arg1,
                                   std::string_view arg2);
@@ -1163,7 +1171,7 @@ void actionParameterValueConflict(crow::Response& res, std::string_view arg1,
  *
  *
  * @returns Message MaximumErrorsExceeded formatted to JSON */
-nlohmann::json maximumErrorsExceeded();
+nlohmann::json::object_t maximumErrorsExceeded();
 
 void maximumErrorsExceeded(crow::Response& res);
 
@@ -1174,7 +1182,7 @@ void maximumErrorsExceeded(crow::Response& res);
  *
  *
  * @returns Message PreconditionFailed formatted to JSON */
-nlohmann::json preconditionFailed();
+nlohmann::json::object_t preconditionFailed();
 
 void preconditionFailed(crow::Response& res);
 
@@ -1185,7 +1193,7 @@ void preconditionFailed(crow::Response& res);
  *
  *
  * @returns Message PreconditionRequired formatted to JSON */
-nlohmann::json preconditionRequired();
+nlohmann::json::object_t preconditionRequired();
 
 void preconditionRequired(crow::Response& res);
 
@@ -1196,7 +1204,7 @@ void preconditionRequired(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message HeaderMissing formatted to JSON */
-nlohmann::json headerMissing(std::string_view arg1);
+nlohmann::json::object_t headerMissing(std::string_view arg1);
 
 void headerMissing(crow::Response& res, std::string_view arg1);
 
@@ -1207,7 +1215,7 @@ void headerMissing(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message HeaderInvalid formatted to JSON */
-nlohmann::json headerInvalid(std::string_view arg1);
+nlohmann::json::object_t headerInvalid(std::string_view arg1);
 
 void headerInvalid(crow::Response& res, std::string_view arg1);
 
@@ -1218,7 +1226,7 @@ void headerInvalid(crow::Response& res, std::string_view arg1);
  *
  *
  * @returns Message OperationFailed formatted to JSON */
-nlohmann::json operationFailed();
+nlohmann::json::object_t operationFailed();
 
 void operationFailed(crow::Response& res);
 
@@ -1229,7 +1237,7 @@ void operationFailed(crow::Response& res);
  *
  *
  * @returns Message OperationTimeout formatted to JSON */
-nlohmann::json operationTimeout();
+nlohmann::json::object_t operationTimeout();
 
 void operationTimeout(crow::Response& res);
 
@@ -1239,7 +1247,7 @@ void operationTimeout(crow::Response& res);
  *
  *
  * @returns Message OperationNotAllowed formatted to JSON */
-nlohmann::json operationNotAllowed();
+nlohmann::json::object_t operationNotAllowed();
 
 void operationNotAllowed(crow::Response& res);
 
@@ -1250,7 +1258,7 @@ void operationNotAllowed(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message UndeterminedFault formatted to JSON */
-nlohmann::json undeterminedFault(std::string_view arg1);
+nlohmann::json::object_t undeterminedFault(std::string_view arg1);
 
 void undeterminedFault(crow::Response& res, std::string_view arg1);
 
@@ -1261,7 +1269,7 @@ void undeterminedFault(crow::Response& res, std::string_view arg1);
  *
  *
  * @returns Message ConditionInRelatedResource formatted to JSON */
-nlohmann::json conditionInRelatedResource();
+nlohmann::json::object_t conditionInRelatedResource();
 
 void conditionInRelatedResource(crow::Response& res);
 
@@ -1273,7 +1281,7 @@ void conditionInRelatedResource(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message RestrictedRole formatted to JSON */
-nlohmann::json restrictedRole(std::string_view arg1);
+nlohmann::json::object_t restrictedRole(std::string_view arg1);
 
 void restrictedRole(crow::Response& res, std::string_view arg1);
 
@@ -1285,7 +1293,7 @@ void restrictedRole(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message RestrictedPrivilege formatted to JSON */
-nlohmann::json restrictedPrivilege(std::string_view arg1);
+nlohmann::json::object_t restrictedPrivilege(std::string_view arg1);
 
 void restrictedPrivilege(crow::Response& res, std::string_view arg1);
 
@@ -1298,7 +1306,7 @@ void restrictedPrivilege(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message StrictAccountTypes formatted to JSON */
-nlohmann::json strictAccountTypes(std::string_view arg1);
+nlohmann::json::object_t strictAccountTypes(std::string_view arg1);
 
 void strictAccountTypes(crow::Response& res, std::string_view arg1);
 
@@ -1310,7 +1318,7 @@ void strictAccountTypes(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message PropertyDeprecated formatted to JSON */
-nlohmann::json propertyDeprecated(std::string_view arg1);
+nlohmann::json::object_t propertyDeprecated(std::string_view arg1);
 
 void propertyDeprecated(crow::Response& res, std::string_view arg1);
 
@@ -1321,7 +1329,7 @@ void propertyDeprecated(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ResourceDeprecated formatted to JSON */
-nlohmann::json resourceDeprecated(std::string_view arg1);
+nlohmann::json::object_t resourceDeprecated(std::string_view arg1);
 
 void resourceDeprecated(crow::Response& res, std::string_view arg1);
 
@@ -1333,8 +1341,8 @@ void resourceDeprecated(crow::Response& res, std::string_view arg1);
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
  *
  * @returns Message PropertyValueDeprecated formatted to JSON */
-nlohmann::json propertyValueDeprecated(std::string_view arg1,
-                                       std::string_view arg2);
+nlohmann::json::object_t propertyValueDeprecated(std::string_view arg1,
+                                                 std::string_view arg2);
 
 void propertyValueDeprecated(crow::Response& res, std::string_view arg1,
                              std::string_view arg2);
@@ -1346,7 +1354,7 @@ void propertyValueDeprecated(crow::Response& res, std::string_view arg1,
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ActionDeprecated formatted to JSON */
-nlohmann::json actionDeprecated(std::string_view arg1);
+nlohmann::json::object_t actionDeprecated(std::string_view arg1);
 
 void actionDeprecated(crow::Response& res, std::string_view arg1);
 
@@ -1356,7 +1364,7 @@ void actionDeprecated(crow::Response& res, std::string_view arg1);
  *
  *
  * @returns Message NetworkNameResolutionNotConfigured formatted to JSON */
-nlohmann::json networkNameResolutionNotConfigured();
+nlohmann::json::object_t networkNameResolutionNotConfigured();
 
 void networkNameResolutionNotConfigured(crow::Response& res);
 
@@ -1367,7 +1375,7 @@ void networkNameResolutionNotConfigured(crow::Response& res);
  *
  *
  * @returns Message NetworkNameResolutionNotSupported formatted to JSON */
-nlohmann::json networkNameResolutionNotSupported();
+nlohmann::json::object_t networkNameResolutionNotSupported();
 
 void networkNameResolutionNotSupported(crow::Response& res);
 
@@ -1379,7 +1387,7 @@ void networkNameResolutionNotSupported(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message ServiceDisabled formatted to JSON */
-nlohmann::json serviceDisabled(std::string_view arg1);
+nlohmann::json::object_t serviceDisabled(std::string_view arg1);
 
 void serviceDisabled(crow::Response& res, std::string_view arg1);
 
@@ -1390,7 +1398,7 @@ void serviceDisabled(crow::Response& res, std::string_view arg1);
  *
  *
  * @returns Message EventBufferExceeded formatted to JSON */
-nlohmann::json eventBufferExceeded();
+nlohmann::json::object_t eventBufferExceeded();
 
 void eventBufferExceeded(crow::Response& res);
 
@@ -1401,7 +1409,7 @@ void eventBufferExceeded(crow::Response& res);
  *
  *
  * @returns Message AuthenticationTokenRequired formatted to JSON */
-nlohmann::json authenticationTokenRequired();
+nlohmann::json::object_t authenticationTokenRequired();
 
 void authenticationTokenRequired(crow::Response& res);
 
@@ -1413,7 +1421,7 @@ void authenticationTokenRequired(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message OneTimePasscodeSent formatted to JSON */
-nlohmann::json oneTimePasscodeSent(std::string_view arg1);
+nlohmann::json::object_t oneTimePasscodeSent(std::string_view arg1);
 
 void oneTimePasscodeSent(crow::Response& res, std::string_view arg1);
 
@@ -1424,7 +1432,7 @@ void oneTimePasscodeSent(crow::Response& res, std::string_view arg1);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message LicenseRequired formatted to JSON */
-nlohmann::json licenseRequired(std::string_view arg1);
+nlohmann::json::object_t licenseRequired(std::string_view arg1);
 
 void licenseRequired(crow::Response& res, std::string_view arg1);
 
@@ -1434,7 +1442,7 @@ void licenseRequired(crow::Response& res, std::string_view arg1);
  *
  *
  * @returns Message PropertyModified formatted to JSON */
-nlohmann::json propertyModified();
+nlohmann::json::object_t propertyModified();
 
 void propertyModified(crow::Response& res);
 
@@ -1448,7 +1456,7 @@ void propertyModified(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message GenerateSecretKeyRequired formatted to JSON */
-nlohmann::json generateSecretKeyRequired(
+nlohmann::json::object_t generateSecretKeyRequired(
     const boost::urls::url_view_base& arg1);
 
 void generateSecretKeyRequired(crow::Response& res,
