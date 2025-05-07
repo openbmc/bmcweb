@@ -51,6 +51,24 @@
       "parentUuid": "1dc4c4f4_17914b09",
       "revId": "7076b6e10b3c3fed629f814e9a8b5cc15a3e563c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2264fa9_e6ce03d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001486
+      },
+      "writtenOn": "2025-05-07T04:39:36Z",
+      "side": 1,
+      "message": "clang enforces inclusion of fields_fwd.hpp because that\u0027s where it finds the declarations and expects fields.hpp not to be included. \nCompiler expects fields.hpp to be included. \nIf you have other thoughts about fixing this differently I can give a try.",
+      "parentUuid": "c70b04b5_69c4a59c",
+      "revId": "7076b6e10b3c3fed629f814e9a8b5cc15a3e563c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
