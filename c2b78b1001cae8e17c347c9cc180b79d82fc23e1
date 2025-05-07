@@ -69,6 +69,24 @@
       "parentUuid": "1e7c5ad1_40d82ad8",
       "revId": "c2b78b1001cae8e17c347c9cc180b79d82fc23e1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abc28216_d53ed510",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-07T17:10:35Z",
+      "side": 1,
+      "message": "MultipartHttpPushUri could be added to that Redfish.md",
+      "parentUuid": "800fef7e_6f3e561d",
+      "revId": "c2b78b1001cae8e17c347c9cc180b79d82fc23e1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

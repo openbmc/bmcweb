@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1922abc3_e804cf83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-07T17:10:35Z",
+      "side": 1,
+      "message": "I am pretty indifferent here, but sure we can match the example in the firmware white paper / in the spec. I don\u0027t see a recommendation or a requirement from Redfish here, so please have the commit msg reflect that",
+      "revId": "7a2a756c16f725fb0639b0d323972530aea692b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
