@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a90ba431_c071f489",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-07T14:46:56Z",
+      "side": 1,
+      "message": "Please wrap your commit message 50/72",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "abe8f77570fa36c75f0f7d8b8cbba10850d62580",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "851cbd6b_5d2c5132",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-07T14:46:56Z",
+      "side": 1,
+      "message": "The \"Name\" property in redfish already exists for this.  It\u0027s not clear this is a correct usage of either PrettyName in dbus or Description in Redfish.  More details needed (with pointers to the Redfish spec)",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 43
+      },
+      "revId": "abe8f77570fa36c75f0f7d8b8cbba10850d62580",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7326f616_0f5e72e3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 11
@@ -37,6 +83,23 @@
       "writtenOn": "2025-05-06T06:28:26Z",
       "side": 1,
       "message": "CI issue doesnt seem to be related to changes in the code",
+      "revId": "abe8f77570fa36c75f0f7d8b8cbba10850d62580",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd85b4c_e42a4ae4",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-07T14:46:56Z",
+      "side": 1,
+      "message": "Please don\u0027t duplicate the unpack code.",
       "revId": "abe8f77570fa36c75f0f7d8b8cbba10850d62580",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
