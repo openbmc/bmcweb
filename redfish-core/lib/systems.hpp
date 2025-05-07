@@ -1421,9 +1421,8 @@ inline void getTrustedModuleRequiredToBoot(
             BMCWEB_LOG_DEBUG(
                 "DBUS response has more than 1 TPM Enable object:{}",
                 subtree.size());
-            // Throw an internal Error and return
-            messages::internalError(asyncResp->res);
-            return;
+	    BMCWEB_LOG_DEBUG(
+                "TPM is not required for booting AMD host. Continuing..");
         }
 
         // Make sure the Dbus response map has a service and objectPath
