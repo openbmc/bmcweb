@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e3509cf2_2e2586e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-07T14:37:10Z",
+      "side": 1,
+      "message": "\u003e shall we think about deprecating that endpoint\n\nI\u0027m not sure what that means, but there\u0027s certainly a lot of client code that still uses the \"deprecated\" one, and it\u0027s trivial to continue to support.",
+      "parentUuid": "1f90517c_a41016a4",
+      "revId": "f8ca792fd9ea1792d71c0bd1b5e210e79f44a192",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a28ee4eb_4a094a34",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
