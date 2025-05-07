@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26054727_f4b39d29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-07T18:06:59Z",
+      "side": 1,
+      "message": "This is a 2 line change in scripts/parse_registries.py and the rerun the script? Any testing?",
+      "revId": "9df1fa8ae2a5fd6eb82fc6a1162c806bb7fc72ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
