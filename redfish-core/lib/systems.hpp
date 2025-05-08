@@ -1180,7 +1180,8 @@ inline void getAutomaticRebootAttempts(
             const dbus::utility::DBusPropertiesMap& propertiesList) {
             if (ec)
             {
-                if (ec.value() != EBADR)
+                if (ec.value() != EBADR &&
+                    ec.value() != boost::asio::error::host_unreachable)
                 {
                     BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
                     messages::internalError(asyncResp->res);
