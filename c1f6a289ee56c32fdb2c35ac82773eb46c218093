@@ -16,6 +16,24 @@
       "message": "Rajeev can you please resolve the commit here?",
       "revId": "c1f6a289ee56c32fdb2c35ac82773eb46c218093",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74980a72_e514479b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-08T12:36:30Z",
+      "side": 1,
+      "message": "I\u0027ve updated the commit message.",
+      "parentUuid": "d4cca324_c203a88b",
+      "revId": "c1f6a289ee56c32fdb2c35ac82773eb46c218093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9775bbdc_cfb5b1ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-08T12:36:30Z",
+      "side": 1,
+      "message": "Ahh, got it.",
+      "parentUuid": "e3509cf2_2e2586e5",
+      "revId": "f8ca792fd9ea1792d71c0bd1b5e210e79f44a192",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a28ee4eb_4a094a34",
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "Yeah, spec examples use a separate URI named update-multipart.  Rajeev, please update your commit message.",
       "parentUuid": "931a0286_db3d928e",
+      "revId": "f8ca792fd9ea1792d71c0bd1b5e210e79f44a192",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d570eb1_2ed737c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-08T12:36:30Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0b8974b3_c94b38cc",
       "revId": "f8ca792fd9ea1792d71c0bd1b5e210e79f44a192",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
