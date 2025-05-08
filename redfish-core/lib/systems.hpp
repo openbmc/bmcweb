@@ -1181,8 +1181,11 @@ inline void getAutomaticRebootAttempts(
             const dbus::utility::DBusPropertiesMap& propertiesList) {
             if (ec)
             {
-                if (ec.value() != EBADR)
+                if (ec.value() != EBADR &&
+                    ec.value() != boost::asio::error::host_unreachable)
                 {
+                    // Service not available, no error, just don't return
+                    // RebootAttempts information
                     BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
                     messages::internalError(asyncResp->res);
                 }
@@ -1237,7 +1240,10 @@ inline void getAutomaticRetryPolicy(
                     bool autoRebootEnabled) {
             if (ec)
             {
-                if (ec.value() != EBADR)
+                // Service not available, no error, just don't return
+                // AutoReboot information
+                if (ec.value() != EBADR &&
+                    ec.value() != boost::asio::error::host_unreachable)
                 {
                     BMCWEB_LOG_ERROR("D-Bus responses error: {}", ec);
                     messages::internalError(asyncResp->res);
@@ -1370,7 +1376,10 @@ inline void getStopBootOnFault(
         [asyncResp](const boost::system::error_code& ec, bool value) {
             if (ec)
             {
-                if (ec.value() != EBADR)
+                // Service not available, no error, just don't return
+                // StopBootOnFault information
+                if (ec.value() != EBADR ||
+                    ec.value() != boost::asio::error::host_unreachable)
                 {
                     BMCWEB_LOG_ERROR("DBUS response error {}", ec);
                     messages::internalError(asyncResp->res);
