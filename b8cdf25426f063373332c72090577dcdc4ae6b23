@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c82760f4_3d26406b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-05-08T18:39:04Z",
+      "side": 1,
+      "message": "I think the reasoning is more about no-host platform configs and ComputerSystem GET? You should add more details about why one specific host state related interface is mandatorily checked - which should not be the case?",
+      "revId": "b8cdf25426f063373332c72090577dcdc4ae6b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a6bd279_efd75ba2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-05-08T18:39:04Z",
+      "side": 1,
+      "message": "You should add a specific error message here (see how it\u0027s done for getHostState).",
+      "revId": "b8cdf25426f063373332c72090577dcdc4ae6b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f75ffe84_592aa712",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-05-08T18:39:04Z",
+      "side": 1,
+      "message": "Can you also check if such a check is missed out for other cases?",
+      "revId": "b8cdf25426f063373332c72090577dcdc4ae6b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfb118f7_612f5726",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1240,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-05-08T18:39:04Z",
+      "side": 1,
+      "message": "Do we need a check here?",
+      "revId": "b8cdf25426f063373332c72090577dcdc4ae6b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
