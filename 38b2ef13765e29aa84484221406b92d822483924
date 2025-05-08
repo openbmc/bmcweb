@@ -206,6 +206,24 @@
       "parentUuid": "49a81255_7461140a",
       "revId": "38b2ef13765e29aa84484221406b92d822483924",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4a2e85d_553010a1",
+        "filename": "redfish-core/lib/cpudimm.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1327,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-08T18:18:42Z",
+      "side": 1,
+      "message": "Not sure the comment being requested here. The utility function handles errors so I\u0027ve added that comment.",
+      "parentUuid": "4c82ad27_40a2bcf9",
+      "revId": "38b2ef13765e29aa84484221406b92d822483924",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

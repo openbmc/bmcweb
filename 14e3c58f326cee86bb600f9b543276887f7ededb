@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "724d4da3_d0efe18e",
         "filename": "redfish-core/lib/processor.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Can\u0027t processor be broader than xyz.openbmc_project.Inventory.Item.Cpu ?\n\nlike \n        getProcessorData(asyncResp, processorId,\n                         {\"xyz.openbmc_project.Inventory.Item.Cpu\",\n                          \"xyz.openbmc_project.Inventory.Decorator.Asset\",\n                          \"xyz.openbmc_project.Inventory.Item.Accelerator\"}\n\nShould we add xyz.openbmc_project.Inventory.Item.Accelerator to this list at a min?",
       "revId": "14e3c58f326cee86bb600f9b543276887f7ededb",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "27026007_9e24ea5b",
         "filename": "redfish-core/lib/processor.hpp",
@@ -32,8 +33,25 @@
       "message": "Done",
       "parentUuid": "724d4da3_d0efe18e",
       "revId": "14e3c58f326cee86bb600f9b543276887f7ededb",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45533193_17f3d489",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-08T18:18:42Z",
+      "side": 1,
+      "message": "code has been restructured to use common function getProcessorObject to find the processor. That function does look for the additional interfaces.",
+      "parentUuid": "27026007_9e24ea5b",
+      "revId": "14e3c58f326cee86bb600f9b543276887f7ededb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

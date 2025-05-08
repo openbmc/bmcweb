@@ -22,6 +22,30 @@
       },
       "revId": "72640ebe14b9abd52ba3fd7f0ef3c3b81ce14d8c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f5ee3e_f29f9148",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 115
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-08T18:18:42Z",
+      "side": 1,
+      "message": "Changing to use already merged utility functions.",
+      "parentUuid": "311cd37d_a11b57a7",
+      "range": {
+        "startLine": 343,
+        "startChar": 56,
+        "endLine": 343,
+        "endChar": 74
+      },
+      "revId": "72640ebe14b9abd52ba3fd7f0ef3c3b81ce14d8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

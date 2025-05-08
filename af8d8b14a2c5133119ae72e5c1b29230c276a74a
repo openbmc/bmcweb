@@ -140,6 +140,24 @@
       "parentUuid": "8e979303_f54f0626",
       "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ecf3bb0_e4796701",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-08T18:18:42Z",
+      "side": 1,
+      "message": "The utility function handles confirming the correct association exists or not. For getLocationIndicatorActive() if the LED association does not exist then the function will return with no error and nothing added to the response.\n\nThe Association.Definitions interface is not needed as part of the GetSubTree call.\n\nThe GetSubTree interface limits the objects returned to the ones implementing any of the specified interfaces. However, it returns all of the interfaces implemented by that object not just the ones in the interfaces list.\n\nI updated the document to clarify this: https://gerrit.openbmc.org/c/openbmc/docs/+/77100\n\nSee: https://github.com/openbmc/docs/blob/master/architecture/object-mapper.md#getsubtree",
+      "parentUuid": "8b5c560b_ca4bb112",
+      "revId": "af8d8b14a2c5133119ae72e5c1b29230c276a74a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
