@@ -235,11 +235,9 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
             BMCWEB_LOG_DEBUG("Post ResetToDefaults.");
 
             std::optional<std::string> resetType;
-            std::optional<std::string> resetToDefaultsType;
 
             if (!json_util::readJsonAction(                     //
                     req, asyncResp->res,                        //
-                    "ResetToDefaultsType", resetToDefaultsType, //
                     "ResetType", resetType                      //
                     ))
             {
@@ -248,14 +246,6 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
                 messages::actionParameterMissing(
                     asyncResp->res, "ResetToDefaults", "ResetType");
                 return;
-            }
-
-            if (resetToDefaultsType && !resetType)
-            {
-                BMCWEB_LOG_WARNING(
-                    "Using deprecated ResetToDefaultsType, should be ResetType."
-                    "Support for the ResetToDefaultsType will be dropped in 2Q24");
-                resetType = resetToDefaultsType;
             }
 
             if (resetType != "ResetAll")
