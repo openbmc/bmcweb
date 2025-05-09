@@ -33,6 +33,24 @@
       "message": "Please follow https://cbea.ms/git-commit/ for commit msgs \n50/72 wrapping",
       "revId": "90101f1ece01acffca75039b8e17773161b0842b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab2324be_c7700558",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002132
+      },
+      "writtenOn": "2025-05-09T18:33:45Z",
+      "side": 1,
+      "message": "Have updated the commit message. Please help check it again. Thanks!",
+      "parentUuid": "159902d0_61313e44",
+      "revId": "90101f1ece01acffca75039b8e17773161b0842b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
