@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d7de993_5bc7cdf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 130
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-09T13:27:03Z",
+      "side": 1,
+      "message": "It looks good to me",
+      "revId": "212d5c69fd81504259a6fc92ca95542efc4dfc82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41d92464_18625727",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 130
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-09T13:27:03Z",
+      "side": 1,
+      "message": "For the consistency with many other places in bmcweb, can it also be done with `!\u003d interfaceList.end()`?",
+      "range": {
+        "startLine": 761,
+        "startChar": 20,
+        "endLine": 761,
+        "endChar": 43
+      },
+      "revId": "212d5c69fd81504259a6fc92ca95542efc4dfc82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
