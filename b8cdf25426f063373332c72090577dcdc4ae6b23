@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51e8fc2d_c97cd7b4",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-05-09T14:22:06Z",
+      "side": 1,
+      "message": "added comments wherever ncessary, ec would contains the exact error",
+      "parentUuid": "8a6bd279_efd75ba2",
+      "revId": "b8cdf25426f063373332c72090577dcdc4ae6b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f75ffe84_592aa712",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8da364c4_017ada72",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1185,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-05-09T14:22:06Z",
+      "side": 1,
+      "message": "have added in few more places where api should not fail if the service is not avaiable",
+      "parentUuid": "f75ffe84_592aa712",
+      "revId": "b8cdf25426f063373332c72090577dcdc4ae6b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dfb118f7_612f5726",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
@@ -65,6 +101,24 @@
       "writtenOn": "2025-05-08T18:39:04Z",
       "side": 1,
       "message": "Do we need a check here?",
+      "revId": "b8cdf25426f063373332c72090577dcdc4ae6b23",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7245b8d5_694c0b06",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1240,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-05-09T14:22:06Z",
+      "side": 1,
+      "message": "added",
+      "parentUuid": "dfb118f7_612f5726",
       "revId": "b8cdf25426f063373332c72090577dcdc4ae6b23",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
