@@ -208,80 +208,69 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
      * BMC code updater factory reset wipes the whole BMC read-write
      * filesystem which includes things like the network settings.
      *
-     * OpenBMC only supports ResetToDefaultsType "ResetAll".
+     * OpenBMC only supports ResetType "ResetAll".
      */
 
     BMCWEB_ROUTE(app,
                  "/redfish/v1/Managers/<str>/Actions/Manager.ResetToDefaults/")
         .privileges(redfish::privileges::postManager)
-        .methods(
-            boost::beast::http::verb::
-                post)([&app](
-                          const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& managerId) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-            {
-                return;
-            }
+        .methods(boost::beast::http::verb::post)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& managerId) {
+                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+                {
+                    return;
+                }
 
-            if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
-            {
-                messages::resourceNotFound(asyncResp->res, "Manager",
-                                           managerId);
-                return;
-            }
+                if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+                {
+                    messages::resourceNotFound(asyncResp->res, "Manager",
+                                               managerId);
+                    return;
+                }
 
-            BMCWEB_LOG_DEBUG("Post ResetToDefaults.");
+                BMCWEB_LOG_DEBUG("Post ResetToDefaults.");
 
-            std::optional<std::string> resetType;
-            std::optional<std::string> resetToDefaultsType;
+                std::optional<std::string> resetType;
 
-            if (!json_util::readJsonAction(                     //
-                    req, asyncResp->res,                        //
-                    "ResetToDefaultsType", resetToDefaultsType, //
-                    "ResetType", resetType                      //
-                    ))
-            {
-                BMCWEB_LOG_DEBUG("Missing property ResetType.");
+                if (!json_util::readJsonAction( //
+                        req, asyncResp->res,    //
+                        "ResetType", resetType  //
+                        ))
+                {
+                    BMCWEB_LOG_DEBUG("Missing property ResetType.");
 
-                messages::actionParameterMissing(
-                    asyncResp->res, "ResetToDefaults", "ResetType");
-                return;
-            }
+                    messages::actionParameterMissing(
+                        asyncResp->res, "ResetToDefaults", "ResetType");
+                    return;
+                }
 
-            if (resetToDefaultsType && !resetType)
-            {
-                BMCWEB_LOG_WARNING(
-                    "Using deprecated ResetToDefaultsType, should be ResetType."
-                    "Support for the ResetToDefaultsType will be dropped in 2Q24");
-                resetType = resetToDefaultsType;
-            }
+                if (resetType != "ResetAll")
+                {
+                    BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
+                                     *resetType);
+                    messages::actionParameterNotSupported(
+                        asyncResp->res, *resetType, "ResetType");
+                    return;
+                }
 
-            if (resetType != "ResetAll")
-            {
-                BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
-                                 *resetType);
-                messages::actionParameterNotSupported(asyncResp->res,
-                                                      *resetType, "ResetType");
-                return;
-            }
-
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code& ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_DEBUG("Failed to ResetToDefaults: {}", ec);
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    // Factory Reset doesn't actually happen until a reboot
-                    // Can't erase what the BMC is running on
-                    doBMCGracefulRestart(asyncResp);
-                },
-                getBMCUpdateServiceName(), getBMCUpdateServicePath(),
-                "xyz.openbmc_project.Common.FactoryReset", "Reset");
-        });
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code& ec) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG("Failed to ResetToDefaults: {}",
+                                             ec);
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        // Factory Reset doesn't actually happen until a reboot
+                        // Can't erase what the BMC is running on
+                        doBMCGracefulRestart(asyncResp);
+                    },
+                    getBMCUpdateServiceName(), getBMCUpdateServicePath(),
+                    "xyz.openbmc_project.Common.FactoryReset", "Reset");
+            });
 }
 
 /**
