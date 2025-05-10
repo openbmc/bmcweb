@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f443125b_7dc230c9",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-05-10T19:23:42Z",
+      "side": 1,
+      "message": "Done. I will push the update once CI is fixed.",
+      "parentUuid": "2885c05c_4477ec89",
+      "revId": "b233dcdcc38597f79f23b186f4489b3111eef6fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d31b9a09_a88a1954",
         "filename": "redfish-core/include/utils/systems_utils.hpp",
         "patchSetId": 29
@@ -31,6 +49,30 @@
       "writtenOn": "2025-05-05T20:14:45Z",
       "side": 1,
       "message": "Can\u0027t this just use boost::urls::format() to build the @odata.id?",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 45
+      },
+      "revId": "b233dcdcc38597f79f23b186f4489b3111eef6fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b4eb913_f20e5c0b",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-05-10T19:23:42Z",
+      "side": 1,
+      "message": "Yep you are right, done. I will push the update once CI is fixed.",
+      "parentUuid": "d31b9a09_a88a1954",
       "range": {
         "startLine": 88,
         "startChar": 6,
