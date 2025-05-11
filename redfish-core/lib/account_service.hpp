@@ -1387,7 +1387,7 @@ inline void handleAccountServiceGet(
     json["Name"] = "Account Service";
     json["Description"] = "Account Service";
     json["ServiceEnabled"] = true;
-    json["MaxPasswordLength"] = 20;
+    json["MaxPasswordLength"] = 64;
     json["Accounts"]["@odata.id"] = "/redfish/v1/AccountService/Accounts";
     json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
     json["HTTPBasicAuth"] = authMethodsConfig.basic
@@ -1467,14 +1467,15 @@ inline void handleAccountServiceGet(
                              propertiesList.size());
 
             const uint8_t* minPasswordLength = nullptr;
+            const size_t* maxPasswordLength = nullptr;
             const uint32_t* accountUnlockTimeout = nullptr;
             const uint16_t* maxLoginAttemptBeforeLockout = nullptr;
 
             const bool success = sdbusplus::unpackPropertiesNoThrow(
                 dbus_utils::UnpackErrorPrinter(), propertiesList,
-                "MinPasswordLength", minPasswordLength, "AccountUnlockTimeout",
-                accountUnlockTimeout, "MaxLoginAttemptBeforeLockout",
-                maxLoginAttemptBeforeLockout);
+                "MinPasswordLength", minPasswordLength, "MaxPasswordLength",
+                maxPasswordLength, "AccountUnlockTimeout", accountUnlockTimeout,
+                "MaxLoginAttemptBeforeLockout", maxLoginAttemptBeforeLockout);
 
             if (!success)
             {
@@ -1486,6 +1487,12 @@ inline void handleAccountServiceGet(
             {
                 asyncResp->res.jsonValue["MinPasswordLength"] =
                     *minPasswordLength;
+            }
+
+            if (maxPasswordLength != nullptr)
+            {
+                asyncResp->res.jsonValue["MaxPasswordLength"] =
+                    *maxPasswordLength;
             }
 
             if (accountUnlockTimeout != nullptr)
@@ -1574,7 +1581,7 @@ inline void handleAccountServicePatch(
     std::optional<uint32_t> unlockTimeout;
     std::optional<uint16_t> lockoutThreshold;
     std::optional<uint8_t> minPasswordLength;
-    std::optional<uint16_t> maxPasswordLength;
+    std::optional<size_t> maxPasswordLength;
     LdapPatchParams ldapObject;
     std::optional<std::string> certificateMappingAttribute;
     std::optional<bool> respondToUnauthenticatedClients;
