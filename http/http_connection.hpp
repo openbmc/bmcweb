@@ -630,16 +630,17 @@ class Connection :
             BMCWEB_LOG_ERROR("Parser was unexpectedly null");
             return;
         }
+        auto& parse = *parser;
+        const auto& value = parser->get();
 
         if (authenticationEnabled)
         {
-            boost::beast::http::verb method = parser->get().method();
+            boost::beast::http::verb method = value.method();
             userSession = authentication::authenticate(
-                ip, res, method, parser->get().base(), mtlsSession);
+                ip, res, method, value.base(), mtlsSession);
         }
 
-        std::string_view expect =
-            parser->get()[boost::beast::http::field::expect];
+        std::string_view expect = value[boost::beast::http::field::expect];
         if (bmcweb::asciiIEquals(expect, "100-continue"))
         {
             res.result(boost::beast::http::status::continue_);
@@ -652,9 +653,9 @@ class Connection :
             return;
         }
 
-        parser->body_limit(getContentLengthLimit());
+        parse.body_limit(getContentLengthLimit());
 
-        if (parser->is_done())
+        if (parse.is_done())
         {
             handle();
             return;
@@ -749,18 +750,19 @@ class Connection :
         {
             return;
         }
+        auto& parse = *parser;
         startDeadline();
         if (httpType == HttpType::HTTP)
         {
             boost::beast::http::async_read_some(
-                adaptor.next_layer(), buffer, *parser,
+                adaptor.next_layer(), buffer, parse,
                 std::bind_front(&self_type::afterRead, this,
                                 shared_from_this()));
         }
         else
         {
             boost::beast::http::async_read_some(
-                adaptor, buffer, *parser,
+                adaptor, buffer, parse,
                 std::bind_front(&self_type::afterRead, this,
                                 shared_from_this()));
         }

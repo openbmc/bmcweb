@@ -41,11 +41,11 @@ inline void createSubscription(crow::sse_socket::Connection& conn,
 
     if (filterIt != req.url().params().end())
     {
-        std::string_view filterValue = (*filterIt).value;
-        filter = parseFilter(filterValue);
+        const boost::urls::param& filterParam = *filterIt;
+        filter = parseFilter(filterParam.value);
         if (!filter)
         {
-            conn.close(std::format("Bad $filter param: {}", filterValue));
+            conn.close(std::format("Bad $filter param: {}", filterParam.value));
             return;
         }
     }
