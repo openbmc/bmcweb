@@ -66,6 +66,13 @@ class TemporaryReleasableFileHandle
         return true;
     }
 
+    int releaseToFd()
+    {
+        int fd = dup(file.native_handle());
+        closeFile();
+        return fd;
+    }
+
     TemporaryReleasableFileHandle(TemporaryReleasableFileHandle&&) = default;
     TemporaryReleasableFileHandle& operator=(TemporaryReleasableFileHandle&&) =
         default;
