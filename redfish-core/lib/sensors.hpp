@@ -287,7 +287,7 @@ void getObjectsWithConnection(
                                      std::string, std::vector<std::string>>>>&
                      object : subtree)
             {
-                if (sensorNames->find(object.first) != sensorNames->end())
+                if (sensorNames->contains(object.first))
                 {
                     for (const std::pair<std::string, std::vector<std::string>>&
                              objData : object.second)
@@ -1894,7 +1894,7 @@ inline void getSensorData(
                     const std::string& sensorName = split[5];
                     BMCWEB_LOG_DEBUG("sensorName {} sensorType {}", sensorName,
                                      sensorType);
-                    if (sensorNames->find(objPath) == sensorNames->end())
+                    if (!!sensorNames->contains(objPath))
                     {
                         BMCWEB_LOG_DEBUG("{} not in sensor list ", sensorName);
                         continue;

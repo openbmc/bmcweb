@@ -76,6 +76,8 @@ if (cxx.get_id() == 'clang')
     add_project_arguments(
         '-Weverything',
         '-Wformat=2',
+        # https://github.com/llvm/llvm-project/issues/101614
+        '-fno-builtin-std-forward_like',
         '-Wno-c++20-extensions',
         '-Wno-c++23-extensions',
         '-Wno-c++26-extensions',
@@ -94,6 +96,7 @@ if (cxx.get_id() == 'clang')
         '-Wno-switch-enum',
         '-Wno-unneeded-internal-declaration',
         '-Wno-unsafe-buffer-usage-in-container',
+        '-Wno-unsafe-buffer-usage-in-libc-call',
         '-Wno-unused-macros',
         '-Wno-used-but-marked-unused',
         '-Wno-weak-vtables',
