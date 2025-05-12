@@ -695,6 +695,7 @@ struct MultiPartUpdateParameters
 {
     std::optional<std::string> applyTime;
     std::string uploadData;
+    int uploadFd = -1;
     std::vector<std::string> targets;
 };
 
@@ -841,34 +842,50 @@ inline std::optional<MultiPartUpdateParameters>
                     return std::nullopt;
                 }
 
-                if (!const_cast<DuplicatableFileHandle*>(file)->releaseToPath(
-                        filepath))
+                if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
                 {
-                    BMCWEB_LOG_ERROR("Failed to move file to {}",
-                                     filepath.string());
-                    messages::internalError(asyncResp->res);
-                    return std::nullopt;
+                    int fd = const_cast<DuplicatableFileHandle*>(file)
+                                 ->releaseToFd();
+                    if (fd < 0)
+                    {
+                        BMCWEB_LOG_ERROR("releaseToFd() failed");
+                        messages::internalError(asyncResp->res);
+                        return std::nullopt;
+                    }
+                    multiRet.uploadFd = fd;
                 }
+                else
+                {
+                    if (!const_cast<DuplicatableFileHandle*>(file)
+                             ->releaseToPath(filepath))
+                    {
+                        BMCWEB_LOG_ERROR("Failed to move file to {}",
+                                         filepath.string());
+                        messages::internalError(asyncResp->res);
+                        return std::nullopt;
+                    }
 
-                std::error_code ec;
-                // set the permission of the file to 640
-                std::filesystem::perms permission =
-                    std::filesystem::perms::owner_read |
-                    std::filesystem::perms::group_read;
-                std::filesystem::permissions(filepath, permission, ec);
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR("Failed to set permissions on {}: {}",
-                                     filepath.string(), ec.message());
-                    messages::internalError(asyncResp->res);
-                    return std::nullopt;
+                    std::error_code ec;
+                    // set the permission of the file to 640
+                    std::filesystem::perms permission =
+                        std::filesystem::perms::owner_read |
+                        std::filesystem::perms::group_read;
+                    std::filesystem::permissions(filepath, permission, ec);
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR("Failed to set permissions on {}: {}",
+                                         filepath.string(), ec.message());
+                        messages::internalError(asyncResp->res);
+                        return std::nullopt;
+                    }
+                    multiRet.uploadData = filepath.string();
                 }
-                multiRet.uploadData = filepath.string();
             }
         }
     }
 
-    if (multiRet.uploadData.empty())
+    if ((BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS && multiRet.uploadFd < 0) ||
+        (!BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS && multiRet.uploadData.empty()))
     {
         BMCWEB_LOG_ERROR("Upload data is NULL");
         messages::propertyMissing(asyncResp->res, "UpdateFile");
@@ -986,7 +1003,8 @@ inline void handleBMCUpdate(
 inline void processUpdateRequest(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     task::Payload&& payload, std::string_view body,
-    const std::string& applyTime, std::vector<std::string>& targets)
+    const std::string& applyTime, std::vector<std::string>& targets,
+    int directFd = -1)
 {
     MemoryFileDescriptor memfd("update-image");
     if (memfd.fd == -1)
@@ -995,12 +1013,29 @@ inline void processUpdateRequest(
         messages::internalError(asyncResp->res);
         return;
     }
-    if (write(memfd.fd, body.data(), body.length()) !=
-        static_cast<ssize_t>(body.length()))
+    if (directFd >= 0)
     {
-        BMCWEB_LOG_ERROR("Failed to write to image memfd");
-        messages::internalError(asyncResp->res);
-        return;
+        int newFd = ::dup(directFd);
+        if (newFd == -1)
+        {
+            BMCWEB_LOG_ERROR("dup() failed on update FD");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        // Close the original fd now that we have a good copy
+        close(memfd.fd);
+        memfd.fd = newFd;
+    }
+    else
+    {
+        if (write(memfd.fd, body.data(), body.length()) !=
+            static_cast<ssize_t>(body.length()))
+        {
+            BMCWEB_LOG_ERROR("Failed to write to image memfd");
+            messages::internalError(asyncResp->res);
+            return;
+        }
     }
     if (!memfd.rewind())
     {
@@ -1063,7 +1098,7 @@ inline void updateMultipartContext(
 
         processUpdateRequest(asyncResp, std::move(payload),
                              multipart->uploadData, applyTimeNewVal,
-                             multipart->targets);
+                             multipart->targets, multipart->uploadFd);
     }
     else
     {
