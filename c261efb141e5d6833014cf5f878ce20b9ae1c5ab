@@ -164,6 +164,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6804695e_933c880d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:28:58Z",
+      "side": 1,
+      "message": "Wonderful, I\u0027ve approved that review.  Please now test that the bios password gets set correctly when using this API on this platform.",
+      "parentUuid": "3a5fcb50_9e364336",
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe00df4d_37624e4a",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
