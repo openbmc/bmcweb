@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "877f5a3f_196351a4",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:31:44Z",
+      "side": 1,
+      "message": "?",
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92f964c3_0ce5a407",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:31:44Z",
+      "side": 1,
+      "message": "We\u0027re now at the point where we have 3 embedded types here.  Checking fileHandle.is_open() was a relatively easy way to tell which was being used for any given body.  Now that we have a third, I suspect this needs to become a std::variant\u003cstd::string, DuplicatableFileHandle, std::vector\u003cFormPart\u003e\u003e;",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 39
+      },
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88c13a7d_bd48e811",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:31:44Z",
+      "side": 1,
+      "message": "Please fix this check.\n\n1. !multipartParser will always be true when this is called after construction\n2. We have content-type parsers now.  Please use them.\n3. !contentType.empty() is redundant if the next check is comparing starts_with",
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d03aceeb_12025d3f",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:31:44Z",
+      "side": 1,
+      "message": "No need to reset it here.  We\u0027re returning an error, the whole reader object is about to be destroyed.",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 40
+      },
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81251c02_aa830e59",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:31:44Z",
+      "side": 1,
+      "message": "Keep in mind, when we hit parsing errors, we need to be able to return 400 bad request from the handler.  As written, I suspect you want to just set an internal error, that the handler can read back on multipart().",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 54
+      },
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d01de985_6247fe00",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:31:44Z",
+      "side": 1,
+      "message": "Roll this into the above branch.  there\u0027s no case where multipartParser gets set without the above branch running.",
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79346062_bee83783",
+        "filename": "include/temporary_releasable_file_handle.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:31:44Z",
+      "side": 1,
+      "message": "We already have TemporaryFileHandle that fulfills basically this same use case, although might be missing a couple mesthods (that can be added).  Any reason we avoided that?",
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
