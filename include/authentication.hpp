@@ -231,8 +231,7 @@ inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
         {
             return true;
         }
-        if (crow::webroutes::routes.find(std::string(url)) !=
-            crow::webroutes::routes.end())
+        if (crow::webroutes::routes.contains(std::string(url)))
         {
             return true;
         }

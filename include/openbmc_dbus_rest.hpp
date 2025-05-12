@@ -210,7 +210,7 @@ inline void findRemainingObjectsForEnumerate(
             // An enumerate does not return the target path's properties
             continue;
         }
-        if (dataJson.find(path) == dataJson.end())
+        if (!dataJson.contains(path))
         {
             for (const auto& [service, interfaces] : interface_map)
             {
