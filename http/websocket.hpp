@@ -5,6 +5,7 @@
 
 #include <functional>
 #include <memory>
+#include <string>
 #include <string_view>
 
 namespace crow
@@ -37,6 +38,7 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual void resumeRead() = 0;
     virtual ~Connection() = default;
     virtual boost::urls::url_view url() = 0;
+    virtual std::string getUserRole() = 0;
 };
 } // namespace websocket
 } // namespace crow
