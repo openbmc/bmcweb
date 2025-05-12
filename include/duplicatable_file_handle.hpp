@@ -112,6 +112,13 @@ struct DuplicatableFileHandle
         return true;
     }
 
+    int releaseToFd()
+    {
+        int fd = dup(fileHandle.native_handle());
+        closeFile();
+        return fd;
+    }
+
     void closeFile()
     {
         boost::system::error_code ec;
