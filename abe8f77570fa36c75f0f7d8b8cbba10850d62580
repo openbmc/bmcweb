@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03aca927_d977f699",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-05-12T11:28:34Z",
+      "side": 1,
+      "message": "Included pointers to redfish schema in the commit message. \nDescription property adds details about the sensor. Example certain chassis may have multiple temperature sensor and sensor name alone may not be sufficient to provide enough description about the sensor itself",
+      "parentUuid": "851cbd6b_5d2c5132",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 43
+      },
+      "revId": "abe8f77570fa36c75f0f7d8b8cbba10850d62580",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7326f616_0f5e72e3",
@@ -100,6 +124,24 @@
       "writtenOn": "2025-05-07T14:46:56Z",
       "side": 1,
       "message": "Please don\u0027t duplicate the unpack code.",
+      "revId": "abe8f77570fa36c75f0f7d8b8cbba10850d62580",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "430a4111_18e488ee",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 1001278
+      },
+      "writtenOn": "2025-05-12T11:28:34Z",
+      "side": 1,
+      "message": "updated please check",
+      "parentUuid": "cfd85b4c_e42a4ae4",
       "revId": "abe8f77570fa36c75f0f7d8b8cbba10850d62580",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
