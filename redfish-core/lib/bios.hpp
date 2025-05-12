@@ -76,6 +76,10 @@ inline void
     asyncResp->res.jsonValue["@odata.id"] = std::format(
         "/redfish/v1/Systems/{}/Bios", BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
+    asyncResp->res.jsonValue["@Redfish.Settings"] = {
+        {"@odata.type", "#Settings.v1_3_3.Settings"}};
+    asyncResp->res.jsonValue["@Redfish.Settings"]["SettingsObject"] = {
+        {"@odata.id", "/redfish/v1/Systems/system/Bios/SD"}};
     asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
     asyncResp->res.jsonValue["Description"] = "BIOS Configuration Service";
     asyncResp->res.jsonValue["Id"] = "BIOS";
@@ -92,7 +96,7 @@ inline void
         [asyncResp](const boost::system::error_code ec, BiosAttrMap& newtable) {
         if (ec)
         {
-            BMCWEB_LOG_DEBUG("GET - GetBiosAttribute D-Bus responses error: {}",
+            BMCWEB_LOG_ERROR("GET - GetBiosAttribute D-Bus responses error: {}",
                              ec);
             messages::internalError(asyncResp->res);
             return;
@@ -113,6 +117,51 @@ inline void
         return;
     }, "xyz.openbmc_project.PCIe", "/xyz/openbmc_project/inventory/PCIe",
         "xyz.openbmc_project.PCIe.PcieData", "GetBiosAttribute");
+}
+
+inline void
+    setPendingAttributes(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const BiosAttrMap& patchMap)
+{
+    // now do the get the persistent value
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, patchMap](const boost::system::error_code ec,
+                              BiosAttrMap& PendingAttrData) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR(
+                "setPendingAttributes - patch Get D-Bus responses error: {}",
+                ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        for (const auto& [key, value] : patchMap)
+        {
+            // This will insert the key if it doesn't exist,
+            // or update the value if it does.
+            PendingAttrData[key] = value;
+        }
+
+        // make dbus call transfer the data
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec1) {
+            if (ec1)
+            {
+                BMCWEB_LOG_ERROR(
+                    "setPendingAttributes - D-Bus responses error: {}", ec1);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            BMCWEB_LOG_DEBUG("setPendingAttributes -  Dbus call pass ");
+            messages::success(asyncResp->res);
+            return;
+        }, "xyz.openbmc_project.PCIe", "/xyz/openbmc_project/inventory/PCIe",
+            "xyz.openbmc_project.PCIe.PcieData", "SetPendingAttribute",
+            PendingAttrData);
+    },
+        "xyz.openbmc_project.PCIe", "/xyz/openbmc_project/inventory/PCIe",
+        "xyz.openbmc_project.PCIe.PcieData", "GetPendingAttribute");
 }
 
 /**
@@ -170,8 +219,7 @@ inline void
     }
     // validation -user should select atleast one cbs attributes for
     // modification
-    BiosAttrMap patchMap =
-        JsonToBiosAttributes(bJsonPatchObject["Attributes"]);
+    BiosAttrMap patchMap = JsonToBiosAttributes(bJsonPatchObject["Attributes"]);
     if (patchMap.size() == 0)
     {
         asyncResp->res.jsonValue["message"] = "Not valid input";
@@ -214,7 +262,8 @@ inline void
         }
         if (status)
         {
-            setBiosAttributes(asyncResp, allData);
+            // setBiosAttributes(asyncResp, allData);
+            setPendingAttributes(asyncResp, patchMap);
             messages::success(asyncResp->res);
             asyncResp->res.jsonValue["status"] = "ok";
         }
@@ -391,6 +440,78 @@ inline void requestRoutesBiosReset(App& app)
         .privileges(redfish::privileges::postBios)
         .methods(boost::beast::http::verb::post)(
             std::bind_front(handleBiosResetPost, std::ref(app)));
+}
+
+/**
+ *  BiosSettingsGet method to support settings for pending cbs
+ */
+inline void
+    handleBiosSettingsGet(crow::App& app, const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/Bios/SD", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.type"] = "#Bios.v1_1_0.Bios";
+    asyncResp->res.jsonValue["Id"] = "BIOS";
+    asyncResp->res.jsonValue["Name"] = "BIOS Configuration";
+    asyncResp->res.jsonValue["Attributes"] = nlohmann::json::object();
+    // now do the get the persistent value
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    BiosAttrMap& PendingAttrData) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR(
+                "setPendingAttributes - patch Get D-Bus responses error: {}",
+                ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        nlohmann::json jsonObject;
+        for (const auto& [key, value] : PendingAttrData)
+        {
+            std::visit([&jsonObject, &key](const auto& val) {
+                jsonObject[key] = val;
+            }, value);
+        }
+        if (!jsonObject.is_null())
+        {
+            asyncResp->res.jsonValue["Attributes"] = jsonObject;
+        }
+        messages::success(asyncResp->res);
+        return;
+    },
+        "xyz.openbmc_project.PCIe", "/xyz/openbmc_project/inventory/PCIe",
+        "xyz.openbmc_project.PCIe.PcieData", "GetPendingAttribute");
+
+    return;
+}
+
+inline void requestRoutesBiosSettings(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Bios/SD")
+        .privileges(redfish::privileges::getBios)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleBiosSettingsGet, std::ref(app)));
 }
 
 } // namespace redfish
