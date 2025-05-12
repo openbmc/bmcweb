@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa381dcb_41d6a8f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:16:35Z",
+      "side": 1,
+      "message": "I\u0027m seeing a bunch of coding violations that I know we\u0027ve talked about in the past.  Rather than document all of them, lets start by the author taking a pass at fixing them, and we can go from there.\n\nThe more complex issues, I\u0027ve left notes so we can discuss.",
+      "revId": "097e33dc00b04a531c7239a0920803c1cb299407",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "643dfa9f_c2a3543f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 2925,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:16:35Z",
+      "side": 1,
+      "message": "?  This doesn\u0027t seem right.  I would expect that setting BMCWEB_REDFISH_SYSTEM_URI_NAME to foo would create a collection with \n\nfoo1\nfoo2\n\netc, right?",
+      "range": {
+        "startLine": 2925,
+        "startChar": 0,
+        "endLine": 2925,
+        "endChar": 2
+      },
+      "revId": "097e33dc00b04a531c7239a0920803c1cb299407",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b46149_3d602df5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 3315,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-12T22:16:35Z",
+      "side": 1,
+      "message": "ok, we\u0027re duplicating this call all over the place for something that\u0027s doing the same flow.  Potentially we could call the mapper 5 times.\n\nIf you need to make this a pre-req for calling the next code, make it a pre-req.",
+      "range": {
+        "startLine": 3315,
+        "startChar": 8,
+        "endLine": 3315,
+        "endChar": 30
+      },
+      "revId": "097e33dc00b04a531c7239a0920803c1cb299407",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
