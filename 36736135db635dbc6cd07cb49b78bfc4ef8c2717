@@ -196,6 +196,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20c9f63d_f283e5bd",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-05-12T19:01:01Z",
+      "side": 1,
+      "message": "Since we don\u0027t already have a bios_utils.hpp and I don\u0027t see this being used anywhere else I don\u0027t see a reason to split it right now. But if its determined that creating a utils file is needed it can be moved. Same as the other questions about this.",
+      "parentUuid": "725696d2_93b49e64",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc7c355b_ec535485",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 14
@@ -224,6 +242,24 @@
       "writtenOn": "2025-04-16T10:29:07Z",
       "side": 1,
       "message": "I dont think we need a meson option here \nWe can determine if the path exists with help of `dbus::utility::checkDbusPathExists`",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82a76fe8_1aa22a91",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1002248
+      },
+      "writtenOn": "2025-05-12T19:01:01Z",
+      "side": 1,
+      "message": "It seems most of these types of features are Opt-In, however @ed@tanous.net do you have an opinion?",
+      "parentUuid": "efb11cca_e5e0be51",
       "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
