@@ -38,6 +38,10 @@
 namespace redfish
 {
 
+//define map to receive Dimm data from BIOS
+using InnerMap = std::map<std::string, std::variant<int64_t, std::string>>;
+using OuterMap = std::map<std::string, InnerMap>;
+
 inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
 {
     if (memoryType == "xyz.openbmc_project.Inventory.Item.Dimm.DeviceType.DDR")
@@ -808,6 +812,69 @@ inline void requestRoutesMemoryCollection(App& app)
             interfaces, "/xyz/openbmc_project/inventory");
     });
 }
+inline void
+    handleMemoryDevicePost(App& app, const crow::Request& req,
+                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& systemName,
+                           const std::string& dimmId)
+
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    nlohmann::json dimmPostJsonObject = nlohmann::json::parse(req.body(),
+                                                              nullptr, false);
+    InnerMap dimmDataMap;
+    for (auto& [key, value] : dimmPostJsonObject.items())
+    {
+        if (value.is_number_integer())
+        {
+            dimmDataMap[json_util::toUpperCase(key)] = value.get<int64_t>();
+        }
+        else if (value.is_string())
+        {
+            dimmDataMap[json_util::toUpperCase(key)] = value.get<std::string>();
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR("Dimm -Not supported type received from BIOS");
+        }
+    }
+
+    OuterMap dimmMap;
+    dimmMap[dimmId] = dimmDataMap;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("DIMM - POST D-Bus responses error: {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::success(asyncResp->res);
+        return;
+    }, "xyz.openbmc_project.PCIe", "/xyz/openbmc_project/inventory/PCIe",
+        "xyz.openbmc_project.PCIe.PcieData", "SetDimmData", dimmMap);
+
+    asyncResp->res.jsonValue["Status"] = "OK";
+}
 
 inline void requestRoutesMemory(App& app)
 {
@@ -842,6 +909,11 @@ inline void requestRoutesMemory(App& app)
 
         getDimmData(asyncResp, dimmId);
     });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/")
+        .privileges(redfish::privileges::postMemory)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleMemoryDevicePost, std::ref(app)));
 }
 
 } // namespace redfish

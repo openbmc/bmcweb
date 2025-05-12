@@ -848,5 +848,13 @@ inline void sortJsonArrayByOData(nlohmann::json::array_t& array)
 //  5. null: 4 characters (null)
 uint64_t getEstimatedJsonSize(const nlohmann::json& root);
 
+//Convert json Key to Upper case
+inline std::string toUpperCase(const std::string& input) {
+    std::string result = input;
+    std::transform(result.begin(), result.end(), result.begin(),
+                   [](unsigned char c) { return std::toupper(c); });
+    return result;
+}
+
 } // namespace json_util
 } // namespace redfish
