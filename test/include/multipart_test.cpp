@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "duplicatable_file_handle.hpp"
 #include "http_request.hpp"
 #include "multipart_parser.hpp"
 
@@ -8,6 +9,7 @@
 #include <iterator>
 #include <string_view>
 #include <system_error>
+#include <variant>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -37,13 +39,11 @@ TEST_F(MultipartTest, TestGoodMultipartParser)
         "{\r\n--------d74496d6695887}\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d74496d66958873e");
-
-    ParserError rc = parser.parse(reqIn);
+    // Using the complete parse() method as a convenience
+    ParserError rc = parser.parse(contentType, body);
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
     EXPECT_EQ(parser.boundary,
@@ -52,16 +52,11 @@ TEST_F(MultipartTest, TestGoodMultipartParser)
 
     EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
               "form-data; name=\"Test1\"");
-    EXPECT_EQ(parser.mime_fields[0].content,
-              "111111111111111111111111112222222222222222222222222222222");
 
-    EXPECT_EQ(parser.mime_fields[1].fields.at("Content-Disposition"),
-              "form-data; name=\"Test2\"");
-    EXPECT_EQ(parser.mime_fields[1].content,
-              "{\r\n-----------------------------d74496d66958873e123456");
-    EXPECT_EQ(parser.mime_fields[2].fields.at("Content-Disposition"),
-              "form-data; name=\"Test3\"");
-    EXPECT_EQ(parser.mime_fields[2].content, "{\r\n--------d74496d6695887}");
+    for (const auto& field : parser.mime_fields)
+    {
+        EXPECT_NE(std::get_if<DuplicatableFileHandle>(&field.content), nullptr);
+    }
 }
 
 TEST_F(MultipartTest, TestBadMultipartParser1)
@@ -72,14 +67,16 @@ TEST_F(MultipartTest, TestBadMultipartParser1)
         "1234567890\r\n"
         "-----------------------------d74496d66958873e\r-\r\n";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d74496d66958873e");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    ParserError rc = parser.parse(reqIn);
+    rc = parser.parsePart(body);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
+    rc = parser.finish();
     EXPECT_EQ(rc, ParserError::ERROR_UNEXPECTED_END_OF_INPUT);
 }
 
@@ -90,35 +87,26 @@ TEST_F(MultipartTest, TestBadMultipartParser2)
         "Content-Disposition: form-data; name=\"Test1\"\r\n\r\n"
         "abcd\r\n"
         "-----------------------------d74496d66958873e-\r\n";
-    crow::Request reqIn(body, ec);
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d74496d66958873e");
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    ParserError rc = parser.parse(reqIn);
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
+    rc = parser.parsePart(body);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    rc = parser.finish();
     EXPECT_EQ(rc, ParserError::ERROR_UNEXPECTED_END_OF_INPUT);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryFormat)
 {
-    std::string_view body =
-        "-----------------------------d74496d66958873e\r\n"
-        "Content-Disposition: form-data; name=\"Test1\"\r\n\r\n"
-        "{\"Key1\": 11223333333333333333333333333333333333333333}\r\n"
-        "-----------------------------d74496d66958873e\r\n"
-        "Content-Disposition: form-data; name=\"Test2\"\r\n\r\n"
-        "123456\r\n"
-        "-----------------------------d74496d66958873e--\r\n";
+    std::string_view contentType =
+        "multipart/form-data; boundary+=-----------------------------d74496d66958873e";
 
-    crow::Request reqIn(body, ec);
-
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary+=-----------------------------d74496d66958873e");
-
-    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_FORMAT);
+    EXPECT_EQ(parser.start(contentType), ParserError::ERROR_BOUNDARY_FORMAT);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryCR)
@@ -131,13 +119,14 @@ TEST_F(MultipartTest, TestErrorBoundaryCR)
         "Content-Disposition: form-data; name=\"Test2\"\r\n\r\n"
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
-    crow::Request reqIn(body, ec);
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d74496d66958873e");
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_CR);
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    EXPECT_EQ(parser.parsePart(body), ParserError::ERROR_BOUNDARY_CR);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryLF)
@@ -151,13 +140,13 @@ TEST_F(MultipartTest, TestErrorBoundaryLF)
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d74496d66958873e");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_LF);
+    EXPECT_EQ(parser.parsePart(body), ParserError::ERROR_BOUNDARY_LF);
 }
 
 TEST_F(MultipartTest, TestErrorBoundaryData)
@@ -171,13 +160,13 @@ TEST_F(MultipartTest, TestErrorBoundaryData)
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d7449sd6d66958873e";
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d7449sd6d66958873e");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_BOUNDARY_DATA);
+    EXPECT_EQ(parser.parsePart(body), ParserError::ERROR_BOUNDARY_DATA);
 }
 
 TEST_F(MultipartTest, TestErrorEmptyHeader)
@@ -190,13 +179,14 @@ TEST_F(MultipartTest, TestErrorEmptyHeader)
         "Content-Disposition: form-data; name=\"Test2\"\r\n"
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
-    crow::Request reqIn(body, ec);
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d74496d66958873e");
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_EMPTY_HEADER);
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    EXPECT_EQ(parser.parsePart(body), ParserError::ERROR_EMPTY_HEADER);
 }
 
 TEST_F(MultipartTest, TestErrorHeaderName)
@@ -209,13 +199,14 @@ TEST_F(MultipartTest, TestErrorHeaderName)
         "Content-Disposition: form-data; name=\"Test2\"\r\n\r\n"
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
-    crow::Request reqIn(body, ec);
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d74496d66958873e");
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_NAME);
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    EXPECT_EQ(parser.parsePart(body), ParserError::ERROR_HEADER_NAME);
 }
 
 TEST_F(MultipartTest, TestErrorHeaderValue)
@@ -229,13 +220,13 @@ TEST_F(MultipartTest, TestErrorHeaderValue)
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d74496d66958873e");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_VALUE);
+    EXPECT_EQ(parser.parsePart(body), ParserError::ERROR_HEADER_VALUE);
 }
 
 TEST_F(MultipartTest, TestErrorHeaderEnding)
@@ -249,13 +240,13 @@ TEST_F(MultipartTest, TestErrorHeaderEnding)
         "123456\r\n"
         "-----------------------------d74496d66958873e--\r\n";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d74496d66958873e");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_HEADER_ENDING);
+    EXPECT_EQ(parser.parsePart(body), ParserError::ERROR_HEADER_ENDING);
 }
 
 TEST_F(MultipartTest, TestGoodMultipartParserMultipleHeaders)
@@ -268,13 +259,16 @@ TEST_F(MultipartTest, TestGoodMultipartParserMultipleHeaders)
         "Data1\r\n"
         "-----------------------------d74496d66958873e--";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    reqIn.addHeader("Content-Type",
-                    "multipart/form-data; "
-                    "boundary=---------------------------d74496d66958873e");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    ParserError rc = parser.parse(reqIn);
+    rc = parser.parsePart(body);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    rc = parser.finish();
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
     EXPECT_EQ(parser.boundary,
@@ -284,7 +278,10 @@ TEST_F(MultipartTest, TestGoodMultipartParserMultipleHeaders)
     EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
               "form-data; name=\"Test1\"");
     EXPECT_EQ(parser.mime_fields[0].fields.at("Other-Header"), "value=\"v1\"");
-    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+
+    EXPECT_NE(
+        std::get_if<DuplicatableFileHandle>(&parser.mime_fields[0].content),
+        nullptr);
 }
 
 TEST_F(MultipartTest, TestErrorHeaderWithoutColon)
@@ -295,12 +292,14 @@ TEST_F(MultipartTest, TestErrorHeaderWithoutColon)
         "\r\n"
         "Data1\r\n"
         "----end--\r\n";
-    crow::Request reqIn(body, ec);
 
-    reqIn.addHeader("Content-Type", "multipart/form-data; "
-                                    "boundary=--end");
+    std::string contentType = "multipart/form-data; boundary=--end";
 
-    EXPECT_EQ(parser.parse(reqIn), ParserError::ERROR_UNEXPECTED_END_OF_HEADER);
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    EXPECT_EQ(parser.parsePart(body),
+              ParserError::ERROR_UNEXPECTED_END_OF_HEADER);
 }
 
 TEST_F(MultipartTest, TestUnknownHeaderIsCorrectlyParsed)
@@ -312,12 +311,15 @@ TEST_F(MultipartTest, TestUnknownHeaderIsCorrectlyParsed)
         "Data1\r\n"
         "----end--\r\n";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType = "multipart/form-data; boundary=--end";
 
-    reqIn.addHeader("Content-Type", "multipart/form-data; "
-                                    "boundary=--end");
-    ParserError rc = parser.parse(reqIn);
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
+    rc = parser.parsePart(body);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
+
+    rc = parser.finish();
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
     EXPECT_EQ(parser.boundary, "\r\n----end");
@@ -326,7 +328,10 @@ TEST_F(MultipartTest, TestUnknownHeaderIsCorrectlyParsed)
     EXPECT_EQ(
         parser.mime_fields[0].fields.at("t-DiPpcccc"),
         "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccgcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccaaaaaa");
-    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+
+    EXPECT_NE(
+        std::get_if<DuplicatableFileHandle>(&parser.mime_fields[0].content),
+        nullptr);
 }
 
 TEST_F(MultipartTest, TestErrorMissingSeparatorBetweenMimeFieldsAndData)
@@ -337,15 +342,14 @@ TEST_F(MultipartTest, TestErrorMissingSeparatorBetweenMimeFieldsAndData)
         "Data1"
         "-----------------------------d74496d66958873e--";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    reqIn.addHeader(
-        "Content-Type",
-        "multipart/form-data; boundary=---------------------------d74496d66958873e");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    ParserError rc = parser.parse(reqIn);
-
-    EXPECT_EQ(rc, ParserError::ERROR_UNEXPECTED_END_OF_HEADER);
+    EXPECT_EQ(parser.parsePart(body),
+              ParserError::ERROR_UNEXPECTED_END_OF_HEADER);
 }
 
 TEST_F(MultipartTest, TestDataWithoutMimeFields)
@@ -356,14 +360,16 @@ TEST_F(MultipartTest, TestDataWithoutMimeFields)
         "Data1\r\n"
         "-----------------------------d74496d66958873e--";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType =
+        "multipart/form-data; boundary=---------------------------d74496d66958873e";
 
-    reqIn.addHeader(
-        "Content-Type",
-        "multipart/form-data; boundary=---------------------------d74496d66958873e");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    ParserError rc = parser.parse(reqIn);
+    rc = parser.parsePart(body);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
+    rc = parser.finish();
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
     EXPECT_EQ(parser.boundary,
@@ -373,7 +379,10 @@ TEST_F(MultipartTest, TestDataWithoutMimeFields)
     EXPECT_EQ(std::distance(parser.mime_fields[0].fields.begin(),
                             parser.mime_fields[0].fields.end()),
               0);
-    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+
+    EXPECT_NE(
+        std::get_if<DuplicatableFileHandle>(&parser.mime_fields[0].content),
+        nullptr);
 }
 
 TEST_F(MultipartTest, TestErrorMissingFinalBoundry)
@@ -384,13 +393,15 @@ TEST_F(MultipartTest, TestErrorMissingFinalBoundry)
         "t-DiPpccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccAAAAAAAAAAAAAAABCDz\r\n"
         "\335\r\n\r\n";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType = "multipart/form-data; boundary=--XX";
 
-    reqIn.addHeader("Content-Type", "multipart/form-data; boundary=--XX");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    ParserError rc = parser.parse(reqIn);
+    rc = parser.parsePart(body);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    EXPECT_EQ(rc, ParserError::ERROR_UNEXPECTED_END_OF_INPUT);
+    EXPECT_EQ(parser.finish(), ParserError::ERROR_UNEXPECTED_END_OF_INPUT);
 }
 
 TEST_F(MultipartTest, TestIgnoreDataAfterFinalBoundary)
@@ -404,12 +415,15 @@ TEST_F(MultipartTest, TestIgnoreDataAfterFinalBoundary)
         "Data2\r\n"
         "----XX--\r\n";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType = "multipart/form-data; boundary=--XX";
 
-    reqIn.addHeader("Content-Type", "multipart/form-data; boundary=--XX");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    ParserError rc = parser.parse(reqIn);
+    rc = parser.parsePart(body);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
+    rc = parser.finish();
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
     EXPECT_EQ(parser.boundary, "\r\n----XX");
@@ -417,7 +431,10 @@ TEST_F(MultipartTest, TestIgnoreDataAfterFinalBoundary)
 
     EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
               "form-data; name=\"Test1\"");
-    EXPECT_EQ(parser.mime_fields[0].content, "Data1");
+
+    EXPECT_NE(
+        std::get_if<DuplicatableFileHandle>(&parser.mime_fields[0].content),
+        nullptr);
 }
 
 TEST_F(MultipartTest, TestFinalBoundaryIsCorrectlyRecognized)
@@ -430,12 +447,15 @@ TEST_F(MultipartTest, TestFinalBoundaryIsCorrectlyRecognized)
         "StillData1\r\n"
         "----XX--\r\n";
 
-    crow::Request reqIn(body, ec);
+    std::string contentType = "multipart/form-data; boundary=--XX";
 
-    reqIn.addHeader("Content-Type", "multipart/form-data; boundary=--XX");
+    ParserError rc = parser.start(contentType);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
-    ParserError rc = parser.parse(reqIn);
+    rc = parser.parsePart(body);
+    ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
+    rc = parser.finish();
     ASSERT_EQ(rc, ParserError::PARSER_SUCCESS);
 
     EXPECT_EQ(parser.boundary, "\r\n----XX");
@@ -443,10 +463,10 @@ TEST_F(MultipartTest, TestFinalBoundaryIsCorrectlyRecognized)
 
     EXPECT_EQ(parser.mime_fields[0].fields.at("Content-Disposition"),
               "form-data; name=\"Test1\"");
-    EXPECT_EQ(parser.mime_fields[0].content,
-              "Data1\r\n"
-              "----XX-abc-\r\n"
-              "StillData1");
+
+    EXPECT_NE(
+        std::get_if<DuplicatableFileHandle>(&parser.mime_fields[0].content),
+        nullptr);
 }
 
 } // namespace
