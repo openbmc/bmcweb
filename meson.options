@@ -535,3 +535,13 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.''',
 )
+
+# BMCWEB_IPMI_HTTPS
+option(
+    'ipmi-https',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enables IPMI HTTPS interface support. This feature adds
+                    `/ipmi` URI that works with `ipmitool` to handle the IPMI
+                    commands.''',
+)

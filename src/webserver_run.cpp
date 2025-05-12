@@ -13,6 +13,7 @@
 #include "ibm/management_console_rest.hpp"
 #include "image_upload.hpp"
 #include "io_context_singleton.hpp"
+#include "ipmi_https.hpp"
 #include "kvm_websocket.hpp"
 #include "logging.hpp"
 #include "login_routes.hpp"
@@ -123,6 +124,11 @@ int run()
     {
         BMCWEB_LOG_INFO("Start Hostname Monitor Service...");
         crow::hostname_monitor::registerHostnameSignal();
+    }
+
+    if constexpr (BMCWEB_IPMI_HTTPS)
+    {
+        crow::ipmi_https::requestRoutes(app);
     }
 
     bmcweb::registerUserRemovedSignal();
