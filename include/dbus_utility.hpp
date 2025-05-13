@@ -15,6 +15,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <map>
 #include <memory>
 #include <span>
 #include <string>
@@ -86,6 +87,17 @@ using MapperGetAncestorsResponse = std::vector<
 using MapperGetSubTreePathsResponse = std::vector<std::string>;
 
 using MapperEndPoints = std::vector<std::string>;
+
+using Association = std::tuple<std::string, std::string, std::string>;
+
+using IPMIValue =
+    std::variant<bool, uint8_t, int16_t, uint16_t, int32_t, uint32_t, int64_t,
+                 uint64_t, double, std::string, std::vector<uint8_t>,
+                 std::vector<uint16_t>, std::vector<uint32_t>,
+                 std::vector<std::string>, std::vector<Association>>;
+
+using IpmiDbusRspType =
+    std::tuple<uint8_t, uint8_t, uint8_t, uint8_t, std::vector<uint8_t>>;
 
 void escapePathForDbus(std::string& path);
 
@@ -211,5 +223,11 @@ void getManagedObjects(
     const std::string& service, const sdbusplus::message::object_path& path,
     std::function<void(const boost::system::error_code&,
                        const ManagedObjectType&)>&& callback);
+
+void callIPMI(uint8_t netfn, uint8_t lun, uint8_t cmd,
+              const std::vector<uint8_t>& data,
+              const std::map<std::string, IPMIValue>& options,
+              std::function<void(const boost::system::error_code&,
+                                 const IpmiDbusRspType&)>&& callback);
 } // namespace utility
 } // namespace dbus
