@@ -255,6 +255,12 @@ const static auto& patchCertificate = privilegeSetConfigureManager;
 const static auto& putCertificate = privilegeSetConfigureManager;
 const static auto& deleteCertificate = privilegeSetConfigureManager;
 const static auto& postCertificate = privilegeSetConfigureManager;
+const static auto& getCertificateSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& headCertificateSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& patchCertificateSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& putCertificateSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& deleteCertificateSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& postCertificateSubComputerSystem = privilegeSetConfigureComponents;
 
 // CertificateCollection
 const static auto& getCertificateCollection = privilegeSetConfigureManager;
@@ -263,6 +269,12 @@ const static auto& patchCertificateCollection = privilegeSetConfigureManager;
 const static auto& putCertificateCollection = privilegeSetConfigureManager;
 const static auto& deleteCertificateCollection = privilegeSetConfigureManager;
 const static auto& postCertificateCollection = privilegeSetConfigureManager;
+const static auto& getCertificateCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& headCertificateCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& patchCertificateCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& putCertificateCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& deleteCertificateCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& postCertificateCollectionSubComputerSystem = privilegeSetConfigureComponents;
 
 // CertificateLocations
 const static auto& getCertificateLocations = privilegeSetConfigureManager;
@@ -575,6 +587,30 @@ const static auto& patchEnvironmentMetrics = privilegeSetConfigureManager;
 const static auto& putEnvironmentMetrics = privilegeSetConfigureManager;
 const static auto& deleteEnvironmentMetrics = privilegeSetConfigureManager;
 const static auto& postEnvironmentMetrics = privilegeSetConfigureManager;
+const static auto& patchEnvironmentMetricsSubProcessor = privilegeSetConfigureComponents;
+const static auto& putEnvironmentMetricsSubProcessor = privilegeSetConfigureComponents;
+const static auto& deleteEnvironmentMetricsSubProcessor = privilegeSetConfigureComponents;
+const static auto& postEnvironmentMetricsSubProcessor = privilegeSetConfigureComponents;
+const static auto& patchEnvironmentMetricsSubMemory = privilegeSetConfigureComponents;
+const static auto& putEnvironmentMetricsSubMemory = privilegeSetConfigureComponents;
+const static auto& deleteEnvironmentMetricsSubMemory = privilegeSetConfigureComponents;
+const static auto& postEnvironmentMetricsSubMemory = privilegeSetConfigureComponents;
+const static auto& patchEnvironmentMetricsSubDrive = privilegeSetConfigureComponents;
+const static auto& putEnvironmentMetricsSubDrive = privilegeSetConfigureComponents;
+const static auto& deleteEnvironmentMetricsSubDrive = privilegeSetConfigureComponents;
+const static auto& postEnvironmentMetricsSubDrive = privilegeSetConfigureComponents;
+const static auto& patchEnvironmentMetricsSubPCIeDevice = privilegeSetConfigureComponents;
+const static auto& putEnvironmentMetricsSubPCIeDevice = privilegeSetConfigureComponents;
+const static auto& deleteEnvironmentMetricsSubPCIeDevice = privilegeSetConfigureComponents;
+const static auto& postEnvironmentMetricsSubPCIeDevice = privilegeSetConfigureComponents;
+const static auto& patchEnvironmentMetricsSubStorageController = privilegeSetConfigureComponents;
+const static auto& putEnvironmentMetricsSubStorageController = privilegeSetConfigureComponents;
+const static auto& deleteEnvironmentMetricsSubStorageController = privilegeSetConfigureComponents;
+const static auto& postEnvironmentMetricsSubStorageController = privilegeSetConfigureComponents;
+const static auto& patchEnvironmentMetricsSubPort = privilegeSetConfigureComponents;
+const static auto& putEnvironmentMetricsSubPort = privilegeSetConfigureComponents;
+const static auto& deleteEnvironmentMetricsSubPort = privilegeSetConfigureComponents;
+const static auto& postEnvironmentMetricsSubPort = privilegeSetConfigureComponents;
 
 // EthernetInterface
 const static auto& getEthernetInterface = privilegeSetLogin;
@@ -583,6 +619,10 @@ const static auto& patchEthernetInterface = privilegeSetConfigureComponents;
 const static auto& postEthernetInterface = privilegeSetConfigureComponents;
 const static auto& putEthernetInterface = privilegeSetConfigureComponents;
 const static auto& deleteEthernetInterface = privilegeSetConfigureComponents;
+const static auto& patchEthernetInterfaceSubEthernetInterfaceCollectionSubManager = privilegeSetConfigureManager;
+const static auto& postEthernetInterfaceSubEthernetInterfaceCollectionSubManager = privilegeSetConfigureManager;
+const static auto& putEthernetInterfaceSubEthernetInterfaceCollectionSubManager = privilegeSetConfigureManager;
+const static auto& deleteEthernetInterfaceSubEthernetInterfaceCollectionSubManager = privilegeSetConfigureManager;
 
 // EthernetInterfaceCollection
 const static auto& getEthernetInterfaceCollection = privilegeSetLogin;
@@ -903,6 +943,16 @@ const static auto& patchLogEntry = privilegeSetConfigureManager;
 const static auto& putLogEntry = privilegeSetConfigureManager;
 const static auto& deleteLogEntry = privilegeSetConfigureManager;
 const static auto& postLogEntry = privilegeSetConfigureManager;
+const static auto& patchLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& putLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& deleteLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& postLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& getLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetLogin;
+const static auto& headLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetLogin;
+const static auto& patchLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& putLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& deleteLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& postLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
 
 // LogEntryCollection
 const static auto& getLogEntryCollection = privilegeSetLogin;
@@ -911,6 +961,16 @@ const static auto& patchLogEntryCollection = privilegeSetConfigureManager;
 const static auto& putLogEntryCollection = privilegeSetConfigureManager;
 const static auto& deleteLogEntryCollection = privilegeSetConfigureManager;
 const static auto& postLogEntryCollection = privilegeSetConfigureManager;
+const static auto& patchLogEntryCollectionSubLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& putLogEntryCollectionSubLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& deleteLogEntryCollectionSubLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& postLogEntryCollectionSubLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& getLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetLogin;
+const static auto& headLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetLogin;
+const static auto& patchLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& putLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& deleteLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& postLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
 
 // LogService
 const static auto& getLogService = privilegeSetLogin;
@@ -919,6 +979,16 @@ const static auto& patchLogService = privilegeSetConfigureManager;
 const static auto& putLogService = privilegeSetConfigureManager;
 const static auto& deleteLogService = privilegeSetConfigureManager;
 const static auto& postLogService = privilegeSetConfigureManager;
+const static auto& patchLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& postLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& putLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& deleteLogServiceSubLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& getLogServiceSubLogServiceCollectionSubChassis = privilegeSetLogin;
+const static auto& headLogServiceSubLogServiceCollectionSubChassis = privilegeSetLogin;
+const static auto& patchLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& putLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& deleteLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& postLogServiceSubLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
 
 // LogServiceCollection
 const static auto& getLogServiceCollection = privilegeSetLogin;
@@ -927,6 +997,16 @@ const static auto& patchLogServiceCollection = privilegeSetConfigureManager;
 const static auto& putLogServiceCollection = privilegeSetConfigureManager;
 const static auto& deleteLogServiceCollection = privilegeSetConfigureManager;
 const static auto& postLogServiceCollection = privilegeSetConfigureManager;
+const static auto& patchLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& putLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& deleteLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& postLogServiceCollectionSubComputerSystem = privilegeSetConfigureComponents;
+const static auto& getLogServiceCollectionSubChassis = privilegeSetLogin;
+const static auto& headLogServiceCollectionSubChassis = privilegeSetLogin;
+const static auto& patchLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& putLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& deleteLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
+const static auto& postLogServiceCollectionSubChassis = privilegeSetConfigureComponents;
 
 // Manager
 const static auto& getManager = privilegeSetLogin;

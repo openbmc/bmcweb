@@ -615,6 +615,20 @@ def make_privilege_registry() -> None:
                     privilege_list,
                     None,
                 )
+            if (
+                "SubordinateOverrides" in mapping.keys()
+                and len(mapping["SubordinateOverrides"]) > 0
+            ):
+                for subordinateOverride in mapping["SubordinateOverrides"]:
+                    for operation, privilege_list in subordinateOverride[
+                        "OperationMap"
+                    ].items():
+                        privilege_dict[
+                            get_privilege_string_from_list(privilege_list)
+                        ] = (
+                            privilege_list,
+                            None,
+                        )
         for index, key in enumerate(privilege_dict):
             (privilege_list, _) = privilege_dict[key]
             name = get_variable_name_for_privilege_set(privilege_list)
@@ -640,6 +654,29 @@ def make_privilege_registry() -> None:
                         operation, entity, privilege_dict[privilege_string][1]
                     )
                 )
+            if (
+                "SubordinateOverrides" in mapping.keys() 
+                and len(mapping["SubordinateOverrides"]) > 0
+            ):
+                for subordinateOverride in mapping["SubordinateOverrides"]:
+                    targetsStr = "Sub" + "Sub".join(
+                        subordinateOverride["Targets"][::-1]
+                    )
+                    for operation, privilege_list in subordinateOverride[
+                        "OperationMap"
+                    ].items():
+                        privilege_string = get_privilege_string_from_list(
+                            privilege_list
+                        )
+                        operation = operation.lower()
+                        registry.write(
+                            "const static auto& {}{}{} = privilegeSet{};\n".format(
+                                operation,
+                                entity,
+                                targetsStr,
+                                privilege_dict[privilege_string][1],
+                            )
+                        )
             registry.write("\n")
         registry.write(
             "} // namespace redfish::privileges\n// clang-format on\n"
