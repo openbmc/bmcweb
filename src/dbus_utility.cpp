@@ -248,5 +248,21 @@ void getManagedObjects(const std::string& service,
         "GetManagedObjects");
 }
 
+void callIPMI(uint8_t netfn, uint8_t lun, uint8_t cmd,
+              const std::vector<uint8_t>& data,
+              const std::map<std::string, IPMIValue>& options,
+              std::function<void(const boost::system::error_code&,
+                                 const IpmiDbusRspType&)>&& callback)
+{
+    dbus::utility::async_method_call(
+        [callback = std::move(callback)](const boost::system::error_code& ec,
+                                         const IpmiDbusRspType& rsp) {
+            callback(ec, rsp);
+        },
+        "xyz.openbmc_project.Ipmi.Host", "/xyz/openbmc_project/Ipmi",
+        "xyz.openbmc_project.Ipmi.Server", "execute", netfn, lun, cmd, data,
+        options);
+}
+
 } // namespace utility
 } // namespace dbus
