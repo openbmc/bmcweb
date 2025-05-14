@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8de8c06_8aaf33f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-14T20:46:46Z",
+      "side": 1,
+      "message": "I\u0027ve addressed all of the review comments.\n\nAs part of this change I simplified the PATCH path to utilize a single D-Bus mapper call GetAssociatedSubTreePathsById. I also changed the name of getValidFanPath() to getValidFanObject() to align better with what this function actually does.\n\nSet is ready for re-review.",
+      "revId": "72905f2d00de668613e0371016b00caaa5b882be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d8c1a78_fba928c9",

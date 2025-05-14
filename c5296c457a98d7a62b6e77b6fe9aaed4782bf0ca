@@ -34,6 +34,24 @@
       "parentUuid": "0cb5d725_97052242",
       "revId": "c5296c457a98d7a62b6e77b6fe9aaed4782bf0ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebfc11d6_8acc0c55",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-14T20:46:46Z",
+      "side": 1,
+      "message": "If there is no `identifying` association for the fan then the GET interface will not include the `LocationIndicatorActive` property. For the PATCH interface an error will be returned.\n\nBoth of these cases are handled by the common utility functions. See:\nGET: https://github.com/openbmc/bmcweb/blob/18bf4bf66671083152a72f16c63a89b6101567b0/redfish-core/lib/led.hpp#L340\nPATCH:  https://github.com/openbmc/bmcweb/blob/18bf4bf66671083152a72f16c63a89b6101567b0/redfish-core/lib/led.hpp#L392",
+      "parentUuid": "0cb5d725_97052242",
+      "revId": "c5296c457a98d7a62b6e77b6fe9aaed4782bf0ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
