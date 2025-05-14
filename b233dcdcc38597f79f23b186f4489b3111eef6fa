@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a28e1692_3db8969e",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-05-14T10:51:01Z",
+      "side": 1,
+      "message": "Since this patch has been already submitted, I will create a new patch to add the copyright comments.",
+      "parentUuid": "f443125b_7dc230c9",
+      "revId": "b233dcdcc38597f79f23b186f4489b3111eef6fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d31b9a09_a88a1954",
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "Yep you are right, done. I will push the update once CI is fixed.",
       "parentUuid": "d31b9a09_a88a1954",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 45
+      },
+      "revId": "b233dcdcc38597f79f23b186f4489b3111eef6fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5efb4a77_e97f8b97",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-05-14T10:51:01Z",
+      "side": 1,
+      "message": "Same as above, will add this in a seperate patch.",
+      "parentUuid": "3b4eb913_f20e5c0b",
       "range": {
         "startLine": 88,
         "startChar": 6,
