@@ -98,6 +98,10 @@ class EventServiceManager
 
     void initConfig()
     {
+        // Make sure to load ConfigFile before initializing event service
+        // manager
+        persistent_data::getConfig();
+
         loadOldBehavior();
 
         persistent_data::EventServiceConfig eventServiceConfig =
@@ -535,7 +539,7 @@ class EventServiceManager
         auto persistentObj = event.subscriptionsConfigMap.find(id);
         if (persistentObj == event.subscriptionsConfigMap.end())
         {
-            BMCWEB_LOG_ERROR("Subscription wasn't in persistent data");
+            BMCWEB_LOG_ERROR("Subscription {} wasn't in persistent data", id);
             return true;
         }
         persistent_data::EventServiceStore::getInstance()
