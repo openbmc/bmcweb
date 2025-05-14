@@ -535,7 +535,7 @@ class EventServiceManager
         auto persistentObj = event.subscriptionsConfigMap.find(id);
         if (persistentObj == event.subscriptionsConfigMap.end())
         {
-            BMCWEB_LOG_ERROR("Subscription wasn't in persistent data");
+            BMCWEB_LOG_ERROR("Subscription {} wasn't in persistent data", id);
             return true;
         }
         persistent_data::EventServiceStore::getInstance()
