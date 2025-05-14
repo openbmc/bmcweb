@@ -85,10 +85,9 @@ inline void handleSystemCollectionMembers(
 
     for (const std::string& systemName : pathNames)
     {
-        boost::urls::url url("/redfish/v1/Systems");
-        crow::utility::appendUrlPieces(url, systemName);
         nlohmann::json::object_t member;
-        member["@odata.id"] = std::move(url);
+        member["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}", systemName);
         membersArray.emplace_back(std::move(member));
     }
     asyncResp->res.jsonValue["Members@odata.count"] = membersArray.size();
