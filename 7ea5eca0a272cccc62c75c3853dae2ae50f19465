@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c39c7227_7dedbd2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 131
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-14T16:29:46Z",
+      "side": 1,
+      "message": "I\u0027ve resolved all of the review comments. As part of this change I also did some restructuring to move long lambdas on the affected paths into named functions.\n\nSet is ready for re-review.",
+      "revId": "7ea5eca0a272cccc62c75c3853dae2ae50f19465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
