@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce4cae26_6ff266f7",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-14T18:49:13Z",
+      "side": 1,
+      "message": "These declarations allow the reader and writer classes to access private members of the value_type class. Reader class directly accesses and modifies mimeFields and Writer class access file related members to read data from file",
+      "parentUuid": "877f5a3f_196351a4",
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92f964c3_0ce5a407",
@@ -106,6 +124,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40237df0_2747b096",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-14T18:49:13Z",
+      "side": 1,
+      "message": "Just revisited the http_connection code — shouldn\u0027t this be handled in afterRead()? We could add a condition to specifically check for bad_message there.\n\nFrom what I understand of the current design, the execution will never reach the update_service handler because afterRead() calls gracefulClose() as soon as any error is encountered.\n\nPlease correct me if I’m missing something.",
+      "parentUuid": "81251c02_aa830e59",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 54
+      },
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d01de985_6247fe00",
         "filename": "http/http_body.hpp",
         "patchSetId": 3
@@ -134,6 +176,24 @@
       "writtenOn": "2025-05-12T22:31:44Z",
       "side": 1,
       "message": "We already have TemporaryFileHandle that fulfills basically this same use case, although might be missing a couple mesthods (that can be added).  Any reason we avoided that?",
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd072196_0ededb81",
+        "filename": "include/temporary_releasable_file_handle.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-14T18:49:13Z",
+      "side": 1,
+      "message": "For multipart uploads we additionally need to - \n1. create a secure temp file (mkstemp)\n2. remember the path so we can rename()/copy it to /tmp/images/\u003cuuid\u003e\n3. auto-unlink the temp file on every failure path.\n\nThese behaviours would change the lifetime rules of the existing class, e.g. a copied handle would suddenly have to agree on who deletes the file, so I\u0027ve added a separate TemporaryReleasableFileHandle to keep the original semantics of DuplicatableFileHandle untouched.",
+      "parentUuid": "79346062_bee83783",
       "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
