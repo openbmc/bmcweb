@@ -95,6 +95,80 @@ void getMainChassisId(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
+using SystemChassisLinksCb =
+    std::function<void(const std::vector<std::string>& chassisIdList,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)>;
+
+void getSystemAssociatedFromChassisSubtree(
+    const dbus::utility::MapperGetSubTreeResponse& subtree,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    SystemChassisLinksCb&& callback)
+{
+    const std::string& systemInterface =
+        "xyz.openbmc_project.Inventory.Item.System";
+    std::string chassisId;
+    std::vector<std::string> chassisIdList;
+    for (const std::pair<std::string, dbus::utility::MapperServiceMap>&
+             objectMap : subtree)
+    {
+        const std::string& objPath = objectMap.first;
+        std::size_t idPos = objPath.rfind('/');
+        if (idPos == std::string::npos || (idPos + 1) >= objPath.size())
+        {
+            continue;
+        }
+
+        for (const auto& serviceMap : objectMap.second)
+        {
+            const std::vector<std::string>& interfaces = serviceMap.second;
+            if (!std::ranges::contains(interfaces, systemInterface))
+            {
+                continue;
+            }
+            chassisId = objPath.substr(idPos + 1);
+            BMCWEB_LOG_DEBUG("chassisId = {}", chassisId);
+            chassisIdList.emplace_back(chassisId);
+            // Move onto the next object if the System interface is
+            // found under a service
+            break;
+        }
+    }
+
+    if (chassisIdList.empty())
+    {
+        messages::internalError(asyncResp->res);
+        BMCWEB_LOG_ERROR("Can't find chassis linked to ComputerSystem!");
+        return;
+    }
+    callback(chassisIdList, asyncResp);
+}
+
+void getSystemAssociatedChassisIds(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    SystemChassisLinksCb&& callback)
+{
+    // Find chassis subtree
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, chassisInterfaces,
+        [asyncResp, callback = std::forward<SystemChassisLinksCb>(callback)](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) mutable {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                BMCWEB_LOG_ERROR("Can't get chassis subtree {}", ec);
+                return;
+            }
+            if (subtree.empty())
+            {
+                BMCWEB_LOG_DEBUG("Chassis subtree is empty!");
+                return;
+            }
+            getSystemAssociatedFromChassisSubtree(subtree, asyncResp,
+                                                  std::move(callback));
+        });
+}
+
 template <typename CallbackFunc>
 void getPortStatusAndPath(
     std::span<const std::pair<std::string_view, std::string_view>>
