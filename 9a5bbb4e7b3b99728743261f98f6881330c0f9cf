@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "65b0f438_e90c7671",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-14T15:03:16Z",
+      "side": 1,
+      "message": "No it is not wanted to be moved outside that loop.\n\nThe associationInterface and dimmInterface booleans are reset inside the outside loop (L749-750) for each object path.\n\nThe reason this is coded in this manner is that the outside loop is looking for both the \"xyz.openbmc_project.Inventory.Item.Dimm\" and \"xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition\" objects. The LocationIndicatorActive is only associated with the \"xyz.openbmc_project.Inventory.Item.Dimm\" object.\n\n(See comment at L786-787 for difference in objects being looked for here.)",
+      "parentUuid": "d6fe6a70_0394106a",
+      "range": {
+        "startLine": 796,
+        "startChar": 0,
+        "endLine": 796,
+        "endChar": 12
+      },
+      "revId": "9a5bbb4e7b3b99728743261f98f6881330c0f9cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "918aa71b_3adab13d",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 93
@@ -37,6 +61,30 @@
       "writtenOn": "2025-05-09T13:41:07Z",
       "side": 1,
       "message": "Is this loop to check the inteface of \"xyz.openbmc_project.Association.Definitions\" needed?\nCan this be simply be like this (esp after getValidDimmPath() is done)?\n\n```\ninline void handleSetDimmData(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    bool locationIndicatorActive, const std::string\u0026 dimmPath,\n    const dbus::utility::MapperServiceMap\u0026 serviceMap)\n{\n    setLocationIndicatorActive(asyncResp, dimmPath,\n                               locationIndicatorActive);\n}\n```",
+      "range": {
+        "startLine": 835,
+        "startChar": 0,
+        "endLine": 846,
+        "endChar": 5
+      },
+      "revId": "9a5bbb4e7b3b99728743261f98f6881330c0f9cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4887f4e6_3a32e136",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-14T15:03:16Z",
+      "side": 1,
+      "message": "Yes that is simpler. The setLocationIndicatorActive() will handle errors if the association is missing. Changing this as you suggested.\n\nAdditionally this change means the getValidDimmPath() can use getSubTreePaths() instead to simplify there as well. I\u0027m making that change as well.",
+      "parentUuid": "918aa71b_3adab13d",
       "range": {
         "startLine": 835,
         "startChar": 0,
@@ -60,6 +108,24 @@
       "writtenOn": "2025-05-09T13:41:07Z",
       "side": 1,
       "message": "I think it is better to give WARNING -- as many other patch places are doing as such",
+      "revId": "9a5bbb4e7b3b99728743261f98f6881330c0f9cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc14523_5162b7ce",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 862,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-14T15:03:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5162e45c_0e733cc6",
       "revId": "9a5bbb4e7b3b99728743261f98f6881330c0f9cf",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
