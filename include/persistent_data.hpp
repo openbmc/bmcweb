@@ -178,14 +178,14 @@ class ConfigFile
                                 continue;
                             }
 
-                            BMCWEB_LOG_DEBUG("Restored subscription: {} {}",
-                                             newSub->id, newSub->customText);
+                            std::string id = newSub->id;
+                            BMCWEB_LOG_DEBUG("Restored subscription: {} {}", id,
+                                             newSub->customText);
 
                             EventServiceStore::getInstance()
                                 .subscriptionsConfigMap.emplace(
-                                    newSub->id,
-                                    std::make_shared<UserSubscription>(
-                                        std::move(*newSub)));
+                                    id, std::make_shared<UserSubscription>(
+                                            std::move(*newSub)));
                         }
                     }
                     else
