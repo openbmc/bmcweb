@@ -100,6 +100,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83d0af70_0c0d1658",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T16:49:09Z",
+      "side": 1,
+      "message": "This function is a long lambda, with logs of uses of auto.  Please fix.",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f747d5c2_b22815ed",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T16:49:09Z",
+      "side": 1,
+      "message": "This, for example, is a copy, and one of the reasons we generally avoid auto for this kind of thing.",
+      "range": {
+        "startLine": 150,
+        "startChar": 20,
+        "endLine": 150,
+        "endChar": 24
+      },
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed2322a9_9fb9f91d",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 10
@@ -152,6 +192,30 @@
       "side": 1,
       "message": "Agreed, but this patch didn\u0027t cause the naming mismatch, so we won\u0027t hold this patch up for that.",
       "parentUuid": "a442f3ac_07960721",
+      "range": {
+        "startLine": 3096,
+        "startChar": 64,
+        "endLine": 3096,
+        "endChar": 68
+      },
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "042ffc18_227f38d7",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3096,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T16:49:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a78f49f2_1605548a",
       "range": {
         "startLine": 3096,
         "startChar": 64,
