@@ -49,6 +49,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5ccdb1f_cf272789",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T17:14:30Z",
+      "side": 1,
+      "message": "In general please don\u0027t create APIs that accept a dict for \"options\".  Enumerate your arguments using appropriate types.  If certain arguments are optional, use std::optional to declare that.\n\nIf the number of arguments gets too large (as we\u0027re getting close to the recommended cppcoreguidelines limit of 7 here) roll things into appropriate structs that can be passed as arguments.",
+      "range": {
+        "startLine": 229,
+        "startChar": 14,
+        "endLine": 229,
+        "endChar": 61
+      },
+      "revId": "be49b325a164c38cf4b04574106a146c2282f2c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2c80d01_06410da2",
         "filename": "include/ipmi_https.hpp",
         "patchSetId": 2
