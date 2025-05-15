@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4633341e_d71a432b",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T15:19:48Z",
+      "side": 1,
+      "message": "We have an existing variant type that is shared to reduce template bloat.  Please use it.",
+      "range": {
+        "startLine": 93,
+        "startChar": 6,
+        "endLine": 93,
+        "endChar": 15
+      },
+      "revId": "be49b325a164c38cf4b04574106a146c2282f2c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2119b5b_db030ced",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T15:19:48Z",
+      "side": 1,
+      "message": "Please keep command-specific structures in command specific places.  This is for shared methods that have general usage.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 73
+      },
+      "revId": "be49b325a164c38cf4b04574106a146c2282f2c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2c80d01_06410da2",
+        "filename": "include/ipmi_https.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T15:19:48Z",
+      "side": 1,
+      "message": "Please use sendEx for new code, and implement flow control appropriately (wait for a write to finish before reading new data).\n\nNot doing that would be a potential dos/oom attack",
+      "range": {
+        "startLine": 44,
+        "startChar": 9,
+        "endLine": 44,
+        "endChar": 19
+      },
+      "revId": "be49b325a164c38cf4b04574106a146c2282f2c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1830e3f3_f98ae61c",
+        "filename": "include/ipmi_https.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T15:19:48Z",
+      "side": 1,
+      "message": "This is going to invoke a data copy for every byte.  Is there a better api we can make for sendBinary that avoids that?  (one that accepts a span of bytes).",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 29
+      },
+      "revId": "be49b325a164c38cf4b04574106a146c2282f2c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "494ba317_27575d0a",
+        "filename": "include/ipmi_https.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T15:19:48Z",
+      "side": 1,
+      "message": "This is something we\u0027ll need to chat through with Vernon.  I\u0027m not sure this will work as specified.  Can we start with an Admin-only impleemntation for simplification, and add roles as a followup?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 5
+      },
+      "revId": "be49b325a164c38cf4b04574106a146c2282f2c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad5820f8_67dea208",
+        "filename": "include/ipmi_https.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T15:19:48Z",
+      "side": 1,
+      "message": "Please don\u0027t create static maps like this.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 6
+      },
+      "revId": "be49b325a164c38cf4b04574106a146c2282f2c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46734d9c_db244c35",
+        "filename": "include/ipmi_https.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T15:19:48Z",
+      "side": 1,
+      "message": "Unsafe capture of conn.  If the connection is closed while the dbus request is happening, this will seg-fault.",
+      "range": {
+        "startLine": 111,
+        "startChar": 10,
+        "endLine": 111,
+        "endChar": 14
+      },
+      "revId": "be49b325a164c38cf4b04574106a146c2282f2c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1f5108b_ba21f808",
+        "filename": "include/ipmi_https.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T15:19:48Z",
+      "side": 1,
+      "message": "Please don\u0027t write lambdas more than a few lines.",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "be49b325a164c38cf4b04574106a146c2282f2c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
