@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cc1061c_668297d0",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-15T15:01:16Z",
+      "side": 1,
+      "message": "Can it be made without using template like?\n```\nvoid getChassisSubtree(\n    std::function\u003cvoid(const dbus::utility::MapperGetSubTreeResponse\u0026 subtree)\u003e\u0026\u0026 callback)\n ```",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a849ed5f_02956384",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-15T15:01:16Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be returned as `internalError()`?",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34e3040c_ceca6860",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-15T15:01:16Z",
+      "side": 1,
+      "message": "I think this L112-L116 be removed as callback() handles the empty subtree",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 13
+      },
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62753424_b5e70f15",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-15T15:01:16Z",
+      "side": 1,
+      "message": "Can it be made without using template like?\n```\nvoid getSystemAssociatedChassisIds(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    std::function\u003cvoid(const std::vector\u003cstd::string\u003e\u0026 chassisIdList,\n                      const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp)\u003e\u0026\u0026 callback)\n ```",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed2322a9_9fb9f91d",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-15T15:01:16Z",
+      "side": 1,
+      "message": "I think L151-L156 can be\n```\nif(!std::ranges::contains(interfaces, systemInterface))\n{\n     continue;\n}\n```",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a442f3ac_07960721",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3096,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-15T15:01:16Z",
+      "side": 1,
+      "message": "I think it is better to use `asyncResp` for the consistency.",
+      "range": {
+        "startLine": 3096,
+        "startChar": 64,
+        "endLine": 3096,
+        "endChar": 68
+      },
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
