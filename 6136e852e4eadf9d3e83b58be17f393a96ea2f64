@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21b13b6d_49e9aed3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T22:29:40Z",
+      "side": 1,
+      "message": "Eventually I\u0027d like to see EventServiceStore removed entirely which would\u0027ve prevented this in the first place, but this is fine.",
+      "revId": "6136e852e4eadf9d3e83b58be17f393a96ea2f64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
