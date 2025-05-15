@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b2dab62_d67533d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T15:12:38Z",
+      "side": 1,
+      "message": "As a patchset, looks fine.  Lets make sure we close on the intent here and aren\u0027t duplicating.",
+      "revId": "0bff4692afb32fdee814fcc33ddc8ca02f22a808",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
