@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "950f3b88_8aa9da1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T16:42:16Z",
+      "side": 1,
+      "message": "Comment made by mistake.  I think I have line of sight on why this was happening.",
+      "parentUuid": "074f902c_6cca29b4",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 56
+      },
+      "revId": "d2a7c5a9e08063cd9ecb29f0e7e879ea07d7ce96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a810bb05_8edf3848",
