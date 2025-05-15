@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54fb444e_34cf6e67",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-15T02:42:24Z",
+      "side": 1,
+      "message": "Added Test",
+      "parentUuid": "e64cf126_b53852a2",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4300bde3_ff9649f9",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Is this using some association? Is this assuming some path ?",
       "parentUuid": "914269d0_5de639b1",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a773399_54d7ed15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-15T02:42:24Z",
+      "side": 1,
+      "message": "Hi, it\u0027s not using any association. There\u0027s currently no inventory item on D-Bus to represent a Computer System, but an Item.System interface that\u0027s attached to a Chassis or Motherboard inventory (e.g [Search result](https://github.com/search?q\u003drepo%3Aopenbmc%2Fentity-manager%20%22Item.System%22\u0026type\u003dcode), [r200_chassis.json](https://github.com/openbmc/entity-manager/blob/430fbf69fc7d528337ac23da2da8ee610a7e4d87/configurations/r2000_chassis.json#L532)). This results in a chassis inventory appearing on D-Bus as follow:\n\n```\n/xyz/openbmc_project/inventory/system/chassis/\u003cCHASSIS_ID\u003e\n- xyz.openbmc.Inventory.Item.Chassis\n- xyz.openbmc.Inventory.Item.System\n```\n\nSo, as it looks for all chassis, I let it pick up chassis that has an Item.System interface and let them be linked to the ComputerSystem.",
+      "parentUuid": "10918751_bd3c9764",
       "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
