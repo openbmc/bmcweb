@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "074f902c_6cca29b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T16:41:45Z",
+      "side": 1,
+      "message": "I\u0027m pretty confused here.....  \"only a few\" would imply that we only partially read the config file?  I don\u0027t see how that\u0027s possible in the code.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 56
+      },
+      "revId": "d2a7c5a9e08063cd9ecb29f0e7e879ea07d7ce96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a810bb05_8edf3848",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T16:41:45Z",
+      "side": 1,
+      "message": "Interesting, so this bug will pop up if you don\u0027t call requestRoutesManager:\n\nhttps://github.com/openbmc/bmcweb/blob/0c814aa604b36cff01b495f9c335f981c7be83be/redfish-core/lib/managers.hpp#L577\n\nWhich incidentally instantiates the config.  If that\u0027s disabled for some reason, the config won\u0027t get initted because there\u0027s nothing else that \"needs\" it if you do basic auth.\n\nCould we be explicit about initing it and move the getConfig() call into webserver_run.cpp?\n\nOr alternatively deprecate the EventServiceStore class entirely, but I\u0027m willing to accept this as-is.",
+      "revId": "d2a7c5a9e08063cd9ecb29f0e7e879ea07d7ce96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1644d1b2_b4cefced",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T16:41:45Z",
+      "side": 1,
+      "message": "Would really like to see EventServiceStore just go away.  There\u0027s really no reason for it to exist anymore now that it\u0027s backed by the main config.\n\nThis works, but please consider the cleanup.",
+      "revId": "d2a7c5a9e08063cd9ecb29f0e7e879ea07d7ce96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
