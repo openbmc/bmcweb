@@ -61,6 +61,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ed2791f_551324da",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T22:41:34Z",
+      "side": 1,
+      "message": "Another thing to consider here is that now all URIs will now implicitly support reading multipart requests.  We should make some attempt to disallow that in the obvious cases.\n\nChecking the verb is POST before allowing multipart would be a good start, and would remove a lot of the obvious footguns that would give a weird error message back to the user.",
+      "range": {
+        "startLine": 274,
+        "startChar": 33,
+        "endLine": 274,
+        "endChar": 44
+      },
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88c13a7d_bd48e811",
         "filename": "http/http_body.hpp",
         "patchSetId": 3
@@ -160,6 +183,30 @@
       "side": 1,
       "message": "Just revisited the http_connection code — shouldn\u0027t this be handled in afterRead()? We could add a condition to specifically check for bad_message there.\n\nFrom what I understand of the current design, the execution will never reach the update_service handler because afterRead() calls gracefulClose() as soon as any error is encountered.\n\nPlease correct me if I’m missing something.",
       "parentUuid": "81251c02_aa830e59",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 54
+      },
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ea4942b_17ca5c3f",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T22:41:34Z",
+      "side": 1,
+      "message": "\u003e Just revisited the http_connection code — shouldn\u0027t this be handled in afterRead()? We could add a condition to specifically check for bad_message there.\n\nthe connection class isn\u0027t in charge of responses, the router is.  Hardcoding this in http connection would mean that we\u0027d have to hardcode one specific error return, rather than a per-uri error return.\n\nRedfish should respond with a redfish json payload 400 error\nLogin routes should respond with their specific 400 error code.\n\n\u003e \n\u003e From what I understand of the current design, the execution will never reach the update_service handler because afterRead() calls gracefulClose() as soon as any error is encountered.\n\nRight....  this isn\u0027t an \"error\" in the normal sense.  For files and strings the only kind of errors are internal errors the user can do nothing about (ie 500 errors).\n\nThis flow should return a 400 error, that the user could do something about by correcting their response, so the body needs to basically mark that the parse failed, and return that when the specific handler requests the mime data.\n\nThe \"right\" solution would be what we did for 401, which would be to add yet another condition to the routing table, and register a redfish-specific \"400\" handler.  I don\u0027t want to make you do that work for what\u0027s ultimately one URI.\n\n\u003e \n\u003e Please correct me if I’m missing something.",
+      "parentUuid": "40237df0_2747b096",
       "range": {
         "startLine": 284,
         "startChar": 0,
