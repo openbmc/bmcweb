@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2aacaf61_fb1ce090",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T15:32:43Z",
+      "side": 1,
+      "message": "\u003e Example certain chassis may have multiple temperature sensor and sensor name alone may not be sufficient to provide enough description about the sensor itself\n\nBut..... in the OpenBMC implementation all sensor names need to be unique.  We\u0027re not changing that, right?",
+      "parentUuid": "03aca927_d977f699",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 43
+      },
+      "revId": "abe8f77570fa36c75f0f7d8b8cbba10850d62580",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7326f616_0f5e72e3",
         "filename": "/COMMIT_MSG",
         "patchSetId": 11
