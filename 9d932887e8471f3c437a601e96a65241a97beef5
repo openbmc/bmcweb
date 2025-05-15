@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c24cf24_51a366cf",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T22:58:34Z",
+      "side": 1,
+      "message": "This is one of the parts that should mark the failure in the response somehow.",
+      "range": {
+        "startLine": 344,
+        "startChar": 0,
+        "endLine": 345,
+        "endChar": 54
+      },
+      "revId": "9d932887e8471f3c437a601e96a65241a97beef5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85ebc3e8_382de58a",
         "filename": "http/http_request.hpp",
         "patchSetId": 10
@@ -53,6 +76,92 @@
         "startChar": 0,
         "endLine": 146,
         "endChar": 2
+      },
+      "revId": "9d932887e8471f3c437a601e96a65241a97beef5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acd714c5_03e15432",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T22:58:34Z",
+      "side": 1,
+      "message": "This looks like it will fail if we\u0027ve converted content to a file.",
+      "revId": "9d932887e8471f3c437a601e96a65241a97beef5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e48c428f_00fdb04b",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T22:58:34Z",
+      "side": 1,
+      "message": "This is a header, static isn\u0027t correct, inline might be correct.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 6
+      },
+      "revId": "9d932887e8471f3c437a601e96a65241a97beef5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4ac404b_70eff9ad",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T22:58:34Z",
+      "side": 1,
+      "message": "?  How were these conditions chosen?  These look like they\u0027re hardcoding redfish specifics (ie UpdateFile).",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 1
+      },
+      "revId": "9d932887e8471f3c437a601e96a65241a97beef5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e132bf9_e4bf12d5",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T22:58:34Z",
+      "side": 1,
+      "message": "Why are we doing this in the finish() call?  Shouldn\u0027t this be done incrementally as parsing is completed?  Otherwise this is no more efficient than what we had (we still have to read the whole request into ram).",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 53
       },
       "revId": "9d932887e8471f3c437a601e96a65241a97beef5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
