@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19b86ae6_ec30497f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-15T10:18:33Z",
+      "side": 1,
+      "message": "If so, setLocationIndicatorActive() may be called multiple times for the next serviceMaps.\n\n```\n    for (const auto\u0026 [objectPath, serviceMap] : subtree)\n    {\n        sdbusplus::message::object_path path(objectPath);\n\n        bool dimmInterface \u003d false;\n        bool associationInterface \u003d false;\n\n        for (const auto\u0026 [serviceName, interfaceList] : serviceMap) \n        {\n            for (const auto\u0026 interface : interfaceList)\n            {\n                 ... set associationInterface and dimmInterface\n            }\n\n            if (associationInterface \u0026\u0026 dimmInterface)\n            {\n                getLocationIndicatorActive(asyncResp, objectPath);\n            }\n        }\n    }\n```\n\nFor example, if serviceMap has \"service1\", \"service2\", and assume `dimmInterface` \u0026 `associationInterface` are set by the first service1 (with all interfaces).\nThen, `getLocationIndicatorActive()` will be invoked 2 times - for `service1\u0027 \u0026 `service2`.\nSo I think this code can be \n```\nfor (const auto\u0026 [objectPath, serviceMap] : subtree)\n{\n    sdbusplus::message::object_path path(objectPath);\n\n    bool dimmInterface \u003d false;\n    bool associationInterface \u003d false;\n\n    for (const auto\u0026 [serviceName, interfaceList] : serviceMap)\n    {\n        for (const auto\u0026 interface : interfaceList)\n        {\n            //... set associationInterface and dimmInterface\n        }\n    }\n\n    // After loop of serviceMap\n    if (associationInterface \u0026\u0026 dimmInterface)\n    {\n        getLocationIndicatorActive(asyncResp, objectPath);\n    }\n}\n```",
+      "parentUuid": "65b0f438_e90c7671",
+      "range": {
+        "startLine": 796,
+        "startChar": 0,
+        "endLine": 796,
+        "endChar": 12
+      },
+      "revId": "9a5bbb4e7b3b99728743261f98f6881330c0f9cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "918aa71b_3adab13d",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 93
