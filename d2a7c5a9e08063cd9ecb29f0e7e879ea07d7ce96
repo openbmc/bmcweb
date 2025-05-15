@@ -65,6 +65,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7465d34d_7d209b78",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-15T20:18:39Z",
+      "side": 1,
+      "message": "Right. it is currently incidentally loaded by requestRoutesManager().\ngetConfig() is better to load explicitly and I changed to do it in webserver_run.cpp as suggested.\n\nOne key cause is at https://github.com/openbmc/bmcweb/blob/0c814aa604b36cff01b495f9c335f981c7be83be/include/persistent_data.hpp#L184\n\nI add the detail into the commit message.",
+      "parentUuid": "a810bb05_8edf3848",
+      "revId": "d2a7c5a9e08063cd9ecb29f0e7e879ea07d7ce96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1644d1b2_b4cefced",
@@ -78,6 +96,24 @@
       "writtenOn": "2025-05-15T16:41:45Z",
       "side": 1,
       "message": "Would really like to see EventServiceStore just go away.  There\u0027s really no reason for it to exist anymore now that it\u0027s backed by the main config.\n\nThis works, but please consider the cleanup.",
+      "revId": "d2a7c5a9e08063cd9ecb29f0e7e879ea07d7ce96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eb35691_e97e83a0",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-05-15T20:18:39Z",
+      "side": 1,
+      "message": "Let\u0027s consider EventServiceStore deprecation separately.",
+      "parentUuid": "1644d1b2_b4cefced",
       "revId": "d2a7c5a9e08063cd9ecb29f0e7e879ea07d7ce96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
