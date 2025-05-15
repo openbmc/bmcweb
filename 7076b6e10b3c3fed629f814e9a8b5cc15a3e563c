@@ -69,6 +69,24 @@
       "parentUuid": "c70b04b5_69c4a59c",
       "revId": "7076b6e10b3c3fed629f814e9a8b5cc15a3e563c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e15afd28_fc78286a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T16:43:32Z",
+      "side": 1,
+      "message": "For whatever reason this doesn\u0027t seem to be needed anymore.  (might be because we updated clang).\n\nI think this patch can be abandoned?",
+      "parentUuid": "e2264fa9_e6ce03d8",
+      "revId": "7076b6e10b3c3fed629f814e9a8b5cc15a3e563c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
