@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aa2efd6_dc17bd39",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 93
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-15T18:55:07Z",
+      "side": 1,
+      "message": "Oh! I see now. This should move to the second loop. I misunderstood your original comment (thought you meant outside the first loop).\n\nI agree you are correct that it needs to go outside the loop where we process the serviceMap but inside the loop where we process the objectPath. I\u0027ve made this change.",
+      "parentUuid": "19b86ae6_ec30497f",
+      "range": {
+        "startLine": 796,
+        "startChar": 0,
+        "endLine": 796,
+        "endChar": 12
+      },
+      "revId": "9a5bbb4e7b3b99728743261f98f6881330c0f9cf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "918aa71b_3adab13d",

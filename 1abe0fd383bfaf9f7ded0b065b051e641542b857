@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cd33a41_cecd2135",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 95
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-15T18:55:07Z",
+      "side": 1,
+      "message": "I\u0027ve resolved the last comment on this one. Set is ready for re-review.",
+      "revId": "1abe0fd383bfaf9f7ded0b065b051e641542b857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
