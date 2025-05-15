@@ -16,6 +16,24 @@
       "message": "Since this is only for setLocationIndicatorActive(), can we make this function to set locationIndicatorActive directly (not via callback)?\n\n```\ninline void handleSetFanPathById(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 chassisId, const std::string\u0026 fanId,\n    bool locationIndicatorActive, \n    const boost::system::error_code\u0026 ec,\n    const dbus::utility::MapperGetSubTreePathsResponse\u0026 fanPaths)\n{\n...\n    for (const auto\u0026 fanPath : fanPaths)\n    {\n        if (checkFanId(fanPath, fanId))\n        {\n            setLocationIndicatorActive(asyncResp, \n                          fanPath, locationIndicatorActive);\n            return;\n        }\n    }\n...\n}\n```",
       "revId": "8e50bdf87c6fcf969c782dca90ae87825dc914c2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a78a6e0_cc584084",
+        "filename": "redfish-core/lib/fan.hpp",
+        "patchSetId": 30
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-15T20:11:28Z",
+      "side": 1,
+      "message": "Made this simplification to remove one level of indirection and make the flow easier to follow.",
+      "parentUuid": "d3d2cc89_697b031f",
+      "revId": "8e50bdf87c6fcf969c782dca90ae87825dc914c2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
