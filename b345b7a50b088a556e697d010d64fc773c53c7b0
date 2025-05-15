@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d061749d_8faf6b06",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T16:47:16Z",
+      "side": 1,
+      "message": "This is a wrapper around a single function call, appending one argument chassisInterfaces, which is already a generic varialbe.",
+      "range": {
+        "startLine": 99,
+        "startChar": 5,
+        "endLine": 99,
+        "endChar": 22
+      },
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a849ed5f_02956384",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 10
@@ -105,6 +128,30 @@
       "writtenOn": "2025-05-15T15:01:16Z",
       "side": 1,
       "message": "I think it is better to use `asyncResp` for the consistency.",
+      "range": {
+        "startLine": 3096,
+        "startChar": 64,
+        "endLine": 3096,
+        "endChar": 68
+      },
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a78f49f2_1605548a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3096,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T16:47:16Z",
+      "side": 1,
+      "message": "Agreed, but this patch didn\u0027t cause the naming mismatch, so we won\u0027t hold this patch up for that.",
+      "parentUuid": "a442f3ac_07960721",
       "range": {
         "startLine": 3096,
         "startChar": 64,
