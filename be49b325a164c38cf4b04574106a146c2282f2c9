@@ -164,6 +164,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "de2016fc_e5847ee5",
+        "filename": "include/ipmi_https.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-15T23:56:30Z",
+      "side": 1,
+      "message": "ok, i see this map is used later on in the method.  Please just encapsulate that full flow in a method with types as args.",
+      "parentUuid": "ad5820f8_67dea208",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 6
+      },
+      "revId": "be49b325a164c38cf4b04574106a146c2282f2c9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46734d9c_db244c35",
         "filename": "include/ipmi_https.hpp",
         "patchSetId": 2
