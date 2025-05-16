@@ -43,6 +43,48 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f53b208e_9ae027b9",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-16T09:32:07Z",
+      "side": 1,
+      "message": "This would result in the error of `error: no previous prototype for function \u0027getSystemAssociatedFromChassisSubtree\u0027 [-Werror,-Wmissing-prototypes]` like in the current CI console as I directly use a type for the callback. A templated function will bypass this error like all the other functions in this unit do. What do you think?",
+      "parentUuid": "9cc1061c_668297d0",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ad65bbe_e350ea60",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-16T09:32:07Z",
+      "side": 1,
+      "message": "I moved this call into `getSystemAssociatedChassisIds`, and moved the long lambda out into a function named `getSystemAssociatedFromChassisSubtree`.",
+      "parentUuid": "d061749d_8faf6b06",
+      "range": {
+        "startLine": 99,
+        "startChar": 5,
+        "endLine": 99,
+        "endChar": 22
+      },
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a849ed5f_02956384",
         "filename": "redfish-core/lib/redfish_util.hpp",
         "patchSetId": 10
@@ -54,6 +96,24 @@
       "writtenOn": "2025-05-15T15:01:16Z",
       "side": 1,
       "message": "Shouldn\u0027t this be returned as `internalError()`?",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "592acc2e_bd5a7baa",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-16T09:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a849ed5f_02956384",
       "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +131,30 @@
       "writtenOn": "2025-05-15T15:01:16Z",
       "side": 1,
       "message": "I think this L112-L116 be removed as callback() handles the empty subtree",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 13
+      },
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72d6d42d_abdc5492",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-16T09:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34e3040c_ceca6860",
       "range": {
         "startLine": 112,
         "startChar": 0,
@@ -115,6 +199,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3138258d_317781d5",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-16T09:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83d0af70_0c0d1658",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f747d5c2_b22815ed",
@@ -138,6 +240,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "995138c4_0c11a0ef",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-16T09:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f747d5c2_b22815ed",
+      "range": {
+        "startLine": 150,
+        "startChar": 20,
+        "endLine": 150,
+        "endChar": 24
+      },
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed2322a9_9fb9f91d",
@@ -151,6 +277,24 @@
       "writtenOn": "2025-05-15T15:01:16Z",
       "side": 1,
       "message": "I think L151-L156 can be\n```\nif(!std::ranges::contains(interfaces, systemInterface))\n{\n     continue;\n}\n```",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bdb1d61_517ea7dd",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-16T09:32:07Z",
+      "side": 1,
+      "message": "Done. Thank you.",
+      "parentUuid": "ed2322a9_9fb9f91d",
       "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
