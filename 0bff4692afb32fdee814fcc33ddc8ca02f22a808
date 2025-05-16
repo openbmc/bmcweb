@@ -39,6 +39,23 @@
       },
       "revId": "0bff4692afb32fdee814fcc33ddc8ca02f22a808",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "701d9bc0_f3004d92",
+        "filename": "meson.options",
+        "patchSetId": 2
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-16T17:48:49Z",
+      "side": 1,
+      "message": "Do we really want this enabled by default?",
+      "revId": "0bff4692afb32fdee814fcc33ddc8ca02f22a808",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
