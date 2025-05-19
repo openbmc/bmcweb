@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d05982f_980dce2f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 3100,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-19T15:14:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be a nlohmann::json::object_t?",
+      "range": {
+        "startLine": 3100,
+        "startChar": 0,
+        "endLine": 3100,
+        "endChar": 2
+      },
+      "revId": "017fcfaed98fde0f21fcaf5ec49fa70c55e3513c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
