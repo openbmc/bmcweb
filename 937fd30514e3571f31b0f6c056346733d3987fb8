@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "85865388_a2565b25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-05-20T16:20:20Z",
+      "side": 1,
+      "message": "On any platforms, BIOS emulation cannot be performed. So the required files are transferred on qemu and testing is performed. \nI dont think we can have any way where we could emulate the qemu for bios.",
+      "parentUuid": "c18ab96d_b45b5414",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 29
+      },
+      "revId": "937fd30514e3571f31b0f6c056346733d3987fb8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "0b87cd80_042ce738",
