@@ -236,6 +236,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a670491d_7341a0c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-20T16:20:12Z",
+      "side": 1,
+      "message": "where are those  oem commands in review?  and where is the patch to enable them on gb200?  the whole feature needs to work to pass the test.\n\nI’m here to help you, but I need to know what you need help with.",
+      "parentUuid": "40a6a9a7_2b3af5bf",
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe00df4d_37624e4a",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
