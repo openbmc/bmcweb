@@ -218,6 +218,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "40a6a9a7_2b3af5bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-05-20T16:18:09Z",
+      "side": 1,
+      "message": "On NVIDIA platforms the support for pldm for bios configuration doesnt exists. IPMI OEM commands are used to transfer BIOS password on the next boot. \nThe testing on current patch is limited to change in dbus values.",
+      "parentUuid": "051d6c5e_5c6709f3",
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe00df4d_37624e4a",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
