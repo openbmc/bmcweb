@@ -272,6 +272,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "253181f7_81f95669",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-20T22:01:07Z",
+      "side": 1,
+      "message": "\u003e I agree that enabling upstream support for NVIDIA IPMI OEM commands is necessary for this feature. For reference, the relevant OEM commands are documented here: https://github.com/NVIDIA/nvidia-ipmi-oem.\n\nYep, and that\u0027s Nvidia private github.  That code needs to make it upstream.\n\n\u003e \n\u003e However, I wanted to clarify that even with this support enabled, we currently cannot emulate the BIOS sending these commands.\n\nNo need to emulate.  We have gb200 systems that can load upstream builds.\n\n\u003e Given this limitation, could we consider treating this patch as independent of full BIOS integration, so that upstream enablement is not blocked? Please let me know if this approach aligns with our testing and integration plans.\n\nIt does not align unfortunately.  The feature needs to work in testing as a user would see it, including all backends.  Otherwise, there\u0027s no real point to enabling it, and it\u0027s just dead code.  If all the backends to make it work are in process and in review, that\u0027s fine, but ipmi is going to be a prereq here.",
+      "parentUuid": "3237d59c_24d263ce",
+      "revId": "c261efb141e5d6833014cf5f878ce20b9ae1c5ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fe00df4d_37624e4a",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 2
