@@ -54,6 +54,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7bfc58f_71654614",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-05-22T13:06:02Z",
+      "side": 1,
+      "message": "FYI: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/80496",
+      "parentUuid": "a28e1692_3db8969e",
+      "revId": "b233dcdcc38597f79f23b186f4489b3111eef6fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d31b9a09_a88a1954",
@@ -115,6 +133,30 @@
       "side": 1,
       "message": "Same as above, will add this in a seperate patch.",
       "parentUuid": "3b4eb913_f20e5c0b",
+      "range": {
+        "startLine": 88,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 45
+      },
+      "revId": "b233dcdcc38597f79f23b186f4489b3111eef6fa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "372feb31_7dcec556",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-05-22T13:06:02Z",
+      "side": 1,
+      "message": "FYI: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/80495",
+      "parentUuid": "5efb4a77_e97f8b97",
       "range": {
         "startLine": 88,
         "startChar": 6,
