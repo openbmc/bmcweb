@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eccc65ba_4bc9ad73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-22T18:29:39Z",
+      "side": 1,
+      "message": "nit: typo: function\n(probably why the CI failed)",
+      "range": {
+        "startLine": 10,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "7076d1bab912a2dfe6e08cd613e5e9edb3593d02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "667742a2_bb9d3826",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-22T18:29:39Z",
+      "side": 1,
+      "message": "Looks good once the CI failure is fixed.\nThank you for following up on this!",
+      "revId": "7076d1bab912a2dfe6e08cd613e5e9edb3593d02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
