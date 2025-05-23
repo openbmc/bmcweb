@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cd4cafe_b3ff3d74",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-05-23T07:14:24Z",
+      "side": 1,
+      "message": "Can these two conditions can be combined together in a single if condition\n if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty() \u0026\u0026 systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99a63e77_2bd9e1c1",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-05-23T07:14:24Z",
+      "side": 1,
+      "message": "Can these two conditions can be combined together in a single if condition\nif (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty() \u0026\u0026 systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e6f250_61a3a2be",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-05-23T07:14:24Z",
+      "side": 1,
+      "message": "Is systemName included here to specify a separate system name?",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a772d8_7717bfa3",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-05-23T07:14:24Z",
+      "side": 1,
+      "message": "Can these two conditions can be combined together in a single if condition\nif (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty() \u0026\u0026 systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15c232dd_682509ef",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-05-23T07:14:24Z",
+      "side": 1,
+      "message": "Can these two conditions can be combined together in a single if condition\nif (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty() \u0026\u0026 systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
