@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60312202_678fd651",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-05-23T07:16:34Z",
+      "side": 1,
+      "message": "Or Did you miss to add \u0027constexpr\u0027",
+      "parentUuid": "5cd4cafe_b3ff3d74",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99a63e77_2bd9e1c1",
         "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
         "patchSetId": 17
@@ -31,6 +49,24 @@
       "writtenOn": "2025-05-23T07:14:24Z",
       "side": 1,
       "message": "Can these two conditions can be combined together in a single if condition\nif (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty() \u0026\u0026 systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9579261_34b95b45",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-05-23T07:16:34Z",
+      "side": 1,
+      "message": "Or Did you miss to add \u0027constexpr\u0027",
+      "parentUuid": "99a63e77_2bd9e1c1",
       "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a4fff58_9cda8d31",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-05-23T07:16:34Z",
+      "side": 1,
+      "message": "Or Did you miss to add \u0027constexpr\u0027",
+      "parentUuid": "06a772d8_7717bfa3",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "15c232dd_682509ef",
         "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
         "patchSetId": 17
@@ -82,6 +136,24 @@
       "writtenOn": "2025-05-23T07:14:24Z",
       "side": 1,
       "message": "Can these two conditions can be combined together in a single if condition\nif (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty() \u0026\u0026 systemName !\u003d BMCWEB_REDFISH_SYSTEM_URI_NAME)",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65abda68_6a6a74f7",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-05-23T07:16:34Z",
+      "side": 1,
+      "message": "Or Did you miss to add \u0027constexpr\u0027",
+      "parentUuid": "15c232dd_682509ef",
       "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
