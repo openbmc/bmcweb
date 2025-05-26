@@ -83,6 +83,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f964955a_75091892",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-26T09:15:17Z",
+      "side": 1,
+      "message": "Reverted back to templated function after 10 days of no further comment.",
+      "parentUuid": "f53b208e_9ae027b9",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a849ed5f_02956384",
@@ -178,6 +196,24 @@
       "writtenOn": "2025-05-15T15:01:16Z",
       "side": 1,
       "message": "Can it be made without using template like?\n```\nvoid getSystemAssociatedChassisIds(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    std::function\u003cvoid(const std::vector\u003cstd::string\u003e\u0026 chassisIdList,\n                      const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp)\u003e\u0026\u0026 callback)\n ```",
+      "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b57f009_15b84503",
+        "filename": "redfish-core/lib/redfish_util.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001526
+      },
+      "writtenOn": "2025-05-26T09:15:17Z",
+      "side": 1,
+      "message": "Keep the templated function following the comment section https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60793/comment/9cc1061c_668297d0/",
+      "parentUuid": "62753424_b5e70f15",
       "revId": "b345b7a50b088a556e697d010d64fc773c53c7b0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
