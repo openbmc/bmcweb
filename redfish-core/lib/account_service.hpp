@@ -1341,15 +1341,6 @@ inline CertificateMappingAttribute getCertificateMapping(
             return CertificateMappingAttribute::UserPrincipalName;
         }
         break;
-
-        case MTLSCommonNameParseMode::Meta:
-        {
-            if constexpr (BMCWEB_META_TLS_COMMON_NAME_PARSING)
-            {
-                return CertificateMappingAttribute::CommonName;
-            }
-        }
-        break;
         default:
         {
             return CertificateMappingAttribute::Invalid;
