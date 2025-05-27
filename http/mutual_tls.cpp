@@ -26,7 +26,6 @@ extern "C"
 }
 
 #include "logging.hpp"
-#include "mutual_tls_meta.hpp"
 
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ssl/verify_context.hpp>
@@ -145,18 +144,6 @@ std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
     return ret;
 }
 
-std::string getMetaUserNameFromCert(X509* cert)
-{
-    // Meta Inc. CommonName parsing
-    std::optional<std::string_view> sslUserMeta =
-        mtlsMetaParseSslUser(getCommonNameFromCert(cert));
-    if (!sslUserMeta)
-    {
-        return "";
-    }
-    return std::string{*sslUserMeta};
-}
-
 std::string getUsernameFromCert(X509* cert)
 {
     const persistent_data::AuthConfigMethods& authMethodsConfig =
@@ -182,13 +169,6 @@ std::string getUsernameFromCert(X509* cert)
         case persistent_data::MTLSCommonNameParseMode::CommonName:
         {
             return getCommonNameFromCert(cert);
-        }
-        case persistent_data::MTLSCommonNameParseMode::Meta:
-        {
-            if constexpr (BMCWEB_META_TLS_COMMON_NAME_PARSING)
-            {
-                return getMetaUserNameFromCert(cert);
-            }
         }
         default:
         {
