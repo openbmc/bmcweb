@@ -250,11 +250,9 @@ option(
 option(
     'mutual-tls-common-name-parsing-default',
     type: 'combo',
-    choices: ['CommonName', 'Whole', 'UserPrincipalName', 'Meta'],
-    description: '''
-        Parses the Subject CN in the format used by
-                                Meta Inc (see mutual_tls_meta.cpp for details)
-                    ''',
+    choices: ['CommonName', 'Whole', 'UserPrincipalName'],
+    description: '''Default MTLS parse mode to get username from the
+                    client's x509 certificate''',
 )
 
 # BMCWEB_META_TLS_COMMON_NAME_PARSING
