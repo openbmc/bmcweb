@@ -161,7 +161,6 @@ enum class MTLSCommonNameParseMode
     // Intentional gap for future DMTF-defined enums
 
     // OEM parsing modes for various OEMs
-    Meta = 100,
 };
 
 inline MTLSCommonNameParseMode getMTLSCommonNameParseMode(std::string_view name)
@@ -178,13 +177,6 @@ inline MTLSCommonNameParseMode getMTLSCommonNameParseMode(std::string_view name)
     if (name == "UserPrincipalName")
     {
         return MTLSCommonNameParseMode::UserPrincipalName;
-    }
-    if constexpr (BMCWEB_META_TLS_COMMON_NAME_PARSING)
-    {
-        if (name == "Meta")
-        {
-            return MTLSCommonNameParseMode::Meta;
-        }
     }
     return MTLSCommonNameParseMode::Invalid;
 }
@@ -250,9 +242,7 @@ struct AuthConfigMethods
                     MTLSCommonNameParseMode tmpMTLSCommonNameParseMode =
                         static_cast<MTLSCommonNameParseMode>(*intValue);
                     if (tmpMTLSCommonNameParseMode <=
-                            MTLSCommonNameParseMode::UserPrincipalName ||
-                        tmpMTLSCommonNameParseMode ==
-                            MTLSCommonNameParseMode::Meta)
+                            MTLSCommonNameParseMode::UserPrincipalName)
                     {
                         mTLSCommonNameParsingMode = tmpMTLSCommonNameParseMode;
                     }
