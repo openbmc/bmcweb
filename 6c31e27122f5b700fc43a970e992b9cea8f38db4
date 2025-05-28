@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91301d10_f64163ae",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-28T16:03:30Z",
+      "side": 1,
+      "message": "Yes it should.  fixed",
+      "parentUuid": "01160064_f3695c50",
+      "range": {
+        "startLine": 125,
+        "startChar": 37,
+        "endLine": 125,
+        "endChar": 40
+      },
+      "revId": "6c31e27122f5b700fc43a970e992b9cea8f38db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ecc192d2_ef2a5182",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-05-28T15:38:42Z",
       "side": 1,
       "message": "Shouldn\u0027t this be \u003d\u003d nullptr?",
+      "range": {
+        "startLine": 185,
+        "startChar": 39,
+        "endLine": 185,
+        "endChar": 42
+      },
+      "revId": "6c31e27122f5b700fc43a970e992b9cea8f38db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a13fe52_2cd1a1b5",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-28T16:03:30Z",
+      "side": 1,
+      "message": "Yes it should.  fixed",
+      "parentUuid": "ecc192d2_ef2a5182",
       "range": {
         "startLine": 185,
         "startChar": 39,
