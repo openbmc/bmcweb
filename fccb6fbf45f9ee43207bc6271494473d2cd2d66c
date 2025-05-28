@@ -16,6 +16,24 @@
       "message": "Individual command handlers should not be reimplementing authorization.  If there\u0027s things that we need in the normal command registration, we can add that to the core, but from the description it isn\u0027t clear why ipmi is special here and needs to know the users role.  If the user is unauthorized, override the 401 handlers and we can return whatever response we need.",
       "revId": "fccb6fbf45f9ee43207bc6271494473d2cd2d66c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13f476e3_25a272ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000044
+      },
+      "writtenOn": "2025-05-28T07:57:38Z",
+      "side": 1,
+      "message": "As described in https://gerrit.openbmc.org/c/openbmc/docs/+/80188, bmcweb is going to convert the user\u0027s role in Redfish to IPMI\u0027s privilege.\n\nThis is needed because at bmcweb level:\n1. As long as the user is authenticated, it allows the use of `/ipmi` URI;\n2. bmcweb does not know if the user has the privilege to execute IPMI command, (like net-ipmid does not know as well), it invokes the D-Bus call to ipmid and send the response. (like net-ipmid does)",
+      "parentUuid": "54182ae5_33990970",
+      "revId": "fccb6fbf45f9ee43207bc6271494473d2cd2d66c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
