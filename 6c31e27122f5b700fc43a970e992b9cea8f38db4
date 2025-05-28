@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01160064_f3695c50",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-28T15:38:42Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be \u003d\u003d nullptr?",
+      "range": {
+        "startLine": 125,
+        "startChar": 37,
+        "endLine": 125,
+        "endChar": 40
+      },
+      "revId": "6c31e27122f5b700fc43a970e992b9cea8f38db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecc192d2_ef2a5182",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-05-28T15:38:42Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be \u003d\u003d nullptr?",
+      "range": {
+        "startLine": 185,
+        "startChar": 39,
+        "endLine": 185,
+        "endChar": 42
+      },
+      "revId": "6c31e27122f5b700fc43a970e992b9cea8f38db4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
