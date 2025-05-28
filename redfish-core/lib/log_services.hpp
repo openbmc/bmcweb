@@ -60,9 +60,9 @@
 namespace redfish
 {
 
-constexpr const char* crashdumpObject = "com.intel.crashdump";
-constexpr const char* crashdumpPath = "/com/intel/crashdump";
-constexpr const char* crashdumpInterface = "com.intel.crashdump";
+constexpr const char* crashdumpObject = "com.amd.RAS";
+constexpr const char* crashdumpPath = "/com/amd/RAS";
+constexpr const char* crashdumpInterface = "com.amd.crashdump";
 constexpr const char* deleteAllInterface =
     "xyz.openbmc_project.Collection.DeleteAll";
 constexpr const char* crashdumpOnDemandInterface =
@@ -81,6 +81,23 @@ enum class DumpCreationProgress
     DUMP_CREATE_FAILED,
     DUMP_CREATE_INPROGRESS
 };
+
+enum class AttributeType
+{
+    Boolean,
+    String,
+    Integer,
+    ArrayOfStrings,
+    KeyValueMap,
+};
+
+using ConfigTable =
+    std::map<std::string,
+             std::tuple<std::string, std::string,
+                        std::variant<bool, std::string, int64_t,
+                                     std::vector<std::string>,
+                                     std::map<std::string, std::string>>,
+                        int64_t>>;
 
 namespace fs = std::filesystem;
 
@@ -3396,7 +3413,7 @@ inline void requestRoutesCrashdumpService(App& app)
         asyncResp->res.jsonValue["Description"] = "Oem Crashdump Service";
         asyncResp->res.jsonValue["Id"] = "Crashdump";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
-        asyncResp->res.jsonValue["MaxNumberOfRecords"] = 3;
+        asyncResp->res.jsonValue["MaxNumberOfRecords"] = 10;
 
         std::pair<std::string, std::string> redfishDateTimeOffset =
             redfish::time_utils::getDateTimeOffsetNow();
@@ -3414,6 +3431,10 @@ inline void requestRoutesCrashdumpService(App& app)
         asyncResp->res.jsonValue["Actions"]["#LogService.CollectDiagnosticData"]
                                 ["target"] = std::format(
             "/redfish/v1/Systems/{}/LogServices/Crashdump/Actions/LogService.CollectDiagnosticData",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        asyncResp->res.jsonValue["Actions"]["#Oem/Crashdump.Configuration"]
+                                ["target"] = std::format(
+            "/redfish/v1/Systems/{}/LogServices/Crashdump/Actions/Oem/Crashdump.Configuration",
             BMCWEB_REDFISH_SYSTEM_URI_NAME);
     });
 }
@@ -3509,8 +3530,18 @@ static void
         logEntry["EntryType"] = "Oem";
         logEntry["AdditionalDataURI"] = std::move(crashdumpURI);
         logEntry["DiagnosticDataType"] = "OEM";
-        logEntry["OEMDiagnosticDataType"] = "PECICrashdump";
         logEntry["Created"] = std::move(timestamp);
+
+        std::string DiagnosticDataTypeString;
+
+        if (filename.find("mca-runtime") != std::string::npos)
+            DiagnosticDataTypeString = "Mca_RuntimeError_APMLCrashdump";
+        else if (filename.find("dram-runtime") != std::string::npos)
+            DiagnosticDataTypeString = "DramCecc_RuntimeError_APMLCrashdump";
+        else if (filename.find("pcie-runtime") != std::string::npos)
+            DiagnosticDataTypeString = "Pcie_RuntimeError_APMLCrashdump";
+        else
+            DiagnosticDataTypeString = "PECICrashdump";
 
         // If logEntryJson references an array of LogEntry resources
         // ('Members' list), then push this as a new entry, otherwise set it
@@ -3726,6 +3757,484 @@ inline void requestRoutesCrashdumpFile(App& app)
             *crow::connections::systemBus, crashdumpObject,
             crashdumpPath + std::string("/") + logID, crashdumpInterface,
             std::move(getStoredLogCallback));
+    });
+}
+
+inline void requestRoutesCrashdumpConfig(App& app)
+{
+    // Note: Deviated from redfish privilege registry for GET & HEAD
+    // method for security reasons.
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Crashdump/"
+                      "Actions/Oem/Crashdump.Configuration")
+        .privileges({{"ConfigureComponents"}})
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            BMCWEB_LOG_ERROR("Failed to setup Redfish route");
+            return;
+        }
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogService.v1_2_0.LogService";
+        asyncResp->res.jsonValue["@odata.id"] =
+            std::format("/redfish/v1/Systems/{}/LogServices/Crashdump/"
+                        "Actions/Oem/Crashdump.Configuration",
+                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+        sdbusplus::asio::getProperty<ConfigTable>(
+            *crow::connections::systemBus, "com.amd.RAS", "/com/amd/RAS",
+            "com.amd.RAS.Configuration", "RasConfigTable",
+            [asyncResp](const boost::system::error_code& ec,
+                        const ConfigTable& rasConfigTable) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("DBUS RAS Config response error {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            nlohmann::json jsonConfigTable = nlohmann::json::object();
+
+            for (const auto& [key, tuple] : rasConfigTable)
+            {
+                const auto& variant = std::get<2>(
+                    tuple); // Extract the variant (third element of the tuple)
+
+                std::visit([&jsonConfigTable, &key](auto&& value) {
+                    using T =
+                        std::decay_t<decltype(value)>; // Get the actual type of
+                                                       // the value
+                    if constexpr (std::is_same_v<T, bool>)
+                    {
+                        jsonConfigTable[key] = value; // Handle bool type
+                    }
+                    else if constexpr (std::is_same_v<T, std::string>)
+                    {
+                        jsonConfigTable[key] = value; // Handle std::string type
+                    }
+                    else if constexpr (std::is_same_v<T, int64_t>)
+                    {
+                        jsonConfigTable[key] = value; // Handle int64_t type
+                    }
+                    else if constexpr (std::is_same_v<T,
+                                                      std::vector<std::string>>)
+                    {
+                        jsonConfigTable[key] =
+                            value; // Handle vector<std::string> type
+                    }
+                    else if constexpr (std::is_same_v<T, std::map<std::string,
+                                                                  std::string>>)
+                    {
+                        jsonConfigTable[key] =
+                            value; // Handle map<string, string> type
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_DEBUG("Unknown variant type encountered.");
+                    }
+                }, variant);
+            }
+            asyncResp->res.jsonValue["ConfigTable"] = jsonConfigTable;
+        });
+    });
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/Crashdump/"
+                      "Actions/Oem/Crashdump.Configuration")
+        .privileges({{"ConfigureComponents"}})
+        .methods(boost::beast::http::verb::patch)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            BMCWEB_LOG_ERROR("Failed to setup Redfish route");
+            return;
+        }
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            // Option currently returns no systems.  TBD
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        std::optional<std::map<std::string, std::string>> aifsSignatureIdList;
+        std::optional<int64_t> apmlRetries;
+        std::optional<std::string> SystemRecoveryMode;
+        std::optional<std::string> ResetSignalType;
+        std::optional<bool> HarvestMicrocode;
+        std::optional<bool> HarvestPPIN;
+        std::optional<std::vector<std::string>> SigIdOffset;
+        std::optional<bool> aifsArmed;
+        std::optional<bool> DisableAifsResetOnSyncfloodCounter;
+        std::optional<bool> DramCeccPollingEn;
+        std::optional<bool> McaPollingEn;
+        std::optional<bool> PcieAerPollingEn;
+        std::optional<bool> DramCeccThresholdEn;
+        std::optional<bool> McaThresholdEn;
+        std::optional<bool> PcieAerThresholdEn;
+        std::optional<int64_t> McaPollingPeriod;
+        std::optional<int64_t> DramCeccPollingPeriod;
+        std::optional<int64_t> PcieAerPollingPeriod;
+        std::optional<int64_t> DramCeccErrThresholdCnt;
+        std::optional<int64_t> McaErrThresholdCnt;
+        std::optional<int64_t> PcieAerErrThresholdCnt;
+
+        if (!redfish::json_util::readJsonAction(
+                req, asyncResp->res, "AifsSignatureIdList", aifsSignatureIdList,
+                "ApmlRetries", apmlRetries, "SystemRecoveryMode",
+                SystemRecoveryMode, "ResetSignalType", ResetSignalType,
+                "HarvestMicrocode", HarvestMicrocode, "HarvestPPIN",
+                HarvestPPIN, "SigIdOffset", SigIdOffset, "AifsArmed", aifsArmed,
+                "DisableAifsResetOnSyncfloodCounter",
+                DisableAifsResetOnSyncfloodCounter, "DramCeccPollingEn",
+                DramCeccPollingEn, "McaPollingEn", McaPollingEn,
+                "PcieAerPollingEn", PcieAerPollingEn, "DramCeccThresholdEn",
+                DramCeccThresholdEn, "McaThresholdEn", McaThresholdEn,
+                "PcieAerThresholdEn", PcieAerThresholdEn, "McaPollingPeriod",
+                McaPollingPeriod, "DramCeccPollingPeriod",
+                DramCeccPollingPeriod, "PcieAerPollingPeriod",
+                PcieAerPollingPeriod, "DramCeccErrThresholdCnt",
+                DramCeccErrThresholdCnt, "McaErrThresholdCnt",
+                McaErrThresholdCnt, "PcieAerErrThresholdCnt",
+                PcieAerErrThresholdCnt))
+        {
+            return;
+        }
+
+        if (aifsSignatureIdList)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "AifsSignatureIdList",
+                std::variant<std::map<std::string, std::string>>(
+                    *aifsSignatureIdList));
+        }
+
+        if (apmlRetries)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "ApmlRetries",
+                std::variant<int64_t>(*apmlRetries));
+        }
+        if (SystemRecoveryMode)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "SystemRecoveryMode",
+                std::variant<std::string>(*SystemRecoveryMode));
+        }
+        if (ResetSignalType)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "ResetSignalType",
+                std::variant<std::string>(*ResetSignalType));
+        }
+        if (HarvestMicrocode)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "HarvestMicrocode",
+                std::variant<bool>(*HarvestMicrocode));
+        }
+        if (HarvestPPIN)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "HarvestPPIN",
+                std::variant<bool>(*HarvestPPIN));
+        }
+        if (SigIdOffset)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "SigIdOffset",
+                std::variant<std::vector<std::string>>(*SigIdOffset));
+        }
+        if (aifsArmed)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "AifsArmed", std::variant<bool>(*aifsArmed));
+        }
+        if (DisableAifsResetOnSyncfloodCounter)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "DisableAifsResetOnSyncfloodCounter",
+                std::variant<bool>(*DisableAifsResetOnSyncfloodCounter));
+        }
+        if (DramCeccPollingEn)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "DramCeccPollingEn",
+                std::variant<bool>(*DramCeccPollingEn));
+        }
+        if (McaPollingEn)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "McaPollingEn",
+                std::variant<bool>(*McaPollingEn));
+        }
+        if (PcieAerPollingEn)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "PcieAerPollingEn",
+                std::variant<bool>(*PcieAerPollingEn));
+        }
+        if (DramCeccThresholdEn)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "DramCeccThresholdEn",
+                std::variant<bool>(*DramCeccThresholdEn));
+        }
+        if (McaThresholdEn)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "McaThresholdEn",
+                std::variant<bool>(*McaThresholdEn));
+        }
+        if (PcieAerThresholdEn)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "PcieAerThresholdEn",
+                std::variant<bool>(*PcieAerThresholdEn));
+        }
+        if (McaPollingPeriod)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "McaPollingPeriod",
+                std::variant<int64_t>(*McaPollingPeriod));
+        }
+        if (DramCeccPollingPeriod)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "DramCeccPollingPeriod",
+                std::variant<int64_t>(*DramCeccPollingPeriod));
+        }
+        if (PcieAerPollingPeriod)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "PcieAerPollingPeriod",
+                std::variant<int64_t>(*PcieAerPollingPeriod));
+        }
+        if (DramCeccErrThresholdCnt)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "DramCeccErrThresholdCnt",
+                std::variant<int64_t>(*DramCeccErrThresholdCnt));
+        }
+        if (McaErrThresholdCnt)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "McaErrThresholdCnt",
+                std::variant<int64_t>(*McaErrThresholdCnt));
+        }
+        if (PcieAerErrThresholdCnt)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                return;
+            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+                "SetAttribute", "PcieAerErrThresholdCnt",
+                std::variant<int64_t>(*PcieAerErrThresholdCnt));
+        }
     });
 }
 
