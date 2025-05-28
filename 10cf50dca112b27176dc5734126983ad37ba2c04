@@ -22,6 +22,30 @@
       },
       "revId": "10cf50dca112b27176dc5734126983ad37ba2c04",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fd22bbe_3811fd92",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-28T16:34:25Z",
+      "side": 0,
+      "message": "Good callout.  Removed.",
+      "parentUuid": "5fe08ef3_d3b8a25a",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "10cf50dca112b27176dc5734126983ad37ba2c04",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
