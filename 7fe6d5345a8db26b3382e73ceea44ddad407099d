@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f15f51a8_8898b6da",
+        "filename": "test/include/sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-28T16:36:32Z",
+      "side": 0,
+      "message": "Added back TLS.",
+      "parentUuid": "fd2007b5_030b013c",
+      "range": {
+        "startLine": 14,
+        "startChar": 63,
+        "endLine": 14,
+        "endChar": 73
+      },
+      "revId": "7fe6d5345a8db26b3382e73ceea44ddad407099d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ba026d3_e8628fd7",
@@ -61,6 +85,30 @@
       "writtenOn": "2025-05-07T13:36:29Z",
       "side": 0,
       "message": "Is the removal of the TLS one on purpose?",
+      "range": {
+        "startLine": 34,
+        "startChar": 63,
+        "endLine": 34,
+        "endChar": 73
+      },
+      "revId": "7fe6d5345a8db26b3382e73ceea44ddad407099d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8a5f000_72e4a0c6",
+        "filename": "test/include/sessions_test.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-28T16:36:32Z",
+      "side": 0,
+      "message": "Added back.",
+      "parentUuid": "7ba026d3_e8628fd7",
       "range": {
         "startLine": 34,
         "startChar": 63,
