@@ -89,18 +89,16 @@ inline void afterGetProperties(
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR("error_code = {}", ec);
-        BMCWEB_LOG_ERROR("error msg = {}", ec.message());
         // Have seen the code update app delete the
         // D-Bus object, during code update, between
         // the call to mapper and here. Just leave
         // these properties off if resource not
         // found.
-        if (ec.value() == EBADR)
+        if (ec.value() != EBADR)
         {
-            return;
+            BMCWEB_LOG_ERROR("error_code = {}", ec);
+            messages::internalError(asyncResp->res);
         }
-        messages::internalError(asyncResp->res);
         return;
     }
     // example propertiesList
@@ -176,9 +174,11 @@ inline void afterGetSubtree(
 {
     if (ec)
     {
-        BMCWEB_LOG_ERROR("error_code = {}", ec);
-        BMCWEB_LOG_ERROR("error msg = {}", ec.message());
-        messages::internalError(asyncResp->res);
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_ERROR("error_code = {}", ec);
+            messages::internalError(asyncResp->res);
+        }
         return;
     }
 
@@ -236,7 +236,6 @@ inline void afterAssociatedEndpoints(
     if (ec)
     {
         BMCWEB_LOG_DEBUG("error_code = {}", ec);
-        BMCWEB_LOG_DEBUG("error msg = {}", ec.message());
         // No functional software for this swVersionPurpose, so just
         return;
     }
