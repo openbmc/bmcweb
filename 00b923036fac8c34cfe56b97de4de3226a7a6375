@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf9646bb_e54c6036",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-29T08:27:35Z",
+      "side": 1,
+      "message": "This might need some rework and would increase the scope of this patch. Shall we take this up as a follow up commit ?",
+      "parentUuid": "92f964c3_0ce5a407",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 39
+      },
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ed2791f_551324da",
         "filename": "http/http_body.hpp",
         "patchSetId": 3
@@ -72,6 +96,30 @@
       "writtenOn": "2025-05-15T22:41:34Z",
       "side": 1,
       "message": "Another thing to consider here is that now all URIs will now implicitly support reading multipart requests.  We should make some attempt to disallow that in the obvious cases.\n\nChecking the verb is POST before allowing multipart would be a good start, and would remove a lot of the obvious footguns that would give a weird error message back to the user.",
+      "range": {
+        "startLine": 274,
+        "startChar": 33,
+        "endLine": 274,
+        "endChar": 44
+      },
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fea537c7_3d7cdd34",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-29T08:27:35Z",
+      "side": 1,
+      "message": "I\u0027ve added a check for POST method. Please review.",
+      "parentUuid": "8ed2791f_551324da",
       "range": {
         "startLine": 274,
         "startChar": 33,
@@ -95,6 +143,24 @@
       "writtenOn": "2025-05-12T22:31:44Z",
       "side": 1,
       "message": "Please fix this check.\n\n1. !multipartParser will always be true when this is called after construction\n2. We have content-type parsers now.  Please use them.\n3. !contentType.empty() is redundant if the next check is comparing starts_with",
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7678cef3_2e9ea317",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-29T08:27:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "88c13a7d_bd48e811",
       "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -136,6 +202,30 @@
       "side": 1,
       "message": "Makes sense, I\u0027ll revert this",
       "parentUuid": "d03aceeb_12025d3f",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 40
+      },
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d25b0b7d_e87f9532",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-29T08:27:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47ead476_b9260781",
       "range": {
         "startLine": 283,
         "startChar": 0,
@@ -217,6 +307,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0856448_778972b9",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-29T08:27:35Z",
+      "side": 1,
+      "message": "I\u0027ve handled this in the code, please re-review.",
+      "parentUuid": "0ea4942b_17ca5c3f",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 54
+      },
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d01de985_6247fe00",
@@ -248,6 +362,24 @@
       "side": 1,
       "message": "Agree, I\u0027ll make the change.",
       "parentUuid": "d01de985_6247fe00",
+      "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebb04e7f_28c4979c",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-05-29T08:27:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22b7db24_089d80f6",
       "revId": "00b923036fac8c34cfe56b97de4de3226a7a6375",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
