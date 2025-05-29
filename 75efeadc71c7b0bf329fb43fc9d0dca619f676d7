@@ -224,6 +224,30 @@
       },
       "revId": "75efeadc71c7b0bf329fb43fc9d0dca619f676d7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a65648e7_461a3e7b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 39
+      },
+      "lineNbr": 2624,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-05-29T17:15:33Z",
+      "side": 1,
+      "message": "I have moved this change to the next commit in this commit chain (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/78103)\n\nI will take this comment in the above mentioned commit.",
+      "parentUuid": "2d7feb54_557325bf",
+      "range": {
+        "startLine": 2622,
+        "startChar": 0,
+        "endLine": 2624,
+        "endChar": 14
+      },
+      "revId": "75efeadc71c7b0bf329fb43fc9d0dca619f676d7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
