@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc2f9687_2ddf0274",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-05-29T08:35:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38971759_8c1eec40",
+      "range": {
+        "startLine": 1138,
+        "startChar": 0,
+        "endLine": 1145,
+        "endChar": 5
+      },
+      "revId": "59cef4fc8196707e9bcaf85fb5a431519e662a64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "144bf2aa_55a0ff0b",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09579f2b_4086318b",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 1434,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-05-29T08:35:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "144bf2aa_55a0ff0b",
+      "range": {
+        "startLine": 1434,
+        "startChar": 0,
+        "endLine": 1434,
+        "endChar": 56
+      },
+      "revId": "59cef4fc8196707e9bcaf85fb5a431519e662a64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b0eddc1_404f7a5a",
@@ -60,6 +108,24 @@
       "writtenOn": "2025-04-21T14:05:27Z",
       "side": 1,
       "message": "I think this readJson can be merged into L2405 readJsonPatch, and we can remove `mfaBypassJson`.\n\n```\n        // Users with ConfigureUsers can modify for all users\n        if (!json_util::readJsonPatch(        //\n                req, asyncResp-\u003eres,          //\n                \"AccountTypes\", accountTypes, //\n                \"Enabled\", enabled,           //\n                \"Locked\", locked,             //\n                \"MFABypass/BypassTypes\", mfaBypass,   // \u003c\u003d\u003d\u003d\u003d\n                \"Password\", password,         //\n                \"RoleId\", roleId,             //\n                \"UserName\", newUserName       //\n                ))\n```",
+      "revId": "59cef4fc8196707e9bcaf85fb5a431519e662a64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3dfcb8b_f1ab4df1",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 73
+      },
+      "lineNbr": 2440,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-05-29T08:35:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b0eddc1_404f7a5a",
       "revId": "59cef4fc8196707e9bcaf85fb5a431519e662a64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
