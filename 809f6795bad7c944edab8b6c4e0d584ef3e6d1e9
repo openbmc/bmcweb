@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95a5fe25_0eb7975d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-05-30T17:59:33Z",
+      "side": 1,
+      "message": "Can you expand here? \n\n\"During the code update, the following journal messages may be generated due to a \u003cinsert reason why there is a software version with EBADR, I think it is because the software app deleted the old version (based on that comment in the code)\u003e. The EBADR check already doesn\u0027t throw an internal error, it shouldn\u0027t log to the journal either at error based on https://github.com/openbmc/bmcweb/blob/10cf50dca112b27176dc5734126983ad37ba2c04/DEVELOPING.md?plain\u003d1#L213. Also cleaned up these journal traces because logging both ec and ec.message is redundant \u003c(I guess you kind of have that below but might be better to bring up here)\u003e\"",
+      "revId": "809f6795bad7c944edab8b6c4e0d584ef3e6d1e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
