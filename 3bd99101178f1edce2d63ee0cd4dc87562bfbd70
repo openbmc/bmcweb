@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e11c8cef_55e05fd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-05-30T15:16:16Z",
+      "side": 1,
+      "message": "?  I\u0027m not following this statement;  I didn\u0027t see support for logs added to https://github.com/openbmc/telemetry\n\nIs there something I\u0027m missing?",
+      "range": {
+        "startLine": 10,
+        "startChar": 67,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "3bd99101178f1edce2d63ee0cd4dc87562bfbd70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
