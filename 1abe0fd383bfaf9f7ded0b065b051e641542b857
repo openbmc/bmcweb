@@ -33,6 +33,40 @@
       "message": "Looks good to me",
       "revId": "1abe0fd383bfaf9f7ded0b065b051e641542b857",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f4f21ef_8e50daee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 95
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-01T18:56:29Z",
+      "side": 1,
+      "message": "Moving the code around could have been a separate commit but I am fine with it here. Looks good.",
+      "revId": "1abe0fd383bfaf9f7ded0b065b051e641542b857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ad0d436_02fd46f5",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 95
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-01T18:56:29Z",
+      "side": 1,
+      "message": "// since a single line. oh well. \nAlso I think it is slightly more common to see this not as an if/else in bmcweb, but that is fine.",
+      "revId": "1abe0fd383bfaf9f7ded0b065b051e641542b857",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
