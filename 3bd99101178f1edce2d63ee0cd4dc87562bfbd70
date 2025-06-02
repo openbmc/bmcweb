@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0445a8b7_0247378d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-02T19:26:16Z",
+      "side": 1,
+      "message": "That feature doesn\u0027t seem to take into account TelemetryService at all?",
+      "parentUuid": "bb2321ab_3515be30",
+      "range": {
+        "startLine": 10,
+        "startChar": 67,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "3bd99101178f1edce2d63ee0cd4dc87562bfbd70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78b3f942_1bc7cd88",
         "filename": "redfish-core/lib/telemetry_service.hpp",
         "patchSetId": 1
