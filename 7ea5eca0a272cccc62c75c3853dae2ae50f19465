@@ -90,6 +90,30 @@
       },
       "revId": "7ea5eca0a272cccc62c75c3853dae2ae50f19465",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f8a067a_d183f8f0",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 131
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-02T12:48:48Z",
+      "side": 1,
+      "message": "Yes, with this code on line 1107 the @odata.type and @odata.id were being included in the reponse when no object was found.\n\nSo those would get filled in before \ngetProcessorObject()/handleSubProcessorSubtree() which could not find a matching processor.",
+      "parentUuid": "0f837e95_48a45f64",
+      "range": {
+        "startLine": 822,
+        "startChar": 0,
+        "endLine": 828,
+        "endChar": 73
+      },
+      "revId": "7ea5eca0a272cccc62c75c3853dae2ae50f19465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
