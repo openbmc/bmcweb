@@ -143,6 +143,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0be2fbdb_39e0a73d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 906,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-06-02T03:32:53Z",
+      "side": 1,
+      "message": "As per suggestions from @patrick@stwcx.xyz and @paligill@gmail.com floated a PR for add Software.Asset Interface https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/79966",
+      "parentUuid": "cfdd5c2f_bcdbfbee",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "82e0ae46_f2f2eee5",
