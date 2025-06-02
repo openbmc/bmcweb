@@ -770,6 +770,8 @@ inline void requestRoutesEventDestination(App& app)
                     EventServiceManager::getInstance().getSubscription(param);
                 if (subValue == nullptr)
                 {
+                    BMCWEB_LOG_WARNING("No subscription exists with ID:{}",
+                                       param);
                     asyncResp->res.result(
                         boost::beast::http::status::not_found);
                     return;
@@ -829,6 +831,8 @@ inline void requestRoutesEventDestination(App& app)
                     EventServiceManager::getInstance().getSubscription(param);
                 if (subValue == nullptr)
                 {
+                    BMCWEB_LOG_WARNING("No subscription exists with ID:{}",
+                                       param);
                     asyncResp->res.result(
                         boost::beast::http::status::not_found);
                     return;
