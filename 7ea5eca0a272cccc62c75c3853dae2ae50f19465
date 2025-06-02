@@ -114,6 +114,30 @@
       },
       "revId": "7ea5eca0a272cccc62c75c3853dae2ae50f19465",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d020d940_a81b248c",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 131
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-02T15:28:29Z",
+      "side": 1,
+      "message": "Ack. I am good.",
+      "parentUuid": "8f8a067a_d183f8f0",
+      "range": {
+        "startLine": 822,
+        "startChar": 0,
+        "endLine": 828,
+        "endChar": 73
+      },
+      "revId": "7ea5eca0a272cccc62c75c3853dae2ae50f19465",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
