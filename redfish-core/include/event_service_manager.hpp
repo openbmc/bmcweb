@@ -302,7 +302,7 @@ class EventServiceManager
         auto obj = subscriptionsMap.find(id);
         if (obj == subscriptionsMap.end())
         {
-            BMCWEB_LOG_ERROR("No subscription exist with ID:{}", id);
+            BMCWEB_LOG_DEBUG("No subscription exist with ID:{}", id);
             return nullptr;
         }
         std::shared_ptr<Subscription> subValue = obj->second;

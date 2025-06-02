@@ -78,6 +78,18 @@ inline void getSnmpTrapClientdata(
     asyncResp->res.jsonValue["EventFormatType"] =
         event_destination::EventFormatType::Event;
 
+    std::shared_ptr<Subscription> subValue =
+        EventServiceManager::getInstance().getSubscription(id);
+    if (subValue != nullptr)
+    {
+        const persistent_data::UserSubscription& userSub = *subValue->userSub;
+        asyncResp->res.jsonValue["Context"] = userSub.customText;
+    }
+    else
+    {
+        asyncResp->res.jsonValue["Context"] = "";
+    }
+
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.Network.SNMP", objectPath,
         "xyz.openbmc_project.Network.Client",
