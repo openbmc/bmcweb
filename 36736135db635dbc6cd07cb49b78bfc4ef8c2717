@@ -212,6 +212,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fc55edb_13081ea9",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-06-02T06:13:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "20c9f63d_f283e5bd",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc7c355b_ec535485",
@@ -225,6 +243,24 @@
       "writtenOn": "2025-04-16T10:29:07Z",
       "side": 1,
       "message": "This function could be moved to bios_utils.hpp under `redfish-core/include/utils`",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3f9da42_dbabb9b9",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-06-02T06:13:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "cc7c355b_ec535485",
       "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -266,6 +302,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "61a6e719_35f51473",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-06-02T06:13:25Z",
+      "side": 1,
+      "message": "Per dbus-usage.md, we should be using dbus to determine if these interfaces are present. This should not be a compiler flag.",
+      "parentUuid": "82a76fe8_1aa22a91",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "650ee86f_97f5381c",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 14
@@ -295,6 +349,24 @@
       "side": 1,
       "message": "I would agree with you. But I believe others would want this to be an opt in option, at least to start.",
       "parentUuid": "650ee86f_97f5381c",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86c5a1bd_0d75b2d4",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-06-02T06:13:25Z",
+      "side": 1,
+      "message": "Per dbus-usage.md, we should be using dbus to determine if these interfaces are present. This should not be a compiler flag.",
+      "parentUuid": "a5728a49_cd201dc9",
       "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
