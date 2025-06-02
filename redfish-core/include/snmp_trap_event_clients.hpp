@@ -78,6 +78,11 @@ inline void getSnmpTrapClientdata(
     asyncResp->res.jsonValue["EventFormatType"] =
         event_destination::EventFormatType::Event;
 
+    /* Context is required Redfish field,
+     * but SNMP backend doesn't support a context string.
+     */
+    asyncResp->res.jsonValue["Context"] = "";
+
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.Network.SNMP", objectPath,
         "xyz.openbmc_project.Network.Client",
