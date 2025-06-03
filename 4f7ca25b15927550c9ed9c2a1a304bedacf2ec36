@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc698eff_61e0cd68",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-03T02:41:11Z",
+      "side": 1,
+      "message": "I would kind of expect the same pattern for all of these, e.g. like below. Oh well.  \n\n                            if (jObj \u003d\u003d nullptr)\n                            {\n                                continue;\n                            }",
+      "revId": "4f7ca25b15927550c9ed9c2a1a304bedacf2ec36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4965d50c_101054eb",
+        "filename": "test/include/sessions_test.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-03T02:41:11Z",
+      "side": 1,
+      "message": "I see you swapped these 2. Could now swap \n\n    jsonValue[\"MTLSCommonNameParseMode\"] \u003d 4;\n    jsonValue[\"SessionToken\"] \u003d true;\n\nto put in alphabetical order. Oh well.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 28
+      },
+      "revId": "4f7ca25b15927550c9ed9c2a1a304bedacf2ec36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
