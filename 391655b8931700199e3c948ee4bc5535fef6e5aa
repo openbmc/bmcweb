@@ -16,6 +16,24 @@
       "message": "There was a comment on the commit below that it would be better if this is set in 1 place but this way (the default here, go with the default if the interface doesn\u0027t exist) is what I see other places in the code. \n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/69859/6/redfish-core/lib/memory.hpp",
       "revId": "391655b8931700199e3c948ee4bc5535fef6e5aa",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da1059c6_6821bd43",
+        "filename": "redfish-core/lib/fabric_ports.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-04T20:32:31Z",
+      "side": 1,
+      "message": "I moved the default value to getFabricPortState() \u0026 getFabricPortHealth().",
+      "parentUuid": "d0c1af82_9a84299f",
+      "revId": "391655b8931700199e3c948ee4bc5535fef6e5aa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
