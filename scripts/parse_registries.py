@@ -250,7 +250,7 @@ def get_response_code(entry_id: str) -> str | None:
         "OperationTimeout": "internal_server_error",
         "PasswordChangeRequired": None,
         "PreconditionFailed": "precondition_failed",
-        "PropertyNotWritable": "forbidden",
+        "PropertyNotWritable": "method_not_allowed",
         "PropertyValueExternalConflict": "conflict",
         "PropertyValueModified": "ok",
         "PropertyValueResourceConflict": "conflict",

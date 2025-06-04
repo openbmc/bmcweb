@@ -287,7 +287,7 @@ nlohmann::json::object_t propertyNotWritable(std::string_view arg1)
 
 void propertyNotWritable(crow::Response& res, std::string_view arg1)
 {
-    res.result(boost::beast::http::status::forbidden);
+    res.result(boost::beast::http::status::method_not_allowed);
     addMessageToJson(res.jsonValue, propertyNotWritable(arg1), arg1);
 }
 
