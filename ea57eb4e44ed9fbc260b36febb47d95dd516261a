@@ -140,6 +140,24 @@
       "parentUuid": "10918751_bd3c9764",
       "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e0d6412_5bcdd138",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-06-04T13:23:56Z",
+      "side": 1,
+      "message": "Hello, I am currently authoring some patches regarding multi-host and also search for a solution to handle the chassis correctly. I have looked into your patch, but this approach  unfortunately would not work for multi-host. Your approach would link every found chassis to each host. Meaning, requesting /redfish/v1/Systems/{system1} on a yosemite4 server would link to chassis1, chassis2, .., chassisN. But we really would want system1 to only link to chassis1 for this specific request as per specification. I think as @gunnar@gmills.xyz already pointed out, the only viable solution would be to use associations. Since I already spent some time on this topic, I could offer to update EM to use associations for the chassis and keep you updated. I am not sure though how fast we can transition, because this change does affect every machine.. @gunnar@gmills.xyz , @ed@tanous.net is this something that should be started with a design doc?",
+      "parentUuid": "0a773399_54d7ed15",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
