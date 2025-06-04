@@ -16,6 +16,29 @@
       "message": "You\u0027ve missed several places this needs added.  Check everywhere we call gracefulClose() and make sure that this is handled.",
       "revId": "31065625daa603292f7a10a937a7825540ec4ecd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f867c436_f59d27a1",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-04T17:29:08Z",
+      "side": 1,
+      "message": "I wonder if all abnormal closes should be going through hard close here instead of taking the commands one at a time.\n\n@chandra, can you also run https://gerrit.openbmc.org/c/openbmc/bmcweb/+/80839 through your tests?",
+      "range": {
+        "startLine": 625,
+        "startChar": 12,
+        "endLine": 625,
+        "endChar": 25
+      },
+      "revId": "31065625daa603292f7a10a937a7825540ec4ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
