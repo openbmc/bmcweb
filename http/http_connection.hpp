@@ -21,6 +21,7 @@
 
 #include <boost/asio/error.hpp>
 #include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/ssl/error.hpp>
 #include <boost/asio/ssl/stream.hpp>
 #include <boost/asio/ssl/stream_base.hpp>
 #include <boost/asio/ssl/verify_context.hpp>
@@ -610,7 +611,8 @@ class Connection :
                 doWrite();
                 return;
             }
-            if (ec == boost::beast::http::error::end_of_stream)
+            if (ec == boost::beast::http::error::end_of_stream ||
+                ec == boost::asio::ssl::error::stream_truncated)
             {
                 BMCWEB_LOG_WARNING("{} End of stream, closing {}", logPtr(this),
                                    ec);
@@ -715,6 +717,15 @@ class Connection :
                 return;
             }
 
+            if (ec == boost::beast::http::error::end_of_stream ||
+                ec == boost::asio::ssl::error::stream_truncated)
+            {
+                BMCWEB_LOG_WARNING("{} End of stream, closing {}", logPtr(this),
+                                   ec);
+                hardClose();
+                return;
+            }
+
             gracefulClose();
             return;
         }
@@ -783,6 +794,16 @@ class Connection :
             doWrite();
             return;
         }
+
+        if (ec == boost::beast::http::error::end_of_stream ||
+            ec == boost::asio::ssl::error::stream_truncated)
+        {
+            BMCWEB_LOG_WARNING("{} End of stream, closing {}", logPtr(this),
+                               ec);
+            hardClose();
+            return;
+        }
+
         if (ec)
         {
             BMCWEB_LOG_DEBUG("{} from write(2)", logPtr(this));
