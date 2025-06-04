@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fbce4cb4_62ef41a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-04T17:40:16Z",
+      "side": 1,
+      "message": "nit, \"in parallel\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 36,
+        "endLine": 9,
+        "endChar": 46
+      },
+      "revId": "31065625daa603292f7a10a937a7825540ec4ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db131de3_0d20ae6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-04T17:40:16Z",
+      "side": 1,
+      "message": "Lets be clear, bmcweb was taking several minutes to close the sockets.  It\u0027s not that they were never closed.\n\nThis is the expected behavior when we have 200 sockets open to prevent DOS attacks.",
+      "range": {
+        "startLine": 11,
+        "startChar": 28,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "31065625daa603292f7a10a937a7825540ec4ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9b8ce273_507c6584",
         "filename": "http/http_connection.hpp",
         "patchSetId": 4
