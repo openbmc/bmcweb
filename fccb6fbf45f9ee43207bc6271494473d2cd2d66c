@@ -52,6 +52,24 @@
       "parentUuid": "13f476e3_25a272ce",
       "revId": "fccb6fbf45f9ee43207bc6271494473d2cd2d66c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "122a643e_f0d4c1e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-04T17:21:52Z",
+      "side": 1,
+      "message": "FWIW, operator and user privilege levels don\u0027t really meet their intended purpose.  It\u0027s been on my list to go suggest a simplified model (admin and read only) to simplify this.  So assuming that goes through, this might not be needed for long.",
+      "parentUuid": "0786adea_39a4d086",
+      "revId": "fccb6fbf45f9ee43207bc6271494473d2cd2d66c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
