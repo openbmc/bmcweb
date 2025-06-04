@@ -34,6 +34,24 @@
       "parentUuid": "54182ae5_33990970",
       "revId": "fccb6fbf45f9ee43207bc6271494473d2cd2d66c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0786adea_39a4d086",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-04T15:13:52Z",
+      "side": 1,
+      "message": "\u003e bmcweb is going to convert the user\u0027s role in Redfish to IPMI\u0027s privilege.\n\nNot interested in delegating privilege checks outside of the application holding the socket.  That increases the likelihood for injection attacks.  For the moment, lets build this out for admin users only, and once we\u0027ve agreed on the protocol, we can see how important managing user privileges is and treat it as a separate patch.",
+      "parentUuid": "13f476e3_25a272ce",
+      "revId": "fccb6fbf45f9ee43207bc6271494473d2cd2d66c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
