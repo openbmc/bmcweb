@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c83a285e_c9361c75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-06-04T20:10:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "fbce4cb4_62ef41a3",
+      "range": {
+        "startLine": 9,
+        "startChar": 36,
+        "endLine": 9,
+        "endChar": 46
+      },
+      "revId": "31065625daa603292f7a10a937a7825540ec4ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "db131de3_0d20ae6b",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-06-04T17:40:16Z",
       "side": 1,
       "message": "Lets be clear, bmcweb was taking several minutes to close the sockets.  It\u0027s not that they were never closed.\n\nThis is the expected behavior when we have 200 sockets open to prevent DOS attacks.",
+      "range": {
+        "startLine": 11,
+        "startChar": 28,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "31065625daa603292f7a10a937a7825540ec4ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6a968df_354f2a9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-06-04T20:10:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "db131de3_0d20ae6b",
       "range": {
         "startLine": 11,
         "startChar": 28,
@@ -64,6 +112,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ead169c_57a800d4",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-06-04T20:10:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9b8ce273_507c6584",
+      "revId": "31065625daa603292f7a10a937a7825540ec4ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f867c436_f59d27a1",
@@ -77,6 +143,30 @@
       "writtenOn": "2025-06-04T17:29:08Z",
       "side": 1,
       "message": "I wonder if all abnormal closes should be going through hard close here instead of taking the commands one at a time.\n\n@chandra, can you also run https://gerrit.openbmc.org/c/openbmc/bmcweb/+/80839 through your tests?",
+      "range": {
+        "startLine": 625,
+        "startChar": 12,
+        "endLine": 625,
+        "endChar": 25
+      },
+      "revId": "31065625daa603292f7a10a937a7825540ec4ecd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb5fc239_feba78e4",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-06-04T20:10:02Z",
+      "side": 1,
+      "message": "I did test this MR with my script where I simulated 5000 parallel connections at a time, for 30-40 seconds BMC was non responsive after that it started responding and it took around 90 seconds to close all the connections in QEMU. In real hardware it could be slightly high.The behaviour is as expected",
+      "parentUuid": "f867c436_f59d27a1",
       "range": {
         "startLine": 625,
         "startChar": 12,
