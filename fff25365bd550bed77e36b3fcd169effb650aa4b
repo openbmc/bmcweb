@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0920fc9e_4554630b",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-06-05T18:52:45Z",
+      "side": 1,
+      "message": "lost a fragment to this sentence?",
+      "range": {
+        "startLine": 564,
+        "startChar": 21,
+        "endLine": 564,
+        "endChar": 51
+      },
+      "revId": "fff25365bd550bed77e36b3fcd169effb650aa4b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
