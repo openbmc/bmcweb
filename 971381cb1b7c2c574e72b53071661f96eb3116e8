@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc96a2c7_199654b9",
+        "filename": "include/dbus_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-05T20:02:32Z",
+      "side": 1,
+      "message": "Don\u0027t use std::map here.  Use std::vector\u003cstd::pair\u003e, as it compiles smaller and doesn\u0027t require sorting.  If you do want it sorted, sort it.",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 12
+      },
+      "revId": "971381cb1b7c2c574e72b53071661f96eb3116e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0038b6de_72b2bd6f",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-05T20:02:32Z",
+      "side": 1,
+      "message": "\"This property shall contain the peak sensor value since the last `ResetMetrics` action was performed or since the service last reset the time-based property values.\"\n\n\nThat description doesn\u0027t match up with the definition of xyz.openbmc_project.Common.TelemetryLimits.LimitType.PeakValue\n\nI don\u0027t see any connection to the Telemetry daemon that owns ResetMetrics.",
+      "range": {
+        "startLine": 445,
+        "startChar": 20,
+        "endLine": 445,
+        "endChar": 31
+      },
+      "revId": "971381cb1b7c2c574e72b53071661f96eb3116e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
