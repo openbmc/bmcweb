@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9f976a2_57652187",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-05T18:41:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b64b1b73_8cd1c82f",
+      "range": {
+        "startLine": 562,
+        "startChar": 0,
+        "endLine": 562,
+        "endChar": 59
+      },
+      "revId": "3c4757682294715e6bd8b2ce5710e3c348662b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab628c1c_ac918269",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-11-19T16:27:28Z",
       "side": 1,
       "message": "Lets avoid duplicating this block if we can.",
+      "range": {
+        "startLine": 566,
+        "startChar": 0,
+        "endLine": 572,
+        "endChar": 9
+      },
+      "revId": "3c4757682294715e6bd8b2ce5710e3c348662b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "623a956d_65ae038d",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-05T18:41:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab628c1c_ac918269",
       "range": {
         "startLine": 566,
         "startChar": 0,
