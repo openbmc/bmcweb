@@ -134,6 +134,8 @@ bool validateCertificate(X509* const cert)
 
 std::string verifyOpensslKeyCert(const std::string& filepath)
 {
+    std::string fileContents;
+
     bool privateKeyValid = false;
 
     BMCWEB_LOG_INFO("Checking certs in file {}", filepath);
@@ -142,16 +144,16 @@ std::string verifyOpensslKeyCert(const std::string& filepath)
     file.open(filepath.c_str(), boost::beast::file_mode::read, ec);
     if (ec)
     {
-        return "";
+        return fileContents;
     }
     bool certValid = false;
-    std::string fileContents;
     fileContents.resize(static_cast<size_t>(file.size(ec)), '\0');
     file.read(fileContents.data(), fileContents.size(), ec);
     if (ec)
     {
         BMCWEB_LOG_ERROR("Failed to read file");
-        return "";
+        fileContents.clear();
+        return fileContents;
     }
 
     BIO* bufio = BIO_new_mem_buf(static_cast<void*>(fileContents.data()),
@@ -199,7 +201,7 @@ std::string verifyOpensslKeyCert(const std::string& filepath)
     }
     if (!certValid)
     {
-        return "";
+        fileContents.clear();
     }
     return fileContents;
 }
