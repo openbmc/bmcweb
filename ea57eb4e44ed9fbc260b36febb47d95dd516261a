@@ -158,6 +158,24 @@
       "parentUuid": "0a773399_54d7ed15",
       "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20c23887_c6cbd863",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-05T18:02:22Z",
+      "side": 1,
+      "message": "If it helps you, feel free to write a design doc.\n\n\u003cgets on soapbox\u003e For me it\u0027s a lot simpler to look at code than a design doc (ideally code that works) to check for behaviors that I can\u0027t simulate on my systems (I don\u0027t have multi-host BMCs).",
+      "parentUuid": "7e0d6412_5bcdd138",
+      "revId": "ea57eb4e44ed9fbc260b36febb47d95dd516261a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
