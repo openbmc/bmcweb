@@ -307,45 +307,37 @@ class EventServiceManager
     std::string addSubscriptionInternal(
         const std::shared_ptr<Subscription>& subValue)
     {
+        std::string id;
         std::uniform_int_distribution<uint32_t> dist(0);
         bmcweb::OpenSSLGenerator gen;
 
-        std::string id;
-
-        int retry = 3;
-        while (retry != 0)
+        // There isn't a lot of entrophy here, so collisions are to be
+        // expected.   Allow 3 attempts to find a random session token that
+        // doesn't conflict with an existing.
+        for (int retries = 0; retries <= 3; retries++)
         {
             id = std::to_string(dist(gen));
             if (gen.error())
             {
-                retry = 0;
-                break;
+                continue;
             }
             auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
             if (inserted.second)
             {
+                // Set Subscription ID for back trace
+                subValue->userSub->id = id;
+
+                persistent_data::EventServiceStore::getInstance()
+                    .subscriptionsConfigMap.emplace(id, subValue->userSub);
+
+                updateNoOfSubscribersCount();
+
+                // Update retry configuration.
+                subValue->updateRetryConfig(retryAttempts,
+                                            retryTimeoutInterval);
                 break;
             }
-            --retry;
         }
-
-        if (retry <= 0)
-        {
-            BMCWEB_LOG_ERROR("Failed to generate random number");
-            return "";
-        }
-
-        // Set Subscription ID for back trace
-        subValue->userSub->id = id;
-
-        persistent_data::EventServiceStore::getInstance()
-            .subscriptionsConfigMap.emplace(id, subValue->userSub);
-
-        updateNoOfSubscribersCount();
-
-        // Update retry configuration.
-        subValue->updateRetryConfig(retryAttempts, retryTimeoutInterval);
-
         return id;
     }
 
