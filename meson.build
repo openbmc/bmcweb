@@ -103,11 +103,7 @@ if (cxx.get_id() == 'clang')
     )
     if (cxx.version().version_compare('>=21.0'))
         # TODO(Ed) These warnings look valid and need cleaned up.
-        add_project_arguments(
-            '-Wno-unique-object-duplication',
-            '-Wno-nrvo',
-            language: 'cpp',
-        )
+        add_project_arguments('-Wno-unique-object-duplication', language: 'cpp')
     endif
 
     boost_flags += ['-Wno-strict-prototypes', '-Wno-unused-but-set-variable']
