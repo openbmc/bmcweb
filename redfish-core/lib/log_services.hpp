@@ -1778,6 +1778,27 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
             });
 }
 
+inline void afterDBusEventLogEntryGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& entryID, const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& resp)
+{
+    if (ec.value() == EBADR)
+    {
+        messages::resourceNotFound(asyncResp->res, "EventLogEntry", entryID);
+        return;
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("EventLogEntry (DBus) resp_handler got error {}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    fillEventLogLogEntryFromPropertyMap(asyncResp, resp,
+                                        asyncResp->res.jsonValue);
+}
+
 inline void dBusEventLogEntryGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string entryID)
 {
@@ -1788,25 +1809,7 @@ inline void dBusEventLogEntryGet(
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging/entry/" + entryID, "",
-        [asyncResp, entryID](const boost::system::error_code& ec,
-                             const dbus::utility::DBusPropertiesMap& resp) {
-            if (ec.value() == EBADR)
-            {
-                messages::resourceNotFound(asyncResp->res, "EventLogEntry",
-                                           entryID);
-                return;
-            }
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR(
-                    "EventLogEntry (DBus) resp_handler got error {}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            fillEventLogLogEntryFromPropertyMap(asyncResp, resp,
-                                                asyncResp->res.jsonValue);
-        });
+        std::bind_front(afterDBusEventLogEntryGet, asyncResp, entryID));
 }
 
 inline void dBusEventLogEntryPatch(
