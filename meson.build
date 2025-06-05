@@ -106,7 +106,6 @@ if (cxx.get_id() == 'clang')
         # TODO(Ed) These warnings look valid and need cleaned up.
         add_project_arguments(
             '-Wno-unique-object-duplication',
-            '-Wno-nrvo',
             language: 'cpp',
         )
     endif
