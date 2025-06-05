@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72aaa10c_e7936e18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-05T18:41:21Z",
+      "side": 1,
+      "message": "BMCWEB_META_TLS_COMMON_NAME_PARSING is removed from master, so I\u0027ve updated the patch with something that I think can merge and handles all the cases without an option flag.  It\u0027s still got some hackery in that we\u0027re detecting whether the webui is installed to make connection level decision.  The right answer long term is probably to support SSL_VERIFY_POST_HANDSHAKE.  But that\u0027s work.",
+      "revId": "3c4757682294715e6bd8b2ce5710e3c348662b5d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b64b1b73_8cd1c82f",
