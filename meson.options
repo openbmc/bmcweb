@@ -381,3 +381,14 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.''',
 )
+
+option(
+    'redfish-rde',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable Redfish Device Enablement (RDE) support.
+                    This feature allows BMCWeb to interact with devices
+                    using the RDE protocol as defined by DMTF standards.
+                    Enable this only if your platform requires RDE-based
+                    device communication.''',
+)
