@@ -33,7 +33,7 @@ inline std::string getMetadataPieceForFile(
     if (doc.LoadFile(pathStr.c_str()) != tinyxml2::XML_SUCCESS)
     {
         BMCWEB_LOG_ERROR("Failed to open XML file {}", pathStr);
-        return "";
+        return xml;
     }
     xml += std::format("    <edmx:Reference Uri=\"/redfish/v1/schema/{}\">\n",
                        filename.filename().string());
