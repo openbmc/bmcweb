@@ -135,6 +135,7 @@ inline std::shared_ptr<persistent_data::UserSession> performCookieAuth(
     boost::beast::http::verb method [[maybe_unused]],
     const boost::beast::http::header<true>& reqHeader)
 {
+    std::shared_ptr<persistent_data::UserSession> sessionOut;
     using headers = boost::beast::http::header<true>;
     std::pair<headers::const_iterator, headers::const_iterator> cookies =
         reqHeader.equal_range(boost::beast::http::field::cookie);
@@ -160,12 +161,12 @@ inline std::shared_ptr<persistent_data::UserSession> performCookieAuth(
         std::string_view authKey =
             cookieValue.substr(startIndex, endIndex - startIndex);
 
-        std::shared_ptr<persistent_data::UserSession> sessionOut =
+        sessionOut =
             persistent_data::SessionStore::getInstance().loginSessionByToken(
                 authKey);
         if (sessionOut == nullptr)
         {
-            return nullptr;
+            return sessionOut;
         }
         sessionOut->cookieAuth = true;
 
@@ -178,24 +179,23 @@ inline std::shared_ptr<persistent_data::UserSession> performCookieAuth(
                 // Make sure both tokens are filled
                 if (csrf.empty() || sessionOut->csrfToken.empty())
                 {
-                    return nullptr;
+                    sessionOut.reset();
                 }
-
-                if (csrf.size() != persistent_data::sessionTokenSize)
+                else if (csrf.size() != persistent_data::sessionTokenSize)
                 {
-                    return nullptr;
+                    sessionOut.reset();
                 }
                 // Reject if csrf token not available
-                if (!bmcweb::constantTimeStringCompare(csrf,
-                                                       sessionOut->csrfToken))
+                else if (!bmcweb::constantTimeStringCompare(
+                             csrf, sessionOut->csrfToken))
                 {
-                    return nullptr;
+                    sessionOut.reset();
                 }
             }
         }
-        return sessionOut;
+        break;
     }
-    return nullptr;
+    return sessionOut;
 }
 
 inline std::shared_ptr<persistent_data::UserSession> performTLSAuth(
@@ -263,7 +263,7 @@ inline std::shared_ptr<persistent_data::UserSession> authenticate(
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
 
-    std::shared_ptr<persistent_data::UserSession> sessionOut = nullptr;
+    std::shared_ptr<persistent_data::UserSession> sessionOut;
     if constexpr (BMCWEB_MUTUAL_TLS_AUTH)
     {
         if (authMethodsConfig.tls)
@@ -301,12 +301,8 @@ inline std::shared_ptr<persistent_data::UserSession> authenticate(
             sessionOut = performBasicAuth(ipAddress, authHeader);
         }
     }
-    if (sessionOut != nullptr)
-    {
-        return sessionOut;
-    }
 
-    return nullptr;
+    return sessionOut;
 }
 
 } // namespace authentication
