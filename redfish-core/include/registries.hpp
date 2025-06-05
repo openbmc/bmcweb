@@ -100,14 +100,16 @@ inline std::string fillMessageArgs(
         auto it = std::from_chars(&*msg.begin(), &*msg.end(), number);
         if (it.ec != std::errc())
         {
-            return "";
+            ret.clear();
+            return ret;
         }
         msg.remove_prefix(1);
         // Redfish message args are 1 indexed.
         number--;
         if (number >= messageArgs.size())
         {
-            return "";
+            ret.clear();
+            return ret;
         }
         ret += messageArgs[number];
     }

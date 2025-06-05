@@ -131,18 +131,19 @@ struct UserSession
         {
             BMCWEB_LOG_DEBUG("Session missing required security "
                              "information, refusing to restore");
-            return nullptr;
+            userSession.reset();
         }
-
-        // For now, sessions that were persisted through a reboot get their idle
-        // timer reset.  This could probably be overcome with a better
-        // understanding of wall clock time and steady timer time, possibly
-        // persisting values with wall clock time instead of steady timer, but
-        // the tradeoffs of all the corner cases involved are non-trivial, so
-        // this is done temporarily
-        userSession->lastUpdated = std::chrono::steady_clock::now();
-        userSession->sessionType = SessionType::Session;
-
+        else
+        {
+            // For now, sessions that were persisted through a reboot get their
+            // idle timer reset.  This could probably be overcome with a better
+            // understanding of wall clock time and steady timer time, possibly
+            // persisting values with wall clock time instead of steady timer,
+            // but the tradeoffs of all the corner cases involved are
+            // non-trivial, so this is done temporarily
+            userSession->lastUpdated = std::chrono::steady_clock::now();
+            userSession->sessionType = SessionType::Session;
+        }
         return userSession;
     }
 };
