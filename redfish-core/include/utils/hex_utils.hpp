@@ -50,12 +50,14 @@ inline std::vector<uint8_t> hexStringToBytes(const std::string& str)
         uint8_t hi = hexCharToNibble(str[i]);
         if (i == str.length() - 1)
         {
-            return {};
+            rc.clear();
+            break;
         }
         uint8_t lo = hexCharToNibble(str[i + 1]);
         if (lo == 16 || hi == 16)
         {
-            return {};
+            rc.clear();
+            break;
         }
 
         rc[i / 2] = static_cast<uint8_t>(hi << 4) | lo;

@@ -46,6 +46,7 @@ std::string getRandomUUID()
 
 std::string getRandomIdOfLength(size_t length)
 {
+    std::string token;
     static constexpr std::array<char, 62> alphanum = {
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C',
         'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -53,7 +54,6 @@ std::string getRandomIdOfLength(size_t length)
         'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
         'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
-    std::string token;
     token.resize(length, '0');
     std::uniform_int_distribution<size_t> dist(0, alphanum.size() - 1);
 
@@ -64,7 +64,8 @@ std::string getRandomIdOfLength(size_t length)
         tokenChar = alphanum[dist(gen)];
         if (gen.error())
         {
-            return "";
+            token.clear();
+            break;
         }
     }
     return token;
