@@ -100,6 +100,8 @@ if (cxx.get_id() == 'clang')
         '-Wno-unused-macros',
         '-Wno-used-but-marked-unused',
         '-Wno-weak-vtables',
+        '-Wno-unique-object-duplication',
+        '-Wno-nrvo',
         language: 'cpp',
     )
     boost_flags += ['-Wno-strict-prototypes', '-Wno-unused-but-set-variable']
