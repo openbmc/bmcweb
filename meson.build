@@ -100,8 +100,19 @@ if (cxx.get_id() == 'clang')
         '-Wno-unused-macros',
         '-Wno-used-but-marked-unused',
         '-Wno-weak-vtables',
+        '-Wno-unique-object-duplication',
+        '-Wno-nrvo',
         language: 'cpp',
     )
+    if (cxx.version().version_compare('>=21.0'))
+        # TODO(Ed) These warnings look valid and need cleaned up.
+        add_project_arguments(
+            '-Wno-unique-object-duplication',
+            '-Wno-nrvo',
+            language: 'cpp',
+        )
+    endif
+
     boost_flags += ['-Wno-strict-prototypes', '-Wno-unused-but-set-variable']
     nghttp2_flags += ['-Wno-extra-semi']
 endif
