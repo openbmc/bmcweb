@@ -16,6 +16,24 @@
       "message": "@prithvi24pai@gmail.com did you want to copy the work and open the change request yourself? I believe that is what @ed@tanous.net was indicating would be needed to get this type of feature in, as HP doesn\u0027t use the BIOS Setting manager in OpenBMC.",
       "revId": "e7f46e717fadf508c5df67a84223806c511589d8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56e3df06_ef0a1637",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-06-05T06:54:23Z",
+      "side": 1,
+      "message": "Sure, I can take that approach. \nI can test your patches as I too have same requirement.",
+      "parentUuid": "49c11753_615d01eb",
+      "revId": "e7f46e717fadf508c5df67a84223806c511589d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -338,6 +338,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c69fa7c_c3d13c89",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-06-05T06:54:23Z",
+      "side": 1,
+      "message": "Yes we can get opinion from @ed@tanous.net",
+      "parentUuid": "0c718c49_58b5a761",
+      "revId": "36736135db635dbc6cd07cb49b78bfc4ef8c2717",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "650ee86f_97f5381c",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 14
