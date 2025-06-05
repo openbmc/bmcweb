@@ -108,14 +108,13 @@ inline std::string getCertificateFromReqBody(
     {
         BMCWEB_LOG_ERROR("Required parameters are missing");
         messages::internalError(asyncResp->res);
-        return {};
+        return certificate;
     }
 
     if (*certificateType != "PEM")
     {
         messages::propertyValueNotInList(asyncResp->res, *certificateType,
                                          "CertificateType");
-        return {};
     }
 
     return certificate;

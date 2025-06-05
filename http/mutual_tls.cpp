@@ -42,8 +42,8 @@ std::string getCommonNameFromCert(X509* cert)
     if (length <= 0)
     {
         BMCWEB_LOG_DEBUG("TLS cannot get common name to create session");
-        return "";
-    }
+        length = 0;
+    } 
     commonName.resize(static_cast<size_t>(length));
     return commonName;
 }
