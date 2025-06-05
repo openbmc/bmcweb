@@ -199,7 +199,7 @@ std::string verifyOpensslKeyCert(const std::string& filepath)
     }
     if (!certValid)
     {
-        return "";
+        fileContents.clear();
     }
     return fileContents;
 }
