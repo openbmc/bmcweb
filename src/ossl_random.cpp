@@ -64,7 +64,8 @@ std::string getRandomIdOfLength(size_t length)
         tokenChar = alphanum[dist(gen)];
         if (gen.error())
         {
-            return "";
+            token.clear();
+            break;
         }
     }
     return token;
