@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34122b8e_7ba0b8b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-06T10:05:59Z",
+      "side": 1,
+      "message": "I reworded the commit message to show a possible example (Oem-specific need) to check the condition.",
+      "parentUuid": "0af6182f_38e92a7f",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 2
+      },
+      "revId": "5e380fdd3bbf04ffc2383e18866dd9accc183b35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38cdcbc8_a77a62bc",
@@ -95,6 +119,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f498fe7d_245870d4",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1809,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-06T10:05:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38cdcbc8_a77a62bc",
+      "range": {
+        "startLine": 1809,
+        "startChar": 49,
+        "endLine": 1809,
+        "endChar": 54
+      },
+      "revId": "5e380fdd3bbf04ffc2383e18866dd9accc183b35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b12cfbc7_d3e4f17c",
@@ -108,6 +156,30 @@
       "writtenOn": "2025-06-04T19:52:09Z",
       "side": 1,
       "message": "This has pushed the lambda over the limit (it was arguably too long before).\n\nPlease break this out into a normal method before this can merge.",
+      "range": {
+        "startLine": 1798,
+        "startChar": 0,
+        "endLine": 1810,
+        "endChar": 75
+      },
+      "revId": "5e380fdd3bbf04ffc2383e18866dd9accc183b35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cf32fa3_f41bce82",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1810,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-06T10:05:59Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b12cfbc7_d3e4f17c",
       "range": {
         "startLine": 1798,
         "startChar": 0,
