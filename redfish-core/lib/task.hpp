@@ -190,6 +190,22 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                           taskMonitor.buffer());
             res.addHeader(boost::beast::http::field::retry_after,
                           std::to_string(retryAfterSeconds));
+            res.jsonValue["Name"] = "Task " + strIdx;
+            res.jsonValue["StartTime"] =
+                redfish::time_utils::getDateTimeStdtime(startTime);
+            res.jsonValue["TaskStatus"] = getTaskStatus();
+            res.jsonValue["Messages"] = messages;
+            res.jsonValue["TaskMonitor"] = taskMonitor;
+            if (payload)
+            {
+                const task::Payload& p = *payload;
+                res.jsonValue["Payload"]["TargetUri"] = p.targetUri;
+                res.jsonValue["Payload"]["HttpOperation"] = p.httpOperation;
+                res.jsonValue["Payload"]["HttpHeaders"] = p.httpHeaders;
+                res.jsonValue["Payload"]["JsonBody"] = p.jsonBody.dump(
+                    2, ' ', true, nlohmann::json::error_handler_t::replace);
+            }
+            res.jsonValue["PercentComplete"] = percentComplete;
         }
         else if (!gave204)
         {
