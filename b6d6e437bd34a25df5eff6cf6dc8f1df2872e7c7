@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96c1c077_636c63cb",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-06T13:50:42Z",
+      "side": 1,
+      "message": "// Reject if csrf token not available\n                else  if (!bmcweb::constantTimeStringCompare(",
+      "revId": "b6d6e437bd34a25df5eff6cf6dc8f1df2872e7c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d492937_03c98090",
+        "filename": "redfish-core/include/utils/hex_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-06T13:50:42Z",
+      "side": 1,
+      "message": "don\u0027t you still want the returns here, otherwise you hit line 77 ?\n\n            rc.clear();\n            return rc;",
+      "revId": "b6d6e437bd34a25df5eff6cf6dc8f1df2872e7c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ce9402f_347ee000",
+        "filename": "redfish-core/lib/metadata.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-06T13:50:42Z",
+      "side": 1,
+      "message": "Do you want to clear it first?",
+      "revId": "b6d6e437bd34a25df5eff6cf6dc8f1df2872e7c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31c24ce2_f8ae4c78",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-06T13:50:42Z",
+      "side": 0,
+      "message": "What if certificateType \u003d \"badvalue\" and CertificateString is empty? You would end up with a internalError and propertyValueNotInList\n\nMaybe that isn\u0027t possible with readJsonPatch..?",
+      "revId": "1e01ea4ca6912c4059354114b70367768f8bd147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
