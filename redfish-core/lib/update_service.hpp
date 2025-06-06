@@ -253,8 +253,8 @@ inline void createTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         "member='PropertiesChanged',path='" +
             objPath.str + "'");
     task->startTimer(std::chrono::minutes(5));
-    task->populateResp(asyncResp->res);
     task->payload.emplace(std::move(payload));
+    task->populateResp(asyncResp->res);
 }
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
