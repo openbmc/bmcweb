@@ -191,54 +191,40 @@ inline void updateCertIssuerOrSubject(nlohmann::json& out,
                                       std::string_view value)
 {
     // example: O=openbmc-project.xyz,CN=localhost
-    std::string_view::iterator i = value.begin();
-    while (i != value.end())
-    {
-        std::string_view::iterator tokenBegin = i;
-        while (i != value.end() && *i != '=')
+    static const std::unordered_map<std::string_view, std::string_view> keyMap =
         {
-            std::advance(i, 1);
-        }
-        if (i == value.end())
+            {"L", "City"},
+            {"CN", "CommonName"},
+            {"C", "Country"},
+            {"O", "Organization"},
+            {"OU", "OrganizationalUnit"},
+            {"ST", "State"},
+        };
+
+    while (!value.empty())
+    {
+        // Trim leading spaces or commas
+        value.remove_prefix(
+            std::min(value.find_first_not_of(", "), value.size()));
+
+        auto eqPos = value.find('=');
+        if (eqPos == std::string_view::npos)
         {
             break;
         }
-        std::string_view key(tokenBegin, static_cast<size_t>(i - tokenBegin));
-        std::advance(i, 1);
-        tokenBegin = i;
-        while (i != value.end() && *i != ',')
+
+        auto key = value.substr(0, eqPos);
+        value.remove_prefix(eqPos + 1);
+
+        auto commaPos = value.find(',');
+        auto val = value.substr(0, commaPos);
+        value.remove_prefix(
+            commaPos != std::string_view::npos ? commaPos + 1 : value.size());
+
+        // Insert into JSON if key is known
+        if (auto it = keyMap.find(key); it != keyMap.end())
         {
-            std::advance(i, 1);
-        }
-        std::string_view val(tokenBegin, static_cast<size_t>(i - tokenBegin));
-        if (key == "L")
-        {
-            out["City"] = val;
-        }
-        else if (key == "CN")
-        {
-            out["CommonName"] = val;
-        }
-        else if (key == "C")
-        {
-            out["Country"] = val;
-        }
-        else if (key == "O")
-        {
-            out["Organization"] = val;
-        }
-        else if (key == "OU")
-        {
-            out["OrganizationalUnit"] = val;
-        }
-        else if (key == "ST")
-        {
-            out["State"] = val;
-        }
-        // skip comma character
-        if (i != value.end())
-        {
-            std::advance(i, 1);
+            out[it->second] = val;
         }
     }
 }
