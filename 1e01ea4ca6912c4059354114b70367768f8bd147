@@ -16,6 +16,24 @@
       "message": "What if certificateType \u003d \"badvalue\" and CertificateString is empty? You would end up with a internalError and propertyValueNotInList\n\nMaybe that isn\u0027t possible with readJsonPatch..?",
       "revId": "1e01ea4ca6912c4059354114b70367768f8bd147",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "568fa878_2a7f523e",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-06T16:27:44Z",
+      "side": 0,
+      "message": "That isn\u0027t possible, but that should be less subtle.  I need to see if nrvo is ok with \"return certificate\" here.",
+      "parentUuid": "31c24ce2_f8ae4c78",
+      "revId": "1e01ea4ca6912c4059354114b70367768f8bd147",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
