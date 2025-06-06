@@ -1,3 +1,4 @@
+
 #pragma once
 #include "app.hpp"
 #include "async_resp.hpp"
@@ -17,11 +18,12 @@ static constexpr const uint maxSessions = 4;
 class KvmSession : public std::enable_shared_from_this<KvmSession>
 {
   public:
-    explicit KvmSession(crow::websocket::Connection& connIn) :
-        conn(connIn), hostSocket(conn.getIoContext())
+    explicit KvmSession(crow::websocket::Connection& connIn,
+                        const std::uint16_t portIn) :
+        conn(connIn), port(portIn), hostSocket(conn.getIoContext())
     {
         boost::asio::ip::tcp::endpoint endpoint(
-            boost::asio::ip::make_address("127.0.0.1"), 5900);
+            boost::asio::ip::make_address("127.0.0.1"), port);
         hostSocket.async_connect(
             endpoint, [this, &connIn](const boost::system::error_code& ec) {
             if (ec)
@@ -52,11 +54,11 @@ class KvmSession : public std::enable_shared_from_this<KvmSession>
 
         BMCWEB_LOG_DEBUG("conn:{}, Read {} bytes from websocket", logPtr(&conn),
                          data.size());
-        size_t copied = boost::asio::buffer_copy(
-            inputBuffer.prepare(data.size()), boost::asio::buffer(data));
+        boost::asio::buffer_copy(inputBuffer.prepare(data.size()),
+                                 boost::asio::buffer(data));
         BMCWEB_LOG_DEBUG("conn:{}, Committing {} bytes from websocket",
-                         logPtr(&conn), copied);
-        inputBuffer.commit(copied);
+                         logPtr(&conn), data.size());
+        inputBuffer.commit(data.size());
 
         BMCWEB_LOG_DEBUG("conn:{}, inputbuffer size {}", logPtr(&conn),
                          inputBuffer.size());
@@ -156,6 +158,7 @@ class KvmSession : public std::enable_shared_from_this<KvmSession>
     }
 
     crow::websocket::Connection& conn;
+    std::uint16_t port;
     boost::asio::ip::tcp::socket hostSocket;
     boost::beast::flat_static_buffer<1024UL * 50UL> outputBuffer;
     boost::beast::flat_static_buffer<1024UL> inputBuffer;
@@ -183,7 +186,33 @@ inline void requestRoutes(App& app)
             return;
         }
 
-        sessions[&conn] = std::make_shared<KvmSession>(conn);
+        const std::uint16_t port = 5900;
+        sessions[&conn] = std::make_shared<KvmSession>(conn, port);
+    })
+        .onclose([](crow::websocket::Connection& conn, const std::string&) {
+        sessions.erase(&conn);
+    })
+        .onmessage([](crow::websocket::Connection& conn,
+                      const std::string& data, bool) {
+        if (sessions[&conn])
+        {
+            sessions[&conn]->onMessage(data);
+        }
+    });
+    BMCWEB_ROUTE(app, "/kvm/1")
+        .privileges({{"ConfigureComponents", "ConfigureManager"}})
+        .websocket()
+        .onopen([](crow::websocket::Connection& conn) {
+        BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
+
+        if (sessions.size() == maxSessions)
+        {
+            conn.close("Max sessions are already connected");
+            return;
+        }
+
+        const std::uint16_t port = 5901;
+        sessions[&conn] = std::make_shared<KvmSession>(conn, port);
     })
         .onclose([](crow::websocket::Connection& conn, const std::string&) {
         sessions.erase(&conn);
