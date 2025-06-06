@@ -39,6 +39,30 @@
       },
       "revId": "bb48b6e7c3da89dd1c77f0472d8d0c3802a5e269",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1a357a0_5f98f719",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-06T16:18:48Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "204cedde_2c6c40ed",
+      "range": {
+        "startLine": 566,
+        "startChar": 46,
+        "endLine": 566,
+        "endChar": 50
+      },
+      "revId": "bb48b6e7c3da89dd1c77f0472d8d0c3802a5e269",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
