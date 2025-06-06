@@ -16,6 +16,24 @@
       "message": "You could keep the WARNING.. Might be useful to someone one day",
       "revId": "cd641b6d9567337b1ed5be6c003a28bef9dc81e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2968b48_75207d6e",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-06T15:57:51Z",
+      "side": 1,
+      "message": "Good point.  Added it back.",
+      "parentUuid": "d998069b_52227d51",
+      "revId": "cd641b6d9567337b1ed5be6c003a28bef9dc81e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
