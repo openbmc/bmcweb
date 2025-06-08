@@ -247,9 +247,13 @@ class ConnectionImpl : public Connection
                                     size_t bytesRead) {
             if (ec)
             {
-                if (ec != boost::beast::websocket::error::closed &&
-                    ec != boost::asio::error::eof &&
-                    ec != boost::asio::ssl::error::stream_truncated)
+                if (ec == boost::beast::error::timeout)
+                {
+                    BMCWEB_LOG_INFO("doRead timeout: {}", ec);
+                }
+                else if (ec != boost::beast::websocket::error::closed &&
+                         ec != boost::asio::error::eof &&
+                         ec != boost::asio::ssl::error::stream_truncated)
                 {
                     BMCWEB_LOG_ERROR("doRead error {}", ec);
                 }
