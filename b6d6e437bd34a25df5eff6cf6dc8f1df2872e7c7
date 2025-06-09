@@ -55,6 +55,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b6231625_6cec35f7",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-09T16:06:57Z",
+      "side": 1,
+      "message": "Should the gen.error() check still be made?",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 321,
+        "endChar": 2
+      },
+      "revId": "b6d6e437bd34a25df5eff6cf6dc8f1df2872e7c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d492937_03c98090",
         "filename": "redfish-core/include/utils/hex_utils.hpp",
         "patchSetId": 2
