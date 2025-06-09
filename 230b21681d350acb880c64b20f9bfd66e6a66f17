@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7fae3d8_4fc220f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-09T18:51:24Z",
+      "side": 1,
+      "message": "A little more description here would be better",
+      "revId": "230b21681d350acb880c64b20f9bfd66e6a66f17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
