@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a27a8ec_65b0df6c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-09T15:17:07Z",
+      "side": 1,
+      "message": "Tested?",
+      "revId": "010acee1340b420c1fee3fe0ac12103082ccd08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d7c578e_78b69a34",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-09T15:17:07Z",
+      "side": 1,
+      "message": "Just a couple of minor comments. Looks good otherwise.",
+      "revId": "010acee1340b420c1fee3fe0ac12103082ccd08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3017f292_7f444861",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-09T15:17:07Z",
+      "side": 1,
+      "message": "Might be helpful to include filename in the error message.",
+      "range": {
+        "startLine": 72,
+        "startChar": 37,
+        "endLine": 72,
+        "endChar": 55
+      },
+      "revId": "010acee1340b420c1fee3fe0ac12103082ccd08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2e8e738_708a8f2e",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-09T15:17:07Z",
+      "side": 1,
+      "message": "Might be helpful to include filename in the error message.",
+      "range": {
+        "startLine": 80,
+        "startChar": 36,
+        "endLine": 80,
+        "endChar": 57
+      },
+      "revId": "010acee1340b420c1fee3fe0ac12103082ccd08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
