@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f3c96171_cb62dfac",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-09T19:36:44Z",
+      "side": 1,
+      "message": "Please declare things like these as\n\nstd::array\u003cstd::pair\u003cstd::string_view, std::string_view\u003e\u003e\n\nAs written, this will consume memory at all times.",
+      "parentUuid": "722b2f83_a532c7a0",
+      "revId": "a8ebbc78180d4be9de1c12978947cf4cc591abb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b28b43c4_79a8378e",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2025-06-09T06:52:22Z",
       "side": 1,
       "message": "I think we can use boost::split for better maintainability like it\u0027s used in other places(log services). Considering issuer string is few characters and we don\u0027t expect that too grow significantly.",
+      "revId": "a8ebbc78180d4be9de1c12978947cf4cc591abb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76178c34_718e16f0",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-09T19:36:44Z",
+      "side": 1,
+      "message": "Boost::split should not be used upstream because of what it did to compile times.  Please use: https://github.com/openbmc/bmcweb/blob/5c467f93d9dd4fc8de98dd51639f9039d5a52e7a/include/str_utility.hpp#L17",
+      "parentUuid": "b28b43c4_79a8378e",
       "revId": "a8ebbc78180d4be9de1c12978947cf4cc591abb5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
