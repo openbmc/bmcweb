@@ -16,6 +16,24 @@
       "message": "A little more description here would be better",
       "revId": "230b21681d350acb880c64b20f9bfd66e6a66f17",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "327e23a0_d2c6f4a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-09T19:05:08Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "d7fae3d8_4fc220f5",
+      "revId": "230b21681d350acb880c64b20f9bfd66e6a66f17",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
