@@ -43,6 +43,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5d5a449_4fb13333",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 76
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-09T19:09:28Z",
+      "side": 1,
+      "message": "Asmitha\n\nCan you please clean up this MFA patch series to be a series again.  Many patches no longer apply, and it isn\u0027t clear to me if patches like:\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/74938\n\nAre related and expected in this series or not.  I would ideally like to see some cross review as the relevant people are building this feature.",
+      "revId": "2fcbb85653210a802003bb08bd43e1ef876c5eff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74f48730_4070d05e",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 76
