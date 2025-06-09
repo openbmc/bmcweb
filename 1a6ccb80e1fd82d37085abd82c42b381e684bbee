@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51de826f_0ee2732e",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-06-09T06:55:13Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "bc4080f3_3ddb5823",
+      "range": {
+        "startLine": 201,
+        "startChar": 16,
+        "endLine": 201,
+        "endChar": 40
+      },
+      "revId": "1a6ccb80e1fd82d37085abd82c42b381e684bbee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11f6a7d6_fc419e28",
@@ -61,6 +85,30 @@
       "side": 1,
       "message": "and isn\u0027t discarded or a non object.",
       "parentUuid": "11f6a7d6_fc419e28",
+      "range": {
+        "startLine": 204,
+        "startChar": 55,
+        "endLine": 204,
+        "endChar": 65
+      },
+      "revId": "1a6ccb80e1fd82d37085abd82c42b381e684bbee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fc1008e_a5e62c1d",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-06-09T06:55:13Z",
+      "side": 1,
+      "message": "Added check for object and discarded.",
+      "parentUuid": "dafb17b2_d5c4d101",
       "range": {
         "startLine": 204,
         "startChar": 55,
