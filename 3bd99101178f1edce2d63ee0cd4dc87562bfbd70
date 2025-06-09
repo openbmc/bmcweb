@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d7251c1e_05e5e5d0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2025-06-09T11:02:29Z",
+      "side": 1,
+      "message": "Ed, what\u0027s your take on this?",
+      "parentUuid": "67f83f1e_2505baec",
+      "range": {
+        "startLine": 10,
+        "startChar": 67,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "3bd99101178f1edce2d63ee0cd4dc87562bfbd70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78b3f942_1bc7cd88",
         "filename": "redfish-core/lib/telemetry_service.hpp",
         "patchSetId": 1
