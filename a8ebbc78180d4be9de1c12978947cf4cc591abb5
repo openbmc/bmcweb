@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "722b2f83_a532c7a0",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-06-09T06:52:22Z",
+      "side": 1,
+      "message": "nit: keyMap --\u003e maybe something like dnFieldMap?",
+      "revId": "a8ebbc78180d4be9de1c12978947cf4cc591abb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b28b43c4_79a8378e",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-06-09T06:52:22Z",
+      "side": 1,
+      "message": "I think we can use boost::split for better maintainability like it\u0027s used in other places(log services). Considering issuer string is few characters and we don\u0027t expect that too grow significantly.",
+      "revId": "a8ebbc78180d4be9de1c12978947cf4cc591abb5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
