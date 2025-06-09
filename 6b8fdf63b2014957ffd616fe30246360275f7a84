@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e95a4616_d6952106",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-09T18:47:06Z",
+      "side": 1,
+      "message": "```\ndbus::utility::getProperty\u003cstd::string\u003e()\n```",
+      "revId": "6b8fdf63b2014957ffd616fe30246360275f7a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22ca4f33_f6649a85",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-09T18:47:06Z",
+      "side": 1,
+      "message": "After https://gerrit.openbmc.org/c/openbmc/bmcweb/+/71547, `req` needs to be explicitly duplicated like\n```\n  auto verifyTotpCallback \u003d [username, req{req.copy()}](bool success) {\n```",
+      "revId": "6b8fdf63b2014957ffd616fe30246360275f7a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16f681f1_abf7b4b8",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-09T18:47:06Z",
+      "side": 1,
+      "message": "Since `verifyTotpCallback` is short enough, I think it is better to be inlined.\n\n````\n    verifyTotpDbusUtil(asyncResp, totp, userPath,\n                       [username, req{req.copy()}](bool success) {\n                       if (success)\n                       {\n                           // Remove existing sessions of the user\n                           persistent_data::SessionStore::getInstance()\n                               .removeSessionsByUsernameExceptSession(username, req.session);\n                       });\n```",
+      "revId": "6b8fdf63b2014957ffd616fe30246360275f7a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
