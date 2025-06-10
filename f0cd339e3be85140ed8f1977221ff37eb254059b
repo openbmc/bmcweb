@@ -69,6 +69,42 @@
       "parentUuid": "4489e0a3_232f8990",
       "revId": "f0cd339e3be85140ed8f1977221ff37eb254059b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad0b6d21_4b4afba6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 76
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2025-06-10T17:38:44Z",
+      "side": 1,
+      "message": "yeah jishnu will continue to work on this patch.\n@jishnu.c.m@ibm.com please reply to all unresolved comments in this commit.",
+      "parentUuid": "bbe5d535_680ef113",
+      "revId": "f0cd339e3be85140ed8f1977221ff37eb254059b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5eb3f930_ecc096a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 76
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2025-06-10T17:38:44Z",
+      "side": 1,
+      "message": "I agree, will try to rearrange this commit in Main MFA series and will set topic to all MFA bmcweb commits",
+      "parentUuid": "46c8700f_47cae366",
+      "revId": "f0cd339e3be85140ed8f1977221ff37eb254059b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
