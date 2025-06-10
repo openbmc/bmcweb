@@ -34,6 +34,24 @@
       "parentUuid": "2ab2d942_ff832421",
       "revId": "ff12556ac1389769d596dfbfe2165186aa6c6ed4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "699ca3cc_0510289d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-10T21:32:17Z",
+      "side": 1,
+      "message": "Changed to WARNING.\nI think this websocket timeout (on async_read) might happen when GUI (e.g. obmc_console/hypervisor) may be too slow (not as responsive).",
+      "parentUuid": "467f6033_e1d51658",
+      "revId": "ff12556ac1389769d596dfbfe2165186aa6c6ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
