@@ -7,15 +7,13 @@ certain areas.
 
 ## Redfish Schema
 
-The redfish implementation shall pass the
-[Redfish Service Validator](https://github.com/DMTF/Redfish-Service-Validator "Validator")
-with no warnings or errors
+The redfish implementation shall pass the [Redfish Service Validator][2] with no
+warnings or errors
 
 The following redfish schemas and fields are targeted for OpenBMC. This is a
 living document, and these schemas are subject to change.
 
-The latest Redfish schemas can be found
-[here](https://redfish.dmtf.org/schemas/)
+The latest [Redfish schemas][3] are available from DMTF
 
 If using a previously unused schema, you will need to add it to the included
 schema list in `scripts/update_schemas.py` and run `update_schemas.py`.
@@ -610,7 +608,7 @@ Fields common to all schemas
 
 ### /redfish/v1/Managers/bmc/LogServices/
 
-The [LogService][2] resource provides properties for monitoring and configuring
+The [LogService][4] resource provides properties for monitoring and configuring
 events for the service or resource to which it is associated.
 
 Within bmcweb, the LogService object resides under the System resource. It
@@ -625,11 +623,11 @@ bmcweb supports two different implementations of the
 The default implementation uses rsyslog to write Redfish events from the journal
 to the persistent /var/log/ filesystem. The bmcweb software then looks for these
 files in /var/log/ and returns the appropriate Redfish EventLog Entries for
-these. More details on adding events can be found [here][3]
+these. [More details][5] on adding events are available.
 
 The other implementation of EventLog Entries can be enabled by compiling bmcweb
 with the `-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES=ON` option. This will cause
-bmcweb to look to [phosphor-logging][4] for any D-Bus log entries. These will
+bmcweb to look to [phosphor-logging][6] for any D-Bus log entries. These will
 then be translated to Redfish EventLog Entries.
 
 These two implementations do not work together, so choosing one will disable the
@@ -1146,7 +1144,9 @@ other.
 - Version
 
 [1]: https://www.dmtf.org/standards/redfish
-[2]: https://redfish.dmtf.org/schemas/v1/LogService.json
-[3]:
+[2]: https://github.com/DMTF/Redfish-Service-Validator
+[3]: https://redfish.dmtf.org/schemas/
+[4]: https://redfish.dmtf.org/schemas/v1/LogService.json
+[5]:
   https://github.com/openbmc/docs/blob/master/architecture/redfish-logging-in-bmcweb.md
-[4]: https://github.com/openbmc/phosphor-logging
+[6]: https://github.com/openbmc/phosphor-logging
