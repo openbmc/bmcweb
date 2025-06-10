@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ab2d942_ff832421",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-10T19:25:38Z",
+      "side": 1,
+      "message": "Maybe this could have a little more discussion about why?  A timeout is an unexpected error during a websocket flow.  I could see an argument that could be made for error -\u003e warning, because it\u0027s not a fatal error, but it is unexpected in a \"correct\" context where there\u0027s no network failures.  Closing a websocket correctly should result in a canceled message here (because the connection was gracefully closed).",
+      "revId": "ff12556ac1389769d596dfbfe2165186aa6c6ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
