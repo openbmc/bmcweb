@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fe57f1b_5c3e15eb",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-10T16:49:29Z",
+      "side": 0,
+      "message": "We have had this a while, neat to clean up \nhttps://github.com/openbmc/bmcweb/commit/e38778a5035eaccf642159c3ef3d70ce837d046a",
+      "revId": "5c467f93d9dd4fc8de98dd51639f9039d5a52e7a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
