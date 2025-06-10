@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "853f4e11_2266918d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-10T18:57:38Z",
+      "side": 1,
+      "message": "Seeing https://github.com/baemyung/bmcweb/blob/fd4f088f54e257f87009b9d561ee50fce8aed15e/include/dbus_utility.hpp#L77, this can be better written like\n\n```\n    for (const std::pair\u003cstd::string, MapperServiceMap\u003e\u0026 obj : subtree)\n```",
+      "revId": "e503655dea84bb4b28d21870414bdd3eaaa46567",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
