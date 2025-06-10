@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb675b11_8c86fd82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-10T20:39:47Z",
+      "side": 1,
+      "message": "I assume Redfish validator is good here? Maybe hard to test.. I see all the properties https://redfish.dmtf.org/schemas/v1/Task.v1_7_4.json but the validator also tests property Type",
+      "revId": "aad0aa659cf799569fe3d1e942eb1a0647305815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
