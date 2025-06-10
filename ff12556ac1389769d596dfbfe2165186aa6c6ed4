@@ -52,6 +52,24 @@
       "parentUuid": "467f6033_e1d51658",
       "revId": "ff12556ac1389769d596dfbfe2165186aa6c6ed4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8322b997_f6fac88a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-10T23:08:59Z",
+      "side": 1,
+      "message": "That\u0027s a case where a warning makes complete sense to me.  This is the same thing we do on a normal http connection if the user unexpectedly disconnects.\n\nFWIW, I\u0027m looking at the docs, and it looks like we have a 30 second timeout on connect and 300 seconds after the connection is up.\n\nhttps://github.com/boostorg/beast/blob/916dcf8eb3eff582356f7b1849446a3893da6eac/include/boost/beast/websocket/stream_base.hpp#L156\n\nIf you\u0027re hard killing the web browser, it\u0027s likely the connection isn\u0027t closing.",
+      "parentUuid": "699ca3cc_0510289d",
+      "revId": "ff12556ac1389769d596dfbfe2165186aa6c6ed4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
