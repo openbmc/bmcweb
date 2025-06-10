@@ -151,7 +151,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     boost::beast::flat_static_buffer<httpReadBufferSize> buffer;
     Response res;
 
-    // Ascync callables
+    // Async callables
     std::function<void(bool, uint32_t, Response&)> callback;
 
     boost::asio::io_context& ioc;
@@ -354,7 +354,7 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
 
     void afterRead(const std::shared_ptr<ConnectionInfo>& /*self*/,
                    const boost::beast::error_code& ec,
-                   const std::size_t& bytesTransferred)
+                   const std::size_t bytesTransferred)
     {
         // The operation already timed out.  We don't want do continue down
         // this branch
@@ -583,16 +583,8 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
         }
         // Create a null terminated string for SSL
         std::string hostname(host.encoded_host_address());
-        // NOTE: The SSL_set_tlsext_host_name is defined in tlsv1.h header
-        // file but its having old style casting (name is cast to void*).
-        // Since bmcweb compiler treats all old-style-cast as error, its
-        // causing the build failure. So replaced the same macro inline and
-        // did corrected the code by doing static_cast to viod*. This has to
-        // be fixed in openssl library in long run. Set SNI Hostname (many
-        // hosts need this to handshake successfully)
-        if (SSL_ctrl(sslConn->native_handle(), SSL_CTRL_SET_TLSEXT_HOSTNAME,
-                     TLSEXT_NAMETYPE_host_name,
-                     static_cast<void*>(hostname.data())) == 0)
+        if (SSL_set_tlsext_host_name(sslConn->native_handle(),
+                                     hostname.data()) == 0)
 
         {
             boost::beast::error_code ec{static_cast<int>(::ERR_get_error()),
