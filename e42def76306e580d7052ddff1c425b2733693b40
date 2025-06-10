@@ -94,6 +94,30 @@
       },
       "revId": "e42def76306e580d7052ddff1c425b2733693b40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a52b66d_24cea703",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-10T20:37:20Z",
+      "side": 1,
+      "message": "\u003e 0.069679s | 0.282222s\n\nIf I\u0027m reading this right we\u0027re seeing a 3X regression in performance?  That\u0027s not great for one of the most used APIs in the system.\n\n\u003e I cannot measure multi-host on real hw.\n\nLet us know when you have;  If I can help measure for single host, let me know.\n\n\nThis is somewhat implying that the multi-host option really needs to live longer than just a refactor.",
+      "parentUuid": "791038b2_eddd08e0",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 11
+      },
+      "revId": "e42def76306e580d7052ddff1c425b2733693b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
