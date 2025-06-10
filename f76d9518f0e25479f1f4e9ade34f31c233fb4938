@@ -312,6 +312,24 @@
       "parentUuid": "4b2562d0_df508b2e",
       "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f20b5229_f85946e3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-06-10T07:26:08Z",
+      "side": 1,
+      "message": "The property information is update. Resolving the conversation as all the queries are addressed.",
+      "parentUuid": "75a97f42_450adce9",
+      "revId": "f76d9518f0e25479f1f4e9ade34f31c233fb4938",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
