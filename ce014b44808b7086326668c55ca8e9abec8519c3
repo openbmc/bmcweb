@@ -52,6 +52,24 @@
       "parentUuid": "00dfb4d4_f5f510c2",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2294e590_036776cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-10T20:35:35Z",
+      "side": 1,
+      "message": "Sorry for the late reply, just saw this.\n\nEventLog is something OpenBMC specific, that is not the problem.  Redfish relies on a CRUD model, so if you expose two instances of EventLog on two different hosts, it technically means EACH host had those events.  That\u0027s not correct in the way redfish is modeled, and would lead to duplicates on any consumer.\n\n\u003e If there is currently no way to filter event log entries for the host they belong to, what is the more useful behavior? Having no logs or a duplicate?\n\nHaving duplicates is for sure incorrect.  Having no logs is allowed in the spec.  Which is more useful is debatable for the clients, ideally we\u0027d just follow the spec here.\n\n\nFWIW, the whole issue is that EventLog probably needs to be moved to Manager, for which there is only a single instance, but I get not wanting to take on that refactor.",
+      "parentUuid": "28b00b18_72a02ba0",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
