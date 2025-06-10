@@ -15,7 +15,7 @@ The following redfish schemas and fields are targeted for OpenBMC. This is a
 living document, and these schemas are subject to change.
 
 The latest Redfish schemas can be found
-[here](https://redfish.dmtf.org/schemas/)
+at [DMTF](https://redfish.dmtf.org/schemas/).
 
 If using a previously unused schema, you will need to add it to the included
 schema list in `scripts/update_schemas.py` and run `update_schemas.py`.
@@ -625,7 +625,7 @@ bmcweb supports two different implementations of the
 The default implementation uses rsyslog to write Redfish events from the journal
 to the persistent /var/log/ filesystem. The bmcweb software then looks for these
 files in /var/log/ and returns the appropriate Redfish EventLog Entries for
-these. More details on adding events can be found [here][3]
+these. More details on adding events can be found in the [architecure][3] doc.
 
 The other implementation of EventLog Entries can be enabled by compiling bmcweb
 with the `-DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES=ON` option. This will cause

@@ -144,10 +144,9 @@ any openbmc development.
 
 ### Commit messages
 
-Project commit message formatting should be obeyed
-[link](https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages)
-
-Commit messages should answer the following questions:
+Project
+[commit message formatting](https://github.com/openbmc/dcs/blob/master/CONTRIBUTING.md#formatting-commit-messages)
+should be obeyed.
 
 - Why are the changes useful? Given that bmcweb is a user-facing daemon, commits
   adding new functionality should include statements about how the commit in
