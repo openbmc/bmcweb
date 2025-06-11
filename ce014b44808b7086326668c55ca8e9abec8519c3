@@ -88,6 +88,24 @@
       "parentUuid": "2294e590_036776cc",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "547f3395_ce5243a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-06-11T13:49:33Z",
+      "side": 1,
+      "message": "\u003e Having no logs is allowed in the spec. Which is more useful is debatable for the clients, ideally we\u0027d just follow the spec here.\n\nThat\u0027s definitely not useful.  That means we can\u0027t manage a multi-host system.\n\n\u003e FWIW, the whole issue is that EventLog probably needs to be moved to Manager, for which there is only a single instance, but I get not wanting to take on that refactor.\n\nI think this is reasonable but it potentially breaks backwards compatibility.  Is this ok?\n\nAlternatively, I think we have a few cases we need better support on overall (and I\u0027m writing this because maybe it helps point us at a solution):\n     - \"no host\"\n     - \"single host\"\n     - \"multi host\"\n     \nRight now a lot of the URIs are only working for \"single host\" and in that model there is this view that \"chassis\" \u003d\u003d \"host\" and so much of the URIs are ambiguous along those lines.  For \"no host\", like Ventura, I think there are a good handful of URIs that are exposed but aren\u0027t appropriate; in that case we end up with an internal server error, due to missing object mapper lookups, rather than a clear \"this URI doesn\u0027t exist\".  On \"multi-host\", well we\u0027re working through all of that here.\n\nI suspect there is some benefit in a split between the \"chassis\" (being the whole box, mostly managed by the BMC) and the \"host\".  For single host maybe we continue to represent that as the \"Systems/system\" URI.  For no-host and multi-host maybe there is benefit in splitting the two such that: \"Systems/system\" (or \"Systems/chassis\") represents the \"chassis\" and \"Systems/systemN\" (or \"Systems/hostN\") represent the \"host\".  In this way it might make it clearer how to turn on or off the URIs appropriately.",
+      "parentUuid": "b007ff81_d15c7264",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
