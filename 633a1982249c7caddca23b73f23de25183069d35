@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "192d486f_c3f1e8eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-11T17:39:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a665451e_5a1cebeb",
+      "revId": "633a1982249c7caddca23b73f23de25183069d35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3e80c1d9_1323dd59",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 14
@@ -31,6 +49,24 @@
       "writtenOn": "2025-05-29T17:17:25Z",
       "side": 1,
       "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/74667/39..76/redfish-core/lib/account_service.hpp#b2624\n\nThis is an outstanding comment related to this commit.",
+      "revId": "633a1982249c7caddca23b73f23de25183069d35",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b07409e9_82287e06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-11T17:39:39Z",
+      "side": 1,
+      "message": "Marking this unresolved.",
+      "parentUuid": "3e80c1d9_1323dd59",
       "revId": "633a1982249c7caddca23b73f23de25183069d35",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
