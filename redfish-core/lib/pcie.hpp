@@ -405,14 +405,24 @@ inline void
             asyncResp->res.jsonValue["Model"] = *model;
         }
 
-        if (partNumber != nullptr)
+        if (partNumber != nullptr && !partNumber->empty() &&
+            *partNumber != "Not Available")
         {
             asyncResp->res.jsonValue["PartNumber"] = *partNumber;
         }
+        else
+        {
+            messages::propertyNotUpdated(asyncResp->res, "PartNumber");
+        }
 
-        if (serialNumber != nullptr)
+        if (serialNumber != nullptr && !serialNumber->empty() &&
+            *serialNumber != "Not Available")
         {
             asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
+        }
+        else
+        {
+            messages::propertyNotUpdated(asyncResp->res, "SerialNumber");
         }
 
         if (sparePartNumber != nullptr && !sparePartNumber->empty())
