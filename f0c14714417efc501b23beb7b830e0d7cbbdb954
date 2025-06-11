@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "480b8dfb_23b80688",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-06-11T16:42:23Z",
+      "side": 1,
+      "message": "Can you please add the Tested section with the output of your Redfish command.\n\nAlso can you do testing with BMC inventory by making sure that flow works as expected. You can just add a line stating that to the Tested section.",
+      "revId": "f0c14714417efc501b23beb7b830e0d7cbbdb954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
