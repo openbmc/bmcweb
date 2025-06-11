@@ -70,6 +70,24 @@
       "parentUuid": "28b00b18_72a02ba0",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b007ff81_d15c7264",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-06-11T12:13:28Z",
+      "side": 1,
+      "message": "### practical problems and further consequences of requiring unique Log Entries per-bmc\n\nIn case a of a 4-blade server, the common 12V drops below a threshold, generating an EventLog entry. Do we now duplicate that entry 4 times just so it has it\u0027s own unique id? \n\nImagine blade 3 is missing. So now the code generating (dbus-sensors) or aggregating (bmcweb/rsyslogd/phosphor-logging) sensor events has to know which blades are plugged to duplicate the event the correct number of times?\n\nMind that we also would need to do this in an atomic way such there is no point in time where anyone can query only one of these Log Entries, they must all be added to the LogService in one step.\n\nOh, and they must also fill the ```RelatedLogEntries``` property since these duplicates all refer to the same underlying event.\n\nAnd if you want to *Resolve* or *Delete* the EventLog entry, do that 4 times also?\n\n### redfish client must already handle duplicate EventId\n\n\u003e That\u0027s not correct in the way redfish is modeled, and would lead to duplicates on any consumer.\n\nRedfish clients already need to deal with duplicates since different BMCs generate their ```LogEntryId``` for the log entries independently.\n\nSo currently they already have to handle this case and assume Event Log entries to be unique only in the context of a single ComputerSystem.",
+      "parentUuid": "2294e590_036776cc",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
