@@ -72,6 +72,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "145440a0_02e80883",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T17:05:44Z",
+      "side": 1,
+      "message": "So Redfish",
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db13dd47_0ad23e1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 44
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T17:05:44Z",
+      "side": 1,
+      "message": "Waiting on Redfish 2025.3 \nhttps://github.com/DMTF/Redfish/pull/6446/files\n\nRedfish 2025.3 is going to add a Max SpeedRPM and a Max SecondarySpeedRPM. This will be mapped to Fan MAX VALUE e.g. https://gerrit.openbmc.org/c/openbmc/openbmc/+/74742\n\nRedfish is also stating that Fan Reading should be calculated from SpeedRPM / Max SpeedRPM.\n\nRedfish has already stated Fan Reading should be a Percentage and the RPM should be at SpeedRPM. This is different from what we do today.  \n\nI believe the plan is to do this Fan Reading Percentage calculation in bmcweb.  Jump in if others disagree. \n\nThere was also a discussion about a meson option so people could stay at the Fan Reading RPM for some time.. Since Fan Reading should be a percentage we would expect eventually this option to go away and everyone to move to Fan Reading Percentage, but that can be years down the road.",
+      "revId": "c36b6fc1c48da348e59718092ebc40c106a08948",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "feb2e697_875ac253",
         "filename": "redfish-core/lib/fan.hpp",
         "patchSetId": 44
