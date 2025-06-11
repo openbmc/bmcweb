@@ -164,6 +164,8 @@ RedfishService::RedfishService(App& app)
     requestRoutesPprStatus(app);
     requestRoutesPprFile(app);
 
+    requestRoutesOobErrorInjection(app);
+
     requestRoutesProcessorCollection(app);
     requestRoutesProcessor(app);
     requestRoutesOperatingConfigCollection(app);

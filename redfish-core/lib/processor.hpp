@@ -1376,6 +1376,16 @@ inline void requestRoutesProcessor(App& app)
             boost::urls::format("/redfish/v1/Systems/{}/Processors/{}",
                                 BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
 
+        asyncResp->res.jsonValue["Actions"]["Oem"] = {
+            {"#Processor.OobErrorInjectionMode",
+             {{"target", "/redfish/v1/Systems/system/Processors/" +
+                             processorId +
+                             "/Actions/Oem/Processor.OobErrorInjectionMode"}}},
+            {"#Processor.SupportedErrorTypes",
+             {{"target", "/redfish/v1/Systems/system/Processors/" +
+                             processorId +
+                             "/Actions/Oem/Processor.SupportedErrorTypes"}}}};
+
         getProcessorObject(
             asyncResp, processorId,
             std::bind_front(getProcessorData, asyncResp, processorId));
@@ -1425,5 +1435,127 @@ inline void requestRoutesProcessor(App& app)
         }
     });
 }
+
+inline void requestRoutesOobErrorInjection(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/Processors/<str>/Actions/Oem/Processor.OobErrorInjectionMode")
+        .privileges(redfish::privileges::headProcessor)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleProcessorHead, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/Processors/<str>/Actions/Oem/Processor.OobErrorInjectionMode")
+        .privileges(redfish::privileges::getProcessor)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string&, const std::string& processorId) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+
+        // Check if there is required param, truly entering this shall be
+        // impossible
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#Processor.v1_11_0.Processor";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Processors/" + processorId +
+            "Actions/Oem/Processor.OobErrorInjectionMode";
+        std::string errorInjectionInterface = "com.amd.ErrorInjection";
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::string& oobErrorInjectionMode) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (oobErrorInjectionMode.empty())
+            {
+                // illegal value
+                messages::generalError(asyncResp->res);
+                return;
+            }
+
+            if (oobErrorInjectionMode ==
+                "com.amd.ErrorInjection.Status.Enabled")
+            {
+                asyncResp->res.jsonValue["OobErrorInjectionMode"] = "Enabled";
+            }
+            else if (oobErrorInjectionMode ==
+                     "com.amd.ErrorInjection.Status.Disabled")
+            {
+                asyncResp->res.jsonValue["OobErrorInjectionMode"] = "Disabled";
+            }
+            else
+            {
+                asyncResp->res.jsonValue["OobErrorInjectionMode"] = "Unknown";
+            }
+        },
+            "xyz.openbmc_project.ErrorInjection",
+            "/xyz/openbmc_project/ErrorInjection", errorInjectionInterface,
+            "GetOobErrorInjectMode");
+    });
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/Processors/<str>/Actions/Oem/Processor.SupportedErrorTypes")
+        .privileges(redfish::privileges::headProcessor)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleProcessorHead, std::ref(app)));
+
+    BMCWEB_ROUTE(
+        app,
+        "/redfish/v1/Systems/<str>/Processors/<str>/Actions/Oem/Processor.SupportedErrorTypes")
+        .privileges(redfish::privileges::getProcessor)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string&, const std::string& processorId) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#Processor.v1_11_0.Processor";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Processors/" + processorId +
+            "/Actions/Oem/Processor.SupportedErrorTypes";
+
+        std::string errorInjectionInterface = "com.amd.ErrorInjection";
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::vector<std::string>& supportedErrors) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (supportedErrors.empty())
+            {
+                messages::generalError(asyncResp->res);
+                return;
+            }
+
+            asyncResp->res.jsonValue["SupportedErrorTypes"] = supportedErrors;
+        },
+            "xyz.openbmc_project.ErrorInjection",
+            "/xyz/openbmc_project/ErrorInjection", errorInjectionInterface,
+            "GetOobErrorTypes");
+    });
+};
 
 } // namespace redfish
