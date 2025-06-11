@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e7db6d_0249789a",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1930,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T13:02:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "1f9c6579_108ce0f1",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b353167_c555b1e1",
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "Similarly, https://redfish.dmtf.org/registries/Redfish_1.5.0_PrivilegeRegistry.json tells\n\n```\n        {\n            \"Entity\": \"LogService\",\n             ...\n            \"SubordinateOverrides\": [\n                {\n                    \"Targets\": [\n                        \"ComputerSystem\",\n                        \"LogServiceCollection\"\n                    ],\n                    \"OperationMap\": {\n                        ...\n                        \"POST\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"\n                                ]\n                            }\n                        ],\n```",
       "parentUuid": "4b353167_c555b1e1",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c51ad954_cb7f6ae3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2557,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T13:02:47Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f539bed5_44eddb08",
       "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
