@@ -33,6 +33,24 @@
       "message": "I am okay without the validator if it is too hard to test",
       "revId": "aad0aa659cf799569fe3d1e942eb1a0647305815",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "387ed177_c46eb3b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001516
+      },
+      "writtenOn": "2025-06-11T12:59:47Z",
+      "side": 1,
+      "message": "One way to test is start fwupdate which takes \u003e10 mins then start service validator with specific uri of task monitor.\n\nI have compared the task and task monitor response in running state, all properties and values were matching except `HidePayload`. Change is now pushed to add `HidePayload`",
+      "parentUuid": "71fe5da7_c998d48b",
+      "revId": "aad0aa659cf799569fe3d1e942eb1a0647305815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
