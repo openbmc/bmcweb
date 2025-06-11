@@ -118,6 +118,30 @@
       },
       "revId": "e42def76306e580d7052ddff1c425b2733693b40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87fca882_151d2aed",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-06-11T14:43:05Z",
+      "side": 1,
+      "message": "Testing on Tyan S8030 with AST2500\n\nAdded the following to my EM config to enable the code path\n\n```\n \"Name\": \"system\",\n    \"Probe\": \"xyz.openbmc_project.FruDevice({\u0027BOARD_MANUFACTURER\u0027: \u0027TYAN\u0027, \u0027BOARD_PRODUCT_NAME\u0027: \u0027S8030*\u0027})\",\n    \"Type\": \"Board\",\n    \"xyz.openbmc_project.Inventory.Decorator.Asset\": {\n        \"Manufacturer\": \"$PRODUCT_MANUFACTURER\",\n        \"Model\": \"$PRODUCT_PRODUCT_NAME\",\n        \"PartNumber\": \"$PRODUCT_PART_NUMBER\",\n        \"SerialNumber\": \"$PRODUCT_SERIAL_NUMBER\"\n    },\n    \"xyz.openbmc_project.Inventory.Decorator.ManagedHost\": {\n        \"HostIndex\": \"1\"\n    }\n```\n\ngives\n```\nroot@s8030-bmc-30303035c0c1:~# busctl call xyz.openbmc_project.ObjectMapper /xyz/openbmc_project/object_mapper xyz.openbmc_project.ObjectMapper GetSubTree sias /xyz/openbmc_project/inventory 0 1 xyz.openbmc_project.Inventory.Decorator.ManagedHost\na{sa{sas}} 1 \"/xyz/openbmc_project/inventory/system/board/system\" 1 \"xyz.openbmc_project.EntityManager\" 4 \"xyz.openbmc_project.AddObject\" \"xyz.openbmc_project.Inventory.Decorator.Asset\" \"xyz.openbmc_project.Inventory.Decorator.ManagedHost\" \"xyz.openbmc_project.Inventory.Item.Board\"\n```\n\nperformance without this patch:\n```\nredfish/v1/Systems/system\ntime_namelookup:  0.056690s\ntime_connect:     0.089798s\ntime_appconnect:  0.230599s\ntime_pretransfer: 0.230640s\ntime_redirect:    0.000000s\ntime_starttransfer: 0.863677s\n-------------------\ntime_total:       0.864107s\n```\n\nperformance with this patch (3 samples):\n```\nredfish/v1/Systems/system\ntime_namelookup:  0.035734s\ntime_connect:     0.061406s\ntime_appconnect:  0.194238s\ntime_pretransfer: 0.194289s\ntime_redirect:    0.000000s\ntime_starttransfer: 0.861888s\n-------------------\ntime_total:       0.887527s\n\nredfish/v1/Systems/system\ntime_namelookup:  0.028830s\ntime_connect:     0.055981s\ntime_appconnect:  0.199217s\ntime_pretransfer: 0.199272s\ntime_redirect:    0.000000s\ntime_starttransfer: 0.911596s\n-------------------\ntime_total:       0.937434s\n\nredfish/v1/Systems/system\ntime_namelookup:  0.029338s\ntime_connect:     0.059559s\ntime_appconnect:  0.197102s\ntime_pretransfer: 0.197221s\ntime_redirect:    0.000000s\ntime_starttransfer: 0.844367s\n-------------------\ntime_total:       0.875859s\n```\n\nAlso had the debug logs enabled to confirm the code path was running\n```\nJun 11 14:03:15 s8030-bmc-30303035c0c1 bmcwebd[23974]: [systems.hpp:3248] requested system \u003d system\nJun 11 14:03:15 s8030-bmc-30303035c0c1 bmcwebd[23974]: [systems_utils.hpp:141] Got index 1 for path /xyz/openbmc_project/inventory/system/board/system\n```\n\n\u003e If I\u0027m reading this right we\u0027re seeing a 3X regression in performance? That\u0027s not great for one of the most used APIs in the system.\n\nI would expect a tiny performance regression due to the mapper call and dbus query which is what i am seeing.\n\nLooking at the calls made for that route, it is clear where the performance is going. Just a small selection here:\n\n- handleComputerSystemGet\n - getComputerSystemIndex\n   - 1 (mapper call) for ManagedHost\n    - 1 (dbus property get) in getManagedHostProperty \n- processComputerSystemGet\n - 1+ getPortStatusAndPath\n - 2+ getSystemLocationIndicatorActive\n - 2+ getIndicatorLedState\n - 1+ getIdlePowerSaver\n - 1+ getHostWatchdogTimer\n - 2+ getPowerMode\n - 1+ getStopBootOnFault\n - 1+ getLastResetTime\n - 1+ getHostState\n - 3+ getBootProperties\n - 1+ getBootProgress\n - 1+ getBootProgressLastStateTime\n - 1+ getPowerRestorePolicy\n - ...\n\nNot sure how much this helps but i think of this in \u0027units\u0027 of performance where each unit is one dbus call. From that perspective i would not be worried about the managed host.",
+      "parentUuid": "7a52b66d_24cea703",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 11
+      },
+      "revId": "e42def76306e580d7052ddff1c425b2733693b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
