@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f9c6579_108ce0f1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1930,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-11T11:51:12Z",
+      "side": 1,
+      "message": "https://redfish.dmtf.org/registries/Redfish_1.5.0_PrivilegeRegistry.json tells\n- deleteLogEntry is with `ConfigureManager`, but\n- deleteLogEntrySubOverComputerSystem... is with `ConfigureComponents`\n\n```\n        {\n            \"Entity\": \"LogEntry\",\n            \"OperationMap\": {\n                    \"DELETE\": [\n                    {\n                        \"Privilege\": [\n                            \"ConfigureManager\"       \u003c\u003d\u003d\u003d\n                        ]\n                    }\n                ]\n                ...\n          \"SubordinateOverrides\": [\n                {\n                    \"Targets\": [\n                        \"ComputerSystem\",\n                        \"LogServiceCollection\",\n                        \"LogService\",\n                        \"LogEntryCollection\"\n                    ],\n                    \"OperationMap\": {\n                        ...\n                        \"DELETE\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"   \u003c\u003d\u003d\u003d\n                                ]\n                            }\n                        ],\n```",
+      "parentUuid": "a5a29534_b8b9112d",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4b353167_c555b1e1",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 25
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f539bed5_44eddb08",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2557,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-11T11:51:12Z",
+      "side": 1,
+      "message": "Similarly, https://redfish.dmtf.org/registries/Redfish_1.5.0_PrivilegeRegistry.json tells\n\n```\n        {\n            \"Entity\": \"LogService\",\n             ...\n            \"SubordinateOverrides\": [\n                {\n                    \"Targets\": [\n                        \"ComputerSystem\",\n                        \"LogServiceCollection\"\n                    ],\n                    \"OperationMap\": {\n                        ...\n                        \"POST\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"\n                                ]\n                            }\n                        ],\n```",
+      "parentUuid": "4b353167_c555b1e1",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "46dfc120_746e7cea",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 25
@@ -65,6 +101,24 @@
       "writtenOn": "2025-06-11T03:23:21Z",
       "side": 1,
       "message": "This is allowing Readonly user access ? \nWe might want to do this as a separate commit..",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ced6387f_0ead5c1c",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2582,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-11T11:51:12Z",
+      "side": 1,
+      "message": "The privilege `getLogService` would need `Login`.\n```\nconst static auto\u0026 getLogService \u003d privilegeSetLogin;\n```\n\n\nLet\u0027s do this in a separate commit.",
+      "parentUuid": "46dfc120_746e7cea",
       "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -99,6 +153,24 @@
       "writtenOn": "2025-06-11T03:23:21Z",
       "side": 1,
       "message": "Yeah, maybe let\u0027s do this as a separate commit and we can remove this comment",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "647b76b5_5533096e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2759,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-11T11:51:12Z",
+      "side": 1,
+      "message": "Ok, let\u0027s do this in a separate commit.",
+      "parentUuid": "c9f3c877_8e23a0cf",
       "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -150,6 +222,24 @@
       "writtenOn": "2025-06-11T03:23:21Z",
       "side": 1,
       "message": "This is moving from ConfigureManager to ConfigureComponent which should be okay..",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8fc1547_e86ef716",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 3164,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-11T11:51:12Z",
+      "side": 1,
+      "message": "https://redfish.dmtf.org/registries/Redfish_1.5.0_PrivilegeRegistry.json says as ConfigureComponents.\n\n```\n            \"Entity\": \"LogService\",\n             ...\n                \"SubordinateOverrides\": [\n                {\n                    \"Targets\": [\n                        \"ComputerSystem\",\n                        \"LogServiceCollection\"\n                    ],\n                    \"OperationMap\": {\n                        ...\n                        \"POST\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"\n                                ]\n                            }\n                        ],\n```",
+      "parentUuid": "7c891b48_e58551ae",
       "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
