@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c403ff50_ab458d4c",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-06-11T19:12:54Z",
+      "side": 1,
+      "message": "hdr, multipartParser can be stored directly because their types are the same for requests and responses.\nboost::beast::http::header\u003cfalse, Fields\u003e (response) has no method() member, while the \u003ctrue\u003e (request) version does.\n\nUsing the small lambda gives us a deferred, type-safe way to obtain the verb only when it actually exists.",
+      "parentUuid": "07665594_c9e746e7",
+      "revId": "b148e849d2551c9e8d379df51e99f9f66e1142db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c415247_2a0c1db4",
@@ -123,6 +141,24 @@
       "writtenOn": "2025-05-29T22:48:48Z",
       "side": 1,
       "message": "Please abstract this function into multiple.  This was arguably too long before, it\u0027s definitely too long after your change.",
+      "revId": "b148e849d2551c9e8d379df51e99f9f66e1142db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "183b094a_aa440740",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-06-11T19:12:54Z",
+      "side": 1,
+      "message": "let me make this change",
+      "parentUuid": "3e45dd39_1bf35139",
       "revId": "b148e849d2551c9e8d379df51e99f9f66e1142db",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
