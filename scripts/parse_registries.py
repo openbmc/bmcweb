@@ -81,7 +81,7 @@ def openbmc_local_getter() -> RegistryInfo:
         ),
         "rb",
     ) as json_file_fd:
-        json_file = json.load(json_file_fd)
+        json_file = json.loads(json_file_fd)
 
     path = os.path.join(INCLUDE_PATH, "openbmc_message_registry.hpp")
     return (path, json_file, "openbmc", url)
