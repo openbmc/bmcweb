@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fd1407e_7d62b8b0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1348,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T03:23:21Z",
+      "side": 1,
+      "message": "These are some name.. Oh well, easy to find / exactly describes it",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a29534_b8b9112d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 1930,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T03:23:21Z",
+      "side": 1,
+      "message": "Moving from ConfigureManager to ConfigureComponents",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b353167_c555b1e1",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2557,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T03:23:21Z",
+      "side": 1,
+      "message": "Moving from ConfigureManager to ConfigureComponents",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46dfc120_746e7cea",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2582,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T03:23:21Z",
+      "side": 1,
+      "message": "This is allowing Readonly user access ? \nWe might want to do this as a separate commit..",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38adbeb2_502a6158",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2647,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T03:23:21Z",
+      "side": 1,
+      "message": "This is the same.. ConfigureComponents",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9f3c877_8e23a0cf",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2759,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T03:23:21Z",
+      "side": 1,
+      "message": "Yeah, maybe let\u0027s do this as a separate commit and we can remove this comment",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "311d1adc_7e6160bc",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T03:23:21Z",
+      "side": 1,
+      "message": "Can you remove this comment ?",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8242c12f_b2e2ea73",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2989,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T03:23:21Z",
+      "side": 1,
+      "message": "This isn\u0027t changing.. stays at ConfigureComponents",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c891b48_e58551ae",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 3164,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-11T03:23:21Z",
+      "side": 1,
+      "message": "This is moving from ConfigureManager to ConfigureComponent which should be okay..",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
