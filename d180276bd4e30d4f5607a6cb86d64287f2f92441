@@ -69,6 +69,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5783d202_3f3c3cb1",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-11T17:52:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c23cdcc_9b2b28bf",
+      "revId": "d180276bd4e30d4f5607a6cb86d64287f2f92441",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab771872_bc39e8b5",
@@ -82,6 +100,24 @@
       "writtenOn": "2025-02-24T21:34:42Z",
       "side": 1,
       "message": "How does this and id like \"badaccountid\"\n\nE.g. \n\n POST /redfish/v1/AccountService/Accounts/badaccountid/Actions/ManagerAccount.VerifyTimeBasedOneTimePassword\n\n\n?",
+      "revId": "d180276bd4e30d4f5607a6cb86d64287f2f92441",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4d1625d_0d5bd002",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-11T17:52:28Z",
+      "side": 1,
+      "message": "It will end in a 404 (not found) error",
+      "parentUuid": "ab771872_bc39e8b5",
       "revId": "d180276bd4e30d4f5607a6cb86d64287f2f92441",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
