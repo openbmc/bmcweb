@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2548a0d_f1d532cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 76
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-11T17:09:42Z",
+      "side": 1,
+      "message": "When MFA is enabled, Basic auth also requires secret key to be setup\nfor the user account.\n\nAnd, when mTLS auth is enabled, it continues to work irrespective of MFA. MFA is not enforced on mTLS auth.\n\nI have updated the commit message, but for the test cases, I will update each of the commits\u0027 (in this commit chain\u0027s) tested by section. Hope that works.",
+      "parentUuid": "b70bb18c_0a257eef",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 7
+      },
+      "revId": "2fcbb85653210a802003bb08bd43e1ef876c5eff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f77a757b_31e488a6",
@@ -60,6 +84,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c736c08_3c107e5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 76
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-11T17:09:42Z",
+      "side": 1,
+      "message": "Sure, I am working on getting it all rebased to this base commit with updated commit messages.",
+      "parentUuid": "c5d5a449_4fb13333",
+      "revId": "2fcbb85653210a802003bb08bd43e1ef876c5eff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74f48730_4070d05e",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 76
@@ -71,6 +113,24 @@
       "writtenOn": "2025-06-09T18:51:40Z",
       "side": 1,
       "message": "I think this may be better to be written like\n\n```\nbool googleAuthEnabled \u003d false;\nif( multiFactorAuthEnabled \u003d\u003d mfaGoogleAuthDbusVal )\n{\n    googleAuthEnabled \u003d true;\n}\n```",
+      "revId": "2fcbb85653210a802003bb08bd43e1ef876c5eff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddaef94e_e9378365",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 76
+      },
+      "lineNbr": 1443,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-11T17:09:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74f48730_4070d05e",
       "revId": "2fcbb85653210a802003bb08bd43e1ef876c5eff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
