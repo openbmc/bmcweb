@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "32e98693_7309edf6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-12T16:00:56Z",
+      "side": 1,
+      "message": "My take is that the commit message needs to be updated with WHY we\u0027re adding this.  Why is this property useful to a client?  What does it indicate and how does a consumer of it use the property?  Ideally that would be backed with some level of clarification from either the redfish spec or the redfish forums.",
+      "parentUuid": "d7251c1e_05e5e5d0",
+      "range": {
+        "startLine": 10,
+        "startChar": 67,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "3bd99101178f1edce2d63ee0cd4dc87562bfbd70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78b3f942_1bc7cd88",
         "filename": "redfish-core/lib/telemetry_service.hpp",
         "patchSetId": 1
