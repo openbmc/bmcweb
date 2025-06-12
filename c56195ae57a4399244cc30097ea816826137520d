@@ -16,6 +16,24 @@
       "message": "AI hallucination?\n\nload \u003d load from file\nloads \u003d load from string\n\nThe word \"safe\" doesn\u0027t show up anywhere in the documentation\nhttps://docs.python.org/3/library/json.html",
       "revId": "c56195ae57a4399244cc30097ea816826137520d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c970627f_7532bff9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-06-12T17:29:08Z",
+      "side": 1,
+      "message": "No... Patrick hallucination.  I messed up the `yaml.loads` and json.  Explains why it didn\u0027t work.",
+      "parentUuid": "378ba114_b5023695",
+      "revId": "c56195ae57a4399244cc30097ea816826137520d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
