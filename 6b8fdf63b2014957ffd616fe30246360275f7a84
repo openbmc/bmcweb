@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a151b1b5_f8dbd2d6",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-12T13:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e95a4616_d6952106",
+      "revId": "6b8fdf63b2014957ffd616fe30246360275f7a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22ca4f33_f6649a85",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76250ee3_eea008b3",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-12T13:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22ca4f33_f6649a85",
+      "revId": "6b8fdf63b2014957ffd616fe30246360275f7a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16f681f1_abf7b4b8",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-06-09T18:47:06Z",
       "side": 1,
       "message": "Since `verifyTotpCallback` is short enough, I think it is better to be inlined.\n\n````\n    verifyTotpDbusUtil(asyncResp, totp, userPath,\n                       [username, req{req.copy()}](bool success) {\n                       if (success)\n                       {\n                           // Remove existing sessions of the user\n                           persistent_data::SessionStore::getInstance()\n                               .removeSessionsByUsernameExceptSession(username, req.session);\n                       });\n```",
+      "revId": "6b8fdf63b2014957ffd616fe30246360275f7a84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cdd1246_f74b96fb",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 53
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-12T13:57:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16f681f1_abf7b4b8",
       "revId": "6b8fdf63b2014957ffd616fe30246360275f7a84",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
