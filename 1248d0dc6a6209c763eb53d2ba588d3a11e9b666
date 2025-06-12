@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "12bff2d0_7ff41be0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 69
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001663
+      },
+      "writtenOn": "2025-06-12T06:40:07Z",
+      "side": 1,
+      "message": "Google authenticator pam module we\u0027re using does not have this support. In the defect we opened they had suggested to come up with a new pam module and we\u0027re working on it.\nhttps://github.com/google/google-authenticator-libpam/issues/257",
+      "parentUuid": "c6dd2ae8_ed94dedd",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 0
+      },
+      "revId": "1248d0dc6a6209c763eb53d2ba588d3a11e9b666",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1c27959a_01b4c443",
