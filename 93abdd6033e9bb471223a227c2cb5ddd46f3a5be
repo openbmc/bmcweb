@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d73ffe2e_e27fd94e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-06-13T21:15:08Z",
+      "side": 1,
+      "message": "You only added Manufacturer and ReleaseDate in your patch. I am wondering how does your UT shows other entries like SoftwareId?",
+      "revId": "93abdd6033e9bb471223a227c2cb5ddd46f3a5be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
