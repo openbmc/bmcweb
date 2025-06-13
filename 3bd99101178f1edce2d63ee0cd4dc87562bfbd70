@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2684ac7_2d6e16c2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2025-06-13T11:11:31Z",
+      "side": 1,
+      "message": "On second thought, I made a mistake during implementation. The actual recipient of logs sent by telemetry service is BMC journal (as it was in the original commit). I apologize for unnecessary confusion. \n\nI\u0027ve corrected the URI to a right one. I\u0027ve also reworked the commit message once again, by adding a reference to Redfish spec among other things. Could You please take a look once again, if it\u0027s okay now?",
+      "parentUuid": "32e98693_7309edf6",
+      "range": {
+        "startLine": 10,
+        "startChar": 67,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "3bd99101178f1edce2d63ee0cd4dc87562bfbd70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78b3f942_1bc7cd88",
         "filename": "redfish-core/lib/telemetry_service.hpp",
         "patchSetId": 1
