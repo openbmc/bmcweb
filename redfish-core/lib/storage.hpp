@@ -40,6 +40,10 @@
 namespace redfish
 {
 
+// define map to receive Dimm data from BIOS
+using InnerMap = std::map<std::string, std::variant<int64_t, std::string>>;
+using OuterMap = std::map<std::string, InnerMap>;
+
 inline void handleSystemsStorageCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -308,11 +312,12 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::string* serialNumber = nullptr;
         const std::string* manufacturer = nullptr;
         const std::string* model = nullptr;
+        const std::string* revision = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
             partNumber, "SerialNumber", serialNumber, "Manufacturer",
-            manufacturer, "Model", model);
+            manufacturer, "Model", model, "Revision", revision);
 
         if (!success)
         {
@@ -338,6 +343,11 @@ inline void getDriveAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         if (model != nullptr)
         {
             asyncResp->res.jsonValue["Model"] = *model;
+        }
+
+        if (revision != nullptr)
+        {
+            asyncResp->res.jsonValue["Revision"] = *revision;
         }
     });
 }
@@ -454,6 +464,7 @@ inline void
             // this interface isn't required
             return;
         }
+
         const std::string* encryptionStatus = nullptr;
         const bool* isLocked = nullptr;
         for (const std::pair<std::string, dbus::utility::DbusVariantType>&
@@ -471,22 +482,8 @@ inline void
                     messages::internalError(asyncResp->res);
                     return;
                 }
-
-                std::optional<drive::MediaType> mediaType =
-                    convertDriveType(*value);
-                if (!mediaType)
-                {
-                    BMCWEB_LOG_WARNING("UnknownDriveType Interface: {}",
-                                       *value);
-                    continue;
-                }
-                if (*mediaType == drive::MediaType::Invalid)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                asyncResp->res.jsonValue["MediaType"] = *mediaType;
+                // read type value direct from Bios
+                asyncResp->res.jsonValue["MediaType"] = *value;
             }
             else if (propertyName == "Capacity")
             {
@@ -664,10 +661,9 @@ inline void afterGetSubtreeSystemsStorageDrive(
     asyncResp->res.jsonValue["Name"] = driveId;
     asyncResp->res.jsonValue["Id"] = driveId;
 
-    if (connectionNames.size() != 1)
+    if (connectionNames.empty())
     {
-        BMCWEB_LOG_ERROR("Connection size {}, not equal to 1",
-                         connectionNames.size());
+        BMCWEB_LOG_ERROR("Connection size {} ", connectionNames.size());
         messages::internalError(asyncResp->res);
         return;
     }
@@ -718,12 +714,79 @@ inline void handleSystemsStorageDriveGet(
                         driveId));
 }
 
+inline void handleSystemsStorageDrivePost(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& driveId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    nlohmann::json drivePostJsonObject = nlohmann::json::parse(req.body(),
+                                                               nullptr, false);
+    InnerMap driveDataMap;
+    for (auto& [key, value] : drivePostJsonObject.items())
+    {
+        if (value.is_number_integer())
+        {
+            driveDataMap[json_util::toUpperCase(key)] = value.get<int64_t>();
+        }
+        else if (value.is_string())
+        {
+            driveDataMap[json_util::toUpperCase(key)] =
+                value.get<std::string>();
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR("Dimm -Not supported type received from BIOS");
+        }
+    }
+
+    OuterMap driveMap;
+    driveMap[driveId] = driveDataMap;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG("Storage - POST D-Bus responses error: {}", ec);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        messages::success(asyncResp->res);
+        return;
+    }, "xyz.openbmc_project.PCIe", "/xyz/openbmc_project/inventory/PCIe",
+        "xyz.openbmc_project.PCIe.PcieData", "SetStorageData", driveMap);
+
+    asyncResp->res.jsonValue["Status"] = "OK";
+}
+
 inline void requestRoutesDrive(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Drives/<str>/")
         .privileges(redfish::privileges::getDrive)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleSystemsStorageDriveGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Storage/1/Drives/<str>/")
+        .privileges(redfish::privileges::postDrive)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleSystemsStorageDrivePost, std::ref(app)));
 }
 
 inline void afterChassisDriveCollectionSubtreeGet(
@@ -796,7 +859,7 @@ inline void afterChassisDriveCollectionSubtreeGet(
             asyncResp->res.jsonValue["Members@odata.count"] = resp.size();
         }); // end association lambda
 
-    }       // end Iterate over all retrieved ObjectPaths
+    } // end Iterate over all retrieved ObjectPaths
 }
 /**
  * Chassis drives, this URL will show all the DriveCollection

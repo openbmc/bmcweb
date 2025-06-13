@@ -384,11 +384,12 @@ inline void
         const std::string* partNumber = nullptr;
         const std::string* serialNumber = nullptr;
         const std::string* sparePartNumber = nullptr;
+        const std::string* deviceType = nullptr;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), assetList, "Manufacturer",
             manufacturer, "Model", model, "PartNumber", partNumber,
-            "SerialNumber", serialNumber, "SparePartNumber", sparePartNumber);
+            "SerialNumber", serialNumber, "SparePartNumber", sparePartNumber, "DeviceType", deviceType);
 
         if (!success)
         {
@@ -428,6 +429,10 @@ inline void
         if (sparePartNumber != nullptr && !sparePartNumber->empty())
         {
             asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+        }
+        if (deviceType != nullptr && !deviceType->empty())
+        {
+            asyncResp->res.jsonValue["DeviceType"] = *deviceType;
         }
     });
 }
@@ -517,7 +522,7 @@ inline void addPCIeDeviceProperties(
     }
     // The default value of MaxLanes is 0, and the field will be
     // left as off if it is a default value.
-    if (maxLanes != nullptr && *maxLanes != 0)
+    if (maxLanes != nullptr)
     {
         asyncResp->res.jsonValue["PCIeInterface"]["MaxLanes"] = *maxLanes;
     }
