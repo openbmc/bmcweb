@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8da2ff75_8a1f0889",
+        "filename": "redfish-core/lib/account_service_mfa_actions.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-06-13T09:33:49Z",
+      "side": 1,
+      "message": "The post-verification (of TOTP) logic (removing the sessions of the user) is deferred to the callback here instead of tightly inlining the logic at multiple places.",
+      "parentUuid": "fc69835a_44ac370f",
+      "revId": "d180276bd4e30d4f5607a6cb86d64287f2f92441",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc2fc594_4e07a829",
