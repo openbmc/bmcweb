@@ -207,12 +207,12 @@ class SensorsAsyncResp
             return;
         }
         const auto nameIt = sensorObject.find("Name");
-        if (nameIt != sensorObject.end())
+        if (nameIt == sensorObject.end())
         {
             return;
         }
         const auto idIt = sensorObject.find("@odata.id");
-        if (idIt != sensorObject.end())
+        if (idIt == sensorObject.end())
         {
             return;
         }
