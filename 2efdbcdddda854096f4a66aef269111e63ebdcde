@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acc18c9e_da6d8e44",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2133,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-13T17:21:05Z",
+      "side": 1,
+      "message": "Is it always the case as TOTPAuthenticator not found for any ec?\nOr should some ec  need to be handled differently?",
+      "revId": "2efdbcdddda854096f4a66aef269111e63ebdcde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "906a65c8_f4b5fff2",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 2142,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-13T17:21:05Z",
+      "side": 1,
+      "message": "This would better be done with `dbus::utility::getDbusObject()`.",
+      "revId": "2efdbcdddda854096f4a66aef269111e63ebdcde",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
