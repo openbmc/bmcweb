@@ -161,6 +161,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "21653ae3_776132a8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2582,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-13T14:35:42Z",
+      "side": 1,
+      "message": "This is done by https://gerrit.openbmc.org/c/openbmc/bmcweb/+/81130",
+      "parentUuid": "ced6387f_0ead5c1c",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "38adbeb2_502a6158",
         "filename": "redfish-core/lib/log_services.hpp",
         "patchSetId": 25
@@ -172,6 +190,24 @@
       "writtenOn": "2025-06-11T03:23:21Z",
       "side": 1,
       "message": "This is the same.. ConfigureComponents",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d2773cb_c59ada47",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2647,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-13T14:35:42Z",
+      "side": 1,
+      "message": "This will also be done by the separate commit (for Crashdump)",
+      "parentUuid": "38adbeb2_502a6158",
       "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -211,6 +247,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e0a7180_5cfde511",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2759,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-13T14:35:42Z",
+      "side": 1,
+      "message": "This is done by https://gerrit.openbmc.org/c/openbmc/bmcweb/+/81130",
+      "parentUuid": "647b76b5_5533096e",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "311d1adc_7e6160bc",
@@ -224,6 +278,24 @@
       "writtenOn": "2025-06-11T03:23:21Z",
       "side": 1,
       "message": "Can you remove this comment ?",
+      "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "503104d4_28f054b2",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 2983,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-13T14:35:42Z",
+      "side": 1,
+      "message": "This is done by https://gerrit.openbmc.org/c/openbmc/bmcweb/+/81130",
+      "parentUuid": "311d1adc_7e6160bc",
       "revId": "7eb5b7ba501a270c5c1594bd70ffaf0f9d8cf45e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
