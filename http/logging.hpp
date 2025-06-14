@@ -66,7 +66,7 @@ constexpr int toSystemdLevel(LogLevel level)
         });
 
     // Unknown log level.  Just assume debug
-    if (it != mapping.end())
+    if (it == mapping.end())
     {
         return 6;
     }
