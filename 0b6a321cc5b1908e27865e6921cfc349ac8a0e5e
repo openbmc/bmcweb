@@ -34,6 +34,24 @@
       "parentUuid": "c97d1f43_2c883119",
       "revId": "0b6a321cc5b1908e27865e6921cfc349ac8a0e5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d4dee77_b6c8708a",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-16T13:28:21Z",
+      "side": 1,
+      "message": "Good point. I\u0027ve put the warning at those two callers. For the SNMP caller I\u0027ve made it DEBUG since it is not treated as an error in that case.\n\nSince the callers are handling I\u0027ve removed the DEBUG from here so we won\u0027t be logging twice for the same thing.",
+      "parentUuid": "7c7a0c1c_a43320a5",
+      "revId": "0b6a321cc5b1908e27865e6921cfc349ac8a0e5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
