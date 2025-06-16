@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8310a72a_4755f8ac",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2579,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T14:47:36Z",
+      "side": 1,
+      "message": "Delete this",
+      "revId": "398b36204396b3eeddb06196b1ae4fc1e67edad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b94e1d34_912855b8",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2762,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T14:47:36Z",
+      "side": 1,
+      "message": "Delete this",
+      "revId": "398b36204396b3eeddb06196b1ae4fc1e67edad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23696a35_b8ec94f9",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2842,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T14:47:36Z",
+      "side": 1,
+      "message": "Delete this",
+      "revId": "398b36204396b3eeddb06196b1ae4fc1e67edad8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
