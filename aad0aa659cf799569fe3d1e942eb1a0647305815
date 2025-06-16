@@ -69,6 +69,24 @@
       "parentUuid": "71fe5da7_c998d48b",
       "revId": "aad0aa659cf799569fe3d1e942eb1a0647305815",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5a968dd_6fcd7962",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T18:35:59Z",
+      "side": 1,
+      "message": "Reading that definition of HidePayload, I think that makes sense.",
+      "parentUuid": "387ed177_c46eb3b0",
+      "revId": "aad0aa659cf799569fe3d1e942eb1a0647305815",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
