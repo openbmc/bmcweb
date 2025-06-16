@@ -774,6 +774,11 @@ inline void getDimmData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         asyncResp->res.jsonValue["@odata.id"] =
             boost::urls::format("/redfish/v1/Systems/{}/Memory/{}",
                                 BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+
+        asyncResp->res.jsonValue["Metrics"]["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/Memory/{}/MemoryMetrics",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+
         return;
     });
 }
@@ -926,4 +931,51 @@ inline void requestRoutesMemory(App& app)
             std::bind_front(handleMemoryDevicePost, std::ref(app)));
 }
 
+inline void requestRoutesMemoryMetrics(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/MemoryMetrics")
+        .privileges(redfish::privileges::getMemoryMetrics)
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName, const std::string& dimmId) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#MemoryMetrics.v1_7_3.MemoryMetrics";
+        asyncResp->res.jsonValue["Name"] = " MemoryMetrics of " + dimmId;
+        asyncResp->res.jsonValue["Id"] = dimmId + "_MemoryMetrics";
+        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/Memory/{}/MemoryMetrics",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+
+        sdbusplus::asio::getProperty<uint16_t>(
+            *crow::connections::systemBus, "xyz.openbmc_project.PCIe",
+            "/xyz/openbmc_project/inventory/Memory/" + dimmId,
+            "xyz.openbmc_project.Inventory.Item.Dimm", "CorrectableErrorCount",
+            [asyncResp](const boost::system::error_code& ec,
+                        const uint16_t correctableError) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("DBUS response error {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["CorrectableECCErrorCount"] =
+                correctableError;
+        });
+    });
+}
 } // namespace redfish

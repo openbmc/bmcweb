@@ -173,6 +173,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesOperatingConfig(app);
     requestRoutesMemoryCollection(app);
     requestRoutesMemory(app);
+    requestRoutesMemoryMetrics(app);
 
     requestRoutesSystems(app);
 
