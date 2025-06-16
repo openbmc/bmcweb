@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24aa3bf2_a59c72ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T19:27:49Z",
+      "side": 1,
+      "message": "I vote we follow the registry here, specially since \"Deviated from redfish privilege registry for GET \u0026 HEAD method for security reasons\" isn\u0027t true. A readonly user can already get to them",
+      "revId": "f52471cf790e5f0ed9464ef3b8ffb2da433e3274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01d0b9a1_24266306",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2583,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T19:27:49Z",
+      "side": 1,
+      "message": "This one is moving from ConfigureManager to Login",
+      "revId": "f52471cf790e5f0ed9464ef3b8ffb2da433e3274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b598dec5_2bd2621e",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2765,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T19:27:49Z",
+      "side": 1,
+      "message": "This one is moving from ConfigureComponents to Login",
+      "revId": "f52471cf790e5f0ed9464ef3b8ffb2da433e3274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a9313f6_19327d55",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2840,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T19:27:49Z",
+      "side": 1,
+      "message": "This one is moving from ConfigureComponents to Login",
+      "revId": "f52471cf790e5f0ed9464ef3b8ffb2da433e3274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d585f5dd_19fa0bf0",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2872,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T19:27:49Z",
+      "side": 1,
+      "message": "You can already get to the CrashDump if you are a Read Only user.. So this \"Deviated from redfish privilege registry for GET \u0026 HEAD method for security reasons\" isn\u0027t true..",
+      "range": {
+        "startLine": 2871,
+        "startChar": 0,
+        "endLine": 2872,
+        "endChar": 53
+      },
+      "revId": "f52471cf790e5f0ed9464ef3b8ffb2da433e3274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
