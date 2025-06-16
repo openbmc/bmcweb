@@ -16,6 +16,24 @@
       "message": "So a few of these are changing from ConfigureComponents to ConfigureManager?",
       "revId": "8428c013c12e3e02dcc4558d04653a67c8968f93",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab177cf_ff85b5fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-16T17:34:06Z",
+      "side": 1,
+      "message": "Yes, there are a few changes in this commit.\n\nThe changes are:\n\n- ConfigureManager to ConfigureComponents.\n```\nDELETE /redfish/v1/Systems/\u003cstr\u003e/LogServices/EventLog/Entries/\u003cstr\u003e\n```\n  \n- ConfigureCompnents -\u003e ConfigureManager\n```\nPOST /redfish/v1/Systems/\u003cstr\u003e/LogServices/Dump/Actions/LogService.ClearLog/\nPOST /redfish/v1/Systems/\u003cstr\u003e/LogServices/EventLog/Actions/LogService.ClearLog/\nPOST /redfish/v1/Systems/\u003cstr\u003e/LogServices/Dump/Actions/LogService.CollectDiagnosticData/\n```\n\n- The others stay as ConfigureComponents.",
+      "parentUuid": "8cfff02e_f8748490",
+      "revId": "8428c013c12e3e02dcc4558d04653a67c8968f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
