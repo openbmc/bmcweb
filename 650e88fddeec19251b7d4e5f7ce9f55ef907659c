@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e43f42e4_a5f798b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 42
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T14:40:53Z",
+      "side": 1,
+      "message": "Janet is going to work on this, like the other LocationIndicatorActive (e.g. memory, cpu, powersupply, and fan)",
+      "revId": "650e88fddeec19251b7d4e5f7ce9f55ef907659c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
