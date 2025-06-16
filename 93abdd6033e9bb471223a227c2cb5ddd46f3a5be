@@ -16,6 +16,24 @@
       "message": "You only added Manufacturer and ReleaseDate in your patch. I am wondering how does your UT shows other entries like SoftwareId?",
       "revId": "93abdd6033e9bb471223a227c2cb5ddd46f3a5be",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca7b1982_8f64c765",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 27
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-06-16T03:07:44Z",
+      "side": 1,
+      "message": "Oh seems like I flashed downstream fork. Let me correct it. Very sorry for the inconvenience.",
+      "parentUuid": "d73ffe2e_e27fd94e",
+      "revId": "93abdd6033e9bb471223a227c2cb5ddd46f3a5be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
