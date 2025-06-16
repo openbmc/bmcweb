@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cfff02e_f8748490",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-16T14:49:48Z",
+      "side": 1,
+      "message": "So a few of these are changing from ConfigureComponents to ConfigureManager?",
+      "revId": "8428c013c12e3e02dcc4558d04653a67c8968f93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
