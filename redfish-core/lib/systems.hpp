@@ -996,12 +996,14 @@ inline void getBootOverrideSource(
                     const std::string& bootSourceStr) {
             if (ec)
             {
-                if (ec.value() == boost::asio::error::host_unreachable)
+                // Service not available, no error, just don't return
+                // Boot Override Source information
+                if (ec.value() != EBADR &&
+                    ec.value() != boost::asio::error::host_unreachable)
                 {
-                    return;
+                    BMCWEB_LOG_ERROR("D-Bus response error: {}", ec);
+                    messages::internalError(asyncResp->res);
                 }
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
 
@@ -1087,12 +1089,14 @@ inline void getBootOverrideEnable(
                     const bool bootOverrideEnable) {
             if (ec)
             {
-                if (ec.value() == boost::asio::error::host_unreachable)
+                // Service not available, no error, just don't return
+                // Boot Override Enable information
+                if (ec.value() != EBADR &&
+                    ec.value() != boost::asio::error::host_unreachable)
                 {
-                    return;
+                    BMCWEB_LOG_ERROR("D-Bus response error: {}", ec);
+                    messages::internalError(asyncResp->res);
                 }
-                BMCWEB_LOG_ERROR("DBUS response error {}", ec);
-                messages::internalError(asyncResp->res);
                 return;
             }
 
