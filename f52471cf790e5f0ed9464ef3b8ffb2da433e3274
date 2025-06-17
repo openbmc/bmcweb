@@ -114,6 +114,30 @@
       },
       "revId": "f52471cf790e5f0ed9464ef3b8ffb2da433e3274",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6f9a5b0_6b6ad791",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2872,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-17T14:01:39Z",
+      "side": 1,
+      "message": "Ack. I mostly pointing out, a readonly user can already get to this endpoint",
+      "parentUuid": "f77d06c3_9eec60f5",
+      "range": {
+        "startLine": 2871,
+        "startChar": 0,
+        "endLine": 2872,
+        "endChar": 53
+      },
+      "revId": "f52471cf790e5f0ed9464ef3b8ffb2da433e3274",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
