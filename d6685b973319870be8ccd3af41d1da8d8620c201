@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f64f9bbd_2407977d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-17T14:09:55Z",
+      "side": 1,
+      "message": "Can add it later, but I prefer the existing pattern.",
+      "parentUuid": "bbef2c7d_f9afaeeb",
+      "range": {
+        "startLine": 1370,
+        "startChar": 9,
+        "endLine": 1370,
+        "endChar": 45
+      },
+      "revId": "d6685b973319870be8ccd3af41d1da8d8620c201",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a89e8e83_b69a999b",
