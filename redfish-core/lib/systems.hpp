@@ -1443,8 +1443,9 @@ inline void getTrustedModuleRequiredToBoot(
                 BMCWEB_LOG_DEBUG(
                     "DBUS response has more than 1 TPM Enable object:{}",
                     subtree.size());
-                // Throw an internal Error and return
-                messages::internalError(asyncResp->res);
+                // TODO: Support multi-host. This is an optional interface so
+                // just return for multi-host system which do not support for
+                // now.
                 return;
             }
 
