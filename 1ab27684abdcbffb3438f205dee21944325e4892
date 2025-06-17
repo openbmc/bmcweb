@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b523fbcd_bce3e002",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 78
+      },
+      "lineNbr": 1589,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-17T10:20:30Z",
+      "side": 1,
+      "message": "```\ndbus::utility::getProperty\u003cstd::string\u003e(\n     \"xyz.openbmc_project.User.Manager\",\n        \"/xyz/openbmc_project/user\", ...);\n```",
+      "range": {
+        "startLine": 1589,
+        "startChar": 3,
+        "endLine": 1589,
+        "endChar": 32
+      },
+      "revId": "1ab27684abdcbffb3438f205dee21944325e4892",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
