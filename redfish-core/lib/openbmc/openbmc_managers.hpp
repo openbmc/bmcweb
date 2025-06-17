@@ -268,7 +268,8 @@ inline void asyncPopulatePid(
                     {
                         if (propertyPair.first == "Type" ||
                             propertyPair.first == "Class" ||
-                            propertyPair.first == "Name")
+                            propertyPair.first == "Name" ||
+                            propertyPair.first == "AccumulateSetPoint")
                         {
                             continue;
                         }
