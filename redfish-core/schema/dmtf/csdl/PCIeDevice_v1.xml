@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.18.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.19.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -51,6 +51,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Processor_v1.xml">
     <edmx:Include Namespace="Processor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Port_v1.xml">
+    <edmx:Include Namespace="Port"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -1214,6 +1217,22 @@
           <Annotation Term="OData.Description" String="CXL protocol specification revision 3.2."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_19_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_18_0.PCIeDevice"/>
+
+      <ComplexType Name="Links" BaseType="PCIeDevice.v1_12_0.Links">
+        <NavigationProperty Name="ConnectedPCIePorts" Type="Collection(Port.Port)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the remote PCIe ports to which this device is connected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Port` that represent the remote PCIe ports to which this device is connected."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

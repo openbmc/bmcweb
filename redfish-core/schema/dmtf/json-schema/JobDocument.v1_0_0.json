@@ -1,0 +1,430 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/JobDocument.v1_0_0.json",
+    "$ref": "#/definitions/JobDocument",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#JobDocument.SubmitJob": {
+                    "$ref": "#/definitions/SubmitJob"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "DataType": {
+            "enum": [
+                "Boolean",
+                "Number",
+                "String"
+            ],
+            "enumDescriptions": {
+                "Boolean": "A boolean.",
+                "Number": "A number.",
+                "String": "A string."
+            },
+            "type": "string"
+        },
+        "JobDocument": {
+            "additionalProperties": false,
+            "description": "The `JobDocument` schema describes the template for a job with a set of parameters.",
+            "longDescription": "This resource shall represent a job document for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "CreationTime": {
+                    "description": "The date and time when this job document resource was created.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when this job document resource was created.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DocumentData": {
+                    "description": "The job document data as a Base64-encoded string.",
+                    "longDescription": "This property shall contain a Base64-encoded string of the job document data.  This property shall not be present if `DocumentDataURI` is present.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "DocumentDataHash": {
+                    "description": "The hash of the job document data.",
+                    "longDescription": "This property shall contain the hash of the job document data as a hex-encoded string.",
+                    "pattern": "^[0-9a-fA-F]+$",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "DocumentDataURI": {
+                    "description": "The URI at which to access the job document data.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI at which to access the job document data.  This property shall not be present if `DocumentData` is present.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "DocumentType": {
+                    "description": "The type of job document data associated with this job document.",
+                    "longDescription": "This property shall contain the type of job document data associated with this job document.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "ParameterMetadata": {
+                    "description": "The metadata for each of the parameters supported by this job document for the `SubmitJob` action.",
+                    "items": {
+                        "$ref": "#/definitions/ParameterMetadata"
+                    },
+                    "longDescription": "This property shall contain the metadata for each of the parameters supported by this job document for the `SubmitJob` action.",
+                    "type": "array"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "Version": {
+                    "description": "The version of this job document.",
+                    "longDescription": "This property shall contain the version of this job document.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "SupportedExecutors": {
+                    "description": "An array of links to the executors that are capable of running jobs instantiated from this job document.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/JobExecutor.json#/definitions/JobExecutor"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `JobExecutor` that represent the executors that are capable of running jobs instantiated from this job document.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "SupportedExecutors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Parameter": {
+            "additionalProperties": false,
+            "description": "An object containing a set of parameters for submitting a new job based on a job document.",
+            "longDescription": "This type shall contain a set of parameters for submitting a new job based on a job document.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                },
+                "^[A-Za-z][A-Za-z0-9_]+$": {
+                    "type": [
+                        "string",
+                        "boolean",
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "ParameterMetadata": {
+            "additionalProperties": false,
+            "description": "The metadata for a parameter supported by a job document for the `SubmitJob` action.",
+            "longDescription": "This type shall contain the metadata a parameter supported by a job document for the `SubmitJob` action.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AllowableNumbers": {
+                    "description": "The allowable numeric values or duration values, inclusive ranges of values, and incremental step values for this parameter.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall indicate the allowable numeric values, inclusive ranges of values, and incremental step values for this parameter, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification.  This property shall only be present for numeric parameters or string parameters that specify a duration.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "AllowablePattern": {
+                    "description": "The allowable pattern for this parameter.",
+                    "longDescription": "This property shall contain a regular expression that describes the allowable values for this parameter.  This property shall only be present for string parameters.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "AllowableValueDescriptions": {
+                    "description": "Descriptions of allowable values for this parameter.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall contain the descriptions of allowable values for this parameter.  The descriptions shall appear in the same array order as the `AllowableValues` property.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "AllowableValues": {
+                    "description": "The allowable values for this parameter.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall indicate the allowable values for this parameter.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "DataType": {
+                    "$ref": "#/definitions/DataType",
+                    "description": "The JSON property type for this parameter.",
+                    "longDescription": "This property shall contain the JSON property type for this parameter.",
+                    "readonly": true
+                },
+                "Description": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description",
+                    "description": "A description of the parameter.",
+                    "longDescription": "This property shall contain a description of the parameter.",
+                    "readonly": true
+                },
+                "MaximumValue": {
+                    "description": "The maximum supported value for this parameter.",
+                    "longDescription": "This integer or number property shall contain the maximum value that this service supports.  This property shall not be present for non-integer or number parameters.",
+                    "readonly": true,
+                    "type": "number"
+                },
+                "MinimumValue": {
+                    "description": "The minimum supported value for this parameter.",
+                    "longDescription": "This integer or number property shall contain the minimum value that this service supports.  This property shall not be present for non-integer or number parameters.",
+                    "readonly": true,
+                    "type": "number"
+                },
+                "Name": {
+                    "description": "The name of the parameter.",
+                    "longDescription": "This property shall contain the name of the parameter.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "Required": {
+                    "description": "An indication of whether the parameter is required.",
+                    "longDescription": "This property shall indicate whether the parameter is required.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
+                "ValueHint": {
+                    "description": "A hint value for the parameter.",
+                    "longDescription": "This property shall contain a hint value for the parameter.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "required": [
+                "DataType",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "SubmitJob": {
+            "additionalProperties": false,
+            "description": "Creates a new job based on the contents of this job document and additional parameters.",
+            "longDescription": "This action shall create a new `Job` resource based on the contents of this job document and additional parameters.",
+            "parameters": {
+                "HidePayload": {
+                    "description": "An indication of whether the contents of the parameters should be hidden from view after the job has been created.  If `true`, responses do not return the parameters.  If `false`, responses return the parameters.  If this parameter is not present when the job is created, the default is `false`.",
+                    "longDescription": "This parameter shall indicate whether the contents of the parameters should be hidden from view after the job has been created.  If `true`, responses shall not return the `Parameters` property.  If `false`, responses shall return the `Parameters` property.  If this parameter is not present when the job is created, the default is `false`.",
+                    "type": "boolean"
+                },
+                "JobCreator": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Job.json#/definitions/Job",
+                    "description": "The link to the job that is submitting this job.",
+                    "longDescription": "This parameter shall contain a link to a resource of type `Job` that represents the job that is submitting this job."
+                },
+                "Parameters": {
+                    "$ref": "#/definitions/Parameter",
+                    "description": "The list of parameters for the new job that are specific to this job document.",
+                    "longDescription": "This parameter shall contain the list of parameters for the new job that are specific to this job document.  Services shall reject requests containing parameters that do not meet the requirements specified by the `ParameterMetadata` property.",
+                    "requiredParameter": true
+                },
+                "PreferredExecutors": {
+                    "description": "An array of links to the preferred executors to run this job.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/JobExecutor.json#/definitions/JobExecutor"
+                    },
+                    "longDescription": "This parameter shall contain an array of links to resources of type `JobExecutor` that represent the preferred executors to run this job.",
+                    "requiredParameter": true,
+                    "type": "array"
+                },
+                "StartTime": {
+                    "description": "The date and time when the job is scheduled to start.",
+                    "format": "date-time",
+                    "longDescription": "This parameter shall contain the date and time when the job is scheduled to start.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "release": "2025.2",
+    "title": "#JobDocument.v1_0_0.JobDocument"
+}

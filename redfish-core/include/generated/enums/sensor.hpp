@@ -68,6 +68,13 @@ enum class ReadingType{
     Percent,
     AbsoluteHumidity,
     Heat,
+    LinearPosition,
+    LinearVelocity,
+    LinearAcceleration,
+    RotationalPosition,
+    RotationalVelocity,
+    RotationalAcceleration,
+    Valve,
 };
 
 enum class ImplementationType{
@@ -145,6 +152,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ReadingType, {
     {ReadingType::Percent, "Percent"},
     {ReadingType::AbsoluteHumidity, "AbsoluteHumidity"},
     {ReadingType::Heat, "Heat"},
+    {ReadingType::LinearPosition, "LinearPosition"},
+    {ReadingType::LinearVelocity, "LinearVelocity"},
+    {ReadingType::LinearAcceleration, "LinearAcceleration"},
+    {ReadingType::RotationalPosition, "RotationalPosition"},
+    {ReadingType::RotationalVelocity, "RotationalVelocity"},
+    {ReadingType::RotationalAcceleration, "RotationalAcceleration"},
+    {ReadingType::Valve, "Valve"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ImplementationType, {

@@ -53,6 +53,7 @@
         </Annotation>
         <Annotation Term="Redfish.Uris">
           <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Filters</String>
             <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Pumps/{PumpId}/Filters</String>
             <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Filters</String>
             <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters</String>
@@ -63,6 +64,9 @@
             <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Filters</String>
             <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters</String>
             <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Pumps/{PumpId}/Filters</String>
+            <String>/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/Filters</String>
+            <String>/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters</String>
+            <String>/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/Pumps/{PumpId}/Filters</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Filter.Filter)">

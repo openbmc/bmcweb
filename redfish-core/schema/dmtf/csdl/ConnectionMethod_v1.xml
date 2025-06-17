@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ConnectionMethod v1.1.1                                             -->
+<!--# Redfish Schema:  ConnectionMethod v1.2.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -26,6 +26,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AggregationSource_v1.xml">
     <edmx:Include Namespace="AggregationSource"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SerialInterface_v1.xml">
+    <edmx:Include Namespace="SerialInterface"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -138,6 +141,30 @@
           <Annotation Term="OData.Description" String="OEM connection method."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the connection method is OEM.  The `ConnectionMethodVariant` property shall contain further identification information."/>
         </Member>
+        <Member Name="ModbusSerial">
+          <Annotation Term="OData.Description" String="Modbus serial connection method."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the connection method is Modbus serial (RTU)."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="ModbusTCP">
+          <Annotation Term="OData.Description" String="Modbus TCP connection method."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the connection method is Modbus TCP."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -175,6 +202,23 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ConnectionMethod" BaseType="ConnectionMethod.v1_1_0.ConnectionMethod"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ConnectionMethod.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `ModbusSerial` and `ModbusTCP` to `ConnectionMethodType`."/>
+
+      <EntityType Name="ConnectionMethod" BaseType="ConnectionMethod.v1_1_1.ConnectionMethod"/>
+
+      <ComplexType Name="Links" BaseType="ConnectionMethod.v1_0_0.Links">
+        <NavigationProperty Name="SerialInterface" Type="SerialInterface.SerialInterface" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the serial interface for this connection method."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `SerialInterface` that represents the serial interface for this connection method."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,0 +1,455 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/TrustedComponent.v1_4_0.json",
+    "$ref": "#/definitions/TrustedComponent",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#TrustedComponent.TPMGetEventLog": {
+                    "$ref": "#/definitions/TPMGetEventLog"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ActiveSoftwareImage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory",
+                    "description": "The link to the software inventory resource that represents the active firmware image for this trusted component.",
+                    "longDescription": "This property shall contain a link to a resource of type `SoftwareInventory` that represents the active firmware image for this trusted component.",
+                    "readonly": false
+                },
+                "ComponentIntegrity": {
+                    "description": "An array of links to ComponentIntegrity resources for which the trusted component is responsible.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/ComponentIntegrity.json#/definitions/ComponentIntegrity"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `ComponentIntegrity` that represent the communication established with the trusted component by other resources.  The `TargetComponentURI` property in the referenced `ComponentIntegrity` resources shall reference this trusted component.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ComponentIntegrity@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ComponentsProtected": {
+                    "description": "An array of links to resources that the target component protects.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources whose integrity is measured or reported by the trusted component.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ComponentsProtected@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "IntegratedInto": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef",
+                    "description": "A link to a resource to which this trusted component is integrated.",
+                    "longDescription": "This property shall contain a link to a resource to which this trusted component is physically integrated.  This property shall be present if `TrustedComponentType` contains `Integrated`.",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "Owner": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A link to the resource that owns this trusted component.",
+                    "longDescription": "This property shall contain a link to the resource that owns this trusted component.  In the case of TPMs, particularly in multiple chassis implementations, this is the resource used to establish a new PCR.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
+                "SoftwareImages": {
+                    "description": "The images that are associated with this trusted component.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `SoftwareInventory` that represent the firmware images that apply to this trusted component.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "SoftwareImages@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "TPM": {
+            "additionalProperties": false,
+            "description": "TPM-specific information for a trusted component.",
+            "longDescription": "This property shall contain TPM-specific information for a trusted component.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CapabilitiesVendorID": {
+                    "description": "The capabilities vendor ID for this trusted component.",
+                    "longDescription": "This property shall contain an ASCII string of the 4-byte TCG-defined 'TPM Capabilities Vendor ID' for this trusted component.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "HardwareInterfaceVendorID": {
+                    "description": "The hardware interface vendor ID for this trusted component.",
+                    "longDescription": "This property shall contain the TCG-defined 'TPM Hardware Interface Vendor ID' for this trusted component with the most significant byte shown first.",
+                    "pattern": "^0[xX]([0-9A-Fa-f]{2}){2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
+        "TPMGetEventLog": {
+            "actionResponse": {
+                "$ref": "#/definitions/TPMGetEventLogResponse"
+            },
+            "additionalProperties": false,
+            "description": "This action retrieves the event log for TPM 2.0 devices.",
+            "longDescription": "This action shall return the event log for TPM 2.0 devices.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_3_0"
+        },
+        "TPMGetEventLogResponse": {
+            "additionalProperties": false,
+            "description": "The TPM event log.",
+            "longDescription": "This object shall contain the TPM event log.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "EventLog": {
+                    "description": "The Base64-encoded event log for the TPM.",
+                    "longDescription": "This property shall contain a Base64-encoded string, with padding characters, of the entire event log defined in the 'Event Logging' section of the 'TCG PC Client Platform Firmware Profile Specification'.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "required": [
+                "EventLog"
+            ],
+            "type": "object"
+        },
+        "TrustedComponent": {
+            "additionalProperties": false,
+            "description": "The `TrustedComponent` resource represents a trusted device, such as a TPM.",
+            "longDescription": "This resource shall represent a trusted component in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of device identity certificates of the trusted component.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `CertificateCollection` that contains device identity certificates of the trusted component.",
+                    "readonly": true
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "FirmwareVersion": {
+                    "description": "The software version of the active software image on the trusted component.",
+                    "longDescription": "This property shall contain a version number associated with the active software image on the trusted component.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the trusted component.",
+                    "longDescription": "This property shall contain the location information of the trusted component.",
+                    "versionAdded": "v1_4_0"
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer of this trusted component.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the trusted component.  This organization may be the entity from whom the trusted component is purchased, but this is not necessarily true.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Model": {
+                    "description": "The model number of the trusted component.",
+                    "longDescription": "This property shall contain the name by which the manufacturer generally refers to the trusted component.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PartNumber": {
+                    "description": "The part number of the trusted component.",
+                    "longDescription": "This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the trusted component.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SKU": {
+                    "description": "The SKU of the trusted component.",
+                    "longDescription": "This property shall contain the stock-keeping unit number for this trusted component.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SerialNumber": {
+                    "description": "The serial number of the trusted component.",
+                    "longDescription": "This property shall contain a manufacturer-allocated number that identifies the trusted component.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "TPM": {
+                    "$ref": "#/definitions/TPM",
+                    "description": "TPM-specific information for this trusted component.",
+                    "longDescription": "This property shall contain TPM-specific information for this trusted component.  This property shall only be present for TCG-defined TPM trusted components.",
+                    "versionAdded": "v1_1_0"
+                },
+                "TrustedComponentType": {
+                    "$ref": "#/definitions/TrustedComponentType",
+                    "description": "The type of trusted component, such as any physical distinction about the trusted component.",
+                    "longDescription": "This property shall contain the type of trusted component.",
+                    "readonly": true
+                },
+                "UUID": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/UUID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The UUID for this trusted component.",
+                    "longDescription": "This property shall contain a universally unique identifier number for the trusted component.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "TrustedComponentType",
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "TrustedComponentType": {
+            "enum": [
+                "Discrete",
+                "Integrated"
+            ],
+            "enumDescriptions": {
+                "Discrete": "A discrete trusted component.",
+                "Integrated": "An integrated trusted component."
+            },
+            "enumLongDescriptions": {
+                "Discrete": "This value shall indicate that the entity has a well-defined physical boundary within the chassis.",
+                "Integrated": "This value shall indicate that the entity is integrated into another device."
+            },
+            "type": "string"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "release": "2025.2",
+    "title": "#TrustedComponent.v1_4_0.TrustedComponent"
+}

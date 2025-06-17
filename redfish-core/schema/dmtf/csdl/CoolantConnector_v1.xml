@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CoolantConnector v1.1.0                                             -->
+<!--# Redfish Schema:  CoolantConnector v1.2.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -80,6 +80,7 @@
             <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/SecondaryCoolantConnectors/{CoolantConnectorId}</String>
             <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/PrimaryCoolantConnectors/{CoolantConnectorId}</String>
             <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/SecondaryCoolantConnectors/{CoolantConnectorId}</String>
+            <String>/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/PrimaryCoolantConnectors/{CoolantConnectorId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -302,6 +303,26 @@
           <Annotation Term="Redfish.ExcerptCopy" String="SingleLoop"/>
           <Annotation Term="OData.Description" String="The desired differential temperature (C)."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the desired differential temperature, in degree Celsius units, of this coolant connector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `Temperature`.  This property shall only be present for secondary coolant connectors.  Services may automatically change other controls if a client attempts to enable this control to prevent conflicts."/>
+        </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolantConnector.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="CoolantConnector" BaseType="CoolantConnector.v1_1_0.CoolantConnector">
+        <NavigationProperty Name="ValvePositionPercent" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The valve position (% open) of this connector."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the valve position, in percent units, of this connector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Valve`."/>
+        </NavigationProperty>
+        <NavigationProperty Name="ValvePositionControlPercent" Type="Control.Control">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy" String="SingleLoop"/>
+          <Annotation Term="OData.Description" String="The desired valve position (% open)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the desired valve position, in percent units, of this coolant connector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `Valve`.  Services may automatically change other controls if a client attempts to enable this control to prevent conflicts."/>
         </NavigationProperty>
       </EntityType>
     </Schema>

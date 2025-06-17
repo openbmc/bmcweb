@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  AutomationNode v1.0.0                                               -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2025 DMTF.                                                                 -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
+    <edmx:Include Namespace="Sensor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
+    <edmx:Include Namespace="Control"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Chassis_v1.xml">
+    <edmx:Include Namespace="Chassis"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AutomationInstrumentation_v1.xml">
+    <edmx:Include Namespace="AutomationInstrumentation"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AutomationNode">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="AutomationNode" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The `AutomationNode` schema describes a node that carries out instructions in industrial automation environments."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent an automation node for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/AutomationNodes/{AutomationNodeId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <EnumType Name="NodeState">
+        <Member Name="Idle">
+          <Annotation Term="OData.Description" String="The node's controller is idle."/>
+        </Member>
+        <Member Name="Done">
+          <Annotation Term="OData.Description" String="The node's controller has reached its destination position."/>
+        </Member>
+        <Member Name="Waiting">
+          <Annotation Term="OData.Description" String="The node's controller is waiting to start."/>
+        </Member>
+        <Member Name="ConditionStop">
+          <Annotation Term="OData.Description" String="The node's controller has stopped due to a condition fault."/>
+        </Member>
+        <Member Name="ErrorStop">
+          <Annotation Term="OData.Description" String="The node's controller has stopped due to an error."/>
+        </Member>
+        <Member Name="Running">
+          <Annotation Term="OData.Description" String="The node's controller is running."/>
+        </Member>
+      </EnumType>
+
+      <Action Name="Start" IsBound="true">
+        <Annotation Term="OData.Description" String="Starts the node."/>
+        <Annotation Term="OData.LongDescription" String="This action shall transition the node to the `Running` state.  This action shall pulse the trigger signal to other connected nodes that are in the `Waiting` state."/>
+        <Parameter Name="AutomationNode" Type="AutomationNode.v1_0_0.Actions"/>
+      </Action>
+      <Action Name="Wait" IsBound="true">
+        <Annotation Term="OData.Description" String="Signals the node to wait for the next instruction."/>
+        <Annotation Term="OData.LongDescription" String="This action shall transition the node to the `Waiting` state."/>
+        <Parameter Name="AutomationNode" Type="AutomationNode.v1_0_0.Actions"/>
+      </Action>
+      <Action Name="Stop" IsBound="true">
+        <Annotation Term="OData.Description" String="Stops the node."/>
+        <Annotation Term="OData.LongDescription" String="This action shall transition the node to the `Idle` state."/>
+        <Parameter Name="AutomationNode" Type="AutomationNode.v1_0_0.Actions"/>
+      </Action>
+      <Action Name="SendTrigger" IsBound="true">
+        <Annotation Term="OData.Description" String="Sends a trigger to the node."/>
+        <Annotation Term="OData.LongDescription" String="This action shall pulse the trigger signal for the node."/>
+        <Parameter Name="AutomationNode" Type="AutomationNode.v1_0_0.Actions"/>
+      </Action>
+      <Action Name="Reset" IsBound="true">
+        <Annotation Term="OData.Description" String="Resets the node."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the node to its power-on state."/>
+        <Parameter Name="AutomationNode" Type="AutomationNode.v1_0_0.Actions"/>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AutomationNode.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="AutomationNode" BaseType="AutomationNode.AutomationNode">
+        <Property Name="NodeType" Type="AutomationNode.v1_0_0.NodeType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of automation node."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type for the automation node."/>
+        </Property>
+        <Property Name="NodeState" Type="AutomationNode.NodeState" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current state of the node."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current state of the automation node."/>
+        </Property>
+        <Property Name="MotionProfile" Type="AutomationNode.v1_0_0.MotionProfileType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The motion profile type used for this node."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of motion profile used for this motion-based node."/>
+        </Property>
+        <Property Name="MotionAxis" Type="AutomationNode.v1_0_0.MotionAxisType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The primary axis of motion for this motion-related node."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the primary axis of motion for this motion-related node."/>
+        </Property>
+        <NavigationProperty Name="Instrumentation" Type="AutomationInstrumentation.AutomationInstrumentation" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the instrumentation for this node."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `AutomationInstrumentation` that represents the instrumentation for this automation node."/>
+        </NavigationProperty>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of a resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This type shall contain any status or health properties of a resource."/>
+        </Property>
+        <Property Name="Links" Type="AutomationNode.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="Actions" Type="AutomationNode.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="AutomationNode.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+
+      <EnumType Name="NodeType">
+        <Member Name="MotionPosition">
+          <Annotation Term="OData.Description" String="A position-based profiled motion node where position, velocity, and acceleration are all controlled."/>
+        </Member>
+        <Member Name="MotionVelocity">
+          <Annotation Term="OData.Description" String="A velocity-based profiled motion node where position, velocity and acceleration are all controlled."/>
+        </Member>
+        <Member Name="MotionPositionGroup">
+          <Annotation Term="OData.Description" String="A multi-axis position-based profiled motion node where position, velocity and acceleration are all controlled."/>
+        </Member>
+        <Member Name="PID">
+          <Annotation Term="OData.Description" String="A node that attempts to match a set point using a PID control algorithm."/>
+        </Member>
+        <Member Name="Simple">
+          <Annotation Term="OData.Description" String="A simple node that incorporates no automated control function."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="MotionProfileType">
+        <Member Name="Trapezoidal">
+          <Annotation Term="OData.Description" String="Trapezoidal profile."/>
+        </Member>
+        <Member Name="SCurve">
+          <Annotation Term="OData.Description" String="S-curve profile."/>
+        </Member>
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No profile specified."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="MotionAxisType">
+        <Member Name="X">
+          <Annotation Term="OData.Description" String="X axis."/>
+        </Member>
+        <Member Name="Y">
+          <Annotation Term="OData.Description" String="Y axis."/>
+        </Member>
+        <Member Name="Z">
+          <Annotation Term="OData.Description" String="Z axis."/>
+        </Member>
+        <Member Name="TwoAxis">
+          <Annotation Term="OData.Description" String="2-axis."/>
+        </Member>
+        <Member Name="ThreeAxis">
+          <Annotation Term="OData.Description" String="3-axis."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <NavigationProperty Name="Chassis" Type="Collection(Chassis.Chassis)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the chassis that contain this equipment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Chassis` that represent the physical containers that contain this equipment."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="AutomationNodeGroup" Type="Collection(AutomationNode.AutomationNode)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the automation nodes that are included in an automation node group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `AutomationNode` that represent the nodes that provide the functionality of this group."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="PositionSensor" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the position sensor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Sensor` that represents the position sensor associated with this node."/>
+        </NavigationProperty>
+        <NavigationProperty Name="VelocitySensor" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the velocity sensor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Sensor` that represents the velocity sensor associated with this node."/>
+        </NavigationProperty>
+        <NavigationProperty Name="PidFeedbackSensor" Type="Sensor.Sensor" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the PID feedback sensor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Sensor` that represents the feedback sensor associated with this node.  The feedback sensor is intended to return controlled value output in a PID system."/>
+        </NavigationProperty>
+        <NavigationProperty Name="OutputControl" Type="Control.Control" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the output control."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Control` that represent the output control associated with this node."/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

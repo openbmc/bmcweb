@@ -90,6 +90,7 @@
             "insertable": false,
             "updatable": false,
             "uris": [
+                "/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Filters",
                 "/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Pumps/{PumpId}/Filters",
                 "/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Filters",
                 "/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters",
@@ -99,7 +100,10 @@
                 "/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/Pumps/{PumpId}/Filters",
                 "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Filters",
                 "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters",
-                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Pumps/{PumpId}/Filters"
+                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Pumps/{PumpId}/Filters",
+                "/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/Filters",
+                "/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters",
+                "/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/Pumps/{PumpId}/Filters"
             ]
         }
     },

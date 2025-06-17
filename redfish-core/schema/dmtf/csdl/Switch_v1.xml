@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Switch v1.9.3                                                       -->
+<!--# Redfish Schema:  Switch v1.10.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -38,6 +38,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PortCollection_v1.xml">
     <edmx:Include Namespace="PortCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/VirtualCXLSwitchCollection_v1.xml">
+    <edmx:Include Namespace="VirtualCXLSwitchCollection"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/LogServiceCollection_v1.xml">
     <edmx:Include Namespace="LogServiceCollection"/>
@@ -693,6 +696,15 @@
         <Property Name="VCS" Type="Switch.v1_9_0.VCSSwitch" Nullable="false">
           <Annotation Term="OData.Description" String="Virtual CXL Switch (VCS) properties for this switch."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain Virtual CXL Switch (VCS) properties for this switch."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of `VirtualCXLSwitches` in `CXL`."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
       </ComplexType>
 
@@ -723,6 +735,37 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Switch" BaseType="Switch.v1_9_2.Switch"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Switch.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="Switch" BaseType="Switch.v1_9_3.Switch"/>
+
+      <ComplexType Name="CXL" BaseType="Switch.v1_9_0.CXL">
+        <Property Name="TotalHDMDecoders" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of HDM (Host Device Memory) decoders available per upstream port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of HDM (Host Device Memory) decoders available per upstream port."/>
+        </Property>
+        <Property Name="NumberOfBoundvPPBs" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of vPPBs (Virtual PCI-to-PCI Bridges) that are currently bound on this switch."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of vPPBs (Virtual PCI-to-PCI Bridges) that are currently bound on this switch."/>
+        </Property>
+        <Property Name="PBRCapable" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the switch is capable of performing port-based routing."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the switch is capable of performing port-based routing."/>
+        </Property>
+        <NavigationProperty Name="VirtualCXLSwitches" Type="VirtualCXLSwitchCollection.VirtualCXLSwitchCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of Virtual CXL Switches (VCS) for this CXL switch."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `VirtualCXLSwitchCollection`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

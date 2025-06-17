@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CertificateService v1.0.6                                           -->
+<!--# Redfish Schema:  CertificateService v1.1.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -163,6 +163,18 @@
           <Annotation Term="OData.Description" String="The link to the certificate that is being replaced."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to a resource of type `Certificate` that is being replaced."/>
         </Parameter>
+        <Parameter Name="Password" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The password for the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the password for the certificate contained in the `CertificateString` parameter.  This parameter shall be required if the `CertificateType` parameter contains `PKCS12` and the client-provided certificate is password protected."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
       </Action>
     </Schema>
 
@@ -252,6 +264,14 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to change several parameters in the `GenerateCSR` action to be optional instead of required."/>
       <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_5.CertificateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Password` to `ReplaceCertificate`."/>
+
+      <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_6.CertificateService"/>
     </Schema>
 
   </edmx:DataServices>

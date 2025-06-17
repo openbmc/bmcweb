@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ThermalEquipment v1.1.2                                             -->
+<!--# Redfish Schema:  ThermalEquipment v1.2.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -157,6 +157,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="ThermalEquipment" BaseType="ThermalEquipment.v1_1_1.ThermalEquipment"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalEquipment.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="ThermalEquipment" BaseType="ThermalEquipment.v1_1_2.ThermalEquipment">
+        <NavigationProperty Name="RPUs" Type="CoolingUnitCollection.CoolingUnitCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to a collection of reservoir and pumping units (RPUs)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CoolingUnitCollection` that contains a set of reservoir and pumping units."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

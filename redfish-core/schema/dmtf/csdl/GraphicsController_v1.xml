@@ -62,7 +62,7 @@
         </Annotation>
         <Annotation Term="Redfish.Uris">
           <Collection>
-            <String>/redfish/v1/Systems/{ComputerSystemId}/GraphicsControllers/{ControllerId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/GraphicsControllers/{GraphicsControllerId}</String>
           </Collection>
         </Annotation>
       </EntityType>

@@ -374,8 +374,8 @@
             </Collection>
           </Annotation>
         </Member>
-        <Member Name="UEC">
-          <Annotation Term="OData.Description" String="Ultra Ethernet (UEC)."/>
+        <Member Name="UET">
+          <Annotation Term="OData.Description" String="Ultra Ethernet Transport."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Ultra Ethernet specifications."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ServiceRoot v1.18.0                                                 -->
+<!--# Redfish Schema:  ServiceRoot v1.19.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -121,7 +121,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RegisteredClientCollection_v1.xml">
     <edmx:Include Namespace="RegisteredClientCollection"/>
   </edmx:Reference>
-
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AutomationNodeCollection_v1.xml">
+    <edmx:Include Namespace="AutomationNodeCollection"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -1285,6 +1287,24 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports the `includeoriginofcondition` query parameter."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_19_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityContainer Name="ServiceContainer" Extends="ServiceRoot.v1_16_0.ServiceContainer">
+        <Singleton Name="AutomationNodes" Type="AutomationNodeCollection.AutomationNodeCollection"/>
+      </EntityContainer>
+
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_18_0.ServiceRoot">
+        <NavigationProperty Name="AutomationNodes" Type="AutomationNodeCollection.AutomationNodeCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of automation nodes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `AutomationNodeCollection`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

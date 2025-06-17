@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Battery v1.3.0                                                      -->
+<!--# Redfish Schema:  Battery v1.4.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -51,8 +51,8 @@
       <Annotation Term="Redfish.Language" String="en"/>
 
       <EntityType Name="Battery" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The `Battery` schema describes a battery unit, such as those used to provide systems with power during a power-loss event.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed by populating a resource instance with an absent state if a unit is not present."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent a battery for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed if the `State` property within the `Status` property contains `Absent`."/>
+        <Annotation Term="OData.Description" String="The `Battery` schema describes a unit of energy storage, including batteries and supercapacitors, used to provide systems or components within a system with power during a power-loss event or to store energy for later use.  It also describes the location, such as a slot, socket, or bay, where a unit can be installed by populating a resource instance with an absent state if a unit is not present."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent an energy storage device for a Redfish implementation.  It may also represent a location, such as a slot, socket, or bay, where a unit may be installed if the `State` property within the `Status` property contains `Absent`."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -294,6 +294,12 @@
       <EntityType Name="Battery" BaseType="Battery.v1_0_3.Battery"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the resource description to broaden the scope of a `Battery` resource to any energy storage device, such as supercapacitors."/>
+      <EntityType Name="Battery" BaseType="Battery.v1_0_4.Battery"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -341,6 +347,12 @@
       <EntityType Name="Battery" BaseType="Battery.v1_1_2.Battery"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the resource description to broaden the scope of a `Battery` resource to any energy storage device, such as supercapacitors."/>
+      <EntityType Name="Battery" BaseType="Battery.v1_1_3.Battery"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -372,6 +384,12 @@
       <EntityType Name="Battery" BaseType="Battery.v1_2_2.Battery"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the resource description to broaden the scope of a `Battery` resource to any energy storage device, such as supercapacitors."/>
+      <EntityType Name="Battery" BaseType="Battery.v1_2_3.Battery"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
@@ -385,6 +403,56 @@
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the resource description to broaden the scope of a `Battery` resource to any energy storage device, such as supercapacitors."/>
+      <EntityType Name="Battery" BaseType="Battery.v1_3_0.Battery"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="Battery" BaseType="Battery.v1_3_1.Battery">
+        <Property Name="BatteryChemistryType" Type="Battery.v1_4_0.BatteryChemistryType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The chemistry of the battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the chemistry of the battery.  This property shall only be present if the `EnergyStorageType` property contains `Battery`."/>
+        </Property>
+        <Property Name="EnergyStorageType" Type="Battery.v1_4_0.EnergyStorageType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of energy storage technology used in the battery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the energy storage technology used in the battery."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="BatteryChemistryType">
+        <Member Name="LeadAcid">
+          <Annotation Term="OData.Description" String="Chemical energy stored through lead and acid electrochemical reactions."/>
+          <Annotation Term="OData.LongDescription" String="The value shall indicate that the battery stores chemical energy using lead and acid electrochemical reactions."/>
+        </Member>
+        <Member Name="LithiumIon">
+          <Annotation Term="OData.Description" String="Chemical energy stored through lithium ion intercalation reactions."/>
+          <Annotation Term="OData.LongDescription" String="The value shall indicate that the battery stores chemical energy using lithium ion intercalation."/>
+        </Member>
+        <Member Name="NickelCadmium">
+          <Annotation Term="OData.Description" String="Chemical energy stored through nickel and cadmium electrochemical reactions."/>
+          <Annotation Term="OData.LongDescription" String="The value shall indicate that the battery stores chemical energy using nickel and cadmium electrochemical reactions."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="EnergyStorageType">
+        <Member Name="Battery">
+          <Annotation Term="OData.Description" String="Energy stored through one or more electrochemical cells."/>
+          <Annotation Term="OData.LongDescription" String="The value shall indicate that the battery stores energy using one or more electrochemical cells."/>
+        </Member>
+        <Member Name="Supercapacitor">
+          <Annotation Term="OData.Description" String="Energy stored through electrostatic double-layer capacitors or electrodes with electrochemical pseudocapacitance."/>
+          <Annotation Term="OData.LongDescription" String="The value shall indicate that the battery stores energy using electrostatic double-layer capacitors or electrodes with electrochemical pseudocapacitance."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

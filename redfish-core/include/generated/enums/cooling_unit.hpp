@@ -12,6 +12,7 @@ enum class CoolingEquipmentType{
     CDU,
     HeatExchanger,
     ImmersionUnit,
+    RPU,
 };
 
 enum class CoolingUnitMode{
@@ -25,6 +26,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CoolingEquipmentType, {
     {CoolingEquipmentType::CDU, "CDU"},
     {CoolingEquipmentType::HeatExchanger, "HeatExchanger"},
     {CoolingEquipmentType::ImmersionUnit, "ImmersionUnit"},
+    {CoolingEquipmentType::RPU, "RPU"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(CoolingUnitMode, {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  TelemetryService v1.3.4                                             -->
+<!--# Redfish Schema:  TelemetryService v1.4.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -41,6 +41,12 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MetricDefinition_v1.xml">
     <edmx:Include Namespace="MetricDefinition"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/TelemetryDataCollection_v1.xml">
+    <edmx:Include Namespace="TelemetryDataCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/TelemetryData_v1.xml">
+    <edmx:Include Namespace="TelemetryData"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -147,6 +153,47 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="CollectTelemetryData" IsBound="true">
+        <Annotation Term="OData.Description" String="The action to collect the telemetry data from a device or service.  When the telemetry data is collected, a new telemetry data resource will be created."/>
+        <Annotation Term="OData.LongDescription" String="This action shall collect the telemetry data from a device or service.  The `Location` header in the response shall contain a URI to a resource of type `TelemetryData` that contains the telemetry data.  The `AdditionalDataURI` property in the referenced `TelemetryData` resource shall contain the URI to download the telemetry data."/>
+        <Parameter Name="TelemetryService" Type="TelemetryService.v1_0_0.Actions"/>
+        <Parameter Name="TelemetryDataType" Type="TelemetryData.TelemetryDataTypes" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of telemetry data to collect."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of telemetry data to collect."/>
+        </Parameter>
+        <Parameter Name="OEMTelemetryDataType" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The OEM-defined type of telemetry data to collect."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the OEM-defined type of telemetry data to collect.  This parameter shall be required if `TelemetryDataType` is `OEM`."/>
+        </Parameter>
+        <Parameter Name="TargetDevices" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Description" String="An array of devices from which to collect telemetry data."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of devices from which to collect telemetry data."/>
+        </Parameter>
+        <ReturnType Type="TelemetryService.v1_4_0.CollectTelemetryDataResponse" Nullable="false"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="ClearTelemetryData" IsBound="true">
+        <Annotation Term="OData.Description" String="The action to clear the telemetry data for this telemetry service."/>
+        <Annotation Term="OData.LongDescription" String="This action shall delete all entries found in the telemetry data collection for this telemetry service."/>
+        <Parameter Name="TelemetryService" Type="TelemetryService.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -464,6 +511,43 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_3_3.TelemetryService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `CollectTelemetryData` action."/>
+
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_3_4.TelemetryService">
+        <Property Name="SupportedTelemetryDataTypes" Type="Collection(TelemetryData.TelemetryDataTypes)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A list of supported telemetry data types."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of supported telemetry data types."/>
+        </Property>
+        <Property Name="SupportedOEMTelemetryDataTypes" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A list of supported OEM-defined telemetry data types."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list of supported OEM-defined telemetry data types."/>
+        </Property>
+        <NavigationProperty Name="TelemetryData" Type="TelemetryDataCollection.TelemetryDataCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of data telemetry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `TelemetryDataCollection`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="CollectTelemetryDataResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The response body for the `CollectTelemetryData` action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the properties found in the response body for the `CollectTelemetryData` action."/>
+        <Property Name="TelmetryData" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the collected telemetry data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `TelemetryData` that represent the collected telemetry data."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

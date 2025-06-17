@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.18.0                                                                 -->
+<!--# Redfish Schema:  Storage v1.19.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -230,6 +230,32 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_17_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="ImportForeignDrives" IsBound="true">
+        <Annotation Term="OData.Description" String="This action imports encrypted foreign drives to a host-based storage controller by supplying encryption access credentials."/>
+        <Annotation Term="OData.LongDescription" String="This action shall import encrypted foreign drives to a host-based storage controller by supplying encryption access credentials.  Upon successful completion, the `EncryptionStatus` property of the affected `Drive` shall change from `Foreign` to `Unlocked`."/>
+        <Parameter Name="Storage" Type="Storage.v1_0_0.Actions"/>
+        <Parameter Name="ControllerPassword" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current controller password.  This parameter is not required if the controller does not currently have a password."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current controller password.  Services may reject the action request if this parameter is not provided or the value supplied does not match the current password."/>
+        </Parameter>
+        <Parameter Name="DriveEncryptionKey" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The encryption key to unlock the drives."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the encryption key to unlock the drives."/>
+        </Parameter>
+        <Parameter Name="DriveEncryptionKeyIdentifier" Type="Edm.String">
+          <Annotation Term="OData.Description" String="An encryption key identifier to filter the drives that are imported.  If not provided, the controller attempts to import all foreign drives."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an encryption key identifier to filter the drives that are imported.  If this parameter is not provided, the service shall not perform filtering of foreign drives."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_19_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -1850,6 +1876,14 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_19_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ImportForeignDrive` action."/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_18_0.Storage"/>
     </Schema>
 
   </edmx:DataServices>

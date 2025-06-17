@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LeakDetector v1.3.0                                                 -->
+<!--# Redfish Schema:  LeakDetector v1.4.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -255,6 +255,45 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the leak detector is enabled and provides a `DetectorState`.  The value `true` shall indicate the leak detector is enabled and returns the `DetectorState` property with a valid value.  The value `false` shall indicate the leak detector is disabled, shall not return the `DetectorState` property, and shall not trigger events, logging, or other functionality.  This property allows a user to disable a faulty leak detector or to otherwise remove it from use."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_3_0.LeakDetector">
+        <Property Name="CriticalReactionType" Type="LeakDetector.v1_4_0.ReactionType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The reaction to perform when a critical leak is detected."/>
+          <Annotation Term="OData.LongDescription" String="The reaction that shall be performed when the `DetectorState` property changes to `Critical`."/>
+        </Property>
+        <Property Name="WarningReactionType" Type="LeakDetector.v1_4_0.ReactionType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The reaction to perform when a warning-level leak is detected."/>
+          <Annotation Term="OData.LongDescription" String="The reaction that shall be performed when the `DetectorState` property changes to `Warning`."/>
+        </Property>
+        <Property Name="ReactionDelaySeconds" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The delay in seconds after a leak is detected before the selected reaction is executed."/>
+          <Annotation Term="OData.LongDescription" String="The value shall indicate the number of seconds to delay after the `DetectorState` changes before the selected reaction is executed.  If the `DetectorState` returns to `OK` prior to the delay value, the service shall not perform the reaction."/>
+          <Annotation Term="Measures.Unit" String="s"/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ReactionType">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No reaction."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate no reaction occurs when a leak is detected."/>
+        </Member>
+        <Member Name="ForceOff">
+          <Annotation Term="OData.Description" String="Forcefully shut down the device, equipment, or system."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the associated device, equipment, or system monitored by this leak detector is forcefully shut down when a leak is detected."/>
+        </Member>
+        <Member Name="GracefulShutdown">
+          <Annotation Term="OData.Description" String="Gracefully shut down the device, equipment, or system."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the associated device, equipment, or system monitored by this leak detector is gracefully shut down when a leak is detected."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

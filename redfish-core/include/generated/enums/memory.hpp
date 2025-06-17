@@ -53,6 +53,7 @@ enum class MemoryDeviceType{
     DDR5,
     OEM,
     LPDDR5_SDRAM,
+    DDR5_MRDIMM,
 };
 
 enum class BaseModuleType{
@@ -68,6 +69,7 @@ enum class BaseModuleType{
     SO_DIMM_16b,
     SO_DIMM_32b,
     Die,
+    CAMM,
 };
 
 enum class MemoryMedia{
@@ -156,6 +158,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(MemoryDeviceType, {
     {MemoryDeviceType::DDR5, "DDR5"},
     {MemoryDeviceType::OEM, "OEM"},
     {MemoryDeviceType::LPDDR5_SDRAM, "LPDDR5_SDRAM"},
+    {MemoryDeviceType::DDR5_MRDIMM, "DDR5_MRDIMM"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(BaseModuleType, {
@@ -171,6 +174,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(BaseModuleType, {
     {BaseModuleType::SO_DIMM_16b, "SO_DIMM_16b"},
     {BaseModuleType::SO_DIMM_32b, "SO_DIMM_32b"},
     {BaseModuleType::Die, "Die"},
+    {BaseModuleType::CAMM, "CAMM"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(MemoryMedia, {

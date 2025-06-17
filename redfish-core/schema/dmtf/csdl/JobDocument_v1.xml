@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  JobDocument v1.0.0                                                  -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Job_v1.xml">
+    <edmx:Include Namespace="Job"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/JobExecutor_v1.xml">
+    <edmx:Include Namespace="JobExecutor"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JobDocument">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
+
+      <EntityType Name="JobDocument" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The `JobDocument` schema describes the template for a job with a set of parameters."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a job document for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/JobService/Documents/{JobDocumentId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <Action Name="SubmitJob" IsBound="true">
+        <Annotation Term="OData.Description" String="Creates a new job based on the contents of this job document and additional parameters."/>
+        <Annotation Term="OData.LongDescription" String="This action shall create a new `Job` resource based on the contents of this job document and additional parameters."/>
+        <Parameter Name="JobDocument" Type="JobDocument.v1_0_0.Actions"/>
+        <Parameter Name="JobCreator" Type="Job.Job">
+          <Annotation Term="OData.Description" String="The link to the job that is submitting this job."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to a resource of type `Job` that represents the job that is submitting this job."/>
+        </Parameter>
+        <Parameter Name="Parameters" Type="JobDocument.v1_0_0.Parameter" Nullable="false">
+          <Annotation Term="OData.Description" String="The list of parameters for the new job that are specific to this job document."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the list of parameters for the new job that are specific to this job document.  Services shall reject requests containing parameters that do not meet the requirements specified by the `ParameterMetadata` property."/>
+        </Parameter>
+        <Parameter Name="StartTime" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Description" String="The date and time when the job is scheduled to start."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the date and time when the job is scheduled to start."/>
+        </Parameter>
+        <Parameter Name="PreferredExecutors" Type="Collection(JobExecutor.JobExecutor)" Nullable="false">
+          <Annotation Term="OData.Description" String="An array of links to the preferred executors to run this job."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type `JobExecutor` that represent the preferred executors to run this job."/>
+        </Parameter>
+        <Parameter Name="HidePayload" Type="Edm.Boolean">
+          <Annotation Term="OData.Description" String="An indication of whether the contents of the parameters should be hidden from view after the job has been created.  If `true`, responses do not return the parameters.  If `false`, responses return the parameters.  If this parameter is not present when the job is created, the default is `false`."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether the contents of the parameters should be hidden from view after the job has been created.  If `true`, responses shall not return the `Parameters` property.  If `false`, responses shall return the `Parameters` property.  If this parameter is not present when the job is created, the default is `false`."/>
+        </Parameter>
+      </Action>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JobDocument.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="JobDocument" BaseType="JobDocument.JobDocument">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="Links" Type="JobDocument.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="Actions" Type="JobDocument.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+        <Property Name="DocumentType" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of job document data associated with this job document."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of job document data associated with this job document."/>
+        </Property>
+        <Property Name="Version" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The version of this job document."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this job document."/>
+        </Property>
+        <Property Name="CreationTime" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when this job document resource was created."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when this job document resource was created."/>
+        </Property>
+        <Property Name="DocumentData" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The job document data as a Base64-encoded string."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string of the job document data.  This property shall not be present if `DocumentDataURI` is present."/>
+        </Property>
+        <Property Name="DocumentDataURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI at which to access the job document data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the job document data.  This property shall not be present if `DocumentData` is present."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="DocumentDataHash" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hash of the job document data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hash of the job document data as a hex-encoded string."/>
+          <Annotation Term="Validation.Pattern" String="^[0-9a-fA-F]+$"/>
+        </Property>
+        <Property Name="ParameterMetadata" Type="Collection(JobDocument.v1_0_0.ParameterMetadata)" Nullable="false">
+          <Annotation Term="OData.Description" String="The metadata for each of the parameters supported by this job document for the `SubmitJob` action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the metadata for each of the parameters supported by this job document for the `SubmitJob` action."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="DataType">
+        <Member Name="Boolean">
+          <Annotation Term="OData.Description" String="A boolean."/>
+        </Member>
+        <Member Name="Number">
+          <Annotation Term="OData.Description" String="A number."/>
+        </Member>
+        <Member Name="String">
+          <Annotation Term="OData.Description" String="A string."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="ParameterMetadata">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The metadata for a parameter supported by a job document for the `SubmitJob` action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the metadata a parameter supported by a job document for the `SubmitJob` action."/>
+        <Property Name="AllowableNumbers" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The allowable numeric values or duration values, inclusive ranges of values, and incremental step values for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the allowable numeric values, inclusive ranges of values, and incremental step values for this parameter, as defined in the 'Allowable values for numbers and durations' clause of the Redfish Specification.  This property shall only be present for numeric parameters or string parameters that specify a duration."/>
+        </Property>
+        <Property Name="AllowablePattern" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The allowable pattern for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a regular expression that describes the allowable values for this parameter.  This property shall only be present for string parameters."/>
+        </Property>
+        <Property Name="AllowableValueDescriptions" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Descriptions of allowable values for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the descriptions of allowable values for this parameter.  The descriptions shall appear in the same array order as the `AllowableValues` property."/>
+        </Property>
+        <Property Name="AllowableValues" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The allowable values for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the allowable values for this parameter."/>
+        </Property>
+        <Property Name="DataType" Type="JobDocument.v1_0_0.DataType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The JSON property type for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the JSON property type for this parameter."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Description" Type="Resource.Description" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A description of the parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the parameter."/>
+        </Property>
+        <Property Name="MaximumValue" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum supported value for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This integer or number property shall contain the maximum value that this service supports.  This property shall not be present for non-integer or number parameters."/>
+        </Property>
+        <Property Name="MinimumValue" Type="Edm.Decimal" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum supported value for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This integer or number property shall contain the minimum value that this service supports.  This property shall not be present for non-integer or number parameters."/>
+        </Property>
+        <Property Name="Required" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the parameter is required."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the parameter is required."/>
+        </Property>
+        <Property Name="Name" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The name of the parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the parameter."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="ValueHint" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A hint value for the parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a hint value for the parameter."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Parameter">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="An object containing a set of parameters for submitting a new job based on a job document."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain a set of parameters for submitting a new job based on a job document."/>
+        <Annotation Term="Redfish.DynamicPropertyPatterns">
+          <Collection>
+            <Record>
+            <PropertyValue Property="Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
+            <PropertyValue Property="Type" String="Edm.PrimitiveType"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </ComplexType>
+
+      <ComplexType Name="Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <NavigationProperty Name="SupportedExecutors" Type="Collection(JobExecutor.JobExecutor)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the executors that are capable of running jobs instantiated from this job document."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `JobExecutor` that represent the executors that are capable of running jobs instantiated from this job document."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="JobDocument.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

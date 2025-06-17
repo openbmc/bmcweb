@@ -98,7 +98,8 @@
                 "/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/PrimaryCoolantConnectors",
                 "/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/SecondaryCoolantConnectors",
                 "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/PrimaryCoolantConnectors",
-                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/SecondaryCoolantConnectors"
+                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/SecondaryCoolantConnectors",
+                "/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/PrimaryCoolantConnectors"
             ]
         }
     },

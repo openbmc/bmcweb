@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkAdapter v1.11.0                                              -->
+<!--# Redfish Schema:  NetworkAdapter v1.12.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -72,7 +72,7 @@
 
       <EntityType Name="NetworkAdapter" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The `NetworkAdapter` schema represents a physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall represent a physical network adapter capable of connecting to a computer network in a Redfish implementation."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a physical network adapter capable of connecting to a computer network in a Redfish implementation.  Services should represent adapters that contain multiple controllers with independent management interfaces as multiple `NetworkAdapter` resources."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -395,6 +395,12 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_0_7.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_0_8.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -462,6 +468,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_1_7.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_1_8.NetworkAdapter"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_2_0">
@@ -541,6 +553,12 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_2_6.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_2_7.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -591,6 +609,12 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_3_5.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_3_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_3_6.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.2"/>
@@ -623,6 +647,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_4_2.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_4_3.NetworkAdapter"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_5_0">
@@ -666,6 +696,12 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_5_2.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_5_3.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -705,6 +741,12 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_6_1.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_6_2.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -742,6 +784,12 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_7_1.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_7_2.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -768,6 +816,12 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_8_1.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_8_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_8_2.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -786,6 +840,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_9_1.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_9_2.NetworkAdapter"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_10_0">
@@ -816,12 +876,45 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_10_0.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_10_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_10_1.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
       <Annotation Term="OData.Description" String="This version was created to add the `Reset` action."/>
 
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_10_1.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_11_0.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_11_0.NetworkAdapter"/>
+
+      <ComplexType Name="SRIOV" BaseType="NetworkAdapter.v1_0_0.SRIOV">
+        <Property Name="SRIOVEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether single root input/output virtualization (SR-IOV) is enabled for this controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether single root input/output virtualization (SR-IOV) is enabled for this controller."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_12_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_11_0.NetworkAdapter"/>
     </Schema>
 
   </edmx:DataServices>

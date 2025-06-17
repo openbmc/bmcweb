@@ -228,6 +228,19 @@
             </Collection>
           </Annotation>
         </Property>
+        <Property Name="ConditionType" Type="Resource.v1_22_0.ConditionType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of condition."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of condition."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_22_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="The OEM extension property."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
@@ -2199,10 +2212,10 @@
       <Annotation Term="OData.Description" String="This version was created to deprecate PostalAddress in Location in favor of `PhysicalAddress`."/>
 
       <ComplexType Name="Location" BaseType="Resource.v1_16_0.Location">
-         <Property Name="PhysicalAddress" Type="Resource.v1_17_0.PhysicalAddress" Nullable="false">
-            <Annotation Term="OData.Description" String="The physical address for a resource."/>
-            <Annotation Term="OData.LongDescription" String="This property shall contain a physical address for a resource.  This property should be present for resources that represent physical objects that can operate without requiring physical containment by another resource.  For example, a server chassis might be contained by a rack, but it might also be deployed individually, while a drive is always contained by a chassis and therefore is described by the containing resource."/>
-         </Property>
+        <Property Name="PhysicalAddress" Type="Resource.v1_17_0.PhysicalAddress" Nullable="false">
+          <Annotation Term="OData.Description" String="The physical address for a resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a physical address for a resource.  This property should be present for resources that represent physical objects that can operate without requiring physical containment by another resource.  For example, a server chassis might be contained by a rack, but it might also be deployed individually, while a drive is always contained by a chassis and therefore is described by the containing resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="PhysicalAddress">
@@ -2320,6 +2333,27 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.4"/>
       <Annotation Term="OData.Description" String="This version was created to add the `FullPowerCycle` enumeration to `ResetType`.  It was also created to add the `Oem` property to the `Condition` property in `Status`."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_22_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ConditionType` to `Conditions` within `Status`."/>
+
+      <EnumType Name="ConditionType">
+        <Member Name="Alert">
+          <Annotation Term="OData.Description" String="The condition is an alert."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a condition that requires correction, such as a fault."/>
+        </Member>
+        <Member Name="Informational">
+          <Annotation Term="OData.Description" String="The condition is informational."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a condition that requires attention, maintenance, or some other user intervention, such as performing a reset to activate new firmware."/>
+        </Member>
+        <Member Name="Subsystem">
+          <Annotation Term="OData.Description" String="The condition is the health of a subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a condition that contains the health of a subsystem.  If supported by the service, the service shall always provide this condition in responses."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

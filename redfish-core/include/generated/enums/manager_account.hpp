@@ -18,6 +18,7 @@ enum class AccountTypes{
     KVMIP,
     VirtualMedia,
     WebUI,
+    ControlPanel,
 };
 
 enum class SNMPAuthenticationProtocols{
@@ -51,6 +52,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(AccountTypes, {
     {AccountTypes::KVMIP, "KVMIP"},
     {AccountTypes::VirtualMedia, "VirtualMedia"},
     {AccountTypes::WebUI, "WebUI"},
+    {AccountTypes::ControlPanel, "ControlPanel"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SNMPAuthenticationProtocols, {

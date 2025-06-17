@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkDeviceFunction v1.10.0                                       -->
+<!--# Redfish Schema:  NetworkDeviceFunction v1.11.0                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1263,6 +1263,19 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the list of protocols supported by the hardware or firmware on the device."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_10_0.NetworkDeviceFunction">
+        <Property Name="VirtualFunctionAllocation" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of virtual functions allocated to this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number virtual functions allocated to this device.  This property should contain a value that is a multiple of the value contained by the `MinAssignmentGroupSize` property of the corresponding `Controllers` array member within the parent `NetworkAdapter` resource.  The value shall not exceed the value contained in the `MaxVirtualFunctions` property."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

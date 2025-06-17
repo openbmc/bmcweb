@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.21.0                                                     -->
+<!--# Redfish Schema:  Manager v1.22.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -75,6 +75,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SecurityPolicy_v1.xml">
     <edmx:Include Namespace="SecurityPolicy"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Fabric_v1.xml">
+    <edmx:Include Namespace="Fabric"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -360,6 +363,17 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="FabricManager">
+          <Annotation Term="OData.Description" String="A controller that primarily monitors or manages the operation of a group of fabric attached nodes and switches."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_22_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1997,6 +2011,22 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate that the implementation is in a vendor-specific default security state that does not match any other value."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_22_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `FabricManager` to `ManagerType`."/>
+
+      <EntityType Name="Manager" BaseType="Manager.v1_21_0.Manager"/>
+
+      <ComplexType Name="Links" BaseType="Manager.v1_18_0.Links">
+        <NavigationProperty Name="ManagerForFabrics" Type="Collection(Fabric.Fabric)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the fabrics that this manager controls."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Fabric` that represent the fabrics that this manager controls."/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

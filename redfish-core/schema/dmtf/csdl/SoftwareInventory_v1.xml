@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SoftwareInventory v1.11.0                                           -->
+<!--# Redfish Schema:  SoftwareInventory v1.12.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -72,6 +72,24 @@
         <Annotation Term="OData.Description" String="Additional versions."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain additional versions."/>
       </ComplexType>
+
+      <Action Name="Activate" IsBound="true">
+        <Annotation Term="OData.Description" String="This action activates this software inventory instance."/>
+        <Annotation Term="OData.LongDescription" String="This action shall activate this software inventory instance."/>
+        <Parameter Name="SoftwareInventory" Type="SoftwareInventory.v1_0_0.Actions"/>
+        <Parameter Name="Targets" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Description" String="The target devices to activate this software image.  If not specified, the service activates this software image on all applicable devices."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of target devices to activate this software image.  If not specified, the service shall activate this software image on all applicable devices."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_12_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_0_0">
@@ -545,6 +563,51 @@
           <Annotation Term="OData.Description" String="The version of the configuration file that contains the initial boot parameters of this software, such as parameters for U-Boot."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the version of the configuration file that contains the initial boot parameters of this software."/>
         </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `Activate` action."/>
+
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_11_0.SoftwareInventory">
+        <Property Name="Active" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This image is active on one or more devices."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the software image is currently in use on one or more devices."/>
+        </Property>
+        <Property Name="Staged" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This image is ready to be activated to one or more devices."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that the software image is ready to be activated to one or more devices."/>
+        </Property>
+        <Property Name="ResetRequiredOnUpdate" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether a reset is required to apply an update to this software."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether a reset is required to apply an update to this software.  If `true`, a reset is required and clients should expect a disruption in communication to targets utilizing this software while applying an update.  If `false`, a reset is not required and communication can be maintained to targets utilizing this software throughout an update."/>
+        </Property>
+        <Property Name="Links" Type="SoftwareInventory.v1_12_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="StagedTargets" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of devices where this software image is staged and ready to be activated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that represent the devices where this software image is staged and ready to be activated."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ActiveTargets" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of devices where this software image is currently running."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that represent the devices where this software image is currently running."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
       </ComplexType>
     </Schema>
 
