@@ -9,7 +9,7 @@ import generate_schema_enums
 import requests
 from generate_schema_collections import generate_top_collections
 
-VERSION = "DSP8010_2025.1"
+VERSION = "DSP8010_2025.2"
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 

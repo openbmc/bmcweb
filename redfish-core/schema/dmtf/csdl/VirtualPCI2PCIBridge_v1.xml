@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  VirtualPCI2PCIBridge v1.0.0                                         -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
+    <edmx:Include Namespace="Endpoint"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Port_v1.xml">
+    <edmx:Include Namespace="Port"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualPCI2PCIBridge">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="VirtualPCI2PCIBridge" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The `VirtualPCI2PCIBridge` schema describes Virtual PCI-to-PCI Bridge (vPPB) inside a CXL switch that is owned by the host."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a Virtual PCI-to-PCI Bridge (vPPB) inside a CXL switch that is host-owned.  This can be bound to a port that is either disconnected, connected to a PCIe component, or connected to a CXL component."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/VCSs/{VirtualCXLSwitchId}/VPPBs/{VirtualPCI2PCIBridgeId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualPCI2PCIBridge.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="VirtualPCI2PCIBridge" BaseType="VirtualPCI2PCIBridge.VirtualPCI2PCIBridge">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="VPPBId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Virtual PCI-PCI Bridge identifier."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the vPPB.  This property shall contain the same value as the `Id` property."/>
+        </Property>
+        <Property Name="BindingStatus" Type="VirtualPCI2PCIBridge.v1_0_0.vPPBStatusTypes" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The binding status of the vPPB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the binding status of the vPPB."/>
+        </Property>
+        <Property Name="BoundPortId" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The physical port number of the bound port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the physical port number of the port bound to this vPPB.  This property shall only be present if `BindingStatus` contains `BoundPhysicalPort` or `BoundLD`."/>
+        </Property>
+        <Property Name="BoundLDId" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The identifier of the bound local logical device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of the bound local logical device bound to this vPPB.  This property shall only be present if `BindingStatus` contains `BoundLD`."/>
+        </Property>
+        <Property Name="BoundPBRId" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The identifier of the bound PBR."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the identifier of PBR bound to this vPPB.  This property shall only be present if `BindingStatus` contains `BoundPID`."/>
+        </Property>
+        <Property Name="GCXLID" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The GCXLID for the CXL logical device bound to this vPPB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the globally unique CXL logical device identifier (GCXLID) for the CXL logical device that is bound to this vPPB."/>
+          <Annotation Term="Validation.Pattern" String="^([0-9A-Fa-f]{2}-){7}[0-9A-Fa-f]{2}:([0-9A-Fa-f]{4})$"/>
+        </Property>
+        <Property Name="Actions" Type="VirtualPCI2PCIBridge.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+        <Property Name="Links" Type="VirtualPCI2PCIBridge.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the endpoints associated with this vPPB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Endpoint` that represent the endpoints associated with this vPPB."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Port" Type="Port.Port">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The link to the port associated with this vPPB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Port` that represents the port associated with this vPPB."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="vPPBStatusTypes">
+        <Member Name="Unbound">
+          <Annotation Term="OData.Description" String="This vPPB is in unbound state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined 'Unbound' state for the vPPB."/>
+        </Member>
+        <Member Name="Busy">
+          <Annotation Term="OData.Description" String="Binding or unbinding is in progress for this vPPB."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined 'Binding or Unbinding' state for the vPPB."/>
+        </Member>
+        <Member Name="BoundPhysicalPort">
+          <Annotation Term="OData.Description" String="This vPPB is bound to a physical port."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined 'Bound Physical Port' state for the vPPB."/>
+        </Member>
+        <Member Name="BoundLD">
+          <Annotation Term="OData.Description" String="This vPPB is bound to a CXL logical device."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined 'Bound LD' state for the vPPB."/>
+        </Member>
+        <Member Name="BoundPID">
+          <Annotation Term="OData.Description" String="This vPPB is bound to a PBR ID."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the CXL Specification-defined 'Bound PBR Id' state for the vPPB."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="VirtualPCI2PCIBridge.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

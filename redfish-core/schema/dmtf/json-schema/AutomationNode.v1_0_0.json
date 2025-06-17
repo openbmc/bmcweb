@@ -1,0 +1,479 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/AutomationNode.v1_0_0.json",
+    "$ref": "#/definitions/AutomationNode",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#AutomationNode.Reset": {
+                    "$ref": "#/definitions/Reset"
+                },
+                "#AutomationNode.SendTrigger": {
+                    "$ref": "#/definitions/SendTrigger"
+                },
+                "#AutomationNode.Start": {
+                    "$ref": "#/definitions/Start"
+                },
+                "#AutomationNode.Stop": {
+                    "$ref": "#/definitions/Stop"
+                },
+                "#AutomationNode.Wait": {
+                    "$ref": "#/definitions/Wait"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "AutomationNode": {
+            "additionalProperties": false,
+            "description": "The `AutomationNode` schema describes a node that carries out instructions in industrial automation environments.",
+            "longDescription": "This resource shall represent an automation node for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Instrumentation": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AutomationInstrumentation.json#/definitions/AutomationInstrumentation",
+                    "description": "A link to the instrumentation for this node.",
+                    "longDescription": "This property shall contain a link to a resource of type `AutomationInstrumentation` that represents the instrumentation for this automation node.",
+                    "readonly": true
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "MotionAxis": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/MotionAxisType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The primary axis of motion for this motion-related node.",
+                    "longDescription": "This property shall contain the primary axis of motion for this motion-related node.",
+                    "readonly": false
+                },
+                "MotionProfile": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/MotionProfileType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The motion profile type used for this node.",
+                    "longDescription": "This property shall contain the type of motion profile used for this motion-based node.",
+                    "readonly": false
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "NodeState": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AutomationNode.json#/definitions/NodeState",
+                    "description": "The current state of the node.",
+                    "longDescription": "This property shall contain the current state of the automation node.",
+                    "readonly": true
+                },
+                "NodeType": {
+                    "$ref": "#/definitions/NodeType",
+                    "description": "The type of automation node.",
+                    "longDescription": "This property shall contain the type for the automation node.",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of a resource and its children.",
+                    "longDescription": "This type shall contain any status or health properties of a resource."
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AutomationNodeGroup": {
+                    "description": "An array of links to the automation nodes that are included in an automation node group.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/AutomationNode.json#/definitions/AutomationNode"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `AutomationNode` that represent the nodes that provide the functionality of this group.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "AutomationNodeGroup@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Chassis": {
+                    "description": "An array of links to the chassis that contain this equipment.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `Chassis` that represent the physical containers that contain this equipment.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Chassis@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "OutputControl": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Control.json#/definitions/Control",
+                    "description": "A link to the output control.",
+                    "longDescription": "This property shall contain a link to a resource of type `Control` that represent the output control associated with this node.",
+                    "readonly": true
+                },
+                "PidFeedbackSensor": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/Sensor",
+                    "description": "A link to the PID feedback sensor.",
+                    "longDescription": "This property shall contain a link to a resource of type `Sensor` that represents the feedback sensor associated with this node.  The feedback sensor is intended to return controlled value output in a PID system.",
+                    "readonly": true
+                },
+                "PositionSensor": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/Sensor",
+                    "description": "A link to the position sensor.",
+                    "longDescription": "This property shall contain a link to a resource of type `Sensor` that represents the position sensor associated with this node.",
+                    "readonly": true
+                },
+                "VelocitySensor": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/Sensor",
+                    "description": "A link to the velocity sensor.",
+                    "longDescription": "This property shall contain a link to a resource of type `Sensor` that represents the velocity sensor associated with this node.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "MotionAxisType": {
+            "enum": [
+                "X",
+                "Y",
+                "Z",
+                "TwoAxis",
+                "ThreeAxis"
+            ],
+            "enumDescriptions": {
+                "ThreeAxis": "3-axis.",
+                "TwoAxis": "2-axis.",
+                "X": "X axis.",
+                "Y": "Y axis.",
+                "Z": "Z axis."
+            },
+            "type": "string"
+        },
+        "MotionProfileType": {
+            "enum": [
+                "Trapezoidal",
+                "SCurve",
+                "None"
+            ],
+            "enumDescriptions": {
+                "None": "No profile specified.",
+                "SCurve": "S-curve profile.",
+                "Trapezoidal": "Trapezoidal profile."
+            },
+            "type": "string"
+        },
+        "NodeType": {
+            "enum": [
+                "MotionPosition",
+                "MotionVelocity",
+                "MotionPositionGroup",
+                "PID",
+                "Simple"
+            ],
+            "enumDescriptions": {
+                "MotionPosition": "A position-based profiled motion node where position, velocity, and acceleration are all controlled.",
+                "MotionPositionGroup": "A multi-axis position-based profiled motion node where position, velocity and acceleration are all controlled.",
+                "MotionVelocity": "A velocity-based profiled motion node where position, velocity and acceleration are all controlled.",
+                "PID": "A node that attempts to match a set point using a PID control algorithm.",
+                "Simple": "A simple node that incorporates no automated control function."
+            },
+            "type": "string"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Reset": {
+            "additionalProperties": false,
+            "description": "Resets the node.",
+            "longDescription": "This action shall reset the node to its power-on state.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SendTrigger": {
+            "additionalProperties": false,
+            "description": "Sends a trigger to the node.",
+            "longDescription": "This action shall pulse the trigger signal for the node.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Start": {
+            "additionalProperties": false,
+            "description": "Starts the node.",
+            "longDescription": "This action shall transition the node to the `Running` state.  This action shall pulse the trigger signal to other connected nodes that are in the `Waiting` state.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Stop": {
+            "additionalProperties": false,
+            "description": "Stops the node.",
+            "longDescription": "This action shall transition the node to the `Idle` state.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Wait": {
+            "additionalProperties": false,
+            "description": "Signals the node to wait for the next instruction.",
+            "longDescription": "This action shall transition the node to the `Waiting` state.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "owningEntity": "DMTF",
+    "release": "2025.2",
+    "title": "#AutomationNode.v1_0_0.AutomationNode"
+}

@@ -8,7 +8,6 @@ namespace job
 // clang-format off
 
 enum class JobState{
-    Invalid,
     New,
     Starting,
     Running,
@@ -22,10 +21,18 @@ enum class JobState{
     Service,
     UserIntervention,
     Continue,
+    Validating,
+    Invalid,
+};
+
+enum class JobType{
+    Invalid,
+    DocumentBased,
+    UserSpecified,
+    ServiceGenerated,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(JobState, {
-    {JobState::Invalid, "Invalid"},
     {JobState::New, "New"},
     {JobState::Starting, "Starting"},
     {JobState::Running, "Running"},
@@ -39,6 +46,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(JobState, {
     {JobState::Service, "Service"},
     {JobState::UserIntervention, "UserIntervention"},
     {JobState::Continue, "Continue"},
+    {JobState::Validating, "Validating"},
+    {JobState::Invalid, "Invalid"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(JobType, {
+    {JobType::Invalid, "Invalid"},
+    {JobType::DocumentBased, "DocumentBased"},
+    {JobType::UserSpecified, "UserSpecified"},
+    {JobType::ServiceGenerated, "ServiceGenerated"},
 });
 
 }

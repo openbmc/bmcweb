@@ -15,6 +15,7 @@ enum class ManagerType{
     RackManager,
     AuxiliaryController,
     Service,
+    FabricManager,
 };
 
 enum class SerialConnectTypesSupported{
@@ -74,6 +75,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ManagerType, {
     {ManagerType::RackManager, "RackManager"},
     {ManagerType::AuxiliaryController, "AuxiliaryController"},
     {ManagerType::Service, "Service"},
+    {ManagerType::FabricManager, "FabricManager"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(SerialConnectTypesSupported, {

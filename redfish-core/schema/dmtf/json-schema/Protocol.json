@@ -46,7 +46,7 @@
                 "UPI",
                 "QPI",
                 "eMMC",
-                "UEC"
+                "UET"
             ],
             "enumDescriptions": {
                 "AHCI": "Advanced Host Controller Interface (AHCI).",
@@ -83,7 +83,7 @@
                 "TCP": "Transmission Control Protocol (TCP).",
                 "TFTP": "Trivial File Transfer Protocol (TFTP).",
                 "UDP": "User Datagram Protocol (UDP).",
-                "UEC": "Ultra Ethernet (UEC).",
+                "UET": "Ultra Ethernet Transport.",
                 "UHCI": "Universal Host Controller Interface (UHCI).",
                 "UPI": "Intel UltraPath Interconnect (UPI).",
                 "USB": "Universal Serial Bus (USB).",
@@ -126,7 +126,7 @@
                 "TCP": "This value shall indicate conformance to the IETF-defined Transmission Control Protocol (TCP).  For example, RFC7414 defines the roadmap of the TCP specification.",
                 "TFTP": "This value shall indicate conformance to the IETF-defined Trivial File Transfer Protocol (TFTP).  For example, RFC1350 defines the core TFTP version 2 specification.",
                 "UDP": "This value shall indicate conformance to the IETF-defined User Datagram Protocol (UDP).  For example, RFC768 defines the core UDP specification.",
-                "UEC": "This value shall indicate conformance to the Ultra Ethernet specifications.",
+                "UET": "This value shall indicate conformance to the Ultra Ethernet specifications.",
                 "UHCI": "This value shall indicate conformance to the Intel Universal Host Controller Interface (UHCI) Specification, Enhanced Host Controller Interface Specification, or the Extensible Host Controller Interface Specification.",
                 "UPI": "This value shall indicate conformance to the Intel UltraPath Interconnect (UPI) protocol.",
                 "USB": "This value shall indicate conformance to the USB Implementers Forum Universal Serial Bus Specification.",
@@ -155,7 +155,7 @@
                 "TCP": "2019.3",
                 "TFTP": "2019.3",
                 "UDP": "2019.3",
-                "UEC": "2025.1",
+                "UET": "2025.1",
                 "UPI": "2023.2",
                 "VGA": "2021.1",
                 "eMMC": "2024.1",

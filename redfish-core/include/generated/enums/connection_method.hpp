@@ -15,6 +15,8 @@ enum class ConnectionMethodType{
     IPMI20,
     NETCONF,
     OEM,
+    ModbusSerial,
+    ModbusTCP,
 };
 
 enum class TunnelingProtocolType{
@@ -31,6 +33,8 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConnectionMethodType, {
     {ConnectionMethodType::IPMI20, "IPMI20"},
     {ConnectionMethodType::NETCONF, "NETCONF"},
     {ConnectionMethodType::OEM, "OEM"},
+    {ConnectionMethodType::ModbusSerial, "ModbusSerial"},
+    {ConnectionMethodType::ModbusTCP, "ModbusTCP"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(TunnelingProtocolType, {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SerialInterface v1.2.1                                              -->
+<!--# Redfish Schema:  SerialInterface v1.3.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -19,6 +19,7 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
@@ -240,6 +241,42 @@
         <Member Name="Digi">
           <Annotation Term="OData.Description" String="The Digi pinout configuration."/>
         </Member>
+        <Member Name="Modbus2Wire">
+          <Annotation Term="OData.Description" String="The Modbus 2 wire pinout configuration."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the MODBUS over Serial Line Specification and Implementation guide-defined 2W-MODBUS pinout.  This value shall only be used if the `SignalType` property contains `Rs485`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Modbus4Wire">
+          <Annotation Term="OData.Description" String="The Modbus 4 wire pinout configuration."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the MODBUS over Serial Line Specification and Implementation guide-defined 4W-MODBUS pinout.  This value shall only be used if the `SignalType` property contains `Rs485`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="ModbusRs232">
+          <Annotation Term="OData.Description" String="The Modbus RS232 pinout configuration."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the MODBUS over Serial Line Specification and Implementation guide-defined RS232-MODBUS pinout.  This value shall only be used if the `SignalType` property contains `Rs232`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <TypeDefinition Name="ConnectorType" UnderlyingType="Edm.String">
@@ -455,6 +492,51 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_2_0.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Modbus2Wire`, `Modbus4Wire`, and `ModbusRs232` to `PinOut`."/>
+
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_2_1.SerialInterface">
+        <Property Name="Modbus" Type="SerialInterface.v1_3_0.Modbus" Nullable="false">
+          <Annotation Term="OData.Description" String="The Modbus settings for the serial interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Modbus settings for this serial interface."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Modbus">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The Modbus settings for the serial interface."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the Modbus settings for this serial interface."/>
+        <Property Name="Role" Type="SerialInterface.v1_3_0.Role" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The role of the serial interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the role of this serial interface."/>
+        </Property>
+        <Property Name="ReadOnly" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if the interface is read only."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the serial interface is read only.  If `true`, the serial service on this manager shall reject or ignore requests that modify data.  This property shall only be present if the `Role` property contains `Server`."/>
+        </Property>
+        <Property Name="ServerId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The server identifier for this Modbus RTU interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the MODBUS over Serial Line Specification and Implementation guide-defined address that identifies this Modbus RTU server.  This property shall only be present if the `Role` property contains `Server`."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+          <Annotation Term="Validation.Maximum" Int="247"/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="Role">
+        <Member Name="Client">
+          <Annotation Term="OData.Description" String="The serial interface is a client and connects to one or more servers across a serial bus."/>
+        </Member>
+        <Member Name="Server">
+          <Annotation Term="OData.Description" String="The serial interface is a server and allows one or more clients to connect across a serial bus."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

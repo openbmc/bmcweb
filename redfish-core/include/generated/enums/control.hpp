@@ -18,6 +18,12 @@ enum class ControlType{
     Valve,
     Percent,
     DutyCycle,
+    LinearPosition,
+    LinearVelocity,
+    LinearAcceleration,
+    RotationalPosition,
+    RotationalVelocity,
+    RotationalAcceleration,
     LiquidFlowLPM,
 };
 
@@ -25,6 +31,7 @@ enum class SetPointType{
     Invalid,
     Single,
     Range,
+    Monitor,
 };
 
 enum class ControlMode{
@@ -53,6 +60,12 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ControlType, {
     {ControlType::Valve, "Valve"},
     {ControlType::Percent, "Percent"},
     {ControlType::DutyCycle, "DutyCycle"},
+    {ControlType::LinearPosition, "LinearPosition"},
+    {ControlType::LinearVelocity, "LinearVelocity"},
+    {ControlType::LinearAcceleration, "LinearAcceleration"},
+    {ControlType::RotationalPosition, "RotationalPosition"},
+    {ControlType::RotationalVelocity, "RotationalVelocity"},
+    {ControlType::RotationalAcceleration, "RotationalAcceleration"},
     {ControlType::LiquidFlowLPM, "LiquidFlowLPM"},
 });
 
@@ -60,6 +73,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(SetPointType, {
     {SetPointType::Invalid, "Invalid"},
     {SetPointType::Single, "Single"},
     {SetPointType::Range, "Range"},
+    {SetPointType::Monitor, "Monitor"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ControlMode, {

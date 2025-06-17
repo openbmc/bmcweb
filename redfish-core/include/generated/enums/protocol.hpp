@@ -50,7 +50,7 @@ enum class Protocol{
     UPI,
     QPI,
     eMMC,
-    UEC,
+    UET,
 };
 
 NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
@@ -96,7 +96,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Protocol, {
     {Protocol::UPI, "UPI"},
     {Protocol::QPI, "QPI"},
     {Protocol::eMMC, "eMMC"},
-    {Protocol::UEC, "UEC"},
+    {Protocol::UET, "UET"},
 });
 
 }

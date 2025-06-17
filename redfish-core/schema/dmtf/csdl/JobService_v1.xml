@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  JobService v1.0.6                                                   -->
+<!--# Redfish Schema:  JobService v1.1.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -30,7 +30,12 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/LogService_v1.xml">
     <edmx:Include Namespace="LogService"/>
   </edmx:Reference>
-
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/JobDocumentCollection_v1.xml">
+    <edmx:Include Namespace="JobDocumentCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/JobExecutorCollection_v1.xml">
+    <edmx:Include Namespace="JobExecutorCollection"/>
+  </edmx:Reference>
   <edmx:DataServices>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JobService">
@@ -62,6 +67,20 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <Action Name="CancelAllJobs" IsBound="true">
+        <Annotation Term="OData.Description" String="Cancels all jobs."/>
+        <Annotation Term="OData.LongDescription" String="This action shall cancel all jobs.  The service shall transition all jobs to the `Cancelled` state."/>
+        <Parameter Name="JobService" Type="JobService.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_1_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JobService.v1_0_0">
@@ -81,7 +100,7 @@
         </Property>
         <Property Name="ServiceCapabilities" Type="JobService.v1_0_0.JobServiceCapabilities" Nullable="false">
           <Annotation Term="OData.Description" String="The supported capabilities of this job service implementation."/>
-          <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the capabilities or supported features of this implementation of a job service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the capabilities or supported features of this implementation of a job service."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
@@ -177,6 +196,59 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="JobService" BaseType="JobService.v1_0_5.JobService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JobService.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="JobService" BaseType="JobService.v1_0_6.JobService">
+        <Property Name="ValidationPolicy" Type="JobService.v1_1_0.ValidationPolicy">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The policy for how document-based jobs are validated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain policy for how document-based jobs are validated."/>
+        </Property>
+        <NavigationProperty Name="JobDocuments" Type="JobDocumentCollection.JobDocumentCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the job document collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `JobDocumentCollection`.  This property shall only be present if the service supports document-based jobs."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="JobExecutors" Type="JobExecutorCollection.JobExecutorCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the job executor collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `JobExecutorCollection`.  This property shall only be present if the service supports document-based jobs."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="JobServiceCapabilities" BaseType="JobService.v1_0_0.JobServiceCapabilities">
+        <Property Name="UserSpecifiedJobs" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether user-specified jobs are supported."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether user-specified jobs are supported.  User-specified jobs are jobs that are created by performing an HTTP `POST` operation on the `JobCollection` resource referenced by the `Jobs` property."/>
+        </Property>
+        <Property Name="DocumentBasedJobs" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether document-based jobs are supported."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether document-based jobs are supported.  Document-based jobs are jobs that are created by performing the `SubmitJob` action on a `JobDocument` resource in the `JobDocumentCollection` resource referenced by the `JobDocuments` property."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="ValidationPolicy">
+        <Member Name="Automatic">
+          <Annotation Term="OData.Description" String="Jobs are validated automatically."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that jobs are validated automatically.  The `JobState` property of a new job shall contain `Validating` when created with the `SubmitJob` action from the `JobDocument` resource."/>
+        </Member>
+        <Member Name="Manual">
+          <Annotation Term="OData.Description" String="Jobs are validated manually."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate jobs are validated manually.  The `JobState` property of a new job shall contain `New` when created with the `SubmitJob` action from the `JobDocument` resource and wait for a user to perform the `Validate` action in the `Job` resource."/>
+        </Member>
+        <Member Name="Bypass">
+          <Annotation Term="OData.Description" String="Jobs are not validated."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate jobs are not validated.  The `JobState` property of a new job shall contain `Pending` when created with the `SubmitJob` action from the `JobDocument` resource."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

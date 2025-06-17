@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricReportDefinition v1.4.6                                       -->
+<!--# Redfish Schema:  MetricReportDefinition v1.4.7                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -377,8 +377,8 @@
       <ComplexType Name="Wildcard" BaseType="MetricReportDefinition.v1_0_0.Wildcard">
         <Property Name="Values" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="An array of values to substitute for the wildcard."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the list of values to substitute for the wildcard."/>
+          <Annotation Term="OData.Description" String="An array of values to substitute for the wildcard.  `*` indicates all possible values for the wildcard."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the list of values to substitute for the wildcard.  The value `*` shall indicate all possible values for the wildcard."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -453,6 +453,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_11.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `*` as a wildcard value indicates all possible values."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_1_12.MetricReportDefinition"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_0">
@@ -559,6 +565,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_10.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_2_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `*` as a wildcard value indicates all possible values."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_2_11.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -632,6 +644,12 @@
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_9.MetricReportDefinition"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_3_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `*` as a wildcard value indicates all possible values."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_3_10.MetricReportDefinition"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -680,6 +698,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_4_5.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `*` as a wildcard value indicates all possible values."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_4_6.MetricReportDefinition"/>
     </Schema>
 
   </edmx:DataServices>

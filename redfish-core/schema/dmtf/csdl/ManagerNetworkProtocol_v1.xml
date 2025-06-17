@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerNetworkProtocol v1.11.0                                      -->
+<!--# Redfish Schema:  ManagerNetworkProtocol v1.12.0                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1001,6 +1001,55 @@
           <Annotation Term="OData.LongDescription" String="This object shall contain the Multicast Domain Name Service (mDNS) settings for the manager.  The default `Port` property value should be `5353` for compatibility with established client implementations."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_11_0.ManagerNetworkProtocol">
+        <Property Name="Modbus" Type="ManagerNetworkProtocol.v1_12_0.ModbusProtocol" Nullable="false">
+          <Annotation Term="OData.Description" String="The settings for this manager's Modbus TCP protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the Modbus TCP protocol settings for the manager."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="ModbusProtocol" BaseType="ManagerNetworkProtocol.v1_0_0.Protocol">
+        <Property Name="ServerId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The server identifier for this Modbus TCP protocol interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Modbus Messaging On TCP/IP Implementation Guide-defined 'Unit Identifier' that identifies this Modbus TCP protocol server."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="255"/>
+        </Property>
+        <Property Name="MaximumConnectedClients" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The maximum number of simultaneously connected clients."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of simultaneously connected clients to this Modbus TCP server."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="NumberOfConnectedClients" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current number of connected clients."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current number of connected clients to this Modbus TCP server."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="ReadOnly" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if the interface is read only."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the Modbus TCP server protocol interface is read only.  If `true`, the Modbus TCP server service on this manager shall reject or ignore Modbus requests that modify data."/>
+        </Property>
+        <Property Name="RestrictAccessToAllowedClients" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if access to this Modbus TCP server protocol interface is restricted to allowed clients."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if access to the Modbus TCP server protocol interface is restricted to allowed clients.  If `true`, the Modbus TCP server service on this manager shall restrict access to the list of clients defined by the `AllowedClients` property."/>
+        </Property>
+        <Property Name="AllowedClients" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates the list of allowed clients for this Modbus TCP server interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain all the clients allowed to access this Modbus TCP server interface.  If `RestrictAccessToAllowedClients` contains `true`, the service shall enforce this restriction.  If `RestrictAccessToAllowedClients` contains `false`, the service shall not enforce this restriction.  This property may contain FQDN, IPv4 addresses, IPv6 addresses, or any combination of those formats.  Services may reject unsupported formats."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

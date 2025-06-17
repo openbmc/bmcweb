@@ -1,0 +1,869 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Job.v1_3_0.json",
+    "$ref": "#/definitions/Job",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Job.Cancel": {
+                    "$ref": "#/definitions/Cancel"
+                },
+                "#Job.ForceStart": {
+                    "$ref": "#/definitions/ForceStart"
+                },
+                "#Job.Invalidate": {
+                    "$ref": "#/definitions/Invalidate"
+                },
+                "#Job.Resubmit": {
+                    "$ref": "#/definitions/Resubmit"
+                },
+                "#Job.Resume": {
+                    "$ref": "#/definitions/Resume"
+                },
+                "#Job.Suspend": {
+                    "$ref": "#/definitions/Suspend"
+                },
+                "#Job.Validate": {
+                    "$ref": "#/definitions/Validate"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "Cancel": {
+            "additionalProperties": false,
+            "description": "Cancels the job.",
+            "longDescription": "This action shall cancel the job if it is currently in the `Running`, `Invalid`, or `Suspended` states.  The job shall transition to `Cancelled` if the action is successful.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_3_0"
+        },
+        "ForceStart": {
+            "additionalProperties": false,
+            "description": "Forces the job to start.",
+            "longDescription": "This action shall force the job to start running if it is in the `Pending` state.  The job shall transition to `Running` if the action is successful.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_3_0"
+        },
+        "Invalidate": {
+            "additionalProperties": false,
+            "description": "Invalidates the job.",
+            "longDescription": "This action shall invalidate the job if it is in the `Pending` state.  The job shall transition to `Invalid` if the action is successful.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_3_0"
+        },
+        "Job": {
+            "additionalProperties": false,
+            "description": "The `Job` schema contains information about a job that a Redfish job service schedules or executes.  Clients create jobs to describe a series of operations that occur at periodic intervals.",
+            "longDescription": "This resource shall contain a job in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "CreatedBy": {
+                    "description": "The person or program that created this job entry.",
+                    "longDescription": "This property shall contain the username, software program name, or other identifier indicating the creator of this job.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "CreationTime": {
+                    "description": "The date and time when the job was created.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the job was created.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "EndTime": {
+                    "description": "The date and time when the job was completed.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the job was completed.  This property shall not appear if the job is running or was not completed.  This property shall appear only if the `JobState` is `Completed`, `Cancelled`, or `Exception`.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "EstimatedCompletionTime": {
+                    "description": "The date and time when the job is expected to complete.",
+                    "excerpt": "Job",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the job is expected to complete.  If the `EstimatedDuration` property is supported, the value of this property shall contain the summation of the `StartTime` property and the `EstimatedDuration` property.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
+                "EstimatedDuration": {
+                    "description": "The estimated total time required to complete the job.",
+                    "longDescription": "This property shall contain the estimated total time needed to complete the job.  The value is not expected to change while the job is in progress, but the service may update the value if it obtains new information that significantly changes the expected duration.  Services should be conservative in the reported estimate and clients should treat this value as an estimate.",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "HidePayload": {
+                    "description": "An indication of whether the contents of the payload or parameters should be hidden from view after the job has been created.  If `true`, responses do not return the payload or parameters.  If `false`, responses return the payload or parameters.  If this property is not present when the job is created, the default is `false`.",
+                    "longDescription": "This property shall indicate whether the contents of the payload should be hidden from view after the job has been created.  If `true`, responses shall not return the `Payload` or `Parameters` properties.  If `false`, responses shall return the `Payload` or `Parameters` properties.  If this property is not present when the job is created, the default is `false`.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "JobPriority": {
+                    "description": "The requested priority for this job.",
+                    "longDescription": "This property shall contain the requested priority of this job.  The value `0` shall indicate the highest priority.  Increasing values shall represent decreasing priority.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "JobState": {
+                    "$ref": "#/definitions/JobState",
+                    "description": "The state of the job.",
+                    "excerpt": "Job",
+                    "longDescription": "This property shall contain the state of the job.",
+                    "readonly": false
+                },
+                "JobStatus": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health",
+                    "description": "The status of the job.",
+                    "longDescription": "This property shall contain the health status of the job.  This property should contain `Critical` if one or more messages in the `Messages` array contains the severity `Critical`.  This property should contain `Warning` if one or more messages in the `Messages` array contains the severity `Warning` and if no messages contain the severity `Critical`.  This property should contain `OK` if all messages in the `Messages` array contain the severity `OK` or if the array is empty.",
+                    "readonly": true
+                },
+                "JobType": {
+                    "$ref": "#/definitions/JobType",
+                    "description": "The type of this job.",
+                    "longDescription": "This property shall contain the type of this job.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+                    "versionAdded": "v1_2_0"
+                },
+                "MaxExecutionTime": {
+                    "description": "The maximum amount of time the job is allowed to execute.",
+                    "longDescription": "This property shall contain the maximum duration the job is allowed to execute before being stopped by the service.",
+                    "pattern": "^P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Messages": {
+                    "description": "An array of messages associated with the job.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Message.json#/definitions/Message"
+                    },
+                    "longDescription": "This property shall contain an array of messages associated with the job.",
+                    "type": "array"
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "Parameters": {
+                    "$ref": "#/definitions/Parameters",
+                    "description": "The parameters specified for running this document-based job.",
+                    "longDescription": "This property shall contain the parameters specified for running this document-based job.  This property shall only be present for document-based jobs and if the `HidePayload` property is `false`.",
+                    "versionAdded": "v1_3_0"
+                },
+                "Payload": {
+                    "$ref": "#/definitions/Payload",
+                    "description": "The HTTP and JSON request payload details for this user-specified job.",
+                    "longDescription": "This property shall contain the HTTP and JSON request payload information for executing this user-specified job.  This property shall only be present for user-specified jobs and if the `HidePayload` property is `false`."
+                },
+                "PercentComplete": {
+                    "description": "The completion percentage of this job.",
+                    "excerpt": "Job",
+                    "longDescription": "This property shall contain the completion progress of the job, reported in percent of completion, `0` to `100`.  If the job has not been started, the value shall be zero.",
+                    "maximum": 100,
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "%"
+                },
+                "Schedule": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Schedule.json#/definitions/Schedule",
+                    "description": "The schedule settings for this job.",
+                    "longDescription": "This property shall contain the scheduling details for this job and the recurrence frequency for future instances of this job.  This property shall not be present for document-based jobs."
+                },
+                "StartTime": {
+                    "description": "The date and time when the job was started or is scheduled to start.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the job was last started or is scheduled to start.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "StepOrder": {
+                    "description": "The serialized execution order of the job steps.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall contain an array of `Id` property values for the job steps in the order that they shall be executed.  Each step shall be completed prior to the execution of the next step in array order.  An incomplete list of steps shall be considered an invalid configuration.  If this property is not present or contains an empty array it shall indicate that the step execution order is omitted and may occur in parallel or in series as determined by the service.  This property shall not be present for document-based jobs.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Steps": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/JobCollection.json#/definitions/JobCollection",
+                    "description": "The link to a collection of steps for this job.",
+                    "longDescription": "This property shall contain the link to a resource collection of type `JobCollection`.  This property shall not be present if this resource represents a step for a job.  This property shall not be present for document-based jobs.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "JobExcerpt": {
+            "additionalProperties": false,
+            "description": "The `Job` schema contains information about a job that a Redfish job service schedules or executes.  Clients create jobs to describe a series of operations that occur at periodic intervals.",
+            "excerpt": "Job",
+            "longDescription": "This resource shall contain a job in a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "EstimatedCompletionTime": {
+                    "description": "The date and time when the job is expected to complete.",
+                    "excerpt": "Job",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the job is expected to complete.  If the `EstimatedDuration` property is supported, the value of this property shall contain the summation of the `StartTime` property and the `EstimatedDuration` property.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
+                "JobState": {
+                    "$ref": "#/definitions/JobState",
+                    "description": "The state of the job.",
+                    "excerpt": "Job",
+                    "longDescription": "This property shall contain the state of the job.",
+                    "readonly": false
+                },
+                "PercentComplete": {
+                    "description": "The completion percentage of this job.",
+                    "excerpt": "Job",
+                    "longDescription": "This property shall contain the completion progress of the job, reported in percent of completion, `0` to `100`.  If the job has not been started, the value shall be zero.",
+                    "maximum": 100,
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "%"
+                }
+            },
+            "type": "object"
+        },
+        "JobState": {
+            "enum": [
+                "New",
+                "Starting",
+                "Running",
+                "Suspended",
+                "Interrupted",
+                "Pending",
+                "Stopping",
+                "Completed",
+                "Cancelled",
+                "Exception",
+                "Service",
+                "UserIntervention",
+                "Continue",
+                "Validating",
+                "Invalid"
+            ],
+            "enumDescriptions": {
+                "Cancelled": "Job was cancelled.",
+                "Completed": "Job was completed.",
+                "Continue": "Job is to resume operation.",
+                "Exception": "Job has stopped due to an exception condition.",
+                "Interrupted": "Job has been interrupted.",
+                "Invalid": "Job is invalid.",
+                "New": "A new job.",
+                "Pending": "Job is pending and has not started.",
+                "Running": "Job is running normally.",
+                "Service": "Job is running as a service.",
+                "Starting": "Job is starting.",
+                "Stopping": "Job is in the process of stopping.",
+                "Suspended": "Job has been suspended.",
+                "UserIntervention": "Job is waiting for user intervention.",
+                "Validating": "Job is validating."
+            },
+            "enumLongDescriptions": {
+                "Cancelled": "This value shall indicate that the operation completed because the job was cancelled by an operator.  The job may restart in the future based on the scheduling configuration of the job or operations performed by a user.",
+                "Completed": "This value shall indicate that the operation completed successfully or with warnings.  The job may restart in the future based on the scheduling configuration of the job or operations performed by a user.",
+                "Continue": "This value shall indicate that the operation has been resumed from a paused condition and should return to a Running state.",
+                "Exception": "This value shall indicate that the operation completed with errors.  The job may restart in the future based on the scheduling configuration of the job or operations performed by a user.",
+                "Interrupted": "This value shall indicate that the operation has been interrupted but is expected to restart and is therefore not complete.",
+                "Invalid": "This value shall indicate that validation has determined that the system is not properly configured to run the document-based job.  To perform validation checks again, perform the `Validate` action.",
+                "New": "This value shall indicate that this job is newly created but the operation has not yet started.  This shall be the initial state for document-based jobs.  Upon receiving the `Validate` action, or if the value of `ValidationPolicy` in the `JobService` resource contains `Automatic`, the document-based job's `JobState` shall transition to `Validating`.  If the `ValidationPolicy` property in the `JobService` resource contains `Bypass`, the `JobState` for a document-based job shall transition to `Pending`.",
+                "Pending": "This value shall indicate that the operation is pending some condition and has not yet begun to execute.",
+                "Running": "This value shall indicate that the operation is executing.  Jobs that complete successfully shall transition from this state to the `Completed` state.  Jobs that do not complete successfully shall transition from this state to the `Exception` state.",
+                "Service": "This value shall indicate that the operation is now running as a service and expected to continue operation until stopped or killed.",
+                "Starting": "This value shall indicate that the operation is starting.",
+                "Stopping": "This value shall indicate that the operation is stopping but is not yet complete.",
+                "Suspended": "This value shall indicate that the operation has been suspended but is expected to restart and is therefore not complete.  To resume a job, perform the `Resume` action.",
+                "UserIntervention": "This value shall indicate that the operation is waiting for a user to intervene and needs to be manually continued, stopped, or cancelled.",
+                "Validating": "This value shall indicate that the document-based job is validating the state of the system to determine if it can run.  For example, a job that runs on factory equipment might check to ensure that the equipment is properly configured and has sufficient ingredients to run the job.  If the validation checks fail, the job shall transition to the `Invalid` state.  If the validation checks are successful, the job shall transition to the `Pending` state."
+            },
+            "enumVersionAdded": {
+                "Invalid": "v1_3_0",
+                "Validating": "v1_3_0"
+            },
+            "type": "string"
+        },
+        "JobType": {
+            "enum": [
+                "DocumentBased",
+                "UserSpecified",
+                "ServiceGenerated"
+            ],
+            "enumDescriptions": {
+                "DocumentBased": "A document-based job.",
+                "ServiceGenerated": "A service-generated job.",
+                "UserSpecified": "A user-specified job."
+            },
+            "enumLongDescriptions": {
+                "DocumentBased": "This value shall indicate a job that was created by performing the `SubmitJob` action on a `JobDocument` resource.",
+                "ServiceGenerated": "This value shall indicate a job that was created automatically by the service as part of its internal policies.",
+                "UserSpecified": "This value shall indicate a job that was created by performing an HTTP `POST` operation on a `JobCollection` resource."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CreatedResources": {
+                    "description": "An array of URIs referencing the resources created as the result of this job.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources indicating the resources created as the result of this job.  Services shall set this property prior to the job entering its final state.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
+                },
+                "CreatedResources@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Executor": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/JobExecutor.json#/definitions/JobExecutor"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A link to the executor that is running this job.",
+                    "longDescription": "This property shall contain a link to a resource of type `JobExecutor` that represents the executor that is running this job.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
+                "JobDocument": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/JobDocument.json#/definitions/JobDocument"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "A link to the job document that was used to create this job.",
+                    "longDescription": "This property shall contain a link to a resource of type `JobDocument` that represents the job document that was used to create this job.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "ParentJob": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Job.json#/definitions/Job"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to the job that created this job.",
+                    "longDescription": "This property shall contain a link to a resource of type `Job` that represents the job that created this job.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                },
+                "PreferredExecutors": {
+                    "description": "An array of links to the preferred executors to run this job.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/JobExecutor.json#/definitions/JobExecutor"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `JobExecutor` that represent the preferred executors to run this job.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "PreferredExecutors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "SubsidiaryJobs": {
+                    "description": "An array of links to the jobs created by this job.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Job.json#/definitions/Job"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `Job` that represent the jobs created by this job.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "SubsidiaryJobs@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ValidatedExecutors": {
+                    "description": "An array of links to the executors that have been validated to run this job.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/JobExecutor.json#/definitions/JobExecutor"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `JobExecutor` that represent the executors that have been validated to run this job.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "ValidatedExecutors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Parameters": {
+            "additionalProperties": true,
+            "description": "The parameters used when running this instance of the job.",
+            "longDescription": "This type shall contain the parameters to use when running this job.  Each property-value pair specifies a parameter and its value as specified when the job was submitted.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                },
+                "^[A-Za-z][A-Za-z0-9_]+$": {
+                    "type": [
+                        "string",
+                        "boolean",
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Payload": {
+            "additionalProperties": false,
+            "description": "The HTTP and JSON payload details for this job.",
+            "longDescription": "This object shall contain information detailing the HTTP and JSON payload information for executing this job.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "HttpHeaders": {
+                    "description": "An array of HTTP headers in this job.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "This property shall contain an array of HTTP headers in this job.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "HttpOperation": {
+                    "description": "The HTTP operation that executes this job.",
+                    "longDescription": "This property shall contain the HTTP operation that executes this job.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "JsonBody": {
+                    "description": "The JSON payload to use in the execution of this job.",
+                    "longDescription": "This property shall contain JSON-formatted payload for this job.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "TargetUri": {
+                    "description": "The link to the target for this job.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain link to a target location for an HTTP operation.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Resubmit": {
+            "additionalProperties": false,
+            "description": "Resubmits the job.",
+            "longDescription": "This action shall resubmit a job to the job service.  The new job shall be based on the job document, and properties of the resource associated with this action.  Services shall take appropriate measures to make sure that appropriate security is maintained - for instance, only allowing the same user that created the job to resubmit it.",
+            "parameters": {
+                "StartTime": {
+                    "description": "The time to start the job.",
+                    "format": "date-time",
+                    "longDescription": "This parameter shall contain the time to start the job.",
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_3_0"
+        },
+        "Resume": {
+            "additionalProperties": false,
+            "description": "Resumes the job.",
+            "longDescription": "This action shall resume the job if it is in the `Suspended` state.  The job shall transition to `Running` if the action is successful.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_3_0"
+        },
+        "Suspend": {
+            "additionalProperties": false,
+            "description": "Suspends the job.",
+            "longDescription": "This action shall suspend the job if it is in the `Running` state.  The job shall transition to `Suspended` if the action is successful.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_3_0"
+        },
+        "Validate": {
+            "additionalProperties": false,
+            "description": "Validates the job.",
+            "longDescription": "This action shall request the validation the job if it is in the `New` state.  The job shall transition to `Pending` if the action is successful.  If the job is not valid, it shall transition to `Invalid`.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_3_0"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "release": "2025.2",
+    "title": "#Job.v1_3_0.Job"
+}

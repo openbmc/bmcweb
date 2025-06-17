@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.9.0                                                  -->
+<!--# Redfish Schema:  Certificate v1.10.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -135,6 +135,15 @@
             <String>/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Certificates/{CertificateId}</String>
           </Collection>
         </Annotation>
+        <Annotation Term="Redfish.DeprecatedUris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates/{CertificateId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
       <EnumType Name="CertificateType">
@@ -144,7 +153,7 @@
         </Member>
         <Member Name="PEMchain">
           <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded certificate chain."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined structures, representing a certificate chain."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined structures, representing a certificate chain.  When this value is specified, the properties of the resource, except for `CertificateString`, shall contain the information from the leaf certificate.  When this value is specified, `CertificateString` shall contain the entire PEM chain."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -156,7 +165,19 @@
         </Member>
         <Member Name="PKCS7">
           <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded PKCS7 certificate."/>
-          <Annotation Term="OData.LongDescription" String="The format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined and RFC2315-defined structures.  The service can discard additional certificates or other data in the structure."/>
+          <Annotation Term="OData.LongDescription" String="The format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined and RFC2315-defined structures.  The service may discard additional certificates or other data in the structure."/>
+        </Member>
+        <Member Name="PKCS12">
+          <Annotation Term="OData.Description" String="A Base64-encoded PKCS12 certificate bundle."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the format of the certificate shall contain a Base64-encoded string, with padding characters, containing RFC7292-defined structures, representing a PKCS12 archive of one or more certificates, keys, or other cryptographic data.  The service may discard additional certificates or other data in the structure."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -743,6 +764,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_4_3.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `PEMChain` certificates contain leaf certificate information in the properties for the resource."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_4_4.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.3"/>
@@ -788,6 +815,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_5_3.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `PEMChain` certificates contain leaf certificate information in the properties for the resource."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_5_4.Certificate"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_6_0">
@@ -838,6 +871,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_6_2.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `PEMChain` certificates contain leaf certificate information in the properties for the resource."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_6_3.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -871,6 +910,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_7_2.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `PEMChain` certificates contain leaf certificate information in the properties for the resource."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_7_3.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -897,12 +942,42 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_8_2.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `PEMChain` certificates contain leaf certificate information in the properties for the resource."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_8_3.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
       <Annotation Term="OData.Description" String="This version was created to add the value `EK` to `CertificateUsageType` to support TCG TPM certificates."/>
 
       <EntityType Name="Certificate" BaseType="Certificate.v1_8_3.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `PEMChain` certificates contain leaf certificate information in the properties for the resource."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_9_0.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the value `PKCS12` to `CertificateType`."/>
+
+      <EntityType Name="Certificate" BaseType="Certificate.v1_9_1.Certificate">
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="Password" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
+          <Annotation Term="OData.Description" String="The password for the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the password for the certificate contained in the `CertificateString` property.  This property shall be required in create requests if the `CertificateType` property contains `PKCS12` and the client-provided certificate is password protected.  This property shall not be present in responses."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

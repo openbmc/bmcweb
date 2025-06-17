@@ -131,6 +131,13 @@ enum class Orientation{
     RightToLeft,
 };
 
+enum class ConditionType{
+    Invalid,
+    Alert,
+    Informational,
+    Subsystem,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(Id, {
     {Id::Invalid, "Invalid"},
 });
@@ -253,6 +260,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(Orientation, {
     {Orientation::BottomToTop, "BottomToTop"},
     {Orientation::LeftToRight, "LeftToRight"},
     {Orientation::RightToLeft, "RightToLeft"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ConditionType, {
+    {ConditionType::Invalid, "Invalid"},
+    {ConditionType::Alert, "Alert"},
+    {ConditionType::Informational, "Informational"},
+    {ConditionType::Subsystem, "Subsystem"},
 });
 
 }

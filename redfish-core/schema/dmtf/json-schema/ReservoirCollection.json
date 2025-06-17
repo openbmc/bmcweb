@@ -92,7 +92,8 @@
             "uris": [
                 "/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Reservoirs",
                 "/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/Reservoirs",
-                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Reservoirs"
+                "/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Reservoirs",
+                "/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/Reservoirs"
             ]
         }
     },

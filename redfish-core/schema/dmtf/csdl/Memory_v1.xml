@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory v1.20.0                                                      -->
+<!--# Redfish Schema:  Memory v1.21.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -826,6 +826,17 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="DDR5_MRDIMM">
+          <Annotation Term="OData.Description" String="DDR5 MRDIMM."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_21_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="BaseModuleType">
@@ -866,6 +877,17 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="CAMM">
+          <Annotation Term="OData.Description" String="Compression Attached Memory Module."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_21_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -2462,6 +2484,14 @@
           <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){2}$"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `DDR5_MRDIMM` to `MemoryDeviceType`.  It was also created to add `CAMM` to `BaseModuleType`."/>
+
+      <EntityType Name="Memory" BaseType="Memory.v1_20_0.Memory"/>
     </Schema>
 
   </edmx:DataServices>

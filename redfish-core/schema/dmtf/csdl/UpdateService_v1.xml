@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService v1.15.0                                               -->
+<!--# Redfish Schema:  UpdateService v1.16.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -39,6 +39,12 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Key_v1.xml">
     <edmx:Include Namespace="Key"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/UpdateServiceCapabilities_v1.xml">
+    <edmx:Include Namespace="UpdateServiceCapabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
+    <edmx:Include Namespace="SoftwareInventory"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -137,6 +143,18 @@
             </Collection>
           </Annotation>
         </Parameter>
+        <Parameter Name="Stage" Type="Edm.Boolean">
+          <Annotation Term="OData.Description" String="An indication of whether the service stages the image on target devices for a client to activate at a later time."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether the service stages the image on target devices for a client to activate at a later time with the `Activate` action on the `SoftwareInventory` resource.  If the client does not provide this parameter, the service shall default this value to `false`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_16_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
       </Action>
 
       <Action Name="StartUpdate" IsBound="true">
@@ -188,6 +206,24 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_13_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="Activate" IsBound="true">
+        <Annotation Term="OData.Description" String="This action activates specified software inventory instance."/>
+        <Annotation Term="OData.LongDescription" String="This action shall activate specified software inventory instance."/>
+        <Parameter Name="UpdateService" Type="UpdateService.v1_0_0.Actions"/>
+        <Parameter Name="Targets" Type="Collection(SoftwareInventory.SoftwareInventory)" Nullable="false">
+          <Annotation Term="OData.Description" String="The target software inventory instances to activate on staged devices."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of target software inventory instances to activate on staged devices.  The service shall activate each software image on all applicable devices."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_16_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -1458,6 +1494,29 @@
       <Annotation Term="OData.Description" String="This version was created to deprecate `HttpPushUri`, `HttpPushUriTargets`, `HttpPushUriTargetsBusy`, `HttpPushUriOptions`, and `HttpPushUriOptionsBusy` properties in favor of `MultipartHttpPushUri`."/>
 
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_14_1.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_16_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `Activate` action."/>
+
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_15_0.UpdateService">
+        <NavigationProperty Name="UpdateServiceCapabilities" Type="UpdateServiceCapabilities.UpdateServiceCapabilities" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the capabilities of the update service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `UpdateServiceCapabilities` that contains the capabilities of the update service."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="UpdateParameters" BaseType="UpdateService.v1_11_0.UpdateParameters">
+        <Property Name="Stage" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service stages the image on target devices for a client to activate at a later time."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service stages the image on target devices for a client to activate at a later time with the `Activate` action on the `SoftwareInventory` resource.  If the client does not provide this parameter, the service shall default this value to `false`."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  AutomationInstrumentation v1.0.0                                    -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2025 DMTF.                                                                 -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Sensor_v1.xml">
+    <edmx:Include Namespace="Sensor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Control_v1.xml">
+    <edmx:Include Namespace="Control"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AutomationNode_v1.xml">
+    <edmx:Include Namespace="AutomationNode"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AutomationInstrumentation">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="AutomationInstrumentation" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The `AutomationInstrumentation` schema contains measurements and set points for an automation node."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent automation node instrumentation for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/AutomationNodes/{AutomationNodeId}/AutomationInstrumentation</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AutomationInstrumentation.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="AutomationInstrumentation" BaseType="AutomationInstrumentation.AutomationInstrumentation">
+        <Property Name="NodeState" Type="AutomationNode.NodeState" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current state of the node."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall specify the current state of the automation node."/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="The status and health of a resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This type shall contain any status or health properties of a resource."/>
+        </Property>
+        <NavigationProperty Name="PID" Type="Control.Control">
+          <Annotation Term="Redfish.ExcerptCopy" String="SingleLoop"/>
+          <Annotation Term="OData.Description" String="A PID control loop."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a PID-based control loop for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control`."/>
+        </NavigationProperty>
+        <NavigationProperty Name="NodeControl" Type="Control.Control">
+          <Annotation Term="Redfish.ExcerptCopy" String="Node"/>
+          <Annotation Term="OData.Description" String="The control for this node."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the control for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control`."/>
+        </NavigationProperty>
+        <NavigationProperty Name="TemperatureCelsius" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="Temperature (Celsius)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the temperature, in degree Celsius units, for this resource.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Temperature`."/>
+        </NavigationProperty>
+        <NavigationProperty Name="Voltage" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Voltage"/>
+          <Annotation Term="OData.Description" String="The voltage (V) for this node."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the voltage, in volt units, for this automation node.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Voltage`."/>
+        </NavigationProperty>
+        <NavigationProperty Name="CurrentAmps" Type="Sensor.Sensor">
+          <Annotation Term="Redfish.ExcerptCopy" String="Current"/>
+          <Annotation Term="OData.Description" String="The current (A) for this node."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current, in ampere units, for this automation node.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `Current`."/>
+        </NavigationProperty>
+        <Property Name="Actions" Type="AutomationInstrumentation.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="AutomationInstrumentation.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

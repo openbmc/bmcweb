@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerAccount v1.13.0                                              -->
+<!--# Redfish Schema:  ManagerAccount v1.14.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -230,6 +230,18 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="ControlPanel">
+          <Annotation Term="OData.Description" String="Allow PIN-based access via an external control panel, such as a keypad, touchscreen, or other human interface."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the account is used to allow PIN-based access via an external control panel.  If this value is specified, the `AccountTypes` property should not contain other values for the same `ManagerAccount` resource.  If this value is specified, `Password` shall contain the PIN to enable access, and may not follow other password-related rules.  The `ChangePassword` action, if supported, may be used to update the PIN."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_14_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1175,6 +1187,14 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain secret key generated for RFC6238-defined Time-based One-Time Password (TOTP) multi-factor authentication.  Clients shall retain the value of this property to generate tokens for future session creation requests."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_14_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `ControlPanel` to `AccountTypes`."/>
+
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_13_0.ManagerAccount"/>
     </Schema>
 
   </edmx:DataServices>

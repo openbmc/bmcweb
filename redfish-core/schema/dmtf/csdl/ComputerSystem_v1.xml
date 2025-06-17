@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.24.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.25.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -3871,6 +3871,29 @@
       <Annotation Term="OData.Description" String="This version was created to add the `TPM` value to `DecommissionType`."/>
 
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_23_1.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_25_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_24_0.ComputerSystem">
+        <Property Name="IPMIHostInterface" Type="ComputerSystem.v1_25_0.IPMIHostInterface" Nullable="false">
+          <Annotation Term="OData.Description" String="The information about the in-band IPMI service of this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the in-band IPMI service of this system."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="IPMIHostInterface">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about the in-band IPMI service for this system."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the in-band IPMI service for a computer system."/>
+        <Property Name="ServiceEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service is enabled for this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the protocol for the service is enabled."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

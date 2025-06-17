@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Filter v1.0.2                                                       -->
+<!--# Redfish Schema:  Filter v1.1.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -70,6 +70,7 @@
         </Annotation>
         <Annotation Term="Redfish.Uris">
           <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Filters/{FilterId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/ThermalSubsystem/Pumps/{PumpId}/Filters/{FilterId}</String>
             <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Filters/{FilterId}</String>
             <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters/{FilterId}</String>
@@ -80,6 +81,9 @@
             <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Filters/{FilterId}</String>
             <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters/{FilterId}</String>
             <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/Pumps/{PumpId}/Filters/{FilterId}</String>
+            <String>/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/Filters/{FilterId}</String>
+            <String>/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/Reservoirs/{ReservoirId}/Filters/{FilterId}</String>
+            <String>/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/Pumps/{PumpId}/Filters/{FilterId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -141,12 +145,12 @@
         <Property Name="ServicedDate" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The date this filter was put into service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the date the filter or filter media was put into active service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date the filter or filter media was put into active service.  The service may update the value in response to an update of `ServiceHours`."/>
         </Property>
         <Property Name="ServiceHours" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The hours of service this filter has provided."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the number of hours of service that the filter or filter media has provided."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of hours of service that the filter or filter media has provided.  The service may reset or update the value in response to an update of `ServicedDate`."/>
         </Property>
         <Property Name="RatedServiceHours" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -202,6 +206,26 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Filter" BaseType="Filter.v1_0_1.Filter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Filter.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of `ServicedDate` and `ServiceHours` to indicate that when one of these properites is updated, the service may change the value of the other."/>
+      <EntityType Name="Filter" BaseType="Filter.v1_0_2.Filter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Filter.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="Filter" BaseType="Filter.v1_0_3.Filter">
+        <NavigationProperty Name="DeltaLiquidPressurekPa" Type="Sensor.Sensor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.ExcerptCopy"/>
+          <Annotation Term="OData.Description" String="The differential pressure (kPa) across the liquid filter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the pressure, in kilopascal units, for the difference in pressure between the intake and outflow connections on the filter.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Sensor` with the `ReadingType` property containing the value `PressurekPa`."/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

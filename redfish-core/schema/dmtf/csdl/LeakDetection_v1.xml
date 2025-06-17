@@ -64,6 +64,7 @@
             <String>/redfish/v1/ThermalEquipment/CDUs/{CoolingUnitId}/LeakDetection</String>
             <String>/redfish/v1/ThermalEquipment/ImmersionUnits/{CoolingUnitId}/LeakDetection</String>
             <String>/redfish/v1/ThermalEquipment/HeatExchangers/{CoolingUnitId}/LeakDetection</String>
+            <String>/redfish/v1/ThermalEquipment/RPUs/{CoolingUnitId}/LeakDetection</String>
           </Collection>
         </Annotation>
       </EntityType>

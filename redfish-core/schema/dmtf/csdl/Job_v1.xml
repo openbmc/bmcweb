@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Job v1.2.4                                                          -->
+<!--# Redfish Schema:  Job v1.3.0                                                          -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -36,6 +36,12 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Message_v1.xml">
     <edmx:Include Namespace="Message"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/JobExecutor_v1.xml">
+    <edmx:Include Namespace="JobExecutor"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/JobDocument_v1.xml">
+    <edmx:Include Namespace="JobDocument"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -72,6 +78,101 @@
         </Annotation>
       </EntityType>
 
+      <Action Name="Cancel" IsBound="true">
+        <Annotation Term="OData.Description" String="Cancels the job."/>
+        <Annotation Term="OData.LongDescription" String="This action shall cancel the job if it is currently in the `Running`, `Invalid`, or `Suspended` states.  The job shall transition to `Cancelled` if the action is successful."/>
+        <Parameter Name="Job" Type="Job.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+      <Action Name="Invalidate" IsBound="true">
+        <Annotation Term="OData.Description" String="Invalidates the job."/>
+        <Annotation Term="OData.LongDescription" String="This action shall invalidate the job if it is in the `Pending` state.  The job shall transition to `Invalid` if the action is successful."/>
+        <Parameter Name="Job" Type="Job.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+      <Action Name="Resubmit" IsBound="true">
+        <Annotation Term="OData.Description" String="Resubmits the job."/>
+        <Annotation Term="OData.LongDescription" String="This action shall resubmit a job to the job service.  The new job shall be based on the job document, and properties of the resource associated with this action.  Services shall take appropriate measures to make sure that appropriate security is maintained - for instance, only allowing the same user that created the job to resubmit it."/>
+        <Parameter Name="Job" Type="Job.v1_0_0.Actions"/>
+        <Parameter Name="StartTime" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Description" String="The time to start the job."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the time to start the job."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+      <Action Name="ForceStart" IsBound="true">
+        <Annotation Term="OData.Description" String="Forces the job to start."/>
+        <Annotation Term="OData.LongDescription" String="This action shall force the job to start running if it is in the `Pending` state.  The job shall transition to `Running` if the action is successful."/>
+        <Parameter Name="Job" Type="Job.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+      <Action Name="Resume" IsBound="true">
+        <Annotation Term="OData.Description" String="Resumes the job."/>
+        <Annotation Term="OData.LongDescription" String="This action shall resume the job if it is in the `Suspended` state.  The job shall transition to `Running` if the action is successful."/>
+        <Parameter Name="Job" Type="Job.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+      <Action Name="Suspend" IsBound="true">
+        <Annotation Term="OData.Description" String="Suspends the job."/>
+        <Annotation Term="OData.LongDescription" String="This action shall suspend the job if it is in the `Running` state.  The job shall transition to `Suspended` if the action is successful."/>
+        <Parameter Name="Job" Type="Job.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+      <Action Name="Validate" IsBound="true">
+        <Annotation Term="OData.Description" String="Validates the job."/>
+        <Annotation Term="OData.LongDescription" String="This action shall request the validation the job if it is in the `New` state.  The job shall transition to `Pending` if the action is successful.  If the job is not valid, it shall transition to `Invalid`."/>
+        <Parameter Name="Job" Type="Job.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_0_0">
@@ -82,35 +183,37 @@
         <Property Name="JobStatus" Type="Resource.Health" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The status of the job."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the health status of the job.  This property should contain `Critical` if one or more messages in the `Messages` array contains the severity `Critical`.  This property should contain `Warning` if one or more messages in the `Messages` array contains the severity `Warning` and if no messages contain the severity `Critical`.  This property should contain `OK` if all messages in the `Messages` array contain the severity `OK` or if the array is empty."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the health status of the job.  This property should contain `Critical` if one or more messages in the `Messages` array contains the severity `Critical`.  This property should contain `Warning` if one or more messages in the `Messages` array contains the severity `Warning` and if no messages contain the severity `Critical`.  This property should contain `OK` if all messages in the `Messages` array contain the severity `OK` or if the array is empty."/>
         </Property>
         <Property Name="JobState" Type="Job.v1_0_0.JobState" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The state of the job."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the state of the job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the job."/>
+          <Annotation Term="Redfish.Excerpt"/>
         </Property>
         <Property Name="StartTime" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date and time when the job was started or is scheduled to start."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the date and time when the job was last started or is scheduled to start."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the job was last started or is scheduled to start."/>
         </Property>
         <Property Name="EndTime" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date and time when the job was completed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the date and time when the job was completed.  This property shall not appear if the job is running or was not completed.  This property shall appear only if the `JobState` is `Completed`, `Cancelled`, or `Exception`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the job was completed.  This property shall not appear if the job is running or was not completed.  This property shall appear only if the `JobState` is `Completed`, `Cancelled`, or `Exception`."/>
         </Property>
-        <Property Name="MaxExecutionTime" Type="Edm.String">
+        <Property Name="MaxExecutionTime" Type="Edm.Duration">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The maximum amount of time the job is allowed to execute."/>
-          <Annotation Term="OData.LongDescription" String="The value shall be an ISO 8601 conformant duration describing the maximum duration the job is allowed to execute before being stopped by the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum duration the job is allowed to execute before being stopped by the service."/>
         </Property>
         <Property Name="PercentComplete" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The completion percentage of this job."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the completion progress of the job, reported in percent of completion, `0` to `100`.  If the job has not been started, the value shall be zero."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the completion progress of the job, reported in percent of completion, `0` to `100`.  If the job has not been started, the value shall be zero."/>
           <Annotation Term="Measures.Unit" String="%"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Validation.Maximum" Int="100"/>
+          <Annotation Term="Redfish.Excerpt"/>
         </Property>
         <Property Name="CreatedBy" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -119,27 +222,27 @@
         </Property>
         <Property Name="Schedule" Type="Schedule.Schedule" Nullable="false">
           <Annotation Term="OData.Description" String="The schedule settings for this job."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain the scheduling details for this job and the recurrence frequency for future instances of this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the scheduling details for this job and the recurrence frequency for future instances of this job.  This property shall not be present for document-based jobs."/>
         </Property>
         <Property Name="HidePayload" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the contents of the payload should be hidden from view after the job has been created.  If `true`, responses do not return the payload.  If `false`, responses return the payload.  If this property is not present when the job is created, the default is `false`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the contents of the payload should be hidden from view after the job has been created.  If `true`, responses shall not return the `Payload` property.  If `false`, responses shall return the `Payload` property.  If this property is not present when the job is created, the default is `false`."/>
+          <Annotation Term="OData.Description" String="An indication of whether the contents of the payload or parameters should be hidden from view after the job has been created.  If `true`, responses do not return the payload or parameters.  If `false`, responses return the payload or parameters.  If this property is not present when the job is created, the default is `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the contents of the payload should be hidden from view after the job has been created.  If `true`, responses shall not return the `Payload` or `Parameters` properties.  If `false`, responses shall return the `Payload` or `Parameters` properties.  If this property is not present when the job is created, the default is `false`."/>
         </Property>
         <Property Name="Payload" Type="Job.v1_0_0.Payload" Nullable="false">
-          <Annotation Term="OData.Description" String="The HTTP and JSON request payload details for this job."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the HTTP and JSON request payload information for executing this job.  This property shall not be included in the response if the `HidePayload` property is `true`."/>
+          <Annotation Term="OData.Description" String="The HTTP and JSON request payload details for this user-specified job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the HTTP and JSON request payload information for executing this user-specified job.  This property shall only be present for user-specified jobs and if the `HidePayload` property is `false`."/>
         </Property>
         <NavigationProperty Name="Steps" Type="JobCollection.JobCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of steps for this job."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a resource collection of type `JobCollection`.  This property shall not be present if this resource represents a step for a job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a resource collection of type `JobCollection`.  This property shall not be present if this resource represents a step for a job.  This property shall not be present for document-based jobs."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="StepOrder" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The serialized execution order of the job steps."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of `Id` property values for the job steps in the order that they shall be executed.  Each step shall be completed prior to the execution of the next step in array order.  An incomplete list of steps shall be considered an invalid configuration.  If this property is not present or contains an empty array it shall indicate that the step execution order is omitted and may occur in parallel or in series as determined by the service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of `Id` property values for the job steps in the order that they shall be executed.  Each step shall be completed prior to the execution of the next step in array order.  An incomplete list of steps shall be considered an invalid configuration.  If this property is not present or contains an empty array it shall indicate that the step execution order is omitted and may occur in parallel or in series as determined by the service.  This property shall not be present for document-based jobs."/>
         </Property>
         <Property Name="Messages" Type="Collection(Message.Message)" Nullable="false">
           <Annotation Term="OData.Description" String="An array of messages associated with the job."/>
@@ -154,55 +257,79 @@
       <EnumType Name="JobState">
         <Member Name="New">
           <Annotation Term="OData.Description" String="A new job."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that this job is newly created but the operation has not yet started."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that this job is newly created but the operation has not yet started.  This shall be the initial state for document-based jobs.  Upon receiving the `Validate` action, or if the value of `ValidationPolicy` in the `JobService` resource contains `Automatic`, the document-based job's `JobState` shall transition to `Validating`.  If the `ValidationPolicy` property in the `JobService` resource contains `Bypass`, the `JobState` for a document-based job shall transition to `Pending`."/>
         </Member>
         <Member Name="Starting">
           <Annotation Term="OData.Description" String="Job is starting."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is starting."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation is starting."/>
         </Member>
         <Member Name="Running">
           <Annotation Term="OData.Description" String="Job is running normally."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is executing."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation is executing.  Jobs that complete successfully shall transition from this state to the `Completed` state.  Jobs that do not complete successfully shall transition from this state to the `Exception` state."/>
         </Member>
         <Member Name="Suspended">
           <Annotation Term="OData.Description" String="Job has been suspended."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation has been suspended but is expected to restart and is therefore not complete."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation has been suspended but is expected to restart and is therefore not complete.  To resume a job, perform the `Resume` action."/>
         </Member>
         <Member Name="Interrupted">
           <Annotation Term="OData.Description" String="Job has been interrupted."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation has been interrupted but is expected to restart and is therefore not complete."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation has been interrupted but is expected to restart and is therefore not complete."/>
         </Member>
         <Member Name="Pending">
           <Annotation Term="OData.Description" String="Job is pending and has not started."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is pending some condition and has not yet begun to execute."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation is pending some condition and has not yet begun to execute."/>
         </Member>
         <Member Name="Stopping">
           <Annotation Term="OData.Description" String="Job is in the process of stopping."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is stopping but is not yet complete."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation is stopping but is not yet complete."/>
         </Member>
         <Member Name="Completed">
           <Annotation Term="OData.Description" String="Job was completed."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation completed successfully or with warnings."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation completed successfully or with warnings.  The job may restart in the future based on the scheduling configuration of the job or operations performed by a user."/>
         </Member>
         <Member Name="Cancelled">
           <Annotation Term="OData.Description" String="Job was cancelled."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation completed because the job was cancelled by an operator."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation completed because the job was cancelled by an operator.  The job may restart in the future based on the scheduling configuration of the job or operations performed by a user."/>
         </Member>
         <Member Name="Exception">
           <Annotation Term="OData.Description" String="Job has stopped due to an exception condition."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation completed with errors."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation completed with errors.  The job may restart in the future based on the scheduling configuration of the job or operations performed by a user."/>
         </Member>
         <Member Name="Service">
           <Annotation Term="OData.Description" String="Job is running as a service."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is now running as a service and expected to continue operation until stopped or killed."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation is now running as a service and expected to continue operation until stopped or killed."/>
         </Member>
         <Member Name="UserIntervention">
           <Annotation Term="OData.Description" String="Job is waiting for user intervention."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is waiting for a user to intervene and needs to be manually continued, stopped, or cancelled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation is waiting for a user to intervene and needs to be manually continued, stopped, or cancelled."/>
         </Member>
         <Member Name="Continue">
           <Annotation Term="OData.Description" String="Job is to resume operation."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation has been resumed from a paused condition and should return to a Running state."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the operation has been resumed from a paused condition and should return to a Running state."/>
+        </Member>
+        <Member Name="Validating">
+          <Annotation Term="OData.Description" String="Job is validating."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the document-based job is validating the state of the system to determine if it can run.  For example, a job that runs on factory equipment might check to ensure that the equipment is properly configured and has sufficient ingredients to run the job.  If the validation checks fail, the job shall transition to the `Invalid` state.  If the validation checks are successful, the job shall transition to the `Pending` state."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Invalid">
+          <Annotation Term="OData.Description" String="Job is invalid."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that validation has determined that the system is not properly configured to run the document-based job.  To perform validation checks again, perform the `Validate` action."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -322,6 +449,12 @@
       <EntityType Name="Job" BaseType="Job.v1_0_11.Job"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions of properties to describe usage with document-based jobs."/>
+      <EntityType Name="Job" BaseType="Job.v1_0_12.Job"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -330,7 +463,7 @@
         <Property Name="EstimatedDuration" Type="Edm.Duration">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The estimated total time required to complete the job."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the estimated total time needed to complete the job.  The value is not expected to change while the job is in progress, but the service may update the value if it obtains new information that significantly changes the expected duration.  Services should be conservative in the reported estimate and clients should treat this value as an estimate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the estimated total time needed to complete the job.  The value is not expected to change while the job is in progress, but the service may update the value if it obtains new information that significantly changes the expected duration.  Services should be conservative in the reported estimate and clients should treat this value as an estimate."/>
         </Property>
       </EntityType>
     </Schema>
@@ -369,6 +502,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Job" BaseType="Job.v1_1_5.Job"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions of properties to describe usage with document-based jobs."/>
+      <EntityType Name="Job" BaseType="Job.v1_1_6.Job"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_2_0">
@@ -416,6 +555,114 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="Job" BaseType="Job.v1_2_3.Job"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions of properties to describe usage with document-based jobs."/>
+      <EntityType Name="Job" BaseType="Job.v1_2_4.Job"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="Job" BaseType="Job.v1_2_5.Job">
+        <Property Name="JobType" Type="Job.v1_3_0.JobType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of this job."/>
+        </Property>
+        <Property Name="CreationTime" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the job was created."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the job was created."/>
+        </Property>
+        <Property Name="EstimatedCompletionTime" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the job is expected to complete."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the job is expected to complete.  If the `EstimatedDuration` property is supported, the value of this property shall contain the summation of the `StartTime` property and the `EstimatedDuration` property."/>
+          <Annotation Term="Redfish.Excerpt"/>
+        </Property>
+        <Property Name="Parameters" Type="Job.v1_3_0.Parameters" Nullable="false">
+          <Annotation Term="OData.Description" String="The parameters specified for running this document-based job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the parameters specified for running this document-based job.  This property shall only be present for document-based jobs and if the `HidePayload` property is `false`."/>
+        </Property>
+        <Property Name="JobPriority" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The requested priority for this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the requested priority of this job.  The value `0` shall indicate the highest priority.  Increasing values shall represent decreasing priority."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="JobType">
+        <Member Name="DocumentBased">
+          <Annotation Term="OData.Description" String="A document-based job."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a job that was created by performing the `SubmitJob` action on a `JobDocument` resource."/>
+        </Member>
+        <Member Name="UserSpecified">
+          <Annotation Term="OData.Description" String="A user-specified job."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a job that was created by performing an HTTP `POST` operation on a `JobCollection` resource."/>
+        </Member>
+        <Member Name="ServiceGenerated">
+          <Annotation Term="OData.Description" String="A service-generated job."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a job that was created automatically by the service as part of its internal policies."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Parameters">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The parameters used when running this instance of the job."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the parameters to use when running this job.  Each property-value pair specifies a parameter and its value as specified when the job was submitted."/>
+        <Annotation Term="Redfish.DynamicPropertyPatterns">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
+              <PropertyValue Property="Type" String="Edm.PrimitiveType"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="Job.v1_2_0.Links">
+        <NavigationProperty Name="ParentJob" Type="Job.Job">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the job that created this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `Job` that represents the job that created this job."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="JobDocument" Type="JobDocument.JobDocument">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the job document that was used to create this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `JobDocument` that represents the job document that was used to create this job."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="SubsidiaryJobs" Type="Collection(Job.Job)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the jobs created by this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Job` that represent the jobs created by this job."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Executor" Type="JobExecutor.JobExecutor">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the executor that is running this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type `JobExecutor` that represents the executor that is running this job."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="PreferredExecutors" Type="Collection(JobExecutor.JobExecutor)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the preferred executors to run this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `JobExecutor` that represent the preferred executors to run this job."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ValidatedExecutors" Type="Collection(JobExecutor.JobExecutor)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the executors that have been validated to run this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `JobExecutor` that represent the executors that have been validated to run this job."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

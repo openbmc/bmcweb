@@ -1,0 +1,610 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Switch.v1_10_0.json",
+    "$ref": "#/definitions/Switch",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2025 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Switch.Reset": {
+                    "$ref": "#/definitions/Reset"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
+                }
+            },
+            "type": "object"
+        },
+        "CXL": {
+            "additionalProperties": false,
+            "description": "CXL properties for a switch.",
+            "longDescription": "This type shall contain CXL-specific properties for a switch.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MaxVCSsSupported": {
+                    "description": "The maximum number of Virtual CXL Switches (VCSs) supported in this switch.",
+                    "longDescription": "This property shall contain the maximum number of Virtual CXL Switches (VCSs) supported in this switch.",
+                    "readonly": true,
+                    "type": "integer",
+                    "versionAdded": "v1_9_0"
+                },
+                "NumberOfBoundvPPBs": {
+                    "description": "The total number of vPPBs (Virtual PCI-to-PCI Bridges) that are currently bound on this switch.",
+                    "longDescription": "This property shall contain the total number of vPPBs (Virtual PCI-to-PCI Bridges) that are currently bound on this switch.",
+                    "readonly": true,
+                    "type": "integer",
+                    "versionAdded": "v1_10_0"
+                },
+                "PBRCapable": {
+                    "description": "An indication of whether the switch is capable of performing port-based routing.",
+                    "longDescription": "This property shall indicate whether the switch is capable of performing port-based routing.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_10_0"
+                },
+                "TotalHDMDecoders": {
+                    "description": "The total number of HDM (Host Device Memory) decoders available per upstream port.",
+                    "longDescription": "This property shall contain the total number of HDM (Host Device Memory) decoders available per upstream port.",
+                    "readonly": true,
+                    "type": "integer",
+                    "versionAdded": "v1_10_0"
+                },
+                "TotalNumbervPPBs": {
+                    "description": "The total number of virtual PCI-to-PCI bridges (vPPBs) supported in this switch.",
+                    "longDescription": "This property shall contain the total number of virtual PCI-to-PCI bridges (vPPBs) supported in this switch.",
+                    "readonly": true,
+                    "type": "integer",
+                    "versionAdded": "v1_9_0"
+                },
+                "VCS": {
+                    "$ref": "#/definitions/VCSSwitch",
+                    "deprecated": "This property has been deprecated in favor of `VirtualCXLSwitches` in `CXL`.",
+                    "description": "Virtual CXL Switch (VCS) properties for this switch.",
+                    "longDescription": "This property shall contain Virtual CXL Switch (VCS) properties for this switch.",
+                    "versionAdded": "v1_9_0",
+                    "versionDeprecated": "v1_9_0"
+                },
+                "VirtualCXLSwitches": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VirtualCXLSwitchCollection.json#/definitions/VirtualCXLSwitchCollection",
+                    "description": "The link to the collection of Virtual CXL Switches (VCS) for this CXL switch.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `VirtualCXLSwitchCollection`.",
+                    "readonly": true,
+                    "versionAdded": "v1_10_0"
+                }
+            },
+            "type": "object"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Chassis": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
+                    "description": "The link to the chassis that contains this switch.",
+                    "longDescription": "This property shall contain a link to a resource of type `Chassis` with which this switch is associated.",
+                    "readonly": true
+                },
+                "Endpoints": {
+                    "description": "An array of links to the endpoints that connect to this switch.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `Endpoint` with which this switch is associated.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ManagedBy": {
+                    "description": "An array of links to the managers that manage this switch.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
+                    },
+                    "longDescription": "This property shall contain an array of links to resources of type `Manager` with which this switch is associated.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ManagedBy@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "PCIeDevice": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeDevice",
+                    "description": "The link to the PCIe device providing this switch.",
+                    "longDescription": "This property shall contain a link to a resource of type `PCIeDevice` that represents the PCIe device providing this switch.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Reset": {
+            "additionalProperties": false,
+            "description": "This action resets this switch.",
+            "longDescription": "This action shall reset this switch.",
+            "parameters": {
+                "ResetType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
+                    "description": "The type of reset.",
+                    "longDescription": "This parameter shall contain the type of reset.  The service can accept a request without this parameter and can complete an implementation-specific default reset."
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Switch": {
+            "additionalProperties": false,
+            "description": "The `Switch` schema contains properties that describe a fabric switch.",
+            "longDescription": "This resource contains a switch for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
+                },
+                "AssetTag": {
+                    "description": "The user-assigned asset tag for this switch.",
+                    "longDescription": "This property shall contain the user-assigned asset tag, which is an identifying string that tracks the drive for inventory purposes.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "CXL": {
+                    "$ref": "#/definitions/CXL",
+                    "description": "CXL properties for this switch.",
+                    "longDescription": "This property shall contain CXL-specific properties for this switch.",
+                    "versionAdded": "v1_9_0"
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates for device identity and attestation.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `CertificateCollection` that contains certificates for device identity and attestation.",
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
+                },
+                "CurrentBandwidthGbps": {
+                    "description": "The current internal bandwidth of this switch.",
+                    "longDescription": "This property shall contain the internal unidirectional bandwidth of this switch currently negotiated and running.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "Gbit/s",
+                    "versionAdded": "v1_4_0"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "DomainID": {
+                    "description": "The domain ID for this switch.",
+                    "longDescription": "This property shall contain The domain ID for this switch.  This property has a scope of uniqueness within the fabric of which the switch is a member.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "Enabled": {
+                    "description": "An indication of whether this switch is enabled.",
+                    "longDescription": "The value of this property shall indicate if this switch is enabled.",
+                    "readonly": false,
+                    "type": "boolean",
+                    "versionAdded": "v1_6_0"
+                },
+                "EnvironmentMetrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EnvironmentMetrics.json#/definitions/EnvironmentMetrics",
+                    "description": "The link to the environment metrics for this switch.",
+                    "longDescription": "This property shall contain a link to a resource of type `EnvironmentMetrics` that specifies the environment metrics for this switch.",
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
+                },
+                "FirmwareVersion": {
+                    "description": "The firmware version of this switch.",
+                    "longDescription": "This property shall contain the firmware version as defined by the manufacturer for the associated switch.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "IndicatorLED": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/IndicatorLED"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "deprecated": "This property has been deprecated in favor of the `LocationIndicatorActive` property.",
+                    "description": "The state of the indicator LED, which identifies the switch.",
+                    "longDescription": "This property shall contain the state of the indicator light associated with this switch.",
+                    "readonly": false,
+                    "versionDeprecated": "v1_4_0"
+                },
+                "IsManaged": {
+                    "description": "An indication of whether the switch is in a managed or unmanaged state.",
+                    "longDescription": "This property shall indicate whether this switch is in a managed or unmanaged state.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
+                },
+                "Location": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The location of the switch.",
+                    "longDescription": "This property shall contain the location information of the associated switch.",
+                    "versionAdded": "v1_1_0"
+                },
+                "LocationIndicatorActive": {
+                    "description": "An indicator allowing an operator to physically locate this resource.",
+                    "longDescription": "This property shall contain the state of the indicator used to physically identify or locate this resource.  A write to this property shall update the value of `IndicatorLED` in this resource, if supported, to reflect the implementation of the locating function.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "LogServices": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/LogServiceCollection.json#/definitions/LogServiceCollection",
+                    "description": "The link to the collection of log services associated with this switch.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `LogServiceCollection`.",
+                    "readonly": true
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer of this switch.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the switch.  This organization may be the entity from which the switch is purchased, but this is not necessarily true.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MaxBandwidthGbps": {
+                    "description": "The maximum internal bandwidth of this switch as currently configured.",
+                    "longDescription": "This property shall contain the maximum internal unidirectional bandwidth this switch is capable of being configured.  If capable of autonegotiation, the switch shall attempt to negotiate to the specified maximum bandwidth.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "units": "Gbit/s",
+                    "versionAdded": "v1_4_0"
+                },
+                "Measurements": {
+                    "deprecated": "This property has been deprecated in favor of the `ComponentIntegrity` resource.",
+                    "description": "An array of DSP0274-defined measurement blocks.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/MeasurementBlock"
+                    },
+                    "longDescription": "This property shall contain an array of DSP0274-defined measurement blocks.",
+                    "type": "array",
+                    "versionAdded": "v1_5_0",
+                    "versionDeprecated": "v1_8_0"
+                },
+                "Metrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SwitchMetrics.json#/definitions/SwitchMetrics",
+                    "description": "The link to the metrics associated with this switch.",
+                    "longDescription": "This property shall contain a link to the metrics associated with this switch.",
+                    "readonly": true,
+                    "uriSegment": "SwitchMetrics",
+                    "versionAdded": "v1_7_0"
+                },
+                "Model": {
+                    "description": "The product model number of this switch.",
+                    "longDescription": "This property shall contain the manufacturer-provided model information of this switch.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PartNumber": {
+                    "description": "The part number for this switch.",
+                    "longDescription": "This property shall contain the manufacturer-provided part number for the switch.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Ports": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PortCollection.json#/definitions/PortCollection",
+                    "description": "The link to the collection ports for this switch.",
+                    "longDescription": "This property shall contain a link to a resource collection of type `PortCollection`.",
+                    "readonly": true
+                },
+                "PowerState": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/PowerState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current power state of the switch.",
+                    "longDescription": "This property shall contain the power state of the switch.",
+                    "readonly": true
+                },
+                "Redundancy": {
+                    "autoExpand": true,
+                    "description": "Redundancy information for the switches.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/Redundancy"
+                    },
+                    "longDescription": "This property shall contain an array that shows how this switch is grouped with other switches for form redundancy sets.",
+                    "type": "array"
+                },
+                "Redundancy@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "SKU": {
+                    "description": "The SKU for this switch.",
+                    "longDescription": "This property shall contain the SKU number for this switch.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "SerialNumber": {
+                    "description": "The serial number for this switch.",
+                    "longDescription": "This property shall contain a manufacturer-allocated number that identifies the switch.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
+                },
+                "SupportedProtocols": {
+                    "description": "The protocols this switch supports.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol"
+                    },
+                    "longDescription": "The property shall contain an array of protocols this switch supports.  If the value of `SwitchType` is `MultiProtocol`, this property shall be required.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "SwitchType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The protocol being sent over this switch.",
+                    "longDescription": "This property shall contain the protocol being sent over this switch.  For a switch that supports multiple protocols, the value should be `MultiProtocol` and the `SupportedProtocols` property should be used to describe the supported protocols.",
+                    "readonly": true
+                },
+                "TotalSwitchWidth": {
+                    "description": "The total number of lanes, phys, or other physical transport links that this switch contains.",
+                    "longDescription": "This property shall contain the number of physical transport lanes, phys, or other physical transport links that this switch contains.  For PCIe, this value shall be the lane count.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "UUID": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/UUID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The UUID for this switch.",
+                    "longDescription": "This property shall contain a universally unique identifier number for the switch.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
+        },
+        "VCSSwitch": {
+            "additionalProperties": false,
+            "description": "Virtual CXL Switch (VCS) properties for a switch.",
+            "longDescription": "This type shall contain Virtual CXL Switch (VCS) properties for a switch.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "HDMDecoders": {
+                    "description": "The number of Host Device Memory (HDM) Decoders supported by this switch.",
+                    "longDescription": "This property shall contain the number of Host Device Memory (HDM) Decoders supported by this switch.",
+                    "readonly": true,
+                    "type": "integer",
+                    "versionAdded": "v1_9_0"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "language": "en",
+    "owningEntity": "DMTF",
+    "release": "2025.2",
+    "title": "#Switch.v1_10_0.Switch"
+}

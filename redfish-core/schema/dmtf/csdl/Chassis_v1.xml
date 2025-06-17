@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.26.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.27.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -141,6 +141,12 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/LeakDetectorCollection_v1.xml">
     <edmx:Include Namespace="LeakDetectorCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AutomationNodeCollection_v1.xml">
+    <edmx:Include Namespace="AutomationNodeCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AutomationNode_v1.xml">
+    <edmx:Include Namespace="AutomationNode"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -2667,6 +2673,22 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_27_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_26_0.Chassis"/>
+
+      <ComplexType Name="Links" BaseType="Chassis.v1_23_0.Links">
+        <NavigationProperty Name="AutomationNodes" Type="Collection(AutomationNode.AutomationNode)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the automation nodes contained in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `AutomationNode` with which this physical container is associated."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

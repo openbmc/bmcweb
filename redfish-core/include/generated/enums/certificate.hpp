@@ -12,6 +12,7 @@ enum class CertificateType{
     PEM,
     PEMchain,
     PKCS7,
+    PKCS12,
 };
 
 enum class KeyUsage{
@@ -53,6 +54,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CertificateType, {
     {CertificateType::PEM, "PEM"},
     {CertificateType::PEMchain, "PEMchain"},
     {CertificateType::PKCS7, "PKCS7"},
+    {CertificateType::PKCS12, "PKCS12"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(KeyUsage, {

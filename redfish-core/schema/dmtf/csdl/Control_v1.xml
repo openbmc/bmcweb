@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Control v1.6.0                                                      -->
+<!--# Redfish Schema:  Control v1.7.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -120,7 +120,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The desired set point of the control."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the desired set point control value.  The units shall follow the value of `SetPointUnits`.  If the `DefaultSetPoint` property is not supported and if a user-defined set point is not configured, the property may contain `null` in responses."/>
-          <Annotation Term="Redfish.Excerpt" String="Single,SingleLoop"/>
+          <Annotation Term="Redfish.Excerpt" String="Single,SingleLoop,Node"/>
         </Property>
         <Property Name="SettingMin" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -144,6 +144,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The units of the set point and related properties in UCUM c/s format."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the units of the control's set point and related properties.  The value shall follow the case-sensitive symbol format defined by the Unified Code for Units of Measure (UCUM), as specified by the 'Units of measure annotation' clause of the Redfish Specification."/>
+          <Annotation Term="Redfish.Excerpt" String="Node"/>
         </Property>
         <Property Name="DeadBand" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -229,6 +230,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The units of the sensor reading associated with this control."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the units of the sensor's reading and thresholds.  This property shall not be present if multiple sensors are associated with a single control."/>
+          <Annotation Term="Redfish.Excerpt" String="Node"/>
           <Annotation Term="Redfish.ExcerptCopyOnly"/>
         </Property>
 
@@ -374,6 +376,78 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="LinearPosition">
+          <Annotation Term="OData.Description" String="Linear position or distance (m) control."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust linear position or distance, in meter units.  The `SetPointUnits` property shall contain `m`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="LinearVelocity">
+          <Annotation Term="OData.Description" String="Linear velocity (m/s) control."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust linear velocity, in meters per second units.  The `SetPointUnits` property shall contain `m/s`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="LinearAcceleration">
+          <Annotation Term="OData.Description" String="Linear acceleration (m/s^2) control."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust linear acceleration, in meters per square second units.  The `SetPointUnits` property shall contain `m/s2`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="RotationalPosition">
+          <Annotation Term="OData.Description" String="Rotational position (rad) control."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust rotational position, in radian units.  The `SetPointUnits` property shall contain `rad`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="RotationalVelocity">
+          <Annotation Term="OData.Description" String="Rotational velocity (rad/s) control."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust rotational velocity, in radians per second units.  The `SetPointUnits` property shall contain `rad/s`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="RotationalAcceleration">
+          <Annotation Term="OData.Description" String="Rotational acceleration (rad/s^2) control."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust rotational acceleration, in radians per square second units.  The `SetPointUnits` property shall contain `rad/s2`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="LiquidFlowLPM">
           <Annotation Term="OData.Description" String="Liquid flow (L/min) control."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate a control used to adjust the volume of liquid per unit of time, in liters per minute units, that flows through a particular junction.  The `SetPointUnits` property shall contain `L/min`."/>
@@ -396,6 +470,18 @@
         <Member Name="Range">
           <Annotation Term="OData.Description" String="Control uses a range of values."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the control utilizes a set point range for its operation.  The `SettingMin` and `SettingMax` properties shall be present for this control type.  The `SetPoint` property shall not be present for this control type."/>
+        </Member>
+        <Member Name="Monitor">
+          <Annotation Term="OData.Description" String="Control only monitors a reading."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the control provides only monitoring of a sensor reading, and does not provide the ability to affect the reading.  This value allows for multiple controls to be populated while only some of those controls provide a set point.  The `SetPoint,`SettingMin` and `SettingMax` properties shall not be present for this control type.  For example, a motion controller may provide both position-based and velocity-based control modes, where the selected mode provides the `SetPoint`, and the control for the non-selected mode provides only a sensor reading."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -467,6 +553,12 @@
       <EntityType Name="Control" BaseType="Control.v1_0_3.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt definitions to support automation nodes."/>
+      <EntityType Name="Control" BaseType="Control.v1_0_4.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -493,6 +585,12 @@
       <EntityType Name="Control" BaseType="Control.v1_1_2.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt definitions to support automation nodes."/>
+      <EntityType Name="Control" BaseType="Control.v1_1_3.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -517,6 +615,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references to formats defined by the UCUM specification in the description of `SetPointUnits`."/>
       <EntityType Name="Control" BaseType="Control.v1_2_2.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt definitions to support automation nodes."/>
+      <EntityType Name="Control" BaseType="Control.v1_2_3.Control"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_3_0">
@@ -552,6 +656,12 @@
       <EntityType Name="Control" BaseType="Control.v1_3_2.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt definitions to support automation nodes."/>
+      <EntityType Name="Control" BaseType="Control.v1_3_3.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -584,6 +694,12 @@
       <EntityType Name="Control" BaseType="Control.v1_4_2.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt definitions to support automation nodes."/>
+      <EntityType Name="Control" BaseType="Control.v1_4_3.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -604,12 +720,38 @@
       <EntityType Name="Control" BaseType="Control.v1_5_1.Control"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt definitions to support automation nodes."/>
+      <EntityType Name="Control" BaseType="Control.v1_5_2.Control"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.4"/>
       <Annotation Term="OData.Description" String="This version was created to add `LiquidFlowLPM` to `ControlType`."/>
 
       <EntityType Name="Control" BaseType="Control.v1_5_2.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add excerpt definitions to support automation nodes."/>
+      <EntityType Name="Control" BaseType="Control.v1_6_0.Control"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Control.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add `LinearPosition`, `LinearVelocity`, `LinearAcceleration`, `RotationalPosition`, `RotationalVelocity`, and `RotationalAcceleration` to `ControlType`.  It was also created to add `Monitor` to `SetPointType`."/>
+
+      <EntityType Name="Control" BaseType="Control.v1_6_1.Control">
+        <Property Name="SetPointError" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The error (difference) from the desired set point of the control."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the error, or difference, of the related Sensor `Reading` value from the value of the `SetPoint`.  The units shall follow the value of `SetPointUnits`."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  TelemetryData v1.0.0                                                -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2025 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryData">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
+
+      <EntityType Name="TelemetryData" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The `TelemetryData` schema represents bulk telemetry data from a device or service."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent bulk telemetry data in a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/TelemetryService/TelemetryData/{TelemetryDataId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <EnumType Name="TelemetryDataTypes">
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="OEM telemetry data."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryData.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="TelemetryData" BaseType="TelemetryData.TelemetryData">
+        <Property Name="Timestamp" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the telemetry data was generated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the time when the telemetry data was generated."/>
+        </Property>
+        <Property Name="TelemetryDataType" Type="TelemetryData.TelemetryDataTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of telemetry data available in the `AdditionalData` property or retrieved from the URI specified by the `AdditionalDataURI` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of telemetry data available in the `AdditionalData` property or retrieved from the URI specified by the `AdditionalDataURI` property."/>
+        </Property>
+        <Property Name="OEMTelemetryDataType" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The OEM-defined type of telemetry data available in the `AdditionalData` property or retrieved from the URI specified by the `AdditionalDataURI` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM-defined type of telemetry data available in the `AdditionalData` property or retrieved from the URI specified by the `AdditionalDataURI` property.  The value of this property should begin with the organization identifier.  This property shall be present if `TelemetryDataType` is `OEM`."/>
+        </Property>
+        <Property Name="AdditionalData" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A Base64-encoded string of the associated telemetry data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, of the associated telemetry data.  The contents shall depend on the value of the `TelemetryDataType` property.  The length of the value should not exceed 4 KB.  Larger telemetry data payloads should omit this property and use the `AdditionalDataURI` property to reference the data.  If both `AdditionalData` and `AdditionalDataURI` are present, `AdditionalData` shall contain the Base64-encoding of the data retrieved from the URI specified by the `AdditionalDataURI` property."/>
+        </Property>
+        <Property Name="AdditionalDataURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI at which to access the associated telemetry data."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the associated telemetry data, using the Redfish protocol and authentication methods.  If both `AdditionalData` and `AdditionalDataURI` are present, `AdditionalData` shall contain a Base64-encoded string, with padding characters, of the data retrieved from the URI specified by the `AdditionalDataURI` property."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="AdditionalDataSizeBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The size of the data available at location specified by `AdditionalDataURI`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size of the data available at location specified by `AdditionalDataURI`:."/>
+        </Property>
+        <Property Name="Actions" Type="TelemetryData.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="TelemetryData.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

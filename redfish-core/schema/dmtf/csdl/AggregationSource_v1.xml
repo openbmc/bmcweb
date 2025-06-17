@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AggregationSource v1.4.3                                            -->
+<!--# Redfish Schema:  AggregationSource v1.5.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -524,6 +524,25 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the regular expression pattern for the SNMP `AuthenticationKey` property."/>
       <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_4_2.AggregationSource"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AggregationSource.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="AggregationSource" BaseType="AggregationSource.v1_4_3.AggregationSource">
+        <Property Name="ModbusTargetServerId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The Modbus identifier of this aggregation source."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Modbus identifier of this aggregation source."/>
+        </Property>
+        <Property Name="Port" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The network port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the network port used to connect to this aggregation source."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

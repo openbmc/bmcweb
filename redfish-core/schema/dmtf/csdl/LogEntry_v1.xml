@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.18.0                                                    -->
+<!--# Redfish Schema:  LogEntry v1.19.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -2136,6 +2136,24 @@
       <Annotation Term="OData.Description" String="This version was created to add `Device` to `DiagnosticDataType`."/>
 
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_17_2.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_19_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.2"/>
+
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_18_0.LogEntry">
+        <Property Name="SerialNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number associated with the source of this log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a manufacturer-allocated number that identifies the source of this log entry."/>
+        </Property>
+        <Property Name="PartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The part number associated with the source of this log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the manufacturer-provided part number for the source of this log entry."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>
