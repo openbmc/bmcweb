@@ -22,6 +22,30 @@
       },
       "revId": "3e02954bc2e6bdaa54510a2789f2f8a19ddada91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cdab4f7_11f8da19",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-06-17T20:09:50Z",
+      "side": 1,
+      "message": "```\n• Multipart HTTP push updates: The client uses HTTP or HTTPS with a multipart-formatted request\nbody to push a software image to the service.\n```\nThe redfish spec uses the singular form \"a software image\", which indicates that each multipart request should contain one firmware image file.",
+      "parentUuid": "7015eeae_08c12656",
+      "range": {
+        "startLine": 839,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 58
+      },
+      "revId": "3e02954bc2e6bdaa54510a2789f2f8a19ddada91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

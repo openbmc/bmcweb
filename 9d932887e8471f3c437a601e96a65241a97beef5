@@ -470,6 +470,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc08c189_b0e85b77",
+        "filename": "include/temporary_releasable_file_handle.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-06-17T20:09:50Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7e8a74c5_e1488274",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 79
+      },
+      "revId": "9d932887e8471f3c437a601e96a65241a97beef5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a349b0b_ab23d9a3",
