@@ -16,6 +16,24 @@
       "message": "Ideally we have an association here for TPMenabled.. Otherwise TPMenabled can\u0027t work with multiple-hosts",
       "revId": "516a6236bdc3dbddc160aad0d654caa1a4287603",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "def192d4_48f9debd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-06-18T18:04:51Z",
+      "side": 1,
+      "message": "@oliver.brewka@9elements.com has been working on broader support for multi-host.  Some of it is being done with assocations and some of it with object_paths (depending on what the current implementations are doing).  I don\u0027t think he\u0027s planning on immediately refactoring everything to have an association.",
+      "parentUuid": "66a144ee_e6267b92",
+      "revId": "516a6236bdc3dbddc160aad0d654caa1a4287603",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
