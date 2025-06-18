@@ -28,6 +28,7 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/optional/optional.hpp>
 #include <boost/system/error_code.hpp>
+#include <boost/url/url_view.hpp>
 
 #include <array>
 #include <bit>
@@ -208,7 +209,12 @@ class HTTP2Connection :
 
         completeResponseFields(stream.accept, stream.acceptEnc, res);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
-        res.preparePayload();
+        boost::urls::url_view urlView;
+        if (stream.req != nullptr)
+        {
+            urlView = stream.req->url();
+        }
+        res.preparePayload(urlView);
 
         boost::beast::http::fields& fields = res.fields();
         std::string code = std::to_string(res.resultInt());

@@ -41,6 +41,7 @@
 #include <boost/beast/http/verb.hpp>
 #include <boost/none.hpp>
 #include <boost/optional/optional.hpp>
+#include <boost/url/url_view.hpp>
 
 #include <bit>
 #include <chrono>
@@ -831,7 +832,13 @@ class Connection :
     void doWrite()
     {
         BMCWEB_LOG_DEBUG("{} doWrite", logPtr(this));
-        res.preparePayload();
+
+        boost::urls::url_view urlView;
+        if (req != nullptr)
+        {
+            urlView = req->url();
+        }
+        res.preparePayload(urlView);
 
         startDeadline();
         if (httpType == HttpType::HTTP)
