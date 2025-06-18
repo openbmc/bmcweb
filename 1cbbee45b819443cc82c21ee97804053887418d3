@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9145ec83_8151ec6a",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-06-18T15:02:54Z",
+      "side": 1,
+      "message": "I merged the statements into a single if-statement. Done",
+      "parentUuid": "60312202_678fd651",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99a63e77_2bd9e1c1",
@@ -71,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d78fe52_8f49c1e6",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-06-18T15:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9579261_34b95b45",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32e6f250_61a3a2be",
@@ -84,6 +120,24 @@
       "writtenOn": "2025-05-23T07:14:24Z",
       "side": 1,
       "message": "Is systemName included here to specify a separate system name?",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d03ce6d_c3ad8be0",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-06-18T15:02:54Z",
+      "side": 1,
+      "message": "Exactly. On multi-host the system name is not set via BMCWEB_REDFISH_SYSTEM_URI_NAME, but via EM config \"Name\" property. Using the systemName from the request allows for handling multiple systems dynamically.",
+      "parentUuid": "32e6f250_61a3a2be",
       "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -123,6 +177,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bddc77a1_eccf4039",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-06-18T15:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a4fff58_9cda8d31",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15c232dd_682509ef",
@@ -154,6 +226,24 @@
       "side": 1,
       "message": "Or Did you miss to add \u0027constexpr\u0027",
       "parentUuid": "15c232dd_682509ef",
+      "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c23764e1_f97e4198",
+        "filename": "redfish-core/lib/systems_logservices_postcodes.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-06-18T15:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65abda68_6a6a74f7",
       "revId": "1cbbee45b819443cc82c21ee97804053887418d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
