@@ -572,6 +572,140 @@ inline void checkForQuiesced(
         });
 }
 
+inline void getPhysicalAssets(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& propertiesList)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("Can't get bmc asset!");
+        return;
+    }
+
+    const std::string* partNumber = nullptr;
+    const std::string* serialNumber = nullptr;
+    const std::string* manufacturer = nullptr;
+    const std::string* model = nullptr;
+    const std::string* sparePartNumber = nullptr;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
+        partNumber, "SerialNumber", serialNumber, "Manufacturer", manufacturer,
+        "Model", model, "SparePartNumber", sparePartNumber);
+
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (partNumber != nullptr)
+    {
+        asyncResp->res.jsonValue["PartNumber"] = *partNumber;
+    }
+
+    if (serialNumber != nullptr)
+    {
+        asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
+    }
+
+    if (manufacturer != nullptr)
+    {
+        asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
+    }
+
+    if (model != nullptr)
+    {
+        asyncResp->res.jsonValue["Model"] = *model;
+    }
+
+    if (sparePartNumber != nullptr)
+    {
+        asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
+    }
+}
+
+inline void getManagerData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& managerPath,
+                           const dbus::utility::MapperServiceMap& serviceMap)
+{
+    if (managerPath.empty() || serviceMap.size() != 1)
+    {
+        BMCWEB_LOG_DEBUG("Error getting bmc D-Bus object!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const auto& [connectionName, interfaces] : serviceMap)
+    {
+        for (const auto& interfaceName : interfaces)
+        {
+            if (interfaceName ==
+                "xyz.openbmc_project.Inventory.Decorator.Asset")
+            {
+                dbus::utility::getAllProperties(
+                    *crow::connections::systemBus, connectionName, managerPath,
+                    "xyz.openbmc_project.Inventory.Decorator.Asset",
+                    std::bind_front(getPhysicalAssets, asyncResp));
+            }
+            else if (interfaceName ==
+                     "xyz.openbmc_project.Inventory.Decorator.LocationCode")
+            {
+                getLocation(asyncResp, connectionName, managerPath);
+            }
+        }
+    }
+}
+
+inline void afterGetManagerObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree,
+    const std::function<
+        void(const std::string& managerPath,
+             const dbus::utility::MapperServiceMap& serviceMap)>& callback)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("D-Bus response error on GetSubTree {}", ec);
+        return;
+    }
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_DEBUG("Can't find bmc D-Bus object!");
+        return;
+    }
+    // Assume only 1 bmc D-Bus object
+    // Throw an error if there is more than 1
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_ERROR("Found more than 1 bmc D-Bus object!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    callback(subtree[0].first, subtree[0].second);
+}
+
+inline void getManagerObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& /* managerId */,
+    std::function<void(const std::string& managerPath,
+                       const dbus::utility::MapperServiceMap& serviceMap)>&&
+        callback)
+{
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Bmc"};
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
+        [asyncResp, callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            afterGetManagerObject(asyncResp, ec, subtree, callback);
+        });
+}
+
 inline void requestRoutesManager(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
@@ -735,130 +869,8 @@ inline void requestRoutesManager(App& app)
                     checkForQuiesced(asyncResp);
                 });
 
-            constexpr std::array<std::string_view, 1> interfaces = {
-                "xyz.openbmc_project.Inventory.Item.Bmc"};
-            dbus::utility::getSubTree(
-                "/xyz/openbmc_project/inventory", 0, interfaces,
-                [asyncResp](
-                    const boost::system::error_code& ec,
-                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_DEBUG(
-                            "D-Bus response error on GetSubTree {}", ec);
-                        return;
-                    }
-                    if (subtree.empty())
-                    {
-                        BMCWEB_LOG_DEBUG("Can't find bmc D-Bus object!");
-                        return;
-                    }
-                    // Assume only 1 bmc D-Bus object
-                    // Throw an error if there is more than 1
-                    if (subtree.size() > 1)
-                    {
-                        BMCWEB_LOG_DEBUG("Found more than 1 bmc D-Bus object!");
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-
-                    if (subtree[0].first.empty() ||
-                        subtree[0].second.size() != 1)
-                    {
-                        BMCWEB_LOG_DEBUG("Error getting bmc D-Bus object!");
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-
-                    const std::string& path = subtree[0].first;
-                    const std::string& connectionName =
-                        subtree[0].second[0].first;
-
-                    for (const auto& interfaceName :
-                         subtree[0].second[0].second)
-                    {
-                        if (interfaceName ==
-                            "xyz.openbmc_project.Inventory.Decorator.Asset")
-                        {
-                            dbus::utility::getAllProperties(
-                                *crow::connections::systemBus, connectionName,
-                                path,
-                                "xyz.openbmc_project.Inventory.Decorator.Asset",
-                                [asyncResp](
-                                    const boost::system::error_code& ec2,
-                                    const dbus::utility::DBusPropertiesMap&
-                                        propertiesList) {
-                                    if (ec2)
-                                    {
-                                        BMCWEB_LOG_DEBUG(
-                                            "Can't get bmc asset!");
-                                        return;
-                                    }
-
-                                    const std::string* partNumber = nullptr;
-                                    const std::string* serialNumber = nullptr;
-                                    const std::string* manufacturer = nullptr;
-                                    const std::string* model = nullptr;
-                                    const std::string* sparePartNumber =
-                                        nullptr;
-
-                                    const bool success =
-                                        sdbusplus::unpackPropertiesNoThrow(
-                                            dbus_utils::UnpackErrorPrinter(),
-                                            propertiesList, "PartNumber",
-                                            partNumber, "SerialNumber",
-                                            serialNumber, "Manufacturer",
-                                            manufacturer, "Model", model,
-                                            "SparePartNumber", sparePartNumber);
-
-                                    if (!success)
-                                    {
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-
-                                    if (partNumber != nullptr)
-                                    {
-                                        asyncResp->res.jsonValue["PartNumber"] =
-                                            *partNumber;
-                                    }
-
-                                    if (serialNumber != nullptr)
-                                    {
-                                        asyncResp->res
-                                            .jsonValue["SerialNumber"] =
-                                            *serialNumber;
-                                    }
-
-                                    if (manufacturer != nullptr)
-                                    {
-                                        asyncResp->res
-                                            .jsonValue["Manufacturer"] =
-                                            *manufacturer;
-                                    }
-
-                                    if (model != nullptr)
-                                    {
-                                        asyncResp->res.jsonValue["Model"] =
-                                            *model;
-                                    }
-
-                                    if (sparePartNumber != nullptr)
-                                    {
-                                        asyncResp->res
-                                            .jsonValue["SparePartNumber"] =
-                                            *sparePartNumber;
-                                    }
-                                });
-                        }
-                        else if (
-                            interfaceName ==
-                            "xyz.openbmc_project.Inventory.Decorator.LocationCode")
-                        {
-                            getLocation(asyncResp, connectionName, path);
-                        }
-                    }
-                });
+            getManagerObject(asyncResp, managerId,
+                             std::bind_front(getManagerData, asyncResp));
 
             RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
         });
