@@ -16,6 +16,23 @@
       "message": "It looks good to me",
       "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a32496_7e1ca44e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-18T17:29:03Z",
+      "side": 1,
+      "message": "This is adding back https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65720/24/redfish-core/include/snmp_trap_event_clients.hpp, it isn\u0027t clear to me why it was removed ?",
+      "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
