@@ -166,6 +166,30 @@
       },
       "revId": "e42def76306e580d7052ddff1c425b2733693b40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31a288d8_48ec8420",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-06-18T15:23:08Z",
+      "side": 1,
+      "message": "\u003e Besides that, the current implementation does work without the need for single-host configuring the ManagedHost interface.\n\nYes, i wanted to enter that code path only for benchmarking reasons 😊\n\nSo my configuration may not be correct but hopefully sufficient to enter the code \npath and trigger the relevant DBus calls. Hopefully this does not confuse anyone 👍\n\n\u003e  Can you measure the timing of these new APIs in comparison to the old ones please?\n\n\u003e \u003e I cannot measure multi-host on real hw.\n\n\u003e Let us know when you have; If I can help measure for single host, let me know.\n\n\u003e single-host would have to specify index 0 in order for the dbus object paths to be constructed correctly\n\nOkay, so now we have a way to measure multi-host bmcweb performance on single-host systems on real hardware, right? 😊\n\nEven if i failed at it 😄 by misconfiguration, (Thanks for correcting that 😊)",
+      "parentUuid": "e1b23a58_5198db79",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 11
+      },
+      "revId": "e42def76306e580d7052ddff1c425b2733693b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
