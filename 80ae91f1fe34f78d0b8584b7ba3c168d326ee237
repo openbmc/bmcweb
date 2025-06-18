@@ -33,6 +33,24 @@
       "message": "This is adding back https://gerrit.openbmc.org/c/openbmc/bmcweb/+/65720/24/redfish-core/include/snmp_trap_event_clients.hpp, it isn\u0027t clear to me why it was removed ?",
       "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "564ed59d_679d6993",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-18T20:13:30Z",
+      "side": 1,
+      "message": "It is not clear to me either why it was removed.\n\nOn the create path for the SNMPv2c subscriptions the UserSubscription is not created. This was not changed as part of the commit which removed the Context for the get path. https://github.com/openbmc/bmcweb/blob/c9bd09240cfa156ca348848ad6402b1d390bbfa1/redfish-core/lib/event_service.hpp#L490\n\n(For non-SNMPv2c subscriptions the UserSubscription is created here https://github.com/openbmc/bmcweb/blob/c9bd09240cfa156ca348848ad6402b1d390bbfa1/redfish-core/lib/event_service.hpp#L495, and inserted here https://github.com/openbmc/bmcweb/blob/c9bd09240cfa156ca348848ad6402b1d390bbfa1/redfish-core/lib/event_service.hpp#L730)\n\nBut as I noted in the commit message the delete path still tries to delete the UserSubscription. So for consistency between get and delete paths I added back the lookup for the matching UserSubscription.",
+      "parentUuid": "72a32496_7e1ca44e",
+      "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
