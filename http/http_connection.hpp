@@ -829,7 +829,13 @@ class Connection :
     void doWrite()
     {
         BMCWEB_LOG_DEBUG("{} doWrite", logPtr(this));
-        res.preparePayload();
+
+        std::string urlpath;
+        if (req != nullptr)
+        {
+            urlpath = req->url().path();
+        }
+        res.preparePayload(urlpath);
 
         startDeadline();
         if (httpType == HttpType::HTTP)
