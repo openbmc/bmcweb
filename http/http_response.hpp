@@ -186,7 +186,7 @@ struct Response
         return response.body().payloadSize();
     }
 
-    void preparePayload()
+    void preparePayload(std::string_view url)
     {
         // This code is a throw-free equivalent to
         // beast::http::message::prepare_payload
@@ -209,8 +209,8 @@ struct Response
         {
             BMCWEB_LOG_CRITICAL("{} Response content provided but code was "
                                 "no-content or not_modified, which aren't "
-                                "allowed to have a body",
-                                logPtr(this));
+                                "allowed to have a body for url : \"{}\"",
+                                logPtr(this), url);
             response.content_length(0);
             return;
         }
