@@ -142,6 +142,30 @@
       },
       "revId": "e42def76306e580d7052ddff1c425b2733693b40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1b23a58_5198db79",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-06-18T15:06:16Z",
+      "side": 1,
+      "message": "FYI @alexander.hansen@9elements.com, single-host would have to specify index 0 in order for the dbus object paths to be constructed correctly. Besides that, the current implementation does work without the need for single-host configuring the ManagedHost interface.",
+      "parentUuid": "87fca882_151d2aed",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 11
+      },
+      "revId": "e42def76306e580d7052ddff1c425b2733693b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

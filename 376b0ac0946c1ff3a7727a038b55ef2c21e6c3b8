@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb6ad14f_fa6c1fb2",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-06-18T15:06:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cd28a2c_1e39d85b",
+      "revId": "376b0ac0946c1ff3a7727a038b55ef2c21e6c3b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f57c1e4_286be757",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-06-11T15:25:47Z",
       "side": 1,
       "message": "This would better be `BMCWEB_LOG_WARNING`",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 24
+      },
+      "revId": "376b0ac0946c1ff3a7727a038b55ef2c21e6c3b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f94dc84_f0e473c9",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-06-18T15:06:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f57c1e4_286be757",
       "range": {
         "startLine": 178,
         "startChar": 8,
