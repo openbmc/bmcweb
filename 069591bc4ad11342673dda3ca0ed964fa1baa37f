@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e73d46a_31b8ae03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-19T16:27:02Z",
+      "side": 1,
+      "message": "Be careful about wrapping commit msgs at a random length. We follow https://cbea.ms/git-commit/ which states\n```\nWrap the body at 72 characters\n```",
+      "revId": "069591bc4ad11342673dda3ca0ed964fa1baa37f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "41496a30_9844dde5",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 2
@@ -19,6 +36,46 @@
         "startChar": 38,
         "endLine": 993,
         "endChar": 43
+      },
+      "revId": "069591bc4ad11342673dda3ca0ed964fa1baa37f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d74f054_91b91055",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-19T16:27:02Z",
+      "side": 1,
+      "message": "Any idea why EBADR is needed? I thought boost::asio::error::host_unreachable would cover?",
+      "revId": "069591bc4ad11342673dda3ca0ed964fa1baa37f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87381339_f5426c36",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-19T16:27:02Z",
+      "side": 1,
+      "message": "not sure why the \"s\" is needed. Oh well.",
+      "range": {
+        "startLine": 1004,
+        "startChar": 52,
+        "endLine": 1004,
+        "endChar": 53
       },
       "revId": "069591bc4ad11342673dda3ca0ed964fa1baa37f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
