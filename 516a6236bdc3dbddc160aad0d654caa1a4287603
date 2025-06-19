@@ -34,6 +34,24 @@
       "parentUuid": "66a144ee_e6267b92",
       "revId": "516a6236bdc3dbddc160aad0d654caa1a4287603",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd81285f_6841494f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-06-19T15:35:14Z",
+      "side": 1,
+      "message": "Correct, currently this is handled with object_paths with the idea to move to associations at a later point. @Allen_Wang@quantatw.com FYI my patch[1] does handle this already (L1487 - L1503). I wrote a doc[2] that lists all redfish resources, that my patches support at the moment. Hopefully this helps to circumvent duplicate efforts.\n\n[1] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/73855\n[2] https://gerrit.openbmc.org/c/openbmc/bmcweb/+/76118",
+      "parentUuid": "def192d4_48f9debd",
+      "revId": "516a6236bdc3dbddc160aad0d654caa1a4287603",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
