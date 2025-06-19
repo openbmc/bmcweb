@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "6c8dcf9e_d0e545c0",
         "filename": "redfish-core/lib/managers.hpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "hmm.  this is looking different from Memory. We should be checking if the property in question in question is locationIndicatorActive and only then call this right ?",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6c69b045_c012b138",
         "filename": "redfish-core/lib/managers.hpp",
@@ -32,10 +33,10 @@
       "message": "I responded in CPU commit.",
       "parentUuid": "6c8dcf9e_d0e545c0",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2b91a346_c1e68f73",
         "filename": "redfish-core/lib/managers.hpp",
@@ -50,10 +51,10 @@
       "message": "could you please respond here also ?.. Someone else may be reviewing this and they might not know what CPU commit etc",
       "parentUuid": "6c69b045_c012b138",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "2c947378_cbd35293",
         "filename": "redfish-core/lib/managers.hpp",
@@ -68,10 +69,28 @@
       "message": "Okay\nRefer: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/37045/94/redfish-core/lib/processor.hpp#1038",
       "parentUuid": "2b91a346_c1e68f73",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73f7faa9_a4f3201a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1927,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-19T22:07:14Z",
+      "side": 1,
+      "message": "The code has been restructured. Checking of option being modified is handled at the patch common function. Then if LocationIndicatorActive is being modified we will call to do the update passing the value.",
+      "parentUuid": "2c947378_cbd35293",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "bc157f6f_3a9320d3",
         "filename": "redfish-core/lib/managers.hpp",
@@ -85,10 +104,10 @@
       "side": 1,
       "message": "we also need the instance ID right ?.. ( like CPU and DIMM ) ?",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b59e16e0_be8c296a",
         "filename": "redfish-core/lib/managers.hpp",
@@ -103,10 +122,10 @@
       "message": "What is the value of `instance ID`?",
       "parentUuid": "bc157f6f_3a9320d3",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "33b21a4c_6f5224ba",
         "filename": "redfish-core/lib/managers.hpp",
@@ -121,10 +140,28 @@
       "message": "I mean : in dimm, we have below one in Patch.\n\nconst std::string\u0026 dimmId \u003d params[0]\n\nHowever, I don\u0027t see that here..  \nredfish/v1/Managers/bmc",
       "parentUuid": "b59e16e0_be8c296a",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8b472c1_8f1c6322",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1943,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-19T22:07:14Z",
+      "side": 1,
+      "message": "In current OpenBMC only one manager is expected. So no checking of match of D-Bus object is being performed. The managerId is being passed down to facilitate checking in the future if more than one manager is supported.",
+      "parentUuid": "33b21a4c_6f5224ba",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "10a01e25_03ee9231",
         "filename": "redfish-core/lib/managers.hpp",
@@ -138,10 +175,10 @@
       "side": 1,
       "message": "It also needs to get the param[0] as bmc_id right ?",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "1306b423_af1fb187",
         "filename": "redfish-core/lib/managers.hpp",
@@ -156,10 +193,28 @@
       "message": "I do not think we need `bmc_id`.\nWhat is the value of `bmc_id`?",
       "parentUuid": "10a01e25_03ee9231",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec588e9e_d57449e4",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 2221,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-19T22:07:14Z",
+      "side": 1,
+      "message": "In current OpenBMC only one manager is expected. So no checking of match of D-Bus object is being performed. The managerId is being passed down to facilitate checking in the future if more than one manager is supported.",
+      "parentUuid": "1306b423_af1fb187",
+      "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "047f6f94_e1ce50ed",
         "filename": "redfish-core/lib/managers.hpp",
@@ -173,10 +228,10 @@
       "side": 1,
       "message": "The way it is organised now, it calls this irrespective of PATCH on any property. So, to continue what has been existing ( and possibly refactor later ) we may want to do if(locationIndicatorActive) { setManagerObject()\n\nor check what is the property inside the set object",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "889c0047_d695c402",
         "filename": "redfish-core/lib/managers.hpp",
@@ -191,8 +246,7 @@
       "message": "Done",
       "parentUuid": "047f6f94_e1ce50ed",
       "revId": "742a53804a9214d75aa078202514a9c5a2842d4a",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
