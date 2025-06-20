@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "269e8126_6c4e9c57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001266
+      },
+      "writtenOn": "2025-06-20T08:04:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e73d46a_31b8ae03",
+      "revId": "069591bc4ad11342673dda3ca0ed964fa1baa37f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41496a30_9844dde5",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cf89dfe_988cee4a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 1001266
+      },
+      "writtenOn": "2025-06-20T08:04:00Z",
+      "side": 1,
+      "message": "I refer to getAutomaticRetryPolicy URI to return here for non-exist host0.\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L1235-L1251\n\nI notice that @oliver.brewka@9elements.com also implement it at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/73855\n\nShould we just waiting Oliver\u0027s commit landing or use this workaround to avoid internal errors now?",
+      "parentUuid": "41496a30_9844dde5",
+      "range": {
+        "startLine": 993,
+        "startChar": 38,
+        "endLine": 993,
+        "endChar": 43
+      },
+      "revId": "069591bc4ad11342673dda3ca0ed964fa1baa37f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d74f054_91b91055",
@@ -54,6 +96,24 @@
       "writtenOn": "2025-06-19T16:27:02Z",
       "side": 1,
       "message": "Any idea why EBADR is needed? I thought boost::asio::error::host_unreachable would cover?",
+      "revId": "069591bc4ad11342673dda3ca0ed964fa1baa37f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caf71f33_ca95147f",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 1001266
+      },
+      "writtenOn": "2025-06-20T08:04:00Z",
+      "side": 1,
+      "message": "I not very sure, I just refer to existing code from getAutomaticRetryPolicy URI and its works.\n\nhttps://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/systems.hpp#L1235-L1251\n\nboost::asio::error::host_unreachable seems is error happens on asio socket call,\nand this commit want to fix the dbus object not exist case.",
+      "parentUuid": "1d74f054_91b91055",
       "revId": "069591bc4ad11342673dda3ca0ed964fa1baa37f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
