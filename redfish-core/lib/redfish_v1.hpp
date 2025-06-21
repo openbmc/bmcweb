@@ -11,6 +11,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "str_utility.hpp"
+#include "utils/json_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
@@ -124,6 +125,7 @@ inline void jsonSchemaIndexGet(
         members.emplace_back(std::move(member));
     }
 
+    redfish::json_util::sortJsonArrayByOData(members);
     json["Members@odata.count"] = members.size();
     json["Members"] = std::move(members);
 }
