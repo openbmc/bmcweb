@@ -33,6 +33,10 @@ json_schema_path = os.path.join(
     redfish_core_path, "schema", "dmtf", "json-schema"
 )
 
+# installed csdl/json symlinks
+schema_installed_path = os.path.join(schema_path, "..", "installed")
+json_schema_installed_path = json_schema_path + "-installed"
+
 zipBytesIO = BytesIO(r.content)
 zip_ref = zipfile.ZipFile(zipBytesIO)
 
@@ -95,13 +99,37 @@ json_schema_files = OrderedDict(
     sorted(json_schema_files.items(), key=lambda x: SchemaVersion(x[0]))
 )
 
+# Get the currently-installed csdl
+csdl_installed_symlinks = set()
+for csdl_symlink in os.listdir(schema_installed_path):
+    csdl_installed_symlinks.add(csdl_symlink)
 
+shutil.rmtree(schema_installed_path)
+os.makedirs(schema_installed_path)
+
+# Create csdl files & keep the updated csdl-installed symlinks
 for csdl_file in csdl_filenames:
     with open(os.path.join(schema_path, csdl_file), "wb") as schema_out:
         content = zip_ref.read(os.path.join(VERSION + "/csdl", csdl_file))
         content = content.replace(b"\r\n", b"\n")
         schema_out.write(content)
 
+    if csdl_file in csdl_installed_symlinks:
+        os.symlink(
+            os.path.join("..", "csdl", csdl_file),
+            os.path.join(schema_installed_path, csdl_file),
+        )
+
+# Get the currently-installed json symlinks
+json_base_symlinks = defaultdict(list)
+for json_symlink in os.listdir(json_schema_installed_path):
+    base_json_name = json_symlink.split(".")[0]
+    json_base_symlinks[base_json_name].append(json_symlink)
+
+shutil.rmtree(json_schema_installed_path)
+os.makedirs(json_schema_installed_path)
+
+# Create json files & keep the installed json symlinks
 for schema_filename, versions in json_schema_files.items():
     zip_filepath = os.path.join(VERSION + "/json-schema", versions[0])
 
@@ -111,6 +139,12 @@ for schema_filename, versions in json_schema_files.items():
         content = zip_ref.read(zip_filepath)
         content = content.replace(b"\r\n", b"\n")
         schema_file.write(content)
+
+    if schema_filename in json_base_symlinks:
+        os.symlink(
+            os.path.join("..", "json-schema", versions[0]),
+            os.path.join(json_schema_installed_path, versions[0]),
+        )
 
 zip_ref.close()
 
