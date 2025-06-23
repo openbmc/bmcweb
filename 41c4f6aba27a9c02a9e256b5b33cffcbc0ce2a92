@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ded4130_955d9582",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-23T14:00:59Z",
+      "side": 1,
+      "message": "We follow https://cbea.ms/git-commit/ for commit messages, please follow the \"Wrap the body at 72 characters\" rule",
+      "revId": "41c4f6aba27a9c02a9e256b5b33cffcbc0ce2a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ac98d08_945440c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-23T14:00:59Z",
+      "side": 1,
+      "message": "Seems reasonable to me but please clean up the commit msg",
+      "revId": "41c4f6aba27a9c02a9e256b5b33cffcbc0ce2a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
