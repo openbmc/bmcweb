@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b6d1ebd_faf6cec3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-23T20:05:32Z",
+      "side": 1,
+      "message": "We have done this other places (although a quick search, I couldn\u0027t find it but I do remember reviewing code which did the exact same thing)",
+      "revId": "1e3df3882ca0b440bd568d058d59e9dd621c9cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14c994c3_cab6425a",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-23T20:05:32Z",
+      "side": 1,
+      "message": "Pretty easy to get rid of the auto here \n\nconst std::string\u0026 slotPath\n\nI see it both ways \n\nhttps://github.com/openbmc/bmcweb/blob/1a02c449d3090215203d5e59cad44e0e267ab978/redfish-core/include/utils/chassis_utils.hpp#L56\n\nhttps://github.com/openbmc/bmcweb/blob/1a02c449d3090215203d5e59cad44e0e267ab978/redfish-core/include/utils/collection.hpp#L64",
+      "revId": "1e3df3882ca0b440bd568d058d59e9dd621c9cd4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
