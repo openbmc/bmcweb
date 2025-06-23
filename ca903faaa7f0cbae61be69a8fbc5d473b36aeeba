@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb4f4095_37b933d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-23T17:44:51Z",
+      "side": 1,
+      "message": "I removed the acronym FFDC",
+      "parentUuid": "8aacd17f_96d9ce4b",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 13
+      },
+      "revId": "ca903faaa7f0cbae61be69a8fbc5d473b36aeeba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2ed9444_d820e86b",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-06-23T17:08:40Z",
       "side": 1,
       "message": "I think you are talking about a downstream PCIe Topology page.. Let\u0027s remove",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "ca903faaa7f0cbae61be69a8fbc5d473b36aeeba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d322af3e_95259bce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-23T17:44:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e2ed9444_d820e86b",
       "range": {
         "startLine": 9,
         "startChar": 0,
