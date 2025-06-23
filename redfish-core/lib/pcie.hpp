@@ -255,6 +255,10 @@ inline void getPCIeDeviceSlotPath(
                 BMCWEB_LOG_ERROR(
                     "PCIeDevice {} is associated with more than one PCIeSlot: {}",
                     pcieDevicePath, endpoints.size());
+                for (const std::string& slotPath : endpoints)
+                {
+                    BMCWEB_LOG_ERROR("Invalid PCIeSlotPath: {}", slotPath);
+                }
                 messages::internalError(asyncResp->res);
                 return;
             }
