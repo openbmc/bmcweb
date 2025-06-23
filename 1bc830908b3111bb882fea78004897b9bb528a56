@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83ab79ba_bde633bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-23T15:41:52Z",
+      "side": 1,
+      "message": "I still see you are wrapping with some custom length instead of the \"Wrap the body at 72 characters\" from https://cbea.ms/git-commit/\n\nOh well, for next time, this is typically done automatically (e.g. .vimrc).",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "1bc830908b3111bb882fea78004897b9bb528a56",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
