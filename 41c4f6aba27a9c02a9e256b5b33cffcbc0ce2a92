@@ -18,6 +18,29 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8204d59_f2137d14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-23T14:08:53Z",
+      "side": 1,
+      "message": "Maybe something more like: \n\n\nTrace URI when body on 204/304\n\nTrace URI on the existing CRITICAL message when a body exists but HTTP return code was Informational responses (100 – 199), no-content (204), or not_modified (304).   \n\nTested: With these changes, the URI is traced on the CRITICAL message:\n\n```\ncurl --http2 -k -H \"Content-Type: application/json\" \\\n-d \u0027{\"PowerRestorePolicy\":\"LastState\"}\u0027 \\\n-X PATCH https://${bmc}/redfish/v1/Systems/system\n```\n\n```\nroot@p10bmc:~# journalctl | grep Response\nJun 20 15:30:46 p10bmc bmcwebd[296]: [http_response.hpp:213]\n 0x1353670 Response content provided but code was no-content\n or not_modified, which aren\u0027t allowed to\n have a body for url : \"/redfish/v1/Systems/system\"\n```",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 3
+      },
+      "revId": "41c4f6aba27a9c02a9e256b5b33cffcbc0ce2a92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "9ac98d08_945440c2",
