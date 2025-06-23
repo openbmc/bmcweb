@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aacd17f_96d9ce4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-23T17:08:40Z",
+      "side": 1,
+      "message": "Although Googling this does give the correct answer here, let\u0027s avoid this acronym since I don\u0027t think it is widely used in the industry. \n\n```\n\"FFDC\" generally refers to First Failure Data Capture, a mechanism used in software development to collect information about errors or exceptions when they first occur.\n```",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 13
+      },
+      "revId": "ca903faaa7f0cbae61be69a8fbc5d473b36aeeba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2ed9444_d820e86b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-23T17:08:40Z",
+      "side": 1,
+      "message": "I think you are talking about a downstream PCIe Topology page.. Let\u0027s remove",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "ca903faaa7f0cbae61be69a8fbc5d473b36aeeba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca5f0629_6f85484d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-23T17:08:40Z",
+      "side": 1,
+      "message": ":shrug: it is additional tracing on an error path",
+      "revId": "ca903faaa7f0cbae61be69a8fbc5d473b36aeeba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
