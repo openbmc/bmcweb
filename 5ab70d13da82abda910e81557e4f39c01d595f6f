@@ -34,6 +34,24 @@
       "parentUuid": "fb7d85d3_a5c6d05b",
       "revId": "5ab70d13da82abda910e81557e4f39c01d595f6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c849174_85cd771d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-24T15:31:16Z",
+      "side": 1,
+      "message": "\u003e Checking a schema in the list is not straightforward\n\nThis needs to be in your commit message.  There\u0027s no requirement that this list be sorted.  If the goal is that humans can read it easier, that\u0027s fine, but needs to be in the commit message.  As written this makes it sound like it\u0027s a spec violation to be out of order, which it\u0027s not.",
+      "parentUuid": "ac97871f_1379b23d",
+      "revId": "5ab70d13da82abda910e81557e4f39c01d595f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
