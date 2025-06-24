@@ -41,6 +41,7 @@ Fields common to all schemas
 - Managers
 - RedfishVersion
 - Registries
+- ServiceIdentification
 - SessionService
 - Systems
 - Tasks
@@ -565,6 +566,7 @@ Fields common to all schemas
 - PowerState
 - SerialNumber
 - ServiceEntryPointUUID
+- ServiceIdentification
 - SparePartNumber
 - Status
 - UUID

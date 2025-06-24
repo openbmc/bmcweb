@@ -8,6 +8,7 @@
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "http_request.hpp"
+#include "managers.hpp"
 #include "persistent_data.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -80,6 +81,7 @@ inline void handleServiceRootGetImpl(
         "/redfish/v1/EventService";
     asyncResp->res.jsonValue["TelemetryService"]["@odata.id"] =
         "/redfish/v1/TelemetryService";
+    getServiceIdentification(asyncResp, true);
     asyncResp->res.jsonValue["Cables"]["@odata.id"] = "/redfish/v1/Cables";
 
     asyncResp->res.jsonValue["Links"]["ManagerProvidingService"]["@odata.id"] =
