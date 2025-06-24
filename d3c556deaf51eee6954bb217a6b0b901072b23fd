@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aad8dfa8_53c1e62e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-24T15:12:34Z",
+      "side": 1,
+      "message": "If it is caused when a single/specific GET is issued (during the development/testing), it can be debugged.\u0027\nHowever, if it happens unexpectedly on the production environment (in a mix of a lot of pciedevice GET, and also if it is not possible to replay (esp on a live system), the debugging may not be easy (if not impossible) - even with the captured busctl tree and other captured data.",
+      "parentUuid": "190a25a4_794d8d09",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "d3c556deaf51eee6954bb217a6b0b901072b23fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df9793c4_188eab5a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -37,6 +61,30 @@
       "writtenOn": "2025-06-23T23:58:40Z",
       "side": 1,
       "message": "nit, typo.",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 43
+      },
+      "revId": "d3c556deaf51eee6954bb217a6b0b901072b23fd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05317eb2_56801f14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-24T15:12:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df9793c4_188eab5a",
       "range": {
         "startLine": 11,
         "startChar": 37,
