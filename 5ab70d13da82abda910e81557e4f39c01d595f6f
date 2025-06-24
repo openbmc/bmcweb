@@ -16,6 +16,24 @@
       "message": "why?",
       "revId": "5ab70d13da82abda910e81557e4f39c01d595f6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac97871f_1379b23d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-24T15:04:31Z",
+      "side": 1,
+      "message": "JsonSchemas output has over 100 entries but not sorted (i.e. listed in the file system). \nChecking a schema in the list is not straightforward (e.g. Redfish Service validator report).\nAlthough it is not a functional issue (i.e. still can be done by sorting it by the reader), it would be much better if Redfish output is already sorted.",
+      "parentUuid": "fb7d85d3_a5c6d05b",
+      "revId": "5ab70d13da82abda910e81557e4f39c01d595f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
