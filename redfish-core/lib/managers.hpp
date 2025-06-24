@@ -48,6 +48,7 @@
 #include <memory>
 #include <optional>
 #include <ranges>
+#include <iostream>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -492,6 +493,56 @@ inline void setActiveFirmwareImage(
         });
 }
 
+inline void setServiceIdentification(
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp, std::string sysId)
+{
+    const char* processName = "xyz.openbmc_project.Inventory.Manager";
+    const char* objectPath = "/xyz/openbmc_project/inventory/system";
+    const char* interfaceName =
+        "xyz.openbmc_project.Inventory.Decorator.AssetTag";
+    const char* destProperty = "AssetTag";
+
+    sdbusplus::asio::setProperty(
+        *crow::connections::systemBus, processName, objectPath, interfaceName,
+        destProperty, sysId,
+        [asyncResp{std::move(asyncResp)}](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR(
+                    "DBUS response error on ServiceIdentification setProperty: ",
+                    ec);
+                return;
+            }
+        });
+}
+
+inline void getServiceIdentification(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const bool omitIfEmpty)
+{
+    const char* processName = "xyz.openbmc_project.Inventory.Manager";
+    const char* objectPath = "/xyz/openbmc_project/inventory/system";
+    const char* interfaceName =
+        "xyz.openbmc_project.Inventory.Decorator.AssetTag";
+    const char* destProperty = "AssetTag";
+
+    sdbusplus::asio::getProperty<std::string>(
+        *crow::connections::systemBus, processName, objectPath, interfaceName,
+        destProperty,
+        [asyncResp, omitIfEmpty](const boost::system::error_code ec,
+                                 const std::string& sysId) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "DBUS response error for ServiceIdentification", ec);
+                return;
+            }
+            if (!omitIfEmpty || !sysId.empty())
+            {
+                asyncResp->res.jsonValue["ServiceIdentification"] = sysId;
+            }
+        });
+}
+
 inline void afterSetDateTime(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec, const sdbusplus::message_t& msg)
@@ -733,7 +784,7 @@ inline void requestRoutesManager(App& app)
             asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
                 "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
             asyncResp->res.jsonValue["@odata.type"] =
-                "#Manager.v1_14_0.Manager";
+                "#Manager.v1_15_0.Manager";
             asyncResp->res.jsonValue["Id"] = BMCWEB_REDFISH_MANAGER_URI_NAME;
             asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
             asyncResp->res.jsonValue["Description"] =
@@ -756,6 +807,8 @@ inline void requestRoutesManager(App& app)
                 boost::urls::format(
                     "/redfish/v1/Managers/{}/EthernetInterfaces",
                     BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+            getServiceIdentification(asyncResp, false);
 
             if constexpr (BMCWEB_VM_NBDPROXY)
             {
@@ -900,6 +953,7 @@ inline void requestRoutesManager(App& app)
                 std::optional<nlohmann::json::object_t> fanZones;
                 std::optional<nlohmann::json::object_t> stepwiseControllers;
                 std::optional<std::string> profile;
+                std::optional<std::string> serviceIdentification;
 
                 if (!json_util::readJsonPatch(                            //
                         req, asyncResp->res,                              //
@@ -911,7 +965,8 @@ inline void requestRoutesManager(App& app)
                         "Oem/OpenBmc/Fan/PidControllers", pidControllers, //
                         "Oem/OpenBmc/Fan/Profile", profile,               //
                         "Oem/OpenBmc/Fan/StepwiseControllers",
-                        stepwiseControllers                               //
+                        stepwiseControllers,                              //
+                        "ServiceIdentification", serviceIdentification    //
                         ))
                 {
                     return;
@@ -926,6 +981,12 @@ inline void requestRoutesManager(App& app)
                 if (datetime)
                 {
                     setDateTime(asyncResp, *datetime);
+                }
+
+                if (serviceIdentification)
+                {
+                    setServiceIdentification(asyncResp,
+                                             std::move(*serviceIdentification));
                 }
 
                 RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
