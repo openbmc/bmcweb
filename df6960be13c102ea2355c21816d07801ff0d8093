@@ -88,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "def1ca78_dfe68054",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-24T15:11:29Z",
+      "side": 1,
+      "message": "Yep, you are right.  I tried to do the conversion to make this \"correct\", but hit some issues.  Fine as is.",
+      "parentUuid": "f0561fd6_fa81fadb",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 53,
+        "endChar": 18
+      },
+      "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79e99407_bf915705",
