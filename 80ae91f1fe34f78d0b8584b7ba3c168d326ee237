@@ -51,6 +51,46 @@
       "parentUuid": "72a32496_7e1ca44e",
       "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62199730_23ef5f3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-24T16:19:15Z",
+      "side": 1,
+      "message": "This is trying to get EventManager to own SNMP subscriptions in a way that doesn\u0027t really handle the create/destroy process correctly.",
+      "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e97d9c95_c6bce8a8",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-24T16:19:15Z",
+      "side": 1,
+      "message": "The SNMP paths should never be calling EventManager.  EventManager doesn\u0027t own the subscription, the SNMP backend does.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 63
+      },
+      "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
