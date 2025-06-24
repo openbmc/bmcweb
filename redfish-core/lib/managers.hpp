@@ -492,6 +492,25 @@ inline void setActiveFirmwareImage(
         });
 }
 
+inline void setServiceIdentification(std::string serviceIdentification)
+{
+    persistent_data::ConfigFile& config = persistent_data::getConfig();
+    config.serviceIdentification = serviceIdentification;
+    config.writeData();
+}
+
+inline void getServiceIdentification(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const bool omitIfEmpty)
+{
+    std::string serviceIdentification =
+        persistent_data::getConfig().serviceIdentification;
+    if (!omitIfEmpty || !serviceIdentification.empty())
+    {
+        asyncResp->res.jsonValue["ServiceIdentification"] =
+            serviceIdentification;
+    }
+}
+
 inline void afterSetDateTime(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec, const sdbusplus::message_t& msg)
@@ -733,7 +752,7 @@ inline void requestRoutesManager(App& app)
             asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
                 "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
             asyncResp->res.jsonValue["@odata.type"] =
-                "#Manager.v1_14_0.Manager";
+                "#Manager.v1_15_0.Manager";
             asyncResp->res.jsonValue["Id"] = BMCWEB_REDFISH_MANAGER_URI_NAME;
             asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
             asyncResp->res.jsonValue["Description"] =
@@ -756,6 +775,8 @@ inline void requestRoutesManager(App& app)
                 boost::urls::format(
                     "/redfish/v1/Managers/{}/EthernetInterfaces",
                     BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+            getServiceIdentification(asyncResp, false);
 
             if constexpr (BMCWEB_VM_NBDPROXY)
             {
@@ -900,6 +921,7 @@ inline void requestRoutesManager(App& app)
                 std::optional<nlohmann::json::object_t> fanZones;
                 std::optional<nlohmann::json::object_t> stepwiseControllers;
                 std::optional<std::string> profile;
+                std::optional<std::string> serviceIdentification;
 
                 if (!json_util::readJsonPatch(                            //
                         req, asyncResp->res,                              //
@@ -911,7 +933,8 @@ inline void requestRoutesManager(App& app)
                         "Oem/OpenBmc/Fan/PidControllers", pidControllers, //
                         "Oem/OpenBmc/Fan/Profile", profile,               //
                         "Oem/OpenBmc/Fan/StepwiseControllers",
-                        stepwiseControllers                               //
+                        stepwiseControllers,                              //
+                        "ServiceIdentification", serviceIdentification    //
                         ))
                 {
                     return;
@@ -926,6 +949,11 @@ inline void requestRoutesManager(App& app)
                 if (datetime)
                 {
                     setDateTime(asyncResp, *datetime);
+                }
+
+                if (serviceIdentification)
+                {
+                    setServiceIdentification(std::move(*serviceIdentification));
                 }
 
                 RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
