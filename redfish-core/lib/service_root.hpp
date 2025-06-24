@@ -11,6 +11,7 @@
 #include "persistent_data.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/manager_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -80,6 +81,7 @@ inline void handleServiceRootGetImpl(
         "/redfish/v1/EventService";
     asyncResp->res.jsonValue["TelemetryService"]["@odata.id"] =
         "/redfish/v1/TelemetryService";
+    manager_utils::getServiceIdentification(asyncResp, true);
     asyncResp->res.jsonValue["Cables"]["@odata.id"] = "/redfish/v1/Cables";
 
     asyncResp->res.jsonValue["Links"]["ManagerProvidingService"]["@odata.id"] =

@@ -104,6 +104,15 @@ class ConfigFile
                             systemUuid = *jSystemUuid;
                         }
                     }
+                    else if (item.first == "service_identification")
+                    {
+                        const std::string* jServiceIdentification =
+                            item.second.get_ptr<const std::string*>();
+                        if (jServiceIdentification != nullptr)
+                        {
+                            serviceIdentification = *jServiceIdentification;
+                        }
+                    }
                     else if (item.first == "auth_config")
                     {
                         const nlohmann::json::object_t* jObj =
@@ -298,6 +307,7 @@ class ConfigFile
             eventServiceConfig.retryTimeoutInterval;
 
         data["system_uuid"] = systemUuid;
+        data["service_identification"] = serviceIdentification;
         data["revision"] = jsonRevision;
         data["timeout"] = SessionStore::getInstance().getTimeoutInSeconds();
 
@@ -383,6 +393,7 @@ class ConfigFile
     }
 
     std::string systemUuid;
+    std::string serviceIdentification;
 };
 
 inline ConfigFile& getConfig()
