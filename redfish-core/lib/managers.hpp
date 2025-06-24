@@ -550,6 +550,48 @@ inline void setActiveFirmwareImage(
         });
 }
 
+inline void setServiceIdentification(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::string_view serviceIdentification)
+{
+    constexpr const size_t maxStrSize = 99;
+    constexpr const char* allowedChars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 _-";
+    if (serviceIdentification.size() > maxStrSize)
+    {
+        messages::stringValueTooLong(asyncResp->res, "ServiceIdentification",
+                                     maxStrSize);
+        return;
+    }
+    else if (serviceIdentification.find_first_not_of(allowedChars) !=
+             std::string_view::npos)
+    {
+        messages::propertyValueError(asyncResp->res, "ServiceIdentification");
+        return;
+    }
+
+    persistent_data::ConfigFile& config = persistent_data::getConfig();
+    config.serviceIdentification = serviceIdentification;
+    config.writeData();
+    messages::success(asyncResp->res);
+}
+
+inline void getServiceIdentification(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const bool isServiceRoot)
+{
+    std::string_view serviceIdentification =
+        persistent_data::getConfig().serviceIdentification;
+
+    // This property shall not be present if its value is an empty string or
+    // null: Redfish Data Model Specification 6.125.3
+    if (isServiceRoot && serviceIdentification.empty())
+    {
+        return;
+    }
+    asyncResp->res.jsonValue["ServiceIdentification"] = serviceIdentification;
+}
+
 inline void afterSetDateTime(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec, const sdbusplus::message_t& msg)
@@ -796,7 +838,7 @@ inline void requestRoutesManager(App& app)
             asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
                 "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
             asyncResp->res.jsonValue["@odata.type"] =
-                "#Manager.v1_14_0.Manager";
+                "#Manager.v1_15_0.Manager";
             asyncResp->res.jsonValue["Id"] = BMCWEB_REDFISH_MANAGER_URI_NAME;
             asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
             asyncResp->res.jsonValue["Description"] =
@@ -819,6 +861,8 @@ inline void requestRoutesManager(App& app)
                 boost::urls::format(
                     "/redfish/v1/Managers/{}/EthernetInterfaces",
                     BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+            getServiceIdentification(asyncResp, false);
 
             if constexpr (BMCWEB_VM_NBDPROXY)
             {
@@ -964,6 +1008,7 @@ inline void requestRoutesManager(App& app)
                 std::optional<nlohmann::json::object_t> fanZones;
                 std::optional<nlohmann::json::object_t> stepwiseControllers;
                 std::optional<std::string> profile;
+                std::optional<std::string> serviceIdentification;
 
                 if (!json_util::readJsonPatch(                            //
                         req, asyncResp->res,                              //
@@ -977,7 +1022,8 @@ inline void requestRoutesManager(App& app)
                         "Oem/OpenBmc/Fan/PidControllers", pidControllers, //
                         "Oem/OpenBmc/Fan/Profile", profile,               //
                         "Oem/OpenBmc/Fan/StepwiseControllers",
-                        stepwiseControllers                               //
+                        stepwiseControllers,                              //
+                        "ServiceIdentification", serviceIdentification    //
                         ))
                 {
                     return;
@@ -998,6 +1044,12 @@ inline void requestRoutesManager(App& app)
                 {
                     setLocationIndicatorActiveState(
                         asyncResp, *locationIndicatorActive, managerId);
+                }
+
+                if (serviceIdentification)
+                {
+                    setServiceIdentification(asyncResp,
+                                             serviceIdentification.value());
                 }
 
                 RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
