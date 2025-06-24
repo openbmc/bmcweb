@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "22be48dd_4826dcbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-24T16:20:13Z",
+      "side": 1,
+      "message": "It was incorrect as written.  the snmp backend owns the subscription, not bmcweb.",
+      "range": {
+        "startLine": 46,
+        "startChar": 40,
+        "endLine": 46,
+        "endChar": 70
+      },
+      "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "4e54e493_e94118ba",
