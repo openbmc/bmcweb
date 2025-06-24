@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d822e07_98acde24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-24T16:24:41Z",
+      "side": 1,
+      "message": "Thanks for the suggestion.\nI\u0027ll do.",
+      "parentUuid": "4c849174_85cd771d",
+      "revId": "5ab70d13da82abda910e81557e4f39c01d595f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "543657a3_f84502a4",
         "filename": "redfish-core/lib/redfish_v1.hpp",
         "patchSetId": 1
@@ -67,6 +85,30 @@
       "writtenOn": "2025-06-24T15:33:08Z",
       "side": 1,
       "message": "Please don\u0027t duplicate the map lookup on a string that we just constructed above.  Load dirlist into a vector, sort is as a vector, then loop over the sorted vector to construct the array.",
+      "range": {
+        "startLine": 128,
+        "startChar": 24,
+        "endLine": 128,
+        "endChar": 44
+      },
+      "revId": "5ab70d13da82abda910e81557e4f39c01d595f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16580af8_27ad4c41",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-24T16:24:41Z",
+      "side": 1,
+      "message": "Thanks for review.\nI\u0027ll redo as you suggested",
+      "parentUuid": "543657a3_f84502a4",
       "range": {
         "startLine": 128,
         "startChar": 24,
