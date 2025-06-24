@@ -52,6 +52,29 @@
       "parentUuid": "ac97871f_1379b23d",
       "revId": "5ab70d13da82abda910e81557e4f39c01d595f6f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "543657a3_f84502a4",
+        "filename": "redfish-core/lib/redfish_v1.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-24T15:33:08Z",
+      "side": 1,
+      "message": "Please don\u0027t duplicate the map lookup on a string that we just constructed above.  Load dirlist into a vector, sort is as a vector, then loop over the sorted vector to construct the array.",
+      "range": {
+        "startLine": 128,
+        "startChar": 24,
+        "endLine": 128,
+        "endChar": 44
+      },
+      "revId": "5ab70d13da82abda910e81557e4f39c01d595f6f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
