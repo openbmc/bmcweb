@@ -22,6 +22,30 @@
       },
       "revId": "0a8823b0c27b8124018c8b084976ae350ae5cf7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "921bd724_49e54646",
+        "filename": "redfish-core/include/event_service_manager.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-25T15:39:11Z",
+      "side": 0,
+      "message": "In the original change the SNMP path was not finding a subscription so an error was being logged. I moved the logging to the callers since the SNMP path wasn\u0027t treating that as an error.\n\nI\u0027ve reworked this to take out the UserSubscription caller in the SNMP path so I\u0027ve also reverted the logging changes I made.",
+      "parentUuid": "81a46027_25bd8810",
+      "range": {
+        "startLine": 305,
+        "startChar": 12,
+        "endLine": 305,
+        "endChar": 28
+      },
+      "revId": "0a8823b0c27b8124018c8b084976ae350ae5cf7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

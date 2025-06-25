@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "297faf89_bf6199c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-25T15:39:11Z",
+      "side": 1,
+      "message": "I\u0027ve reworked this as you suggested. I\u0027ve added the above to the commit message for historical clarity.",
+      "parentUuid": "22be48dd_4826dcbc",
+      "range": {
+        "startLine": 46,
+        "startChar": 40,
+        "endLine": 46,
+        "endChar": 70
+      },
+      "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4e54e493_e94118ba",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -93,6 +117,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6124040a_a2504c16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-25T15:39:11Z",
+      "side": 1,
+      "message": "Ed commented on the reason it was removed. I\u0027ve added the information to commit message and a comment for historical clarity.",
+      "parentUuid": "564ed59d_679d6993",
+      "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e97d9c95_c6bce8a8",
@@ -116,6 +158,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aaa0c006_79113a0d",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-25T15:39:11Z",
+      "side": 1,
+      "message": "Thank you for this explanation. I\u0027ve reworked the code and added explanation of SNMP backend owning the subscription to the commit message for historical clarity.",
+      "parentUuid": "e97d9c95_c6bce8a8",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 63
+      },
+      "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "318bab2b_59f7a575",
@@ -129,6 +195,30 @@
       "writtenOn": "2025-06-24T16:21:03Z",
       "side": 1,
       "message": "I suspect what you need to do is to just set the Context to empty string (no conditional) for now, until the snmp backend supports a context string.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 49
+      },
+      "revId": "80ae91f1fe34f78d0b8584b7ba3c168d326ee237",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de9d2eb9_9a696531",
+        "filename": "redfish-core/include/snmp_trap_event_clients.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-25T15:39:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "318bab2b_59f7a575",
       "range": {
         "startLine": 91,
         "startChar": 0,
