@@ -16,6 +16,24 @@
       "message": "Not sure what good this trace does.. Set Manager LED ? Or just remove?",
       "revId": "5057febbfb0d39390e83b89c7eafcf30bdef7844",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f8ed0eb_3ff94b78",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 45
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-26T18:53:51Z",
+      "side": 1,
+      "message": "Oops, I meant to remove that one. I\u0027m removing it now.",
+      "parentUuid": "d76f68d2_5ccaad4f",
+      "revId": "5057febbfb0d39390e83b89c7eafcf30bdef7844",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
