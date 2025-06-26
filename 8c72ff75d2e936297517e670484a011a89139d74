@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7225bf0e_b1342cba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-26T20:17:45Z",
+      "side": 1,
+      "message": "Please update commit message to match modified folder name (features) for clarity.",
+      "range": {
+        "startLine": 15,
+        "startChar": 45,
+        "endLine": 15,
+        "endChar": 54
+      },
+      "revId": "8c72ff75d2e936297517e670484a011a89139d74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
