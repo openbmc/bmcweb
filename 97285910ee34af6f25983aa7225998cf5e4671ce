@@ -34,6 +34,24 @@
       "parentUuid": "46d6db59_34c81697",
       "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ce75b4f_91004945",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-06-26T13:52:47Z",
+      "side": 1,
+      "message": "1. My change tries to find new privilege combinations in Subordinate map (first cycle at diff in parse_registries.py). Others don\u0027t.\n\n2. Different variables naming for aliases in privilege_registry.hpp for new subordinate privileges. I\u0027m not sure who named it better. I tried to describe all subordinate subsequence.\n\n3. My change has no usage of new privileges. Maybe I will push its usage later as another change.",
+      "parentUuid": "8c6fed69_16deb020",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
