@@ -69,6 +69,24 @@
       "message": "Ok.... I\u0027ve got some awkward questions here.  Does anyone actually care about the privilege registry for non-admin users?  The only use cases I see most of the time are Admin and Read-Only.  Nobody has tried to sort out the whole problem where Operator Privilege has a lot more permissions than it should.\n\nI really do appreciate the work, but it would be good to know where you\u0027re wanting to go with this.",
       "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d6a285c_146e108b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-26T17:45:56Z",
+      "side": 1,
+      "message": "I think - the key question may be - is https://gerrit.openbmc.org/c/openbmc/bmcweb/+/45125 incorrect?\nIf not, I think it would be better to add the review and suggestion to 45125,\n\nFor a given example, https://redfish.dmtf.org/registries/Redfish_1.5.0_PrivilegeRegistry.json \n```\n      {\n            \"Entity\": \"LogEntry\",\n             \"SubordinateOverrides\": [\n               {\n                    \"Targets\": [\n                        \"Chassis\",\n                        \"LogServiceCollection\",\n                        \"LogService\",\n                        \"LogEntryCollection\"\n                    ],\n                    \"OperationMap\": {\n                       \"PATCH\": [\n                            {\n                                \"Privilege\": [\n                                    \"ConfigureComponents\"\n                                ]\n```\n\n- This commit produces\n\n```\nconst static auto\u0026 patchLogEntrySubLogEntryCollectionSubLogServiceSubLogServiceCollectionSubChassis \u003d privilegeSetConfigureComponents;\n```\n\n- commit 45125 produces\n\n```\nconst static auto\u0026 patchLogEntrySubOverChassisLogServiceCollectionLogServiceLogEntryCollection \u003d privilegeSetConfigureComponents;\n```\n\nBasically, the key difference is on the naming - which is reversed each other, and where to put they keyword \"Sub\" (or \"Subover\").\n\nI think it is more natural to name it as in \"Targets\" and put \"Sub\" before \"Targets\" as in the DMTF spec.\n\nI don\u0027t think the spec implies each element in Targets is subordinated each other, but the \"Entry\" is subordinated in the path of \"Targets\".\n\nSo\n\n```\nLogEntry: Subordinates over [ Chassis - LogServiceCollection - LogService -]\nLogEntryCollection```\nrather than \n```\npatchLogEntry Subover LogEntryCollection Subover LogService Subover LogServiceCollection Subover Chassis\n```",
+      "parentUuid": "2ce75b4f_91004945",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
