@@ -16,6 +16,24 @@
       "message": "This is better than we have so feel free to merge. And even if you agree with any of these, these could come later..\n\nSome thoughts: \nShould \"backends\" really be a top-level directory ? Put under /src/ instead? I am used to just a few top-level directories.. E.g. (src/, bin/, scripts/, test/, docs/, not much else). E.g.  \n\nhttps://www.google.com/search?client\u003dfirefox-b-1-d\u0026channel\u003dentpr\u0026q\u003dhow+to+layout+a+code+directory\n\nhttps://softwareengineering.stackexchange.com/questions/43886/what-are-standard-directory-layouts-for-source-code-other-libraries-build-scri\n\n2) VM, KVM, webui, openbmc_rest are openbmc level function. ibm, google are company level, they could go under like an oem directory. I guess https://github.com/openbmc/openbmc has meta-intel, meta-amd at the top level so maybe this is fine. \n\n3) When I think of \"backend\" I think of the other side of D-Bus (e.g. phosphor-state-manager or phosphor-user-manager).. I don\u0027t know if naming it something around meson.. Like \"features\". The robot says \n\nfeatures: Suitable if your Meson options enable or disable specific features within your project.\nmodules: If your options relate to distinct modules or components of your project, organize them accordingly.\n\nhttps://www.google.com/search?client\u003dfirefox-b-1-d\u0026sca_esv\u003da135fd767cff278f\u0026channel\u003dentpr\u0026q\u003dwhat+to+name+a+code+directory+with+meson+option+implementations\u0026spell\u003d1\u0026sa\u003dX\u0026ved\u003d2ahUKEwiMgMThoo2OAxW8JEQIHdSgJ4kQBSgAegQIDBAB\u0026biw\u003d1760\u0026bih\u003d842\u0026dpr\u003d1.09\n\nI also thought of \"interfaces\", \"implementations\"",
       "revId": "02803ec9d91341c4e2f988de70efff9100bf9f18",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cb1edef_775ad84c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-26T21:13:02Z",
+      "side": 1,
+      "message": "Changed the folder name to features.",
+      "parentUuid": "7c377a9c_511d2647",
+      "revId": "02803ec9d91341c4e2f988de70efff9100bf9f18",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
