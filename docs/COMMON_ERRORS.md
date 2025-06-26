@@ -267,7 +267,7 @@ BMCWEB_ROUTE("/myendpoint/<str>",
 Note: A more general form of this rule is that no handler should ever return 500
 on a working system, and any cases where 500 is found, can immediately be
 assumed to be
-[a bug in either the system, or bmcweb.](https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#error-handling)
+[a bug in either the system, or bmcweb.](https://github.com/openbmc/bmcweb/blob/master/docs/DEVELOPING.md#error-handling)
 
 ## 12. Imprecise matching
 

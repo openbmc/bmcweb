@@ -12,7 +12,7 @@ The webserver implements a few distinct interfaces:
   to dbus and the objects it represents.
 - Serial: A serial websocket for interacting with the host serial console
   through websockets.
-- Redfish: A protocol compliant, [DBus to Redfish translator](Redfish.md).
+- Redfish: A protocol compliant, [DBus to Redfish translator](docs/Redfish.md).
 - KVM: A websocket based implementation of the RFB (VNC) frame buffer protocol
   intended to mate to webui-vue to provide a complete KVM implementation.
 
@@ -78,5 +78,5 @@ bmcweb source code for details on the parameters this certificate is built with.
 ## Redfish Aggregation
 
 bmcweb is capable of aggregating resources from satellite BMCs. Refer to
-[AGGREGATION.md](https://github.com/openbmc/bmcweb/blob/master/AGGREGATION.md)
+[AGGREGATION.md](https://github.com/openbmc/bmcweb/blob/master/docs/AGGREGATION.md)
 for more information on how to enable and use this feature.
