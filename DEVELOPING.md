@@ -131,21 +131,21 @@ available to the webui.
 
 bmcweb's Redfish implementation, including Redfish OEM Resources, shall conform
 to the Redfish specification. Please keep bmcweb's
-[Redfish support document](https://github.com/openbmc/bmcweb/blob/master/Redfish.md)
+[Redfish support document](https://github.com/openbmc/bmcweb/blob/master/docs/Redfish.md)
 updated. OEM schemas should conform and be developed in line with the rules in
-[OEM SCHEMAS](https://github.com/openbmc/bmcweb/blob/master/OEM_SCHEMAS.md).
+[OEM SCHEMAS](https://github.com/openbmc/bmcweb/blob/master/docs/OEM_SCHEMAS.md).
 
 ### Common errors
 
 A number of examples of common errors are captured in the common errors doc. It
 is recommended that developers read and understand all of them before starting
 any openbmc development.
-[Common Errors](https://github.com/openbmc/bmcweb/blob/master/COMMON_ERRORS.md).
+[Common Errors](https://github.com/openbmc/bmcweb/blob/master/docs/COMMON_ERRORS.md).
 
 ### Commit messages
 
 Project
-[commit message formatting](https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages)
+[commit message formatting](https://github.com/openbmc/docs/blob/master/docs/CONTRIBUTING.md#formatting-commit-messages)
 should be obeyed.
 
 Commit messages should answer the following questions:
