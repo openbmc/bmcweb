@@ -52,6 +52,23 @@
       "parentUuid": "8c6fed69_16deb020",
       "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd36b303_73e4a1c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-26T17:41:01Z",
+      "side": 1,
+      "message": "Ok.... I\u0027ve got some awkward questions here.  Does anyone actually care about the privilege registry for non-admin users?  The only use cases I see most of the time are Admin and Read-Only.  Nobody has tried to sort out the whole problem where Operator Privilege has a lot more permissions than it should.\n\nI really do appreciate the work, but it would be good to know where you\u0027re wanting to go with this.",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
