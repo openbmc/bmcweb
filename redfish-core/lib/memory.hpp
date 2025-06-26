@@ -427,6 +427,9 @@ inline void
     const std::string* sparePartNumber = nullptr;
     const std::string* model = nullptr;
     const std::string* locationCode = nullptr;
+    const std::string* vendorID = nullptr;
+    const std::string* memoryDeviceType = nullptr;
+    const std::string* deviceLocator = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), properties, "MemoryDataWidth",
@@ -439,7 +442,7 @@ inline void
         memoryConfiguredSpeedInMhz, "MemoryType", memoryType, "Channel",
         channel, "MemoryController", memoryController, "Slot", slot, "Socket",
         socket, "SparePartNumber", sparePartNumber, "Model", model,
-        "LocationCode", locationCode);
+        "LocationCode", locationCode, "VendorID", vendorID, "MemoryDeviceType", memoryDeviceType, "DeviceLocator", deviceLocator);
 
     if (!success)
     {
@@ -555,23 +558,26 @@ inline void
 
     if (memoryType != nullptr)
     {
-        std::string memoryDeviceType =
-            translateMemoryTypeToRedfish(*memoryType);
-        // Values like "Unknown" or "Other" will return empty
-        // so just leave off
-        if (!memoryDeviceType.empty())
-        {
-            asyncResp->res.jsonValue[jsonPtr]["MemoryDeviceType"] =
-                memoryDeviceType;
-        }
-        if (memoryType->find("DDR") != std::string::npos)
-        {
-            asyncResp->res.jsonValue[jsonPtr]["MemoryType"] = "DRAM";
-        }
-        else if (memoryType->ends_with("Logical"))
-        {
-            asyncResp->res.jsonValue[jsonPtr]["MemoryType"] = "IntelOptane";
-        }
+        asyncResp->res.jsonValue[jsonPtr]["MemoryType"] =
+            *memoryType;
+    }
+
+    if (memoryDeviceType != nullptr )
+    {
+           asyncResp->res.jsonValue[jsonPtr]["MemoryDeviceType"] =
+                *memoryDeviceType;
+    }
+
+    if (vendorID != nullptr )
+    {
+            asyncResp->res.jsonValue[jsonPtr]["VendorID"] =
+                *vendorID;
+    }
+
+    if (deviceLocator != nullptr )
+    {
+            asyncResp->res.jsonValue[jsonPtr]["DeviceLocator"] =
+                *deviceLocator;
     }
 
     if (channel != nullptr)
