@@ -16,6 +16,24 @@
       "message": "Do you mind also fixing https://github.com/search?q\u003drepo%3Aopenbmc%2Fdocs%20github.com%2Fopenbmc%2Fbmcweb\u0026type\u003dcode  ?",
       "revId": "1acf7eef5b3604b1da8a39069d08df37436ca28c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81a56d67_a8b0f2ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-06-27T15:09:06Z",
+      "side": 1,
+      "message": "From what i can see, they only reference ```README.md``` and ```DEVELOPING.md```, right?\n\nThose two have not moved as of PS 3.\n\nSince design docs are written at one point in time, maybe they should require permalinks there to avoid this kind of bitrot.",
+      "parentUuid": "4662af37_89473c7a",
+      "revId": "1acf7eef5b3604b1da8a39069d08df37436ca28c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
