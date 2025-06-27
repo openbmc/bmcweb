@@ -87,6 +87,24 @@
       "parentUuid": "2ce75b4f_91004945",
       "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a9cdd0d_3e9d20f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-06-27T06:48:21Z",
+      "side": 1,
+      "message": "Exactly. Operator has lot more permissions. \nI was solving a problem where the operator could change network settings. Operator should not be able to do this because of subordinate privileges according to dmtf privilege registry.\nAnd yes, I saw some discussions about operator role. Someone from dmtf wrote that they were thinking about eliminating this role at all. \nBut this doesn\u0027t solve a problem, when bmcweb ignores subordinate overrides for privileges.\nSo I created a change to parse subordinate overrides, but not to use it for now.",
+      "parentUuid": "fd36b303_73e4a1c5",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
