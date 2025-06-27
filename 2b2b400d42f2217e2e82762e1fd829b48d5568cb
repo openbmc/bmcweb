@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86081b2e_336f5ebb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-27T02:43:30Z",
+      "side": 1,
+      "message": "I think this is your CI fail.",
+      "revId": "2b2b400d42f2217e2e82762e1fd829b48d5568cb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
