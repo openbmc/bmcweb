@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e79a3e34_6737b6fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-27T20:18:32Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right.  The journal isnt\u0027 structured logging.  Triggers are structured.",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "90409fcad243a08bfba7c0fb21c8173fc1aac6ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "583ea2f4_1c46fa2d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-27T20:18:32Z",
+      "side": 1,
+      "message": "Still doesn\u0027t answer WHY a client would want this.",
+      "revId": "90409fcad243a08bfba7c0fb21c8173fc1aac6ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
