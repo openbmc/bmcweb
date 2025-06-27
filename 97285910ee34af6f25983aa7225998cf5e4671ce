@@ -325,6 +325,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7bbbcf06_dd3834a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-27T19:48:34Z",
+      "side": 1,
+      "message": "FWIW, the intention of DMTF and of me personally is to just disable this stuff.  I understand that companies are large and you\u0027re just following orders, but if there\u0027s anyone that could speak to your guys intentions with this stuff, it would likely help you avoid a lot of rework in the future.",
+      "parentUuid": "f2d00904_2926d0f9",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a28ce82_7cbd350a",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 6
