@@ -284,6 +284,24 @@
       "parentUuid": "5a28ce82_7cbd350a",
       "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "915346c7_7045c5af",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-06-27T15:07:31Z",
+      "side": 1,
+      "message": "Repush answer due to formatting.\n\n\u003e I\u0027m not sure why L622-L630 is needed, as privilege_dict is added in L611-L613?\n\nThere are no guarantees that unique privileges combinations won\u0027t appear in Subordinate Override sections.",
+      "parentUuid": "2fb4b79a_2b1349cf",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
