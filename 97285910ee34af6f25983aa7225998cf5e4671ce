@@ -343,6 +343,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a5600eeb_93ae760a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-27T20:30:55Z",
+      "side": 1,
+      "message": "I think the key point is:\n\n\u003eRight now the first cycle at my change of scripts/parse_registries.py does nothing, because all privilege combinations at SubordinatteOverrides already in privilege_dict, because they were found earlier without taking into account SubordinatteOverrides\n\nIn other words, a new operation (e.g. \"NewPrivilege\") is used as a part \"SubordinateOverrides\" of an entity, not in the other entities?\nIs it possible (or valid) in DMTF spec?\nIf so, the part can be added to 45125.\n\n45125 has a long history of the discussion and endeavor and it is appropriate to keep those, and accumulate more to it as added.",
+      "parentUuid": "26b05d71_8a5f5f48",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a28ce82_7cbd350a",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 6
