@@ -289,6 +289,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f2d00904_2926d0f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-06-27T17:55:20Z",
+      "side": 1,
+      "message": "Sorry, I can\u0027t. I just solve the task from jira created by QA engineer. I don\u0027t know how it is used in production.",
+      "parentUuid": "75aca0bf_be405707",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a28ce82_7cbd350a",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 6
@@ -354,6 +372,24 @@
       "side": 1,
       "message": "\u003e There are no guarantees that unique privileges combinations won\u0027t appear in Subordinate Override sections.\n\nDo you mean that DMTF spec may contain the duplicated SubordinateOverrides?\nEven so, why would it be an issue, as privilege_dict[] will still be unique for the given key (i.e. python Dict)?\n\nBTW, even with this comment or perhaps a code issue, I think that would be appropriate to be done in 45125.",
       "parentUuid": "915346c7_7045c5af",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6bb962a_af923cb7",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-06-27T17:55:20Z",
+      "side": 1,
+      "message": "No, there are no duplicates.. I\u0027ll try to explain what I ment.\n\n\nscripts/parse_registries.py has 2 cycles over privilege registry. \nThe first one finds unique combinations of privileges at DMTF\u0027s spec and creates privilege_dict. Then this will turn into code in redfish-core/include/registries/privilege_registry.hpp:22-50.\nThe second cycle created aliases to this dict entries and turn it to the code at the rest of redfish-core/include/registries/privilege_registry.hpp.\n\n\nSo my change has an insertion to both cycles. First change appends to privilege_dict unique combinations, second change creates alises for subover targets.",
+      "parentUuid": "ee51a875_ee17ba51",
       "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
