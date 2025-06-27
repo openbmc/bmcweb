@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7c79995_a1654c3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-06-27T15:17:32Z",
+      "side": 1,
+      "message": "I worked on the same issue (parsing subordinate privileges), but without using it.\nAnd I noticed that this change does not check the SubordinateOverride sections for unique privilege combinations.\n\nRight now it does not have them, but the code will break as soon as they appear.\n\nSo, I suggest to take this code from my change (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/80266). scripts/parse_registries.py:618-631.",
+      "revId": "e5f3876256fab4015e85faf3a024e137438552bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
