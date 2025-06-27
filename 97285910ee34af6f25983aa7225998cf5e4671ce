@@ -123,6 +123,59 @@
       "parentUuid": "4d6a285c_146e108b",
       "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06bf5522_f4f9d496",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-27T14:37:11Z",
+      "side": 1,
+      "message": "\u003eSeems like 45125 is incorrect. Because it will break as soon as unique combinations of privileges are created in subordinate overrides.",
+      "parentUuid": "c4a5a33c_ff0ca84e",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ae53227_dabc41cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-27T14:37:11Z",
+      "side": 1,
+      "message": "\u003eSeems like 45125 is incorrect. Because it will break as soon as unique combinations of privileges are created in subordinate overrides.\n\nI\u0027m sure about this. Where is it breaking? -- it would be better to add such comment to 45125.\n\nBTW, the outputs are the same (although the variable names may be different).\n\n\n\u003eI didn\u0027t see 45125 when I pushed my changes, so I don\u0027t know what would be better - to give the suggestion to 45125 or merge this change, because it already contains this fix. Maybe you can quickly merge my change and then and the Author of 45125 will just use them for his purposes \n\n45125 is currently under review. Please add your comment to it and suggest what\u0027s wrong with it.\n\n\u003eAs for naming. Subordinate overrides applies to redfish urls if the path contains all of targets.\n\nAs shown as an example of DMTF spec, the naming scheme is like\n```\n \u003coperation\u003e\u003cEntity\u003e SubOver \u003cTargets\u003e\n```\n\nFor example, it will be like\n```\npatch LogEntry SubOver ChassisLogServiceCollectionLogServiceLogEntryCollection\n```\nwhere operation \u003d patch, Entity\u003d LogEntry, Targets \u003d\n\n```\n       \"Targets\": [\n                        \"Chassis\",\n                        \"LogServiceCollection\",\n                        \"LogService\",\n                        \"LogEntryCollection\"\n                    ],\n\n```\n\nI think it is more natural to the spec, and easier to read (than reversing the target list).",
+      "parentUuid": "c4a5a33c_ff0ca84e",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a28ce82_7cbd350a",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-27T14:37:11Z",
+      "side": 1,
+      "message": "I\u0027m not sure why L622-L630 is needed, as `privilege_dict` is added in L611-L613?",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
