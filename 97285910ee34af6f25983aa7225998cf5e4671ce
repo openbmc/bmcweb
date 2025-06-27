@@ -105,6 +105,24 @@
       "parentUuid": "fd36b303_73e4a1c5",
       "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4a5a33c_ff0ca84e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-06-27T07:12:58Z",
+      "side": 1,
+      "message": "Seems like 45125 is incorrect. Because it will break as soon as unique combinations of privileges are created in subordinate overrides.\n\n\nI didn\u0027t see 45125 when I pushed my changes, so I don\u0027t know what would be better - to give the suggestion to 45125 or merge this change, because it already contains this fix. Maybe you can quickly merge my change and then and the Author of 45125 will just use them for his purposes 😄.\n\n\nAs for naming. Subordinate overrides applies to redfish urls if the path contains all of targets.\nSo, the given example for LogEntry will be applied to \"/redfish/v1/../Chassis/LogServiceCollection/LogService/LogEntryCollection/LogEntry\". It may contain additional keys in the path if I understand dmtf spec correctly. I applied reverse order, because the last part of whole path is Entry, and it is at the beginning of the variable name. \nBut as I said earlier, I\u0027m not sure which naming is better. And I will not strongly defend my position on this issue. If you want to accept my work, I can rename the variables.",
+      "parentUuid": "4d6a285c_146e108b",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
