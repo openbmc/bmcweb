@@ -253,6 +253,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75aca0bf_be405707",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-27T15:52:04Z",
+      "side": 1,
+      "message": "\u003e My employer cares to this.\n\nCan you speak to the challenges with operator role usage?\n\n\u003e Someone from dmtf wrote that they were thinking about eliminating this role at all.\n\nYep.  This was the soft plan, because it wasn\u0027t clear anyone was using it correctly to its intended effect.",
+      "parentUuid": "257f13ba_27710403",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a28ce82_7cbd350a",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 6
