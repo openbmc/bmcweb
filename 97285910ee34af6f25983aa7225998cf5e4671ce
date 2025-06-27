@@ -307,6 +307,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "26b05d71_8a5f5f48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-06-27T18:01:22Z",
+      "side": 1,
+      "message": "As I said to another thread:\n\n\u003e No, there are no duplicates.. I\u0027ll try to explain what I ment.\n\u003e \n\u003e \n\u003e scripts/parse_registries.py has 2 cycles over privilege registry. \n\u003e The first one finds unique combinations of privileges at DMTF\u0027s spec and creates privilege_dict. Then this will turn into code in redfish-core/include/registries/privilege_registry.hpp:22-50.\n\u003e The second cycle created aliases to this dict entries and turn it to the code at the rest of redfish-core/include/registries/privilege_registry.hpp.\n\u003e \n\u003e \n\u003e So my change has an insertion to both cycles. First change appends to privilege_dict unique combinations, second change creates alises for subover targets.\n\nRight now the first cycle at my change of scripts/parse_registries.py does nothing, because all privilege combinations at SubordinatteOverrides already in privilege_dict, because they were found earlier without taking into account SubordinatteOverrides. But the next version of DMTF\u0027s spec may contain new combinations in SubordinatteOverrides.",
+      "parentUuid": "3cee7429_af1c3daf",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a28ce82_7cbd350a",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 6
