@@ -20,6 +20,58 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57ed321b_c759759c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-30T20:17:44Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "bc99df74_ab468cd8",
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "394db7b6_84db1cc9",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-30T20:17:44Z",
+      "side": 1,
+      "message": "Ideally we don\u0027t hardcode this and the path and instead call mapper to get the process and path..",
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe5bc53b_831bb028",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-30T20:17:44Z",
+      "side": 1,
+      "message": "Why are we looking at the D-Bus system object for the Redfish Manager (BMC) object?",
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "81da462e_f3192b0a",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
@@ -43,6 +95,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "915ae141_e000c3a4",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-30T20:17:44Z",
+      "side": 1,
+      "message": "Don\u0027t you need an error ? Like an internal error?",
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdca4e9a_28b11636",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-30T20:17:44Z",
+      "side": 1,
+      "message": "I think you need the {}",
+      "range": {
+        "startLine": 512,
+        "startChar": 77,
+        "endLine": 512,
+        "endChar": 80
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9edf683a_749211ad",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
@@ -59,6 +151,53 @@
         "startChar": 68,
         "endLine": 520,
         "endChar": 79
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dec449f6_3fa78e52",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-30T20:17:44Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "9edf683a_749211ad",
+      "range": {
+        "startLine": 520,
+        "startChar": 68,
+        "endLine": 520,
+        "endChar": 79
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8187d2c_87ec0f86",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-06-30T20:17:44Z",
+      "side": 1,
+      "message": "{} to make this work",
+      "range": {
+        "startLine": 536,
+        "startChar": 66,
+        "endLine": 536,
+        "endChar": 68
       },
       "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
