@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc99df74_ab468cd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-30T15:57:16Z",
+      "side": 1,
+      "message": "Thanks for the patch!\n\nOne thing that concerns me a little here is that we\u0027re using AssetTag to map to ServiceIdentifier.  That\u0027s not really a correct mapping, as AssetTag should map to the AssetTag propery.\n\nWhat I suspect you want to do is something similar to how the system UUID is implemented:\nhttps://github.com/openbmc/bmcweb/blob/3b28fa2b201513be89807dfb76b47b3ca7ee3f9b/include/persistent_data.hpp#L226\n\nBecause the ServiceIdentifier only applies to Redfish, it\u0027s easy to just keep in the bmcweb context, and store with the other \"service\" properties that are already kept.",
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
