@@ -16,6 +16,52 @@
       "message": "Thanks for the patch!\n\nOne thing that concerns me a little here is that we\u0027re using AssetTag to map to ServiceIdentifier.  That\u0027s not really a correct mapping, as AssetTag should map to the AssetTag propery.\n\nWhat I suspect you want to do is something similar to how the system UUID is implemented:\nhttps://github.com/openbmc/bmcweb/blob/3b28fa2b201513be89807dfb76b47b3ca7ee3f9b/include/persistent_data.hpp#L226\n\nBecause the ServiceIdentifier only applies to Redfish, it\u0027s easy to just keep in the bmcweb context, and store with the other \"service\" properties that are already kept.",
       "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81da462e_f3192b0a",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-30T15:59:20Z",
+      "side": 1,
+      "message": "nit, take error_code by reference.",
+      "range": {
+        "startLine": 508,
+        "startChar": 63,
+        "endLine": 508,
+        "endChar": 73
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9edf683a_749211ad",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-30T15:59:20Z",
+      "side": 1,
+      "message": "What\u0027s the purpose of this property?  if ServiceIdentifier is empty, it should be posted as empty (because it\u0027s supported).",
+      "range": {
+        "startLine": 520,
+        "startChar": 68,
+        "endLine": 520,
+        "endChar": 79
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
