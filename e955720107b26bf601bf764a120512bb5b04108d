@@ -16,6 +16,24 @@
       "message": "Would it be better to make this as `if constexpr(HAVE_ZSTD) ...` by doing this first?\n\n```\n#ifdef HAVE_ZSTD\nconstexpr bool HAVE_ZSTD \u003d true;\n#else\nconstexpr bool HAVE_ZSTD \u003d false;\n#endif\n```",
       "revId": "e955720107b26bf601bf764a120512bb5b04108d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04bbbe1f_14c821f9",
+        "filename": "src/zstd_decompressor.cpp",
+        "patchSetId": 62
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-30T22:01:47Z",
+      "side": 1,
+      "message": "BMCWEB_HTTP_ZSTD is functionally what you described already.\n\nThe goal is to compile still if zstd is not present (as is true in a lot of development environments).  constexpr expressions can\u0027t conditionally include headers.",
+      "parentUuid": "78e09964_34f67e17",
+      "revId": "e955720107b26bf601bf764a120512bb5b04108d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
