@@ -23,6 +23,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/asset_utils.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/pcie_util.hpp"
 #include "utils/sw_utils.hpp"
@@ -688,6 +689,11 @@ inline computer_system::BootProgressTypes dbusToRfBootProgress(
     {
         return computer_system::BootProgressTypes::OSRunning;
     }
+    if (dbusBootProgress ==
+        "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OEM")
+    {
+        return computer_system::BootProgressTypes::OEM;
+    }
     return computer_system::BootProgressTypes::Invalid;
 }
 
@@ -746,6 +752,60 @@ inline int assignBootParameters(const std::string& rfSource,
     return 0;
 }
 
+using BootRawRecord = std::tuple<std::vector<uint8_t>, std::vector<uint8_t>>;
+
+inline void handleOemBootProgress(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec, const BootRawRecord& bootProgressOem)
+{
+    if (ec)
+    {
+        if (ec.value() != EBADR)
+        {
+            BMCWEB_LOG_DEBUG("Boot.Raw.Value not available: {}", ec);
+        }
+        return;
+    }
+
+    const std::vector<uint8_t>& bootProgressCode = std::get<0>(bootProgressOem);
+    if (bootProgressCode.empty())
+    {
+        return;
+    }
+
+    asyncResp->res.jsonValue["BootProgress"]["OemLastState"] =
+        "OpenBMC 0x" + bytesToHexString(bootProgressCode);
+}
+
+inline void afterGetOemBootProgressObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& path, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.size() != 1)
+    {
+        BMCWEB_LOG_DEBUG("Boot.Raw object not available at {}: {}", path, ec);
+        return;
+    }
+
+    dbus::utility::getProperty<BootRawRecord>(
+        object.front().first, path, "xyz.openbmc_project.State.Boot.Raw",
+        "Value", std::bind_front(handleOemBootProgress, asyncResp));
+}
+
+inline void getOemBootProgress(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
+{
+    const sdbusplus::object_path path =
+        systems_utils::getBootRawObjectPath(computerSystemIndex);
+    constexpr std::array<std::string_view, 1> interfaces{
+        "xyz.openbmc_project.State.Boot.Raw"};
+    dbus::utility::getDbusObject(
+        path.str, interfaces,
+        std::bind_front(afterGetOemBootProgressObject, asyncResp, path.str));
+}
+
 /**
  * @brief Retrieves boot progress of the system
  *
@@ -763,8 +823,8 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         systems_utils::getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
         // ast-grep-ignore: long-lambda
-        [asyncResp](const boost::system::error_code ec,
-                    const std::string& bootProgressStr) {
+        [asyncResp, computerSystemIndex](const boost::system::error_code ec,
+                                         const std::string& bootProgressStr) {
             if (ec)
             {
                 // BootProgress is an optional object so just do nothing if
@@ -780,6 +840,10 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             {
                 asyncResp->res.jsonValue["BootProgress"]["LastState"] =
                     rfBootProgress;
+            }
+            if (rfBootProgress == computer_system::BootProgressTypes::OEM)
+            {
+                getOemBootProgress(asyncResp, computerSystemIndex);
             }
         });
 }
