@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29d18ae0_25a82e2a",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-06-30T14:12:14Z",
+      "side": 1,
+      "message": "Per the DEVELOPING.md documentation of logging levels this should not be an ERROR log. Either BMCWEB_LOG_DEBUG() or BMCWEB_LOG_INFO() is appropriate.\n\nSee: https://github.com/openbmc/bmcweb/blob/3b28fa2b201513be89807dfb76b47b3ca7ee3f9b/DEVELOPING.md?plain\u003d1#L208",
+      "range": {
+        "startLine": 165,
+        "startChar": 12,
+        "endLine": 165,
+        "endChar": 28
+      },
+      "revId": "7295bb38c54ea088caf4f9010af92a1bd7120fb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
