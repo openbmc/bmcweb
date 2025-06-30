@@ -377,6 +377,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "243af5a7_f08f5c60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-30T13:13:58Z",
+      "side": 1,
+      "message": "Thanks. I\u0027ve incorporate this part into https://gerrit.openbmc.org/c/openbmc/bmcweb/+/45125",
+      "parentUuid": "5902806d_e210cb79",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a28ce82_7cbd350a",
@@ -462,6 +480,24 @@
       "side": 1,
       "message": "No, there are no duplicates.. I\u0027ll try to explain what I ment.\n\n\nscripts/parse_registries.py has 2 cycles over privilege registry. \nThe first one finds unique combinations of privileges at DMTF\u0027s spec and creates privilege_dict. Then this will turn into code in redfish-core/include/registries/privilege_registry.hpp:22-50.\nThe second cycle created aliases to this dict entries and turn it to the code at the rest of redfish-core/include/registries/privilege_registry.hpp.\n\n\nSo my change has an insertion to both cycles. First change appends to privilege_dict unique combinations, second change creates alises for subover targets.",
       "parentUuid": "ee51a875_ee17ba51",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "33e56348_3f5c37a3",
+        "filename": "scripts/parse_registries.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-06-30T13:13:58Z",
+      "side": 1,
+      "message": "Thanks. I\u0027ve incorporated this 1 part into https://gerrit.openbmc.org/c/openbmc/bmcweb/+/45125",
+      "parentUuid": "f6bb962a_af923cb7",
       "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
