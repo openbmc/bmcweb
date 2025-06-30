@@ -38,6 +38,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f48aa45_307c4c33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-06-30T22:32:35Z",
+      "side": 1,
+      "message": "FYI, you need to get a CLA signed and updated.  I\u0027m assuming you\u0027re working through coreweave, so you might want to chat with Jacob and get that done.",
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "394db7b6_84db1cc9",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1
