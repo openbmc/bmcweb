@@ -233,6 +233,13 @@ inline sdbusplus::object_path getHostStateObjectPath(
     return hostStatePath;
 }
 
+inline sdbusplus::object_path getBootRawObjectPath(
+    const uint64_t computerSystemIndex)
+{
+    return {"/xyz/openbmc_project/state/boot/raw" +
+            std::to_string(computerSystemIndex)};
+}
+
 inline std::string getHostStateServiceName(const uint64_t computerSystemIndex)
 {
     std::string hostStateService = "xyz.openbmc_project.State.Host";

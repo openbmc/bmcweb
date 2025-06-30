@@ -134,7 +134,7 @@ TEST(Systems, DbusToRfBootProgress)
         computer_system::BootProgressTypes::Invalid);
     EXPECT_EQ(dbusToRfBootProgress(
                   "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OEM"),
-              computer_system::BootProgressTypes::Invalid);
+              computer_system::BootProgressTypes::OEM);
     EXPECT_EQ(dbusToRfBootProgress("invalid"),
               computer_system::BootProgressTypes::Invalid);
 }
