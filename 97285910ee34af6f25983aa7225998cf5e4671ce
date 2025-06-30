@@ -361,6 +361,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5902806d_e210cb79",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-06-30T07:07:58Z",
+      "side": 1,
+      "message": "\u003e In other words, a new operation (e.g. \"NewPrivilege\") is used as a part \"SubordinateOverrides\" of an entity, not in the other entities?\n\u003e Is it possible (or valid) in DMTF spec?\n\nYes, I think it is quite possible and valid (why not?). \n\n\u003e If so, the part can be added to 45125.\n\u003e 45125 has a long history of the discussion and endeavor and it is appropriate to keep those, and accumulate more to it as added\n\nI\u0027ve already left a comment at 45125 with a link to my change as an example. If there is another way to suggest changes, I haven\u0027t found it.",
+      "parentUuid": "a5600eeb_93ae760a",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a28ce82_7cbd350a",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 6
