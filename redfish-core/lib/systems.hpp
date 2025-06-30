@@ -23,6 +23,7 @@
 #include "registries/privilege_registry.hpp"
 #include "utils/asset_utils.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/pcie_util.hpp"
 #include "utils/sw_utils.hpp"
@@ -683,6 +684,11 @@ inline std::string dbusToRfBootProgress(const std::string& dbusBootProgress)
     {
         rfBpLastState = "OSRunning";
     }
+    else if (dbusBootProgress ==
+             "xyz.openbmc_project.State.Boot.Progress.ProgressStages.OEM")
+    {
+        rfBpLastState = "OEM";
+    }
     else
     {
         BMCWEB_LOG_DEBUG("Unsupported D-Bus BootProgress {}", dbusBootProgress);
@@ -747,6 +753,39 @@ inline int assignBootParameters(const std::string& rfSource,
 }
 
 /**
+ * @brief Retrieves oem boot progress of the system
+ *
+ * @param[in] asyncResp  Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+inline void getOemBootProgress(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    using BootRawRecord =
+        std::tuple<std::vector<uint8_t>, std::vector<uint8_t>>;
+
+    dbus::utility::getProperty<BootRawRecord>(
+        "xyz.openbmc_project.State.Boot.Raw",
+        "/xyz/openbmc_project/state/boot/raw0",
+        "xyz.openbmc_project.State.Boot.Raw", "Value",
+        [asyncResp](const boost::system::error_code& ec,
+                    const BootRawRecord& bootProgressOem) {
+            if (ec)
+            {
+                // BootProgressOem is an optional object so just do nothing
+                // if not found
+                BMCWEB_LOG_DEBUG("Boot.Raw.Value not available: {}", ec);
+                return;
+            }
+
+            std::string hexCode =
+                "OpenBMC 0x" + bytesToHexString(std::get<0>(bootProgressOem));
+            asyncResp->res.jsonValue["BootProgress"]["OemLastState"] = hexCode;
+        });
+}
+
+/**
  * @brief Retrieves boot progress of the system
  *
  * @param[in] asyncResp  Shared pointer for generating response message.
@@ -771,11 +810,14 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 // not found
                 return;
             }
-
             BMCWEB_LOG_DEBUG("Boot Progress: {}", bootProgressStr);
+            std::string lastState = dbusToRfBootProgress(bootProgressStr);
+            asyncResp->res.jsonValue["BootProgress"]["LastState"] = lastState;
 
-            asyncResp->res.jsonValue["BootProgress"]["LastState"] =
-                dbusToRfBootProgress(bootProgressStr);
+            if (lastState == "OEM")
+            {
+                getOemBootProgress(asyncResp);
+            }
         });
 }
 
