@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5b19c71_f2fa22a6",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-01T16:10:38Z",
+      "side": 1,
+      "message": "/tmp/bmcweb/ please\n\ntmp_location doesn\u0027t really mean anything and we should avoid colliding with other things.",
+      "range": {
+        "startLine": 57,
+        "startChar": 49,
+        "endLine": 57,
+        "endChar": 68
+      },
+      "revId": "5057bc19e3de0af55bcdcfd7d962f5a45d27f59d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

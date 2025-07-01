@@ -449,6 +449,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1e8a832_c570dbfe",
+        "filename": "include/temporary_releasable_file_handle.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-01T16:10:38Z",
+      "side": 1,
+      "message": "Lets focus on what openbmc does, which doesn\u0027t currently have the problem you\u0027ve described.  You are free to do whatever you like in your downstream, or propose a new filesystem format upstream.",
+      "parentUuid": "c2dcdf03_cfed529d",
+      "range": {
+        "startLine": 17,
+        "startChar": 49,
+        "endLine": 17,
+        "endChar": 68
+      },
+      "revId": "9d932887e8471f3c437a601e96a65241a97beef5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e8a74c5_e1488274",
         "filename": "include/temporary_releasable_file_handle.hpp",
         "patchSetId": 10

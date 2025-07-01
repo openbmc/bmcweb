@@ -46,6 +46,30 @@
       },
       "revId": "3e02954bc2e6bdaa54510a2789f2f8a19ddada91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85eafc71_a246c2c6",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-01T16:10:38Z",
+      "side": 1,
+      "message": "This isn\u0027t a redfish layer, this is an http layer.  This layer implements what http supports, the redfish layer implements what redfish supports.",
+      "parentUuid": "7cdab4f7_11f8da19",
+      "range": {
+        "startLine": 839,
+        "startChar": 0,
+        "endLine": 839,
+        "endChar": 58
+      },
+      "revId": "3e02954bc2e6bdaa54510a2789f2f8a19ddada91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
