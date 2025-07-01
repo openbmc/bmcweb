@@ -397,6 +397,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b12aff6_eaadb330",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-07-01T11:26:14Z",
+      "side": 1,
+      "message": "I asked my colleagues. They use  operator role when it is necessary to have user with an access to controls and some settings, such as kvm or event logs or creating a read-only user, but he shouldn\u0027t have access to settings, which could break access to BMC (network, firmware updating ...).\n\n\nFor example: Admins have root role and could do anything. But on the client side there is not only an ordinary user to monitor the server, but also its own administrator, who should have more rights, but should not be given full access.\n\n\nHowever, I personally agree with your opinion that the operator role is questionable and can be removed.",
+      "parentUuid": "7bbbcf06_dd3834a8",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a28ce82_7cbd350a",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 6
