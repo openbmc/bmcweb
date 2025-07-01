@@ -415,6 +415,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f458d57_9d9ed06d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-01T14:53:57Z",
+      "side": 1,
+      "message": "\u003e They use operator role when it is necessary to have user with an access to controls and some settings, such as kvm or event logs\n\nkvm functionally gives full privileges to the BMC, as the user can simply create an administrator account.  The existing privilege registry also gives operator level users access to some settings, and the distinction isn\u0027t clear.\n\n\u003e I personally agree with your opinion that the operator role is questionable and can be removed.\n\nACK",
+      "parentUuid": "0b12aff6_eaadb330",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a28ce82_7cbd350a",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 6
