@@ -146,6 +146,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec40bf93_f61d8282",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-01T23:17:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81da462e_f3192b0a",
+      "range": {
+        "startLine": 508,
+        "startChar": 63,
+        "endLine": 508,
+        "endChar": 73
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "915ae141_e000c3a4",
@@ -247,6 +271,30 @@
       "side": 1,
       "message": "This is to support \"This property shall not be present if its value is an empty string or null\" for the ServiceIdentification property in service root (see RF Data Model Spec 6.125.3 Properties)",
       "parentUuid": "9edf683a_749211ad",
+      "range": {
+        "startLine": 520,
+        "startChar": 68,
+        "endLine": 520,
+        "endChar": 79
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd494b67_b0a57897",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-01T23:17:06Z",
+      "side": 1,
+      "message": "ACK.  Lets call this \"isServiceRoot\", and do the logic like\n\nif (isServiceRoot \u0026\u0026 serviceIdentification.empty()){\n   return;\n}\n\nand right above it quote the spec you quoted above.",
+      "parentUuid": "07530642_f0f26555",
       "range": {
         "startLine": 520,
         "startChar": 68,
