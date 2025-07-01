@@ -331,7 +331,10 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
     nlohmann::json::object_t ldap;
     ldap["ServiceEnabled"] = confData.serviceEnabled;
     nlohmann::json::array_t serviceAddresses;
-    serviceAddresses.emplace_back(confData.uri);
+    if (!confData.uri.empty())
+    {
+        serviceAddresses.emplace_back(confData.uri);
+    }
     ldap["ServiceAddresses"] = std::move(serviceAddresses);
 
     nlohmann::json::object_t authentication;
@@ -344,7 +347,10 @@ inline void parseLDAPConfigData(nlohmann::json& jsonResponse,
     nlohmann::json::object_t ldapService;
     nlohmann::json::object_t searchSettings;
     nlohmann::json::array_t baseDistinguishedNames;
-    baseDistinguishedNames.emplace_back(confData.baseDN);
+    if (!confData.baseDN.empty())
+    {
+        baseDistinguishedNames.emplace_back(confData.baseDN);
+    }
 
     searchSettings["BaseDistinguishedNames"] =
         std::move(baseDistinguishedNames);
