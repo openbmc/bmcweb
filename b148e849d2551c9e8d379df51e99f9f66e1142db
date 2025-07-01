@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "74276b6e_ebe9b54c",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-01T20:36:16Z",
+      "side": 1,
+      "message": "Ed, could you please elaborate on the suggestion ?\n\nWe can\u0027t directly call method() in init() - it would fail to compile for responses.\nAny other solution which I can think would not look clean.",
+      "parentUuid": "23c00bc8_c8e79234",
+      "revId": "b148e849d2551c9e8d379df51e99f9f66e1142db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9c415247_2a0c1db4",
         "filename": "http/http_body.hpp",
         "patchSetId": 14
