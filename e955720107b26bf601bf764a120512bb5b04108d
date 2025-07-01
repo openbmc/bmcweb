@@ -52,6 +52,24 @@
       "parentUuid": "04bbbe1f_14c821f9",
       "revId": "e955720107b26bf601bf764a120512bb5b04108d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6b6b6a5_b507c1d1",
+        "filename": "src/zstd_decompressor.cpp",
+        "patchSetId": 62
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-01T13:53:06Z",
+      "side": 1,
+      "message": "that’s the recipe.  it doesn’t mean the system in question includes it.",
+      "parentUuid": "8d994434_d47d2f52",
+      "revId": "e955720107b26bf601bf764a120512bb5b04108d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
