@@ -106,6 +106,24 @@
       "parentUuid": "b007ff81_d15c7264",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e8aa5f6_1514dae8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-01T03:04:56Z",
+      "side": 1,
+      "message": "\u003e \u003e Having no logs is allowed in the spec. Which is more useful is debatable for the clients, ideally we\u0027d just follow the spec here.\n\u003e \n\u003e That\u0027s definitely not useful.  That means we can\u0027t manage a multi-host system.\n\u003e \n\u003e \u003e FWIW, the whole issue is that EventLog probably needs to be moved to Manager, for which there is only a single instance, but I get not wanting to take on that refactor.\n\u003e \n\u003e I think this is reasonable but it potentially breaks backwards compatibility.  Is this ok?\n\nIt would need to be a meson option to not break existing code.  Too many things hardcode the existing path, and for single host systems.\n\n\u003e \n\u003e Alternatively, I think we have a few cases we need better support on overall (and I\u0027m writing this because maybe it helps point us at a solution):\n\u003e      - \"no host\"\n\u003e      - \"single host\"\n\u003e      - \"multi host\"\n\u003e      \n\u003e Right now a lot of the URIs are only working for \"single host\" and in that model there is this view that \"chassis\" \u003d\u003d \"host\" and so much of the URIs are ambiguous along those lines.  For \"no host\", like Ventura, I think there are a good handful of URIs that are exposed but aren\u0027t appropriate; in that case we end up with an internal server error, due to missing object mapper lookups, rather than a clear \"this URI doesn\u0027t exist\".  On \"multi-host\", well we\u0027re working through all of that here.\n\nLots of code wasn\u0027t the best when it came to mapper lookups and handling \"0 instances\" of an interface\".  I see oliver is already fixing some of them, if there\u0027s more, please send patchsets.  In what we document, 0 interfaces present should not be an error, and any 500 error that can actually be seen is a bug.  It\u0027s just not an easy thing to audit unless you start removing interfaces.\n\n\u003e \n\u003e I suspect there is some benefit in a split between the \"chassis\" (being the whole box, mostly managed by the BMC) and the \"host\".  For single host maybe we continue to represent that as the \"Systems/system\" URI.  For no-host and multi-host maybe there is benefit in splitting the two such that: \"Systems/system\" (or \"Systems/chassis\") represents the \"chassis\" and \"Systems/systemN\" (or \"Systems/hostN\") represent the \"host\".  In this way it might make it clearer how to turn on or off the URIs appropriately.\n\nHonestly, how to model multi-host in Redfish is getting to the edge of my Redfish knowledge.  We\u0027re probably at the point of engaging DMTF with appropriate questions about what gets logged where.",
+      "parentUuid": "547f3395_ce5243a5",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
