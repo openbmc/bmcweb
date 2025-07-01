@@ -124,6 +124,24 @@
       "parentUuid": "547f3395_ce5243a5",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81b1b9fd_cc33720a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-01T03:07:38Z",
+      "side": 1,
+      "message": "FWIW, this was one of the things that was solved by the suggestion that HOST0 have all the normal \"assume one host\" interfaces, and Host1-N have only the interfaces that we\u0027ve ported to multi-host.  Your logs would be on Host0 until they\u0027re moved or ported, and the redfish tree would be immediately useful on one node.  I get you guys had your reasons for not doing that, but just giving options.",
+      "parentUuid": "3e8aa5f6_1514dae8",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
