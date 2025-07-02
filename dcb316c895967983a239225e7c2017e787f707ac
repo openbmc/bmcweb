@@ -16,6 +16,24 @@
       "message": "@Besedin does this work for you?\nThis support for SubordinateOverrides could be more useful in the future, even without operator I think this is useful",
       "revId": "dcb316c895967983a239225e7c2017e787f707ac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3785525d_874dd724",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 29
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002453
+      },
+      "writtenOn": "2025-07-02T07:41:01Z",
+      "side": 1,
+      "message": "Seems okay to me since last patchset.",
+      "parentUuid": "33b98689_7edb48dd",
+      "revId": "dcb316c895967983a239225e7c2017e787f707ac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
