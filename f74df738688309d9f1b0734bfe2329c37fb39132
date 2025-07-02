@@ -307,6 +307,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4cb65e73_aa06ceaa",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-07-02T19:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd494b67_b0a57897",
+      "range": {
+        "startLine": 520,
+        "startChar": 68,
+        "endLine": 520,
+        "endChar": 79
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8187d2c_87ec0f86",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 1

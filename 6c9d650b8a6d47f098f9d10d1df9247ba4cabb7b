@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c856b178_9e2ed373",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-07-02T19:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51b92a77_7432f338",
+      "range": {
+        "startLine": 495,
+        "startChar": 42,
+        "endLine": 495,
+        "endChar": 48
+      },
+      "revId": "6c9d650b8a6d47f098f9d10d1df9247ba4cabb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "978c862d_93c6bd17",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 2
@@ -37,6 +61,24 @@
       "writtenOn": "2025-07-01T23:17:06Z",
       "side": 1,
       "message": "This is going into persistent flash, and is from a user (read, possible attacker).  This needs some level of scrubbing.  How about, \u003c100 characters of the class [a-zA-Z0-0 _-]\n\nThat way it\u0027s less likely folks try to so things like write JSON in here or use this as a side channel.",
+      "revId": "6c9d650b8a6d47f098f9d10d1df9247ba4cabb7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80244e2b_4f7c8de7",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-07-02T19:22:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "978c862d_93c6bd17",
       "revId": "6c9d650b8a6d47f098f9d10d1df9247ba4cabb7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
