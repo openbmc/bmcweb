@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85a03031_a5d7474e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-02T22:10:42Z",
+      "side": 1,
+      "message": "Got too excited and forgot one thing, please add this property to Redfish.md",
+      "revId": "378706606748da3c741805f5414af2651266dd3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d94a1878_bed2496e",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 3
