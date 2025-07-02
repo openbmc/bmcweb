@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b6b1527_e8719d6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-02T21:16:00Z",
+      "side": 1,
+      "message": "I should note, I didn\u0027t really test this.  It seems simple enough, but I\u0027ll probably give this a quick test before I merge it.\n\nThis bug was bugging me.  I don\u0027t have any particular use for ldap.",
+      "revId": "f0f0ff2e5fade3496d9f38c303428d2efbb743a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
