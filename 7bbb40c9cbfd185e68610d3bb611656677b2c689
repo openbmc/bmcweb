@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f4ef28f_20504085",
+        "filename": "test/include/multipart_test.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-07-02T17:49:29Z",
+      "side": 1,
+      "message": "why ASSERT_EQ and EXPECT_EQ two different MACROs used.",
+      "revId": "7bbb40c9cbfd185e68610d3bb611656677b2c689",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
