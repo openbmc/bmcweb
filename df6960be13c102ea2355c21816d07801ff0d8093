@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53114259_557d4f9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-02T21:49:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b9bb7dc_07e4578e",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 158,
+        "endChar": 13
+      },
+      "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2795e7f7_19fa09ac",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-06-11T13:37:40Z",
       "side": 1,
       "message": "Waiting on https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/79619 here",
+      "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dc8c7e3_f5528643",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-02T21:49:56Z",
+      "side": 1,
+      "message": "That new PDI interface was rejected by the maintainer. Addressing review comments using merged PDI interface instead.",
+      "parentUuid": "2795e7f7_19fa09ac",
       "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -165,6 +207,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c2656a4_b91bec5b",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-02T21:49:56Z",
+      "side": 1,
+      "message": "I modified to chain together the retrieval of the Sensor.Purpose values for the subset of sensors which could be implementing the TotalPower purpose. After determining the list of any or all sensors with the TotalPower purpose the callback is called to handle. It will error out if there is more than one sensor. Not an error if there are no sensors with this purpose.\n\nI\u0027ve updated the commit message to detail the new code flow.",
+      "parentUuid": "d8de1ec0_052b0da1",
+      "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8e9f64c_082d4b58",
@@ -202,6 +262,30 @@
       "side": 1,
       "message": "I did try to limit the number of sensors pulled by specifying just power sensors. Additionally it is only going to pull the ones which implement the Sensor.Purpose interface. My expectation is that is a small list of just special purpose sensors.",
       "parentUuid": "f8e9f64c_082d4b58",
+      "range": {
+        "startLine": 135,
+        "startChar": 18,
+        "endLine": 135,
+        "endChar": 37
+      },
+      "revId": "df6960be13c102ea2355c21816d07801ff0d8093",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0ccb9b6_d49f8e24",
+        "filename": "redfish-core/lib/environment_metrics.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-02T21:49:56Z",
+      "side": 1,
+      "message": "On my system there are a total of 181 sensors associated to my \u003cvalidChassisPath\u003e. However doing this call only a single sensor is returned as there is only a single sensor implementing the Sensor.Purpose interface.\nOver time there is potential other sensors will implement this interface to define special purposes. My expectation is that this will continue to be a small percentage of all the available sensors.",
+      "parentUuid": "a28c361d_870006a4",
       "range": {
         "startLine": 135,
         "startChar": 18,
