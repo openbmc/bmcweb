@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44c1b234_15d4fc9d",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-02T21:57:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "394db7b6_84db1cc9",
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe5bc53b_831bb028",
@@ -119,6 +137,24 @@
       "writtenOn": "2025-06-30T20:17:44Z",
       "side": 1,
       "message": "Why are we looking at the D-Bus system object for the Redfish Manager (BMC) object?",
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28af5041_e05018e6",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-02T21:57:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe5bc53b_831bb028",
       "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -187,6 +223,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edc33945_30ba1d03",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-02T21:57:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "915ae141_e000c3a4",
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bdca4e9a_28b11636",
@@ -200,6 +254,30 @@
       "writtenOn": "2025-06-30T20:17:44Z",
       "side": 1,
       "message": "I think you need the {}",
+      "range": {
+        "startLine": 512,
+        "startChar": 77,
+        "endLine": 512,
+        "endChar": 80
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cdb1df5_b68a52c0",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-02T21:57:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bdca4e9a_28b11636",
       "range": {
         "startLine": 512,
         "startChar": 77,
@@ -329,6 +407,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e20174_cca1bdee",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-02T21:57:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cb65e73_aa06ceaa",
+      "range": {
+        "startLine": 520,
+        "startChar": 68,
+        "endLine": 520,
+        "endChar": 79
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8187d2c_87ec0f86",
@@ -366,6 +468,30 @@
       "side": 1,
       "message": "Weird... that shouldn\u0027t compile........",
       "parentUuid": "a8187d2c_87ec0f86",
+      "range": {
+        "startLine": 536,
+        "startChar": 66,
+        "endLine": 536,
+        "endChar": 68
+      },
+      "revId": "f74df738688309d9f1b0734bfe2329c37fb39132",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "094afd92_4622fbd0",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-02T21:57:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a40a14e_5a21d112",
       "range": {
         "startLine": 536,
         "startChar": 66,
