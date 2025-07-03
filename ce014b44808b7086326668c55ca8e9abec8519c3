@@ -142,6 +142,24 @@
       "parentUuid": "3e8aa5f6_1514dae8",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a49596f2_d5a595af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-03T12:14:56Z",
+      "side": 1,
+      "message": "\u003e FWIW, this was one of the things that was solved by the suggestion that HOST0 have all the normal \"assume one host\" interfaces, and Host1-N have only the interfaces that we\u0027ve ported to multi-host.\n\nI am wondering how we would model this in redfish. Would this virtual HOST0 be part of the systems collection and we explicitly disable all other routes on HOST0 that can be handled by HOST1-N? or does it silently exist? I am mostly concerned about validation.  \n\n\u003e FWIW, the whole issue is that EventLog probably needs to be moved to Manager, for which there is only a single instance, but I get not wanting to take on that refactor.\n\nThis feels like a straight forward solution.",
+      "parentUuid": "81b1b9fd_cc33720a",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
