@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36a0c980_b71b794d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T21:31:03Z",
+      "side": 1,
+      "message": "Not at all.  Separated this from another patchset that was tested, but I\u0027ll assume they merge at the same time.",
+      "parentUuid": "12560160_2425bd9c",
+      "revId": "42bc3f3e98765950242431011830ca3faac3ec06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3935c475_fea213bb",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -31,6 +49,30 @@
       "writtenOn": "2025-07-03T19:25:50Z",
       "side": 1,
       "message": "Why not keep the short-circuit here if param.second is empty?",
+      "range": {
+        "startLine": 801,
+        "startChar": 0,
+        "endLine": 801,
+        "endChar": 2
+      },
+      "revId": "42bc3f3e98765950242431011830ca3faac3ec06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73b686fe_b2248f51",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T21:31:03Z",
+      "side": 1,
+      "message": "because logically it\u0027s the same.  The only other things in this scope are checks against param.second.  if param.second is empty, this gives the same result (the parameter is ignored).",
+      "parentUuid": "3935c475_fea213bb",
       "range": {
         "startLine": 801,
         "startChar": 0,
