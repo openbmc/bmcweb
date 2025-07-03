@@ -1,0 +1,434 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70a19420_23335b79",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "fileSize needs to be put into a struct with DuplicatableFileHandle, as it only represents the size of the file (not for any other type).\n\nstruct FileBody{\n   DuplicatableFileHandle fileHandle;\n   std::optional\u003csize_t\u003e fileSize;\n};",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f23c785_99c4a3d4",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "This needs to be contained within the multipart type\n\nmabye something like\n\nstruct MultiPartBody {\n    std::vector\u003cFormPart\u003e;\n    bool multipartParseError \u003d false;\n};",
+      "range": {
+        "startLine": 63,
+        "startChar": 9,
+        "endLine": 63,
+        "endChar": 28
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44b40d1a_6d27b03f",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "Is there any use case for this that isn\u0027t already fulfilled by getMimeFields ?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 0
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51e96037_3319026f",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "This API needs some way to denote that \"this wasn\u0027t a file\"\n\nprobably we need to change this to return std::optional\u003cfile_posix\u003e?",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 50
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0ae6955_4fb72dc3",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "```\nif (td::string* s \u003d std::get_if\u003cstd::string\u003e(\u0026bodyData)){\n    return *s;\n}\nreturn bodyData.emplace(std::inplace, \"\");\n```",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e7d66c7_8e5c0bd4",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "I suspect this API needs to change now rather than inventing an empty string to return.  Otherwise the user has no way to differentiate a correctly empty string from a different body type.",
+      "range": {
+        "startLine": 117,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 45
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e2a4796_d4264853",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "You\u0027re returning a copy here, that\u0027s why this compiles even though the method is const.  Suspect you want to return a cost reference here.",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 41
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a933014f_8cb7b674",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "nullopt",
+      "range": {
+        "startLine": 151,
+        "startChar": 15,
+        "endLine": 151,
+        "endChar": 16
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1929a3a_a1755934",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "nit, this is one of the reasons to put multipartParseError and fileSize in the variant.  It no longer needs cleared explitily",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8acc1e04_05668c79",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "Can we just do \n\nDuplicatableFileHandle\u0026 fileHandle \u003d bodyData.emplace\u003cDuplicatableFileHandle\u003e();\n\nAnd avoid the move afterward?",
+      "range": {
+        "startLine": 195,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 42
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3895fda1_93a69321",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "nullptr dereference possible here.  Remove the hasMimeFields check, and just check this for pointer validity.",
+      "range": {
+        "startLine": 417,
+        "startChar": 16,
+        "endLine": 417,
+        "endChar": 38
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "968b5646_230dea83",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "nit, remove bmcweb_.  We\u0027re already in the bmcweb folder.",
+      "range": {
+        "startLine": 67,
+        "startChar": 38,
+        "endLine": 67,
+        "endChar": 45
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29b2b229_42378811",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "If we\u0027re going to immediately convert to a std::string, why don\u0027t we just start there and build the path using std::format?\n\nstd::string tmplStr \u003d std::format(\"{}/bmcweb_multipart_payload_XXXXXXXXXXX\", baseDir);",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85a37471_32b190d2",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "Can we just call this \"moveTo\" or something like that?",
+      "range": {
+        "startLine": 82,
+        "startChar": 9,
+        "endLine": 82,
+        "endChar": 22
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02d0e5ea_9f2bea7f",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "This has the potential to cause a blocking operation on a large file copy.... I\u0027m not sure we want that in the async reactor.\n\nMaybe keep this as an error for now, and we\u0027ll resolve in the next patchset.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 71
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27a40db3_276015f3",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "Any reason this is needed over letting raii close the file?",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 5
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0681fbbc_fbfdd494",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "nit, just inline this in the destructor.  There\u0027s no reason a user should call this outside the destructor, and the destructor is currently one line (this function).",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c764e8af_b6820dbd",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "This API is a little complex, and doesn\u0027t really seem to add a lot of safety on top of what\u0027s already in std::variant.  Should we just push the std::variant usage onto callers of this?",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 5
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e5c1eb4_0201b374",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right.   If the parser is complete, we ignore all remaining buffers?  I suspect this needs to be put into the switch statement, with something like\n\n\ncase State:END:\n   state \u003d State::ERROR;\n   return ParserError::\n  break;",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 9
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72380d20_cd1b8c63",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T15:41:49Z",
+      "side": 1,
+      "message": "Any reason we need this change?",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
