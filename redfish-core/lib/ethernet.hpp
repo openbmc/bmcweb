@@ -1615,10 +1615,13 @@ inline bool parseAddresses(
             else
             {
                 uint8_t prefixLength = 0;
-                // Ignore return code.  It came from internal, it's it's invalid
-                // nothing we can do
-                ip_util::ipv4VerifyIpAndGetBitcount(nicIpEntry->netmask,
-                                                    &prefixLength);
+                if (!ip_util::ipv4VerifyIpAndGetBitcount(nicIpEntry->netmask,
+                                                         &prefixLength))
+                {
+                    // Ignore return code.  It came from internal, if it's
+                    // invalid nothing we can do
+                    BMCWEB_LOG_ERROR("Netmask from DBus was not valid");
+                }
 
                 thisAddress.prefixLength = prefixLength;
             }
@@ -1661,8 +1664,11 @@ inline bool parseAddresses(
                 lastGatewayPath = pathString;
             }
         }
-        nicIpEntry++;
-        nicIpEntry = getNextStaticIpEntry(nicIpEntry, ipv4Data.cend());
+        if (nicIpEntry != ipv4Data.end())
+        {
+            nicIpEntry++;
+            nicIpEntry = getNextStaticIpEntry(nicIpEntry, ipv4Data.cend());
+        }
         entryIdx++;
     }
 

@@ -507,7 +507,7 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
             std::string_view leftover;
             if (keysplitIndex != std::string_view::npos)
             {
-                leftover = key.substr(keysplitIndex + 1);
+                leftover = key.substr(keysplitIndex + 1U);
                 key = key.substr(0, keysplitIndex);
             }
 
@@ -520,7 +520,7 @@ inline bool readJsonHelperObject(nlohmann::json::object_t& obj,
             if (!leftover.empty())
             {
                 // Include the slash in the key so we can compare later
-                key = unpackSpec.key.substr(0, keysplitIndex + 1);
+                key = unpackSpec.key.substr(0, keysplitIndex + 1U);
                 nlohmann::json::object_t j;
                 result = details::unpackValue<nlohmann::json::object_t>(
                              item.second, key, res, j) &&
