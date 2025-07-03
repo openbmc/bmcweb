@@ -230,10 +230,13 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         {
             BMCWEB_LOG_DEBUG("Failed to remove file, ignoring");
         }
-
+        try {
         dbus::utility::async_method_call(
             dbus::utility::logError, "xyz.openbmc_project.VirtualMedia", path,
             "xyz.openbmc_project.VirtualMedia.Proxy", "Unmount");
+        }        catch(const std::exception& e){
+            BMCWEB_LOG_CRITICAL("Exception thrown in destructor");
+        }
     }
 
     std::string getEndpointId() const

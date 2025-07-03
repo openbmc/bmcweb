@@ -22,6 +22,9 @@ inline void split(std::vector<std::string>& strings, std::string_view str,
     while (end <= str.size())
     {
         end = str.find(delim, start);
+        if (end == std::string_view::npos){
+            end = str.size();
+        }
         strings.emplace_back(str.substr(start, end - start));
         start = end + 1;
     }
