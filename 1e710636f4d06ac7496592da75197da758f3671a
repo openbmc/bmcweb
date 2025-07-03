@@ -453,6 +453,29 @@
       "message": "Any reason we need this change?",
       "revId": "1e710636f4d06ac7496592da75197da758f3671a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7cb66c3_beb744f1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T16:32:06Z",
+      "side": 1,
+      "message": "Remove for now.  If we\u0027re directly writing to tmpfs, we can just pass that file to the backing daemon for the moment.",
+      "range": {
+        "startLine": 860,
+        "startChar": 0,
+        "endLine": 860,
+        "endChar": 77
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
