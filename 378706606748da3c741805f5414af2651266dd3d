@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c588feed_1975852a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-07-03T14:17:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85a03031_a5d7474e",
+      "revId": "378706606748da3c741805f5414af2651266dd3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d94a1878_bed2496e",
         "filename": "redfish-core/lib/managers.hpp",
         "patchSetId": 3
@@ -48,6 +66,30 @@
       "writtenOn": "2025-07-02T21:57:00Z",
       "side": 1,
       "message": "nit, when the CI scripts finally run on this, it\u0027s going to flag that this \"else\" is unneeded, because you returned on the prior line.",
+      "range": {
+        "startLine": 566,
+        "startChar": 4,
+        "endLine": 566,
+        "endChar": 8
+      },
+      "revId": "378706606748da3c741805f5414af2651266dd3d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7078ce9a_3ef497d3",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-07-03T14:17:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d94a1878_bed2496e",
       "range": {
         "startLine": 566,
         "startChar": 4,
