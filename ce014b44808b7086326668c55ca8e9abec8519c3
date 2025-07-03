@@ -160,6 +160,24 @@
       "parentUuid": "81b1b9fd_cc33720a",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98641d00_44d40aed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-07-03T15:24:34Z",
+      "side": 1,
+      "message": "Let\u0027s add a meson option for keeping it on \"System\", which people can disable if they don\u0027t need the backwards compatibility, but also add it to the BMC everywhere (no matter the option).  Is this ok?",
+      "parentUuid": "a49596f2_d5a595af",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
