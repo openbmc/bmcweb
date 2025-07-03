@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5d1d3c8_38a760a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T18:05:48Z",
+      "side": 1,
+      "message": "Lets see if we can start getting some targeted patches split out so they can merge.  Some of the MultiPartParser refactoring I suspect can merge ahead of this being actually enabled.",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70a19420_23335b79",
@@ -427,6 +444,29 @@
         "startChar": 30,
         "endLine": 66,
         "endChar": 52
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60bbf099_efa23a0f",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T18:05:48Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be here.\n\nisFile should be the same as\n\nbool isFile(){\n   return std::holds_alternative\u003cDuplicatableFileHandle\u003e(content);\n}\n\n\nOtherwise you might have a case where isFile \u003d true, but content is not a file.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 24
       },
       "revId": "1e710636f4d06ac7496592da75197da758f3671a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
