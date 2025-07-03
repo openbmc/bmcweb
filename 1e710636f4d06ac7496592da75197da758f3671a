@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f1b5077_5706ef28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T17:54:00Z",
+      "side": 1,
+      "message": "I realize you\u0027re in the design cycle here, but this patch is getting a bit unweildy;  It\u0027s making a bunch of refactorings at once.\n\nI broke out one refactoring into its own patch that you can use if it helps you:\nhttps://github.com/edtanous/bmcweb/commit/42bc3f3e98765950242431011830ca3faac3ec06",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "70a19420_23335b79",
         "filename": "http/http_body.hpp",
         "patchSetId": 21
@@ -451,6 +468,29 @@
       "writtenOn": "2025-07-03T15:41:49Z",
       "side": 1,
       "message": "Any reason we need this change?",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44690256_3e9e933a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T17:54:00Z",
+      "side": 1,
+      "message": "?  We\u0027re giving access to another entity, and there is no bmcweb group defined, so 640 doesn\u0027t make a lot of sense.\n\nAlso, you say 640, but then below you set 440.  Lets avoid the permissions stuff for now in this patch.",
+      "range": {
+        "startLine": 829,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 44
+      },
       "revId": "1e710636f4d06ac7496592da75197da758f3671a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
