@@ -684,11 +684,14 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     "RequestedApplyTime", applyTimeNewVal);
 }
 
-struct MultiPartUpdateParameters
+struct MultiPartUpdate
 {
-    std::optional<std::string> applyTime;
     std::string uploadData;
-    std::vector<std::string> targets;
+    struct UpdateParameters
+    {
+        std::optional<std::string> applyTime;
+        std::vector<std::string> targets;
+    } params;
 };
 
 inline std::optional<std::string> processUrl(
@@ -718,12 +721,62 @@ inline std::optional<std::string> processUrl(
     return std::make_optional(firmwareId);
 }
 
-inline std::optional<MultiPartUpdateParameters>
-    extractMultipartUpdateParameters(
-        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        MultipartParser parser)
+inline std::optional<MultiPartUpdate::UpdateParameters> processUpdateParameters(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::string_view formpart)
 {
-    MultiPartUpdateParameters multiRet;
+    MultiPartUpdate::UpdateParameters multiRet;
+    std::vector<std::string> tempTargets;
+    nlohmann::json content = nlohmann::json::parse(formpart, nullptr, false);
+    if (content.is_discarded())
+    {
+        return std::nullopt;
+    }
+    nlohmann::json::object_t* obj =
+        content.get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
+    {
+        messages::propertyValueTypeError(asyncResp->res, formpart,
+                                         "UpdateParameters");
+        return std::nullopt;
+    }
+
+    if (!json_util::readJsonObject(                            //
+            *obj, asyncResp->res,                              //
+            "@Redfish.OperationApplyTime", multiRet.applyTime, //
+            "Targets", tempTargets                             //
+            ))
+    {
+        return std::nullopt;
+    }
+
+    for (size_t urlIndex = 0; urlIndex < tempTargets.size(); urlIndex++)
+    {
+        const std::string& target = tempTargets[urlIndex];
+        boost::system::result<boost::urls::url_view> url =
+            boost::urls::parse_origin_form(target);
+        auto res = processUrl(url);
+        if (!res.has_value())
+        {
+            messages::propertyValueFormatError(
+                asyncResp->res, target, std::format("Targets/{}", urlIndex));
+            return std::nullopt;
+        }
+        multiRet.targets.emplace_back(res.value());
+    }
+    if (multiRet.targets.size() != 1)
+    {
+        messages::propertyValueFormatError(asyncResp->res, multiRet.targets,
+                                           "Targets");
+        return std::nullopt;
+    }
+    return multiRet;
+}
+
+inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, MultipartParser parser)
+{
+    MultiPartUpdate multiRet;
     for (FormPart& formpart : parser.mime_fields)
     {
         boost::beast::http::fields::const_iterator it =
@@ -745,60 +798,20 @@ inline std::optional<MultiPartUpdateParameters>
         for (const auto& param :
              boost::beast::http::param_list{it->value().substr(index)})
         {
-            if (param.first != "name" || param.second.empty())
+            if (param.first != "name")
             {
                 continue;
             }
 
             if (param.second == "UpdateParameters")
             {
-                std::vector<std::string> tempTargets;
-                nlohmann::json content =
-                    nlohmann::json::parse(formpart.content, nullptr, false);
-                if (content.is_discarded())
+                std::optional<MultiPartUpdate::UpdateParameters> params =
+                    processUpdateParameters(asyncResp, formpart.content);
+                if (!params)
                 {
                     return std::nullopt;
                 }
-                nlohmann::json::object_t* obj =
-                    content.get_ptr<nlohmann::json::object_t*>();
-                if (obj == nullptr)
-                {
-                    messages::propertyValueTypeError(
-                        asyncResp->res, formpart.content, "UpdateParameters");
-                    return std::nullopt;
-                }
-
-                if (!json_util::readJsonObject(                            //
-                        *obj, asyncResp->res,                              //
-                        "@Redfish.OperationApplyTime", multiRet.applyTime, //
-                        "Targets", tempTargets                             //
-                        ))
-                {
-                    return std::nullopt;
-                }
-
-                for (size_t urlIndex = 0; urlIndex < tempTargets.size();
-                     urlIndex++)
-                {
-                    const std::string& target = tempTargets[urlIndex];
-                    boost::system::result<boost::urls::url_view> url =
-                        boost::urls::parse_origin_form(target);
-                    auto res = processUrl(url);
-                    if (!res.has_value())
-                    {
-                        messages::propertyValueFormatError(
-                            asyncResp->res, target,
-                            std::format("Targets/{}", urlIndex));
-                        return std::nullopt;
-                    }
-                    multiRet.targets.emplace_back(res.value());
-                }
-                if (multiRet.targets.size() != 1)
-                {
-                    messages::propertyValueFormatError(
-                        asyncResp->res, multiRet.targets, "Targets");
-                    return std::nullopt;
-                }
+                multiRet.params = std::move(*params);
             }
             else if (param.second == "UpdateFile")
             {
@@ -813,7 +826,7 @@ inline std::optional<MultiPartUpdateParameters>
         messages::propertyMissing(asyncResp->res, "UpdateFile");
         return std::nullopt;
     }
-    if (multiRet.targets.empty())
+    if (multiRet.params.targets.empty())
     {
         messages::propertyMissing(asyncResp->res, "Targets");
         return std::nullopt;
@@ -979,21 +992,21 @@ inline void updateMultipartContext(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const crow::Request& req, MultipartParser&& parser)
 {
-    std::optional<MultiPartUpdateParameters> multipart =
+    std::optional<MultiPartUpdate> multipart =
         extractMultipartUpdateParameters(asyncResp, std::move(parser));
     if (!multipart)
     {
         return;
     }
-    if (!multipart->applyTime)
+    if (!multipart->params.applyTime)
     {
-        multipart->applyTime = "OnReset";
+        multipart->params.applyTime = "OnReset";
     }
 
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
         std::string applyTimeNewVal;
-        if (!convertApplyTime(asyncResp->res, *multipart->applyTime,
+        if (!convertApplyTime(asyncResp->res, *multipart->params.applyTime,
                               applyTimeNewVal))
         {
             return;
@@ -1002,11 +1015,11 @@ inline void updateMultipartContext(
 
         processUpdateRequest(asyncResp, std::move(payload),
                              multipart->uploadData, applyTimeNewVal,
-                             multipart->targets);
+                             multipart->params.targets);
     }
     else
     {
-        setApplyTime(asyncResp, *multipart->applyTime);
+        setApplyTime(asyncResp, *multipart->params.applyTime);
 
         // Setup callback for when new software detected
         monitorForSoftwareAvailable(asyncResp, req,
