@@ -411,6 +411,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a4f1a36_30b597e3",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T17:59:53Z",
+      "side": 1,
+      "message": "Now that files are in the API boundary, constness here gets a little weird.\n\nGenerally implementers will be operating on a const version of the request data, including the file.  But as it stands now, the file is still open when it\u0027s handed off, so the calling code can\u0027t pass the open handle off to something else.\n\nI suspect we need to close the file handle, and come up with a cleanup routine to handle the case where the file is never \"released\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 30,
+        "endLine": 66,
+        "endChar": 52
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c764e8af_b6820dbd",
         "filename": "include/multipart_parser.hpp",
         "patchSetId": 21
@@ -468,6 +491,29 @@
       "writtenOn": "2025-07-03T15:41:49Z",
       "side": 1,
       "message": "Any reason we need this change?",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8f916ac_01a8d8a4",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T17:59:53Z",
+      "side": 1,
+      "message": "This comment is great, but this doesn\u0027t say WHY we\u0027re ignoring parts.  It\u0027s not clear to me what that has to do with writing these to a file either?",
+      "range": {
+        "startLine": 336,
+        "startChar": 11,
+        "endLine": 336,
+        "endChar": 26
+      },
       "revId": "1e710636f4d06ac7496592da75197da758f3671a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
