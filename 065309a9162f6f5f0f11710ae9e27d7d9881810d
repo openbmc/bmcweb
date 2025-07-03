@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7b2256b_ffca140c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T14:23:13Z",
+      "side": 1,
+      "message": "LGTM.  Waiting on your CLA, then this should be good to go.",
+      "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
