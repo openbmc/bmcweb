@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5dd47e08_da1284fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-03T14:27:05Z",
+      "side": 1,
+      "message": "The test you need to run is this:\n1. Set up a trigger.\n2. Cause your system to exceed the trigger threshold\n3. Check the log service you\u0027ve specified for Trigger. TriggerNumericAboveUpperWarning message.\n\nThat will indicate which log service your message is going to, and what should be in this property.  Also keep in mind that this log service is dependent on meson options, so please make sure that you add the appropriate meson options.  If journal messageid logging is disabled, this property shouldn\u0027t show up.",
+      "parentUuid": "4c8204ee_8672b4d6",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "90409fcad243a08bfba7c0fb21c8173fc1aac6ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "583ea2f4_1c46fa2d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
