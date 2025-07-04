@@ -22,6 +22,30 @@
       },
       "revId": "7295bb38c54ea088caf4f9010af92a1bd7120fb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21e8bfd6_68eb6eba",
+        "filename": "redfish-core/include/utils/sw_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001939
+      },
+      "writtenOn": "2025-07-04T10:12:11Z",
+      "side": 1,
+      "message": "Changed to BMCWEB_LOG_INFO",
+      "parentUuid": "29d18ae0_25a82e2a",
+      "range": {
+        "startLine": 165,
+        "startChar": 12,
+        "endLine": 165,
+        "endChar": 28
+      },
+      "revId": "7295bb38c54ea088caf4f9010af92a1bd7120fb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
