@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f884bd0b_fa35bea8",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-07-06T15:19:45Z",
+      "side": 1,
+      "message": "It seems that this recursion logic is to do\n- visit all sensors via recursion\n- invoke callback at the last sensor (or at the end of visits)\n\nHowever, I think this may require too much deeper stack consumption.\nSo, this can be flattened by doing\n- go visit each sensor by a simple loop\n- and invoke the callback at the last sensor visit\n- The last visit can be checked by using a shared_ptr of \u0027visit-count\u0027\n\n\n```\ninline void getSensorsByPurpose(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const SensorServicePathList\u0026 sensorListIn,\n    ...callback)\n{\n\n    // Count of asyncCall invocations. If it reaches to 0, all of them are\n    // executed\n    std::shared_ptr\u003cint\u003e remainingSensorsToVist \u003d\n        std::make_shared\u003cint\u003e(sensorListIn.size());\n\n    for (const SensorServicePathMap\u0026 nextSensor : sensorListIn)\n    {\n       ...\n        dbus::utility::getProperty\u003cstd::vector\u003cstd::string\u003e\u003e(...,\n            [asyncResp, ..., nextSensor, remainingSensorsToVist](\n                ...  purposeList) {\n\n                (*remainingSensorsToVist)--; // visited\n\n                if (ec ... )\n                {\n                    ...\n                    if ((*remainingSensorsToVist) \u003d\u003d 0)\n                    {\n                        callback(ec, sensorMatches);\n                    }\n                    return;\n                }\n                \n                if (!ec)\n                {\n                    checkSensorPurpose(nextSensor, sensorPurpose, sensorMatches,\n                                       purposeList);\n                }\n\n                if ((*remainingSensorsToVist) \u003d\u003d 0)\n                {\n                    callback(ec, sensorMatches);\n                }\n            });\n```\n\nIf the error may need to be collected, the errors can be kept as a shared_ptr (along with remainingSensorsToVisit).",
+      "revId": "dde8ff499062e0da11b975100a86b813f3255fd0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
