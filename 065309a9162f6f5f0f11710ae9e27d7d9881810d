@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6da83f7_58a9ee56",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-06T21:35:23Z",
+      "side": 1,
+      "message": "Can you run the Redfish validator ?",
+      "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95ee81e4_1ae39850",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-06T21:35:23Z",
+      "side": 1,
+      "message": "Show us the output.? Show the value is \"foo\" ?",
+      "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "b7b2256b_ffca140c",
@@ -14,6 +48,40 @@
       "writtenOn": "2025-07-03T14:23:13Z",
       "side": 1,
       "message": "LGTM.  Waiting on your CLA, then this should be good to go.",
+      "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80237eb1_0f1ad229",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-06T21:35:23Z",
+      "side": 1,
+      "message": "I am okay with this, a couple comments",
+      "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3894e28e_e18d119f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-06T21:35:23Z",
+      "side": 1,
+      "message": "I think a new utility funciton would be better here..\n\nmanager_utils \n\nSo service root can have: \n\n#include \"utils/manager_utils.hpp\"\n\nhttps://github.com/openbmc/bmcweb/tree/master/redfish-core/include/utils\n\nI could live with this as is, just don\u0027t love service root\u0027s #include \"manager.hpp\"",
       "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
