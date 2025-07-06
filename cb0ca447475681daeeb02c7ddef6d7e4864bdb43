@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64f06d7e_1af5cb09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-06T21:21:40Z",
+      "side": 1,
+      "message": "Please follow https://cbea.ms/git-commit/ for commit msgs. \n\nHave the subject line be 50 chars and wrap the body at 72 chars",
+      "range": {
+        "startLine": 9,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "cb0ca447475681daeeb02c7ddef6d7e4864bdb43",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
