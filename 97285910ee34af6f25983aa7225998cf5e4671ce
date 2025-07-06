@@ -433,6 +433,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac6e20d0_c5e26a52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-06T21:18:49Z",
+      "side": 1,
+      "message": "Let\u0027s go with https://gerrit.openbmc.org/c/openbmc/bmcweb/+/45125 instead since it was first.",
+      "revId": "97285910ee34af6f25983aa7225998cf5e4671ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a28ce82_7cbd350a",
         "filename": "scripts/parse_registries.py",
         "patchSetId": 6
