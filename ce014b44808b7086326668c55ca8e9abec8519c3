@@ -178,6 +178,24 @@
       "parentUuid": "a49596f2_d5a595af",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fa752a1_54978c6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-07T21:09:01Z",
+      "side": 1,
+      "message": "\u003e Would this virtual HOST0 be part of the systems collection and we explicitly disable all other routes on HOST0 that can be handled by HOST1-N?\n\nMy thinking originally was that host0 would be the \"real\" host0, not virtual at all, but if you wanted to do that, that would get you guys enabled too.\n\nWe have a meson option already for some of this.  https://github.com/openbmc/bmcweb/blob/master/meson.options#L177\n\nAt this point, I suspect we just need a multi-host option that will live a long time.  That\u0027s unfortunate, but given how stuck we seem to be, and how I don\u0027t see many others going with this architecture, I don\u0027t see another option.  Said option would move some of the logging entries location to the not-per-system location until we have a way to split out per host logs from per bmc logs.",
+      "parentUuid": "98641d00_44d40aed",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
