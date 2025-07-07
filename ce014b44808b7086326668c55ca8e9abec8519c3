@@ -196,6 +196,24 @@
       "parentUuid": "98641d00_44d40aed",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "203bf3c8_3599741b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2025-07-07T21:32:41Z",
+      "side": 1,
+      "message": "single-host is \"host0\"\nmulti-host is \"host1 - hostN\"\n\nI think this is why Oliver asked about a \"virtual HOST0\" because there shouldn\u0027t be one on multi-host.",
+      "parentUuid": "8fa752a1_54978c6f",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
