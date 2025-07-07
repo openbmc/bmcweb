@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e5ead938_dd5badfe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-07-07T17:35:28Z",
+      "side": 1,
+      "message": "I have been doing so, added note in commit message",
+      "parentUuid": "d6da83f7_58a9ee56",
+      "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95ee81e4_1ae39850",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2025-07-06T21:35:23Z",
       "side": 1,
       "message": "Show us the output.? Show the value is \"foo\" ?",
+      "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c09c69b2_89fbe60f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-07-07T17:35:28Z",
+      "side": 1,
+      "message": "Updated commit message to include more detailed overview of testing and results",
+      "parentUuid": "95ee81e4_1ae39850",
       "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -100,6 +136,24 @@
       "side": 1,
       "message": "+1.",
       "parentUuid": "3894e28e_e18d119f",
+      "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d72baac9_c659b995",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-07-07T17:35:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e4194a2_1d7dc178",
       "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
