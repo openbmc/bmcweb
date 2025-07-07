@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccf417b8_a1ff146f",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-07T21:57:16Z",
+      "side": 1,
+      "message": "Because this applies to both manager and service, this is probably better named service_identifier_utils.hpp\n\nbut we\u0027re getting overly pedantic at that point.",
+      "range": {
+        "startLine": 26,
+        "startChar": 16,
+        "endLine": 26,
+        "endChar": 29
+      },
+      "revId": "e30d3345ca6c81fbfd40e3de3a01b52bf431c153",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
