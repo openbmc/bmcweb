@@ -214,6 +214,24 @@
       "parentUuid": "8fa752a1_54978c6f",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1a9da29_c70a3107",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-07T21:55:05Z",
+      "side": 1,
+      "message": "Fair enough.  Then host1 would contain all the \"default\" interfaces.  Or you could add them to host1 to simplify.  Up to you guys.",
+      "parentUuid": "203bf3c8_3599741b",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
