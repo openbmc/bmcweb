@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46355f1a_0faf3628",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-08T13:06:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5ead938_dd5badfe",
+      "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "95ee81e4_1ae39850",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "Updated commit message to include more detailed overview of testing and results",
       "parentUuid": "95ee81e4_1ae39850",
+      "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63372c13_5e001991",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-08T13:06:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c09c69b2_89fbe60f",
       "revId": "065309a9162f6f5f0f11710ae9e27d7d9881810d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
