@@ -530,13 +530,23 @@ inline void
  *
  * @return None.
  */
-inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         uint8_t hostNumber)
 {
-    BMCWEB_LOG_DEBUG("Get host information.");
+    BMCWEB_LOG_DEBUG("Get host information for Host {}", hostNumber);
+
+    std::string service = "xyz.openbmc_project.State.Host" +
+                          std::to_string(hostNumber);
+    std::string objectPath = "/xyz/openbmc_project/state/host" +
+                             std::to_string(hostNumber);
+    if (hostNumber == 0)
+    {
+        service = "xyz.openbmc_project.State.Host";
+    }
+
     sdbusplus::asio::getProperty<std::string>(
-        *crow::connections::systemBus, "xyz.openbmc_project.State.Host",
-        "/xyz/openbmc_project/state/host0", "xyz.openbmc_project.State.Host",
-        "CurrentHostState",
+        *crow::connections::systemBus, service, objectPath,
+        "xyz.openbmc_project.State.Host", "CurrentHostState",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& hostState) {
         if (ec)
@@ -1421,7 +1431,7 @@ inline void getTrustedModuleRequiredToBoot(
             BMCWEB_LOG_DEBUG(
                 "DBUS response has more than 1 TPM Enable object:{}",
                 subtree.size());
-	    BMCWEB_LOG_DEBUG(
+            BMCWEB_LOG_DEBUG(
                 "TPM is not required for booting AMD host. Continuing..");
         }
 
@@ -3113,38 +3123,60 @@ inline void
             nlohmann::json::array_t({"KVMIP"});
     }
 
-    getMainChassisId(asyncResp,
-                     [](const std::string& chassisId,
-                        const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-        nlohmann::json::array_t chassisArray;
-        nlohmann::json& chassis = chassisArray.emplace_back();
-        chassis["@odata.id"] = boost::urls::format("/redfish/v1/Chassis/{}",
-                                                   chassisId);
-        aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
-    });
-
-    getSystemLocationIndicatorActive(asyncResp);
-    // TODO (Gunnar): Remove IndicatorLED after enough time has passed
-    getIndicatorLedState(asyncResp);
-    getComputerSystem(asyncResp);
-    getHostState(asyncResp);
-    getBootProperties(asyncResp);
-    getBootProgress(asyncResp);
-    getBootProgressLastStateTime(asyncResp);
-    pcie_util::getPCIeDeviceList(asyncResp,
-                                 nlohmann::json::json_pointer("/PCIeDevices"));
-    getHostWatchdogTimer(asyncResp);
-    getPowerRestorePolicy(asyncResp);
-    getStopBootOnFault(asyncResp);
-    getAutomaticRetryPolicy(asyncResp);
-    getLastResetTime(asyncResp);
-    if constexpr (BMCWEB_REDFISH_PROVISIONING_FEATURE)
+    // multi host
+    uint8_t hostNumber = http_helpers::getHostNumberFromUrl(req);
+    bool isMultiHostEnable = false;
+    if (hostNumber > 2)
     {
-        getProvisioningStatus(asyncResp);
+        messages::actionParameterNotSupported(
+            asyncResp->res, std::to_string(hostNumber), "HostNumber");
     }
-    getTrustedModuleRequiredToBoot(asyncResp);
-    getPowerMode(asyncResp);
-    getIdlePowerSaver(asyncResp);
+
+    if (hostNumber == 1 || hostNumber == 2)
+    {
+        isMultiHostEnable = true;
+    }
+
+    if (isMultiHostEnable)
+    {
+        //for now enable Host status, TODO need to enable rest of system function
+        getHostState(asyncResp, hostNumber);
+    }
+    else
+    {
+        getMainChassisId(asyncResp,
+                         [](const std::string& chassisId,
+                            const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+            nlohmann::json::array_t chassisArray;
+            nlohmann::json& chassis = chassisArray.emplace_back();
+            chassis["@odata.id"] = boost::urls::format("/redfish/v1/Chassis/{}",
+                                                       chassisId);
+            aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
+        });
+
+        getSystemLocationIndicatorActive(asyncResp);
+        // TODO (Gunnar): Remove IndicatorLED after enough time has passed
+        getIndicatorLedState(asyncResp);
+        getComputerSystem(asyncResp);
+        getHostState(asyncResp, 0);
+        getBootProperties(asyncResp);
+        getBootProgress(asyncResp);
+        getBootProgressLastStateTime(asyncResp);
+        pcie_util::getPCIeDeviceList(
+            asyncResp, nlohmann::json::json_pointer("/PCIeDevices"));
+        getHostWatchdogTimer(asyncResp);
+        getPowerRestorePolicy(asyncResp);
+        getStopBootOnFault(asyncResp);
+        getAutomaticRetryPolicy(asyncResp);
+        getLastResetTime(asyncResp);
+        if constexpr (BMCWEB_REDFISH_PROVISIONING_FEATURE)
+        {
+            getProvisioningStatus(asyncResp);
+        }
+        getTrustedModuleRequiredToBoot(asyncResp);
+        getPowerMode(asyncResp);
+        getIdlePowerSaver(asyncResp);
+    }
 }
 
 inline void handleComputerSystemPatch(
