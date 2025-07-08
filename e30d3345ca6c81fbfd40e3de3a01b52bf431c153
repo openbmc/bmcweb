@@ -22,6 +22,30 @@
       },
       "revId": "e30d3345ca6c81fbfd40e3de3a01b52bf431c153",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b43969a_92d332fe",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-08T13:07:51Z",
+      "side": 1,
+      "message": "service_identifier_utils.hpp makes more sense but I am good with as is",
+      "parentUuid": "ccf417b8_a1ff146f",
+      "range": {
+        "startLine": 26,
+        "startChar": 16,
+        "endLine": 26,
+        "endChar": 29
+      },
+      "revId": "e30d3345ca6c81fbfd40e3de3a01b52bf431c153",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
