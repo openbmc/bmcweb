@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "348dd460_b9c9069d",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1002328
+      },
+      "writtenOn": "2025-07-09T17:45:48Z",
+      "side": 1,
+      "message": "the string_view type will not work in this case as we are copying the value, and it was being corrupted and pointing to garbage.",
+      "parentUuid": "23c8bc7f_c33d0cf4",
+      "revId": "1a78b64e635e52bccc0032154c0e66849f730bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9ea82649_795fe578",
         "filename": "http/http_connection.hpp",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2025-07-09T14:07:45Z",
       "side": 1,
       "message": "This can be done using `string_view`\n```\n std::string_view urlpath;\n ```",
+      "revId": "1a78b64e635e52bccc0032154c0e66849f730bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50aed224_c0080ce8",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1002328
+      },
+      "writtenOn": "2025-07-09T17:45:48Z",
+      "side": 1,
+      "message": "\u003e This can be done using `string_view`\n\u003e ```\n\u003e  std::string_view urlpath;\n\u003e  ```\n\nthe string_view type will not work in this case as we are copying the value, and it was being corrupted and pointing to garbage.",
+      "parentUuid": "9ea82649_795fe578",
       "revId": "1a78b64e635e52bccc0032154c0e66849f730bab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

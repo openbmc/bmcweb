@@ -60,6 +60,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dac374d3_3be05c77",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002328
+      },
+      "writtenOn": "2025-07-09T17:45:48Z",
+      "side": 1,
+      "message": "I have updated to check for nullptr.",
+      "parentUuid": "922be14d_c3faa3e6",
+      "revId": "3d5935b8e3fdf32d486280e06e1df2d896edfdbc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1dcf49ae_fdd105bf",
         "filename": "http/http_connection.hpp",
         "patchSetId": 2
@@ -71,6 +89,30 @@
       "writtenOn": "2025-06-23T23:20:23Z",
       "side": 1,
       "message": "missing nullptr check, and this pointer can be null sometimes.  There are cases where the request object is moved out of.",
+      "range": {
+        "startLine": 832,
+        "startChar": 27,
+        "endLine": 832,
+        "endChar": 30
+      },
+      "revId": "3d5935b8e3fdf32d486280e06e1df2d896edfdbc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ee4779_7de4d4b1",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 1002328
+      },
+      "writtenOn": "2025-07-09T17:45:48Z",
+      "side": 1,
+      "message": "I have updated to check for nullptr",
+      "parentUuid": "1dcf49ae_fdd105bf",
       "range": {
         "startLine": 832,
         "startChar": 27,
