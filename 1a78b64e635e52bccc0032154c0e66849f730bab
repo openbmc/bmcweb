@@ -69,6 +69,29 @@
       "parentUuid": "9ea82649_795fe578",
       "revId": "1a78b64e635e52bccc0032154c0e66849f730bab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "646147c2_e2efd0ab",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-09T21:19:19Z",
+      "side": 1,
+      "message": "If this function now takes an argument, it is no longer compatible with prepare_payload.  That\u0027s fine, but this comment is no longer valid so should be removed.",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 48
+      },
+      "revId": "1a78b64e635e52bccc0032154c0e66849f730bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
