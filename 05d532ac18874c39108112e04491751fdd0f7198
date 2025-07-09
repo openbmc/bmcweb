@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a31ffce_8ce471d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 30
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-09T16:16:01Z",
+      "side": 1,
+      "message": "nit: Default is \u0027Enabled\u0027.",
+      "range": {
+        "startLine": 15,
+        "startChar": 45,
+        "endLine": 15,
+        "endChar": 52
+      },
+      "revId": "05d532ac18874c39108112e04491751fdd0f7198",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b98e145_ff3fca5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-09T16:16:01Z",
+      "side": 1,
+      "message": "One minor comment on the commit message, but code itself looks good to me.",
+      "revId": "05d532ac18874c39108112e04491751fdd0f7198",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
