@@ -1662,6 +1662,14 @@
             "ParamTypes": ["string"],
             "Resolution": "None.",
             "Severity": "Critical"
+        },
+        "AmdAifsFailureMatch": {
+            "Description": "Indicates AIFS signature ID match detected",
+            "Message": "AIFS signature ID match detected",
+            "MessageSeverity": "Critical",
+            "NumberOfArgs": 0,
+            "Resolution": "None.",
+            "Severity": "Critical"
         }
     },
     "Name": "OpenBMC Message Registry",

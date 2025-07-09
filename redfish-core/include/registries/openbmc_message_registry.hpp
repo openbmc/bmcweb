@@ -2338,7 +2338,26 @@ constexpr std::array registry =
             },
             "None.",
         }},
-
+    MessageEntry{
+        "SystemPowerOnFailed",
+        {
+            "Indicates that the system failed to power on.",
+            "System Power-On Failed.",
+            "Critical",
+            0,
+            {},
+            "None.",
+        }},
+    MessageEntry{
+        "AmdAifsFailureMatch",
+        {
+            "Indicates AIFS signature ID match detected",
+            "AIFS signature ID match detected",
+            "Critical",
+            0,
+            {},
+            "None.",
+        }},
 };
 
 enum class Index
@@ -2534,5 +2553,6 @@ enum class Index
     systemPowerOffFailed = 188,
     systemPowerOnFailed = 189,
     voltageRegulatorOverheated = 190,
+    AmdAifsFailureMatch = 191,
 };
 } // namespace redfish::registries::openbmc
