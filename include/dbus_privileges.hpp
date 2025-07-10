@@ -145,7 +145,24 @@ inline void requestUserInfo(
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
             if (ec)
             {
-                BMCWEB_LOG_ERROR("GetUserInfo failed...");
+                BMCWEB_LOG_ERROR("GetUserInfo failed with error of {}", ec);
+                if (ec.value() == boost::system::errc::io_error)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "There is io error when calling the user manager service, this suggests the user doesn't have permission to access");
+                    asyncResp->res.result(
+                        boost::beast::http::status::unauthorized);
+                    return;
+                }
+                if (ec.value() == boost::system::errc::host_unreachable)
+                {
+                    BMCWEB_LOG_ERROR(
+                        "User manager service not reachable, this suggests the user manager service is not healthy");
+                    asyncResp->res.result(
+                        boost::beast::http::status::service_unavailable);
+                    return;
+                }
+
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 return;
