@@ -4,6 +4,8 @@
 
 #include "bmcweb_config.h"
 
+#include "dbus_privileges.hpp"
+#include "dbus_utility.hpp"
 #include "identity.hpp"
 #include "mutual_tls_private.hpp"
 #include "sessions.hpp"
@@ -236,6 +238,29 @@ std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
     if (sslUser.empty())
     {
         BMCWEB_LOG_WARNING("Failed to get user from peer certificate");
+        return nullptr;
+    }
+
+    // check if user exist inside the system
+    bool userExist = false;
+    dbus::utility::async_method_call(
+        [userExist](const boost::system::error_code& ec,
+                    const dbus::utility::DBusPropertiesMap&) mutable {
+            // if error, user does not exist
+            if (ec)
+            {
+                BMCWEB_LOG_WARNING("Failed to get user info: {}", ec.message());
+                userExist = false;
+                return;
+            }
+            userExist = true;
+        },
+        "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+        "xyz.openbmc_project.User.Manager", "GetUserInfo", sslUser);
+
+    if (!userExist)
+    {
+        BMCWEB_LOG_WARNING("User {} does not exist", sslUser);
         return nullptr;
     }
 
