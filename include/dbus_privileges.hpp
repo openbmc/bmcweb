@@ -132,6 +132,40 @@ inline bool afterGetUserInfoValidate(
     return true;
 }
 
+inline void handleRequestUserInfo(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::system::error_code& ec,
+    std::move_only_function<void(const dbus::utility::DBusPropertiesMap&)>
+        callback,
+    const dbus::utility::DBusPropertiesMap& userInfoMap)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING("GetUserInfo failed with error of {}", ec);
+        if (ec.value() == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_WARNING(
+                "There is io error when calling the user manager service, this suggests the user doesn't have permission to access");
+            asyncResp->res.result(boost::beast::http::status::unauthorized);
+            return;
+        }
+        if (ec.value() == boost::system::errc::host_unreachable)
+        {
+            BMCWEB_LOG_ERROR(
+                "User manager service not reachable, this suggests the user manager service is not healthy");
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+
+        BMCWEB_LOG_ERROR("Unhandled error code {} for GetUserInfo", ec.value());
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
+        return;
+    }
+    callback(userInfoMap);
+}
+
 inline void requestUserInfo(
     const std::string& username,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -143,14 +177,8 @@ inline void requestUserInfo(
         [asyncResp, callback = std::move(callback)](
             const boost::system::error_code& ec,
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR("GetUserInfo failed...");
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                return;
-            }
-            callback(userInfoMap);
+            handleRequestUserInfo(asyncResp, ec, std::move(callback),
+                                  userInfoMap);
         },
         "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
         "xyz.openbmc_project.User.Manager", "GetUserInfo", username);
