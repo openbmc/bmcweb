@@ -145,10 +145,20 @@ inline void requestUserInfo(
             const dbus::utility::DBusPropertiesMap& userInfoMap) mutable {
             if (ec)
             {
-                BMCWEB_LOG_ERROR("GetUserInfo failed...");
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                return;
+                BMCWEB_LOG_ERROR("GetUserInfo failed with error {}, {}", ec,
+                                 ec.value());
+                switch (ec.value())
+                {
+                    case boost::system::errc::io_error:
+                        asyncResp->res.result(
+                            boost::beast::http::status::unauthorized);
+                        return;
+                    // case boost::system::errc::
+                    default:
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        return;
+                }
             }
             callback(userInfoMap);
         },
