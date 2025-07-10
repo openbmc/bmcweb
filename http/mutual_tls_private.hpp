@@ -4,6 +4,10 @@
 
 #include <openssl/crypto.h>
 
+#include <boost/asio/ip/address.hpp>
+#include <boost/asio/ssl/verify_context.hpp>
+
+#include <optional>
 #include <string>
 #include <string_view>
 
@@ -14,3 +18,6 @@ std::string getUPNFromCert(X509* peerCert, std::string_view hostname);
 std::string getUsernameFromCert(X509* cert);
 
 bool isUPNMatch(std::string_view upn, std::string_view hostname);
+
+std::optional<std::string> validateCertAndGetUsername(
+    boost::asio::ssl::verify_context& ctx);

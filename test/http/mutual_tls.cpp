@@ -125,12 +125,9 @@ TEST(MutualTLS, GoodCert)
     OSSLX509StoreCTX x509Store;
     X509_STORE_CTX_set_current_cert(x509Store.get(), x509.get());
 
-    boost::asio::ip::address ip;
     boost::asio::ssl::verify_context ctx(x509Store.get());
-    std::shared_ptr<persistent_data::UserSession> session =
-        verifyMtlsUser(ip, ctx);
-    ASSERT_THAT(session, NotNull());
-    EXPECT_THAT(session->username, "user");
+    std::optional<std::string> username = validateCertAndGetUsername(ctx);
+    EXPECT_THAT(username, "user");
 }
 
 TEST(MutualTLS, MissingKeyUsage)
