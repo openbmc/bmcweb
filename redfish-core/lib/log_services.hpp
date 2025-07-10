@@ -46,6 +46,7 @@
 #include <boost/url/url_view.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
+#include <nlohmann/json.hpp>
 
 #include <array>
 #include <charconv>
@@ -1582,6 +1583,106 @@ static LogParseError
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Created"] = std::move(timestamp);
     return LogParseError::success;
+}
+
+std::string severityToString(int level)
+{
+    switch (level)
+    {
+        case 0:
+            return "xyz.openbmc_project.Logging.Entry.Level.Emergency";
+        case 1:
+            return "xyz.openbmc_project.Logging.Entry.Level.Alert";
+        case 2:
+            return "xyz.openbmc_project.Logging.Entry.Level.Critical";
+        case 3:
+            return "xyz.openbmc_project.Logging.Entry.Level.Error";
+        case 4:
+            return "xyz.openbmc_project.Logging.Entry.Level.Warning";
+        case 5:
+            return "xyz.openbmc_project.Logging.Entry.Level.Notice";
+        case 6:
+            return "xyz.openbmc_project.Logging.Entry.Level.Informational";
+        case 7:
+            return "xyz.openbmc_project.Logging.Entry.Level.Debug";
+        default:
+            return "Unknown";
+    }
+}
+
+inline void requestRoutesEventLogEntriesPost(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/EventLog/Actions/Oem/OpenBMC.LogService.CreateLogEntry")
+        .privileges(redfish::privileges::postLogEntry)
+        .methods(boost::beast::http::verb::post)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+
+        BMCWEB_LOG_DEBUG("EventLog POST called");
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+
+        // Parse request body
+        std::string message;
+        std::string severity;
+        int severityNumber;
+        std::map<std::string, std::string> additionalData;
+        nlohmann::json json = nlohmann::json::parse(req.body(), nullptr, false);
+        // Required: Message, Severity, AdditionalData
+        if (!json.contains("Message") || !json.contains("Severity"))
+        {
+            messages::propertyMissing(asyncResp->res, "Message or Severity");
+            return;
+        }
+
+        message = json.at("Message").get<std::string>();
+        severityNumber = json.at("Severity").get<int>();
+        severity = severityToString(severityNumber);
+
+        BMCWEB_LOG_DEBUG("event log entry message :{}  and severity {}",
+                         message, severity);
+        if (json.contains("AdditionalData"))
+        {
+            if (!json["AdditionalData"].is_object())
+            {
+                messages::propertyValueTypeError(asyncResp->res,
+                                                 "AdditionalData", "object");
+                return;
+            }
+
+            for (const auto& [key, value] : json["AdditionalData"].items())
+            {
+                try
+                {
+                    additionalData[key] = value.get<std::string>();
+                    BMCWEB_LOG_ERROR("event log entry additonal :{} ",
+                                     additionalData[key]);
+                }
+                catch (const nlohmann::json::type_error&)
+                {
+                    messages::propertyValueTypeError(
+                        asyncResp->res, "AdditionalData." + key, "string");
+                    return;
+                }
+            }
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to create log entry: {}",
+                                 ec.message());
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+        }, "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
+            "xyz.openbmc_project.Logging.Create", "Create", message, severity,
+            additionalData);
+    });
 }
 
 inline void requestRoutesJournalEventLogEntryCollection(App& app)

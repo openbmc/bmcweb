@@ -112,6 +112,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesPostCodesClear(app);
     requestRoutesPostCodesEntry(app);
     requestRoutesPostCodesEntryCollection(app);
+    requestRoutesEventLogEntriesPost(app);
 
     if constexpr (BMCWEB_REDFISH_DUMP_LOG)
     {
