@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc0dbd2e_bd5b655e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-10T21:28:37Z",
+      "side": 1,
+      "message": "https://github.com/search?q\u003drepo%3Aopenbmc%2Fbmcweb%20no_content\u0026type\u003dcode\n\nThere\u0027s only 10 places we call that in handler code.  (FWIW, I thought it was 5)",
+      "parentUuid": "4a3a6438_a39a04c5",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 22
+      },
+      "revId": "3d5935b8e3fdf32d486280e06e1df2d896edfdbc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f9efb9f7_80493aed",
