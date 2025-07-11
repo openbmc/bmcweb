@@ -16,6 +16,24 @@
       "message": "I am not opposed to this change but I don\u0027t understand why version would be empty.. Why image update would clear the version but the object still exists?",
       "revId": "7ba93d1d747bd5c67bd36bc64fa4c4947e3cdd96",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdad24df_b76d4ae4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001939
+      },
+      "writtenOn": "2025-07-11T12:32:57Z",
+      "side": 1,
+      "message": "The case where version is empty can occur during the transition period when phosphor-settings-defaults-native is used to set the software version.\n\nUpdate commit messages.",
+      "parentUuid": "e276c95b_ab32a7bb",
+      "revId": "7ba93d1d747bd5c67bd36bc64fa4c4947e3cdd96",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
