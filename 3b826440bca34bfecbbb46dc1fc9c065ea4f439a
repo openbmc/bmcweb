@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a9732b2_22bd1c65",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-07-14T20:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e8f16c0_38a04dce",
+      "range": {
+        "startLine": 964,
+        "startChar": 0,
+        "endLine": 964,
+        "endChar": 2
+      },
+      "revId": "3b826440bca34bfecbbb46dc1fc9c065ea4f439a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4353ef25_8b95c515",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "157ba986_1b621c0e",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-07-14T20:45:00Z",
+      "side": 1,
+      "message": "Right. Fixed",
+      "parentUuid": "4353ef25_8b95c515",
+      "range": {
+        "startLine": 200,
+        "startChar": 33,
+        "endLine": 200,
+        "endChar": 39
+      },
+      "revId": "3b826440bca34bfecbbb46dc1fc9c065ea4f439a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b242b750_184077e8",
@@ -77,6 +125,30 @@
       "writtenOn": "2025-07-14T14:52:13Z",
       "side": 1,
       "message": "Interfaces for processors are defined to also include \"xyz.openbmc_project.Inventory.Item.Accelerator\"\nin https://github.com/openbmc/bmcweb/blob/fff6a4d34a9a49f9e1e228ffb3afb5385be2a4ad/redfish-core/lib/processor.hpp#L53\n\nShould that interface definition be used here?",
+      "range": {
+        "startLine": 213,
+        "startChar": 9,
+        "endLine": 213,
+        "endChar": 47
+      },
+      "revId": "3b826440bca34bfecbbb46dc1fc9c065ea4f439a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "860d354b_e2ce89e8",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-07-14T20:45:00Z",
+      "side": 1,
+      "message": "I\u0027m not sure whether `Accelerator` is required.\nHowever, I agree that it may make sense to include both Cpu and Accelerator and thus I added it.",
+      "parentUuid": "b242b750_184077e8",
       "range": {
         "startLine": 213,
         "startChar": 9,
