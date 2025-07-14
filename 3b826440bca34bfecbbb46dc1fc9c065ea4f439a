@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69887eaa_afd9a52f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-14T14:52:13Z",
+      "side": 1,
+      "message": "Just a couple of comments. But overall looks good to me.",
+      "revId": "3b826440bca34bfecbbb46dc1fc9c065ea4f439a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e8f16c0_38a04dce",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-14T14:52:13Z",
+      "side": 1,
+      "message": "Need backquotes around this line.",
+      "range": {
+        "startLine": 964,
+        "startChar": 0,
+        "endLine": 964,
+        "endChar": 2
+      },
+      "revId": "3b826440bca34bfecbbb46dc1fc9c065ea4f439a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4353ef25_8b95c515",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-14T14:52:13Z",
+      "side": 1,
+      "message": "Should BMCWEB_REDFISH_SYSTEM_URI_NAME be filled in here instead of using hard-coded value?",
+      "range": {
+        "startLine": 200,
+        "startChar": 33,
+        "endLine": 200,
+        "endChar": 39
+      },
+      "revId": "3b826440bca34bfecbbb46dc1fc9c065ea4f439a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b242b750_184077e8",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-14T14:52:13Z",
+      "side": 1,
+      "message": "Interfaces for processors are defined to also include \"xyz.openbmc_project.Inventory.Item.Accelerator\"\nin https://github.com/openbmc/bmcweb/blob/fff6a4d34a9a49f9e1e228ffb3afb5385be2a4ad/redfish-core/lib/processor.hpp#L53\n\nShould that interface definition be used here?",
+      "range": {
+        "startLine": 213,
+        "startChar": 9,
+        "endLine": 213,
+        "endChar": 47
+      },
+      "revId": "3b826440bca34bfecbbb46dc1fc9c065ea4f439a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
