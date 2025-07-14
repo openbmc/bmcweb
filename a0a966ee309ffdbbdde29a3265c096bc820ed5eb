@@ -16,6 +16,24 @@
       "message": "Can you add some history of how we ended up here? It makes sense that we move to the association - This doesn\u0027t work for multiple chassis and is just wrong but is this assumption of system LocationIndicatorActive for all the chassis something folks are relying on?",
       "revId": "a0a966ee309ffdbbdde29a3265c096bc820ed5eb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7c9c592_a55eee9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-14T20:38:54Z",
+      "side": 1,
+      "message": "Added history based on looking at git blame around these functions and callers.",
+      "parentUuid": "df87cd66_b782429c",
+      "revId": "a0a966ee309ffdbbdde29a3265c096bc820ed5eb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
