@@ -72,6 +72,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f55393e3_96227394",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 76
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-07-15T01:12:46Z",
+      "side": 1,
+      "message": "\u003e But there\u0027s no way to provide a MFA key when using basic auth..\n\nI stand corrected here. MFA is not enforced on both mTLS and basic auth as of today.\n\n\u003e Should we enforce that you get one or the other?\n\nProbably yes (for basic auth) - when MFA is enabled, then any basic auth logins can be rejected with a 401.\n\nI believe, mTLS-based logins do not require MFA (mutually exclusive) — because the cert is a stronger identity factor. And in this case, should ensure not to allow fallback to Basic Auth without MFA (send back 401 to the user?)\n\nYour thoughts, Ed?",
+      "parentUuid": "7d5d8954_7ca847b6",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 7
+      },
+      "revId": "2fcbb85653210a802003bb08bd43e1ef876c5eff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f77a757b_31e488a6",
