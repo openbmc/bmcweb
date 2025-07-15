@@ -250,6 +250,24 @@
       "parentUuid": "d1a9da29_c70a3107",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98d45e58_f545a642",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-15T03:37:17Z",
+      "side": 1,
+      "message": "Sure, that\u0027s fine, just make sure it\u0027s behind the option.  My hope with the host1 thing is advice that could apply to everything in the tree.  Moving that URI without warning is going to break the heck out of client implementations that are expecting the log to show up in the ComputerSystem.\n\nI could also see arguments it should be in the chassis log in your guys config, but up to you guys.",
+      "parentUuid": "1039855d_b028d7f9",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
