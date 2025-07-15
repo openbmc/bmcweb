@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b82c4438_b06e6984",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 76
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-15T02:30:07Z",
+      "side": 1,
+      "message": "\u003e \u003e But there\u0027s no way to provide a MFA key when using basic auth..\n\u003e \n\u003e I stand corrected here. MFA is not enforced on both mTLS and basic auth as of today.\n\u003e \n\u003e \u003e Should we enforce that you get one or the other?\n\u003e \n\u003e Probably yes (for basic auth) - when MFA is enabled, then any basic auth logins can be rejected with a 401.\n\u003e \n\u003e I believe, mTLS-based logins do not require MFA (mutually exclusive) — because the cert is a stronger identity factor.\n\nThat might be correct, but that\u0027s not what I see defined in Redfish.  There\u0027s nothing that states \"mutual TLS is except from MFA\", and it might be reasonable to use both.\n\n\u003e And in this case, should ensure not to allow fallback to Basic Auth without MFA (send back 401 to the user?)\n\u003e \n\u003e Your thoughts, Ed?\n\nI ideally should not be catching these kinds of things at code review time.  They would be caught in testing.",
+      "parentUuid": "f55393e3_96227394",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 7
+      },
+      "revId": "2fcbb85653210a802003bb08bd43e1ef876c5eff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f77a757b_31e488a6",
