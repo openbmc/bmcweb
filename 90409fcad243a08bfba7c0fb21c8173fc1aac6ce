@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5eb8910c_63961662",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2025-07-15T10:41:08Z",
+      "side": 1,
+      "message": "This is exactly how I\u0027ve tested it prior to opening the review. I\u0027ve appended the commit message with exact steps. To sum up, there are 3 possible trigger action values to set up:\n\n- LogToLogService - upon activation, a journal log will be created by Telemetry service (e.g. Discrete condition \u0027OnChange\u0027 of trigger \u0027TelemetryService/TestTriggerDiscreteOnChange\u0027 is met on sensor: /redfish/v1/Chassis/AVC_Baseboard/Sensors/temperature_Right_DIMM_Bank_Temp, recorded value: 24.187000, timestamp: 2025-07-15T10:10:45.505Z), and a corresponding entry will be added to /redfish/v1/Managers/bmc/LogServices/Journal\n\n- RedfishEvent - activation creates an entry in /redfish/v1/Systems/system/LogServices/EventLog/Entries (example entry might contain \"MessageId\": \"Telemetry.1.0.TriggerDiscreteConditionMet\")\n\n- RedfishMetricReport - activation will initiate creation of a Report specified by one or more MetricReportDefinition objects listed within `Links` property.\n\nThe situation covered by this patch is the first one. Code responsible for creating a journal entry is present here: https://github.com/openbmc/telemetry/blob/7d87668cf590570896bfb33974b06fbdc16bc47b/src/trigger_actions.cpp, LogToJournal::commit. \n\nIf I understand correctly, Your concern is that journal entry doesn\u0027t contain message ID pointing to corresponding entry from Redfish Message Registry (such as TriggerNumericAboveUpperWarning or TriggerDiscreteConditionMet)? I guess this can be corrected on backened by adding a proper field to journal entry, or even reshaping the whole message so that it matches the schema.",
+      "parentUuid": "5dd47e08_da1284fd",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "90409fcad243a08bfba7c0fb21c8173fc1aac6ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "583ea2f4_1c46fa2d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
