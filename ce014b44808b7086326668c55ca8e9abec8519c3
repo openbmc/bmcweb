@@ -268,6 +268,24 @@
       "parentUuid": "1039855d_b028d7f9",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8bb0a9b_9ffc28ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-15T14:59:25Z",
+      "side": 1,
+      "message": "\u003e Sure, that\u0027s fine, just make sure it\u0027s behind the option.\n\nAlright.\n\n\u003e I could also see arguments it should be in the chassis log in your guys config, but up to you guys.\n\nTechnically the same problem as with host, there are 8 chassis. There is potentially the enclosure chassis, which is a single instance, but that might not exist / being exposed on other multi-host platforms. Manager seems the safest approach, also aligns better with what you have said earlier, that the EventLog is OpenBMC specific.",
+      "parentUuid": "98d45e58_f545a642",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
