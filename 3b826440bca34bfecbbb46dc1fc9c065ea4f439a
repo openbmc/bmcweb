@@ -157,6 +157,30 @@
       },
       "revId": "3b826440bca34bfecbbb46dc1fc9c065ea4f439a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fe9cf27_8dd14915",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-15T20:16:44Z",
+      "side": 1,
+      "message": "I like we continued with the Processor interfaces",
+      "parentUuid": "860d354b_e2ce89e8",
+      "range": {
+        "startLine": 213,
+        "startChar": 9,
+        "endLine": 213,
+        "endChar": 47
+      },
+      "revId": "3b826440bca34bfecbbb46dc1fc9c065ea4f439a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
