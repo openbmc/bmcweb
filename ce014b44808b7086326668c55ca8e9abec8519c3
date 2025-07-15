@@ -286,6 +286,24 @@
       "parentUuid": "98d45e58_f545a642",
       "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8469a87_50b34784",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-15T19:22:57Z",
+      "side": 1,
+      "message": "\u003e \u003e Sure, that\u0027s fine, just make sure it\u0027s behind the option.\n\u003e \n\u003e Alright.\n\u003e \n\u003e \u003e I could also see arguments it should be in the chassis log in your guys config, but up to you guys.\n\u003e \n\u003e Technically the same problem as with host, there are 8 chassis. There is potentially the enclosure chassis, which is a single instance, but that might not exist / being exposed on other multi-host platforms. Manager seems the safest approach, also aligns better with what you have said earlier, that the EventLog is OpenBMC specific.\n\nFine with that.  We\u0027re in the mode of needing a multi-host option regardless now, so we don\u0027t really have to worry about behavior on single host (aside from making sure if the option flag isn\u0027t set behavior doesn\u0027t change).",
+      "parentUuid": "c8bb0a9b_9ffc28ca",
+      "revId": "ce014b44808b7086326668c55ca8e9abec8519c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
