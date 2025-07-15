@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8df326f1_2b6eddd0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-15T19:23:47Z",
+      "side": 1,
+      "message": "\u003e Your concern is that journal entry doesn\u0027t contain message ID pointing to corresponding entry from Redfish Message Registry \n\nCorrect, that and even if we did contain the correct message id, there isn\u0027t mode checks to ensure that we\u0027re in the right mode.",
+      "parentUuid": "5eb8910c_63961662",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "90409fcad243a08bfba7c0fb21c8173fc1aac6ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "583ea2f4_1c46fa2d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
