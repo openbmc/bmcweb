@@ -170,6 +170,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f65419c5_37612a25",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-17T16:48:14Z",
+      "side": 1,
+      "message": "The code can answer it better than I can.  If the above behavior doesn\u0027t work with the option, then it needs fixed.\n\n\u003e If so - what\u0027s the point of having separate implementation?\n\nSome people didn\u0027t like the implementation that was there.\n\nJournal gives raw access to the journal.  EventLog gives structured access over dbus (which is also in the journal).",
+      "parentUuid": "012d637b_776586fd",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "90409fcad243a08bfba7c0fb21c8173fc1aac6ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "583ea2f4_1c46fa2d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
