@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4e1721a6_7b0ee3ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2025-07-17T11:00:34Z",
+      "side": 1,
+      "message": "My 5 cents:\n\n\u003eI guess this can be corrected on backened by adding a proper field to journal entry, or even reshaping the whole message so that it matches the schema.\n\nOkay, so we don\u0027t follow the Data Model. Per `TriggerActionMessage`:\n```\nTelemetry : Messages from the Telemetry Message Registry.\n• This value shall indicate that messages generated in response to a trigger action shall utilize\nmessages from the Telemetry Message Registry. If this property is not supplied or supported, this\nvalue should be used as the default for this trigger\n```\n\nIt seems like we\u0027ve uncovered that implementation on the `openbmc/telemetry` side is lacking. It seems that this property and description was added after `Trigger` schema was implemented, which would explain the discrepancy. To make the implementation proper, we should bump schema to 1.4+ and revisit all journal logs.\n\nFor instance:\nhttps://github.com/openbmc/telemetry/blob/7d87668cf590570896bfb33974b06fbdc16bc47b/src/trigger_actions.cpp#L176 should be rather defined and expressed like TriggerDiscreteConditionMet mandates.\n\nI\u0027m still not clear what the expected format in `LogService` should be. Is it fair to assume that Journal entry, currently like this:\n```\n{\n  \"@odata.id\": \"/redfish/v1/Managers/bmc/LogServices/Journal/Entries/ad02a87606fb4cec92f34f5be3e33301_1617606480490\",\n  \"@odata.type\": \"#LogEntry.v1_9_0.LogEntry\",\n  \"Created\": \"2025-07-17T10:13:39.344178+00:00\",\n  \"EntryType\": \"Oem\",\n  \"Id\": \"ad02a87606fb4cec92f34f5be3e33301_1617606480490\",\n  \"Message\": \"rsyslogd: imjournal: journal files changed, reloading... [v8.2402.0 try https://www.rsyslog.com/e/0 ]\",\n  \"Name\": \"BMC Journal Entry\",\n  \"OemRecordFormat\": \"BMC Journal Entry\",\n  \"Severity\": \"OK\"\n}\n```\n\nshould be replaced with properly formatted `Redfish Event`, as expressed by `redfish/v1/Systems/system/LogServices/EventLog/Entries`, eg:\n```\n{\n  \"@odata.id\": \"/redfish/v1/Systems/system/LogServices/EventLog/Entries/1749736186\",\n  \"@odata.type\": \"#LogEntry.v1_9_0.LogEntry\",\n  \"Created\": \"2025-06-12T13:49:46+00:00\",\n  \"EntryType\": \"Event\",\n  \"Id\": \"1749736186\",\n  \"Message\": \"Invalid username or password attempted on HTTPS.\",\n  \"MessageArgs\": [\n    \"HTTPS\"\n  ],\n  \"MessageId\": \"OpenBMC.0.1.InvalidLoginAttempted\",\n  \"Name\": \"System Event Log Entry\",\n  \"Severity\": \"Warning\"\n}\n```\n?\n\nIf so - what\u0027s the point of having separate implementation? Perhaps what we need to do under the hood is to treat `LogToLogService`  equivalently to `RedfishEvent` , just have extra property to point user to the `redfish/v1/Systems/system/LogServices/EventLog`?",
+      "parentUuid": "8df326f1_2b6eddd0",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "90409fcad243a08bfba7c0fb21c8173fc1aac6ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "583ea2f4_1c46fa2d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
