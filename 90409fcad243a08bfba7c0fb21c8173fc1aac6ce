@@ -194,6 +194,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "53d6d5f7_21e1a3ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2025-07-18T07:53:21Z",
+      "side": 1,
+      "message": "Maybe we should split the conversation, as what Michał is trying to do (mend current implementation) and I wanted to talk about (if we need journal support at all) are separate things.\n\nIt seems that Michał:\n- has invalidated `LogToLogService` action when Journal support is opted-out;\n- hidden `LogService` entry in the same condition;\n\nIt seems like we\u0027ve reached our goal of having implementation consistent with intent of the spec (at least on the Properties side). \n\nLet\u0027s carry message format conversation elsewhere, OK?",
+      "parentUuid": "f65419c5_37612a25",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "90409fcad243a08bfba7c0fb21c8173fc1aac6ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "583ea2f4_1c46fa2d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
