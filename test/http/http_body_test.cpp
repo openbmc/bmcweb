@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
-#include "file_test_utilities.hpp"
 #include "http_body.hpp"
+#include "temporary_file_handle.hpp"
 
 #include <boost/beast/core/file_base.hpp>
 #include <boost/system/error_code.hpp>
