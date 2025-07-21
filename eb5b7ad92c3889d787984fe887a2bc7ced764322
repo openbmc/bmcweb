@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3319bd7_7e0d432a",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-07-21T13:18:28Z",
+      "side": 1,
+      "message": "This would need to be like this as call-param is std::optional.\n```\ncallback(std::nullopt);\n```\nOr\n```\nstd::optional\u003cstd::string\u003e validSystemsPath;\ncallback(validSystemsPath);\n```",
+      "revId": "eb5b7ad92c3889d787984fe887a2bc7ced764322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
