@@ -549,3 +549,14 @@ option(
                     enable on production systems at this time.  Other query
                     parameters such as only are not controlled by this option.''',
 )
+
+# BMCWEB_TEMP_DIR
+option(
+    'temp-dir',
+    type: 'string',
+    value: '/tmp/bmcweb',
+    description: '''Directory path for temporary file storage. This directory
+                    is used for storing temporary files during operations like
+                    multipart form uploads. The directory is automatically
+                    created if it doesn't exist.''',
+)
