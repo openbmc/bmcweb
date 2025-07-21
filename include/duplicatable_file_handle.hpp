@@ -2,19 +2,32 @@
 
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "logging.hpp"
+
 #include <unistd.h>
 
 #include <boost/beast/core/file_posix.hpp>
+#include <boost/system/error_code.hpp>
+
+#include <cerrno>
+#include <cstdlib>
+#include <filesystem>
+#include <format>
+#include <string>
+#include <string_view>
+#include <system_error>
 
 struct DuplicatableFileHandle
 {
     boost::beast::file_posix fileHandle;
+    std::filesystem::path tempPath;
 
     DuplicatableFileHandle() = default;
     DuplicatableFileHandle(DuplicatableFileHandle&&) noexcept = default;
     // Overload copy constructor, because posix doesn't have dup(), but linux
     // does
-    DuplicatableFileHandle(const DuplicatableFileHandle& other)
+    DuplicatableFileHandle(const DuplicatableFileHandle& other) :
+        tempPath(other.tempPath)
     {
         fileHandle.native_handle(dup(other.fileHandle.native_handle()));
     }
@@ -25,9 +38,82 @@ struct DuplicatableFileHandle
             return *this;
         }
         fileHandle.native_handle(dup(other.fileHandle.native_handle()));
+        tempPath = other.tempPath;
         return *this;
     }
     DuplicatableFileHandle& operator=(DuplicatableFileHandle&& other) noexcept =
         default;
-    ~DuplicatableFileHandle() = default;
+
+    ~DuplicatableFileHandle()
+    {
+        if (!tempPath.empty())
+        {
+            std::error_code ec;
+            std::filesystem::remove(tempPath, ec);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to remove temp file {}: {}",
+                                 tempPath.string(), ec.message());
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG("Cleaned up {}", tempPath.string());
+            }
+        }
+    }
+
+    bool createTemporaryFile()
+    {
+        constexpr std::string_view baseDir{"/tmp/bmcweb"};
+        auto tmplStr =
+            std::format("{}/bmcweb_multipart_payload_XXXXXXXXXXX", baseDir);
+        int fd = mkstemp(tmplStr.data());
+        if (fd == -1)
+        {
+            BMCWEB_LOG_ERROR("mkstemp({}) failed: {}", tmplStr, errno);
+            return false;
+        }
+
+        fileHandle.native_handle(fd);
+        tempPath = tmplStr;
+        return true;
+    }
+
+    bool moveToPath(const std::filesystem::path& destination)
+    {
+        if (tempPath.empty())
+        {
+            return false;
+        }
+
+        std::error_code ec;
+        std::filesystem::rename(tempPath, destination, ec);
+        if (ec == std::errc::cross_device_link)
+        {
+            // different filesystems – copy then remove the original
+            ec.clear();
+            std::filesystem::copy_file(
+                tempPath, destination,
+                std::filesystem::copy_options::overwrite_existing, ec);
+            if (!ec)
+            {
+                std::filesystem::remove(tempPath, ec);
+            }
+        }
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR("Failed to move file from {} to {}- {}",
+                             tempPath.string(), destination.string(),
+                             ec.message());
+            return false;
+        }
+        tempPath.clear();
+        return true;
+    }
+
+    int moveToFd() const
+    {
+        int fd = dup(fileHandle.native_handle());
+        return fd;
+    }
 };
