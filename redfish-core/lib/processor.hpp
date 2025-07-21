@@ -207,7 +207,7 @@ inline void getCpuDataByInterface(
                 }
                 else
                 {
-                    messages::propertyNotUpdated(asyncResp->res,"PPIN");
+                    messages::propertyNotUpdated(asyncResp->res, "PPIN");
                 }
             }
             else if (property.first == "Microcode")
@@ -446,7 +446,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         }
         else
         {
-            messages::propertyNotUpdated(asyncResp->res,"SerialNumber");
+            messages::propertyNotUpdated(asyncResp->res, "SerialNumber");
         }
 
         if ((model != nullptr) && !model->empty())
@@ -477,7 +477,7 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
         }
         else
         {
-            messages::propertyNotUpdated(asyncResp->res,"PartNumber");
+            messages::propertyNotUpdated(asyncResp->res, "PartNumber");
         }
 
         if (sparePartNumber != nullptr && !sparePartNumber->empty())
@@ -1322,7 +1322,6 @@ inline void requestRoutesProcessorCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             std::format("/redfish/v1/Systems/{}/Processors",
                         BMCWEB_REDFISH_SYSTEM_URI_NAME);
-
         collection_util::getCollectionMembers(
             asyncResp,
             boost::urls::format("/redfish/v1/Systems/{}/Processors",
@@ -1375,6 +1374,11 @@ inline void requestRoutesProcessor(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             boost::urls::format("/redfish/v1/Systems/{}/Processors/{}",
                                 BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+
+        asyncResp->res.jsonValue["OEM"]["AmdSocConfigurationToken"] = {
+            {"#Processor.AmdSocConfigurationToken",
+             {{"@odata.id", "/redfish/v1/Systems/" + systemName + "/Processors/" +
+                             processorId + "/Oem/AMD/SocConfiguration"}}}};
 
         asyncResp->res.jsonValue["Actions"]["Oem"] = {
             {"#Processor.OobErrorInjectionMode",
