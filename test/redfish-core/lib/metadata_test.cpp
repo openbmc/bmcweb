@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
-#include "file_test_utilities.hpp"
+#include "duplicatable_file_handle.hpp"
 #include "metadata.hpp"
 
 #include <filesystem>
@@ -38,9 +38,9 @@ constexpr std::string_view content =
 
 TEST(MetadataGet, GetOneFile)
 {
-    TemporaryFileHandle file(content);
+    DuplicatableFileHandle file(content);
 
-    std::filesystem::path path{file.stringPath};
+    std::filesystem::path path{file.filePath};
     EXPECT_EQ(
         getMetadataPieceForFile(path),
         std::format("    <edmx:Reference Uri=\"/redfish/v1/schema/{}\">\n"

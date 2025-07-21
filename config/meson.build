@@ -48,6 +48,7 @@ string_options = [
     'mutual-tls-common-name-parsing-default',
     'redfish-manager-uri-name',
     'redfish-system-uri-name',
+    'temp-dir',
 ]
 
 int_options = ['http-body-limit', 'watchdog-timeout-seconds']
@@ -180,6 +181,7 @@ configure_file(
             'BMCWEB_WATCHDOG_TIMEOUT_SECONDS': get_option(
                 'watchdog-timeout-seconds',
             ),
+            'BMCWEB_TEMP_DIR': get_option('temp-dir'),
         },
     ),
 )
