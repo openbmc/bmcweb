@@ -70,6 +70,12 @@ bmcweb relies on some on-system data for storage of persistent data that is
 internal to the process. Details on the exact data stored and when it is
 read/written can seen from the `persistent_data` namespace.
 
+## Temporary files
+
+bmcweb uses `/tmp/bmcweb` for temporary file storage during multipart form
+uploads. This directory is automatically cleaned up by systemd on service
+restart via the `TemporaryFileSystem` directive in the service file.
+
 ## TLS certificate generation
 
 When SSL support is enabled and a usable certificate is not found, bmcweb will
