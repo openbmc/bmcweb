@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7813d109_9c05c08a",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-21T19:03:10Z",
+      "side": 1,
+      "message": "Forgot to check in a file?  I don\u0027t see any handling for TemporaryFileSystem",
+      "range": {
+        "startLine": 76,
+        "startChar": 17,
+        "endLine": 76,
+        "endChar": 36
+      },
+      "revId": "12961bbfe48a3c0741a1d0ad69a55d2cd4fa6413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94ef374a_6d3556a8",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-21T19:03:10Z",
+      "side": 1,
+      "message": "Like I said on the previous patch, lets add this when moveToPath when and if it\u0027s required.  It\u0027s still not clear to me what use case requires doing a post-creation copy to a different path.  I understand you have emmc use cases, but I suspect there\u0027s simpler designs that involve linking the bmcweb temporary file storage to the appropriate place in the first place. (using systemd TemporaryDirectory)",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 5
+      },
+      "revId": "12961bbfe48a3c0741a1d0ad69a55d2cd4fa6413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed564193_a2a3254f",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-21T19:03:10Z",
+      "side": 1,
+      "message": "Why are we duping the FD here?  This could lead to leaked descriptors.  The name \"moveToFd\" implies that the element is closed.",
+      "range": {
+        "startLine": 116,
+        "startChar": 17,
+        "endLine": 116,
+        "endChar": 20
+      },
+      "revId": "12961bbfe48a3c0741a1d0ad69a55d2cd4fa6413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
