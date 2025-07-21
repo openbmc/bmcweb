@@ -124,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a0c6e8e_86d1690f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "I have integrated my changes on top of your patch. hope, that\u0027s fine.",
+      "parentUuid": "395ec0a5_ac2c98b1",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70a19420_23335b79",
@@ -137,6 +155,30 @@
       "writtenOn": "2025-07-03T15:41:49Z",
       "side": 1,
       "message": "fileSize needs to be put into a struct with DuplicatableFileHandle, as it only represents the size of the file (not for any other type).\n\nstruct FileBody{\n   DuplicatableFileHandle fileHandle;\n   std::optional\u003csize_t\u003e fileSize;\n};",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07f94b08_43c32356",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "70a19420_23335b79",
       "range": {
         "startLine": 62,
         "startChar": 0,
@@ -170,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7e6d84e_9f4828e0",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9f23c785_99c4a3d4",
+      "range": {
+        "startLine": 63,
+        "startChar": 9,
+        "endLine": 63,
+        "endChar": 28
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44b40d1a_6d27b03f",
@@ -183,6 +249,30 @@
       "writtenOn": "2025-07-03T15:41:49Z",
       "side": 1,
       "message": "Is there any use case for this that isn\u0027t already fulfilled by getMimeFields ?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 0
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b08a24ff_5a86a8a3",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "yeah, agree. I\u0027ve removed it.",
+      "parentUuid": "44b40d1a_6d27b03f",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -229,6 +319,24 @@
       "writtenOn": "2025-07-03T15:41:49Z",
       "side": 1,
       "message": "```\nif (td::string* s \u003d std::get_if\u003cstd::string\u003e(\u0026bodyData)){\n    return *s;\n}\nreturn bodyData.emplace(std::inplace, \"\");\n```",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f32c30da_fe785325",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d0ae6955_4fb72dc3",
       "revId": "1e710636f4d06ac7496592da75197da758f3671a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -302,6 +410,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8e5d569_61ea62e1",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a933014f_8cb7b674",
+      "range": {
+        "startLine": 151,
+        "startChar": 15,
+        "endLine": 151,
+        "endChar": 16
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1929a3a_a1755934",
@@ -315,6 +447,24 @@
       "writtenOn": "2025-07-03T15:41:49Z",
       "side": 1,
       "message": "nit, this is one of the reasons to put multipartParseError and fileSize in the variant.  It no longer needs cleared explitily",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8320530_dc85c472",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "f1929a3a_a1755934",
       "revId": "1e710636f4d06ac7496592da75197da758f3671a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -355,6 +505,30 @@
       "writtenOn": "2025-07-03T15:41:49Z",
       "side": 1,
       "message": "nullptr dereference possible here.  Remove the hasMimeFields check, and just check this for pointer validity.",
+      "range": {
+        "startLine": 417,
+        "startChar": 16,
+        "endLine": 417,
+        "endChar": 38
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9c83b77_d7baf0a5",
+        "filename": "http/http_body.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3895fda1_93a69321",
       "range": {
         "startLine": 417,
         "startChar": 16,
@@ -412,6 +586,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "358de14b_59af6696",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "09488bba_bd5544e9",
+      "range": {
+        "startLine": 67,
+        "startChar": 38,
+        "endLine": 67,
+        "endChar": 45
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29b2b229_42378811",
@@ -429,6 +627,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "08f5f1e9_52d43edd",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "29b2b229_42378811",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85a37471_32b190d2",
@@ -442,6 +658,30 @@
       "writtenOn": "2025-07-03T15:41:49Z",
       "side": 1,
       "message": "Can we just call this \"moveTo\" or something like that?",
+      "range": {
+        "startLine": 82,
+        "startChar": 9,
+        "endLine": 82,
+        "endChar": 22
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "865e71d2_2f5503d5",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "85a37471_32b190d2",
       "range": {
         "startLine": 82,
         "startChar": 9,
@@ -498,6 +738,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "538989ab_023b7c32",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "It was used at a couple of places-\n1. moveToPath-\u003e Code would try coping/renaming an open file which is allowed on linux, so it can be removed\n2. moveToFD -\u003e Added to avoid duplicate file descriptors after dup(). It was freeing the resource sooner but not strictly need. \nTherefore removing this check.",
+      "parentUuid": "27a40db3_276015f3",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 5
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0681fbbc_fbfdd494",
@@ -511,6 +775,24 @@
       "writtenOn": "2025-07-03T15:41:49Z",
       "side": 1,
       "message": "nit, just inline this in the destructor.  There\u0027s no reason a user should call this outside the destructor, and the destructor is currently one line (this function).",
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51729960_2e0386d2",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0681fbbc_fbfdd494",
       "revId": "1e710636f4d06ac7496592da75197da758f3671a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -660,6 +942,30 @@
       "writtenOn": "2025-07-03T17:54:00Z",
       "side": 1,
       "message": "?  We\u0027re giving access to another entity, and there is no bmcweb group defined, so 640 doesn\u0027t make a lot of sense.\n\nAlso, you say 640, but then below you set 440.  Lets avoid the permissions stuff for now in this patch.",
+      "range": {
+        "startLine": 829,
+        "startChar": 0,
+        "endLine": 829,
+        "endChar": 44
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62c86009_2af68c95",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:40:38Z",
+      "side": 1,
+      "message": "Ack, this was taken from the existing update service code.",
+      "parentUuid": "44690256_3e9e933a",
       "range": {
         "startLine": 829,
         "startChar": 0,
