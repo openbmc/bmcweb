@@ -16,6 +16,24 @@
       "message": "This would need to be like this as call-param is std::optional.\n```\ncallback(std::nullopt);\n```\nOr\n```\nstd::optional\u003cstd::string\u003e validSystemsPath;\ncallback(validSystemsPath);\n```",
       "revId": "eb5b7ad92c3889d787984fe887a2bc7ced764322",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faad47e7_f93e953e",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-21T21:59:41Z",
+      "side": 1,
+      "message": "Good point. I\u0027m surprised clang-tidy didn\u0027t catch this. I\u0027ve updated.",
+      "parentUuid": "e3319bd7_7e0d432a",
+      "revId": "eb5b7ad92c3889d787984fe887a2bc7ced764322",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
