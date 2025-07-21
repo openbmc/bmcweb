@@ -110,6 +110,30 @@
       },
       "revId": "1a78b64e635e52bccc0032154c0e66849f730bab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5432b0b2_49ff70d3",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1002328
+      },
+      "writtenOn": "2025-07-21T19:32:47Z",
+      "side": 1,
+      "message": "Comment has now been removed",
+      "parentUuid": "646147c2_e2efd0ab",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 48
+      },
+      "revId": "1a78b64e635e52bccc0032154c0e66849f730bab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
