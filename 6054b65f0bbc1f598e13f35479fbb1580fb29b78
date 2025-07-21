@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c875d59f_fa0b03ae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-21T20:20:40Z",
+      "side": 1,
+      "message": "This allows for multi-chassis LEDs, this fixes a bad assumption and I just haven\u0027t seen many others care.. \nLet\u0027s follow the LED design here for Chassis too and get this in. \nHappy to discuss further if anyone has concerns.",
+      "revId": "6054b65f0bbc1f598e13f35479fbb1580fb29b78",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
