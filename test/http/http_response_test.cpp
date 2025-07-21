@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
-#include "file_test_utilities.hpp"
+#include "duplicatable_file_handle.hpp"
 #include "http/http_body.hpp"
 #include "http/http_response.hpp"
 #include "utility.hpp"
@@ -86,8 +86,8 @@ TEST(HttpResponse, HttpBody)
 {
     Response res;
     addHeaders(res);
-    TemporaryFileHandle temporaryFile("sample text");
-    res.openFile(temporaryFile.stringPath);
+    DuplicatableFileHandle temporaryFile("sample text");
+    res.openFile(temporaryFile.filePath);
 
     verifyHeaders(res);
 }
@@ -95,8 +95,9 @@ TEST(HttpResponse, HttpBodyWithFd)
 {
     Response res;
     addHeaders(res);
-    TemporaryFileHandle temporaryFile("sample text");
-    FILE* fd = fopen(temporaryFile.stringPath.c_str(), "r+");
+    DuplicatableFileHandle temporaryFile("sample text");
+    FILE* fd = fopen(temporaryFile.filePath.c_str(), "r+");
+    ASSERT_NE(fd, nullptr);
     res.openFd(fileno(fd));
     verifyHeaders(res);
     fclose(fd);
@@ -106,8 +107,8 @@ TEST(HttpResponse, Base64HttpBodyWithFd)
 {
     Response res;
     addHeaders(res);
-    TemporaryFileHandle temporaryFile("sample text");
-    FILE* fd = fopen(temporaryFile.stringPath.c_str(), "r");
+    DuplicatableFileHandle temporaryFile("sample text");
+    FILE* fd = fopen(temporaryFile.filePath.c_str(), "r");
     ASSERT_NE(fd, nullptr);
     res.openFd(fileno(fd), bmcweb::EncodingType::Base64);
     verifyHeaders(res);
@@ -118,8 +119,8 @@ TEST(HttpResponse, BodyTransitions)
 {
     Response res;
     addHeaders(res);
-    TemporaryFileHandle temporaryFile("sample text");
-    res.openFile(temporaryFile.stringPath);
+    DuplicatableFileHandle temporaryFile("sample text");
+    res.openFile(temporaryFile.filePath);
 
     verifyHeaders(res);
     res.write("body text");
@@ -149,21 +150,23 @@ TEST(HttpResponse, Base64HttpBodyWriter)
 {
     Response res;
     std::string data = "sample text";
-    TemporaryFileHandle temporaryFile(data);
-    FILE* f = fopen(temporaryFile.stringPath.c_str(), "r+");
+    DuplicatableFileHandle temporaryFile(data);
+    FILE* f = fopen(temporaryFile.filePath.c_str(), "r+");
+    ASSERT_NE(f, nullptr);
     res.openFd(fileno(f), bmcweb::EncodingType::Base64);
     EXPECT_EQ(getData(res.response), "c2FtcGxlIHRleHQ=");
+    fclose(f);
 }
 
 TEST(HttpResponse, Base64HttpBodyWriterLarge)
 {
     Response res;
     std::string data = generateBigdata();
-    TemporaryFileHandle temporaryFile(data);
+    DuplicatableFileHandle temporaryFile(data);
 
     boost::beast::file_posix file;
     boost::system::error_code ec;
-    file.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
+    file.open(temporaryFile.filePath.c_str(), boost::beast::file_mode::read,
               ec);
     EXPECT_EQ(ec.value(), 0);
     res.openFd(file.native_handle(), bmcweb::EncodingType::Base64);
@@ -174,11 +177,11 @@ TEST(HttpResponse, HttpBodyWriterLarge)
 {
     Response res;
     std::string data = generateBigdata();
-    TemporaryFileHandle temporaryFile(data);
+    DuplicatableFileHandle temporaryFile(data);
 
     boost::beast::file_posix file;
     boost::system::error_code ec;
-    file.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
+    file.open(temporaryFile.filePath.c_str(), boost::beast::file_mode::read,
               ec);
     EXPECT_EQ(ec.value(), 0);
     res.openFd(file.native_handle());

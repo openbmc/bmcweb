@@ -9,7 +9,7 @@
 #include "test_stream.hpp"
 
 #include <nghttp2/nghttp2.h>
-#include <unistd.h>
+#include <sys/types.h>
 
 #include <boost/asio/buffer.hpp>
 #include <boost/asio/io_context.hpp>

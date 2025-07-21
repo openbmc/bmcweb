@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
-#include "file_test_utilities.hpp"
+#include "duplicatable_file_handle.hpp"
 #include "http_body.hpp"
 
 #include <boost/beast/core/file_base.hpp>
@@ -70,9 +70,9 @@ TEST(HttpHttpBodyValueType, CopyOperatorString)
 TEST(HttpHttpBodyValueType, MoveFile)
 {
     HttpBody::value_type value(EncodingType::Base64, CompressionType::Raw);
-    TemporaryFileHandle temporaryFile("teststring");
+    DuplicatableFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
-    value.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
+    value.open(temporaryFile.filePath.c_str(), boost::beast::file_mode::read,
                ec);
     ASSERT_FALSE(ec);
     // Move constructor
@@ -95,9 +95,9 @@ TEST(HttpHttpBodyValueType, MoveFile)
 TEST(HttpHttpBodyValueType, MoveOperatorFile)
 {
     HttpBody::value_type value(EncodingType::Base64, CompressionType::Raw);
-    TemporaryFileHandle temporaryFile("teststring");
+    DuplicatableFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
-    value.open(temporaryFile.stringPath.c_str(), boost::beast::file_mode::read,
+    value.open(temporaryFile.filePath.c_str(), boost::beast::file_mode::read,
                ec);
     ASSERT_FALSE(ec);
     // Move constructor
@@ -119,9 +119,9 @@ TEST(HttpHttpBodyValueType, MoveOperatorFile)
 TEST(HttpFileBodyValueType, SetFd)
 {
     HttpBody::value_type value(EncodingType::Base64, CompressionType::Raw);
-    TemporaryFileHandle temporaryFile("teststring");
+    DuplicatableFileHandle temporaryFile("teststring");
     boost::system::error_code ec;
-    FILE* r = fopen(temporaryFile.stringPath.c_str(), "r");
+    FILE* r = fopen(temporaryFile.filePath.c_str(), "r");
     ASSERT_NE(r, nullptr);
     value.setFd(fileno(r), ec);
     ASSERT_FALSE(ec);
