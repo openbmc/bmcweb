@@ -10,6 +10,17 @@ struct DuplicatableFileHandle
 {
     boost::beast::file_posix fileHandle;
 
+    // Construct from a file descriptor
+    DuplicatableFileHandle(int fd)
+    {
+        fileHandle.native_handle(fd);
+    }
+
+    void setFd(int fd)
+    {
+        fileHandle.native_handle(fd);
+    }
+
     DuplicatableFileHandle() = default;
     DuplicatableFileHandle(DuplicatableFileHandle&&) noexcept = default;
     // Overload copy constructor, because posix doesn't have dup(), but linux
