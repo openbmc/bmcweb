@@ -190,6 +190,30 @@
       },
       "revId": "e42def76306e580d7052ddff1c425b2733693b40",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae826350_11ac5cac",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-07-21T11:46:22Z",
+      "side": 1,
+      "message": "Since our discord discussion https://discord.com/channels/775381525260664832/1291015132851212330/1395827798303707246\n\ni believe the performance concern should be resolved now.\n\nLet me know if you still think there is any performance regression in the single host code path as a result of this patch.",
+      "parentUuid": "31a288d8_48ec8420",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 11
+      },
+      "revId": "e42def76306e580d7052ddff1c425b2733693b40",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
