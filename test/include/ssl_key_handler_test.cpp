@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
-#include "file_test_utilities.hpp"
+#include "duplicatable_file_handle.hpp"
 #include "ssl_key_handler.hpp"
 
 #include <string>
@@ -14,14 +14,14 @@ TEST(SSLKeyHandler, GenerateVerifyRoundTrip)
 {
     /* Verifies that we can generate a certificate, then read back in the
      * certificate that was read */
-    TemporaryFileHandle myFile("");
+    DuplicatableFileHandle myFile("");
     std::string cert = generateSslCertificate("TestCommonName");
 
     EXPECT_FALSE(cert.empty());
 
-    writeCertificateToFile(myFile.stringPath, cert);
+    writeCertificateToFile(myFile.filePath, cert);
 
-    std::string cert2 = verifyOpensslKeyCert(myFile.stringPath);
+    std::string cert2 = verifyOpensslKeyCert(myFile.filePath);
     EXPECT_FALSE(cert2.empty());
     EXPECT_EQ(cert, cert2);
 }
