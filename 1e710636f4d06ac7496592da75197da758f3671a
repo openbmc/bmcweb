@@ -866,6 +866,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fda3084_9c49ce91",
+        "filename": "include/multipart_parser.hpp",
+        "patchSetId": 21
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-21T17:42:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c764e8af_b6820dbd",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 5
+      },
+      "revId": "1e710636f4d06ac7496592da75197da758f3671a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e5c1eb4_0201b374",
