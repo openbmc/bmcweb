@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69a7ff38_aedb5b16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-21T16:55:08Z",
+      "side": 1,
+      "message": "I can\u0027t imagine there\u0027s a lot of input on this cleanup.  If there is, I will take responsibility for cleanup.",
+      "revId": "d49d847c910d9b3ec71213cda4025228ee3866c1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
