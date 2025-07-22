@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8084f83_7327a1a4",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-22T19:12:35Z",
+      "side": 1,
+      "message": "That\u0027s fine, the problem I have is with std::filesystem::copy_file.  These are directories on the same mount, that code will never execute.",
+      "parentUuid": "ba16690b_0b059459",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 5
+      },
+      "revId": "12961bbfe48a3c0741a1d0ad69a55d2cd4fa6413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed564193_a2a3254f",
         "filename": "include/duplicatable_file_handle.hpp",
         "patchSetId": 3
