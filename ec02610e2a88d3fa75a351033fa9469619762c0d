@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7324628_bf1b68cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-22T18:18:42Z",
+      "side": 1,
+      "message": "I\u0027ve pushed some changes to this patch, please take a look.\n\nThe largest change is that we\u0027re now using TemporaryFileHandle that\u0027s not a part of DuplicatedFileHandle.  We had a similar class used in test utils that was used for something similar.\n\nHopefully this patch is closer, even if it doesn\u0027t do everything needed.  We have unit test coverage now, so it\u0027s good to me.",
+      "revId": "ec02610e2a88d3fa75a351033fa9469619762c0d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
