@@ -1,1 +1,2 @@
 subdir('schema')
+subdir('src')

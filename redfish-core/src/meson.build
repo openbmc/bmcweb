@@ -1,0 +1,20 @@
+
+srcfiles_bmcweb += files(
+    'dbus_log_watcher.cpp',
+    'error_message_utils.cpp',
+    'error_messages.cpp',
+    'event_log.cpp',
+    'filesystem_log_watcher.cpp',
+    'filter_expr_executor.cpp',
+    'filter_expr_printer.cpp',
+    'heartbeat_messages.cpp',
+    'redfish.cpp',
+    'registries.cpp',
+    'resource_messages.cpp',
+    'subscription.cpp',
+    'task_messages.cpp',
+    'utils/dbus_utils.cpp',
+    'utils/json_utils.cpp',
+    'utils/multi_host.cpp',
+    'utils/time_utils.cpp',
+)

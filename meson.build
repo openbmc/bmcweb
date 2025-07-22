@@ -371,6 +371,10 @@ summary(
 )
 
 subdir('static')
+
+# populated by meson.build files in subdirs
+srcfiles_bmcweb = files()
+
 subdir('redfish-core')
 
 # Config subdirectory
@@ -384,38 +388,8 @@ subdir('features')
 # Source files
 fs = import('fs')
 
-srcfiles_bmcweb = files(
-    'http/mutual_tls.cpp',
-    'http/routing/sserule.cpp',
-    'http/routing/websocketrule.cpp',
-    'http/zstd_decompressor.cpp',
-    'redfish-core/src/dbus_log_watcher.cpp',
-    'redfish-core/src/error_message_utils.cpp',
-    'redfish-core/src/error_messages.cpp',
-    'redfish-core/src/event_log.cpp',
-    'redfish-core/src/filesystem_log_watcher.cpp',
-    'redfish-core/src/filter_expr_executor.cpp',
-    'redfish-core/src/filter_expr_printer.cpp',
-    'redfish-core/src/heartbeat_messages.cpp',
-    'redfish-core/src/redfish.cpp',
-    'redfish-core/src/registries.cpp',
-    'redfish-core/src/resource_messages.cpp',
-    'redfish-core/src/subscription.cpp',
-    'redfish-core/src/task_messages.cpp',
-    'redfish-core/src/utils/dbus_utils.cpp',
-    'redfish-core/src/utils/json_utils.cpp',
-    'redfish-core/src/utils/multi_host.cpp',
-    'redfish-core/src/utils/time_utils.cpp',
-    'src/boost_asio.cpp',
-    'src/boost_asio_ssl.cpp',
-    'src/boost_beast.cpp',
-    'src/dbus_singleton.cpp',
-    'src/dbus_utility.cpp',
-    'src/json_html_serializer.cpp',
-    'src/ossl_random.cpp',
-    'src/ssl_key_handler.cpp',
-    'src/webserver_run.cpp',
-)
+subdir('http')
+subdir('src')
 
 bmcweblib = static_library(
     'bmcweblib',
