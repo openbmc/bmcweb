@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8d4123f_d211bf85",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-07-22T12:58:17Z",
+      "side": 1,
+      "message": "\u003e calling the file \u0027multi_host\u0027 might be a bit misleading.\n\nFrom my perspective single-host is just a special case of a multi-host system (number of hosts \u003d\u003d 1). So i think it is fine to have this filename.\n\nOfc in bmcweb things are not so simple but i still think the name is ok.\n\nAnd we get a separate translation unit which can potentially speed up the build.",
+      "parentUuid": "fd364d5e_e4a556c0",
+      "revId": "f257bc341c96eb91247bc54f99d3abb290855d89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f69ba7e_4f367f62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
