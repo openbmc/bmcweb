@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e85c5c0_3ae8fe11",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-22T17:44:51Z",
+      "side": 1,
+      "message": "/tmp/images is on the same device, it doesn\u0027t require std::filesystem::copy_file.",
+      "parentUuid": "12f93716_4a15ff9c",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 5
+      },
+      "revId": "12961bbfe48a3c0741a1d0ad69a55d2cd4fa6413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed564193_a2a3254f",
         "filename": "include/duplicatable_file_handle.hpp",
         "patchSetId": 3
