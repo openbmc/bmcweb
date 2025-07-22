@@ -404,6 +404,7 @@ srcfiles_bmcweb = files(
     'redfish-core/src/task_messages.cpp',
     'redfish-core/src/utils/dbus_utils.cpp',
     'redfish-core/src/utils/json_utils.cpp',
+    'redfish-core/src/utils/sw_utils.cpp',
     'redfish-core/src/utils/time_utils.cpp',
     'src/boost_asio.cpp',
     'src/boost_asio_ssl.cpp',
