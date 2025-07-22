@@ -16,5 +16,6 @@ srcfiles_bmcweb += files(
     'utils/dbus_utils.cpp',
     'utils/json_utils.cpp',
     'utils/multi_host.cpp',
+    'utils/sw_utils.cpp',
     'utils/time_utils.cpp',
 )
