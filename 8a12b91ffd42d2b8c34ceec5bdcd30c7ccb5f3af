@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "839e4fca_a8d13884",
+        "filename": "include/file_test_utilities.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-22T18:21:37Z",
+      "side": 0,
+      "message": "FYI, this class was doing something very similar.  They\u0027re now combined.",
+      "range": {
+        "startLine": 13,
+        "startChar": 7,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "8a12b91ffd42d2b8c34ceec5bdcd30c7ccb5f3af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
