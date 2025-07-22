@@ -10,3 +10,24 @@ srcfiles_bmcweb += files(
     'ssl_key_handler.cpp',
     'webserver_run.cpp',
 )
+
+bmcweblib = static_library(
+    'bmcweblib',
+    srcfiles_bmcweb,
+    include_directories: incdir,
+    dependencies: bmcweb_dependencies,
+)
+
+# Generate the bmcwebd daemon
+executable(
+    'bmcwebd',
+    'webserver_main.cpp',
+    include_directories: incdir,
+    dependencies: bmcweb_dependencies,
+    link_with: bmcweblib,
+    link_args: '-Wl,--gc-sections',
+    install: true,
+    install_dir: libexec,
+)
+
+subdir('cli')

@@ -63,6 +63,7 @@ incdir = [
         'redfish-core/include',
         'redfish-core/lib',
         'http',
+        '.',
     ),
 ]
 
@@ -390,34 +391,4 @@ fs = import('fs')
 
 subdir('http')
 subdir('src')
-
-bmcweblib = static_library(
-    'bmcweblib',
-    srcfiles_bmcweb,
-    include_directories: incdir,
-    dependencies: bmcweb_dependencies,
-)
-
-# Generate the bmcwebd daemon
-executable(
-    'bmcwebd',
-    'src/webserver_main.cpp',
-    include_directories: incdir,
-    dependencies: bmcweb_dependencies,
-    link_with: bmcweblib,
-    link_args: '-Wl,--gc-sections',
-    install: true,
-    install_dir: libexec,
-)
-
-# Generate the bmcweb CLI application
-executable(
-    'bmcweb',
-    ['src/webserver_cli.cpp', 'src/boost_asio.cpp'],
-    include_directories: incdir_cli,
-    dependencies: bmcweb_cli_dependencies,
-    install: true,
-    install_dir: bindir,
-)
-
 subdir('test')
