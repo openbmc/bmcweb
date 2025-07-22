@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d9270ec_c5168c74",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-22T12:19:11Z",
+      "side": 1,
+      "message": "These helpers were already put into a seperate utility file. Since these helpers partially run on single-host aswell, calling the file \u0027multi_host\u0027 might be a bit misleading. Also, looking at the current file structure, splitting this into hpp and cpp files does not align with the rest of the repo.",
+      "revId": "f257bc341c96eb91247bc54f99d3abb290855d89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f69ba7e_4f367f62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-22T12:19:11Z",
+      "side": 1,
+      "message": "Not exactly sure what this means. I have updated the expiry date of the option flag, prior of knowing that we might stick to it permanently. As such, these helpers probably won\u0027t be removed aswell.",
+      "revId": "f257bc341c96eb91247bc54f99d3abb290855d89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
