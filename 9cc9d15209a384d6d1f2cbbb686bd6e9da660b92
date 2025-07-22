@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69fde28a_e120d45d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-07-22T15:03:14Z",
+      "side": 1,
+      "message": "It looks good to me (though I have one minor comment).",
+      "revId": "9cc9d15209a384d6d1f2cbbb686bd6e9da660b92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51db2469_a978bb41",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-07-22T15:03:14Z",
+      "side": 1,
+      "message": "This `return` is not needed.",
+      "revId": "9cc9d15209a384d6d1f2cbbb686bd6e9da660b92",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
