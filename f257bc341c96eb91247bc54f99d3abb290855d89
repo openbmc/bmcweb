@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd364d5e_e4a556c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-07-22T12:42:50Z",
+      "side": 1,
+      "message": "\u003e Also, looking at the current file structure, splitting this into hpp and cpp files does not align with the rest of the repo.\n\nImplementing functions in headers when they don\u0027t need to be there is an antipattern. Refer to https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#sf2-a-header-file-must-not-contain-object-definitions-or-non-inline-function-definitions\n\nAnd marking things `inline` does not necessarily makes things faster or smaller.\nhttps://isocpp.org/wiki/faq/inline-functions\n\nIt\u0027s probably just a waste of time to do that and makes the build slower.\n\n\n\n\u003e calling the file \u0027multi_host\u0027 might be a bit misleading.\n\nI wanted to have a separate file for Ed to be able to throw out in case the code does not develop into something worthwhile.",
+      "parentUuid": "2d9270ec_c5168c74",
+      "revId": "f257bc341c96eb91247bc54f99d3abb290855d89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f69ba7e_4f367f62",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2025-07-22T12:19:11Z",
       "side": 1,
       "message": "Not exactly sure what this means. I have updated the expiry date of the option flag, prior of knowing that we might stick to it permanently. As such, these helpers probably won\u0027t be removed aswell.",
+      "revId": "f257bc341c96eb91247bc54f99d3abb290855d89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a6d071d_fb9c29c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-07-22T12:42:50Z",
+      "side": 1,
+      "message": "This is a tough one since usually people don\u0027t allow merging code that has no callers / users.\n\nI wrote this with the expectation that the callers would be merged soon after this patch. If that does not happen for whatever reason this is essentially dead code, and dead code will simply be removed (after some time).",
+      "parentUuid": "9f69ba7e_4f367f62",
       "revId": "f257bc341c96eb91247bc54f99d3abb290855d89",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
