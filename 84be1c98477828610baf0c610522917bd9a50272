@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01ab1e5a_cd8795a6",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-07-22T21:34:58Z",
+      "side": 1,
+      "message": "I think `req` needs to be copied like\n\n```\n    checkGoogleAuthenticatorSecretKeyRequired(\n        username, [username, asyncResp, \n          req \u003d std::make_shared\u003ccrow::Request\u003e(req.copy()), \n         clientId \u003d std::move(clientId)](\n                      const boost::system::error_code\u0026 ec, bool required) {\n            handleGoogleAuthenticatorSecretKeyCheck(username, asyncResp, *req,\n                                                    clientId, ec, required);\n        });\n\n```",
+      "revId": "84be1c98477828610baf0c610522917bd9a50272",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
