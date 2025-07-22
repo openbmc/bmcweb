@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba16690b_0b059459",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-22T18:24:41Z",
+      "side": 1,
+      "message": "This method will be called for the inotify update flow.\n\nLet me take an example of pldm update, In the current PLDM update workflow:\n1. BMCWeb performs preliminary validation (checking firmwareUpdateInProgress status, verifying target devices, etc.)\n2. Upon successful validation, BMCWeb writes the firmware image from the HTTP request body to /tmp/images\n3. PLDM\u0027s inotify watch on /tmp/images detects the new file via IN_CLOSE_WRITE event\n4. This callback method is invoked to process the firmware package\n5. PLDM creates a software object that BMCWeb uses to monitor update progress\n\nWith the proposed memory optimization changes, we need to preserve this same workflow.\nHowever, since /tmp/images and /tmp/bmcweb reside on different filesystems, we cannot use filesystem::rename() for an efficient move operation. Using copy_file() would be inefficient as it performs both copy and delete operations, effectively requiring double the package size in available memory. This is why I suggested implementing a meson build option to configure the path.",
+      "parentUuid": "3e85c5c0_3ae8fe11",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 5
+      },
+      "revId": "12961bbfe48a3c0741a1d0ad69a55d2cd4fa6413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed564193_a2a3254f",
         "filename": "include/duplicatable_file_handle.hpp",
         "patchSetId": 3
