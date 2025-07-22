@@ -13,6 +13,7 @@ srcfiles_bmcweb += files(
     'resource_messages.cpp',
     'subscription.cpp',
     'task_messages.cpp',
+    'update_service.cpp',
     'utils/dbus_utils.cpp',
     'utils/json_utils.cpp',
     'utils/multi_host.cpp',
