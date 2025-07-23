@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "df7e7fa0_37a49d16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-23T15:51:24Z",
+      "side": 1,
+      "message": "👍\nFor clarity maybe add the link to the patchset that does the testing.",
+      "parentUuid": "36a0c980_b71b794d",
+      "revId": "42bc3f3e98765950242431011830ca3faac3ec06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3935c475_fea213bb",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -97,6 +115,30 @@
       "side": 1,
       "message": "Haven\u0027t seen a reply from Janet.  Assuming the question has been answered acceptably.",
       "parentUuid": "73b686fe_b2248f51",
+      "range": {
+        "startLine": 801,
+        "startChar": 0,
+        "endLine": 801,
+        "endChar": 2
+      },
+      "revId": "42bc3f3e98765950242431011830ca3faac3ec06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdd0489c_699153b5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-23T15:51:24Z",
+      "side": 1,
+      "message": "Yes I\u0027m okay with this. The parseFormPartName() function handles it.",
+      "parentUuid": "66653d1e_720184ee",
       "range": {
         "startLine": 801,
         "startChar": 0,
