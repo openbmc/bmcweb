@@ -384,21 +384,25 @@ inline std::string getHealth(nlohmann::json& sensorJson,
 inline void setLedState(nlohmann::json& sensorJson,
                         const InventoryItem* inventoryItem)
 {
-    if (inventoryItem != nullptr && !inventoryItem->ledObjectPath.empty())
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
     {
-        switch (inventoryItem->ledState)
+        if (inventoryItem != nullptr && !inventoryItem->ledObjectPath.empty())
         {
-            case LedState::OFF:
-                sensorJson["IndicatorLED"] = resource::IndicatorLED::Off;
-                break;
-            case LedState::ON:
-                sensorJson["IndicatorLED"] = resource::IndicatorLED::Lit;
-                break;
-            case LedState::BLINK:
-                sensorJson["IndicatorLED"] = resource::IndicatorLED::Blinking;
-                break;
-            default:
-                break;
+            switch (inventoryItem->ledState)
+            {
+                case LedState::OFF:
+                    sensorJson["IndicatorLED"] = resource::IndicatorLED::Off;
+                    break;
+                case LedState::ON:
+                    sensorJson["IndicatorLED"] = resource::IndicatorLED::Lit;
+                    break;
+                case LedState::BLINK:
+                    sensorJson["IndicatorLED"] =
+                        resource::IndicatorLED::Blinking;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
