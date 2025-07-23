@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57ca976b_49084b14",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-23T03:26:16Z",
+      "side": 1,
+      "message": "Still blast this",
+      "parentUuid": "1eb3edef_80f04454",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62119706_b872b763",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 28
@@ -226,6 +244,24 @@
       "side": 1,
       "message": "This isn\u0027t the only place we need to fix if we start enforcing that, but sure.",
       "parentUuid": "ce6aa707_211b00e5",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abb0e3a7_d5500c93",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-23T03:26:16Z",
+      "side": 1,
+      "message": ":shrug: I thought we tried to put these after the resourceNotFound check but I don\u0027t care much",
+      "parentUuid": "3fb6e1e8_303b7402",
       "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
