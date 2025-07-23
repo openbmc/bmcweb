@@ -1222,6 +1222,15 @@ inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
         addRelatedItem(asyncResp, url);
     }
+    else if (purpose == sw_util::systemPurpose)
+    {
+        if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            addRelatedItem(asyncResp,
+                           std::format("/redfish/v1/Systems/{}",
+                                       BMCWEB_REDFISH_SYSTEM_URI_NAME));
+        }
+    }
     else
     {
         BMCWEB_LOG_DEBUG("Unknown software purpose {}", purpose);
