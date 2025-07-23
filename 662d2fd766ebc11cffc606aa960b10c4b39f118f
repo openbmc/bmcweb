@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f770ab6_409c1310",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-23T18:21:58Z",
+      "side": 1,
+      "message": "Fun fact, in testing this patch alone adds about 1KB to the on-disk binary size.  This on its own is likely survivable, but as a pattern isn\u0027t something we can really handle while still fitting on machines.",
+      "revId": "662d2fd766ebc11cffc606aa960b10c4b39f118f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
