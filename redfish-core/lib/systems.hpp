@@ -3124,8 +3124,11 @@ inline void handleComputerSystemGet(
             }
         });
 
-    // TODO (Gunnar): Remove IndicatorLED after enough time has passed
-    getIndicatorLedState(asyncResp);
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+    {
+        getIndicatorLedState(asyncResp);
+    }
+
     getComputerSystem(asyncResp);
     getHostState(asyncResp);
     getBootProperties(asyncResp);
@@ -3220,6 +3223,15 @@ inline void handleComputerSystemPatch(
         return;
     }
 
+    if constexpr (!BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+    {
+        if (indicatorLed)
+        {
+            messages::propertyUnknown(asyncResp->res, "IndicatorLED");
+            return;
+        }
+    }
+
     if (assetTag)
     {
         setAssetTag(asyncResp, *assetTag);
@@ -3273,14 +3285,15 @@ inline void handleComputerSystemPatch(
             });
     }
 
-    // TODO (Gunnar): Remove IndicatorLED after enough time has
-    // passed
-    if (indicatorLed)
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
     {
-        setIndicatorLedState(asyncResp, *indicatorLed);
-        asyncResp->res.addHeader(boost::beast::http::field::warning,
-                                 "299 - \"IndicatorLED is deprecated. Use "
-                                 "LocationIndicatorActive instead.\"");
+        if (indicatorLed)
+        {
+            setIndicatorLedState(asyncResp, *indicatorLed);
+            asyncResp->res.addHeader(boost::beast::http::field::warning,
+                                     "299 - \"IndicatorLED is deprecated. Use "
+                                     "LocationIndicatorActive instead.\"");
+        }
     }
 
     if (powerRestorePolicy)

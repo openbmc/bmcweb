@@ -671,7 +671,10 @@ inline void handleChassisGetSubTree(
         {
             if (std::ranges::find(interfaces2, interface) != interfaces2.end())
             {
-                getIndicatorLedState(asyncResp);
+                if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+                {
+                    getIndicatorLedState(asyncResp);
+                }
                 getLocationIndicatorActive(asyncResp, objPath);
                 break;
             }
@@ -764,16 +767,23 @@ inline void handleChassisPatch(
         return;
     }
 
-    // TODO (Gunnar): Remove IndicatorLED after enough time has passed
     if (!locationIndicatorActive && !indicatorLed)
     {
         return; // delete this when we support more patch properties
     }
     if (indicatorLed)
     {
-        asyncResp->res.addHeader(
-            boost::beast::http::field::warning,
-            "299 - \"IndicatorLED is deprecated. Use LocationIndicatorActive instead.\"");
+        if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+        {
+            asyncResp->res.addHeader(
+                boost::beast::http::field::warning,
+                "299 - \"IndicatorLED is deprecated. Use LocationIndicatorActive instead.\"");
+        }
+        else
+        {
+            messages::propertyUnknown(asyncResp->res, "IndicatorLED");
+            return;
+        }
     }
 
     const std::string& chassisId = param;
@@ -843,16 +853,19 @@ inline void handleChassisPatch(
                                                   "LocationIndicatorActive");
                     }
                 }
-                if (indicatorLed)
+                if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
                 {
-                    if (indicatorChassis)
+                    if (indicatorLed)
                     {
-                        setIndicatorLedState(asyncResp, *indicatorLed);
-                    }
-                    else
-                    {
-                        messages::propertyUnknown(asyncResp->res,
-                                                  "IndicatorLED");
+                        if (indicatorChassis)
+                        {
+                            setIndicatorLedState(asyncResp, *indicatorLed);
+                        }
+                        else
+                        {
+                            messages::propertyUnknown(asyncResp->res,
+                                                      "IndicatorLED");
+                        }
                     }
                 }
                 return;
