@@ -690,7 +690,7 @@ struct MultiPartUpdate
     struct UpdateParameters
     {
         std::optional<std::string> applyTime;
-        std::vector<std::string> targets;
+        std::optional<std::vector<std::string>> targets;
     } params;
 };
 
@@ -760,36 +760,39 @@ inline std::optional<MultiPartUpdate::UpdateParameters> processUpdateParameters(
         return std::nullopt;
     }
 
-    std::vector<std::string> tempTargets;
     if (!json_util::readJsonObject(                            //
             *obj, asyncResp->res,                              //
             "@Redfish.OperationApplyTime", multiRet.applyTime, //
-            "Targets", tempTargets                             //
+            "Targets", multiRet.targets                        //
             ))
     {
         return std::nullopt;
     }
 
-    for (size_t urlIndex = 0; urlIndex < tempTargets.size(); urlIndex++)
+    if (multiRet.targets)
     {
-        const std::string& target = tempTargets[urlIndex];
-        boost::system::result<boost::urls::url_view> url =
-            boost::urls::parse_origin_form(target);
-        auto res = processUrl(url);
-        if (!res.has_value())
+        if (multiRet.targets->size() > 1)
         {
-            messages::propertyValueFormatError(
-                asyncResp->res, target, std::format("Targets/{}", urlIndex));
+            messages::propertyValueFormatError(asyncResp->res,
+                                               *multiRet.targets, "Targets");
             return std::nullopt;
         }
-        multiRet.targets.emplace_back(res.value());
+
+        for (auto& target : *multiRet.targets)
+        {
+            boost::system::result<boost::urls::url_view> url =
+                boost::urls::parse_origin_form(target);
+            auto res = processUrl(url);
+            if (!res.has_value())
+            {
+                messages::propertyValueFormatError(asyncResp->res, target,
+                                                   "Targets");
+                return std::nullopt;
+            }
+            target = res.value();
+        }
     }
-    if (multiRet.targets.size() != 1)
-    {
-        messages::propertyValueFormatError(asyncResp->res, multiRet.targets,
-                                           "Targets");
-        return std::nullopt;
-    }
+
     return multiRet;
 }
 
@@ -838,11 +841,7 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
         messages::propertyMissing(asyncResp->res, "UpdateFile");
         return std::nullopt;
     }
-    if (multiRet.params.targets.empty())
-    {
-        messages::propertyMissing(asyncResp->res, "Targets");
-        return std::nullopt;
-    }
+
     return multiRet;
 }
 
@@ -883,14 +882,11 @@ inline void startUpdate(
 
 inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                       task::Payload payload, const MemoryFileDescriptor& memfd,
-                      const std::string& applyTime, const std::string& target,
+                      const std::string& applyTime,
+                      const std::optional<std::string>& target,
                       const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
-    using SwInfoMap = std::unordered_map<
-        std::string, std::pair<sdbusplus::message::object_path, std::string>>;
-    SwInfoMap swInfoMap;
-
     if (ec)
     {
         BMCWEB_LOG_ERROR("error_code = {}", ec);
@@ -898,7 +894,39 @@ inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         messages::internalError(asyncResp->res);
         return;
     }
-    BMCWEB_LOG_DEBUG("Found {} software version paths", subtree.size());
+    BMCWEB_LOG_DEBUG("Found {} software update paths", subtree.size());
+
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_WARNING("No software objects found");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    if (!target)
+    {
+        if (subtree.size() > 1)
+        {
+            BMCWEB_LOG_ERROR(
+                "Multiple software objects found ({}) when no target specified",
+                subtree.size());
+            messages::propertyMissing(asyncResp->res, "Targets");
+            return;
+        }
+
+        const auto& firstEntry = subtree[0];
+        BMCWEB_LOG_DEBUG(
+            "No target specified, using first software object: {} serviceName {}",
+            firstEntry.first, firstEntry.second[0].first);
+
+        startUpdate(asyncResp, std::move(payload), memfd, applyTime,
+                    firstEntry.first, firstEntry.second[0].first);
+        return;
+    }
+
+    using SwInfoMap = std::unordered_map<
+        std::string, std::pair<sdbusplus::message::object_path, std::string>>;
+    SwInfoMap swInfoMap;
 
     for (const auto& entry : subtree)
     {
@@ -907,11 +935,11 @@ inline void getSwInfo(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         swInfoMap.emplace(swId, make_pair(path, entry.second[0].first));
     }
 
-    auto swEntry = swInfoMap.find(target);
+    auto swEntry = swInfoMap.find(*target);
     if (swEntry == swInfoMap.end())
     {
-        BMCWEB_LOG_WARNING("No valid DBus path for Target URI {}", target);
-        messages::propertyValueFormatError(asyncResp->res, target, "Targets");
+        BMCWEB_LOG_WARNING("No valid D-Bus path for Target URI {}", *target);
+        messages::propertyValueFormatError(asyncResp->res, *target, "Targets");
         return;
     }
 
@@ -950,7 +978,7 @@ inline void handleBMCUpdate(
 inline void processUpdateRequest(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     task::Payload&& payload, std::string_view body,
-    const std::string& applyTime, std::vector<std::string>& targets)
+    const std::string& applyTime, const std::vector<std::string>& targets)
 {
     MemoryFileDescriptor memfd("update-image");
     if (memfd.fd == -1)
@@ -987,15 +1015,20 @@ inline void processUpdateRequest(
     else
     {
         constexpr std::array<std::string_view, 1> interfaces = {
-            "xyz.openbmc_project.Software.Version"};
+            "xyz.openbmc_project.Software.Update"};
         dbus::utility::getSubTree(
-            "/xyz/openbmc_project/software", 1, interfaces,
+            "/xyz/openbmc_project", 1, interfaces,
             [asyncResp, payload = std::move(payload), memfd = std::move(memfd),
              applyTime, targets](const boost::system::error_code& ec,
                                  const dbus::utility::MapperGetSubTreeResponse&
                                      subtree) mutable {
+                std::optional<std::string> target;
+                if (!targets.empty())
+                {
+                    target = targets[0];
+                }
                 getSwInfo(asyncResp, std::move(payload), memfd, applyTime,
-                          targets[0], ec, subtree);
+                          target, ec, subtree);
             });
     }
 }
@@ -1025,9 +1058,10 @@ inline void updateMultipartContext(
         }
         task::Payload payload(req);
 
-        processUpdateRequest(asyncResp, std::move(payload),
-                             multipart->uploadData, applyTimeNewVal,
-                             multipart->params.targets);
+        processUpdateRequest(
+            asyncResp, std::move(payload), multipart->uploadData,
+            applyTimeNewVal,
+            multipart->params.targets.value_or(std::vector<std::string>{}));
     }
     else
     {
