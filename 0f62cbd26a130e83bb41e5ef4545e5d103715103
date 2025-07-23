@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd18afa3_dd3b823d",
+        "filename": "meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-23T16:50:31Z",
+      "side": 1,
+      "message": "?  Why is this required?  There are no source files in the root.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 12
+      },
+      "revId": "0f62cbd26a130e83bb41e5ef4545e5d103715103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "457fef49_fab7c361",
+        "filename": "src/cli/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-23T16:50:31Z",
+      "side": 1,
+      "message": "The CLI is literally one file.  I would prefer to keep it with the rest of the source files and not have folders with a single source file in them.",
+      "revId": "0f62cbd26a130e83bb41e5ef4545e5d103715103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c349d3d8_0d176844",
+        "filename": "src/cli/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-23T16:50:31Z",
+      "side": 1,
+      "message": "The intent in not doing linking the CLI with bmcweblib is that the CLI should not be sharing ANY code with the daemon.  Now obviously boost_asio.cpp breaks that (because the CLI needs boost to talk to dbus), but that should be its own dependency for the CLI and bmcwebd to link against",
+      "range": {
+        "startLine": 7,
+        "startChar": 15,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "0f62cbd26a130e83bb41e5ef4545e5d103715103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
