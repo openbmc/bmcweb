@@ -258,4 +258,59 @@ inline std::string getChassisStateServiceName(
 
     return chassisStateService;
 }
+
+/**
+ * @brief Match computerSystemIndex with index contained by an object path
+ *        i.e 1 in /xyz/openbmc/project/control/host1/policy/TPMEnable
+ *
+ * @param[i] asyncResp           Shared pointer for generating response
+ * @param[i] computerSystemIndex The index to match against
+ * @param[i] subtree             Mapper response object
+ * @param[o] objectPath          Buffer for matched object path
+ * @param[o] service             Buffer for service of matched object
+ *                               path
+ *
+ * @return true if match found, else false
+ */
+inline bool indexMatchingSubTreeMapObjectPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex,
+    const dbus::utility::MapperGetSubTreeResponse& subtree,
+    std::string& objectPath, std::string& service)
+{
+    const std::string host =
+        std::format("host{}", std::to_string(computerSystemIndex));
+
+    for (const auto& obj : subtree)
+    {
+        std::string tmp = host;
+        const sdbusplus::message::object_path path{obj.first};
+        const std::string serv = obj.second.begin()->first;
+
+        if (path.str.empty() || obj.second.size() != 1)
+        {
+            BMCWEB_LOG_DEBUG("Error finding index in object path");
+            messages::internalError(asyncResp->res);
+            return false;
+        }
+
+        objectPath = path;
+        service = serv;
+
+        if (path.filename() == host)
+        {
+            return true;
+        }
+
+        tmp.insert(0, 1, '/');
+        tmp.append("/");
+        if (path.str.find(host) != std::string::npos)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 } // namespace redfish
