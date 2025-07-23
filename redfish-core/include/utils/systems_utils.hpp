@@ -258,4 +258,64 @@ inline std::string getChassisStateServiceName(
 
     return chassisStateService;
 }
+
+/**
+ * @brief Match computerSystemIndex with index contained by an object path
+ *        i.e 1 in /xyz/openbmc/project/control/host1/policy/TPMEnable
+ *
+ * @param[i] asyncResp           Shared pointer for generating response
+ * @param[i] computerSystemIndex The index to match against
+ * @param[i] subtree             Mapper response object
+ * @param[i] objectPath          Buffer for matched object path
+ * @param[i] service             Buffer for service of matched object
+ *                               path
+ *
+ * @return true if match found, else false
+ */
+inline bool indexMatchingSubTreeMapObjectPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex,
+    const dbus::utility::MapperGetSubTreeResponse& subtree,
+    std::string& objectPath, std::string& service)
+{
+    const std::string host = "/host";
+
+    for (const auto& obj : subtree)
+    {
+        // Make sure the Dbus response map object has a service and objectPath
+        // field
+        if (obj.first.empty() || obj.second.size() != 1)
+        {
+            BMCWEB_LOG_DEBUG("TPM.Policy mapper error!");
+            messages::internalError(asyncResp->res);
+            return false;
+        }
+
+        size_t start = obj.first.find(host) + 1;
+        size_t end = obj.first.find_first_of("/", start);
+
+        if (end == std::string::npos)
+        {
+            end = obj.first.length() - 1;
+        }
+        else
+        {
+            end -= 1;
+        }
+
+        size_t indexCharCount = end - (start + 3);
+
+        std::string foundIndex = obj.first.substr(start + 4, indexCharCount);
+        BMCWEB_LOG_DEBUG("indexMatchingSubTreeMapObjectPath found index = {}",
+                         foundIndex);
+
+        if (std::to_string(computerSystemIndex) == foundIndex)
+        {
+            objectPath = obj.first;
+            service = obj.second.begin()->first;
+            return true;
+        }
+    }
+    return false;
+}
 } // namespace redfish
