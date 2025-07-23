@@ -2908,44 +2908,20 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
         serviceName, objectPath, interfaceName, method);
 }
 
-inline void handleComputerSystemResetActionPost(
-    crow::App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName)
+/**
+ * @brief process the POST request after getting the computerSystemIndex
+ *
+ * @param[in] asyncResp           Shared pointer for completing asynchronous
+ *                                calls
+ * @param[in] resetType           The requested reset action
+ * @param[in] computerSystemIndex Index associated with the requested system
+ *
+ * @return None
+ */
+inline void processComputerSystemResetActionPost(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string& resetType,
+    const uint64_t computerSystemIndex)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-
-    if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
-    {
-        if (systemName == "hypervisor")
-        {
-            handleHypervisorSystemResetPost(req, asyncResp);
-            return;
-        }
-    }
-
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    std::string resetType;
-    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
-    {
-        return;
-    }
-
     // Get the command and host vs. chassis
     std::string command;
     bool hostCommand = true;
@@ -2990,21 +2966,63 @@ inline void handleComputerSystemResetActionPost(
         messages::actionParameterUnknown(asyncResp->res, "Reset", resetType);
         return;
     }
-    sdbusplus::message::object_path statePath("/xyz/openbmc_project/state");
 
     if (hostCommand)
     {
-        setDbusProperty(asyncResp, "Reset", "xyz.openbmc_project.State.Host",
-                        statePath / "host0", "xyz.openbmc_project.State.Host",
+        setDbusProperty(asyncResp, "Reset",
+                        getHostStateServiceName(computerSystemIndex),
+                        getHostStateObjectPath(computerSystemIndex),
+                        "xyz.openbmc_project.State.Host",
                         "RequestedHostTransition", command);
     }
     else
     {
-        setDbusProperty(asyncResp, "Reset", "xyz.openbmc_project.State.Chassis",
-                        statePath / "chassis0",
+        setDbusProperty(asyncResp, "Reset",
+                        getChassisStateServiceName(computerSystemIndex),
+                        getChassisStateObjectPath(computerSystemIndex),
                         "xyz.openbmc_project.State.Chassis",
                         "RequestedPowerTransition", command);
     }
+}
+
+inline void handleComputerSystemResetActionPost(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
+    {
+        if (systemName == "hypervisor")
+        {
+            handleHypervisorSystemResetPost(req, asyncResp);
+            return;
+        }
+    }
+
+    if (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+    }
+
+    std::string resetType;
+    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
+    {
+        return;
+    }
+
+    getComputerSystemIndex(asyncResp, systemName,
+                           std::bind_front(processComputerSystemResetActionPost,
+                                           asyncResp, resetType));
 }
 
 inline void handleComputerSystemHead(
