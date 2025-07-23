@@ -239,7 +239,20 @@ struct Response
         {
             return "";
         }
-        size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
+
+        // "Services should omit properties named DateTime from ETag
+        // calculations" (Redfish Specification 6.5: ETags)
+        size_t hashval;
+        if (jsonValue.contains("DateTime"))
+        {
+            nlohmann::json duplicateValue = jsonValue;
+            duplicateValue.erase("DateTime");
+            hashval = std::hash<nlohmann::json>{}(duplicateValue);
+        }
+        else
+        {
+            hashval = std::hash<nlohmann::json>{}(jsonValue);
+        }
         return "\"" + intToHexString(hashval, 8) + "\"";
     }
 
@@ -291,8 +304,7 @@ struct Response
         {
             return;
         }
-        size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
-        std::string hexVal = "\"" + intToHexString(hashval, 8) + "\"";
+        std::string hexVal = computeEtag();
         addHeader(http::field::etag, hexVal);
         if (expectedHash && hexVal == *expectedHash)
         {
