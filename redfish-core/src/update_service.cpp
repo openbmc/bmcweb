@@ -1145,6 +1145,11 @@ void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         addRelatedItem(asyncResp, std::format("/redfish/v1/Systems/{}/Bios",
                                               BMCWEB_REDFISH_SYSTEM_URI_NAME));
     }
+    else if (purpose == sw_util::systemPurpose)
+    {
+        addRelatedItem(asyncResp, std::format("/redfish/v1/Systems/{}",
+                                              BMCWEB_REDFISH_SYSTEM_URI_NAME));
+    }
     else
     {
         BMCWEB_LOG_DEBUG("Unknown software purpose {}", purpose);
