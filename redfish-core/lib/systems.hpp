@@ -1336,15 +1336,15 @@ inline void getAutomaticRetryPolicy(
 
 inline void setAutomaticRetryAttempts(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const uint32_t retryAttempts)
+    const uint64_t computerSystemIndex, const uint32_t retryAttempts)
 {
     BMCWEB_LOG_DEBUG("Set Automatic Retry Attempts.");
-    setDbusProperty(
-        asyncResp, "Boot/AutomaticRetryAttempts",
-        "xyz.openbmc_project.State.Host",
-        sdbusplus::message::object_path("/xyz/openbmc_project/state/host0"),
-        "xyz.openbmc_project.Control.Boot.RebootAttempts", "RetryAttempts",
-        retryAttempts);
+
+    setDbusProperty(asyncResp, "Boot/AutomaticRetryAttempts",
+                    getHostStateServiceName(computerSystemIndex),
+                    getHostStateObjectPath(computerSystemIndex),
+                    "xyz.openbmc_project.Control.Boot.RebootAttempts",
+                    "RetryAttempts", retryAttempts);
 }
 
 inline computer_system::PowerRestorePolicyTypes
@@ -1543,19 +1543,21 @@ inline void getTrustedModuleRequiredToBoot(
  * TPM is required for booting the host.
  *
  * @param[in] asyncResp     Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] tpmRequired   Value to set TPM Required To Boot property to.
  *
  * @return None.
  */
 inline void setTrustedModuleRequiredToBoot(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const bool tpmRequired)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex, const bool tpmRequired)
 {
     BMCWEB_LOG_DEBUG("Set TrustedModuleRequiredToBoot.");
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Control.TPM.Policy"};
     dbus::utility::getSubTree(
         "/", 0, interfaces,
-        [asyncResp,
+        [asyncResp, computerSystemIndex,
          tpmRequired](const boost::system::error_code& ec,
                       const dbus::utility::MapperGetSubTreeResponse& subtree) {
             if (ec)
@@ -1573,28 +1575,25 @@ inline void setTrustedModuleRequiredToBoot(
                 return;
             }
 
-            /* When there is more than one TPMEnable object... */
-            if (subtree.size() > 1)
+            // On multi-host index counting starts at 1 to index the first host
+            // More can be read in phosphor-dbus-interfaces State readme
+            size_t idx = static_cast<size_t>(computerSystemIndex);
+            if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
             {
-                BMCWEB_LOG_DEBUG(
-                    "DBUS response has more than 1 TPM Enable object:{}",
-                    subtree.size());
-                // Throw an internal Error and return
-                messages::internalError(asyncResp->res);
-                return;
+                idx -= 1;
             }
 
             // Make sure the Dbus response map has a service and objectPath
             // field
-            if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+            if (subtree[idx].first.empty() || subtree[idx].second.size() != 1)
             {
                 BMCWEB_LOG_DEBUG("TPM.Policy mapper error!");
                 messages::internalError(asyncResp->res);
                 return;
             }
 
-            const std::string& path = subtree[0].first;
-            const std::string& serv = subtree[0].second.begin()->first;
+            const std::string& path = subtree[idx].first;
+            const std::string& serv = subtree[idx].second.begin()->first;
 
             if (serv.empty())
             {
@@ -1614,10 +1613,12 @@ inline void setTrustedModuleRequiredToBoot(
  * @brief Sets boot properties into DBUS object(s).
  *
  * @param[in] asyncResp       Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] bootType        The boot type to set.
  * @return Integer error code.
  */
 inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const uint64_t computerSystemIndex,
                         const std::optional<std::string>& bootType)
 {
     std::string bootTypeStr;
@@ -1651,10 +1652,11 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG("DBUS boot type: {}", bootTypeStr);
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideMode",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Control.Boot.Type", "BootType",
                     bootTypeStr);
 }
@@ -1664,10 +1666,12 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  *
  * @param[in] asyncResp           Shared pointer for generating response
  * message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] bootType        The boot type to set.
  * @return Integer error code.
  */
 inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const uint64_t computerSystemIndex,
                           const std::optional<std::string>& bootEnable)
 {
     if (!bootEnable)
@@ -1707,10 +1711,11 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG("DBUS boot override enable: {}", bootOverrideEnable);
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideEnabled",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Object.Enable", "Enabled",
                     bootOverrideEnable);
 
@@ -1724,10 +1729,9 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG("DBUS boot override persistent: {}",
                      bootOverridePersistent);
 
+    path /= "one_time";
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideEnabled",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/boot/one_time"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Object.Enable", "Enabled",
                     !bootOverridePersistent);
 }
@@ -1736,12 +1740,14 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  * @brief Sets boot properties into DBUS object(s).
  *
  * @param[in] asyncResp       Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] bootSource      The boot source to set.
  *
  * @return Integer error code.
  */
 inline void setBootModeOrSource(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex,
     const std::optional<std::string>& bootSource)
 {
     std::string bootSourceStr;
@@ -1770,16 +1776,15 @@ inline void setBootModeOrSource(
     BMCWEB_LOG_DEBUG("DBUS boot source: {}", bootSourceStr);
     BMCWEB_LOG_DEBUG("DBUS boot mode: {}", bootModeStr);
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideTarget",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Control.Boot.Source", "BootSource",
                     bootSourceStr);
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideTarget",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
                     bootModeStr);
 }
@@ -1788,6 +1793,7 @@ inline void setBootModeOrSource(
  * @brief Sets Boot source override properties.
  *
  * @param[in] asyncResp  Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] bootSource The boot source from incoming RF request.
  * @param[in] bootType   The boot type from incoming RF request.
  * @param[in] bootEnable The boot override enable from incoming RF request.
@@ -1797,15 +1803,16 @@ inline void setBootModeOrSource(
 
 inline void setBootProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex,
     const std::optional<std::string>& bootSource,
     const std::optional<std::string>& bootType,
     const std::optional<std::string>& bootEnable)
 {
     BMCWEB_LOG_DEBUG("Set boot information.");
 
-    setBootModeOrSource(asyncResp, bootSource);
-    setBootType(asyncResp, bootType);
-    setBootEnable(asyncResp, bootEnable);
+    setBootModeOrSource(asyncResp, computerSystemIndex, bootSource);
+    setBootType(asyncResp, computerSystemIndex, bootType);
+    setBootEnable(asyncResp, computerSystemIndex, bootEnable);
 }
 
 /**
@@ -1930,13 +1937,14 @@ inline void setStopBootOnFault(
  * @brief Sets automaticRetry (Auto Reboot)
  *
  * @param[in] asyncResp   Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] automaticRetryConfig  "AutomaticRetryConfig" from request.
  *
  * @return None.
  */
 inline void setAutomaticRetry(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& automaticRetryConfig)
+    const uint64_t computerSystemIndex, const std::string& automaticRetryConfig)
 {
     BMCWEB_LOG_DEBUG("Set Automatic Retry.");
 
@@ -1960,10 +1968,11 @@ inline void setAutomaticRetry(
         return;
     }
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "auto_reboot";
     setDbusProperty(asyncResp, "Boot/AutomaticRetryConfig",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/auto_reboot"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Control.Boot.RebootPolicy",
                     "AutoReboot", autoRebootEnabled);
 }
@@ -1989,13 +1998,14 @@ inline std::string dbusPowerRestorePolicyFromRedfish(std::string_view policy)
  * @brief Sets power restore policy properties.
  *
  * @param[in] asyncResp   Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] policy  power restore policy properties from request.
  *
  * @return None.
  */
 inline void setPowerRestorePolicy(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    std::string_view policy)
+    const uint64_t computerSystemIndex, std::string_view policy)
 {
     BMCWEB_LOG_DEBUG("Set power restore policy.");
 
@@ -2008,12 +2018,13 @@ inline void setPowerRestorePolicy(
         return;
     }
 
-    setDbusProperty(
-        asyncResp, "PowerRestorePolicy", "xyz.openbmc_project.Settings",
-        sdbusplus::message::object_path(
-            "/xyz/openbmc_project/control/host0/power_restore_policy"),
-        "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
-        powerRestorePolicy);
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "power_restore_policy";
+    setDbusProperty(asyncResp, "PowerRestorePolicy",
+                    "xyz.openbmc_project.Settings", path,
+                    "xyz.openbmc_project.Control.Power.RestorePolicy",
+                    "PowerRestorePolicy", powerRestorePolicy);
 }
 
 /**
@@ -3214,33 +3225,8 @@ inline void handleComputerSystemGet(
         std::bind_front(processComputerSystemGet, asyncResp, systemName));
 }
 
-inline void handleComputerSystemPatch(
-    crow::App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName)
+struct PatchParams
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-
-    asyncResp->res.addHeader(
-        boost::beast::http::field::link,
-        "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
-
     std::optional<bool> locationIndicatorActive;
     std::optional<std::string> indicatorLed;
     std::optional<std::string> assetTag;
@@ -3260,100 +3246,160 @@ inline void handleComputerSystemPatch(
     std::optional<uint64_t> ipsEnterTime;
     std::optional<uint8_t> ipsExitUtil;
     std::optional<uint64_t> ipsExitTime;
+};
 
-    if (!json_util::readJsonPatch(                                         //
-            req, asyncResp->res,                                           //
-            "AssetTag", assetTag,                                          //
-            "Boot/AutomaticRetryAttempts", bootAutomaticRetryAttempts,     //
-            "Boot/AutomaticRetryConfig", bootAutomaticRetry,               //
-            "Boot/BootSourceOverrideEnabled", bootEnable,                  //
-            "Boot/BootSourceOverrideMode", bootType,                       //
-            "Boot/BootSourceOverrideTarget", bootSource,                   //
-            "Boot/StopBootOnFault", stopBootOnFault,                       //
-            "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired, //
-            "HostWatchdogTimer/FunctionEnabled", wdtEnable,                //
-            "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction,           //
-            "IdlePowerSaver/Enabled", ipsEnable,                           //
-            "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,          //
-            "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,        //
-            "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime,            //
-            "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,          //
-            "IndicatorLED", indicatorLed,                                  //
-            "LocationIndicatorActive", locationIndicatorActive,            //
-            "PowerMode", powerMode,                                        //
-            "PowerRestorePolicy", powerRestorePolicy                       //
-            ))
+/**
+ * @brief process the POST request after getting the computerSystemIndex
+ *
+ * @param[in] asyncResp           Shared pointer for completing asynchronous
+ *                                calls
+ * @param[in] patchParams         Struct containing the property we want to
+ *                                patch
+ * @param[in] computerSystemIndex Index associated with the requested system
+ *
+ * @return None
+ */
+
+inline void processComputerSystemPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    PatchParams& patchParams, const uint64_t computerSystemIndex)
+{
+    if (patchParams.assetTag)
     {
-        return;
+        setAssetTag(asyncResp, *patchParams.assetTag);
     }
 
-    asyncResp->res.result(boost::beast::http::status::no_content);
-
-    if (assetTag)
+    if (patchParams.wdtEnable || patchParams.wdtTimeOutAction)
     {
-        setAssetTag(asyncResp, *assetTag);
+        setWDTProperties(asyncResp, patchParams.wdtEnable,
+                         patchParams.wdtTimeOutAction);
     }
 
-    if (wdtEnable || wdtTimeOutAction)
+    if (patchParams.bootSource || patchParams.bootType ||
+        patchParams.bootEnable)
     {
-        setWDTProperties(asyncResp, wdtEnable, wdtTimeOutAction);
+        setBootProperties(asyncResp, computerSystemIndex,
+                          patchParams.bootSource, patchParams.bootType,
+                          patchParams.bootEnable);
+    }
+    if (patchParams.bootAutomaticRetry)
+    {
+        setAutomaticRetry(asyncResp, computerSystemIndex,
+                          *patchParams.bootAutomaticRetry);
     }
 
-    if (bootSource || bootType || bootEnable)
+    if (patchParams.bootAutomaticRetryAttempts)
     {
-        setBootProperties(asyncResp, bootSource, bootType, bootEnable);
-    }
-    if (bootAutomaticRetry)
-    {
-        setAutomaticRetry(asyncResp, *bootAutomaticRetry);
+        setAutomaticRetryAttempts(
+            asyncResp, computerSystemIndex,
+            patchParams.bootAutomaticRetryAttempts.value());
     }
 
-    if (bootAutomaticRetryAttempts)
+    if (patchParams.bootTrustedModuleRequired)
     {
-        setAutomaticRetryAttempts(asyncResp,
-                                  bootAutomaticRetryAttempts.value());
+        setTrustedModuleRequiredToBoot(asyncResp, computerSystemIndex,
+                                       *patchParams.bootTrustedModuleRequired);
     }
 
-    if (bootTrustedModuleRequired)
+    if (patchParams.stopBootOnFault)
     {
-        setTrustedModuleRequiredToBoot(asyncResp, *bootTrustedModuleRequired);
+        setStopBootOnFault(asyncResp, *patchParams.stopBootOnFault);
     }
 
-    if (stopBootOnFault)
+    if (patchParams.locationIndicatorActive)
     {
-        setStopBootOnFault(asyncResp, *stopBootOnFault);
-    }
-
-    if (locationIndicatorActive)
-    {
-        setSystemLocationIndicatorActive(asyncResp, *locationIndicatorActive);
+        setSystemLocationIndicatorActive(asyncResp,
+                                         *patchParams.locationIndicatorActive);
     }
 
     // TODO (Gunnar): Remove IndicatorLED after enough time has
     // passed
-    if (indicatorLed)
+    if (patchParams.indicatorLed)
     {
-        setIndicatorLedState(asyncResp, *indicatorLed);
+        setIndicatorLedState(asyncResp, *patchParams.indicatorLed);
         asyncResp->res.addHeader(boost::beast::http::field::warning,
                                  "299 - \"IndicatorLED is deprecated. Use "
                                  "LocationIndicatorActive instead.\"");
     }
 
-    if (powerRestorePolicy)
+    if (patchParams.powerRestorePolicy)
     {
-        setPowerRestorePolicy(asyncResp, *powerRestorePolicy);
+        setPowerRestorePolicy(asyncResp, computerSystemIndex,
+                              *patchParams.powerRestorePolicy);
     }
 
-    if (powerMode)
+    if (patchParams.powerMode)
     {
-        setPowerMode(asyncResp, *powerMode);
+        setPowerMode(asyncResp, *patchParams.powerMode);
     }
 
-    if (ipsEnable || ipsEnterUtil || ipsEnterTime || ipsExitUtil || ipsExitTime)
+    if (patchParams.ipsEnable || patchParams.ipsEnterUtil ||
+        patchParams.ipsEnterTime || patchParams.ipsExitUtil ||
+        patchParams.ipsExitTime)
     {
-        setIdlePowerSaver(asyncResp, ipsEnable, ipsEnterUtil, ipsEnterTime,
-                          ipsExitUtil, ipsExitTime);
+        setIdlePowerSaver(asyncResp, patchParams.ipsEnable,
+                          patchParams.ipsEnterUtil, patchParams.ipsEnterTime,
+                          patchParams.ipsExitUtil, patchParams.ipsExitTime);
     }
+}
+
+inline void handleComputerSystemPatch(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
+
+    asyncResp->res.result(boost::beast::http::status::no_content);
+
+    PatchParams patchParams;
+
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (!json_util::readJsonPatch(
+            req, asyncResp->res,                                              //
+            "AssetTag", patchParams.assetTag,                                 //
+            "Boot/AutomaticRetryAttempts",
+            patchParams.bootAutomaticRetryAttempts,                           //
+            "Boot/AutomaticRetryConfig", patchParams.bootAutomaticRetry,      //
+            "Boot/BootSourceOverrideEnabled", patchParams.bootEnable,         //
+            "Boot/BootSourceOverrideMode", patchParams.bootType,              //
+            "Boot/BootSourceOverrideTarget", patchParams.bootSource,          //
+            "Boot/StopBootOnFault", patchParams.stopBootOnFault,              //
+            "Boot/TrustedModuleRequiredToBoot",
+            patchParams.bootTrustedModuleRequired,                            //
+            "HostWatchdogTimer/FunctionEnabled", patchParams.wdtEnable,       //
+            "HostWatchdogTimer/TimeoutAction", patchParams.wdtTimeOutAction,  //
+            "IdlePowerSaver/Enabled", patchParams.ipsEnable,                  //
+            "IdlePowerSaver/EnterDwellTimeSeconds", patchParams.ipsEnterTime, //
+            "IdlePowerSaver/EnterUtilizationPercent",
+            patchParams.ipsEnterUtil,                                         //
+            "IdlePowerSaver/ExitDwellTimeSeconds", patchParams.ipsExitTime,   //
+            "IdlePowerSaver/ExitUtilizationPercent", patchParams.ipsExitUtil, //
+            "IndicatorLED", patchParams.indicatorLed, "LocationIndicatorActive",
+            patchParams.locationIndicatorActive,                              //
+            "PowerMode", patchParams.powerMode,                               //
+            "PowerRestorePolicy", patchParams.powerRestorePolicy))
+    {
+        return;
+    }
+    if (!BMCWEB_REDFISH_SYSTEM_URI_NAME.empty())
+    {
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+    }
+
+    getComputerSystemIndex(
+        asyncResp, systemName,
+        std::bind_front(processComputerSystemPatch, asyncResp, patchParams));
 }
 
 inline void handleSystemCollectionResetActionHead(
