@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "282b4f67_1dbc1ac2",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1494,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-24T15:08:31Z",
+      "side": 1,
+      "message": "As per convention, index 0 should not exist on multi-host. This is taken from here: https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/yaml/xyz/openbmc_project/State\n\nI added a comment to point this out.",
+      "parentUuid": "c3a697b8_994730fe",
+      "range": {
+        "startLine": 1494,
+        "startChar": 0,
+        "endLine": 1494,
+        "endChar": 2
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af447f89_ca8f2395",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-07-21T16:04:03Z",
       "side": 1,
       "message": "Can\u0027t the computerSystemIndex \u003d\u003d 0 for the BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM environment also?\n\nSubtracting from idx here seems wrong. (Maybe a comment is needed?)",
+      "range": {
+        "startLine": 1579,
+        "startChar": 0,
+        "endLine": 1579,
+        "endChar": 2
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2cd61ca_89fe99e1",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 1579,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-24T15:08:31Z",
+      "side": 1,
+      "message": "Same as above. As part of the splitting of this patch, this has been fixed in 82252.",
+      "parentUuid": "af447f89_ca8f2395",
       "range": {
         "startLine": 1579,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e19b51d6_538bf363",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 2782,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-24T15:08:31Z",
+      "side": 1,
+      "message": "That was not intentional. I think my local ci did mess up somehow. Reverted back to the original formatting.",
+      "parentUuid": "3398ab59_18deacfd",
+      "range": {
+        "startLine": 2782,
+        "startChar": 0,
+        "endLine": 2782,
+        "endChar": 2
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e158897_46851116",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-07-21T16:04:03Z",
       "side": 1,
       "message": "This param wasn\u0027t added.",
+      "range": {
+        "startLine": 2890,
+        "startChar": 0,
+        "endLine": 2890,
+        "endChar": 2
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cf4aff4_b559a24e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 2890,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-24T15:08:31Z",
+      "side": 1,
+      "message": "Reverted back to the initial.",
+      "parentUuid": "3e158897_46851116",
       "range": {
         "startLine": 2890,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21865bd2_ca32c87e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 2966,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-24T15:08:31Z",
+      "side": 1,
+      "message": "No actually not. As part of splitting this patch this is now fixed in 82253.",
+      "parentUuid": "400c716d_82fde09c",
+      "range": {
+        "startLine": 2966,
+        "startChar": 23,
+        "endLine": 2966,
+        "endChar": 25
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed71e2f2_67f4ce5f",
@@ -139,6 +259,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca711449_11ff1e00",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 3388,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-24T15:08:31Z",
+      "side": 1,
+      "message": "You are right. As part of splitting this patch, this now is fixed in 82252.",
+      "parentUuid": "ed71e2f2_67f4ce5f",
+      "range": {
+        "startLine": 3388,
+        "startChar": 0,
+        "endLine": 3388,
+        "endChar": 2
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b62557ae_fbb3e428",
@@ -152,6 +296,30 @@
       "writtenOn": "2025-07-21T16:04:03Z",
       "side": 1,
       "message": "This is going to incorrectly fail for systemName \u003d\u003d hypervisor. Need to check for that before this check.",
+      "range": {
+        "startLine": 3552,
+        "startChar": 0,
+        "endLine": 3552,
+        "endChar": 2
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89c9f2fd_b5d10fdd",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 3552,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-24T15:08:31Z",
+      "side": 1,
+      "message": "I assumed, when running hypervisor, you would set BMCWEB_REDFISH_SYSTEM_URI_NAME to the string \"hypervisor\" too? Or are \"system\" and \"hypervisor\" both part of the Systems collection? In that case I\u0027ll update the check accordingly.",
+      "parentUuid": "b62557ae_fbb3e428",
       "range": {
         "startLine": 3552,
         "startChar": 0,
