@@ -34,6 +34,24 @@
       "parentUuid": "4441b386_1405c7e9",
       "revId": "f84006e13c68a6f3775d066e95344e778cb19f4e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "877469bb_f4aa9260",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1665,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-24T18:36:26Z",
+      "side": 1,
+      "message": "Did this here: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/82265",
+      "parentUuid": "91fa59d0_2c7a61ae",
+      "revId": "f84006e13c68a6f3775d066e95344e778cb19f4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
