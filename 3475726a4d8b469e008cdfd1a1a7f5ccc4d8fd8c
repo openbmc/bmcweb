@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c356fee4_0b74d13a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-24T16:38:05Z",
+      "side": 1,
+      "message": "It would be very interesting to know why this changed behavior in gcc15.  It doesn\u0027t really matter, this code is correct, but I\u0027m surprised we see an actual functional difference",
+      "revId": "3475726a4d8b469e008cdfd1a1a7f5ccc4d8fd8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
