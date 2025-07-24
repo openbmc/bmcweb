@@ -460,9 +460,12 @@ inline void objectPropertiesToJson(
 
         const bool* checkAvailable = nullptr;
         bool available = true;
+        std::optional<std::string> readingBasis;
+        std::optional<std::string> implementation;
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
-            checkAvailable);
+            checkAvailable, "ReadingBasis", readingBasis, "Implementation",
+            implementation);
         if (!success)
         {
             messages::internalError();
@@ -501,6 +504,16 @@ inline void objectPropertiesToJson(
             else
             {
                 sensorJson["ReadingUnits"] = readingUnits;
+            }
+
+            if (readingBasis.has_value())
+            {
+                sensorJson["ReadingBasis"] = *readingBasis;
+            }
+
+            if (implementation.has_value())
+            {
+                sensorJson["Implementation"] = *implementation;
             }
         }
         else if (sensorType == "temperature")
