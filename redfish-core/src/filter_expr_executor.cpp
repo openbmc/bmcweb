@@ -152,6 +152,11 @@ ValueVisitor::result_type ValueVisitor::operator()(
     {
         return {*iValue};
     }
+    const uint64_t* uValue = entry.get_ptr<const uint64_t*>();
+    if (uValue != nullptr)
+    {
+        return {static_cast<int64_t>(*uValue)};
+    }
     const std::string* strValue = entry.get_ptr<const std::string*>();
     if (strValue != nullptr)
     {

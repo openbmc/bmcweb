@@ -182,7 +182,7 @@ TEST(ReadJson, JsonSubElementValueAreUnpackedCorrectly)
         }
     )"_json;
 
-    int integer = 0;
+    uint64_t integer = 0;
     ASSERT_TRUE(readJson(jsonRequest, res, "json/integer", integer));
     EXPECT_EQ(integer, 42);
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
@@ -220,7 +220,7 @@ TEST(ReadJson, MultipleJsonSubElementValueAreUnpackedCorrectly)
         }
     )"_json;
 
-    int integer = 0;
+    uint64_t integer = 0;
     std::string foobar;
     std::string bazbar;
     ASSERT_TRUE(readJson(jsonRequest, res, "json/integer", integer,
@@ -325,7 +325,7 @@ TEST(ReadJsonPatch, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     // Ignore errors intentionally
     req.addHeader(boost::beast::http::field::content_type, "application/json");
 
-    int64_t integer = 0;
+    uint64_t integer = 0;
     ASSERT_TRUE(readJsonPatch(req, res, "integer", integer));
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
     EXPECT_THAT(res.jsonValue, IsEmpty());
@@ -353,7 +353,7 @@ TEST(ReadJsonPatch, OdataIgnored)
     req.addHeader(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 
-    std::optional<int64_t> integer = 0;
+    std::optional<uint64_t> integer = 0;
     ASSERT_TRUE(readJsonPatch(req, res, "integer", integer));
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
     EXPECT_THAT(res.jsonValue, IsEmpty());
@@ -418,7 +418,7 @@ TEST(ReadJsonAction, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
     req.addHeader(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 
-    int64_t integer = 0;
+    uint64_t integer = 0;
     ASSERT_TRUE(readJsonAction(req, res, "integer", integer));
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
     EXPECT_THAT(res.jsonValue, IsEmpty());
