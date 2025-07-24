@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d743be89_b7f551c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-07-24T04:49:20Z",
+      "side": 1,
+      "message": "Elaborate this line a bit. In addition, let\u0027s point to the PLDM commit and add testing details.",
+      "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1af5c412_57de2da5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-07-24T04:49:20Z",
+      "side": 1,
+      "message": "Should we error out if subtree\u0027s size is \u003e 1?",
+      "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec958103_6d37410f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-07-24T04:49:20Z",
+      "side": 1,
+      "message": "Do we need this check?",
+      "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2919a07_defcadbc",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-07-24T04:49:20Z",
+      "side": 1,
+      "message": "Can we even have targets size \u003e 1 here havong done the other checks that occur before?",
+      "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a2c7848_26367e4e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-07-24T04:49:20Z",
+      "side": 1,
+      "message": "Why is this change needed?",
+      "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
