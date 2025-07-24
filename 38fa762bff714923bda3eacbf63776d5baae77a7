@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4b46eca_7f413cfd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-24T08:42:51Z",
+      "side": 1,
+      "message": "Updated the commit message.\nIT is dependent on PLDM changes, will add the test results once it\u0027s done.",
+      "parentUuid": "d743be89_b7f551c4",
+      "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1af5c412_57de2da5",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2025-07-24T04:49:20Z",
       "side": 1,
       "message": "Should we error out if subtree\u0027s size is \u003e 1?",
+      "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76ab95e0_828e9a23",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-24T08:42:51Z",
+      "side": 1,
+      "message": "Ack, that looks to be the correct behavior. Updated the same in the commit message as well.",
+      "parentUuid": "1af5c412_57de2da5",
       "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35ea9649_e450fa65",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-24T08:42:51Z",
+      "side": 1,
+      "message": "The empty check is necessary due to the introduction of std::optional for the target field.\nWe need this check to distinguish between empty targets (pass nullopt) and one target.",
+      "parentUuid": "ec958103_6d37410f",
+      "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a2919a07_defcadbc",
@@ -69,6 +123,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1799c312_0dd21c4f",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-24T08:42:51Z",
+      "side": 1,
+      "message": "No, it\u0027s not possible because we already validated it.\nThe current design passes a vector of targets to processUpdateRequest but converts it to a single target for getSwInfo.\nBut this code can be extended in future when multiple targets are supported",
+      "parentUuid": "a2919a07_defcadbc",
+      "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a2c7848_26367e4e",
@@ -82,6 +154,24 @@
       "writtenOn": "2025-07-24T04:49:20Z",
       "side": 1,
       "message": "Why is this change needed?",
+      "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70e4cc11_b7236187",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-07-24T08:42:51Z",
+      "side": 1,
+      "message": "multipart-\u003etargets is now a std::optional\u003cstd::vector\u003cstd::string\u003e\u003e to represent that the \"Targets\" field in the Multipart update request is optional.\n\nWhen the \"Targets\" field is not provided, multipart-\u003etargets is nullopt, but processUpdateRequest still expects a valid vector.",
+      "parentUuid": "8a2c7848_26367e4e",
       "revId": "38fa762bff714923bda3eacbf63776d5baae77a7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
