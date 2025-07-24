@@ -403,6 +403,49 @@ inline void setLedState(nlohmann::json& sensorJson,
     }
 }
 
+inline sensor::ReadingBasisType dBusSensorReadingBasisToRedfish(
+    const std::string& readingBasis)
+{
+    if (readingBasis ==
+        "xyz.openbmc_project.Sensor.Type.ReadingBasisType.Headroom")
+    {
+        return sensor::ReadingBasisType::Headroom;
+    }
+    if (readingBasis ==
+        "xyz.openbmc_project.Sensor.Type.ReadingBasisType.Delta")
+    {
+        return sensor::ReadingBasisType::Delta;
+    }
+    if (readingBasis == "xyz.openbmc_project.Sensor.Type.ReadingBasisType.Zero")
+    {
+        return sensor::ReadingBasisType::Zero;
+    }
+
+    return sensor::ReadingBasisType::Invalid;
+}
+
+inline sensor::ImplementationType dBusSensorImplementationToRedfish(
+    const std::string& implementation)
+{
+    if (implementation ==
+        "xyz.openbmc_project.Sensor.Type.ImplementationType.Physical")
+    {
+        return sensor::ImplementationType::PhysicalSensor;
+    }
+    if (implementation ==
+        "xyz.openbmc_project.Sensor.Type.ImplementationType.Synthesized")
+    {
+        return sensor::ImplementationType::Synthesized;
+    }
+    if (implementation ==
+        "xyz.openbmc_project.Sensor.Type.ImplementationType.Reported")
+    {
+        return sensor::ImplementationType::Reported;
+    }
+
+    return sensor::ImplementationType::Invalid;
+}
+
 /**
  * @brief Builds a json sensor representation of a sensor.
  * @param sensorName  The name of the sensor to be built
@@ -460,9 +503,12 @@ inline void objectPropertiesToJson(
 
         const bool* checkAvailable = nullptr;
         bool available = true;
+        std::optional<std::string> readingBasis;
+        std::optional<std::string> implementation;
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
-            checkAvailable);
+            checkAvailable, "ReadingBasis", readingBasis, "Implementation",
+            implementation);
         if (!success)
         {
             messages::internalError();
@@ -501,6 +547,26 @@ inline void objectPropertiesToJson(
             else
             {
                 sensorJson["ReadingUnits"] = readingUnits;
+            }
+
+            if (readingBasis.has_value())
+            {
+                auto readingBasisOpt =
+                    dBusSensorReadingBasisToRedfish(*readingBasis);
+                if (readingBasisOpt != sensor::ReadingBasisType::Invalid)
+                {
+                    sensorJson["ReadingBasis"] = readingBasisOpt;
+                }
+            }
+
+            if (implementation.has_value())
+            {
+                auto implementationOpt =
+                    dBusSensorImplementationToRedfish(*implementation);
+                if (implementationOpt != sensor::ImplementationType::Invalid)
+                {
+                    sensorJson["Implementation"] = implementationOpt;
+                }
             }
         }
         else if (sensorType == "temperature")
