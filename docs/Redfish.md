@@ -290,7 +290,9 @@ Fields common to all schemas
 
 #### Sensor
 
+- Implementation
 - Reading
+- ReadingBasis
 - ReadingRangeMax
 - ReadingRangeMin
 - ReadingType
