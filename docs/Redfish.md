@@ -295,6 +295,8 @@ Fields common to all schemas
 - SpeedRPM
 - Status
 - Thresholds
+- ReadingBasis
+- Implementation
 
 ### /redfish/v1/Chassis/{ChassisId}/Thermal/
 
