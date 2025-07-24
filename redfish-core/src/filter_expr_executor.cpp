@@ -152,6 +152,17 @@ ValueVisitor::result_type ValueVisitor::operator()(
     {
         return {*iValue};
     }
+    const uint64_t* uValue = entry.get_ptr<const uint64_t*>();
+    if (uValue != nullptr)
+    {
+        // For now all values are coerced to signed
+        if (*uValue > std::numeric_limits<int64_t>::max())
+        {
+            BMCWEB_LOG_WARNING("Parsed uint is outside limits");
+            return {};
+        }
+        return {static_cast<int64_t>(*uValue)};
+    }
     const std::string* strValue = entry.get_ptr<const std::string*>();
     if (strValue != nullptr)
     {

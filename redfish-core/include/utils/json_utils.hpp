@@ -95,8 +95,7 @@ enum class UnpackErrorCode
 };
 
 template <typename ToType, typename FromType>
-bool checkRange(const FromType& from [[maybe_unused]],
-                std::string_view key [[maybe_unused]])
+bool checkRange(const FromType& from, std::string_view key)
 {
     if constexpr (std::is_floating_point_v<ToType>)
     {
@@ -105,21 +104,19 @@ bool checkRange(const FromType& from [[maybe_unused]],
             BMCWEB_LOG_DEBUG("Value for key {} was NAN", key);
             return false;
         }
+        // Assume for the moment that all floats can represent the full range
+        // of any int/uint in a cast.  This is close enough to true for the
+        // percision of this json parser.
     }
-    if constexpr (std::numeric_limits<ToType>::max() <
-                  std::numeric_limits<FromType>::max())
+    else
     {
-        if (from > std::numeric_limits<ToType>::max())
+        if (std::cmp_greater(from, std::numeric_limits<ToType>::max()))
         {
             BMCWEB_LOG_DEBUG("Value for key {} was greater than max {}", key,
                              std::numeric_limits<FromType>::max());
             return false;
         }
-    }
-    if constexpr (std::numeric_limits<ToType>::lowest() >
-                  std::numeric_limits<FromType>::lowest())
-    {
-        if (from < std::numeric_limits<ToType>::lowest())
+        if (std::cmp_less(from, std::numeric_limits<ToType>::lowest()))
         {
             BMCWEB_LOG_DEBUG("Value for key {} was less than min {}", key,
                              std::numeric_limits<FromType>::lowest());
@@ -189,13 +186,26 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         int64_t* jsonPtr = jsonValue.get_ptr<int64_t*>();
         if (jsonPtr == nullptr)
         {
-            return UnpackErrorCode::invalidType;
+            // Value wasn't int, check uint
+            uint64_t* uJsonPtr = jsonValue.get_ptr<uint64_t*>();
+            if (uJsonPtr == nullptr)
+            {
+                return UnpackErrorCode::invalidType;
+            }
+            if (!checkRange<Type>(*uJsonPtr, key))
+            {
+                return UnpackErrorCode::outOfRange;
+            }
+            value = static_cast<Type>(*uJsonPtr);
         }
-        if (!checkRange<Type>(*jsonPtr, key))
+        else
         {
-            return UnpackErrorCode::outOfRange;
+            if (!checkRange<Type>(*jsonPtr, key))
+            {
+                return UnpackErrorCode::outOfRange;
+            }
+            value = static_cast<Type>(*jsonPtr);
         }
-        value = static_cast<Type>(*jsonPtr);
     }
 
     else if constexpr ((std::is_unsigned_v<Type>) &&
@@ -204,13 +214,25 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
         uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
         if (jsonPtr == nullptr)
         {
-            return UnpackErrorCode::invalidType;
+            int64_t* ijsonPtr = jsonValue.get_ptr<int64_t*>();
+            if (ijsonPtr == nullptr)
+            {
+                return UnpackErrorCode::invalidType;
+            }
+            if (!checkRange<Type>(*ijsonPtr, key))
+            {
+                return UnpackErrorCode::outOfRange;
+            }
+            value = static_cast<Type>(*ijsonPtr);
         }
-        if (!checkRange<Type>(*jsonPtr, key))
+        else
         {
-            return UnpackErrorCode::outOfRange;
+            if (!checkRange<Type>(*jsonPtr, key))
+            {
+                return UnpackErrorCode::outOfRange;
+            }
+            value = static_cast<Type>(*jsonPtr);
         }
-        value = static_cast<Type>(*jsonPtr);
     }
 
     else if constexpr (std::is_same_v<nlohmann::json, Type>)
