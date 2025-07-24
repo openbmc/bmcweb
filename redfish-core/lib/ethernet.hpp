@@ -1661,7 +1661,12 @@ inline bool parseAddresses(
                 lastGatewayPath = pathString;
             }
         }
-        nicIpEntry++;
+
+        if (nicIpEntry != ipv4Data.cend())
+        {
+            nicIpEntry++;
+        }
+
         nicIpEntry = getNextStaticIpEntry(nicIpEntry, ipv4Data.cend());
         entryIdx++;
     }
