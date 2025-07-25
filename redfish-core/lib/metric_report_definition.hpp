@@ -1173,6 +1173,11 @@ inline void afterSetReportActions(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
     const boost::system::error_code& ec, const sdbusplus::message_t& msg)
 {
+    if (!ec)
+    {
+        asyncResp->res.result(boost::beast::http::status::no_content);
+        return;
+    }
     if (ec == boost::system::errc::invalid_argument)
     {
         const sd_bus_error* errorMessage = msg.get_error();
