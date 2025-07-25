@@ -64,36 +64,36 @@ using ReadingParameters = std::vector<std::tuple<
     std::vector<std::tuple<sdbusplus::message::object_path, std::string>>,
     std::string, std::string, uint64_t>>;
 
-inline bool verifyCommonErrors(crow::Response& res, const std::string& id,
-                               const boost::system::error_code& ec)
+inline bool formatMessageOnError(crow::Response& res, const std::string& id,
+                                 const boost::system::error_code& ec)
 {
     if (ec.value() == EBADR || ec == boost::system::errc::host_unreachable)
     {
         messages::resourceNotFound(res, "MetricReportDefinition", id);
-        return false;
+        return true;
     }
 
     if (ec == boost::system::errc::file_exists)
     {
         messages::resourceAlreadyExists(res, "MetricReportDefinition", "Id",
                                         id);
-        return false;
+        return true;
     }
 
     if (ec == boost::system::errc::too_many_files_open)
     {
         messages::createLimitReachedForResource(res);
-        return false;
+        return true;
     }
 
     if (ec)
     {
         BMCWEB_LOG_ERROR("DBUS response error {}", ec);
         messages::internalError(res);
-        return false;
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 inline metric_report_definition::ReportActionsEnum toRedfishReportAction(
@@ -752,12 +752,6 @@ inline void afterAddReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const boost::system::error_code& ec,
                            const sdbusplus::message_t& msg)
 {
-    if (!ec)
-    {
-        messages::created(asyncResp->res);
-        return;
-    }
-
     if (ec == boost::system::errc::invalid_argument)
     {
         const sd_bus_error* errorMessage = msg.get_error();
@@ -775,11 +769,10 @@ inline void afterAddReport(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
         }
     }
-    if (!verifyCommonErrors(asyncResp->res, args.id, ec))
+    if (!formatMessageOnError(asyncResp->res, args.id, ec))
     {
-        return;
+        messages::created(asyncResp->res);
     }
-    messages::internalError(asyncResp->res);
 }
 
 class AddReport
@@ -900,11 +893,6 @@ inline void afterSetReadingParams(
     const std::string& reportId, const boost::system::error_code& ec,
     const sdbusplus::message_t& msg)
 {
-    if (!ec)
-    {
-        messages::success(asyncResp->res);
-        return;
-    }
     if (ec == boost::system::errc::invalid_argument)
     {
         const sd_bus_error* errorMessage = msg.get_error();
@@ -920,11 +908,10 @@ inline void afterSetReadingParams(
             }
         }
     }
-    if (!verifyCommonErrors(asyncResp->res, reportId, ec))
+    if (!formatMessageOnError(asyncResp->res, reportId, ec))
     {
-        return;
+        messages::success(asyncResp->res);
     }
-    messages::internalError(asyncResp->res);
 }
 
 inline void setReadingParams(
@@ -1030,10 +1017,7 @@ inline void setReportEnabled(
     dbus::utility::async_method_call(
         asyncResp,
         [asyncResp, id = std::string(id)](const boost::system::error_code& ec) {
-            if (!verifyCommonErrors(asyncResp->res, id, ec))
-            {
-                return;
-            }
+            formatMessageOnError(asyncResp->res, id, ec);
         },
         "xyz.openbmc_project.Telemetry", getDbusReportPath(id),
         "org.freedesktop.DBus.Properties", "Set",
@@ -1045,12 +1029,6 @@ inline void afterSetReportingProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
     const boost::system::error_code& ec, const sdbusplus::message_t& msg)
 {
-    if (!ec)
-    {
-        asyncResp->res.result(boost::beast::http::status::no_content);
-        return;
-    }
-
     if (ec == boost::system::errc::invalid_argument)
     {
         const sd_bus_error* errorMessage = msg.get_error();
@@ -1066,11 +1044,10 @@ inline void afterSetReportingProperties(
             }
         }
     }
-    if (!verifyCommonErrors(asyncResp->res, id, ec))
+    if (!formatMessageOnError(asyncResp->res, id, ec))
     {
-        return;
+        asyncResp->res.result(boost::beast::http::status::no_content);
     }
-    messages::internalError(asyncResp->res);
 }
 
 inline void setReportTypeAndInterval(
@@ -1120,11 +1097,6 @@ inline void afterSetReportUpdates(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id,
     const boost::system::error_code& ec, const sdbusplus::message_t& msg)
 {
-    if (!ec)
-    {
-        asyncResp->res.result(boost::beast::http::status::no_content);
-        return;
-    }
     if (ec == boost::system::errc::invalid_argument)
     {
         const sd_bus_error* errorMessage = msg.get_error();
@@ -1140,9 +1112,9 @@ inline void afterSetReportUpdates(
             }
         }
     }
-    if (!verifyCommonErrors(asyncResp->res, id, ec))
+    if (!formatMessageOnError(asyncResp->res, id, ec))
     {
-        return;
+        asyncResp->res.result(boost::beast::http::status::no_content);
     }
 }
 
@@ -1189,12 +1161,10 @@ inline void afterSetReportActions(
         }
     }
 
-    if (!verifyCommonErrors(asyncResp->res, id, ec))
+    if (!formatMessageOnError(asyncResp->res, id, ec))
     {
-        return;
+        asyncResp->res.result(boost::beast::http::status::no_content);
     }
-
-    messages::internalError(asyncResp->res);
 }
 
 inline void setReportActions(
@@ -1230,7 +1200,7 @@ inline void setReportMetrics(
         [asyncResp, id = std::string(id), redfishMetrics = std::move(metrics)](
             boost::system::error_code ec,
             const dbus::utility::DBusPropertiesMap& properties) mutable {
-            if (!verifyCommonErrors(asyncResp->res, id, ec))
+            if (formatMessageOnError(asyncResp->res, id, ec))
             {
                 return;
             }
@@ -1437,11 +1407,10 @@ inline void handleReportDelete(
         asyncResp,
         [asyncResp,
          reportId = std::string(id)](const boost::system::error_code& ec) {
-            if (!verifyCommonErrors(asyncResp->res, reportId, ec))
+            if (!formatMessageOnError(asyncResp->res, reportId, ec))
             {
-                return;
+                asyncResp->res.result(boost::beast::http::status::no_content);
             }
-            asyncResp->res.result(boost::beast::http::status::no_content);
         },
         service, reportPath, "xyz.openbmc_project.Object.Delete", "Delete");
 }
@@ -1527,12 +1496,10 @@ inline void handleMetricReportGet(
         telemetry::reportInterface,
         [asyncResp, id](const boost::system::error_code& ec,
                         const dbus::utility::DBusPropertiesMap& properties) {
-            if (!redfish::telemetry::verifyCommonErrors(asyncResp->res, id, ec))
+            if (!telemetry::formatMessageOnError(asyncResp->res, id, ec))
             {
-                return;
+                telemetry::fillReportDefinition(asyncResp, id, properties);
             }
-
-            telemetry::fillReportDefinition(asyncResp, id, properties);
         });
 }
 
