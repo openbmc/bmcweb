@@ -886,39 +886,42 @@ inline bool fillTrigger(nlohmann::json& json, const std::string& id,
         json["Links"]["MetricReportDefinitions"] = *linkedReports;
     }
 
-    if (discreteThresholds != nullptr)
+    if (discrete != nullptr)
     {
-        std::optional<nlohmann::json::array_t> discreteTriggers =
-            getDiscreteTriggers(*discreteThresholds);
-
-        if (!discreteTriggers)
+        if (*discrete && discreteThresholds != nullptr)
         {
-            BMCWEB_LOG_ERROR("Property Thresholds is invalid for discrete "
-                             "triggers in Trigger: {}",
-                             id);
-            return false;
+            std::optional<nlohmann::json::array_t> discreteTriggers =
+                getDiscreteTriggers(*discreteThresholds);
+
+            if (!discreteTriggers)
+            {
+                BMCWEB_LOG_ERROR("Property Thresholds is invalid for discrete "
+                                 "triggers in Trigger: {}",
+                                 id);
+                return false;
+            }
+
+            json["DiscreteTriggers"] = *discreteTriggers;
+            json["DiscreteTriggerCondition"] =
+                discreteTriggers->empty() ? "Changed" : "Specified";
+            json["MetricType"] = metric_definition::MetricType::Discrete;
         }
-
-        json["DiscreteTriggers"] = *discreteTriggers;
-        json["DiscreteTriggerCondition"] =
-            discreteTriggers->empty() ? "Changed" : "Specified";
-        json["MetricType"] = metric_definition::MetricType::Discrete;
-    }
-    if (numericThresholds != nullptr)
-    {
-        std::optional<nlohmann::json::object_t> jnumericThresholds =
-            getNumericThresholds(*numericThresholds);
-
-        if (!jnumericThresholds)
+        else if (numericThresholds != nullptr)
         {
-            BMCWEB_LOG_ERROR("Property Thresholds is invalid for numeric "
-                             "thresholds in Trigger: {}",
-                             id);
-            return false;
-        }
+            std::optional<nlohmann::json::object_t> jnumericThresholds =
+                getNumericThresholds(*numericThresholds);
 
-        json["NumericThresholds"] = *jnumericThresholds;
-        json["MetricType"] = metric_definition::MetricType::Numeric;
+            if (!jnumericThresholds)
+            {
+                BMCWEB_LOG_ERROR("Property Thresholds is invalid for numeric "
+                                 "thresholds in Trigger: {}",
+                                 id);
+                return false;
+            }
+
+            json["NumericThresholds"] = *jnumericThresholds;
+            json["MetricType"] = metric_definition::MetricType::Numeric;
+        }
     }
 
     if (name != nullptr)
