@@ -1014,6 +1014,12 @@ nlohmann::json::object_t passwordChangeRequired(
 
 void passwordChangeRequired(crow::Response& res,
                             const boost::urls::url_view_base& arg1);
+/**
+ * @brief Formats PasswordChangeRequired into an `@Message.ExtendedInfo`
+ * annotation instead of the normal error response.
+ */
+void passwordChangeRequiredAnnotation(crow::Response& res,
+                                      const boost::urls::url_view_base& arg1);
 
 /**
  * @brief Formats ResetRequired message into JSON

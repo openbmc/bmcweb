@@ -227,7 +227,7 @@ inline void processAfterSessionCreation(
     asyncResp->res.result(boost::beast::http::status::created);
     if (session->isConfigureSelfOnly)
     {
-        messages::passwordChangeRequired(
+        messages::passwordChangeRequiredAnnotation(
             asyncResp->res,
             boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
                                 session->username));
