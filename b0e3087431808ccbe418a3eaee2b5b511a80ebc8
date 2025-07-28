@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca44e21f_8f1ca6dd",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-28T20:44:58Z",
+      "side": 1,
+      "message": "Not seeing these on any interfaces.  Link to the PDI patch?",
+      "revId": "b0e3087431808ccbe418a3eaee2b5b511a80ebc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
