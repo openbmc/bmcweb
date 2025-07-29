@@ -16,6 +16,24 @@
       "message": "Pretty sure this needs to be in the verifyCommonErrors clause on line 1197?\n\nOtherwise we\u0027d potentially set an ok condition, then set an error later.  Might as well just be setting the ok code when we know we\u0027re done.\n\nAs a note, the below would probably be better written inverted, so the \"good\" condition happened at the end of the method.\n\n\n    if (verifyCommonErrors(asyncResp-\u003eres, id, ec))\n    {\n        messages::internalError(asyncResp-\u003eres);\n        return;\n    }\n\n    asyncResp-\u003eres.result(boost::beast::http::status::no_content);\n    \n    \n    but up to you if you want to do that",
       "revId": "ec8b32a33bcf4da05d769021e17a2d74e667c5c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6634ffa1_a120967d",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1178,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2025-07-29T07:18:07Z",
+      "side": 1,
+      "message": "\u003e Otherwise we\u0027d potentially set an ok condition, then set an error later.  Might as well just be setting the ok code when we know we\u0027re done.\n\nI\u0027m not sure I fully understand this. Right now, we\u0027re leaving the function right after setting an ok condition.\n\nI agree that inverting the logic will improve overall readability of this code. Would You mind if I do this in another patch? I could focus then on covering the whole file, while limiting this change only to fixing this specific issue.",
+      "parentUuid": "2ac9a925_9c349df4",
+      "revId": "ec8b32a33bcf4da05d769021e17a2d74e667c5c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
