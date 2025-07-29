@@ -238,6 +238,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f42442b6_45572e9c",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 3018,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-29T03:41:05Z",
+      "side": 1,
+      "message": "Remove, code should stand on its own.",
+      "range": {
+        "startLine": 3018,
+        "startChar": 0,
+        "endLine": 3018,
+        "endChar": 91
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ed71e2f2_67f4ce5f",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 26
@@ -272,6 +295,30 @@
       "writtenOn": "2025-07-24T15:08:31Z",
       "side": 1,
       "message": "You are right. As part of splitting this patch, this now is fixed in 82252.",
+      "parentUuid": "ed71e2f2_67f4ce5f",
+      "range": {
+        "startLine": 3388,
+        "startChar": 0,
+        "endLine": 3388,
+        "endChar": 2
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a84247_88088302",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 3388,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-29T03:41:05Z",
+      "side": 1,
+      "message": "+1.  Why was setUpRedfishRoute removed?  That will lead to incorrect testing results?",
       "parentUuid": "ed71e2f2_67f4ce5f",
       "range": {
         "startLine": 3388,
@@ -344,6 +391,30 @@
       "side": 1,
       "message": "They will both exist, so:\n```\n{\n  \"@odata.id\": \"/redfish/v1/Systems\",\n  \"@odata.type\": \"#ComputerSystemCollection.ComputerSystemCollection\",\n  \"Members\": [\n    {\n      \"@odata.id\": \"/redfish/v1/Systems/system\"\n    },\n    {\n      \"@odata.id\": \"/redfish/v1/Systems/hypervisor\"\n    }\n  ],\n  \"Members@odata.count\": 2,\n  \"Name\": \"Computer System Collection\"\n}\n```",
       "parentUuid": "89c9f2fd_b5d10fdd",
+      "range": {
+        "startLine": 3552,
+        "startChar": 0,
+        "endLine": 3552,
+        "endChar": 2
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a36cda13_2beb84a0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 3552,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-29T03:41:05Z",
+      "side": 1,
+      "message": "\u003e r, you would set BMCWEB_REDFISH_SYSTEM_URI_NAME to the string \"hypervisor\" too?\n\nnope, it\u0027s a special case.",
+      "parentUuid": "f55b9462_29fd37ab",
       "range": {
         "startLine": 3552,
         "startChar": 0,
