@@ -203,8 +203,8 @@ struct Response
         }
         response.content_length(*pSize);
 
-        if (is1XXReturn || result() == status::no_content ||
-            result() == status::not_modified)
+        if ((*pSize > 0) && (is1XXReturn || result() == status::no_content ||
+                             result() == status::not_modified))
         {
             BMCWEB_LOG_CRITICAL("{} Response content provided but code was "
                                 "no-content or not_modified, which aren't "
