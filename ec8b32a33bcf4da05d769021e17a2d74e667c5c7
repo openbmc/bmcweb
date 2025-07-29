@@ -34,6 +34,24 @@
       "parentUuid": "2ac9a925_9c349df4",
       "revId": "ec8b32a33bcf4da05d769021e17a2d74e667c5c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2c7bbb6_c90a48f1",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-29T15:55:14Z",
+      "side": 1,
+      "message": "you don\u0027t have to do the inversion, that\u0027s fine, but as you\u0027ve written this, you\u0027re now bypassing verifyCommonErrors, which does a very similar check against ec.\n\nhttps://github.com/openbmc/bmcweb/blob/8d9cf72d00ccbbdd070849601ce8f37bc01cb8c8/redfish-core/lib/metric_report_definition.hpp#L89\n\nIf you\u0027d rather handle this error, here, it\u0027s fine, but we need to drop it from verifyCommonErrors.\n\nMy suggestion was that we should just rely on verifyCommonErrors, and use that to drive the no_content return code.",
+      "parentUuid": "6634ffa1_a120967d",
+      "revId": "ec8b32a33bcf4da05d769021e17a2d74e667c5c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
