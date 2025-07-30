@@ -52,6 +52,24 @@
       "parentUuid": "6634ffa1_a120967d",
       "revId": "ec8b32a33bcf4da05d769021e17a2d74e667c5c7",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94f4993c_b4a6eb4d",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1178,
+      "author": {
+        "id": 1001329
+      },
+      "writtenOn": "2025-07-30T08:58:59Z",
+      "side": 1,
+      "message": "I get Your point now. The problem is that we cannot put no_content as the default code into `verifyCommonErrors` function as is, because it depends on the request itself (different code is sent for example here: https://github.com/openbmc/bmcweb/blob/8d9cf72d00ccbbdd070849601ce8f37bc01cb8c8/redfish-core/lib/metric_report_definition.hpp#L757 or here: https://github.com/openbmc/bmcweb/blob/8d9cf72d00ccbbdd070849601ce8f37bc01cb8c8/redfish-core/lib/metric_report_definition.hpp#L905 ). \n\nI\u0027m not implying that it\u0027s impossible - I can rework the function according to Your suggestion. But since doing this would affect the whole file (note that the same pattern for error handling is repeated for every request in this scope), I\u0027d rather opt for doing it in another patch. Is it fine to You?",
+      "parentUuid": "d2c7bbb6_c90a48f1",
+      "revId": "ec8b32a33bcf4da05d769021e17a2d74e667c5c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
