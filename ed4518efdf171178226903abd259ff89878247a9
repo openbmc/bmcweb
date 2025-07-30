@@ -259,6 +259,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "444edfa7_437ea59a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 3018,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-30T14:52:43Z",
+      "side": 1,
+      "message": "As part of the splitting, the comment has been removed in patch 82253 POST routes. Done.",
+      "parentUuid": "f42442b6_45572e9c",
+      "range": {
+        "startLine": 3018,
+        "startChar": 0,
+        "endLine": 3018,
+        "endChar": 91
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed71e2f2_67f4ce5f",
@@ -320,6 +344,30 @@
       "side": 1,
       "message": "+1.  Why was setUpRedfishRoute removed?  That will lead to incorrect testing results?",
       "parentUuid": "ed71e2f2_67f4ce5f",
+      "range": {
+        "startLine": 3388,
+        "startChar": 0,
+        "endLine": 3388,
+        "endChar": 2
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61434e66_30d5b647",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 3388,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-30T14:52:43Z",
+      "side": 1,
+      "message": "It wasn\u0027t removed, it just wasn\u0027t the first check in the handler.",
+      "parentUuid": "22a84247_88088302",
       "range": {
         "startLine": 3388,
         "startChar": 0,
@@ -414,6 +462,30 @@
       "writtenOn": "2025-07-29T03:41:05Z",
       "side": 1,
       "message": "\u003e r, you would set BMCWEB_REDFISH_SYSTEM_URI_NAME to the string \"hypervisor\" too?\n\nnope, it\u0027s a special case.",
+      "parentUuid": "f55b9462_29fd37ab",
+      "range": {
+        "startLine": 3552,
+        "startChar": 0,
+        "endLine": 3552,
+        "endChar": 2
+      },
+      "revId": "ed4518efdf171178226903abd259ff89878247a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6561ac6a_64d5ea59",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 3552,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-07-30T14:52:43Z",
+      "side": 1,
+      "message": "Oh ok I see. I have reordered the code, so that the hypervisor check is done before the BMCWEB_REDFISH_SYSTEM_URI_NAME check.",
       "parentUuid": "f55b9462_29fd37ab",
       "range": {
         "startLine": 3552,
