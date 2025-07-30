@@ -66,6 +66,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8977f6fe_5cabd5e4",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-30T16:04:20Z",
+      "side": 1,
+      "message": "This function returns an iterator.  Technically this is taking a reference to an rvalue.  Clearly this works for you so it must not be a problem",
+      "range": {
+        "startLine": 167,
+        "startChar": 10,
+        "endLine": 167,
+        "endChar": 15
+      },
+      "revId": "0a91fa1b3e21820ea813417d7b7c8249a1e10e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf32f3bc_ec1c498c",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-30T16:04:20Z",
+      "side": 1,
+      "message": "Is this required?  Could we just do *found on the next line?",
+      "range": {
+        "startLine": 180,
+        "startChar": 4,
+        "endLine": 180,
+        "endChar": 14
+      },
+      "revId": "0a91fa1b3e21820ea813417d7b7c8249a1e10e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2fce2228_806456a8",
         "filename": "redfish-core/include/utils/systems_utils.hpp",
         "patchSetId": 5
