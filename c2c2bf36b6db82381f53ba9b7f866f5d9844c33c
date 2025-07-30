@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3f11cc5_2b630e34",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 3484,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-30T16:04:30Z",
+      "side": 1,
+      "message": "I\u0027m not really following this?  Why would someone set the system uri name to empty string?  Shouldn\u0027t we still be using BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM as an indication here?",
+      "range": {
+        "startLine": 3484,
+        "startChar": 19,
+        "endLine": 3484,
+        "endChar": 49
+      },
+      "revId": "c2c2bf36b6db82381f53ba9b7f866f5d9844c33c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b748ab49_a8200b90",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 3517,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-30T16:04:30Z",
+      "side": 1,
+      "message": "Please fix the two tiered lambda here.  Declare functions as needed to not have double calls.",
+      "revId": "c2c2bf36b6db82381f53ba9b7f866f5d9844c33c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
