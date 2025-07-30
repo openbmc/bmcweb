@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f53d88df_5a0eb5e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-30T15:46:40Z",
+      "side": 1,
+      "message": "These are close enough for me.  Consider all the feedback below in future patches",
+      "revId": "0a91fa1b3e21820ea813417d7b7c8249a1e10e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17a31889_c0275b1e",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-30T15:46:40Z",
+      "side": 1,
+      "message": "\u0026\u0026\n\nAll temporary functions should be passed by move.",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 59
+      },
+      "revId": "0a91fa1b3e21820ea813417d7b7c8249a1e10e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23165525_05dfddfb",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-30T15:46:40Z",
+      "side": 1,
+      "message": "We generally wouldn\u0027t hardcode EntityManager specifically.  We\u0027d request the mapper.\n\nIt might be ok in this case?  what do you think?",
+      "range": {
+        "startLine": 128,
+        "startChar": 9,
+        "endLine": 128,
+        "endChar": 42
+      },
+      "revId": "0a91fa1b3e21820ea813417d7b7c8249a1e10e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fce2228_806456a8",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-07-30T15:46:40Z",
+      "side": 1,
+      "message": "Would\u0027ve like to see the object_path string builder routines used here instead of std::string, but this isn\u0027t an actual vulnerability because computerSystemIndex will always be a valid path.\n\nAll gooe, just thoughts for the future.",
+      "range": {
+        "startLine": 223,
+        "startChar": 36,
+        "endLine": 223,
+        "endChar": 40
+      },
+      "revId": "0a91fa1b3e21820ea813417d7b7c8249a1e10e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
