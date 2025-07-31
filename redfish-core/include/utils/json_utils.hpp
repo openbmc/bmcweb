@@ -4,6 +4,7 @@
 #pragma once
 
 #include "error_messages.hpp"
+#include "hex_utils.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "human_sort.hpp"
@@ -936,6 +937,38 @@ inline void sortJsonArrayByOData(nlohmann::json::array_t& array)
 //  4. bytes: len(bytes) characters
 //  5. null: 4 characters (null)
 uint64_t getEstimatedJsonSize(const nlohmann::json& root);
+
+// Hashes a json value, recursively omitting every member with key `keyToIgnore`
+inline size_t hashJsonWithoutKey(const nlohmann::json& jsonValue,
+                                 std::string_view keyToIgnore)
+{
+    if (jsonValue.type() != nlohmann::json::value_t::object)
+    {
+        // Object has no keys to remove so just return hash
+        return std::hash<nlohmann::json>{}(jsonValue);
+    }
+
+    size_t jsonSize = jsonValue.size();
+    if (jsonValue.contains(keyToIgnore))
+    {
+        // Deduct the key we're ignoring from the size
+        jsonSize--;
+    }
+    const size_t type = static_cast<std::size_t>(jsonValue.type());
+    size_t seed = nlohmann::detail::combine(type, jsonSize);
+    for (const auto& element : jsonValue.items())
+    {
+        if (element.key() == keyToIgnore)
+        {
+            continue;
+        }
+        const size_t h = std::hash<nlohmann::json::string_t>{}(element.key());
+        seed = nlohmann::detail::combine(seed, h);
+        seed = nlohmann::detail::combine(
+            seed, hashJsonWithoutKey(element.value(), keyToIgnore));
+    }
+    return seed;
+}
 
 } // namespace json_util
 } // namespace redfish
