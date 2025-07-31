@@ -16,6 +16,24 @@
       "message": "Fun fact, in testing this patch alone adds about 1KB to the on-disk binary size.  This on its own is likely survivable, but as a pattern isn\u0027t something we can really handle while still fitting on machines.",
       "revId": "662d2fd766ebc11cffc606aa960b10c4b39f118f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dce202b3_887d1688",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-07-31T14:33:47Z",
+      "side": 1,
+      "message": "Without my patches\n```\n-rwxr-xr-x 2 alexander alexander 3927072 Jul 31 16:03 build/s8030/tmp/work/arm1176jzs-openbmc-linux-gnueabi/bmcweb/1.0+git/package/usr/libexec/bmcwebd\n```\n\nWith my patches\n\n```\nFILESEXTRAPATHS:prepend :\u003d \"${THISDIR}/${PN}:\"\nSRCREV \u003d \"de8e51449a09e132d2b19fc6ebddc53dff067d63\"\n\nSRC_URI +\u003d \" \\\n file://0001-redfish-core-Add-multi-host-helper-functions.patch \\\n file://0002-meson-split-srcfiles_bmcweb.patch \\\n file://0003-meson-stop-compiling-boost_asio.cpp-twice.patch \\\n file://0004-redfish-core-extract-sw_utils.cpp.patch \\\n file://0005-redfish-core-extract-update_service.cpp.patch \\\n file://0006-update-service-extract-function-from-lambda.patch \\\n\"\n```\n\n```\n-rwxr-xr-x 2 alexander alexander 3927088 Jul 31 15:58 build/s8030/tmp/work/arm1176jzs-openbmc-linux-gnueabi/bmcweb/1.0+git/package/usr/libexec/bmcwebd\n```\n\nI am confused as to where your numbers are coming from.\n\nBuilding in yocto build environment shows me a miniscule size difference of `16 bytes`\n\nNow that\u0027s comparative and i may have different meson options enabled compared to you.\n\n\u003e This on its own is likely survivable, but as a pattern isn\u0027t something we can really handle while still fitting on machines.\n\nbmcweb has `-flto\u003dauto` enabled when compiling in yocto environment.\nThe linker can make inlining decisions, right?\n\nIt can do so more effectively at the latest point, when linking everything together and the full information is available. So there is no need to manually declare anything `inline`, it is likely more confusing for the compiler?",
+      "parentUuid": "0f770ab6_409c1310",
+      "revId": "662d2fd766ebc11cffc606aa960b10c4b39f118f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
