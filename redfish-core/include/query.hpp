@@ -35,7 +35,7 @@ inline void afterIfMatchRequest(
     const std::shared_ptr<crow::Request>& req, const std::string& ifMatchHeader,
     const crow::Response& resIn)
 {
-    std::string computedEtag = resIn.computeEtag();
+    std::string computedEtag = resIn.getEtag();
     BMCWEB_LOG_DEBUG("User provided if-match etag {} computed etag {}",
                      ifMatchHeader, computedEtag);
     if (computedEtag != ifMatchHeader)
