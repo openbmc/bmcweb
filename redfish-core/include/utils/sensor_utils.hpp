@@ -506,10 +506,13 @@ inline void objectPropertiesToJson(
         std::optional<std::string> readingBasis;
         std::optional<std::string> implementation;
         std::optional<std::string> prettyName;
+        std::optional<
+            std::unordered_map<std::string, std::tuple<double, uint64_t>>>
+            statistic;
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
             checkAvailable, "ReadingBasis", readingBasis, "Implementation",
-            implementation, "PrettyName", prettyName);
+            implementation, "PrettyName", prettyName, "Statistic", statistic);
         if (!success)
         {
             messages::internalError();
@@ -572,6 +575,16 @@ inline void objectPropertiesToJson(
             if (prettyName.has_value())
             {
                 sensorJson["Description"] = *prettyName;
+            }
+            if (statistic.has_value())
+            {
+                auto peak = statistic->find(
+                    "xyz.openbmc_project.Common.Statistic.StatsType.Peak");
+                if (peak != statistic->end())
+                {
+                    sensorJson["PeakReading"] = std::get<0>(peak->second);
+                    sensorJson["PeakReadingTime"] = std::get<1>(peak->second);
+                }
             }
         }
         else if (sensorType == "temperature")

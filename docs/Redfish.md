@@ -299,6 +299,8 @@ Fields common to all schemas
 - ReadingBasis
 - Implementation
 - Description
+- PeakReading
+- PeakReadingTime
 
 ### /redfish/v1/Chassis/{ChassisId}/Thermal/
 

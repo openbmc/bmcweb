@@ -58,6 +58,7 @@ using DbusVariantType = std::variant<
       std::string, std::string, uint64_t>>,
     std::vector<std::pair<sdbusplus::message::object_path, std::string>>,
     std::vector<std::tuple<std::string, uint64_t, std::string, double>>,
+    std::unordered_map<std::string, std::tuple<double, uint64_t>>,
     std::vector<std::tuple<std::string, std::string, uint64_t, std::string>>
  >;
 
