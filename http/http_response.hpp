@@ -77,7 +77,9 @@ struct Response
     Response() = default;
     Response(Response&& res) noexcept :
         response(std::move(res.response)), jsonValue(std::move(res.jsonValue)),
-        expectedHash(std::move(res.expectedHash)), completed(res.completed)
+        requestExpectedEtag(std::move(res.requestExpectedEtag)),
+        currentOverrideEtag(std::move(res.currentOverrideEtag)),
+        completed(res.completed)
     {
         // See note in operator= move handler for why this is needed.
         if (!res.completed)
@@ -102,7 +104,8 @@ struct Response
         }
         response = std::move(r.response);
         jsonValue = std::move(r.jsonValue);
-        expectedHash = std::move(r.expectedHash);
+        requestExpectedEtag = std::move(r.requestExpectedEtag);
+        currentOverrideEtag = std::move(r.currentOverrideEtag);
 
         // Only need to move completion handler if not already completed
         // Note, there are cases where we might move out of a Response object
@@ -223,10 +226,21 @@ struct Response
 
         jsonValue = nullptr;
         completed = false;
-        expectedHash = std::nullopt;
+        requestExpectedEtag = std::nullopt;
+        currentOverrideEtag = std::nullopt;
     }
 
-    std::string computeEtag() const
+    void setCurrentOverrideEtag(std::string_view newEtag)
+    {
+        if (currentOverrideEtag)
+        {
+            BMCWEB_LOG_WARNING(
+                "Response override etag was incorrectly set twice");
+        }
+        currentOverrideEtag = newEtag;
+    }
+
+    std::string getCurrentEtag() const
     {
         // Only set etag if this request succeeded
         if (result() != http::status::ok)
@@ -238,6 +252,12 @@ struct Response
         {
             return "";
         }
+
+        if (currentOverrideEtag)
+        {
+            return currentOverrideEtag.value();
+        }
+
         size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
         return "\"" + intToHexString(hashval, 8) + "\"";
     }
@@ -283,26 +303,35 @@ struct Response
         return ret;
     }
 
-    void setHashAndHandleNotModified()
+    void setResponseEtagAndHandleNotModified()
     {
         // Can only hash if we have content that's valid
         if (jsonValue.empty() || result() != http::status::ok)
         {
             return;
         }
-        size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
-        std::string hexVal = "\"" + intToHexString(hashval, 8) + "\"";
+        std::string hexVal = getCurrentEtag();
         addHeader(http::field::etag, hexVal);
-        if (expectedHash && hexVal == *expectedHash)
+        if (requestExpectedEtag && hexVal == *requestExpectedEtag)
         {
             jsonValue = nullptr;
             result(http::status::not_modified);
         }
     }
 
-    void setExpectedHash(std::string_view hash)
+    std::optional<std::string_view> getExpectedEtag() const
     {
-        expectedHash = hash;
+        return requestExpectedEtag;
+    }
+
+    void setExpectedEtag(std::string_view etag)
+    {
+        if (requestExpectedEtag)
+        {
+            BMCWEB_LOG_WARNING(
+                "Request expected etag was incorrectly set twice");
+        }
+        requestExpectedEtag = etag;
     }
 
     OpenCode openFile(
@@ -347,7 +376,8 @@ struct Response
     }
 
   private:
-    std::optional<std::string> expectedHash;
+    std::optional<std::string> requestExpectedEtag;
+    std::optional<std::string> currentOverrideEtag;
     bool completed = false;
     std::function<void(Response&)> completeRequestHandler;
 };

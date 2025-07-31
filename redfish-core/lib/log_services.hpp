@@ -25,6 +25,7 @@
 #include "task_messages.hpp"
 #include "utils/dbus_event_log_entry.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/etag_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/log_services_utils.hpp"
 #include "utils/time_utils.hpp"
@@ -1132,6 +1133,8 @@ inline void requestRoutesEventLogService(App& app)
                 = std::format(
                     "/redfish/v1/Systems/{}/LogServices/EventLog/Actions/LogService.ClearLog",
                     BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+            etag_utils::setEtagOmitDateTimeHandler(asyncResp);
         });
 }
 
@@ -1616,6 +1619,8 @@ inline void getDumpServiceInfo(
                                 ["target"] =
             dumpPath + "/Actions/LogService.CollectDiagnosticData";
     }
+
+    etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 
     constexpr std::array<std::string_view, 1> interfaces = {deleteAllInterface};
     dbus::utility::getSubTreePaths(
@@ -2141,6 +2146,8 @@ inline void requestRoutesCrashdumpService(App& app)
                           ["target"] = std::format(
                 "/redfish/v1/Systems/{}/LogServices/Crashdump/Actions/LogService.CollectDiagnosticData",
                 BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+            etag_utils::setEtagOmitDateTimeHandler(asyncResp);
         });
 }
 
