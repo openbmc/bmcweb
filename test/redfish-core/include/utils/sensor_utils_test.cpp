@@ -2,7 +2,9 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "utils/sensor_utils.hpp"
 
+#include <optional>
 #include <string>
+#include <tuple>
 
 #include <gtest/gtest.h>
 
@@ -110,6 +112,73 @@ TEST(IsExcerptNode, False)
     EXPECT_FALSE(isExcerptNode(ChassisSubNode::powerNode));
     EXPECT_FALSE(isExcerptNode(ChassisSubNode::thermalNode));
     EXPECT_FALSE(isExcerptNode(ChassisSubNode::unknownNode));
+}
+
+TEST(UpdateSensorStatistics, ParametersValid)
+{
+    nlohmann::json sensorJson;
+    Reading reading =
+        std::make_tuple("metricId1", "metadata1", 42.5, 1234567890);
+    Readings metrics = {reading};
+    Statistics statistics = std::make_tuple(1234567890, metrics);
+    SensorPaths sensorPaths;
+    ReadingParameters readingParams = {std::make_tuple(
+        sensorPaths,
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Maximum",
+        "metricId1", 60)};
+
+    updateSensorStatistics(sensorJson, statistics, readingParams);
+
+    EXPECT_EQ(sensorJson["PeakReading"], 42.5);
+    EXPECT_EQ(sensorJson["PeakReadingTime"], 1234567890);
+}
+
+TEST(UpdateSensorStatistics, EmptyMetrics)
+{
+    nlohmann::json sensorJson;
+    Readings metrics;
+    Statistics statistics = std::make_tuple(1234567890, metrics);
+    SensorPaths sensorPaths;
+    ReadingParameters readingParams = {std::make_tuple(
+        sensorPaths,
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Maximum",
+        "metricId1", 60)};
+
+    updateSensorStatistics(sensorJson, statistics, readingParams);
+
+    EXPECT_FALSE(sensorJson.contains("PeakReading"));
+    EXPECT_FALSE(sensorJson.contains("PeakReadingTime"));
+}
+
+TEST(UpdateSensorStatistics, NonMaximumOperationType)
+{
+    nlohmann::json sensorJson;
+    Reading reading =
+        std::make_tuple("metricId1", "metadata1", 42.5, 1234567890);
+    Readings metrics = {reading};
+    Statistics statistics = std::make_tuple(1234567890, metrics);
+    SensorPaths sensorPaths;
+    ReadingParameters readingParams = {std::make_tuple(
+        sensorPaths,
+        "xyz.openbmc_project.Telemetry.Report.OperationType.Minimum",
+        "metricId1", 60)};
+
+    updateSensorStatistics(sensorJson, statistics, readingParams);
+
+    EXPECT_FALSE(sensorJson.contains("PeakReading"));
+    EXPECT_FALSE(sensorJson.contains("PeakReadingTime"));
+}
+
+TEST(UpdateSensorStatistics, ParamsNullopt)
+{
+    nlohmann::json sensorJson;
+    std::optional<Statistics> statistics = std::nullopt;
+    std::optional<ReadingParameters> readingParams = std::nullopt;
+
+    updateSensorStatistics(sensorJson, statistics, readingParams);
+
+    EXPECT_FALSE(sensorJson.contains("PeakReading"));
+    EXPECT_FALSE(sensorJson.contains("PeakReadingTime"));
 }
 
 } // namespace
