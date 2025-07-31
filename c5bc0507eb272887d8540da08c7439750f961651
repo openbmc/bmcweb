@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b17c7fee_5e7bf96e",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-31T15:06:58Z",
+      "side": 1,
+      "message": "Can we move this up? Maybe line 303. These are all insecure options",
+      "revId": "c5bc0507eb272887d8540da08c7439750f961651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdee8efa_a88eb239",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-31T15:06:58Z",
+      "side": 1,
+      "message": "We typically just leave the functions\nhttps://github.com/openbmc/bmcweb/blob/2fdbc1f3009eb7dbde40d703c978e1be7f50c574/src/webserver_run.cpp#L80\n\nMaybe leave this file alone for now? I don\u0027t care that much though.",
+      "revId": "c5bc0507eb272887d8540da08c7439750f961651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c06d134d_7e2bf561",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3226,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-07-31T15:06:58Z",
+      "side": 1,
+      "message": "might be better if this was combined below (just one place) \n```\nif (indicatorLed)\n{\n     if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)\n     {\n            setIndicatorLedState(asyncResp, *indicatorLed);\n            asyncResp-\u003eres.addHeader(boost::beast::http::field::warning,\n                                     \"299 - \\\"IndicatorLED is deprecated. Use \"\n                                     \"LocationIndicatorActive instead.\\\"\");\n     }\n     else\n     {\n          messages::propertyUnknown(asyncResp-\u003eres, \"IndicatorLED\");\n          return;\n     }\n}\n```",
+      "revId": "c5bc0507eb272887d8540da08c7439750f961651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
