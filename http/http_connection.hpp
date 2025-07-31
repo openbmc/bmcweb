@@ -440,11 +440,11 @@ class Connection :
         {
             return;
         }
-        std::string_view expected =
+        std::string_view expectedEtag =
             req->getHeaderValue(boost::beast::http::field::if_none_match);
-        if (!expected.empty())
+        if (!expectedEtag.empty())
         {
-            asyncResp->res.setExpectedHash(expected);
+            asyncResp->res.setExpectedEtag(expectedEtag);
         }
         handler->handle(req, asyncResp);
     }
