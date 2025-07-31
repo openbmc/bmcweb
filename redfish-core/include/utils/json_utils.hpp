@@ -4,6 +4,7 @@
 #pragma once
 
 #include "error_messages.hpp"
+#include "hex_utils.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
 #include "human_sort.hpp"
@@ -936,6 +937,23 @@ inline void sortJsonArrayByOData(nlohmann::json::array_t& array)
 //  4. bytes: len(bytes) characters
 //  5. null: 4 characters (null)
 uint64_t getEstimatedJsonSize(const nlohmann::json& root);
+
+inline std::string hashJsonWithoutKey(const nlohmann::json& jsonValue,
+                                      std::string_view keyToIgnore)
+{
+    size_t hashval = 0;
+    if (jsonValue.contains(keyToIgnore))
+    {
+        nlohmann::json duplicateValue = jsonValue;
+        duplicateValue.erase(keyToIgnore);
+        hashval = std::hash<nlohmann::json>{}(duplicateValue);
+    }
+    else
+    {
+        hashval = std::hash<nlohmann::json>{}(jsonValue);
+    }
+    return "\"" + intToHexString(hashval, 8) + "\"";
+}
 
 } // namespace json_util
 } // namespace redfish

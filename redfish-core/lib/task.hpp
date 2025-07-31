@@ -17,6 +17,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "task_messages.hpp"
+#include "utils/json_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/error.hpp>
@@ -554,6 +555,11 @@ inline void requestRoutesTaskService(App& app)
                 asyncResp->res.jsonValue["ServiceEnabled"] = true;
                 asyncResp->res.jsonValue["Tasks"]["@odata.id"] =
                     "/redfish/v1/TaskService/Tasks";
+
+                asyncResp->res.etagHandler = [](const crow::Response& res) {
+                    return json_util::hashJsonWithoutKey(res.jsonValue,
+                                                         "DateTime");
+                };
             });
 }
 

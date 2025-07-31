@@ -47,6 +47,7 @@ struct Response
 
     http::response<bmcweb::HttpBody> response;
 
+    std::function<std::string(const Response&)> etagHandler;
     nlohmann::json jsonValue;
     using fields_type = http::header<false, http::fields>;
     fields_type& fields()
@@ -76,7 +77,9 @@ struct Response
 
     Response() = default;
     Response(Response&& res) noexcept :
-        response(std::move(res.response)), jsonValue(std::move(res.jsonValue)),
+        response(std::move(res.response)),
+        etagHandler(std::move(res.etagHandler)),
+        jsonValue(std::move(res.jsonValue)),
         expectedHash(std::move(res.expectedHash)), completed(res.completed)
     {
         // See note in operator= move handler for why this is needed.
@@ -101,6 +104,7 @@ struct Response
             return *this;
         }
         response = std::move(r.response);
+        etagHandler = std::move(r.etagHandler);
         jsonValue = std::move(r.jsonValue);
         expectedHash = std::move(r.expectedHash);
 
@@ -238,6 +242,12 @@ struct Response
         {
             return "";
         }
+
+        if (etagHandler)
+        {
+            return etagHandler(*this);
+        }
+
         size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
         return "\"" + intToHexString(hashval, 8) + "\"";
     }
@@ -290,8 +300,7 @@ struct Response
         {
             return;
         }
-        size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
-        std::string hexVal = "\"" + intToHexString(hashval, 8) + "\"";
+        std::string hexVal = computeEtag();
         addHeader(http::field::etag, hexVal);
         if (expectedHash && hexVal == *expectedHash)
         {
