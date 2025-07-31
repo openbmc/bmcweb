@@ -321,12 +321,12 @@ class HTTP2Connection :
                 return 0;
             }
         }
-        std::string_view expected =
+        std::string_view expectedEtag =
             thisReq.getHeaderValue(boost::beast::http::field::if_none_match);
-        BMCWEB_LOG_DEBUG("Setting expected hash {}", expected);
-        if (!expected.empty())
+        BMCWEB_LOG_DEBUG("Setting expected etag {}", expectedEtag);
+        if (!expectedEtag.empty())
         {
-            asyncResp->res.setExpectedHash(expected);
+            asyncResp->res.setExpectedEtag(expectedEtag);
         }
         handler->handle(it->second.req, asyncResp);
         return 0;
