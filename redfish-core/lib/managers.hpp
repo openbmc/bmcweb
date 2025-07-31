@@ -938,6 +938,16 @@ inline void requestRoutesManager(App& app)
             getManagerObject(asyncResp, managerId,
                              std::bind_front(getManagerData, asyncResp));
 
+            std::function<void(crow::Response&)> oldCompleteRequestHandler =
+                asyncResp->res.releaseCompleteRequestHandler();
+            asyncResp->res.setCompleteRequestHandler(
+                [oldCompleteRequestHandler](crow::Response& res) {
+                    size_t hash = json_util::hashJsonWithoutKey(res.jsonValue,
+                                                                "DateTime");
+                    res.setEtag("\"" + intToHexString(hash, 8) + "\"");
+                    oldCompleteRequestHandler(res);
+                });
+
             RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
         });
 

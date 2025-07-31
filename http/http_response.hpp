@@ -77,7 +77,8 @@ struct Response
     Response() = default;
     Response(Response&& res) noexcept :
         response(std::move(res.response)), jsonValue(std::move(res.jsonValue)),
-        expectedHash(std::move(res.expectedHash)), completed(res.completed)
+        expectedHash(std::move(res.expectedHash)), etag(std::move(res.etag)),
+        completed(res.completed)
     {
         // See note in operator= move handler for why this is needed.
         if (!res.completed)
@@ -103,6 +104,7 @@ struct Response
         response = std::move(r.response);
         jsonValue = std::move(r.jsonValue);
         expectedHash = std::move(r.expectedHash);
+        etag = std::move(r.etag);
 
         // Only need to move completion handler if not already completed
         // Note, there are cases where we might move out of a Response object
@@ -224,6 +226,12 @@ struct Response
         jsonValue = nullptr;
         completed = false;
         expectedHash = std::nullopt;
+        etag = std::nullopt;
+    }
+
+    void setEtag(std::string_view newEtag)
+    {
+        etag = newEtag;
     }
 
     std::string computeEtag() const
@@ -238,6 +246,12 @@ struct Response
         {
             return "";
         }
+
+        if (etag)
+        {
+            return etag.value();
+        }
+
         size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
         return "\"" + intToHexString(hashval, 8) + "\"";
     }
@@ -290,14 +304,18 @@ struct Response
         {
             return;
         }
-        size_t hashval = std::hash<nlohmann::json>{}(jsonValue);
-        std::string hexVal = "\"" + intToHexString(hashval, 8) + "\"";
+        std::string hexVal = computeEtag();
         addHeader(http::field::etag, hexVal);
         if (expectedHash && hexVal == *expectedHash)
         {
             jsonValue = nullptr;
             result(http::status::not_modified);
         }
+    }
+
+    std::optional<std::string_view> getExpectedHash()
+    {
+        return expectedHash;
     }
 
     void setExpectedHash(std::string_view hash)
@@ -348,6 +366,7 @@ struct Response
 
   private:
     std::optional<std::string> expectedHash;
+    std::optional<std::string> etag;
     bool completed = false;
     std::function<void(Response&)> completeRequestHandler;
 };

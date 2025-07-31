@@ -641,5 +641,37 @@ TEST(GetEstimatedJsonSize, ObjectsReturnsSumWithKeyAndValue)
     EXPECT_EQ(getEstimatedJsonSize(obj), expected);
 }
 
+TEST(hashJsonWithoutKey, HashObject)
+{
+    nlohmann::json obj = R"(
+{
+  "key0": 123,
+  "key1": "123",
+  "key2": [1, 2, 3],
+  "key3": {"key4": "123"}
+}
+)"_json;
+
+    // Returns same value as std::hash when no key is ignored
+    EXPECT_EQ(std::hash<nlohmann::json>{}(obj),
+              hashJsonWithoutKey(obj, "other"));
+
+    // Returns same value as std::hash of json object with ignored key removed
+    nlohmann::json modifiedObj;
+    for (const auto& element : obj.items())
+    {
+        modifiedObj = obj;
+        modifiedObj.erase(element.key());
+        EXPECT_EQ(std::hash<nlohmann::json>{}(modifiedObj),
+                  hashJsonWithoutKey(obj, element.key()));
+    }
+
+    // Ignored key is remove recursively
+    modifiedObj = obj;
+    modifiedObj["key3"].erase("key4");
+    EXPECT_EQ(std::hash<nlohmann::json>{}(modifiedObj),
+              hashJsonWithoutKey(obj, "key4"));
+}
+
 } // namespace
 } // namespace redfish::json_util

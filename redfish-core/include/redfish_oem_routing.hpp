@@ -233,6 +233,12 @@ class OemRouter
                 asyncResp->res.releaseCompleteRequestHandler();
             auto multiResp = std::make_shared<bmcweb::AsyncResp>();
             multiResp->res.setCompleteRequestHandler(std::move(handler));
+            std::optional<std::string_view> expectedHash =
+                asyncResp->res.getExpectedHash();
+            if (expectedHash)
+            {
+                multiResp->res.setExpectedHash(expectedHash.value());
+            }
 
             // Copy so that they exists when completion handler is called.
             auto uriFragments =
