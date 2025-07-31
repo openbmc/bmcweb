@@ -288,6 +288,47 @@ inline sensor::ReadingType toReadingType(std::string_view sensorType)
 
 } // namespace sensors
 
+// represents metric Id, metadata, reading value and timestamp of single
+// reading update in milliseconds
+using Reading = std::tuple<std::string, std::string, double, uint64_t>;
+// represents multiple independent readings
+using Readings = std::vector<Reading>;
+// represents a timestamp and multiple independent readings
+using Statistics = std::tuple<uint64_t, Readings>;
+// represents sensor's path, its metadata
+using SensorPaths =
+    std::vector<std::tuple<sdbusplus::message::object_path, std::string>>;
+// represents reading parameters for statistics readings
+using ReadingParameters =
+    std::vector<std::tuple<SensorPaths, std::string, std::string, uint64_t>>;
+
+inline void updateSensorStatistics(
+    nlohmann::json& sensorJson, const std::optional<Statistics>& statistics,
+    const std::optional<ReadingParameters>& readingParameters)
+{
+    if (statistics.has_value() && readingParameters.has_value())
+    {
+        Readings metrics = std::get<1>(*statistics);
+        for (const auto& [sensorPaths, operationType, metricId, duration] :
+             *readingParameters)
+        {
+            if (operationType ==
+                "xyz.openbmc_project.Telemetry.Report.OperationType.Maximum")
+            {
+                if (metrics.size() == 1)
+                {
+                    const auto& [id, metadata, value, timestamp] = metrics[0];
+                    sensorJson["PeakReading"] = value;
+                    if (timestamp != 0)
+                    {
+                        sensorJson["PeakReadingTime"] = timestamp;
+                    }
+                }
+            }
+        }
+    }
+}
+
 /**
  * @brief Returns the Redfish State value for the specified inventory item.
  * @param inventoryItem D-Bus inventory item associated with a sensor.
@@ -519,11 +560,14 @@ inline void objectPropertiesToJson(
         bool available = true;
         std::optional<std::string> readingBasis;
         std::optional<std::string> implementation;
+        std::optional<Statistics> statistics;
+        std::optional<ReadingParameters> readingParameters;
 
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
             checkAvailable, "ReadingBasis", readingBasis, "Implementation",
-            implementation);
+            implementation, "Readings", statistics, "ReadingParameters",
+            readingParameters);
         if (!success)
         {
             messages::internalError();
@@ -583,6 +627,8 @@ inline void objectPropertiesToJson(
                     sensorJson["Implementation"] = implementationOpt;
                 }
             }
+
+            updateSensorStatistics(sensorJson, statistics, readingParameters);
         }
         else if (sensorType == "temperature")
         {
