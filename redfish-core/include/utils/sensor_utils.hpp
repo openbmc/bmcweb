@@ -505,10 +505,14 @@ inline void objectPropertiesToJson(
         bool available = true;
         std::optional<std::string> readingBasis;
         std::optional<std::string> implementation;
+        std::optional<std::tuple<
+            uint64_t, std::vector<std::tuple<std::string, std::string, double,
+                                             uint64_t>>>>
+            statistics;
         const bool success = sdbusplus::unpackPropertiesNoThrow(
             dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
             checkAvailable, "ReadingBasis", readingBasis, "Implementation",
-            implementation);
+            implementation, "Readings", statistics);
         if (!success)
         {
             messages::internalError();
@@ -566,6 +570,23 @@ inline void objectPropertiesToJson(
                 if (implementationOpt != sensor::ImplementationType::Invalid)
                 {
                     sensorJson["Implementation"] = implementationOpt;
+                }
+            }
+
+            if (statistics.has_value())
+            {
+                auto metrics = std::get<1>(*statistics);
+
+                for (const auto& [id, _, value, timestamp] : metrics)
+                {
+                    if (id == "PeakReading")
+                    {
+                        sensorJson["PeakReading"] = value;
+                        if (timestamp != 0)
+                        {
+                            sensorJson["PeakReadingTime"] = timestamp;
+                        }
+                    }
                 }
             }
         }
