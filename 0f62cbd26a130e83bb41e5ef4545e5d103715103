@@ -62,6 +62,30 @@
       },
       "revId": "0f62cbd26a130e83bb41e5ef4545e5d103715103",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74aeea7b_a66d05e3",
+        "filename": "src/cli/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-07-31T15:36:35Z",
+      "side": 1,
+      "message": "Understood.\n\nI assume the cli would also become a large binary because of my patch.\n\nIt makes more sense now since you explained it.\n\nWill abandon this patch.",
+      "parentUuid": "c349d3d8_0d176844",
+      "range": {
+        "startLine": 7,
+        "startChar": 15,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "0f62cbd26a130e83bb41e5ef4545e5d103715103",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
