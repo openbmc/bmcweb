@@ -22,6 +22,7 @@
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/etag_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/manager_utils.hpp"
 #include "utils/sw_utils.hpp"
@@ -887,6 +888,7 @@ inline void handleManagerGet(
 
     getManagerObject(asyncResp, managerId,
                      std::bind_front(getManagerData, asyncResp));
+    etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 
     RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
 }

@@ -35,10 +35,10 @@ inline void afterIfMatchRequest(
     const std::shared_ptr<crow::Request>& req, const std::string& ifMatchHeader,
     const crow::Response& resIn)
 {
-    std::string computedEtag = resIn.computeEtag();
-    BMCWEB_LOG_DEBUG("User provided if-match etag {} computed etag {}",
-                     ifMatchHeader, computedEtag);
-    if (computedEtag != ifMatchHeader)
+    std::string currentEtag = resIn.getCurrentEtag();
+    BMCWEB_LOG_DEBUG("User provided if-match etag {} current etag {}",
+                     ifMatchHeader, currentEtag);
+    if (currentEtag != ifMatchHeader)
     {
         messages::preconditionFailed(asyncResp->res);
         return;

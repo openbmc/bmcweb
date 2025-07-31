@@ -17,6 +17,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "task_messages.hpp"
+#include "utils/etag_utils.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/error.hpp>
@@ -554,6 +555,8 @@ inline void requestRoutesTaskService(App& app)
                 asyncResp->res.jsonValue["ServiceEnabled"] = true;
                 asyncResp->res.jsonValue["Tasks"]["@odata.id"] =
                     "/redfish/v1/TaskService/Tasks";
+
+                etag_utils::setEtagOmitDateTimeHandler(asyncResp);
             });
 }
 
