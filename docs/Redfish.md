@@ -287,6 +287,8 @@ Fields common to all schemas
 
 #### Sensor
 
+- PeakReading
+- PeakReadingTime
 - Reading
 - ReadingRangeMax
 - ReadingRangeMin
