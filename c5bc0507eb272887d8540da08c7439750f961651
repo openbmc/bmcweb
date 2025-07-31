@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb0aa6b4_533616a4",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-31T22:23:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b17c7fee_5e7bf96e",
+      "revId": "c5bc0507eb272887d8540da08c7439750f961651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cdee8efa_a88eb239",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bb06960_91c304c9",
+        "filename": "redfish-core/lib/led.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-31T22:23:46Z",
+      "side": 1,
+      "message": "Okay, I\u0027ll follow the normal convention. I see I was doing this inconsistently.\n\nI\u0027ll also adjust sensor_utils:setLedState() to be done this same way.",
+      "parentUuid": "cdee8efa_a88eb239",
+      "revId": "c5bc0507eb272887d8540da08c7439750f961651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c06d134d_7e2bf561",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-07-31T15:06:58Z",
       "side": 1,
       "message": "might be better if this was combined below (just one place) \n```\nif (indicatorLed)\n{\n     if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)\n     {\n            setIndicatorLedState(asyncResp, *indicatorLed);\n            asyncResp-\u003eres.addHeader(boost::beast::http::field::warning,\n                                     \"299 - \\\"IndicatorLED is deprecated. Use \"\n                                     \"LocationIndicatorActive instead.\\\"\");\n     }\n     else\n     {\n          messages::propertyUnknown(asyncResp-\u003eres, \"IndicatorLED\");\n          return;\n     }\n}\n```",
+      "revId": "c5bc0507eb272887d8540da08c7439750f961651",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f62f1c94_a04f1a3e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3226,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-07-31T22:23:46Z",
+      "side": 1,
+      "message": "I thought about doing it that way, but it results in different behavior then if the IndicatorLED option didn\u0027t exist at all.\n\nIf the option doesn\u0027t exist at all the readJsonPatch() call would return an error about the option even if other correct options were specified. The result would be that even the correct option patch would not occur.\n\nIf I have the check when the compile option is turned off I wanted the same semantics. So I put the check before any of the patching to handle that case.\n\nE.g.\n```\ncurl -s -k -H \"X-Auth-Token: $token\" -X GET https://${bmc}/redfish/v1/Systems/system  | grep LocationIndicatorActive\n  \"LocationIndicatorActive\": false,\n\ncurl -k -H \"X-Auth-Token: $token\" -H \"Content-Type: application/json\" -X PATCH -d \u0027{\"BadOption\":\"DNE\", \"LocationIndicatorActive\":true}\u0027 https://${bmc}/redfish/v1/Systems/system\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The property BadOption is not in the list of valid properties for the resource.\",\n        \"MessageArgs\": [\n          \"BadOption\"\n        ],\n        \"MessageId\": \"Base.1.19.PropertyUnknown\",\n        \"MessageSeverity\": \"Warning\",\n        \"Resolution\": \"Remove the unknown property from the request body and resubmit the request if the operation failed.\"\n      }\n    ],          \n    \"code\": \"Base.1.19.PropertyUnknown\",\n    \"message\": \"The property BadOption is not in the list of valid properties for the resource.\"\n  }\n}\n\n/* After patch failure due to bad option the LocationIndicatorActive is not \n * modified\n */    \ncurl -s -k -H \"X-Auth-Token: $token\" -X GET https://${bmc}/redfish/v1/Systems/system  | grep LocationIndicatorActive\n  \"LocationIndicatorActive\": false,\n\n/* For IndicatorLED if I move the error check to below I see a patch request\n * with multiple options returns an error but also does some of the patching.\n */\ncurl -s -k -H \"X-Auth-Token: $token\" -X GET https://${bmc}/redfish/v1/Systems/system   | grep AssetTag\n  \"AssetTag\": \"MYTAG\",\n\ncurl -k -H \"X-Auth-Token: $token\" -H \"Content-Type: application/json\" -X PATCH -d \u0027{\"AssetTag\":\"NEWTAG\", \"IndicatorLED\":\"Blinking\"}\u0027 https://${bmc}/redfish/v1/Systems/system\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The property IndicatorLED is not in the list of valid properties for the resource.\",\n        \"MessageArgs\": [\n          \"IndicatorLED\"\n        ],\n        \"MessageId\": \"Base.1.19.PropertyUnknown\",\n        \"MessageSeverity\": \"Warning\",\n        \"Resolution\": \"Remove the unknown property from the request body and resubmit the request if the operation failed.\"\n      }\n    ],\n    \"code\": \"Base.1.19.PropertyUnknown\",\n    \"message\": \"The property IndicatorLED is not in the list of valid properties for the resource.\"\n  }\n}\n\n/* AssetTag was modified even though we saw an error */\ncurl -s -k -H \"X-Auth-Token: $token\" -X GET https://${bmc}/redfish/v1/Systems/system   | grep AssetTag\n  \"AssetTag\": \"NEWTAG\",\n```",
+      "parentUuid": "c06d134d_7e2bf561",
       "revId": "c5bc0507eb272887d8540da08c7439750f961651",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
