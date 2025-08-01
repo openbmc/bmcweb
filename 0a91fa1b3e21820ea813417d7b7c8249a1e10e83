@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "18244377_78671224",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-01T19:05:33Z",
+      "side": 1,
+      "message": "Thank you very much for the feedback. I will think of your suggestions in future patches and fix this for this patch in follow-ups.",
+      "parentUuid": "f53d88df_5a0eb5e7",
+      "revId": "0a91fa1b3e21820ea813417d7b7c8249a1e10e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "17a31889_c0275b1e",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78fdff92_c845423c",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-01T19:05:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "17a31889_c0275b1e",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 59
+      },
+      "revId": "0a91fa1b3e21820ea813417d7b7c8249a1e10e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23165525_05dfddfb",
@@ -54,6 +96,30 @@
       "writtenOn": "2025-07-30T15:46:40Z",
       "side": 1,
       "message": "We generally wouldn\u0027t hardcode EntityManager specifically.  We\u0027d request the mapper.\n\nIt might be ok in this case?  what do you think?",
+      "range": {
+        "startLine": 128,
+        "startChar": 9,
+        "endLine": 128,
+        "endChar": 42
+      },
+      "revId": "0a91fa1b3e21820ea813417d7b7c8249a1e10e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "063919b0_f9d961cf",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-01T19:05:33Z",
+      "side": 1,
+      "message": "I hardcoded the service in order to move from a getSubTree call to a getSubTreePaths call, which performs a little bit faster. \n\nI assumed it will be ok, since the ManagedHost interface primarly targets multi-host systems, with the only one using the interface being yv4 from which I now configures via EM. From my understanding I got skimming through older discord discussions, PIM is seen more as the legacy inventory manager, newer machines would configure via EM.",
+      "parentUuid": "23165525_05dfddfb",
       "range": {
         "startLine": 128,
         "startChar": 9,
@@ -123,6 +189,30 @@
       "writtenOn": "2025-07-30T15:46:40Z",
       "side": 1,
       "message": "Would\u0027ve like to see the object_path string builder routines used here instead of std::string, but this isn\u0027t an actual vulnerability because computerSystemIndex will always be a valid path.\n\nAll gooe, just thoughts for the future.",
+      "range": {
+        "startLine": 223,
+        "startChar": 36,
+        "endLine": 223,
+        "endChar": 40
+      },
+      "revId": "0a91fa1b3e21820ea813417d7b7c8249a1e10e83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f56bc55_8c2084f4",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-01T19:05:33Z",
+      "side": 1,
+      "message": "I did try to use the / operator from object_path to append the index with object_path routines, but it fails to convert from uint64_t (unless we call to_string on it first, but that leaves us with the same problem).",
+      "parentUuid": "2fce2228_806456a8",
       "range": {
         "startLine": 223,
         "startChar": 36,
