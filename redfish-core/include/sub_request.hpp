@@ -8,6 +8,7 @@
 #include <boost/beast/http/verb.hpp>
 #include <nlohmann/json.hpp>
 
+#include <optional>
 #include <string>
 #include <string_view>
 
@@ -56,6 +57,21 @@ class SubRequest
     const nlohmann::json::object_t& payload() const
     {
         return payload_;
+    }
+
+    std::optional<nlohmann::json::object_t> getSubPayload(
+        const std::string& oemSubKey) const
+    {
+        for (const auto& item : payload_)
+        {
+            if (item.first == oemSubKey)
+            {
+                const nlohmann::json::object_t* oemSubObj =
+                    item.second.get_ptr<const nlohmann::json::object_t*>();
+                return *oemSubObj;
+            }
+        }
+        return std::nullopt;
     }
 
     bool needHandling() const
