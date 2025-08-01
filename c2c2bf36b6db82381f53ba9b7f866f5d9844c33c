@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cdf835e_eea5723b",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 3484,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-01T21:00:54Z",
+      "side": 1,
+      "message": "Yes we can use the multi-host flag instead.\n\nFor context: I went that route, because earlier in the development process I tried to minimize the usage of the multi-host flag as much as possible, following the assumption, that long-term we want to get rid of this meson option. However, as we have already discussed, the flag most likely will stay permanently, so we can ignore the uri name empty check. Will update the patches accordingly.",
+      "parentUuid": "d3f11cc5_2b630e34",
+      "range": {
+        "startLine": 3484,
+        "startChar": 19,
+        "endLine": 3484,
+        "endChar": 49
+      },
+      "revId": "c2c2bf36b6db82381f53ba9b7f866f5d9844c33c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b748ab49_a8200b90",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-07-30T16:04:30Z",
       "side": 1,
       "message": "Please fix the two tiered lambda here.  Declare functions as needed to not have double calls.",
+      "revId": "c2c2bf36b6db82381f53ba9b7f866f5d9844c33c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aa2a5f5_69d09e76",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 31
+      },
+      "lineNbr": 3517,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-01T21:00:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b748ab49_a8200b90",
       "revId": "c2c2bf36b6db82381f53ba9b7f866f5d9844c33c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
