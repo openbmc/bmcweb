@@ -1588,7 +1588,7 @@ inline void handlePatchManagerOpenBmc(
     const SubRequest& req, const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*managerId*/)
 {
-    nlohmann::json::object_t payload = req.payload();
+    nlohmann::json::object_t payload = req.getSubPayload("OpenBmc");
 
     std::optional<nlohmann::json::object_t> pidControllers;
     std::optional<nlohmann::json::object_t> fanControllers;
@@ -1597,10 +1597,14 @@ inline void handlePatchManagerOpenBmc(
     std::optional<std::string> profile;
 
     if (!json_util::readJsonObject(
-            payload, asyncResp->res, "OpenBmc/Fan/PidControllers",
-            pidControllers, "OpenBmc/Fan/FanControllers", fanControllers,
-            "OpenBmc/Fan/FanZones", fanZones, "OpenBmc/Fan/StepwiseControllers",
-            stepwiseControllers, "OpenBmc/Fan/Profile", profile))
+            payload, asyncResp->res,              //
+            "Fan/PidControllers", pidControllers, //
+            "Fan/FanControllers",
+            fanControllers,                       //
+            "Fan/FanZones", fanZones,             //
+            "Fan/StepwiseControllers",
+            stepwiseControllers,                  //
+            "Fan/Profile", profile))
     {
         return;
     }

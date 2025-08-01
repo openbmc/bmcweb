@@ -58,6 +58,22 @@ class SubRequest
         return payload_;
     }
 
+    const nlohmann::json::object_t& getSubPayload(
+        const std::string& oemSubKey) const
+    {
+        for (const auto& item : payload_)
+        {
+            if (item.first == oemSubKey)
+            {
+                const nlohmann::json::object_t* oemSubObj =
+                    item.second.get_ptr<const nlohmann::json::object_t*>();
+                return *oemSubObj;
+            }
+        }
+        static nlohmann::json::object_t emptyJsonObj{};
+        return emptyJsonObj;
+    }
+
     bool needHandling() const
     {
         if (method_ == boost::beast::http::verb::get)
