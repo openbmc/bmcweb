@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b90c1b49_c9bd8b4b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-01T18:26:52Z",
+      "side": 1,
+      "message": "Duplicate of https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79150\n\nand doesn\u0027t account for the problems in that patch.",
+      "revId": "e5f836448147d7406a49c219a5647293513df64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
