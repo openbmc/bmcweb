@@ -285,7 +285,8 @@ class Connection :
     void upgradeToHttp2()
     {
         auto http2 = std::make_shared<HTTP2Connection<Adaptor, Handler>>(
-            std::move(adaptor), handler, getCachedDateStr, httpType);
+            std::move(adaptor), handler, getCachedDateStr, httpType,
+            mtlsSession);
         if (http2settings.empty())
         {
             http2->start();

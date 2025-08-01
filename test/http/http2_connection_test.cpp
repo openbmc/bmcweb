@@ -130,7 +130,7 @@ TEST(http_connection, RequestPropogates)
     boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
     auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
         boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
-        &handler, date, HttpType::HTTP);
+        &handler, date, HttpType::HTTP, nullptr);
     conn->start();
 
     std::string_view expectedPrefix =
