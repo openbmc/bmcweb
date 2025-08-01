@@ -34,6 +34,24 @@
       "parentUuid": "0f770ab6_409c1310",
       "revId": "662d2fd766ebc11cffc606aa960b10c4b39f118f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acd732f1_68d9da8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-01T20:37:21Z",
+      "side": 1,
+      "message": "We talked about his on discord, but for anyone watching this review:\n\nxz -c $BBPATH/tmp/work/*-openbmc-linux-gnueabi/obmc-phosphor-image/1.0/rootfs/usr/libexec/bmcwebd | wc -c\n\nis the command I use to estimate impact of any given patch.",
+      "parentUuid": "dce202b3_887d1688",
+      "revId": "662d2fd766ebc11cffc606aa960b10c4b39f118f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
