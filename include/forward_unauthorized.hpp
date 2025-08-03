@@ -15,8 +15,11 @@
 namespace forward_unauthorized
 {
 
-// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static bool hasWebuiRoute = false;
+inline bool& hasWebuiRoute()
+{
+    static bool webuiRoute = false;
+    return webuiRoute;
+}
 
 inline void sendUnauthorized(std::string_view url,
                              std::string_view xRequestedWith,
@@ -28,7 +31,7 @@ inline void sendUnauthorized(std::string_view url,
             accept, http_helpers::ContentType::HTML, false /*allowWildcard*/))
     {
         // If we have a webui installed, redirect to that login page
-        if (hasWebuiRoute)
+        if (hasWebuiRoute())
         {
             boost::urls::url forward =
                 boost::urls::format("/?next={}#/login", url);
