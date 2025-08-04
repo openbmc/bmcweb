@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02afb115_840a3a23",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-04T15:40:51Z",
+      "side": 1,
+      "message": "I changed my vote on this one as I do have a comment.",
+      "revId": "6ad13602a1a35b29915aeabde06b011c727c5ec1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1e0ba45_d4b04641",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 1496,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-04T15:40:51Z",
+      "side": 1,
+      "message": "I see now why the -1 is being done here.\n\nI\u0027m wondering if it is okay here to expect the mapper response to be a sorted list of hosts. Shouldn\u0027t instead the subtree be searched for the one entry matching the systemName which includes the computerSystemIndex?",
+      "range": {
+        "startLine": 1496,
+        "startChar": 0,
+        "endLine": 1496,
+        "endChar": 2
+      },
+      "revId": "6ad13602a1a35b29915aeabde06b011c727c5ec1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
