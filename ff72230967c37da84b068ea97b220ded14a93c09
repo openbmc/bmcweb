@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4afb850_128c5a1d",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-08-04T12:18:09Z",
+      "side": 1,
+      "message": "Don\u0027t we need any D-Bus to Redfish conversion?",
+      "revId": "ff72230967c37da84b068ea97b220ded14a93c09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "651e3878_0f2691cd",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-08-04T12:18:09Z",
+      "side": 1,
+      "message": "Don\u0027t we need any D-Bus to Redfish conversion?",
+      "revId": "ff72230967c37da84b068ea97b220ded14a93c09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae40d63f_ce82a805",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-08-04T12:18:09Z",
+      "side": 1,
+      "message": "I\u0027m confused - where\u0027s the code to look for the new Sensor.Type PDI?",
+      "revId": "ff72230967c37da84b068ea97b220ded14a93c09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
