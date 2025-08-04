@@ -218,6 +218,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4bbf43a_15545f14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-04T16:20:19Z",
+      "side": 1,
+      "message": "\u003e It seems like we\u0027ve reached our goal of having implementation consistent with intent of the spec (at least on the Properties side).\n\nI don\u0027t see that to be the case, and if we had done that, we need some level of tested statement that shows that we are generating the appropriate message, otherwise we haven\u0027t met the intent of the spec.",
+      "parentUuid": "53d6d5f7_21e1a3ae",
+      "range": {
+        "startLine": 11,
+        "startChar": 47,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "90409fcad243a08bfba7c0fb21c8173fc1aac6ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "583ea2f4_1c46fa2d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 3
