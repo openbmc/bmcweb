@@ -4,6 +4,7 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
+#include "task.hpp"
 
 #include <boost/beast/http/status.hpp>
 #include <nlohmann/json.hpp>
@@ -38,6 +39,11 @@ std::vector<struct Resource> resourceVect;
 std::map<std::string, std::string> nameUriNameMap = {
     {"Processors.Processors", "Processors"}};
 
+constexpr std::string_view payloadFormat =
+    "xyz.openbmc_project.RDE.Manager.PayloadFormatType.Inline";
+constexpr std::string_view encodingType =
+    "xyz.openbmc_project.RDE.Manager.EncodingFormatType.JSON";
+
 struct Resource
 {
     std::string rid;
@@ -50,32 +56,124 @@ struct Resource
     std::string fullUri;
 };
 
-// GET handler
-inline void rdeGetHandler(App& app, const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+std::string handleDeferredBindings(const std::string& bejJsonInput)
 {
-    BMCWEB_LOG_DEBUG("RDE : Get handler.");
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    // TDDO implement handleDeferredBindings
+    return bejJsonInput;
+}
+
+inline bool rdeHandleCreateTask(const boost::system::error_code& ec2,
+                                sdbusplus::message_t& msg,
+                                const std::shared_ptr<task::TaskData>& taskData)
+{
+    if (ec2)
     {
-        return;
+        return task::completed;
     }
 
-    // TODO: Implement the GET request handling logic here.
-    asyncResp->res.result(boost::beast::http::status::ok);
-    asyncResp->res.jsonValue["status"] = "success";
+    dbus::utility::DBusPropertiesMap changedProperties;
+    msg.read(changedProperties);
+
+    const std::string* data = nullptr;
+    const uint16_t* rc = nullptr;
+    nlohmann::json taskEntry;
+
+    for (const auto& propertyPair : changedProperties)
+    {
+        if (propertyPair.first == "payload")
+        {
+            data = std::get_if<std::string>(&propertyPair.second);
+
+            const auto& updatedData = handleDeferredBindings(*data);
+            taskEntry["Payload"] = updatedData;
+        }
+        else if (propertyPair.first == "return_code")
+        {
+            rc = std::get_if<uint16_t>(&propertyPair.second);
+            taskEntry["ReturnCode"] = *rc;
+        }
+    }
+    if (data == nullptr || rc == nullptr)
+    {
+        BMCWEB_LOG_ERROR("Invalid property or property not found");
+        taskData->messages.emplace_back(messages::internalError());
+        return task::completed;
+    }
+
+    std::string index = std::to_string(taskData->index);
+    taskData->messages.emplace_back(taskEntry);
+    taskData->messages.emplace_back(messages::taskCompletedOK(index));
+    taskData->state = "Completed";
+
+    return task::completed;
+}
+
+inline void rdeCreateTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          task::Payload&& payload,
+                          const sdbusplus::message::object_path& objPath)
+{
+    std::string matchString =
+        ("type='signal',"
+         "path='" +
+         objPath.str +
+         "',"
+         "interface='xyz.openbmc_project.RDE.OperationTask',"
+         "member='TaskUpdated'");
+
+    std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
+        std::bind_front(rdeHandleCreateTask), matchString);
+    task->startTimer(std::chrono::minutes(5));
+    task->populateResp(asyncResp->res);
+    task->payload.emplace(std::move(payload));
+}
+
+// TODO: Make OperationIDs persistent or something similar to avoid operation id
+// missmatch when bmcweb restrarts for any errors.
+inline uint32_t getOperationID()
+{
+    static std::atomic<uint32_t> id{0};
+    return ++id;
+}
+
+// GET handler
+inline void rdeGetHandler(const crow::Request& req,
+                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          std::string targetUri, uint8_t eid, std::string uuid)
+{
+    uint32_t operationID = getOperationID();
+    constexpr std::string_view operationType =
+        "xyz.openbmc_project.RDE.Common.OperationType.READ";
+    constexpr std::string_view rdePayload = "";
+    // TODO get sessionID dynamically
+    std::string sessionID = "1";
+
+    crow::connections::systemBus->async_method_call(
+        [req, asyncResp](const boost::system::error_code& ec,
+                         const ObjectPath& objPath) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR(
+                "rdeGetHandler: Error in calling DBUS method StartRedfishOperation; Error: {}",
+                ec.message());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        task::Payload payload(req);
+        rdeCreateTask(asyncResp, std::move(payload), objPath);
+    },
+        std::string(pldmService), "/xyz/openbmc_project/RDE/Manager",
+        "xyz.openbmc_project.RDE.Manager", "StartRedfishOperation", operationID,
+        std::string(operationType), targetUri, uuid, eid,
+        std::string(rdePayload), std::string(payloadFormat),
+        std::string(encodingType), sessionID);
 }
 
 // PATCH handler
-inline void rdePatchHandler(App& app, const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void rdePatchHandler(const crow::Request& /*req*/,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            std::string /*targetUri*/, uint8_t /*eid*/,
+                            std::string /*uuid*/)
 {
-    BMCWEB_LOG_DEBUG("RDE : Patch handler.");
-
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-
     // TODO: Implement the PATCH request handling logic here.
     asyncResp->res.result(boost::beast::http::status::ok);
     asyncResp->res.jsonValue["status"] = "success";
@@ -112,10 +210,55 @@ inline void updateDeviceName(std::string& inputUri)
     }
 }
 
-inline void rdeHandler(const crow::Request& /*req*/,
-                       const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/)
+inline void rdeHandler(const crow::Request& req,
+                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    // TODO Implement rdeHandler
+    std::string expectedUri = std::string(req.url().buffer());
+
+    auto it = std::find_if(
+        resourceVect.begin(), resourceVect.end(),
+        [&expectedUri](const Resource& p) { return p.fullUri == expectedUri; });
+    if (it == resourceVect.end())
+    {
+        BMCWEB_LOG_ERROR("Error: Unsupported URI");
+        asyncResp->res.result(boost::beast::http::status::not_acceptable);
+        asyncResp->res.jsonValue = {{"error", "Unsupported URI"},
+                                    {"status", "failed"}};
+        return;
+    }
+
+    std::string majorSchemaName = "Unknown";
+    std::string majorSchemaVersion = "0_0_0";
+    if (!it->schemaName.empty())
+    {
+        majorSchemaName = it->schemaName;
+    }
+    if (!it->schemaVersion.empty())
+    {
+        majorSchemaVersion = it->schemaVersion;
+    }
+
+    asyncResp->res.jsonValue["@odata.type"] = "#RDE.v1_0_0.RDERoot";
+    asyncResp->res.jsonValue["@odata.id"] = it->fullUri;
+    std::string odataType = "#" + majorSchemaName + ".v" + majorSchemaVersion +
+                            "." + majorSchemaName;
+    asyncResp->res.jsonValue["@odata.type"] = odataType;
+
+    // Handle HTTP methods
+    if (req.method() == boost::beast::http::verb::get)
+    {
+        rdeGetHandler(req, asyncResp, it->subUri, it->eid, it->uuid);
+    }
+    else if (req.method() == boost::beast::http::verb::patch)
+    {
+        rdePatchHandler(req, asyncResp, it->subUri, it->eid, it->uuid);
+    }
+    else
+    {
+        asyncResp->res.result(boost::beast::http::status::method_not_allowed);
+        asyncResp->res.jsonValue = {{"error", "Unsupported HTTP method"}};
+    }
+    return;
 }
 
 inline std::string getDeviceID(std::string uuid)
@@ -415,12 +558,20 @@ inline void handleProcRDE(crow::App& app, const crow::Request& req,
 {
     BMCWEB_LOG_DEBUG("RDE Request Handling[{} {} {}]", systemName, deviceId,
                      schemaPath);
-
+    if (!loadRDEDeviceMetadata())
+    {
+        BMCWEB_LOG_ERROR("Invalid or missing device identifiers in metadata");
+        asyncResp->res.result(boost::beast::http::status::not_acceptable);
+        asyncResp->res.jsonValue = {
+            {"error", "Invalid or missing device identifier"},
+            {"status", "failed"}};
+        return;
+    }
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
-    // TODO implement handleProcRDE process
+    getProcRdeDevices(req, asyncResp, deviceId, false);
 }
 
 inline void handleProcessorRoot(
