@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe406935_48ed1189",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-04T15:58:10Z",
+      "side": 1,
+      "message": "typo: should be \"is no\"",
+      "range": {
+        "startLine": 1514,
+        "startChar": 37,
+        "endLine": 1514,
+        "endChar": 40
+      },
+      "revId": "90b16681f992b2755e54f0ae73086df6d56914a8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
