@@ -50,43 +50,7 @@ static std::string helpMsg()
     return help;
 }
 
-static int loglevelMain(std::string& loglevel);
-
-int cliMain(int argc, char** argv) noexcept(false)
-{
-    CLI::App app("BMCWeb CLI");
-
-    cliLogLevel("INFO");
-
-    std::string loglevel;
-    app.require_subcommand(1);
-
-    const CLI::Validator levelValidator =
-        CLI::Validator(validateLogLevel, "valid level");
-
-    CLI::App* sub = app.add_subcommand("loglevel", "Set bmcweb log level");
-    sub->add_option("level", loglevel, helpMsg())
-        ->required()
-        ->check(levelValidator);
-
-    CLI::App* daemon = app.add_subcommand("daemon", "Run webserver");
-
-    CLI11_PARSE(app, argc, argv)
-
-    if (daemon->parsed())
-    {
-        return run();
-    }
-
-    if (sub->parsed())
-    {
-        return loglevelMain(loglevel);
-    }
-
-    return 0;
-}
-
-static int loglevelMain(std::string& loglevel)
+static int setLogLevel(std::string& loglevel)
 {
     // Define sdbus interfaces:
     std::string service = "xyz.openbmc_project.bmcweb";
@@ -116,6 +80,40 @@ static int loglevelMain(std::string& loglevel)
         service, path, iface, method, loglevel);
 
     io.run();
+
+    return 0;
+}
+
+int runCLI(int argc, char** argv) noexcept(false)
+{
+    CLI::App app("BMCWeb CLI");
+
+    cliLogLevel("INFO");
+
+    const CLI::Validator levelValidator =
+        CLI::Validator(validateLogLevel, "valid level");
+
+    CLI::App* loglevelsub =
+        app.add_subcommand("loglevel", "Set bmcweb log level");
+
+    std::string loglevel;
+    loglevelsub->add_option("level", loglevel, helpMsg())
+        ->required()
+        ->check(levelValidator);
+
+    CLI::App* daemon = app.add_subcommand("daemon", "Run webserver");
+
+    CLI11_PARSE(app, argc, argv)
+
+    if (loglevelsub->parsed())
+    {
+        return setLogLevel(loglevel);
+    }
+    if (daemon->parsed())
+    {
+        return runWebserver();
+    }
+    runWebserver();
 
     return 0;
 }

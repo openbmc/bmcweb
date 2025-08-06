@@ -2,4 +2,4 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
-int run();
+int runWebserver();
