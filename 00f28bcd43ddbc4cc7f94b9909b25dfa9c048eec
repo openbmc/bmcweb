@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "09a7691a_a295ff9d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-06T17:39:40Z",
+      "side": 1,
+      "message": "Redfish Service Validator run and passes?\n\nPer https://github.com/openbmc/bmcweb/blob/master/docs/REDFISH_CHECKLIST.md it should be run and pass when changing Redfish tree.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 6
+      },
+      "revId": "00f28bcd43ddbc4cc7f94b9909b25dfa9c048eec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cacb19ff_52896143",
         "filename": "redfish-core/include/utils/sensor_utils.hpp",
         "patchSetId": 4
@@ -42,6 +65,29 @@
         "startChar": 16,
         "endLine": 433,
         "endChar": 24
+      },
+      "revId": "00f28bcd43ddbc4cc7f94b9909b25dfa9c048eec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1a957c5_acaffdfd",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-06T17:39:40Z",
+      "side": 1,
+      "message": "As this is adding new properties the Redfish.md file should be updated to reflect them.",
+      "range": {
+        "startLine": 558,
+        "startChar": 32,
+        "endLine": 558,
+        "endChar": 44
       },
       "revId": "00f28bcd43ddbc4cc7f94b9909b25dfa9c048eec",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
