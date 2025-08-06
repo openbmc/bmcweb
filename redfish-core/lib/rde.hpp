@@ -58,8 +58,77 @@ struct Resource
 
 std::string handleDeferredBindings(const std::string& bejJsonInput)
 {
-    // TDDO implement handleDeferredBindings
-    return bejJsonInput;
+    // Parse resource_registry.txt into uriMap
+    std::unordered_map<int, std::string> uriMap;
+
+    for (const auto& it : resourceVect)
+    {
+        int resourceId = std::stoi(it.rid);
+        uriMap[resourceId] = it.fullUri;
+    }
+
+    std::string bejJson = bejJsonInput;
+
+    std::regex bareObjectRegex("\\{\\s*\"%L(\\d+)\"\\s*\\}");
+    std::ostringstream oss1;
+    std::sregex_iterator begin1(bejJson.begin(), bejJson.end(),
+                                bareObjectRegex),
+        end1;
+    size_t lastPos1 = 0;
+
+    for (auto it = begin1; it != end1; ++it)
+    {
+        oss1 << bejJson.substr(
+            lastPos1,
+            static_cast<size_t>(static_cast<std::ptrdiff_t>(it->position()) -
+                                static_cast<std::ptrdiff_t>(lastPos1)));
+
+        int id = std::stoi((*it)[1]);
+        auto uriIt = uriMap.find(id);
+        if (uriIt != uriMap.end())
+        {
+            oss1 << R"({"@odata.id":")" << uriIt->second << R"("})";
+        }
+        else
+        {
+            oss1 << it->str(); // leave unchanged
+        }
+        lastPos1 = static_cast<size_t>(it->position() + it->length());
+    }
+    oss1 << bejJson.substr(lastPos1);
+    bejJson = oss1.str();
+
+    std::regex lPattern(R"(%L(\d+))");
+    std::ostringstream oss2;
+    std::sregex_iterator begin2(bejJson.begin(), bejJson.end(), lPattern), end2;
+    size_t lastPos2 = 0;
+
+    for (auto it = begin2; it != end2; ++it)
+    {
+        oss2 << bejJson.substr(
+            lastPos2,
+            static_cast<size_t>(static_cast<std::ptrdiff_t>(it->position()) -
+                                static_cast<std::ptrdiff_t>(lastPos2)));
+
+        int id = std::stoi((*it)[1]);
+        auto uriIt = uriMap.find(id);
+        if (uriIt != uriMap.end())
+        {
+            oss2 << uriIt->second;
+        }
+        else
+        {
+            oss2 << it->str(); // leave unchanged
+        }
+        lastPos2 = static_cast<size_t>(it->position() + it->length());
+    }
+    oss2 << bejJson.substr(lastPos2);
+    bejJson = oss2.str();
+
+    bejJson = std::regex_replace(bejJson, std::regex(R"(%I(\d+))"), "$1");
+    BMCWEB_LOG_DEBUG("BEJ JSON String Output: {}", bejJson);
+
+    return bejJson;
 }
 
 inline bool rdeHandleCreateTask(const boost::system::error_code& ec2,
