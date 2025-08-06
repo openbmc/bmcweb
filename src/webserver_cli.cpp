@@ -46,7 +46,7 @@ static std::string helpMsg()
     return help;
 }
 
-int main(int argc, char** argv) noexcept(false)
+int cliMain(int argc, char** argv) noexcept(false)
 {
     CLI::App app("BMCWeb SetLogLevel CLI");
 

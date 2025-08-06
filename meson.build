@@ -267,6 +267,7 @@ if not cli11.found()
     cli11 = cli11_proj.get_variable('CLI11_dep')
     cli11 = cli11.as_system('system')
 endif
+bmcweb_dependencies += cli11
 bmcweb_cli_dependencies += cli11
 
 
@@ -413,6 +414,7 @@ srcfiles_bmcweb = files(
     'src/json_html_serializer.cpp',
     'src/ossl_random.cpp',
     'src/ssl_key_handler.cpp',
+    'src/webserver_cli.cpp',
     'src/webserver_run.cpp',
 )
 
@@ -435,14 +437,19 @@ executable(
     install_dir: libexec,
 )
 
-# Generate the bmcweb CLI application
+install_data('scripts/target/bmcweb', install_dir: bindir)
+
+# Generate the bmcweb CLI application to confirm it compiles separately
 executable(
-    'bmcweb',
-    ['src/webserver_cli.cpp', 'src/boost_asio.cpp'],
+    'bmcweb_test_compile',
+    [
+        'src/webserver_cli.cpp',
+        'src/webserver_cli_main.cpp',
+        'src/boost_asio.cpp',
+    ],
     include_directories: incdir_cli,
     dependencies: bmcweb_cli_dependencies,
-    install: true,
-    install_dir: bindir,
+    install: false,
 )
 
 subdir('test')
