@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c09910a_9a4ccc43",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-06T18:37:21Z",
+      "side": 1,
+      "message": "This looks like it\u0027s basically reimplemented set/releaseCompleteRequestHandler\n\nI get those APIs aren\u0027t the easiest to use, but I would much prefer we improve them rather than add specific callbacks for every possible use case.",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 19
+      },
+      "revId": "3f42c81fe53df55a2ac86df4deac4e22fbba9f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "908bbf32_d196d517",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-06T18:37:21Z",
+      "side": 1,
+      "message": "This makes a complete in-memory copy of a (potentially very large) payload.  You almost definitely don\u0027t want to do this.  I suspect you want your own overload of std::hash.",
+      "revId": "3f42c81fe53df55a2ac86df4deac4e22fbba9f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
