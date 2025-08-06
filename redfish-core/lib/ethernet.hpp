@@ -1397,12 +1397,13 @@ inline void handleSLAACAutoConfigPatch(
 inline void handleDHCPPatch(
     const std::string& ifaceId, const EthernetInterfaceData& ethData,
     const DHCPParameters& v4dhcpParms, const DHCPParameters& v6dhcpParms,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    bool hasValidIPv4StaticAddresses = false)
 {
     bool ipv4Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, true);
     bool ipv6Active = translateDhcpEnabledToBool(ethData.dhcpEnabled, false);
 
-    if (ipv4Active)
+    if (ipv4Active && hasValidIPv4StaticAddresses)
     {
         updateIPv4DefaultGateway(ifaceId, "", asyncResp);
     }
@@ -2416,8 +2417,21 @@ inline void requestEthernetInterfacesRoutes(App& app)
                             return;
                         }
 
+                        // Pre-validate IPv4 static addresses to determine if
+                        // gateway clearing is safe
+                        bool hasValidIPv4StaticAddresses = false;
+                        if (ipv4StaticAddresses)
+                        {
+                            std::vector<AddressPatch> tempAddresses;
+                            std::string tempGatewayOut;
+                            hasValidIPv4StaticAddresses = parseAddresses(
+                                *ipv4StaticAddresses, ipv4Data, asyncResp->res,
+                                tempAddresses, tempGatewayOut);
+                        }
+
                         handleDHCPPatch(ifaceId, ethData, v4dhcpParms,
-                                        v6dhcpParms, asyncResp);
+                                        v6dhcpParms, asyncResp,
+                                        hasValidIPv4StaticAddresses);
 
                         if (hostname)
                         {
