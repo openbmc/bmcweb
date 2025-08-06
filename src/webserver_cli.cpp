@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+
+#include "webserver_cli.hpp"
+
 #include "boost_formatters.hpp"
 #include "logging.hpp"
+#include "webserver_run.hpp"
 
 #include <CLI/CLI.hpp>
 #include <boost/asio/io_context.hpp>
@@ -46,17 +50,13 @@ static std::string helpMsg()
     return help;
 }
 
-int main(int argc, char** argv) noexcept(false)
+static int loglevelMain(std::string& loglevel);
+
+int cliMain(int argc, char** argv) noexcept(false)
 {
-    CLI::App app("BMCWeb SetLogLevel CLI");
+    CLI::App app("BMCWeb CLI");
 
     cliLogLevel("INFO");
-
-    // Define sdbus interfaces:
-    std::string service = "xyz.openbmc_project.bmcweb";
-    std::string path = "/xyz/openbmc_project/bmcweb";
-    std::string iface = "xyz.openbmc_project.bmcweb";
-    std::string method = "SetLogLevel";
 
     std::string loglevel;
     app.require_subcommand(1);
@@ -69,7 +69,30 @@ int main(int argc, char** argv) noexcept(false)
         ->required()
         ->check(levelValidator);
 
+    CLI::App* daemon = app.add_subcommand("daemon", "Run webserver");
+
     CLI11_PARSE(app, argc, argv)
+
+    if (daemon->parsed())
+    {
+        return run();
+    }
+
+    if (sub->parsed())
+    {
+        return loglevelMain(loglevel);
+    }
+
+    return 0;
+}
+
+static int loglevelMain(std::string& loglevel)
+{
+    // Define sdbus interfaces:
+    std::string service = "xyz.openbmc_project.bmcweb";
+    std::string path = "/xyz/openbmc_project/bmcweb";
+    std::string iface = "xyz.openbmc_project.bmcweb";
+    std::string method = "SetLogLevel";
 
     std::transform(loglevel.begin(), loglevel.end(), loglevel.begin(),
                    ::toupper);
