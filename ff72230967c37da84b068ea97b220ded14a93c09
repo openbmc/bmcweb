@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31485331_ecc34d5e",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-08-06T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4afb850_128c5a1d",
+      "revId": "ff72230967c37da84b068ea97b220ded14a93c09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "651e3878_0f2691cd",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "422aea09_de6bfa36",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-08-06T11:14:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "651e3878_0f2691cd",
+      "revId": "ff72230967c37da84b068ea97b220ded14a93c09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae40d63f_ce82a805",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-08-04T12:18:09Z",
       "side": 1,
       "message": "I\u0027m confused - where\u0027s the code to look for the new Sensor.Type PDI?",
+      "revId": "ff72230967c37da84b068ea97b220ded14a93c09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36f6517b_642d7fe1",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-08-06T11:14:26Z",
+      "side": 1,
+      "message": "We do getAllProperties call on sensor dbus object path, so properties from all the interfaces will fetched in a single dbus method call and hence we do not need a interface name.",
+      "parentUuid": "ae40d63f_ce82a805",
       "revId": "ff72230967c37da84b068ea97b220ded14a93c09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
