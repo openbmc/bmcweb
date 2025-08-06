@@ -238,14 +238,49 @@ inline void rdeGetHandler(const crow::Request& req,
 }
 
 // PATCH handler
-inline void rdePatchHandler(const crow::Request& /*req*/,
+inline void rdePatchHandler(const crow::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            std::string /*targetUri*/, uint8_t /*eid*/,
-                            std::string /*uuid*/)
+                            std::string targetUri, uint8_t eid,
+                            std::string uuid)
 {
-    // TODO: Implement the PATCH request handling logic here.
-    asyncResp->res.result(boost::beast::http::status::ok);
-    asyncResp->res.jsonValue["status"] = "success";
+    nlohmann::json inputJson;
+    try
+    {
+        inputJson = nlohmann::json::parse(req.body());
+    }
+    catch (const nlohmann::json::parse_error& e)
+    {
+        BMCWEB_LOG_ERROR("rdePatchHandler: JSON parse error: {}", e.what());
+        messages::malformedJSON(asyncResp->res);
+        return;
+    }
+
+    std::string rdePayload = inputJson.dump();
+
+    uint32_t operationID = getOperationID();
+    constexpr std::string_view operationType =
+        "xyz.openbmc_project.RDE.Common.OperationType.UPDATE";
+    // TODO: get sessionID dynamically
+    std::string sessionID = "1";
+
+    crow::connections::systemBus->async_method_call(
+        [req, asyncResp](const boost::system::error_code& ec,
+                         const ObjectPath& objPath) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR(
+                "rdePatchHandler: Error in calling DBUS method StartRedfishOperation; Error: {}",
+                ec.message());
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        task::Payload payload(req);
+        rdeCreateTask(asyncResp, std::move(payload), objPath);
+    },
+        std::string(pldmService), "/xyz/openbmc_project/RDE/Manager",
+        "xyz.openbmc_project.RDE.Manager", "StartRedfishOperation", operationID,
+        std::string(operationType), targetUri, uuid, eid, rdePayload,
+        std::string(payloadFormat), std::string(encodingType), sessionID);
 }
 
 std::string updateDeviceID(const std::string& path, const std::string& deviceId)
