@@ -29,7 +29,7 @@ are the steps for using the SDK and QEMU.
 - Reduce binary size by stripping it when ready for testing
 
   ```sh
-  arm-openbmc-linux-gnueabi-strip bmcwebd
+  arm-openbmc-linux-gnueabi-strip bmcweb
   ```
 
   **Note:** Stripping is not required and having the debug symbols could be
@@ -39,7 +39,7 @@ are the steps for using the SDK and QEMU.
 - Copy your bmcweb daemon you want to test to /tmp/ in QEMU
 
   ```sh
-  scp -P 2222 bmcwebd root@127.0.0.1:/tmp/
+  scp -P 2222 bmcweb root@127.0.0.1:/tmp/
   ```
 
   **Special Notes:** The address and port shown here (127.0.0.1 and 2222)
@@ -70,13 +70,13 @@ are the steps for using the SDK and QEMU.
 - Remove the existing bmcweb daemon from the filesystem in QEMU
 
   ```sh
-  rm /usr/libexec/bmcwebd
+  rm /usr/libexec/bmcweb
   ```
 
 - Link to your new bmcweb daemon in /tmp/
 
   ```sh
-  ln -sf /tmp/bmcwebd /usr/libexec/bmcwebd
+  ln -sf /tmp/bmcweb /usr/libexec/bmcweb
   ```
 
 - Test your changes. bmcweb will be started automatically upon your first REST
