@@ -5,5 +5,5 @@
 
 int main(int argc, char** argv) noexcept(false)
 {
-    return cliMain(argc, argv);
+    return runCLI(argc, argv);
 }

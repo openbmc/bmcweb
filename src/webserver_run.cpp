@@ -48,7 +48,7 @@ static void setLogLevel(const std::string& logLevel)
     BMCWEB_LOG_INFO("Requested log-level change to: {}", logLevel);
 }
 
-int run()
+int runWebserver()
 {
     boost::asio::io_context& io = getIoContext();
     App app;
