@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "webserver_cli.hpp"
+
 #include "boost_formatters.hpp"
 #include "logging.hpp"
 
@@ -46,7 +48,7 @@ static std::string helpMsg()
     return help;
 }
 
-int main(int argc, char** argv) noexcept(false)
+int cliMain(std::span<char*> args) noexcept(false)
 {
     CLI::App app("BMCWeb SetLogLevel CLI");
 
@@ -69,7 +71,7 @@ int main(int argc, char** argv) noexcept(false)
         ->required()
         ->check(levelValidator);
 
-    CLI11_PARSE(app, argc, argv)
+    CLI11_PARSE(app, static_cast<int>(args.size()), args.data())
 
     std::transform(loglevel.begin(), loglevel.end(), loglevel.begin(),
                    ::toupper);
