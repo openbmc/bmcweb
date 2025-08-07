@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8f0a1ec_8f57a749",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2421,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-07T17:17:30Z",
+      "side": 1,
+      "message": "If we fail here, we should immediately return an error to the user with the failing value.  We shouldn\u0027t try to continue to parse/update.",
+      "range": {
+        "startLine": 2420,
+        "startChar": 0,
+        "endLine": 2421,
+        "endChar": 51
+      },
+      "revId": "b6be7c4d8f8a236398db1105bd59001e6e06c6b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
