@@ -16,6 +16,24 @@
       "message": "(haven\u0027t reviewed yet)\n\nIt would be great if someone could look into a fix for this so we could fix this properly.  Connecting SSL/Login to whether or not a UI is installed is a hack that would be nice to figure out how to break.\n\nWith that said, fixing this regression is probably fine as well.",
       "revId": "2554de835ec82a3bf0126339cab37d70df463e5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dc33f61_e6c95f6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-08T13:56:26Z",
+      "side": 1,
+      "message": "Before the fix, hasWebuiRoute is inconsistent - between the point of setting it (e.g. webassets.hpp from webserver_run.cpp) and the point of getting it (i.e. ssl_key_handler.cpp.\n\nHere is the tracing.\n\n1)  Setting it as TRUE after startup\n```\nAug 08 13:29:22 p10bmc systemd[1]: Stopping Start bmcwebd server...\nAug 08 13:29:22 p10bmc systemd[1]: bmcweb.service: Deactivated successfully.\nAug 08 13:29:22 p10bmc systemd[1]: Stopped Start bmcwebd server.\nAug 08 13:29:24 p10bmc systemd[1]: Started Start bmcwebd server.\nAug 08 13:29:24 p10bmc bmcwebd[1089]: [webassets.hpp:220] TEST: webassets - addFile, SET hasWebuiRoute\u003dtrue, as webpath\u003d/\n```\n\n2) However, getting it as FALSE.\n```\nAug 08 13:29:24 p10bmc bmcwebd[1089]: [ssl_key_handler.cpp:551] TEST: getSslServerContext \u003d c.tlsStrict\u003dfalse, hasWebuiRoute \u003d false\nAug 08 13:29:24 p10bmc bmcwebd[1089]: [ssl_key_handler.cpp:573] TEST: (forward_unauthorized::hasWebuiRoute\u003d\u003dfalse) --- Setting verify peer only\n```",
+      "parentUuid": "97aac937_9d85fe01",
+      "revId": "2554de835ec82a3bf0126339cab37d70df463e5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
