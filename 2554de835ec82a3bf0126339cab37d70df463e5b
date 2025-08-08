@@ -34,6 +34,24 @@
       "parentUuid": "97aac937_9d85fe01",
       "revId": "2554de835ec82a3bf0126339cab37d70df463e5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "525405db_27633368",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-08T15:12:12Z",
+      "side": 1,
+      "message": "yes, I understand, that’s a regression.  if the login/ssl connections were cleaned up to not require special casing for the webui, we wouldn’t need this shared variable at all and this type of failure wouldn’t be possible.",
+      "parentUuid": "1dc33f61_e6c95f6b",
+      "revId": "2554de835ec82a3bf0126339cab37d70df463e5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
