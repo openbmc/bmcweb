@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1cdae7d8_450fc379",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-08-08T20:38:10Z",
+      "side": 1,
+      "message": "Moved custom etag handling inside `CompleteRequestHandler`",
+      "parentUuid": "6c09910a_9a4ccc43",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 19
+      },
+      "revId": "3f42c81fe53df55a2ac86df4deac4e22fbba9f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "908bbf32_d196d517",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 5
@@ -37,6 +61,24 @@
       "writtenOn": "2025-08-06T18:37:21Z",
       "side": 1,
       "message": "This makes a complete in-memory copy of a (potentially very large) payload.  You almost definitely don\u0027t want to do this.  I suspect you want your own overload of std::hash.",
+      "revId": "3f42c81fe53df55a2ac86df4deac4e22fbba9f5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93b8b104_44c35a17",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 947,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-08-08T20:38:10Z",
+      "side": 1,
+      "message": "Reworked to avoid copy of `jsonValue`",
+      "parentUuid": "908bbf32_d196d517",
       "revId": "3f42c81fe53df55a2ac86df4deac4e22fbba9f5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
