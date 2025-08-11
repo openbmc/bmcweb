@@ -686,6 +686,12 @@ Fields common to all schemas
 - Oem
 - PartNumber
 - PowerState
+- Redundancy[]/MemberId
+- Redundancy[]/MinNumNeeded
+- Redundancy[]/MinNumNeededForFaultTolerance
+- Redundancy[]/Mode
+- Redundancy[]/RedundancySet[]
+- Redundancy[]/Status
 - SerialNumber
 - ServiceEntryPointUUID
 - ServiceIdentification
