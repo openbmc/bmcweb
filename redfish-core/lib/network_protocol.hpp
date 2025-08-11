@@ -273,7 +273,11 @@ inline void afterSetNTP(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         messages::internalError(asyncResp->res);
         return;
     }
-    asyncResp->res.result(boost::beast::http::status::no_content);
+    // Only set 204 if another error hasn't already happened.
+    if (asyncResp->res.result() == boost::beast::http::status::ok)
+    {
+        asyncResp->res.result(boost::beast::http::status::no_content);
+    }
 }
 
 inline void handleNTPProtocolEnabled(
