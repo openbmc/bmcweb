@@ -770,6 +770,13 @@ inline void getManagerObject(
         });
 }
 
+inline void getManagerRedundancy(
+    const std::shared_ptr<bmcweb::AsyncResp>& /* asyncResp */,
+    const std::string& /* managerId */)
+{
+    BMCWEB_LOG_DEBUG("TODO: Fill in Redundancy property for Manager");
+}
+
 inline void requestRoutesManager(App& app)
 {
     std::string uuid = persistent_data::getConfig().systemUuid;
@@ -937,6 +944,11 @@ inline void requestRoutesManager(App& app)
 
             getManagerObject(asyncResp, managerId,
                              std::bind_front(getManagerData, asyncResp));
+
+            if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_REDUNDANT_MANAGER)
+            {
+                getManagerRedundancy(asyncResp, managerId);
+            }
 
             RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
         });

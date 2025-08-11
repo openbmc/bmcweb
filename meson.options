@@ -443,6 +443,18 @@ option(
     production environment, or where API stability is required.''',
 )
 
+# BMCWEB_EXPERIMENTAL_REDFISH_REDUNDANT_MANAGER
+option(
+    'experimental-redfish-redundant-manager',
+    type: 'feature',
+    value: 'disabled',
+    description: '''This is a temporary option flag for staging the
+                    support of redundant Manager. Do not enable in a production
+                    environment, or where API stability is required. Goal is to
+                    convert to non-experimental option once basic support is
+                    added.''',
+)
+
 # BMCWEB_HTTP2
 option(
     'http2',
