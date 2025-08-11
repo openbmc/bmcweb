@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07541831_6305e7b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-11T23:53:55Z",
+      "side": 1,
+      "message": "I don\u0027t love how we handle async errors in these cases, but I guess this is solving a bug, so it\u0027s ok.  Leaving to see if anyone has any better ideas on how to fix this.  As written this is no order dependent, but I\u0027m not sure it\u0027s worse than we have.",
+      "revId": "5bb2ca8288d686d952a3952e8298e72569f6672d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
