@@ -91,10 +91,32 @@ inline void afterGetChassisPath(
     {
         return;
     }
-    if (!value)
+
+    /* d-bus exposes two properties, PowerCapEnable and PowerCap.
+       But redfish(UI) uses only one PowerCap value.
+       So, update feature enable/disable flag based on PowerCapValue
+       if PowerCapValue is 0, disable power-cap feature
+       if non-zero, enable power-cap and set PowerCapValue.
+    */
+    if (value == 0)
     {
-        return;
+        setDbusProperty(sensorsAsyncResp->asyncResp, "PowerControl",
+                        "xyz.openbmc_project.Settings",
+                        sdbusplus::message::object_path(
+                            "/xyz/openbmc_project/control/host0/power_cap"),
+                        "xyz.openbmc_project.Control.Power.Cap",
+                        "PowerCapEnable", false);
     }
+    else
+    {
+        setDbusProperty(sensorsAsyncResp->asyncResp, "PowerControl",
+                        "xyz.openbmc_project.Settings",
+                        sdbusplus::message::object_path(
+                            "/xyz/openbmc_project/control/host0/power_cap"),
+                        "xyz.openbmc_project.Control.Power.Cap",
+                        "PowerCapEnable", true);
+    }
+
     sdbusplus::asio::getProperty<bool>(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/power_cap",
