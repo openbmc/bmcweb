@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae4e0a3d_7311a45a",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2430,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-11T01:59:44Z",
+      "side": 1,
+      "message": "This is the PATCH, don\u0027t we need an error if the Patch wasn\u0027t succssful ?",
+      "revId": "4f94d6ba1ab46e1afd8267f373a15f0887d7e373",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
