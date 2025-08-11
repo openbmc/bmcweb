@@ -506,6 +506,18 @@ option(
     option will be removed Q1 2026.''',
 )
 
+# BMCWEB_EXPERIMENTAL_REDFISH_REDUNDANT_MANAGER
+option(
+    'experimental-redfish-redundant-manager',
+    type: 'feature',
+    value: 'disabled',
+    description: '''This is a temporary option flag for staging the
+                    support of redundant Manager. Do not enable in a production
+                    environment, or where API stability is required. It, as
+                    well as the code still beneath it will be removed on
+                    3/1/2026.''',
+)
+
 # BMCWEB_HTTP2
 option(
     'http2',

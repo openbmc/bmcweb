@@ -16,6 +16,7 @@
 #include "http_request.hpp"
 #include "led.hpp"
 #include "logging.hpp"
+#include "manager_redundancy.hpp"
 #include "persistent_data.hpp"
 #include "query.hpp"
 #include "redfish.hpp"
@@ -832,6 +833,11 @@ inline void handleManagerGet(
         asyncResp, managerId, std::bind_front(getManagerData, asyncResp));
 
     etag_utils::setEtagOmitDateTimeHandler(asyncResp);
+
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_REDUNDANT_MANAGER)
+    {
+        getManagerRedundancy(asyncResp, managerId);
+    }
 
     RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
 }
