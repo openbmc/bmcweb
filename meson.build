@@ -252,12 +252,7 @@ if not nghttp2.found()
 endif
 bmcweb_dependencies += nghttp2
 
-sdbusplus = dependency('sdbusplus', required: false, include_type: 'system')
-if not sdbusplus.found()
-    sdbusplus_proj = subproject('sdbusplus', required: true)
-    sdbusplus = sdbusplus_proj.get_variable('sdbusplus_dep')
-    sdbusplus = sdbusplus.as_system('system')
-endif
+sdbusplus = dependency('sdbusplus')
 bmcweb_dependencies += sdbusplus
 bmcweb_cli_dependencies += sdbusplus
 
