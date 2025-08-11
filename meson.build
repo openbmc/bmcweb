@@ -81,7 +81,6 @@ if (cxx.get_id() == 'clang')
         # https://github.com/llvm/llvm-project/issues/101614
         '-fno-builtin-std-forward_like',
         '-Wno-c++20-extensions',
-        '-Wno-c++23-extensions',
         '-Wno-c++26-extensions',
         '-Wno-c++98-compat',
         '-Wno-c++98-compat-pedantic',
