@@ -411,6 +411,11 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                     asyncResp->res.jsonValue["ProcessorArchitecture"] = "Power";
                     asyncResp->res.jsonValue["InstructionSet"] = "PowerISA";
                 }
+                else if (manufacturer->find("Ampere") != std::string::npos)
+                {
+                    asyncResp->res.jsonValue["ProcessorArchitecture"] = "ARM";
+                    asyncResp->res.jsonValue["InstructionSet"] = "ARM-A64";
+                }
             }
 
             if (partNumber != nullptr)
