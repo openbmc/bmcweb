@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72e09645_8ec1985d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-12T05:23:33Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "748ba231_6e54d933",
+      "revId": "e576c9321bbb815694e5bd4bcde4db1211ddfeb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b28a4449_ec151ce6",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-08-11T17:27:11Z",
       "side": 1,
       "message": "With this patch MultiPart API would accept single target or No Targets?",
+      "revId": "e576c9321bbb815694e5bd4bcde4db1211ddfeb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca496623_2352d433",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-12T05:23:33Z",
+      "side": 1,
+      "message": "It would support both single target and no target.",
+      "parentUuid": "b28a4449_ec151ce6",
       "revId": "e576c9321bbb815694e5bd4bcde4db1211ddfeb2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79d70666_4f42ffbb",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-12T05:23:33Z",
+      "side": 1,
+      "message": "When there\u0027s no software object creating Update interface, it should be a server-side fault, not a bad request therefore used internalError for this case.\n\nIf there was a target specified, we could have used `resourceNotFound`\n\nHow about `serviceTemporarilyUnavailable`? But it expects a retry time.\n\nLet me know if you have any other suggestions",
+      "parentUuid": "948c2121_f684b1fd",
+      "revId": "e576c9321bbb815694e5bd4bcde4db1211ddfeb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "00fe62d2_a4f80d61",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 4
@@ -65,6 +119,24 @@
       "writtenOn": "2025-08-11T17:27:11Z",
       "side": 1,
       "message": "Is there any impact on this with the existing flow?",
+      "revId": "e576c9321bbb815694e5bd4bcde4db1211ddfeb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f9dc0d_9b1c51f9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 989,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-12T05:23:33Z",
+      "side": 1,
+      "message": "The code has always assumed that any software object implementing the Version interface would also implement the Update interface, since it calls StartUpdate on that same object.\nI don’t see any impact from this change.",
+      "parentUuid": "00fe62d2_a4f80d61",
       "revId": "e576c9321bbb815694e5bd4bcde4db1211ddfeb2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
