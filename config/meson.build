@@ -153,7 +153,7 @@ foreach index : range(ports.length())
         auth = auths[index]
     endif
 
-    filename = 'bmcweb_' + port_number
+    filename = 'bmcweb_' + port_number + '.socket'
     configure_file(
         input: 'bmcweb.socket.in',
         output: filename,
@@ -161,7 +161,7 @@ foreach index : range(ports.length())
         install: true,
         configuration: configuration_data(
             {
-                'BMCWEB_HTTPS_PORT': port_number,
+                'BMCWEB_PORT': port_number,
                 'HTTP_LEVEL_ALLOWED': 'https',
                 'HTTP_BIND': bind_to_device,
                 'HTTP_AUTH_LEVEL': auth,
