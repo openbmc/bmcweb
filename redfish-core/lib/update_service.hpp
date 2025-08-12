@@ -23,6 +23,7 @@
 #include "str_utility.hpp"
 #include "task.hpp"
 #include "task_messages.hpp"
+#include "update_messages.hpp"
 #include "utility.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
@@ -849,12 +850,62 @@ inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
 inline void handleStartUpdate(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, task::Payload payload,
     const std::string& objectPath, const boost::system::error_code& ec,
+    sdbusplus::message_t& m, const std::string& componentName,
+    const std::string& updaterServiceName,
     const sdbusplus::message::object_path& retPath)
 {
     if (ec)
     {
         BMCWEB_LOG_ERROR("error_code = {}", ec);
         BMCWEB_LOG_ERROR("error msg = {}", ec.message());
+
+        auto errName = std::string(m.get_error()->name);
+
+        BMCWEB_LOG_ERROR("error name = {}", errName);
+
+        if (errName == "xyz.openbmc_project.Software.Update.Error.InProgress")
+        {
+            asyncResp->res.result(
+                boost::beast::http::status::service_unavailable);
+            messages::addMessageToErrorJson(asyncResp->res.jsonValue,
+                                            messages::updateInProgress());
+            return;
+        }
+        if (errName ==
+            "xyz.openbmc_project.Software.Update.Error.InvalidApplyTime")
+        {
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            messages::addMessageToErrorJson(
+                asyncResp->res.jsonValue,
+                messages::updateSkipped(componentName, "memfd"));
+            return;
+        }
+        if (errName == "xyz.openbmc_project.Software.Update.Error.Incompatible")
+        {
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            messages::addMessageToErrorJson(
+                asyncResp->res.jsonValue,
+                messages::updateNotApplicable("memfd", componentName));
+            return;
+        }
+        if (errName ==
+            "xyz.openbmc_project.Software.Update.Error.InvalidSignature")
+        {
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            messages::addMessageToErrorJson(
+                asyncResp->res.jsonValue,
+                messages::verificationFailed("memfd", updaterServiceName));
+            return;
+        }
+        if (errName == "xyz.openbmc_project.Software.Update.Error.InvalidImage")
+        {
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            messages::addMessageToErrorJson(
+                asyncResp->res.jsonValue,
+                messages::verificationFailed("memfd", updaterServiceName));
+            return;
+        }
+
         messages::internalError(asyncResp->res);
         return;
     }
@@ -869,13 +920,18 @@ inline void startUpdate(
     const MemoryFileDescriptor& memfd, const std::string& applyTime,
     const std::string& objectPath, const std::string& serviceName)
 {
+    const std::filesystem::path path(objectPath);
+
+    const std::string componentName = path.filename();
+
     dbus::utility::async_method_call(
         asyncResp,
-        [asyncResp, payload = std::move(payload),
-         objectPath](const boost::system::error_code& ec1,
-                     const sdbusplus::message::object_path& retPath) mutable {
-            handleStartUpdate(asyncResp, std::move(payload), objectPath, ec1,
-                              retPath);
+        [asyncResp, payload = std::move(payload), objectPath, componentName,
+         serviceName](const boost::system::error_code& ec1,
+                      sdbusplus::message_t& m,
+                      const sdbusplus::message::object_path& retPath) mutable {
+            handleStartUpdate(asyncResp, std::move(payload), objectPath, ec1, m,
+                              componentName, serviceName, retPath);
         },
         serviceName, objectPath, "xyz.openbmc_project.Software.Update",
         "StartUpdate", sdbusplus::message::unix_fd(memfd.fd), applyTime);
