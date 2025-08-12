@@ -4,6 +4,7 @@
 
 #include "bmcweb_config.h"
 
+#include "http_auth_modes.hpp"
 #include "http_connect_types.hpp"
 #include "http_connection.hpp"
 #include "io_context_singleton.hpp"
@@ -34,6 +35,7 @@ struct Acceptor
 {
     boost::asio::ip::tcp::acceptor acceptor;
     HttpType httpType;
+    AuthMode httpAuthMode;
 };
 
 template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket>
@@ -125,7 +127,7 @@ class Server
 
     using SocketPtr = std::unique_ptr<Adaptor>;
 
-    void afterAccept(SocketPtr socket, HttpType httpType,
+    void afterAccept(SocketPtr socket, HttpType httpType, AuthMode httpAuthMode,
                      const boost::system::error_code& ec)
     {
         if (ec)
@@ -146,7 +148,7 @@ class Server
         using ConnectionType = Connection<Adaptor, Handler>;
         auto connection = std::make_shared<ConnectionType>(
             handler, httpType, std::move(timer), getCachedDateStr,
-            std::move(stream));
+            std::move(stream), httpAuthMode);
 
         boost::asio::post(getIoContext(),
                           [connection] { connection->start(); });
@@ -156,16 +158,16 @@ class Server
 
     void doAccept()
     {
-        SocketPtr socket = std::make_unique<Adaptor>(getIoContext());
-        // Keep a raw pointer so when the socket is moved, the pointer is still
-        // valid
-        Adaptor* socketPtr = socket.get();
         for (Acceptor& accept : acceptors)
         {
+            SocketPtr socket = std::make_unique<Adaptor>(getIoContext());
+            // Keep a raw pointer so when the socket is moved, the pointer is
+            // still valid
+            Adaptor* socketPtr = socket.get();
             accept.acceptor.async_accept(
                 *socketPtr,
                 std::bind_front(&self_t::afterAccept, this, std::move(socket),
-                                accept.httpType));
+                                accept.httpType, accept.httpAuthMode));
         }
     }
 
