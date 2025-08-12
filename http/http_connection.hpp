@@ -79,7 +79,8 @@ class Connection :
     Connection(Handler* handlerIn, HttpType httpTypeIn,
                boost::asio::steady_timer&& timerIn,
                std::function<std::string()>& getCachedDateStrF,
-               boost::asio::ssl::stream<Adaptor>&& adaptorIn) :
+               boost::asio::ssl::stream<Adaptor>&& adaptorIn,
+               std::string socketName = "") :
         httpType(httpTypeIn), adaptor(std::move(adaptorIn)), handler(handlerIn),
         timer(std::move(timerIn)), getCachedDateStr(getCachedDateStrF)
     {
@@ -89,6 +90,8 @@ class Connection :
 
         BMCWEB_LOG_DEBUG("{} Connection created, total {}", logPtr(this),
                          connectionCount);
+
+        initSupportBootStrapAccountState(std::move(socketName));
     }
 
     ~Connection()
@@ -282,11 +285,25 @@ class Connection :
         instance.body_limit(boost::none);
     }
 
+    void initSupportBootStrapAccountState(const std::string socketName)
+    {
+        constexpr std::string_view bootstrapCredentialEnabled =
+            "bootstrapedauth";
+        std::vector<std::string> socknameComponents;
+        bmcweb::split(socknameComponents, socketName, '_');
+        supportBootStrap = false;
+        if (socknameComponents.size() >= 4 &&
+            socknameComponents[3] == bootstrapCredentialEnabled)
+        {
+            supportBootStrap = true;
+        }
+    }
+
     void upgradeToHttp2()
     {
         auto http2 = std::make_shared<HTTP2Connection<Adaptor, Handler>>(
             std::move(adaptor), handler, getCachedDateStr, httpType,
-            mtlsSession);
+            mtlsSession, supportBootStrap);
         if (http2settings.empty())
         {
             http2->start();
@@ -633,7 +650,7 @@ class Connection :
         {
             boost::beast::http::verb method = value.method();
             userSession = authentication::authenticate(
-                ip, res, method, value.base(), mtlsSession);
+                ip, res, method, value.base(), mtlsSession, supportBootStrap);
         }
 
         std::string_view expect = value[boost::beast::http::field::expect];
@@ -961,5 +978,7 @@ class Connection :
 
     using std::enable_shared_from_this<
         Connection<Adaptor, Handler>>::weak_from_this;
+
+    bool supportBootStrap;
 };
 } // namespace crow
