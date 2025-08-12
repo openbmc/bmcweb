@@ -299,6 +299,27 @@ class SessionStore
         return it.first->second;
     }
 
+    std::optional<std::string> userNameByToken(std::string_view token)
+    {
+        applySessionTimeouts();
+        if (token.size() != sessionTokenSize)
+        {
+            return std::nullopt;
+        }
+        auto sessionIt = authTokens.find(std::string(token));
+        if (sessionIt == authTokens.end())
+        {
+            return std::nullopt;
+        }
+        std::shared_ptr<UserSession> userSession = sessionIt->second;
+        if (userSession)
+        {
+            return userSession->username;
+        }
+
+        return std::nullopt;
+    }
+
     std::shared_ptr<UserSession> loginSessionByToken(std::string_view token)
     {
         applySessionTimeouts();
