@@ -4,6 +4,7 @@
 #include "http/http_connection.hpp"
 #include "http/http_request.hpp"
 #include "http/http_response.hpp"
+#include "http_auth_modes.hpp"
 #include "http_connect_types.hpp"
 #include "test_stream.hpp"
 
@@ -82,7 +83,8 @@ TEST(http_connection, RequestPropogates)
     std::shared_ptr<Connection<TestStream, FakeHandler>> conn =
         std::make_shared<Connection<TestStream, FakeHandler>>(
             &handler, HttpType::HTTP, std::move(timer), date,
-            boost::asio::ssl::stream<TestStream>(std::move(stream), context));
+            boost::asio::ssl::stream<TestStream>(std::move(stream), context),
+            AuthMode::AUTH);
     conn->disableAuth();
     conn->start();
     io.run_for(std::chrono::seconds(1000));
