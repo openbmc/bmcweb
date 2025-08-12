@@ -4,6 +4,7 @@
 
 #include "bmcweb_config.h"
 
+#include "http_auth_modes.hpp"
 #include "http_connect_types.hpp"
 #include "http_connection.hpp"
 #include "io_context_singleton.hpp"
@@ -33,6 +34,7 @@ struct Acceptor
 {
     boost::asio::ip::tcp::acceptor acceptor;
     HttpType httpType;
+    AuthMode httpAuthMode;
 };
 
 template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket>
@@ -117,7 +119,7 @@ class Server
     using SocketPtr = std::unique_ptr<Adaptor>;
 
     void afterAccept(Acceptor* acceptor, SocketPtr socket, HttpType httpType,
-                     const boost::system::error_code& ec)
+                     AuthMode httpAuthMode, const boost::system::error_code& ec)
     {
         if (ec)
         {
@@ -137,7 +139,7 @@ class Server
         using ConnectionType = Connection<Adaptor, Handler>;
         auto connection = std::make_shared<ConnectionType>(
             handler, httpType, std::move(timer), getCachedDateStr,
-            std::move(stream));
+            std::move(stream), httpAuthMode);
 
         boost::asio::post(getIoContext(),
                           [connection] { connection->start(); });
@@ -149,7 +151,8 @@ class Server
         Adaptor* socketPtr = socket.get();
         acceptor.acceptor.async_accept(
             *socketPtr, std::bind_front(&self_t::afterAccept, this, &acceptor,
-                                        std::move(socket), acceptor.httpType));
+                                        std::move(socket), acceptor.httpType,
+                                        acceptor.httpAuthMode));
     }
 
     void doAccept()
