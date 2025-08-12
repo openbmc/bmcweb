@@ -2,7 +2,10 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "async_resp.hpp"
+#include "http_auth_modes.hpp"
 #include "http_connect_types.hpp"
 #include "http_request.hpp"
 #include "http_server.hpp"
@@ -111,6 +114,30 @@ class App
         return HttpType::HTTPS;
     }
 
+    static AuthMode getAuthMode(std::string_view authModeString)
+    {
+        if (authModeString == "noauth")
+        {
+            BMCWEB_LOG_DEBUG("Got http no authen config");
+            return AuthMode::NOAUTH;
+        }
+        if (authModeString == "auth")
+        {
+            BMCWEB_LOG_DEBUG("Got http authen config");
+            return AuthMode::AUTH;
+        }
+        if (authModeString == "bootstrapedauth")
+        {
+            BMCWEB_LOG_DEBUG("Got http bootstrap authen config");
+            return AuthMode::BOOTSTRAP;
+        }
+
+        // all other types https
+        BMCWEB_LOG_ERROR("Unknown http auth mode={} assuming auth mode",
+                         authModeString);
+        return AuthMode::AUTH;
+    }
+
     static std::vector<Acceptor> setupSocket()
     {
         std::vector<Acceptor> acceptors;
@@ -156,6 +183,12 @@ class App
                 }
             }
 
+            AuthMode httpAuthMode = AuthMode::AUTH;
+            if (socknameComponents.size() >= 4)
+            {
+                httpAuthMode = getAuthMode(socknameComponents[3]);
+            }
+
             int listenFd = socketIndex + SD_LISTEN_FDS_START;
             if (sd_is_socket_inet(listenFd, AF_UNSPEC, SOCK_STREAM, 1, 0) > 0)
             {
@@ -165,7 +198,7 @@ class App
                 acceptors.emplace_back(Acceptor{
                     boost::asio::ip::tcp::acceptor(
                         getIoContext(), boost::asio::ip::tcp::v6(), listenFd),
-                    httpType});
+                    httpType, httpAuthMode});
             }
             socketIndex++;
         }
@@ -177,7 +210,15 @@ class App
             using boost::asio::ip::tcp;
             tcp::endpoint end(tcp::v6(), defaultPort);
             tcp::acceptor acc(getIoContext(), end);
-            acceptors.emplace_back(std::move(acc), HttpType::HTTPS);
+            // This fallback acceptor is the default socket, so
+            // insecure-disable-auth applies to it.
+            AuthMode httpAuthMode = AuthMode::AUTH;
+            if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+            {
+                httpAuthMode = AuthMode::NOAUTH;
+            }
+            acceptors.emplace_back(std::move(acc), HttpType::HTTPS,
+                                   httpAuthMode);
         }
 
         return acceptors;
