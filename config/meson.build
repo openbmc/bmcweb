@@ -135,6 +135,12 @@ if https_port > 0
             https_port = 80
         endif
     endif
+    # insecure-disable-auth only applies to the default socket; additional
+    # sockets take their auth mode from the additional-auth option.
+    default_auth = 'auth'
+    if get_option('insecure-disable-auth').allowed()
+        default_auth = 'noauth'
+    endif
     configure_file(
         input: 'bmcweb.socket.in',
         output: 'bmcweb.socket',
@@ -144,7 +150,7 @@ if https_port > 0
             {
                 'BMCWEB_PORT': https_port,
                 'HTTP_LEVEL_ALLOWED': http_level_allowed,
-                'HTTP_AUTH_LEVEL': 'auth',
+                'HTTP_AUTH_LEVEL': default_auth,
                 'HTTP_BIND': '',
             },
         ),
