@@ -129,8 +129,9 @@ int runWebserver()
         crow::hostname_monitor::registerHostnameSignal();
     }
 
-    bmcweb::registerUserRemovedSignal();
+    bmcweb::registerUserSignal();
     bmcweb::registerUserPropertiesChangedSignal();
+
     bmcweb::ServiceWatchdog watchdog;
 
     app.run();
