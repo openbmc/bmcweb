@@ -410,6 +410,16 @@ option(
                     authentication will not be performed for a given socket/port
                     index.''',
 )
+
+option(
+    'additional-support-bootstrap-credential',
+    type: 'array',
+    value: [],
+    description: '''Allows specifying an bootStrap credential support option
+                    directive for each additional socket file.  If not provided
+                    assumes no support.
+                 ''',
+)
 # end additional ports
 
 # BMCWEB_DNS_RESOLVER

@@ -5,7 +5,7 @@ Description=BMC Webserver socket
 ListenStream=@BMCWEB_PORT@
 ReusePort=true
 Service=bmcweb.service
-FileDescriptorName=bmcweb_@BMCWEB_PORT@_@HTTP_LEVEL_ALLOWED@_@HTTP_AUTH_LEVEL@
+FileDescriptorName=bmcweb_@BMCWEB_PORT@_@HTTP_LEVEL_ALLOWED@_@HTTP_AUTH_LEVEL@_@BOOTSTRAP_CRED@
 BindToDevice=@HTTP_BIND@
 
 [Install]
