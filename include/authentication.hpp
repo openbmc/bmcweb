@@ -23,6 +23,7 @@
 
 #include <cstddef>
 #include <cstring>
+#include <fstream>
 #include <memory>
 #include <optional>
 #include <string>
@@ -34,6 +35,65 @@ namespace crow
 
 namespace authentication
 {
+static constexpr const char* bootStrapStateFile = "/etc/bootStrap.conf";
+
+inline std::optional<std::string> getUserConfigState(
+    const std::string& confFile, const std::string& param)
+{
+    std::ifstream fileToRead(confFile, std::ios::in);
+    if (!fileToRead.is_open())
+    {
+        BMCWEB_LOG_ERROR("Configuration file {} is not existed.", confFile);
+        return std::nullopt;
+    }
+
+    std::string line;
+    auto argSearch = param + "=";
+    size_t startPos = 0;
+    size_t endPos = 0;
+    std::string defaultUserState = "0"; /* None BootStrapAccount */
+    while (getline(fileToRead, line))
+    {
+        // skip comments section starting with #
+        if ((startPos = line.find('#')) != std::string::npos)
+        {
+            if (startPos == 0)
+            {
+                continue;
+            }
+            // skip comments after meaningful section and process those
+            line = line.substr(0, startPos);
+        }
+        if ((startPos = line.find(argSearch)) != std::string::npos)
+        {
+            if ((endPos = line.find(' ', startPos)) == std::string::npos)
+            {
+                endPos = line.size();
+            }
+            startPos += argSearch.size();
+            return line.substr(startPos, endPos - startPos);
+        }
+    }
+
+    return std::nullopt;
+}
+
+inline std::optional<bool> isBootStrapUser(const std::string& userName)
+{
+    auto userState = getUserConfigState(bootStrapStateFile, userName);
+    /* Failed get bootStrapState of one account */
+    if (!userState.has_value())
+    {
+        return std::nullopt;
+    }
+
+    if (*userState == "1")
+    {
+        return true;
+    }
+
+    return false;
+}
 
 inline std::shared_ptr<persistent_data::UserSession> performBasicAuth(
     const boost::asio::ip::address& clientIp, std::string_view authHeader)
@@ -258,7 +318,8 @@ inline std::shared_ptr<persistent_data::UserSession> authenticate(
     boost::beast::http::verb method [[maybe_unused]],
     const boost::beast::http::header<true>& reqHeader,
     [[maybe_unused]] const std::shared_ptr<persistent_data::UserSession>&
-        session)
+        session,
+    const bool& supportBootStrapCred = false)
 {
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
@@ -303,6 +364,19 @@ inline std::shared_ptr<persistent_data::UserSession> authenticate(
     }
     if (sessionOut != nullptr)
     {
+        auto resError = boost::beast::http::status::unauthorized;
+        std::string msg =
+            "The user " + sessionOut->username + " is unauthorized.";
+
+        auto state = isBootStrapUser(sessionOut->username);
+        if ((!state.has_value() && supportBootStrapCred) ||
+            (state.has_value() && (*state != supportBootStrapCred)))
+        {
+            res.result(resError);
+            res.jsonValue["Description"] = msg;
+            return nullptr;
+        }
+
         return sessionOut;
     }
 

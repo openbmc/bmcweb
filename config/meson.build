@@ -132,6 +132,7 @@ if https_port > 0
                 'HTTP_LEVEL_ALLOWED': 'https',
                 'HTTP_AUTH_LEVEL': 'auth',
                 'HTTP_BIND': '',
+                'BOOTSTRAP_CRED': 'disabled',
             },
         ),
     )
@@ -140,7 +141,10 @@ endif
 ports = get_option('additional-ports')
 binds = get_option('additional-bind-to-device')
 auths = get_option('additional-auth')
+bootStraps = get_option('additional-support-bootstrap-credetial')
+
 foreach index : range(ports.length())
+    supportBootStrap = 'disabled'
     port_number = ports[index]
     bind_to_device = '0.0.0.0'
     auth = 'auth'
@@ -150,6 +154,10 @@ foreach index : range(ports.length())
 
     if index < auths.length()
         auth = auths[index]
+    endif
+
+    if index < bootStraps.length()
+        supportBootStrap = bootStraps[index]
     endif
 
     filename = 'bmcweb_' + port_number + '.socket'
@@ -164,6 +172,7 @@ foreach index : range(ports.length())
                 'HTTP_LEVEL_ALLOWED': 'https',
                 'HTTP_BIND': bind_to_device,
                 'HTTP_AUTH_LEVEL': auth,
+                'BOOTSTRAP_CRED': supportBootStrap,
             },
         ),
     )

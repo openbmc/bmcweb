@@ -123,7 +123,7 @@ class App
             {
                 continue;
             }
-            // name looks like bmcweb_443_https_auth
+            // name looks like bmcweb_443_https_auth_disabled
             // Assume HTTPS as default
             std::string socketName(name);
 
@@ -139,7 +139,7 @@ class App
                 acceptors.emplace_back(Acceptor{
                     boost::asio::ip::tcp::acceptor(
                         getIoContext(), boost::asio::ip::tcp::v6(), listenFd),
-                    httpType});
+                    httpType, socketName});
             }
             socketIndex++;
         }
@@ -151,7 +151,9 @@ class App
             using boost::asio::ip::tcp;
             tcp::endpoint end(tcp::v6(), defaultPort);
             tcp::acceptor acc(getIoContext(), end);
-            acceptors.emplace_back(std::move(acc), HttpType::HTTPS);
+            std::string socketName = "bmcweb_" + std::to_string(defaultPort) +
+                                     "_https_auth_disabled";
+            acceptors.emplace_back(std::move(acc), HttpType::HTTPS, socketName);
         }
 
         return acceptors;

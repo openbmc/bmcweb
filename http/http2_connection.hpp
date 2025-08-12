@@ -68,10 +68,12 @@ class HTTP2Connection :
     HTTP2Connection(
         boost::asio::ssl::stream<Adaptor>&& adaptorIn, Handler* handlerIn,
         std::function<std::string()>& getCachedDateStrF, HttpType httpTypeIn,
-        const std::shared_ptr<persistent_data::UserSession>& mtlsSessionIn) :
+        const std::shared_ptr<persistent_data::UserSession>& mtlsSessionIn,
+        const bool supportBootStrap = false) :
         httpType(httpTypeIn), adaptor(std::move(adaptorIn)),
         ngSession(initializeNghttp2Session()), handler(handlerIn),
-        getCachedDateStr(getCachedDateStrF), mtlsSession(mtlsSessionIn)
+        getCachedDateStr(getCachedDateStrF), mtlsSession(mtlsSessionIn),
+        supportBootStrapCred(supportBootStrap)
     {}
 
     void start()
@@ -307,7 +309,8 @@ class HTTP2Connection :
         if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
         {
             thisReq.session = crow::authentication::authenticate(
-                {}, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession);
+                {}, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession,
+                supportBootStrapCred);
             if (!crow::authentication::isOnAllowlist(thisReq.url().path(),
                                                      thisReq.method()) &&
                 thisReq.session == nullptr)
@@ -666,5 +669,7 @@ class HTTP2Connection :
 
     using std::enable_shared_from_this<
         HTTP2Connection<Adaptor, Handler>>::weak_from_this;
+
+    bool supportBootStrapCred;
 };
 } // namespace crow
