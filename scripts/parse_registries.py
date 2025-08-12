@@ -711,7 +711,7 @@ def main() -> None:
             ("storage_device", "1.2.1"),
             ("task_event", "1.0.3"),
             ("telemetry", "1.0.0"),
-            ("update", "1.0.2"),
+            ("update", "1.2.0"),
         ]
     )
 
@@ -769,6 +769,13 @@ def main() -> None:
             "TaskEvent",
             "task_event",
             "task",
+        )
+    if "update" in registries_map:
+        create_error_registry(
+            registries_map["update"],
+            "Update",
+            "update",
+            "update",
         )
 
     if "privilege" in registries:
