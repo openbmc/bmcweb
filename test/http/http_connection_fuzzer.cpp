@@ -133,7 +133,8 @@ int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)
         std::make_shared<crow::Connection<crow::TestStream, FuzzHandler>>(
             &handler, crow::HttpType::BOTH, std::move(timer), date,
             boost::asio::ssl::stream<crow::TestStream>(std::move(serverSide),
-                                                       ctx));
+                                                       ctx),
+            crow::AuthMode::AUTH);
     conn->disableAuth();
     conn->start();
 
