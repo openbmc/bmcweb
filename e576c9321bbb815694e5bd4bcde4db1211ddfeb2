@@ -106,6 +106,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac19bc7a_f5dbb3d4",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 873,
+      "author": {
+        "id": 1000005
+      },
+      "writtenOn": "2025-08-12T06:36:33Z",
+      "side": 1,
+      "message": "I am fine with either `internalError` or `resourceNotFound`. `resourceNotFound` may be better option here as the resource to facilitate Update is not found.",
+      "parentUuid": "79d70666_4f42ffbb",
+      "revId": "e576c9321bbb815694e5bd4bcde4db1211ddfeb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00fe62d2_a4f80d61",
