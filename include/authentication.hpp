@@ -4,11 +4,13 @@
 
 #include "bmcweb_config.h"
 
+#include "http_auth_modes.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "ossl_random.hpp"
 #include "pam_authenticate.hpp"
 #include "sessions.hpp"
+#include "user_monitor.hpp"
 #include "utility.hpp"
 #include "utils/ip_utils.hpp"
 #include "webroutes.hpp"
@@ -23,6 +25,7 @@
 
 #include <cstddef>
 #include <cstring>
+#include <fstream>
 #include <memory>
 #include <optional>
 #include <string>
@@ -35,8 +38,18 @@ namespace crow
 namespace authentication
 {
 
+inline bool checkBootStrapAuth(std::string_view userName,
+                               const bool& supportBootStrapAuth)
+{
+    bool isBootStrap =
+        bmcweb::isBootStrapAccount(static_cast<std::string>(userName));
+
+    return isBootStrap == supportBootStrapAuth;
+}
+
 inline std::shared_ptr<persistent_data::UserSession> performBasicAuth(
-    const boost::asio::ip::address& clientIp, std::string_view authHeader)
+    Response& res, const boost::asio::ip::address& clientIp,
+    std::string_view authHeader, const bool& supportBootStrapAuth)
 {
     BMCWEB_LOG_DEBUG("[AuthMiddleware] Basic authentication");
 
@@ -59,6 +72,14 @@ inline std::shared_ptr<persistent_data::UserSession> performBasicAuth(
     }
 
     std::string user = authData.substr(0, separator);
+    if (!checkBootStrapAuth(user, supportBootStrapAuth))
+    {
+        res.result(boost::beast::http::status::unauthorized);
+        res.jsonValue["Description"] =
+            std::format("The user {} is unauthorized.", user);
+        return nullptr;
+    }
+
     separator += 1;
     if (separator > authData.size())
     {
@@ -103,7 +124,8 @@ inline std::shared_ptr<persistent_data::UserSession> performBasicAuth(
 }
 
 inline std::shared_ptr<persistent_data::UserSession> performTokenAuth(
-    std::string_view authHeader)
+    Response& res, std::string_view authHeader,
+    const bool& supportBootStrapAuth)
 {
     BMCWEB_LOG_DEBUG("[AuthMiddleware] Token authentication");
     if (!authHeader.starts_with("Token "))
@@ -111,13 +133,30 @@ inline std::shared_ptr<persistent_data::UserSession> performTokenAuth(
         return nullptr;
     }
     std::string_view token = authHeader.substr(strlen("Token "));
+    std::optional<std::string> userName =
+        persistent_data::SessionStore::getInstance().userNameByToken(token);
+    if (!userName.has_value() ||
+        ((userName.has_value()) && ((*userName).empty())))
+    {
+        return nullptr;
+    }
+
+    if (!checkBootStrapAuth(*userName, supportBootStrapAuth))
+    {
+        res.result(boost::beast::http::status::unauthorized);
+        res.jsonValue["Description"] =
+            std::format("The user {} is unauthorized.", *userName);
+        return nullptr;
+    }
+
     auto sessionOut =
         persistent_data::SessionStore::getInstance().loginSessionByToken(token);
     return sessionOut;
 }
 
 inline std::shared_ptr<persistent_data::UserSession> performXtokenAuth(
-    const boost::beast::http::header<true>& reqHeader)
+    Response& res, const boost::beast::http::header<true>& reqHeader,
+    const bool& supportBootStrapAuth)
 {
     BMCWEB_LOG_DEBUG("[AuthMiddleware] X-Auth-Token authentication");
 
@@ -126,6 +165,22 @@ inline std::shared_ptr<persistent_data::UserSession> performXtokenAuth(
     {
         return nullptr;
     }
+    std::optional<std::string> userName =
+        persistent_data::SessionStore::getInstance().userNameByToken(token);
+    if (!userName.has_value() ||
+        ((userName.has_value()) && ((*userName).empty())))
+    {
+        return nullptr;
+    }
+
+    if (!checkBootStrapAuth(*userName, supportBootStrapAuth))
+    {
+        res.result(boost::beast::http::status::unauthorized);
+        res.jsonValue["Description"] =
+            std::format("The user {} is unauthorized.", *userName);
+        return nullptr;
+    }
+
     auto sessionOut =
         persistent_data::SessionStore::getInstance().loginSessionByToken(token);
     return sessionOut;
@@ -213,6 +268,30 @@ inline std::shared_ptr<persistent_data::UserSession> performTLSAuth(
     return session;
 }
 
+inline void getUserInfoFromRequestBody(const std::string& body,
+                                       std::string_view& username,
+                                       std::string_view& password)
+{
+    nlohmann::json jsonVal = nlohmann::json::parse(body, nullptr, false);
+
+    if (jsonVal.is_discarded() || (jsonVal.find("UserName") == jsonVal.end()) ||
+        (jsonVal.find("Password") == jsonVal.end()))
+    {
+        return;
+    }
+
+    const std::string* userStr =
+        jsonVal.find("UserName")->get_ptr<const std::string*>();
+    const std::string* passStr =
+        jsonVal.find("Password")->get_ptr<const std::string*>();
+    if (userStr == nullptr || passStr == nullptr)
+    {
+        return;
+    }
+    username = *userStr;
+    password = *passStr;
+}
+
 // checks if request can be forwarded without authentication
 inline bool isOnAllowlist(std::string_view url, boost::beast::http::verb method)
 {
@@ -258,12 +337,23 @@ inline std::shared_ptr<persistent_data::UserSession> authenticate(
     boost::beast::http::verb method [[maybe_unused]],
     const boost::beast::http::header<true>& reqHeader,
     [[maybe_unused]] const std::shared_ptr<persistent_data::UserSession>&
-        session)
+        session,
+    const AuthMode& httpAuthMode)
 {
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
+    bool supportBootStrapCred = httpAuthMode == AuthMode::BOOTSTRAP;
 
     std::shared_ptr<persistent_data::UserSession> sessionOut = nullptr;
+    if (session != nullptr &&
+        !checkBootStrapAuth(session->username, supportBootStrapCred))
+    {
+        res.result(boost::beast::http::status::unauthorized);
+        res.jsonValue["Description"] =
+            std::format("The user {} is unauthorized.", session->username);
+        return nullptr;
+    }
+
     if constexpr (BMCWEB_MUTUAL_TLS_AUTH)
     {
         if (authMethodsConfig.tls)
@@ -275,7 +365,8 @@ inline std::shared_ptr<persistent_data::UserSession> authenticate(
     {
         if (sessionOut == nullptr && authMethodsConfig.xtoken)
         {
-            sessionOut = performXtokenAuth(reqHeader);
+            sessionOut =
+                performXtokenAuth(res, reqHeader, supportBootStrapCred);
         }
     }
     if constexpr (BMCWEB_COOKIE_AUTH)
@@ -291,14 +382,16 @@ inline std::shared_ptr<persistent_data::UserSession> authenticate(
     {
         if (sessionOut == nullptr && authMethodsConfig.sessionToken)
         {
-            sessionOut = performTokenAuth(authHeader);
+            sessionOut =
+                performTokenAuth(res, authHeader, supportBootStrapCred);
         }
     }
     if constexpr (BMCWEB_BASIC_AUTH)
     {
         if (sessionOut == nullptr && authMethodsConfig.basic)
         {
-            sessionOut = performBasicAuth(ipAddress, authHeader);
+            sessionOut = performBasicAuth(res, ipAddress, authHeader,
+                                          supportBootStrapCred);
         }
     }
     if (sessionOut != nullptr)
