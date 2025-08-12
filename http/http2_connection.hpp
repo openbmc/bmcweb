@@ -7,6 +7,7 @@
 #include "authentication.hpp"
 #include "complete_response_fields.hpp"
 #include "forward_unauthorized.hpp"
+#include "http_auth_modes.hpp"
 #include "http_body.hpp"
 #include "http_connect_types.hpp"
 #include "http_request.hpp"
@@ -69,11 +70,18 @@ class HTTP2Connection :
     HTTP2Connection(
         boost::asio::ssl::stream<Adaptor>&& adaptorIn, Handler* handlerIn,
         std::function<std::string()>& getCachedDateStrF, HttpType httpTypeIn,
-        const std::shared_ptr<persistent_data::UserSession>& mtlsSessionIn) :
+        const std::shared_ptr<persistent_data::UserSession>& mtlsSessionIn,
+        AuthMode httpAuthModeIn) :
         httpType(httpTypeIn), adaptor(std::move(adaptorIn)),
         ngSession(initializeNghttp2Session()), handler(handlerIn),
-        getCachedDateStr(getCachedDateStrF), mtlsSession(mtlsSessionIn)
-    {}
+        getCachedDateStr(getCachedDateStrF), mtlsSession(mtlsSessionIn),
+        httpAuthMode(httpAuthModeIn)
+    {
+        if constexpr (BMCWEB_INSECURE_DISABLE_AUTH)
+        {
+            httpAuthMode = AuthMode::NOAUTH;
+        }
+    }
 
     void start()
     {
@@ -319,20 +327,42 @@ class HTTP2Connection :
             });
         auto asyncResp =
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
-        if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
+
+        if (httpAuthMode != AuthMode::NOAUTH)
         {
             thisReq.session = authentication::authenticate(
-                {}, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession);
-            if (!authentication::isOnAllowlist(thisReq.url().path(),
-                                               thisReq.method()) &&
-                thisReq.session == nullptr)
+                {}, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession,
+                httpAuthMode);
+            if (thisReq.session == nullptr)
             {
-                BMCWEB_LOG_WARNING("Authentication failed");
-                forward_unauthorized::sendUnauthorized(
-                    thisReq.url().encoded_path(),
-                    thisReq.getHeaderValue("X-Requested-With"),
-                    thisReq.getHeaderValue("Accept"), asyncResp->res);
-                return 0;
+                if (!authentication::isOnAllowlist(thisReq.url().path(),
+                                                   thisReq.method()))
+                {
+                    BMCWEB_LOG_WARNING("Authentication failed");
+                    forward_unauthorized::sendUnauthorized(
+                        thisReq.url().encoded_path(),
+                        thisReq.getHeaderValue("X-Requested-With"),
+                        thisReq.getHeaderValue("Accept"), asyncResp->res);
+                    return 0;
+                }
+
+                // check if auth was provided as a headers
+                std::string_view username;
+                std::string_view password;
+                authentication::getUserInfoFromRequestBody(thisReq.body(),
+                                                           username, password);
+                bool supportBootStrapCred = httpAuthMode == AuthMode::BOOTSTRAP;
+                if (!username.empty() && !password.empty() &&
+                    !authentication::checkBootStrapAuth(username,
+                                                        supportBootStrapCred))
+                {
+                    asyncResp->res.result(
+                        boost::beast::http::status::unauthorized);
+                    asyncResp->res.jsonValue["Description"] =
+                        std::format("The user {} is unauthorized.",
+                                    static_cast<std::string>(username));
+                    return 0;
+                }
             }
         }
         std::string_view expectedEtag =
@@ -689,5 +719,7 @@ class HTTP2Connection :
 
     using std::enable_shared_from_this<
         HTTP2Connection<Adaptor, Handler>>::weak_from_this;
+
+    AuthMode httpAuthMode = AuthMode::AUTH;
 };
 } // namespace crow
