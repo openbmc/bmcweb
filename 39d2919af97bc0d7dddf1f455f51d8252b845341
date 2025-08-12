@@ -16,6 +16,24 @@
       "message": "I\u0027m in support of this experiment.  haven\u0027t reviewed the patch yet.",
       "revId": "39d2919af97bc0d7dddf1f455f51d8252b845341",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46003105_3d8bd069",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-12T15:21:26Z",
+      "side": 1,
+      "message": "Thanks for looking into WIP patches and providing some initial feedback 👍\n\nNow the patch is ready for review and some of the choices are\n\n- Do we install a wrapper script or a symlink instead\n- Do we generate the `libexec` path or is it fine to hardcode it\n- Do we still compile the cli separately (as test for now) to ensure it uses only the declared dependencies? (Tradeoff with compile time)",
+      "parentUuid": "4345b230_fd2c2317",
+      "revId": "39d2919af97bc0d7dddf1f455f51d8252b845341",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
