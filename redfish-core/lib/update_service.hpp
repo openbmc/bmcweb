@@ -24,10 +24,12 @@
 #include "task.hpp"
 #include "task_messages.hpp"
 #include "utility.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
+#include "utils/systems_utils.hpp"
 
 #include <sys/mman.h>
 #include <unistd.h>
@@ -50,6 +52,7 @@
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <algorithm>
 #include <array>
 #include <chrono>
 #include <cstddef>
@@ -1263,17 +1266,116 @@ inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
 }
 
+inline void addRelatedItemSystem(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string_view systemName)
+{
+    addRelatedItem(asyncResp,
+                   boost::urls::format("/redfish/v1/Systems/{}", systemName));
+}
+
+inline void addRelatedItemFromAssociationAfterGetManagedHosts(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swId, const std::vector<std::string>& associatedObjPaths,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& managedHostPaths)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("Could not get managed hosts");
+        return;
+    }
+
+    // for any managed host which is also associated to our software, we can add
+    // a related item
+    for (const auto& assocPath : associatedObjPaths)
+    {
+        if (std::ranges::find(managedHostPaths, assocPath) !=
+            managedHostPaths.end())
+        {
+            sdbusplus::message::object_path path(assocPath);
+
+            BMCWEB_LOG_DEBUG("Found related system {} for {} by association",
+                             path.filename(), swId);
+
+            addRelatedItemSystem(asyncResp, path.filename());
+        }
+    }
+}
+
+inline void addRelatedItemComputerSystemFromAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& associatedPaths)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG(
+            "Could not find related ComputerSystem items for {} by association",
+            swId);
+        return;
+    }
+
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        getManagedHostPaths(
+            std::bind_front(addRelatedItemFromAssociationAfterGetManagedHosts,
+                            asyncResp, swId, associatedPaths));
+    }
+}
+
+inline void addRelatedItemChassisFromAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& chassisPaths)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG(
+            "Could not find related Chassis items for {} by association", swId);
+        return;
+    }
+
+    for (const auto& assocPath : chassisPaths)
+    {
+        const sdbusplus::message::object_path chassisPath(assocPath);
+        addRelatedItem(asyncResp, boost::urls::format("/redfish/v1/Chassis/{}",
+                                                      chassisPath.filename()));
+    }
+}
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+
+                            const std::string& swId, const std::string& path,
                             const std::string& purpose)
 {
+    // Get associated paths for the software version.
+    // Then map those to redfish URLs
+    std::string associatedPath = std::format("{}/running", path);
+    sdbusplus::message::object_path hwInventoryPath(
+        "/xyz/openbmc_project/inventory");
+
+    std::array<std::string_view, 1> managedHostInterfaces{
+        "xyz.openbmc_project.Inventory.Decorator.ManagedHost"};
+
+    dbus::utility::getAssociatedSubTreePaths(
+        associatedPath, hwInventoryPath, 0, managedHostInterfaces,
+        std::bind_front(addRelatedItemComputerSystemFromAssociation, asyncResp,
+                        swId));
+
+    dbus::utility::getAssociatedSubTreePaths(
+        associatedPath, hwInventoryPath, 0, chassisInterfaces,
+        std::bind_front(addRelatedItemChassisFromAssociation, asyncResp, swId));
+
     if (purpose == sw_util::bmcPurpose)
     {
         auto url = boost::urls::format("/redfish/v1/Managers/{}",
                                        BMCWEB_REDFISH_MANAGER_URI_NAME);
         addRelatedItem(asyncResp, url);
     }
-    else if (purpose == sw_util::biosPurpose)
+    else if (purpose == sw_util::biosPurpose &&
+             !BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         auto url = boost::urls::format("/redfish/v1/Systems/{}/Bios",
                                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
@@ -1288,7 +1390,8 @@ inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 inline void getSoftwareVersionCallback(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& swId, const boost::system::error_code& ec,
+    const std::string& swId, const std::string& path,
+    const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& propertiesList)
 {
     if (ec)
@@ -1338,7 +1441,7 @@ inline void getSoftwareVersionCallback(
     }
     std::string formatDesc = swInvPurpose->substr(endDesc);
     asyncResp->res.jsonValue["Description"] = formatDesc + " image";
-    getRelatedItems(asyncResp, *swInvPurpose);
+    getRelatedItems(asyncResp, swId, path, *swInvPurpose);
 }
 
 inline void getSoftwareVersion(
@@ -1348,7 +1451,7 @@ inline void getSoftwareVersion(
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Software.Version",
-        std::bind_front(getSoftwareVersionCallback, asyncResp, swId));
+        std::bind_front(getSoftwareVersionCallback, asyncResp, swId, path));
 }
 
 inline void handleUpdateServiceFirmwareInventoryGetCallback(
