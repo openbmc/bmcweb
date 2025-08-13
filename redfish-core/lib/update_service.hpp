@@ -1195,29 +1195,32 @@ inline void handleUpdateServiceFirmwareInventoryCollectionGet(
         "/xyz/openbmc_project/software");
 }
 
+inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const std::string& url)
+{
+    nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
+    nlohmann::json::object_t item;
+    item["@odata.id"] = url;
+    relatedItem.emplace_back(std::move(item));
+    asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
+}
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& purpose)
 {
     if (purpose == sw_util::bmcPurpose)
     {
-        nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
-        nlohmann::json::object_t item;
-        item["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
-        relatedItem.emplace_back(std::move(item));
-        asyncResp->res.jsonValue["RelatedItem@odata.count"] =
-            relatedItem.size();
+        std::string url = std::format("/redfish/v1/Managers/{}",
+                                      BMCWEB_REDFISH_MANAGER_URI_NAME);
+        addRelatedItem(asyncResp, url);
     }
     else if (purpose == sw_util::biosPurpose)
     {
-        nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
-        nlohmann::json::object_t item;
-        item["@odata.id"] = std::format("/redfish/v1/Systems/{}/Bios",
-                                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
-        relatedItem.emplace_back(std::move(item));
-        asyncResp->res.jsonValue["RelatedItem@odata.count"] =
-            relatedItem.size();
+        std::string url = std::format("/redfish/v1/Systems/{}/Bios",
+                                      BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+        addRelatedItem(asyncResp, url);
     }
     else
     {
