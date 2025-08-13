@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6a463c3_9d4cea35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-08-13T19:06:36Z",
+      "side": 1,
+      "message": "Hi Ed, sorry for my late response, yup I am more than happy to do so!\n\nI just created a patch here. from my understanding, we would like to have the flag to be flipped and use the `BooleanOptionalAction` action instead, thanks! 😃\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/82786",
+      "parentUuid": "b8ddc463_4585b07a",
+      "revId": "5889d798326775f8c86cb084bfedceb1f3333420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "874ea306_b2a4fe9d",
