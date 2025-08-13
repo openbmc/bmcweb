@@ -28,6 +28,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
+#include "utils/systems_utils.hpp"
 
 #include <sys/mman.h>
 #include <unistd.h>
@@ -1205,10 +1206,76 @@ inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
 }
 
+inline void addRelatedItemMultihost(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const uint64_t /* unused */)
+{
+    addRelatedItem(asyncResp,
+                   std::format("/redfish/v1/Systems/{}", systemName));
+}
+
+inline void addRelatedItemFromAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swid, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& res)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("Could not find related items for {} by association",
+                         swid);
+        return;
+    }
+    constexpr const char* boardPrefix =
+        "/xyz/openbmc_project/inventory/system/board/";
+    for (const std::string& path : res)
+    {
+        if (!path.starts_with(boardPrefix))
+        {
+            continue;
+        }
+        if (path.size() <= strlen(boardPrefix))
+        {
+            continue;
+        }
+        // We assume this is a managed host
+        const std::string systemName = path.substr(strlen(boardPrefix));
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            // check that it's really a managed host, otherwise we cannot
+            // link to it
+            getManagedHostProperty(asyncResp, systemName, path,
+                                   std::bind_front(addRelatedItemMultihost,
+                                                   asyncResp, systemName));
+            return;
+        }
+        else
+        {
+            if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+            {
+                continue;
+            }
+        }
+        BMCWEB_LOG_DEBUG("Found related system {} for {} by association",
+                         systemName, swid);
+        addRelatedItem(asyncResp,
+                       std::format("/redfish/v1/Systems/{}", systemName));
+    }
+}
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& purpose)
+
+                            const std::string& swid, const std::string& purpose)
 {
+    // Get associated paths for the software version.
+    // Then map those to redfish URLs
+    std::string associatedPath =
+        std::format("/xyz/openbmc_project/software/{}/running", swid);
+    sdbusplus::message::object_path rootPath("/");
+    dbus::utility::getAssociatedSubTreePaths(
+        associatedPath, rootPath, 0, {},
+        std::bind_front(addRelatedItemFromAssociation, asyncResp, swid));
+
     if (purpose == sw_util::bmcPurpose)
     {
         std::string url = std::format("/redfish/v1/Managers/{}",
@@ -1289,7 +1356,7 @@ inline void getSoftwareVersionCallback(
     }
     std::string formatDesc = swInvPurpose->substr(endDesc);
     asyncResp->res.jsonValue["Description"] = formatDesc + " image";
-    getRelatedItems(asyncResp, *swInvPurpose);
+    getRelatedItems(asyncResp, swId, *swInvPurpose);
 }
 
 inline void getSoftwareVersion(
