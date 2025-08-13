@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7326676b_cada6094",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-13T23:08:33Z",
+      "side": 1,
+      "message": "Please add a sentence like this to your description.  We generally set a date 4-5 months out.  Keep in mind, if you are still working on it, that date can be changed, it just ensures that we can wipe out the dead code after a date if we need to.",
+      "range": {
+        "startLine": 441,
+        "startChar": 56,
+        "endLine": 442,
+        "endChar": 48
+      },
+      "revId": "276f0a7a774373ed083e4dab002dc79ca71570f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
