@@ -382,7 +382,7 @@ def generate_pk12(certs_dir, key, client_cert, username):
         f.write(p12)
 
 
-def test_mtls_auth(url, certs_dir):
+def test_mtls_auth(url, certs_dir, use_http2):
     with httpx.Client(
         base_url=f"https://{url}",
         verify=os.path.join(certs_dir, "CA-cert.cer"),
@@ -390,6 +390,7 @@ def test_mtls_auth(url, certs_dir):
             os.path.join(certs_dir, "client-cert.pem"),
             os.path.join(certs_dir, "client-key.pem"),
         ),
+        http2=use_http2,
     ) as client:
         print("Testing mTLS auth with CommonName")
         response = client.get(
@@ -418,6 +419,7 @@ def test_mtls_auth(url, certs_dir):
             os.path.join(certs_dir, "upn-client-cert.pem"),
             os.path.join(certs_dir, "upn-client-key.pem"),
         ),
+        http2=use_http2,
     ) as client:
         print("Retesting mTLS auth with UPN")
         response = client.get(
@@ -561,7 +563,9 @@ def generateIntermediateCA(ca_key, ca_cert, name_prefix):
     return private_key, intermediate_cert
 
 
-def generate_and_load_certs(url, username, password, use_intermediate=False):
+def generate_and_load_certs(
+    url, username, password, use_http2, use_intermediate=False
+):
     certs_dir = os.path.expanduser("~/certs")
     print(f"Writing certs to {certs_dir}")
     try:
@@ -655,7 +659,10 @@ def generate_and_load_certs(url, username, password, use_intermediate=False):
 
     print(f"Connecting to {url}")
     with httpx.Client(
-        base_url=f"https://{url}", verify=False, follow_redirects=False
+        base_url=f"https://{url}",
+        verify=False,
+        follow_redirects=False,
+        http2=use_http2,
     ) as redfish_session:
         with RedfishSessionContext(
             redfish_session, username, password
@@ -704,7 +711,7 @@ def generate_and_load_certs(url, username, password, use_intermediate=False):
 
     print("Testing redfish TLS authentication with generated certs.")
     time.sleep(2)
-    test_mtls_auth(url, certs_dir)
+    test_mtls_auth(url, certs_dir, use_http2)
     print("Redfish TLS authentication success!")
 
 
@@ -726,11 +733,21 @@ def main():
         default=False,
         help="Generate and use an intermediate certificate",
     )
+    parser.add_argument(
+        "--no-http2",
+        action="store_true",
+        default=False,
+        help="Disable HTTP2 for testing",
+    )
     parser.add_argument("host", help="Host to connect to")
 
     args = parser.parse_args()
     generate_and_load_certs(
-        args.host, args.username, args.password, args.use_intermediate
+        args.host,
+        args.username,
+        args.password,
+        not args.no_http2,
+        args.use_intermediate,
     )
 
 
