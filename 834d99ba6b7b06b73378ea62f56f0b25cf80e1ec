@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c92add1_a4dc3dfb",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2025-08-13T15:04:26Z",
+      "side": 0,
+      "message": "This is a good one to keep IMO.",
+      "revId": "834d99ba6b7b06b73378ea62f56f0b25cf80e1ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
