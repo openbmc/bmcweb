@@ -94,6 +94,21 @@ inline void handleSystemCollectionMembers(
     asyncResp->res.jsonValue["Members@odata.count"] = membersArray.size();
 }
 
+inline void getManagedHostPaths(
+    std::function<void(
+        const boost::system::error_code& ec,
+        const dbus::utility::MapperGetSubTreePathsResponse& res)>&& callback)
+{
+    constexpr std::array<std::string_view, 1> interfaces{
+        "xyz.openbmc_project.Inventory.Decorator.ManagedHost",
+    };
+
+    BMCWEB_LOG_DEBUG("Get system collection members");
+
+    dbus::utility::getSubTreePaths("/xyz/openbmc_project/inventory", 0,
+                                   interfaces, std::move(callback));
+}
+
 /**
  * @brief Populate the system collection members from a GetSubTreePaths search
  * of the inventory based of the ManagedHost dbus interface
@@ -105,14 +120,9 @@ inline void handleSystemCollectionMembers(
 inline void getSystemCollectionMembers(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    constexpr std::array<std::string_view, 1> interfaces{
-        "xyz.openbmc_project.Inventory.Decorator.ManagedHost",
-    };
-
     BMCWEB_LOG_DEBUG("Get system collection members for /redfish/v1/Systems");
 
-    dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+    getManagedHostPaths(
         std::bind_front(handleSystemCollectionMembers, asyncResp));
 }
 
