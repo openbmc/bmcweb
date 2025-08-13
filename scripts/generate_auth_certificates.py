@@ -19,13 +19,12 @@ import httpx
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import ec
-from cryptography.hazmat.primitives.serialization import (
-    load_pem_private_key,
-    pkcs12,
-)
+from cryptography.hazmat.primitives.serialization import load_pem_private_key, pkcs12
 from cryptography.x509.oid import NameOID
 
-replaceCertPath = "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate"
+replaceCertPath = (
+    "/redfish/v1/CertificateService/Actions/CertificateService.ReplaceCertificate"
+)
 # https://oidref.com/1.3.6.1.4.1.311.20.2.3
 upnObjectIdentifier = "1.3.6.1.4.1.311.20.2.3"
 
@@ -64,16 +63,12 @@ def get_hostname(redfish_session, username, password, url):
     service_root = redfish_session.get("/redfish/v1/")
     service_root.raise_for_status()
 
-    manager_uri = service_root.json()["Links"]["ManagerProvidingService"][
-        "@odata.id"
-    ]
+    manager_uri = service_root.json()["Links"]["ManagerProvidingService"]["@odata.id"]
 
     manager_response = redfish_session.get(manager_uri)
     manager_response.raise_for_status()
 
-    network_protocol_uri = manager_response.json()["NetworkProtocol"][
-        "@odata.id"
-    ]
+    network_protocol_uri = manager_response.json()["NetworkProtocol"]["@odata.id"]
 
     network_protocol_response = redfish_session.get(network_protocol_uri)
     network_protocol_response.raise_for_status()
@@ -127,9 +122,7 @@ def generateCA():
 
     builder = builder.add_extension(auth_key, critical=False)
 
-    root_cert = builder.sign(
-        private_key=private_key, algorithm=hashes.SHA256()
-    )
+    root_cert = builder.sign(private_key=private_key, algorithm=hashes.SHA256())
 
     return private_key, root_cert
 
@@ -319,10 +312,7 @@ def install_ca_cert(redfish_session, ca_cert_dump, manager_uri):
 
     response = redfish_session.post(ca_certPath, json=ca_certJSON)
     if response.status_code == 500:
-        print(
-            "An existing CA certificate is likely already installed."
-            " Replacing..."
-        )
+        print("An existing CA certificate is likely already installed." " Replacing...")
         ca_certJSON["CertificateUri"] = {
             "@odata.id": ca_certPath + "/1",
         }
@@ -360,9 +350,7 @@ def install_server_cert(redfish_session, manager_uri, server_cert_dump):
 
     tls_patch_json = {"Oem": {"OpenBMC": {"AuthMethods": {"TLS": True}}}}
     print("Ensuring TLS authentication is enabled.")
-    response = redfish_session.patch(
-        "/redfish/v1/AccountService", json=tls_patch_json
-    )
+    response = redfish_session.patch("/redfish/v1/AccountService", json=tls_patch_json)
     if response.status_code == 200:
         print("Successfully enabled TLS authentication.")
     else:
@@ -382,7 +370,7 @@ def generate_pk12(certs_dir, key, client_cert, username):
         f.write(p12)
 
 
-def test_mtls_auth(url, certs_dir):
+def test_mtls_auth(url, certs_dir, use_http2):
     with httpx.Client(
         base_url=f"https://{url}",
         verify=os.path.join(certs_dir, "CA-cert.cer"),
@@ -390,6 +378,7 @@ def test_mtls_auth(url, certs_dir):
             os.path.join(certs_dir, "client-cert.pem"),
             os.path.join(certs_dir, "client-key.pem"),
         ),
+        http2=use_http2,
     ) as client:
         print("Testing mTLS auth with CommonName")
         response = client.get(
@@ -418,6 +407,7 @@ def test_mtls_auth(url, certs_dir):
             os.path.join(certs_dir, "upn-client-cert.pem"),
             os.path.join(certs_dir, "upn-client-key.pem"),
         ),
+        http2=use_http2,
     ) as client:
         print("Retesting mTLS auth with UPN")
         response = client.get(
@@ -428,9 +418,7 @@ def test_mtls_auth(url, certs_dir):
         print("Changing CertificateMappingAttribute to use CommonName")
         patch_json = {
             "MultiFactorAuth": {
-                "ClientCertificate": {
-                    "CertificateMappingAttribute": "CommonName"
-                }
+                "ClientCertificate": {"CertificateMappingAttribute": "CommonName"}
             }
         }
         response = client.patch(
@@ -454,9 +442,7 @@ def setup_server_cert(
     service_root = redfish_session.get("/redfish/v1/")
     service_root.raise_for_status()
 
-    manager_uri = service_root.json()["Links"]["ManagerProvidingService"][
-        "@odata.id"
-    ]
+    manager_uri = service_root.json()["Links"]["ManagerProvidingService"]["@odata.id"]
 
     install_ca_cert(redfish_session, ca_cert_dump, manager_uri)
     generate_pk12(certs_dir, client_key, client_cert, username)
@@ -472,9 +458,7 @@ def setup_server_cert(
         server_intermediate_cert,
         csr,
     )
-    server_cert_dump = serverCert.public_bytes(
-        encoding=serialization.Encoding.PEM
-    )
+    server_cert_dump = serverCert.public_bytes(encoding=serialization.Encoding.PEM)
 
     # If using intermediate certificate, save server cert without intermediate for debugging
     if (
@@ -501,9 +485,7 @@ def setup_server_cert(
             "ClientCertificate": {"CertificateMappingAttribute": "CommonName"}
         }
     }
-    response = redfish_session.patch(
-        "/redfish/v1/AccountService", json=patch_json
-    )
+    response = redfish_session.patch("/redfish/v1/AccountService", json=patch_json)
     response.raise_for_status()
 
 
@@ -554,14 +536,12 @@ def generateIntermediateCA(ca_key, ca_cert, name_prefix):
     auth_key = x509.AuthorityKeyIdentifier.from_issuer_public_key(public_key)
     builder = builder.add_extension(auth_key, critical=False)
 
-    intermediate_cert = builder.sign(
-        private_key=ca_key, algorithm=hashes.SHA256()
-    )
+    intermediate_cert = builder.sign(private_key=ca_key, algorithm=hashes.SHA256())
 
     return private_key, intermediate_cert
 
 
-def generate_and_load_certs(url, username, password, use_intermediate=False):
+def generate_and_load_certs(url, username, password, use_http2, use_intermediate=False):
     certs_dir = os.path.expanduser("~/certs")
     print(f"Writing certs to {certs_dir}")
     try:
@@ -581,9 +561,7 @@ def generate_and_load_certs(url, username, password, use_intermediate=False):
             format=serialization.PrivateFormat.TraditionalOpenSSL,
             encryption_algorithm=serialization.NoEncryption(),
         )
-        ca_cert_dump = ca_cert.public_bytes(
-            encoding=serialization.Encoding.PEM
-        )
+        ca_cert_dump = ca_cert.public_bytes(encoding=serialization.Encoding.PEM)
 
         with open(ca_cert_filename, "wb") as f:
             f.write(ca_cert_dump)
@@ -603,14 +581,14 @@ def generate_and_load_certs(url, username, password, use_intermediate=False):
     # Generate intermediate certificates if requested
     if use_intermediate:
         # Generate client intermediate
-        client_intermediate_key, client_intermediate_cert = (
-            generateIntermediateCA(ca_key, ca_cert, "client")
+        client_intermediate_key, client_intermediate_cert = generateIntermediateCA(
+            ca_key, ca_cert, "client"
         )
         # ... save client intermediate certs ...
 
         # Generate server intermediate
-        server_intermediate_key, server_intermediate_cert = (
-            generateIntermediateCA(ca_key, ca_cert, "server")
+        server_intermediate_key, server_intermediate_cert = generateIntermediateCA(
+            ca_key, ca_cert, "server"
         )
     else:
         client_intermediate_key = ca_key
@@ -633,20 +611,15 @@ def generate_and_load_certs(url, username, password, use_intermediate=False):
     with open(os.path.join(certs_dir, "client-key.pem"), "wb") as f:
         f.write(client_key_dump)
         print("Client key generated.")
-    client_cert_dump = client_cert.public_bytes(
-        encoding=serialization.Encoding.PEM
-    )
+    client_cert_dump = client_cert.public_bytes(encoding=serialization.Encoding.PEM)
 
     # Save client certificate without intermediate for debugging
     if use_intermediate:
         with open(os.path.join(certs_dir, "client-cert-only.pem"), "wb") as f:
             f.write(client_cert_dump)
             print("Client cert (without intermediate) saved for debugging.")
-        client_cert_dump = (
-            client_cert_dump
-            + client_intermediate_cert.public_bytes(
-                encoding=serialization.Encoding.PEM
-            )
+        client_cert_dump = client_cert_dump + client_intermediate_cert.public_bytes(
+            encoding=serialization.Encoding.PEM
         )  # Append intermediate to create chain
 
     with open(os.path.join(certs_dir, "client-cert.pem"), "wb") as f:
@@ -655,11 +628,9 @@ def generate_and_load_certs(url, username, password, use_intermediate=False):
 
     print(f"Connecting to {url}")
     with httpx.Client(
-        base_url=f"https://{url}", verify=False, follow_redirects=False
+        base_url=f"https://{url}", verify=False, follow_redirects=False, http2=use_http2
     ) as redfish_session:
-        with RedfishSessionContext(
-            redfish_session, username, password
-        ) as rf_session:
+        with RedfishSessionContext(redfish_session, username, password) as rf_session:
             redfish_session.headers["X-Auth-Token"] = rf_session.x_auth_token
 
             hostname = get_hostname(redfish_session, username, password, url)
@@ -675,18 +646,14 @@ def generate_and_load_certs(url, username, password, use_intermediate=False):
                 format=serialization.PrivateFormat.TraditionalOpenSSL,
                 encryption_algorithm=serialization.NoEncryption(),
             )
-            with open(
-                os.path.join(certs_dir, "upn-client-key.pem"), "wb"
-            ) as f:
+            with open(os.path.join(certs_dir, "upn-client-key.pem"), "wb") as f:
                 f.write(upn_client_key_dump)
                 print("UPN client key generated.")
 
             upn_client_cert_dump = upn_client_cert.public_bytes(
                 encoding=serialization.Encoding.PEM
             )
-            with open(
-                os.path.join(certs_dir, "upn-client-cert.pem"), "wb"
-            ) as f:
+            with open(os.path.join(certs_dir, "upn-client-cert.pem"), "wb") as f:
                 f.write(upn_client_cert_dump)
                 print("UPN client cert generated.")
 
@@ -704,7 +671,7 @@ def generate_and_load_certs(url, username, password, use_intermediate=False):
 
     print("Testing redfish TLS authentication with generated certs.")
     time.sleep(2)
-    test_mtls_auth(url, certs_dir)
+    test_mtls_auth(url, certs_dir, use_http2)
     print("Redfish TLS authentication success!")
 
 
@@ -726,11 +693,21 @@ def main():
         default=False,
         help="Generate and use an intermediate certificate",
     )
+    parser.add_argument(
+        "--no-http2",
+        action="store_true",
+        default=False,
+        help="Disable HTTP2 for testing",
+    )
     parser.add_argument("host", help="Host to connect to")
 
     args = parser.parse_args()
     generate_and_load_certs(
-        args.host, args.username, args.password, args.use_intermediate
+        args.host,
+        args.username,
+        args.password,
+        not args.no_http2,
+        args.use_intermediate,
     )
 
 
