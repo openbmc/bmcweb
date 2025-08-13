@@ -16,6 +16,24 @@
       "message": "I tested this locally using facebook infrastructure and it works! Thank you so much Ed! 😃",
       "revId": "b969a33c8c4e62bc9782a37ad900398adfb5ae21",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e602e76_bc692965",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-08-13T15:32:34Z",
+      "side": 1,
+      "message": "I also have a draft patch here where I made the integration test to use http2 by default. Let me know what do you think, thanks!\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/82777",
+      "parentUuid": "eda55133_cde3582a",
+      "revId": "b969a33c8c4e62bc9782a37ad900398adfb5ae21",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
