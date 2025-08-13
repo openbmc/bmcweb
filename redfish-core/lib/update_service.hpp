@@ -24,6 +24,7 @@
 #include "task.hpp"
 #include "task_messages.hpp"
 #include "utility.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
@@ -1240,10 +1241,110 @@ inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
 }
 
+inline void addRelatedItemSystem(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string_view systemName, const std::string_view purpose)
+{
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        return;
+    }
+
+    addRelatedItem(asyncResp,
+                   boost::urls::format("/redfish/v1/Systems/{}", systemName));
+
+    if (purpose == sw_util::biosPurpose)
+    {
+        addRelatedItem(
+            asyncResp,
+            boost::urls::format("/redfish/v1/Systems/{}/Bios", systemName));
+    }
+}
+
+inline void addRelatedItemChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string_view chassisName)
+{
+    addRelatedItem(asyncResp,
+                   boost::urls::format("/redfish/v1/Chassis/{}", chassisName));
+}
+
+inline void addRelatedItemsFromAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swId, const std::string_view purpose,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& res)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG(
+            "Could not find related items for {} by association, ec = {}", swId,
+            ec);
+        return;
+    }
+
+    const constexpr std::string_view managedHostIntf =
+        "xyz.openbmc_project.Inventory.Decorator.ManagedHost";
+
+    BMCWEB_LOG_DEBUG("Found {} associated related items for {}", res.size(),
+                     swId);
+
+    for (const auto& [assocPath, serviceIntfMap] : res)
+    {
+        for (const auto& [_, interfaces] : serviceIntfMap)
+        {
+            const sdbusplus::object_path path(assocPath);
+
+            if (std::ranges::find_first_of(interfaces, chassisInterfaces) !=
+                interfaces.end())
+            {
+                addRelatedItemChassis(asyncResp, path.filename());
+            }
+
+            if (std::ranges::contains(interfaces, managedHostIntf))
+            {
+                addRelatedItemSystem(asyncResp, path.filename(), purpose);
+            }
+        }
+    }
+}
+
+inline void getAssociatedRelatedItems(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swId, const sdbusplus::object_path& associatedPath,
+    const std::string_view purpose)
+{
+    BMCWEB_LOG_DEBUG("Requesting the associated related items on {}",
+                     associatedPath.string());
+
+    const sdbusplus::object_path hwInventoryPath(
+        "/xyz/openbmc_project/inventory");
+
+    constexpr std::array<std::string_view, 3> chassisAndManagedHostInterfaces =
+        {"xyz.openbmc_project.Inventory.Item.Board",
+         "xyz.openbmc_project.Inventory.Item.Chassis",
+         "xyz.openbmc_project.Inventory.Decorator.ManagedHost"};
+
+    dbus::utility::getAssociatedSubTree(
+        associatedPath, hwInventoryPath, 0, chassisAndManagedHostInterfaces,
+        std::bind_front(addRelatedItemsFromAssociation, asyncResp, swId,
+                        purpose));
+}
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+
+                            const std::string& swId,
+                            const sdbusplus::object_path& path,
                             const std::string& purpose)
 {
+    const sdbusplus::object_path associatedRunningPath = path / "running";
+    getAssociatedRelatedItems(asyncResp, swId, associatedRunningPath, purpose);
+
+    const sdbusplus::object_path associatedActivatingPath = path / "activating";
+    getAssociatedRelatedItems(asyncResp, swId, associatedActivatingPath,
+                              purpose);
+
     if (purpose == sw_util::bmcPurpose)
     {
         auto url = boost::urls::format("/redfish/v1/Managers/{}",
@@ -1252,10 +1353,13 @@ inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
     else if (purpose == sw_util::biosPurpose)
     {
-        auto url = boost::urls::format("/redfish/v1/Systems/{}/Bios",
-                                       BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            auto url = boost::urls::format("/redfish/v1/Systems/{}/Bios",
+                                           BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
-        addRelatedItem(asyncResp, url);
+            addRelatedItem(asyncResp, url);
+        }
     }
     else
     {
@@ -1263,7 +1367,7 @@ inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
-inline void getSoftwareVersionCallback(
+inline std::optional<std::string> getSoftwareVersionCallback(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& swId, const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& propertiesList)
@@ -1272,7 +1376,7 @@ inline void getSoftwareVersionCallback(
     {
         BMCWEB_LOG_ERROR("D-Bus error {}", ec);
         messages::internalError(asyncResp->res);
-        return;
+        return std::nullopt;
     }
     const std::string* swInvPurpose = nullptr;
     const std::string* version = nullptr;
@@ -1282,13 +1386,13 @@ inline void getSoftwareVersionCallback(
     if (!success)
     {
         messages::internalError(asyncResp->res);
-        return;
+        return std::nullopt;
     }
     if (version == nullptr)
     {
         BMCWEB_LOG_DEBUG("Can't find property \"Version\"!");
         messages::internalError(asyncResp->res);
-        return;
+        return std::nullopt;
     }
     asyncResp->res.jsonValue["Version"] = *version;
     asyncResp->res.jsonValue["Id"] = swId;
@@ -1296,7 +1400,7 @@ inline void getSoftwareVersionCallback(
     if (swInvPurpose == nullptr)
     {
         BMCWEB_LOG_DEBUG("Software object {} has no \"Purpose\"", swId);
-        return;
+        return std::nullopt;
     }
     BMCWEB_LOG_DEBUG("swInvPurpose = {}", *swInvPurpose);
     // swInvPurpose is of format:
@@ -1306,27 +1410,46 @@ inline void getSoftwareVersionCallback(
     if (endDesc == std::string::npos)
     {
         messages::internalError(asyncResp->res);
-        return;
+        return std::nullopt;
     }
     endDesc++;
     if (endDesc >= swInvPurpose->size())
     {
         messages::internalError(asyncResp->res);
-        return;
+        return std::nullopt;
     }
     std::string formatDesc = swInvPurpose->substr(endDesc);
     asyncResp->res.jsonValue["Description"] = formatDesc + " image";
-    getRelatedItems(asyncResp, *swInvPurpose);
+
+    return *swInvPurpose;
+}
+
+inline void getSoftwareVersionCallbackWithRelatedItems(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swId, const sdbusplus::object_path& path,
+    const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& propertiesList)
+{
+    const std::optional<std::string> optPurpose =
+        getSoftwareVersionCallback(asyncResp, swId, ec, propertiesList);
+
+    if (!optPurpose.has_value())
+    {
+        return;
+    }
+
+    getRelatedItems(asyncResp, swId, path, optPurpose.value());
 }
 
 inline void getSoftwareVersion(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& service, const std::string& path,
+    const std::string& service, const sdbusplus::object_path& path,
     const std::string& swId)
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Software.Version",
-        std::bind_front(getSoftwareVersionCallback, asyncResp, swId));
+        std::bind_front(getSoftwareVersionCallbackWithRelatedItems, asyncResp,
+                        swId, path));
 }
 
 inline void handleUpdateServiceFirmwareInventoryGetCallback(
