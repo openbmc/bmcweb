@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bce955d_62cfe401",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-13T15:40:13Z",
+      "side": 1,
+      "message": "Overall looks good.  up to you if you want to fix the nit.  Waiting on CI then this should be good to go.",
+      "revId": "5889d798326775f8c86cb084bfedceb1f3333420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "874ea306_b2a4fe9d",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 738,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-13T15:40:13Z",
+      "side": 1,
+      "message": "You could use\n\"--http2\",\naction\u003dargparse.BooleanOptionalAction\n\nhere and support both\n--http2 and --no-http2 args at the same time.  It\u0027s a style thing, up to you if you want to change.",
+      "revId": "5889d798326775f8c86cb084bfedceb1f3333420",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

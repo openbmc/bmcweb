@@ -16,6 +16,24 @@
       "message": "I am not sure what\u0027s the best way to do this\n\ndo we need to change the CI/CD to pick up both http1.1 and http2?",
       "revId": "7d48d0ea7b01b74dd4948f046a588c8dcfa06522",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b3892a6_b511e2cd",
+        "filename": "scripts/generate_auth_certificates.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 741,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-13T15:40:13Z",
+      "side": 1,
+      "message": "This script isn \u0027t used as part of CI (although it probably should be) so I wouldn\u0027t expect that this would get held up.",
+      "parentUuid": "d61fd962_404679a6",
+      "revId": "7d48d0ea7b01b74dd4948f046a588c8dcfa06522",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
