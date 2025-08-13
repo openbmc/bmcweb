@@ -1296,6 +1296,64 @@ inline void getSoftwareVersion(
         });
 }
 
+inline void handleUpdateServiceFirmwareInventoryGetCallback(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<std::string>& swId,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    BMCWEB_LOG_DEBUG("doGet callback...");
+    if (ec)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    // Ensure we find our input swId, otherwise return an error
+    bool found = false;
+    for (const std::pair<
+             std::string,
+             std::vector<std::pair<std::string, std::vector<std::string>>>>&
+             obj : subtree)
+    {
+        sdbusplus::message::object_path path(obj.first);
+        std::string id = path.filename();
+        if (id.empty())
+        {
+            BMCWEB_LOG_DEBUG("Failed to find software id in {}", obj.first);
+            continue;
+        }
+        if (id != *swId)
+        {
+            continue;
+        }
+        if (obj.second.empty())
+        {
+            continue;
+        }
+        found = true;
+        sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
+        sw_util::getSwMinimumVersion(asyncResp, swId, obj.second[0].first);
+        getSoftwareVersion(asyncResp, obj.second[0].first, obj.first, *swId);
+    }
+    if (!found)
+    {
+        BMCWEB_LOG_WARNING("Input swID {} not found!", *swId);
+        messages::resourceMissingAtURI(
+            asyncResp->res,
+            boost::urls::format(
+                "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId));
+        return;
+    }
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId);
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#SoftwareInventory.v1_1_0.SoftwareInventory";
+    asyncResp->res.jsonValue["Name"] = "Software Inventory";
+    asyncResp->res.jsonValue["Status"]["HealthRollup"] = resource::Health::OK;
+    asyncResp->res.jsonValue["Updateable"] = false;
+    sw_util::getSwUpdatableStatus(asyncResp, swId);
+}
+
 inline void handleUpdateServiceFirmwareInventoryGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1311,69 +1369,8 @@ inline void handleUpdateServiceFirmwareInventoryGet(
         "xyz.openbmc_project.Software.Version"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/software/", 0, interfaces,
-        [asyncResp,
-         swId](const boost::system::error_code& ec,
-               const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            BMCWEB_LOG_DEBUG("doGet callback...");
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            // Ensure we find our input swId, otherwise return an error
-            bool found = false;
-            for (const std::pair<std::string,
-                                 std::vector<std::pair<
-                                     std::string, std::vector<std::string>>>>&
-                     obj : subtree)
-            {
-                sdbusplus::message::object_path path(obj.first);
-                std::string id = path.filename();
-                if (id.empty())
-                {
-                    BMCWEB_LOG_DEBUG("Failed to find software id in {}",
-                                     obj.first);
-                    continue;
-                }
-                if (id != *swId)
-                {
-                    continue;
-                }
-
-                if (obj.second.empty())
-                {
-                    continue;
-                }
-
-                found = true;
-                sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
-                sw_util::getSwMinimumVersion(asyncResp, swId,
-                                             obj.second[0].first);
-                getSoftwareVersion(asyncResp, obj.second[0].first, obj.first,
-                                   *swId);
-            }
-            if (!found)
-            {
-                BMCWEB_LOG_WARNING("Input swID {} not found!", *swId);
-                messages::resourceMissingAtURI(
-                    asyncResp->res,
-                    boost::urls::format(
-                        "/redfish/v1/UpdateService/FirmwareInventory/{}",
-                        *swId));
-                return;
-            }
-            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-                "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId);
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#SoftwareInventory.v1_1_0.SoftwareInventory";
-            asyncResp->res.jsonValue["Name"] = "Software Inventory";
-            asyncResp->res.jsonValue["Status"]["HealthRollup"] =
-                resource::Health::OK;
-
-            asyncResp->res.jsonValue["Updateable"] = false;
-            sw_util::getSwUpdatableStatus(asyncResp, swId);
-        });
+        std::bind_front(handleUpdateServiceFirmwareInventoryGetCallback,
+                        asyncResp, swId));
 }
 
 inline void requestRoutesUpdateService(App& app)
