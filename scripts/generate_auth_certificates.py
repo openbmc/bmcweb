@@ -734,10 +734,10 @@ def main():
         help="Generate and use an intermediate certificate",
     )
     parser.add_argument(
-        "--no-http2",
-        action="store_true",
+        "--http2",
+        action=argparse.BooleanOptionalAction,
         default=False,
-        help="Disable HTTP2 for testing",
+        help="Use HTTP2 for testing",
     )
     parser.add_argument("host", help="Host to connect to")
 
@@ -746,7 +746,7 @@ def main():
         args.host,
         args.username,
         args.password,
-        not args.no_http2,
+        args.http2,
         args.use_intermediate,
     )
 
