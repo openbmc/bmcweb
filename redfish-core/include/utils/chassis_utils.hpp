@@ -26,6 +26,12 @@ static constexpr std::array<std::string_view, 2> chassisInterfaces = {
     "xyz.openbmc_project.Inventory.Item.Board",
     "xyz.openbmc_project.Inventory.Item.Chassis"};
 
+static constexpr std::array<std::string_view, 3>
+    chassisAndManagedHostInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Board",
+        "xyz.openbmc_project.Inventory.Item.Chassis",
+        "xyz.openbmc_project.Inventory.Decorator.ManagedHost"};
+
 namespace chassis_utils
 {
 /**

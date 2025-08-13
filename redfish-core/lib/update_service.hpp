@@ -24,10 +24,12 @@
 #include "task.hpp"
 #include "task_messages.hpp"
 #include "utility.hpp"
+#include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/sw_utils.hpp"
+#include "utils/systems_utils.hpp"
 
 #include <sys/mman.h>
 #include <unistd.h>
@@ -1240,10 +1242,94 @@ inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
 }
 
+inline void addRelatedItemSystem(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string_view systemName)
+{
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        return;
+    }
+
+    addRelatedItem(asyncResp,
+                   boost::urls::format("/redfish/v1/Systems/{}", systemName));
+}
+
+inline void addRelatedItemChassis(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string_view chassisName)
+{
+    addRelatedItem(asyncResp,
+                   boost::urls::format("/redfish/v1/Chassis/{}", chassisName));
+}
+
+inline void addRelatedItemsFromAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swId, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& res)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG(
+            "Could not find related items for {} by association, ec = {}", swId,
+            ec);
+        return;
+    }
+
+    const constexpr std::string_view managedHostIntf =
+        "xyz.openbmc_project.Inventory.Decorator.ManagedHost";
+
+    BMCWEB_LOG_DEBUG("Found {} associated related items for {}", res.size(),
+                     swId);
+
+    for (const auto& [assocPath, serviceIntfMap] : res)
+    {
+        for (const auto& [_, interfaces] : serviceIntfMap)
+        {
+            const sdbusplus::object_path path(assocPath);
+
+            if (std::ranges::find_first_of(interfaces, chassisInterfaces) !=
+                interfaces.end())
+            {
+                addRelatedItemChassis(asyncResp, path.filename());
+            }
+
+            if (std::ranges::contains(interfaces, managedHostIntf))
+            {
+                addRelatedItemSystem(asyncResp, path.filename());
+            }
+        }
+    }
+}
+
+inline void getAssociatedRelatedItems(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swId, const sdbusplus::object_path& associatedPath)
+{
+    BMCWEB_LOG_DEBUG("Requesting the associated related items on {}",
+                     associatedPath.string());
+
+    const sdbusplus::object_path hwInventoryPath(
+        "/xyz/openbmc_project/inventory");
+
+    dbus::utility::getAssociatedSubTree(
+        associatedPath, hwInventoryPath, 0, chassisAndManagedHostInterfaces,
+        std::bind_front(addRelatedItemsFromAssociation, asyncResp, swId));
+}
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+
+                            const std::string& swId,
+                            const sdbusplus::object_path& path,
                             const std::string& purpose)
 {
+    const sdbusplus::object_path associatedRunningPath = path / "running";
+    getAssociatedRelatedItems(asyncResp, swId, associatedRunningPath);
+
+    const sdbusplus::object_path associatedActivatingPath = path / "activating";
+    getAssociatedRelatedItems(asyncResp, swId, associatedActivatingPath);
+
     if (purpose == sw_util::bmcPurpose)
     {
         auto url = boost::urls::format("/redfish/v1/Managers/{}",
@@ -1252,10 +1338,13 @@ inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
     else if (purpose == sw_util::biosPurpose)
     {
-        auto url = boost::urls::format("/redfish/v1/Systems/{}/Bios",
-                                       BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            auto url = boost::urls::format("/redfish/v1/Systems/{}/Bios",
+                                           BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
-        addRelatedItem(asyncResp, url);
+            addRelatedItem(asyncResp, url);
+        }
     }
     else
     {
@@ -1265,7 +1354,8 @@ inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
 inline void getSoftwareVersionCallback(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& swId, const boost::system::error_code& ec,
+    const std::string& swId, const sdbusplus::object_path& path,
+    const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& propertiesList)
 {
     if (ec)
@@ -1316,17 +1406,17 @@ inline void getSoftwareVersionCallback(
     }
     std::string formatDesc = swInvPurpose->substr(endDesc);
     asyncResp->res.jsonValue["Description"] = formatDesc + " image";
-    getRelatedItems(asyncResp, *swInvPurpose);
+    getRelatedItems(asyncResp, swId, path, *swInvPurpose);
 }
 
 inline void getSoftwareVersion(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& service, const std::string& path,
+    const std::string& service, const sdbusplus::object_path& path,
     const std::string& swId)
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Software.Version",
-        std::bind_front(getSoftwareVersionCallback, asyncResp, swId));
+        std::bind_front(getSoftwareVersionCallback, asyncResp, swId, path));
 }
 
 inline void handleUpdateServiceFirmwareInventoryGetCallback(
