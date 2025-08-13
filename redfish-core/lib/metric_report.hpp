@@ -14,6 +14,7 @@
 #include "utils/collection.hpp"
 #include "utils/telemetry_utils.hpp"
 #include "utils/time_utils.hpp"
+#include "telemetry_readings.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -37,9 +38,6 @@ namespace redfish
 
 namespace telemetry
 {
-
-using Readings = std::vector<std::tuple<std::string, double, uint64_t>>;
-using TimestampReadings = std::tuple<uint64_t, Readings>;
 
 inline nlohmann::json toMetricValues(const Readings& readings)
 {

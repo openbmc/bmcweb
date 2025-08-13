@@ -8,7 +8,7 @@
 #include "filter_expr_parser_ast.hpp"
 #include "http_client.hpp"
 #include "http_response.hpp"
-#include "metric_report.hpp"
+#include "telemetry_readings.hpp"
 #include "server_sent_event.hpp"
 
 #include <boost/asio/io_context.hpp>

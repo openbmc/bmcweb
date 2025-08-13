@@ -12,7 +12,7 @@
 #include "filesystem_log_watcher.hpp"
 #include "io_context_singleton.hpp"
 #include "logging.hpp"
-#include "metric_report.hpp"
+#include "telemetry_readings.hpp"
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
 #include "server_sent_event.hpp"
