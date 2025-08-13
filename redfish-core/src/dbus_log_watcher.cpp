@@ -5,7 +5,7 @@
 #include "event_logs_object_type.hpp"
 #include "event_service_manager.hpp"
 #include "logging.hpp"
-#include "metric_report.hpp"
+#include "telemetry_readings.hpp"
 #include "utils/dbus_event_log_entry.hpp"
 #include "utils/time_utils.hpp"
 
