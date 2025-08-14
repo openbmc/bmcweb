@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a156e145_1c3d9be2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-14T09:38:34Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2061be62_cfe6507b",
+      "range": {
+        "startLine": 941,
+        "startChar": 37,
+        "endLine": 941,
+        "endChar": 41
+      },
+      "revId": "d6c3caa3c6330db47eb931ece9d06cb491231cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f7c8682_00e129ec",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-08-14T09:33:23Z",
       "side": 1,
       "message": "Changing the namespace to \"/xyz/openbmc_project\" from \"/xyz/openbmc_project/software\" to accomodate StartUpdate at service level?",
+      "revId": "d6c3caa3c6330db47eb931ece9d06cb491231cf6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ec793bb_9bbd0d17",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-14T09:38:34Z",
+      "side": 1,
+      "message": "Yes.",
+      "parentUuid": "8f7c8682_00e129ec",
       "revId": "d6c3caa3c6330db47eb931ece9d06cb491231cf6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
