@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0090a291_a1ab7353",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-14T22:32:18Z",
+      "side": 1,
+      "message": "I\u0027d far prefer to just kill Operator privilege, but sure",
+      "revId": "f10e38480d6d2ad297775c6a550b64492bc8f1b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
