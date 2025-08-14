@@ -22,6 +22,30 @@
       },
       "revId": "276f0a7a774373ed083e4dab002dc79ca71570f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42a266cd_2c6ac906",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-14T18:17:12Z",
+      "side": 1,
+      "message": "I\u0027ve added the statement. With the end of year holidays I made the date 6 months out.",
+      "parentUuid": "7326676b_cada6094",
+      "range": {
+        "startLine": 441,
+        "startChar": 56,
+        "endLine": 442,
+        "endChar": 48
+      },
+      "revId": "276f0a7a774373ed083e4dab002dc79ca71570f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
