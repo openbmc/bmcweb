@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14b1f47a_9e8bc9a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-08-14T20:50:40Z",
+      "side": 1,
+      "message": "Hi Ed, sorry just got time to get back to this\n\nso in our case, this can happen because we reuse our certificate. basically everyone at the company has correct format certificate, but not everyone has access to the BMC\n- to be more specific: we issue x509 cert where we put SAN UPN for everyone with the same correct format. but we only store few accounts to the phosphor user manager\n\nhere we leverage the accounts/users from phosphor user manager service. if the user doesn\u0027t exist in the user manager service, the request will fail\n\nhowever, currently it would be marked as 500 as it fails during GetUserInfo. previously I intended to try to validate whether the username from the cert exist in the user manager service, but it seems like it\u0027s quite hard to do (callback refactoring) + will be double fetching\n\nhere I propose to differentiate the http code response from the error code that we get when we try to contact user manager\n\n- if the error code is io error -\u003e return unauthorized\n- if the error code is no route to host (user manager service) -\u003e return 5xx code\n\nlet me know what do you think, thanks!",
+      "parentUuid": "480f11d6_447ba82c",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "498728d976c0aa5a2ac54a5b23bae31ed8db8112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d94c3bb_46ba7c9c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
@@ -37,6 +61,24 @@
       "writtenOn": "2025-07-11T15:12:03Z",
       "side": 1,
       "message": "Can you point to which line you\u0027re getting a 500 from prior to this patch?  It should be printed in the logs.",
+      "revId": "498728d976c0aa5a2ac54a5b23bae31ed8db8112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5e1960e_d9e4cbab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-08-14T20:50:40Z",
+      "side": 1,
+      "message": "we got the 500 from `requestUserInfo` function below",
+      "parentUuid": "3d94c3bb_46ba7c9c",
       "revId": "498728d976c0aa5a2ac54a5b23bae31ed8db8112",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
