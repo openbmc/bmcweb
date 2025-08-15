@@ -16,6 +16,24 @@
       "message": "Doesn\u0027t this also apply to 1xx codes too?",
       "revId": "fa720d41e22668341b903764333d9595f5f67e5a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88bb68c3_1523497c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002328
+      },
+      "writtenOn": "2025-08-15T23:00:20Z",
+      "side": 1,
+      "message": "Yes it does. The commit message has been updated to reflect that.",
+      "parentUuid": "20fc9353_15b9049f",
+      "revId": "fa720d41e22668341b903764333d9595f5f67e5a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
