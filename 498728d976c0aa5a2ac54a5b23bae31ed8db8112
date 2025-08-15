@@ -189,6 +189,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "661b24ce_c339ac25",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-08-15T16:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db6d09b7_e92c0960",
+      "revId": "498728d976c0aa5a2ac54a5b23bae31ed8db8112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fcb050e_297f2aa4",
@@ -202,6 +220,30 @@
       "writtenOn": "2025-07-11T15:12:03Z",
       "side": 1,
       "message": "Surely not all errors aren\u0027t \"this user doesn\u0027t exist\".  Some errors should still return 500 (if the user manager is down for example).",
+      "range": {
+        "startLine": 263,
+        "startChar": 16,
+        "endLine": 263,
+        "endChar": 18
+      },
+      "revId": "498728d976c0aa5a2ac54a5b23bae31ed8db8112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "631d2f35_9b608eca",
+        "filename": "http/mutual_tls.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-08-15T16:18:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fcb050e_297f2aa4",
       "range": {
         "startLine": 263,
         "startChar": 16,
