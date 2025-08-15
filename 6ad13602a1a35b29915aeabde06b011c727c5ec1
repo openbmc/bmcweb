@@ -39,6 +39,30 @@
       },
       "revId": "6ad13602a1a35b29915aeabde06b011c727c5ec1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da2a1d99_d75a9107",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 33
+      },
+      "lineNbr": 1496,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-15T20:53:56Z",
+      "side": 1,
+      "message": "Looking at mapper code, the mapper seems to always sort the object paths of the response lexicographically. However we run into another issue when having more than 9 hosts which would lead to the ordering inside the response being off.\n \nI followed your advice to match precisely the index with the correct object path.",
+      "parentUuid": "e1e0ba45_d4b04641",
+      "range": {
+        "startLine": 1496,
+        "startChar": 0,
+        "endLine": 1496,
+        "endChar": 2
+      },
+      "revId": "6ad13602a1a35b29915aeabde06b011c727c5ec1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
