@@ -16,6 +16,23 @@
       "message": "LGTM",
       "revId": "f43569e4c130a9e84f9ad754bb6ac75a589edd94",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d9f1ebe_91587b13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-15T22:21:16Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/82434 and the commit before is moving away from this",
+      "revId": "f43569e4c130a9e84f9ad754bb6ac75a589edd94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
