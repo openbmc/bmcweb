@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fcf128a_3505033e",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3214,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:44:33Z",
+      "side": 0,
+      "message": "Might be good to call this out in the commit msg.",
+      "revId": "78e690274d703f2067cf53a8b11f55b651c593bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
