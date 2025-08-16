@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "129d2bae_a0f501d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:54:27Z",
+      "side": 1,
+      "message": "Looks like this puts out CredentialBootstrapping  ? Why is that needed?",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e5009fa_72557e20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:54:27Z",
+      "side": 1,
+      "message": "What D-Bus interface does this look at? This assumes the HostInterface is bmc, can you explain this more?",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ccc656c_f44ebda2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:54:27Z",
+      "side": 1,
+      "message": "Redfish Validator?",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05ec100c_6d7c22d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:54:27Z",
+      "side": 1,
+      "message": "Can you please fill out Redfish.md?",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9134b979_fe76b090",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:54:27Z",
+      "side": 1,
+      "message": "Do you need this? see https://github.com/openbmc/bmcweb/commit/40e9b92ec19acffb46f83a6e55b18974da5d708e",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6f03fe7_abe573b4",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:54:27Z",
+      "side": 1,
+      "message": "Please follow https://github.com/openbmc/bmcweb/blob/50d9f38ab85cef8b09c5968d7df3be948cf50d2f/redfish-core/lib/managers.hpp#L285 and resourceNotFound. Also a WARNING for the LOG",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67bb2510_6f8c143c",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:54:27Z",
+      "side": 1,
+      "message": "I didn\u0027t think Redfish recommended these anymore. See https://github.com/openbmc/bmcweb/commit/9440096005902d13e27fdb8911d33c657f8c7b77",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12dcf5ed_e4c04d65",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:54:27Z",
+      "side": 1,
+      "message": "Please follow https://github.com/openbmc/bmcweb/blob/50d9f38ab85cef8b09c5968d7df3be948cf50d2f/redfish-core/lib/managers.hpp#L285 and resourceNotFound.  Also a WARNING for the LOG",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "503b57b8_c4c67b91",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:54:27Z",
+      "side": 1,
+      "message": "ResourceNotFound and Warning here",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "424cba3d_dda34b20",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-16T22:54:27Z",
+      "side": 1,
+      "message": "Can you remove?",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
