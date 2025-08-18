@@ -445,7 +445,7 @@ inline void objectPropertiesToJson(
             sensorJson["Id"] = std::move(subNodeEscaped);
 
             std::string sensorNameEs(sensorName);
-            std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
+            std::ranges::replace(sensorNameEs, '_', ' ');
             sensorJson["Name"] = std::move(sensorNameEs);
         }
         else if (sensorType != "power")
@@ -454,7 +454,7 @@ inline void objectPropertiesToJson(
             // and PowerControl, those properties have more general values
             // because multiple sensors can be stored in the same JSON object.
             std::string sensorNameEs(sensorName);
-            std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
+            std::ranges::replace(sensorNameEs, '_', ' ');
             sensorJson["Name"] = std::move(sensorNameEs);
         }
 

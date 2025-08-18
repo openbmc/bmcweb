@@ -255,8 +255,7 @@ inline void patchAccountTypes(
 {
     // Check if User is disabling own Redfish Account Type
     if (userSelf &&
-        (accountTypes.cend() ==
-         std::find(accountTypes.cbegin(), accountTypes.cend(), "Redfish")))
+        (accountTypes.cend() == std::ranges::find(accountTypes, "Redfish")))
     {
         BMCWEB_LOG_ERROR(
             "User disabling OWN Redfish Account Type is not allowed");
