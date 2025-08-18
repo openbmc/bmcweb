@@ -16,6 +16,24 @@
       "message": "Might be good to call this out in the commit msg.",
       "revId": "78e690274d703f2067cf53a8b11f55b651c593bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea1c86f3_1d6d0635",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3214,
+      "author": {
+        "id": 1002328
+      },
+      "writtenOn": "2025-08-18T14:57:12Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "9fcf128a_3505033e",
+      "revId": "78e690274d703f2067cf53a8b11f55b651c593bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
