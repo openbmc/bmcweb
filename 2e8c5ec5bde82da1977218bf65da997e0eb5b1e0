@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a30c3f0_2f45e9bd",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T13:03:06Z",
+      "side": 1,
+      "message": "This var is only used once, can you inline it?",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a709379e_df528906",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T13:03:06Z",
+      "side": 1,
+      "message": "The inside of the loop is something which can be it\u0027s own function to make the code more flexible and easier to review / test.",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "922c5756_2364f1ca",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T13:03:06Z",
+      "side": 1,
+      "message": "```suggestion\n            BMCWEB_LOG_DEBUG(\"Error finding index in object path\");\n```",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "012c94fd_82b120bc",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T13:03:06Z",
+      "side": 1,
+      "message": "If you declare `const std::string\u0026 objectPath \u003d obj.first;` at the start of the loop, the code may be easier to read since we do not refer to `obj.first` all the time.\n\nSame for `service`.",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45a46c93_736d3a16",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T13:03:06Z",
+      "side": 1,
+      "message": "What do you think, does it make sense to go with `std::format` to construct the object path here?\n\nThat way we can avoid doing any subsequent append on it and std::format should already take care of the string conversion of the index.\n\nCouple of places i have seen this.",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b74e5ef0_5f259f2d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T13:03:06Z",
+      "side": 1,
+      "message": "```suggestion\n    const sdbusplus::message::object_path path(std::format(\"/xyz/openbmc_project/control/host{}/auto_reboot\", computerSystemIndex));\n```",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8aefe52_9f5f1703",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T13:03:06Z",
+      "side": 1,
+      "message": "Extracting this function in a separate patch could make this patch easier to look at.",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fab5d482_45db4cc0",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T13:03:06Z",
+      "side": 1,
+      "message": "```suggestion\n    std::string service;\n```",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "111142fc_e9418c58",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 3159,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T13:03:06Z",
+      "side": 1,
+      "message": "```suggestion\n        // Todo: chassis matching could be handled by patch\n        // https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60793\n```\n\nThe direct link could make it easier to follow.",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1779a676_ab0be817",
+        "filename": "test/redfish-core/include/utils/systems_utils_test.cpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T13:03:06Z",
+      "side": 1,
+      "message": "👍",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
