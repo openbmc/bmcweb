@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9baceb5_efb1dbac",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T17:49:46Z",
+      "side": 1,
+      "message": "\u003e I think this is supposed to be a URI?\n\nI do not see how to construct a unique URI here, since no task has yet been created and i assume we discard the package on failure to discard the update.\n\nmessage registry spec for `UpdateSkipped` says\n```\n2. string: The identifier for the image.\n◦ This argument shall contain the identifier for the image\n```\n\nNow that `memfd` identifier is not unique so it does not `identify` anything.\nDo you think it makes sense to compute the hash of the pldm package blob we receive?\n\nThat way we could refer to it, uniquely, without having to keep it around, but there may be some delay while computing the hash.",
+      "parentUuid": "e09bd1f4_edcad216",
+      "range": {
+        "startLine": 880,
+        "startChar": 56,
+        "endLine": 880,
+        "endChar": 61
+      },
+      "revId": "00d63b2ee81d7e4b29ccebad87ceea2f657fb40e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d56fa755_fc728311",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
