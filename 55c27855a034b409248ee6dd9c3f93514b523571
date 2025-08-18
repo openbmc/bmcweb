@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cc17fc6_803a3d16",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-18T16:51:27Z",
+      "side": 1,
+      "message": "Can we add this to the example docs clang-tidy?",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "840bea2b_773dcb21",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-18T16:51:27Z",
+      "side": 1,
+      "message": "I think this makes the code the slightest bit better, matching the docs clang-tidy is more important to me. \nIf the docs clang-tidy does not want this change, I am good with your plan to make these changes but not enforce in .clang-tidy",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fc4dab2_388ff787",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-18T16:51:27Z",
+      "side": 1,
+      "message": "Why is it not just std::ranges::sort(paths) ? Why the reverse_view ?",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6bf4f0b7_526366df",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-18T16:51:27Z",
+      "side": 1,
+      "message": "These are certainly more concise..",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2e09be0_2ed650d5",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-18T16:51:27Z",
+      "side": 1,
+      "message": "Same here.. certainly more concise.. I think more readable..",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
