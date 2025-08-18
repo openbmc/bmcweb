@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d49fb011_c4f62fc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T17:47:05Z",
+      "side": 1,
+      "message": "\u003e \u003e\u003e I think this makes the code the slightest bit better, matching the docs clang-tidy is more important to me. \n\u003e \n\u003e \u003e Why\u0027s that? \n\u003e \n\u003e bmcweb matching the overall project is more important than I think the benefit this gives us. If we need to deviate from the project, let\u0027s make sure we have a reason. (I am talking about the general case as well as this specific clang-tidy case). That said, I think we are on the same page here..\n\n👍",
+      "parentUuid": "93e7aa3e_8f30ea34",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1fc4dab2_388ff787",
