@@ -87,6 +87,24 @@
       "parentUuid": "db862865_85ec4b0b",
       "revId": "f494bda6bb7abfe18a3ba065097e095e7bb25e09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2b8b410_c0aa5b40",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-18T21:35:54Z",
+      "side": 1,
+      "message": "I\u0027ve added the `xyz.openbmc_project.Inventory.Decorator.ManagedHost` interface here. Our systems do not have multi-host so it was not tested.\n\n@alexander.hansen@9elements.com: Any help here with testing this with multi-host system?",
+      "parentUuid": "b41ada8c_df567770",
+      "revId": "f494bda6bb7abfe18a3ba065097e095e7bb25e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
