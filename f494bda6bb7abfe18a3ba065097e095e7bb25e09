@@ -69,6 +69,24 @@
       "parentUuid": "db862865_85ec4b0b",
       "revId": "f494bda6bb7abfe18a3ba065097e095e7bb25e09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b41ada8c_df567770",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-18T17:37:35Z",
+      "side": 1,
+      "message": "Yes, I imagined to support the multi-host use-case the `xyz.openbmc_project.Inventory.Decorator.ManagedHost` interface would need to be searched. Those D-Bus objects would also have to have the `identifying` association to get/set the relevant LED.\n\nhttps://github.com/openbmc/bmcweb/blob/50d9f38ab85cef8b09c5968d7df3be948cf50d2f/redfish-core/lib/led.hpp#L285",
+      "parentUuid": "db862865_85ec4b0b",
+      "revId": "f494bda6bb7abfe18a3ba065097e095e7bb25e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
