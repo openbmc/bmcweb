@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "140a739e_d166f8b0",
+        "filename": ".clang-tidy",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T16:54:34Z",
+      "side": 1,
+      "message": "Once it\u0027s seen to be useful.",
+      "parentUuid": "9cc17fc6_803a3d16",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "840bea2b_773dcb21",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2025-08-18T16:51:27Z",
       "side": 1,
       "message": "I think this makes the code the slightest bit better, matching the docs clang-tidy is more important to me. \nIf the docs clang-tidy does not want this change, I am good with your plan to make these changes but not enforce in .clang-tidy",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2f46c4b_ce8962e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T16:54:34Z",
+      "side": 1,
+      "message": "\u003e I think this makes the code the slightest bit better, matching the docs clang-tidy is more important to me. \n\nWhy\u0027s that?  Considering I wrote the in-review .clang-tidy, my plan was to follow the same path with this, make sure it\u0027s useful, then enable it in the reference.\n\n\u003e If the docs clang-tidy does not want this change, I am good with your plan to make these changes but not enforce in .clang-tidy",
+      "parentUuid": "840bea2b_773dcb21",
       "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "688e9471_e19c2726",
+        "filename": "include/webassets.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T16:54:34Z",
+      "side": 1,
+      "message": "Because the prior code was rbegin/rend, which reversed the sort order.  FWIW, tidy made this change automatically.",
+      "parentUuid": "1fc4dab2_388ff787",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6bf4f0b7_526366df",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -71,6 +125,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "150e30ad_906a1033",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T16:54:34Z",
+      "side": 1,
+      "message": "🎉",
+      "parentUuid": "6bf4f0b7_526366df",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a2e09be0_2ed650d5",
         "filename": "src/webserver_cli.cpp",
         "patchSetId": 1
@@ -82,6 +154,24 @@
       "writtenOn": "2025-08-18T16:51:27Z",
       "side": 1,
       "message": "Same here.. certainly more concise.. I think more readable..",
+      "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b437b33_4e61a044",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T16:54:34Z",
+      "side": 1,
+      "message": "🎉",
+      "parentUuid": "a2e09be0_2ed650d5",
       "revId": "55c27855a034b409248ee6dd9c3f93514b523571",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
