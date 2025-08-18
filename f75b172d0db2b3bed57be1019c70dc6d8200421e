@@ -16,6 +16,24 @@
       "message": "Why does this need to be under the Multi Computer system flag?",
       "revId": "f75b172d0db2b3bed57be1019c70dc6d8200421e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ce06e51_158dd25e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T12:20:59Z",
+      "side": 1,
+      "message": "The next patch adds `RelatedItem` in multi-host case.\n\nThat\u0027s why i wanted to have some consistency also in the single-host case.\n\nSome may view this as redundant to add `RelatedItem` but i would prefer the redfish client be able to rely on it somewhat, to always find a system which is associated to the software inventory item.\n\nWe have to check the option here because if the multi-host option is enabled it is not allowed anymore to do hardcoding such as `BMCWEB_REDFISH_SYSTEM_URI_NAME`.\n\n\nLet me know if i should abandon the patch.",
+      "parentUuid": "7d525b84_89da6c6a",
+      "revId": "f75b172d0db2b3bed57be1019c70dc6d8200421e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
