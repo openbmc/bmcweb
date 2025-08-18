@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0985d6c4_2bf18a05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T17:36:54Z",
+      "side": 1,
+      "message": "Minor changes.",
+      "revId": "00d63b2ee81d7e4b29ccebad87ceea2f657fb40e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e09bd1f4_edcad216",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T17:36:54Z",
+      "side": 1,
+      "message": "\"memfd\" is an internal detail that shouldn\u0027t be exposed to users.  I think this is supposed to be a URI?",
+      "range": {
+        "startLine": 880,
+        "startChar": 56,
+        "endLine": 880,
+        "endChar": 61
+      },
+      "revId": "00d63b2ee81d7e4b29ccebad87ceea2f657fb40e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d56fa755_fc728311",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T17:36:54Z",
+      "side": 1,
+      "message": "dbus object paths are not filesystem object paths.  Please use the appropriate class.",
+      "range": {
+        "startLine": 923,
+        "startChar": 10,
+        "endLine": 923,
+        "endChar": 31
+      },
+      "revId": "00d63b2ee81d7e4b29ccebad87ceea2f657fb40e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
