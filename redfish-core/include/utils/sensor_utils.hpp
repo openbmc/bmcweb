@@ -809,8 +809,131 @@ inline void objectPropertiesToJson(
     {
         if (chassisSubNode == ChassisSubNode::sensorsNode)
         {
+<<<<<<< PATCH SET (4d0541 WIP: Implement modernize-use-ranges)
+            std::string subNodeEscaped = getSensorId(sensorName, sensorType);
+            // For sensors in SensorCollection we set Id instead of MemberId,
+            // including power sensors.
+            sensorJson["Id"] = std::move(subNodeEscaped);
+
+            std::string sensorNameEs(sensorName);
+            std::ranges::replace(sensorNameEs, '_', ' ');
+            sensorJson["Name"] = std::move(sensorNameEs);
+        }
+        else if (sensorType != "power")
+        {
+            // Set MemberId and Name for non-power sensors.  For PowerSupplies
+            // and PowerControl, those properties have more general values
+            // because multiple sensors can be stored in the same JSON object.
+            std::string sensorNameEs(sensorName);
+            std::ranges::replace(sensorNameEs, '_', ' ');
+            sensorJson["Name"] = std::move(sensorNameEs);
+        }
+
+        const bool* checkAvailable = nullptr;
+        bool available = true;
+        const bool success = sdbusplus::unpackPropertiesNoThrow(
+            dbus_utils::UnpackErrorPrinter(), propertiesDict, "Available",
+            checkAvailable);
+        if (!success)
+        {
+            messages::internalError();
+        }
+        if (checkAvailable != nullptr)
+        {
+            available = *checkAvailable;
+        }
+
+        sensorJson["Status"]["State"] = getState(inventoryItem, available);
+        sensorJson["Status"]["Health"] =
+            getHealth(sensorJson, propertiesDict, inventoryItem);
+
+        if (chassisSubNode == ChassisSubNode::sensorsNode)
+        {
+            sensorJson["@odata.type"] = "#Sensor.v1_2_0.Sensor";
+
+            sensor::ReadingType readingType =
+                sensors::toReadingType(sensorType);
+            if (readingType == sensor::ReadingType::Invalid)
+            {
+                BMCWEB_LOG_ERROR("Redfish cannot map reading type for {}",
+                                 sensorType);
+            }
+            else
+            {
+                sensorJson["ReadingType"] = readingType;
+            }
+
+            std::string_view readingUnits = sensors::toReadingUnits(sensorType);
+            if (readingUnits.empty())
+            {
+                BMCWEB_LOG_ERROR("Redfish cannot map reading unit for {}",
+                                 sensorType);
+            }
+            else
+            {
+                sensorJson["ReadingUnits"] = readingUnits;
+            }
+        }
+        else if (sensorType == "temperature")
+        {
+            unit = "/ReadingCelsius"_json_pointer;
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+            // TODO(ed) Documentation says that path should be type fan_tach,
+            // implementation seems to implement fan
+        }
+        else if (sensorType == "fan" || sensorType == "fan_tach")
+        {
+            unit = "/Reading"_json_pointer;
+            sensorJson["ReadingUnits"] = thermal::ReadingUnits::RPM;
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+            if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+            {
+                setLedState(sensorJson, inventoryItem);
+            }
+            forceToInt = true;
+        }
+        else if (sensorType == "fan_pwm")
+        {
+            unit = "/Reading"_json_pointer;
+            sensorJson["ReadingUnits"] = thermal::ReadingUnits::Percent;
+            sensorJson["@odata.type"] = "#Thermal.v1_3_0.Fan";
+            if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+            {
+                setLedState(sensorJson, inventoryItem);
+            }
+            forceToInt = true;
+        }
+        else if (sensorType == "voltage")
+        {
+            unit = "/ReadingVolts"_json_pointer;
+            sensorJson["@odata.type"] = "#Power.v1_0_0.Voltage";
+        }
+        else if (sensorType == "power")
+        {
+            std::string lower;
+            std::ranges::transform(sensorName, std::back_inserter(lower),
+                                   bmcweb::asciiToLower);
+            if (lower == "total_power")
+            {
+                sensorJson["@odata.type"] = "#Power.v1_0_0.PowerControl";
+                // Put multiple "sensors" into a single PowerControl, so have
+                // generic names for MemberId and Name. Follows Redfish mockup.
+                sensorJson["MemberId"] = "0";
+                sensorJson["Name"] = "Chassis Power Control";
+                unit = "/PowerConsumedWatts"_json_pointer;
+            }
+            else if (lower.find("input") != std::string::npos)
+            {
+                unit = "/PowerInputWatts"_json_pointer;
+            }
+            else
+            {
+                unit = "/PowerOutputWatts"_json_pointer;
+            }
+=======
             fillSensorIdentity(sensorName, sensorType, propertiesDict,
                                sensorJson);
+>>>>>>> BASE      (9ad2c6 Update to boost 1.89)
         }
         else
         {

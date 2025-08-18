@@ -160,11 +160,10 @@ struct TaskData : std::enable_shared_from_this<TaskData>
         static constexpr std::array<std::string_view, 5> activeStates = {
             "Running", "Pending", "Starting", "Suspended", "Interrupted"};
 
-        auto it =
-            std::find_if(tasks.begin(), tasks.end(), [](const auto& task) {
-                return std::ranges::find(activeStates, task->state) ==
-                       activeStates.end();
-            });
+        auto it = std::ranges::find_if(tasks, [](const auto& task) {
+            return std::ranges::find(activeStates, task->state) ==
+                   activeStates.end();
+        });
 
         return (it != tasks.end()) ? it : tasks.begin();
     }
