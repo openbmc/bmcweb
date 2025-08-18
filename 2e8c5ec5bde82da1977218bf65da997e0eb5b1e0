@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab402dd2_f9f77f43",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-18T16:12:54Z",
+      "side": 1,
+      "message": "nit: These are both output parameters.",
+      "range": {
+        "startLine": 269,
+        "startChar": 1,
+        "endLine": 271,
+        "endChar": 37
+      },
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a30c3f0_2f45e9bd",
         "filename": "redfish-core/include/utils/systems_utils.hpp",
         "patchSetId": 36
@@ -65,6 +88,29 @@
       "writtenOn": "2025-08-18T13:03:06Z",
       "side": 1,
       "message": "If you declare `const std::string\u0026 objectPath \u003d obj.first;` at the start of the loop, the code may be easier to read since we do not refer to `obj.first` all the time.\n\nSame for `service`.",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7491b675_6d81b3a9",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-18T16:12:54Z",
+      "side": 1,
+      "message": "Seems like this could be simpler if built a string with computerSystemIndex concatenated to /host and just looked for that. Would still need to confirm it was full part of name, but maybe object_path has something specific for that?",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 1
+      },
       "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
