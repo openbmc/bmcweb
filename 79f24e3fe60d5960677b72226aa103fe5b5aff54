@@ -33,6 +33,52 @@
       "message": "Introducing this struct for the response handling, could have been a separate patch.",
       "revId": "79f24e3fe60d5960677b72226aa103fe5b5aff54",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e84fc1b9_29e88b5a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3378,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-18T17:12:40Z",
+      "side": 1,
+      "message": "This should be after setUpRedfishRoute() and checking for errors as in the original code path.",
+      "range": {
+        "startLine": 3374,
+        "startChar": 4,
+        "endLine": 3378,
+        "endChar": 66
+      },
+      "revId": "79f24e3fe60d5960677b72226aa103fe5b5aff54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d62cb0c6_7248ad02",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 3421,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-18T17:12:40Z",
+      "side": 1,
+      "message": "To avoid changing error semantics this should be before the readJsonPatch() above as in the original code path. That way we favor erroring out on a bad path over a bad patch parameter.",
+      "range": {
+        "startLine": 3413,
+        "startChar": 4,
+        "endLine": 3421,
+        "endChar": 5
+      },
+      "revId": "79f24e3fe60d5960677b72226aa103fe5b5aff54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
