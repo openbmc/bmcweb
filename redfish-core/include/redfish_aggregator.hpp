@@ -193,8 +193,7 @@ inline bool isPropertyUri(std::string_view propertyName)
     {
         return true;
     }
-    return std::binary_search(nonUriProperties.begin(), nonUriProperties.end(),
-                              propertyName);
+    return std::ranges::binary_search(nonUriProperties, propertyName);
 }
 
 inline void addPrefixToStringItem(std::string& strValue,
@@ -253,8 +252,7 @@ inline void addPrefixToStringItem(std::string& strValue,
             return;
         }
 
-        if (std::binary_search(topCollections.begin(), topCollections.end(),
-                               url.buffer()))
+        if (std::ranges::binary_search(topCollections, url.buffer()))
         {
             std::string collectionItem(prefix);
             collectionItem += "_" + (*it);
@@ -756,8 +754,7 @@ class RedfishAggregator
         it++;
         for (; it != end; it++)
         {
-            if (std::binary_search(topCollections.begin(), topCollections.end(),
-                                   currentUrl.buffer()))
+            if (std::ranges::binary_search(topCollections, currentUrl.buffer()))
             {
                 // We've matched a resource collection so this current segment
                 // must contain an aggregation prefix
@@ -1302,8 +1299,7 @@ class RedfishAggregator
         for (; it != end; it++)
         {
             const std::string& collectionItem = *it;
-            if (std::binary_search(topCollections.begin(), topCollections.end(),
-                                   currentUrl.buffer()))
+            if (std::ranges::binary_search(topCollections, currentUrl.buffer()))
             {
                 // We've matched a resource collection so this current segment
                 // might contain an aggregation prefix
@@ -1343,8 +1339,7 @@ class RedfishAggregator
 
         // If we made it here then currentUrl could contain a top level
         // collection URI without a trailing "/", e.g. /redfish/v1/Chassis
-        if (std::binary_search(topCollections.begin(), topCollections.end(),
-                               currentUrl.buffer()))
+        if (std::ranges::binary_search(topCollections, currentUrl.buffer()))
         {
             startAggregation(AggregationType::Collection, thisReq, asyncResp);
             return Result::LocalHandle;

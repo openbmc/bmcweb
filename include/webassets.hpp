@@ -21,6 +21,7 @@
 #include <filesystem>
 #include <format>
 #include <memory>
+#include <ranges>
 #include <string>
 #include <string_view>
 #include <system_error>
@@ -245,7 +246,7 @@ inline void requestRoutes(App& app)
     // guaranteed to get the gzip version first.
     std::vector<std::filesystem::directory_entry> paths(
         std::filesystem::begin(dirIter), std::filesystem::end(dirIter));
-    std::sort(paths.rbegin(), paths.rend());
+    std::ranges::sort(std::ranges::reverse_view(paths));
 
     for (const std::filesystem::directory_entry& dir : paths)
     {
