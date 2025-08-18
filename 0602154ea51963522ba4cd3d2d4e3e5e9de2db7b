@@ -16,6 +16,24 @@
       "message": "would this be better? or should we use `internal_server_error` instead?\n\nit happens when user manager service is dead",
       "revId": "0602154ea51963522ba4cd3d2d4e3e5e9de2db7b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccf200e4_642e1f94",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T19:18:39Z",
+      "side": 1,
+      "message": "internal_server_error is probably correct here.  There\u0027s nothing a user can do if this fails.",
+      "parentUuid": "8d19fdb5_b28b77cc",
+      "revId": "0602154ea51963522ba4cd3d2d4e3e5e9de2db7b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

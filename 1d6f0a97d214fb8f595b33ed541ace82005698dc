@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fefac245_40414731",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-18T19:18:39Z",
+      "side": 1,
+      "message": "Overall, this is making the lambda longer than it should be.  Please roll this out into a real function (ideally with unit tests) and call it from async_method_call",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 10
+      },
+      "revId": "1d6f0a97d214fb8f595b33ed541ace82005698dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
