@@ -93,8 +93,8 @@ struct DateTimeString
 
     static bool isDateTimeKey(std::string_view key)
     {
-        auto out = std::equal_range(timeKeys.begin(), timeKeys.end(), key);
-        return out.first != out.second;
+        auto out = std::ranges::equal_range(timeKeys, key);
+        return out.begin() != out.end();
     }
 };
 
