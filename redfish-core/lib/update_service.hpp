@@ -50,6 +50,7 @@
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
 
+#include <algorithm>
 #include <array>
 #include <chrono>
 #include <cstddef>
@@ -973,8 +974,7 @@ inline void handleMultipartManagerUpdate(
     const auto& [objectPath, services] = subtree[0];
     for (const auto& [serviceName, ifaces] : services)
     {
-        if (std::find(ifaces.begin(), ifaces.end(), updateInterface) !=
-            ifaces.end())
+        if (std::ranges::find(ifaces, updateInterface) != ifaces.end())
         {
             startUpdate(asyncResp, std::move(payload), memfd, applyTime,
                         objectPath, serviceName);

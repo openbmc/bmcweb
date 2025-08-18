@@ -29,7 +29,7 @@ static constexpr std::array<std::string, 7> levels{
 // Check if debug level is valid
 static std::string validateLogLevel(std::string& input)
 {
-    std::transform(input.begin(), input.end(), input.begin(), ::toupper);
+    std::ranges::transform(input, input.begin(), ::toupper);
     const std::string* iter = std::ranges::find(levels, input);
     if (iter == levels.end())
     {
@@ -44,7 +44,7 @@ static std::string helpMsg()
     for (const std::string& prompt : levels)
     {
         std::string level = prompt;
-        std::transform(level.begin(), level.end(), level.begin(), ::tolower);
+        std::ranges::transform(level, level.begin(), ::tolower);
         help.append(level + "\n");
     }
     return help;
@@ -58,8 +58,7 @@ static int setLogLevel(std::string& loglevel)
     std::string iface = "xyz.openbmc_project.bmcweb";
     std::string method = "SetLogLevel";
 
-    std::transform(loglevel.begin(), loglevel.end(), loglevel.begin(),
-                   ::toupper);
+    std::ranges::transform(loglevel, loglevel.begin(), ::toupper);
     // Set up dbus connection:
     boost::asio::io_context io;
     auto conn = std::make_shared<sdbusplus::asio::connection>(io);

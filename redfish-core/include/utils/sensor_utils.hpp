@@ -536,7 +536,7 @@ inline void fillSensorIdentity(
     sensorJson["Id"] = std::move(subNodeEscaped);
 
     std::string sensorNameEs(sensorName);
-    std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
+    std::ranges::replace(sensorNameEs, '_', ' ');
     sensorJson["Name"] = std::move(sensorNameEs);
     sensorJson["@odata.type"] = "#Sensor.v1_11_0.Sensor";
 
@@ -608,7 +608,7 @@ inline bool fillPowerThermalIdentity(
         // and PowerControl, those properties have more general values
         // because multiple sensors can be stored in the same JSON object.
         std::string sensorNameEs(sensorName);
-        std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
+        std::ranges::replace(sensorNameEs, '_', ' ');
         sensorJson["Name"] = std::move(sensorNameEs);
     }
 

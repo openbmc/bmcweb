@@ -150,8 +150,8 @@ inline void asyncPopulatePid(
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            if (std::find(profiles->begin(), profiles->end(),
-                                          currentProfile) == profiles->end())
+                            if (std::ranges::find(*profiles, currentProfile) ==
+                                profiles->end())
                             {
                                 BMCWEB_LOG_INFO(
                                     "{} not supported in current profile",
@@ -499,7 +499,7 @@ inline const dbus::utility::ManagedObjectType::value_type* findChassis(
     BMCWEB_LOG_DEBUG("Find Chassis: {}", value);
 
     std::string escaped(value);
-    std::replace(escaped.begin(), escaped.end(), ' ', '_');
+    std::ranges::replace(escaped, ' ', '_');
     escaped = "/" + escaped;
     auto it = std::ranges::find_if(managedObj, [&escaped](const auto& obj) {
         if (obj.first.str.ends_with(escaped))
@@ -564,7 +564,7 @@ inline bool getZonesFromJsonReq(
             messages::propertyValueFormatError(response->res, odata, "Zones");
             return false;
         }
-        std::replace(input.begin(), input.end(), '_', ' ');
+        std::ranges::replace(input, '_', ' ');
         zones.emplace_back(std::move(input));
     }
     return true;
@@ -672,8 +672,7 @@ inline CreatePIDRet createPidInterface(
                                 messages::internalError(response->res);
                                 return CreatePIDRet::fail;
                             }
-                            if (std::find(curProfiles->begin(),
-                                          curProfiles->end(), profile) ==
+                            if (std::ranges::find(*curProfiles, profile) ==
                                 curProfiles->end())
                             {
                                 std::vector<std::string> newProfiles =
@@ -757,7 +756,7 @@ inline CreatePIDRet createPidInterface(
         {
             for (std::string& value : *inputs)
             {
-                std::replace(value.begin(), value.end(), '_', ' ');
+                std::ranges::replace(value, '_', ' ');
             }
             output.emplace_back("Inputs", *inputs);
         }
@@ -766,7 +765,7 @@ inline CreatePIDRet createPidInterface(
         {
             for (std::string& value : *outputs)
             {
-                std::replace(value.begin(), value.end(), '_', ' ');
+                std::ranges::replace(value, '_', ' ');
             }
             output.emplace_back("Outputs", *outputs);
         }
@@ -927,7 +926,7 @@ inline CreatePIDRet createPidInterface(
         {
             for (std::string& value : *inputs)
             {
-                std::replace(value.begin(), value.end(), '_', ' ');
+                std::ranges::replace(value, '_', ' ');
             }
             output.emplace_back("Inputs", std::move(*inputs));
         }
@@ -1304,7 +1303,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             for (auto& [name, value] : *container)
             {
                 std::string dbusObjName = name;
-                std::replace(dbusObjName.begin(), dbusObjName.end(), ' ', '_');
+                std::ranges::replace(dbusObjName, ' ', '_');
                 BMCWEB_LOG_DEBUG("looking for {}", name);
 
                 auto pathItr = std::ranges::find_if(
@@ -1387,7 +1386,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     continue;
                 }
                 std::string escaped = name;
-                std::replace(escaped.begin(), escaped.end(), '_', ' ');
+                std::ranges::replace(escaped, '_', ' ');
                 output.emplace_back("Name", escaped);
 
                 std::string chassis;

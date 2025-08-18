@@ -28,6 +28,7 @@
 #include <format>
 #include <functional>
 #include <memory>
+#include <ranges>
 #include <string>
 #include <string_view>
 #include <system_error>
@@ -62,8 +63,8 @@ inline bool getHostLoggerFiles(
     // As the log files rotate, they are appended with a ".#" that is higher for
     // the older logs. Since we start from oldest logs, sort the name in
     // descending order.
-    std::sort(hostLoggerFiles.rbegin(), hostLoggerFiles.rend(),
-              AlphanumLess<std::string>());
+    std::ranges::sort(std::ranges::reverse_view(hostLoggerFiles),
+                      AlphanumLess<std::string>());
 
     return true;
 }
