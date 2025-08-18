@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2980ba85_a82c231c",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-18T14:27:07Z",
+      "side": 1,
+      "message": "In multi-host use-case the redfish \u0027system\u0027 would correspond to a \n`xyz.openbmc_project.Inventory.Decorator.ManagedHost`, right?\n\nAt least this is how i saw it here https://github.com/openbmc/bmcweb/blob/50d9f38ab85cef8b09c5968d7df3be948cf50d2f/redfish-core/include/utils/systems_utils.hpp#L108",
+      "revId": "f494bda6bb7abfe18a3ba065097e095e7bb25e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
