@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac8fe11d_b8660d84",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-19T10:30:15Z",
+      "side": 1,
+      "message": "But the version information is inside the PLDM packgage, right?\n\nSo we do not have the version information here.\n\n\u003e Ideally the error message would contain enough information that we can construct a correct message. Otherwise we should stick with the more generic error message.\n\nThe intent is to give the redfish client some idea about what went wrong and to figure out if there is a temporary failure (update in progress), a fixable failure requiring change of update strategy (incorrect apply time) or an non-fixable failure if there is some issue with the update package itself.\n\nThat way an automated redfish update client can recover from some of these failures.\n\n\u003e I don\u0027t really think so given that the hash doesn\u0027t actually mean anything.\n\nThe hash allows the redfish client to map that back to whichever update package it sent. We just have to choose a hash algorithm for which there is a convenient cli tool to run it, so it works for interactive users as-well.\n\n\nIMO the package hash is *identifying* the update package better than any version string since the version string can be the *same* even if the component image is different in the PLDM package.\n\nWhat do you think?",
+      "parentUuid": "ffa3b331_bbda0ffa",
+      "range": {
+        "startLine": 880,
+        "startChar": 56,
+        "endLine": 880,
+        "endChar": 61
+      },
+      "revId": "00d63b2ee81d7e4b29ccebad87ceea2f657fb40e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d56fa755_fc728311",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
