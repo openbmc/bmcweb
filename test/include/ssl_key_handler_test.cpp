@@ -2,10 +2,14 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "duplicatable_file_handle.hpp"
 #include "ssl_key_handler.hpp"
+#include "ossl_wrappers.hpp"
+#include "ossl_test_memory.hpp"
 
 #include <string>
 
 #include <gtest/gtest.h>
+
+static const OpenSSLTestMemory osslInit;
 
 namespace ensuressl
 {
