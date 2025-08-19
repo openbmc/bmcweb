@@ -66,8 +66,6 @@ constexpr const char* ldapRootObject = "/xyz/openbmc_project/user/ldap";
 constexpr const char* ldapDbusService = "xyz.openbmc_project.Ldap.Config";
 constexpr const char* ldapConfigInterface =
     "xyz.openbmc_project.User.Ldap.Config";
-constexpr const char* ldapCreateInterface =
-    "xyz.openbmc_project.User.Ldap.Create";
 constexpr const char* ldapEnableInterface = "xyz.openbmc_project.Object.Enable";
 constexpr const char* ldapPrivMapperInterface =
     "xyz.openbmc_project.User.PrivilegeMapper";
