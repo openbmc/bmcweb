@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include <openssl/crypto.h>
-
 #include <boost/asio/ssl/context.hpp>
 
 #include <memory>
@@ -23,17 +21,12 @@ enum class VerifyCertificate
 constexpr const char* trustStorePath = "/etc/ssl/certs/authority";
 constexpr const char* x509Comment = "Generated from OpenBMC service";
 
-bool isTrustChainError(int errnum);
-
-bool validateCertificate(X509* cert);
-
 std::string verifyOpensslKeyCert(const std::string& filepath);
 
-X509* loadCert(const std::string& filePath);
+void regenerateCertificateIfHostnameChanged(const std::string& filepath,
+                                            const std::string& hostname);
 
-int addExt(X509* cert, int nid, const char* value);
-
-std::string generateSslCertificate(const std::string& cn);
+std::string generateSslCertificate(const std::string& commonName);
 
 void writeCertificateToFile(const std::string& filepath,
                             const std::string& certificate);
