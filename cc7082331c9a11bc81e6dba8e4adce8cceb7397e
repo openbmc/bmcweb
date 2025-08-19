@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0532cc47_c6f5cc91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-19T18:49:31Z",
+      "side": 1,
+      "message": "Seems reasonable to me, cleanup the headers a bit more please.",
+      "revId": "cc7082331c9a11bc81e6dba8e4adce8cceb7397e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48c8064b_0cd583f4",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-19T18:49:31Z",
+      "side": 1,
+      "message": "Can you remove this now?",
+      "revId": "cc7082331c9a11bc81e6dba8e4adce8cceb7397e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c85df5f_5476c448",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-19T18:49:31Z",
+      "side": 1,
+      "message": "I think you can remove vector, tuple,",
+      "revId": "cc7082331c9a11bc81e6dba8e4adce8cceb7397e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
