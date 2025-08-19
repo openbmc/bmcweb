@@ -1,11 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "file_test_utilities.hpp"
+#include "ossl_wrappers.hpp"
 #include "ssl_key_handler.hpp"
 
 #include <string>
 
 #include <gtest/gtest.h>
+
+// NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
+static OpenSSLInit osslInit;
 
 namespace ensuressl
 {

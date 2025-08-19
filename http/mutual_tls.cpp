@@ -4,6 +4,7 @@
 
 #include "identity.hpp"
 #include "mutual_tls_private.hpp"
+#include "ossl_wrappers.hpp"
 #include "sessions.hpp"
 
 #include <bit>
@@ -93,42 +94,44 @@ bool isUPNMatch(std::string_view upn, std::string_view hostname)
 
 std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
 {
-    GENERAL_NAMES* gs = static_cast<GENERAL_NAMES*>(
-        X509_get_ext_d2i(peerCert, NID_subject_alt_name, nullptr, nullptr));
-    if (gs == nullptr)
+    std::optional<OpenSSLGeneralNames> gs =
+        OpenSSLGeneralNames::fromExt(peerCert, NID_subject_alt_name);
+    if (!gs)
     {
+        BMCWEB_LOG_ERROR("Failed to get subject alternative name");
         return "";
     }
 
     std::string ret;
-    for (int i = 0; i < sk_GENERAL_NAME_num(gs); i++)
+    for (const GENERAL_NAME& g : *gs)
     {
-        GENERAL_NAME* g = sk_GENERAL_NAME_value(gs, i);
-        if (g->type != GEN_OTHERNAME)
+        if (g.type != GEN_OTHERNAME)
         {
             continue;
         }
 
-        // NOLINTBEGIN(cppcoreguidelines-pro-type-union-access)
-        int nid = OBJ_obj2nid(g->d.otherName->type_id);
+        // OpenSSL uses unions.  Nothing we can do about it.
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access)
+        const OTHERNAME& otherName = *g.d.otherName;
+
+        int nid = OBJ_obj2nid(otherName.type_id);
         if (nid != NID_ms_upn)
         {
             continue;
         }
+        ASN1_TYPE& value = *otherName.value;
 
-        int type = g->d.otherName->value->type;
+        int type = ASN1_TYPE_get(&value);
         if (type != V_ASN1_UTF8STRING)
         {
             continue;
         }
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access)
+        ASN1_UTF8STRING& utf8string = *value.value.utf8string;
+        const char* upnChar = std::bit_cast<const char*>(utf8string.data);
+        size_t upnLen = static_cast<size_t>(utf8string.length);
 
-        char* upnChar =
-            std::bit_cast<char*>(g->d.otherName->value->value.utf8string->data);
-        unsigned int upnLen = static_cast<unsigned int>(
-            g->d.otherName->value->value.utf8string->length);
-        // NOLINTEND(cppcoreguidelines-pro-type-union-access)
-
-        std::string upn = std::string(upnChar, upnLen);
+        std::string_view upn(upnChar, upnLen);
         if (!isUPNMatch(upn, hostname))
         {
             continue;
@@ -138,11 +141,10 @@ std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
         ret = upn.substr(0, upnDomainPos);
         break;
     }
-    GENERAL_NAMES_free(gs);
     return ret;
 }
 
-std::string getUsernameFromCert(X509* cert)
+static std::string getUsernameFromCert(X509* cert)
 {
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
