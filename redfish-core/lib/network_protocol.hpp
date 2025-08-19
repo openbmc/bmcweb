@@ -462,19 +462,6 @@ inline std::string encodeServiceObjectPath(std::string_view serviceName)
     return objPath.str;
 }
 
-inline void handleBmcNetworkProtocolHead(
-    crow::App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-    asyncResp->res.addHeader(
-        boost::beast::http::field::link,
-        "</redfish/v1/JsonSchemas/ManagerNetworkProtocol/ManagerNetworkProtocol.json>; rel=describedby");
-}
-
 inline void handleManagersNetworkProtocolPatch(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
