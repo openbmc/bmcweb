@@ -2639,7 +2639,7 @@ inline void requestRoutesCrashdumpService(App& app)
         });
 }
 
-void inline requestRoutesCrashdumpClear(App& app)
+inline void requestRoutesCrashdumpClear(App& app)
 {
     BMCWEB_ROUTE(
         app,
