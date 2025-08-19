@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f29945_00adcc40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-08-19T21:45:59Z",
+      "side": 1,
+      "message": "How would this co-exist with the existing software update design? In that case, there are going to be multiple StartUpdate interfaces, how do you know you are choosing the right one? There was a version of your design where an explicit Multi-partManager interface was proposed. Please follow up on that.",
+      "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c39b5013_ad8bf715",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-08-19T21:45:59Z",
+      "side": 1,
+      "message": "Please add reference to the design which is under discussion.",
+      "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
