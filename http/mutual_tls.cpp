@@ -142,7 +142,7 @@ std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
     return ret;
 }
 
-std::string getUsernameFromCert(X509* cert)
+static std::string getUsernameFromCert(X509* cert)
 {
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
