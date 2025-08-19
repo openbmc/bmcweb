@@ -33,6 +33,24 @@
       "message": "Can we do this without linking processor? See https://gerrit.openbmc.org/c/openbmc/bmcweb/+/82773",
       "revId": "8ff7b6af70719b9feda2a019e8a5161184d73975",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1889a85_a1f008b9",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-19T20:51:32Z",
+      "side": 1,
+      "message": "Yes, that would be a good idea.\nI changed it as  only \"processorInterfaces\" definition is needed in this file.",
+      "parentUuid": "04e98cc4_dea30277",
+      "revId": "8ff7b6af70719b9feda2a019e8a5161184d73975",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
