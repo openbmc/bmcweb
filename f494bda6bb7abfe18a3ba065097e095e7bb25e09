@@ -105,6 +105,24 @@
       "parentUuid": "b41ada8c_df567770",
       "revId": "f494bda6bb7abfe18a3ba065097e095e7bb25e09",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1b9e6d6_7590307d",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-19T09:45:52Z",
+      "side": 1,
+      "message": "I don\u0027t think it should require any testing specifically for multi-host.\n\nIf the `identifying` association is there, it should work the same as on your system since the same code path is used.\n\nThanks you for resolving this!",
+      "parentUuid": "c2b8b410_c0aa5b40",
+      "revId": "f494bda6bb7abfe18a3ba065097e095e7bb25e09",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
