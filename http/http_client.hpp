@@ -12,9 +12,6 @@
 #include "logging.hpp"
 #include "ssl_key_handler.hpp"
 
-#include <openssl/err.h>
-#include <openssl/tls1.h>
-
 #include <boost/asio/connect.hpp>
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_context.hpp>
