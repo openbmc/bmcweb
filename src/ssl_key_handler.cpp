@@ -4,9 +4,11 @@
 
 #include "bmcweb_config.h"
 
+#include "dbus_utility.hpp"
 #include "forward_unauthorized.hpp"
 #include "logging.hpp"
 #include "ossl_random.hpp"
+#include "ossl_wrappers.hpp"
 #include "sessions.hpp"
 
 #include <boost/asio/buffer.hpp>
@@ -16,11 +18,14 @@
 #include <boost/beast/core/file_posix.hpp>
 #include <boost/system/error_code.hpp>
 
+#include <array>
+#include <format>
+#include <string_view>
+
 extern "C"
 {
 #include <nghttp2/nghttp2.h>
 #include <openssl/asn1.h>
-#include <openssl/bio.h>
 #include <openssl/ec.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
@@ -31,7 +36,6 @@ extern "C"
 #include <openssl/types.h>
 #include <openssl/x509.h>
 #include <openssl/x509_vfy.h>
-#include <openssl/x509v3.h>
 }
 
 #include <bit>
@@ -48,8 +52,6 @@ extern "C"
 namespace ensuressl
 {
 
-static EVP_PKEY* createEcKey();
-
 // Mozilla intermediate cipher suites v5.7
 // Sourced from: https://ssl-config.mozilla.org/guidelines/5.7.json
 constexpr const char* mozillaIntermediate =
@@ -64,7 +66,7 @@ constexpr const char* mozillaIntermediate =
     "DHE-RSA-CHACHA20-POLY1305";
 
 // Trust chain related errors.`
-bool isTrustChainError(int errnum)
+static bool isTrustChainError(int errnum)
 {
     return (errnum == X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT) ||
            (errnum == X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN) ||
@@ -73,47 +75,30 @@ bool isTrustChainError(int errnum)
            (errnum == X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE);
 }
 
-bool validateCertificate(X509* const cert)
+static bool validateCertificate(OpenSSLX509& cert)
 {
     // Create an empty X509_STORE structure for certificate validation.
-    X509_STORE* x509Store = X509_STORE_new();
-    if (x509Store == nullptr)
-    {
-        BMCWEB_LOG_ERROR("Error occurred during X509_STORE_new call");
-        return false;
-    }
+    OpenSSLX509Store x509Store;
 
     // Load Certificate file into the X509 structure.
-    X509_STORE_CTX* storeCtx = X509_STORE_CTX_new();
-    if (storeCtx == nullptr)
-    {
-        BMCWEB_LOG_ERROR("Error occurred during X509_STORE_CTX_new call");
-        X509_STORE_free(x509Store);
-        return false;
-    }
+    OpenSSLX509StoreCTX storeCtx;
 
-    int errCode = X509_STORE_CTX_init(storeCtx, x509Store, cert, nullptr);
+    int errCode = storeCtx.init(x509Store, cert);
     if (errCode != 1)
     {
         BMCWEB_LOG_ERROR("Error occurred during X509_STORE_CTX_init call");
-        X509_STORE_CTX_free(storeCtx);
-        X509_STORE_free(x509Store);
         return false;
     }
 
-    errCode = X509_verify_cert(storeCtx);
+    errCode = storeCtx.verifyCert();
     if (errCode == 1)
     {
         BMCWEB_LOG_INFO("Certificate verification is success");
-        X509_STORE_CTX_free(storeCtx);
-        X509_STORE_free(x509Store);
         return true;
     }
     if (errCode == 0)
     {
-        errCode = X509_STORE_CTX_get_error(storeCtx);
-        X509_STORE_CTX_free(storeCtx);
-        X509_STORE_free(x509Store);
+        errCode = storeCtx.getError();
         if (isTrustChainError(errCode))
         {
             BMCWEB_LOG_DEBUG("Ignoring Trust Chain error. Reason: {}",
@@ -127,15 +112,11 @@ bool validateCertificate(X509* const cert)
 
     BMCWEB_LOG_ERROR(
         "Error occurred during X509_verify_cert call. ErrorCode: {}", errCode);
-    X509_STORE_CTX_free(storeCtx);
-    X509_STORE_free(x509Store);
     return false;
 }
 
 std::string verifyOpensslKeyCert(const std::string& filepath)
 {
-    bool privateKeyValid = false;
-
     BMCWEB_LOG_INFO("Checking certs in file {}", filepath);
     boost::beast::file_posix file;
     boost::system::error_code ec;
@@ -154,49 +135,11 @@ std::string verifyOpensslKeyCert(const std::string& filepath)
         return "";
     }
 
-    BIO* bufio = BIO_new_mem_buf(static_cast<void*>(fileContents.data()),
-                                 static_cast<int>(fileContents.size()));
-    EVP_PKEY* pkey = PEM_read_bio_PrivateKey(bufio, nullptr, nullptr, nullptr);
-    BIO_free(bufio);
-    if (pkey != nullptr)
-    {
-        EVP_PKEY_CTX* pkeyCtx =
-            EVP_PKEY_CTX_new_from_pkey(nullptr, pkey, nullptr);
+    OpenSSLEVPKey pkey(fileContents);
 
-        if (pkeyCtx == nullptr)
-        {
-            BMCWEB_LOG_ERROR("Unable to allocate pkeyCtx {}", ERR_get_error());
-        }
-        else if (EVP_PKEY_check(pkeyCtx) == 1)
-        {
-            privateKeyValid = true;
-        }
-        else
-        {
-            BMCWEB_LOG_ERROR("Key not valid error number {}", ERR_get_error());
-        }
+    OpenSSLX509 x509Obj(fileContents);
+    certValid = validateCertificate(x509Obj);
 
-        if (privateKeyValid)
-        {
-            BIO* bufio2 =
-                BIO_new_mem_buf(static_cast<void*>(fileContents.data()),
-                                static_cast<int>(fileContents.size()));
-            X509* x509 = PEM_read_bio_X509(bufio2, nullptr, nullptr, nullptr);
-            BIO_free(bufio2);
-            if (x509 == nullptr)
-            {
-                BMCWEB_LOG_ERROR("error getting x509 cert {}", ERR_get_error());
-            }
-            else
-            {
-                certValid = validateCertificate(x509);
-                X509_free(x509);
-            }
-        }
-
-        EVP_PKEY_CTX_free(pkeyCtx);
-        EVP_PKEY_free(pkey);
-    }
     if (!certValid)
     {
         return "";
@@ -204,54 +147,111 @@ std::string verifyOpensslKeyCert(const std::string& filepath)
     return fileContents;
 }
 
-X509* loadCert(const std::string& filePath)
+static std::optional<OpenSSLX509> loadCert(const std::string& filePath)
 {
-    BIO* certFileBio = BIO_new_file(filePath.c_str(), "rb");
-    if (certFileBio == nullptr)
-    {
-        BMCWEB_LOG_ERROR("Error occurred during BIO_new_file call, FILE= {}",
-                         filePath);
-        return nullptr;
-    }
+    OpenSSLX509 x509Obj;
+    std::filesystem::path certFilePath(filePath);
+    OpenSSLBIO certFileBio(certFilePath);
 
-    X509* cert = X509_new();
-    if (cert == nullptr)
-    {
-        BMCWEB_LOG_ERROR("Error occurred during X509_new call, {}",
-                         ERR_get_error());
-        BIO_free(certFileBio);
-        return nullptr;
-    }
-
-    if (PEM_read_bio_X509(certFileBio, &cert, nullptr, nullptr) == nullptr)
+    if (PEM_read_bio_X509(certFileBio.get(), &x509Obj.ptr, nullptr, nullptr) ==
+        nullptr)
     {
         BMCWEB_LOG_ERROR(
             "Error occurred during PEM_read_bio_X509 call, FILE= {}", filePath);
-
-        BIO_free(certFileBio);
-        X509_free(cert);
-        return nullptr;
+        return std::nullopt;
     }
-    BIO_free(certFileBio);
-    return cert;
+    return {std::move(x509Obj)};
 }
 
-int addExt(X509* cert, int nid, const char* value)
+static void installCertificate(const std::filesystem::path& certPath)
 {
-    X509_EXTENSION* ex = nullptr;
-    X509V3_CTX ctx{};
-    X509V3_set_ctx(&ctx, cert, cert, nullptr, nullptr, 0);
+    dbus::utility::async_method_call(
+        [certPath](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Replace Certificate Fail..");
+                return;
+            }
 
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-    ex = X509V3_EXT_conf_nid(nullptr, &ctx, nid, const_cast<char*>(value));
-    if (ex == nullptr)
+            BMCWEB_LOG_INFO("Replace HTTPs Certificate Success, "
+                            "remove temporary certificate file..");
+            std::error_code ec2;
+            std::filesystem::remove(certPath.c_str(), ec2);
+            if (ec2)
+            {
+                BMCWEB_LOG_ERROR("Failed to remove certificate");
+            }
+        },
+        "xyz.openbmc_project.Certs.Manager.Server.Https",
+        "/xyz/openbmc_project/certs/server/https/1",
+        "xyz.openbmc_project.Certs.Replace", "Replace", certPath.string());
+}
+
+void regenerateCertificateIfHostnameChanged(const std::string& filepath,
+                                            const std::string& hostname)
+{
+    std::optional<OpenSSLX509> cert = ensuressl::loadCert(filepath);
+    if (!cert)
     {
-        BMCWEB_LOG_ERROR("Error: In X509V3_EXT_conf_nidn: {}", value);
-        return -1;
+        BMCWEB_LOG_ERROR("Failed to load cert {}", filepath);
+        return;
     }
-    X509_add_ext(cert, ex, -1);
-    X509_EXTENSION_free(ex);
-    return 0;
+
+    const int maxKeySize = 256;
+    std::array<char, maxKeySize> cnBuffer{};
+
+    int cnLength = X509_NAME_get_text_by_NID(
+        X509_get_subject_name(cert->get()), NID_commonName, cnBuffer.data(),
+        cnBuffer.size());
+    if (cnLength == -1)
+    {
+        BMCWEB_LOG_ERROR("Failed to read NID_commonName");
+        return;
+    }
+    std::string_view cnValue(std::begin(cnBuffer),
+                             static_cast<size_t>(cnLength));
+
+    std::optional<OpenSSLEVPKey> pPubKey = cert->getPubKey();
+    if (!pPubKey)
+    {
+        BMCWEB_LOG_ERROR("Failed to get public key");
+        return;
+    }
+    int isSelfSigned = cert->verify(*pPubKey);
+
+    BMCWEB_LOG_DEBUG(
+        "Current HTTPs Certificate Subject CN: {}, New HostName: {}, isSelfSigned: {}",
+        cnValue, hostname, isSelfSigned);
+
+    ASN1_IA5STRING* asn1 = static_cast<ASN1_IA5STRING*>(
+        X509_get_ext_d2i(cert->get(), NID_netscape_comment, nullptr, nullptr));
+    if (asn1 != nullptr)
+    {
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+        std::string_view comment(reinterpret_cast<const char*>(asn1->data),
+                                 static_cast<size_t>(asn1->length));
+        BMCWEB_LOG_DEBUG("x509Comment: {}", comment);
+
+        if (ensuressl::x509Comment == comment && isSelfSigned == 1 &&
+            cnValue != hostname)
+        {
+            BMCWEB_LOG_INFO(
+                "Ready to generate new HTTPs certificate with subject cn: {}",
+                hostname);
+
+            std::string certData = ensuressl::generateSslCertificate(hostname);
+            if (certData.empty())
+            {
+                BMCWEB_LOG_ERROR("Failed to generate cert");
+                return;
+            }
+            ensuressl::writeCertificateToFile("/tmp/hostname_cert.tmp",
+                                              certData);
+
+            installCertificate("/tmp/hostname_cert.tmp");
+        }
+        ASN1_STRING_free(asn1);
+    }
 }
 
 // Writes a certificate to a path, ignoring errors
@@ -271,11 +271,8 @@ void writeCertificateToFile(const std::string& filepath,
 static std::string constructX509(const std::string& cn, EVP_PKEY* pPrivKey)
 {
     std::string buffer;
-    X509* x509 = X509_new();
-    if (x509 == nullptr)
-    {
-        return buffer;
-    }
+    OpenSSLX509 x509Obj;
+    X509* x509 = x509Obj.get();
 
     // get a random number from the RNG for the certificate serial
     // number If this is not random, regenerating certs throws browser
@@ -297,83 +294,59 @@ static std::string constructX509(const std::string& cn, EVP_PKEY* pPrivKey)
     // get the subject name
     X509_NAME* name = X509_get_subject_name(x509);
 
-    using x509String = const unsigned char;
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    const auto* country = reinterpret_cast<x509String*>("US");
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    const auto* company = reinterpret_cast<x509String*>("OpenBMC");
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    const auto* cnStr = reinterpret_cast<x509String*>(cn.c_str());
+    std::array<unsigned char, 2> country = {'U', 'S'};
+    std::array<unsigned char, 8> company = {'O', 'p', 'e', 'n', 'B', 'M', 'C'};
+    const unsigned char* cnPtr = std::bit_cast<const unsigned char*>(cn.data());
+    int cnLength = static_cast<int>(cn.size());
 
-    X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country, -1, -1, 0);
-    X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, company, -1, -1, 0);
-    X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, cnStr, -1, -1, 0);
+    X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country.data(),
+                               country.size(), -1, 0);
+    X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, company.data(),
+                               company.size(), -1, 0);
+    X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, cnPtr, cnLength, -1,
+                               0);
     // set the CSR options
     X509_set_issuer_name(x509, name);
 
     X509_set_version(x509, 2);
-    addExt(x509, NID_basic_constraints, ("critical,CA:TRUE"));
-    addExt(x509, NID_subject_alt_name, ("DNS:" + cn).c_str());
-    addExt(x509, NID_subject_key_identifier, ("hash"));
-    addExt(x509, NID_authority_key_identifier, ("keyid"));
-    addExt(x509, NID_key_usage, ("digitalSignature, keyEncipherment"));
-    addExt(x509, NID_ext_key_usage, ("serverAuth"));
-    addExt(x509, NID_netscape_comment, (x509Comment));
+    x509Obj.addExt(NID_basic_constraints, ("critical,CA:TRUE"));
+    std::string subjectAltName = std::format("DNS:{}", cn);
+    x509Obj.addExt(NID_subject_alt_name, subjectAltName.c_str());
+    x509Obj.addExt(NID_subject_key_identifier, ("hash"));
+    x509Obj.addExt(NID_authority_key_identifier, ("keyid"));
+    x509Obj.addExt(NID_key_usage, ("digitalSignature, keyEncipherment"));
+    x509Obj.addExt(NID_ext_key_usage, ("serverAuth"));
+    x509Obj.addExt(NID_netscape_comment, (x509Comment));
 
     // Sign the certificate with our private key
     X509_sign(x509, pPrivKey, EVP_sha256());
 
-    BIO* bufio = BIO_new(BIO_s_mem());
+    OpenSSLBIO bufio;
 
-    int pkeyRet = PEM_write_bio_PrivateKey(bufio, pPrivKey, nullptr, nullptr, 0,
-                                           nullptr, nullptr);
+    int pkeyRet = PEM_write_bio_PrivateKey(bufio.get(), pPrivKey, nullptr,
+                                           nullptr, 0, nullptr, nullptr);
     if (pkeyRet <= 0)
     {
         BMCWEB_LOG_ERROR("Failed to write pkey with code {}.  Ignoring.",
                          pkeyRet);
     }
 
-    char* data = nullptr;
-    long int dataLen = BIO_get_mem_data(bufio, &data);
-    buffer += std::string_view(data, static_cast<size_t>(dataLen));
-    BIO_free(bufio);
+    buffer += bufio.getMemData();
 
-    bufio = BIO_new(BIO_s_mem());
-    pkeyRet = PEM_write_bio_X509(bufio, x509);
+    OpenSSLBIO bufio2;
+    pkeyRet = PEM_write_bio_X509(bufio2.get(), x509);
     if (pkeyRet <= 0)
     {
         BMCWEB_LOG_ERROR("Failed to write X509 with code {}.  Ignoring.",
                          pkeyRet);
     }
-    dataLen = BIO_get_mem_data(bufio, &data);
-    buffer += std::string_view(data, static_cast<size_t>(dataLen));
+    buffer += bufio2.getMemData();
 
-    BIO_free(bufio);
     BMCWEB_LOG_INFO("Cert size is {}", buffer.size());
-    X509_free(x509);
     return buffer;
 }
 
-std::string generateSslCertificate(const std::string& cn)
-{
-    BMCWEB_LOG_INFO("Generating new keys");
-
-    std::string buffer;
-    BMCWEB_LOG_INFO("Generating EC key");
-    EVP_PKEY* pPrivKey = createEcKey();
-    if (pPrivKey != nullptr)
-    {
-        BMCWEB_LOG_INFO("Generating x509 Certificates");
-        // Use this code to directly generate a certificate
-        buffer = constructX509(cn, pPrivKey);
-    }
-
-    EVP_PKEY_free(pPrivKey);
-
-    return buffer;
-}
-
-EVP_PKEY* createEcKey()
+static EVP_PKEY* createEcKey()
 {
     EVP_PKEY* pKey = nullptr;
 
@@ -415,6 +388,25 @@ EVP_PKEY* createEcKey()
     }
 
     return pKey;
+}
+
+std::string generateSslCertificate(const std::string& cn)
+{
+    BMCWEB_LOG_INFO("Generating new keys");
+
+    std::string buffer;
+    BMCWEB_LOG_INFO("Generating EC key");
+    EVP_PKEY* pPrivKey = createEcKey();
+    if (pPrivKey != nullptr)
+    {
+        BMCWEB_LOG_INFO("Generating x509 Certificates");
+        // Use this code to directly generate a certificate
+        buffer = constructX509(cn, pPrivKey);
+    }
+
+    EVP_PKEY_free(pPrivKey);
+
+    return buffer;
 }
 
 std::string ensureOpensslKeyPresentAndValid(const std::string& filepath)
