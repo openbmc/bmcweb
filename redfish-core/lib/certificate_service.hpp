@@ -65,8 +65,6 @@ constexpr const char* certInstallIntf = "xyz.openbmc_project.Certs.Install";
 constexpr const char* certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
 constexpr const char* objDeleteIntf = "xyz.openbmc_project.Object.Delete";
 constexpr const char* certPropIntf = "xyz.openbmc_project.Certs.Certificate";
-constexpr const char* dbusPropIntf = "org.freedesktop.DBus.Properties";
-constexpr const char* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
 constexpr const char* httpsServiceName =
     "xyz.openbmc_project.Certs.Manager.Server.Https";
 constexpr const char* ldapServiceName =
