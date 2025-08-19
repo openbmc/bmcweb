@@ -9,6 +9,8 @@
 
 #include <memory>
 
+std::string getCommonNameFromCert(X509* cert);
+
 std::shared_ptr<persistent_data::UserSession> verifyMtlsUser(
     const boost::asio::ip::address& clientIp,
     boost::asio::ssl::verify_context& ctx);
