@@ -33,6 +33,23 @@
       "message": "Please add reference to the design which is under discussion.",
       "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa0517a0_815a0d0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-08-19T21:48:14Z",
+      "side": 1,
+      "message": "@gunnar@gmills.xyz Thanks for adding me to this PR.",
+      "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
