@@ -22,6 +22,30 @@
       },
       "revId": "1d6f0a97d214fb8f595b33ed541ace82005698dc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba5b1e65_80eac489",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-08-19T13:09:36Z",
+      "side": 1,
+      "message": "thanks for your suggestion! I made some unit tests for the extracted function, let me know if you have further input on the unit tests, thanks!",
+      "parentUuid": "fefac245_40414731",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 10
+      },
+      "revId": "1d6f0a97d214fb8f595b33ed541ace82005698dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
