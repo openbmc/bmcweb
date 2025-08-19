@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "duplicatable_file_handle.hpp"
+#include "ossl_test_memory.hpp"
 #include "ssl_key_handler.hpp"
 
 #include <string>
 
 #include <gtest/gtest.h>
+
+static const OpenSSLTestMemory osslInit;
 
 namespace ensuressl
 {
