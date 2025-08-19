@@ -9,7 +9,7 @@
 #include "http_request.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
-#include "sensors.hpp"
+#include "sensors_async_response.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/sensor_utils.hpp"
 
