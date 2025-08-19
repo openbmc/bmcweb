@@ -8,7 +8,6 @@
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "boost_formatters.hpp"
-#include "certificate_service.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/account_service.hpp"
@@ -1283,8 +1282,10 @@ inline void handleAccountServiceClientCertificatesInstanceGet(
     const boost::urls::url certURL = boost::urls::format(
         "/redfish/v1/AccountService/MultiFactorAuth/ClientCertificate/Certificates/{}",
         id);
-    std::string objPath =
-        sdbusplus::message::object_path(certs::authorityObjectPath) / id;
+    sdbusplus::message::object_path objPath(
+        "/xyz/openbmc_project/certs/authority/truststore");
+    objPath /= id;
+
     getCertificateProperties(
         asyncResp, objPath,
         "xyz.openbmc_project.Certs.Manager.Authority.Truststore", id, certURL,
