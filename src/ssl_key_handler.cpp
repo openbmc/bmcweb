@@ -268,6 +268,91 @@ void writeCertificateToFile(const std::string& filepath,
     }
 }
 
+static std::string constructX509(const std::string& cn, EVP_PKEY* pPrivKey)
+{
+    std::string buffer;
+    X509* x509 = X509_new();
+    if (x509 == nullptr)
+    {
+        return buffer;
+    }
+    // get a random number from the RNG for the certificate serial
+    // number If this is not random, regenerating certs throws browser
+    // errors
+    bmcweb::OpenSSLGenerator gen;
+    std::uniform_int_distribution<int> dis(1, std::numeric_limits<int>::max());
+    int serial = dis(gen);
+
+    ASN1_INTEGER_set(X509_get_serialNumber(x509), serial);
+
+    // not before this moment
+    X509_gmtime_adj(X509_get_notBefore(x509), 0);
+    // Cert is valid for 10 years
+    X509_gmtime_adj(X509_get_notAfter(x509), 60L * 60L * 24L * 365L * 10L);
+
+    // set the public key to the key we just generated
+    X509_set_pubkey(x509, pPrivKey);
+
+    // get the subject name
+    X509_NAME* name = X509_get_subject_name(x509);
+
+    using x509String = const unsigned char;
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    const auto* country = reinterpret_cast<x509String*>("US");
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    const auto* company = reinterpret_cast<x509String*>("OpenBMC");
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    const auto* cnStr = reinterpret_cast<x509String*>(cn.c_str());
+
+    X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country, -1, -1, 0);
+    X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, company, -1, -1, 0);
+    X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, cnStr, -1, -1, 0);
+    // set the CSR options
+    X509_set_issuer_name(x509, name);
+
+    X509_set_version(x509, 2);
+    addExt(x509, NID_basic_constraints, ("critical,CA:TRUE"));
+    addExt(x509, NID_subject_alt_name, ("DNS:" + cn).c_str());
+    addExt(x509, NID_subject_key_identifier, ("hash"));
+    addExt(x509, NID_authority_key_identifier, ("keyid"));
+    addExt(x509, NID_key_usage, ("digitalSignature, keyEncipherment"));
+    addExt(x509, NID_ext_key_usage, ("serverAuth"));
+    addExt(x509, NID_netscape_comment, (x509Comment));
+
+    // Sign the certificate with our private key
+    X509_sign(x509, pPrivKey, EVP_sha256());
+
+    BIO* bufio = BIO_new(BIO_s_mem());
+
+    int pkeyRet = PEM_write_bio_PrivateKey(bufio, pPrivKey, nullptr, nullptr, 0,
+                                           nullptr, nullptr);
+    if (pkeyRet <= 0)
+    {
+        BMCWEB_LOG_ERROR("Failed to write pkey with code {}.  Ignoring.",
+                         pkeyRet);
+    }
+
+    char* data = nullptr;
+    long int dataLen = BIO_get_mem_data(bufio, &data);
+    buffer += std::string_view(data, static_cast<size_t>(dataLen));
+    BIO_free(bufio);
+
+    bufio = BIO_new(BIO_s_mem());
+    pkeyRet = PEM_write_bio_X509(bufio, x509);
+    if (pkeyRet <= 0)
+    {
+        BMCWEB_LOG_ERROR("Failed to write X509 with code {}.  Ignoring.",
+                         pkeyRet);
+    }
+    dataLen = BIO_get_mem_data(bufio, &data);
+    buffer += std::string_view(data, static_cast<size_t>(dataLen));
+
+    BIO_free(bufio);
+    BMCWEB_LOG_INFO("Cert size is {}", buffer.size());
+    X509_free(x509);
+    return buffer;
+}
+
 std::string generateSslCertificate(const std::string& cn)
 {
     BMCWEB_LOG_INFO("Generating new keys");
@@ -275,99 +360,16 @@ std::string generateSslCertificate(const std::string& cn)
     std::string buffer;
     BMCWEB_LOG_INFO("Generating EC key");
     EVP_PKEY* pPrivKey = createEcKey();
-    if (pPrivKey != nullptr)
+    if (pPrivKey == nullptr)
     {
-        BMCWEB_LOG_INFO("Generating x509 Certificates");
-        // Use this code to directly generate a certificate
-        X509* x509 = X509_new();
-        if (x509 != nullptr)
-        {
-            // get a random number from the RNG for the certificate serial
-            // number If this is not random, regenerating certs throws browser
-            // errors
-            bmcweb::OpenSSLGenerator gen;
-            std::uniform_int_distribution<int> dis(
-                1, std::numeric_limits<int>::max());
-            int serial = dis(gen);
-
-            ASN1_INTEGER_set(X509_get_serialNumber(x509), serial);
-
-            // not before this moment
-            X509_gmtime_adj(X509_get_notBefore(x509), 0);
-            // Cert is valid for 10 years
-            X509_gmtime_adj(X509_get_notAfter(x509),
-                            60L * 60L * 24L * 365L * 10L);
-
-            // set the public key to the key we just generated
-            X509_set_pubkey(x509, pPrivKey);
-
-            // get the subject name
-            X509_NAME* name = X509_get_subject_name(x509);
-
-            using x509String = const unsigned char;
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            const auto* country = reinterpret_cast<x509String*>("US");
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            const auto* company = reinterpret_cast<x509String*>("OpenBMC");
-            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            const auto* cnStr = reinterpret_cast<x509String*>(cn.c_str());
-
-            X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country, -1, -1,
-                                       0);
-            X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, company, -1, -1,
-                                       0);
-            X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, cnStr, -1, -1,
-                                       0);
-            // set the CSR options
-            X509_set_issuer_name(x509, name);
-
-            X509_set_version(x509, 2);
-            addExt(x509, NID_basic_constraints, ("critical,CA:TRUE"));
-            addExt(x509, NID_subject_alt_name, ("DNS:" + cn).c_str());
-            addExt(x509, NID_subject_key_identifier, ("hash"));
-            addExt(x509, NID_authority_key_identifier, ("keyid"));
-            addExt(x509, NID_key_usage, ("digitalSignature, keyEncipherment"));
-            addExt(x509, NID_ext_key_usage, ("serverAuth"));
-            addExt(x509, NID_netscape_comment, (x509Comment));
-
-            // Sign the certificate with our private key
-            X509_sign(x509, pPrivKey, EVP_sha256());
-
-            BIO* bufio = BIO_new(BIO_s_mem());
-
-            int pkeyRet = PEM_write_bio_PrivateKey(
-                bufio, pPrivKey, nullptr, nullptr, 0, nullptr, nullptr);
-            if (pkeyRet <= 0)
-            {
-                BMCWEB_LOG_ERROR(
-                    "Failed to write pkey with code {}.  Ignoring.", pkeyRet);
-            }
-
-            char* data = nullptr;
-            long int dataLen = BIO_get_mem_data(bufio, &data);
-            buffer += std::string_view(data, static_cast<size_t>(dataLen));
-            BIO_free(bufio);
-
-            bufio = BIO_new(BIO_s_mem());
-            pkeyRet = PEM_write_bio_X509(bufio, x509);
-            if (pkeyRet <= 0)
-            {
-                BMCWEB_LOG_ERROR(
-                    "Failed to write X509 with code {}.  Ignoring.", pkeyRet);
-            }
-            dataLen = BIO_get_mem_data(bufio, &data);
-            buffer += std::string_view(data, static_cast<size_t>(dataLen));
-
-            BIO_free(bufio);
-            BMCWEB_LOG_INFO("Cert size is {}", buffer.size());
-            X509_free(x509);
-        }
-
-        EVP_PKEY_free(pPrivKey);
-        pPrivKey = nullptr;
+        return buffer;
     }
+    BMCWEB_LOG_INFO("Generating x509 Certificates");
+    // Use this code to directly generate a certificate
+    buffer = constructX509(cn, pPrivKey);
 
-    // cleanup_openssl();
+    EVP_PKEY_free(pPrivKey);
+
     return buffer;
 }
 
