@@ -14,7 +14,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
-#include "sensors.hpp"
+#include "sensors_async_response.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
