@@ -62,64 +62,6 @@ const static std::array<std::pair<std::string_view, std::string_view>, 2>
     protocolToDBusForSystems{
         {{"SSH", "obmc-console-ssh"}, {"IPMI", "phosphor-ipmi-net"}}};
 
-/**
- * @brief Updates the Functional State of DIMMs
- *
- * @param[in] asyncResp Shared pointer for completing asynchronous calls
- * @param[in] dimmState Dimm's Functional state, true/false
- *
- * @return None.
- */
-inline void updateDimmProperties(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool isDimmFunctional)
-{
-    BMCWEB_LOG_DEBUG("Dimm Functional: {}", isDimmFunctional);
-
-    // Set it as Enabled if at least one DIMM is functional
-    // Update STATE only if previous State was DISABLED and current Dimm is
-    // ENABLED.
-    const nlohmann::json& prevMemSummary =
-        asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"];
-    if (prevMemSummary == "Disabled")
-    {
-        if (isDimmFunctional)
-        {
-            asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
-                "Enabled";
-        }
-    }
-}
-
-/*
- * @brief Update "ProcessorSummary" "Status" "State" based on
- *        CPU Functional State
- *
- * @param[in] asyncResp Shared pointer for completing asynchronous calls
- * @param[in] cpuFunctionalState is CPU functional true/false
- *
- * @return None.
- */
-inline void modifyCpuFunctionalState(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool isCpuFunctional)
-{
-    BMCWEB_LOG_DEBUG("Cpu Functional: {}", isCpuFunctional);
-
-    const nlohmann::json& prevProcState =
-        asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"];
-
-    // Set it as Enabled if at least one CPU is functional
-    // Update STATE only if previous State was Non_Functional and current CPU is
-    // Functional.
-    if (prevProcState == "Disabled")
-    {
-        if (isCpuFunctional)
-        {
-            asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
-                "Enabled";
-        }
-    }
-}
-
 /*
  * @brief Update "ProcessorSummary" "Count" based on Cpu PresenceState
  *

@@ -194,17 +194,6 @@ inline void handleSessionCollectionGet(
     asyncResp->res.jsonValue["Description"] = "Session Collection";
 }
 
-inline void handleSessionCollectionMembersGet(
-    crow::App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-    asyncResp->res.jsonValue = getSessionCollectionMembers();
-}
-
 inline void processAfterSessionCreation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const crow::Request& req, const std::string& username,
