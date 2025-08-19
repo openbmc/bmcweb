@@ -239,7 +239,7 @@ struct AuthConfigMethods
             {
                 if (element.first == "MTLSCommonNameParseMode")
                 {
-                    MTLSCommonNameParseMode tmpMTLSCommonNameParseMode =
+                    auto tmpMTLSCommonNameParseMode =
                         static_cast<MTLSCommonNameParseMode>(*intValue);
                     if (tmpMTLSCommonNameParseMode <=
                         MTLSCommonNameParseMode::UserPrincipalName)

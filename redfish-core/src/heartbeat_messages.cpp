@@ -35,7 +35,7 @@ static nlohmann::json::object_t getLog(
     redfish::registries::HeartbeatEvent::Index name,
     std::span<const std::string_view> args)
 {
-    size_t index = static_cast<size_t>(name);
+    auto index = static_cast<size_t>(name);
     if (index >= redfish::registries::HeartbeatEvent::registry.size())
     {
         return {};

@@ -419,7 +419,7 @@ bool applyFilterToCollection(nlohmann::json& body,
         BMCWEB_LOG_ERROR("Requested filter wasn't an object????");
         return false;
     }
-    json::object_t::iterator members = obj->find("Members");
+    auto members = obj->find("Members");
     if (members == obj->end())
     {
         BMCWEB_LOG_ERROR("Collection didn't have members?");
@@ -432,7 +432,7 @@ bool applyFilterToCollection(nlohmann::json& body,
         return false;
     }
 
-    json::array_t::iterator it = memberArr->begin();
+    auto it = memberArr->begin();
     size_t index = 0;
     while (it != memberArr->end())
     {

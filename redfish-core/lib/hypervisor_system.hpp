@@ -543,8 +543,7 @@ inline void handleHypervisorIPv4StaticPatch(
     // as the Hypervisor's virtual management interface supports single IPv4
     // address
     std::variant<nlohmann::json::object_t, std::nullptr_t>& thisJson = input[0];
-    nlohmann::json::object_t* obj =
-        std::get_if<nlohmann::json::object_t>(&thisJson);
+    auto* obj = std::get_if<nlohmann::json::object_t>(&thisJson);
     if (obj == nullptr)
     {
         deleteHypervisorIPv4(ifaceId, asyncResp);

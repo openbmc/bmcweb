@@ -231,7 +231,7 @@ class Router
             {
                 findRoute.allowHeader += ", ";
             }
-            HttpVerb thisVerb = static_cast<HttpVerb>(perMethodIndex);
+            auto thisVerb = static_cast<HttpVerb>(perMethodIndex);
             findRoute.allowHeader += httpVerbToString(thisVerb);
         }
 
@@ -240,7 +240,7 @@ class Router
         {
             return findRoute;
         }
-        size_t reqMethodIndex = static_cast<size_t>(*verb);
+        auto reqMethodIndex = static_cast<size_t>(*verb);
         if (reqMethodIndex >= perMethods.size())
         {
             return findRoute;

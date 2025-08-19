@@ -1227,7 +1227,7 @@ inline void setReportMetrics(
             for (std::variant<nlohmann::json::object_t, std::nullptr_t>&
                      metricVariant : redfishMetrics)
             {
-                nlohmann::json::object_t* metric =
+                auto* metric =
                     std::get_if<nlohmann::json::object_t>(&metricVariant);
                 if (metric == nullptr)
                 {

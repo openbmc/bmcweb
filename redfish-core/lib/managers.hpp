@@ -463,7 +463,7 @@ inline void setActiveFirmwareImage(
             bool foundImage = false;
             for (const auto& object : subtree)
             {
-                const std::string& path =
+                const auto& path =
                     static_cast<const std::string&>(object.first);
                 std::size_t idPos2 = path.rfind('/');
 

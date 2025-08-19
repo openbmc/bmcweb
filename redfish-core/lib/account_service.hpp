@@ -387,8 +387,7 @@ inline void handleRoleMapPatch(
     {
         std::variant<nlohmann::json::object_t, std::nullptr_t>& thisJson =
             input[index];
-        nlohmann::json::object_t* obj =
-            std::get_if<nlohmann::json::object_t>(&thisJson);
+        auto* obj = std::get_if<nlohmann::json::object_t>(&thisJson);
         if (obj == nullptr)
         {
             // delete the existing object

@@ -1050,7 +1050,7 @@ void getInventoryItemsData(
                 // Loop through returned object paths
                 for (const auto& objDictEntry : resp)
                 {
-                    const std::string& objPath =
+                    const auto& objPath =
                         static_cast<const std::string&>(objDictEntry.first);
 
                     // If this object path is one of the specified inventory
@@ -1212,7 +1212,7 @@ void getInventoryItemAssociations(
             sensorAssocPath.reserve(128); // avoid memory allocations
             for (const auto& objDictEntry : resp)
             {
-                const std::string& objPath =
+                const auto& objPath =
                     static_cast<const std::string&>(objDictEntry.first);
 
                 // If path is inventory association for one of the specified
@@ -1262,7 +1262,7 @@ void getInventoryItemAssociations(
             inventoryAssocPath.reserve(128); // avoid memory allocations
             for (const auto& objDictEntry : resp)
             {
-                const std::string& objPath =
+                const auto& objPath =
                     static_cast<const std::string&>(objDictEntry.first);
 
                 for (InventoryItem& inventoryItem : *inventoryItems)
@@ -1904,7 +1904,7 @@ inline void getSensorData(
                 // Go through all objects and update response with sensor data
                 for (const auto& objDictEntry : resp)
                 {
-                    const std::string& objPath =
+                    const auto& objPath =
                         static_cast<const std::string&>(objDictEntry.first);
                     BMCWEB_LOG_DEBUG("getManagedObjectsCb parsing object {}",
                                      objPath);
@@ -2335,7 +2335,7 @@ template <typename Callback>
 inline void retrieveUriToDbusMap(
     const std::string& chassis, const std::string& node, Callback&& mapComplete)
 {
-    decltype(sensors::paths)::const_iterator pathIt =
+    auto pathIt =
         std::find_if(sensors::paths.cbegin(), sensors::paths.cend(),
                      [&node](auto&& val) { return val.first == node; });
     if (pathIt == sensors::paths.cend())

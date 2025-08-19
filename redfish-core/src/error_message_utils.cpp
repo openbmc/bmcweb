@@ -68,7 +68,7 @@ void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source)
         return;
     }
 
-    nlohmann::json::object_t::iterator errorIt = sourceObj->find("error");
+    auto errorIt = sourceObj->find("error");
     if (errorIt == sourceObj->end())
     {
         // caller puts error message in root
@@ -83,8 +83,7 @@ void moveErrorsToErrorJson(nlohmann::json& target, nlohmann::json& source)
         return;
     }
 
-    nlohmann::json::object_t::iterator extendedInfoIt =
-        errorObj->find(messages::messageAnnotation);
+    auto extendedInfoIt = errorObj->find(messages::messageAnnotation);
     if (extendedInfoIt == errorObj->end())
     {
         return;

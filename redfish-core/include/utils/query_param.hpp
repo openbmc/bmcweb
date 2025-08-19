@@ -894,7 +894,7 @@ inline void processTopAndSkip(const Query& query, crow::Response& res)
     }
 
     BMCWEB_LOG_DEBUG("Handling top/skip");
-    nlohmann::json::object_t::iterator members = obj->find("Members");
+    auto members = obj->find("Members");
     if (members == obj->end())
     {
         // From the Redfish specification 7.3.1

@@ -76,7 +76,7 @@ static void dumpEscaped(std::string& out, const std::string& str)
 
     for (std::size_t i = 0; i < str.size(); ++i)
     {
-        const uint8_t byte = static_cast<uint8_t>(str[i]);
+        const auto byte = static_cast<uint8_t>(str[i]);
 
         switch (decode(state, codePoint, byte))
         {

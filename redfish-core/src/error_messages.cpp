@@ -43,7 +43,7 @@ namespace messages
 static nlohmann::json::object_t getLog(redfish::registries::Base::Index name,
                                        std::span<const std::string_view> args)
 {
-    size_t index = static_cast<size_t>(name);
+    auto index = static_cast<size_t>(name);
     if (index >= redfish::registries::Base::registry.size())
     {
         return {};

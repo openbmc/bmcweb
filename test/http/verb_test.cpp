@@ -27,7 +27,7 @@ TEST(BoostToHttpVerb, ValidCase)
     for (int verbIndex = 0; verbIndex < static_cast<int>(HttpVerb::Max);
          ++verbIndex)
     {
-        HttpVerb httpVerb = static_cast<HttpVerb>(verbIndex);
+        auto httpVerb = static_cast<HttpVerb>(verbIndex);
         std::optional<HttpVerb> verb = httpVerbFromBoost(verbMap[httpVerb]);
         EXPECT_EQ(verb, httpVerb);
     }
@@ -51,7 +51,7 @@ TEST(HttpVerbToStringTest, ValidCase)
     for (int verbIndex = 0; verbIndex < static_cast<int>(HttpVerb::Max);
          ++verbIndex)
     {
-        HttpVerb httpVerb = static_cast<HttpVerb>(verbIndex);
+        auto httpVerb = static_cast<HttpVerb>(verbIndex);
         EXPECT_EQ(httpVerbToString(httpVerb), verbMap[httpVerb]);
     }
 }

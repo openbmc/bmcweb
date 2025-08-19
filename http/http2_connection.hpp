@@ -189,8 +189,8 @@ class HTTP2Connection :
     nghttp2_nv headerFromStringViews(std::string_view name,
                                      std::string_view value, uint8_t flags)
     {
-        uint8_t* nameData = std::bit_cast<uint8_t*>(name.data());
-        uint8_t* valueData = std::bit_cast<uint8_t*>(value.data());
+        auto* nameData = std::bit_cast<uint8_t*>(name.data());
+        auto* valueData = std::bit_cast<uint8_t*>(value.data());
         return {nameData, valueData, name.size(), value.size(), flags};
     }
 

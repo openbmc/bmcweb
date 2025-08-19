@@ -77,7 +77,7 @@ std::optional<std::chrono::milliseconds> fromDurationString(std::string_view v)
             BMCWEB_LOG_ERROR("Failed to convert string \"{}\" to decimal", v);
             return std::nullopt;
         }
-        size_t charactersRead = static_cast<size_t>(ptr - v.data());
+        auto charactersRead = static_cast<size_t>(ptr - v.data());
         if (ptr >= v.end())
         {
             BMCWEB_LOG_ERROR("Missing postfix");
