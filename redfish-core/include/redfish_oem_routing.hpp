@@ -179,7 +179,7 @@ class OemRouter
         {
             return findRoute;
         }
-        size_t reqMethodIndex = static_cast<size_t>(*verb);
+        auto reqMethodIndex = static_cast<size_t>(*verb);
         if (reqMethodIndex >= perMethods.size())
         {
             return findRoute;
