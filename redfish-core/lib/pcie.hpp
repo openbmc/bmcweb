@@ -709,25 +709,6 @@ inline void requestRoutesSystemPCIeFunctionCollection(App& app)
             std::bind_front(handlePCIeFunctionCollectionGet, std::ref(app)));
 }
 
-inline bool validatePCIeFunctionId(
-    uint64_t pcieFunctionId,
-    const dbus::utility::DBusPropertiesMap& pcieDevProperties)
-{
-    std::string functionName = "Function" + std::to_string(pcieFunctionId);
-    std::string devIDProperty = functionName + "DeviceId";
-
-    const std::string* devIdProperty = nullptr;
-    for (const auto& property : pcieDevProperties)
-    {
-        if (property.first == devIDProperty)
-        {
-            devIdProperty = std::get_if<std::string>(&property.second);
-            break;
-        }
-    }
-    return (devIdProperty != nullptr && !devIdProperty->empty());
-}
-
 inline void addPCIeFunctionProperties(
     crow::Response& resp, uint64_t pcieFunctionId,
     const dbus::utility::DBusPropertiesMap& pcieDevProperties)
