@@ -802,8 +802,8 @@ inline int objectKeyCmp(std::string_view key, const nlohmann::json& a,
     {
         return 1;
     }
-    object_t::const_iterator aIt = aObj->find(key);
-    object_t::const_iterator bIt = bObj->find(key);
+    auto aIt = aObj->find(key);
+    auto bIt = bObj->find(key);
     // If either object doesn't have the key, they get "sorted" to the
     // beginning.
     if (aIt == aObj->end())

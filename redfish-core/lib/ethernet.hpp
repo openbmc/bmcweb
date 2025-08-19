@@ -1034,8 +1034,7 @@ inline void handleIPv6DefaultGateway(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     size_t entryIdx = 1;
-    std::vector<StaticGatewayData>::const_iterator staticGatewayEntry =
-        staticGatewayData.begin();
+    auto staticGatewayEntry = staticGatewayData.begin();
 
     for (std::variant<nlohmann::json::object_t, std::nullptr_t>& thisJson :
          input)
@@ -1052,8 +1051,7 @@ inline void handleIPv6DefaultGateway(
         }
         std::string pathString =
             "IPv6StaticDefaultGateways/" + std::to_string(entryIdx);
-        nlohmann::json::object_t* obj =
-            std::get_if<nlohmann::json::object_t>(&thisJson);
+        auto* obj = std::get_if<nlohmann::json::object_t>(&thisJson);
         if (obj == nullptr)
         {
             if (staticGatewayEntry == staticGatewayData.end())
@@ -1523,8 +1521,7 @@ inline bool parseAddresses(
     const std::vector<IPv4AddressData>& ipv4Data, crow::Response& res,
     std::vector<AddressPatch>& addressesOut, std::string& gatewayOut)
 {
-    std::vector<IPv4AddressData>::const_iterator nicIpEntry =
-        getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
+    auto nicIpEntry = getNextStaticIpEntry(ipv4Data.cbegin(), ipv4Data.cend());
 
     std::string lastGatewayPath;
     size_t entryIdx = 0;
@@ -1534,8 +1531,7 @@ inline bool parseAddresses(
         std::string pathString =
             std::format("IPv4StaticAddresses/{}", entryIdx);
         AddressPatch& thisAddress = addressesOut.emplace_back();
-        nlohmann::json::object_t* obj =
-            std::get_if<nlohmann::json::object_t>(&thisJson);
+        auto* obj = std::get_if<nlohmann::json::object_t>(&thisJson);
         if (nicIpEntry != ipv4Data.cend())
         {
             thisAddress.existingDbusId = nicIpEntry->id;
@@ -1775,15 +1771,13 @@ inline void handleIPv6StaticAddressesPatch(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     size_t entryIdx = 1;
-    std::vector<IPv6AddressData>::const_iterator nicIpEntry =
-        getNextStaticIpEntry(ipv6Data.cbegin(), ipv6Data.cend());
+    auto nicIpEntry = getNextStaticIpEntry(ipv6Data.cbegin(), ipv6Data.cend());
     for (std::variant<nlohmann::json::object_t, std::nullptr_t>& thisJson :
          input)
     {
         std::string pathString =
             "IPv6StaticAddresses/" + std::to_string(entryIdx);
-        nlohmann::json::object_t* obj =
-            std::get_if<nlohmann::json::object_t>(&thisJson);
+        auto* obj = std::get_if<nlohmann::json::object_t>(&thisJson);
         if (obj != nullptr && !obj->empty())
         {
             std::optional<std::string> address;

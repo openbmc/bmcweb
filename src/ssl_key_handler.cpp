@@ -306,11 +306,11 @@ std::string generateSslCertificate(const std::string& cn)
 
             using x509String = const unsigned char;
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* country = reinterpret_cast<x509String*>("US");
+            auto* country = reinterpret_cast<x509String*>("US");
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* company = reinterpret_cast<x509String*>("OpenBMC");
+            auto* company = reinterpret_cast<x509String*>("OpenBMC");
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            x509String* cnStr = reinterpret_cast<x509String*>(cn.c_str());
+            auto* cnStr = reinterpret_cast<x509String*>(cn.c_str());
 
             X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, country, -1, -1,
                                        0);

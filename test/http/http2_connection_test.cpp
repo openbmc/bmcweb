@@ -72,7 +72,7 @@ void unpackHeaders(std::string_view dataField,
     {
         nghttp2_nv nv;
         int inflateFlags = 0;
-        const uint8_t* data = std::bit_cast<const uint8_t*>(dataField.data());
+        const auto* data = std::bit_cast<const uint8_t*>(dataField.data());
         ssize_t parsed =
             inflater.hd2(&nv, &inflateFlags, data, dataField.size(), 1);
 

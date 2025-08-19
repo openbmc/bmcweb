@@ -50,8 +50,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         BMCWEB_LOG_ERROR("Got sdbus error on match");
         return 0;
     }
-    crow::websocket::Connection* connection =
-        static_cast<crow::websocket::Connection*>(userdata);
+    auto* connection = static_cast<crow::websocket::Connection*>(userdata);
     auto thisSession = sessions.find(connection);
     if (thisSession == sessions.end())
     {

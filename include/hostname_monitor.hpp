@@ -123,7 +123,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* /* userdata */,
         "Current HTTPs Certificate Subject CN: {}, New HostName: {}, isSelfSigned: {}",
         cnValue, *hostname, isSelfSigned);
 
-    ASN1_IA5STRING* asn1 = static_cast<ASN1_IA5STRING*>(
+    auto* asn1 = static_cast<ASN1_IA5STRING*>(
         X509_get_ext_d2i(cert, NID_netscape_comment, nullptr, nullptr));
     if (asn1 != nullptr)
     {

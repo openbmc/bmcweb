@@ -817,7 +817,7 @@ class ConnectionPool : public std::enable_shared_from_this<ConnectionPool>
 
     std::shared_ptr<ConnectionInfo>& addConnection()
     {
-        unsigned int newId = static_cast<unsigned int>(connections.size());
+        auto newId = static_cast<unsigned int>(connections.size());
 
         auto& ret = connections.emplace_back(std::make_shared<ConnectionInfo>(
             ioc, id, connPolicy, destIP, verifyCert, newId));

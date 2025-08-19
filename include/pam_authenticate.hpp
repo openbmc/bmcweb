@@ -93,7 +93,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msgs,
         return PAM_CONV_ERR;
     }
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    PasswordData* appPass = reinterpret_cast<PasswordData*>(appdataPtr);
+    auto* appPass = reinterpret_cast<PasswordData*>(appdataPtr);
     auto msgCount = static_cast<size_t>(numMsg);
     // NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays)
     auto responseArrPtr = std::make_unique<pam_response[]>(msgCount);

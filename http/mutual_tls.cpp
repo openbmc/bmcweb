@@ -95,7 +95,7 @@ bool isUPNMatch(std::string_view upn, std::string_view hostname)
 
 std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
 {
-    GENERAL_NAMES* gs = static_cast<GENERAL_NAMES*>(
+    auto* gs = static_cast<GENERAL_NAMES*>(
         X509_get_ext_d2i(peerCert, NID_subject_alt_name, nullptr, nullptr));
     if (gs == nullptr)
     {
@@ -126,7 +126,7 @@ std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
 
         char* upnChar =
             std::bit_cast<char*>(g->d.otherName->value->value.utf8string->data);
-        unsigned int upnLen = static_cast<unsigned int>(
+        auto upnLen = static_cast<unsigned int>(
             g->d.otherName->value->value.utf8string->length);
         // NOLINTEND(cppcoreguidelines-pro-type-union-access)
 

@@ -300,8 +300,7 @@ inline void handleNTPServersPatch(
     const std::vector<IpAddress>& ntpServerObjects,
     std::vector<std::string> currentNtpServers)
 {
-    std::vector<std::string>::iterator currentNtpServer =
-        currentNtpServers.begin();
+    auto currentNtpServer = currentNtpServers.begin();
     for (size_t index = 0; index < ntpServerObjects.size(); index++)
     {
         const IpAddress& ntpServer = ntpServerObjects[index];
