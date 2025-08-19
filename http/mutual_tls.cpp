@@ -4,6 +4,7 @@
 
 #include "identity.hpp"
 #include "mutual_tls_private.hpp"
+#include "ossl_wrappers.hpp"
 #include "sessions.hpp"
 
 #include <bit>
@@ -93,17 +94,13 @@ bool isUPNMatch(std::string_view upn, std::string_view hostname)
 
 std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
 {
-    GENERAL_NAMES* gs = static_cast<GENERAL_NAMES*>(
-        X509_get_ext_d2i(peerCert, NID_subject_alt_name, nullptr, nullptr));
-    if (gs == nullptr)
-    {
-        return "";
-    }
+    OpenSSLGeneralNames gs =
+        OpenSSLGeneralNames::fromExt(peerCert, NID_subject_alt_name);
 
     std::string ret;
-    for (int i = 0; i < sk_GENERAL_NAME_num(gs); i++)
+    for (int i = 0; i < sk_GENERAL_NAME_num(gs.get()); i++)
     {
-        GENERAL_NAME* g = sk_GENERAL_NAME_value(gs, i);
+        GENERAL_NAME* g = sk_GENERAL_NAME_value(gs.get(), i);
         if (g->type != GEN_OTHERNAME)
         {
             continue;
@@ -138,11 +135,10 @@ std::string getUPNFromCert(X509* peerCert, std::string_view hostname)
         ret = upn.substr(0, upnDomainPos);
         break;
     }
-    GENERAL_NAMES_free(gs);
     return ret;
 }
 
-std::string getUsernameFromCert(X509* cert)
+static std::string getUsernameFromCert(X509* cert)
 {
     const persistent_data::AuthConfigMethods& authMethodsConfig =
         persistent_data::SessionStore::getInstance().getAuthMethodsConfig();
