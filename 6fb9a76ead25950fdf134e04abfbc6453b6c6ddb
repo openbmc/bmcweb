@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "223567eb_4e9f8daf",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 2137,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-20T13:01:24Z",
+      "side": 1,
+      "message": "For Gunnar\u0027s comment - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/76569/comment/b6ae7a90_b5fa0c8e/ to check the validity of the portId, should we do \n\n```\n  getEthernetIfaceList( [asyncResp](const bool\u0026 success,\n        const std::vector\u003cstd::string\u003e\u0026 ifaceList)\n        {\n             if(std::ranges::find(ifaceList, portId) \u003d\u003d ifaceList.end())\n             {\n                  messages::resourceNotFound(...);\n                  return;\n             }\n             setDbusProperty(...);\n         }\n```",
+      "revId": "6fb9a76ead25950fdf134e04abfbc6453b6c6ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a883227a_11c01684",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 2145,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-20T13:01:24Z",
+      "side": 1,
+      "message": "I think it is better to have a blank line between functions.\n```\n}\n\ninline void handleGetLLDPEnabled()\n{\n...\n}\n```",
+      "revId": "6fb9a76ead25950fdf134e04abfbc6453b6c6ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72ff98af_e20a7b8e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 2196,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-20T13:01:24Z",
+      "side": 1,
+      "message": "This can be done using `dbus::utility::getProperty\u003cbool\u003e()`",
+      "revId": "6fb9a76ead25950fdf134e04abfbc6453b6c6ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1454be0_784e1c8f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 2247,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-20T13:01:24Z",
+      "side": 1,
+      "message": "Does this mean that DedicatedNetworkPorts (`/redfish/v1/Managers/\u003cstr\u003e/DedicatedNetworkPorts/`) is same as the collection of system ethernet networks (`/redfish/v1/Managers/\u003cstr\u003e/EthernetInterfaces/`)?",
+      "revId": "6fb9a76ead25950fdf134e04abfbc6453b6c6ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
