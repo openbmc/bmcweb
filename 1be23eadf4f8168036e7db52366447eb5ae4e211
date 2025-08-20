@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f55263e_fe72ce07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-20T00:54:57Z",
+      "side": 1,
+      "message": "Can we get some unit tests for the new hashing functions added please?",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a103fd02_88408fe5",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-20T00:54:57Z",
+      "side": 1,
+      "message": "The naming of this isn\u0027t great now.  \"compute\" would imply that it\u0027s not being pulled from a cache.  Maybe rename to \"get\"?",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a68b312c_f9a9a6c1",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-20T00:54:57Z",
+      "side": 1,
+      "message": "Please don\u0027t use things from the libraries details namespace.  There\u0027s two solutions to this:\n1. Hash combine is pretty simple.  We can inline the implementation.\n2. I believe boost has a public hash combine.\n\nI\u0027d probably prefer the first",
+      "range": {
+        "startLine": 958,
+        "startChar": 28,
+        "endLine": 958,
+        "endChar": 34
+      },
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bdd0fc9_aec6a8b8",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-20T00:54:57Z",
+      "side": 1,
+      "message": "This implementation is going to result in \n\n{\"ignored_key\": \"bar\"}\nand\n{}\n\nProducing the same hash.  I\u0027m not sure we want that structurally.  Should we instead still hash the key, and just not hash the value?  Or hash the value as a known hex value, so we don\u0027t get a collision?",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f4a7a3c_b98536c6",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-20T00:54:57Z",
+      "side": 1,
+      "message": "nit, we generally just put std::string.  They\u0027re equivalent, but std::string is easier for folks to understand.",
+      "range": {
+        "startLine": 965,
+        "startChar": 35,
+        "endLine": 965,
+        "endChar": 59
+      },
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa64c023_8bb4df64",
+        "filename": "redfish-core/lib/managers.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-20T00:54:57Z",
+      "side": 1,
+      "message": "Can we make this a real function?  We\u0027re already a couple lambda scopes deep here.",
+      "range": {
+        "startLine": 944,
+        "startChar": 43,
+        "endLine": 949,
+        "endChar": 17
+      },
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4d81b6a_303f924b",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-20T00:54:57Z",
+      "side": 1,
+      "message": "Please verify your #includes are correct.",
+      "range": {
+        "startLine": 565,
+        "startChar": 43,
+        "endLine": 565,
+        "endChar": 57
+      },
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
