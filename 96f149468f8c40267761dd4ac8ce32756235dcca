@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e04f4b50_aa2c67b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-08-20T15:09:53Z",
+      "side": 1,
+      "message": "\u003e The original bmcweb implementation does not support multi-target updates, and this patch does not introduce that capability either.\n\u003e \n\u003e * Single target specified: The behavior remains unchanged; updates proceed as before.\n\u003e \n\u003e * No targets specified: The update is triggered on the entity implementing StartUpdate. However, this only works if there is exactly one such entity. If multiple entities implement StartUpdate, bmcweb will raise an error.\n\u003e \n\nI am not referring to multi targets in the Redfish URI list. I am referring to different updaters exposing the StartUpdate interface which is the current design. You are picking the very first StartUpdate interface how would that co-exist with the current design. Please work on your interfaces in the design and get consensus on that.\n\n\u003e In short, multi-target updates are still not supported under the current software update design. \n\u003e \n\u003e On top of that, PLDM updates have been broken for the past six months since the switch to StartUpdate in bmcweb.\n\nPLDM updates never worked properly. That was some hacked up code copied to PLDMd from phosphor-bmc-code-mgmt which used to look for the images from the same place as BMC updater as BMCWeb used to put it in /tmp/images dir. One of the two daemons used to win race for image, delete it from /tmp/images directory and then drop the image if it was not intended for it. So, that was never the solution which should have been put up upstream in the first go. FYI: This was the patch which added that change to PLDMd https://gerrit.openbmc.org/c/openbmc/pldm/+/45952. Lets not do similar sort of hack solution again.\n\n(CC @patrick@stwcx.xyz).",
+      "parentUuid": "9cf53fb3_33dac711",
+      "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c39b5013_ad8bf715",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
