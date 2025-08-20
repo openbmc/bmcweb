@@ -16,6 +16,24 @@
       "message": "Looks like the header files are missing `SPDX-License-Identifier` now",
       "revId": "3b1fcfdfbf27409438c10c19db208746d4c35f83",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a99b25aa_9b270fc0",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-20T15:57:57Z",
+      "side": 1,
+      "message": "Yep, and the #includes are completely wrong.  The script is imperfect, but good enough to play around with what happens.",
+      "parentUuid": "c4213e0d_4a9858ca",
+      "revId": "3b1fcfdfbf27409438c10c19db208746d4c35f83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
