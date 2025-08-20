@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4213e0d_4a9858ca",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-20T07:38:54Z",
+      "side": 1,
+      "message": "Looks like the header files are missing `SPDX-License-Identifier` now",
+      "revId": "3b1fcfdfbf27409438c10c19db208746d4c35f83",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
