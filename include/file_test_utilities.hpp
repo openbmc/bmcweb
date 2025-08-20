@@ -3,7 +3,6 @@
 #pragma once
 #include <unistd.h>
 
-#include <cstdlib>
 #include <filesystem>
 #include <string>
 #include <string_view>

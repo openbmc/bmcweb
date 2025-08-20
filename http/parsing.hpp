@@ -11,7 +11,6 @@
 #include <boost/beast/http/field.hpp>
 #include <nlohmann/json.hpp>
 
-#include <cctype>
 #include <string_view>
 
 enum class JsonParseResult
