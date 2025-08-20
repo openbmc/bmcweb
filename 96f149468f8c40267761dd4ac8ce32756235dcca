@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9cf53fb3_33dac711",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-20T08:51:24Z",
+      "side": 1,
+      "message": "The original bmcweb implementation does not support multi-target updates, and this patch does not introduce that capability either.\n\n* Single target specified: The behavior remains unchanged; updates proceed as before.\n\n* No targets specified: The update is triggered on the entity implementing StartUpdate. However, this only works if there is exactly one such entity. If multiple entities implement StartUpdate, bmcweb will raise an error.\n\nIn short, multi-target updates are still not supported under the current software update design. \n\nOn top of that, PLDM updates have been broken for the past six months since the switch to StartUpdate in bmcweb.",
+      "parentUuid": "f0f29945_00adcc40",
+      "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c39b5013_ad8bf715",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
@@ -31,6 +49,24 @@
       "writtenOn": "2025-08-19T21:45:59Z",
       "side": 1,
       "message": "Please add reference to the design which is under discussion.",
+      "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dc24ba1_2734ed54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-20T08:51:24Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c39b5013_ad8bf715",
       "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
