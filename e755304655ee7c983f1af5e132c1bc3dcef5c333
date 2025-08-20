@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ae4c407_cbe6a10b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-20T15:47:54Z",
+      "side": 1,
+      "message": "Tested: code compiles.",
+      "revId": "e755304655ee7c983f1af5e132c1bc3dcef5c333",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7164f284_00e45e2b",
