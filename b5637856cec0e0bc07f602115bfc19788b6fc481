@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5fbe4ada_388e14a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-20T15:47:49Z",
+      "side": 1,
+      "message": "I\u0027m seeing the `Actions` listed for other URI in that file. So I was expecting it would also be added under AccountService. E.g.:\n\nhttps://github.com/openbmc/bmcweb/blob/master/docs/Redfish.md#certificateservice",
+      "parentUuid": "2a3c9544_88baca3a",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 2
+      },
+      "revId": "b5637856cec0e0bc07f602115bfc19788b6fc481",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "af76d09f_0c40d689",
         "filename": "/COMMIT_MSG",
         "patchSetId": 18
@@ -79,6 +103,24 @@
       "side": 1,
       "message": "I believe Redfish validator is not run on any actions (PATCH/POST).",
       "parentUuid": "af76d09f_0c40d689",
+      "revId": "b5637856cec0e0bc07f602115bfc19788b6fc481",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a95bb81_9051c4bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 18
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-20T15:47:49Z",
+      "side": 1,
+      "message": "The function checkAndAddGenerateSecretKeyActionCallback() adds the `Actions` to the GET response, correct?\n\nIn that case it would be part of the Redfish Service Validator verification.",
+      "parentUuid": "bb40d1d4_e4325229",
       "revId": "b5637856cec0e0bc07f602115bfc19788b6fc481",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
