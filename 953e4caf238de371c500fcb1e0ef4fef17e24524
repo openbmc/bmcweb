@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45cf4598_9adab61e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-20T15:26:19Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/commit/8b2521a5a3be479814beb316975bf3de0b4e378f added this but never used it.\n\nA sentence about the history, then this looks good to me.",
+      "revId": "953e4caf238de371c500fcb1e0ef4fef17e24524",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
