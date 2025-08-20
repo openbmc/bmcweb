@@ -15,6 +15,7 @@
 
 // NOLINTNEXTLINE(misc-include-cleaner)
 #include "nghttp2_adapters.hpp"
+#include "sessions.hpp"
 
 #include <nghttp2/nghttp2.h>
 #include <unistd.h>
