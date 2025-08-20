@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1240e290_297ae399",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-20T21:18:59Z",
+      "side": 1,
+      "message": "Looks good to me except for the missing copyrights.",
+      "revId": "c23d1d32604f44f96459e491a0f686d98a452767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8c652a5_035a2bec",
+        "filename": "redfish-core/include/telemetry_readings.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-20T21:18:59Z",
+      "side": 1,
+      "message": "Needs the copyright comments.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "c23d1d32604f44f96459e491a0f686d98a452767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
