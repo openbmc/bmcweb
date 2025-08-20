@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7169b46_11ebee6f",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-20T15:47:17Z",
+      "side": 0,
+      "message": "https://github.com/openbmc/bmcweb/commit/9e6c388a003d707136e26523dae84ba434695028 added this but didn\u0027t use.\n\nThere is already handleMetricReportDelete. Ack.",
+      "revId": "5be6ccbb9919f402afa3a87ce2a40a33afe31075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10bbb289_6428cc83",
+        "filename": "redfish-core/lib/network_protocol.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-20T15:47:17Z",
+      "side": 0,
+      "message": "Already handleManagersNetworkProtocolHead. \nhttps://github.com/openbmc/bmcweb/commit/e9f716722249d776b88e28bec0f2b2d9fa60c4fa added and used this \n\nhttps://github.com/openbmc/bmcweb/commit/af20dd1ccc481af63b528a851bce390a0070ab32 ROUTE to using the new one but didn\u0027t delete the old. Ack.",
+      "revId": "5be6ccbb9919f402afa3a87ce2a40a33afe31075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13b3587a_707a9c0f",
+        "filename": "redfish-core/lib/pcie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-20T15:47:17Z",
+      "side": 0,
+      "message": "https://github.com/openbmc/bmcweb/commit/727a046ccfa1d936ce984e30d6e257ea027ef587  added, some commit removed its use. It was orginally here for 404 not found but that looks to already be done.",
+      "revId": "5be6ccbb9919f402afa3a87ce2a40a33afe31075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5afbd5d5_53384a3e",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-20T15:47:17Z",
+      "side": 0,
+      "message": "https://github.com/openbmc/bmcweb/commit/724340d72d0376e3b79d395354ac39e2273d5dd5 added but didn\u0027t use? I assume you didn\u0027t have plans for this? Can be added back later when actually used, if needed.",
+      "revId": "5be6ccbb9919f402afa3a87ce2a40a33afe31075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "608899ed_72be0ead",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-20T15:47:17Z",
+      "side": 0,
+      "message": "https://github.com/openbmc/bmcweb/commit/9d3ae10e0f1b7a694678ef6b4b051a3d9836307f added these. Not clear when they stopped being used. Redfish deprecated  this MemorySummary and ProcessorSummary Status. \n\n\n        \"MemorySummary\": {\n            \"additionalProperties\": false,\n            \"description\": \"The memory of the system in general detail.\",\n            \"longDescription\": \"This type shall contain properties that describe the central memory for a system.\",\n            \"patternProperties\": {\n                \"^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\\\.[a-zA-Z_][a-zA-Z0-9_]*$\": {\n                    \"description\": \"This property shall specify a valid odata or Redfish property.\",\n                    \"type\": [\n                        \"array\",\n                        \"boolean\",\n                        \"integer\",\n                        \"number\",\n                        \"null\",\n                        \"object\",\n                        \"string\"\n                    ]\n                }\n            },\n            \"properties\": {\n\n\n       ....\n\n                \"Status\": {\n                    \"$ref\": \"http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status\",\n                    \"deprecated\": \"This property has been deprecated in favor of the `Conditions` property within `Status` in the root of this resource.\",\n                    \"description\": \"The status and health of the resource and its subordinate or dependent resources.\",\n                    \"longDescription\": \"This property shall contain any status or health properties of the resource.\",\n                    \"versionDeprecated\": \"v1_16_0\"\n                },",
+      "revId": "5be6ccbb9919f402afa3a87ce2a40a33afe31075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
