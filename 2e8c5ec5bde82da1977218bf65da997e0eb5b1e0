@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4fbdf53_1bcef6b8",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-20T17:54:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab402dd2_f9f77f43",
+      "range": {
+        "startLine": 269,
+        "startChar": 1,
+        "endLine": 271,
+        "endChar": 37
+      },
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a30c3f0_2f45e9bd",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-08-18T13:03:06Z",
       "side": 1,
       "message": "This var is only used once, can you inline it?",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a35856d5_6b4a20cf",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-20T17:54:16Z",
+      "side": 1,
+      "message": "Not possible to declare variables inline in block scope.",
+      "parentUuid": "4a30c3f0_2f45e9bd",
       "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -75,6 +117,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b758d76_cbb0568b",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-20T17:54:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "922c5756_2364f1ca",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "012c94fd_82b120bc",
@@ -88,6 +148,24 @@
       "writtenOn": "2025-08-18T13:03:06Z",
       "side": 1,
       "message": "If you declare `const std::string\u0026 objectPath \u003d obj.first;` at the start of the loop, the code may be easier to read since we do not refer to `obj.first` all the time.\n\nSame for `service`.",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7624181f_976e25bc",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-20T17:54:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "012c94fd_82b120bc",
       "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -117,6 +195,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "6e44214c_745c3356",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-20T17:54:16Z",
+      "side": 1,
+      "message": "Yes, that simplifies it, followed this suggestion. I am using now a combination of object_path.filename() and some manual string manipulation to do exact matching of i.e \"/host1/\". I guess the latter one could be made a object_path utility function to check for exact parts of an object path, I\u0027ll see if i can do that in a follow-up patch.",
+      "parentUuid": "7491b675_6d81b3a9",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 1
+      },
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "45a46c93_736d3a16",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 36
@@ -128,6 +230,24 @@
       "writtenOn": "2025-08-18T13:03:06Z",
       "side": 1,
       "message": "What do you think, does it make sense to go with `std::format` to construct the object path here?\n\nThat way we can avoid doing any subsequent append on it and std::format should already take care of the string conversion of the index.\n\nCouple of places i have seen this.",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe5a11a7_1549e2d3",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-20T17:54:16Z",
+      "side": 1,
+      "message": "This would work, but there is a preference to use the object_path utils. I think we could update the utilities / constructors to help simplify this code in a follow-up patch.",
+      "parentUuid": "45a46c93_736d3a16",
       "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -166,6 +286,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87cb8ae6_a31d6b26",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-20T17:54:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e8aefe52_9f5f1703",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fab5d482_45db4cc0",
@@ -185,6 +323,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7f221efb_4309f4c5",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-20T17:54:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fab5d482_45db4cc0",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "111142fc_e9418c58",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 36
@@ -196,6 +352,24 @@
       "writtenOn": "2025-08-18T13:03:06Z",
       "side": 1,
       "message": "```suggestion\n        // Todo: chassis matching could be handled by patch\n        // https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60793\n```\n\nThe direct link could make it easier to follow.",
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "706e940b_dd99a01a",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 3159,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-08-20T17:54:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "111142fc_e9418c58",
       "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
