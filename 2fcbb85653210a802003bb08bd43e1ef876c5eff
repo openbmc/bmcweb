@@ -120,6 +120,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd418a96_b6b11fa0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 76
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2025-08-20T08:22:49Z",
+      "side": 1,
+      "message": "\u003eAnd in this case, should ensure not to allow fallback to Basic Auth without MFA (send back 401 to the user?)\n\nI will probably add this change in the upcoming PS once I test it",
+      "parentUuid": "b82c4438_b06e6984",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 7
+      },
+      "revId": "2fcbb85653210a802003bb08bd43e1ef876c5eff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f77a757b_31e488a6",
