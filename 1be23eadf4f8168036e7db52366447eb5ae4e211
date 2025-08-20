@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78db65fb_75a621c2",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-20T00:57:19Z",
+      "side": 1,
+      "message": "?  Any reason we\u0027re doing this in a redfish-specific function?  etag is an http concept.\n\nAlso, this is only the OEM router, so I suspect this isn\u0027t doing what you think it\u0027s doing.",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a68b312c_f9a9a6c1",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 7
