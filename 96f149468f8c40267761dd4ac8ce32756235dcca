@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c077af34_081f6e05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-08-20T17:55:34Z",
+      "side": 1,
+      "message": "\u003e @paligill@gmail.com with the current design the Redfish user must specify a Target, and Rajeev\u0027s patch here doesn\u0027t impact that flow. I\u0027m not sure I understand your concern. The code doesn\u0027t pick the first StartUpdate interface - it picks the only StartUpdate interface (when there is just one - the pldmd app level update) and no Targets are specified.\n\nMy concern is arising from the fact that you are defaulting the behavior to a Multipart image parser by using the same Update interface as a device level updater. What would be the interface if multiple targets are supplied. There is no consensus on the interface for Multipart image parser yet. I see the design from Tom (where he was proposing a Multipart Manager interface) totally changed from what i reviewed last time. I have provided comments on that.\n\nAlso, i see this patch from Rajeev \nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/82235. Looks like design changes are being put up in bits and pieces.\n\nFirst there needs to be a consensus on what would be the Dbus interface for Multipart updater. So, first lets get that.",
+      "parentUuid": "eafec7dd_d887236f",
+      "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c39b5013_ad8bf715",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
