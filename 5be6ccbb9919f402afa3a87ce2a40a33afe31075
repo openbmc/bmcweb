@@ -62,6 +62,30 @@
       },
       "revId": "5be6ccbb9919f402afa3a87ce2a40a33afe31075",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc916c0a_bb61ec34",
+        "filename": "redfish-core/lib/sensors.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-20T22:18:07Z",
+      "side": 1,
+      "message": "Yeah, this was a temp fix for a declaration.  will fix.",
+      "parentUuid": "a2f79a24_530a1d0c",
+      "range": {
+        "startLine": 89,
+        "startChar": 7,
+        "endLine": 89,
+        "endChar": 21
+      },
+      "revId": "5be6ccbb9919f402afa3a87ce2a40a33afe31075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
