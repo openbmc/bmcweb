@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a494a028_ab33eeda",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-20T15:31:11Z",
+      "side": 0,
+      "message": "Shouldn\u0027t the copyright still be kept in the .hpp?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 59
+      },
+      "revId": "556569dba6efa12f2435e998665335f434c553fc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
