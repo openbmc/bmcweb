@@ -5,7 +5,6 @@
 #include "logging.hpp"
 #include "routing/trie.hpp"
 
-#include <cerrno>
 #include <cstdlib>
 #include <format>
 #include <stdexcept>

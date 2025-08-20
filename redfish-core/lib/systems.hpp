@@ -32,7 +32,6 @@
 
 #include <boost/asio/error.hpp>
 #include <boost/beast/http/field.hpp>
-#include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/system/linux_error.hpp>

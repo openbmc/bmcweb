@@ -18,7 +18,6 @@
 
 #include <algorithm>
 #include <array>
-#include <cctype>
 #include <ranges>
 #include <span>
 #include <string_view>

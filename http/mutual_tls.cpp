@@ -2,8 +2,6 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "mutual_tls.hpp"
 
-#include "bmcweb_config.h"
-
 #include "identity.hpp"
 #include "mutual_tls_private.hpp"
 #include "sessions.hpp"

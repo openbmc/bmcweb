@@ -5,15 +5,12 @@
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "human_sort.hpp"
 #include "logging.hpp"
-#include "utility.hpp"
 
 #include <boost/url/format.hpp>
-#include <boost/url/url.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
