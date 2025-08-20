@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93155cc0_84868af4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-20T20:46:59Z",
+      "side": 1,
+      "message": "This refactoring is also a prep of the coming changes for redundant\u0026multi managers",
+      "revId": "77e9333febac557a2b726ab7eaa8676cac2192f0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
