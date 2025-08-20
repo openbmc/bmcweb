@@ -11,6 +11,7 @@
 #include "subscription.hpp"
 
 #include <app.hpp>
+#include <boost/url/param.hpp>
 #include <boost/url/params_base.hpp>
 #include <event_service_manager.hpp>
 

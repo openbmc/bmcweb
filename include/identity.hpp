@@ -3,7 +3,6 @@
 #include <unistd.h>
 
 #include <array>
-#include <climits>
 #include <string>
 
 inline std::string getHostName()
