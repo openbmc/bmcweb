@@ -219,6 +219,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "39aed76b_c0c5c23a",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 36
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-20T18:20:34Z",
+      "side": 1,
+      "message": "Thank you, this is much easier to follow!",
+      "parentUuid": "6e44214c_745c3356",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 1
+      },
+      "revId": "2e8c5ec5bde82da1977218bf65da997e0eb5b1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "45a46c93_736d3a16",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 36
