@@ -297,10 +297,11 @@ option(
 option(
     'redfish-allow-deprecated-power-thermal',
     type: 'feature',
-    value: 'enabled',
-    description: '''Enable/disable the old Power / Thermal. The default
-                    condition is allowing the old Power / Thermal. This
-                    will be disabled by default June 2024. ''',
+    value: 'disabled',
+    description: '''Enable/disable the old Power / Thermal. This has been
+                    replaced by the new PowerSubsystem, ThermalSubsystem, and
+                    the redfish-new-powersubsystem-thermalsubsystem option.
+                    This option will removed June 2026.''',
 )
 
 # BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA
