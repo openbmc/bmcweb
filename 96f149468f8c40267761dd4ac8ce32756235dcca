@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87c02ce9_64a309cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-08-21T01:26:43Z",
+      "side": 1,
+      "message": "The design changed (Tom will respond) because you were pushing back on multipart manager. Tom had also pushed a PDI that you pushed back on and then stopped giving feedback on (https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/78905). You were fine with the current design that solves only part of PLDM update (single component update), and doesn\u0027t address component ordering, but are agaist incremental updates to the design that attempts to solve component ordering?\n\nWould appreciate timely/actionable feedback (on the design doc) so that we can avoid going in circles for months.",
+      "parentUuid": "c077af34_081f6e05",
+      "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c39b5013_ad8bf715",
         "filename": "/COMMIT_MSG",
         "patchSetId": 8
