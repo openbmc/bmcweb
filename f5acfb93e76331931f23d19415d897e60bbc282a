@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24a0976d_21883561",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-21T12:04:04Z",
+      "side": 1,
+      "message": "nit:\n\nDo you need `serv` variable to initialize `service`.\n\nCan you directly use `obj.second.begin()-\u003efirst` ?\n\nAnyways, not so important since the function already has unit test.",
+      "revId": "f5acfb93e76331931f23d19415d897e60bbc282a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78f44913_73db5214",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-21T12:04:04Z",
+      "side": 1,
+      "message": "nit:\n\nWhat is `tmp` variable used for, i do not see where it is used.\n\nIt\u0027s initialized on line 343, updated on lines 362,363, but never used, right?\n\nAnyways, not so important since the function already has unit test.",
+      "revId": "f5acfb93e76331931f23d19415d897e60bbc282a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9772c5d9_02ff818d",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 40
+      },
+      "lineNbr": 1071,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-21T12:04:04Z",
+      "side": 1,
+      "message": "nit: would prefer \n```suggestion\n    path /\u003d \"boot/one_time\";\n```\n\nor directly initialize `path` via `std::format` like:\n\n```\n    sdbusplus::message::object_path path(std::format(\n    \"/xyz/openbmc_project/control/host{}/boot/one_time\", computerSystemIndex);\n```\n\n\nReason:\n\nIt\u0027s easier for me to look at a format string than to follow multiple operations done to a variable and then keep the result in my head.",
+      "revId": "f5acfb93e76331931f23d19415d897e60bbc282a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
