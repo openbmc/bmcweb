@@ -34,6 +34,24 @@
       "parentUuid": "4e8790de_5dc9113c",
       "revId": "320a997d73206f890aefa4a0723a35d52b43d08e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "066c8558_9357b4b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2025-08-21T23:34:38Z",
+      "side": 1,
+      "message": "does `clang-rename` help here? I\u0027ve only really used it for C symbols, so not sure how it copes with namespace renames.\n\nHere\u0027s how I use it in practice:\n\n1. A wrapper script to drive it: https://github.com/openbmc/libpldm/blob/main/scripts/apply-renames\n2. A bunch of rename configs: https://github.com/openbmc/libpldm/tree/main/evolutions/v0.9.1",
+      "parentUuid": "d717fe56_19a7786e",
+      "revId": "320a997d73206f890aefa4a0723a35d52b43d08e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
