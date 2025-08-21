@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "506ee542_f6f43e75",
+        "filename": "config/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-08-21T10:33:07Z",
+      "side": 1,
+      "message": "Currently bmcweb listens on port 443. For the same port can bootstrap credential be enabled ?",
+      "revId": "827534df7b89481690a23a3e4ed6a48b2e1952ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "919c4d7e_403ab71c",
+        "filename": "config/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-08-21T10:33:07Z",
+      "side": 1,
+      "message": "Do we require this ? \nWhen we have a username can we check from phosphor-user-manager if this username belongs to bootstrap user ?",
+      "revId": "827534df7b89481690a23a3e4ed6a48b2e1952ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fd6f623_2efc06a6",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-08-21T10:33:07Z",
+      "side": 1,
+      "message": "I feel we could avoid this. \nCurrently we have functionality to bind to different port. That could be sufficient right ? \nIf BIOS wants to get/set any properties for those particular URI we would add if username belongs to bootstrap and take decisions accordingly. Please share your thoughts",
+      "revId": "827534df7b89481690a23a3e4ed6a48b2e1952ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
