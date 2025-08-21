@@ -90,11 +90,8 @@ RedfishService::RedfishService(App& app)
         requestRoutesFan(app);
         requestRoutesFanCollection(app);
     }
-    requestRoutesManagerCollection(app);
     requestRoutesManager(app);
     requestRoutesManagerResetAction(app);
-    requestRoutesManagerResetActionInfo(app);
-    requestRoutesManagerResetToDefaultsAction(app);
     requestRoutesManagerDiagnosticData(app);
     requestRoutesChassisCollection(app);
     requestRoutesChassis(app);

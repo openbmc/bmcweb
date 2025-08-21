@@ -193,195 +193,161 @@ inline void doBMCForceRestart(
 }
 
 /**
- * ManagerResetAction class supports the POST method for the Reset (reboot)
- * action.
+ * ManagerResetAction handles POST method request.
+ * Analyzes POST body before sending Reset (Reboot) request data to D-Bus.
+ * OpenBMC supports ResetType "GracefulRestart" and "ForceRestart".
  */
-inline void requestRoutesManagerResetAction(App& app)
+
+inline void handleManagerResetAction(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
 {
-    /**
-     * Function handles POST method request.
-     * Analyzes POST body before sending Reset (Reboot) request data to D-Bus.
-     * OpenBMC supports ResetType "GracefulRestart" and "ForceRestart".
-     */
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/Actions/Manager.Reset/")
-        .privileges(redfish::privileges::postManager)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-                if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Manager",
-                                               managerId);
-                    return;
-                }
+    BMCWEB_LOG_DEBUG("Post Manager Reset.");
 
-                BMCWEB_LOG_DEBUG("Post Manager Reset.");
+    std::string resetType;
 
-                std::string resetType;
+    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
+    {
+        return;
+    }
 
-                if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
-                                               resetType))
-                {
-                    return;
-                }
-
-                if (resetType == "GracefulRestart")
-                {
-                    BMCWEB_LOG_DEBUG("Proceeding with {}", resetType);
-                    doBMCGracefulRestart(asyncResp);
-                    return;
-                }
-                if (resetType == "ForceRestart")
-                {
-                    BMCWEB_LOG_DEBUG("Proceeding with {}", resetType);
-                    doBMCForceRestart(asyncResp);
-                    return;
-                }
-                BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
-                                 resetType);
-                messages::actionParameterNotSupported(asyncResp->res, resetType,
-                                                      "ResetType");
-
-                return;
-            });
+    if (resetType == "GracefulRestart")
+    {
+        BMCWEB_LOG_DEBUG("Proceeding with {}", resetType);
+        doBMCGracefulRestart(asyncResp);
+        return;
+    }
+    if (resetType == "ForceRestart")
+    {
+        BMCWEB_LOG_DEBUG("Proceeding with {}", resetType);
+        doBMCForceRestart(asyncResp);
+        return;
+    }
+    BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}", resetType);
+    messages::actionParameterNotSupported(asyncResp->res, resetType,
+                                          "ResetType");
 }
 
 /**
- * ManagerResetToDefaultsAction class supports POST method for factory reset
- * action.
+ * Function handles ResetToDefaults POST method request.
+ *
+ * Analyzes POST body message and factory resets BMC by calling
+ * BMC code updater factory reset followed by a BMC reboot.
+ *
+ * BMC code updater factory reset wipes the whole BMC read-write
+ * filesystem which includes things like the network settings.
+ *
+ * OpenBMC only supports ResetType "ResetAll".
  */
-inline void requestRoutesManagerResetToDefaultsAction(App& app)
+
+inline void handleManagerResetToDefaultsAction(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
 {
-    /**
-     * Function handles ResetToDefaults POST method request.
-     *
-     * Analyzes POST body message and factory resets BMC by calling
-     * BMC code updater factory reset followed by a BMC reboot.
-     *
-     * BMC code updater factory reset wipes the whole BMC read-write
-     * filesystem which includes things like the network settings.
-     *
-     * OpenBMC only supports ResetType "ResetAll".
-     */
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/<str>/Actions/Manager.ResetToDefaults/")
-        .privileges(redfish::privileges::postManager)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
 
-                if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Manager",
-                                               managerId);
-                    return;
-                }
+    BMCWEB_LOG_DEBUG("Post ResetToDefaults.");
 
-                BMCWEB_LOG_DEBUG("Post ResetToDefaults.");
+    std::optional<std::string> resetType;
 
-                std::optional<std::string> resetType;
+    if (!json_util::readJsonAction( //
+            req, asyncResp->res,    //
+            "ResetType", resetType  //
+            ))
+    {
+        BMCWEB_LOG_DEBUG("Missing property ResetType.");
 
-                if (!json_util::readJsonAction( //
-                        req, asyncResp->res,    //
-                        "ResetType", resetType  //
-                        ))
-                {
-                    BMCWEB_LOG_DEBUG("Missing property ResetType.");
+        messages::actionParameterMissing(asyncResp->res, "ResetToDefaults",
+                                         "ResetType");
+        return;
+    }
 
-                    messages::actionParameterMissing(
-                        asyncResp->res, "ResetToDefaults", "ResetType");
-                    return;
-                }
+    if (resetType.value_or("") != "ResetAll")
+    {
+        BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
+                         resetType.value_or(""));
+        messages::actionParameterNotSupported(
+            asyncResp->res, resetType.value_or(""), "ResetType");
+        return;
+    }
 
-                if (resetType != "ResetAll")
-                {
-                    BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
-                                     *resetType);
-                    messages::actionParameterNotSupported(
-                        asyncResp->res, *resetType, "ResetType");
-                    return;
-                }
-
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code& ec) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_DEBUG("Failed to ResetToDefaults: {}",
-                                             ec);
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        // Factory Reset doesn't actually happen until a reboot
-                        // Can't erase what the BMC is running on
-                        doBMCGracefulRestart(asyncResp);
-                    },
-                    getBMCUpdateServiceName(), getBMCUpdateServicePath(),
-                    "xyz.openbmc_project.Common.FactoryReset", "Reset");
-            });
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("Failed to ResetToDefaults: {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            // Factory Reset doesn't actually happen until a reboot
+            // Can't erase what the BMC is running on
+            doBMCGracefulRestart(asyncResp);
+        },
+        getBMCUpdateServiceName(), getBMCUpdateServicePath(),
+        "xyz.openbmc_project.Common.FactoryReset", "Reset");
 }
 
 /**
  * ManagerResetActionInfo derived class for delivering Manager
  * ResetType AllowableValues using ResetInfo schema.
  */
-inline void requestRoutesManagerResetActionInfo(App& app)
+inline void handleManagerResetActionInfo(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
 {
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
 
-                if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Manager",
-                                               managerId);
-                    return;
-                }
+    asyncResp->res.jsonValue["@odata.type"] = "#ActionInfo.v1_1_2.ActionInfo";
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/ResetActionInfo",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+    asyncResp->res.jsonValue["Name"] = "Reset Action Info";
+    asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+    nlohmann::json::object_t parameter;
+    parameter["Name"] = "ResetType";
+    parameter["Required"] = true;
+    parameter["DataType"] = action_info::ParameterTypes::String;
 
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#ActionInfo.v1_1_2.ActionInfo";
-                asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-                    "/redfish/v1/Managers/{}/ResetActionInfo",
-                    BMCWEB_REDFISH_MANAGER_URI_NAME);
-                asyncResp->res.jsonValue["Name"] = "Reset Action Info";
-                asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
-                nlohmann::json::object_t parameter;
-                parameter["Name"] = "ResetType";
-                parameter["Required"] = true;
-                parameter["DataType"] = action_info::ParameterTypes::String;
+    nlohmann::json::array_t allowableValues;
+    allowableValues.emplace_back("GracefulRestart");
+    allowableValues.emplace_back("ForceRestart");
+    parameter["AllowableValues"] = std::move(allowableValues);
 
-                nlohmann::json::array_t allowableValues;
-                allowableValues.emplace_back("GracefulRestart");
-                allowableValues.emplace_back("ForceRestart");
-                parameter["AllowableValues"] = std::move(allowableValues);
+    nlohmann::json::array_t parameters;
+    parameters.emplace_back(std::move(parameter));
 
-                nlohmann::json::array_t parameters;
-                parameters.emplace_back(std::move(parameter));
-
-                asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
-            });
+    asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
 }
 
 /**
@@ -1029,13 +995,30 @@ inline void requestRoutesManager(App& app)
         .privileges(redfish::privileges::patchManager)
         .methods(boost::beast::http::verb::patch)(
             std::bind_front(handleManagerPatch, std::ref(app)));
-}
 
-inline void requestRoutesManagerCollection(App& app)
-{
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/")
         .privileges(redfish::privileges::getManagerCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleManagerCollectionGet, std::ref(app)));
 }
+
+inline void requestRoutesManagerResetAction(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/Actions/Manager.Reset/")
+        .privileges(redfish::privileges::postManager)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleManagerResetAction, std::ref(app)));
+
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Managers/<str>/Actions/Manager.ResetToDefaults/")
+        .privileges(redfish::privileges::postManager)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleManagerResetToDefaultsAction, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/ResetActionInfo/")
+        .privileges(redfish::privileges::getActionInfo)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleManagerResetActionInfo, std::ref(app)));
+}
+
 } // namespace redfish
