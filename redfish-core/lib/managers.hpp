@@ -61,8 +61,8 @@ namespace redfish
 inline void handleSetLocationIndicatorActive(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     bool locationIndicatorActive, const std::string& managerId,
-    const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreePathsResponse& subtreePaths)
+    const boost::system::error_code& ec, const std::string& managerPath,
+    const dbus::utility::MapperServiceMap& /*serviceMap*/)
 {
     if (ec)
     {
@@ -77,23 +77,14 @@ inline void handleSetLocationIndicatorActive(
         messages::internalError(asyncResp->res);
         return;
     }
-    if (subtreePaths.empty())
+    if (managerPath.empty())
     {
         BMCWEB_LOG_WARNING("Manager {} not found", managerId);
         messages::resourceNotFound(asyncResp->res, "Manager", managerId);
         return;
     }
-    // Assume only 1 bmc D-Bus object
-    // Throw an error if there is more than 1
-    if (subtreePaths.size() != 1)
-    {
-        BMCWEB_LOG_ERROR("Found {} Bmc D-Bus paths", subtreePaths.size());
-        messages::internalError(asyncResp->res);
-        return;
-    }
 
-    setLocationIndicatorActive(asyncResp, subtreePaths[0],
-                               locationIndicatorActive);
+    setLocationIndicatorActive(asyncResp, managerPath, locationIndicatorActive);
 }
 
 /**
@@ -106,11 +97,8 @@ inline void setLocationIndicatorActiveState(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     bool locationIndicatorActive, const std::string& managerId)
 {
-    // GetSubTree on all interfaces which provide info about a Manager
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Bmc"};
-    dbus::utility::getSubTreePaths(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+    manager_utils::getValidManagerPath(
+        asyncResp, managerId,
         std::bind_front(handleSetLocationIndicatorActive, asyncResp,
                         locationIndicatorActive, managerId));
 }
@@ -652,13 +640,19 @@ inline void getPhysicalAssets(
 }
 
 inline void getManagerData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const boost::system::error_code& ec,
                            const std::string& managerPath,
                            const dbus::utility::MapperServiceMap& serviceMap)
+
 {
-    if (managerPath.empty() || serviceMap.size() != 1)
+    if (ec)
     {
-        BMCWEB_LOG_DEBUG("Error getting bmc D-Bus object!");
-        messages::internalError(asyncResp->res);
+        BMCWEB_LOG_DEBUG("D-Bus response error on GetSubTree {}", ec);
+        return;
+    }
+    if (managerPath.empty() || serviceMap.empty())
+    {
+        BMCWEB_LOG_DEBUG("Can't find bmc D-Bus object!");
         return;
     }
 
@@ -688,54 +682,6 @@ inline void getManagerData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 }
 
-inline void afterGetManagerObject(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
-    const dbus::utility::MapperGetSubTreeResponse& subtree,
-    const std::function<
-        void(const std::string& managerPath,
-             const dbus::utility::MapperServiceMap& serviceMap)>& callback)
-{
-    if (ec)
-    {
-        BMCWEB_LOG_DEBUG("D-Bus response error on GetSubTree {}", ec);
-        return;
-    }
-    if (subtree.empty())
-    {
-        BMCWEB_LOG_DEBUG("Can't find bmc D-Bus object!");
-        return;
-    }
-    // Assume only 1 bmc D-Bus object
-    // Throw an error if there is more than 1
-    if (subtree.size() > 1)
-    {
-        BMCWEB_LOG_ERROR("Found more than 1 bmc D-Bus object!");
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    callback(subtree[0].first, subtree[0].second);
-}
-
-inline void getManagerObject(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& /* managerId */,
-    std::function<void(const std::string& managerPath,
-                       const dbus::utility::MapperServiceMap& serviceMap)>&&
-        callback)
-{
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Bmc"};
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
-        [asyncResp, callback{std::move(callback)}](
-            const boost::system::error_code& ec,
-            const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            afterGetManagerObject(asyncResp, ec, subtree, callback);
-        });
-}
-
 inline void handleManagerGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -754,10 +700,10 @@ inline void handleManagerGet(
 
     std::string uuid = persistent_data::getConfig().systemUuid;
 
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}", managerId);
     asyncResp->res.jsonValue["@odata.type"] = "#Manager.v1_15_0.Manager";
-    asyncResp->res.jsonValue["Id"] = BMCWEB_REDFISH_MANAGER_URI_NAME;
+    asyncResp->res.jsonValue["Id"] = managerId;
     asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
     asyncResp->res.jsonValue["Description"] = "Baseboard Management Controller";
     asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
@@ -767,14 +713,14 @@ inline void handleManagerGet(
     asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
     asyncResp->res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
 
-    asyncResp->res.jsonValue["LogServices"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Managers/{}/LogServices", BMCWEB_REDFISH_MANAGER_URI_NAME);
+    asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/LogServices", managerId);
     asyncResp->res.jsonValue["NetworkProtocol"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}/NetworkProtocol",
-                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+                            managerId);
     asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
         boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces",
-                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+                            managerId);
 
     manager_utils::getServiceIdentification(asyncResp, false);
 
@@ -782,19 +728,17 @@ inline void handleManagerGet(
     {
         asyncResp->res.jsonValue["VirtualMedia"]["@odata.id"] =
             boost::urls::format("/redfish/v1/Managers/{}/VirtualMedia",
-                                BMCWEB_REDFISH_MANAGER_URI_NAME);
+                                managerId);
     }
 
     // Manager.Reset (an action) can be many values, OpenBMC only
     // supports BMC reboot.
     nlohmann::json& managerReset =
         asyncResp->res.jsonValue["Actions"]["#Manager.Reset"];
-    managerReset["target"] =
-        boost::urls::format("/redfish/v1/Managers/{}/Actions/Manager.Reset",
-                            BMCWEB_REDFISH_MANAGER_URI_NAME);
-    managerReset["@Redfish.ActionInfo"] =
-        boost::urls::format("/redfish/v1/Managers/{}/ResetActionInfo",
-                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+    managerReset["target"] = boost::urls::format(
+        "/redfish/v1/Managers/{}/Actions/Manager.Reset", managerId);
+    managerReset["@Redfish.ActionInfo"] = boost::urls::format(
+        "/redfish/v1/Managers/{}/ResetActionInfo", managerId);
 
     // ResetToDefaults (Factory Reset) has values like
     // PreserveNetworkAndUsers and PreserveNetwork that aren't supported
@@ -802,8 +746,7 @@ inline void handleManagerGet(
     nlohmann::json& resetToDefaults =
         asyncResp->res.jsonValue["Actions"]["#Manager.ResetToDefaults"];
     resetToDefaults["target"] = boost::urls::format(
-        "/redfish/v1/Managers/{}/Actions/Manager.ResetToDefaults",
-        BMCWEB_REDFISH_MANAGER_URI_NAME);
+        "/redfish/v1/Managers/{}/Actions/Manager.ResetToDefaults", managerId);
     resetToDefaults["ResetType@Redfish.AllowableValues"] =
         nlohmann::json::array_t({"ResetAll"});
 
@@ -845,9 +788,8 @@ inline void handleManagerGet(
     // ManagerDiagnosticData is added for all BMCs.
     nlohmann::json& managerDiagnosticData =
         asyncResp->res.jsonValue["ManagerDiagnosticData"];
-    managerDiagnosticData["@odata.id"] =
-        boost::urls::format("/redfish/v1/Managers/{}/ManagerDiagnosticData",
-                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+    managerDiagnosticData["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/{}/ManagerDiagnosticData", managerId);
 
     getMainChassisId(
         asyncResp, [](const std::string& chassisId,
@@ -886,8 +828,9 @@ inline void handleManagerGet(
             checkForQuiesced(asyncResp);
         });
 
-    getManagerObject(asyncResp, managerId,
-                     std::bind_front(getManagerData, asyncResp));
+    manager_utils::getValidManagerPath(
+        asyncResp, managerId, std::bind_front(getManagerData, asyncResp));
+
     etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 
     RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
