@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fea0c67a_20883b73",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2462,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-22T19:52:15Z",
+      "side": 1,
+      "message": "ipv6 static addresses should move as well, and has the same problem, right?",
+      "revId": "da240fe9cd75dd244847163b49af60391354cef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
