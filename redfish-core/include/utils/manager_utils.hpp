@@ -2,18 +2,27 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #pragma once
 
+#include "bmcweb_config.h"
+
 #include "async_resp.hpp"
+#include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "logging.hpp"
 #include "persistent_data.hpp"
 
 #include <nlohmann/json.hpp>
 
+#include <array>
+#include <cstddef>
+#include <functional>
 #include <memory>
 #include <string_view>
 
 namespace redfish
 {
 
+constexpr std::array<std::string_view, 1> bmcInterfaces = {
+    "xyz.openbmc_project.Inventory.Item.Bmc"};
 namespace manager_utils
 {
 
@@ -57,6 +66,69 @@ inline void getServiceIdentification(
         return;
     }
     asyncResp->res.jsonValue["ServiceIdentification"] = serviceIdentification;
+}
+
+inline void afterGetValidManagerPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId,
+    const std::function<
+        void(const std::string& managerPath,
+             const dbus::utility::MapperServiceMap& serviceMap)>& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        if (ec == boost::system::errc::io_error)
+        {
+            // Not found
+            BMCWEB_LOG_WARNING("Manager {} not found", managerId);
+            messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+            return;
+        }
+        BMCWEB_LOG_ERROR("D-Bus response error {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (subtree.empty())
+    {
+        BMCWEB_LOG_WARNING("Manager {} not found", managerId);
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+    // Assume only 1 bmc D-Bus object
+    // Throw an error if there is more than 1
+    if (subtree.size() > 1)
+    {
+        BMCWEB_LOG_ERROR("Found more than 1 bmc D-Bus object!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    callback(subtree[0].first, subtree[0].second);
+}
+
+inline void getValidManagerPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId,
+    std::function<void(const std::string& managerPath,
+                       const dbus::utility::MapperServiceMap& serviceMap)>&&
+        callback)
+{
+    dbus::utility::getSubTree(
+        "/xyz/openbmc_project/inventory", 0, bmcInterfaces,
+        [asyncResp, managerId, callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            afterGetValidManagerPath(asyncResp, managerId, callback, ec,
+                                     subtree);
+        });
 }
 
 } // namespace manager_utils
