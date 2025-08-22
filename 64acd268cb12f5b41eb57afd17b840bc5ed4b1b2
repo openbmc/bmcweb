@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bfa06bf_b5c71f54",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-22T14:01:22Z",
+      "side": 1,
+      "message": "This is more in line with other resources.. Makes sense.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 41
+      },
+      "revId": "64acd268cb12f5b41eb57afd17b840bc5ed4b1b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
