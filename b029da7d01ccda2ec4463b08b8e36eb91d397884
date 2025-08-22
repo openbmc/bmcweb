@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e4019d03_d9843981",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-08-22T23:31:51Z",
+      "side": 1,
+      "message": "I will test and report later.",
+      "parentUuid": "4ccc656c_f44ebda2",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "05ec100c_6d7c22d3",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -86,6 +104,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a46ee9f_e89808dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-08-22T23:31:51Z",
+      "side": 1,
+      "message": "Let me check this.",
+      "parentUuid": "bb7637bc_0be58a80",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9134b979_fe76b090",
@@ -99,6 +135,24 @@
       "writtenOn": "2025-08-16T22:54:27Z",
       "side": 1,
       "message": "Do you need this? see https://github.com/openbmc/bmcweb/commit/40e9b92ec19acffb46f83a6e55b18974da5d708e",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16ff9671_27b74864",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-08-22T23:31:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9134b979_fe76b090",
       "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -120,6 +174,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f28b36c_2a08d600",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-08-22T23:31:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b6f03fe7_abe573b4",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67bb2510_6f8c143c",
@@ -133,6 +205,24 @@
       "writtenOn": "2025-08-16T22:54:27Z",
       "side": 1,
       "message": "I didn\u0027t think Redfish recommended these anymore. See https://github.com/openbmc/bmcweb/commit/9440096005902d13e27fdb8911d33c657f8c7b77",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9cd2268_b57c6ea0",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-08-22T23:31:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "67bb2510_6f8c143c",
       "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -154,6 +244,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5649c420_564bc0a7",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-08-22T23:31:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "12dcf5ed_e4c04d65",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "503b57b8_c4c67b91",
@@ -171,6 +279,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a27548a5_7acf34c1",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-08-22T23:31:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "503b57b8_c4c67b91",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "424cba3d_dda34b20",
@@ -184,6 +310,24 @@
       "writtenOn": "2025-08-16T22:54:27Z",
       "side": 1,
       "message": "Can you remove?",
+      "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be8ad7d0_741cd6f9",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-08-22T23:31:51Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "424cba3d_dda34b20",
       "revId": "b029da7d01ccda2ec4463b08b8e36eb91d397884",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
