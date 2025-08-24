@@ -41,7 +41,8 @@ TEST(OemRouter, FragmentRoutes)
          &service](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& bar) {
-            service.handleSubRoute(req, asyncResp);
+            auto subReq = std::make_shared<SubRequest>(req);
+            service.handleSubRoute(subReq, asyncResp);
             standardCalled = true;
             EXPECT_EQ(bar, "bar");
         };
@@ -119,7 +120,8 @@ TEST(OemRouter, PatchHandlerWithJsonObject)
          &service](const crow::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& bar) {
-            service.handleSubRoute(req, asyncResp);
+            auto subReq = std::make_shared<SubRequest>(req);
+            service.handleSubRoute(subReq, asyncResp);
             standardCalled = true;
             EXPECT_EQ(bar, "bar");
         };

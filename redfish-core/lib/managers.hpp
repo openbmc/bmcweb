@@ -21,6 +21,7 @@
 #include "redfish.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
+#include "sub_request.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/manager_utils.hpp"
@@ -619,10 +620,11 @@ inline void getPhysicalAssets(
     }
 }
 
-inline void getManagerData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const std::string& managerId,
-                           const std::string& managerPath,
-                           const dbus::utility::MapperServiceMap& serviceMap)
+inline void getManagerData(
+    RedfishService& rfService, const std::shared_ptr<SubRequest>& subReq,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId, const std::string& managerPath,
+    const dbus::utility::MapperServiceMap& serviceMap)
 {
     if (managerPath.empty() || serviceMap.size() != 1)
     {
@@ -785,6 +787,8 @@ inline void getManagerData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             }
         }
     }
+
+    rfService.handleSubRoute(subReq, asyncResp);
 }
 
 inline void handleManagerGet(
@@ -803,11 +807,12 @@ inline void handleManagerGet(
         return;
     }
 
+    RedfishService& rfService = RedfishService::getInstance(app);
+    std::shared_ptr<SubRequest> subReq = std::make_shared<SubRequest>(req);
     manager_utils::getValidManagerPath(
         asyncResp, managerId,
-        std::bind_front(getManagerData, asyncResp, managerId));
-
-    RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
+        std::bind_front(getManagerData, std::ref(rfService), subReq, asyncResp,
+                        managerId));
 }
 
 inline void handleManagerPatch(
@@ -877,7 +882,9 @@ inline void handleManagerPatch(
                                                 serviceIdentification.value());
     }
 
-    RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
+    RedfishService& rfService = RedfishService::getInstance(app);
+    std::shared_ptr<SubRequest> subReq = std::make_shared<SubRequest>(req);
+    rfService.handleSubRoute(subReq, asyncResp);
 }
 
 inline void handleManagerCollectionGet(
