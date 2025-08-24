@@ -216,10 +216,10 @@ inline void processAfterSessionCreation(
     asyncResp->res.result(boost::beast::http::status::created);
     if (session->isConfigureSelfOnly)
     {
-        messages::passwordChangeRequired(
-            asyncResp->res,
-            boost::urls::format("/redfish/v1/AccountService/Accounts/{}",
-                                session->username));
+        boost::urls::url url = boost::urls::format(
+            "/redfish/v1/AccountService/Accounts/{}", session->username);
+        messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
+                                       messages::passwordChangeRequired(url));
     }
 
     crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
