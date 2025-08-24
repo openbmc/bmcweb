@@ -4,7 +4,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "http_request.hpp"
 #include "redfish_oem_routing.hpp"
 #include "sub_request.hpp"
 #include "verb.hpp"
@@ -48,10 +47,9 @@ class RedfishService
     }
 
     void handleSubRoute(
-        const crow::Request& req,
+        const std::shared_ptr<SubRequest>& subReq,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
     {
-        auto subReq = std::make_shared<SubRequest>(req);
         if (!subReq->needHandling())
         {
             return;
