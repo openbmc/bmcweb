@@ -415,7 +415,6 @@ def make_error_function(
                 "AccountRemoved",
                 "Created",
                 "Success",
-                "PasswordChangeRequired",
             ]
 
             if entry_id in addMessageToJson:
