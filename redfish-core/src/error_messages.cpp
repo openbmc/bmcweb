@@ -1618,7 +1618,8 @@ nlohmann::json::object_t passwordChangeRequired(
 void passwordChangeRequired(crow::Response& res,
                             const boost::urls::url_view_base& arg1)
 {
-    addMessageToJsonRoot(res.jsonValue, passwordChangeRequired(arg1));
+    res.result(boost::beast::http::status::forbidden);
+    addMessageToErrorJson(res.jsonValue, passwordChangeRequired(arg1));
 }
 
 /**

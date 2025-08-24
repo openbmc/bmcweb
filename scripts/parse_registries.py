@@ -248,7 +248,7 @@ def get_response_code(entry_id: str) -> str | None:
         "OperationFailed": "bad_gateway",
         "OperationNotAllowed": "method_not_allowed",
         "OperationTimeout": "internal_server_error",
-        "PasswordChangeRequired": None,
+        "PasswordChangeRequired": "forbidden",
         "PreconditionFailed": "precondition_failed",
         "PropertyNotWritable": "method_not_allowed",
         "PropertyValueExternalConflict": "conflict",
@@ -415,7 +415,6 @@ def make_error_function(
                 "AccountRemoved",
                 "Created",
                 "Success",
-                "PasswordChangeRequired",
             ]
 
             if entry_id in addMessageToJson:
