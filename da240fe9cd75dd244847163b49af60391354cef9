@@ -16,6 +16,24 @@
       "message": "ipv6 static addresses should move as well, and has the same problem, right?",
       "revId": "da240fe9cd75dd244847163b49af60391354cef9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df932320_2d3ead0e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 2462,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-08-25T13:14:50Z",
+      "side": 1,
+      "message": "I see handleDHCPPatch Clears only IPV4 Default Gateway. IPv6 static addresses moving here not required.",
+      "parentUuid": "fea0c67a_20883b73",
+      "revId": "da240fe9cd75dd244847163b49af60391354cef9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
