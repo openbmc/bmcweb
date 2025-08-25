@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a0898d6_f187ee7d",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-25T20:52:13Z",
+      "side": 1,
+      "message": "sorry, to only be mentioning this now, but these variables need to be named better.  \"expectedHash\" ultimately comes from the etag, so this just being called etag doesn\u0027t match with the scheme, and adds confution.\n\nmaybe\nexpectedHash -\u003e expectedEtag\netag -\u003e currentEtag",
+      "range": {
+        "startLine": 369,
+        "startChar": 31,
+        "endLine": 369,
+        "endChar": 35
+      },
+      "revId": "5e505cd9b7c359fedc6cc9ca68136f3d41b69541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c72b0681_3949b34e",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-25T20:52:13Z",
+      "side": 1,
+      "message": "Sorry, should\u0027ve caught this on patchset 1.  Need a couple subtle changes here to not duplicate the type check.\n\nnlohmann::json::object_)* obj \u003d jsonValue.get_ptr\u003cnlohmann::json::object_t\u003e();\nif (obj \u003d\u003d nullptr){\n    return std::hash\u003cnlohmann::json\u003e{}(jsonValue);\n}\nconst size_t type \u003d static_cast\u003cstd::size_t\u003e(jsonValue.type());\nsize_t seed \u003d details::combine(type, jsonValue.size());\nfor (const auto\u0026 element: *obj){\n   // use element.first and element.second\n}\n\n\n\nThe code you wrote involves involves a couple of implicit conversions, that the way you did were technically safe, but we prefer to just call the \"always\" safe versions to make sure that there\u0027s no chance of throwing on user input.",
+      "revId": "5e505cd9b7c359fedc6cc9ca68136f3d41b69541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce56a17a_b6858c9c",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-25T20:52:13Z",
+      "side": 1,
+      "message": "we shouldn\u0027t pass keyToIgnore to all scopes.  If we want to support removing the key at all levels, we can solve that when we get there (key becomes a json_pointer, which I don\u0027t think makes sense to support).\n\nbut for now, I think just leaving this empty string (\"\") would still solve the proelbm",
+      "range": {
+        "startLine": 967,
+        "startChar": 58,
+        "endLine": 967,
+        "endChar": 69
+      },
+      "revId": "5e505cd9b7c359fedc6cc9ca68136f3d41b69541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

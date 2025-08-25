@@ -71,6 +71,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fcf7b3ff_a38e4489",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-25T20:52:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a06bc891_ac943dd1",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78db65fb_75a621c2",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Existing code buries `expectedHash` here, breaking if-none-match specifically for resources that use OEM subroutes (managers.hpp).",
       "parentUuid": "78db65fb_75a621c2",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34652146_7c77713c",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-25T20:52:13Z",
+      "side": 1,
+      "message": "I\u0027m not following... what do you mean \"buries\"? I see no mention of expectedHash here.\n\n\u003e breaking if-none-match specifically for resources that use OEM subroutes\n\nWhy is that?  The oem sub route will generate a hash, yes, but then when it\u0027s rolled up, the hash will be recomputed, right?",
+      "parentUuid": "0db7e581_be8ff509",
       "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -188,6 +224,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af62af10_ff4727b6",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-25T20:52:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6d3eddc_4246143b",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f4a7a3c_b98536c6",
@@ -225,6 +279,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "0f4a7a3c_b98536c6",
+      "range": {
+        "startLine": 965,
+        "startChar": 35,
+        "endLine": 965,
+        "endChar": 59
+      },
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1087a0e4_ed76f12e",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-25T20:52:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "985b735c_47a7c253",
       "range": {
         "startLine": 965,
         "startChar": 35,
@@ -319,6 +397,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "b4d81b6a_303f924b",
+      "range": {
+        "startLine": 565,
+        "startChar": 43,
+        "endLine": 565,
+        "endChar": 57
+      },
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "627aefae_302019a7",
+        "filename": "redfish-core/lib/task.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-25T20:52:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d08d1a5c_c51861ec",
       "range": {
         "startLine": 565,
         "startChar": 43,
