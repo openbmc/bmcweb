@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f94b3df3_7293a833",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-25T18:25:09Z",
+      "side": 1,
+      "message": "Is it time, this is a separate function? GetAssetinfo?",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a08bc7_142269fd",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-25T18:25:09Z",
+      "side": 1,
+      "message": "I thought we typically did an empty check for sparePartNumber?",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "231d03e7_f69ba70b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-25T18:25:09Z",
+      "side": 1,
+      "message": "WARNING here",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14566b77_8697e6d0",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-25T18:25:09Z",
+      "side": 1,
+      "message": "Not sure these comments help much..",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15e652e0_f8881ffc",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-25T18:25:09Z",
+      "side": 1,
+      "message": "Head method too? \nheadAssembly \n`verb::head`",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
