@@ -37,7 +37,7 @@ namespace image_upload
 static std::unique_ptr<sdbusplus::bus::match_t> fwUpdateMatcher;
 
 inline void uploadImageHandler(
-    const crow::Request& req,
+    const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // Only allow one FW update at a time
@@ -102,7 +102,7 @@ inline void uploadImageHandler(
             }
         };
     fwUpdateMatcher = std::make_unique<sdbusplus::bus::match_t>(
-        *crow::connections::systemBus,
+        *bmcweb::connections::systemBus,
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);
@@ -121,14 +121,14 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/upload/image/<str>")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
-            [](const crow::Request& req,
+            [](const bmcweb::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string&) { uploadImageHandler(req, asyncResp); });
 
     BMCWEB_ROUTE(app, "/upload/image")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
-            [](const crow::Request& req,
+            [](const bmcweb::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 uploadImageHandler(req, asyncResp);
             });

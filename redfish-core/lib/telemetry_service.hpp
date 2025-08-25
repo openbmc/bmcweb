@@ -30,7 +30,7 @@ namespace redfish
 {
 
 inline void handleTelemetryServiceGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))

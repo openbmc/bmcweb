@@ -24,7 +24,7 @@ namespace redfish
 {
 
 inline void handleEnvironmentMetricsHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -51,7 +51,7 @@ inline void handleEnvironmentMetricsHead(
 }
 
 inline void handleEnvironmentMetricsGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {

@@ -18,7 +18,7 @@ class AsyncResp
 {
   public:
     AsyncResp() = default;
-    explicit AsyncResp(crow::Response&& resIn) : res(std::move(resIn)) {}
+    explicit AsyncResp(bmcweb::Response&& resIn) : res(std::move(resIn)) {}
 
     AsyncResp(const AsyncResp&) = delete;
     AsyncResp(AsyncResp&&) = delete;
@@ -30,7 +30,7 @@ class AsyncResp
         res.end();
     }
 
-    crow::Response res;
+    bmcweb::Response res;
 };
 
 } // namespace bmcweb

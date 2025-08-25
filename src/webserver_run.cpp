@@ -37,13 +37,14 @@
 static void setLogLevel(const std::string& logLevel)
 {
     const std::basic_string_view<char>* iter =
-        std::ranges::find(crow::mapLogLevelFromName, logLevel);
-    if (iter == crow::mapLogLevelFromName.end())
+        std::ranges::find(bmcweb::mapLogLevelFromName, logLevel);
+    if (iter == bmcweb::mapLogLevelFromName.end())
     {
         BMCWEB_LOG_ERROR("log-level {} not found", logLevel);
         return;
     }
-    crow::getBmcwebCurrentLoggingLevel() = crow::getLogLevelFromName(logLevel);
+    bmcweb::getBmcwebCurrentLoggingLevel() =
+        crow::getLogLevelFromName(logLevel);
     BMCWEB_LOG_INFO("Requested log-level change to: {}", logLevel);
 }
 
@@ -54,7 +55,7 @@ int run()
 
     std::shared_ptr<sdbusplus::asio::connection> systemBus =
         std::make_shared<sdbusplus::asio::connection>(io);
-    crow::connections::systemBus = systemBus.get();
+    bmcweb::connections::systemBus = systemBus.get();
 
     auto server = sdbusplus::asio::object_server(systemBus);
 
@@ -74,12 +75,12 @@ int run()
 
     if constexpr (BMCWEB_STATIC_HOSTING)
     {
-        crow::webassets::requestRoutes(app);
+        bmcweb::webassets::requestRoutes(app);
     }
 
     if constexpr (BMCWEB_KVM)
     {
-        crow::obmc_kvm::requestRoutes(app);
+        bmcweb::obmc_kvm::requestRoutes(app);
     }
 
     if constexpr (BMCWEB_REDFISH)
@@ -98,34 +99,34 @@ int run()
 
     if constexpr (BMCWEB_REST)
     {
-        crow::dbus_monitor::requestRoutes(app);
-        crow::image_upload::requestRoutes(app);
-        crow::openbmc_mapper::requestRoutes(app);
+        bmcweb::dbus_monitor::requestRoutes(app);
+        bmcweb::image_upload::requestRoutes(app);
+        bmcweb::openbmc_mapper::requestRoutes(app);
     }
 
     if constexpr (BMCWEB_HOST_SERIAL_SOCKET)
     {
-        crow::obmc_console::requestRoutes(app);
+        bmcweb::obmc_console::requestRoutes(app);
     }
 
-    crow::obmc_vm::requestRoutes(app);
+    bmcweb::obmc_vm::requestRoutes(app);
 
     if constexpr (BMCWEB_IBM_MANAGEMENT_CONSOLE)
     {
-        crow::ibm_mc::requestRoutes(app);
+        bmcweb::ibm_mc::requestRoutes(app);
     }
 
     if constexpr (BMCWEB_GOOGLE_API)
     {
-        crow::google_api::requestRoutes(app);
+        bmcweb::google_api::requestRoutes(app);
     }
 
-    crow::login_routes::requestRoutes(app);
+    bmcweb::login_routes::requestRoutes(app);
 
     if constexpr (!BMCWEB_INSECURE_DISABLE_SSL)
     {
         BMCWEB_LOG_INFO("Start Hostname Monitor Service...");
-        crow::hostname_monitor::registerHostnameSignal();
+        bmcweb::hostname_monitor::registerHostnameSignal();
     }
 
     bmcweb::registerUserRemovedSignal();
@@ -138,7 +139,7 @@ int run()
 
     io.run();
 
-    crow::connections::systemBus = nullptr;
+    bmcweb::connections::systemBus = nullptr;
 
     return 0;
 }

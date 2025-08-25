@@ -386,7 +386,7 @@ inline bool getFilterParam(std::string_view value, Query& query)
 }
 
 inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
-                                            crow::Response& res)
+                                            bmcweb::Response& res)
 {
     Query ret{};
     for (const boost::urls::params_view::value_type& it : urlParams)
@@ -482,8 +482,9 @@ inline std::optional<Query> parseParameters(boost::urls::params_view urlParams,
     return ret;
 }
 
-inline bool processOnly(crow::App& app, crow::Response& res,
-                        std::function<void(crow::Response&)>& completionHandler)
+inline bool processOnly(
+    bmcweb::App& app, crow::Response& res,
+    std::function<void(bmcweb::Response&)>& completionHandler)
 {
     BMCWEB_LOG_DEBUG("Processing only query param");
     auto itMembers = res.jsonValue.find("Members");
@@ -522,8 +523,8 @@ inline bool processOnly(crow::App& app, crow::Response& res,
     // TODO(Ed) copy request headers?
     // newReq.session = req.session;
     std::error_code ec;
-    auto newReq = std::make_shared<crow::Request>(
-        crow::Request::Body{boost::beast::http::verb::get, *url, 11}, ec);
+    auto newReq = std::make_shared<bmcweb::Request>(
+        bmcweb::Request::Body{boost::beast::http::verb::get, *url, 11}, ec);
     if (ec)
     {
         messages::internalError(res);
@@ -749,7 +750,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     // allows callers to attach sub-responses within the json tree that need
     // to be executed and filled into their appropriate locations.  This
     // class manages the final "merge" of the json resources.
-    MultiAsyncResp(crow::App& appIn,
+    MultiAsyncResp(bmcweb::App& appIn,
                    std::shared_ptr<bmcweb::AsyncResp> finalResIn) :
         app(&appIn), finalRes(std::move(finalResIn))
     {}
@@ -767,7 +768,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     }
 
     void placeResult(const nlohmann::json::json_pointer& locationToPlace,
-                     crow::Response& res)
+                     bmcweb::Response& res)
     {
         BMCWEB_LOG_DEBUG("placeResult for {}", locationToPlace);
         propogateError(finalRes->res, res);
@@ -784,7 +785,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     // Handles the very first level of Expand, and starts a chain of sub-queries
     // for deeper levels.
     void startQuery(const Query& query, const Query& delegated,
-                    const crow::Request& req)
+                    const bmcweb::Request& req)
     {
         std::vector<ExpandNode> nodes = findNavigationReferences(
             query.expandType, query.expandLevel, delegated.expandLevel,
@@ -801,9 +802,9 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
             const std::string subQuery = node.uri + *queryStr;
             BMCWEB_LOG_DEBUG("URL of subquery:  {}", subQuery);
             std::error_code ec;
-            auto newReq = std::make_shared<crow::Request>(
-                crow::Request::Body{boost::beast::http::verb::get, subQuery,
-                                    11},
+            auto newReq = std::make_shared<bmcweb::Request>(
+                bmcweb::Request::Body{boost::beast::http::verb::get, subQuery,
+                                      11},
                 ec);
             if (ec)
             {
@@ -837,7 +838,7 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         const std::shared_ptr<std::vector<OemBaseRule*>>& fragments,
         const std::shared_ptr<std::vector<std::string>>& params,
-        const crow::Response& resIn)
+        const bmcweb::Response& resIn)
     {
         asyncResp->res.jsonValue = resIn.jsonValue;
         auto multi = std::make_shared<MultiAsyncResp>(asyncResp);
@@ -868,16 +869,16 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
     static void placeResultStatic(
         const std::shared_ptr<MultiAsyncResp>& multi,
         const nlohmann::json::json_pointer& locationToPlace,
-        crow::Response& res)
+        bmcweb::Response& res)
     {
         multi->placeResult(locationToPlace, res);
     }
 
-    crow::App* app;
+    bmcweb::App* app;
     std::shared_ptr<bmcweb::AsyncResp> finalRes;
 };
 
-inline void processTopAndSkip(const Query& query, crow::Response& res)
+inline void processTopAndSkip(const Query& query, bmcweb::Response& res)
 {
     if (!query.skip && !query.top)
     {
@@ -987,7 +988,7 @@ inline void recursiveSelect(nlohmann::json& currRoot,
 // created for clarification.
 // 2. respect the full odata spec; e.g., deduplication, namespace, star (*),
 // etc.
-inline void processSelect(crow::Response& intermediateResponse,
+inline void processSelect(bmcweb::Response& intermediateResponse,
                           const SelectTrieNode& trieRoot)
 {
     BMCWEB_LOG_DEBUG("Process $select quary parameter");
@@ -995,9 +996,9 @@ inline void processSelect(crow::Response& intermediateResponse,
 }
 
 inline void processAllParams(
-    crow::App& app, const Query& query, const Query& delegated,
-    std::function<void(crow::Response&)>& completionHandler,
-    crow::Response& intermediateResponse, const crow::Request& req)
+    bmcweb::App& app, const Query& query, const Query& delegated,
+    std::function<void(bmcweb::Response&)>& completionHandler,
+    bmcweb::Response& intermediateResponse, const crow::Request& req)
 {
     if (!completionHandler)
     {

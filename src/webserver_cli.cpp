@@ -16,7 +16,8 @@
 // Override default log option:
 static void cliLogLevel(const std::string& logLevel)
 {
-    crow::getBmcwebCurrentLoggingLevel() = crow::getLogLevelFromName(logLevel);
+    bmcweb::getBmcwebCurrentLoggingLevel() =
+        crow::getLogLevelFromName(logLevel);
 }
 
 static constexpr std::array<std::string, 7> levels{

@@ -23,7 +23,7 @@ inline bool& hasWebuiRoute()
 
 inline void sendUnauthorized(std::string_view url,
                              std::string_view xRequestedWith,
-                             std::string_view accept, crow::Response& res)
+                             std::string_view accept, bmcweb::Response& res)
 {
     // If it's a browser connecting, don't send the HTTP authenticate
     // header, to avoid possible CSRF attacks with basic auth

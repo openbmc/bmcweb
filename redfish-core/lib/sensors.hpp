@@ -357,7 +357,7 @@ void getConnections(const std::shared_ptr<SensorsAsyncResp>& sensorsAsyncResp,
  * made, and eliminate Power sensors when a Thermal request is made.
  */
 inline void reduceSensorList(
-    crow::Response& res, std::string_view chassisSubNode,
+    bmcweb::Response& res, std::string_view chassisSubNode,
     std::span<const std::string_view> sensorTypes,
     const std::vector<std::string>* allSensors,
     const std::shared_ptr<std::set<std::string>>& activeSensors)
@@ -584,7 +584,7 @@ inline void populateFanRedundancy(
                             return;
                         }
                         dbus::utility::getAllProperties(
-                            *crow::connections::systemBus, owner, path,
+                            *bmcweb::connections::systemBus, owner, path,
                             "xyz.openbmc_project.Control.FanRedundancy",
                             [path, sensorsAsyncResp](
                                 const boost::system::error_code& ec3,
@@ -2395,7 +2395,7 @@ inline void getChassisCallback(
 }
 
 inline void handleSensorCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -2446,7 +2446,7 @@ inline void getSensorFromDbus(
     BMCWEB_LOG_DEBUG("Path {}", sensorPath);
 
     ::dbus::utility::getAllProperties(
-        *crow::connections::systemBus, connectionName, sensorPath, "",
+        *bmcweb::connections::systemBus, connectionName, sensorPath, "",
         [asyncResp,
          sensorPath](const boost::system::error_code& ec,
                      const ::dbus::utility::DBusPropertiesMap& valuesDict) {
@@ -2465,7 +2465,7 @@ inline void getSensorFromDbus(
         });
 }
 
-inline void handleSensorGet(App& app, const crow::Request& req,
+inline void handleSensorGet(App& app, const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& chassisId,
                             const std::string& sensorId)

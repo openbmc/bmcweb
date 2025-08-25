@@ -1060,7 +1060,7 @@ inline void patchAppliedOperatingConfig(
 }
 
 inline void handleProcessorHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /* systemName */, const std::string& /* processorId */)
 {
@@ -1074,7 +1074,7 @@ inline void handleProcessorHead(
 }
 
 inline void handleProcessorCollectionHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /* systemName */)
 {
@@ -1088,7 +1088,7 @@ inline void handleProcessorCollectionHead(
 }
 
 inline void handleProcessorGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& processorId)
 {
@@ -1137,7 +1137,7 @@ inline void doPatchProcessor(
 }
 
 inline void handleProcessorPatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& processorId)
 {
@@ -1185,7 +1185,7 @@ inline void requestRoutesOperatingConfigCollection(App& app)
         .privileges(redfish::privileges::getOperatingConfigCollection)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName,
                             const std::string& cpuName) {
@@ -1268,7 +1268,7 @@ inline void requestRoutesOperatingConfig(App& app)
         .privileges(redfish::privileges::getOperatingConfig)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName,
                             const std::string& cpuName,
@@ -1355,7 +1355,7 @@ inline void requestRoutesProcessorCollection(App& app)
         .privileges(redfish::privileges::getProcessorCollection)
         .methods(
             boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
+                get)([&app](const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName) {
             if (!redfish::setUpRedfishRoute(app, req, asyncResp))

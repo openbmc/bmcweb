@@ -217,7 +217,7 @@ inline void afterGetSubtree(
         // Now grab its version
         // info
         dbus::utility::getAllProperties(
-            *crow::connections::systemBus, obj.second[0].first, obj.first,
+            *bmcweb::connections::systemBus, obj.second[0].first, obj.first,
             "xyz.openbmc_project.Software.Version",
             [asyncResp, swId, runningImage, swVersionPurpose,
              activeVersionPropName, populateLinkToImages](

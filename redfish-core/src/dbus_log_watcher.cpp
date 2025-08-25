@@ -101,7 +101,7 @@ const std::string propertiesMatchString =
     sdbusplus::bus::match::rules::member("InterfacesAdded");
 
 DbusEventLogMonitor::DbusEventLogMonitor() :
-    dbusEventLogMonitor(*crow::connections::systemBus, propertiesMatchString,
+    dbusEventLogMonitor(*bmcweb::connections::systemBus, propertiesMatchString,
                         onDbusEventLogCreated)
 
 {}
@@ -152,7 +152,7 @@ const std::string telemetryMatchStr =
     "arg0=xyz.openbmc_project.Telemetry.Report";
 
 DbusTelemetryMonitor::DbusTelemetryMonitor() :
-    matchTelemetryMonitor(*crow::connections::systemBus, telemetryMatchStr,
+    matchTelemetryMonitor(*bmcweb::connections::systemBus, telemetryMatchStr,
                           getReadingsForReport)
 {}
 } // namespace redfish

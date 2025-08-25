@@ -98,7 +98,7 @@ inline void fillCableHealthState(
     const std::string& cableObjectPath, const std::string& service)
 {
     dbus::utility::getProperty<bool>(
-        *crow::connections::systemBus, service, cableObjectPath,
+        *bmcweb::connections::systemBus, service, cableObjectPath,
         "xyz.openbmc_project.Inventory.Item", "Present",
         [asyncResp,
          cableObjectPath](const boost::system::error_code& ec, bool present) {
@@ -143,7 +143,7 @@ inline void getCableProperties(
             if (interface == "xyz.openbmc_project.Inventory.Item.Cable")
             {
                 dbus::utility::getAllProperties(
-                    *crow::connections::systemBus, service, cableObjectPath,
+                    *bmcweb::connections::systemBus, service, cableObjectPath,
                     interface, std::bind_front(fillCableProperties, asyncResp));
             }
             else if (interface == "xyz.openbmc_project.Inventory.Item")
@@ -193,7 +193,7 @@ inline void afterHandleCableGet(
     messages::resourceNotFound(asyncResp->res, "Cable", cableId);
 }
 
-inline void handleCableGet(App& app, const crow::Request& req,
+inline void handleCableGet(App& app, const bmcweb::Request& req,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& cableId)
 {
@@ -210,7 +210,7 @@ inline void handleCableGet(App& app, const crow::Request& req,
 }
 
 inline void handleCableCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))

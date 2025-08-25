@@ -1003,7 +1003,7 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                 const std::string& owner = subtreeLocal[0].second[0].first;
 
                 dbus::utility::getAllProperties(
-                    *crow::connections::systemBus, owner, path,
+                    *bmcweb::connections::systemBus, owner, path,
                     thermalModeIface,
                     [path, owner,
                      self](const boost::system::error_code& ec2,
@@ -1201,7 +1201,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 const std::string& path = subtree[0].first;
                 const std::string& owner = subtree[0].second[0].first;
                 dbus::utility::getAllProperties(
-                    *crow::connections::systemBus, owner, path,
+                    *bmcweb::connections::systemBus, owner, path,
                     thermalModeIface,
                     [self, path,
                      owner](const boost::system::error_code& ec2,
@@ -1260,7 +1260,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             }
             currentProfile = *profile;
             sdbusplus::asio::setProperty(
-                *crow::connections::systemBus, profileConnection, profilePath,
+                *bmcweb::connections::systemBus, profileConnection, profilePath,
                 thermalModeIface, "Current", *profile,
                 [response](const boost::system::error_code& ec) {
                     if (ec)

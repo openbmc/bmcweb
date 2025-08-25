@@ -67,10 +67,10 @@ TEST(PropogateErrorCode, 4xxIsWorseThanOthers)
 
 TEST(PropogateError, IntermediateNoErrorMessageMakesNoChange)
 {
-    crow::Response intermediate;
+    bmcweb::Response intermediate;
     intermediate.result(boost::beast::http::status::ok);
 
-    crow::Response finalRes;
+    bmcweb::Response finalRes;
     finalRes.result(boost::beast::http::status::ok);
     propogateError(finalRes, intermediate);
     EXPECT_EQ(finalRes.result(), boost::beast::http::status::ok);
@@ -89,11 +89,11 @@ TEST(PropogateError, ErrorsArePropergatedWithErrorInRoot)
     "Resolution": "Resubmit the request.  If the problem persists, consider resetting the service."
 }
 )"_json;
-    crow::Response intermediate;
+    bmcweb::Response intermediate;
     intermediate.result(boost::beast::http::status::internal_server_error);
     intermediate.jsonValue = root;
 
-    crow::Response final;
+    bmcweb::Response final;
     final.result(boost::beast::http::status::ok);
 
     propogateError(final, intermediate);
@@ -110,7 +110,7 @@ TEST(PropogateError, ErrorsArePropergatedWithErrorInRoot)
 
 TEST(PropogateError, ErrorsArePropergatedWithErrorCode)
 {
-    crow::Response intermediate;
+    bmcweb::Response intermediate;
     intermediate.result(boost::beast::http::status::internal_server_error);
 
     nlohmann::json error = R"(
@@ -138,7 +138,7 @@ TEST(PropogateError, ErrorsArePropergatedWithErrorCode)
         error["error"][messages::messageAnnotation].push_back(extendedInfo);
     }
     intermediate.jsonValue = error;
-    crow::Response final;
+    bmcweb::Response final;
     final.result(boost::beast::http::status::ok);
 
     propogateError(final, intermediate);

@@ -35,7 +35,7 @@ namespace messages
  * @returns Message Success formatted to JSON */
 nlohmann::json::object_t success();
 
-void success(crow::Response& res);
+void success(bmcweb::Response& res);
 
 /**
  * @brief Formats GeneralError message into JSON
@@ -47,7 +47,7 @@ void success(crow::Response& res);
  * @returns Message GeneralError formatted to JSON */
 nlohmann::json::object_t generalError();
 
-void generalError(crow::Response& res);
+void generalError(bmcweb::Response& res);
 
 /**
  * @brief Formats Created message into JSON
@@ -57,7 +57,7 @@ void generalError(crow::Response& res);
  * @returns Message Created formatted to JSON */
 nlohmann::json::object_t created();
 
-void created(crow::Response& res);
+void created(bmcweb::Response& res);
 
 /**
  * @brief Formats NoOperation message into JSON
@@ -68,7 +68,7 @@ void created(crow::Response& res);
  * @returns Message NoOperation formatted to JSON */
 nlohmann::json::object_t noOperation();
 
-void noOperation(crow::Response& res);
+void noOperation(bmcweb::Response& res);
 
 /**
  * @brief Formats PropertyDuplicate message into JSON
@@ -79,7 +79,7 @@ void noOperation(crow::Response& res);
  * @returns Message PropertyDuplicate formatted to JSON */
 nlohmann::json::object_t propertyDuplicate(std::string_view arg1);
 
-void propertyDuplicate(crow::Response& res, std::string_view arg1);
+void propertyDuplicate(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats PropertyUnknown message into JSON
@@ -91,7 +91,7 @@ void propertyDuplicate(crow::Response& res, std::string_view arg1);
  * @returns Message PropertyUnknown formatted to JSON */
 nlohmann::json::object_t propertyUnknown(std::string_view arg1);
 
-void propertyUnknown(crow::Response& res, std::string_view arg1);
+void propertyUnknown(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats PropertyValueTypeError message into JSON
@@ -105,7 +105,7 @@ void propertyUnknown(crow::Response& res, std::string_view arg1);
 nlohmann::json::object_t propertyValueTypeError(const nlohmann::json& arg1,
                                                 std::string_view arg2);
 
-void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
+void propertyValueTypeError(bmcweb::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2);
 
 /**
@@ -120,7 +120,7 @@ void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
 nlohmann::json::object_t propertyValueFormatError(const nlohmann::json& arg1,
                                                   std::string_view arg2);
 
-void propertyValueFormatError(crow::Response& res, const nlohmann::json& arg1,
+void propertyValueFormatError(bmcweb::Response& res, const nlohmann::json& arg1,
                               std::string_view arg2);
 
 /**
@@ -135,7 +135,7 @@ void propertyValueFormatError(crow::Response& res, const nlohmann::json& arg1,
 nlohmann::json::object_t propertyValueNotInList(const nlohmann::json& arg1,
                                                 std::string_view arg2);
 
-void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1,
+void propertyValueNotInList(bmcweb::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2);
 
 /**
@@ -150,7 +150,7 @@ void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1,
 nlohmann::json::object_t propertyValueOutOfRange(const nlohmann::json& arg1,
                                                  std::string_view arg2);
 
-void propertyValueOutOfRange(crow::Response& res, const nlohmann::json& arg1,
+void propertyValueOutOfRange(bmcweb::Response& res, const nlohmann::json& arg1,
                              std::string_view arg2);
 
 /**
@@ -162,7 +162,7 @@ void propertyValueOutOfRange(crow::Response& res, const nlohmann::json& arg1,
  * @returns Message PropertyValueError formatted to JSON */
 nlohmann::json::object_t propertyValueError(std::string_view arg1);
 
-void propertyValueError(crow::Response& res, std::string_view arg1);
+void propertyValueError(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats PropertyNotWritable message into JSON
@@ -174,7 +174,7 @@ void propertyValueError(crow::Response& res, std::string_view arg1);
  * @returns Message PropertyNotWritable formatted to JSON */
 nlohmann::json::object_t propertyNotWritable(std::string_view arg1);
 
-void propertyNotWritable(crow::Response& res, std::string_view arg1);
+void propertyNotWritable(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats PropertyNotUpdated message into JSON
@@ -186,7 +186,7 @@ void propertyNotWritable(crow::Response& res, std::string_view arg1);
  * @returns Message PropertyNotUpdated formatted to JSON */
 nlohmann::json::object_t propertyNotUpdated(std::string_view arg1);
 
-void propertyNotUpdated(crow::Response& res, std::string_view arg1);
+void propertyNotUpdated(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats PropertyMissing message into JSON
@@ -198,7 +198,7 @@ void propertyNotUpdated(crow::Response& res, std::string_view arg1);
  * @returns Message PropertyMissing formatted to JSON */
 nlohmann::json::object_t propertyMissing(std::string_view arg1);
 
-void propertyMissing(crow::Response& res, std::string_view arg1);
+void propertyMissing(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats MalformedJSON message into JSON
@@ -209,7 +209,7 @@ void propertyMissing(crow::Response& res, std::string_view arg1);
  * @returns Message MalformedJSON formatted to JSON */
 nlohmann::json::object_t malformedJSON();
 
-void malformedJSON(crow::Response& res);
+void malformedJSON(bmcweb::Response& res);
 
 /**
  * @brief Formats InvalidJSON message into JSON
@@ -221,7 +221,7 @@ void malformedJSON(crow::Response& res);
  * @returns Message InvalidJSON formatted to JSON */
 nlohmann::json::object_t invalidJSON(std::string_view arg1);
 
-void invalidJSON(crow::Response& res, std::string_view arg1);
+void invalidJSON(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats EmptyJSON message into JSON
@@ -232,7 +232,7 @@ void invalidJSON(crow::Response& res, std::string_view arg1);
  * @returns Message EmptyJSON formatted to JSON */
 nlohmann::json::object_t emptyJSON();
 
-void emptyJSON(crow::Response& res);
+void emptyJSON(bmcweb::Response& res);
 
 /**
  * @brief Formats ActionNotSupported message into JSON
@@ -243,7 +243,7 @@ void emptyJSON(crow::Response& res);
  * @returns Message ActionNotSupported formatted to JSON */
 nlohmann::json::object_t actionNotSupported(std::string_view arg1);
 
-void actionNotSupported(crow::Response& res, std::string_view arg1);
+void actionNotSupported(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats ActionParameterMissing message into JSON
@@ -257,7 +257,7 @@ void actionNotSupported(crow::Response& res, std::string_view arg1);
 nlohmann::json::object_t actionParameterMissing(std::string_view arg1,
                                                 std::string_view arg2);
 
-void actionParameterMissing(crow::Response& res, std::string_view arg1,
+void actionParameterMissing(bmcweb::Response& res, std::string_view arg1,
                             std::string_view arg2);
 
 /**
@@ -272,7 +272,7 @@ void actionParameterMissing(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t actionParameterDuplicate(std::string_view arg1,
                                                   std::string_view arg2);
 
-void actionParameterDuplicate(crow::Response& res, std::string_view arg1,
+void actionParameterDuplicate(bmcweb::Response& res, std::string_view arg1,
                               std::string_view arg2);
 
 /**
@@ -287,7 +287,7 @@ void actionParameterDuplicate(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t actionParameterUnknown(std::string_view arg1,
                                                 std::string_view arg2);
 
-void actionParameterUnknown(crow::Response& res, std::string_view arg1,
+void actionParameterUnknown(bmcweb::Response& res, std::string_view arg1,
                             std::string_view arg2);
 
 /**
@@ -304,7 +304,7 @@ nlohmann::json::object_t actionParameterValueTypeError(
     const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3);
 
 void actionParameterValueTypeError(
-    crow::Response& res, const nlohmann::json& arg1, std::string_view arg2,
+    bmcweb::Response& res, const nlohmann::json& arg1, std::string_view arg2,
     std::string_view arg3);
 
 /**
@@ -321,7 +321,7 @@ nlohmann::json::object_t actionParameterValueFormatError(
     const nlohmann::json& arg1, std::string_view arg2, std::string_view arg3);
 
 void actionParameterValueFormatError(
-    crow::Response& res, const nlohmann::json& arg1, std::string_view arg2,
+    bmcweb::Response& res, const nlohmann::json& arg1, std::string_view arg2,
     std::string_view arg3);
 
 /**
@@ -337,7 +337,7 @@ void actionParameterValueFormatError(
 nlohmann::json::object_t actionParameterValueNotInList(
     std::string_view arg1, std::string_view arg2, std::string_view arg3);
 
-void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
+void actionParameterValueNotInList(bmcweb::Response& res, std::string_view arg1,
                                    std::string_view arg2,
                                    std::string_view arg3);
 
@@ -354,9 +354,9 @@ void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t actionParameterValueOutOfRange(
     std::string_view arg1, std::string_view arg2, std::string_view arg3);
 
-void actionParameterValueOutOfRange(crow::Response& res, std::string_view arg1,
-                                    std::string_view arg2,
-                                    std::string_view arg3);
+void actionParameterValueOutOfRange(
+    bmcweb::Response& res, std::string_view arg1, std::string_view arg2,
+    std::string_view arg3);
 
 /**
  * @brief Formats ActionParameterValueError message into JSON
@@ -370,7 +370,8 @@ void actionParameterValueOutOfRange(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t actionParameterValueError(const nlohmann::json& arg1,
                                                    std::string_view arg2);
 
-void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1,
+void actionParameterValueError(bmcweb::Response& res,
+                               const nlohmann::json& arg1,
                                std::string_view arg2);
 
 /**
@@ -385,7 +386,7 @@ void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1,
 nlohmann::json::object_t actionParameterNotSupported(std::string_view arg1,
                                                      std::string_view arg2);
 
-void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
+void actionParameterNotSupported(bmcweb::Response& res, std::string_view arg1,
                                  std::string_view arg2);
 
 /**
@@ -399,7 +400,7 @@ void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
  * @returns Message ArraySizeTooLong formatted to JSON */
 nlohmann::json::object_t arraySizeTooLong(std::string_view arg1, uint64_t arg2);
 
-void arraySizeTooLong(crow::Response& res, std::string_view arg1,
+void arraySizeTooLong(bmcweb::Response& res, std::string_view arg1,
                       uint64_t arg2);
 
 /**
@@ -414,7 +415,7 @@ void arraySizeTooLong(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t arraySizeTooShort(std::string_view arg1,
                                            std::string_view arg2);
 
-void arraySizeTooShort(crow::Response& res, std::string_view arg1,
+void arraySizeTooShort(bmcweb::Response& res, std::string_view arg1,
                        std::string_view arg2);
 
 /**
@@ -430,7 +431,7 @@ nlohmann::json::object_t queryParameterValueTypeError(
     const nlohmann::json& arg1, std::string_view arg2);
 
 void queryParameterValueTypeError(
-    crow::Response& res, const nlohmann::json& arg1, std::string_view arg2);
+    bmcweb::Response& res, const nlohmann::json& arg1, std::string_view arg2);
 
 /**
  * @brief Formats QueryParameterValueFormatError message into JSON
@@ -445,7 +446,7 @@ nlohmann::json::object_t queryParameterValueFormatError(
     const nlohmann::json& arg1, std::string_view arg2);
 
 void queryParameterValueFormatError(
-    crow::Response& res, const nlohmann::json& arg1, std::string_view arg2);
+    bmcweb::Response& res, const nlohmann::json& arg1, std::string_view arg2);
 
 /**
  * @brief Formats QueryParameterValueError message into JSON
@@ -456,7 +457,7 @@ void queryParameterValueFormatError(
  * @returns Message QueryParameterValueError formatted to JSON */
 nlohmann::json::object_t queryParameterValueError(std::string_view arg1);
 
-void queryParameterValueError(crow::Response& res, std::string_view arg1);
+void queryParameterValueError(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats QueryParameterOutOfRange message into JSON
@@ -471,7 +472,7 @@ void queryParameterValueError(crow::Response& res, std::string_view arg1);
 nlohmann::json::object_t queryParameterOutOfRange(
     std::string_view arg1, std::string_view arg2, std::string_view arg3);
 
-void queryParameterOutOfRange(crow::Response& res, std::string_view arg1,
+void queryParameterOutOfRange(bmcweb::Response& res, std::string_view arg1,
                               std::string_view arg2, std::string_view arg3);
 
 /**
@@ -482,7 +483,7 @@ void queryParameterOutOfRange(crow::Response& res, std::string_view arg1,
  * @returns Message QueryNotSupportedOnResource formatted to JSON */
 nlohmann::json::object_t queryNotSupportedOnResource();
 
-void queryNotSupportedOnResource(crow::Response& res);
+void queryNotSupportedOnResource(bmcweb::Response& res);
 
 /**
  * @brief Formats QueryNotSupportedOnOperation message into JSON
@@ -492,7 +493,7 @@ void queryNotSupportedOnResource(crow::Response& res);
  * @returns Message QueryNotSupportedOnOperation formatted to JSON */
 nlohmann::json::object_t queryNotSupportedOnOperation();
 
-void queryNotSupportedOnOperation(crow::Response& res);
+void queryNotSupportedOnOperation(bmcweb::Response& res);
 
 /**
  * @brief Formats QueryNotSupported message into JSON
@@ -502,7 +503,7 @@ void queryNotSupportedOnOperation(crow::Response& res);
  * @returns Message QueryNotSupported formatted to JSON */
 nlohmann::json::object_t queryNotSupported();
 
-void queryNotSupported(crow::Response& res);
+void queryNotSupported(bmcweb::Response& res);
 
 /**
  * @brief Formats QueryCombinationInvalid message into JSON
@@ -513,7 +514,7 @@ void queryNotSupported(crow::Response& res);
  * @returns Message QueryCombinationInvalid formatted to JSON */
 nlohmann::json::object_t queryCombinationInvalid();
 
-void queryCombinationInvalid(crow::Response& res);
+void queryCombinationInvalid(bmcweb::Response& res);
 
 /**
  * @brief Formats QueryParameterUnsupported message into JSON
@@ -524,7 +525,7 @@ void queryCombinationInvalid(crow::Response& res);
  * @returns Message QueryParameterUnsupported formatted to JSON */
 nlohmann::json::object_t queryParameterUnsupported(std::string_view arg1);
 
-void queryParameterUnsupported(crow::Response& res, std::string_view arg1);
+void queryParameterUnsupported(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats SessionLimitExceeded message into JSON
@@ -535,7 +536,7 @@ void queryParameterUnsupported(crow::Response& res, std::string_view arg1);
  * @returns Message SessionLimitExceeded formatted to JSON */
 nlohmann::json::object_t sessionLimitExceeded();
 
-void sessionLimitExceeded(crow::Response& res);
+void sessionLimitExceeded(bmcweb::Response& res);
 
 /**
  * @brief Formats EventSubscriptionLimitExceeded message into JSON
@@ -546,7 +547,7 @@ void sessionLimitExceeded(crow::Response& res);
  * @returns Message EventSubscriptionLimitExceeded formatted to JSON */
 nlohmann::json::object_t eventSubscriptionLimitExceeded();
 
-void eventSubscriptionLimitExceeded(crow::Response& res);
+void eventSubscriptionLimitExceeded(bmcweb::Response& res);
 
 /**
  * @brief Formats ResourceCannotBeDeleted message into JSON
@@ -557,7 +558,7 @@ void eventSubscriptionLimitExceeded(crow::Response& res);
  * @returns Message ResourceCannotBeDeleted formatted to JSON */
 nlohmann::json::object_t resourceCannotBeDeleted();
 
-void resourceCannotBeDeleted(crow::Response& res);
+void resourceCannotBeDeleted(bmcweb::Response& res);
 
 /**
  * @brief Formats ResourceInUse message into JSON
@@ -568,7 +569,7 @@ void resourceCannotBeDeleted(crow::Response& res);
  * @returns Message ResourceInUse formatted to JSON */
 nlohmann::json::object_t resourceInUse();
 
-void resourceInUse(crow::Response& res);
+void resourceInUse(bmcweb::Response& res);
 
 /**
  * @brief Formats ResourceAlreadyExists message into JSON
@@ -583,7 +584,7 @@ void resourceInUse(crow::Response& res);
 nlohmann::json::object_t resourceAlreadyExists(
     std::string_view arg1, std::string_view arg2, std::string_view arg3);
 
-void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
+void resourceAlreadyExists(bmcweb::Response& res, std::string_view arg1,
                            std::string_view arg2, std::string_view arg3);
 
 /**
@@ -598,7 +599,7 @@ void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t resourceNotFound(std::string_view arg1,
                                           std::string_view arg2);
 
-void resourceNotFound(crow::Response& res, std::string_view arg1,
+void resourceNotFound(bmcweb::Response& res, std::string_view arg1,
                       std::string_view arg2);
 
 /**
@@ -610,7 +611,7 @@ void resourceNotFound(crow::Response& res, std::string_view arg1,
  * @returns Message PayloadTooLarge formatted to JSON */
 nlohmann::json::object_t payloadTooLarge();
 
-void payloadTooLarge(crow::Response& res);
+void payloadTooLarge(bmcweb::Response& res);
 
 /**
  * @brief Formats InsufficientStorage message into JSON
@@ -621,7 +622,7 @@ void payloadTooLarge(crow::Response& res);
  * @returns Message InsufficientStorage formatted to JSON */
 nlohmann::json::object_t insufficientStorage();
 
-void insufficientStorage(crow::Response& res);
+void insufficientStorage(bmcweb::Response& res);
 
 /**
  * @brief Formats MissingOrMalformedPart message into JSON
@@ -632,7 +633,7 @@ void insufficientStorage(crow::Response& res);
  * @returns Message MissingOrMalformedPart formatted to JSON */
 nlohmann::json::object_t missingOrMalformedPart();
 
-void missingOrMalformedPart(crow::Response& res);
+void missingOrMalformedPart(bmcweb::Response& res);
 
 /**
  * @brief Formats InvalidURI message into JSON
@@ -643,7 +644,7 @@ void missingOrMalformedPart(crow::Response& res);
  * @returns Message InvalidURI formatted to JSON */
 nlohmann::json::object_t invalidURI(std::string_view arg1);
 
-void invalidURI(crow::Response& res, std::string_view arg1);
+void invalidURI(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats CreateFailedMissingReqProperties message into JSON
@@ -656,7 +657,7 @@ void invalidURI(crow::Response& res, std::string_view arg1);
 nlohmann::json::object_t createFailedMissingReqProperties(
     std::string_view arg1);
 
-void createFailedMissingReqProperties(crow::Response& res,
+void createFailedMissingReqProperties(bmcweb::Response& res,
                                       std::string_view arg1);
 
 /**
@@ -668,7 +669,7 @@ void createFailedMissingReqProperties(crow::Response& res,
  * @returns Message CreateLimitReachedForResource formatted to JSON */
 nlohmann::json::object_t createLimitReachedForResource();
 
-void createLimitReachedForResource(crow::Response& res);
+void createLimitReachedForResource(bmcweb::Response& res);
 
 /**
  * @brief Formats ServiceShuttingDown message into JSON
@@ -679,7 +680,7 @@ void createLimitReachedForResource(crow::Response& res);
  * @returns Message ServiceShuttingDown formatted to JSON */
 nlohmann::json::object_t serviceShuttingDown();
 
-void serviceShuttingDown(crow::Response& res);
+void serviceShuttingDown(bmcweb::Response& res);
 
 /**
  * @brief Formats ServiceInUnknownState message into JSON
@@ -690,7 +691,7 @@ void serviceShuttingDown(crow::Response& res);
  * @returns Message ServiceInUnknownState formatted to JSON */
 nlohmann::json::object_t serviceInUnknownState();
 
-void serviceInUnknownState(crow::Response& res);
+void serviceInUnknownState(bmcweb::Response& res);
 
 /**
  * @brief Formats NoValidSession message into JSON
@@ -701,7 +702,7 @@ void serviceInUnknownState(crow::Response& res);
  * @returns Message NoValidSession formatted to JSON */
 nlohmann::json::object_t noValidSession();
 
-void noValidSession(crow::Response& res);
+void noValidSession(bmcweb::Response& res);
 
 /**
  * @brief Formats InsufficientPrivilege message into JSON
@@ -713,7 +714,7 @@ void noValidSession(crow::Response& res);
  * @returns Message InsufficientPrivilege formatted to JSON */
 nlohmann::json::object_t insufficientPrivilege();
 
-void insufficientPrivilege(crow::Response& res);
+void insufficientPrivilege(bmcweb::Response& res);
 
 /**
  * @brief Formats AccountModified message into JSON
@@ -723,7 +724,7 @@ void insufficientPrivilege(crow::Response& res);
  * @returns Message AccountModified formatted to JSON */
 nlohmann::json::object_t accountModified();
 
-void accountModified(crow::Response& res);
+void accountModified(bmcweb::Response& res);
 
 /**
  * @brief Formats AccountNotModified message into JSON
@@ -733,7 +734,7 @@ void accountModified(crow::Response& res);
  * @returns Message AccountNotModified formatted to JSON */
 nlohmann::json::object_t accountNotModified();
 
-void accountNotModified(crow::Response& res);
+void accountNotModified(bmcweb::Response& res);
 
 /**
  * @brief Formats AccountRemoved message into JSON
@@ -743,7 +744,7 @@ void accountNotModified(crow::Response& res);
  * @returns Message AccountRemoved formatted to JSON */
 nlohmann::json::object_t accountRemoved();
 
-void accountRemoved(crow::Response& res);
+void accountRemoved(bmcweb::Response& res);
 
 /**
  * @brief Formats AccountForSessionNoLongerExists message into JSON
@@ -754,7 +755,7 @@ void accountRemoved(crow::Response& res);
  * @returns Message AccountForSessionNoLongerExists formatted to JSON */
 nlohmann::json::object_t accountForSessionNoLongerExists();
 
-void accountForSessionNoLongerExists(crow::Response& res);
+void accountForSessionNoLongerExists(bmcweb::Response& res);
 
 /**
  * @brief Formats InvalidObject message into JSON
@@ -765,7 +766,8 @@ void accountForSessionNoLongerExists(crow::Response& res);
  * @returns Message InvalidObject formatted to JSON */
 nlohmann::json::object_t invalidObject(const boost::urls::url_view_base& arg1);
 
-void invalidObject(crow::Response& res, const boost::urls::url_view_base& arg1);
+void invalidObject(bmcweb::Response& res,
+                   const boost::urls::url_view_base& arg1);
 
 /**
  * @brief Formats InternalError message into JSON
@@ -776,8 +778,8 @@ void invalidObject(crow::Response& res, const boost::urls::url_view_base& arg1);
  * @returns Message InternalError formatted to JSON */
 nlohmann::json::object_t internalError();
 
-void internalError(crow::Response& res, std::source_location location =
-                                            std::source_location::current());
+void internalError(bmcweb::Response& res, std::source_location location =
+                                              std::source_location::current());
 
 /**
  * @brief Formats UnrecognizedRequestBody message into JSON
@@ -788,7 +790,7 @@ void internalError(crow::Response& res, std::source_location location =
  * @returns Message UnrecognizedRequestBody formatted to JSON */
 nlohmann::json::object_t unrecognizedRequestBody();
 
-void unrecognizedRequestBody(crow::Response& res);
+void unrecognizedRequestBody(bmcweb::Response& res);
 
 /**
  * @brief Formats ResourceMissingAtURI message into JSON
@@ -800,7 +802,7 @@ void unrecognizedRequestBody(crow::Response& res);
 nlohmann::json::object_t resourceMissingAtURI(
     const boost::urls::url_view_base& arg1);
 
-void resourceMissingAtURI(crow::Response& res,
+void resourceMissingAtURI(bmcweb::Response& res,
                           const boost::urls::url_view_base& arg1);
 
 /**
@@ -814,7 +816,7 @@ void resourceMissingAtURI(crow::Response& res,
 nlohmann::json::object_t resourceAtUriInUnknownFormat(
     const boost::urls::url_view_base& arg1);
 
-void resourceAtUriInUnknownFormat(crow::Response& res,
+void resourceAtUriInUnknownFormat(bmcweb::Response& res,
                                   const boost::urls::url_view_base& arg1);
 
 /**
@@ -829,7 +831,7 @@ void resourceAtUriInUnknownFormat(crow::Response& res,
 nlohmann::json::object_t resourceAtUriUnauthorized(
     const boost::urls::url_view_base& arg1, std::string_view arg2);
 
-void resourceAtUriUnauthorized(crow::Response& res,
+void resourceAtUriUnauthorized(bmcweb::Response& res,
                                const boost::urls::url_view_base& arg1,
                                std::string_view arg2);
 
@@ -844,7 +846,7 @@ void resourceAtUriUnauthorized(crow::Response& res,
 nlohmann::json::object_t couldNotEstablishConnection(
     const boost::urls::url_view_base& arg1);
 
-void couldNotEstablishConnection(crow::Response& res,
+void couldNotEstablishConnection(bmcweb::Response& res,
                                  const boost::urls::url_view_base& arg1);
 
 /**
@@ -859,7 +861,7 @@ void couldNotEstablishConnection(crow::Response& res,
 nlohmann::json::object_t sourceDoesNotSupportProtocol(
     const boost::urls::url_view_base& arg1, std::string_view arg2);
 
-void sourceDoesNotSupportProtocol(crow::Response& res,
+void sourceDoesNotSupportProtocol(bmcweb::Response& res,
                                   const boost::urls::url_view_base& arg1,
                                   std::string_view arg2);
 
@@ -873,7 +875,8 @@ void sourceDoesNotSupportProtocol(crow::Response& res,
  * @returns Message AccessDenied formatted to JSON */
 nlohmann::json::object_t accessDenied(const boost::urls::url_view_base& arg1);
 
-void accessDenied(crow::Response& res, const boost::urls::url_view_base& arg1);
+void accessDenied(bmcweb::Response& res,
+                  const boost::urls::url_view_base& arg1);
 
 /**
  * @brief Formats ServiceTemporarilyUnavailable message into JSON
@@ -885,7 +888,8 @@ void accessDenied(crow::Response& res, const boost::urls::url_view_base& arg1);
  * @returns Message ServiceTemporarilyUnavailable formatted to JSON */
 nlohmann::json::object_t serviceTemporarilyUnavailable(std::string_view arg1);
 
-void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1);
+void serviceTemporarilyUnavailable(bmcweb::Response& res,
+                                   std::string_view arg1);
 
 /**
  * @brief Formats InvalidIndex message into JSON
@@ -896,7 +900,7 @@ void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1);
  * @returns Message InvalidIndex formatted to JSON */
 nlohmann::json::object_t invalidIndex(uint64_t arg1);
 
-void invalidIndex(crow::Response& res, uint64_t arg1);
+void invalidIndex(bmcweb::Response& res, uint64_t arg1);
 
 /**
  * @brief Formats PropertyValueModified message into JSON
@@ -910,7 +914,7 @@ void invalidIndex(crow::Response& res, uint64_t arg1);
 nlohmann::json::object_t propertyValueModified(std::string_view arg1,
                                                const nlohmann::json& arg2);
 
-void propertyValueModified(crow::Response& res, std::string_view arg1,
+void propertyValueModified(bmcweb::Response& res, std::string_view arg1,
                            const nlohmann::json& arg2);
 
 /**
@@ -922,7 +926,7 @@ void propertyValueModified(crow::Response& res, std::string_view arg1,
  * @returns Message ResourceInStandby formatted to JSON */
 nlohmann::json::object_t resourceInStandby();
 
-void resourceInStandby(crow::Response& res);
+void resourceInStandby(bmcweb::Response& res);
 
 /**
  * @brief Formats ResourceExhaustion message into JSON
@@ -934,7 +938,7 @@ void resourceInStandby(crow::Response& res);
  * @returns Message ResourceExhaustion formatted to JSON */
 nlohmann::json::object_t resourceExhaustion(std::string_view arg1);
 
-void resourceExhaustion(crow::Response& res, std::string_view arg1);
+void resourceExhaustion(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats StringValueTooLong message into JSON
@@ -947,7 +951,7 @@ void resourceExhaustion(crow::Response& res, std::string_view arg1);
 nlohmann::json::object_t stringValueTooLong(std::string_view arg1,
                                             uint64_t arg2);
 
-void stringValueTooLong(crow::Response& res, std::string_view arg1,
+void stringValueTooLong(bmcweb::Response& res, std::string_view arg1,
                         uint64_t arg2);
 
 /**
@@ -962,7 +966,7 @@ void stringValueTooLong(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t stringValueTooShort(std::string_view arg1,
                                              std::string_view arg2);
 
-void stringValueTooShort(crow::Response& res, std::string_view arg1,
+void stringValueTooShort(bmcweb::Response& res, std::string_view arg1,
                          std::string_view arg2);
 
 /**
@@ -973,7 +977,7 @@ void stringValueTooShort(crow::Response& res, std::string_view arg1,
  * @returns Message SessionTerminated formatted to JSON */
 nlohmann::json::object_t sessionTerminated();
 
-void sessionTerminated(crow::Response& res);
+void sessionTerminated(bmcweb::Response& res);
 
 /**
  * @brief Formats SubscriptionTerminated message into JSON
@@ -983,7 +987,7 @@ void sessionTerminated(crow::Response& res);
  * @returns Message SubscriptionTerminated formatted to JSON */
 nlohmann::json::object_t subscriptionTerminated();
 
-void subscriptionTerminated(crow::Response& res);
+void subscriptionTerminated(bmcweb::Response& res);
 
 /**
  * @brief Formats ResourceTypeIncompatible message into JSON
@@ -997,7 +1001,7 @@ void subscriptionTerminated(crow::Response& res);
 nlohmann::json::object_t resourceTypeIncompatible(std::string_view arg1,
                                                   std::string_view arg2);
 
-void resourceTypeIncompatible(crow::Response& res, std::string_view arg1,
+void resourceTypeIncompatible(bmcweb::Response& res, std::string_view arg1,
                               std::string_view arg2);
 
 /**
@@ -1012,7 +1016,7 @@ void resourceTypeIncompatible(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t passwordChangeRequired(
     const boost::urls::url_view_base& arg1);
 
-void passwordChangeRequired(crow::Response& res,
+void passwordChangeRequired(bmcweb::Response& res,
                             const boost::urls::url_view_base& arg1);
 
 /**
@@ -1028,7 +1032,8 @@ void passwordChangeRequired(crow::Response& res,
 nlohmann::json::object_t resetRequired(const boost::urls::url_view_base& arg1,
                                        std::string_view arg2);
 
-void resetRequired(crow::Response& res, const boost::urls::url_view_base& arg1,
+void resetRequired(bmcweb::Response& res,
+                   const boost::urls::url_view_base& arg1,
                    std::string_view arg2);
 
 /**
@@ -1043,7 +1048,7 @@ void resetRequired(crow::Response& res, const boost::urls::url_view_base& arg1,
 nlohmann::json::object_t resetRecommended(std::string_view arg1,
                                           std::string_view arg2);
 
-void resetRecommended(crow::Response& res, std::string_view arg1,
+void resetRecommended(bmcweb::Response& res, std::string_view arg1,
                       std::string_view arg2);
 
 /**
@@ -1056,7 +1061,7 @@ void resetRecommended(crow::Response& res, std::string_view arg1,
  * @returns Message ChassisPowerStateOnRequired formatted to JSON */
 nlohmann::json::object_t chassisPowerStateOnRequired(std::string_view arg1);
 
-void chassisPowerStateOnRequired(crow::Response& res, std::string_view arg1);
+void chassisPowerStateOnRequired(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats ChassisPowerStateOffRequired message into JSON
@@ -1068,7 +1073,7 @@ void chassisPowerStateOnRequired(crow::Response& res, std::string_view arg1);
  * @returns Message ChassisPowerStateOffRequired formatted to JSON */
 nlohmann::json::object_t chassisPowerStateOffRequired(std::string_view arg1);
 
-void chassisPowerStateOffRequired(crow::Response& res, std::string_view arg1);
+void chassisPowerStateOffRequired(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats PropertyValueConflict message into JSON
@@ -1082,7 +1087,7 @@ void chassisPowerStateOffRequired(crow::Response& res, std::string_view arg1);
 nlohmann::json::object_t propertyValueConflict(std::string_view arg1,
                                                std::string_view arg2);
 
-void propertyValueConflict(crow::Response& res, std::string_view arg1,
+void propertyValueConflict(bmcweb::Response& res, std::string_view arg1,
                            std::string_view arg2);
 
 /**
@@ -1100,7 +1105,7 @@ nlohmann::json::object_t propertyValueResourceConflict(
     std::string_view arg1, const nlohmann::json& arg2,
     const boost::urls::url_view_base& arg3);
 
-void propertyValueResourceConflict(crow::Response& res, std::string_view arg1,
+void propertyValueResourceConflict(bmcweb::Response& res, std::string_view arg1,
                                    const nlohmann::json& arg2,
                                    const boost::urls::url_view_base& arg3);
 
@@ -1117,7 +1122,7 @@ void propertyValueResourceConflict(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t propertyValueExternalConflict(
     std::string_view arg1, const nlohmann::json& arg2);
 
-void propertyValueExternalConflict(crow::Response& res, std::string_view arg1,
+void propertyValueExternalConflict(bmcweb::Response& res, std::string_view arg1,
                                    const nlohmann::json& arg2);
 
 /**
@@ -1133,7 +1138,7 @@ void propertyValueExternalConflict(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t propertyValueIncorrect(std::string_view arg1,
                                                 const nlohmann::json& arg2);
 
-void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
+void propertyValueIncorrect(bmcweb::Response& res, std::string_view arg1,
                             const nlohmann::json& arg2);
 
 /**
@@ -1147,7 +1152,7 @@ void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
 nlohmann::json::object_t resourceCreationConflict(
     const boost::urls::url_view_base& arg1);
 
-void resourceCreationConflict(crow::Response& res,
+void resourceCreationConflict(bmcweb::Response& res,
                               const boost::urls::url_view_base& arg1);
 
 /**
@@ -1162,7 +1167,7 @@ void resourceCreationConflict(crow::Response& res,
 nlohmann::json::object_t actionParameterValueConflict(std::string_view arg1,
                                                       std::string_view arg2);
 
-void actionParameterValueConflict(crow::Response& res, std::string_view arg1,
+void actionParameterValueConflict(bmcweb::Response& res, std::string_view arg1,
                                   std::string_view arg2);
 
 /**
@@ -1173,7 +1178,7 @@ void actionParameterValueConflict(crow::Response& res, std::string_view arg1,
  * @returns Message MaximumErrorsExceeded formatted to JSON */
 nlohmann::json::object_t maximumErrorsExceeded();
 
-void maximumErrorsExceeded(crow::Response& res);
+void maximumErrorsExceeded(bmcweb::Response& res);
 
 /**
  * @brief Formats PreconditionFailed message into JSON
@@ -1184,7 +1189,7 @@ void maximumErrorsExceeded(crow::Response& res);
  * @returns Message PreconditionFailed formatted to JSON */
 nlohmann::json::object_t preconditionFailed();
 
-void preconditionFailed(crow::Response& res);
+void preconditionFailed(bmcweb::Response& res);
 
 /**
  * @brief Formats PreconditionRequired message into JSON
@@ -1195,7 +1200,7 @@ void preconditionFailed(crow::Response& res);
  * @returns Message PreconditionRequired formatted to JSON */
 nlohmann::json::object_t preconditionRequired();
 
-void preconditionRequired(crow::Response& res);
+void preconditionRequired(bmcweb::Response& res);
 
 /**
  * @brief Formats HeaderMissing message into JSON
@@ -1206,7 +1211,7 @@ void preconditionRequired(crow::Response& res);
  * @returns Message HeaderMissing formatted to JSON */
 nlohmann::json::object_t headerMissing(std::string_view arg1);
 
-void headerMissing(crow::Response& res, std::string_view arg1);
+void headerMissing(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats HeaderInvalid message into JSON
@@ -1217,7 +1222,7 @@ void headerMissing(crow::Response& res, std::string_view arg1);
  * @returns Message HeaderInvalid formatted to JSON */
 nlohmann::json::object_t headerInvalid(std::string_view arg1);
 
-void headerInvalid(crow::Response& res, std::string_view arg1);
+void headerInvalid(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats OperationFailed message into JSON
@@ -1228,7 +1233,7 @@ void headerInvalid(crow::Response& res, std::string_view arg1);
  * @returns Message OperationFailed formatted to JSON */
 nlohmann::json::object_t operationFailed();
 
-void operationFailed(crow::Response& res);
+void operationFailed(bmcweb::Response& res);
 
 /**
  * @brief Formats OperationTimeout message into JSON
@@ -1239,7 +1244,7 @@ void operationFailed(crow::Response& res);
  * @returns Message OperationTimeout formatted to JSON */
 nlohmann::json::object_t operationTimeout();
 
-void operationTimeout(crow::Response& res);
+void operationTimeout(bmcweb::Response& res);
 
 /**
  * @brief Formats OperationNotAllowed message into JSON
@@ -1249,7 +1254,7 @@ void operationTimeout(crow::Response& res);
  * @returns Message OperationNotAllowed formatted to JSON */
 nlohmann::json::object_t operationNotAllowed();
 
-void operationNotAllowed(crow::Response& res);
+void operationNotAllowed(bmcweb::Response& res);
 
 /**
  * @brief Formats UndeterminedFault message into JSON
@@ -1260,7 +1265,7 @@ void operationNotAllowed(crow::Response& res);
  * @returns Message UndeterminedFault formatted to JSON */
 nlohmann::json::object_t undeterminedFault(std::string_view arg1);
 
-void undeterminedFault(crow::Response& res, std::string_view arg1);
+void undeterminedFault(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats ConditionInRelatedResource message into JSON
@@ -1271,7 +1276,7 @@ void undeterminedFault(crow::Response& res, std::string_view arg1);
  * @returns Message ConditionInRelatedResource formatted to JSON */
 nlohmann::json::object_t conditionInRelatedResource();
 
-void conditionInRelatedResource(crow::Response& res);
+void conditionInRelatedResource(bmcweb::Response& res);
 
 /**
  * @brief Formats RestrictedRole message into JSON
@@ -1283,7 +1288,7 @@ void conditionInRelatedResource(crow::Response& res);
  * @returns Message RestrictedRole formatted to JSON */
 nlohmann::json::object_t restrictedRole(std::string_view arg1);
 
-void restrictedRole(crow::Response& res, std::string_view arg1);
+void restrictedRole(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats RestrictedPrivilege message into JSON
@@ -1295,7 +1300,7 @@ void restrictedRole(crow::Response& res, std::string_view arg1);
  * @returns Message RestrictedPrivilege formatted to JSON */
 nlohmann::json::object_t restrictedPrivilege(std::string_view arg1);
 
-void restrictedPrivilege(crow::Response& res, std::string_view arg1);
+void restrictedPrivilege(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats StrictAccountTypes message into JSON
@@ -1308,7 +1313,7 @@ void restrictedPrivilege(crow::Response& res, std::string_view arg1);
  * @returns Message StrictAccountTypes formatted to JSON */
 nlohmann::json::object_t strictAccountTypes(std::string_view arg1);
 
-void strictAccountTypes(crow::Response& res, std::string_view arg1);
+void strictAccountTypes(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats PropertyDeprecated message into JSON
@@ -1320,7 +1325,7 @@ void strictAccountTypes(crow::Response& res, std::string_view arg1);
  * @returns Message PropertyDeprecated formatted to JSON */
 nlohmann::json::object_t propertyDeprecated(std::string_view arg1);
 
-void propertyDeprecated(crow::Response& res, std::string_view arg1);
+void propertyDeprecated(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats ResourceDeprecated message into JSON
@@ -1331,7 +1336,7 @@ void propertyDeprecated(crow::Response& res, std::string_view arg1);
  * @returns Message ResourceDeprecated formatted to JSON */
 nlohmann::json::object_t resourceDeprecated(std::string_view arg1);
 
-void resourceDeprecated(crow::Response& res, std::string_view arg1);
+void resourceDeprecated(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats PropertyValueDeprecated message into JSON
@@ -1344,7 +1349,7 @@ void resourceDeprecated(crow::Response& res, std::string_view arg1);
 nlohmann::json::object_t propertyValueDeprecated(std::string_view arg1,
                                                  std::string_view arg2);
 
-void propertyValueDeprecated(crow::Response& res, std::string_view arg1,
+void propertyValueDeprecated(bmcweb::Response& res, std::string_view arg1,
                              std::string_view arg2);
 
 /**
@@ -1356,7 +1361,7 @@ void propertyValueDeprecated(crow::Response& res, std::string_view arg1,
  * @returns Message ActionDeprecated formatted to JSON */
 nlohmann::json::object_t actionDeprecated(std::string_view arg1);
 
-void actionDeprecated(crow::Response& res, std::string_view arg1);
+void actionDeprecated(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats NetworkNameResolutionNotConfigured message into JSON
@@ -1366,7 +1371,7 @@ void actionDeprecated(crow::Response& res, std::string_view arg1);
  * @returns Message NetworkNameResolutionNotConfigured formatted to JSON */
 nlohmann::json::object_t networkNameResolutionNotConfigured();
 
-void networkNameResolutionNotConfigured(crow::Response& res);
+void networkNameResolutionNotConfigured(bmcweb::Response& res);
 
 /**
  * @brief Formats NetworkNameResolutionNotSupported message into JSON
@@ -1377,7 +1382,7 @@ void networkNameResolutionNotConfigured(crow::Response& res);
  * @returns Message NetworkNameResolutionNotSupported formatted to JSON */
 nlohmann::json::object_t networkNameResolutionNotSupported();
 
-void networkNameResolutionNotSupported(crow::Response& res);
+void networkNameResolutionNotSupported(bmcweb::Response& res);
 
 /**
  * @brief Formats ServiceDisabled message into JSON
@@ -1389,7 +1394,7 @@ void networkNameResolutionNotSupported(crow::Response& res);
  * @returns Message ServiceDisabled formatted to JSON */
 nlohmann::json::object_t serviceDisabled(std::string_view arg1);
 
-void serviceDisabled(crow::Response& res, std::string_view arg1);
+void serviceDisabled(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats EventBufferExceeded message into JSON
@@ -1400,7 +1405,7 @@ void serviceDisabled(crow::Response& res, std::string_view arg1);
  * @returns Message EventBufferExceeded formatted to JSON */
 nlohmann::json::object_t eventBufferExceeded();
 
-void eventBufferExceeded(crow::Response& res);
+void eventBufferExceeded(bmcweb::Response& res);
 
 /**
  * @brief Formats AuthenticationTokenRequired message into JSON
@@ -1411,7 +1416,7 @@ void eventBufferExceeded(crow::Response& res);
  * @returns Message AuthenticationTokenRequired formatted to JSON */
 nlohmann::json::object_t authenticationTokenRequired();
 
-void authenticationTokenRequired(crow::Response& res);
+void authenticationTokenRequired(bmcweb::Response& res);
 
 /**
  * @brief Formats OneTimePasscodeSent message into JSON
@@ -1423,7 +1428,7 @@ void authenticationTokenRequired(crow::Response& res);
  * @returns Message OneTimePasscodeSent formatted to JSON */
 nlohmann::json::object_t oneTimePasscodeSent(std::string_view arg1);
 
-void oneTimePasscodeSent(crow::Response& res, std::string_view arg1);
+void oneTimePasscodeSent(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats LicenseRequired message into JSON
@@ -1434,7 +1439,7 @@ void oneTimePasscodeSent(crow::Response& res, std::string_view arg1);
  * @returns Message LicenseRequired formatted to JSON */
 nlohmann::json::object_t licenseRequired(std::string_view arg1);
 
-void licenseRequired(crow::Response& res, std::string_view arg1);
+void licenseRequired(bmcweb::Response& res, std::string_view arg1);
 
 /**
  * @brief Formats PropertyModified message into JSON
@@ -1444,7 +1449,7 @@ void licenseRequired(crow::Response& res, std::string_view arg1);
  * @returns Message PropertyModified formatted to JSON */
 nlohmann::json::object_t propertyModified();
 
-void propertyModified(crow::Response& res);
+void propertyModified(bmcweb::Response& res);
 
 /**
  * @brief Formats GenerateSecretKeyRequired message into JSON
@@ -1459,7 +1464,7 @@ void propertyModified(crow::Response& res);
 nlohmann::json::object_t generateSecretKeyRequired(
     const boost::urls::url_view_base& arg1);
 
-void generateSecretKeyRequired(crow::Response& res,
+void generateSecretKeyRequired(bmcweb::Response& res,
                                const boost::urls::url_view_base& arg1);
 
 } // namespace messages

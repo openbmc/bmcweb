@@ -167,8 +167,8 @@ inline void registerHostnameSignal()
          "member='PropertiesChanged'");
 
     hostnameSignalMonitor = std::make_unique<sdbusplus::bus::match_t>(
-        *crow::connections::systemBus, propertiesMatchString, onPropertyUpdate,
-        nullptr);
+        *bmcweb::connections::systemBus, propertiesMatchString,
+        onPropertyUpdate, nullptr);
 }
 } // namespace hostname_monitor
 } // namespace bmcweb

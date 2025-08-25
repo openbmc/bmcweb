@@ -271,7 +271,7 @@ inline void afterHandleFabricAdapterGet(
 }
 
 inline void handleFabricAdapterGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId)
 {
@@ -331,7 +331,7 @@ inline void afterHandleFabricAdapterPatch(
 }
 
 inline void handleFabricAdapterPatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId)
 {
@@ -368,7 +368,7 @@ inline void handleFabricAdapterPatch(
 }
 
 inline void handleFabricAdapterCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -409,7 +409,7 @@ inline void handleFabricAdapterCollectionGet(
 }
 
 inline void handleFabricAdapterCollectionHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -465,7 +465,7 @@ inline void afterHandleFabricAdapterHead(
 }
 
 inline void handleFabricAdapterHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& adapterId)
 {

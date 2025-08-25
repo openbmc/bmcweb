@@ -17,7 +17,7 @@ namespace
 
 TEST(UpdateService, ParseHTTSPPostitive)
 {
-    crow::Response res;
+    bmcweb::Response res;
     {
         // No protocol, schema on url
         std::optional<boost::urls::url> ret =
@@ -61,7 +61,7 @@ TEST(UpdateService, ParseHTTSPPostitive)
 
 TEST(UpdateService, ParseHTTPSPostitive)
 {
-    crow::Response res;
+    bmcweb::Response res;
     {
         // No protocol, schema on url
         std::optional<boost::urls::url> ret =
@@ -131,7 +131,7 @@ TEST(UpdateService, ParseHTTPSPostitive)
 
 TEST(UpdateService, ParseHTTPSNegative)
 {
-    crow::Response res;
+    bmcweb::Response res;
     // No protocol, no schema
     ASSERT_EQ(parseSimpleUpdateUrl("1.1.1.1/path", std::nullopt, res),
               std::nullopt);

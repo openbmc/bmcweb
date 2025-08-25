@@ -46,7 +46,7 @@ namespace redfish
 {
 
 inline void handleSystemsStorageCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -77,7 +77,7 @@ inline void handleSystemsStorageCollectionGet(
 }
 
 inline void handleStorageCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -192,7 +192,7 @@ inline void afterSystemsStorageGetSubtree(
 }
 
 inline void handleSystemsStorageGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& storageId)
 {
@@ -261,7 +261,7 @@ inline void afterSubtree(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void handleStorageGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& storageId)
 {
@@ -690,7 +690,7 @@ inline void afterGetSubtreeSystemsStorageDrive(
 }
 
 inline void handleSystemsStorageDriveGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& driveId)
 {
@@ -807,7 +807,7 @@ inline void afterChassisDriveCollectionSubtreeGet(
  * information
  */
 inline void chassisDriveCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -905,7 +905,7 @@ inline void matchAndFillDrive(
 }
 
 inline void handleChassisDriveGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& driveName)
 {
@@ -1132,7 +1132,7 @@ inline void populateStorageControllerCollection(
 }
 
 inline void handleSystemsStorageControllerCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -1169,7 +1169,7 @@ inline void handleSystemsStorageControllerCollectionGet(
 }
 
 inline void handleSystemsStorageControllerGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& controllerId)
 {

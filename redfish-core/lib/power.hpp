@@ -263,7 +263,7 @@ inline void afterGetChassis(
 }
 
 inline void handleChassisPowerGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisName)
 {
@@ -291,7 +291,7 @@ inline void handleChassisPowerGet(
 }
 
 inline void handleChassisPowerPatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisName)
 {

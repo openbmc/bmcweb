@@ -35,7 +35,7 @@ namespace redfish
 {
 
 inline void handleManagersLogServiceJournalGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -104,7 +104,7 @@ inline void readJournalEntries(
     {
         if (segmentCountRemaining == 0)
         {
-            boost::asio::post(crow::connections::systemBus->get_io_context(),
+            boost::asio::post(bmcweb::connections::systemBus->get_io_context(),
                               [asyncResp, topEntryCount,
                                readState = std::move(readState)]() mutable {
                                   readJournalEntries(topEntryCount, asyncResp,
@@ -137,7 +137,7 @@ inline void readJournalEntries(
 }
 
 inline void handleManagersJournalLogEntryCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -267,7 +267,7 @@ inline void handleManagersJournalLogEntryCollectionGet(
 }
 
 inline void handleManagersJournalEntriesLogEntryGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& entryID)
 {
@@ -295,7 +295,7 @@ inline void handleManagersJournalEntriesLogEntryGet(
     journalTmp = nullptr;
 
     std::string cursor;
-    if (!crow::utility::base64Decode(entryID, cursor))
+    if (!bmcweb::utility::base64Decode(entryID, cursor))
     {
         messages::resourceNotFound(asyncResp->res, "LogEntry", entryID);
         return;

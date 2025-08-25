@@ -244,7 +244,7 @@ inline void handlePhysicalSecurityGetSubTree(
 }
 
 inline void handleChassisCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -678,7 +678,7 @@ inline void handleChassisGetSubTree(
         }
 
         dbus::utility::getAllProperties(
-            *crow::connections::systemBus, connectionName, path,
+            *bmcweb::connections::systemBus, connectionName, path,
             "xyz.openbmc_project.Inventory.Decorator.Asset",
             [asyncResp, chassisId,
              path](const boost::system::error_code&,
@@ -688,7 +688,7 @@ inline void handleChassisGetSubTree(
             });
 
         dbus::utility::getAllProperties(
-            *crow::connections::systemBus, connectionName, path,
+            *bmcweb::connections::systemBus, connectionName, path,
             "xyz.openbmc_project.Inventory.Item.Chassis",
             [asyncResp](
                 const boost::system::error_code&,
@@ -717,7 +717,7 @@ inline void handleChassisGetSubTree(
 }
 
 inline void handleChassisGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -739,7 +739,7 @@ inline void handleChassisGet(
 }
 
 inline void handleChassisPatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& param)
 {
@@ -922,7 +922,7 @@ inline void doChassisPowerCycle(
 }
 
 inline void handleChassisResetActionInfoPost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*chassisId*/)
 {
@@ -966,7 +966,7 @@ inline void requestRoutesChassisResetAction(App& app)
 }
 
 inline void handleChassisResetActionInfoGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {

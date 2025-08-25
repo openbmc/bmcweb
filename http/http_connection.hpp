@@ -339,7 +339,7 @@ class Connection :
             if (isWebsocket || isSse)
             {
                 asyncResp->res.setCompleteRequestHandler(
-                    [self(shared_from_this())](crow::Response& thisRes) {
+                    [self(shared_from_this())](bmcweb::Response& thisRes) {
                         if (thisRes.result() != boost::beast::http::status::ok)
                         {
                             // When any error occurs before handle upgradation,

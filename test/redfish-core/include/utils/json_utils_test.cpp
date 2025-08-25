@@ -30,7 +30,7 @@ using ::testing::Not;
 
 TEST(ReadJson, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = {{"integer", 1},
                                   {"string", "hello"},
                                   {"vector", std::vector<uint64_t>{1, 2, 3}}};
@@ -50,7 +50,7 @@ TEST(ReadJson, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 
 TEST(ReadJson, ValidObjectElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json::object_t jsonRequest;
     jsonRequest["integer"] = 1;
     jsonRequest["string"] = "hello";
@@ -71,7 +71,7 @@ TEST(ReadJson, ValidObjectElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 
 TEST(ReadJson, VariantValueUnpackedNull)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = {{"nullval", nullptr}};
 
     std::variant<std::string, std::nullptr_t> str;
@@ -84,7 +84,7 @@ TEST(ReadJson, VariantValueUnpackedNull)
 
 TEST(ReadJson, VariantValueUnpackedValue)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = {{"stringval", "mystring"}};
 
     std::variant<std::string, std::nullptr_t> str;
@@ -98,7 +98,7 @@ TEST(ReadJson, VariantValueUnpackedValue)
 
 TEST(readJson, ExtraElementsReturnsFalseReponseIsBadRequest)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}, {"string", "hello"}};
 
     std::optional<int> integer;
@@ -117,7 +117,7 @@ TEST(readJson, ExtraElementsReturnsFalseReponseIsBadRequest)
 
 TEST(ReadJson, WrongElementTypeReturnsFalseReponseIsBadRequest)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}, {"string0", "hello"}};
 
     int64_t integer = 0;
@@ -138,7 +138,7 @@ TEST(ReadJson, WrongElementTypeReturnsFalseReponseIsBadRequest)
 
 TEST(ReadJson, MissingElementReturnsFalseReponseIsBadRequest)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}, {"string0", "hello"}};
 
     int64_t integer = 0;
@@ -158,7 +158,7 @@ TEST(ReadJson, MissingElementReturnsFalseReponseIsBadRequest)
 
 TEST(ReadJson, JsonArrayAreUnpackedCorrectly)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = R"(
         {
             "TestJson": [{"hello": "yes"}, [{"there": "no"}, "nice"]]
@@ -175,7 +175,7 @@ TEST(ReadJson, JsonArrayAreUnpackedCorrectly)
 
 TEST(ReadJson, JsonSubElementValueAreUnpackedCorrectly)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = R"(
         {
             "json": {"integer": 42}
@@ -191,7 +191,7 @@ TEST(ReadJson, JsonSubElementValueAreUnpackedCorrectly)
 
 TEST(ReadJson, JsonDeeperSubElementValueAreUnpackedCorrectly)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = R"(
         {
             "json": {
@@ -209,7 +209,7 @@ TEST(ReadJson, JsonDeeperSubElementValueAreUnpackedCorrectly)
 
 TEST(ReadJson, MultipleJsonSubElementValueAreUnpackedCorrectly)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = R"(
         {
             "json": {
@@ -234,7 +234,7 @@ TEST(ReadJson, MultipleJsonSubElementValueAreUnpackedCorrectly)
 
 TEST(ReadJson, ExtraElement)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}, {"string", "hello"}};
 
     std::optional<int> integer;
@@ -253,7 +253,7 @@ TEST(ReadJson, ExtraElement)
 
 TEST(ReadJson, ValidMissingElementReturnsTrue)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}};
 
     std::optional<int> integer;
@@ -290,7 +290,7 @@ TEST(ReadJson, ValidMissingElementReturnsTrue)
 
 TEST(ReadJson, InvalidMissingElementReturnsFalse)
 {
-    crow::Response res;
+    bmcweb::Response res;
     nlohmann::json jsonRequest = {{"integer", 1}, {"string", "hello"}};
 
     int integer = 0;
@@ -318,9 +318,9 @@ TEST(ReadJson, InvalidMissingElementReturnsFalse)
 
 TEST(ReadJsonPatch, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 {
-    crow::Response res;
+    bmcweb::Response res;
     std::error_code ec;
-    crow::Request req("{\"integer\": 1}", ec);
+    bmcweb::Request req("{\"integer\": 1}", ec);
 
     // Ignore errors intentionally
     req.addHeader(boost::beast::http::field::content_type, "application/json");
@@ -334,9 +334,9 @@ TEST(ReadJsonPatch, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 
 TEST(ReadJsonPatch, EmptyObjectReturnsFalseResponseBadRequest)
 {
-    crow::Response res;
+    bmcweb::Response res;
     std::error_code ec;
-    crow::Request req("{}", ec);
+    bmcweb::Request req("{}", ec);
     // Ignore errors intentionally
 
     std::optional<int64_t> integer = 0;
@@ -347,9 +347,9 @@ TEST(ReadJsonPatch, EmptyObjectReturnsFalseResponseBadRequest)
 
 TEST(ReadJsonPatch, OdataIgnored)
 {
-    crow::Response res;
+    bmcweb::Response res;
     std::error_code ec;
-    crow::Request req(R"({"@odata.etag": "etag", "integer": 1})", ec);
+    bmcweb::Request req(R"({"@odata.etag": "etag", "integer": 1})", ec);
     req.addHeader(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 
@@ -362,9 +362,9 @@ TEST(ReadJsonPatch, OdataIgnored)
 
 TEST(ReadJsonPatch, OnlyOdataGivesNoOperation)
 {
-    crow::Response res;
+    bmcweb::Response res;
     std::error_code ec;
-    crow::Request req(R"({"@odata.etag": "etag"})", ec);
+    bmcweb::Request req(R"({"@odata.etag": "etag"})", ec);
     // Ignore errors intentionally
 
     std::optional<int64_t> integer = 0;
@@ -375,11 +375,12 @@ TEST(ReadJsonPatch, OnlyOdataGivesNoOperation)
 
 TEST(ReadJsonPatch, VerifyReadJsonPatchIntegerReturnsOutOfRange)
 {
-    crow::Response res;
+    bmcweb::Response res;
     std::error_code ec;
 
     // 4294967296 is an out-of-range value for uint32_t
-    crow::Request req(R"({"@odata.etag": "etag", "integer": 4294967296})", ec);
+    bmcweb::Request req(R"({"@odata.etag": "etag", "integer": 4294967296})",
+                        ec);
     req.addHeader(boost::beast::http::field::content_type, "application/json");
 
     uint32_t integer = 0;
@@ -396,7 +397,7 @@ TEST(ReadJsonPatch, VerifyReadJsonPatchIntegerReturnsOutOfRange)
 
 TEST(ReadJsonPatch, VerifyReadJsonPatchBadVectorObject)
 {
-    crow::Response res;
+    bmcweb::Response res;
     std::error_code ec;
     nlohmann::json jsonRequest = {{"NotVector", 1}};
 
@@ -412,9 +413,9 @@ TEST(ReadJsonPatch, VerifyReadJsonPatchBadVectorObject)
 
 TEST(ReadJsonAction, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 {
-    crow::Response res;
+    bmcweb::Response res;
     std::error_code ec;
-    crow::Request req("{\"integer\": 1}", ec);
+    bmcweb::Request req("{\"integer\": 1}", ec);
     req.addHeader(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 
@@ -427,9 +428,9 @@ TEST(ReadJsonAction, ValidElementsReturnsTrueResponseOkValuesUnpackedCorrectly)
 
 TEST(ReadJsonAction, EmptyObjectReturnsTrueResponseOk)
 {
-    crow::Response res;
+    bmcweb::Response res;
     std::error_code ec;
-    crow::Request req({"{}"}, ec);
+    bmcweb::Request req({"{}"}, ec);
     req.addHeader(boost::beast::http::field::content_type, "application/json");
     // Ignore errors intentionally
 

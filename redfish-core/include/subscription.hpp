@@ -53,13 +53,13 @@ class Subscription : public std::enable_shared_from_this<Subscription>
                  const boost::urls::url_view_base& url,
                  boost::asio::io_context& ioc);
 
-    explicit Subscription(crow::sse_socket::Connection& connIn);
+    explicit Subscription(bmcweb::sse_socket::Connection& connIn);
 
     ~Subscription() = default;
 
     // callback for subscription sendData
     void resHandler(const std::shared_ptr<Subscription>& /*self*/,
-                    const crow::Response& res);
+                    const bmcweb::Response& res);
 
     void sendHeartbeatEvent();
     void scheduleNextHeartbeatEvent();
@@ -78,7 +78,7 @@ class Subscription : public std::enable_shared_from_this<Subscription>
     void updateRetryConfig(uint32_t retryAttempts,
                            uint32_t retryTimeoutInterval);
 
-    bool matchSseId(const crow::sse_socket::Connection& thisConn);
+    bool matchSseId(const bmcweb::sse_socket::Connection& thisConn);
 
     // Check used to indicate what response codes are valid as part of our retry
     // policy.  2XX is considered acceptable
@@ -89,11 +89,11 @@ class Subscription : public std::enable_shared_from_this<Subscription>
 
   private:
     boost::urls::url host;
-    std::shared_ptr<crow::ConnectionPolicy> policy;
-    crow::sse_socket::Connection* sseConn = nullptr;
+    std::shared_ptr<bmcweb::ConnectionPolicy> policy;
+    bmcweb::sse_socket::Connection* sseConn = nullptr;
 
     boost::asio::steady_timer hbTimer;
-    std::optional<crow::HttpClient> client;
+    std::optional<bmcweb::HttpClient> client;
 
   public:
     std::optional<filter_ast::LogicalAnd> filter;

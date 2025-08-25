@@ -121,7 +121,7 @@ inline void doFanCollection(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void handleFanCollectionHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -147,7 +147,7 @@ inline void handleFanCollectionHead(
 }
 
 inline void handleFanCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -229,7 +229,7 @@ inline void getValidFanObject(
         });
 }
 
-inline void addFanCommonProperties(crow::Response& resp,
+inline void addFanCommonProperties(bmcweb::Response& resp,
                                    const std::string& chassisId,
                                    const std::string& fanId)
 {
@@ -405,7 +405,7 @@ inline void doFanGet(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         std::bind_front(afterGetValidFanObject, asyncResp, chassisId, fanId));
 }
 
-inline void handleFanHead(App& app, const crow::Request& req,
+inline void handleFanHead(App& app, const bmcweb::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& chassisId,
                           const std::string& fanId)
@@ -435,7 +435,7 @@ inline void handleFanHead(App& app, const crow::Request& req,
         });
 }
 
-inline void handleFanGet(App& app, const crow::Request& req,
+inline void handleFanGet(App& app, const bmcweb::Request& req,
                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const std::string& chassisId, const std::string& fanId)
 {
@@ -482,7 +482,7 @@ inline void handleSetFanPathById(
     messages::resourceNotFound(asyncResp->res, "Fan", fanId);
 }
 
-inline void handleFanPatch(App& app, const crow::Request& req,
+inline void handleFanPatch(App& app, const bmcweb::Request& req,
                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& chassisId,
                            const std::string& fanId)

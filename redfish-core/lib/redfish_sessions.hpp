@@ -37,7 +37,7 @@
 namespace redfish
 {
 
-inline void fillSessionObject(crow::Response& res,
+inline void fillSessionObject(bmcweb::Response& res,
                               const persistent_data::UserSession& session)
 {
     res.jsonValue["Id"] = session.uniqueId;
@@ -58,7 +58,7 @@ inline void fillSessionObject(crow::Response& res,
 }
 
 inline void handleSessionHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*sessionId*/)
 {
@@ -72,7 +72,7 @@ inline void handleSessionHead(
 }
 
 inline void handleSessionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& sessionId)
 {
@@ -98,7 +98,7 @@ inline void handleSessionGet(
 }
 
 inline void handleSessionDelete(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& sessionId)
 {
@@ -159,7 +159,7 @@ inline nlohmann::json getSessionCollectionMembers()
 }
 
 inline void handleSessionCollectionHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -172,7 +172,7 @@ inline void handleSessionCollectionHead(
 }
 
 inline void handleSessionCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -195,7 +195,7 @@ inline void handleSessionCollectionGet(
 }
 
 inline void handleSessionCollectionMembersGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -207,7 +207,7 @@ inline void handleSessionCollectionMembersGet(
 
 inline void processAfterSessionCreation(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const crow::Request& req, const std::string& username,
+    const bmcweb::Request& req, const std::string& username,
     std::shared_ptr<persistent_data::UserSession>& session)
 {
     // When session is created by webui-vue give it session cookies as a
@@ -233,13 +233,13 @@ inline void processAfterSessionCreation(
                                 session->username));
     }
 
-    crow::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
+    bmcweb::getUserInfo(asyncResp, username, session, [asyncResp, session]() {
         fillSessionObject(asyncResp->res, *session);
     });
 }
 
 inline void handleSessionCollectionPost(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -299,7 +299,7 @@ inline void handleSessionCollectionPost(
 }
 
 inline void handleSessionServiceHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -311,7 +311,7 @@ inline void handleSessionServiceHead(
         "</redfish/v1/JsonSchemas/SessionService/SessionService.json>; rel=describedby");
 }
 inline void handleSessionServiceGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
 {
@@ -338,7 +338,7 @@ inline void handleSessionServiceGet(
 }
 
 inline void handleSessionServicePatch(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))

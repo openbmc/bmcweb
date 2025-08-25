@@ -14,7 +14,7 @@ using ::testing::EndsWith;
 
 TEST(Redfish, PathsShouldValidate)
 {
-    crow::App app;
+    bmcweb::App app;
 
     RedfishService redfish(app);
 

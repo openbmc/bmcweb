@@ -278,7 +278,7 @@ void assertProcessResponse(unsigned result)
     jsonResp["@odata.id"] = "/redfish/v1/Chassis/TestChassis";
     jsonResp["Name"] = "Test";
 
-    crow::Response resp;
+    bmcweb::Response resp;
     resp.write(
         jsonResp.dump(2, ' ', true, nlohmann::json::error_handler_t::replace));
     resp.addHeader("Content-Type", "application/json");
@@ -323,7 +323,7 @@ TEST(processResponse, preserveHeaders)
     asyncResp->res.addHeader("OData-Version", "4.0");
     asyncResp->res.result(boost::beast::http::status::ok);
 
-    crow::Response resp;
+    bmcweb::Response resp;
     resp.addHeader("OData-Version", "3.0");
     resp.addHeader(boost::beast::http::field::location,
                    "/redfish/v1/Chassis/Test");
@@ -344,7 +344,7 @@ TEST(processResponse, preserveHeaders)
 }
 
 // Helper function to correctly populate a ComputerSystem collection response
-void populateCollectionResponse(crow::Response& resp)
+void populateCollectionResponse(bmcweb::Response& resp)
 {
     nlohmann::json jsonResp = nlohmann::json::parse(R"(
     {
@@ -371,7 +371,7 @@ void populateCollectionResponse(crow::Response& resp)
     resp.result(boost::beast::http::status::ok);
 }
 
-void populateCollectionNotFound(crow::Response& resp)
+void populateCollectionNotFound(bmcweb::Response& resp)
 {
     resp.clear();
     resp.addHeader("OData-Version", "4.0");
@@ -380,7 +380,7 @@ void populateCollectionNotFound(crow::Response& resp)
 
 // Used with the above functions to convert the response to appear like it's
 // from a satellite which will not have a json component
-void convertToSat(crow::Response& resp)
+void convertToSat(bmcweb::Response& resp)
 {
     resp.write(resp.jsonValue.dump(2, ' ', true,
                                    nlohmann::json::error_handler_t::replace));
@@ -390,7 +390,7 @@ void convertToSat(crow::Response& resp)
 TEST(processCollectionResponse, localOnly)
 {
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-    crow::Response resp;
+    bmcweb::Response resp;
     populateCollectionResponse(asyncResp->res);
     populateCollectionNotFound(resp);
 
@@ -410,7 +410,7 @@ TEST(processCollectionResponse, localOnly)
 TEST(processCollectionResponse, satelliteOnly)
 {
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-    crow::Response resp;
+    bmcweb::Response resp;
     populateCollectionNotFound(asyncResp->res);
     populateCollectionResponse(resp);
     convertToSat(resp);
@@ -431,7 +431,7 @@ TEST(processCollectionResponse, satelliteOnly)
 TEST(processCollectionResponse, bothExist)
 {
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-    crow::Response resp;
+    bmcweb::Response resp;
     populateCollectionResponse(asyncResp->res);
     populateCollectionResponse(resp);
     convertToSat(resp);
@@ -463,7 +463,7 @@ TEST(processCollectionResponse, bothExist)
 TEST(processCollectionResponse, satelliteWrongContentHeader)
 {
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-    crow::Response resp;
+    bmcweb::Response resp;
     populateCollectionResponse(asyncResp->res);
     populateCollectionResponse(resp);
     convertToSat(resp);
@@ -486,7 +486,7 @@ TEST(processCollectionResponse, satelliteWrongContentHeader)
 TEST(processCollectionResponse, neitherExist)
 {
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-    crow::Response resp;
+    bmcweb::Response resp;
     populateCollectionNotFound(asyncResp->res);
     populateCollectionNotFound(resp);
     convertToSat(resp);
@@ -500,7 +500,7 @@ TEST(processCollectionResponse, neitherExist)
 TEST(processCollectionResponse, preserveHeaders)
 {
     auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
-    crow::Response resp;
+    bmcweb::Response resp;
     populateCollectionNotFound(asyncResp->res);
     populateCollectionResponse(resp);
     convertToSat(resp);
@@ -524,7 +524,7 @@ TEST(processCollectionResponse, preserveHeaders)
 }
 void assertProcessResponseContentType(std::string_view contentType)
 {
-    crow::Response resp;
+    bmcweb::Response resp;
     resp.write("responseBody");
     resp.addHeader("Content-Type", contentType);
     resp.addHeader("Location", "/redfish/v1/Chassis/TestChassis");
@@ -683,7 +683,7 @@ TEST(searchCollectionsArray, collectionOrContainsURIs)
 
 TEST(processContainsSubordinateResponse, addLinks)
 {
-    crow::Response resp;
+    bmcweb::Response resp;
     resp.result(200);
     nlohmann::json jsonValue;
     resp.addHeader("Content-Type", "application/json");
@@ -723,7 +723,7 @@ TEST(processContainsSubordinateResponse, localNotOK)
     // Sanity test to make sure it gets removed later
     EXPECT_TRUE(asyncResp->res.jsonValue.contains("error"));
 
-    crow::Response resp;
+    bmcweb::Response resp;
     resp.result(200);
     nlohmann::json jsonValue;
     resp.addHeader("Content-Type", "application/json");
@@ -798,7 +798,7 @@ TEST(processContainsSubordinateResponse, noValidLinks)
     asyncResp->res.result(500);
     asyncResp->res.jsonValue["Chassis"]["@odata.id"] = "/redfish/v1/Chassis";
 
-    crow::Response resp;
+    bmcweb::Response resp;
     resp.result(200);
     nlohmann::json jsonValue;
     resp.addHeader("Content-Type", "application/json");

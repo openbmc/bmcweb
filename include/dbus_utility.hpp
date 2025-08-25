@@ -107,7 +107,7 @@ void async_method_call(MessageHandler&& handler, const std::string& service,
                        const std::string& objpath, const std::string& interf,
                        const std::string& method, const InputArgs&... a)
 {
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         std::forward<MessageHandler>(handler), service, objpath, interf, method,
         a...);
 }
@@ -119,7 +119,7 @@ void async_method_call(const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
                        const std::string& objpath, const std::string& interf,
                        const std::string& method, const InputArgs&... a)
 {
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         std::forward<MessageHandler>(handler), service, objpath, interf, method,
         a...);
 }
@@ -131,7 +131,7 @@ void getProperty(const std::string& service, const std::string& objectPath,
                                     const PropertyType&)>&& callback)
 {
     sdbusplus::asio::getProperty<PropertyType>(
-        *crow::connections::systemBus, service, objectPath, interface,
+        *bmcweb::connections::systemBus, service, objectPath, interface,
         propertyName, std::move(callback));
 }
 

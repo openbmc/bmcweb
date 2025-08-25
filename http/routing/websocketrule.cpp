@@ -22,9 +22,9 @@ void WebSocketRule::handleUpgrade(
 {
     BMCWEB_LOG_DEBUG("Websocket handles upgrade");
     std::shared_ptr<
-        crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
+        bmcweb::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
         myConnection = std::make_shared<
-            crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
+            bmcweb::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
             req.url(), req.session, std::move(adaptor), openHandler,
             messageHandler, messageExHandler, closeHandler, errorHandler);
     myConnection->start(req);
@@ -35,9 +35,9 @@ void WebSocketRule::handleUpgrade(
     boost::asio::ssl::stream<boost::asio::ip::tcp::socket>&& adaptor)
 {
     BMCWEB_LOG_DEBUG("Websocket handles upgrade");
-    std::shared_ptr<crow::websocket::ConnectionImpl<
+    std::shared_ptr<bmcweb::websocket::ConnectionImpl<
         boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>
-        myConnection = std::make_shared<crow::websocket::ConnectionImpl<
+        myConnection = std::make_shared<bmcweb::websocket::ConnectionImpl<
             boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
             req.url(), req.session, std::move(adaptor), openHandler,
             messageHandler, messageExHandler, closeHandler, errorHandler);
