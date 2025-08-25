@@ -39,6 +39,23 @@
       "message": "Thanks for the patch Joey!\n\nA quick search makes it look like you work for CoreWeave, so I\u0027m going to assume you\u0027re submitting intending to be under their CLA.  I believe Jacob from your company can handle getting you added to the coreweave CLA.",
       "revId": "d247ebd7a2d877918582ebdd889eb444a614c599",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f2474b3_ab9c96d9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-25T22:17:42Z",
+      "side": 1,
+      "message": "Once you get your CLA figured out, it looks like we may have hit an interesting case in the spec where we need to return the same error with different codes and levels dependent on the context.  If the user is logging in, we\u0027re supposed to return this not as an error, but as the code currently does.  When someone accesses a resource outside the tree, then they have to return the 403 value..... I think we need to handle and test both cases",
+      "revId": "d247ebd7a2d877918582ebdd889eb444a614c599",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
