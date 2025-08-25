@@ -628,7 +628,7 @@ inline void setIPv4InterfaceEnabled(
 }
 
 inline void handleHypervisorEthernetInterfaceCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -681,7 +681,7 @@ inline void handleHypervisorEthernetInterfaceCollectionGet(
 }
 
 inline void handleHypervisorEthernetInterfaceGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -732,7 +732,7 @@ inline void handleHypervisorSystemGet(
 }
 
 inline void handleHypervisorEthernetInterfacePatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& ifaceId)
 {
@@ -896,7 +896,7 @@ inline void handleHypervisorResetActionGet(
 }
 
 inline void handleHypervisorSystemResetPost(
-    const crow::Request& req,
+    const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::optional<std::string> resetType;

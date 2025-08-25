@@ -33,7 +33,7 @@ namespace google_api
 {
 
 inline void handleGoogleV1Get(
-    const crow::Request& /*req*/,
+    const bmcweb::Request& /*req*/,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     asyncResp->res.jsonValue["@odata.type"] =
@@ -47,7 +47,7 @@ inline void handleGoogleV1Get(
 }
 
 inline void handleRootOfTrustCollectionGet(
-    const crow::Request& /*req*/,
+    const bmcweb::Request& /*req*/,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     asyncResp->res.jsonValue["@odata.id"] = "/google/v1/RootOfTrustCollection";
@@ -148,7 +148,7 @@ inline void populateRootOfTrustEntity(
 }
 
 inline void handleRootOfTrustGet(
-    const crow::Request& /*req*/,
+    const bmcweb::Request& /*req*/,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& param)
 {
@@ -198,7 +198,7 @@ inline void invokeRoTCommand(
 }
 
 inline void handleRoTSendCommandPost(
-    const crow::Request& request,
+    const bmcweb::Request& request,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& rotId)
 {

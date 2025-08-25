@@ -442,7 +442,7 @@ class EventServiceManager
         return true;
     }
 
-    void deleteSseSubscription(const crow::sse_socket::Connection& thisConn)
+    void deleteSseSubscription(const bmcweb::sse_socket::Connection& thisConn)
     {
         for (auto it = subscriptionsMap.begin(); it != subscriptionsMap.end();)
         {

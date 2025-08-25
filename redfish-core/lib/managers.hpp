@@ -150,7 +150,7 @@ inline void doBMCGracefulRestart(
 
     // Create the D-Bus variant for D-Bus call.
     sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, processName, objectPath, interfaceName,
+        *bmcweb::connections::systemBus, processName, objectPath, interfaceName,
         destProperty, propertyValue,
         [asyncResp](const boost::system::error_code& ec) {
             // Use "Set" method to set the property value.
@@ -177,7 +177,7 @@ inline void doBMCForceRestart(
 
     // Create the D-Bus variant for D-Bus call.
     sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, processName, objectPath, interfaceName,
+        *bmcweb::connections::systemBus, processName, objectPath, interfaceName,
         destProperty, propertyValue,
         [asyncResp](const boost::system::error_code& ec) {
             // Use "Set" method to set the property value.
@@ -252,7 +252,7 @@ inline void handleManagerResetAction(
  */
 
 inline void handleManagerResetToDefaultsAction(
-    crow::App& app, const crow::Request& req,
+    crow::App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -501,7 +501,7 @@ inline void setActiveFirmwareImage(
             // An addition could be a Redfish Setting like
             // ActiveSoftwareImageApplyTime and support OnReset
             sdbusplus::asio::setProperty(
-                *crow::connections::systemBus, getBMCUpdateServiceName(),
+                *bmcweb::connections::systemBus, getBMCUpdateServiceName(),
                 "/xyz/openbmc_project/software/" + firmwareId,
                 "xyz.openbmc_project.Software.RedundancyPriority", "Priority",
                 static_cast<uint8_t>(0),
@@ -561,7 +561,7 @@ inline void setDateTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Set the absolute datetime
     bool relative = false;
     bool interactive = false;
-    crow::connections::systemBus->async_method_call(
+    bmcweb::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code& ec,
                     const sdbusplus::message_t& msg) {
             afterSetDateTime(asyncResp, ec, msg);
@@ -670,7 +670,8 @@ inline void getManagerData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                 "xyz.openbmc_project.Inventory.Decorator.Asset")
             {
                 dbus::utility::getAllProperties(
-                    *crow::connections::systemBus, connectionName, managerPath,
+                    *bmcweb::connections::systemBus, connectionName,
+                    managerPath,
                     "xyz.openbmc_project.Inventory.Decorator.Asset",
                     std::bind_front(getPhysicalAssets, asyncResp));
             }

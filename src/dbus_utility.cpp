@@ -74,7 +74,7 @@ void getAllProperties(const std::string& service, const std::string& objectPath,
                       std::function<void(const boost::system::error_code&,
                                          const DBusPropertiesMap&)>&& callback)
 {
-    sdbusplus::asio::getAllProperties(*crow::connections::systemBus, service,
+    sdbusplus::asio::getAllProperties(*bmcweb::connections::systemBus, service,
                                       objectPath, interface,
                                       std::move(callback));
 }

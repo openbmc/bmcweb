@@ -171,7 +171,7 @@ inline void afterNetworkPortRequest(
 }
 
 inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                           const crow::Request& req)
+                           const bmcweb::Request& req)
 {
     if (req.session == nullptr)
     {
@@ -463,7 +463,7 @@ inline std::string encodeServiceObjectPath(std::string_view serviceName)
 }
 
 inline void handleBmcNetworkProtocolHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -476,7 +476,7 @@ inline void handleBmcNetworkProtocolHead(
 }
 
 inline void handleManagersNetworkProtocolPatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -553,7 +553,7 @@ inline void handleManagersNetworkProtocolPatch(
 }
 
 inline void handleManagersNetworkProtocolHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -572,7 +572,7 @@ inline void handleManagersNetworkProtocolHead(
 }
 
 inline void handleManagersNetworkProtocolGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {

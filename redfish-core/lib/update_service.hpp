@@ -130,7 +130,7 @@ inline void activateImage(const std::string& objPath,
 {
     BMCWEB_LOG_DEBUG("Activate image for {} {}", objPath, service);
     sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, service, objPath,
+        *bmcweb::connections::systemBus, service, objPath,
         "xyz.openbmc_project.Software.Activation", "RequestedActivation",
         "xyz.openbmc_project.Software.Activation.RequestedActivations.Active",
         [](const boost::system::error_code& ec) {
@@ -446,7 +446,7 @@ inline void afterUpdateErrorMatcher(
 // then no asyncResp updates will occur
 inline void monitorForSoftwareAvailable(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const crow::Request& req, const std::string& url,
+    const bmcweb::Request& req, const std::string& url,
     int timeoutTimeSeconds = 50)
 {
     // Only allow one FW update at a time
@@ -476,13 +476,13 @@ inline void monitorForSoftwareAvailable(
     fwUpdateInProgress = true;
 
     fwUpdateMatcher = std::make_unique<sdbusplus::bus::match_t>(
-        *crow::connections::systemBus,
+        *bmcweb::connections::systemBus,
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);
 
     fwUpdateErrorMatcher = std::make_unique<sdbusplus::bus::match_t>(
-        *crow::connections::systemBus,
+        *bmcweb::connections::systemBus,
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
         "member='InterfacesAdded',"
         "path='/xyz/openbmc_project/logging'",
@@ -491,7 +491,7 @@ inline void monitorForSoftwareAvailable(
 
 inline std::optional<boost::urls::url> parseSimpleUpdateUrl(
     std::string imageURI, std::optional<std::string> transferProtocol,
-    crow::Response& res)
+    bmcweb::Response& res)
 {
     if (imageURI.find("://") == std::string::npos)
     {
@@ -574,7 +574,7 @@ inline void doHttpsUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void handleUpdateServiceSimpleUpdateAction(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -623,7 +623,7 @@ inline void handleUpdateServiceSimpleUpdateAction(
     BMCWEB_LOG_DEBUG("Exit UpdateService.SimpleUpdate doPost");
 }
 
-inline void uploadImageFile(crow::Response& res, std::string_view body)
+inline void uploadImageFile(bmcweb::Response& res, std::string_view body)
 {
     std::filesystem::path filepath("/tmp/images/" + bmcweb::getRandomUUID());
 
@@ -644,7 +644,8 @@ inline void uploadImageFile(crow::Response& res, std::string_view body)
 }
 
 // Convert the Request Apply Time to the D-Bus value
-inline bool convertApplyTime(crow::Response& res, const std::string& applyTime,
+inline bool convertApplyTime(bmcweb::Response& res,
+                             const std::string& applyTime,
                              std::string& applyTimeNewVal)
 {
     if (applyTime == "Immediate")
@@ -701,8 +702,8 @@ inline std::optional<std::string> processUrl(
     {
         return std::nullopt;
     }
-    if (crow::utility::readUrlSegments(*url, "redfish", "v1", "Managers",
-                                       BMCWEB_REDFISH_MANAGER_URI_NAME))
+    if (bmcweb::utility::readUrlSegments(*url, "redfish", "v1", "Managers",
+                                         BMCWEB_REDFISH_MANAGER_URI_NAME))
     {
         return std::make_optional(std::string(BMCWEB_REDFISH_MANAGER_URI_NAME));
     }
@@ -711,9 +712,9 @@ inline std::optional<std::string> processUrl(
         return std::nullopt;
     }
     std::string firmwareId;
-    if (!crow::utility::readUrlSegments(*url, "redfish", "v1", "UpdateService",
-                                        "FirmwareInventory",
-                                        std::ref(firmwareId)))
+    if (!bmcweb::utility::readUrlSegments(*url, "redfish", "v1",
+                                          "UpdateService", "FirmwareInventory",
+                                          std::ref(firmwareId)))
     {
         return std::nullopt;
     }
@@ -1002,7 +1003,7 @@ inline void processUpdateRequest(
 
 inline void updateMultipartContext(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const crow::Request& req, MultipartParser&& parser)
+    const bmcweb::Request& req, MultipartParser&& parser)
 {
     std::optional<MultiPartUpdate> multipart =
         extractMultipartUpdateParameters(asyncResp, std::move(parser));
@@ -1042,7 +1043,7 @@ inline void updateMultipartContext(
 }
 
 inline void doHTTPUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                         const crow::Request& req)
+                         const bmcweb::Request& req)
 {
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
@@ -1069,7 +1070,7 @@ inline void doHTTPUpdate(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void handleUpdateServicePost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1093,7 +1094,7 @@ inline void handleUpdateServicePost(
 }
 
 inline void handleUpdateServiceMultipartUpdatePost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1127,7 +1128,7 @@ inline void handleUpdateServiceMultipartUpdatePost(
 }
 
 inline void handleUpdateServiceGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1174,7 +1175,7 @@ inline void handleUpdateServiceGet(
 }
 
 inline void handleUpdateServiceFirmwareInventoryCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1349,7 +1350,7 @@ inline void handleUpdateServiceFirmwareInventoryGetCallback(
 }
 
 inline void handleUpdateServiceFirmwareInventoryGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& param)
 {

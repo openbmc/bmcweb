@@ -129,7 +129,7 @@ inline void setIndicatorLedState(
     }
 
     sdbusplus::asio::setProperty(
-        *crow::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
+        *bmcweb::connections::systemBus, "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
         "xyz.openbmc_project.Led.Group", "Asserted", ledBlinkng,
         [asyncResp, ledOn,
@@ -254,7 +254,7 @@ inline void getLedState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     }
 
     sdbusplus::asio::getProperty<bool>(
-        *crow::connections::systemBus, service, ledGroupPath,
+        *bmcweb::connections::systemBus, service, ledGroupPath,
         "xyz.openbmc_project.Led.Group", "Asserted",
         std::bind_front(afterGetLedState, asyncResp));
 }

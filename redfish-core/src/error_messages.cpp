@@ -64,7 +64,7 @@ nlohmann::json::object_t success()
     return getLog(redfish::registries::Base::Index::success, {});
 }
 
-void success(crow::Response& res)
+void success(bmcweb::Response& res)
 {
     addMessageToJsonRoot(res.jsonValue, success());
 }
@@ -81,7 +81,7 @@ nlohmann::json::object_t generalError()
     return getLog(redfish::registries::Base::Index::generalError, {});
 }
 
-void generalError(crow::Response& res)
+void generalError(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::internal_server_error);
     addMessageToErrorJson(res.jsonValue, generalError());
@@ -99,7 +99,7 @@ nlohmann::json::object_t created()
     return getLog(redfish::registries::Base::Index::created, {});
 }
 
-void created(crow::Response& res)
+void created(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::created);
     addMessageToJsonRoot(res.jsonValue, created());
@@ -117,7 +117,7 @@ nlohmann::json::object_t noOperation()
     return getLog(redfish::registries::Base::Index::noOperation, {});
 }
 
-void noOperation(crow::Response& res)
+void noOperation(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, noOperation());
@@ -136,7 +136,7 @@ nlohmann::json::object_t propertyDuplicate(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void propertyDuplicate(crow::Response& res, std::string_view arg1)
+void propertyDuplicate(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(res.jsonValue, propertyDuplicate(arg1), arg1);
@@ -155,7 +155,7 @@ nlohmann::json::object_t propertyUnknown(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void propertyUnknown(crow::Response& res, std::string_view arg1)
+void propertyUnknown(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, propertyUnknown(arg1));
@@ -177,7 +177,7 @@ nlohmann::json::object_t propertyValueTypeError(const nlohmann::json& arg1,
                   std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void propertyValueTypeError(crow::Response& res, const nlohmann::json& arg1,
+void propertyValueTypeError(bmcweb::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -200,7 +200,7 @@ nlohmann::json::object_t propertyValueFormatError(const nlohmann::json& arg1,
                   std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void propertyValueFormatError(crow::Response& res, const nlohmann::json& arg1,
+void propertyValueFormatError(bmcweb::Response& res, const nlohmann::json& arg1,
                               std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -223,7 +223,7 @@ nlohmann::json::object_t propertyValueNotInList(const nlohmann::json& arg1,
                   std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void propertyValueNotInList(crow::Response& res, const nlohmann::json& arg1,
+void propertyValueNotInList(bmcweb::Response& res, const nlohmann::json& arg1,
                             std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -246,7 +246,7 @@ nlohmann::json::object_t propertyValueOutOfRange(const nlohmann::json& arg1,
                   std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void propertyValueOutOfRange(crow::Response& res, const nlohmann::json& arg1,
+void propertyValueOutOfRange(bmcweb::Response& res, const nlohmann::json& arg1,
                              std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -266,7 +266,7 @@ nlohmann::json::object_t propertyValueError(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void propertyValueError(crow::Response& res, std::string_view arg1)
+void propertyValueError(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(res.jsonValue, propertyValueError(arg1), arg1);
@@ -285,7 +285,7 @@ nlohmann::json::object_t propertyNotWritable(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void propertyNotWritable(crow::Response& res, std::string_view arg1)
+void propertyNotWritable(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::method_not_allowed);
     addMessageToJson(res.jsonValue, propertyNotWritable(arg1), arg1);
@@ -304,7 +304,7 @@ nlohmann::json::object_t propertyNotUpdated(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void propertyNotUpdated(crow::Response& res, std::string_view arg1)
+void propertyNotUpdated(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, propertyNotUpdated(arg1));
@@ -323,7 +323,7 @@ nlohmann::json::object_t propertyMissing(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void propertyMissing(crow::Response& res, std::string_view arg1)
+void propertyMissing(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(res.jsonValue, propertyMissing(arg1), arg1);
@@ -341,7 +341,7 @@ nlohmann::json::object_t malformedJSON()
     return getLog(redfish::registries::Base::Index::malformedJSON, {});
 }
 
-void malformedJSON(crow::Response& res)
+void malformedJSON(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, malformedJSON());
@@ -360,7 +360,7 @@ nlohmann::json::object_t invalidJSON(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void invalidJSON(crow::Response& res, std::string_view arg1)
+void invalidJSON(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, invalidJSON(arg1));
@@ -378,7 +378,7 @@ nlohmann::json::object_t emptyJSON()
     return getLog(redfish::registries::Base::Index::emptyJSON, {});
 }
 
-void emptyJSON(crow::Response& res)
+void emptyJSON(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, emptyJSON());
@@ -397,7 +397,7 @@ nlohmann::json::object_t actionNotSupported(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void actionNotSupported(crow::Response& res, std::string_view arg1)
+void actionNotSupported(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, actionNotSupported(arg1));
@@ -417,7 +417,7 @@ nlohmann::json::object_t actionParameterMissing(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void actionParameterMissing(crow::Response& res, std::string_view arg1,
+void actionParameterMissing(bmcweb::Response& res, std::string_view arg1,
                             std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -438,7 +438,7 @@ nlohmann::json::object_t actionParameterDuplicate(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void actionParameterDuplicate(crow::Response& res, std::string_view arg1,
+void actionParameterDuplicate(bmcweb::Response& res, std::string_view arg1,
                               std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -459,7 +459,7 @@ nlohmann::json::object_t actionParameterUnknown(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void actionParameterUnknown(crow::Response& res, std::string_view arg1,
+void actionParameterUnknown(bmcweb::Response& res, std::string_view arg1,
                             std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -483,7 +483,7 @@ nlohmann::json::object_t actionParameterValueTypeError(
         std::to_array<std::string_view>({arg1Str, arg2, arg3}));
 }
 
-void actionParameterValueTypeError(crow::Response& res,
+void actionParameterValueTypeError(bmcweb::Response& res,
                                    const nlohmann::json& arg1,
                                    std::string_view arg2, std::string_view arg3)
 {
@@ -510,7 +510,7 @@ nlohmann::json::object_t actionParameterValueFormatError(
 }
 
 void actionParameterValueFormatError(
-    crow::Response& res, const nlohmann::json& arg1, std::string_view arg2,
+    bmcweb::Response& res, const nlohmann::json& arg1, std::string_view arg2,
     std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -533,7 +533,7 @@ nlohmann::json::object_t actionParameterValueNotInList(
         std::to_array({arg1, arg2, arg3}));
 }
 
-void actionParameterValueNotInList(crow::Response& res, std::string_view arg1,
+void actionParameterValueNotInList(bmcweb::Response& res, std::string_view arg1,
                                    std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -556,9 +556,9 @@ nlohmann::json::object_t actionParameterValueOutOfRange(
         std::to_array({arg1, arg2, arg3}));
 }
 
-void actionParameterValueOutOfRange(crow::Response& res, std::string_view arg1,
-                                    std::string_view arg2,
-                                    std::string_view arg3)
+void actionParameterValueOutOfRange(
+    bmcweb::Response& res, std::string_view arg1, std::string_view arg2,
+    std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue,
@@ -581,7 +581,8 @@ nlohmann::json::object_t actionParameterValueError(const nlohmann::json& arg1,
                   std::to_array<std::string_view>({arg1Str, arg2}));
 }
 
-void actionParameterValueError(crow::Response& res, const nlohmann::json& arg1,
+void actionParameterValueError(bmcweb::Response& res,
+                               const nlohmann::json& arg1,
                                std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -602,7 +603,7 @@ nlohmann::json::object_t actionParameterNotSupported(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void actionParameterNotSupported(crow::Response& res, std::string_view arg1,
+void actionParameterNotSupported(bmcweb::Response& res, std::string_view arg1,
                                  std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -624,7 +625,8 @@ nlohmann::json::object_t arraySizeTooLong(std::string_view arg1, uint64_t arg2)
                   std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void arraySizeTooLong(crow::Response& res, std::string_view arg1, uint64_t arg2)
+void arraySizeTooLong(bmcweb::Response& res, std::string_view arg1,
+                      uint64_t arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, arraySizeTooLong(arg1, arg2));
@@ -644,7 +646,7 @@ nlohmann::json::object_t arraySizeTooShort(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void arraySizeTooShort(crow::Response& res, std::string_view arg1,
+void arraySizeTooShort(bmcweb::Response& res, std::string_view arg1,
                        std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -669,7 +671,7 @@ nlohmann::json::object_t queryParameterValueTypeError(
 }
 
 void queryParameterValueTypeError(
-    crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
+    bmcweb::Response& res, const nlohmann::json& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue,
@@ -694,7 +696,7 @@ nlohmann::json::object_t queryParameterValueFormatError(
 }
 
 void queryParameterValueFormatError(
-    crow::Response& res, const nlohmann::json& arg1, std::string_view arg2)
+    bmcweb::Response& res, const nlohmann::json& arg1, std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue,
@@ -714,7 +716,7 @@ nlohmann::json::object_t queryParameterValueError(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void queryParameterValueError(crow::Response& res, std::string_view arg1)
+void queryParameterValueError(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, queryParameterValueError(arg1));
@@ -734,7 +736,7 @@ nlohmann::json::object_t queryParameterOutOfRange(
                   std::to_array({arg1, arg2, arg3}));
 }
 
-void queryParameterOutOfRange(crow::Response& res, std::string_view arg1,
+void queryParameterOutOfRange(bmcweb::Response& res, std::string_view arg1,
                               std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -755,7 +757,7 @@ nlohmann::json::object_t queryNotSupportedOnResource()
                   {});
 }
 
-void queryNotSupportedOnResource(crow::Response& res)
+void queryNotSupportedOnResource(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, queryNotSupportedOnResource());
@@ -774,7 +776,7 @@ nlohmann::json::object_t queryNotSupportedOnOperation()
         redfish::registries::Base::Index::queryNotSupportedOnOperation, {});
 }
 
-void queryNotSupportedOnOperation(crow::Response& res)
+void queryNotSupportedOnOperation(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, queryNotSupportedOnOperation());
@@ -792,7 +794,7 @@ nlohmann::json::object_t queryNotSupported()
     return getLog(redfish::registries::Base::Index::queryNotSupported, {});
 }
 
-void queryNotSupported(crow::Response& res)
+void queryNotSupported(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, queryNotSupported());
@@ -811,7 +813,7 @@ nlohmann::json::object_t queryCombinationInvalid()
                   {});
 }
 
-void queryCombinationInvalid(crow::Response& res)
+void queryCombinationInvalid(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, queryCombinationInvalid());
@@ -830,7 +832,7 @@ nlohmann::json::object_t queryParameterUnsupported(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void queryParameterUnsupported(crow::Response& res, std::string_view arg1)
+void queryParameterUnsupported(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, queryParameterUnsupported(arg1));
@@ -848,7 +850,7 @@ nlohmann::json::object_t sessionLimitExceeded()
     return getLog(redfish::registries::Base::Index::sessionLimitExceeded, {});
 }
 
-void sessionLimitExceeded(crow::Response& res)
+void sessionLimitExceeded(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, sessionLimitExceeded());
@@ -867,7 +869,7 @@ nlohmann::json::object_t eventSubscriptionLimitExceeded()
         redfish::registries::Base::Index::eventSubscriptionLimitExceeded, {});
 }
 
-void eventSubscriptionLimitExceeded(crow::Response& res)
+void eventSubscriptionLimitExceeded(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, eventSubscriptionLimitExceeded());
@@ -886,7 +888,7 @@ nlohmann::json::object_t resourceCannotBeDeleted()
                   {});
 }
 
-void resourceCannotBeDeleted(crow::Response& res)
+void resourceCannotBeDeleted(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::method_not_allowed);
     addMessageToErrorJson(res.jsonValue, resourceCannotBeDeleted());
@@ -904,7 +906,7 @@ nlohmann::json::object_t resourceInUse()
     return getLog(redfish::registries::Base::Index::resourceInUse, {});
 }
 
-void resourceInUse(crow::Response& res)
+void resourceInUse(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, resourceInUse());
@@ -924,7 +926,7 @@ nlohmann::json::object_t resourceAlreadyExists(
                   std::to_array({arg1, arg2, arg3}));
 }
 
-void resourceAlreadyExists(crow::Response& res, std::string_view arg1,
+void resourceAlreadyExists(bmcweb::Response& res, std::string_view arg1,
                            std::string_view arg2, std::string_view arg3)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -946,7 +948,7 @@ nlohmann::json::object_t resourceNotFound(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void resourceNotFound(crow::Response& res, std::string_view arg1,
+void resourceNotFound(bmcweb::Response& res, std::string_view arg1,
                       std::string_view arg2)
 {
     res.result(boost::beast::http::status::not_found);
@@ -965,7 +967,7 @@ nlohmann::json::object_t payloadTooLarge()
     return getLog(redfish::registries::Base::Index::payloadTooLarge, {});
 }
 
-void payloadTooLarge(crow::Response& res)
+void payloadTooLarge(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, payloadTooLarge());
@@ -983,7 +985,7 @@ nlohmann::json::object_t insufficientStorage()
     return getLog(redfish::registries::Base::Index::insufficientStorage, {});
 }
 
-void insufficientStorage(crow::Response& res)
+void insufficientStorage(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::insufficient_storage);
     addMessageToErrorJson(res.jsonValue, insufficientStorage());
@@ -1001,7 +1003,7 @@ nlohmann::json::object_t missingOrMalformedPart()
     return getLog(redfish::registries::Base::Index::missingOrMalformedPart, {});
 }
 
-void missingOrMalformedPart(crow::Response& res)
+void missingOrMalformedPart(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, missingOrMalformedPart());
@@ -1020,7 +1022,7 @@ nlohmann::json::object_t invalidURI(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void invalidURI(crow::Response& res, std::string_view arg1)
+void invalidURI(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, invalidURI(arg1));
@@ -1040,7 +1042,7 @@ nlohmann::json::object_t createFailedMissingReqProperties(std::string_view arg1)
         std::to_array({arg1}));
 }
 
-void createFailedMissingReqProperties(crow::Response& res,
+void createFailedMissingReqProperties(bmcweb::Response& res,
                                       std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1061,7 +1063,7 @@ nlohmann::json::object_t createLimitReachedForResource()
         redfish::registries::Base::Index::createLimitReachedForResource, {});
 }
 
-void createLimitReachedForResource(crow::Response& res)
+void createLimitReachedForResource(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, createLimitReachedForResource());
@@ -1079,7 +1081,7 @@ nlohmann::json::object_t serviceShuttingDown()
     return getLog(redfish::registries::Base::Index::serviceShuttingDown, {});
 }
 
-void serviceShuttingDown(crow::Response& res)
+void serviceShuttingDown(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, serviceShuttingDown());
@@ -1097,7 +1099,7 @@ nlohmann::json::object_t serviceInUnknownState()
     return getLog(redfish::registries::Base::Index::serviceInUnknownState, {});
 }
 
-void serviceInUnknownState(crow::Response& res)
+void serviceInUnknownState(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, serviceInUnknownState());
@@ -1115,7 +1117,7 @@ nlohmann::json::object_t noValidSession()
     return getLog(redfish::registries::Base::Index::noValidSession, {});
 }
 
-void noValidSession(crow::Response& res)
+void noValidSession(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(res.jsonValue, noValidSession());
@@ -1133,7 +1135,7 @@ nlohmann::json::object_t insufficientPrivilege()
     return getLog(redfish::registries::Base::Index::insufficientPrivilege, {});
 }
 
-void insufficientPrivilege(crow::Response& res)
+void insufficientPrivilege(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(res.jsonValue, insufficientPrivilege());
@@ -1151,7 +1153,7 @@ nlohmann::json::object_t accountModified()
     return getLog(redfish::registries::Base::Index::accountModified, {});
 }
 
-void accountModified(crow::Response& res)
+void accountModified(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::ok);
     addMessageToErrorJson(res.jsonValue, accountModified());
@@ -1169,7 +1171,7 @@ nlohmann::json::object_t accountNotModified()
     return getLog(redfish::registries::Base::Index::accountNotModified, {});
 }
 
-void accountNotModified(crow::Response& res)
+void accountNotModified(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, accountNotModified());
@@ -1187,7 +1189,7 @@ nlohmann::json::object_t accountRemoved()
     return getLog(redfish::registries::Base::Index::accountRemoved, {});
 }
 
-void accountRemoved(crow::Response& res)
+void accountRemoved(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::ok);
     addMessageToJsonRoot(res.jsonValue, accountRemoved());
@@ -1206,7 +1208,7 @@ nlohmann::json::object_t accountForSessionNoLongerExists()
         redfish::registries::Base::Index::accountForSessionNoLongerExists, {});
 }
 
-void accountForSessionNoLongerExists(crow::Response& res)
+void accountForSessionNoLongerExists(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(res.jsonValue, accountForSessionNoLongerExists());
@@ -1225,7 +1227,8 @@ nlohmann::json::object_t invalidObject(const boost::urls::url_view_base& arg1)
                   std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void invalidObject(crow::Response& res, const boost::urls::url_view_base& arg1)
+void invalidObject(bmcweb::Response& res,
+                   const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, invalidObject(arg1));
@@ -1243,7 +1246,7 @@ nlohmann::json::object_t internalError()
     return getLog(redfish::registries::Base::Index::internalError, {});
 }
 
-void internalError(crow::Response& res, const std::source_location location)
+void internalError(bmcweb::Response& res, const std::source_location location)
 {
     BMCWEB_LOG_CRITICAL("Internal Error {}({}:{}) `{}`: ", location.file_name(),
                         location.line(), location.column(),
@@ -1265,7 +1268,7 @@ nlohmann::json::object_t unrecognizedRequestBody()
                   {});
 }
 
-void unrecognizedRequestBody(crow::Response& res)
+void unrecognizedRequestBody(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, unrecognizedRequestBody());
@@ -1285,7 +1288,7 @@ nlohmann::json::object_t resourceMissingAtURI(
                   std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void resourceMissingAtURI(crow::Response& res,
+void resourceMissingAtURI(bmcweb::Response& res,
                           const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1307,7 +1310,7 @@ nlohmann::json::object_t resourceAtUriInUnknownFormat(
         std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void resourceAtUriInUnknownFormat(crow::Response& res,
+void resourceAtUriInUnknownFormat(bmcweb::Response& res,
                                   const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1328,7 +1331,7 @@ nlohmann::json::object_t resourceAtUriUnauthorized(
                   std::to_array<std::string_view>({arg1.buffer(), arg2}));
 }
 
-void resourceAtUriUnauthorized(crow::Response& res,
+void resourceAtUriUnauthorized(bmcweb::Response& res,
                                const boost::urls::url_view_base& arg1,
                                std::string_view arg2)
 {
@@ -1350,7 +1353,7 @@ nlohmann::json::object_t couldNotEstablishConnection(
                   std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void couldNotEstablishConnection(crow::Response& res,
+void couldNotEstablishConnection(bmcweb::Response& res,
                                  const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::not_found);
@@ -1372,7 +1375,7 @@ nlohmann::json::object_t sourceDoesNotSupportProtocol(
         std::to_array<std::string_view>({arg1.buffer(), arg2}));
 }
 
-void sourceDoesNotSupportProtocol(crow::Response& res,
+void sourceDoesNotSupportProtocol(bmcweb::Response& res,
                                   const boost::urls::url_view_base& arg1,
                                   std::string_view arg2)
 {
@@ -1394,7 +1397,7 @@ nlohmann::json::object_t accessDenied(const boost::urls::url_view_base& arg1)
                   std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void accessDenied(crow::Response& res, const boost::urls::url_view_base& arg1)
+void accessDenied(bmcweb::Response& res, const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(res.jsonValue, accessDenied(arg1));
@@ -1414,7 +1417,7 @@ nlohmann::json::object_t serviceTemporarilyUnavailable(std::string_view arg1)
         std::to_array({arg1}));
 }
 
-void serviceTemporarilyUnavailable(crow::Response& res, std::string_view arg1)
+void serviceTemporarilyUnavailable(bmcweb::Response& res, std::string_view arg1)
 {
     res.addHeader(boost::beast::http::field::retry_after, arg1);
     res.result(boost::beast::http::status::service_unavailable);
@@ -1435,7 +1438,7 @@ nlohmann::json::object_t invalidIndex(uint64_t arg1)
                   std::to_array<std::string_view>({arg1Str}));
 }
 
-void invalidIndex(crow::Response& res, uint64_t arg1)
+void invalidIndex(bmcweb::Response& res, uint64_t arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, invalidIndex(arg1));
@@ -1457,7 +1460,7 @@ nlohmann::json::object_t propertyValueModified(std::string_view arg1,
                   std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void propertyValueModified(crow::Response& res, std::string_view arg1,
+void propertyValueModified(bmcweb::Response& res, std::string_view arg1,
                            const nlohmann::json& arg2)
 {
     res.result(boost::beast::http::status::ok);
@@ -1476,7 +1479,7 @@ nlohmann::json::object_t resourceInStandby()
     return getLog(redfish::registries::Base::Index::resourceInStandby, {});
 }
 
-void resourceInStandby(crow::Response& res)
+void resourceInStandby(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, resourceInStandby());
@@ -1495,7 +1498,7 @@ nlohmann::json::object_t resourceExhaustion(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void resourceExhaustion(crow::Response& res, std::string_view arg1)
+void resourceExhaustion(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, resourceExhaustion(arg1));
@@ -1516,7 +1519,7 @@ nlohmann::json::object_t stringValueTooLong(std::string_view arg1,
                   std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void stringValueTooLong(crow::Response& res, std::string_view arg1,
+void stringValueTooLong(bmcweb::Response& res, std::string_view arg1,
                         uint64_t arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1537,7 +1540,7 @@ nlohmann::json::object_t stringValueTooShort(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void stringValueTooShort(crow::Response& res, std::string_view arg1,
+void stringValueTooShort(bmcweb::Response& res, std::string_view arg1,
                          std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1556,7 +1559,7 @@ nlohmann::json::object_t sessionTerminated()
     return getLog(redfish::registries::Base::Index::sessionTerminated, {});
 }
 
-void sessionTerminated(crow::Response& res)
+void sessionTerminated(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::ok);
     addMessageToJsonRoot(res.jsonValue, sessionTerminated());
@@ -1574,7 +1577,7 @@ nlohmann::json::object_t subscriptionTerminated()
     return getLog(redfish::registries::Base::Index::subscriptionTerminated, {});
 }
 
-void subscriptionTerminated(crow::Response& res)
+void subscriptionTerminated(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::ok);
     addMessageToJsonRoot(res.jsonValue, subscriptionTerminated());
@@ -1594,7 +1597,7 @@ nlohmann::json::object_t resourceTypeIncompatible(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void resourceTypeIncompatible(crow::Response& res, std::string_view arg1,
+void resourceTypeIncompatible(bmcweb::Response& res, std::string_view arg1,
                               std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1615,7 +1618,7 @@ nlohmann::json::object_t passwordChangeRequired(
                   std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void passwordChangeRequired(crow::Response& res,
+void passwordChangeRequired(bmcweb::Response& res,
                             const boost::urls::url_view_base& arg1)
 {
     addMessageToJsonRoot(res.jsonValue, passwordChangeRequired(arg1));
@@ -1635,7 +1638,8 @@ nlohmann::json::object_t resetRequired(const boost::urls::url_view_base& arg1,
                   std::to_array<std::string_view>({arg1.buffer(), arg2}));
 }
 
-void resetRequired(crow::Response& res, const boost::urls::url_view_base& arg1,
+void resetRequired(bmcweb::Response& res,
+                   const boost::urls::url_view_base& arg1,
                    std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1656,7 +1660,7 @@ nlohmann::json::object_t resetRecommended(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void resetRecommended(crow::Response& res, std::string_view arg1,
+void resetRecommended(bmcweb::Response& res, std::string_view arg1,
                       std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1676,7 +1680,7 @@ nlohmann::json::object_t chassisPowerStateOnRequired(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void chassisPowerStateOnRequired(crow::Response& res, std::string_view arg1)
+void chassisPowerStateOnRequired(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, chassisPowerStateOnRequired(arg1));
@@ -1696,7 +1700,7 @@ nlohmann::json::object_t chassisPowerStateOffRequired(std::string_view arg1)
         std::to_array({arg1}));
 }
 
-void chassisPowerStateOffRequired(crow::Response& res, std::string_view arg1)
+void chassisPowerStateOffRequired(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, chassisPowerStateOffRequired(arg1));
@@ -1716,7 +1720,7 @@ nlohmann::json::object_t propertyValueConflict(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void propertyValueConflict(crow::Response& res, std::string_view arg1,
+void propertyValueConflict(bmcweb::Response& res, std::string_view arg1,
                            std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1741,7 +1745,7 @@ nlohmann::json::object_t propertyValueResourceConflict(
         std::to_array<std::string_view>({arg1, arg2Str, arg3.buffer()}));
 }
 
-void propertyValueResourceConflict(crow::Response& res, std::string_view arg1,
+void propertyValueResourceConflict(bmcweb::Response& res, std::string_view arg1,
                                    const nlohmann::json& arg2,
                                    const boost::urls::url_view_base& arg3)
 {
@@ -1767,7 +1771,7 @@ nlohmann::json::object_t propertyValueExternalConflict(
         std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void propertyValueExternalConflict(crow::Response& res, std::string_view arg1,
+void propertyValueExternalConflict(bmcweb::Response& res, std::string_view arg1,
                                    const nlohmann::json& arg2)
 {
     res.result(boost::beast::http::status::conflict);
@@ -1791,7 +1795,7 @@ nlohmann::json::object_t propertyValueIncorrect(std::string_view arg1,
                   std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
-void propertyValueIncorrect(crow::Response& res, std::string_view arg1,
+void propertyValueIncorrect(bmcweb::Response& res, std::string_view arg1,
                             const nlohmann::json& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1812,7 +1816,7 @@ nlohmann::json::object_t resourceCreationConflict(
                   std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void resourceCreationConflict(crow::Response& res,
+void resourceCreationConflict(bmcweb::Response& res,
                               const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1834,7 +1838,7 @@ nlohmann::json::object_t actionParameterValueConflict(std::string_view arg1,
         std::to_array({arg1, arg2}));
 }
 
-void actionParameterValueConflict(crow::Response& res, std::string_view arg1,
+void actionParameterValueConflict(bmcweb::Response& res, std::string_view arg1,
                                   std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -1854,7 +1858,7 @@ nlohmann::json::object_t maximumErrorsExceeded()
     return getLog(redfish::registries::Base::Index::maximumErrorsExceeded, {});
 }
 
-void maximumErrorsExceeded(crow::Response& res)
+void maximumErrorsExceeded(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::internal_server_error);
     addMessageToErrorJson(res.jsonValue, maximumErrorsExceeded());
@@ -1872,7 +1876,7 @@ nlohmann::json::object_t preconditionFailed()
     return getLog(redfish::registries::Base::Index::preconditionFailed, {});
 }
 
-void preconditionFailed(crow::Response& res)
+void preconditionFailed(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::precondition_failed);
     addMessageToErrorJson(res.jsonValue, preconditionFailed());
@@ -1890,7 +1894,7 @@ nlohmann::json::object_t preconditionRequired()
     return getLog(redfish::registries::Base::Index::preconditionRequired, {});
 }
 
-void preconditionRequired(crow::Response& res)
+void preconditionRequired(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, preconditionRequired());
@@ -1909,7 +1913,7 @@ nlohmann::json::object_t headerMissing(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void headerMissing(crow::Response& res, std::string_view arg1)
+void headerMissing(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, headerMissing(arg1));
@@ -1928,7 +1932,7 @@ nlohmann::json::object_t headerInvalid(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void headerInvalid(crow::Response& res, std::string_view arg1)
+void headerInvalid(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, headerInvalid(arg1));
@@ -1946,7 +1950,7 @@ nlohmann::json::object_t operationFailed()
     return getLog(redfish::registries::Base::Index::operationFailed, {});
 }
 
-void operationFailed(crow::Response& res)
+void operationFailed(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_gateway);
     addMessageToErrorJson(res.jsonValue, operationFailed());
@@ -1964,7 +1968,7 @@ nlohmann::json::object_t operationTimeout()
     return getLog(redfish::registries::Base::Index::operationTimeout, {});
 }
 
-void operationTimeout(crow::Response& res)
+void operationTimeout(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::internal_server_error);
     addMessageToErrorJson(res.jsonValue, operationTimeout());
@@ -1982,7 +1986,7 @@ nlohmann::json::object_t operationNotAllowed()
     return getLog(redfish::registries::Base::Index::operationNotAllowed, {});
 }
 
-void operationNotAllowed(crow::Response& res)
+void operationNotAllowed(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::method_not_allowed);
     addMessageToErrorJson(res.jsonValue, operationNotAllowed());
@@ -2001,7 +2005,7 @@ nlohmann::json::object_t undeterminedFault(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void undeterminedFault(crow::Response& res, std::string_view arg1)
+void undeterminedFault(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, undeterminedFault(arg1));
@@ -2020,7 +2024,7 @@ nlohmann::json::object_t conditionInRelatedResource()
                   {});
 }
 
-void conditionInRelatedResource(crow::Response& res)
+void conditionInRelatedResource(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, conditionInRelatedResource());
@@ -2039,7 +2043,7 @@ nlohmann::json::object_t restrictedRole(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void restrictedRole(crow::Response& res, std::string_view arg1)
+void restrictedRole(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(res.jsonValue, restrictedRole(arg1));
@@ -2058,7 +2062,7 @@ nlohmann::json::object_t restrictedPrivilege(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void restrictedPrivilege(crow::Response& res, std::string_view arg1)
+void restrictedPrivilege(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, restrictedPrivilege(arg1));
@@ -2077,7 +2081,7 @@ nlohmann::json::object_t strictAccountTypes(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void strictAccountTypes(crow::Response& res, std::string_view arg1)
+void strictAccountTypes(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, strictAccountTypes(arg1));
@@ -2096,7 +2100,7 @@ nlohmann::json::object_t propertyDeprecated(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void propertyDeprecated(crow::Response& res, std::string_view arg1)
+void propertyDeprecated(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, propertyDeprecated(arg1));
@@ -2115,7 +2119,7 @@ nlohmann::json::object_t resourceDeprecated(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void resourceDeprecated(crow::Response& res, std::string_view arg1)
+void resourceDeprecated(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, resourceDeprecated(arg1));
@@ -2135,7 +2139,7 @@ nlohmann::json::object_t propertyValueDeprecated(std::string_view arg1,
                   std::to_array({arg1, arg2}));
 }
 
-void propertyValueDeprecated(crow::Response& res, std::string_view arg1,
+void propertyValueDeprecated(bmcweb::Response& res, std::string_view arg1,
                              std::string_view arg2)
 {
     res.result(boost::beast::http::status::bad_request);
@@ -2155,7 +2159,7 @@ nlohmann::json::object_t actionDeprecated(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void actionDeprecated(crow::Response& res, std::string_view arg1)
+void actionDeprecated(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, actionDeprecated(arg1));
@@ -2175,7 +2179,7 @@ nlohmann::json::object_t networkNameResolutionNotConfigured()
         {});
 }
 
-void networkNameResolutionNotConfigured(crow::Response& res)
+void networkNameResolutionNotConfigured(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, networkNameResolutionNotConfigured());
@@ -2195,7 +2199,7 @@ nlohmann::json::object_t networkNameResolutionNotSupported()
         {});
 }
 
-void networkNameResolutionNotSupported(crow::Response& res)
+void networkNameResolutionNotSupported(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, networkNameResolutionNotSupported());
@@ -2214,7 +2218,7 @@ nlohmann::json::object_t serviceDisabled(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void serviceDisabled(crow::Response& res, std::string_view arg1)
+void serviceDisabled(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(res.jsonValue, serviceDisabled(arg1));
@@ -2232,7 +2236,7 @@ nlohmann::json::object_t eventBufferExceeded()
     return getLog(redfish::registries::Base::Index::eventBufferExceeded, {});
 }
 
-void eventBufferExceeded(crow::Response& res)
+void eventBufferExceeded(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, eventBufferExceeded());
@@ -2251,7 +2255,7 @@ nlohmann::json::object_t authenticationTokenRequired()
                   {});
 }
 
-void authenticationTokenRequired(crow::Response& res)
+void authenticationTokenRequired(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, authenticationTokenRequired());
@@ -2270,7 +2274,7 @@ nlohmann::json::object_t oneTimePasscodeSent(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void oneTimePasscodeSent(crow::Response& res, std::string_view arg1)
+void oneTimePasscodeSent(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, oneTimePasscodeSent(arg1));
@@ -2289,7 +2293,7 @@ nlohmann::json::object_t licenseRequired(std::string_view arg1)
                   std::to_array({arg1}));
 }
 
-void licenseRequired(crow::Response& res, std::string_view arg1)
+void licenseRequired(bmcweb::Response& res, std::string_view arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, licenseRequired(arg1));
@@ -2307,7 +2311,7 @@ nlohmann::json::object_t propertyModified()
     return getLog(redfish::registries::Base::Index::propertyModified, {});
 }
 
-void propertyModified(crow::Response& res)
+void propertyModified(bmcweb::Response& res)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, propertyModified());
@@ -2327,7 +2331,7 @@ nlohmann::json::object_t generateSecretKeyRequired(
                   std::to_array<std::string_view>({arg1.buffer()}));
 }
 
-void generateSecretKeyRequired(crow::Response& res,
+void generateSecretKeyRequired(bmcweb::Response& res,
                                const boost::urls::url_view_base& arg1)
 {
     res.result(boost::beast::http::status::forbidden);

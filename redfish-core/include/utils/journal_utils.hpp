@@ -131,7 +131,7 @@ inline bool fillBMCJournalLogEntryJson(
     bmcJournalLogEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
 
     std::string entryIdBase64 =
-        crow::utility::base64encode(bmcJournalLogEntryID);
+        bmcweb::utility::base64encode(bmcJournalLogEntryID);
 
     bmcJournalLogEntryJson["@odata.id"] = boost_swap_impl::format(
         "/redfish/v1/Managers/{}/LogServices/Journal/Entries/{}",

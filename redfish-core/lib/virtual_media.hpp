@@ -481,7 +481,7 @@ inline void doMountVmLegacy(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Open pipe
     std::shared_ptr<CredentialsPipe> secretPipe =
         std::make_shared<CredentialsPipe>(
-            crow::connections::systemBus->get_io_context());
+            bmcweb::connections::systemBus->get_io_context());
     int fd = secretPipe->releaseFd();
 
     // Pass secret over pipe
@@ -704,7 +704,7 @@ inline void doEjectAction(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void handleManagersVirtualMediaActionInsertPost(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& name, const std::string& resName)
 {
@@ -790,7 +790,7 @@ inline void handleManagersVirtualMediaActionInsertPost(
 }
 
 inline void handleManagersVirtualMediaActionEject(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerName, const std::string& resName)
 {
@@ -857,7 +857,7 @@ inline void handleManagersVirtualMediaActionEject(
 }
 
 inline void handleManagersVirtualMediaCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& name)
 {
@@ -897,7 +897,7 @@ inline void handleManagersVirtualMediaCollectionGet(
 }
 
 inline void handleVirtualMediaGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& name, const std::string& resName)
 {

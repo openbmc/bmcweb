@@ -208,7 +208,7 @@ inline void getProcessorSummary(
     };
 
     // Get the Presence of CPU
-    dbus::utility::getProperty<bool>(*crow::connections::systemBus, service,
+    dbus::utility::getProperty<bool>(*bmcweb::connections::systemBus, service,
                                      path, "xyz.openbmc_project.Inventory.Item",
                                      "Present", std::move(getCpuPresenceState));
 
@@ -467,7 +467,7 @@ inline void afterSystemGetSubTree(
                     BMCWEB_LOG_DEBUG("Found UUID, now get its properties.");
 
                     dbus::utility::getAllProperties(
-                        *crow::connections::systemBus, connection.first, path,
+                        *bmcweb::connections::systemBus, connection.first, path,
                         "xyz.openbmc_project.Common.UUID",
                         [asyncResp](const boost::system::error_code& ec3,
                                     const dbus::utility::DBusPropertiesMap&
@@ -479,7 +479,7 @@ inline void afterSystemGetSubTree(
                          "xyz.openbmc_project.Inventory.Item.System")
                 {
                     dbus::utility::getAllProperties(
-                        *crow::connections::systemBus, connection.first, path,
+                        *bmcweb::connections::systemBus, connection.first, path,
                         "xyz.openbmc_project.Inventory.Decorator.Asset",
                         [asyncResp](const boost::system::error_code& ec3,
                                     const dbus::utility::DBusPropertiesMap&
@@ -2291,7 +2291,7 @@ inline void getPowerMode(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 
             // Valid Power Mode object found, now read the mode properties
             dbus::utility::getAllProperties(
-                *crow::connections::systemBus, service, path,
+                *bmcweb::connections::systemBus, service, path,
                 "xyz.openbmc_project.Control.Power.Mode",
                 [asyncResp](
                     const boost::system::error_code& ec2,
@@ -2727,7 +2727,7 @@ inline void getIdlePowerSaver(
 
             // Valid IdlePowerSaver object found, now read the current values
             dbus::utility::getAllProperties(
-                *crow::connections::systemBus, service, path,
+                *bmcweb::connections::systemBus, service, path,
                 "xyz.openbmc_project.Control.Power.IdlePowerSaver",
                 [asyncResp](
                     const boost::system::error_code& ec2,
@@ -2874,7 +2874,7 @@ inline void setIdlePowerSaver(
 }
 
 inline void handleComputerSystemCollectionHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2887,7 +2887,7 @@ inline void handleComputerSystemCollectionHead(
 }
 
 inline void handleComputerSystemCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -3049,7 +3049,7 @@ inline void handleComputerSystemResetActionPost(
 }
 
 inline void handleComputerSystemHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*systemName*/)
 {
@@ -3243,7 +3243,7 @@ inline void processComputerSystemGet(
 }
 
 inline void handleComputerSystemGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -3478,7 +3478,7 @@ inline void handleComputerSystemPatch(
 }
 
 inline void handleSystemCollectionResetActionHead(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& /*systemName*/)
 {
@@ -3595,7 +3595,7 @@ inline void getAllowedHostTransitions(
 }
 
 inline void handleSystemCollectionResetActionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {

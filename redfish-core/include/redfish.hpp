@@ -48,7 +48,7 @@ class RedfishService
     }
 
     void handleSubRoute(
-        const crow::Request& req,
+        const bmcweb::Request& req,
         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
     {
         auto subReq = std::make_shared<SubRequest>(req);

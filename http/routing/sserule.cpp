@@ -45,9 +45,9 @@ void SseSocketRule::handleUpgrade(
     boost::asio::ip::tcp::socket&& adaptor)
 {
     std::shared_ptr<
-        crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>
+        bmcweb::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>
         myConnection = std::make_shared<
-            crow::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
+            bmcweb::sse_socket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
             std::move(adaptor), openHandler, closeHandler);
     myConnection->start(req);
 }
@@ -55,9 +55,9 @@ void SseSocketRule::handleUpgrade(
     const Request& req, const std::shared_ptr<bmcweb::AsyncResp>& /*asyncResp*/,
     boost::asio::ssl::stream<boost::asio::ip::tcp::socket>&& adaptor)
 {
-    std::shared_ptr<crow::sse_socket::ConnectionImpl<
+    std::shared_ptr<bmcweb::sse_socket::ConnectionImpl<
         boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>
-        myConnection = std::make_shared<crow::sse_socket::ConnectionImpl<
+        myConnection = std::make_shared<bmcweb::sse_socket::ConnectionImpl<
             boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
             std::move(adaptor), openHandler, closeHandler);
     myConnection->start(req);

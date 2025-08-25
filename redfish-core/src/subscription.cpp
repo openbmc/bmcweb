@@ -50,7 +50,7 @@ Subscription::Subscription(
     std::shared_ptr<persistent_data::UserSubscription> userSubIn,
     const boost::urls::url_view_base& url, boost::asio::io_context& ioc) :
     userSub{std::move(userSubIn)},
-    policy(std::make_shared<crow::ConnectionPolicy>()), hbTimer(ioc)
+    policy(std::make_shared<bmcweb::ConnectionPolicy>()), hbTimer(ioc)
 {
     userSub->destinationUrl = url;
     client.emplace(ioc, policy);
@@ -58,14 +58,14 @@ Subscription::Subscription(
     policy->invalidResp = retryRespHandler;
 }
 
-Subscription::Subscription(crow::sse_socket::Connection& connIn) :
+Subscription::Subscription(bmcweb::sse_socket::Connection& connIn) :
     userSub{std::make_shared<persistent_data::UserSubscription>()},
-    sseConn(&connIn), hbTimer(crow::connections::systemBus->get_io_context())
+    sseConn(&connIn), hbTimer(bmcweb::connections::systemBus->get_io_context())
 {}
 
 // callback for subscription sendData
 void Subscription::resHandler(const std::shared_ptr<Subscription>& /*self*/,
-                              const crow::Response& res)
+                              const bmcweb::Response& res)
 {
     BMCWEB_LOG_DEBUG("Response handled with return code: {}", res.resultInt());
 
@@ -307,7 +307,7 @@ void Subscription::updateRetryConfig(uint32_t retryAttempts,
     policy->retryIntervalSecs = std::chrono::seconds(retryTimeoutInterval);
 }
 
-bool Subscription::matchSseId(const crow::sse_socket::Connection& thisConn)
+bool Subscription::matchSseId(const bmcweb::sse_socket::Connection& thisConn)
 {
     return &thisConn == sseConn;
 }

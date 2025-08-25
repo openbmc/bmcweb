@@ -6,7 +6,7 @@
 
 #include <boost/beast/http/field.hpp>
 
-inline void addSecurityHeaders(crow::Response& res)
+inline void addSecurityHeaders(bmcweb::Response& res)
 {
     using bf = boost::beast::http::field;
 

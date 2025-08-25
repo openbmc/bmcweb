@@ -17,7 +17,7 @@ namespace redfish
 class SubRequest
 {
   public:
-    explicit SubRequest(const crow::Request& req) :
+    explicit SubRequest(const bmcweb::Request& req) :
         url_(req.url().encoded_path()), method_(req.method())
     {
         // Extract OEM payload if present

@@ -26,7 +26,7 @@ TEST(Ethernet, parseAddressesEmpty)
     std::vector<AddressPatch> addrOut;
     std::string gatewayOut;
 
-    crow::Response res;
+    bmcweb::Response res;
 
     EXPECT_TRUE(parseAddresses(addr, existingAddr, res, addrOut, gatewayOut));
     EXPECT_THAT(addrOut, IsEmpty());
@@ -47,7 +47,7 @@ TEST(Ethernet, parseAddressesCreateOne)
     std::vector<AddressPatch> addrOut;
     std::string gatewayOut;
 
-    crow::Response res;
+    bmcweb::Response res;
 
     EXPECT_TRUE(parseAddresses(addr, existingAddr, res, addrOut, gatewayOut));
     EXPECT_EQ(addrOut.size(), 1);
@@ -72,7 +72,7 @@ TEST(Ethernet, parseAddressesCreateOneNoGateway)
     std::vector<AddressPatch> addrOut;
     std::string gatewayOut;
 
-    crow::Response res;
+    bmcweb::Response res;
 
     EXPECT_TRUE(parseAddresses(addr, existingAddr, res, addrOut, gatewayOut));
     EXPECT_EQ(addrOut.size(), 1);
@@ -100,7 +100,7 @@ TEST(Ethernet, conflictingGatewaysNew)
     std::vector<AddressPatch> addrOut;
     std::string gatewayOut;
 
-    crow::Response res;
+    bmcweb::Response res;
 
     EXPECT_FALSE(parseAddresses(addr, existingAddr, res, addrOut, gatewayOut));
 }
@@ -124,7 +124,7 @@ TEST(Ethernet, conflictingGatewaysExisting)
     std::vector<AddressPatch> addrOut;
     std::string gatewayOut;
 
-    crow::Response res;
+    bmcweb::Response res;
 
     EXPECT_FALSE(parseAddresses(addr, existingAddr, res, addrOut, gatewayOut));
 }
@@ -141,7 +141,7 @@ TEST(Ethernet, parseMissingAddress)
     std::vector<AddressPatch> addrOut;
     std::string gatewayOut;
 
-    crow::Response res;
+    bmcweb::Response res;
 
     EXPECT_FALSE(parseAddresses(addr, existingAddr, res, addrOut, gatewayOut));
 }
@@ -158,7 +158,7 @@ TEST(Ethernet, parseAddressesMissingSubnet)
     std::vector<AddressPatch> addrOut;
     std::string gatewayOut;
 
-    crow::Response res;
+    bmcweb::Response res;
 
     EXPECT_FALSE(parseAddresses(addr, existingAddr, res, addrOut, gatewayOut));
 }
@@ -177,7 +177,7 @@ TEST(Ethernet, parseAddressesDeleteExistingOnNull)
     std::vector<AddressPatch> addrOut;
     std::string gatewayOut;
 
-    crow::Response res;
+    bmcweb::Response res;
 
     EXPECT_TRUE(parseAddresses(addr, existingAddr, res, addrOut, gatewayOut));
     EXPECT_EQ(addrOut.size(), 1);
@@ -199,7 +199,7 @@ TEST(Ethernet, parseAddressesDeleteExistingOnShortLength)
     std::vector<AddressPatch> addrOut;
     std::string gatewayOut;
 
-    crow::Response res;
+    bmcweb::Response res;
 
     EXPECT_TRUE(parseAddresses(addr, existingAddr, res, addrOut, gatewayOut));
     EXPECT_EQ(addrOut.size(), 1);

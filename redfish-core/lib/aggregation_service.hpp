@@ -27,7 +27,7 @@ namespace redfish
 {
 
 inline void handleAggregationServiceHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -40,7 +40,7 @@ inline void handleAggregationServiceHead(
 }
 
 inline void handleAggregationServiceGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -97,7 +97,7 @@ inline void populateAggregationSourceCollection(
 }
 
 inline void handleAggregationSourceCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -119,7 +119,7 @@ inline void handleAggregationSourceCollectionGet(
 }
 
 inline void handleAggregationSourceCollectionHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -190,7 +190,7 @@ inline void populateAggregationSource(
 }
 
 inline void handleAggregationSourceGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& aggregationSourceId)
 {
@@ -206,7 +206,7 @@ inline void handleAggregationSourceGet(
 }
 
 inline void handleAggregationSourceHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& aggregationSourceId)
 {

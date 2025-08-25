@@ -103,7 +103,7 @@ inline void doPowerSupplyCollection(
 }
 
 inline void handlePowerSupplyCollectionHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -130,7 +130,7 @@ inline void handlePowerSupplyCollectionHead(
 }
 
 inline void handlePowerSupplyCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -511,7 +511,7 @@ inline void doPowerSupplyGet(
 }
 
 inline void handlePowerSupplyHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& powerSupplyId)
 {
@@ -539,7 +539,7 @@ inline void handlePowerSupplyHead(
 }
 
 inline void handlePowerSupplyGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& powerSupplyId)
 {
@@ -562,7 +562,7 @@ inline void doPatchPowerSupply(
 }
 
 inline void handlePowerSupplyPatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId, const std::string& powerSupplyId)
 {

@@ -38,7 +38,7 @@ TEST(OemRouter, FragmentRoutes)
     bool standardCalled = false;
     auto standardCallback =
         [&standardCalled,
-         &service](const crow::Request& req,
+         &service](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& bar) {
             service.handleSubRoute(req, asyncResp);
@@ -56,8 +56,9 @@ TEST(OemRouter, FragmentRoutes)
     {
         constexpr std::string_view reqUrl = "/foo/bar";
 
-        std::shared_ptr<crow::Request> req = std::make_shared<crow::Request>(
-            crow::Request::Body{boost::beast::http::verb::get, reqUrl, 11}, ec);
+        std::shared_ptr<bmcweb::Request> req = std::make_shared<crow::Request>(
+            bmcweb::Request::Body{boost::beast::http::verb::get, reqUrl, 11},
+            ec);
 
         std::shared_ptr<bmcweb::AsyncResp> asyncResp =
             std::make_shared<bmcweb::AsyncResp>();
@@ -116,7 +117,7 @@ TEST(OemRouter, PatchHandlerWithJsonObject)
     bool standardCalled = false;
     auto standardCallback =
         [&standardCalled,
-         &service](const crow::Request& req,
+         &service](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& bar) {
             service.handleSubRoute(req, asyncResp);
@@ -144,8 +145,8 @@ TEST(OemRouter, PatchHandlerWithJsonObject)
                                     {"OemBar", {{"OemBarKey", "barValue"}}}}}};
 
         // Create request with the body string
-        std::shared_ptr<crow::Request> req = std::make_shared<crow::Request>(
-            crow::Request::Body{
+        std::shared_ptr<bmcweb::Request> req = std::make_shared<crow::Request>(
+            bmcweb::Request::Body{
                 boost::beast::http::verb::patch, reqUrl, 11,
                 reqBody.dump() // Pass body string directly in the constructor
             },

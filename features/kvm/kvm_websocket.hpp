@@ -29,7 +29,7 @@ static constexpr const uint maxSessions = 4;
 class KvmSession : public std::enable_shared_from_this<KvmSession>
 {
   public:
-    explicit KvmSession(crow::websocket::Connection& connIn) :
+    explicit KvmSession(bmcweb::websocket::Connection& connIn) :
         conn(connIn), hostSocket(getIoContext())
     {
         boost::asio::ip::tcp::endpoint endpoint(
@@ -167,14 +167,14 @@ class KvmSession : public std::enable_shared_from_this<KvmSession>
             });
     }
 
-    crow::websocket::Connection& conn;
+    bmcweb::websocket::Connection& conn;
     boost::asio::ip::tcp::socket hostSocket;
     boost::beast::flat_static_buffer<1024UL * 50UL> outputBuffer;
     boost::beast::flat_static_buffer<1024UL> inputBuffer;
     bool doingWrite{false};
 };
 
-using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
+using SessionMap = boost::container::flat_map<bmcweb::websocket::Connection*,
                                               std::shared_ptr<KvmSession>>;
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static SessionMap sessions;
@@ -186,7 +186,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/kvm/0")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .websocket()
-        .onopen([](crow::websocket::Connection& conn) {
+        .onopen([](bmcweb::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
 
             if (sessions.size() == maxSessions)
@@ -197,10 +197,10 @@ inline void requestRoutes(App& app)
 
             sessions[&conn] = std::make_shared<KvmSession>(conn);
         })
-        .onclose([](crow::websocket::Connection& conn, const std::string&) {
+        .onclose([](bmcweb::websocket::Connection& conn, const std::string&) {
             sessions.erase(&conn);
         })
-        .onmessage([](crow::websocket::Connection& conn,
+        .onmessage([](bmcweb::websocket::Connection& conn,
                       const std::string& data, bool) {
             if (sessions[&conn])
             {

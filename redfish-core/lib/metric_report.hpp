@@ -81,7 +81,7 @@ inline void requestRoutesMetricReportCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/")
         .privileges(redfish::privileges::getMetricReportCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {
@@ -109,7 +109,7 @@ inline void requestRoutesMetricReport(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/TelemetryService/MetricReports/<str>/")
         .privileges(redfish::privileges::getMetricReport)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& id) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -137,7 +137,7 @@ inline void requestRoutesMetricReport(App& app)
 
                         sdbusplus::asio::getProperty<
                             telemetry::TimestampReadings>(
-                            *crow::connections::systemBus, telemetry::service,
+                            *bmcweb::connections::systemBus, telemetry::service,
                             reportPath, telemetry::reportInterface, "Readings",
                             [asyncResp,
                              id](const boost::system::error_code& ec2,

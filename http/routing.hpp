@@ -109,7 +109,7 @@ class Router
     struct PerMethod
     {
         std::vector<BaseRule*> rules;
-        Trie<crow::Node> trie;
+        Trie<bmcweb::Node> trie;
         // rule index 0 has special meaning; preallocate it to avoid
         // duplication.
         PerMethod() : rules(1) {}
@@ -197,7 +197,7 @@ class Router
     {
         FindRoute route;
 
-        Trie<crow::Node>::FindResult found = perMethod.trie.find(url);
+        Trie<bmcweb::Node>::FindResult found = perMethod.trie.find(url);
         if (found.ruleIndex >= perMethod.rules.size())
         {
             throw std::runtime_error("Trie internal structure corrupted!");
@@ -263,10 +263,10 @@ class Router
                        Adaptor&& adaptor)
     {
         PerMethod& perMethod = upgradeRoutes;
-        Trie<crow::Node>& trie = perMethod.trie;
+        Trie<bmcweb::Node>& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
 
-        Trie<crow::Node>::FindResult found =
+        Trie<bmcweb::Node>::FindResult found =
             trie.find(req->url().encoded_path());
         unsigned ruleIndex = found.ruleIndex;
         if (ruleIndex == 0U)

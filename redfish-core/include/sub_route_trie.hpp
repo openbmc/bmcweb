@@ -16,19 +16,19 @@
 namespace bmcweb
 {
 
-struct SubRouteNode : public crow::Node
+struct SubRouteNode : public bmcweb::Node
 {
-    using ChildMap = crow::Node::ChildMap;
+    using ChildMap = bmcweb::Node::ChildMap;
     ChildMap fragmentChildren;
 
     bool isSimpleNode() const
     {
-        return crow::Node::isSimpleNode() && fragmentChildren.empty();
+        return bmcweb::Node::isSimpleNode() && fragmentChildren.empty();
     }
 };
 
 template <typename ContainedType>
-class SubRouteTrie : public crow::Trie<ContainedType>
+class SubRouteTrie : public bmcweb::Trie<ContainedType>
 {
   public:
     struct FindResult

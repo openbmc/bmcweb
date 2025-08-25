@@ -101,7 +101,7 @@ inline void handleTemperatureReadingsCelsius(
     for (const auto& [service, sensorPath] : sensorsServiceAndPath)
     {
         dbus::utility::getAllProperties(
-            *crow::connections::systemBus, service, sensorPath,
+            *bmcweb::connections::systemBus, service, sensorPath,
             "xyz.openbmc_project.Sensor.Value",
             [asyncResp, chassisId,
              sensorPath](const boost::system::error_code& ec1,
@@ -151,7 +151,7 @@ inline void doThermalMetrics(
 }
 
 inline void handleThermalMetricsHead(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {
@@ -177,7 +177,7 @@ inline void handleThermalMetricsHead(
 }
 
 inline void handleThermalMetricsGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisId)
 {

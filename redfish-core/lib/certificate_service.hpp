@@ -87,7 +87,7 @@ constexpr const char* authorityObjectPath =
 
 inline std::string getCertificateFromReqBody(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const crow::Request& req)
+    const bmcweb::Request& req)
 {
     nlohmann::json reqJson;
     JsonParseResult ret = parseRequestAsJson(req, reqJson);
@@ -437,7 +437,7 @@ inline void deleteCertificate(
 }
 
 inline void handleCertificateServiceGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -481,7 +481,7 @@ inline void handleCertificateServiceGet(
 }
 
 inline void handleCertificateLocationsGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -524,7 +524,7 @@ inline void handleError(const std::string_view dbusErrorName,
 }
 
 inline void handleReplaceCertificateAction(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -573,27 +573,27 @@ inline void handleReplaceCertificateAction(
     sdbusplus::message::object_path objectPath;
     std::string name;
     std::string service;
-    if (crow::utility::readUrlSegments(*parsedUrl, "redfish", "v1", "Managers",
-                                       "bmc", "NetworkProtocol", "HTTPS",
-                                       "Certificates", std::ref(id)))
+    if (bmcweb::utility::readUrlSegments(*parsedUrl, "redfish", "v1",
+                                         "Managers", "bmc", "NetworkProtocol",
+                                         "HTTPS", "Certificates", std::ref(id)))
     {
         objectPath = sdbusplus::message::object_path(certs::httpsObjectPath) /
                      id;
         name = "HTTPS certificate";
         service = certs::httpsServiceName;
     }
-    else if (crow::utility::readUrlSegments(*parsedUrl, "redfish", "v1",
-                                            "AccountService", "LDAP",
-                                            "Certificates", std::ref(id)))
+    else if (bmcweb::utility::readUrlSegments(*parsedUrl, "redfish", "v1",
+                                              "AccountService", "LDAP",
+                                              "Certificates", std::ref(id)))
     {
         objectPath = sdbusplus::message::object_path(certs::ldapObjectPath) /
                      id;
         name = "LDAP certificate";
         service = certs::ldapServiceName;
     }
-    else if (crow::utility::readUrlSegments(*parsedUrl, "redfish", "v1",
-                                            "Managers", "bmc", "Truststore",
-                                            "Certificates", std::ref(id)))
+    else if (bmcweb::utility::readUrlSegments(*parsedUrl, "redfish", "v1",
+                                              "Managers", "bmc", "Truststore",
+                                              "Certificates", std::ref(id)))
     {
         objectPath =
             sdbusplus::message::object_path(certs::authorityObjectPath) / id;
@@ -680,7 +680,7 @@ inline void getCSR(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 }
 
 inline void handleGenerateCSRAction(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -876,7 +876,7 @@ inline void handleGenerateCSRAction(
                       "',"
                       "member='InterfacesAdded'");
     csrMatcher = std::make_unique<sdbusplus::bus::match_t>(
-        *crow::connections::systemBus, match,
+        *bmcweb::connections::systemBus, match,
         [asyncResp, service, objectPath, certURI](sdbusplus::message_t& m) {
             timeout.cancel();
             if (m.is_method_error())
@@ -947,7 +947,7 @@ inline void requestRoutesCertificateService(App& app)
 } // requestRoutesCertificateService
 
 inline void handleHTTPSCertificateCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -977,7 +977,7 @@ inline void handleHTTPSCertificateCollectionGet(
 }
 
 inline void handleHTTPSCertificateCollectionPost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -1036,7 +1036,7 @@ inline void handleHTTPSCertificateCollectionPost(
 }
 
 inline void handleHTTPSCertificateGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& certId)
 {
@@ -1084,7 +1084,7 @@ inline void requestRoutesHTTPSCertificate(App& app)
 }
 
 inline void handleLDAPCertificateCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1106,7 +1106,7 @@ inline void handleLDAPCertificateCollectionGet(
 }
 
 inline void handleLDAPCertificateCollectionPost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1151,7 +1151,7 @@ inline void handleLDAPCertificateCollectionPost(
 }
 
 inline void handleLDAPCertificateGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1169,7 +1169,7 @@ inline void handleLDAPCertificateGet(
 }
 
 inline void handleLDAPCertificateDelete(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const std::string& id)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -1208,7 +1208,7 @@ inline void requestRoutesLDAPCertificate(App& app)
 } // requestRoutesLDAPCertificate
 
 inline void handleTrustStoreCertificateCollectionGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -1238,7 +1238,7 @@ inline void handleTrustStoreCertificateCollectionGet(
 }
 
 inline void handleTrustStoreCertificateCollectionPost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {
@@ -1291,7 +1291,7 @@ inline void handleTrustStoreCertificateCollectionPost(
 }
 
 inline void handleTrustStoreCertificateGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& certId)
 {
@@ -1317,7 +1317,7 @@ inline void handleTrustStoreCertificateGet(
 }
 
 inline void handleTrustStoreCertificateDelete(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId, const std::string& certId)
 {

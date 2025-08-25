@@ -1520,7 +1520,7 @@ struct AddressPatch
 
 inline bool parseAddresses(
     std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>& input,
-    const std::vector<IPv4AddressData>& ipv4Data, crow::Response& res,
+    const std::vector<IPv4AddressData>& ipv4Data, bmcweb::Response& res,
     std::vector<AddressPatch>& addressesOut, std::string& gatewayOut)
 {
     std::vector<IPv4AddressData>::const_iterator nicIpEntry =
@@ -2116,7 +2116,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
         .privileges(redfish::privileges::getEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2176,7 +2176,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/")
         .privileges(redfish::privileges::postEthernetInterfaceCollection)
         .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2235,7 +2235,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
                 }
 
                 std::string parentInterface;
-                if (!crow::utility::readUrlSegments(
+                if (!bmcweb::utility::readUrlSegments(
                         *parsedUri, "redfish", "v1", "Managers", "bmc",
                         "EthernetInterfaces", std::ref(parentInterface)))
                 {
@@ -2273,7 +2273,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::getEthernetInterface)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2320,7 +2320,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::patchEthernetInterface)
         .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -2495,7 +2495,7 @@ inline void requestEthernetInterfacesRoutes(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/EthernetInterfaces/<str>/")
         .privileges(redfish::privileges::deleteEthernetInterface)
         .methods(boost::beast::http::verb::delete_)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& managerId, const std::string& ifaceId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))

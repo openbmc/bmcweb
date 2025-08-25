@@ -76,7 +76,7 @@ inline void requestRoutesRoles(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/<str>/")
         .privileges(redfish::privileges::getRole)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& roleId) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
@@ -113,7 +113,7 @@ inline void requestRoutesRoleCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Roles/")
         .privileges(redfish::privileges::getRoleCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))
                 {

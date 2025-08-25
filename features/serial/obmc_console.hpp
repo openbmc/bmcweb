@@ -40,7 +40,7 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
 {
   public:
     ConsoleHandler(boost::asio::io_context& ioc,
-                   crow::websocket::Connection& connIn) :
+                   bmcweb::websocket::Connection& connIn) :
         hostSocket(ioc), conn(connIn)
     {}
 
@@ -126,7 +126,7 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
                 }
                 std::string_view payload(outputBuffer.data(), bytesRead);
                 self->conn.sendEx(
-                    crow::websocket::MessageType::Binary, payload,
+                    bmcweb::websocket::MessageType::Binary, payload,
                     std::bind_front(afterSendEx, weak_from_this()));
             });
     }
@@ -158,12 +158,13 @@ class ConsoleHandler : public std::enable_shared_from_this<ConsoleHandler>
 
     std::string inputBuffer;
     bool doingWrite = false;
-    crow::websocket::Connection& conn;
+    bmcweb::websocket::Connection& conn;
 };
 
 using ObmcConsoleMap = boost::container::flat_map<
-    crow::websocket::Connection*, std::shared_ptr<ConsoleHandler>, std::less<>,
-    std::vector<std::pair<crow::websocket::Connection*,
+    bmcweb::websocket::Connection*, std::shared_ptr<ConsoleHandler>,
+    std::less<>,
+    std::vector<std::pair<bmcweb::websocket::Connection*,
                           std::shared_ptr<ConsoleHandler>>>>;
 
 inline ObmcConsoleMap& getConsoleHandlerMap()
@@ -174,7 +175,7 @@ inline ObmcConsoleMap& getConsoleHandlerMap()
 
 // Remove connection from the connection map and if connection map is empty
 // then remove the handler from handlers map.
-inline void onClose(crow::websocket::Connection& conn, const std::string& err)
+inline void onClose(bmcweb::websocket::Connection& conn, const std::string& err)
 {
     BMCWEB_LOG_INFO("Closing websocket. Reason: {}", err);
 
@@ -190,7 +191,7 @@ inline void onClose(crow::websocket::Connection& conn, const std::string& err)
     getConsoleHandlerMap().erase(iter);
 }
 
-inline void connectConsoleSocket(crow::websocket::Connection& conn,
+inline void connectConsoleSocket(bmcweb::websocket::Connection& conn,
                                  const boost::system::error_code& ec,
                                  const sdbusplus::message::unix_fd& unixfd)
 {
@@ -229,7 +230,7 @@ inline void connectConsoleSocket(crow::websocket::Connection& conn,
 }
 
 inline void processConsoleObject(
-    crow::websocket::Connection& conn, const std::string& consoleObjPath,
+    bmcweb::websocket::Connection& conn, const std::string& consoleObjPath,
     const boost::system::error_code& ec,
     const ::dbus::utility::MapperGetObject& objInfo)
 {
@@ -273,7 +274,7 @@ inline void processConsoleObject(
 
 // Query consoles from DBUS and find the matching to the
 // rules string.
-inline void onOpen(crow::websocket::Connection& conn)
+inline void onOpen(bmcweb::websocket::Connection& conn)
 {
     std::string consoleLeaf;
 
@@ -321,7 +322,7 @@ inline void onOpen(crow::websocket::Connection& conn)
         });
 }
 
-inline void onMessage(crow::websocket::Connection& conn,
+inline void onMessage(bmcweb::websocket::Connection& conn,
                       const std::string& data, bool /*isBinary*/)
 {
     auto handler = getConsoleHandlerMap().find(&conn);

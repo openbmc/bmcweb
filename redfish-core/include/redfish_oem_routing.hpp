@@ -50,7 +50,7 @@ StringLiteral(const char (&)[N]) -> StringLiteral<N>;
 
 class OemRouter
 {
-    using SubRouteTrie = crow::SubRouteTrie<crow::SubRouteNode>;
+    using SubRouteTrie = bmcweb::SubRouteTrie<crow::SubRouteNode>;
 
   public:
     OemRouter() = default;
@@ -60,7 +60,7 @@ class OemRouter
     {
         auto& perMethod = perMethods[static_cast<size_t>(method)];
         constexpr std::string_view rule = URI;
-        constexpr uint64_t numArgs = crow::utility::getParameterTag(rule);
+        constexpr uint64_t numArgs = bmcweb::utility::getParameterTag(rule);
 
         if constexpr (numArgs == 0)
         {
@@ -229,7 +229,7 @@ class OemRouter
         std::vector<std::string> params = std::move(foundRoute.route.params);
         if (!fragments.empty())
         {
-            std::function<void(crow::Response&)> handler =
+            std::function<void(bmcweb::Response&)> handler =
                 asyncResp->res.releaseCompleteRequestHandler();
             auto multiResp = std::make_shared<bmcweb::AsyncResp>();
             multiResp->res.setCompleteRequestHandler(std::move(handler));

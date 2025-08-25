@@ -107,7 +107,7 @@ class HttpBody::value_type
         {
             if (encodingType == EncodingType::Base64)
             {
-                return crow::utility::Base64Encoder::encodedSize(*fileSize);
+                return bmcweb::utility::Base64Encoder::encodedSize(*fileSize);
             }
         }
         return fileSize;
@@ -175,7 +175,7 @@ class HttpBody::writer
 
   private:
     std::string buf;
-    crow::utility::Base64Encoder encoder;
+    bmcweb::utility::Base64Encoder encoder;
 
     std::optional<ZstdDecompressor> zstd;
 
@@ -252,7 +252,7 @@ class HttpBody::writer
         {
             buf.clear();
             buf.reserve(
-                crow::utility::Base64Encoder::encodedSize(chunkView.size()));
+                bmcweb::utility::Base64Encoder::encodedSize(chunkView.size()));
             encoder.encode(chunkView, buf);
             if (!ret.second)
             {

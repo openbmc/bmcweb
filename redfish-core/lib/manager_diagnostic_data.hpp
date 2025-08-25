@@ -237,7 +237,7 @@ inline void managerGetServiceRootUptime(
  * the information through the response.
  */
 inline void handleManagerDiagnosticDataGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& managerId)
 {

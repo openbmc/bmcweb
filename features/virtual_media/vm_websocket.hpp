@@ -44,7 +44,7 @@ namespace obmc_vm
 {
 
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
-static crow::websocket::Connection* session = nullptr;
+static bmcweb::websocket::Connection* session = nullptr;
 
 // The max network block device buffer size is 128kb plus 16bytes
 // for the message header:
@@ -200,7 +200,7 @@ static constexpr auto nbdBufferSize = (128 * 1024 + 16) * 4;
 
 struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 {
-    NbdProxyServer(crow::websocket::Connection& connIn,
+    NbdProxyServer(bmcweb::websocket::Connection& connIn,
                    const std::string& socketIdIn,
                    const std::string& endpointIdIn, const std::string& pathIn) :
         socketId(socketIdIn), endpointId(endpointIdIn), path(pathIn),
@@ -336,7 +336,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
         // Send to websocket
         self->ux2wsBuf.commit(bytesRead);
         self->connection.sendEx(
-            crow::websocket::MessageType::Binary,
+            bmcweb::websocket::MessageType::Binary,
             boost::beast::buffers_to_string(self->ux2wsBuf.data()),
             std::bind_front(&NbdProxyServer::afterSendEx, weak_from_this()));
     }
@@ -419,16 +419,16 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     // Default acceptor for UNIX socket
     stream_protocol::acceptor acceptor;
 
-    crow::websocket::Connection& connection;
+    bmcweb::websocket::Connection& connection;
 };
 
-using SessionMap = boost::container::flat_map<crow::websocket::Connection*,
+using SessionMap = boost::container::flat_map<bmcweb::websocket::Connection*,
                                               std::shared_ptr<NbdProxyServer>>;
 // NOLINTNEXTLINE(cppcoreguidelines-avoid-non-const-global-variables)
 static SessionMap sessions;
 
 inline void afterGetSocket(
-    crow::websocket::Connection& conn,
+    bmcweb::websocket::Connection& conn,
     const sdbusplus::message::object_path& path,
     const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& propertiesList)
@@ -474,7 +474,7 @@ inline void afterGetSocket(
     sessions[&conn]->run();
 }
 
-inline void onOpen(crow::websocket::Connection& conn)
+inline void onOpen(bmcweb::websocket::Connection& conn)
 {
     BMCWEB_LOG_DEBUG("nbd-proxy.onopen({})", logPtr(&conn));
 
@@ -503,7 +503,7 @@ inline void onOpen(crow::websocket::Connection& conn)
     conn.deferRead();
 }
 
-inline void onClose(crow::websocket::Connection& conn,
+inline void onClose(bmcweb::websocket::Connection& conn,
                     const std::string& reason)
 {
     BMCWEB_LOG_DEBUG("nbd-proxy.onclose(reason = '{}')", reason);
@@ -517,8 +517,9 @@ inline void onClose(crow::websocket::Connection& conn,
     sessions.erase(session);
 }
 
-inline void onMessage(crow::websocket::Connection& conn, std::string_view data,
-                      crow::websocket::MessageType /*type*/,
+inline void onMessage(bmcweb::websocket::Connection& conn,
+                      std::string_view data,
+                      bmcweb::websocket::MessageType /*type*/,
                       std::function<void()>&& whenComplete)
 {
     BMCWEB_LOG_DEBUG("nbd-proxy.onMessage(len = {})", data.size());
@@ -565,7 +566,7 @@ inline void requestRoutes(App& app)
         BMCWEB_ROUTE(app, "/vm/0/0")
             .privileges({{"ConfigureComponents", "ConfigureManager"}})
             .websocket()
-            .onopen([](crow::websocket::Connection& conn) {
+            .onopen([](bmcweb::websocket::Connection& conn) {
                 BMCWEB_LOG_DEBUG("Connection {} opened", logPtr(&conn));
 
                 if (session != nullptr)
@@ -588,7 +589,7 @@ inline void requestRoutes(App& app)
                 handler = std::make_shared<Handler>(media, getIoContext());
                 handler->connect();
             })
-            .onclose([](crow::websocket::Connection& conn,
+            .onclose([](bmcweb::websocket::Connection& conn,
                         const std::string& /*reason*/) {
                 if (&conn != session)
                 {
@@ -601,7 +602,7 @@ inline void requestRoutes(App& app)
                 handler->outputBuffer.clear();
                 handler.reset();
             })
-            .onmessage([](crow::websocket::Connection& conn,
+            .onmessage([](bmcweb::websocket::Connection& conn,
                           const std::string& data, bool) {
                 if (data.length() > handler->inputBuffer.capacity() -
                                         handler->inputBuffer.size())

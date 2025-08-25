@@ -51,7 +51,7 @@ namespace redfish
 {
 
 inline void handleSystemsLogServicesPostCodesGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -98,7 +98,7 @@ inline void handleSystemsLogServicesPostCodesGet(
 }
 
 inline void handleSystemsLogServicesPostCodesPost(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -455,7 +455,7 @@ inline void getCurrentBootNumber(
 }
 
 inline void handleSystemsLogServicesPostCodesEntriesGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
 {
@@ -499,7 +499,7 @@ inline void handleSystemsLogServicesPostCodesEntriesGet(
 }
 
 inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& postCodeID)
 {
@@ -580,7 +580,7 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
                                      "application/octet-stream");
             asyncResp->res.addHeader(
                 boost::beast::http::field::content_transfer_encoding, "Base64");
-            asyncResp->res.write(crow::utility::base64encode(strData));
+            asyncResp->res.write(bmcweb::utility::base64encode(strData));
         },
         "xyz.openbmc_project.State.Boot.PostCode0",
         "/xyz/openbmc_project/State/Boot/PostCode0",
@@ -588,7 +588,7 @@ inline void handleSystemsLogServicesPostCodesEntriesEntryAdditionalDataGet(
 }
 
 inline void handleSystemsLogServicesPostCodesEntriesEntryGet(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& targetID)
 {

@@ -27,7 +27,7 @@ inline bool isJsonContentType(std::string_view contentType)
            http_helpers::ContentType::JSON;
 }
 
-inline JsonParseResult parseRequestAsJson(const crow::Request& req,
+inline JsonParseResult parseRequestAsJson(const bmcweb::Request& req,
                                           nlohmann::json& jsonOut)
 {
     if (!isJsonContentType(

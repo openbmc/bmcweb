@@ -890,7 +890,7 @@ inline void getValidDimmPath(
 }
 
 inline void handleMemoryPatch(
-    App& app, const crow::Request& req,
+    App& app, const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& dimmId)
 {
@@ -931,7 +931,7 @@ inline void handleMemoryPatch(
     }
 }
 
-inline void handleMemoryGet(App& app, const crow::Request& req,
+inline void handleMemoryGet(App& app, const bmcweb::Request& req,
                             const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& systemName,
                             const std::string& dimmId)
@@ -967,7 +967,7 @@ inline void requestRoutesMemoryCollection(App& app)
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/")
         .privileges(redfish::privileges::getMemoryCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
+            [&app](const bmcweb::Request& req,
                    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                    const std::string& systemName) {
                 if (!redfish::setUpRedfishRoute(app, req, asyncResp))

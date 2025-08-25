@@ -77,8 +77,8 @@ inline unsigned propogateErrorCode(unsigned finalCode, unsigned subResponseCode)
 }
 
 // Propagates all error messages into |finalResponse|
-inline void propogateError(crow::Response& finalResponse,
-                           crow::Response& subResponse)
+inline void propogateError(bmcweb::Response& finalResponse,
+                           bmcweb::Response& subResponse)
 {
     // no errors
     if (subResponse.resultInt() >= 200 && subResponse.resultInt() < 400)

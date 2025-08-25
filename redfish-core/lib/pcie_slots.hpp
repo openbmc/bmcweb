@@ -223,7 +223,7 @@ inline void onMapperSubtreeDone(
 }
 
 inline void handlePCIeSlotCollectionGet(
-    crow::App& app, const crow::Request& req,
+    bmcweb::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& chassisID)
 {

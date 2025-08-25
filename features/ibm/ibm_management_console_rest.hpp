@@ -45,7 +45,7 @@ constexpr size_t maxSaveareaFileSize =
 constexpr size_t maxBroadcastMsgSize =
     1000;     // Allow Broadcast message size upto 1KB
 
-inline void handleFilePut(const crow::Request& req,
+inline void handleFilePut(const bmcweb::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& fileID)
 {
@@ -65,7 +65,7 @@ inline void handleFilePut(const crow::Request& req,
         "handleIbmPut: Request to create/update the save-area file");
     std::string_view path =
         "/var/lib/bmcweb/ibm-management-console/configfiles";
-    if (!crow::ibm_utils::createDirectory(path))
+    if (!bmcweb::ibm_utils::createDirectory(path))
     {
         asyncResp->res.result(boost::beast::http::status::not_found);
         asyncResp->res.jsonValue["Description"] = resourceNotFoundMsg;
@@ -344,7 +344,7 @@ inline void handleFileDelete(
 }
 
 inline void handleBroadcastService(
-    const crow::Request& req,
+    const bmcweb::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     std::string broadcastMsg;
@@ -364,7 +364,7 @@ inline void handleBroadcastService(
     }
 }
 
-inline void handleFileUrl(const crow::Request& req,
+inline void handleFileUrl(const bmcweb::Request& req,
                           const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                           const std::string& fileID)
 {
@@ -386,7 +386,7 @@ inline void handleFileUrl(const crow::Request& req,
 }
 
 inline bool isValidConfigFileName(const std::string& fileName,
-                                  crow::Response& res)
+                                  bmcweb::Response& res)
 {
     if (fileName.empty())
     {
@@ -425,7 +425,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/ibm/v1/")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
+            [](const bmcweb::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#ibmServiceRoot.v1_0_0.ibmServiceRoot";
@@ -441,7 +441,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::get)(
-            [](const crow::Request&,
+            [](const bmcweb::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 handleConfigFileList(asyncResp);
             });
@@ -450,7 +450,7 @@ inline void requestRoutes(App& app)
                  "/ibm/v1/Host/ConfigFiles/Actions/IBMConfigFiles.DeleteAll")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request&,
+            [](const bmcweb::Request&,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 deleteConfigFiles(asyncResp);
             });
@@ -459,7 +459,7 @@ inline void requestRoutes(App& app)
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::put, boost::beast::http::verb::get,
                  boost::beast::http::verb::delete_)(
-            [](const crow::Request& req,
+            [](const bmcweb::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                const std::string& fileName) {
                 BMCWEB_LOG_DEBUG("ConfigFile : {}", fileName);
@@ -476,7 +476,7 @@ inline void requestRoutes(App& app)
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/BroadcastService")
         .privileges({{"ConfigureComponents", "ConfigureManager"}})
         .methods(boost::beast::http::verb::post)(
-            [](const crow::Request& req,
+            [](const bmcweb::Request& req,
                const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
                 handleBroadcastService(req, asyncResp);
             });
