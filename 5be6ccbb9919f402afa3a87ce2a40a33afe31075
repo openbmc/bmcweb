@@ -71,6 +71,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "06b0dea4_2b327f73",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-25T20:29:54Z",
+      "side": 0,
+      "message": "I think I messed up there and duplicated when I broke things out.",
+      "parentUuid": "5afbd5d5_53384a3e",
+      "revId": "5be6ccbb9919f402afa3a87ce2a40a33afe31075",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "608899ed_72be0ead",
         "filename": "redfish-core/lib/systems.hpp",
         "patchSetId": 1
