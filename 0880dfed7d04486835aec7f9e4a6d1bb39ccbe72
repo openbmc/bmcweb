@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5878a9fb_22ff2009",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-25T18:21:49Z",
+      "side": 1,
+      "message": "Does this use associations? What inventory does it look at ? Is that inventory merged in PDI?",
+      "revId": "0880dfed7d04486835aec7f9e4a6d1bb39ccbe72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdef0b89_7243b8e0",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-25T18:21:49Z",
+      "side": 1,
+      "message": "Can we start without Board? Since it maps to Chassis today ?",
+      "revId": "0880dfed7d04486835aec7f9e4a6d1bb39ccbe72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85e32b75_caa6b4d0",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-25T18:21:49Z",
+      "side": 1,
+      "message": "space here, oh well",
+      "range": {
+        "startLine": 112,
+        "startChar": 45,
+        "endLine": 112,
+        "endChar": 47
+      },
+      "revId": "0880dfed7d04486835aec7f9e4a6d1bb39ccbe72",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
