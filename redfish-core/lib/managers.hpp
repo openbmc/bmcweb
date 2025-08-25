@@ -57,32 +57,6 @@
 namespace redfish
 {
 
-/**
- * Set the locationIndicatorActive.
- *
- * @param[in,out]   asyncResp                   Async HTTP response.
- * @param[in]       locationIndicatorActive     Value of the property
- */
-inline void setLocationIndicatorActiveState(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    bool locationIndicatorActive, const std::string& managerId)
-{
-    manager_utils::getValidManagerPath(
-        asyncResp, managerId,
-        [asyncResp, locationIndicatorActive](
-            const std::string& managerPath,
-            const dbus::utility::MapperServiceMap& serviceMap) {
-            if (managerPath.empty() || serviceMap.size() != 1)
-            {
-                BMCWEB_LOG_DEBUG("Error getting bmc D-Bus object!");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            setLocationIndicatorActive(asyncResp, managerPath,
-                                       locationIndicatorActive);
-        });
-}
-
 inline std::string getBMCUpdateServiceName()
 {
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
@@ -814,6 +788,48 @@ inline void handleManagerGet(
                         managerId));
 }
 
+inline void afterHandleManagerPatch(
+    RedfishService& rfService, const std::shared_ptr<SubRequest>& subReq,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::optional<std::string>& activeSoftwareImageOdataId,
+    const std::optional<std::string>& datetime,
+    const std::optional<bool>& locationIndicatorActive,
+    const std::optional<std::string>& serviceIdentification,
+    const std::string& managerPath,
+    const dbus::utility::MapperServiceMap& serviceMap)
+{
+    if (activeSoftwareImageOdataId)
+    {
+        setActiveFirmwareImage(asyncResp, *activeSoftwareImageOdataId);
+    }
+
+    if (datetime)
+    {
+        setDateTime(asyncResp, *datetime);
+    }
+
+    if (locationIndicatorActive)
+    {
+        if (managerPath.empty() || serviceMap.size() != 1)
+        {
+            BMCWEB_LOG_DEBUG("Error getting bmc D-Bus object!");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        setLocationIndicatorActive(asyncResp, managerPath,
+                                   *locationIndicatorActive);
+    }
+
+    if (serviceIdentification)
+    {
+        manager_utils::setServiceIdentification(asyncResp,
+                                                serviceIdentification.value());
+    }
+
+    rfService.handleSubRoute(subReq, asyncResp);
+}
+
 inline void handleManagerPatch(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -859,31 +875,14 @@ inline void handleManagerPatch(
         return;
     }
 
-    if (activeSoftwareImageOdataId)
-    {
-        setActiveFirmwareImage(asyncResp, *activeSoftwareImageOdataId);
-    }
-
-    if (datetime)
-    {
-        setDateTime(asyncResp, *datetime);
-    }
-
-    if (locationIndicatorActive)
-    {
-        setLocationIndicatorActiveState(asyncResp, *locationIndicatorActive,
-                                        managerId);
-    }
-
-    if (serviceIdentification)
-    {
-        manager_utils::setServiceIdentification(asyncResp,
-                                                serviceIdentification.value());
-    }
-
     RedfishService& rfService = RedfishService::getInstance(app);
     std::shared_ptr<SubRequest> subReq = std::make_shared<SubRequest>(req);
-    rfService.handleSubRoute(subReq, asyncResp);
+
+    manager_utils::getValidManagerPath(
+        asyncResp, managerId,
+        std::bind_front(afterHandleManagerPatch, std::ref(rfService), subReq,
+                        asyncResp, activeSoftwareImageOdataId, datetime,
+                        locationIndicatorActive, serviceIdentification));
 }
 
 inline void handleManagerCollectionGet(
