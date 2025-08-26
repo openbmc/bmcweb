@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "497098e2_8c1aca2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-26T19:48:52Z",
+      "side": 1,
+      "message": "Rebase this please, then it should be fine.",
+      "revId": "c6412a7b6bc23ac66ffd56ed57d87e54f0f2157a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
