@@ -174,10 +174,9 @@ security_flags = [
 ]
 
 ## Add security flags for builds of type 'release','debugoptimized' and 'minsize'
-
-if not (get_option('buildtype') == 'plain'
-or get_option('buildtype').startswith('debug')
-)
+plain = get_option('buildtype') == 'plain'
+debug = get_option('buildtype').startswith('debug')
+if not (plain or or debug)
     add_project_arguments(
         cxx.get_supported_arguments([security_flags]),
         language: 'cpp',
