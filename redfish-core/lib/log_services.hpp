@@ -931,11 +931,16 @@ inline void handleSystemLogServiceCollectionGet(
         "Collection of LogServices for this Computer System";
     nlohmann::json& logServiceArray = asyncResp->res.jsonValue["Members"];
     logServiceArray = nlohmann::json::array();
-    nlohmann::json::object_t eventLog;
-    eventLog["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/LogServices/EventLog",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    logServiceArray.emplace_back(std::move(eventLog));
+
+    if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
+    {
+        nlohmann::json::object_t eventLog;
+        eventLog["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/LogServices/EventLog",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        logServiceArray.emplace_back(std::move(eventLog));
+    }
+
     if constexpr (BMCWEB_REDFISH_DUMP_LOG)
     {
         nlohmann::json::object_t dumpLog;
@@ -1044,6 +1049,15 @@ inline void handleBMCLogServicesCollectionGet(
             boost::urls::format("/redfish/v1/Managers/{}/LogServices/Journal",
                                 BMCWEB_REDFISH_MANAGER_URI_NAME);
         logServiceArray.emplace_back(std::move(journal));
+    }
+
+    if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "managers")
+    {
+        nlohmann::json::object_t eventLog;
+        eventLog["@odata.id"] =
+            boost::urls::format("/redfish/v1/Managers/{}/LogServices/EventLog",
+                                BMCWEB_REDFISH_MANAGER_URI_NAME);
+        logServiceArray.emplace_back(std::move(eventLog));
     }
 
     asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
@@ -2165,11 +2179,38 @@ inline void beforeHandleSystemsEventLogServiceGet(
         asyncResp, eventlog_utils::LogServiceParent::Systems);
 }
 
+inline void beforeHandleBMCEventLogServiceGet(
+
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+    eventlog_utils::handleSystemsAndBMCEventLogServiceGet(
+        asyncResp, eventlog_utils::LogServiceParent::Managers);
+}
+
 inline void requestRoutesSystemsEventLogService(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/")
         .privileges(redfish::privileges::getLogService)
         .methods(boost::beast::http::verb::get)(std::bind_front(
             beforeHandleSystemsEventLogServiceGet, std::ref(app)));
+}
+
+inline void requestRoutesBMCEventLogService(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/LogServices/EventLog/")
+        .privileges(redfish::privileges::getLogService)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(beforeHandleBMCEventLogServiceGet, std::ref(app)));
 }
 } // namespace redfish
