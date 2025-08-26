@@ -17,10 +17,6 @@
 #include "str_utility.hpp"
 #include "utils/query_param.hpp"
 
-#include <asm-generic/errno.h>
-#include <systemd/sd-bus.h>
-#include <unistd.h>
-
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
@@ -37,20 +33,10 @@
 #include <cstdio>
 #include <ctime>
 #include <filesystem>
-#include <format>
 #include <fstream>
-#include <functional>
 #include <iomanip>
-#include <iterator>
-#include <memory>
-#include <optional>
-#include <span>
-#include <sstream>
 #include <string>
-#include <string_view>
-#include <system_error>
 #include <utility>
-#include <vector>
 
 namespace redfish
 {
@@ -203,35 +189,10 @@ static LogParseError fillEventLogEntryJson(
     return LogParseError::success;
 }
 
-inline void handleSystemsLogServiceEventLogLogEntryCollection(
-    App& app, const crow::Request& req,
+inline void handleRequestSystemsLogServiceEventLogLogEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName)
+    query_param::Query& delegatedQuery)
 {
-    query_param::QueryCapabilities capabilities = {
-        .canDelegateTop = true,
-        .canDelegateSkip = true,
-    };
-    query_param::Query delegatedQuery;
-    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
-                                                  delegatedQuery, capabilities))
-    {
-        return;
-    }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-
     size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
     size_t skip = delegatedQuery.skip.value_or(0);
 
@@ -310,30 +271,10 @@ inline void handleSystemsLogServiceEventLogLogEntryCollection(
     }
 }
 
-inline void handleSystemsLogServiceEventLogEntriesGet(
-    App& app, const crow::Request& req,
+inline void handleRequestSystemsLogServiceEventLogEntriesGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName, const std::string& param)
+    const std::string& param)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-
     const std::string& targetID = param;
 
     // Go through the log files and check the unique ID for each
@@ -382,22 +323,9 @@ inline void handleSystemsLogServiceEventLogEntriesGet(
     messages::resourceNotFound(asyncResp->res, "LogEntry", targetID);
 }
 
-inline void handleSystemsLogServicesEventLogActionsClearPost(
-    App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName)
+inline void handleRequestSystemsLogServicesEventLogActionsClearPost(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-
     // Clear the EventLog by deleting the log files
     std::vector<std::filesystem::path> redfishLogFiles;
     if (getRedfishLogFiles(redfishLogFiles))
@@ -425,6 +353,81 @@ inline void handleSystemsLogServicesEventLogActionsClearPost(
         "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
         "org.freedesktop.systemd1.Manager", "ReloadUnit", "rsyslog.service",
         "replace");
+}
+
+inline void handleSystemsLogServiceEventLogLogEntryCollection(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    query_param::QueryCapabilities capabilities = {
+        .canDelegateTop = true,
+        .canDelegateSkip = true,
+    };
+    query_param::Query delegatedQuery;
+    if (!redfish::setUpRedfishRouteWithDelegation(app, req, asyncResp,
+                                                  delegatedQuery, capabilities))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    handleRequestSystemsLogServiceEventLogLogEntryCollection(
+        asyncResp, delegatedQuery);
+}
+
+inline void handleSystemsLogServiceEventLogEntriesGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& param)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    handleRequestSystemsLogServiceEventLogEntriesGet(asyncResp, param);
+}
+
+inline void handleSystemsLogServicesEventLogActionsClearPost(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    handleRequestSystemsLogServicesEventLogActionsClearPost(asyncResp);
 }
 
 inline void requestRoutesJournalEventLogEntryCollection(App& app)
