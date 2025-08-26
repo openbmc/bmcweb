@@ -39,6 +39,30 @@
       },
       "revId": "c23d1d32604f44f96459e491a0f686d98a452767",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "375b1039_da64f90a",
+        "filename": "redfish-core/include/telemetry_readings.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-26T20:27:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8c652a5_035a2bec",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "c23d1d32604f44f96459e491a0f686d98a452767",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
