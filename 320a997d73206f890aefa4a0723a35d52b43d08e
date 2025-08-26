@@ -52,6 +52,24 @@
       "parentUuid": "d717fe56_19a7786e",
       "revId": "320a997d73206f890aefa4a0723a35d52b43d08e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "693a3483_2c8601e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-26T00:28:50Z",
+      "side": 1,
+      "message": "I haven\u0027t used clang-rename, but that would seem like it would attempt to fix other peoples code.  All of bmcweb itself can be migrated in one shot with just sed, it\u0027s a matter of peoples patchsets being able to rebase, which this at least makes their existing code continue to work.",
+      "parentUuid": "066c8558_9357b4b9",
+      "revId": "320a997d73206f890aefa4a0723a35d52b43d08e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
