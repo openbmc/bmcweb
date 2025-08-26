@@ -67,9 +67,8 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                     return;
                 }
 
-                eventlog_utils::
-                    handleSystemsLogServiceEventLogLogEntryCollection(
-                        asyncResp, delegatedQuery);
+                eventlog_utils::handleLogServiceEventLogLogEntryCollection(
+                    asyncResp, delegatedQuery);
             });
 }
 
@@ -100,8 +99,8 @@ inline void requestRoutesJournalEventLogEntry(App& app)
                                                systemName);
                     return;
                 }
-                eventlog_utils::handleSystemsLogServiceEventLogEntriesGet(
-                    asyncResp, param);
+                eventlog_utils::handleLogServiceEventLogEntriesGet(asyncResp,
+                                                                   param);
             });
 }
 
@@ -126,8 +125,8 @@ inline void requestRoutesJournalEventLogClear(App& app)
                                                systemName);
                     return;
                 }
-                eventlog_utils::
-                    handleSystemsLogServicesEventLogActionsClearPost(asyncResp);
+                eventlog_utils::handleLogServicesEventLogActionsClearPost(
+                    asyncResp);
             });
 }
 } // namespace redfish
