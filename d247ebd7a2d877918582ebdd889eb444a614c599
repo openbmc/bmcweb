@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19c5721d_a23f7603",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002583
+      },
+      "writtenOn": "2025-08-26T14:02:21Z",
+      "side": 1,
+      "message": "I can update the commit message, but the link [1] does point to the exact paragraph in the spec that I was referencing.",
+      "parentUuid": "e15462a4_5f3a5bec",
+      "range": {
+        "startLine": 9,
+        "startChar": 59,
+        "endLine": 10,
+        "endChar": 4
+      },
+      "revId": "d247ebd7a2d877918582ebdd889eb444a614c599",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d84fe46_9d3ea26a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -54,6 +78,24 @@
       "writtenOn": "2025-08-25T22:17:42Z",
       "side": 1,
       "message": "Once you get your CLA figured out, it looks like we may have hit an interesting case in the spec where we need to return the same error with different codes and levels dependent on the context.  If the user is logging in, we\u0027re supposed to return this not as an error, but as the code currently does.  When someone accesses a resource outside the tree, then they have to return the 403 value..... I think we need to handle and test both cases",
+      "revId": "d247ebd7a2d877918582ebdd889eb444a614c599",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e476a6_c0a14ab0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002583
+      },
+      "writtenOn": "2025-08-26T14:02:21Z",
+      "side": 1,
+      "message": "CLA resolved now. Thoughts on testing? I saw the robot tests, although it wasn\u0027t clear how functional those are - especially the password expiration ones.",
+      "parentUuid": "7f2474b3_ab9c96d9",
       "revId": "d247ebd7a2d877918582ebdd889eb444a614c599",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
