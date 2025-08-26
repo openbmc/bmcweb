@@ -16,6 +16,23 @@
       "message": "Can you explain more of why we need this? Can you add a link to the design doc?",
       "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb198b4a_5a6fc75a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002307
+      },
+      "writtenOn": "2025-08-26T10:06:47Z",
+      "side": 1,
+      "message": "How to configure for port 443 ? Would the current implementation allow ? The meson option `additional-support-bootstrap-credetial` would allow for current operating port to work normally as well ?",
+      "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
