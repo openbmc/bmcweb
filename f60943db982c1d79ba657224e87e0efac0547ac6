@@ -33,6 +33,46 @@
       "message": "This looks good to me. Want to see some code underneath it before this goes.",
       "revId": "f60943db982c1d79ba657224e87e0efac0547ac6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea0ad983_57de6d39",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-26T00:24:18Z",
+      "side": 1,
+      "message": "Overall I\u0027m fine with staging.  I must\u0027ve had a misunderstanding about the design if this option will exist forever",
+      "revId": "f60943db982c1d79ba657224e87e0efac0547ac6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4775579c_a82fc233",
+        "filename": "meson.options",
+        "patchSetId": 3
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-26T00:24:18Z",
+      "side": 1,
+      "message": "?  Once this is completed, why does this option need to exist at all?  Can\u0027t we just get the information from dbus like we do everything else?",
+      "range": {
+        "startLine": 453,
+        "startChar": 69,
+        "endLine": 454,
+        "endChar": 54
+      },
+      "revId": "f60943db982c1d79ba657224e87e0efac0547ac6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
