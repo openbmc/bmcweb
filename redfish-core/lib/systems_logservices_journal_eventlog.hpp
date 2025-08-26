@@ -63,7 +63,7 @@ inline void beforeHandleSystemsLogServiceEventLogLogEntryCollection(
     }
 
     eventlog_utils::handleSystemsLogServiceEventLogLogEntryCollection(
-        asyncResp, delegatedQuery);
+        asyncResp, delegatedQuery, eventlog_utils::LogServiceParent::Systems);
 }
 
 inline void beforeHandleSystemsLogServiceEventLogEntriesGet(
@@ -88,7 +88,8 @@ inline void beforeHandleSystemsLogServiceEventLogEntriesGet(
                                    systemName);
         return;
     }
-    eventlog_utils::handleSystemsLogServiceEventLogEntriesGet(asyncResp, param);
+    eventlog_utils::handleSystemsLogServiceEventLogEntriesGet(
+        asyncResp, param, eventlog_utils::LogServiceParent::Systems);
 }
 
 inline void beforeHandleSystemsLogServicesEventLogActionsClearPost(
