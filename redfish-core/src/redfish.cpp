@@ -43,6 +43,7 @@
 #include "storage.hpp"
 #include "systems.hpp"
 #include "systems_logservices_hostlogger.hpp"
+#include "systems_logservices_journal_eventlog.hpp"
 #include "systems_logservices_postcodes.hpp"
 #include "task.hpp"
 #include "telemetry_service.hpp"
