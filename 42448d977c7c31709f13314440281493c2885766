@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de9865bf_1a678ef1",
+        "filename": ".clang-tidy",
+        "patchSetId": 8
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-26T20:31:05Z",
+      "side": 0,
+      "message": "This is easier than\n\n    // NOLINTNEXTLINE(misc-unused-alias-decls)\n\nin 7 places. I guess I am fine either way. Unlikely but maybe this could find something one day.",
+      "revId": "42448d977c7c31709f13314440281493c2885766",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
