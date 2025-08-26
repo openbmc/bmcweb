@@ -54,6 +54,18 @@ namespace redfish
 namespace eventlog_utils
 {
 
+static constexpr const char* systemsResource = "Systems";
+
+inline std::string_view getResourceId(const std::string& rfResource)
+{
+    if (rfResource == systemsResource)
+    {
+        return BMCWEB_REDFISH_SYSTEM_URI_NAME;
+    }
+
+    return BMCWEB_REDFISH_MANAGER_URI_NAME;
+}
+
 /*
  * Journal EventLog utilities
  * */
@@ -131,7 +143,7 @@ enum class LogParseError
 
 static LogParseError fillEventLogEntryJson(
     const std::string& logEntryID, const std::string& logEntry,
-    nlohmann::json::object_t& logEntryJson)
+    nlohmann::json::object_t& logEntryJson, const std::string& rfResource)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
@@ -190,11 +202,13 @@ static LogParseError fillEventLogEntryJson(
         timestamp.erase(dot, plus - dot);
     }
 
+    const std::string_view resourceId = getResourceId(rfResource);
+
     // Fill in the log entry with the gathered data
     logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-    logEntryJson["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, logEntryID);
+    logEntryJson["@odata.id"] =
+        boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries/{}",
+                            rfResource, resourceId, logEntryID);
     logEntryJson["Name"] = "System Event Log Entry";
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = std::move(msg);
@@ -208,18 +222,20 @@ static LogParseError fillEventLogEntryJson(
 
 inline void handleLogServiceEventLogLogEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    query_param::Query& delegatedQuery)
+    query_param::Query& delegatedQuery, const std::string& rfResource)
 {
     size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
     size_t skip = delegatedQuery.skip.value_or(0);
+
+    const std::string_view resourceId = getResourceId(rfResource);
 
     // Collections don't include the static data added by SubRoute
     // because it has a duplicate entry for members
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogEntryCollection.LogEntryCollection";
     asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/LogServices/EventLog/Entries",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        std::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
+                    rfResource, resourceId);
     asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
     asyncResp->res.jsonValue["Description"] =
         "Collection of System Event Log Entries";
@@ -256,7 +272,7 @@ inline void handleLogServiceEventLogLogEntryCollection(
 
             nlohmann::json::object_t bmcLogEntry;
             LogParseError status =
-                fillEventLogEntryJson(idStr, logEntry, bmcLogEntry);
+                fillEventLogEntryJson(idStr, logEntry, bmcLogEntry, rfResource);
             if (status == LogParseError::messageIdNotInRegistry)
             {
                 continue;
@@ -283,14 +299,14 @@ inline void handleLogServiceEventLogLogEntryCollection(
     {
         asyncResp->res.jsonValue["Members@odata.nextLink"] =
             boost::urls::format(
-                "/redfish/v1/Systems/{}/LogServices/EventLog/Entries?$skip={}",
-                BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(skip + top));
+                "/redfish/v1/{}/{}/LogServices/EventLog/Entries?$skip={}",
+                rfResource, resourceId, std::to_string(skip + top));
     }
 }
 
 inline void handleLogServiceEventLogEntriesGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& param)
+    const std::string& param, const std::string& rfResource)
 {
     const std::string& targetID = param;
 
@@ -324,8 +340,8 @@ inline void handleLogServiceEventLogEntriesGet(
             if (idStr == targetID)
             {
                 nlohmann::json::object_t bmcLogEntry;
-                LogParseError status =
-                    fillEventLogEntryJson(idStr, logEntry, bmcLogEntry);
+                LogParseError status = fillEventLogEntryJson(
+                    idStr, logEntry, bmcLogEntry, rfResource);
                 if (status != LogParseError::success)
                 {
                     messages::internalError(asyncResp->res);

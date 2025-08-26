@@ -68,7 +68,7 @@ inline void requestRoutesJournalEventLogEntryCollection(App& app)
                 }
 
                 eventlog_utils::handleLogServiceEventLogLogEntryCollection(
-                    asyncResp, delegatedQuery);
+                    asyncResp, delegatedQuery, "Systems");
             });
 }
 
@@ -99,8 +99,8 @@ inline void requestRoutesJournalEventLogEntry(App& app)
                                                systemName);
                     return;
                 }
-                eventlog_utils::handleLogServiceEventLogEntriesGet(asyncResp,
-                                                                   param);
+                eventlog_utils::handleLogServiceEventLogEntriesGet(
+                    asyncResp, param, "Systems");
             });
 }
 
