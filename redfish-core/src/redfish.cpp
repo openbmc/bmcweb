@@ -22,6 +22,7 @@
 #include "log_services.hpp"
 #include "manager_diagnostic_data.hpp"
 #include "manager_logservices_journal.hpp"
+#include "manager_logservices_journal_eventlog.hpp"
 #include "managers.hpp"
 #include "memory.hpp"
 #include "message_registries.hpp"
@@ -112,9 +113,35 @@ RedfishService::RedfishService(App& app)
     requestRoutesCableCollection(app);
 
     requestRoutesSystemLogServiceCollection(app);
-    requestRoutesSystemsEventLogService(app);
+    requestRoutesBMCLogServiceCollection(app);
 
     requestRoutesSystemsLogServicesPostCode(app);
+
+    if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "systems")
+    {
+        requestRoutesSystemsEventLogService(app);
+        if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+        {
+            requestRoutesDBusLogServiceActionsClear(app);
+            requestRoutesDBusEventLogEntryCollection(app);
+            requestRoutesDBusEventLogEntry(app);
+            requestRoutesDBusEventLogEntryDownload(app);
+        }
+        else
+        {
+            requestRoutesJournalEventLogEntryCollection(app);
+            requestRoutesJournalEventLogEntry(app);
+            requestRoutesJournalEventLogClear(app);
+        }
+    }
+
+    if constexpr (BMCWEB_REDFISH_EVENTLOG_LOCATION == "managers")
+    {
+        requestRoutesBMCEventLogService(app);
+        requestRoutesBMCJournalEventLogEntryCollection(app);
+        requestRoutesBMCJournalEventLogEntry(app);
+        requestRoutesBMCJournalEventLogClear(app);
+    }
 
     if constexpr (BMCWEB_REDFISH_DUMP_LOG)
     {
@@ -136,8 +163,6 @@ RedfishService::RedfishService(App& app)
         requestRoutesFaultLogDumpEntry(app);
         requestRoutesFaultLogDumpClear(app);
     }
-
-    requestRoutesBMCLogServiceCollection(app);
 
     if constexpr (BMCWEB_REDFISH_BMC_JOURNAL)
     {
@@ -169,20 +194,6 @@ RedfishService::RedfishService(App& app)
     if constexpr (BMCWEB_VM_NBDPROXY)
     {
         requestNBDVirtualMediaRoutes(app);
-    }
-
-    if constexpr (BMCWEB_REDFISH_DBUS_LOG)
-    {
-        requestRoutesDBusLogServiceActionsClear(app);
-        requestRoutesDBusEventLogEntryCollection(app);
-        requestRoutesDBusEventLogEntry(app);
-        requestRoutesDBusEventLogEntryDownload(app);
-    }
-    else
-    {
-        requestRoutesJournalEventLogEntryCollection(app);
-        requestRoutesJournalEventLogEntry(app);
-        requestRoutesJournalEventLogClear(app);
     }
 
     if constexpr (BMCWEB_REDFISH_HOST_LOGGER)
