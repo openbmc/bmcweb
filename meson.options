@@ -151,6 +151,17 @@ option(
                     /redfish/v1/Systems/system/LogServices/HostLogger''',
 )
 
+# BMCWEB_REDFISH_BMC_EVENTLOG
+option(
+    'redfish-bmc-eventlog',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable DBUS log service transactions through Redfish via
+                    the Managers resource. This disables DBUS log service
+                    transactions via the Systems resource. Paths are under
+                    /redfish/v1/Managers/manager/LogServices/EventLog/Entries''',
+)
+
 # BMCWEB_REDFISH_PROVISIONING_FEATURE
 option(
     'redfish-provisioning-feature',
