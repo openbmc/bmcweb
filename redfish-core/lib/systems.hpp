@@ -475,10 +475,10 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                          const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Get host information.");
-
+    sdbusplus::message::object_path path =
+        getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::string>(
-        getHostStateServiceName(computerSystemIndex),
-        getHostStateObjectPath(computerSystemIndex),
+        getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Host", "CurrentHostState",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& hostState) {
@@ -779,11 +779,12 @@ inline int assignBootParameters(
 inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const uint64_t computerSystemIndex)
 {
+    sdbusplus::message::object_path path =
+        getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::string>(
-        getHostStateServiceName(computerSystemIndex),
-        getHostStateObjectPath(computerSystemIndex),
+        getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
-        [asyncResp](const boost::system::error_code& ec,
+        [asyncResp](const boost::system::error_code ec,
                     const std::string& bootProgressStr) {
             if (ec)
             {
@@ -811,9 +812,10 @@ inline void getBootProgressLastStateTime(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const uint64_t computerSystemIndex)
 {
+    sdbusplus::message::object_path path =
+        getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<uint64_t>(
-        getHostStateServiceName(computerSystemIndex),
-        getHostStateObjectPath(computerSystemIndex),
+        getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Boot.Progress", "BootProgressLastUpdate",
         [asyncResp](const boost::system::error_code& ec,
                     const uint64_t lastStateTime) {
@@ -1113,10 +1115,10 @@ inline void getLastResetTime(
     const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Getting System Last Reset Time");
-
+    sdbusplus::message::object_path path =
+        getChassisStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<uint64_t>(
-        getChassisStateServiceName(computerSystemIndex),
-        getChassisStateObjectPath(computerSystemIndex),
+        getChassisStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Chassis", "LastStateChangeTime",
         [asyncResp](const boost::system::error_code& ec,
                     uint64_t lastResetTime) {
@@ -1154,10 +1156,10 @@ inline void getAutomaticRebootAttempts(
     const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Get Automatic Retry policy");
-
+    sdbusplus::message::object_path path =
+        getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getAllProperties(
-        getHostStateServiceName(computerSystemIndex),
-        getHostStateObjectPath(computerSystemIndex),
+        getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.Control.Boot.RebootAttempts",
         [asyncResp{asyncResp}](
             const boost::system::error_code& ec,
@@ -3528,9 +3530,10 @@ inline void getAllowedHostTransitions(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const uint64_t computerSystemIndex)
 {
+    sdbusplus::message::object_path path =
+        getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::vector<std::string>>(
-        getHostStateServiceName(computerSystemIndex),
-        getHostStateObjectPath(computerSystemIndex),
+        getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Host", "AllowedHostTransitions",
         std::bind_front(afterGetAllowedHostTransitions, asyncResp));
 }
