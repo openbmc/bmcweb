@@ -16,6 +16,24 @@
       "message": "After this goes, I\u0027ll do the cleanup at \nhttps://github.com/search?q\u003drepo%3Aopenbmc%2Fopenbmc%20redfish-allow-deprecated-power-thermal\u0026type\u003dcode",
       "revId": "9c9567d959b7610160dd941e27886583f594470a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95f74340_f814bd7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-26T20:56:08Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/openbmc/+/83129",
+      "parentUuid": "28d5efa3_820c9e80",
+      "revId": "9c9567d959b7610160dd941e27886583f594470a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ],
   "submitRequirementResults": []
