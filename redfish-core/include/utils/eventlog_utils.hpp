@@ -38,6 +38,71 @@ namespace redfish
 namespace eventlog_utils
 {
 
+constexpr const char* rfSystemsStr = "Systems";
+constexpr const char* rfManagersStr = "Managers";
+
+enum class LogServiceParent
+{
+    Systems,
+    Managers
+};
+
+inline std::string logServiceParentToString(LogServiceParent parent)
+{
+    std::string parentStr;
+    switch (parent)
+    {
+        case LogServiceParent::Managers:
+            parentStr = rfManagersStr;
+            break;
+        case LogServiceParent::Systems:
+            parentStr = rfSystemsStr;
+            break;
+        default:
+            BMCWEB_LOG_ERROR("Unable to stringify bmcweb eventlog location");
+            break;
+    }
+    return parentStr;
+}
+
+inline std::string_view getChildIdFromParent(LogServiceParent parent)
+{
+    std::string_view childId;
+
+    switch (parent)
+    {
+        case LogServiceParent::Managers:
+            childId = BMCWEB_REDFISH_MANAGER_URI_NAME;
+            break;
+        case LogServiceParent::Systems:
+            childId = BMCWEB_REDFISH_SYSTEM_URI_NAME;
+            break;
+        default:
+            BMCWEB_LOG_ERROR(
+                "Unable to stringify bmcweb eventlog location childId");
+            break;
+    }
+    return childId;
+}
+
+inline std::string getLogEntryDescriptor(LogServiceParent parent)
+{
+    std::string descriptor;
+    switch (parent)
+    {
+        case LogServiceParent::Managers:
+            descriptor = "Manager";
+            break;
+        case LogServiceParent::Systems:
+            descriptor = "System";
+            break;
+        default:
+            BMCWEB_LOG_ERROR("Unable to get Log Entry descriptor");
+            break;
+    }
+    return descriptor;
+}
+
 /*
  * Journal EventLog utilities
  * */
@@ -115,7 +180,8 @@ enum class LogParseError
 
 static LogParseError fillEventLogEntryJson(
     const std::string& logEntryID, const std::string& logEntry,
-    nlohmann::json::object_t& logEntryJson)
+    nlohmann::json::object_t& logEntryJson, const std::string& parentStr,
+    const std::string_view childId, const std::string& logEntryDescriptor)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
@@ -176,10 +242,11 @@ static LogParseError fillEventLogEntryJson(
 
     // Fill in the log entry with the gathered data
     logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
-    logEntryJson["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, logEntryID);
-    logEntryJson["Name"] = "System Event Log Entry";
+    logEntryJson["@odata.id"] =
+        boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries/{}",
+                            parentStr, childId, logEntryID);
+    logEntryJson["Name"] =
+        std::format("{} Event Log Entry", logEntryDescriptor);
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = std::move(msg);
     logEntryJson["MessageId"] = std::move(messageID);
@@ -192,21 +259,31 @@ static LogParseError fillEventLogEntryJson(
 
 inline void handleRequestSystemsLogServiceEventLogLogEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    query_param::Query& delegatedQuery)
+    query_param::Query& delegatedQuery, LogServiceParent parent)
 {
     size_t top = delegatedQuery.top.value_or(query_param::Query::maxTop);
     size_t skip = delegatedQuery.skip.value_or(0);
+
+    const std::string parentStr = logServiceParentToString(parent);
+    const std::string_view childId = getChildIdFromParent(parent);
+    const std::string logEntryDescriptor = getLogEntryDescriptor(parent);
+
+    if (parentStr.empty() || childId.empty() || logEntryDescriptor.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
 
     // Collections don't include the static data added by SubRoute
     // because it has a duplicate entry for members
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogEntryCollection.LogEntryCollection";
-    asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/LogServices/EventLog/Entries",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/{}/{}/LogServices/EventLog/Entries", parentStr, childId);
+    asyncResp->res.jsonValue["Name"] =
+        std::format("{} Event Log Entries", logEntryDescriptor);
     asyncResp->res.jsonValue["Description"] =
-        "Collection of System Event Log Entries";
+        std::format("Collection of {} Event Log Entries", logEntryDescriptor);
 
     nlohmann::json& logEntryArray = asyncResp->res.jsonValue["Members"];
     logEntryArray = nlohmann::json::array();
@@ -240,7 +317,8 @@ inline void handleRequestSystemsLogServiceEventLogLogEntryCollection(
 
             nlohmann::json::object_t bmcLogEntry;
             LogParseError status =
-                fillEventLogEntryJson(idStr, logEntry, bmcLogEntry);
+                fillEventLogEntryJson(idStr, logEntry, bmcLogEntry, parentStr,
+                                      childId, logEntryDescriptor);
             if (status == LogParseError::messageIdNotInRegistry)
             {
                 continue;
@@ -267,16 +345,26 @@ inline void handleRequestSystemsLogServiceEventLogLogEntryCollection(
     {
         asyncResp->res.jsonValue["Members@odata.nextLink"] =
             boost::urls::format(
-                "/redfish/v1/Systems/{}/LogServices/EventLog/Entries?$skip={}",
-                BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(skip + top));
+                "/redfish/v1/{}/{}/LogServices/EventLog/Entries?$skip={}",
+                parentStr, childId, std::to_string(skip + top));
     }
 }
 
 inline void handleRequestSystemsLogServiceEventLogEntriesGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& param)
+    const std::string& param, LogServiceParent parent)
 {
     const std::string& targetID = param;
+
+    const std::string parentStr = logServiceParentToString(parent);
+    const std::string_view childId = getChildIdFromParent(parent);
+    const std::string logEntryDescriptor = getLogEntryDescriptor(parent);
+
+    if (parentStr.empty() || childId.empty() || logEntryDescriptor.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
 
     // Go through the log files and check the unique ID for each
     // entry to find the target entry
@@ -308,8 +396,9 @@ inline void handleRequestSystemsLogServiceEventLogEntriesGet(
             if (idStr == targetID)
             {
                 nlohmann::json::object_t bmcLogEntry;
-                LogParseError status =
-                    fillEventLogEntryJson(idStr, logEntry, bmcLogEntry);
+                LogParseError status = fillEventLogEntryJson(
+                    idStr, logEntry, bmcLogEntry, parentStr, childId,
+                    logEntryDescriptor);
                 if (status != LogParseError::success)
                 {
                     messages::internalError(asyncResp->res);
