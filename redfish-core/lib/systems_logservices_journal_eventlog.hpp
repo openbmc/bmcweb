@@ -62,7 +62,7 @@ inline void beforeHandleSystemsLogServiceEventLogLogEntryCollection(
         return;
     }
 
-    eventlog_utils::handleSystemsLogServiceEventLogLogEntryCollection(
+    eventlog_utils::handleSystemsAndBMCLogServiceEventLogLogEntryCollection(
         asyncResp, delegatedQuery, eventlog_utils::LogServiceParent::Systems);
 }
 
@@ -88,7 +88,7 @@ inline void beforeHandleSystemsLogServiceEventLogEntriesGet(
                                    systemName);
         return;
     }
-    eventlog_utils::handleSystemsLogServiceEventLogEntriesGet(
+    eventlog_utils::handleSystemsAndBMCLogServiceEventLogEntriesGet(
         asyncResp, param, eventlog_utils::LogServiceParent::Systems);
 }
 
@@ -107,7 +107,8 @@ inline void beforeHandleSystemsLogServicesEventLogActionsClearPost(
                                    systemName);
         return;
     }
-    eventlog_utils::handleSystemsLogServicesEventLogActionsClearPost(asyncResp);
+    eventlog_utils::handleSystemsAndBMCLogServicesEventLogActionsClearPost(
+        asyncResp);
 }
 
 inline void requestRoutesJournalEventLogEntryCollection(App& app)
