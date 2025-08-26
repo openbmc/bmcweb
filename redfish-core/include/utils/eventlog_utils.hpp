@@ -297,7 +297,7 @@ static LogParseError fillEventLogEntryJson(
     return LogParseError::success;
 }
 
-inline void handleRequestSystemsLogServiceEventLogLogEntryCollection(
+inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     query_param::Query& delegatedQuery, LogServiceParent parent)
 {
@@ -387,7 +387,7 @@ inline void handleRequestSystemsLogServiceEventLogLogEntryCollection(
     }
 }
 
-inline void handleRequestSystemsLogServiceEventLogEntriesGet(
+inline void handleSystemsAndManagersLogServiceEventLogEntriesGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& param, LogServiceParent parent)
 {
@@ -448,7 +448,7 @@ inline void handleRequestSystemsLogServiceEventLogEntriesGet(
     messages::resourceNotFound(asyncResp->res, "LogEntry", targetID);
 }
 
-inline void handleRequestSystemsLogServicesEventLogActionsClearPost(
+inline void handleSystemsAndManagersLogServicesEventLogActionsClearPost(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
     // Clear the EventLog by deleting the log files
