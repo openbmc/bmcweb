@@ -140,6 +140,29 @@
       "parentUuid": "e5e476a6_c0a14ab0",
       "revId": "d247ebd7a2d877918582ebdd889eb444a614c599",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5384e98f_8395273c",
+        "filename": "redfish-core/lib/redfish_sessions.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-26T19:46:38Z",
+      "side": 1,
+      "message": "put this URL construction on its own line please\n\nThis wasn\u0027t easy to read before, but it\u0027s harder to read now.",
+      "range": {
+        "startLine": 232,
+        "startChar": 45,
+        "endLine": 233,
+        "endChar": 76
+      },
+      "revId": "d247ebd7a2d877918582ebdd889eb444a614c599",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
