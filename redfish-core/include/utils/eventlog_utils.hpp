@@ -8,11 +8,13 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/log_service.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
 #include "utils/query_param.hpp"
+#include "utils/time_utils.hpp"
 
 #include <asm-generic/errno.h>
 #include <systemd/sd-bus.h>
@@ -64,6 +66,38 @@ inline std::string_view getResourceId(const std::string& rfResource)
     }
 
     return BMCWEB_REDFISH_MANAGER_URI_NAME;
+}
+
+inline void handleEventLogServiceGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& rfResource)
+{
+    const std::string_view resourceId = getResourceId(rfResource);
+
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/{}/{}/LogServices/EventLog", rfResource, resourceId);
+    asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
+    asyncResp->res.jsonValue["Name"] = "Event Log Service";
+    asyncResp->res.jsonValue["Description"] = "System Event Log Service";
+    asyncResp->res.jsonValue["Id"] = "EventLog";
+    asyncResp->res.jsonValue["OverWritePolicy"] =
+        log_service::OverWritePolicy::WrapsWhenFull;
+
+    std::pair<std::string, std::string> redfishDateTimeOffset =
+        redfish::time_utils::getDateTimeOffsetNow();
+
+    asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
+    asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+        redfishDateTimeOffset.second;
+
+    asyncResp->res.jsonValue["Entries"]["@odata.id"] =
+        std::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
+                    rfResource, resourceId);
+    asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]["target"]
+
+        = std::format(
+            "/redfish/v1/{}/{}/LogServices/EventLog/Actions/LogService.ClearLog",
+            rfResource, resourceId);
 }
 
 /*
