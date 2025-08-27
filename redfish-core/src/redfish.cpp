@@ -20,6 +20,7 @@
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
 #include "manager_diagnostic_data.hpp"
+#include "manager_logservices_dbus_eventlog.hpp"
 #include "manager_logservices_journal.hpp"
 #include "manager_logservices_journal_eventlog.hpp"
 #include "managers.hpp"
@@ -173,9 +174,19 @@ RedfishService::RedfishService(App& app)
     if constexpr (BMCWEB_REDFISH_BMC_EVENTLOG)
     {
         requestRoutesBMCEventLogService(app);
-        requestRoutesBMCJournalEventLogEntryCollection(app);
-        requestRoutesBMCJournalEventLogEntry(app);
-        requestRoutesBMCJournalEventLogClear(app);
+        if constexpr (BMCWEB_REDFISH_DBUS_LOG)
+        {
+            requestRoutesBMCDBusLogServiceActionsClear(app);
+            requestRoutesBMCDBusEventLogEntryCollection(app);
+            requestRoutesBMCDBusEventLogEntry(app);
+            requestRoutesBMCDBusEventLogEntryDownload(app);
+        }
+        else
+        {
+            requestRoutesBMCJournalEventLogEntryCollection(app);
+            requestRoutesBMCJournalEventLogEntry(app);
+            requestRoutesBMCJournalEventLogClear(app);
+        }
     }
     else
     {
