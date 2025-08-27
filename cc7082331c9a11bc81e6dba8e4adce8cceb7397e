@@ -53,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb2a9fa9_c4a39bb0",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-27T14:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48c8064b_0cd583f4",
+      "revId": "cc7082331c9a11bc81e6dba8e4adce8cceb7397e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c85df5f_5476c448",
@@ -66,6 +84,24 @@
       "writtenOn": "2025-08-19T18:49:31Z",
       "side": 1,
       "message": "I think you can remove vector, tuple,",
+      "revId": "cc7082331c9a11bc81e6dba8e4adce8cceb7397e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "399658dd_c9027f21",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-27T14:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c85df5f_5476c448",
       "revId": "cc7082331c9a11bc81e6dba8e4adce8cceb7397e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
