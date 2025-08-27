@@ -8,11 +8,14 @@
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
+#include "generated/enums/log_service.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
+#include "utils/etag_utils.hpp"
 #include "utils/query_param.hpp"
+#include "utils/time_utils.hpp"
 
 #include <asm-generic/errno.h>
 #include <systemd/sd-bus.h>
@@ -99,6 +102,45 @@ inline std::string_view getChildIdFromParent(LogServiceParent parent)
             break;
     }
     return childId;
+}
+
+inline void handleSystemsAndBMCEventLogServiceGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    LogServiceParent parent)
+{
+    const std::string_view childId = getChildIdFromParent(parent);
+    const std::string parentStr = logServiceParentToString(parent);
+
+    if (parentStr.empty() || childId.empty())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/{}/{}/LogServices/EventLog", parentStr, childId);
+    asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
+    asyncResp->res.jsonValue["Name"] = "Event Log Service";
+    asyncResp->res.jsonValue["Description"] = "System Event Log Service";
+    asyncResp->res.jsonValue["Id"] = "EventLog";
+    asyncResp->res.jsonValue["OverWritePolicy"] =
+        log_service::OverWritePolicy::WrapsWhenFull;
+
+    std::pair<std::string, std::string> redfishDateTimeOffset =
+        redfish::time_utils::getDateTimeOffsetNow();
+
+    asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
+    asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+        redfishDateTimeOffset.second;
+
+    asyncResp->res.jsonValue["Entries"]["@odata.id"] = std::format(
+        "/redfish/v1/{}/{}/LogServices/EventLog/Entries", parentStr, childId);
+    asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]["target"]
+
+        = std::format(
+            "/redfish/v1/{}/{}/LogServices/EventLog/Actions/LogService.ClearLog",
+            parentStr, childId);
+    etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 }
 
 /*
