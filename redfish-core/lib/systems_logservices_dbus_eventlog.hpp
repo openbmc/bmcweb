@@ -324,9 +324,42 @@ inline void dBusLogServiceActionsClear(
 
 inline void downloadEventLogEntry(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName, const std::string& entryID,
-    const std::string& dumpType)
+    const std::string& entryID, const std::string& downloadEntryType)
 {
+    std::string entryPath =
+        sdbusplus::message::object_path("/xyz/openbmc_project/logging/entry") /
+        entryID;
+
+    auto downloadEventLogEntryHandler =
+        [asyncResp, entryID,
+         downloadEntryType](const boost::system::error_code& ec,
+                            const sdbusplus::message::unix_fd& unixfd) {
+            log_services_utils::downloadEntryCallback(
+                asyncResp, entryID, downloadEntryType, ec, unixfd);
+        };
+
+    dbus::utility::async_method_call(
+        asyncResp, std::move(downloadEventLogEntryHandler),
+        "xyz.openbmc_project.Logging", entryPath,
+        "xyz.openbmc_project.Logging.Entry", "GetEntry");
+}
+
+inline void handleSystemsDBusEventLogEntryDownloadGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& entryId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (!http_helpers::isContentTypeAllowed(
+            req.getHeaderValue("Accept"),
+            http_helpers::ContentType::OctetStream, true))
+    {
+        asyncResp->res.result(boost::beast::http::status::bad_request);
+        return;
+    }
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         // Option currently returns no systems.  TBD
@@ -341,41 +374,7 @@ inline void downloadEventLogEntry(
         return;
     }
 
-    std::string entryPath =
-        sdbusplus::message::object_path("/xyz/openbmc_project/logging/entry") /
-        entryID;
-
-    auto downloadEventLogEntryHandler =
-        [asyncResp, entryID,
-         dumpType](const boost::system::error_code& ec,
-                   const sdbusplus::message::unix_fd& unixfd) {
-            log_services_utils::downloadEntryCallback(asyncResp, entryID,
-                                                      dumpType, ec, unixfd);
-        };
-
-    dbus::utility::async_method_call(
-        asyncResp, std::move(downloadEventLogEntryHandler),
-        "xyz.openbmc_project.Logging", entryPath,
-        "xyz.openbmc_project.Logging.Entry", "GetEntry");
-}
-
-inline void handleDBusEventLogEntryDownloadGet(
-    crow::App& app, const std::string& dumpType, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName, const std::string& entryID)
-{
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-    if (!http_helpers::isContentTypeAllowed(
-            req.getHeaderValue("Accept"),
-            http_helpers::ContentType::OctetStream, true))
-    {
-        asyncResp->res.result(boost::beast::http::status::bad_request);
-        return;
-    }
-    downloadEventLogEntry(asyncResp, systemName, entryID, dumpType);
+    downloadEventLogEntry(asyncResp, entryId, "System");
 }
 
 inline void requestRoutesDBusEventLogEntryCollection(App& app)
@@ -543,6 +542,6 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
         "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/attachment/")
         .privileges(redfish::privileges::getLogEntry)
         .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleDBusEventLogEntryDownloadGet, std::ref(app), "System"));
+            handleSystemsDBusEventLogEntryDownloadGet, std::ref(app)));
 }
 } // namespace redfish
