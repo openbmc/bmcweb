@@ -324,23 +324,8 @@ inline void dBusLogServiceActionsClear(
 
 inline void downloadEventLogEntry(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName, const std::string& entryID,
-    const std::string& dumpType)
+    const std::string& entryID, const std::string& dumpType)
 {
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-
     std::string entryPath =
         sdbusplus::message::object_path("/xyz/openbmc_project/logging/entry") /
         entryID;
@@ -362,7 +347,7 @@ inline void downloadEventLogEntry(
 inline void handleDBusEventLogEntryDownloadGet(
     crow::App& app, const std::string& dumpType, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName, const std::string& entryID)
+    const std::string& entryID)
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
@@ -375,7 +360,7 @@ inline void handleDBusEventLogEntryDownloadGet(
         asyncResp->res.result(boost::beast::http::status::bad_request);
         return;
     }
-    downloadEventLogEntry(asyncResp, systemName, entryID, dumpType);
+    downloadEventLogEntry(asyncResp, entryID, dumpType);
 }
 
 inline void requestRoutesDBusEventLogEntryCollection(App& app)
@@ -542,7 +527,25 @@ inline void requestRoutesDBusEventLogEntryDownload(App& app)
         app,
         "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/attachment/")
         .privileges(redfish::privileges::getLogEntry)
-        .methods(boost::beast::http::verb::get)(std::bind_front(
-            handleDBusEventLogEntryDownloadGet, std::ref(app), "System"));
+        .methods(boost::beast::http::verb::get)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName, const std::string& entryId) {
+                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+                {
+                    // Option currently returns no systems.  TBD
+                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                               systemName);
+                    return;
+                }
+                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+                {
+                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                               systemName);
+                    return;
+                }
+                handleDBusEventLogEntryDownloadGet(app, "System", req,
+                                                   asyncResp, entryId);
+            });
 }
 } // namespace redfish
