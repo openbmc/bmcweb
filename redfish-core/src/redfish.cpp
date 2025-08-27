@@ -116,7 +116,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesCableCollection(app);
 
     requestRoutesSystemLogServiceCollection(app);
-    requestRoutesEventLogService(app);
+    requestRoutesSystemsEventLogService(app);
 
     requestRoutesSystemsLogServicesPostCode(app);
 
