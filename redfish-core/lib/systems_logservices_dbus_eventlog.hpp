@@ -50,7 +50,8 @@ inline void handleSystemsDBusEventLogEntryCollection(
                                    systemName);
         return;
     }
-    eventlog_utils::dBusEventLogEntryCollection(asyncResp);
+    eventlog_utils::dBusEventLogEntryCollection(
+        asyncResp, eventlog_utils::LogServiceParent::Systems);
 }
 
 inline void handleSystemsDBusEventLogEntry(
@@ -77,7 +78,8 @@ inline void handleSystemsDBusEventLogEntry(
     }
     if (req.method() == boost::beast::http::verb::get)
     {
-        eventlog_utils::dBusEventLogEntryGet(asyncResp, entryId);
+        eventlog_utils::dBusEventLogEntryGet(
+            asyncResp, eventlog_utils::LogServiceParent::Systems, entryId);
         return;
     }
     if (req.method() == boost::beast::http::verb::patch)
