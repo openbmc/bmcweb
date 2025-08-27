@@ -467,12 +467,14 @@ inline std::string translateSeverityDbusToRedfish(const std::string& s)
 }
 
 inline void fillEventLogLogEntryFromDbusLogEntry(
-    const DbusEventLogEntry& entry, nlohmann::json& objectToFillOut)
+    const DbusEventLogEntry& entry, nlohmann::json& objectToFillOut,
+    const std::string& redfishResource)
 {
+    const std::string_view resourceId = getResourceId(redfishResource);
     objectToFillOut["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
     objectToFillOut["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}",
-        BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(entry.Id));
+        "/redfish/v1/{}/{}/LogServices/EventLog/Entries/{}", redfishResource,
+        resourceId, std::to_string(entry.Id));
     objectToFillOut["Name"] = "System Event Log Entry";
     objectToFillOut["Id"] = std::to_string(entry.Id);
     objectToFillOut["Message"] = entry.Message;
@@ -497,14 +499,14 @@ inline void fillEventLogLogEntryFromDbusLogEntry(
     if (entry.Path != nullptr)
     {
         objectToFillOut["AdditionalDataURI"] = boost::urls::format(
-            "/redfish/v1/Systems/{}/LogServices/EventLog/Entries/{}/attachment",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME, std::to_string(entry.Id));
+            "/redfish/v1/{}/{}/LogServices/EventLog/Entries/{}/attachment",
+            redfishResource, resourceId, std::to_string(entry.Id));
     }
 }
 
 inline void afterLogEntriesGetManagedObjects(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const boost::system::error_code& ec,
+    const std::string& redfishResource, const boost::system::error_code& ec,
     const dbus::utility::ManagedObjectType& resp)
 {
     if (ec)
@@ -544,8 +546,8 @@ inline void afterLogEntriesGetManagedObjects(
             messages::internalError(asyncResp->res);
             return;
         }
-        fillEventLogLogEntryFromDbusLogEntry(*optEntry,
-                                             entriesArray.emplace_back());
+        fillEventLogLogEntryFromDbusLogEntry(
+            *optEntry, entriesArray.emplace_back(), redfishResource);
     }
 
     redfish::json_util::sortJsonArrayByKey(entriesArray, "Id");
@@ -554,15 +556,17 @@ inline void afterLogEntriesGetManagedObjects(
 }
 
 inline void dBusEventLogEntryCollection(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& redfishResource)
 {
+    const std::string_view resourceId = getResourceId(redfishResource);
     // Collections don't include the static data added by SubRoute
     // because it has a duplicate entry for members
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogEntryCollection.LogEntryCollection";
     asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/LogServices/EventLog/Entries",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        std::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
+                    redfishResource, resourceId);
     asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
     asyncResp->res.jsonValue["Description"] =
         "Collection of System Event Log Entries";
@@ -572,15 +576,18 @@ inline void dBusEventLogEntryCollection(
     sdbusplus::message::object_path path("/xyz/openbmc_project/logging");
     dbus::utility::getManagedObjects(
         "xyz.openbmc_project.Logging", path,
-        [asyncResp](const boost::system::error_code& ec,
-                    const dbus::utility::ManagedObjectType& resp) {
-            afterLogEntriesGetManagedObjects(asyncResp, ec, resp);
+        [asyncResp,
+         redfishResource](const boost::system::error_code& ec,
+                          const dbus::utility::ManagedObjectType& resp) {
+            afterLogEntriesGetManagedObjects(asyncResp, redfishResource, ec,
+                                             resp);
         });
 }
 
 inline void afterDBusEventLogEntryGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& entryID, const boost::system::error_code& ec,
+    const std::string& redfishResource, const std::string& entryID,
+    const boost::system::error_code& ec,
     const dbus::utility::DBusPropertiesMap& resp)
 {
     if (ec.value() == EBADR)
@@ -604,11 +611,13 @@ inline void afterDBusEventLogEntryGet(
         return;
     }
 
-    fillEventLogLogEntryFromDbusLogEntry(*optEntry, asyncResp->res.jsonValue);
+    fillEventLogLogEntryFromDbusLogEntry(*optEntry, asyncResp->res.jsonValue,
+                                         redfishResource);
 }
 
 inline void dBusEventLogEntryGet(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string entryID)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& redfishResource, std::string entryID)
 {
     dbus::utility::escapePathForDbus(entryID);
 
@@ -617,7 +626,8 @@ inline void dBusEventLogEntryGet(
     dbus::utility::getAllProperties(
         "xyz.openbmc_project.Logging",
         "/xyz/openbmc_project/logging/entry/" + entryID, "",
-        std::bind_front(afterDBusEventLogEntryGet, asyncResp, entryID));
+        std::bind_front(afterDBusEventLogEntryGet, asyncResp, redfishResource,
+                        entryID));
 }
 
 inline void dBusEventLogEntryPatch(

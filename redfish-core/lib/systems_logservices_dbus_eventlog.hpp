@@ -59,7 +59,8 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
                                                systemName);
                     return;
                 }
-                eventlog_utils::dBusEventLogEntryCollection(asyncResp);
+                eventlog_utils::dBusEventLogEntryCollection(asyncResp,
+                                                            "Systems");
             });
 }
 
@@ -90,7 +91,8 @@ inline void requestRoutesDBusEventLogEntry(App& app)
                     return;
                 }
 
-                eventlog_utils::dBusEventLogEntryGet(asyncResp, entryId);
+                eventlog_utils::dBusEventLogEntryGet(asyncResp, "Systems",
+                                                     entryId);
             });
 
     BMCWEB_ROUTE(
