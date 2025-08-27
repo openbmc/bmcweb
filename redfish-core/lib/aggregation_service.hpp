@@ -243,7 +243,6 @@ inline void handleAggregationSourceCollectionPost(
     {
         return;
     }
-
     boost::system::result<boost::urls::url> url =
         boost::urls::parse_absolute_uri(hostname);
     if (!url)
@@ -258,16 +257,14 @@ inline void handleAggregationSourceCollectionPost(
         return;
     }
     crow::utility::setPortDefaults(*url);
-
     std::string prefix = bmcweb::getRandomIdOfLength(8);
     RedfishAggregator::getInstance().currentAggregationSources.emplace(
         prefix, *url);
-
+    BMCWEB_LOG_DEBUG("Emplaced {} with url {}", prefix, url->buffer());
     asyncResp->res.addHeader(
         boost::beast::http::field::location,
         boost::urls::format("/redfish/v1/AggregationSources/{}", prefix)
             .buffer());
-
     messages::created(asyncResp->res);
 }
 
@@ -316,12 +313,6 @@ inline void requestRoutesAggregationSource(App& app)
         .privileges(redfish::privileges::deleteAggregationSource)
         .methods(boost::beast::http::verb::delete_)(
             std::bind_front(handleAggregationSourceDelete, std::ref(app)));
-
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/AggregationService/AggregationSources/<str>/")
-        .privileges(redfish::privileges::headAggregationSource)
-        .methods(boost::beast::http::verb::head)(
-            std::bind_front(handleAggregationSourceHead, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/AggregationService/AggregationSources/")
         .privileges(redfish::privileges::postAggregationSourceCollection)

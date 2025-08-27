@@ -1313,11 +1313,7 @@ class RedfishAggregator
             {
                 // We've matched a resource collection so this current segment
                 // might contain an aggregation prefix
-                // TODO: This needs to be rethought when we can support multiple
-                // satellites due to
-                // /redfish/v1/AggregationService/AggregationSources/5B247A
-                // being a local resource describing the satellite
-                if (collectionItem.starts_with("5B247A_"))
+                if (urlHasPrefix(collectionItem))
                 {
                     BMCWEB_LOG_DEBUG("Need to forward a request");
 
@@ -1367,6 +1363,35 @@ class RedfishAggregator
 
         BMCWEB_LOG_DEBUG("Aggregation not required for {}", url.buffer());
         return Result::LocalHandle;
+    }
+
+    // Check if URL path contains any known satellite prefix in the format
+    // prefix_<resource_name>
+    bool urlHasPrefix(const std::string& urlPath) const
+    {
+        boost::system::result<boost::urls::url_view> parsedUrl =
+            boost::urls::parse_relative_ref(urlPath);
+
+        if (!parsedUrl)
+        {
+            return false;
+        }
+
+        // Check against all known satellite prefixes
+        for (const auto& pair : currentAggregationSources)
+        {
+            const std::string& prefix = pair.first;
+            for (const auto& segment : parsedUrl->segments())
+            {
+                std::size_t pos = segment.find(prefix + "_");
+                if (pos != std::string::npos &&
+                    (prefix.size() + 1) < segment.size())
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 };
 
