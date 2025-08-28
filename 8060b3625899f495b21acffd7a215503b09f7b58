@@ -126,6 +126,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeabf41c_754ed0bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-28T20:12:52Z",
+      "side": 1,
+      "message": "I think if we decide to go with these changes, we should just enforce them but I don\u0027t care much. I am fine with doing nothing here (my slightest preference but I don\u0027t care much), changing and enforcing (my 2nd), and then just changing.",
+      "parentUuid": "97332dd5_f1a31f02",
+      "revId": "8060b3625899f495b21acffd7a215503b09f7b58",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "dd320164_e3f3aad5",
