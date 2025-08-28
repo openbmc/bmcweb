@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02c699c4_13d38933",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-28T19:38:46Z",
+      "side": 1,
+      "message": "WARNING or DEBUG here",
+      "revId": "b7f77d613bbb383413f32573152aa043c0e0d8d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00572cf4_885e58da",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-28T19:38:46Z",
+      "side": 1,
+      "message": "WARNING with this one then, since a user error \nhttps://github.com/openbmc/bmcweb/blob/f86cdd7d287caa93d6508114d77e058937a2bf4a/DEVELOPING.md?plain\u003d1#L228",
+      "revId": "b7f77d613bbb383413f32573152aa043c0e0d8d8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
