@@ -892,6 +892,9 @@ class RedfishAggregator
     // Aggregation sources from AggregationCollection
     std::unordered_map<std::string, boost::urls::url> currentAggregationSources;
 
+    // Cached D-Bus discovered satellites (mutable for const methods)
+    mutable std::unordered_map<std::string, boost::urls::url> dbusSatellites;
+
     // Polls D-Bus to get all available satellite config information
     // Expects a handler which interacts with the returned configs
     void getSatelliteConfigs(
@@ -908,7 +911,7 @@ class RedfishAggregator
         sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
             "xyz.openbmc_project.EntityManager", path,
-            [handler{std::move(handler)},
+            [this, handler{std::move(handler)},
              satelliteInfo = std::move(satelliteInfo)](
                 const boost::system::error_code& ec,
                 const dbus::utility::ManagedObjectType& objects) mutable {
@@ -923,13 +926,19 @@ class RedfishAggregator
                 // Maps a chosen alias representing a satellite BMC to a url
                 // containing the information required to create a http
                 // connection to the satellite
-                findSatelliteConfigs(objects, satelliteInfo);
+                dbusSatellites.clear();
+                findSatelliteConfigs(objects, dbusSatellites);
+
+                // Add D-Bus satellites to the merged result
+                satelliteInfo.insert(dbusSatellites.begin(), dbusSatellites.end());
 
                 if (!satelliteInfo.empty())
                 {
                     BMCWEB_LOG_DEBUG(
-                        "Redfish Aggregation enabled with {} satellite BMCs",
-                        std::to_string(satelliteInfo.size()));
+                        "Found {} total satellite BMCs ({} from currentAggregationSources, {} from D-Bus)",
+                        satelliteInfo.size(),
+                        currentAggregationSources.size(),
+                        dbusSatellites.size());
                 }
                 else
                 {
@@ -1377,7 +1386,7 @@ class RedfishAggregator
             return false;
         }
 
-        // Check against all known satellite prefixes
+        // Check against REST API satellites
         for (const auto& pair : currentAggregationSources)
         {
             const std::string& prefix = pair.first;
@@ -1391,6 +1400,22 @@ class RedfishAggregator
                 }
             }
         }
+
+        // Check against D-Bus discovered satellites
+        for (const auto& pair : dbusSatellites)
+        {
+            const std::string& prefix = pair.first;
+            for (const auto& segment : parsedUrl->segments())
+            {
+                std::size_t pos = segment.find(prefix + "_");
+                if (pos != std::string::npos &&
+                    (prefix.size() + 1) < segment.size())
+                {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 };
