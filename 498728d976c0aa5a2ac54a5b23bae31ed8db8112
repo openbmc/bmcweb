@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a6e954e_9b155b95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-28T20:12:29Z",
+      "side": 1,
+      "message": "\u003e so in our case, this can happen because we reuse our certificate\n\nThere\u0027s a hostname in the certificate UPN, how do you reuse a CN between two different machines if there\u0027s a hostname?  This part isn\u0027t the most important to this patch, it was just something I was curious about.\n\nFYI, your current patch doesn\u0027t pass CI, and the last revision I reviewed didn\u0027t work at all, so generally it doesn\u0027t show up on the list to review until it does.  If you need help on getting it to pass CI, I\u0027m always available on the mailing list and discord.\n\nAs you described it, the behavior sounds fine fine, just make sure we\u0027re not taking an extra overhead to create those error codes.  If the goal is to avoid side channel determining a users existence, changing the timing give as much indication that a user exists as the error code.",
+      "parentUuid": "aaa90d2b_a515e4fa",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "498728d976c0aa5a2ac54a5b23bae31ed8db8112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d94c3bb_46ba7c9c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
