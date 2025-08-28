@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd9dc712_fd1a5c87",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-28T13:15:10Z",
+      "side": 1,
+      "message": "Changed this one to just get the managed host object paths and then go from there. Let me know if that\u0027s okay.",
+      "parentUuid": "96f0f1d2_3ac5650d",
+      "range": {
+        "startLine": 1217,
+        "startChar": 12,
+        "endLine": 1217,
+        "endChar": 41
+      },
+      "revId": "c0a62aea5b540c79a0e90c071ac6710ce33da6f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "13a01d9e_d4d79666",
@@ -47,6 +71,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e96e0851_986a1b00",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1232,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-28T13:15:10Z",
+      "side": 1,
+      "message": "Reworked this to use Olek\u0027s systems utils to get the managed host object paths, then look for the intersection with the paths that the software is associated with.\n\nThat way there\u0027s an exact match and no imprecise matching.",
+      "parentUuid": "13a01d9e_d4d79666",
+      "range": {
+        "startLine": 1232,
+        "startChar": 18,
+        "endLine": 1232,
+        "endChar": 29
+      },
+      "revId": "c0a62aea5b540c79a0e90c071ac6710ce33da6f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0023df5c_76a0c7e4",
@@ -60,6 +108,24 @@
       "writtenOn": "2025-08-27T19:34:18Z",
       "side": 1,
       "message": "This isn\u0027t guaranteed to be the path, right?  The software could be at any depth in this tree.",
+      "revId": "c0a62aea5b540c79a0e90c071ac6710ce33da6f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfbb1bcb_f7ee21ea",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1273,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-28T13:15:10Z",
+      "side": 1,
+      "message": "Its as per the latest documented design. The PDI definition also defines this object path to be the namespace for software inventory.\n\nhttps://github.com/openbmc/docs/blob/master/designs/code-update.md\n\nAnyways, not relying on it will make the code better.\n\nPassing the object path through now since there was some call further up which already fetched it.",
+      "parentUuid": "0023df5c_76a0c7e4",
       "revId": "c0a62aea5b540c79a0e90c071ac6710ce33da6f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
