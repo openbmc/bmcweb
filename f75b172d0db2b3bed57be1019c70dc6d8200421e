@@ -34,6 +34,24 @@
       "parentUuid": "7d525b84_89da6c6a",
       "revId": "f75b172d0db2b3bed57be1019c70dc6d8200421e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a8465e8_64cc2975",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-28T13:16:08Z",
+      "side": 1,
+      "message": "Closing this discussion thread since there was no further response in 10 days.",
+      "parentUuid": "7ce06e51_158dd25e",
+      "revId": "f75b172d0db2b3bed57be1019c70dc6d8200421e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
