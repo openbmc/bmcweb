@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "141e3ab4_135e5ec1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-08-28T20:56:23Z",
+      "side": 1,
+      "message": "You didn\u0027t misunderstand. Initially the option is needed for staging in the changes as a proving ground. Once proven I was thinking distributions would need the option for enabling/disabling the option. (Similar to redfish-aggregation.)\n\nThe lack of D-Bus objects implementing the `xyz.openbmc_project.State.BMC.Redundancy` interface would indicate there is no redundancy on the BMC. By disabling the option for a particular distribution it would save a mapper call at runtime.\n\nIs the ability to disable the option long-term not desirable? If so I will update the description of the option.",
+      "parentUuid": "ea0ad983_57de6d39",
+      "revId": "f60943db982c1d79ba657224e87e0efac0547ac6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4775579c_a82fc233",
         "filename": "meson.options",
         "patchSetId": 3
