@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42c9bc4a_1c9a0671",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-08-28T08:45:52Z",
+      "side": 1,
+      "message": "@haghera@nvidia.com do we need this patch?",
+      "revId": "92b682e1330c47583f00edc107b4713a354ac240",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
