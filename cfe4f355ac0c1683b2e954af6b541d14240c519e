@@ -16,6 +16,24 @@
       "message": "Next patch doesn\u0027t appear to have the tested as the commit message says?  I suspectthis just got restacked?",
       "revId": "cfe4f355ac0c1683b2e954af6b541d14240c519e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7d91eaa_e121a0b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-08-28T09:24:04Z",
+      "side": 1,
+      "message": "\u003e Tested: 2nd next patch in chain\n\nIt\u0027s not the next patch but the one after that (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/82485/5)\n\nI was wondering if i should just say `next patch` and treat it like a linked list.",
+      "parentUuid": "c9e6e92d_17404507",
+      "revId": "cfe4f355ac0c1683b2e954af6b541d14240c519e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
