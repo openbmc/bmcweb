@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aaa90d2b_a515e4fa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-08-28T18:57:00Z",
+      "side": 1,
+      "message": "Hi team,\n\nI hope you are doing well. I wanted to gently remind about the review request for the changes related to updating the error code for non-existing accounts when using mTLS (https://gerrit.openbmc.org/c/openbmc/bmcweb/+/81881) 😅\n\nI truly appreciate any time you can spare to review these updates. Your insights and feedback are very important to me. If there is any additional information you need from me, please feel free to ask 😁\n\nThank you very much for your time and consideration. I look forward to hearing your inputs!\n\nBest regards,\nMalik Akbar Hashemi Rafsanjani",
+      "parentUuid": "14b1f47a_9e8bc9a3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 9
+      },
+      "revId": "498728d976c0aa5a2ac54a5b23bae31ed8db8112",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3d94c3bb_46ba7c9c",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
