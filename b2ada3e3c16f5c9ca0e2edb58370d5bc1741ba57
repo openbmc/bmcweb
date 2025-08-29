@@ -118,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "918a6199_37774c23",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-29T16:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5d120ae_12b96487",
+      "range": {
+        "startLine": 1370,
+        "startChar": 41,
+        "endLine": 1370,
+        "endChar": 48
+      },
+      "revId": "b2ada3e3c16f5c9ca0e2edb58370d5bc1741ba57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "83326b9f_d0181b9b",
@@ -165,6 +189,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b34d0d0_62feab11",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-29T16:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42abd5e_29cb3327",
+      "range": {
+        "startLine": 1381,
+        "startChar": 32,
+        "endLine": 1381,
+        "endChar": 57
+      },
+      "revId": "b2ada3e3c16f5c9ca0e2edb58370d5bc1741ba57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "383f86c2_6728a8d1",
@@ -202,6 +250,30 @@
       "side": 1,
       "message": "fixed, replaced with a straightforward prefix lookup in the currentAggregationSources map",
       "parentUuid": "383f86c2_6728a8d1",
+      "range": {
+        "startLine": 1384,
+        "startChar": 0,
+        "endLine": 1384,
+        "endChar": 61
+      },
+      "revId": "b2ada3e3c16f5c9ca0e2edb58370d5bc1741ba57",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b3b197f_0fb0fb15",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-29T16:58:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16e74153_b1ecb4f0",
       "range": {
         "startLine": 1384,
         "startChar": 0,
