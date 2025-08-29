@@ -16,6 +16,46 @@
       "message": "addressed comments in patchset 2",
       "revId": "60deb049afc13a0de78472f24db9512ca0178a3a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be56eb30_69fdefbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-29T16:14:37Z",
+      "side": 1,
+      "message": "One minor change, then you need to get CI to pass.",
+      "revId": "60deb049afc13a0de78472f24db9512ca0178a3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f207b893_d852d16e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-08-29T16:14:37Z",
+      "side": 1,
+      "message": "nit, can you push this into segmentHasPrefix?",
+      "range": {
+        "startLine": 1319,
+        "startChar": 52,
+        "endLine": 1319,
+        "endChar": 93
+      },
+      "revId": "60deb049afc13a0de78472f24db9512ca0178a3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
