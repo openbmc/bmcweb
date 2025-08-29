@@ -89,6 +89,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "edbd93bc_c74ad2c7",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-29T17:17:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11f0db21_f74a2d0c",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62119706_b872b763",
@@ -298,6 +316,24 @@
       "side": 1,
       "message": "I can move it when I do the other fixes.",
       "parentUuid": "abb0e3a7_d5500c93",
+      "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38e6f8c3_bb42437d",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 28
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-08-29T17:17:19Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3e99f261_ef0d52cc",
       "revId": "49ed86775d9ce4f02bc855adea1454d0f2943deb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
