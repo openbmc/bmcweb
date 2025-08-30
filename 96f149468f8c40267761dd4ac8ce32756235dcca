@@ -126,6 +126,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e15ef8d_63fbd888",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-08-30T08:38:34Z",
+      "side": 1,
+      "message": "As mentioned here and elsewhere, patch addresses bundle updates with no Targets, via a new PDI to identify MultipartUpdate.",
+      "parentUuid": "13031e97_d8643d2a",
+      "revId": "96f149468f8c40267761dd4ac8ce32756235dcca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c39b5013_ad8bf715",

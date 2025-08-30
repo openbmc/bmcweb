@@ -16,6 +16,24 @@
       "message": "This helps - the code doesn\u0027t pick the first object but the only object (if that condition is met) implementing StartUpdate.",
       "revId": "8df14ba32e823416eb7cb523cbeb4dcc13dce348",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f52606_ce0c2725",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-08-30T08:38:34Z",
+      "side": 1,
+      "message": "As mentioned here and elsewhere, patch addresses bundle updates with no Targets, via a new PDI to identify MultipartUpdate.",
+      "parentUuid": "123927d1_209ef107",
+      "revId": "8df14ba32e823416eb7cb523cbeb4dcc13dce348",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
