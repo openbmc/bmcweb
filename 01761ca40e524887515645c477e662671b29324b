@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84714109_5e4e78a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-30T06:53:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "8fce6bc8_8cf1e4cd",
+      "revId": "01761ca40e524887515645c477e662671b29324b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9efff053_4a375e12",
@@ -41,6 +59,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "313fdcf1_a5b08842",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-30T06:53:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9efff053_4a375e12",
+      "range": {
+        "startLine": 21,
+        "startChar": 46,
+        "endLine": 21,
+        "endChar": 63
+      },
+      "revId": "01761ca40e524887515645c477e662671b29324b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6780992_aa4a5149",
@@ -54,6 +96,24 @@
       "writtenOn": "2025-08-30T06:10:26Z",
       "side": 1,
       "message": "If the MultipartUpdate is not present (subtree size 0), is the error we throw similar to current behvavior (without this patch)?",
+      "revId": "01761ca40e524887515645c477e662671b29324b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f2f7a96_50b2e347",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-08-30T06:53:52Z",
+      "side": 1,
+      "message": "Yes, this aligns with the current behavior when no targets are passed.",
+      "parentUuid": "b6780992_aa4a5149",
       "revId": "01761ca40e524887515645c477e662671b29324b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
