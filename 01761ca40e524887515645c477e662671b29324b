@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fce6bc8_8cf1e4cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-08-30T06:10:26Z",
+      "side": 1,
+      "message": "If such an object exists, else the behavior should be as is without this patch (which is to error out).",
+      "revId": "01761ca40e524887515645c477e662671b29324b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9efff053_4a375e12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-08-30T06:10:26Z",
+      "side": 1,
+      "message": "if it exists",
+      "range": {
+        "startLine": 21,
+        "startChar": 46,
+        "endLine": 21,
+        "endChar": 63
+      },
+      "revId": "01761ca40e524887515645c477e662671b29324b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6780992_aa4a5149",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-08-30T06:10:26Z",
+      "side": 1,
+      "message": "If the MultipartUpdate is not present (subtree size 0), is the error we throw similar to current behvavior (without this patch)?",
+      "revId": "01761ca40e524887515645c477e662671b29324b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
