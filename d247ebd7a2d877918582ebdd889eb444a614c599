@@ -144,6 +144,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "02bf9138_dc446f0e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002583
+      },
+      "writtenOn": "2025-08-31T13:42:21Z",
+      "side": 1,
+      "message": "I reran the test in the commit message:\n\n`curl -kv -X POST -H \u0027Content-Type: application/json\u0027 -d \u0027{\"UserName\": \"root\", \"Password\": \"...\"}\u0027 https://localhost:2443/redfish/v1/SessionService/Sessions`\nHTTP 201 response with the following\n```\n{                                                                                                                                                                                                                  \"@Message.ExtendedInfo\": [                                                                                                                                                                                         {\n      \"@odata.type\": \"#Message.v1_1_1.Message\",\n      \"Message\": \"The password provided for this account must be changed before access is granted.  PATCH the Password property for this account located at the target URI \u0027/redfish/v1/AccountService/Accounts/root\u0027 to complete this process.\",\n      \"MessageArgs\": [\n        \"/redfish/v1/AccountService/Accounts/root\"\n      ],\n      \"MessageId\": \"Base.1.19.PasswordChangeRequired\",\n      \"MessageSeverity\": \"Critical\",\n      \"Resolution\": \"Change the password for this account using a PATCH to the Password property at the URI provided.\"                                                                                               }\n  ],\n  \"@odata.id\": \"/redfish/v1/SessionService/Sessions/vBHcp32Rdb\",\n  \"@odata.type\": \"#Session.v1_7_0.Session\",\n  \"ClientOriginIPAddress\": \"0.0.0.0\",\n  \"Description\": \"Manager User Session\",\n  \"Id\": \"vBHcp32Rdb\",\n  \"Name\": \"User Session\",\n  \"Roles\": [\n    \"Administrator\"\n  ],\n  \"UserName\": \"root\"\n}\n```\n\nand `curl -kv --user \"$BMC_USER:$BMC_PASS\" https://localhost:2443/redfish/v1/Managers`\nHTTP 403 with:\n```\n{\n  \"error\": {\n    \"@Message.ExtendedInfo\": [\n      {\n        \"@odata.type\": \"#Message.v1_1_1.Message\",\n        \"Message\": \"The password provided for this account must be changed before access is granted.  PATCH the Password property for this account located at the target URI \u0027/redfish/v1/AccountService/Accounts/root\u0027 to complete this process.\",\n        \"MessageArgs\": [\n          \"/redfish/v1/AccountService/Accounts/root\"\n        ],\n        \"MessageId\": \"Base.1.19.PasswordChangeRequired\",\n        \"MessageSeverity\": \"Critical\",\n        \"Resolution\": \"Change the password for this account using a PATCH to the Password property at the URI provided.\"                                                                                               }\n    ],\n    \"code\": \"Base.1.19.PasswordChangeRequired\",\n    \"message\": \"The password provided for this account must be changed before access is granted.  PATCH the Password property for this account located at the target URI \u0027/redfish/v1/AccountService/Accounts/root\u0027 to complete this process.\"\n  }                                                                                                                                                                                                             \n}\n```",
+      "parentUuid": "8ddca8f2_720049ca",
+      "revId": "d247ebd7a2d877918582ebdd889eb444a614c599",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5384e98f_8395273c",
         "filename": "redfish-core/lib/redfish_sessions.hpp",
         "patchSetId": 1
