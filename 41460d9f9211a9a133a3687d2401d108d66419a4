@@ -16,6 +16,23 @@
       "message": "I\u0027m assuming there\u0027s a new patchset that didn\u0027t make it?",
       "revId": "41460d9f9211a9a133a3687d2401d108d66419a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2003cd09_4c58d599",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-03T15:24:31Z",
+      "side": 1,
+      "message": "I fixed the patch for you (I think).  Please verify it still does what you intended.",
+      "revId": "41460d9f9211a9a133a3687d2401d108d66419a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
