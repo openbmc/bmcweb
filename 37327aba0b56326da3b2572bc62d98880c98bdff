@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64462fe4_92d0d459",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-03T18:35:51Z",
+      "side": 1,
+      "message": "why not just if else here like I see other places ?",
+      "revId": "37327aba0b56326da3b2572bc62d98880c98bdff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
