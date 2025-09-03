@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30ab9aa6_77aa21ad",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-03T22:08:53Z",
+      "side": 0,
+      "message": "This file was created 3 patches ago.  If we know that we\u0027re going to break these things out, lets do it in the first refactor please.  No need to move code new files just to then refactor them immediately.\n\nJust squash this into the first refactor and we should be good here.",
+      "revId": "b67f50416070d051c617659ac1e61ec47a496392",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
