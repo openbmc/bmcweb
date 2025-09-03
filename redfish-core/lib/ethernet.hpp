@@ -2416,12 +2416,6 @@ inline void requestEthernetInterfacesRoutes(App& app)
                             return;
                         }
 
-                        if (ipv4StaticAddresses)
-                        {
-                            handleIPv4StaticPatch(ifaceId, *ipv4StaticAddresses,
-                                                  ethData, ipv4Data, asyncResp);
-                        }
-
                         handleDHCPPatch(ifaceId, ethData, v4dhcpParms,
                                         v6dhcpParms, asyncResp);
 
@@ -2445,6 +2439,12 @@ inline void requestEthernetInterfacesRoutes(App& app)
                         {
                             handleMACAddressPatch(ifaceId, *macAddress,
                                                   asyncResp);
+                        }
+
+                        if (ipv4StaticAddresses)
+                        {
+                            handleIPv4StaticPatch(ifaceId, *ipv4StaticAddresses,
+                                                  ethData, ipv4Data, asyncResp);
                         }
 
                         if (staticNameServers)
