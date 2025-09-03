@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31cbd2cf_42771c63",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-03T16:01:55Z",
+      "side": 1,
+      "message": "nit: To me this comment implied \u003cprefix\u003e was a param being passed into the function. But the code looks like it is defining the satelite prefix as anything before the first underscore. I think just taking out the second \"the\" in this comment would clarify it.\n\nI.e. Assumes the given segment starts with \u003cprefix\u003e_",
+      "range": {
+        "startLine": 1369,
+        "startChar": 0,
+        "endLine": 1369,
+        "endChar": 2
+      },
+      "revId": "94ddc2b0ec1f3640e082f7299c9210f66a75ea8d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
