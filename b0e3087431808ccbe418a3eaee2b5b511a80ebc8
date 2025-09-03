@@ -34,6 +34,24 @@
       "parentUuid": "ca44e21f_8f1ca6dd",
       "revId": "b0e3087431808ccbe418a3eaee2b5b511a80ebc8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "456a752e_2a6f9def",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-09-03T10:59:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24e21ec6_fb7a0123",
+      "revId": "b0e3087431808ccbe418a3eaee2b5b511a80ebc8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
