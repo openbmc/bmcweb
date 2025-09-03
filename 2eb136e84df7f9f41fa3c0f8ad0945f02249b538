@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f949f294_633f2b81",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-03T22:10:49Z",
+      "side": 1,
+      "message": "Lets make sure that both \"systems\" and \"manager\" show up in this, otherwise it looks like it\u0027s the one LogService to rule them all.  There\u0027s about 6, so it\u0027s important to differentiate.  (I know this because we didn\u0027t used to differentiate).",
+      "revId": "2eb136e84df7f9f41fa3c0f8ad0945f02249b538",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
