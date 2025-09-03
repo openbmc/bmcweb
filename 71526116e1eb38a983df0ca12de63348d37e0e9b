@@ -1,4 +1,74 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aba49342_9e76f4ac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-09-03T23:18:03Z",
+      "side": 1,
+      "message": "I think this is referring to an earlier patchset since as far as I can tell it\u0027s this patch that added urlHasPrefix.\n\nIf so then please remove this paragraph.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 37
+      },
+      "revId": "71526116e1eb38a983df0ca12de63348d37e0e9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c680557_72578d32",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-09-03T23:18:03Z",
+      "side": 1,
+      "message": "The previous CL makes it so that satellite configs added via POST are stored in a persistent unordered_map in the Aggregator.\n\n```\n    std::string prefix \u003d bmcweb::getRandomIdOfLength(8);\n    RedfishAggregator::getInstance().currentAggregationSources.emplace(\n        prefix, *url);\n```\n\nThose configs ultimately get passed into `findSatelliteConfigs()` each time it\u0027s called.\n\n```\n        std::unordered_map\u003cstd::string, boost::urls::url\u003e satelliteInfo(\n            currentAggregationSources);\n\n        sdbusplus::message::object_path path(\"/xyz/openbmc_project/inventory\");\n        dbus::utility::getManagedObjects(\n            \"xyz.openbmc_project.EntityManager\", path,\n            [handler{std::move(handler)},\n             satelliteInfo \u003d std::move(satelliteInfo)](\n                const boost::system::error_code\u0026 ec,\n                const dbus::utility::ManagedObjectType\u0026 objects) mutable {\n                if (ec)\n                {\n                    BMCWEB_LOG_ERROR(\"DBUS response error {}, {}\", ec.value(),\n                                     ec.message());\n                    handler(ec, satelliteInfo);\n                    return;\n                }\n\n                // Maps a chosen alias representing a satellite BMC to a url\n                // containing the information required to create a http\n                // connection to the satellite\n                findSatelliteConfigs(objects, satelliteInfo);\n```\n\n`findSatelliteConfigs()` is expecting that map to be empty.\n\nIf you try to use a mix of dbus and POST satellite configs then the POST configs will always get dropped due to this check.",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 460,
+        "endChar": 21
+      },
+      "revId": "71526116e1eb38a983df0ca12de63348d37e0e9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c357c6_e2205b7d",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1106,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-09-03T23:18:03Z",
+      "side": 1,
+      "message": "You should address this (potentially as a follow-up patch) now that you\u0027re effectively enabling Redfish Aggregation with multiple satellite BMCs.\n\nYou don\u0027t have control over which satellite BMC will respond first.  The ordering in the Members array could change between subsequent queries.\n\nIt should be deterministic like:\n* local resources\n* sat1 resources\n* sat2 resources\n* etc.\n\nThe sat ordering could just be determined by alphabetical order.\n\nInstead of blindly adding to the back of the array you may have to determine where the local resources end and then insert the current resources in the proper location based on what satellites resources have already been added.\n\nYou could instead sort by the same principles at the very end, but then you\u0027d potentially have to resort for each satellite and you run the risk of changing the relative orders of the Members from a given satellite.",
+      "range": {
+        "startLine": 1089,
+        "startChar": 16,
+        "endLine": 1106,
+        "endChar": 71
+      },
+      "revId": "71526116e1eb38a983df0ca12de63348d37e0e9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
