@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78c686b3_01d1d5fb",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-04T21:24:28Z",
+      "side": 1,
+      "message": "This comment can go away.",
+      "range": {
+        "startLine": 517,
+        "startChar": 4,
+        "endLine": 518,
+        "endChar": 67
+      },
+      "revId": "42c3a3e71af184b3988da48ccd2e2ba2649c4e4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfff0d7e_65dea1f7",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-04T21:24:28Z",
+      "side": 1,
+      "message": "This comment can get rid of first and last lines.",
+      "range": {
+        "startLine": 556,
+        "startChar": 8,
+        "endLine": 558,
+        "endChar": 64
+      },
+      "revId": "42c3a3e71af184b3988da48ccd2e2ba2649c4e4a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
