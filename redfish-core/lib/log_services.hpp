@@ -715,13 +715,7 @@ inline void createDumpTaskCallback(
 inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                        const crow::Request& req, const std::string& dumpType)
 {
-    std::string dumpPath = getDumpEntriesPath(dumpType);
-    if (dumpPath.empty())
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
+    std::string dumpPath;
     std::optional<std::string> diagnosticDataType;
     std::optional<std::string> oemDiagnosticDataType;
 
