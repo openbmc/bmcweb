@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba978611_56de55dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-04T08:59:00Z",
+      "side": 1,
+      "message": "Let me study and back to this comment later.",
+      "parentUuid": "7eb625e0_9429116d",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a14759bd_f516c768",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ad475a2d_2ac1ba39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-04T08:59:00Z",
+      "side": 1,
+      "message": "Please check design doc https://gerrit.openbmc.org/c/openbmc/docs/+/79327/20/designs/bootstrap-account-access-restriction.md line #312.",
+      "parentUuid": "a14759bd_f516c768",
+      "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cb198b4a_5a6fc75a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -54,6 +96,24 @@
       "writtenOn": "2025-08-26T10:06:47Z",
       "side": 1,
       "message": "How to configure for port 443 ? Would the current implementation allow ? The meson option `additional-support-bootstrap-credetial` would allow for current operating port to work normally as well ?",
+      "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "774619bf_5946d760",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-04T08:59:00Z",
+      "side": 1,
+      "message": "With the current design of BMCWeb, you can\u0027t not configure port 443. because it is duplicated with main BMCWeb socket which are listening on all of BMC network interfaces.\nWe need drive the redfish host interface request to different BMCWeb socket which support BootStrap credentials.",
+      "parentUuid": "cb198b4a_5a6fc75a",
       "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

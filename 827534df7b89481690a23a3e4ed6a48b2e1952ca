@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8489da5_8676ca43",
+        "filename": "config/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-04T08:59:00Z",
+      "side": 1,
+      "message": "Check my above comment.",
+      "parentUuid": "506ee542_f6f43e75",
+      "revId": "827534df7b89481690a23a3e4ed6a48b2e1952ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "919c4d7e_403ab71c",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aef156ec_37cd9500",
+        "filename": "config/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-04T08:59:00Z",
+      "side": 1,
+      "message": "Yes. we require the way to identify which port support bootstrap credentials.",
+      "parentUuid": "919c4d7e_403ab71c",
+      "revId": "827534df7b89481690a23a3e4ed6a48b2e1952ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9fd6f623_2efc06a6",
         "filename": "meson.options",
         "patchSetId": 1
@@ -48,6 +84,24 @@
       "writtenOn": "2025-08-21T10:33:07Z",
       "side": 1,
       "message": "I feel we could avoid this. \nCurrently we have functionality to bind to different port. That could be sufficient right ? \nIf BIOS wants to get/set any properties for those particular URI we would add if username belongs to bootstrap and take decisions accordingly. Please share your thoughts",
+      "revId": "827534df7b89481690a23a3e4ed6a48b2e1952ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "231166ee_f9c2d850",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-04T08:59:00Z",
+      "side": 1,
+      "message": "We need this to identify which BMCWeb ports support bootStrap account credentials which is not.\nBut as Ed comment, I study using \"BootStrapAuth\".",
+      "parentUuid": "9fd6f623_2efc06a6",
       "revId": "827534df7b89481690a23a3e4ed6a48b2e1952ca",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
