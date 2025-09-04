@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b507c48_d5f6db19",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1025,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-04T01:14:19Z",
+      "side": 1,
+      "message": "Please don\u0027t make non trivial lambdas longer.  The prior was right at the edge of what shoudl be allowed.",
+      "revId": "8f6bb95943931a8a3198844ef3440f000d197db9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
