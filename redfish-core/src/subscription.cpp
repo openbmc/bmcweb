@@ -94,8 +94,8 @@ void Subscription::sendHeartbeatEvent()
     // send the heartbeat message
     nlohmann::json eventMessage = messages::redfishServiceFunctional();
     eventMessage["EventTimestamp"] = time_utils::getDateTimeOffsetNow().first;
-    eventMessage["OriginOfCondition"] =
-        std::format("/redfish/v1/EventService/Subscriptions/{}", userSub->id);
+    eventMessage["OriginOfCondition"] = boost::urls::format(
+        "/redfish/v1/EventService/Subscriptions/{}", userSub->id);
     eventMessage["MemberId"] = "0";
 
     nlohmann::json::array_t eventRecord;
