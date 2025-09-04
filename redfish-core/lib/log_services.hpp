@@ -550,42 +550,16 @@ inline DumpCreationProgress getDumpCompletionStatus(
     return DumpCreationProgress::DUMP_CREATE_INPROGRESS;
 }
 
-inline std::string getDumpEntryPath(const std::string& dumpPath)
-{
-    if (dumpPath == "/xyz/openbmc_project/dump/bmc/entry")
-    {
-        return std::format("/redfish/v1/Managers/{}/LogServices/Dump/Entries/",
-                           BMCWEB_REDFISH_MANAGER_URI_NAME);
-    }
-    if (dumpPath == "/xyz/openbmc_project/dump/system/entry")
-    {
-        return std::format("/redfish/v1/Systems/{}/LogServices/Dump/Entries/",
-                           BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    }
-    return "";
-}
-
 inline void createDumpTaskCallback(
     task::Payload&& payload,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const sdbusplus::message::object_path& createdObjPath)
 {
-    const std::string dumpPath = createdObjPath.parent_path().str;
     const std::string dumpId = createdObjPath.filename();
-
-    std::string dumpEntryPath = getDumpEntryPath(dumpPath);
-
-    if (dumpEntryPath.empty())
-    {
-        BMCWEB_LOG_ERROR("Invalid dump type received");
-        messages::internalError(asyncResp->res);
-        return;
-    }
 
     dbus::utility::async_method_call(
         asyncResp,
         [asyncResp, payload = std::move(payload), createdObjPath,
-         dumpEntryPath{std::move(dumpEntryPath)},
          dumpId](const boost::system::error_code& ec,
                  const std::string& introspectXml) {
             if (ec)
@@ -634,7 +608,7 @@ inline void createDumpTaskCallback(
             }
 
             std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-                [createdObjPath, dumpEntryPath, dumpId, isProgressIntfPresent](
+                [createdObjPath, dumpId, isProgressIntfPresent](
                     const boost::system::error_code& ec2,
                     sdbusplus::message_t& msg,
                     const std::shared_ptr<task::TaskData>& taskData) {
