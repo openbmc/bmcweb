@@ -219,19 +219,19 @@ static std::string getDumpEntriesPath(const std::string& dumpType)
     if (dumpType == "BMC")
     {
         entriesPath =
-            std::format("/redfish/v1/Managers/{}/LogServices/Dump/Entries/",
+            std::format("/redfish/v1/Managers/{}/LogServices/Dump/Entries",
                         BMCWEB_REDFISH_MANAGER_URI_NAME);
     }
     else if (dumpType == "FaultLog")
     {
         entriesPath =
-            std::format("/redfish/v1/Managers/{}/LogServices/FaultLog/Entries/",
+            std::format("/redfish/v1/Managers/{}/LogServices/FaultLog/Entries",
                         BMCWEB_REDFISH_MANAGER_URI_NAME);
     }
     else if (dumpType == "System")
     {
         entriesPath =
-            std::format("/redfish/v1/Systems/{}/LogServices/Dump/Entries/",
+            std::format("/redfish/v1/Systems/{}/LogServices/Dump/Entries",
                         BMCWEB_REDFISH_SYSTEM_URI_NAME);
     }
     else
@@ -268,12 +268,7 @@ inline void getDumpEntryCollection(
                 return;
             }
 
-            // Remove ending slash
             std::string odataIdStr = entriesPath;
-            if (!odataIdStr.empty())
-            {
-                odataIdStr.pop_back();
-            }
 
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogEntryCollection.LogEntryCollection";
@@ -325,7 +320,7 @@ inline void getDumpEntryCollection(
 
                 thisEntry["@odata.type"] = "#LogEntry.v1_11_0.LogEntry";
                 thisEntry["@odata.id"] =
-                    boost::urls::format("{}{}", entriesPath, entryID);
+                    boost::urls::format("{}/{}", entriesPath, entryID);
                 thisEntry["Id"] = entryID;
                 thisEntry["EntryType"] = "Event";
                 thisEntry["Name"] = dumpType + " Dump Entry";
@@ -342,7 +337,7 @@ inline void getDumpEntryCollection(
                 {
                     thisEntry["DiagnosticDataType"] = "Manager";
                     thisEntry["AdditionalDataURI"] = boost::urls::format(
-                        "{}{}/attachment", entriesPath, entryID);
+                        "{}/{}/attachment", entriesPath, entryID);
                     thisEntry["AdditionalDataSizeBytes"] = size;
                 }
                 else if (dumpType == "System")
@@ -350,7 +345,7 @@ inline void getDumpEntryCollection(
                     thisEntry["DiagnosticDataType"] = "OEM";
                     thisEntry["OEMDiagnosticDataType"] = "System";
                     thisEntry["AdditionalDataURI"] = boost::urls::format(
-                        "{}{}/attachment", entriesPath, entryID);
+                        "{}/{}/attachment", entriesPath, entryID);
                     thisEntry["AdditionalDataSizeBytes"] = size;
                 }
                 entriesArray.emplace_back(std::move(thisEntry));
@@ -421,7 +416,7 @@ inline void getDumpEntryById(
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#LogEntry.v1_11_0.LogEntry";
                 asyncResp->res.jsonValue["@odata.id"] =
-                    boost::urls::format("{}{}", entriesPath, entryID);
+                    boost::urls::format("{}/{}", entriesPath, entryID);
                 asyncResp->res.jsonValue["Id"] = entryID;
                 asyncResp->res.jsonValue["EntryType"] = "Event";
                 asyncResp->res.jsonValue["Name"] = dumpType + " Dump Entry";
@@ -438,7 +433,7 @@ inline void getDumpEntryById(
                 {
                     asyncResp->res.jsonValue["DiagnosticDataType"] = "Manager";
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
-                        boost::urls::format("{}{}/attachment", entriesPath,
+                        boost::urls::format("{}/{}/attachment", entriesPath,
                                             entryID);
                     asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
                 }
@@ -448,7 +443,7 @@ inline void getDumpEntryById(
                     asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
                         "System";
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
-                        boost::urls::format("{}{}/attachment", entriesPath,
+                        boost::urls::format("{}/{}/attachment", entriesPath,
                                             entryID);
                     asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
                 }
