@@ -131,7 +131,7 @@ inline void handleSystemsAndManagersEventLogServiceGet(
         return;
     }
 
-    asyncResp->res.jsonValue["@odata.id"] = std::format(
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/{}/{}/LogServices/EventLog", collectionStr, memberId);
     asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
     asyncResp->res.jsonValue["Name"] = "Event Log Service";
@@ -149,11 +149,11 @@ inline void handleSystemsAndManagersEventLogServiceGet(
         redfishDateTimeOffset.second;
 
     asyncResp->res.jsonValue["Entries"]["@odata.id"] =
-        std::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
-                    collectionStr, memberId);
+        boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
+                            collectionStr, memberId);
     asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]["target"]
 
-        = std::format(
+        = boost::urls::format(
             "/redfish/v1/{}/{}/LogServices/EventLog/Actions/LogService.ClearLog",
             collectionStr, memberId);
     etag_utils::setEtagOmitDateTimeHandler(asyncResp);
@@ -359,8 +359,8 @@ inline void handleSystemsAndManagersLogServiceEventLogLogEntryCollection(
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogEntryCollection.LogEntryCollection";
     asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
-                    collectionStr, memberId);
+        boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
+                            collectionStr, memberId);
     asyncResp->res.jsonValue["Name"] =
         std::format("{} Event Log Entries", logEntryDescriptor);
     asyncResp->res.jsonValue["Description"] =
@@ -684,8 +684,8 @@ inline void dBusEventLogEntryCollection(
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogEntryCollection.LogEntryCollection";
     asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
-                    collectionStr, memberId);
+        boost::urls::format("/redfish/v1/{}/{}/LogServices/EventLog/Entries",
+                            collectionStr, memberId);
     asyncResp->res.jsonValue["Name"] =
         std::format("{} Event Log Entries", logEntryDescriptor);
     asyncResp->res.jsonValue["Description"] =
