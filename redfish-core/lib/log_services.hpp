@@ -218,21 +218,21 @@ static std::string getDumpEntriesPath(const std::string& dumpType)
 
     if (dumpType == "BMC")
     {
-        entriesPath =
-            std::format("/redfish/v1/Managers/{}/LogServices/Dump/Entries/",
-                        BMCWEB_REDFISH_MANAGER_URI_NAME);
+        entriesPath = boost::urls::format(
+            "/redfish/v1/Managers/{}/LogServices/Dump/Entries/",
+            BMCWEB_REDFISH_MANAGER_URI_NAME);
     }
     else if (dumpType == "FaultLog")
     {
-        entriesPath =
-            std::format("/redfish/v1/Managers/{}/LogServices/FaultLog/Entries/",
-                        BMCWEB_REDFISH_MANAGER_URI_NAME);
+        entriesPath = boost::urls::format(
+            "/redfish/v1/Managers/{}/LogServices/FaultLog/Entries/",
+            BMCWEB_REDFISH_MANAGER_URI_NAME);
     }
     else if (dumpType == "System")
     {
-        entriesPath =
-            std::format("/redfish/v1/Systems/{}/LogServices/Dump/Entries/",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        entriesPath = boost::urls::format(
+            "/redfish/v1/Systems/{}/LogServices/Dump/Entries/",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME);
     }
     else
     {
@@ -555,13 +555,15 @@ inline std::string getDumpEntryPath(const std::string& dumpPath)
 {
     if (dumpPath == "/xyz/openbmc_project/dump/bmc/entry")
     {
-        return std::format("/redfish/v1/Managers/{}/LogServices/Dump/Entries/",
-                           BMCWEB_REDFISH_MANAGER_URI_NAME);
+        return boost::urls::format(
+            "/redfish/v1/Managers/{}/LogServices/Dump/Entries/",
+            BMCWEB_REDFISH_MANAGER_URI_NAME);
     }
     if (dumpPath == "/xyz/openbmc_project/dump/system/entry")
     {
-        return std::format("/redfish/v1/Systems/{}/LogServices/Dump/Entries/",
-                           BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        return boost::urls::format(
+            "/redfish/v1/Systems/{}/LogServices/Dump/Entries/",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME);
     }
     return "";
 }
@@ -748,8 +750,9 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             messages::internalError(asyncResp->res);
             return;
         }
-        dumpPath = std::format("/redfish/v1/Systems/{}/LogServices/Dump/",
-                               BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        dumpPath =
+            boost::urls::format("/redfish/v1/Systems/{}/LogServices/Dump/",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
     }
     else if (dumpType == "BMC")
     {
@@ -768,8 +771,9 @@ inline void createDump(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
             messages::internalError(asyncResp->res);
             return;
         }
-        dumpPath = std::format("/redfish/v1/Managers/{}/LogServices/Dump/",
-                               BMCWEB_REDFISH_MANAGER_URI_NAME);
+        dumpPath =
+            boost::urls::format("/redfish/v1/Managers/{}/LogServices/Dump/",
+                                BMCWEB_REDFISH_MANAGER_URI_NAME);
     }
     else
     {
@@ -925,7 +929,7 @@ inline void handleSystemsLogServiceCollectionGet(
     // because it has a duplicate entry for members
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogServiceCollection.LogServiceCollection";
-    asyncResp->res.jsonValue["@odata.id"] = std::format(
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
         "/redfish/v1/Systems/{}/LogServices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["Name"] = "System Log Services Collection";
     asyncResp->res.jsonValue["Description"] =
@@ -938,8 +942,8 @@ inline void handleSystemsLogServiceCollectionGet(
     {
         nlohmann::json::object_t eventLog;
         eventLog["@odata.id"] =
-            std::format("/redfish/v1/Systems/{}/LogServices/EventLog",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+            boost::urls::format("/redfish/v1/Systems/{}/LogServices/EventLog",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
         logServiceArray.emplace_back(std::move(eventLog));
     }
 
@@ -947,8 +951,8 @@ inline void handleSystemsLogServiceCollectionGet(
     {
         nlohmann::json::object_t dumpLog;
         dumpLog["@odata.id"] =
-            std::format("/redfish/v1/Systems/{}/LogServices/Dump",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+            boost::urls::format("/redfish/v1/Systems/{}/LogServices/Dump",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
         logServiceArray.emplace_back(std::move(dumpLog));
     }
 
@@ -956,8 +960,8 @@ inline void handleSystemsLogServiceCollectionGet(
     {
         nlohmann::json::object_t crashdump;
         crashdump["@odata.id"] =
-            std::format("/redfish/v1/Systems/{}/LogServices/Crashdump",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+            boost::urls::format("/redfish/v1/Systems/{}/LogServices/Crashdump",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
         logServiceArray.emplace_back(std::move(crashdump));
     }
 
@@ -965,8 +969,8 @@ inline void handleSystemsLogServiceCollectionGet(
     {
         nlohmann::json::object_t hostlogger;
         hostlogger["@odata.id"] =
-            std::format("/redfish/v1/Systems/{}/LogServices/HostLogger",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+            boost::urls::format("/redfish/v1/Systems/{}/LogServices/HostLogger",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
         logServiceArray.emplace_back(std::move(hostlogger));
     }
     asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
@@ -991,9 +995,9 @@ inline void handleSystemsLogServiceCollectionGet(
                     nlohmann::json& logServiceArrayLocal =
                         asyncResp->res.jsonValue["Members"];
                     nlohmann::json::object_t member;
-                    member["@odata.id"] = std::format(
-                        "/redfish/v1/Systems/{}/LogServices/PostCodes",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                    "/redfish/v1/Systems/{}/LogServices/PostCodes",
+                        member["@odata.id"] =
+                            boost::urls::format(BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
                     logServiceArrayLocal.emplace_back(std::move(member));
 
@@ -1157,22 +1161,25 @@ inline void getDumpServiceInfo(
 
     if (dumpType == "BMC")
     {
-        dumpPath = std::format("/redfish/v1/Managers/{}/LogServices/Dump",
-                               BMCWEB_REDFISH_MANAGER_URI_NAME);
+        dumpPath =
+            boost::urls::format("/redfish/v1/Managers/{}/LogServices/Dump",
+                                BMCWEB_REDFISH_MANAGER_URI_NAME);
         overWritePolicy = log_service::OverWritePolicy::WrapsWhenFull;
         collectDiagnosticDataSupported = true;
     }
     else if (dumpType == "FaultLog")
     {
-        dumpPath = std::format("/redfish/v1/Managers/{}/LogServices/FaultLog",
-                               BMCWEB_REDFISH_MANAGER_URI_NAME);
+        dumpPath =
+            boost::urls::format("/redfish/v1/Managers/{}/LogServices/FaultLog",
+                                BMCWEB_REDFISH_MANAGER_URI_NAME);
         overWritePolicy = log_service::OverWritePolicy::Unknown;
         collectDiagnosticDataSupported = false;
     }
     else if (dumpType == "System")
     {
-        dumpPath = std::format("/redfish/v1/Systems/{}/LogServices/Dump",
-                               BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        dumpPath =
+            boost::urls::format("/redfish/v1/Systems/{}/LogServices/Dump",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
         overWritePolicy = log_service::OverWritePolicy::WrapsWhenFull;
         collectDiagnosticDataSupported = true;
     }
@@ -1673,9 +1680,9 @@ inline void requestRoutesCrashdumpService(App& app)
 
             // Copy over the static data to include the entries added by
             // SubRoute
-            asyncResp->res.jsonValue["@odata.id"] =
-                std::format("/redfish/v1/Systems/{}/LogServices/Crashdump",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+                "/redfish/v1/Systems/{}/LogServices/Crashdump",
+                BMCWEB_REDFISH_SYSTEM_URI_NAME);
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogService.v1_2_0.LogService";
             asyncResp->res.jsonValue["Name"] = "Open BMC Oem Crashdump Service";
@@ -1691,16 +1698,17 @@ inline void requestRoutesCrashdumpService(App& app)
             asyncResp->res.jsonValue["DateTimeLocalOffset"] =
                 redfishDateTimeOffset.second;
 
-            asyncResp->res.jsonValue["Entries"]["@odata.id"] = std::format(
-                "/redfish/v1/Systems/{}/LogServices/Crashdump/Entries",
-                BMCWEB_REDFISH_SYSTEM_URI_NAME);
+            asyncResp->res.jsonValue["Entries"]["@odata.id"] =
+                boost::urls::format(
+                    "/redfish/v1/Systems/{}/LogServices/Crashdump/Entries",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
             asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"]
-                                    ["target"] = std::format(
+                                    ["target"] = boost::urls::format(
                 "/redfish/v1/Systems/{}/LogServices/Crashdump/Actions/LogService.ClearLog",
                 BMCWEB_REDFISH_SYSTEM_URI_NAME);
             asyncResp->res
                 .jsonValue["Actions"]["#LogService.CollectDiagnosticData"]
-                          ["target"] = std::format(
+                          ["target"] = boost::urls::format(
                 "/redfish/v1/Systems/{}/LogServices/Crashdump/Actions/LogService.CollectDiagnosticData",
                 BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
@@ -1788,7 +1796,7 @@ inline void logCrashdumpEntry(
             }
 
             std::string crashdumpURI =
-                std::format(
+                boost::urls::format(
                     "/redfish/v1/Systems/{}/LogServices/Crashdump/Entries/",
                     BMCWEB_REDFISH_SYSTEM_URI_NAME) +
                 logID + "/" + filename;
@@ -1874,7 +1882,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                     }
                     asyncResp->res.jsonValue["@odata.type"] =
                         "#LogEntryCollection.LogEntryCollection";
-                    asyncResp->res.jsonValue["@odata.id"] = std::format(
+                    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
                         "/redfish/v1/Systems/{}/LogServices/Crashdump/Entries",
                         BMCWEB_REDFISH_SYSTEM_URI_NAME);
                     asyncResp->res.jsonValue["Name"] =
