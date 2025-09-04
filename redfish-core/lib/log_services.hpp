@@ -340,16 +340,16 @@ inline void getDumpEntryCollection(
                 if (dumpType == "BMC")
                 {
                     thisEntry["DiagnosticDataType"] = "Manager";
-                    thisEntry["AdditionalDataURI"] =
-                        entriesPath + entryID + "/attachment";
+                    thisEntry["AdditionalDataURI"] = boost::urls::format(
+                        "{}{}/attachment", entriesPath, entryID);
                     thisEntry["AdditionalDataSizeBytes"] = size;
                 }
                 else if (dumpType == "System")
                 {
                     thisEntry["DiagnosticDataType"] = "OEM";
                     thisEntry["OEMDiagnosticDataType"] = "System";
-                    thisEntry["AdditionalDataURI"] =
-                        entriesPath + entryID + "/attachment";
+                    thisEntry["AdditionalDataURI"] = boost::urls::format(
+                        "{}{}/attachment", entriesPath, entryID);
                     thisEntry["AdditionalDataSizeBytes"] = size;
                 }
                 entriesArray.emplace_back(std::move(thisEntry));
@@ -436,7 +436,8 @@ inline void getDumpEntryById(
                 {
                     asyncResp->res.jsonValue["DiagnosticDataType"] = "Manager";
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
-                        entriesPath + entryID + "/attachment";
+                        boost::urls::format("{}{}/attachment", entriesPath,
+                                            entryID);
                     asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
                 }
                 else if (dumpType == "System")
@@ -445,7 +446,8 @@ inline void getDumpEntryById(
                     asyncResp->res.jsonValue["OEMDiagnosticDataType"] =
                         "System";
                     asyncResp->res.jsonValue["AdditionalDataURI"] =
-                        entriesPath + entryID + "/attachment";
+                        boost::urls::format("{}{}/attachment", entriesPath,
+                                            entryID);
                     asyncResp->res.jsonValue["AdditionalDataSizeBytes"] = size;
                 }
             }
@@ -1787,11 +1789,6 @@ inline void logCrashdumpEntry(
                 return;
             }
 
-            std::string crashdumpURI =
-                std::format(
-                    "/redfish/v1/Systems/{}/LogServices/Crashdump/Entries/",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME) +
-                logID + "/" + filename;
             nlohmann::json::object_t logEntry;
             logEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
             logEntry["@odata.id"] = boost::urls::format(
@@ -1800,7 +1797,9 @@ inline void logCrashdumpEntry(
             logEntry["Name"] = "CPU Crashdump";
             logEntry["Id"] = logID;
             logEntry["EntryType"] = log_entry::LogEntryType::Oem;
-            logEntry["AdditionalDataURI"] = std::move(crashdumpURI);
+            logEntry["AdditionalDataURI"] = boost::urls::format(
+                "/redfish/v1/Systems/{}/LogServices/Crashdump/Entries/{}/{}",
+                BMCWEB_REDFISH_SYSTEM_URI_NAME, logID, filename);
             logEntry["DiagnosticDataType"] = "OEM";
             logEntry["OEMDiagnosticDataType"] = "PECICrashdump";
             logEntry["Created"] = std::move(timestamp);
