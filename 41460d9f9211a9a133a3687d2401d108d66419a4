@@ -33,6 +33,24 @@
       "message": "I fixed the patch for you (I think).  Please verify it still does what you intended.",
       "revId": "41460d9f9211a9a133a3687d2401d108d66419a4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83ee9abd_fe4e298f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002583
+      },
+      "writtenOn": "2025-09-04T23:30:08Z",
+      "side": 1,
+      "message": "sorry for the delay, just got to look at this. it looks like this patch fixes the formatting in redfish_sessions, but reverted the other two files? so effectively removing the actual fix?",
+      "parentUuid": "2003cd09_4c58d599",
+      "revId": "41460d9f9211a9a133a3687d2401d108d66419a4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
