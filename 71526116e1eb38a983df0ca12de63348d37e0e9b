@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e1042c_a9e71141",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001303
+      },
+      "writtenOn": "2025-09-04T00:05:26Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t know the patch was committed until after I submitted these comments.  Please ignore.",
+      "parentUuid": "aba49342_9e76f4ac",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 37
+      },
+      "revId": "71526116e1eb38a983df0ca12de63348d37e0e9b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7c680557_72578d32",
