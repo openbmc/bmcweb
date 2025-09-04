@@ -43,6 +43,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4d1c55b0_97dde642",
+        "filename": "redfish-core/include/utils/log_services_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-04T20:02:12Z",
+      "side": 1,
+      "message": "The source file also had a copyright comment for Apache, is that no longer needed?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "b374b93a6419df8bcfb3213785ecee870bdc60e3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bb581b86_1145373e",
         "filename": "redfish-core/include/utils/log_services_utils.hpp",
         "patchSetId": 1
