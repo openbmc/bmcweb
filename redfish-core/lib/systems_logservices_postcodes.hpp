@@ -74,17 +74,17 @@ inline void handleSystemsLogServicesPostCodesGet(
         return;
     }
     asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/LogServices/PostCodes",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        boost::urls::format("/redfish/v1/Systems/{}/LogServices/PostCodes",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["@odata.type"] = "#LogService.v1_2_0.LogService";
     asyncResp->res.jsonValue["Name"] = "POST Code Log Service";
     asyncResp->res.jsonValue["Description"] = "POST Code Log Service";
     asyncResp->res.jsonValue["Id"] = "PostCodes";
     asyncResp->res.jsonValue["OverWritePolicy"] =
         log_service::OverWritePolicy::WrapsWhenFull;
-    asyncResp->res.jsonValue["Entries"]["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/LogServices/PostCodes/Entries",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["Entries"]["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/LogServices/PostCodes/Entries",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
     std::pair<std::string, std::string> redfishDateTimeOffset =
         redfish::time_utils::getDateTimeOffsetNow();
@@ -488,9 +488,9 @@ inline void handleSystemsLogServicesPostCodesEntriesGet(
     }
     asyncResp->res.jsonValue["@odata.type"] =
         "#LogEntryCollection.LogEntryCollection";
-    asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/LogServices/PostCodes/Entries",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/LogServices/PostCodes/Entries",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["Name"] = "BIOS POST Code Log Entries";
     asyncResp->res.jsonValue["Description"] =
         "Collection of POST Code Log Entries";
