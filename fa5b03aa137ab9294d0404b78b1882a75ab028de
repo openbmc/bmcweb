@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11d73fe1_b144a72a",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-04T01:17:58Z",
+      "side": 1,
+      "message": "lets call this \"event log location\" and have enums of manager and systems",
+      "range": {
+        "startLine": 156,
+        "startChar": 13,
+        "endLine": 156,
+        "endChar": 25
+      },
+      "revId": "fa5b03aa137ab9294d0404b78b1882a75ab028de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f6d2e47_6f99f57f",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-04T01:17:58Z",
+      "side": 1,
+      "message": "Nothing new should be using this lambda pattern.  write methods and put requestRoutesBMCEventLogService at the bottom of the file.",
+      "range": {
+        "startLine": 1050,
+        "startChar": 0,
+        "endLine": 1064,
+        "endChar": 13
+      },
+      "revId": "fa5b03aa137ab9294d0404b78b1882a75ab028de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
