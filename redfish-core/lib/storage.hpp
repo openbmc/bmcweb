@@ -1047,8 +1047,8 @@ inline void handleSystemsStorageControllerCollectionGet(
     asyncResp->res.jsonValue["@odata.type"] =
         "#StorageControllerCollection.StorageControllerCollection";
     asyncResp->res.jsonValue["@odata.id"] =
-        std::format("/redfish/v1/Systems/{}/Storage/1/Controllers",
-                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        boost::urls::format("/redfish/v1/Systems/{}/Storage/1/Controllers",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
     asyncResp->res.jsonValue["Name"] = "Storage Controller Collection";
 
     constexpr std::array<std::string_view, 1> interfaces = {
