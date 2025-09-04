@@ -212,27 +212,27 @@ inline void parseDumpEntryFromDbusObject(
     }
 }
 
-static std::string getDumpEntriesPath(const std::string& dumpType)
+static boost::urls::url getDumpEntriesPath(const std::string& dumpType)
 {
-    std::string entriesPath;
+    boost::urls::url entriesPath;
 
     if (dumpType == "BMC")
     {
-        entriesPath =
-            std::format("/redfish/v1/Managers/{}/LogServices/Dump/Entries",
-                        BMCWEB_REDFISH_MANAGER_URI_NAME);
+        entriesPath = boost::urls::format(
+            "/redfish/v1/Managers/{}/LogServices/Dump/Entries",
+            BMCWEB_REDFISH_MANAGER_URI_NAME);
     }
     else if (dumpType == "FaultLog")
     {
-        entriesPath =
-            std::format("/redfish/v1/Managers/{}/LogServices/FaultLog/Entries",
-                        BMCWEB_REDFISH_MANAGER_URI_NAME);
+        entriesPath = boost::urls::format(
+            "/redfish/v1/Managers/{}/LogServices/FaultLog/Entries",
+            BMCWEB_REDFISH_MANAGER_URI_NAME);
     }
     else if (dumpType == "System")
     {
-        entriesPath =
-            std::format("/redfish/v1/Systems/{}/LogServices/Dump/Entries",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        entriesPath = boost::urls::format(
+            "/redfish/v1/Systems/{}/LogServices/Dump/Entries",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME);
     }
     else
     {
@@ -248,7 +248,7 @@ inline void getDumpEntryCollection(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& dumpType)
 {
-    std::string entriesPath = getDumpEntriesPath(dumpType);
+    boost::urls::url entriesPath = getDumpEntriesPath(dumpType);
     if (entriesPath.empty())
     {
         messages::internalError(asyncResp->res);
@@ -268,7 +268,7 @@ inline void getDumpEntryCollection(
                 return;
             }
 
-            std::string odataIdStr = entriesPath;
+            boost::urls::url odataIdStr = entriesPath;
 
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogEntryCollection.LogEntryCollection";
@@ -360,7 +360,7 @@ inline void getDumpEntryById(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& entryID, const std::string& dumpType)
 {
-    std::string entriesPath = getDumpEntriesPath(dumpType);
+    boost::urls::url entriesPath = getDumpEntriesPath(dumpType);
     if (entriesPath.empty())
     {
         messages::internalError(asyncResp->res);
