@@ -1005,7 +1005,7 @@ inline void getOperatingConfigData(
  */
 inline void patchAppliedOperatingConfig(
     const std::shared_ptr<bmcweb::AsyncResp>& resp,
-    const std::string& processorId, const std::string& appliedConfigUri,
+    const std::string& processorId, const boost::urls::url& appliedConfigUri,
     const std::string& cpuObjectPath,
     const dbus::utility::MapperServiceMap& serviceMap)
 {
@@ -1029,11 +1029,10 @@ inline void patchAppliedOperatingConfig(
     }
 
     // Check that the config URI is a child of the cpu URI being patched.
-    std::string expectedPrefix(std::format("/redfish/v1/Systems/{}/Processors/",
-                                           BMCWEB_REDFISH_SYSTEM_URI_NAME));
-    expectedPrefix += processorId;
-    expectedPrefix += "/OperatingConfigs/";
-    if (!appliedConfigUri.starts_with(expectedPrefix) ||
+    boost::urls::url expectedPrefix = boost::urls::format(
+        "/redfish/v1/Systems/{}/Processors/{}/OperatingConfigs",
+        BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId, expectedPrefix);
+    if (!appliedConfigUri.buffer().starts_with(expectedPrefix.buffer()) ||
         expectedPrefix.size() == appliedConfigUri.size())
     {
         messages::propertyValueIncorrect(resp->res, "AppliedOperatingConfig",
@@ -1045,7 +1044,8 @@ inline void patchAppliedOperatingConfig(
     // direct child of the CPU object.
     // Strip the expectedPrefix from the config URI to get the "filename", and
     // append to the CPU's path.
-    std::string configBaseName = appliedConfigUri.substr(expectedPrefix.size());
+    std::string configBaseName =
+        appliedConfigUri.buffer().substr(expectedPrefix.buffer().size());
     sdbusplus::message::object_path configPath(cpuObjectPath);
     configPath /= configBaseName;
 
@@ -1117,7 +1117,7 @@ inline void handleProcessorGet(
 inline void doPatchProcessor(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& processorId,
-    const std::optional<std::string>& appliedConfigUri,
+    const std::optional<boost::urls::url>& appliedConfigUri,
     std::optional<bool> locationIndicatorActive, const std::string& objectPath,
     const dbus::utility::MapperServiceMap& serviceMap)
 {
@@ -1158,15 +1158,28 @@ inline void handleProcessorPatch(
         return;
     }
 
-    std::optional<std::string> appliedConfigUri;
+    std::optional<std::string> appliedConfigStr;
     std::optional<bool> locationIndicatorActive;
     if (!json_util::readJsonPatch(
             req, asyncResp->res,                                  //
-            "AppliedOperatingConfig/@odata.id", appliedConfigUri, //
+            "AppliedOperatingConfig/@odata.id", appliedConfigStr, //
             "LocationIndicatorActive", locationIndicatorActive    //
             ))
     {
         return;
+    }
+    std::optional<boost::urls::url> appliedConfigUri;
+    if (appliedConfigStr)
+    {
+        boost::system::result<boost::urls::url> parsed =
+            boost::urls::parse_relative_ref(*appliedConfigStr);
+        if (!parsed)
+        {
+            messages::propertyValueFormatError(
+                asyncResp->res, "AppliedOperatingConfig", *appliedConfigStr);
+            return;
+        }
+        appliedConfigUri = std::move(*parsed);
     }
 
     // Check for 404 and find matching D-Bus object, then run
@@ -1385,8 +1398,8 @@ inline void requestRoutesProcessorCollection(App& app)
             asyncResp->res.jsonValue["Name"] = "Processor Collection";
 
             asyncResp->res.jsonValue["@odata.id"] =
-                std::format("/redfish/v1/Systems/{}/Processors",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                boost::urls::format("/redfish/v1/Systems/{}/Processors",
+                                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
             collection_util::getCollectionMembers(
                 asyncResp,
