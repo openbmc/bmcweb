@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a81a8d9_d1ba067a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-05T17:54:07Z",
+      "side": 1,
+      "message": "Where? I didn\u0027t find it at the link found in the code \nhttps://owasp.org/www-project-secure-headers/ci/headers_add.json\n\nAny testing we can do here?",
+      "revId": "a63f631432be9e546f634af9d8050203ffd08ad7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "002c308d_41fedc94",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-05T17:54:07Z",
+      "side": 1,
+      "message": "Makes sense",
+      "revId": "a63f631432be9e546f634af9d8050203ffd08ad7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70e1f3c0_b41486e2",
+        "filename": "include/security_headers.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-05T17:54:07Z",
+      "side": 1,
+      "message": "I don\u0027t see it here https://owasp.org/www-project-secure-headers/ci/headers_add.json \n\nYou looking somewhere else?",
+      "revId": "a63f631432be9e546f634af9d8050203ffd08ad7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
