@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4f1bca93_e6977168",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-05T07:28:54Z",
+      "side": 1,
+      "message": "I updated the code to support enum \u0027bootstrapauth` to option `additional-auth` as you said.\nplease help check.",
+      "parentUuid": "ba978611_56de55dc",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a14759bd_f516c768",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
