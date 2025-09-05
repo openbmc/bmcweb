@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "35a8e4d6_8fba9722",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-05T08:55:13Z",
+      "side": 1,
+      "message": "Do you have any suggestions on the name? How about adding new option to configure Redfish Host Interface URL name?",
+      "parentUuid": "a403da7f_c3329378",
+      "range": {
+        "startLine": 14,
+        "startChar": 27,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "726b49acb46fe992fca7ba7b81a81a6e6c8f3620",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2c0c6c79_03121ba4",
         "filename": "redfish-core/lib/host_interface.hpp",
         "patchSetId": 3
@@ -54,6 +78,30 @@
       "writtenOn": "2025-08-26T20:20:44Z",
       "side": 1,
       "message": "You\u0027re already in the redfish namespace, no need to declare it again.",
+      "range": {
+        "startLine": 21,
+        "startChar": 9,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "726b49acb46fe992fca7ba7b81a81a6e6c8f3620",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "825ac6d3_004f2948",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-05T08:55:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "2c0c6c79_03121ba4",
       "range": {
         "startLine": 21,
         "startChar": 9,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4199454c_37100fcf",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-05T08:55:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "11d3cac6_cd678b4a",
+      "range": {
+        "startLine": 28,
+        "startChar": 61,
+        "endLine": 28,
+        "endChar": 64
+      },
+      "revId": "726b49acb46fe992fca7ba7b81a81a6e6c8f3620",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64e0341e_cfb2608c",
@@ -104,6 +176,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c1ed808_c38ce391",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-05T08:55:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "64e0341e_cfb2608c",
+      "revId": "726b49acb46fe992fca7ba7b81a81a6e6c8f3620",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75435de2_e759c6f1",
@@ -117,6 +207,24 @@
       "writtenOn": "2025-08-26T10:02:33Z",
       "side": 1,
       "message": "Why is this required ? \nShould it not be BMCWEB_REDFISH_MANAGER_URI_NAME ? \nIf we want to specify BMCWEB_REDFISH_HOST_INTERFACE_URI_NAME then it should be from meson options. Hardcoding would fail for many platforms",
+      "revId": "726b49acb46fe992fca7ba7b81a81a6e6c8f3620",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6385bfdb_14382629",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-05T08:55:13Z",
+      "side": 1,
+      "message": "In the URL `/redfish/v1/Managers/bmc/HostInterfaces/bmc`. First `bmc` is BMCWEB_REDFISH_MANAGER_URI_NAME and the second one is `BMCWEB_REDFISH_HOST_INTERFACE_URI_NAME`. Adding build option is one solution to. I will update the code when have the feedback from Ed in different comment.",
+      "parentUuid": "75435de2_e759c6f1",
       "revId": "726b49acb46fe992fca7ba7b81a81a6e6c8f3620",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -161,6 +269,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f689bdd_b0388505",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-05T08:55:13Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "38eb1991_3859108b",
+      "range": {
+        "startLine": 94,
+        "startChar": 72,
+        "endLine": 94,
+        "endChar": 74
+      },
+      "revId": "726b49acb46fe992fca7ba7b81a81a6e6c8f3620",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da2c7302_78cbe828",
@@ -186,6 +318,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24b5bb47_7b5b7f9a",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-05T08:55:13Z",
+      "side": 1,
+      "message": "In CredentialBootStrapping there are two properties \"EnabledAfterReset\" and \"Enabled\". DSP0270 detailed the case when these values are changed:\n\n\"Upon normal completion of this command, the Enabled property within the CredentialBootstrapping\nproperty of the host interface resource shall be set to false , unless the \"disable credential\nbootstrapping control\" parameter of the command contains the value A5h.\"\n\n\"If the EnableAfterReset property within the CredentialBootstrapping property of the host interface\nresource is true , services shall set the Enabled property within the CredentialBootstrapping property\nof the host interface resource to true :\n• On any reset of the service.\n• On any reset of the host.\"\n\nSo I don\u0027t think we can hardcode them.\n\nIn the other patch set with the same topic, I added on option to set the default value of EnabledAfterReset when the phosphor-user-manager or BMC is reset.\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-user-manager/+/82360/4/meson.options",
+      "parentUuid": "da2c7302_78cbe828",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 13
+      },
+      "revId": "726b49acb46fe992fca7ba7b81a81a6e6c8f3620",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7e2ffbe1_939b0598",
         "filename": "redfish-core/src/redfish.cpp",
         "patchSetId": 3
@@ -197,6 +353,30 @@
       "writtenOn": "2025-08-26T20:20:44Z",
       "side": 1,
       "message": "Not all systems have a host interface.  We need to make sure this is only installed if that interface is supported and available.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 30
+      },
+      "revId": "726b49acb46fe992fca7ba7b81a81a6e6c8f3620",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f7d492f_21476d60",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-05T08:55:13Z",
+      "side": 1,
+      "message": "Should I add build option?",
+      "parentUuid": "7e2ffbe1_939b0598",
       "range": {
         "startLine": 78,
         "startChar": 4,
