@@ -2810,6 +2810,10 @@ inline void handleComputerSystemCollectionGet(
     system["@odata.id"] = boost::urls::format("/redfish/v1/Systems/{}",
                                               BMCWEB_REDFISH_SYSTEM_URI_NAME);
     ifaceArray.emplace_back(std::move(system));
+    ifaceArray.emplace_back(
+        nlohmann::json::object_t{{"@odata.id", "/redfish/v1/Systems/Device"}});
+    asyncResp->res.jsonValue["Members@odata.count"] = ifaceArray.size();
+
     sdbusplus::asio::getProperty<std::string>(
         *crow::connections::systemBus, "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/network/hypervisor",
@@ -3049,6 +3053,15 @@ inline void
         return;
     }
 
+    if (systemName.starts_with("Device"))
+    {
+        // Add SocConfiguration sub-resource link
+        asyncResp->res.jsonValue["NetworkAdapterCollection"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/NetworkAdapters/0",
+                                systemName);
+        return;
+    }
+
     if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
     {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
@@ -3139,7 +3152,8 @@ inline void
 
     if (isMultiHostEnable)
     {
-        //for now enable Host status, TODO need to enable rest of system function
+        // for now enable Host status, TODO need to enable rest of system
+        // function
         getHostState(asyncResp, hostNumber);
     }
     else
