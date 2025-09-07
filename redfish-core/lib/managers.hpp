@@ -255,8 +255,7 @@ inline void requestRoutesManagerResetToDefaultsAction(App& app)
             // Factory Reset doesn't actually happen until a reboot
             // Can't erase what the BMC is running on
             doBMCGracefulRestart(asyncResp);
-        },
-            "xyz.openbmc_project.Software.BMC.Updater",
+        }, "xyz.openbmc_project.Software.BMC.Updater",
             "/xyz/openbmc_project/software",
             "xyz.openbmc_project.Common.FactoryReset", "Reset");
     });
@@ -859,8 +858,7 @@ inline CreatePIDRet createPidInterface(
                 return;
             }
             messages::success(response->res);
-        },
-            "xyz.openbmc_project.EntityManager", path, iface, "Delete");
+        }, "xyz.openbmc_project.EntityManager", path, iface, "Delete");
         return CreatePIDRet::del;
     }
 
@@ -1365,8 +1363,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             std::pair<std::string, std::optional<nlohmann::json::object_t>>>&&
             configurationsIn,
         std::optional<std::string>& profileIn) :
-        asyncResp(asyncRespIn),
-        configuration(std::move(configurationsIn)),
+        asyncResp(asyncRespIn), configuration(std::move(configurationsIn)),
         profile(std::move(profileIn))
     {}
 
@@ -1677,8 +1674,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                             return;
                         }
                         messages::success(response->res);
-                    },
-                        "xyz.openbmc_project.EntityManager", chassis,
+                    }, "xyz.openbmc_project.EntityManager", chassis,
                         "xyz.openbmc_project.AddObject", "AddObject", output);
                 }
             }
@@ -1988,7 +1984,22 @@ inline void requestRoutesManager(App& app)
         asyncResp->res.jsonValue["ManagerType"] = "BMC";
         asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
         asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
-        asyncResp->res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::string& socId) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Failed to read soc_id from U-Boot env: ", ec);
+                asyncResp->res.jsonValue["Model"] = "OpenBMC";
+                return;
+            }
+            // Add SoC ID as "Model" or a custom field in Redfish Manager
+            asyncResp->res.jsonValue["Model"] = socId;
+        },
+            "xyz.openbmc_project.U_Boot.Environment.Manager",
+            "/xyz/openbmc_project/u_boot/environment/mgr",
+            "xyz.openbmc_project.U_Boot.Environment.Manager", "Read",
+            std::string("soc_id"));
 
         asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
             boost::urls::format("/redfish/v1/Managers/{}/LogServices",
