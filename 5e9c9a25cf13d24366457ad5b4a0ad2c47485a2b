@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0cdb74e_74fe7fdc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-07T22:22:56Z",
+      "side": 1,
+      "message": "Updated the commit message to show the interfaces for assemblies",
+      "parentUuid": "1bd997eb_6242acde",
+      "revId": "5e9c9a25cf13d24366457ad5b4a0ad2c47485a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "463d3fef_bc884c96",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-09-05T19:40:19Z",
       "side": 1,
       "message": "Isn\u0027t drive already modeled here: \nhttps://github.com/openbmc/bmcweb/blob/0775449c62385f163a207d0f0c8e1f6338de1062/redfish-core/lib/storage.hpp#L448",
+      "revId": "5e9c9a25cf13d24366457ad5b4a0ad2c47485a2b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0ae4551_e89b4942",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-07T22:22:56Z",
+      "side": 1,
+      "message": "Thanks. Removed it.",
+      "parentUuid": "463d3fef_bc884c96",
       "revId": "5e9c9a25cf13d24366457ad5b4a0ad2c47485a2b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
