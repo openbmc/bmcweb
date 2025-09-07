@@ -14,6 +14,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/asset_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
@@ -59,64 +60,6 @@ inline void getFabricAdapterLocation(
             asyncResp->res
                 .jsonValue["Location"]["PartLocation"]["ServiceLabel"] =
                 property;
-        });
-}
-
-inline void getFabricAdapterAsset(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& serviceName, const std::string& fabricAdapterPath)
-{
-    dbus::utility::getAllProperties(
-        serviceName, fabricAdapterPath,
-        "xyz.openbmc_project.Inventory.Decorator.Asset",
-        [fabricAdapterPath, asyncResp{asyncResp}](
-            const boost::system::error_code& ec,
-            const dbus::utility::DBusPropertiesMap& propertiesList) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for Properties");
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-
-            const std::string* serialNumber = nullptr;
-            const std::string* model = nullptr;
-            const std::string* partNumber = nullptr;
-            const std::string* sparePartNumber = nullptr;
-
-            const bool success = sdbusplus::unpackPropertiesNoThrow(
-                dbus_utils::UnpackErrorPrinter(), propertiesList,
-                "SerialNumber", serialNumber, "Model", model, "PartNumber",
-                partNumber, "SparePartNumber", sparePartNumber);
-
-            if (!success)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            if (serialNumber != nullptr)
-            {
-                asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
-            }
-
-            if (model != nullptr)
-            {
-                asyncResp->res.jsonValue["Model"] = *model;
-            }
-
-            if (partNumber != nullptr)
-            {
-                asyncResp->res.jsonValue["PartNumber"] = *partNumber;
-            }
-
-            if (sparePartNumber != nullptr && !sparePartNumber->empty())
-            {
-                asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
-            }
         });
 }
 
@@ -192,7 +135,8 @@ inline void doAdapterGet(
     asyncResp->res.jsonValue["Status"]["Health"] = resource::Health::OK;
 
     getFabricAdapterLocation(asyncResp, serviceName, fabricAdapterPath);
-    getFabricAdapterAsset(asyncResp, serviceName, fabricAdapterPath);
+    asset_utils::getAssetInfo(asyncResp, serviceName, fabricAdapterPath,
+                              ""_json_pointer, true);
     getFabricAdapterState(asyncResp, serviceName, fabricAdapterPath);
     getFabricAdapterHealth(asyncResp, serviceName, fabricAdapterPath);
     getLocationIndicatorActive(asyncResp, fabricAdapterPath);
