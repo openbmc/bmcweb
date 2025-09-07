@@ -12,6 +12,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/asset_utils.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
@@ -295,63 +296,6 @@ inline void getFanState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         });
 }
 
-inline void getFanAsset(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                        const std::string& fanPath, const std::string& service)
-{
-    dbus::utility::getAllProperties(
-        service, fanPath, "xyz.openbmc_project.Inventory.Decorator.Asset",
-        [fanPath, asyncResp{asyncResp}](
-            const boost::system::error_code& ec,
-            const dbus::utility::DBusPropertiesMap& assetList) {
-            if (ec)
-            {
-                if (ec.value() != EBADR)
-                {
-                    BMCWEB_LOG_ERROR("DBUS response error for Properties{}",
-                                     ec.value());
-                    messages::internalError(asyncResp->res);
-                }
-                return;
-            }
-            const std::string* manufacturer = nullptr;
-            const std::string* model = nullptr;
-            const std::string* partNumber = nullptr;
-            const std::string* serialNumber = nullptr;
-            const std::string* sparePartNumber = nullptr;
-
-            const bool success = sdbusplus::unpackPropertiesNoThrow(
-                dbus_utils::UnpackErrorPrinter(), assetList, "Manufacturer",
-                manufacturer, "Model", model, "PartNumber", partNumber,
-                "SerialNumber", serialNumber, "SparePartNumber",
-                sparePartNumber);
-            if (!success)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            if (manufacturer != nullptr)
-            {
-                asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
-            }
-            if (model != nullptr)
-            {
-                asyncResp->res.jsonValue["Model"] = *model;
-            }
-            if (partNumber != nullptr)
-            {
-                asyncResp->res.jsonValue["PartNumber"] = *partNumber;
-            }
-            if (serialNumber != nullptr)
-            {
-                asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
-            }
-            if (sparePartNumber != nullptr && !sparePartNumber->empty())
-            {
-                asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
-            }
-        });
-}
-
 inline void getFanLocation(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                            const std::string& fanPath,
                            const std::string& service)
@@ -385,7 +329,7 @@ inline void afterGetValidFanObject(
     addFanCommonProperties(asyncResp->res, chassisId, fanId);
     getFanState(asyncResp, fanPath, service);
     getFanHealth(asyncResp, fanPath, service);
-    getFanAsset(asyncResp, fanPath, service);
+    asset_utils::getAssetInfo(asyncResp, service, fanPath, ""_json_pointer);
     getFanLocation(asyncResp, fanPath, service);
     getLocationIndicatorActive(asyncResp, fanPath);
 }
