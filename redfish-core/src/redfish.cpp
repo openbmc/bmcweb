@@ -242,7 +242,11 @@ RedfishService::RedfishService(App& app)
     requestRoutesMetricReport(app);
     requestRoutesTriggerCollection(app);
     requestRoutesTrigger(app);
-    requestRoutesRDEService(app);
+
+    if constexpr (BMCWEB_REDFISH_RDE)
+    {
+        requestRoutesRDEService(app);
+    }
 
     // Note, this must be the last route registered
     requestRoutesRedfish(app);

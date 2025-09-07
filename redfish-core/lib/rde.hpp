@@ -1,705 +1,499 @@
 #pragma once
 
-#include "bmcweb_config.h"
-
 #include "app.hpp"
-#include "async_resp.hpp"
-#include "task.hpp"
+#include "http_utility.hpp"
+#include "registries.hpp"
+#include "registries/base_message_registry.hpp"
+#include "registries/openbmc_message_registry.hpp"
+#include "registries/privilege_registry.hpp"
 
-#include <boost/beast/http/status.hpp>
+#include <bmcweb_config.h>
+
+#include <boost/algorithm/string.hpp>
+#include <boost/beast/http.hpp>
+#include <boost/url/format.hpp>
 #include <nlohmann/json.hpp>
-#include <sdbusplus/unpack_properties.hpp>
+#include <utils/json_utils.hpp>
 
 #include <filesystem>
-#include <format>
 #include <fstream>
+#include <map>
 #include <memory>
+#include <optional>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace redfish
 {
-
-constexpr std::string_view rdeRoot = "/redfish/v1/Systems/system";
-constexpr std::string_view pldmService = "xyz.openbmc_project.PLDM";
-std::map<uint8_t, std::string> eidUUIDMap;
-
-std::vector<std::string> uuidMapP0;
-std::vector<std::string> uuidMapP1;
-
-using SchemaResourcesType =
-    std::map<std::string,
-             std::map<std::string, dbus::utility::DbusVariantType>>;
-using RDEVariantType = std::variant<std::vector<std::string>, std::string,
-                                    uint8_t, SchemaResourcesType>;
-using RDEPropertiesMap = std::vector<std::pair<std::string, RDEVariantType>>;
-using ObjectPath = sdbusplus::message::object_path;
-
-std::vector<struct Resource> resourceVect;
-std::map<std::string, std::string> nameUriNameMap = {
-    {"Processors.Processors", "Processors"}};
-
-constexpr std::string_view payloadFormat =
-    "xyz.openbmc_project.RDE.Manager.PayloadFormatType.Inline";
-constexpr std::string_view encodingType =
-    "xyz.openbmc_project.RDE.Manager.EncodingFormatType.JSON";
-
-struct Resource
+constexpr const char* procSchemaName = "Processors";
+struct RDESchemaEntry
 {
     std::string rid;
     std::string subUri;
-    uint8_t eid;
-    std::string uuid;
     std::string schemaName;
-    std::string schemaVersion;
     int64_t schemaClass;
+    std::string schemaVersion;
     std::string fullUri;
 };
+using RDESchemaResource = std::vector<RDESchemaEntry>;
 
-std::string handleDeferredBindings(const std::string& bejJsonInput)
+/**
+ * @class RDEServiceHandler
+ * @brief Handles Redfish Device Enablement (RDE) service requests.
+ *
+ * This class is responsible for managing the lifecycle of an RDE request,
+ * including extracting URI components, validating metadata, and initiating
+ * schema-specific processing logic.
+ *
+ * It supports both root-level and vendor-specific Redfish endpoints for
+ * devices such as processors and network adapters. The handler is initialized
+ * with request context, schema, and device identifiers, and is designed to
+ * operate asynchronously using the Redfish bmcweb framework.
+ *
+ * Key Responsibilities:
+ * - Parse and store URI components (system ID, device ID, schema).
+ * - Construct base and sub URIs for Redfish resource access.
+ * - Extract and validate UUIDs from device metadata.
+ * - Kick off the processing flow via `bootstrapProcess()`.
+ *
+ * The class is intended to be used via `std::shared_ptr` and supports
+ * move semantics while disallowing copy operations.
+ *
+ * @note Use `bootstrapProcess()` after construction to begin request handling.
+ */
+class RDEServiceHandler : public std::enable_shared_from_this<RDEServiceHandler>
 {
-    // Parse resource_registry.txt into uriMap
-    std::unordered_map<int, std::string> uriMap;
+  public:
+    RDEServiceHandler() = default;
+    RDEServiceHandler(RDEServiceHandler&&) = default;
+    RDEServiceHandler& operator=(RDEServiceHandler&&) = default;
+    RDEServiceHandler(const RDEServiceHandler&) = delete;
+    RDEServiceHandler& operator=(const RDEServiceHandler&) = delete;
+    /**
+     * @brief Constructs an RDEServiceHandler instance for handling RDE service
+     * requests.
+     *
+     * This constructor initializes the handler with request context, device
+     * identifiers, schema information, and request type (root or
+     * vendor-specific). It sets up internal state required for processing
+     * Redfish Device Enablement (RDE) requests.
+     *
+     * High-Level Approach:
+     * - Captures the HTTP request and asynchronous response context.
+     * - Stores identifiers for the system, device, and schema.
+     * - Constructs the base URI for the Redfish resource using the schema and
+     * device ID.
+     * - Initializes internal members such as the UUID list, selected UUID, and
+     * request type.
+     * - Prepares the handler for metadata extraction and subsequent processing
+     * via `bootstrapProcess()`.
+     *
+     * @param[in] app Reference to the main application object managing HTTP
+     * routes.
+     * @param[in] req Incoming HTTP request object.
+     * @param[in] resp Shared pointer to the asynchronous response handler.
+     * @param[in] systemIdIn Identifier for the system.
+     * @param[in] deviceIdIn Identifier for the device.
+     * @param[in] schemaIn Schema name associated with the device.
+     * @param[in] baseUriIn  Base URI.
+     * @param[in] isRootRequest Flag indicating whether the request targets the
+     * root endpoint.
+     */
+    RDEServiceHandler(App& app, const crow::Request& req,
+                      const std::shared_ptr<bmcweb::AsyncResp>& resp,
+                      const std::string& systemIdIn,
+                      const std::string& deviceIdIn,
+                      const std::string& schemaIn, const std::string& baseUriIn,
+                      bool isRootRequest) :
+        systemId(systemIdIn), deviceId(deviceIdIn), schema(schemaIn),
+        baseUri(baseUriIn), subUri{}, deviceUUID{}, deviceUUIDList{},
+        deviceEID{0}, responseSent{false}, verb(req.method()),
+        isRoot(isRootRequest), request(req), asyncResp(resp)
 
-    for (const auto& it : resourceVect)
     {
-        int resourceId = std::stoi(it.rid);
-        uriMap[resourceId] = it.fullUri;
-    }
-
-    std::string bejJson = bejJsonInput;
-
-    std::regex bareObjectRegex("\\{\\s*\"%L(\\d+)\"\\s*\\}");
-    std::ostringstream oss1;
-    std::sregex_iterator begin1(bejJson.begin(), bejJson.end(),
-                                bareObjectRegex),
-        end1;
-    size_t lastPos1 = 0;
-
-    for (auto it = begin1; it != end1; ++it)
-    {
-        oss1 << bejJson.substr(
-            lastPos1,
-            static_cast<size_t>(static_cast<std::ptrdiff_t>(it->position()) -
-                                static_cast<std::ptrdiff_t>(lastPos1)));
-
-        int id = std::stoi((*it)[1]);
-        auto uriIt = uriMap.find(id);
-        if (uriIt != uriMap.end())
+        if (!redfish::setUpRedfishRoute(app, request, asyncResp))
         {
-            oss1 << R"({"@odata.id":")" << uriIt->second << R"("})";
-        }
-        else
-        {
-            oss1 << it->str(); // leave unchanged
-        }
-        lastPos1 = static_cast<size_t>(it->position() + it->length());
-    }
-    oss1 << bejJson.substr(lastPos1);
-    bejJson = oss1.str();
-
-    std::regex lPattern(R"(%L(\d+))");
-    std::ostringstream oss2;
-    std::sregex_iterator begin2(bejJson.begin(), bejJson.end(), lPattern), end2;
-    size_t lastPos2 = 0;
-
-    for (auto it = begin2; it != end2; ++it)
-    {
-        oss2 << bejJson.substr(
-            lastPos2,
-            static_cast<size_t>(static_cast<std::ptrdiff_t>(it->position()) -
-                                static_cast<std::ptrdiff_t>(lastPos2)));
-
-        int id = std::stoi((*it)[1]);
-        auto uriIt = uriMap.find(id);
-        if (uriIt != uriMap.end())
-        {
-            oss2 << uriIt->second;
-        }
-        else
-        {
-            oss2 << it->str(); // leave unchanged
-        }
-        lastPos2 = static_cast<size_t>(it->position() + it->length());
-    }
-    oss2 << bejJson.substr(lastPos2);
-    bejJson = oss2.str();
-
-    bejJson = std::regex_replace(bejJson, std::regex(R"(%I(\d+))"), "$1");
-    BMCWEB_LOG_DEBUG("BEJ JSON String Output: {}", bejJson);
-
-    return bejJson;
-}
-
-inline bool rdeHandleCreateTask(const boost::system::error_code& ec2,
-                                sdbusplus::message_t& msg,
-                                const std::shared_ptr<task::TaskData>& taskData)
-{
-    if (ec2)
-    {
-        return task::completed;
-    }
-
-    dbus::utility::DBusPropertiesMap changedProperties;
-    msg.read(changedProperties);
-
-    const std::string* data = nullptr;
-    const uint16_t* rc = nullptr;
-    nlohmann::json taskEntry;
-
-    for (const auto& propertyPair : changedProperties)
-    {
-        if (propertyPair.first == "payload")
-        {
-            data = std::get_if<std::string>(&propertyPair.second);
-
-            const auto& updatedData = handleDeferredBindings(*data);
-            taskEntry["Payload"] = updatedData;
-        }
-        else if (propertyPair.first == "return_code")
-        {
-            rc = std::get_if<uint16_t>(&propertyPair.second);
-            taskEntry["ReturnCode"] = *rc;
-        }
-    }
-    if (data == nullptr || rc == nullptr)
-    {
-        BMCWEB_LOG_ERROR("Invalid property or property not found");
-        taskData->messages.emplace_back(messages::internalError());
-        return task::completed;
-    }
-
-    std::string index = std::to_string(taskData->index);
-    taskData->messages.emplace_back(taskEntry);
-    taskData->messages.emplace_back(messages::taskCompletedOK(index));
-    taskData->state = "Completed";
-
-    return task::completed;
-}
-
-inline void rdeCreateTask(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          task::Payload&& payload,
-                          const sdbusplus::message::object_path& objPath)
-{
-    std::string matchString =
-        ("type='signal',"
-         "path='" +
-         objPath.str +
-         "',"
-         "interface='xyz.openbmc_project.RDE.OperationTask',"
-         "member='TaskUpdated'");
-
-    std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-        std::bind_front(rdeHandleCreateTask), matchString);
-    task->startTimer(std::chrono::minutes(5));
-    task->populateResp(asyncResp->res);
-    task->payload.emplace(std::move(payload));
-}
-
-// TODO: Make OperationIDs persistent or something similar to avoid operation id
-// missmatch when bmcweb restrarts for any errors.
-inline uint32_t getOperationID()
-{
-    static std::atomic<uint32_t> id{0};
-    return ++id;
-}
-
-// GET handler
-inline void rdeGetHandler(const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          std::string targetUri, uint8_t eid, std::string uuid)
-{
-    uint32_t operationID = getOperationID();
-    constexpr std::string_view operationType =
-        "xyz.openbmc_project.RDE.Common.OperationType.READ";
-    constexpr std::string_view rdePayload = "";
-    // TODO get sessionID dynamically
-    std::string sessionID = "1";
-
-    crow::connections::systemBus->async_method_call(
-        [req, asyncResp](const boost::system::error_code& ec,
-                         const ObjectPath& objPath) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR(
-                "rdeGetHandler: Error in calling DBUS method StartRedfishOperation; Error: {}",
-                ec.message());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        task::Payload payload(req);
-        rdeCreateTask(asyncResp, std::move(payload), objPath);
-    },
-        std::string(pldmService), "/xyz/openbmc_project/RDE/Manager",
-        "xyz.openbmc_project.RDE.Manager", "StartRedfishOperation", operationID,
-        std::string(operationType), targetUri, uuid, eid,
-        std::string(rdePayload), std::string(payloadFormat),
-        std::string(encodingType), sessionID);
-}
-
-// PATCH handler
-inline void rdePatchHandler(const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            std::string targetUri, uint8_t eid,
-                            std::string uuid)
-{
-    nlohmann::json inputJson;
-    try
-    {
-        inputJson = nlohmann::json::parse(req.body());
-    }
-    catch (const nlohmann::json::parse_error& e)
-    {
-        BMCWEB_LOG_ERROR("rdePatchHandler: JSON parse error: {}", e.what());
-        messages::malformedJSON(asyncResp->res);
-        return;
-    }
-
-    std::string rdePayload = inputJson.dump();
-
-    uint32_t operationID = getOperationID();
-    constexpr std::string_view operationType =
-        "xyz.openbmc_project.RDE.Common.OperationType.UPDATE";
-    // TODO: get sessionID dynamically
-    std::string sessionID = "1";
-
-    crow::connections::systemBus->async_method_call(
-        [req, asyncResp](const boost::system::error_code& ec,
-                         const ObjectPath& objPath) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR(
-                "rdePatchHandler: Error in calling DBUS method StartRedfishOperation; Error: {}",
-                ec.message());
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        task::Payload payload(req);
-        rdeCreateTask(asyncResp, std::move(payload), objPath);
-    },
-        std::string(pldmService), "/xyz/openbmc_project/RDE/Manager",
-        "xyz.openbmc_project.RDE.Manager", "StartRedfishOperation", operationID,
-        std::string(operationType), targetUri, uuid, eid, rdePayload,
-        std::string(payloadFormat), std::string(encodingType), sessionID);
-}
-
-std::string updateDeviceID(const std::string& path, const std::string& deviceId)
-{
-    // Find the position of the second slash
-    size_t firstSlash = path.find('/');
-    size_t secondSlash = path.find('/', firstSlash + 1);
-
-    if (secondSlash == std::string::npos)
-    {
-        // Path has only one segment or is malformed
-        return path;
-    }
-
-    // Insert the string after the first segment
-    std::string modifiedPath = path;
-    modifiedPath.insert(secondSlash, "/" + deviceId);
-    return modifiedPath;
-}
-
-inline void updateDeviceName(std::string& inputUri)
-{
-    for (const auto& [key, val] : nameUriNameMap)
-    {
-        size_t pos = inputUri.find(key);
-        if (pos != std::string::npos)
-        {
-            inputUri.replace(pos, key.length(), val);
-            break;
-        }
-    }
-}
-
-inline void rdeHandler(const crow::Request& req,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    std::string expectedUri = std::string(req.url().buffer());
-
-    auto it = std::find_if(
-        resourceVect.begin(), resourceVect.end(),
-        [&expectedUri](const Resource& p) { return p.fullUri == expectedUri; });
-    if (it == resourceVect.end())
-    {
-        BMCWEB_LOG_ERROR("Error: Unsupported URI");
-        asyncResp->res.result(boost::beast::http::status::not_acceptable);
-        asyncResp->res.jsonValue = {{"error", "Unsupported URI"},
-                                    {"status", "failed"}};
-        return;
-    }
-
-    std::string majorSchemaName = "Unknown";
-    std::string majorSchemaVersion = "0_0_0";
-    if (!it->schemaName.empty())
-    {
-        majorSchemaName = it->schemaName;
-    }
-    if (!it->schemaVersion.empty())
-    {
-        majorSchemaVersion = it->schemaVersion;
-    }
-
-    asyncResp->res.jsonValue["@odata.type"] = "#RDE.v1_0_0.RDERoot";
-    asyncResp->res.jsonValue["@odata.id"] = it->fullUri;
-    std::string odataType = "#" + majorSchemaName + ".v" + majorSchemaVersion +
-                            "." + majorSchemaName;
-    asyncResp->res.jsonValue["@odata.type"] = odataType;
-
-    // Handle HTTP methods
-    if (req.method() == boost::beast::http::verb::get)
-    {
-        rdeGetHandler(req, asyncResp, it->subUri, it->eid, it->uuid);
-    }
-    else if (req.method() == boost::beast::http::verb::patch)
-    {
-        rdePatchHandler(req, asyncResp, it->subUri, it->eid, it->uuid);
-    }
-    else
-    {
-        asyncResp->res.result(boost::beast::http::status::method_not_allowed);
-        asyncResp->res.jsonValue = {{"error", "Unsupported HTTP method"}};
-    }
-    return;
-}
-
-inline std::string getDeviceID(std::string uuid)
-{
-    if (std::find(uuidMapP0.begin(), uuidMapP0.end(), uuid) != uuidMapP0.end())
-    {
-        return "P0";
-    }
-    if (std::find(uuidMapP1.begin(), uuidMapP1.end(), uuid) != uuidMapP1.end())
-    {
-        return "P1";
-    }
-    return "";
-}
-
-inline void
-    getRDEResourceData(const crow::Request& req,
-                       const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                       const std::string& expDeviceID,
-                       const std::string& objectPath, bool isRDERoot)
-{
-    sdbusplus::asio::getAllProperties(*crow::connections::systemBus,
-                                      std::string(pldmService), objectPath,
-                                      "xyz.openbmc_project.RDE.Device",
-                                      [req, asyncResp, expDeviceID, isRDERoot](
-                                          const boost::system::error_code& ec,
-                                          const RDEPropertiesMap& properties) {
-        if (ec)
-        {
-            BMCWEB_LOG_ERROR("DBUS response error: {}", ec.message());
-            messages::internalError(asyncResp->res);
+            // TODO Add Error Hnadler
             return;
         }
 
-        const std::string* uuid = nullptr;
-        const uint8_t* eid = nullptr;
-        SchemaResourcesType schemaResources;
-
-        const bool success = sdbusplus::unpackPropertiesNoThrow(
-            dbus_utils::UnpackErrorPrinter(), properties, "DeviceUUID", uuid,
-            "EID", eid, "SchemaResources", schemaResources);
-
-        if (!success)
+        if (!isRoot)
         {
-            BMCWEB_LOG_ERROR(
-                "getRDEResourceData: unpackPropertiesNoThrow  error");
-            messages::internalError(asyncResp->res);
-            return;
+            std::string fullUri = std::string(req.target());
+            std::string remaining = fullUri.substr(baseUri.length());
+            subUri = trimLeadingSlash(remaining);
         }
 
-        if (uuid == nullptr)
+        if (!loadUUIDs())
         {
-            BMCWEB_LOG_ERROR("getRDEResourceData: Failed to get DeviceUUID");
-            messages::propertyNotUpdated(asyncResp->res, "DeviceUUID");
+            // TODO revisit the Error handling
+            BMCWEB_LOG_ERROR("RDE: Failied to get UUID for the requested uri");
+            throw std::runtime_error("Initialization failed");
         }
-
-        if (eid == nullptr)
-        {
-            BMCWEB_LOG_ERROR("getRDEResourceData: Failed to get EID");
-            messages::propertyNotUpdated(asyncResp->res, "EID");
-        }
-
-        std::string deviceID = getDeviceID(*uuid);
-        if (expDeviceID != deviceID)
-        {
-            BMCWEB_LOG_DEBUG(
-                "getRDEResourceData: DeviceID not matched, expDeviceID: {} deviceID: {}",
-                expDeviceID, deviceID);
-            return;
-        }
-        nlohmann::json resourceArray = nlohmann::json::array();
-
-        for (const auto& [rid, valueMap] : schemaResources)
-        {
-            std::string fullUri;
-            struct Resource res;
-            res.rid = rid;
-
-            // get subURI
-            auto subUriIt = valueMap.find("subUri");
-            if (subUriIt != valueMap.end())
-            {
-                auto* subUri = std::get_if<std::string>(&subUriIt->second);
-                if (subUri)
-                {
-                    std::string uri = *subUri;
-                    updateDeviceName(uri);
-                    res.subUri = uri;
-                    if (!deviceID.empty())
-                    {
-                        uri = updateDeviceID(uri, deviceID);
-                    }
-                    else
-                    {
-                        BMCWEB_LOG_INFO(
-                            "deviceID is empty, going with default");
-                    }
-                    fullUri = std::string(rdeRoot) + uri;
-                }
-            }
-
-            nlohmann::json resourceEntry = {{"@odata.id", fullUri}};
-
-            res.fullUri = fullUri;
-            res.eid = *eid;
-            res.uuid = *uuid;
-
-            auto nameIt = valueMap.find("schemaName");
-            if (nameIt != valueMap.end())
-            {
-                const auto* name = std::get_if<std::string>(&nameIt->second);
-                resourceEntry["MajorSchemaName"] = *name;
-                res.schemaName = *name;
-            }
-            auto classItr = valueMap.find("schemaClass");
-            if (classItr != valueMap.end())
-            {
-                const auto* schemaClass =
-                    std::get_if<int64_t>(&classItr->second);
-                resourceEntry["SchemaClass"] = *schemaClass;
-                res.schemaClass = *schemaClass;
-            }
-            auto verIt = valueMap.find("schemaVersion");
-            if (verIt != valueMap.end())
-            {
-                const auto* schemaVersion =
-                    std::get_if<std::string>(&verIt->second);
-                resourceEntry["MajorSchemaVersion"] = *schemaVersion;
-                res.schemaVersion = *schemaVersion;
-            }
-            resourceArray.push_back(resourceEntry);
-            resourceVect.push_back(res);
-        }
-
-        if (isRDERoot)
-        {
-            asyncResp->res.jsonValue["Resources"] = resourceArray;
-        }
-        else
-        {
-            rdeHandler(req, asyncResp);
-        }
-    });
-}
-
-inline bool loadRDEDeviceMetadata()
-{
-    constexpr const char* rdeDeviceMetadataFile =
-        "/etc/pldm/rde_device_metadata.json";
-
-    nlohmann::json jsonData = nlohmann::json::object();
-
-    if (!std::filesystem::exists(rdeDeviceMetadataFile))
-    {
-        BMCWEB_LOG_ERROR("RDE: Device metadata file not found: {}",
-                         rdeDeviceMetadataFile);
-        return false;
+        BMCWEB_LOG_DEBUG(
+            "RDE: systemId={}, schema={}, deviceId={}, baseUri={}, subUri={}, isRoot={}",
+            systemId, schema, deviceId, baseUri, subUri, isRoot);
     }
 
-    std::ifstream file(rdeDeviceMetadataFile);
-    if (!file.is_open())
+    /* @brief Destructor for RDEServiceHandler.
+     *
+     * Finalizes the RDE service request by updating the asynchronous response
+     * object if necessary. This ensures that any deferred response logic is
+     * completed when the handler goes out of scope.
+     *
+     * Design Note:
+     * - The destructor is used to guarantee that the response is updated
+     * exactly once, even in cases where early exits or errors prevent normal
+     * flow.
+     * - This pattern is useful in asynchronous Redfish handlers where response
+     *   finalization may depend on multiple conditional paths.
+     */
+    ~RDEServiceHandler()
     {
-        BMCWEB_LOG_ERROR("RDE: Failed to open device metadata file: {}",
-                         rdeDeviceMetadataFile);
-        return false;
+        prepareAndSendResourceResponse();
+        BMCWEB_LOG_INFO("RDEServiceHandler destroyed");
     }
 
-    try
+    /**
+     * @brief Initiates the RDE service request processing flow.
+     *
+     * This method begins the asynchronous handling of an RDE request by first
+     * retrieving available RDE device objects from D-Bus. It extracts relevant
+     * metadata properties and matches the device UUID against the internally
+     * populated `deviceUUIDList`, which was previously loaded from the metadata
+     * file.
+     *
+     * Design Assumptions:
+     * - For a given device key (`schema + "/" + deviceId`), only one matching
+     *   device object is expected to be present on D-Bus.
+     * - If this assumption changes (e.g., multiple matching objects), the logic
+     *   must be revisited to handle ambiguity or selection criteria.
+     *
+     * High-Level Flow:
+     * - Initiate an asynchronous D-Bus query to enumerate RDE device objects.
+     * - For each object, extract required metadata properties (e.g., UUID).
+     * - Match the UUID against `deviceUUIDList` to identify the correct device.
+     * - Once a match is found, store relevant properties into class members.
+     * - Trigger the next stage of request processing only after the initial
+     *   asynchronous D-Bus call completes successfully.
+     *
+     * This method follows a staged asynchronous design pattern, where each
+     * operation (e.g., D-Bus query, property extraction, UUID matching) is
+     * performed in sequence, and the next step is initiated only after the
+     * previous one completes. This ensures non-blocking behavior and proper
+     * resource handling in the Redfish request lifecycle.
+     */
+    inline void bootstrapProcess()
     {
-        if (file.peek() == std::ifstream::traits_type::eof())
+        BMCWEB_LOG_INFO("bootstrapProcess :Enter");
+    }
+
+  private:
+    /**
+     * @brief Removes a leading slash from the input string, if present.
+     *
+     * This utility function checks whether the input string begins with a '/'
+     * character and returns a new string with the leading slash removed. If no
+     * leading slash is present, the original string is returned unchanged.
+     *
+     * @param[in] s Input string to be trimmed.
+     * @return A copy of the input string without a leading slash.
+     */
+    inline std::string trimLeadingSlash(const std::string& s)
+    {
+        return (!s.empty() && s[0] == '/') ? s.substr(1) : s;
+    }
+
+    /**
+     * @brief Extracts the UUID for a device based on schema and deviceId.
+     *
+     * This method reads the device metadata from a JSON file located at
+     * `/etc/pldm/rde_device_metadata.json`. It uses the class member variables
+     * `schema` and `deviceId` to locate the corresponding section in the JSON.
+     *
+     * The expected structure of the JSON is:
+     * {
+     *   "SchemaName": {
+     *     "DeviceId": {
+     *       "UUIDs": ["uuid1", "uuid2", ...]
+     *     }
+     *   }
+     * }
+     *
+     * Algorithm:
+     * - Check if the metadata file exists and is readable.
+     * - Parse the JSON and validate its structure.
+     * - Navigate to jsonData[schema][deviceId]["UUIDs"].
+     * - If valid, extract all UUID strings from the array.
+     * - Store the extracted UUIDs in the class member `deviceUUIDList`.
+     *
+     * @return true if a valid UUID was found and assigned, false otherwise.
+     */
+
+    inline bool loadUUIDs()
+    {
+        constexpr const char* rdeDeviceMetadataFile =
+            "/etc/pldm/rde_device_metadata.json";
+
+        if (!std::filesystem::exists(rdeDeviceMetadataFile))
         {
-            BMCWEB_LOG_ERROR("RDE: Device metadata file is empty: {}",
+            BMCWEB_LOG_ERROR("RDE: Device metadata file {} not found: ",
                              rdeDeviceMetadataFile);
             return false;
         }
 
-        file >> jsonData;
-
-        if (!jsonData.is_object())
+        std::ifstream file(rdeDeviceMetadataFile);
+        if (!file.is_open())
         {
-            BMCWEB_LOG_ERROR(
-                "RDE: Device metadata file does not contain a valid JSON objects.");
+            BMCWEB_LOG_ERROR("RDE: Failed to open device metadata file:{} ",
+                             rdeDeviceMetadataFile);
             return false;
         }
 
-        const std::string deviceKey = "Processors";
-        if (!jsonData.contains(deviceKey) || !jsonData[deviceKey].is_object())
+        try
         {
-            BMCWEB_LOG_ERROR("RDE: Missing or invalid '{}' section in metadata",
-                             deviceKey);
-            return false;
-        }
-
-        const auto& processors = jsonData[deviceKey];
-        std::vector<std::string> processorKeys = {"P0", "P1"};
-
-        for (const auto& procKey : processorKeys)
-        {
-            if (!processors.contains(procKey))
+            if (file.peek() == std::ifstream::traits_type::eof())
             {
-                BMCWEB_LOG_ERROR("RDE: Missing processor key '{}'", procKey);
-                continue;
+                BMCWEB_LOG_ERROR("RDE: Device metadata file{} is empty: ",
+                                 rdeDeviceMetadataFile);
+                return false;
             }
 
-            const auto& proc = processors.at(procKey);
-            if (!proc.contains("UUIDs") || !proc["UUIDs"].is_array())
+            nlohmann::json jsonData;
+            file >> jsonData;
+
+            if (!jsonData.is_object())
             {
-                BMCWEB_LOG_ERROR("RDE: Missing or invalid 'UUIDs' for '{}'",
-                                 procKey);
-                continue;
+                BMCWEB_LOG_ERROR(
+                    "RDE: Device metadata file does not contain a valid JSON object.");
+                return false;
             }
 
-            for (const auto& uuid : proc["UUIDs"])
+            const std::string expectedDeviceKey = schema + "/" + deviceId;
+            for (const auto& [jsonSchema, deviceEntries] : jsonData.items())
             {
-                if (!uuid.is_string())
+                if (!deviceEntries.is_object())
                 {
-                    BMCWEB_LOG_ERROR("RDE: Invalid UUID format in '{}'",
-                                     procKey);
+                    BMCWEB_LOG_ERROR("RDE: Invalid schema section {} ",
+                                     jsonSchema);
                     continue;
                 }
 
-                const std::string uuidStr = uuid.get<std::string>();
-                if (procKey == "P0")
+                for (const auto& [jsonDeviceId, deviceInfo] :
+                     deviceEntries.items())
                 {
-                    uuidMapP0.push_back(uuidStr);
-                }
-                else if (procKey == "P1")
-                {
-                    uuidMapP1.push_back(uuidStr);
+                    if (!deviceInfo.contains("UUIDs") ||
+                        !deviceInfo["UUIDs"].is_array())
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "RDE: Missing or invalid 'UUIDs' for {} {}",
+                            jsonSchema, jsonDeviceId);
+                        continue;
+                    }
+
+                    const std::string deviceKeyFromJson = jsonSchema + "/" +
+                                                          jsonDeviceId;
+
+                    if (deviceKeyFromJson == expectedDeviceKey)
+                    {
+                        for (const auto& uuid : deviceInfo["UUIDs"])
+                        {
+                            if (!uuid.is_string())
+                            {
+                                BMCWEB_LOG_ERROR(
+                                    "RDE: Invalid UUID format in {}",
+                                    deviceKeyFromJson);
+                                continue;
+                            }
+                            deviceUUIDList.push_back(uuid.get<std::string>());
+                        }
+
+                        if (!deviceUUIDList.empty())
+                        {
+                            BMCWEB_LOG_INFO(
+                                "RDE: Device UUIDs initialized: count={}",
+                                deviceUUIDList.size());
+                            return true;
+                        }
+                    }
                 }
             }
         }
-    }
-    catch (const nlohmann::json::parse_error& e)
-    {
-        BMCWEB_LOG_ERROR("RDE: JSON parse error: {}", e.what());
-        return false;
-    }
-    catch (const std::exception& e)
-    {
-        BMCWEB_LOG_ERROR(
-            "RDE: Unexpected error while reading device metadata file: {}",
-            e.what());
-        return false;
-    }
-    return true;
-}
-
-inline void reset()
-{
-    eidUUIDMap.clear();
-    resourceVect.clear();
-}
-
-inline void
-    getProcRdeDevices(const crow::Request& req,
-                      const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& deviceId, bool isRDERoot)
-{
-    reset();
-    constexpr std::array<std::string_view, 1> interfaces = {
-        "xyz.openbmc_project.RDE.Device"};
-    dbus::utility::getSubTreePaths(
-        "/", 0, interfaces,
-        [req, asyncResp, deviceId,
-         isRDERoot](const boost::system::error_code& ec,
-                    const dbus::utility::MapperGetSubTreePathsResponse&
-                        objPaths) mutable {
-        if (ec)
+        catch (const std::exception& e)
         {
             BMCWEB_LOG_ERROR(
-                "getProcRdeDevices : getSubTreePaths DBUS error: {}", ec);
-            messages::internalError(asyncResp->res);
+                "RDE: Unexpected error while reading device metadata file:{} ",
+                e.what());
+            return false;
+        }
+
+        return false;
+    }
+
+    /**
+     * @brief Prepares and sends a schema-specific Redfish resource response.
+     *
+     * This method constructs the standard Redfish collection response for a
+     * given schema (e.g., "Processors", "NetworkAdapter") by setting
+     * fields such as
+     * @odata.type, @odata.id, Name, Members, and Members@odata.count. It uses
+     * the internal `schema` and `baseUri` to determine the appropriate response
+     * format.
+     *
+     * On success:
+     * - The response includes a correctly typed collection with an empty
+     * Members array.
+     * - The Members@odata.count is set based on the size of `deviceUUIDList`.
+     *
+     * On fallback:
+     * - If the schema is unrecognized, a generic collection type is used.
+     * - Logs are generated to aid debugging and future schema support.
+     *
+     * This function finalizes the response using `asyncResp` and ensures it is
+     * sent only once, following the asynchronous Redfish request handling
+     * pattern.
+     */
+    inline void prepareAndSendResourceResponse()
+    {
+        if (responseSent)
             return;
-        }
 
-        for (const std::string& path : objPaths)
+        std::string odataType;
+        std::string resourceName;
+
+        if (schema == procSchemaName)
         {
-            sdbusplus::message::object_path objPath(path);
-            std::string pathName = objPath.filename();
-            if (pathName.empty())
-            {
-                BMCWEB_LOG_ERROR("Failed to find '/' in {}", path);
-                continue;
-            }
-            BMCWEB_LOG_DEBUG("Found device with ObjectPath {}", path);
-            getRDEResourceData(req, asyncResp, deviceId, path, isRDERoot);
+            odataType = "#AmdSocConfiguration.AmdSocConfiguration";
+            resourceName = "AMD SoC Configuration";
         }
-    });
-}
+        else
+        {
+            BMCWEB_LOG_WARNING(
+                "RDE: Unknown schema '{}', using generic fallback", schema);
+            odataType = "#Resource.Resource";
+            resourceName = schema + " Resource";
+        }
 
-inline void handleProcRDE(crow::App& app, const crow::Request& req,
-                          const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                          const std::string& systemName,
-                          const std::string& deviceId,
-                          const std::string& schemaPath)
+        auto& json = asyncResp->res.jsonValue;
+        json["@odata.type"] = odataType;
+        json["@odata.id"] = baseUri;
+        json["Name"] = resourceName;
+
+        asyncResp->res.result(boost::beast::http::status::ok);
+        responseSent = true;
+    }
+
+    /**
+     * @brief Internal state and context used for handling RDE service requests.
+     *
+     * These member variables store identifiers, URI components, metadata, and
+     * control flags required to process Redfish Device Enablement (RDE)
+     * requests. They are initialized during construction and updated throughout
+     * the request lifecycle, supporting asynchronous D-Bus interactions and
+     * UUID-based device matching.
+     */
+    std::string systemId;
+    std::string deviceId;
+    std::string schema;
+    std::string baseUri;
+    std::string subUri;
+    std::string deviceUUID;
+    std::vector<std::string> deviceUUIDList;
+    uint8_t deviceEID;
+    RDESchemaResource resourceData;
+    bool responseSent;
+
+    boost::beast::http::verb verb;
+    bool isRoot;
+    const crow::Request& request;
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp;
+};
+
+/**
+ * @brief Handles the root RDE service request for a specific device.
+ *
+ * Initializes an RDEServiceHandler instance using the provided request context
+ * and device identifiers, and triggers the bootstrap process. This is typically
+ * used to handle requests to the RDE service root endpoint.
+ *
+ * @param[in] app Reference to the main application object managing HTTP routes.
+ * @param[in] req Incoming HTTP request object.
+ * @param[in] asyncResp Shared pointer to the asynchronous response handler.
+ * @param[in] systemId Identifier for the system.
+ * @param[in] deviceId Identifier for the device.
+ * @param[in] schema Schema name associated with the device.
+ * @param[in] baseUri Base URI.
+ */
+inline void
+    handleRDEServiceRoot(App& app, const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& systemId,
+                         const std::string& deviceId, const std::string& schema,
+                         const std::string& baseUri)
 {
-    BMCWEB_LOG_DEBUG("RDE Request Handling[{} {} {}]", systemName, deviceId,
-                     schemaPath);
-    if (!loadRDEDeviceMetadata())
-    {
-        BMCWEB_LOG_ERROR("Invalid or missing device identifiers in metadata");
-        asyncResp->res.result(boost::beast::http::status::not_acceptable);
-        asyncResp->res.jsonValue = {
-            {"error", "Invalid or missing device identifier"},
-            {"status", "failed"}};
-        return;
-    }
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-    getProcRdeDevices(req, asyncResp, deviceId, false);
+    BMCWEB_LOG_INFO("RDE: handleRDEServiceRoot Enter");
+
+    auto handler = std::shared_ptr<RDEServiceHandler>(new RDEServiceHandler(
+        app, req, asyncResp, systemId, deviceId, schema, baseUri, true));
+
+    handler->bootstrapProcess();
 }
 
-inline void handleProcessorRoot(
-    [[maybe_unused]] crow::App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    [[maybe_unused]] const std::string& systemName, const std::string& deviceId)
+/**
+ * @brief Handles the RDE service request for a vendor-specific path.
+ *
+ * Initializes an RDEServiceHandler instance using the provided request context
+ * and device identifiers, and triggers the bootstrap process. This is typically
+ * used to handle requests to vendor-specific RDE service paths.
+ *
+ * @param[in] app Reference to the main application object managing HTTP routes.
+ * @param[in] req Incoming HTTP request object.
+ * @param[in] asyncResp Shared pointer to the asynchronous response handler.
+ * @param[in] systemId Identifier for the system.
+ * @param[in] deviceId Identifier for the device.
+ * @param[in] vendorPath Vendor-specific path segment (currently unused).
+ * @param[in] schema Schema name associated with the device.
+ * @param[in] baseUri Base URI.
+ */
+inline void
+    handleRDEServicePath(App& app, const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& systemId,
+                         const std::string& deviceId,
+                         const std::string& vendorPath,
+                         const std::string& schema, const std::string& baseUri)
 {
-    asyncResp->res.jsonValue["@odata.type"] = "#RDE.v1_0_0.ProcessorRoot";
-    asyncResp->res.jsonValue["@odata.id"] = std::string(req.url().buffer());
-    asyncResp->res.jsonValue["Name"] = "Redfish Dynamic Extensions";
+    BMCWEB_LOG_INFO("RDE: handleRDEServicePath Enter");
+    (void)vendorPath; // Silence unused parameter warning if not used
 
-    if (!loadRDEDeviceMetadata())
-    {
-        BMCWEB_LOG_ERROR("Invalid or missing device identifiers in metadata");
-        asyncResp->res.result(boost::beast::http::status::not_acceptable);
-        asyncResp->res.jsonValue = {
-            {"error", "Invalid or missing device identifier"},
-            {"status", "failed"}};
-        return;
-    }
+    auto handler = std::shared_ptr<RDEServiceHandler>(new RDEServiceHandler(
+        app, req, asyncResp, systemId, deviceId, schema, baseUri, false));
 
-    getProcRdeDevices(req, asyncResp, deviceId, true);
+    handler->bootstrapProcess();
 }
 
+/**
+ * @brief Registers Redfish route handlers for RDE service endpoints.
+ *
+ * This function sets up Redfish-compliant HTTP routes for handling RDE
+ * (Redfish Device Enablement) service requests related to AMD-specific
+ * processor and network adapter configurations. It binds route handlers
+ * for both root-level and vendor-specific paths under the Redfish schema.
+ *
+ * High-Level Approach:
+ * - Define schema names for supported device types (e.g., "Processors",
+ * "NetworkAdapters").
+ * - Register route handlers for both root and vendor-specific paths using
+ * `BMCWEB_ROUTE`.
+ * - For each route, bind the appropriate handler (`handleRDEServiceRoot` or
+ * `handleRDEServicePath`) with the correct schema context.
+ * - Each handler constructs an `RDEServiceHandler` instance and invokes
+ * `bootstrapProcess()` to initiate metadata collection and processing flow.
+ *
+ * @param[in,out] app Reference to the Crow application instance used to
+ * register routes.
+ */
 inline void requestRoutesRDEService(crow::App& app)
 {
     BMCWEB_ROUTE(
@@ -708,14 +502,30 @@ inline void requestRoutesRDEService(crow::App& app)
         .privileges(redfish::privileges::patchProcessor)
         .methods(boost::beast::http::verb::head, boost::beast::http::verb::get,
                  boost::beast::http::verb::patch)(
-            std::bind_front(handleProcRDE, std::ref(app)));
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemId, const std::string& deviceId,
+                   const std::string& vendorPath) {
+        std::string baseUri = "/redfish/v1/Systems/" + systemId +
+                              "/Processors/" + deviceId;
+
+        handleRDEServicePath(app, req, asyncResp, systemId, deviceId,
+                             vendorPath, redfish::procSchemaName, baseUri);
+    });
 
     BMCWEB_ROUTE(
         app,
         "/redfish/v1/Systems/<str>/Processors/<str>/Oem/AMD/SocConfiguration")
         .privileges(redfish::privileges::getProcessor)
         .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleProcessorRoot, std::ref(app)));
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemId, const std::string& deviceId) {
+        std::string baseUri = "/redfish/v1/Systems/" + systemId +
+                              "/Processors/" + deviceId;
+        handleRDEServiceRoot(app, req, asyncResp, systemId, deviceId,
+                             redfish::procSchemaName, baseUri);
+    });
 }
 
 } // namespace redfish

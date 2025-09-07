@@ -1322,6 +1322,7 @@ inline void requestRoutesProcessorCollection(App& app)
         asyncResp->res.jsonValue["@odata.id"] =
             std::format("/redfish/v1/Systems/{}/Processors",
                         BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
         collection_util::getCollectionMembers(
             asyncResp,
             boost::urls::format("/redfish/v1/Systems/{}/Processors",
@@ -1375,11 +1376,6 @@ inline void requestRoutesProcessor(App& app)
             boost::urls::format("/redfish/v1/Systems/{}/Processors/{}",
                                 BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
 
-        asyncResp->res.jsonValue["OEM"]["AmdSocConfigurationToken"] = {
-            {"#Processor.AmdSocConfigurationToken",
-             {{"@odata.id", "/redfish/v1/Systems/" + systemName + "/Processors/" +
-                             processorId + "/Oem/AMD/SocConfiguration"}}}};
-
         asyncResp->res.jsonValue["Actions"]["Oem"] = {
             {"#Processor.OobErrorInjectionMode",
              {{"target", "/redfish/v1/Systems/system/Processors/" +
@@ -1389,6 +1385,12 @@ inline void requestRoutesProcessor(App& app)
              {{"target", "/redfish/v1/Systems/system/Processors/" +
                              processorId +
                              "/Actions/Oem/Processor.SupportedErrorTypes"}}}};
+
+        // Add SocConfiguration sub-resource link
+        asyncResp->res.jsonValue["Oem"]["AMD"]["SocConfiguration"]
+                                ["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/Processors/{}/Oem/AMD/SocConfiguration/Token",
+            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
 
         getProcessorObject(
             asyncResp, processorId,
