@@ -48,6 +48,8 @@ constexpr const char* rdeManagerInterface = "xyz.openbmc_project.RDE.Manager";
 constexpr const char* rdeOperationMethod = "StartRedfishOperation";
 constexpr const char* rdeOperationTypeRead =
     "xyz.openbmc_project.RDE.Common.OperationType.READ";
+constexpr const char* rdeOperationTypePatch =
+    "xyz.openbmc_project.RDE.Common.OperationType.UPDATE";
 constexpr const char* rdePayloadFormatInline =
     "xyz.openbmc_project.RDE.Manager.PayloadFormatType.Inline";
 constexpr const char* rdeEncodingFormatJSON =
@@ -56,6 +58,7 @@ constexpr const char* rdeSignalMember = "TaskUpdated";
 constexpr uint16_t completionCodeOperationCompleted = 7;
 constexpr uint16_t completionCodeOperationFailed = 8;
 const std::string operationIdFile = "/var/run/rde-operation-id";
+constexpr int rdeTaskTimeoutMinutes = 5;
 
 /** @brief Match rule template for RDE Operation Task signal */
 inline constexpr std::string_view rdeOpTaskMatchTemplate =
@@ -168,6 +171,132 @@ inline nlohmann::json handleDeferredBindings(const std::string& bejJsonInput,
     BMCWEB_LOG_DEBUG("RDE: BEJ JSON String Output: {}", bejJson);
 
     return nlohmann::json::parse(bejJson);
+}
+/**
+ * @brief Process the TaskUpdated signal for an RDE Operation Task.
+ *
+ * This function handles the D-Bus signal emitted when an RDE task is updated.
+ * It extracts the payload and return code from the signal, validates the task
+ * context, and updates the task state and messages accordingly.
+ *
+ * @param ec2       Error code from the signal match.
+ * @param msg       D-Bus message containing updated properties.
+ * @param taskData  Shared pointer to the task data structure.
+ * @return true     Indicates the task is completed.
+ */
+inline bool
+    rdeProcessTaskUpdateSignal(const boost::system::error_code& ec2,
+                               sdbusplus::message_t& msg,
+                               const std::shared_ptr<task::TaskData>& taskData)
+{
+    if (ec2)
+    {
+        BMCWEB_LOG_ERROR("RDE: Signal error - {}", ec2.message());
+        taskData->messages.emplace_back(messages::internalError());
+        taskData->state = "Exception";
+        return task::completed;
+    }
+
+    dbus::utility::DBusPropertiesMap changedProperties;
+    msg.read(changedProperties);
+
+    const std::string* data = nullptr;
+    const uint16_t* rc = nullptr;
+
+    for (const auto& propertyPair : changedProperties)
+    {
+        if (propertyPair.first == "payload")
+        {
+            data = std::get_if<std::string>(&propertyPair.second);
+        }
+        else if (propertyPair.first == "return_code")
+        {
+            rc = std::get_if<uint16_t>(&propertyPair.second);
+        }
+    }
+
+    if (data == nullptr || rc == nullptr)
+    {
+        BMCWEB_LOG_ERROR("RDE: Missing 'payload' or 'return_code' in signal");
+        taskData->messages.emplace_back(messages::internalError());
+        taskData->state = "Exception";
+        return task::completed;
+    }
+
+    const auto& jsonBody = taskData->payload->jsonBody;
+    if (!jsonBody.contains("uriMap") || !jsonBody["uriMap"].is_object())
+    {
+        BMCWEB_LOG_ERROR("RDE: No uriMap found in task payload");
+        taskData->messages.emplace_back(messages::internalError());
+        taskData->state = "Exception";
+        return task::completed;
+    }
+    const auto& uriMapJson = jsonBody["uriMap"];
+
+    nlohmann::json taskEntry;
+    try
+    {
+        const auto& updatedData = handleDeferredBindings(*data, uriMapJson);
+        taskEntry["Payload"] = updatedData;
+        taskEntry["ReturnCode"] = *rc;
+    }
+    catch (const std::exception& e)
+    {
+        BMCWEB_LOG_ERROR("RDE: Exception in payload processing: {}", e.what());
+        taskData->messages.emplace_back(messages::internalError());
+        taskData->state = "Exception";
+        return task::completed;
+    }
+
+    std::string index = std::to_string(taskData->index);
+    taskData->messages.emplace_back(taskEntry);
+    taskData->messages.emplace_back(messages::taskCompletedOK(index));
+    taskData->state = "Completed";
+
+    return task::completed;
+}
+
+/**
+ * @brief Create an RDE operation task and start its timer.
+ *
+ * This function sets up a task to monitor RDE operation updates via D-Bus
+ * signals. It uses the provided object path to build a match rule and
+ * associates the task with the given resource data and payload.
+ *
+ * @param payload      The task payload containing response and context.
+ * @param objPath      The D-Bus object path for the RDE operation.
+ * @param resourceData Metadata and schema information for the RDE resource.
+ */
+
+inline void rdeCreateTask(task::Payload&& payload,
+                          const sdbusplus::message::object_path& objPath,
+                          const RDESchemaResource& resourceData)
+{
+    std::string matchString = rdeOpTaskMatch(objPath.str);
+
+    nlohmann::json uriMapJson;
+    for (const auto& it : resourceData)
+    {
+        try
+        {
+            int resourceId = std::stoi(it.rid);
+            uriMapJson[std::to_string(resourceId)] = it.fullUri;
+        }
+        catch (const std::exception& e)
+        {
+            BMCWEB_LOG_WARNING("RDE: Invalid rid:{}  error:{} ", it.rid,
+                               e.what());
+        }
+    }
+
+    // Embed uriMap into payload metadata
+    payload.jsonBody["uriMap"] = std::move(uriMapJson);
+
+    auto task = task::TaskData::createTask(
+        std::bind_front(redfish::rdeProcessTaskUpdateSignal), matchString);
+
+    task->startTimer(std::chrono::minutes(rdeTaskTimeoutMinutes));
+    task->payload.emplace(std::move(payload));
 }
 
 /**
@@ -319,6 +448,7 @@ class RDEServiceHandler : public std::enable_shared_from_this<RDEServiceHandler>
     inline void bootstrapProcess()
     {
         BMCWEB_LOG_DEBUG("RDE: bootstrapProcess: Enter Device ID {}", deviceId);
+
         auto self =
             shared_from_this(); // Capture shared_ptr to keep object alive
         constexpr std::array<std::string_view, 1> interfaces = {
@@ -332,7 +462,7 @@ class RDEServiceHandler : public std::enable_shared_from_this<RDEServiceHandler>
             if (ec)
             {
                 BMCWEB_LOG_ERROR(
-                    "RDE: bootstrapProcess getSubTreePaths DBUS error: {}",
+                    "RDE: bootstrapProcess: getSubTreePaths DBUS error: {}",
                     ec.message());
                 messages::internalError(self->asyncResp->res);
                 return;
@@ -345,12 +475,13 @@ class RDEServiceHandler : public std::enable_shared_from_this<RDEServiceHandler>
                 if (pathName.empty())
                 {
                     BMCWEB_LOG_ERROR(
-                        "RDE: bootstrapProcess Failed to find '/' in {}", path);
+                        "RDE: bootstrapProcess: Failed to find '/' in {}",
+                        path);
                     continue;
                 }
 
                 BMCWEB_LOG_DEBUG(
-                    "RDE: bootstrapProcess Found device with ObjectPath {}",
+                    "RDE: bootstrapProcess: Found device with ObjectPath {}",
                     path);
 
                 sdbusplus::asio::getAllProperties(
@@ -361,7 +492,7 @@ class RDEServiceHandler : public std::enable_shared_from_this<RDEServiceHandler>
                     if (errCode)
                     {
                         BMCWEB_LOG_ERROR(
-                            "RDE: bootstrapProcess DBUS response error: {}",
+                            "RDE: bootstrapProcess: DBUS response error: {}",
                             errCode.message());
                         return;
                     }
@@ -377,7 +508,7 @@ class RDEServiceHandler : public std::enable_shared_from_this<RDEServiceHandler>
                     if (!success)
                     {
                         BMCWEB_LOG_ERROR(
-                            "RDE: bootstrapProcess Failed to unpack properties");
+                            "RDE: bootstrapProcess: Failed to unpack properties");
                         return;
                     }
 
@@ -386,13 +517,13 @@ class RDEServiceHandler : public std::enable_shared_from_this<RDEServiceHandler>
                                   uuid) == self->deviceUUIDList.end())
                     {
                         BMCWEB_LOG_DEBUG(
-                            "RDE: bootstrapProcess UUID mismatch: expected");
+                            "RDE: bootstrapProcess: UUID mismatch: expected");
                         return;
                     }
                     // UUID matched — update the active device UUID
                     self->deviceUUID = uuid;
                     BMCWEB_LOG_INFO(
-                        "RDE: bootstrapProcess UUID {} matched and updated",
+                        "RDE: bootstrapProcess: UUID {} matched and updated",
                         uuid);
 
                     for (const auto& [rid, valueMap] : schemaResources)
@@ -421,7 +552,7 @@ class RDEServiceHandler : public std::enable_shared_from_this<RDEServiceHandler>
                         self->resourceData.push_back(std::move(entry));
                     }
                     BMCWEB_LOG_INFO(
-                        "RDE: bootstrapProcess Successfully updated resourceData for UUID {}",
+                        "RDE: bootstrapProcess: Successfully updated resourceData for UUID {}",
                         uuid);
                     self->process(self);
                 });
@@ -661,10 +792,7 @@ class RDEServiceHandler : public std::enable_shared_from_this<RDEServiceHandler>
         else if (verb == boost::beast::http::verb::patch)
         {
             BMCWEB_LOG_DEBUG("RDE: Handling PATCH for device {}", deviceId);
-
-            // Placeholder for TOD logic
-            asyncResp->res.jsonValue["RDE"]["TimeOfDay"] = "Unsupported";
-            asyncResp->res.result(boost::beast::http::status::not_implemented);
+            operationPatch(self);
         }
         else
         {
@@ -888,6 +1016,57 @@ class RDEServiceHandler : public std::enable_shared_from_this<RDEServiceHandler>
             pldmService, rdeManagerPath, rdeManagerInterface,
             rdeOperationMethod, self->nextOperationId(), rdeOperationTypeRead,
             self->subUri, self->deviceUUID, self->deviceEID, rdeEmptyPayload,
+            rdePayloadFormatInline, rdeEncodingFormatJSON, self->schema);
+    }
+
+    /**
+     * @brief Initiates an RDE PATCH operation for a system.
+     *
+     * This function parses the incoming request body as JSON, extracts the
+     * payload, and initiates an asynchronous D-Bus method call to start an RDE
+     * Patch operation. Upon success, it creates a task and embeds the resource
+     * metadata.
+     *
+     * @param self Shared pointer to the RDEServiceHandler instance containing
+     *             device context and schema information.
+     */
+    inline void operationPatch(const std::shared_ptr<RDEServiceHandler>& self)
+    {
+        BMCWEB_LOG_INFO("RDE GET operation for system [{}]", self->deviceUUID);
+
+        nlohmann::json jsonPayload;
+        try
+        {
+            jsonPayload = nlohmann::json::parse(self->request.body());
+        }
+        catch (const nlohmann::json::parse_error& e)
+        {
+            BMCWEB_LOG_ERROR("RDE: JSON parse error: {}", e.what());
+            messages::malformedJSON(self->asyncResp->res);
+            return;
+        }
+
+        std::string rdePayload = jsonPayload.dump();
+        // Begin async method call
+        crow::connections::systemBus->async_method_call(
+            [self](const boost::system::error_code ec,
+                   const sdbusplus::message_t&, const ObjectPath& objPath) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("RDE: operationGet failed: {}", ec.message());
+                messages::internalError(self->asyncResp->res);
+                return;
+            }
+
+            BMCWEB_LOG_INFO("RDE: task created at {}",
+                            static_cast<const std::string&>(objPath));
+
+            task::Payload payload(self->request);
+            rdeCreateTask(std::move(payload), objPath, self->resourceData);
+        },
+            pldmService, rdeManagerPath, rdeManagerInterface,
+            rdeOperationMethod, self->nextOperationId(), rdeOperationTypePatch,
+            self->subUri, self->deviceUUID, self->deviceEID, rdePayload,
             rdePayloadFormatInline, rdeEncodingFormatJSON, self->schema);
     }
 
