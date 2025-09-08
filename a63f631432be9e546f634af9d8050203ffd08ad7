@@ -71,6 +71,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1da30546_106d091a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2025-09-08T19:33:51Z",
+      "side": 1,
+      "message": "Yes, abandon.  This attempted to add two HTTP response header CSP directives:\n1. block-all-mixed-content is deprecated per https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy \n2. upgrade-insecure-requests -- the project does not need this.",
+      "revId": "a63f631432be9e546f634af9d8050203ffd08ad7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "70e1f3c0_b41486e2",
