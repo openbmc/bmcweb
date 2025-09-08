@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "e70c1a2f_d3c31072",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 79
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T13:17:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d2701589_638cf6ae",
+      "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ae6959aa_e6807a08",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 79
@@ -131,6 +149,24 @@
       "writtenOn": "2023-08-10T17:51:43Z",
       "side": 1,
       "message": "This doesn\u0027t look to match https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/64544",
+      "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "231a13b6_ec310eea",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 79
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T13:17:58Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/64544 was abandoned. Now, it uses the association of `containing/contained_by` of\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/58441",
+      "parentUuid": "6cd22d06_1e09b6e5",
       "revId": "9357c72fb4eb23c82455eda4f0e4ffae372f500d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

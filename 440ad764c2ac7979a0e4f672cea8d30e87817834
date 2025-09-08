@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e15f474f_77522193",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 90
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T13:17:58Z",
+      "side": 1,
+      "message": "This is refactored to be on top of\n- https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83459\n- https://gerrit.openbmc.org/c/openbmc/bmcweb/+/79009",
+      "parentUuid": "03399a8d_d391c5a8",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f94b3df3_7293a833",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-08-25T18:25:09Z",
       "side": 1,
       "message": "Is it time, this is a separate function? GetAssetinfo?",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ced9fcc7_b75a2216",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T13:17:58Z",
+      "side": 1,
+      "message": "Yes, getAssetInfo is done via https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83459",
+      "parentUuid": "f94b3df3_7293a833",
       "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f65f553_7aaaca84",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T13:17:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1a08bc7_142269fd",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "231d03e7_f69ba70b",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-08-25T18:25:09Z",
       "side": 1,
       "message": "WARNING here",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "544b0a17_e895530f",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T13:17:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "231d03e7_f69ba70b",
       "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +158,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b07dfd7e_fcc3365e",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T13:17:58Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "14566b77_8697e6d0",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15e652e0_f8881ffc",
@@ -99,6 +189,24 @@
       "writtenOn": "2025-08-25T18:25:09Z",
       "side": 1,
       "message": "Head method too? \nheadAssembly \n`verb::head`",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e39b543a_8fef1a5d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T13:17:58Z",
+      "side": 1,
+      "message": "verb::head method is added",
+      "parentUuid": "15e652e0_f8881ffc",
       "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
