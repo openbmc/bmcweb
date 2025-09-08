@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b4588cdc_28a476b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T13:53:53Z",
+      "side": 1,
+      "message": "Thanks for it. Fixed it",
+      "parentUuid": "05cd9c11_091b71e2",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 5
+      },
+      "revId": "bf7cc1d08057c2c478abd1a18ad455bc81fdc004",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ca4ff059_2d9968e2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 14
