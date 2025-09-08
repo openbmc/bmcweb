@@ -209,6 +209,24 @@
       "parentUuid": "15e652e0_f8881ffc",
       "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8ee505a_b9671e53",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T19:41:02Z",
+      "side": 1,
+      "message": "When verb::head is added, CI fails on\n\n- 46/58 redfish_test                 FAIL             2.45s   exit status 1\n- 55/58 redfish_oem_routing_test     FAIL             2.67s   exit status 1\n\n```\n\u003d\u003d6614\u003d\u003d    by 0x15915C: std::vector\u003ccrow::Node, std::allocator\u003ccrow::Node\u003e \u003e::_M_default_append(unsigned long) (vector.tcc:835)\n\u003d\u003d6614\u003d\u003d    by 0x15F96C: std::vector\u003ccrow::Node, std::allocator\u003ccrow::Node\u003e \u003e::resize(unsigned long) (stl_vector.h:1146)\n\u003d\u003d6614\u003d\u003d    by 0x14E2E6: crow::Trie\u003ccrow::Node\u003e::newNode() (trie.hpp:324)\n\u003d\u003d6614\u003d\u003d    by 0x156B0E: crow::Trie\u003ccrow::Node\u003e::add(std::basic_string_view\u003cchar, std::char_traits\u003cchar\u003e \u003e, unsigned int) (trie.hpp:249)\n\u003d\u003d6614\u003d\u003d    by 0x144B91: crow::Router::PerMethod::internalAdd(std::basic_string_view\u003cchar, std::char_traits\u003cchar\u003e \u003e, crow::BaseRule*) (routing.hpp:119)\n\u003d\u003d6614\u003d\u003d    by 0x144C59: crow::Router::internalAddRuleObject(std::__cxx11::basic_string\u003cchar, std::char_traits\u003cchar\u003e, std::allocator\u003cchar\u003e \u003e const\u0026, crow::BaseRule*) (routing.hpp:141)\n\u003d\u003d6614\u003d\u003d    by 0x14A797: crow::Router::validate() (routing.hpp:173)\n\u003d\u003d6614\u003d\u003d    by 0x14B11D: UnknownInlinedFun (app.hpp:69)\n\u003d\u003d6614\u003d\u003d    by 0x14B11D: redfish::(anonymous namespace)::OemRouter_FragmentRoutes_Test::TestBody() [clone .lto_priv.0] (redfish_oem_routing_test.cpp:53)\n\u003d\u003d6614\u003d\u003d    by 0x529AF66: HandleSehExceptionsInMethodIfSupported\u003ctesting::Test, void\u003e (gtest.cc:2653)\n\u003d\u003d6614\u003d\u003d    by 0x529AF66: void testing::internal::HandleExceptionsInMethodIfSupported\u003ctesting::Test, void\u003e(testing::Test*, void (testing::Test::*)(), char const*) (gtest.cc:2689)\n\u003d\u003d6614\u003d\u003d    by 0x5288BD5: Run (gtest.cc:2728)\n\u003d\u003d6614\u003d\u003d    by 0x5288BD5: testing::Test::Run() (gtest.cc:2718)\n.....\n```\n\nI think there seems an issue with Router?\nAt this time, I removed verb::head part.",
+      "parentUuid": "e39b543a_8fef1a5d",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
