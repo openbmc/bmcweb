@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aae5716d_a619b0a3",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-08T19:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ea1fb22_1d8996ac",
+      "revId": "4c755abcfc9ba67d4c63f5519df445d036378749",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "397b7ef5_b76682b0",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-09-08T18:43:12Z",
       "side": 1,
       "message": "This might need some discussion too.. Maybe we start with panel and depending on discussion with Redfish Vrm too..\nSo maybe just start with .Panel ?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 55
+      },
+      "revId": "4c755abcfc9ba67d4c63f5519df445d036378749",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e657d5b_94228bc5",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-08T19:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "397b7ef5_b76682b0",
       "range": {
         "startLine": 37,
         "startChar": 0,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a87d3c3f_8e187dea",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-08T19:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "634767c3_dc8bf28e",
+      "revId": "4c755abcfc9ba67d4c63f5519df445d036378749",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3dc3e218_266d8e46",
@@ -71,6 +131,24 @@
       "writtenOn": "2025-09-08T18:43:12Z",
       "side": 1,
       "message": "Added Vrm to discuss with Redfish",
+      "revId": "4c755abcfc9ba67d4c63f5519df445d036378749",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20b826c6_26f75b5b",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-08T19:31:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dc3e218_266d8e46",
       "revId": "4c755abcfc9ba67d4c63f5519df445d036378749",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
