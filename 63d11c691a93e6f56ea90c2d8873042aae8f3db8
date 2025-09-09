@@ -62,6 +62,29 @@
       },
       "revId": "63d11c691a93e6f56ea90c2d8873042aae8f3db8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b807f4b_9450511c",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-09T02:16:15Z",
+      "side": 1,
+      "message": "Should Manager event log have the name system in it and in the description ?",
+      "range": {
+        "startLine": 239,
+        "startChar": 40,
+        "endLine": 239,
+        "endChar": 47
+      },
+      "revId": "63d11c691a93e6f56ea90c2d8873042aae8f3db8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
