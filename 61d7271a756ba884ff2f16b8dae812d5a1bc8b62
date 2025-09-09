@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a56649a0_9e81f7ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-09T02:10:04Z",
+      "side": 1,
+      "message": "The other choice is you move it to a utils.. I would rather not dup paths like /xyz/openbmc_project/certs/authority/truststore",
+      "revId": "61d7271a756ba884ff2f16b8dae812d5a1bc8b62",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
