@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a0f6846_6b73c1a1",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-09T03:41:42Z",
+      "side": 1,
+      "message": "GPIO presence interface shouldn\u0027t directly map to redfish as a cable.  Cable inventory is what would be there.  I suspect whatever backend you\u0027re using published the wrong API.",
+      "parentUuid": "519391ec_8e98ad95",
+      "revId": "972bea49388e4fbe245af2779acd0b3d8504d68b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95bb5ece_88349c55",
         "filename": "redfish-core/lib/cable.hpp",
         "patchSetId": 1
@@ -96,6 +114,24 @@
       "writtenOn": "2025-09-09T02:28:25Z",
       "side": 1,
       "message": "Why can\u0027t we assume cables would be under inventory ? At a min, we would still want to support cables under /inventory.. So remove the GPIODeviceDetected..? But please explain why the current code doesn\u0027t work.",
+      "revId": "972bea49388e4fbe245af2779acd0b3d8504d68b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebfaf267_30181f26",
+        "filename": "redfish-core/lib/cable.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-09T03:41:42Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "95bb5ece_88349c55",
       "revId": "972bea49388e4fbe245af2779acd0b3d8504d68b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
