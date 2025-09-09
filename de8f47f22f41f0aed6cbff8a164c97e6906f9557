@@ -16,6 +16,24 @@
       "message": "I read your response. I still think this should just be below And have nothing to do with the Multi computer system.. \n\n        auto url \u003d boost::urls::format(\"/redfish/v1/Systems/{}\",\n                                       BMCWEB_REDFISH_SYSTEM_URI_NAME);\n        addRelatedItem(asyncResp, url);",
       "revId": "de8f47f22f41f0aed6cbff8a164c97e6906f9557",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d60374af_701bb7e9",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-09-09T12:02:45Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/50ab50dbb0107812af1f7b44797bdd132474c166/redfish-core/include/utils/systems_utils.hpp#L29\n\nnvm, my patch is still wrong since only `ManagedHost` interface counts towards systems collection (if there\u0027s at least 1 instance of it), independent of `BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM`.\n\n\nI guess i will have to drop this patch and combine it with next one.\n\nThanks anyways for looking again 👍",
+      "parentUuid": "66537caf_3270af63",
+      "revId": "de8f47f22f41f0aed6cbff8a164c97e6906f9557",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
