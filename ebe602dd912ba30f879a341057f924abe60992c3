@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "034b702a_535f3da0",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-09T02:21:02Z",
+      "side": 1,
+      "message": "Do we want to call this Manager for the manager Log Entry  ?",
+      "range": {
+        "startLine": 478,
+        "startChar": 31,
+        "endLine": 478,
+        "endChar": 38
+      },
+      "revId": "ebe602dd912ba30f879a341057f924abe60992c3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
