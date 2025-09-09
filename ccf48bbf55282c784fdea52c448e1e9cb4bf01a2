@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "078978b7_01e9c330",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-09T02:07:49Z",
+      "side": 1,
+      "message": "I still don\u0027t see what happens if this doesn\u0027t exist.. What happens if the system doesn\u0027t have this support?",
+      "revId": "ccf48bbf55282c784fdea52c448e1e9cb4bf01a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
