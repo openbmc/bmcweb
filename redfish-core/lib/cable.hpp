@@ -35,8 +35,9 @@
 namespace redfish
 {
 
-constexpr std::array<std::string_view, 1> cableInterfaces = {
-    "xyz.openbmc_project.Inventory.Item.Cable"};
+constexpr std::array<std::string_view, 2> cableInterfaces = {
+    "xyz.openbmc_project.Inventory.Item.Cable",
+    "xyz.openbmc_project.Inventory.Source.DevicePresence"};
 
 /**
  * @brief Fill cable specific properties.
@@ -225,7 +226,7 @@ inline void handleCableCollectionGet(
     asyncResp->res.jsonValue["Description"] = "Collection of Cable Entries";
     collection_util::getCollectionMembers(
         asyncResp, boost::urls::url("/redfish/v1/Cables"), cableInterfaces,
-        "/xyz/openbmc_project/inventory");
+        "/xyz/openbmc_project/GPIODeviceDetected");
 }
 
 /**
