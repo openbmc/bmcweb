@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fac71d3_da8400a9",
+        "filename": "redfish-core/include/utils/asset_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-09T15:45:26Z",
+      "side": 1,
+      "message": "I don\u0027t see algorithm used",
+      "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f8de68c_f0a2bccb",
+        "filename": "redfish-core/include/utils/asset_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-09T15:45:26Z",
+      "side": 1,
+      "message": "I don\u0027t see span used",
+      "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faef3e80_57bc22b5",
+        "filename": "redfish-core/include/utils/asset_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-09T15:45:26Z",
+      "side": 1,
+      "message": "I don\u0027t see string_view used",
+      "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf06658b_067559c0",
+        "filename": "redfish-core/include/utils/asset_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-09T15:45:26Z",
+      "side": 1,
+      "message": "I don\u0027t see vector used",
+      "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
