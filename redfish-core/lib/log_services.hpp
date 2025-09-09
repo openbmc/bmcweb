@@ -44,9 +44,9 @@
 #include <boost/url/format.hpp>
 #include <boost/url/params_view.hpp>
 #include <boost/url/url_view.hpp>
+#include <nlohmann/json.hpp>
 #include <sdbusplus/asio/property.hpp>
 #include <sdbusplus/unpack_properties.hpp>
-#include <nlohmann/json.hpp>
 
 #include <array>
 #include <charconv>
@@ -1610,63 +1610,191 @@ std::string severityToString(int level)
     }
 }
 
-inline void requestRoutesEventLogEntriesPost(App& app)
+inline bool parseReqBody(const crow::Request& req,
+                         const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         std::string& message, std::string& messageId,
+                         std::string& messageArgs, std::string& severity,
+                         int& severityNumber,
+                         std::map<std::string, std::string>& additionalData)
 {
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/bmc/LogServices/EventLog/Actions/Oem/OpenBMC.LogService.CreateLogEntry")
+    nlohmann::json reqDataJson = nlohmann::json::parse(req.body(), nullptr,
+                                                       false);
+    // Required: Message, Severity, AdditionalData
+    if (!reqDataJson.contains("Message") || !reqDataJson.contains("Severity"))
+    {
+        messages::propertyMissing(asyncResp->res, "Message or Severity");
+        return false;
+    }
+
+    message = reqDataJson.at("Message").get<std::string>();
+    severityNumber = reqDataJson.at("Severity").get<int>();
+    severity = severityToString(severityNumber);
+
+    BMCWEB_LOG_DEBUG("event log entry message :{}  and severity {}", message,
+                     severity);
+    if (reqDataJson.contains("AdditionalData"))
+    {
+        if (!reqDataJson["AdditionalData"].is_object())
+        {
+            messages::propertyValueTypeError(asyncResp->res, "AdditionalData",
+                                             "object");
+            return false;
+        }
+
+        for (const auto& [key, value] : reqDataJson["AdditionalData"].items())
+        {
+            try
+            {
+                additionalData[key] = value.get<std::string>();
+            }
+            catch (const nlohmann::json::type_error&)
+            {
+                messages::propertyValueTypeError(
+                    asyncResp->res, "AdditionalData." + key, "string");
+                return false;
+            }
+        }
+    }
+
+    // Unique identifier for IPMI SEL (System Event Log) message
+    constexpr const char* ipmiSelMessageId = "b370836ccf2f4850ac5bee185b77893a";
+    auto it = additionalData.find("REDFISH_MESSAGE_ID");
+
+    if (it != additionalData.end())
+    {
+        messageId = it->second;
+    }
+
+    if (messageId == ipmiSelMessageId)
+    {
+        BMCWEB_LOG_ERROR("IPMI event can not be created");
+        asyncResp->res.result(boost::beast::http::status::not_acceptable);
+        return false;
+    }
+
+    it = additionalData.find("REDFISH_MESSAGE_ARGS");
+    if (it != additionalData.end())
+    {
+        messageArgs = it->second;
+    }
+
+    return true;
+}
+
+inline bool isAllowedIP(const crow::Request& req)
+{
+    std::string ipStr = req.ipAddress.to_string();
+    // IP of the USB vNIC
+    constexpr std::string_view allowedIp = "192.168.31.2";
+
+    // Check if the IP string contains the allowed IP
+    if (ipStr.find(allowedIp) == std::string::npos)
+    {
+        BMCWEB_LOG_ERROR("Unmatched IP: {} ", ipStr);
+        return false;
+    }
+    return true;
+}
+
+inline void requestRoutesJournalEventLogEntryPost(App& app)
+{
+    BMCWEB_LOG_ERROR("Entred: requestRoutesEventLogEntriesPost");
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog")
         .privileges(redfish::privileges::postLogEntry)
         .methods(boost::beast::http::verb::post)(
             [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-
-        BMCWEB_LOG_DEBUG("EventLog POST called");
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
         if (!redfish::setUpRedfishRoute(app, req, asyncResp))
         {
             return;
         }
-
-        // Parse request body
-        std::string message;
-        std::string severity;
-        int severityNumber;
-        std::map<std::string, std::string> additionalData;
-        nlohmann::json json = nlohmann::json::parse(req.body(), nullptr, false);
-        // Required: Message, Severity, AdditionalData
-        if (!json.contains("Message") || !json.contains("Severity"))
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
         {
-            messages::propertyMissing(asyncResp->res, "Message or Severity");
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        if (!isAllowedIP(req))
+        {
+            messages::insufficientPrivilege(asyncResp->res);
             return;
         }
 
-        message = json.at("Message").get<std::string>();
-        severityNumber = json.at("Severity").get<int>();
-        severity = severityToString(severityNumber);
+        std::string message;
+        std::string redfishMessageId = "OpenBMC.0.1.GeneralError";
+        std::string redfishMessageArgs = message;
+        std::string severity;
+        int severityNumber;
+        std::map<std::string, std::string> additionalData;
 
-        BMCWEB_LOG_DEBUG("event log entry message :{}  and severity {}",
-                         message, severity);
-        if (json.contains("AdditionalData"))
+        if (!parseReqBody(req, asyncResp, message, redfishMessageId,
+                          redfishMessageArgs, severity, severityNumber,
+                          additionalData))
         {
-            if (!json["AdditionalData"].is_object())
-            {
-                messages::propertyValueTypeError(asyncResp->res,
-                                                 "AdditionalData", "object");
-                return;
-            }
+            BMCWEB_LOG_ERROR("Error in parsing the request body");
+            return;
+        }
 
-            for (const auto& [key, value] : json["AdditionalData"].items())
-            {
-                try
-                {
-                    additionalData[key] = value.get<std::string>();
-                    BMCWEB_LOG_ERROR("event log entry additonal :{} ",
-                                     additionalData[key]);
-                }
-                catch (const nlohmann::json::type_error&)
-                {
-                    messages::propertyValueTypeError(
-                        asyncResp->res, "AdditionalData." + key, "string");
-                    return;
-                }
-            }
+        sd_journal_send("MESSAGE=%s", message.c_str(), "PRIORITY=%i",
+                        severityNumber, "REDFISH_MESSAGE_ID=%s",
+                        redfishMessageId.c_str(), "REDFISH_MESSAGE_ARGS=%s",
+                        redfishMessageArgs.c_str(), NULL);
+        messages::success(asyncResp->res);
+    });
+}
+
+inline void requestRoutesDBusEventLogEntryPost(App& app)
+{
+    BMCWEB_LOG_ERROR("Entred: requestRoutesEventLogEntriesPost");
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog")
+        .privileges(redfish::privileges::postLogEntry)
+        .methods(boost::beast::http::verb::post)(
+            [&app](const crow::Request& req,
+                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                   const std::string& systemName) {
+        if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+        {
+            return;
+        }
+        if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+
+        if (!isAllowedIP(req))
+        {
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+
+        std::string message;
+        std::string redfishMessageId = "OpenBMC.0.1.GeneralError";
+        std::string redfishMessageArgs = message;
+        std::string severity;
+        int severityNumber;
+        std::map<std::string, std::string> additionalData;
+
+        if (!parseReqBody(req, asyncResp, message, redfishMessageId,
+                          redfishMessageArgs, severity, severityNumber,
+                          additionalData))
+        {
+            BMCWEB_LOG_ERROR("Error in parsing the request body");
+            return;
         }
 
         crow::connections::systemBus->async_method_call(
@@ -1682,6 +1810,7 @@ inline void requestRoutesEventLogEntriesPost(App& app)
         }, "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
             "xyz.openbmc_project.Logging.Create", "Create", message, severity,
             additionalData);
+        messages::success(asyncResp->res);
     });
 }
 
