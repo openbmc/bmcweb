@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43e6449f_f9a8f037",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-10T19:15:26Z",
+      "side": 0,
+      "message": "Removed SparePartNumber for storage.hpp \u0026 systems.hpp",
+      "parentUuid": "2a741a1c_23b09225",
+      "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb0ebc7b_709f3f3c",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-09-09T15:43:51Z",
       "side": 0,
       "message": "Doesn\u0027t this put out sparePartNumber if it isn\u0027t empty? Which isn\u0027t in https://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_25_0.json",
+      "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2e22108_b7f4b7e8",
+        "filename": "redfish-core/lib/systems.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-10T19:15:26Z",
+      "side": 0,
+      "message": "Removed SparePartNumber for storage.hpp \u0026 systems.hpp",
+      "parentUuid": "eb0ebc7b_709f3f3c",
       "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }

@@ -16,6 +16,24 @@
       "message": "You could separate \n- Storage\n- System\nif you wanted",
       "revId": "cb50c29d5c535c26a81b3005c44ae96c7237cfab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6c0fc38_b9b02acd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-10T19:15:26Z",
+      "side": 1,
+      "message": "I\u0027ve modified https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83459 so that `getAssetInfo` can optionally read `SparePartNumber` (via an arg).\n\n```\n\ninline void extractAssetInfo(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const nlohmann::json::json_pointer\u0026 jsonKeyName,\n    const dbus::utility::DBusPropertiesMap\u0026 assetList,\n    bool includeSparePartNumber \u003d false);\n\ninline void getAssetInfo(const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n                         const std::string\u0026 serviceName,\n                         const std::string\u0026 dbusPath,\n                         const nlohmann::json::json_pointer\u0026 jsonKeyName,\n                         bool includeSparePartNumber \u003d false);\n```",
+      "parentUuid": "1eb2ae2a_586bfe87",
+      "revId": "cb50c29d5c535c26a81b3005c44ae96c7237cfab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
