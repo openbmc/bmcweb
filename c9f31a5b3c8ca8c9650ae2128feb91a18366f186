@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2583aaaa_35584797",
+        "filename": "redfish-core/include/utils/asset_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-10T16:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fac71d3_da8400a9",
+      "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f8de68c_f0a2bccb",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-09-09T15:45:26Z",
       "side": 1,
       "message": "I don\u0027t see span used",
+      "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35d35ec5_bbf3754a",
+        "filename": "redfish-core/include/utils/asset_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-10T16:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f8de68c_f0a2bccb",
       "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -52,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cacb2056_e17e90e9",
+        "filename": "redfish-core/include/utils/asset_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-10T16:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faef3e80_57bc22b5",
+      "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf06658b_067559c0",
@@ -65,6 +119,24 @@
       "writtenOn": "2025-09-09T15:45:26Z",
       "side": 1,
       "message": "I don\u0027t see vector used",
+      "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9932052d_e8f1e8b3",
+        "filename": "redfish-core/include/utils/asset_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-10T16:41:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf06658b_067559c0",
       "revId": "c9f31a5b3c8ca8c9650ae2128feb91a18366f186",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
