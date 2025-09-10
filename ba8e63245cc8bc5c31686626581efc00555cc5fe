@@ -22,6 +22,30 @@
       },
       "revId": "ba8e63245cc8bc5c31686626581efc00555cc5fe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78b51e2d_ec28d07f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-10T19:09:45Z",
+      "side": 1,
+      "message": "Yes, it makes sense.\nI stated this as \"Add\" (instead of Refactor)",
+      "parentUuid": "248238c1_cba21e4f",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 2
+      },
+      "revId": "ba8e63245cc8bc5c31686626581efc00555cc5fe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
