@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e998d166_c9072695",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 98
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-10T16:44:14Z",
+      "side": 1,
+      "message": "nit: Remove duplicate signature",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 2
+      },
+      "revId": "7637cb71338da0a5fde496543e29277ea4fc6317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfa93a3b_2e4e24f2",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 98
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-10T16:44:14Z",
+      "side": 1,
+      "message": "Should this be Assemblies to match schema?",
+      "range": {
+        "startLine": 467,
+        "startChar": 6,
+        "endLine": 467,
+        "endChar": 14
+      },
+      "revId": "7637cb71338da0a5fde496543e29277ea4fc6317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "061cc428_65550a2a",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 98
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-10T16:44:14Z",
+      "side": 1,
+      "message": "Might be helpful to include assemblyIndex in this error message.",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 2
+      },
+      "revId": "7637cb71338da0a5fde496543e29277ea4fc6317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54cf06f8_5207ff8c",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 98
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-10T16:44:14Z",
+      "side": 1,
+      "message": "nit: param is chassisId",
+      "range": {
+        "startLine": 70,
+        "startChar": 14,
+        "endLine": 70,
+        "endChar": 26
+      },
+      "revId": "7637cb71338da0a5fde496543e29277ea4fc6317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef7740c8_3b2a45b6",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 98
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-10T16:44:14Z",
+      "side": 1,
+      "message": "Might be helpful to include assembly in this error message.",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 2
+      },
+      "revId": "7637cb71338da0a5fde496543e29277ea4fc6317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f40460d1_409602b9",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 98
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-10T16:44:14Z",
+      "side": 1,
+      "message": "Since this is first implementation should the most recent schema version be used instead? (v1_5_1)",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 2
+      },
+      "revId": "7637cb71338da0a5fde496543e29277ea4fc6317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1518d763_6b41eed2",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 98
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-10T16:44:14Z",
+      "side": 1,
+      "message": "typo: Assembly",
+      "range": {
+        "startLine": 188,
+        "startChar": 34,
+        "endLine": 188,
+        "endChar": 41
+      },
+      "revId": "7637cb71338da0a5fde496543e29277ea4fc6317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
