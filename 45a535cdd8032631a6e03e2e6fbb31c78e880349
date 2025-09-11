@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63a11113_c29e0aa7",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-11T18:50:16Z",
+      "side": 0,
+      "message": "Manufacturer wasn\u0027t one of the properties we would have in the response before. Is that okay?\n\nIf so, maybe call out this difference in the commit message.",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 64
+      },
+      "revId": "45a535cdd8032631a6e03e2e6fbb31c78e880349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b971b68_9d612bd3",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-11T18:50:16Z",
+      "side": 0,
+      "message": "Utility function may return an error here where it never returned one before. Is that acceptable?",
+      "range": {
+        "startLine": 304,
+        "startChar": 12,
+        "endLine": 308,
+        "endChar": 13
+      },
+      "revId": "45a535cdd8032631a6e03e2e6fbb31c78e880349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "572d2234_7d15e53e",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-11T18:50:16Z",
+      "side": 0,
+      "message": "The utility function may return an error here, is that acceptable?",
+      "range": {
+        "startLine": 980,
+        "startChar": 4,
+        "endLine": 985,
+        "endChar": 5
+      },
+      "revId": "45a535cdd8032631a6e03e2e6fbb31c78e880349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
