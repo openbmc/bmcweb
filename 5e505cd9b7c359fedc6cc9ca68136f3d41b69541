@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2b6b9644_e0438f92",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-09-11T17:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a0898d6_f187ee7d",
+      "range": {
+        "startLine": 369,
+        "startChar": 31,
+        "endLine": 369,
+        "endChar": 35
+      },
+      "revId": "5e505cd9b7c359fedc6cc9ca68136f3d41b69541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c72b0681_3949b34e",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 8
@@ -43,6 +67,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "637cbd58_ed2cb37a",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-09-11T17:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c72b0681_3949b34e",
+      "revId": "5e505cd9b7c359fedc6cc9ca68136f3d41b69541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ce56a17a_b6858c9c",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 8
@@ -54,6 +96,30 @@
       "writtenOn": "2025-08-25T20:52:13Z",
       "side": 1,
       "message": "we shouldn\u0027t pass keyToIgnore to all scopes.  If we want to support removing the key at all levels, we can solve that when we get there (key becomes a json_pointer, which I don\u0027t think makes sense to support).\n\nbut for now, I think just leaving this empty string (\"\") would still solve the proelbm",
+      "range": {
+        "startLine": 967,
+        "startChar": 58,
+        "endLine": 967,
+        "endChar": 69
+      },
+      "revId": "5e505cd9b7c359fedc6cc9ca68136f3d41b69541",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec5a5960_a29fe4b6",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-09-11T17:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce56a17a_b6858c9c",
       "range": {
         "startLine": 967,
         "startChar": 58,
