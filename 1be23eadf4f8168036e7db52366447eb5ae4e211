@@ -38,6 +38,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e546e6e7_abed6f12",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-11T17:50:53Z",
+      "side": 1,
+      "message": "continued nit, should we put something like\n\nif(etag){\n   BMCWEB_LOG_WARNING(\"Response etag was incorrectly set twice\");\n}\n\nso that it\u0027s easier to track as a bug?\n\n\nFeel free to change if you\u0027re doing another patch, but not required for merge.",
+      "range": {
+        "startLine": 234,
+        "startChar": 15,
+        "endLine": 234,
+        "endChar": 22
+      },
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a103fd02_88408fe5",
         "filename": "http/http_response.hpp",
         "patchSetId": 7
@@ -156,6 +179,47 @@
       "side": 1,
       "message": "`expectedHash` (now renamed `expectedEtag`) comes from the request\u0027s if-none-match header; this isn\u0027t the etag we compute for the response.  The change is necessary because `multiResp` is newly created here and the expectedEtag value is initialized as empty,  The if-none-match comparison gets called on `multiResp`, so we need to move the value for `expectedEtag` from the original `asyncResp` here to `multiResp`.\n\nI moved this functionality to query_param.hpp `startMultiFragmentHandle` to match where `jsonValue` is also copied from the original Response to the new one.",
       "parentUuid": "34652146_7c77713c",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f635df28_38046b92",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-11T17:50:53Z",
+      "side": 1,
+      "message": "I\u0027m also not understanding why this needs modified at all.  There are no OEM parameters that get ignored today, so even if this was a data structure issue, this code shouldn\u0027t be called for any of the datetime things?",
+      "parentUuid": "34652146_7c77713c",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad5610a5_6ddaaa3c",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-11T17:50:53Z",
+      "side": 1,
+      "message": "Now that I understand this, this definitely doesn\u0027t work because there will be multiple pieces appended in an expand query.  The way you\u0027ve written it, this one just handles the last expanded one and uses that as the hash.  The order in which they\u0027re expanded is not consistent, and the etag needs to apply to the entire resource, not just the last-added member.",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 69
+      },
       "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
