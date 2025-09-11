@@ -61,6 +61,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bf173121_dfe93767",
+        "filename": "http/http_response.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-09-11T18:17:44Z",
+      "side": 1,
+      "message": "Will add for both request and response etag setters.",
+      "parentUuid": "e546e6e7_abed6f12",
+      "range": {
+        "startLine": 234,
+        "startChar": 15,
+        "endLine": 234,
+        "endChar": 22
+      },
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a103fd02_88408fe5",
         "filename": "http/http_response.hpp",
         "patchSetId": 7
