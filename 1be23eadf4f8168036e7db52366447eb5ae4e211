@@ -203,6 +203,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55e69f93_78b01f85",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-09-11T18:04:57Z",
+      "side": 1,
+      "message": "It doesn\u0027t really have anything to do with the datetime things, it\u0027s just another thing preventing if-none-match from working specifically on this one resource.  Could be a separate PR but I included it here since it\u0027s a small change.",
+      "parentUuid": "f635df28_38046b92",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad5610a5_6ddaaa3c",
         "filename": "redfish-core/include/redfish_oem_routing.hpp",
         "patchSetId": 7
@@ -214,6 +232,30 @@
       "writtenOn": "2025-09-11T17:50:53Z",
       "side": 1,
       "message": "Now that I understand this, this definitely doesn\u0027t work because there will be multiple pieces appended in an expand query.  The way you\u0027ve written it, this one just handles the last expanded one and uses that as the hash.  The order in which they\u0027re expanded is not consistent, and the etag needs to apply to the entire resource, not just the last-added member.",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 69
+      },
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f18c4238_7659809b",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1002540
+      },
+      "writtenOn": "2025-09-11T18:04:57Z",
+      "side": 1,
+      "message": "This is the incoming etag value from the client\u0027s \u0027if-none-match\u0027 header in their request, it\u0027s not the etag value that\u0027s actually calculated from the content of the response.",
+      "parentUuid": "ad5610a5_6ddaaa3c",
       "range": {
         "startLine": 240,
         "startChar": 0,
