@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d072309_a481e47d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-11T17:39:04Z",
+      "side": 1,
+      "message": "Need to figure out the OEM subroute thing.  I\u0027m still not sure what we\u0027re doing there recomputing the hash in an http handler.",
+      "revId": "9be6b06b7b64079107bf5c3424f221e538bf0ae7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e876186_56a3de0e",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-11T17:39:04Z",
+      "side": 1,
+      "message": "nit, call this hash_combine.  Fix if you want, but do not consider it required.",
+      "range": {
+        "startLine": 430,
+        "startChar": 19,
+        "endLine": 430,
+        "endChar": 26
+      },
+      "revId": "9be6b06b7b64079107bf5c3424f221e538bf0ae7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
