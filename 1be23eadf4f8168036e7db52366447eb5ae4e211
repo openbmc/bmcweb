@@ -245,6 +245,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9614ad66_055f7546",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-11T18:20:24Z",
+      "side": 1,
+      "message": "Please remove it from this patch and put it in its own commit so it can have its own commit message.  This code isn\u0027t a resource, this code is a multi-request aggregator that\u0027s used on every resource.\n\nOnce it\u0027s in its own commit, with a commit message about what problem you\u0027re trying to solve, we can go from there on how to actually solve it.",
+      "parentUuid": "55e69f93_78b01f85",
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ad5610a5_6ddaaa3c",
         "filename": "redfish-core/include/redfish_oem_routing.hpp",
         "patchSetId": 7
@@ -280,6 +298,30 @@
       "side": 1,
       "message": "This is the incoming etag value from the client\u0027s \u0027if-none-match\u0027 header in their request, it\u0027s not the etag value that\u0027s actually calculated from the content of the response.",
       "parentUuid": "ad5610a5_6ddaaa3c",
+      "range": {
+        "startLine": 240,
+        "startChar": 0,
+        "endLine": 240,
+        "endChar": 69
+      },
+      "revId": "1be23eadf4f8168036e7db52366447eb5ae4e211",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cdfee3a_4718a022",
+        "filename": "redfish-core/include/redfish_oem_routing.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-11T18:20:24Z",
+      "side": 1,
+      "message": "Lets move this discussion into its own commit, so this review can merge, and i\u0027m happy to continue the discussion on the new review.",
+      "parentUuid": "f18c4238_7659809b",
       "range": {
         "startLine": 240,
         "startChar": 0,
