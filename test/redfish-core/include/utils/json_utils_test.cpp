@@ -161,16 +161,19 @@ TEST(ReadJson, JsonArrayAreUnpackedCorrectly)
     crow::Response res;
     nlohmann::json jsonRequest = R"(
         {
-            "TestJson": [{"hello": "yes"}, [{"there": "no"}, "nice"]]
+            "TestJson": [{"hello": "yes"}, {"there": "no"}]]
         }
     )"_json;
 
-    std::vector<nlohmann::json> jsonVec;
+    std::vector<nlohmann::json::object_t> jsonVec;
     ASSERT_TRUE(readJson(jsonRequest, res, "TestJson", jsonVec));
     EXPECT_EQ(res.result(), boost::beast::http::status::ok);
     EXPECT_THAT(res.jsonValue, IsEmpty());
-    EXPECT_THAT(jsonVec, ElementsAre(R"({"hello": "yes"})"_json,
-                                     R"([{"there": "no"}, "nice"])"_json));
+    nlohmann::json::object_t hello;
+    hello["hello"] = "yes";
+    nlohmann::json::object_t there;
+    hello["there"] = "no";
+    EXPECT_THAT(jsonVec, ElementsAre(hello, there));
 }
 
 TEST(ReadJson, JsonSubElementValueAreUnpackedCorrectly)

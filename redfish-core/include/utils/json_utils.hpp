@@ -494,15 +494,7 @@ using UnpackVariant = std::variant<
     std::optional<std::variant<double, std::nullptr_t>>*,
     std::optional<std::variant<bool, std::nullptr_t>>*,
     std::optional<std::vector<std::variant<nlohmann::json::object_t, std::nullptr_t>>>*,
-    std::optional<std::vector<std::variant<std::string, nlohmann::json::object_t, std::nullptr_t>>>*,
-
-    // Note, these types are kept for historical completeness, but should not be used,
-    // As they do not provide object type safety.  Instead, rely on nlohmann::json::object_t
-    // Will be removed Q2 2025
-    nlohmann::json*,
-    std::optional<std::vector<nlohmann::json>>*,
-    std::vector<nlohmann::json>*,
-    std::optional<nlohmann::json>*
+    std::optional<std::vector<std::variant<std::string, nlohmann::json::object_t, std::nullptr_t>>>*
 >;
 // clang-format on
 
