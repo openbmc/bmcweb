@@ -36,9 +36,6 @@ namespace crow
 class App
 {
   public:
-    using raw_socket_t = boost::asio::ip::tcp::socket;
-    using server_type = Server<App, raw_socket_t>;
-
     template <typename Adaptor>
     void handleUpgrade(const std::shared_ptr<Request>& req,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -163,7 +160,7 @@ class App
 
         std::vector<Acceptor> acceptors = setupSocket();
 
-        server.emplace(this, std::move(acceptors));
+        server = std::make_unique<Server<App>>(this, std::move(acceptors));
         server->run();
     }
 
@@ -183,7 +180,7 @@ class App
         return router.getRoutes(parent);
     }
 
-    std::optional<server_type> server;
+    std::unique_ptr<Server<App>> server;
 
     Router router;
 };

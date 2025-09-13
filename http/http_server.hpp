@@ -36,10 +36,10 @@ struct Acceptor
     HttpType httpType;
 };
 
-template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket>
+template <typename Handler>
 class Server
 {
-    using self_t = Server<Handler, Adaptor>;
+    using self_t = Server<Handler>;
 
   public:
     Server(Handler* handlerIn, std::vector<Acceptor>&& acceptorsIn) :
@@ -123,7 +123,7 @@ class Server
             });
     }
 
-    using SocketPtr = std::unique_ptr<Adaptor>;
+    using SocketPtr = std::unique_ptr<boost::asio::ip::tcp::socket>;
 
     void afterAccept(SocketPtr socket, HttpType httpType,
                      const boost::system::error_code& ec)
@@ -141,9 +141,9 @@ class Server
                 boost::asio::ssl::context::tls_server);
         }
 
-        boost::asio::ssl::stream<Adaptor> stream(std::move(*socket),
+        boost::asio::ssl::stream<boost::asio::ip::tcp::socket> stream(std::move(*socket),
                                                  *adaptorCtx);
-        using ConnectionType = Connection<Adaptor, Handler>;
+        using ConnectionType = Connection<boost::asio::ip::tcp::socket, Handler>;
         auto connection = std::make_shared<ConnectionType>(
             handler, httpType, std::move(timer), getCachedDateStr,
             std::move(stream));
@@ -156,10 +156,10 @@ class Server
 
     void doAccept()
     {
-        SocketPtr socket = std::make_unique<Adaptor>(getIoContext());
+        SocketPtr socket = std::make_unique<boost::asio::ip::tcp::socket>(getIoContext());
         // Keep a raw pointer so when the socket is moved, the pointer is still
         // valid
-        Adaptor* socketPtr = socket.get();
+        boost::asio::ip::tcp::socket* socketPtr = socket.get();
         for (Acceptor& accept : acceptors)
         {
             accept.acceptor.async_accept(
