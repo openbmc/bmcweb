@@ -36,6 +36,7 @@ feature_options = [
     'redfish-provisioning-feature',
     'redfish-updateservice-use-dbus',
     'redfish-use-3-digit-messageid',
+    'redfish-use-hardcoded-system-location-indicator',
     'rest',
     'session-auth',
     'static-hosting',
