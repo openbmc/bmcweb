@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17394057_191308f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-15T22:46:28Z",
+      "side": 1,
+      "message": "It looks fine - with a comment about an meson option name",
+      "revId": "128b560d95544b0b02e22cde44f5dbc99935321f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ef64800_2efa63f8",
+        "filename": "config/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-15T22:46:28Z",
+      "side": 1,
+      "message": "Maybe name it with `redfish-` prefix like others and use the keyword of `use`?\n\n```\nredfish-use-hardcoded-systems-lia\n```",
+      "revId": "128b560d95544b0b02e22cde44f5dbc99935321f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
