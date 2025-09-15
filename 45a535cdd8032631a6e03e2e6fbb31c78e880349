@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c4e9ada_477e78fe",
+        "filename": "redfish-core/lib/fabric_adapters.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-15T22:21:19Z",
+      "side": 0,
+      "message": "Manufacturer is also a part of FabricAdapter schema - http://redfish.dmtf.org/schemas/v1/FabricAdapter.v1_5_3.json, and it should be okay to add it if it is available.\n\nYes, as you suggested, I\u0027ll add it to the commit message.",
+      "parentUuid": "63a11113_c29e0aa7",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 93,
+        "endChar": 64
+      },
+      "revId": "45a535cdd8032631a6e03e2e6fbb31c78e880349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b971b68_9d612bd3",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f5f9e5a_a00e3e5f",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-15T22:21:19Z",
+      "side": 0,
+      "message": "The caller already checks the existence of the interface - \n```\n        if (interface \u003d\u003d \"xyz.openbmc_project.Inventory.Decorator.Asset\")\n        {\n            asset_utils::getAssetInfo(...)\n        }\n```\n\nSo, I think dbus callback can handle `ec` as like how it is done like others.\nIn addition, `getAssetInfo` also handles the interface existence again...\n\nI think it should be good if the other dbus error would return internalError.\n```\n            if (ec)\n            {\n                if (ec.value() !\u003d EBADR)\n                {\n                    BMCWEB_LOG_ERROR(\"DBUS response error for Properties {}\",\n                                     ec.value());\n                    messages::internalError(asyncResp-\u003eres);\n                }\n                return; \u003c-- No interface\n            }\n```",
+      "parentUuid": "6b971b68_9d612bd3",
+      "range": {
+        "startLine": 304,
+        "startChar": 12,
+        "endLine": 308,
+        "endChar": 13
+      },
+      "revId": "45a535cdd8032631a6e03e2e6fbb31c78e880349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "572d2234_7d15e53e",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 4
@@ -60,6 +108,30 @@
       "writtenOn": "2025-09-11T18:50:16Z",
       "side": 0,
       "message": "The utility function may return an error here, is that acceptable?",
+      "range": {
+        "startLine": 980,
+        "startChar": 4,
+        "endLine": 985,
+        "endChar": 5
+      },
+      "revId": "45a535cdd8032631a6e03e2e6fbb31c78e880349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d45e6dfd_41083e80",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-15T22:21:19Z",
+      "side": 0,
+      "message": "The utility function `getAssetInfo()` checks the existence of interface, and it does no-op if so.\n\nIf the interface exists but it has a dbus-error, it will return an error.\n(I think this would be as how it needs to be handled for dbus call).\n\n```\n            if (ec)\n            {\n                if (ec.value() !\u003d EBADR)\n                {\n                    BMCWEB_LOG_ERROR(\"DBUS response error for Properties {}\",\n                                     ec.value());\n                    messages::internalError(asyncResp-\u003eres);\n                }\n                return; \u003c-- No interface\n            }\n```",
+      "parentUuid": "572d2234_7d15e53e",
       "range": {
         "startLine": 980,
         "startChar": 4,
