@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aec8b27_b0155951",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-15T20:44:16Z",
+      "side": 1,
+      "message": "this should be 443, right?",
+      "range": {
+        "startLine": 22,
+        "startChar": 25,
+        "endLine": 22,
+        "endChar": 28
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73815e2d_9912346d",
+        "filename": "http/app.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-15T20:44:16Z",
+      "side": 1,
+      "message": "Why is this now hardcoded?  This isn\u0027t always correct.  https can be disabled as can auth.",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 72
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab289e56_ed378412",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-15T20:44:16Z",
+      "side": 1,
+      "message": "We pretty intentionally don\u0027t pass socket name into this class.  Please follow how httpTypeIn is implemented, and implement a similar class.  Please make sure it works with disableAuthentication()",
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fb41cc2_0e43a6a2",
+        "filename": "http/http_connection.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 944,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-15T20:44:16Z",
+      "side": 1,
+      "message": "Please make sure that you implement \"bootstrap auth\" as part of this option.  I suspect this will need to move to an enum.",
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
