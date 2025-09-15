@@ -311,6 +311,19 @@ option(
                     option will be removed by March 2026.''',
 )
 
+# BMCWEB_ALLOW_HARDCODED_SYSTEMS_LIA
+option(
+    'allow-hardcoded-systems-lia',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enable/disable the use of hard-coded LED group
+                    enclosure_identify_blink and enclosure_identify for getting
+                    and setting the LocationIndicatorActive for the Systems
+                    response. The default condition will be enabled until
+                    October 15, 2025.  The code to enable this option will be
+                    removed by June 2026.''',
+)
+
 # BMCWEB_REDFISH_ALLOW_DEPRECATED_POWER_THERMAL
 option(
     'redfish-allow-deprecated-power-thermal',

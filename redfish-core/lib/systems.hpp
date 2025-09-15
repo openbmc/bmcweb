@@ -3132,15 +3132,22 @@ inline void processComputerSystemGet(
             nlohmann::json::array_t({"KVMIP"});
     }
 
-    systems_utils::getValidSystemsPath(
-        asyncResp, systemName,
-        [asyncResp,
-         systemName](const std::optional<std::string>& validSystemsPath) {
-            if (validSystemsPath)
-            {
-                getLocationIndicatorActive(asyncResp, *validSystemsPath);
-            }
-        });
+    if constexpr (BMCWEB_ALLOW_HARDCODED_SYSTEMS_LIA)
+    {
+        getSystemLocationIndicatorActive(asyncResp);
+    }
+    else
+    {
+        systems_utils::getValidSystemsPath(
+            asyncResp, systemName,
+            [asyncResp,
+             systemName](const std::optional<std::string>& validSystemsPath) {
+                if (validSystemsPath)
+                {
+                    getLocationIndicatorActive(asyncResp, *validSystemsPath);
+                }
+            });
+    }
 
     if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
     {
@@ -3313,20 +3320,28 @@ inline void processComputerSystemPatch(
 
     if (patchParams.locationIndicatorActive)
     {
-        systems_utils::getValidSystemsPath(
-            asyncResp, systemName,
-            [asyncResp, systemName,
-             locationIndicatorActive{*patchParams.locationIndicatorActive}](
-                const std::optional<std::string>& validSystemsPath) {
-                if (!validSystemsPath)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Systems",
-                                               systemName);
-                    return;
-                }
-                setLocationIndicatorActive(asyncResp, *validSystemsPath,
-                                           locationIndicatorActive);
-            });
+        if constexpr (BMCWEB_ALLOW_HARDCODED_SYSTEMS_LIA)
+        {
+            setSystemLocationIndicatorActive(
+                asyncResp, *patchParams.locationIndicatorActive);
+        }
+        else
+        {
+            systems_utils::getValidSystemsPath(
+                asyncResp, systemName,
+                [asyncResp, systemName,
+                 locationIndicatorActive{*patchParams.locationIndicatorActive}](
+                    const std::optional<std::string>& validSystemsPath) {
+                    if (!validSystemsPath)
+                    {
+                        messages::resourceNotFound(asyncResp->res, "Systems",
+                                                   systemName);
+                        return;
+                    }
+                    setLocationIndicatorActive(asyncResp, *validSystemsPath,
+                                               locationIndicatorActive);
+                });
+        }
     }
 
     if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)

@@ -3,6 +3,7 @@
 conf_data = configuration_data()
 
 feature_options = [
+    'allow-hardcoded-systems-lia',
     'basic-auth',
     'cookie-auth',
     'experimental-redfish-dbus-log-subscription',
