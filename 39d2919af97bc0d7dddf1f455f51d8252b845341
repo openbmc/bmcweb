@@ -34,6 +34,24 @@
       "parentUuid": "4345b230_fd2c2317",
       "revId": "39d2919af97bc0d7dddf1f455f51d8252b845341",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b05194a0_40b07d0a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T16:34:56Z",
+      "side": 1,
+      "message": "If we\u0027re still asking questions, please don\u0027t close out the thread, it makes your questions hard to respond to.\n\n\u003e Do we install a wrapper script or a symlink instead\n\nMinor preference for symlink here, just so we don\u0027t have to maintain a script, and there\u0027s no potential people add extra stuff to the script.\n\n\u003e Do we generate the libexec path or is it fine to hardcode it\nGenerate based on the provided prefix please.\n\n\u003e Do we still compile the cli separately \nNo, lets make sure the commit represents what we think the current state of the art is.  If we need to revert/pull things from history, we can always do that.",
+      "parentUuid": "46003105_3d8bd069",
+      "revId": "39d2919af97bc0d7dddf1f455f51d8252b845341",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

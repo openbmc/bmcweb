@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6c513bb_3742a289",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T16:34:56Z",
+      "side": 1,
+      "message": "Lets get this phrased not as an \"experiment\".  Lets get this phrased as why we\u0027re doing what we\u0027re doing.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "5662e1b0e03d0f6e96f361cd660b6731d6baf687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bca38697_8c87eb8e",
+        "filename": "scripts/target/bmcweb",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T16:34:56Z",
+      "side": 1,
+      "message": "remove.",
+      "range": {
+        "startLine": 3,
+        "startChar": 21,
+        "endLine": 3,
+        "endChar": 25
+      },
+      "revId": "5662e1b0e03d0f6e96f361cd660b6731d6baf687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db950f93_1c3a43be",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T16:34:56Z",
+      "side": 1,
+      "message": "nit lets break out the arg parser into its own routine, and just pass argc and char** argv around so we don\u0027t have to static cast.",
+      "range": {
+        "startLine": 74,
+        "startChar": 21,
+        "endLine": 74,
+        "endChar": 37
+      },
+      "revId": "5662e1b0e03d0f6e96f361cd660b6731d6baf687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "379179de_5f2dd668",
+        "filename": "src/webserver_cli_main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T16:34:56Z",
+      "side": 1,
+      "message": "per discussion below, remove this.",
+      "revId": "5662e1b0e03d0f6e96f361cd660b6731d6baf687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd101d00_adb9d188",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T16:34:56Z",
+      "side": 1,
+      "message": "Lets rephrase this as \"Check to see if we have a CLI request.\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "5662e1b0e03d0f6e96f361cd660b6731d6baf687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35e5d2f4_fea02175",
+        "filename": "src/webserver_main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T16:34:56Z",
+      "side": 1,
+      "message": "Lets not invent a new CLI parser here.  What I suspect we want is\n\nbmcweb daemon\nbmcweb loglevel \u003clevel\u003e\n\nthen have the systemd service call the first one.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 5
+      },
+      "revId": "5662e1b0e03d0f6e96f361cd660b6731d6baf687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
