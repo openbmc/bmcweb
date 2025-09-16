@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a57bf940_a767460c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-16T21:45:09Z",
+      "side": 1,
+      "message": "Are you trying to get this in or is this experimental code so others could see how we could do this? There has been dicussion about this.. But can you talk more about what the plan is? \nThis is a starting point for developers to work? Which developers? Have like a discord discussion ?",
+      "revId": "420a423389cefca834e7a00cbdff5d4f2c5788f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "916c32e4_27807c9e",
+        "filename": "meson.options",
+        "patchSetId": 13
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-16T21:45:09Z",
+      "side": 1,
+      "message": "Do we want a date here? Do we think this stays for the next few years as experimental and then eventually we drop the experimental? \nDo you want a bigger warning about not doing this in production environment?",
+      "revId": "420a423389cefca834e7a00cbdff5d4f2c5788f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
