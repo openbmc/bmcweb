@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "17476f3b_da2e44c5",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T22:49:53Z",
+      "side": 1,
+      "message": "Yep, this got changed earlier.",
+      "parentUuid": "34ca5576_8b7e9457",
+      "revId": "cf379881921161623d28363fd4bd82f65a7eb482",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "088c58ec_4a47881f",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 7
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d28912a_ff411dfa",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T22:49:53Z",
+      "side": 1,
+      "message": "Yep.",
+      "parentUuid": "088c58ec_4a47881f",
+      "revId": "cf379881921161623d28363fd4bd82f65a7eb482",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c2017f3d_157d8c96",
         "filename": "test/redfish-core/include/utils/hex_utils_test.cpp",
         "patchSetId": 7
@@ -65,6 +101,30 @@
       "writtenOn": "2025-09-16T21:39:29Z",
       "side": 1,
       "message": "why is this needed now ?",
+      "range": {
+        "startLine": 20,
+        "startChar": 44,
+        "endLine": 20,
+        "endChar": 45
+      },
+      "revId": "cf379881921161623d28363fd4bd82f65a7eb482",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd2187c7_ef8a34d3",
+        "filename": "test/redfish-core/include/utils/hex_utils_test.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T22:49:53Z",
+      "side": 1,
+      "message": "Because this now takes a std::span, so we need to construct the array and the span.",
+      "parentUuid": "c2017f3d_157d8c96",
       "range": {
         "startLine": 20,
         "startChar": 44,
