@@ -14,7 +14,6 @@
 
 #include <array>
 #include <cstdint>
-#include <filesystem>
 #include <functional>
 #include <regex>
 #include <span>

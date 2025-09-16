@@ -532,10 +532,6 @@ namespace messages
         headers.append("<array>")
         headers.append("<cstddef>")
         headers.append("<span>")
-
-        if registry_name not in ("ResourceEvent", "HeartbeatEvent"):
-            headers.append("<cstdint>")
-            headers.append("<string>")
         headers.append("<string_view>")
 
         for header in headers:
@@ -545,6 +541,10 @@ namespace messages
             """
 // Clang can't seem to decide whether this header needs to be included or not,
 // and is inconsistent.  Include it for now
+// NOLINTNEXTLINE(misc-include-cleaner)
+#include <cstdint>
+// NOLINTNEXTLINE(misc-include-cleaner)
+#include <string>
 // NOLINTNEXTLINE(misc-include-cleaner)
 #include <utility>
 

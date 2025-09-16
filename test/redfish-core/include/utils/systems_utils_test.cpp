@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 
+#include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "utils/systems_utils.hpp"
 
-#include <boost/beast/http/status.hpp>
-#include <boost/system/errc.hpp>
 #include <nlohmann/json.hpp>
-#include <sdbusplus/message.hpp>
 
+#include <memory>
 #include <string>
 
 #include <gtest/gtest.h>

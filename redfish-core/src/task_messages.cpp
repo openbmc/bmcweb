@@ -17,13 +17,15 @@
 
 #include <array>
 #include <cstddef>
-#include <cstdint>
 #include <span>
-#include <string>
 #include <string_view>
 
 // Clang can't seem to decide whether this header needs to be included or not,
 // and is inconsistent.  Include it for now
+// NOLINTNEXTLINE(misc-include-cleaner)
+#include <cstdint>
+// NOLINTNEXTLINE(misc-include-cleaner)
+#include <string>
 // NOLINTNEXTLINE(misc-include-cleaner)
 #include <utility>
 
