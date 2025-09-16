@@ -8,7 +8,6 @@
 #include <boost/beast/core/buffers_to_string.hpp>
 #include <boost/beast/core/file_base.hpp>
 #include <boost/beast/core/file_posix.hpp>
-#include <boost/beast/http/message.hpp>
 #include <boost/beast/http/serializer.hpp>
 #include <boost/beast/http/status.hpp>
 
