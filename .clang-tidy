@@ -240,6 +240,7 @@ Checks: '-*,
     misc-coroutine-hostile-raii,
     misc-definitions-in-headers,
     misc-header-include-cycle,
+    misc-include-cleaner,
     misc-misleading-bidirectional,
     misc-misleading-identifier,
     misc-misplaced-const,
@@ -351,7 +352,7 @@ CheckOptions:
 -   key: cppcoreguidelines-rvalue-reference-param-not-moved.IgnoreUnnamedParams
     value: true
 -   key: misc-include-cleaner.IgnoreHeaders
-    value: ((nlohmann/json.hpp)|(nlohmann/json_fwd.hpp)|(boost/asio/connect_pipe.hpp)|(boost/beast/websocket/rfc6455.hpp)|(read.hpp)|(write.hpp)|(boost/circular_buffer.hpp)|(boost/asio/.*read.hpp)|(boost/.*/src.hpp)|(boost/.*/detail/.*)|(nlohmann/detail/.*)|(stdio.h)|(ranges)|(bits/.*)|(boost/system/error_code.hpp)|(json_formatters.hpp)|(boost_formatters.hpp)|(CLI/.*))
+    value: ((nlohmann/json.hpp)|(nlohmann/json_fwd.hpp)|(boost/beast/http/.*_fwd.hpp)|(boost/beast/http/serializer.hpp)|(boost/asio/connect_pipe.hpp)|(boost/beast/websocket/rfc6455.hpp)|(read.hpp)|(write.hpp)|(boost/circular_buffer.hpp)|(boost/asio/.*read.hpp)|(boost/.*/src.hpp)|(boost/.*/detail/.*)|(nlohmann/detail/.*)|(stdio.h)|(ranges)|(bits/.*)|(boost/system/error_code.hpp)|(json_formatters.hpp)|(boost_formatters.hpp)|(CLI/.*))
 -   key: readability-identifier-naming.ClassCase
     value: CamelCase
 -   key: readability-identifier-naming.FunctionCase
