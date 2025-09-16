@@ -473,13 +473,19 @@ inline void handleDecoratorAssetProperties(
         boost::urls::format("/redfish/v1/Chassis/{}/Sensors", chassisId);
     asyncResp->res.jsonValue["Status"]["State"] = resource::State::Enabled;
 
-    nlohmann::json::array_t computerSystems;
-    nlohmann::json::object_t system;
-    system["@odata.id"] = boost::urls::format("/redfish/v1/Systems/{}",
-                                              BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    computerSystems.emplace_back(std::move(system));
-    asyncResp->res.jsonValue["Links"]["ComputerSystems"] =
-        std::move(computerSystems);
+    // TODO (Alexander): Support Multi Computer System
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        nlohmann::json::array_t computerSystems;
+
+        nlohmann::json::object_t system;
+        system["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        computerSystems.emplace_back(std::move(system));
+
+        asyncResp->res.jsonValue["Links"]["ComputerSystems"] =
+            std::move(computerSystems);
+    }
 
     nlohmann::json::array_t managedBy;
     nlohmann::json::object_t manager;
