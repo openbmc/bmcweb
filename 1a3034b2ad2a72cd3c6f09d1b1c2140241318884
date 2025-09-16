@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8bcd6c5c_78aa2045",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T16:49:15Z",
+      "side": 1,
+      "message": "You updated some of the code, please make sure it\u0027s integrated with the noauth and auth options.",
+      "parentUuid": "4f1bca93_e6977168",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a14759bd_f516c768",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
