@@ -18,6 +18,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ef3b6ea_21c87bec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-16T13:17:46Z",
+      "side": 1,
+      "message": "Thanks for fixing this up. I did not realize https://gerrit.openbmc.org/c/openbmc/bmcweb/+/82078 would break folks",
+      "revId": "128b560d95544b0b02e22cde44f5dbc99935321f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ef64800_2efa63f8",
@@ -31,6 +48,24 @@
       "writtenOn": "2025-09-15T22:46:28Z",
       "side": 1,
       "message": "Maybe name it with `redfish-` prefix like others and use the keyword of `use`?\n\n```\nredfish-use-hardcoded-systems-lia\n```",
+      "revId": "128b560d95544b0b02e22cde44f5dbc99935321f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3020687_cc9a6cdb",
+        "filename": "config/meson.build",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-16T13:17:46Z",
+      "side": 1,
+      "message": "I prefer redfish-use-hardcoded-system-lia. But I think better is spelling out \nlia since it\u0027s an acronym of a property Redfish came up with. (LocationIndicatorActive)\nredfish-use-hardcoded-system-location-indicator would be my pick",
+      "parentUuid": "2ef64800_2efa63f8",
       "revId": "128b560d95544b0b02e22cde44f5dbc99935321f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
