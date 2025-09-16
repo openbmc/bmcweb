@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ec6c12bb_39cc661a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-16T22:58:34Z",
+      "side": 1,
+      "message": "I\u0027m trying to get this in so we can start having pointed discussions about it.\n\n\u003e This is a starting point for developers to work?\n\nyes\n\n\u003e Which developers? \n\nAt a minimum, me.\n\n\u003e Have like a discord discussion ?\n\nWe could, is there something about this patch that you think would change?  If there\u0027s people that want this to happen, I\u0027d rather we discuss on the patch.  This has been discussed to death multiple times, we need to start executing.",
+      "parentUuid": "a57bf940_a767460c",
+      "revId": "420a423389cefca834e7a00cbdff5d4f2c5788f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "916c32e4_27807c9e",
         "filename": "meson.options",
         "patchSetId": 13
