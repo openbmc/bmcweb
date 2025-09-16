@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5756fe16_52e5cc54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-16T13:54:12Z",
+      "side": 1,
+      "message": "Overall I support this",
+      "revId": "e16d2f1ee7127318f070b53aefd3556cac76044d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95f261cd_dfd9db26",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-16T13:54:12Z",
+      "side": 1,
+      "message": "processor enums used?",
+      "revId": "e16d2f1ee7127318f070b53aefd3556cac76044d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0ffe4f7_0b44c7ea",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-16T13:54:12Z",
+      "side": 1,
+      "message": "hex_utils used?",
+      "revId": "e16d2f1ee7127318f070b53aefd3556cac76044d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9330ea2_3fc07e8e",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-16T13:54:12Z",
+      "side": 1,
+      "message": "limits used?",
+      "revId": "e16d2f1ee7127318f070b53aefd3556cac76044d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f44427f1_08969ba3",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-16T13:54:12Z",
+      "side": 1,
+      "message": "variant used?",
+      "revId": "e16d2f1ee7127318f070b53aefd3556cac76044d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
