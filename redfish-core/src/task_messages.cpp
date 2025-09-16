@@ -24,8 +24,11 @@
 
 // Clang can't seem to decide whether this header needs to be included or not,
 // and is inconsistent.  Include it for now
-// NOLINTNEXTLINE(misc-include-cleaner)
+// NOLINTBEGIN(misc-include-cleaner)
+#include <cstdint>
+#include <string>
 #include <utility>
+// NOLINTEND(misc-include-cleaner)
 
 namespace redfish
 {
