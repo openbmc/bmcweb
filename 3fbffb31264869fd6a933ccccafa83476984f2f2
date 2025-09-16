@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88ce7561_1a4499dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-16T07:22:08Z",
+      "side": 1,
+      "message": "The current BMCWeb server listening on the HTTPS Ports 443  of all BMC internet interfaces (eth0, eth1, usb0). So all of request will come to that server instance (I call it is main BMCWeb server).\nThe key point of this design spec is using on different BMCWeb server instance for Redfish host interface (I call RHI BMCWeb server). That instance will be bound to one specific ethernet device in this case is usb0.\nBecause main BMCWeb server is listing on port 443 of usb0 so the RHI BMCWeb server have to listen on different port.\n\nSound like I missed your idea in using `additional-ports` and `bootstrapedauth` for `additional-auth`. Would you mind to share your thoughts again?",
+      "parentUuid": "6aec8b27_b0155951",
+      "range": {
+        "startLine": 22,
+        "startChar": 25,
+        "endLine": 22,
+        "endChar": 28
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73815e2d_9912346d",
         "filename": "http/app.hpp",
         "patchSetId": 5
