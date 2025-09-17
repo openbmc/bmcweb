@@ -8,6 +8,7 @@ After=network.target
 ExecReload=kill -s HUP $MAINPID
 ExecStart=@MESON_INSTALL_PREFIX@/libexec/bmcwebd
 Type=simple
+StateDirectory=/home/root
 WorkingDirectory=/home/root
 SyslogLevelPrefix=true
 WatchdogSec=@BMCWEB_WATCHDOG_TIMEOUT_SECONDS@s
