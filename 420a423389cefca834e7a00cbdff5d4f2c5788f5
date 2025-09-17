@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d27209db_17e074b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-17T19:14:18Z",
+      "side": 1,
+      "message": "Could add a sentence that states \n\n```\nRunning as non-root has been something discussed multiple times in Discord[1][2] and mailing list[3]. This starting point is for developers, myself and others, to put commits.\n\n[1]: https://discord.com/channels/775381525260664832/855566794994221117/1417921328517877832\n\n[2]: https://discord.com/channels/775381525260664832/1005215504417435668/1180772972684902520\n\n[3]: https://lists.ozlabs.org/pipermail/openbmc/2022-May/030457.html\n\n```",
+      "parentUuid": "ec6c12bb_39cc661a",
+      "revId": "420a423389cefca834e7a00cbdff5d4f2c5788f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "916c32e4_27807c9e",
         "filename": "meson.options",
         "patchSetId": 13
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "I can add a date, although as it stands, it\u0027s useful on its own when combined with disable auth.\n\n\u003e  not doing this in production environment?\n\nThere\u0027s no security concern here that I\u0027m aware of, so I didn\u0027t put the big warning.  If you want I can.",
       "parentUuid": "916c32e4_27807c9e",
+      "revId": "420a423389cefca834e7a00cbdff5d4f2c5788f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c111c112_afd7a179",
+        "filename": "meson.options",
+        "patchSetId": 13
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-17T19:14:18Z",
+      "side": 1,
+      "message": "I like this more. Although I wouldn\u0027t be surprised if Q126 comes and we extend this. The date makes us revisit this.",
+      "parentUuid": "c44e59fd_f7e32fc5",
       "revId": "420a423389cefca834e7a00cbdff5d4f2c5788f5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
