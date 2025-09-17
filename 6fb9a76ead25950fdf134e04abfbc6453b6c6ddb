@@ -72,6 +72,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49b25338_3a0e720e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 22
+      },
+      "lineNbr": 2137,
+      "author": {
+        "id": 1001762
+      },
+      "writtenOn": "2025-09-17T06:42:09Z",
+      "side": 1,
+      "message": "404 Not Found from GET /redfish/v1/redfish/v1/Managers/bmc/DedicatedNetworkPorts/eth2 \nThis is the current response if we make get on wrong port id. Are suggesting something different?",
+      "parentUuid": "1993e09e_dbccd6ae",
+      "revId": "6fb9a76ead25950fdf134e04abfbc6453b6c6ddb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a883227a_11c01684",
