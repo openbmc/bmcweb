@@ -3058,17 +3058,17 @@ inline void processComputerSystemGet(
     {
         asyncResp->res.jsonValue["Bios"]["@odata.id"] =
             boost::urls::format("/redfish/v1/Systems/{}/Bios", systemName);
-        asyncResp->res.jsonValue["Processors"]["@odata.id"] =
-            boost::urls::format("/redfish/v1/Systems/{}/Processors",
-                                systemName);
-        asyncResp->res.jsonValue["Memory"]["@odata.id"] =
-            boost::urls::format("/redfish/v1/Systems/{}/Memory", systemName);
         asyncResp->res.jsonValue["Storage"]["@odata.id"] =
             boost::urls::format("/redfish/v1/Systems/{}/Storage", systemName);
         asyncResp->res.jsonValue["FabricAdapters"]["@odata.id"] =
             boost::urls::format("/redfish/v1/Systems/{}/FabricAdapters",
                                 systemName);
     }
+
+    asyncResp->res.jsonValue["Memory"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Memory", systemName);
+    asyncResp->res.jsonValue["Processors"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Processors", systemName);
 
     asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]["target"] =
         boost::urls::format(

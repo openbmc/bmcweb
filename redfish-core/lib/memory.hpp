@@ -20,6 +20,7 @@
 #include "utils/dbus_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/json_utils.hpp"
+#include "utils/systems_utils.hpp"
 
 #include <asm-generic/errno.h>
 
@@ -43,6 +44,10 @@
 
 namespace redfish
 {
+
+constexpr std::array<std::string_view, 2> memoryInterfaces = {
+    "xyz.openbmc_project.Inventory.Item.Dimm",
+    "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"};
 
 inline std::string translateMemoryTypeToRedfish(const std::string& memoryType)
 {
@@ -728,7 +733,8 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 
 inline void afterGetDimmData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& dimmId, const boost::system::error_code& ec,
+    const std::string& systemName, const std::string& dimmId,
+    const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
@@ -805,26 +811,57 @@ inline void afterGetDimmData(
     }
     // Set @odata only if object is found
     asyncResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
-    asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/Memory/{}",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Memory/{}", systemName, dimmId);
+}
+
+inline void multiHostGetDimmData(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::string& dimmId,
+    const std::optional<std::string>& systemPath)
+{
+    if (!systemPath.has_value())
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    sdbusplus::message::object_path inventoryPath(
+        "/xyz/openbmc_project/inventory");
+    constexpr std::array<std::string_view, 1> sourceInterfaces = {
+        "xyz.openbmc_project.Inventory.Decorator.ManagedHost",
+    };
+    dbus::utility::getAssociatedSubTreeById(
+        systemName, inventoryPath, sourceInterfaces, "containing",
+        memoryInterfaces,
+        [asyncResp, systemName,
+         dimmId](const boost::system::error_code& ec,
+                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
+            afterGetDimmData(asyncResp, systemName, dimmId, ec, subtree);
+        });
 }
 
 inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& systemName,
                         const std::string& dimmId)
 {
-    BMCWEB_LOG_DEBUG("Get dimm path for {}", dimmId);
-    constexpr std::array<std::string_view, 2> interfaces = {
-        "xyz.openbmc_project.Inventory.Item.Dimm",
-        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"};
-
-    dbus::utility::getSubTree(
-        dbus_utils::inventoryPath, 0, interfaces,
-        [asyncResp,
-         dimmId](const boost::system::error_code& ec,
-                 const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            afterGetDimmData(asyncResp, dimmId, ec, subtree);
-        });
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        systems_utils::getValidSystemsPath(
+            asyncResp, systemName,
+            std::bind_front(multiHostGetDimmData, asyncResp, systemName,
+                            dimmId));
+    }
+    else
+    {
+        dbus::utility::getSubTree(
+            dbus_utils::inventoryPath, 0, memoryInterfaces,
+            [asyncResp, systemName,
+             dimmId](const boost::system::error_code& ec,
+                     const dbus::utility::MapperGetSubTreeResponse& subtree) {
+                afterGetDimmData(asyncResp, systemName, dimmId, ec, subtree);
+            });
+    }
 }
 
 inline void handleSetDimmData(
@@ -941,22 +978,49 @@ inline void handleMemoryGet(App& app, const crow::Request& req,
         return;
     }
 
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        // Option currently returns no systems.  TBD
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+    }
+
+    getDimmData(asyncResp, systemName, dimmId);
+}
+
+inline void multiHostMemoryCollectionGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName, const std::optional<std::string>& systemPath)
+{
+    if (!systemPath.has_value())
+    {
         messages::resourceNotFound(asyncResp->res, "ComputerSystem",
                                    systemName);
         return;
     }
 
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Memory", systemName);
 
-    getDimmData(asyncResp, dimmId);
+    sdbusplus::message::object_path inventoryPath(
+        "/xyz/openbmc_project/inventory");
+    std::array<std::string_view, 1> managedHostInterface{
+        "xyz.openbmc_project.Inventory.Decorator.ManagedHost",
+    };
+    std::array<std::string_view, 1> dimmInterfaces{
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+    };
+
+    dbus::utility::getAssociatedSubTreePathsById(
+        systemName, inventoryPath, managedHostInterface, "containing",
+        dimmInterfaces,
+        std::bind_front(
+            collection_util::handleCollectionMembers, asyncResp,
+            boost::urls::format("/redfish/v1/Systems/{}/Memory", systemName),
+            nlohmann::json::json_pointer("/Members")));
 }
 
 inline void handleMemoryCollectionGet(
@@ -968,35 +1032,41 @@ inline void handleMemoryCollectionGet(
     {
         return;
     }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
     }
 
     asyncResp->res.jsonValue["@odata.type"] =
         "#MemoryCollection.MemoryCollection";
     asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Memory", BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
-    constexpr std::array<std::string_view, 1> interfaces{
-        "xyz.openbmc_project.Inventory.Item.Dimm"};
-    collection_util::getCollectionMembers(
-        asyncResp,
-        boost::urls::format("/redfish/v1/Systems/{}/Memory",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
-        interfaces, dbus_utils::inventoryPath);
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        systems_utils::getValidSystemsPath(
+            asyncResp, systemName,
+            std::bind_front(multiHostMemoryCollectionGet, asyncResp,
+                            systemName));
+    }
+    else
+    {
+        asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+            "/redfish/v1/Systems/{}/Memory", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        constexpr std::array<std::string_view, 1> interfaces{
+            "xyz.openbmc_project.Inventory.Item.Dimm"};
+        collection_util::getCollectionMembers(
+            asyncResp,
+            boost::urls::format("/redfish/v1/Systems/{}/Memory",
+                                BMCWEB_REDFISH_SYSTEM_URI_NAME),
+            interfaces, dbus_utils::inventoryPath);
+    }
 }
-
 inline void requestRoutesMemory(App& app)
 {
     /**
