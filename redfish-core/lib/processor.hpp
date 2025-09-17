@@ -1081,19 +1081,15 @@ inline void handleProcessorCollectionGet(
     {
         return;
     }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
 
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
     }
 
     asyncResp->res.addHeader(
@@ -1104,14 +1100,35 @@ inline void handleProcessorCollectionGet(
         "#ProcessorCollection.ProcessorCollection";
     asyncResp->res.jsonValue["Name"] = "Processor Collection";
 
-    asyncResp->res.jsonValue["@odata.id"] = std::format(
-        "/redfish/v1/Systems/{}/Processors", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] =
+        std::format("/redfish/v1/Systems/{}/Processors", systemName);
 
-    collection_util::getCollectionMembers(
-        asyncResp,
-        boost::urls::format("/redfish/v1/Systems/{}/Processors",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME),
-        processorInterfaces, "/xyz/openbmc_project/inventory");
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        sdbusplus::message::object_path systemPath(
+            "/xyz/openbmc_project/inventory/system");
+        std::array<std::string_view, 1> boardInterfaces = {
+            "xyz.openbmc_project.Inventory.Item.Board",
+        };
+
+        dbus::utility::getAssociatedSubTreePathsById(
+            systemName, systemPath, boardInterfaces, "containing",
+            processorInterfaces,
+            std::bind_front(
+                collection_util::handleCollectionMembers, asyncResp,
+                boost::urls::format("/redfish/v1/Systems/{}/Processors",
+                                    systemName),
+                nlohmann::json::json_pointer("/Members")));
+        return;
+    }
+    else
+    {
+        collection_util::getCollectionMembers(
+            asyncResp,
+            boost::urls::format("/redfish/v1/Systems/{}/Processors",
+                                systemName),
+            processorInterfaces, "/xyz/openbmc_project/inventory");
+    }
 }
 
 inline void requestRoutesProcessor(App& app)
