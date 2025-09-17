@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb022701_d530135a",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-17T14:58:35Z",
+      "side": 0,
+      "message": "Thank you, that makes sense to me.",
+      "parentUuid": "0f5f9e5a_a00e3e5f",
+      "range": {
+        "startLine": 304,
+        "startChar": 12,
+        "endLine": 308,
+        "endChar": 13
+      },
+      "revId": "45a535cdd8032631a6e03e2e6fbb31c78e880349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "572d2234_7d15e53e",
@@ -132,6 +156,30 @@
       "side": 0,
       "message": "The utility function `getAssetInfo()` checks the existence of interface, and it does no-op if so.\n\nIf the interface exists but it has a dbus-error, it will return an error.\n(I think this would be as how it needs to be handled for dbus call).\n\n```\n            if (ec)\n            {\n                if (ec.value() !\u003d EBADR)\n                {\n                    BMCWEB_LOG_ERROR(\"DBUS response error for Properties {}\",\n                                     ec.value());\n                    messages::internalError(asyncResp-\u003eres);\n                }\n                return; \u003c-- No interface\n            }\n```",
       "parentUuid": "572d2234_7d15e53e",
+      "range": {
+        "startLine": 980,
+        "startChar": 4,
+        "endLine": 985,
+        "endChar": 5
+      },
+      "revId": "45a535cdd8032631a6e03e2e6fbb31c78e880349",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b25588d_02c3486b",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 985,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-17T14:58:35Z",
+      "side": 0,
+      "message": "Thank you, that makes sense to me.",
+      "parentUuid": "d45e6dfd_41083e80",
       "range": {
         "startLine": 980,
         "startChar": 4,
