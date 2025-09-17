@@ -121,5 +121,20 @@ inline void getCollectionMembers(
                        nlohmann::json::json_pointer("/Members"));
 }
 
+inline void getAssociatedItems(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::urls::url& collectionPath, const std::string& associatedPath,
+    const std::string& inventoryPath,
+    std::span<const std::string_view> interfaces,
+    const nlohmann::json::json_pointer& jsonKeyName)
+{
+    BMCWEB_LOG_DEBUG("AssociatedPath: {}, inventoryPath: {}", associatedPath,
+                     inventoryPath);
+    dbus::utility::getAssociatedSubTreePaths(
+        associatedPath, inventoryPath, 0, interfaces,
+        std::bind_front(handleCollectionMembers, asyncResp, collectionPath,
+                        jsonKeyName));
+}
+
 } // namespace collection_util
 } // namespace redfish
