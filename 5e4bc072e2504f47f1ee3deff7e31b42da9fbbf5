@@ -69,6 +69,24 @@
       "parentUuid": "ca7b31f7_ebd5132d",
       "revId": "5e4bc072e2504f47f1ee3deff7e31b42da9fbbf5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94430327_c619c934",
+        "filename": "config/meson.build",
+        "patchSetId": 16
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2025-09-17T20:10:59Z",
+      "side": 1,
+      "message": "I don\u0027t think you can have a user without a home dir.  I just hopped on a bmc and did \u0027useradd foo\u0027 and it put it in /home/foo.  I also noticed I have a bmcweb user and its home dir is /home/bmcweb.\n\nA quick look on my distro and service account homes are all over the place.  some in /var, some in /run, some in /, some in /usr, others in /nonexistent...",
+      "parentUuid": "d1ce450c_db3c292b",
+      "revId": "5e4bc072e2504f47f1ee3deff7e31b42da9fbbf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
