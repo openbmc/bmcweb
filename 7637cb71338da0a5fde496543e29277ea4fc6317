@@ -95,6 +95,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "427942dd_b462de55",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 98
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-17T15:01:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfa93a3b_2e4e24f2",
+      "range": {
+        "startLine": 467,
+        "startChar": 6,
+        "endLine": 467,
+        "endChar": 14
+      },
+      "revId": "7637cb71338da0a5fde496543e29277ea4fc6317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "061cc428_65550a2a",
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "f40460d1_409602b9",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 2
+      },
+      "revId": "7637cb71338da0a5fde496543e29277ea4fc6317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "545796f7_572a10e7",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 98
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-17T15:01:49Z",
+      "side": 1,
+      "message": "I see AssemblyData above was changed to v1_5_1, but this Assembly was not. Shouldn\u0027t they match?",
+      "parentUuid": "9e5e43d0_b03201fd",
       "range": {
         "startLine": 155,
         "startChar": 0,
