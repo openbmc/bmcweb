@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43e272dc_9779d55d",
+        "filename": "meson.build",
+        "patchSetId": 5
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-17T19:20:53Z",
+      "side": 1,
+      "message": "Now that this is an application we expect people to execute, libexec isn\u0027t appropriate.  Move it back to bindir (same as the cli was).",
+      "range": {
+        "startLine": 421,
+        "startChar": 17,
+        "endLine": 421,
+        "endChar": 24
+      },
+      "revId": "1e1dfe29d445ce1f68cb6cd8fcd6b7de4fd0ce99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4a7e082f_53d4850c",
         "filename": "src/webserver_cli.cpp",
         "patchSetId": 5
