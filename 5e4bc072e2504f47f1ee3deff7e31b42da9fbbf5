@@ -51,6 +51,24 @@
       "parentUuid": "de15abe8_83bf56bd",
       "revId": "5e4bc072e2504f47f1ee3deff7e31b42da9fbbf5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1ce450c_db3c292b",
+        "filename": "config/meson.build",
+        "patchSetId": 16
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-17T19:44:54Z",
+      "side": 1,
+      "message": "```If the setting is prefixed with the \"-\" character, a missing working directory is not considered fatal```\n\nMight be what we want here?",
+      "parentUuid": "ca7b31f7_ebd5132d",
+      "revId": "5e4bc072e2504f47f1ee3deff7e31b42da9fbbf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
