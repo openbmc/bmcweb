@@ -33,6 +33,24 @@
       "message": "what about just ~ or -~ ?",
       "revId": "5e4bc072e2504f47f1ee3deff7e31b42da9fbbf5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca7b31f7_ebd5132d",
+        "filename": "config/meson.build",
+        "patchSetId": 16
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-17T19:42:42Z",
+      "side": 1,
+      "message": "This user doesn\u0027t have a home dir..... Arguably we should just use the systemd default though.  I think I pulled this for what nginx does, but it\u0027s been so long now I don\u0027t remember.",
+      "parentUuid": "de15abe8_83bf56bd",
+      "revId": "5e4bc072e2504f47f1ee3deff7e31b42da9fbbf5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
