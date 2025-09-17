@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9e3c490_b6708056",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-17T19:14:09Z",
+      "side": 1,
+      "message": "Reopening this.  Current patchset still says \"hypothesis\". If this merges, this isn\u0027t a hypothesis, this commit message is a conclusion, so lets document why this is better.",
+      "parentUuid": "adc3ddc2_e42bb296",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "5662e1b0e03d0f6e96f361cd660b6731d6baf687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bca38697_8c87eb8e",
         "filename": "scripts/target/bmcweb",
         "patchSetId": 3
