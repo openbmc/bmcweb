@@ -840,6 +840,11 @@ class MultiAsyncResp : public std::enable_shared_from_this<MultiAsyncResp>
         const crow::Response& resIn)
     {
         asyncResp->res.jsonValue = resIn.jsonValue;
+        std::optional<std::string_view> expectedEtag = resIn.getExpectedEtag();
+        if (expectedEtag)
+        {
+            asyncResp->res.setExpectedEtag(expectedEtag.value());
+        }
         auto multi = std::make_shared<MultiAsyncResp>(asyncResp);
         for (OemBaseRule* fragment : *fragments)
         {
