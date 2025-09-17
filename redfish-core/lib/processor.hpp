@@ -753,7 +753,7 @@ inline void handleProcessorSubtree(
     {
         // Ignore any objects which don't end with our desired cpu name
         sdbusplus::message::object_path path(objectPath);
-        if (path.filename() == processorId)
+        if (path.filename().contains(processorId))
         {
             // Filter out objects that don't have the CPU-specific
             // interfaces to make sure we can return 404 on non-CPUs
@@ -768,7 +768,6 @@ inline void handleProcessorSubtree(
                     // required interfaces, and potentially ignore any other
                     // matching objects. Assume all interfaces we want to
                     // process must be on the same object path.
-
                     callback(objectPath, serviceMap);
                     return;
                 }
@@ -795,8 +794,6 @@ inline void getProcessorObject(
                        const dbus::utility::MapperServiceMap& serviceMap)>&&
         callback)
 {
-    BMCWEB_LOG_DEBUG("Get available system processor resources.");
-
     // GetSubTree on all interfaces which provide info about a Processor
     constexpr std::array<std::string_view, 9> interfaces = {
         "xyz.openbmc_project.Common.UUID",
@@ -807,9 +804,12 @@ inline void getProcessorObject(
         "xyz.openbmc_project.Inventory.Item.Accelerator",
         "xyz.openbmc_project.Control.Processor.CurrentOperatingConfig",
         "xyz.openbmc_project.Inventory.Decorator.UniqueIdentifier",
-        "xyz.openbmc_project.Control.Power.Throttle"};
+        "xyz.openbmc_project.Control.Power.Throttle",
+    };
+
+    BMCWEB_LOG_DEBUG("Get available system processor resources.");
     dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
+        "/xyz/openbmc_project/inventory/system/cpu/", 0, interfaces,
         [asyncResp, processorId, callback{std::move(callback)}](
             const boost::system::error_code& ec,
             const dbus::utility::MapperGetSubTreeResponse& subtree) {
@@ -820,16 +820,16 @@ inline void getProcessorObject(
 
 inline void getProcessorData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& processorId, const std::string& objectPath,
+    const std::string& systemName, const std::string& processorId,
+    const std::string& objectPath,
     const dbus::utility::MapperServiceMap& serviceMap)
 {
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/Processor/Processor.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] = "#Processor.v1_18_0.Processor";
-    asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/Processors/{}",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME, processorId);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Processors/{}", systemName, processorId);
 
     for (const auto& [serviceName, interfaceList] : serviceMap)
     {
@@ -986,27 +986,15 @@ inline void handleProcessorGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName, const std::string& processorId)
 {
+    (void)systemName;
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
-        return;
-    }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
         return;
     }
 
     getProcessorObject(
         asyncResp, processorId,
-        std::bind_front(getProcessorData, asyncResp, processorId));
+        std::bind_front(getProcessorData, asyncResp, systemName, processorId));
 }
 
 inline void doPatchProcessor(
@@ -1093,7 +1081,7 @@ inline void multiHostProcessorCollectionGet(
                     systemName);
     std::string associatedCpuPath = "/xyz/openbmc_project/inventory/system/cpu";
 
-    collection_util::getAssociatedItems(
+    collection_util::getCollectionByAssociation(
         asyncResp,
         boost::urls::format("/redfish/v1/Systems/{}/Processors", systemName),
         associatedBoardPath, associatedCpuPath, processorInterfaces,
