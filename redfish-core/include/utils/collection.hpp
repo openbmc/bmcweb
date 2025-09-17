@@ -16,7 +16,6 @@
 #include <algorithm>
 #include <functional>
 #include <memory>
-#include <ranges>
 #include <span>
 #include <string>
 #include <string_view>
@@ -119,6 +118,19 @@ inline void getCollectionMembers(
 {
     getCollectionToKey(asyncResp, collectionPath, interfaces, subtree,
                        nlohmann::json::json_pointer("/Members"));
+}
+
+inline void getCollectionByAssociation(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const boost::urls::url& collectionPath, const std::string& associatedPath,
+    const std::string& inventoryPath,
+    std::span<const std::string_view> interfaces,
+    const nlohmann::json::json_pointer& jsonKeyName)
+{
+    dbus::utility::getAssociatedSubTreePaths(
+        associatedPath, inventoryPath, 0, interfaces,
+        std::bind_front(handleCollectionMembers, asyncResp, collectionPath,
+                        jsonKeyName));
 }
 
 } // namespace collection_util

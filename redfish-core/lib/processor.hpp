@@ -1072,6 +1072,34 @@ inline void handleProcessorPatch(
                         appliedConfigUri, locationIndicatorActive));
 }
 
+inline void multiHostProcessorCollectionGet(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ProcessorCollection/ProcessorCollection.json>; rel=describedby");
+
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#ProcessorCollection.ProcessorCollection";
+    asyncResp->res.jsonValue["Name"] = "Processor Collection";
+
+    asyncResp->res.jsonValue["@odata.id"] =
+        std::format("/redfish/v1/Systems/{}/Processors", systemName);
+
+    boost::urls::format("/redfish/v1/Systems/{}/Processors");
+    std::string associatedBoardPath =
+        std::format("/xyz/openbmc_project/inventory/system/board/{}/containing",
+                    systemName);
+    std::string associatedCpuPath = "/xyz/openbmc_project/inventory/system/cpu";
+
+    collection_util::getAssociatedItems(
+        asyncResp,
+        boost::urls::format("/redfish/v1/Systems/{}/Processors", systemName),
+        associatedBoardPath, associatedCpuPath, processorInterfaces,
+        nlohmann::json::json_pointer("/Members"));
+}
+
 inline void handleProcessorCollectionGet(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -1083,9 +1111,7 @@ inline void handleProcessorCollectionGet(
     }
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
+        multiHostProcessorCollectionGet(asyncResp, systemName);
         return;
     }
 
