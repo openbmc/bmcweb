@@ -52,6 +52,24 @@
       "parentUuid": "46003105_3d8bd069",
       "revId": "39d2919af97bc0d7dddf1f455f51d8252b845341",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df61843f_74f472b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-09-17T17:55:34Z",
+      "side": 1,
+      "message": "\u003e Minor preference for symlink here, just so we don\u0027t have to maintain a script, and there\u0027s no potential people add extra stuff to the script.\n\nGood points 👍\n\nThanks for the precise and complete feedback.",
+      "parentUuid": "b05194a0_40b07d0a",
+      "revId": "39d2919af97bc0d7dddf1f455f51d8252b845341",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
