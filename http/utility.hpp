@@ -232,6 +232,18 @@ inline std::string base64encode(std::string_view data)
     return out;
 }
 
+inline std::string createBasicAuthHeader(std::string_view username,
+                                         std::string_view password)
+{
+    std::string credentials = "Basic ";
+    Base64Encoder enc;
+    enc.encode(username, credentials);
+    enc.encode(":", credentials);
+    enc.encode(password, credentials);
+    enc.finalize(credentials);
+    return credentials;
+}
+
 template <bool urlsafe = false>
 inline bool base64Decode(std::string_view input, std::string& output)
 {
