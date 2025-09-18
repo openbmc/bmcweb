@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f52c3218_a7686af6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-18T15:13:09Z",
+      "side": 1,
+      "message": "We don\u0027t need compiler level details.  \"This is better, here\u0027s the measurement, and here\u0027s the test results.  This makes sense because....\" is plenty.  The important part is we don\u0027t phrase this as an experiment.  If we merge it, it\u0027s canon.\n\nIn what you currently have I would also take out \"Conclusion: \" and replace \"Results: \" with \"Tested:\" per the commit message rules.\n\nWith that said, It\u0027s a commit message, I\u0027m not that worried about it.  Lets just get this in.",
+      "parentUuid": "0e97fc09_c9975b17",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "5662e1b0e03d0f6e96f361cd660b6731d6baf687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bca38697_8c87eb8e",

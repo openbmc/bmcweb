@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a6c1883_4c27250c",
+        "filename": "meson.build",
+        "patchSetId": 5
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-18T15:13:09Z",
+      "side": 1,
+      "message": "Exactly.",
+      "parentUuid": "f0a79c36_d95aa56d",
+      "range": {
+        "startLine": 421,
+        "startChar": 17,
+        "endLine": 421,
+        "endChar": 24
+      },
+      "revId": "1e1dfe29d445ce1f68cb6cd8fcd6b7de4fd0ce99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a7e082f_53d4850c",
@@ -109,6 +133,30 @@
       "side": 1,
       "message": "\u003e There\u0027s lots of documentation that just expects bmcweb to launch on its own that it would be great to not break.\n\nyou mean `bmcweb` service?\n\nOtherwise, `bmcwebd` was a separate binary before this patch, so any docs that reference it will be outdated.\n\nI\u0027m having trouble relating this comment to your other comment about putting the binary into bindir. Which gets rid of the symlink that was previously used.\n\n\u003e Lets keep this sub command just so we can have help strings if we want.\n\nok, i will keep as is.",
       "parentUuid": "68334c39_e5b3005c",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 69
+      },
+      "revId": "1e1dfe29d445ce1f68cb6cd8fcd6b7de4fd0ce99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64c9b7ba_6d9b9e77",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-18T15:13:09Z",
+      "side": 1,
+      "message": "bmcwebd is a relatively new binary, so very likely most of the documentation still points to bmcweb.\n\nIs it possible to have the no-args default be daemonize?  That\u0027s the ask.  I\u0027m not that worried about it, people will figure it out.",
+      "parentUuid": "e0a54c13_0fdbe69f",
       "range": {
         "startLine": 74,
         "startChar": 0,
