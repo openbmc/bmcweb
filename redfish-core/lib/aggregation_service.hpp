@@ -191,6 +191,15 @@ inline void populateAggregationSource(
     std::string hostName(sat->second.encoded_origin());
     asyncResp->res.jsonValue["HostName"] = std::move(hostName);
 
+    // Include UserName if credentials exist for this source
+    auto& aggregator = RedfishAggregator::getInstance();
+    auto it = aggregator.currentAggregationSources.find(aggregationSourceId);
+    if (it != aggregator.currentAggregationSources.end() &&
+        !it->second.username.empty())
+    {
+        asyncResp->res.jsonValue["UserName"] = it->second.username;
+    }
+
     // The Redfish spec requires Password to be null in responses
     asyncResp->res.jsonValue["Password"] = nullptr;
 }
@@ -238,10 +247,15 @@ inline void handleAggregationSourceCollectionPost(
         return;
     }
     std::string hostname;
-    if (!json_util::readJsonPatch(req, asyncResp->res, "HostName", hostname))
+    std::optional<std::string> username;
+    std::optional<std::string> password;
+
+    if (!json_util::readJsonPatch(req, asyncResp->res, "HostName", hostname,
+                                  "UserName", username, "Password", password))
     {
         return;
     }
+
     boost::system::result<boost::urls::url> url =
         boost::urls::parse_absolute_uri(hostname);
     if (!url)
@@ -258,7 +272,10 @@ inline void handleAggregationSourceCollectionPost(
     crow::utility::setPortDefaults(*url);
     std::string prefix = bmcweb::getRandomIdOfLength(8);
     RedfishAggregator::getInstance().currentAggregationSources.emplace(
-        prefix, *url);
+        prefix, AggregationSource{*url,
+                                  username.value_or(""),
+                                  password.value_or("")});
+
     BMCWEB_LOG_DEBUG("Emplaced {} with url {}", prefix, url->buffer());
     asyncResp->res.addHeader(
         boost::beast::http::field::location,
