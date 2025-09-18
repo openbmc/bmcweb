@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "67a9af68_994ed1c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-18T08:37:46Z",
+      "side": 1,
+      "message": "\u003e \u003e So all of request will come to that server instance\n\u003e \n\u003e We should be able to accept 443 to a specific device, right?  I suspect we\u0027re doing the bind in the wrong order, need to bind the device specific devices first?\n\nThe `additional-ports` configuration only affects on the added socket instance, such as `bmcweb_443.socket` if we configure port 443. For the socket instance `bmcweb.socket` it will not effected by this option.\nSo all requests to port 443 will come to both sockets.\nDo we have any wait to limit the request to usb0 at port 443 to only new bmcweb_443.socket?\n\n\u003e \n\u003e \n\u003e The goal should be to identify on the same port.  Redfish doesn\u0027t really let you change the port number in a specification defined way.",
+      "parentUuid": "803d4ec3_b839e579",
+      "range": {
+        "startLine": 22,
+        "startChar": 25,
+        "endLine": 22,
+        "endChar": 28
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73815e2d_9912346d",
         "filename": "http/app.hpp",
         "patchSetId": 5
