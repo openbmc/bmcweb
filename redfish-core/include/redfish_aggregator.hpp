@@ -413,6 +413,13 @@ inline crow::ConnectionPolicy getAggregationPolicy()
             .invalidResp = aggregationRetryHandler};
 }
 
+struct AggregationSource
+{
+    boost::urls::url url;
+    std::string username;
+    std::string password;
+};
+
 class RedfishAggregator
 {
   private:
@@ -814,9 +821,14 @@ class RedfishAggregator
         {
             url.set_query(targetURI.query());
         }
+
+        // Prepare request headers
+        boost::beast::http::fields requestFields =
+            prepareAggregationHeaders(thisReq.fields(), prefix);
+
         client.sendDataWithCallback(std::move(data), url,
                                     ensuressl::VerifyCertificate::Verify,
-                                    thisReq.fields(), thisReq.method(), cb);
+                                    requestFields, thisReq.method(), cb);
     }
 
     // Forward a request for a collection URI to each known satellite BMC
@@ -837,9 +849,14 @@ class RedfishAggregator
                 url.set_query(thisReq.url().query());
             }
             std::string data = thisReq.body();
+
+            // Prepare request headers
+            boost::beast::http::fields requestFields =
+                prepareAggregationHeaders(thisReq.fields(), sat.first);
+
             client.sendDataWithCallback(std::move(data), url,
                                         ensuressl::VerifyCertificate::Verify,
-                                        thisReq.fields(), thisReq.method(), cb);
+                                        requestFields, thisReq.method(), cb);
         }
     }
 
@@ -864,9 +881,13 @@ class RedfishAggregator
 
             std::string data = thisReq.body();
 
+            // Prepare request headers
+            boost::beast::http::fields requestFields =
+                prepareAggregationHeaders(thisReq.fields(), sat.first);
+
             client.sendDataWithCallback(std::move(data), url,
                                         ensuressl::VerifyCertificate::Verify,
-                                        thisReq.fields(), thisReq.method(), cb);
+                                        requestFields, thisReq.method(), cb);
         }
     }
 
@@ -889,8 +910,35 @@ class RedfishAggregator
         return handler;
     }
 
-    // Aggregation sources from AggregationCollection
-    std::unordered_map<std::string, boost::urls::url> currentAggregationSources;
+    // Aggregation sources with their URLs and optional credentials
+    std::unordered_map<std::string, AggregationSource> aggregationSources;
+
+    // Helper function to prepare headers for aggregated satellite BMC requests
+    boost::beast::http::fields prepareAggregationHeaders(
+        const boost::beast::http::fields& originalFields,
+        const std::string& prefix) const
+    {
+        boost::beast::http::fields fields = originalFields;
+
+        // POST AggregationService can only parse JSON
+        fields.set(boost::beast::http::field::accept, "application/json");
+
+        // Add authentication if credentials exist for this prefix
+        auto it = aggregationSources.find(prefix);
+        if (it != aggregationSources.end())
+        {
+            const auto& source = it->second;
+            // Only add auth header if both username and password are provided
+            if (!source.username.empty() && !source.password.empty())
+            {
+                std::string authHeader = crow::utility::createBasicAuthHeader(
+                    source.username, source.password);
+                fields.set(boost::beast::http::field::authorization,
+                           authHeader);
+            }
+        }
+        return fields;
+    }
 
     // Polls D-Bus to get all available satellite config information
     // Expects a handler which interacts with the returned configs
@@ -902,8 +950,12 @@ class RedfishAggregator
     {
         BMCWEB_LOG_DEBUG("Gathering satellite configs");
 
-        std::unordered_map<std::string, boost::urls::url> satelliteInfo(
-            currentAggregationSources);
+        // Extract just the URLs from aggregationSources for the handler
+        std::unordered_map<std::string, boost::urls::url> satelliteInfo;
+        for (const auto& [prefix, source] : aggregationSources)
+        {
+            satelliteInfo.emplace(prefix, source.url);
+        }
 
         sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
@@ -1370,7 +1422,7 @@ class RedfishAggregator
     bool segmentHasPrefix(const std::string& urlSegment) const
     {
         // TODO: handle this better
-        // For now 5B247A_ wont be in the currentAggregationSources map so
+        // For now 5B247A_ wont be in the aggregationSources map so
         // check explicitly for now
         if (urlSegment.starts_with("5B247A_"))
         {
@@ -1388,7 +1440,7 @@ class RedfishAggregator
         std::string prefix = urlSegment.substr(0, underscorePos);
 
         // Check if this prefix exists
-        return currentAggregationSources.contains(prefix);
+        return aggregationSources.contains(prefix);
     }
 };
 
