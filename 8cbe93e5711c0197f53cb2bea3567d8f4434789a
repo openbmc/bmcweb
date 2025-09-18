@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f461628_4127b0e4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-18T17:41:57Z",
+      "side": 1,
+      "message": "This only adds to our options but this should only be temporary / should have probably been in the original commit (my bad) / unbreaks folks using this",
+      "revId": "8cbe93e5711c0197f53cb2bea3567d8f4434789a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
