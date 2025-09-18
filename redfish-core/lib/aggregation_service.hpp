@@ -191,6 +191,14 @@ inline void populateAggregationSource(
     std::string hostName(sat->second.encoded_origin());
     asyncResp->res.jsonValue["HostName"] = std::move(hostName);
 
+    // Include UserName if credentials exist for this source
+    auto& aggregator = RedfishAggregator::getInstance();
+    if (aggregator.aggregationCredentials.contains(aggregationSourceId))
+    {
+        const auto& creds = aggregator.aggregationCredentials.at(aggregationSourceId);
+        asyncResp->res.jsonValue["UserName"] = creds.username;
+    }
+
     // The Redfish spec requires Password to be null in responses
     asyncResp->res.jsonValue["Password"] = nullptr;
 }
@@ -238,7 +246,13 @@ inline void handleAggregationSourceCollectionPost(
         return;
     }
     std::string hostname;
-    if (!json_util::readJsonPatch(req, asyncResp->res, "HostName", hostname))
+    std::optional<std::string> username;
+    std::optional<std::string> password;
+
+    if (!json_util::readJsonPatch(req, asyncResp->res,
+                                  "HostName", hostname,
+                                  "UserName", username,
+                                  "Password", password))
     {
         return;
     }
@@ -259,6 +273,13 @@ inline void handleAggregationSourceCollectionPost(
     std::string prefix = bmcweb::getRandomIdOfLength(8);
     RedfishAggregator::getInstance().currentAggregationSources.emplace(
         prefix, *url);
+
+    if (username.has_value() && password.has_value())
+    {
+        RedfishAggregator::getInstance().aggregationCredentials.emplace(
+            prefix, AggregationCredentials{*username, *password});
+    }
+
     BMCWEB_LOG_DEBUG("Emplaced {} with url {}", prefix, url->buffer());
     asyncResp->res.addHeader(
         boost::beast::http::field::location,
@@ -289,6 +310,9 @@ inline void handleAggregationSourceDelete(
                                    aggregationSourceId);
         return;
     }
+
+    // Also clean up credentials if they exist
+    RedfishAggregator::getInstance().aggregationCredentials.erase(aggregationSourceId);
 
     messages::success(asyncResp->res);
 }
