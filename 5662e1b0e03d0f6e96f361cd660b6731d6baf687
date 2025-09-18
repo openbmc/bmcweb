@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0e97fc09_c9975b17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-09-18T09:42:39Z",
+      "side": 1,
+      "message": "Ok, i removed the word `hypothesis` from all parts of the commit message.\n\n\u003e so lets document why this is better.\n\nI outlined the commands used to check the resulting size.\n\nIt is better because we achieve a smaller footprint in compressed rofs.\n\nHow much is to gain by merging binaries depends on their contents and overlap. It depends on case-by-case basis. Sometimes the gain would be very small.\n\nDocumenting all the cases where it works and where it does not would be a bunch of work involving prepared example sources and going over compiler internals, how `-Osize` works, how it impacts inlining, how specialization/inlining with single caller can prevent deduplication later on, ...\n\n\nSo i don\u0027t see us covering all of that in a single commit message.\n\n\nCan we keep it at \"this is better, it makes sense that it\u0027s better, for details, go dig up compiler internals\" ?",
+      "parentUuid": "e9e3c490_b6708056",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "5662e1b0e03d0f6e96f361cd660b6731d6baf687",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bca38697_8c87eb8e",
         "filename": "scripts/target/bmcweb",
         "patchSetId": 3
