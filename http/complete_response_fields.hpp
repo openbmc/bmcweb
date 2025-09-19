@@ -40,6 +40,8 @@ inline void handleEncoding(std::string_view acceptEncoding, Response& res)
             if (encoding == ZSTD)
             {
                 // If the client supports returning zstd directly, allow that.
+                BMCWEB_LOG_DEBUG(
+                    "Content is already ztd compressed.  Setting client compression type to Zstd");
                 res.response.body().clientCompressionType = Zstd;
             }
         }
@@ -53,6 +55,49 @@ inline void handleEncoding(std::string_view acceptEncoding, Response& res)
             {
                 BMCWEB_LOG_WARNING(
                     "Unimplemented: Returning gzip payload to client that did not explicitly allow it.");
+            }
+        }
+        break;
+        case Raw:
+        {
+            BMCWEB_LOG_ERROR(
+                "Content is raw.  Checking if it can be compressed.");
+            std::array<Encoding, 1> allowedEnc{ZSTD};
+            Encoding encoding =
+                http_helpers::getPreferredEncoding(acceptEncoding, allowedEnc);
+            BMCWEB_LOG_ERROR("Selected Encoding is {}",
+                             static_cast<int>(encoding));
+            if (encoding == ZSTD)
+            {
+                BMCWEB_LOG_ERROR(
+                    "Content can be compressed with zstd.  Setting client compression type to Zstd");
+                res.response.body().clientCompressionType = Zstd;
+                res.addHeader(boost::beast::http::field::content_encoding,
+                              "zstd");
+                const std::string& strBody = res.response.body().str();
+                if (res.response.body().str().size() > 0)
+                {
+                    ZstdCompressor zstdCompressor;
+                    if (!zstdCompressor.init())
+                    {
+                        BMCWEB_LOG_ERROR(
+                            "Failed to initialize Zstd Compressor");
+                    }
+                    else
+                    {
+                        std::optional<boost::asio::const_buffer> compressed =
+                            zstdCompressor.compress(
+                                {strBody.data(), strBody.size()},
+                                false /*more*/);
+                        if (compressed)
+                        {
+                            res.response.body().str() = std::string(
+                                static_cast<const char*>(compressed->data()),
+                                compressed->size());
+                        }
+                    }
+                    res.response.body().compressionType = Zstd;
+                }
             }
         }
         break;
