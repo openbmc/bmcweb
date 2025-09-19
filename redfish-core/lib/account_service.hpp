@@ -1388,7 +1388,7 @@ inline void handleAccountServiceGet(
     nlohmann::json::array_t allowed;
     allowed.emplace_back(account_service::BasicAuthState::Enabled);
     allowed.emplace_back(account_service::BasicAuthState::Disabled);
-    json["HTTPBasicAuth@AllowableValues"] = std::move(allowed);
+    json["HTTPBasicAuth@Redfish.AllowableValues"] = std::move(allowed);
 
     nlohmann::json::object_t clientCertificate;
     clientCertificate["Enabled"] = authMethodsConfig.tls;
