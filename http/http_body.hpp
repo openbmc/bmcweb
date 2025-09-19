@@ -5,6 +5,7 @@
 #include "duplicatable_file_handle.hpp"
 #include "logging.hpp"
 #include "utility.hpp"
+#include "zstd_compressor.hpp"
 #include "zstd_decompressor.hpp"
 
 #include <fcntl.h>
@@ -177,7 +178,8 @@ class HttpBody::writer
     std::string buf;
     crow::utility::Base64Encoder encoder;
 
-    std::optional<ZstdDecompressor> zstd;
+    std::optional<ZstdDecompressor> zstdDecompressor;
+    std::optional<ZstdCompressor> zstdCompressor;
 
     value_type& body;
     size_t sent = 0;
@@ -193,10 +195,28 @@ class HttpBody::writer
     writer(boost::beast::http::header<IsRequest, Fields>& /*header*/,
            value_type& bodyIn) : body(bodyIn)
     {
+        // If zstd compressed and client doesn't support zstd, need to
+        // decompress
         if (body.compressionType == CompressionType::Zstd &&
             body.clientCompressionType != CompressionType::Zstd)
         {
-            zstd.emplace();
+            zstdDecompressor.emplace();
+        }
+        if (body.compressionType == CompressionType::Raw &&
+            body.clientCompressionType == CompressionType::Zstd)
+        {
+            std::optional<size_t> size = body.payloadSize();
+            if (size)
+            {
+                BMCWEB_LOG_DEBUG(
+                    "Body is raw, client supports zstd, and paylod is not streaming.  Compressing.");
+                zstdCompressor.emplace();
+                if (!zstdCompressor->init(*size))
+                {
+                    BMCWEB_LOG_ERROR("Failed to initialize Zstd Compressor");
+                    zstdCompressor = std::nullopt;
+                }
+            }
         }
     }
 
@@ -223,59 +243,76 @@ class HttpBody::writer
 
             sent += toReturn;
             ret.second = sent < body.str().size();
-            BMCWEB_LOG_INFO("Returning {} bytes more={}", ret.first.size(),
-                            ret.second);
-            return ret;
-        }
-        size_t readReq = std::min(fileReadBuf.size(), maxSize);
-        BMCWEB_LOG_INFO("Reading {}", readReq);
-        boost::system::error_code readEc;
-        size_t read = body.file().read(fileReadBuf.data(), readReq, readEc);
-        if (readEc)
-        {
-            if (readEc != boost::system::errc::operation_would_block &&
-                readEc != boost::system::errc::resource_unavailable_try_again)
-            {
-                BMCWEB_LOG_CRITICAL("Failed to read from file {}",
-                                    readEc.message());
-                ec = readEc;
-                return boost::none;
-            }
-        }
-
-        std::string_view chunkView(fileReadBuf.data(), read);
-        BMCWEB_LOG_INFO("Read {} bytes from file", read);
-        // If the number of bytes read equals the amount requested, we haven't
-        // reached EOF yet
-        ret.second = read == readReq;
-        if (body.encodingType == EncodingType::Base64)
-        {
-            buf.clear();
-            buf.reserve(
-                crow::utility::Base64Encoder::encodedSize(chunkView.size()));
-            encoder.encode(chunkView, buf);
-            if (!ret.second)
-            {
-                encoder.finalize(buf);
-            }
-            ret.first = const_buffers_type(buf.data(), buf.size());
         }
         else
         {
-            ret.first = const_buffers_type(chunkView.data(), chunkView.size());
+            size_t readReq = std::min(fileReadBuf.size(), maxSize);
+            BMCWEB_LOG_INFO("Reading {}", readReq);
+            boost::system::error_code readEc;
+            size_t read = body.file().read(fileReadBuf.data(), readReq, readEc);
+            if (readEc)
+            {
+                if (readEc != boost::system::errc::operation_would_block &&
+                    readEc !=
+                        boost::system::errc::resource_unavailable_try_again)
+                {
+                    BMCWEB_LOG_CRITICAL("Failed to read from file {}",
+                                        readEc.message());
+                    ec = readEc;
+                    return boost::none;
+                }
+            }
+
+            std::string_view chunkView(fileReadBuf.data(), read);
+            BMCWEB_LOG_INFO("Read {} bytes from file", read);
+            // If the number of bytes read equals the amount requested, we
+            // haven't reached EOF yet
+            ret.second = read == readReq;
+            if (body.encodingType == EncodingType::Base64)
+            {
+                buf.clear();
+                buf.reserve(crow::utility::Base64Encoder::encodedSize(
+                    chunkView.size()));
+                encoder.encode(chunkView, buf);
+                if (!ret.second)
+                {
+                    encoder.finalize(buf);
+                }
+                ret.first = const_buffers_type(buf.data(), buf.size());
+            }
+            else
+            {
+                ret.first =
+                    const_buffers_type(chunkView.data(), chunkView.size());
+            }
         }
 
-        if (zstd)
+        if (zstdDecompressor)
         {
             std::optional<const_buffers_type> decompressed =
-                zstd->decompress(ret.first);
+                zstdDecompressor->decompress(ret.first);
             if (!decompressed)
             {
                 return boost::none;
             }
             ret.first = *decompressed;
         }
-
+        if (zstdCompressor)
+        {
+            BMCWEB_LOG_DEBUG("Compressing body more={}", ret.second);
+            std::span<const uint8_t> spanIn(
+                static_cast<const uint8_t*>(ret.first.data()),
+                ret.first.size());
+            std::optional<std::span<const uint8_t>> compressed =
+                zstdCompressor->compress(spanIn, ret.second);
+            if (!compressed)
+            {
+                return boost::none;
+            }
+            ret.first = *compressed;
+        }
+        BMCWEB_LOG_INFO("Returning {} bytes more={}", ret.first.size(),
+                        ret.second);
         return ret;
     }
 };
