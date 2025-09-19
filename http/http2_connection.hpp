@@ -365,9 +365,8 @@ class HTTP2Connection :
             thisStream->second.reqReader;
         if (!reqReader)
         {
-            reqReader.emplace(
-                bmcweb::HttpBody::reader(thisStream->second.req->req.base(),
-                                         thisStream->second.req->req.body()));
+            Request::Body& req = thisStream->second.req->req;
+            reqReader.emplace(req.base(), req.body());
         }
         boost::beast::error_code ec;
         reqReader->put(boost::asio::const_buffer(data, len), ec);
