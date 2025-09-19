@@ -373,6 +373,7 @@ srcfiles_bmcweb = files(
     'http/mutual_tls.cpp',
     'http/routing/sserule.cpp',
     'http/routing/websocketrule.cpp',
+    'http/zstd_compressor.cpp',
     'http/zstd_decompressor.cpp',
     'redfish-core/src/dbus_log_watcher.cpp',
     'redfish-core/src/error_message_utils.cpp',
