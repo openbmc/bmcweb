@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d21344f_53b23c7e",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-19T16:09:11Z",
+      "side": 1,
+      "message": "We should be making sure the header is passed through in the request header structure I would think?",
+      "revId": "55ab0fffe1ffc67b9970d1fa972176ad47959bb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf817330_4494ff46",
+        "filename": "redfish-core/include/utils/query_param.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-19T16:09:11Z",
+      "side": 1,
+      "message": "You can\u0027t just copy a request etag from one to another.  They represent different things and will cause hash matches when they shouldn\u0027t occur.\n\nKeep in mind, this handler represents a PORTION of a response.  The etag represents the WHOLE response.",
+      "revId": "55ab0fffe1ffc67b9970d1fa972176ad47959bb0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
