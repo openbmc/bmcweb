@@ -16,6 +16,24 @@
       "message": "In case if we run /tmp/bmcweb for testing, it may collide the default state file.\nBut, this can be overridden via an environment variable - STATE_DIRECTORY (with this code). Is it better to state this in the commit message about\n```\nSTATE_DIRECTORY\u003d/tmp /tmp/bmcweb \n```",
       "revId": "30e6c39fbd3c3ee4505bc82f47351b77fed46271",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2d4958d_73b33457",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-20T01:33:16Z",
+      "side": 1,
+      "message": "The default state file is the current directory, which is not changing in this patch.  What\u0027s the concern exactly?  yes, if you run from /home/root you\u0027ll have a conflict currently, but that\u0027s not something most do on a squashfs filesystem, right?  MOst run from temp and the state file will be created from temp?",
+      "parentUuid": "aa995c4c_5ffaa773",
+      "revId": "30e6c39fbd3c3ee4505bc82f47351b77fed46271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
