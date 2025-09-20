@@ -331,6 +331,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2e42470_964c399b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 98
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-20T00:23:45Z",
+      "side": 1,
+      "message": "Right. Fixed",
+      "parentUuid": "545796f7_572a10e7",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 2
+      },
+      "revId": "7637cb71338da0a5fde496543e29277ea4fc6317",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1518d763_6b41eed2",

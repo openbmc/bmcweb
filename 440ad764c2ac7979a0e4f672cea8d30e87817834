@@ -227,6 +227,24 @@
       "parentUuid": "e39b543a_8fef1a5d",
       "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a22bf58_a1baac70",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 90
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-20T00:23:45Z",
+      "side": 1,
+      "message": "It turns out this error happens if `requestRoutesAssembly()` is added before `requestRoutesProcessorCollection()`\n\nError case:\n\n```\n    if constexpr (BMCWEB_REDFISH_CPU_LOG)\n    {\n....\n    }\n\n+    requestRoutesAssembly(app);\n\n    requestRoutesProcessorCollection(app);\n    ...\n```\n\nIf added after that, CI passes. \nThis implies that there seems some issues in dealing with ROUTE handling or perhaps gtest/valgrind itself???\n\nBut for the purpose of making progress, I added requestRoutesAssembly() toward the end of redfish.cpp.\n\n```\n   requestRoutesTrigger(app);\n\n    requestRoutesAssembly(app);\n\n    // Note, this must be the last route registered\n    requestRoutesRedfish(app);\n```",
+      "parentUuid": "d8ee505a_b9671e53",
+      "revId": "440ad764c2ac7979a0e4f672cea8d30e87817834",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
