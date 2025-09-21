@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1dbb8d80_f5f6294c",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 17
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-21T15:45:26Z",
+      "side": 0,
+      "message": "Isn\u0027t this needed for systemd logging ?\n\nhttps://github.com/openbmc/bmcweb/commit/ee993dc84b1e9917b545fdd7367f1127a358084a",
+      "revId": "30e6c39fbd3c3ee4505bc82f47351b77fed46271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "746f5510_292c9214",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 17
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-21T15:45:26Z",
+      "side": 0,
+      "message": "Why drop this WatchdogSec?",
+      "revId": "30e6c39fbd3c3ee4505bc82f47351b77fed46271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

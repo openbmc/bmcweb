@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5685e6a2_e5eaa9fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-21T15:45:26Z",
+      "side": 1,
+      "message": "I don\u0027t have the same worry about throwing discord links into commit msg, they don\u0027t appear to go away and even if they did in the future, I feel they would at least work for a period of time. That said, feel free to add links to the mailing list or discord if you want but no worries if you don\u0027t think it helps. I think anyone paying attention in the communtiy has heard of this.",
+      "parentUuid": "c8432969_b8139232",
+      "revId": "420a423389cefca834e7a00cbdff5d4f2c5788f5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "916c32e4_27807c9e",
         "filename": "meson.options",
         "patchSetId": 13

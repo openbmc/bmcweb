@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5be5eb1d_519b9ee9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-21T15:45:26Z",
+      "side": 1,
+      "message": "Overall I support this. A couple questions about some things dropped",
+      "revId": "e354131e306233c3d799f9a7d5e83fb81550edb2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
