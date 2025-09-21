@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e26f8574_ba31731d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-21T15:30:11Z",
+      "side": 1,
+      "message": "For next time, please wrap the line at 72 characters, not like ~65 \nhttps://cbea.ms/git-commit/",
+      "revId": "9572340efee25da96f7c741209e5f2a3a955f697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
