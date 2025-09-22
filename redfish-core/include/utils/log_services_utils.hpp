@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "app.hpp"
 #include "async_resp.hpp"
 #include "error_messages.hpp"
 #include "http_body.hpp"
@@ -12,7 +11,6 @@
 #include "logging.hpp"
 
 #include <asm-generic/errno.h>
-#include <systemd/sd-bus.h>
 #include <unistd.h>
 
 #include <boost/beast/http/field.hpp>
@@ -26,8 +24,6 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <cstdio>
-#include <format>
-#include <memory>
 #include <string>
 
 namespace redfish
@@ -78,7 +74,7 @@ inline void downloadEntryCallback(
     }
     if (ec)
     {
-        BMCWEB_LOG_ERROR("DBUS response error: {}", ec);
+        BMCWEB_LOG_ERROR("DBUS response error: {}", ec.what());
         messages::internalError(asyncResp->res);
         return;
     }
