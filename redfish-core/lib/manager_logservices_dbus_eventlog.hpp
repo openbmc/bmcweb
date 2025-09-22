@@ -3,8 +3,6 @@
 // SPDX-FileCopyrightText: Copyright 2018 Intel Corporation
 #pragma once
 
-#include "bmcweb_config.h"
-
 #include "app.hpp"
 #include "async_resp.hpp"
 #include "error_messages.hpp"
@@ -14,9 +12,6 @@
 #include "utils/eventlog_utils.hpp"
 
 #include <asm-generic/errno.h>
-#include <systemd/sd-bus.h>
-#include <tinyxml2.h>
-#include <unistd.h>
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
@@ -27,10 +22,6 @@
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/message/native_types.hpp>
 #include <sdbusplus/unpack_properties.hpp>
-
-#include <memory>
-#include <string>
-#include <string_view>
 
 namespace redfish
 {
