@@ -3,16 +3,12 @@
 // SPDX-FileCopyrightText: Copyright 2018 Intel Corporation
 #pragma once
 
-#include "bmcweb_config.h"
-
-#include "app.hpp"
 #include "async_resp.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/log_service.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
-#include "query.hpp"
 #include "registries.hpp"
 #include "str_utility.hpp"
 #include "utils/dbus_event_log_entry.hpp"
@@ -22,9 +18,6 @@
 #include "utils/time_utils.hpp"
 
 #include <asm-generic/errno.h>
-#include <systemd/sd-bus.h>
-#include <tinyxml2.h>
-#include <unistd.h>
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
@@ -41,20 +34,12 @@
 #include <cstdint>
 #include <cstdio>
 #include <ctime>
-#include <filesystem>
-#include <format>
 #include <fstream>
 #include <iomanip>
-#include <iterator>
-#include <memory>
 #include <optional>
-#include <span>
 #include <sstream>
 #include <string>
-#include <string_view>
-#include <system_error>
 #include <utility>
-#include <vector>
 
 namespace redfish
 {
