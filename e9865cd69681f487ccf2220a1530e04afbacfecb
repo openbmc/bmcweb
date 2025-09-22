@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c3afe72_db975988",
+        "filename": "http/complete_response_fields.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-22T19:06:04Z",
+      "side": 1,
+      "message": "Can you change these to DEBUG ? I think they were ERROR for your testing",
+      "revId": "e9865cd69681f487ccf2220a1530e04afbacfecb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a734f776_3d384694",
+        "filename": "http/handler.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-22T19:06:04Z",
+      "side": 1,
+      "message": "Copyright? SPDX ? I don\u0027t care much but we have been putting in every file",
+      "revId": "e9865cd69681f487ccf2220a1530e04afbacfecb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
