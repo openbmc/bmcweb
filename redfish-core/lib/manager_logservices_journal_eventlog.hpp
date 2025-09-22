@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 // SPDX-FileCopyrightText: Copyright 2018 Intel Corporation
 #pragma once
