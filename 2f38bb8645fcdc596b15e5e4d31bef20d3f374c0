@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1e1d8cd_507705ad",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-22T15:25:02Z",
+      "side": 1,
+      "message": "Please give some indication of what this is, and clean up the definition.\n\nSomething like\n\n// Struct representing the id, the value, and the type.\nusing statistic \u003d std::tuple\u003cstd::string, std::string, double, uint64_t\u003e;\n// Object representing multiple independent statistics\nusing statistics_list \u003d std::vector\u003cstatistic\u003e;\n// Object representing an an \"Id\" and a list of statistics for that Id\nusing stats_type \u003d std::tuple\u003cuint64_t, values_type\u003e;\n\nstd::optional\u003cstats_type\u003e statistics;",
+      "range": {
+        "startLine": 508,
+        "startChar": 0,
+        "endLine": 510,
+        "endChar": 57
+      },
+      "revId": "2f38bb8645fcdc596b15e5e4d31bef20d3f374c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48475231_a7202a47",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-22T15:25:02Z",
+      "side": 1,
+      "message": "Unpacking like this doesn\u0027t track.  We\u0027re using the sensor path to unpack a metric report definition?",
+      "range": {
+        "startLine": 515,
+        "startChar": 40,
+        "endLine": 515,
+        "endChar": 50
+      },
+      "revId": "2f38bb8645fcdc596b15e5e4d31bef20d3f374c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01e92bd5_a17df768",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-22T15:25:02Z",
+      "side": 1,
+      "message": "nit, don\u0027t use auto here.",
+      "range": {
+        "startLine": 578,
+        "startChar": 16,
+        "endLine": 578,
+        "endChar": 20
+      },
+      "revId": "2f38bb8645fcdc596b15e5e4d31bef20d3f374c0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

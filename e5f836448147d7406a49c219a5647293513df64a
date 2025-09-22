@@ -34,6 +34,24 @@
       "parentUuid": "b90c1b49_c9bd8b4b",
       "revId": "e5f836448147d7406a49c219a5647293513df64a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28bca385_bb83c0e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-22T15:25:02Z",
+      "side": 1,
+      "message": "That doesn\u0027t fix the problem with Resets and being modeled on DBus",
+      "parentUuid": "dbe2840a_b4f7ab11",
+      "revId": "e5f836448147d7406a49c219a5647293513df64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
