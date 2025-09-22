@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3578263_7b085f4c",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-22T14:26:06Z",
+      "side": 1,
+      "message": "I think it would be better to be named as `getCollectionByAssociationById()`.\n(Later if needed, `getCollectionByAssociation()` [by path] can be added too)",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 6
+      },
+      "revId": "9427e76d090b0d57efc48048587e191c98d157f9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
