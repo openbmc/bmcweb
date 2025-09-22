@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "649be65d_ec250cd5",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 554,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-22T15:25:57Z",
+      "side": 1,
+      "message": "Don\u0027t use auto like this.  It confuses reading of the types.",
+      "range": {
+        "startLine": 554,
+        "startChar": 16,
+        "endLine": 554,
+        "endChar": 20
+      },
+      "revId": "db2d5903e726a8352a6a245eaade63841c7c4d46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "518ed19b_dd2b3b3c",
+        "filename": "redfish-core/include/utils/sensor_utils.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-22T15:25:57Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 564,
+        "startChar": 16,
+        "endLine": 564,
+        "endChar": 20
+      },
+      "revId": "db2d5903e726a8352a6a245eaade63841c7c4d46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
