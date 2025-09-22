@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6586e3b4_300009cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-22T20:17:36Z",
+      "side": 1,
+      "message": "Overall I am good.",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2c6d369_998a1ea9",
+        "filename": "http/utility.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-22T20:17:36Z",
+      "side": 1,
+      "message": "What does this enhancement of readUrlSegment have to do with getNthStringFromPath ?\n\nI guess it is \"The existing URI functions were found to not accept fragments (given they are rarely used in PATCH).  Add support for fragments to cover the getNthStringFromPath use cases.\"\n\nSo for the unit tests. Could have been a separate commit but I\u0027m good with it here.",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06bc7296_73fd0950",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-22T20:17:36Z",
+      "side": 1,
+      "message": "So this function finds the D-Bus for the given chassis name.. So given a chassis name of \"chassis0\", it should be able to find \n/xyz/openbmc_project/inventory/system/chassis/chassis0.. \n\nBut it is bad.. It has some bad assumptions.. \n1) We shouldn\u0027t assume chassis is at the 5th element \n2) I think that ends_with has imprecise matching \nhttps://github.com/openbmc/bmcweb/blob/eb261e1f5455575234246764e73ef07d4a50031b/docs/COMMON_ERRORS.md?plain\u003d1#L300",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "853c999d_233e4680",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-22T20:17:36Z",
+      "side": 1,
+      "message": "chassis should equal value.. \nOh well. This function is a mess. You don\u0027t make it any worse.\n\nI think it is mostly just checking for a D-Bus object.  \nhttps://github.com/openbmc/bmcweb/blob/eb261e1f5455575234246764e73ef07d4a50031b/redfish-core/lib/openbmc/openbmc_managers.hpp#L615",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad568d10_42e66140",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-22T20:17:36Z",
+      "side": 1,
+      "message": "WARNING here since a user error",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaa5d420_add96b4f",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-22T20:17:36Z",
+      "side": 1,
+      "message": "WARNING",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2de0eafd_9f9b148a",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-22T20:17:36Z",
+      "side": 1,
+      "message": "WARNING",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
