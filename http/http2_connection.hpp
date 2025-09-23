@@ -483,9 +483,11 @@ class HTTP2Connection :
             }
             thisReq.method(verb);
         }
-        else if (nameSv == ":scheme")
+        else if (nameSv.starts_with(":"))
         {
-            // Nothing to check on scheme
+            // Ignore all other http2 headers
+            // :scheme and :authority are other valid http2 fields that might
+            // show up here.
         }
         else
         {
