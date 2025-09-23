@@ -172,10 +172,32 @@ class ConnectionInfo : public std::enable_shared_from_this<ConnectionInfo>
     {
         state = ConnState::resolveInProgress;
         BMCWEB_LOG_DEBUG("Trying to resolve: {}, id: {}", host, connId);
+        boost::urls::host_type ht = host.host_type();
+        if (ht == boost::urls::host_type::name)
+        {
+            resolver.async_resolve(
+                host.encoded_host_address(), host.port(),
+                std::bind_front(&ConnectionInfo::afterResolve, this,
+                                shared_from_this()));
 
-        resolver.async_resolve(host.encoded_host_address(), host.port(),
-                               std::bind_front(&ConnectionInfo::afterResolve,
-                                               this, shared_from_this()));
+            return;
+        }
+        // If we already have an ip address, no need to resolve
+        Resolver::results_type ip;
+        boost::system::error_code ec;
+        boost::asio::ip::address addr =
+            boost::asio::ip::make_address(host.host_address(), ec);
+
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR(
+                "Failed to parse already-parsed ip address.  This should not happen {}",
+                host.host_address());
+            return;
+        }
+        boost::asio::ip::tcp::endpoint end(addr, host.port_number());
+        ip.push_back(std::move(end));
+        afterResolve(shared_from_this(), boost::system::error_code(), ip);
     }
 
     void afterResolve(const std::shared_ptr<ConnectionInfo>& /*self*/,
