@@ -483,9 +483,11 @@ class HTTP2Connection :
             }
             thisReq.method(verb);
         }
-        else if (nameSv == ":scheme")
+        else if (nameSv.starts_with(":"))
         {
             // Nothing to check on scheme
+            // :scheme and :authority are other valid http2 colon headers
+            // Ignore all others.
         }
         else
         {
