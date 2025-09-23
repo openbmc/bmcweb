@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85815908_afed137b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-23T15:29:11Z",
+      "side": 1,
+      "message": "Hi Ed,\n\nI had some misunderstanding about configuration the sockets listening in the same HTTPS port. I thought BMCWeb does not allow that. But seem it does.\n\nI tried to configured `additional-ports` to 443. And test my code. It works normally as using 440.\n\nApologies for my limited knowledge on the matter.\nI will retest and update the patch set soon.\n\nThanks.\nThu Nguyen.",
+      "parentUuid": "2bb0dde0_8f847702",
+      "range": {
+        "startLine": 22,
+        "startChar": 25,
+        "endLine": 22,
+        "endChar": 28
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73815e2d_9912346d",
         "filename": "http/app.hpp",
         "patchSetId": 5
