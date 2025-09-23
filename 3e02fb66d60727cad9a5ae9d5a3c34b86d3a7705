@@ -16,6 +16,24 @@
       "message": "Why updateInProgress over ServiceTemporarilyUnavailable which I think maps better to Common.Error.Unavailable?\n\nI guess we mapped it to ResourceInUse at https://github.com/openbmc/bmcweb/blob/eb261e1f5455575234246764e73ef07d4a50031b/redfish-core/lib/log_services.hpp#L905",
       "revId": "3e02fb66d60727cad9a5ae9d5a3c34b86d3a7705",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "759bc04d_6c1b4180",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 871,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-09-23T15:42:16Z",
+      "side": 1,
+      "message": "It means that an update is in progress. I tried to get a special error code for this purpose in\n\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/82723/comment/5adb7705_8c50ebfd/\n\nbut got a review that\n\n\u003e This is already being done via Unavailable error code, so we don\u0027t need a new code here for InProgress.\n\nIMO the \"update in progress\" scenario is meaningfully different from a service being unavailable since it could be unavailable due to other reason like power state transition or something else.\n\n\"update in progress\" is a specific error condition which should ideally always go away in a *reasonable* amount of time.\n\nIt\u0027s the most specific error message i can think of that we can emit here.\n\nI can go with `ServiceTemporarilyUnavailable` if it\u0027s required but i would prefer to have a more specific error.",
+      "parentUuid": "99b64ff3_b0ce5e8b",
+      "revId": "3e02fb66d60727cad9a5ae9d5a3c34b86d3a7705",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
