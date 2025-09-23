@@ -10,6 +10,7 @@
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "led.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -17,6 +18,7 @@
 #include "utils/asset_utils.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -27,6 +29,8 @@
 
 #include <cstddef>
 #include <functional>
+#include <iterator>
+#include <map>
 #include <memory>
 #include <ranges>
 #include <string>
@@ -210,6 +214,13 @@ inline void getAssemblyProperties(
             std::bind_front(afterGetDbusObject, asyncResp, assembly,
                             assemblyJsonPtr));
 
+        getLocationIndicatorActive(
+            asyncResp, assembly, [asyncResp, assemblyJsonPtr](bool asserted) {
+                asyncResp->res
+                    .jsonValue[assemblyJsonPtr]["LocationIndicatorActive"] =
+                    asserted;
+            });
+
         nlohmann::json& assemblyArray = asyncResp->res.jsonValue["Assemblies"];
         asyncResp->res.jsonValue["Assemblies@odata.count"] =
             assemblyArray.size();
@@ -300,6 +311,85 @@ inline void handleChassisAssemblyHead(
         });
 }
 
+inline void afterHandleChassisAssemblyPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisID,
+    std::vector<nlohmann::json::object_t>& assemblyData,
+    const boost::system::error_code& ec,
+    const std::vector<std::string>& assemblyList)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING("Chassis {} not found", chassisID);
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisID);
+        return;
+    }
+
+    std::map<std::string, bool> locationIndicatorActiveMap;
+    for (nlohmann::json::object_t& item : assemblyData)
+    {
+        std::optional<std::string> memberId;
+        std::optional<bool> locationIndicatorActive;
+        if (!json_util::readJsonObject(item, asyncResp->res, "MemberId",
+                                       memberId, "LocationIndicatorActive",
+                                       locationIndicatorActive))
+        {
+            return;
+        }
+        if (locationIndicatorActive)
+        {
+            if (memberId)
+            {
+                locationIndicatorActiveMap[*memberId] =
+                    *locationIndicatorActive;
+            }
+            else
+            {
+                BMCWEB_LOG_WARNING(
+                    "Property Missing - MemberId must be included with LocationIndicatorActive ");
+                messages::propertyMissing(asyncResp->res, "MemberId");
+                return;
+            }
+        }
+    }
+
+    std::size_t assemblyIndex = 0;
+    for (const auto& assembly : assemblyList)
+    {
+        auto iter =
+            locationIndicatorActiveMap.find(std::to_string(assemblyIndex));
+
+        if (iter != locationIndicatorActiveMap.end())
+        {
+            setLocationIndicatorActive(asyncResp, assembly, iter->second);
+        }
+        assemblyIndex++;
+    }
+}
+
+inline void handleChassisAssemblyPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisID)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    std::vector<nlohmann::json::object_t> assemblyData;
+    if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "Assemblies",
+                                           assemblyData))
+    {
+        return;
+    }
+
+    assembly_utils::getChassisAssembly(
+        asyncResp, chassisID,
+        std::bind_front(afterHandleChassisAssemblyPatch, asyncResp, chassisID,
+                        assemblyData));
+}
+
 inline void requestRoutesAssembly(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Assembly/")
@@ -311,6 +401,11 @@ inline void requestRoutesAssembly(App& app)
         .privileges(redfish::privileges::getAssembly)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisAssemblyGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Assembly/")
+        .privileges(redfish::privileges::patchAssembly)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleChassisAssemblyPatch, std::ref(app)));
 }
 
 } // namespace redfish
