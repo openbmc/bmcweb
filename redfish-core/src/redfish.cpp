@@ -160,7 +160,6 @@ RedfishService::RedfishService(App& app)
 
     requestRoutesProcessor(app);
     requestRoutesOperatingConfig(app);
-    requestRoutesMemoryCollection(app);
     requestRoutesMemory(app);
 
     requestRoutesSystems(app);
