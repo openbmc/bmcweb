@@ -163,6 +163,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf0e4e85_05d0b7bc",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-09-23T15:08:10Z",
+      "side": 1,
+      "message": "\u003e A hash isn\u0027t really human readable, so it doesn\u0027t hit the intent.\n\n```\n2. string: The identifier for the image.\n◦ This argument shall contain the identifier for the image.\n```\n\nIn case of `messages::verificationFailed` the pldm package could be corrupted, right?\n\nIn which case we cannot parse it.\n\nWhich implies we have no version string in that case.\n\nNow, is it allowed to identify the package by different kinds of information in the different error messages?\n\nThat would mean the redfish client has to look up each error and based on that map back to which kind of identifying information is to be used.\n\n\u003e That might be something to fix in PLDM? Yes, differentiating errors is good.\n\nThe errors we get from fw update code do not have space for a custom message, at least not from what i have seen.\n\nSo there is no space to add any extra information there. bmcweb would have to parse the pldm package itself to extract a version string.\n\nSo we need some identifying information which everyone understands, and which works consistently in all error cases, which is the hash.\n\nWhat if we made it \n\n`${hash}_${optional_version_string}`. \n\nThat would allow clients to uniquely identify a file via the hash and then have optional version string later on in case\nit is possible to do that in the future.\n\nWe can separate with underscore. So the automated redfish client would be able to deal with errors via the hash, without having to parse the pldm package.\n\nAnd the optional version string could be shown to a human in case it\u0027s present.\n\nIMO showing a fancy message could also be confusing to the user.\n\nThey may just be uploading a pldm package and not necessarily able to parse it due to lack of tool in their environment.\n\nIn which case showing any information from inside the package could actually be confusing to the user since they would not know what you are referring to.\n\nIf you say `\"Device xyz skipped the update with image b2sum(0x1234abcd...)_v1.34\"`\nthat is something someone may be able to map back to an actual file from logs alone.\n\nIf it\u0027s only some string from inside the package you are already assuming knowledge about PLDM from the user.\n\nAnd then it gets confusing. Let\u0027s compare 2 messages\n`\"Device xyz skipped the update with image b2sum(0x1234abcd...)_v1.34\"`\n`\"Device xyz skipped the update with image b2sum(0x9448abe7...)_v1.34\"`\n\nand \n\n`\"Device xyz skipped the update with image v1.34\"`\n`\"Device xyz skipped the update with image v1.34\"`\n\nso if we only show the version string, the message is no longer properly *identifying* the update package. We need the hash to do that.\n\nWhat do you think? Is `b2sum` the right approach ?\n\nhttps://www.blake2.net/",
+      "parentUuid": "9cab12b4_20a9b22f",
+      "range": {
+        "startLine": 880,
+        "startChar": 56,
+        "endLine": 880,
+        "endChar": 61
+      },
+      "revId": "00d63b2ee81d7e4b29ccebad87ceea2f657fb40e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d56fa755_fc728311",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
@@ -174,6 +198,30 @@
       "writtenOn": "2025-08-18T17:36:54Z",
       "side": 1,
       "message": "dbus object paths are not filesystem object paths.  Please use the appropriate class.",
+      "range": {
+        "startLine": 923,
+        "startChar": 10,
+        "endLine": 923,
+        "endChar": 31
+      },
+      "revId": "00d63b2ee81d7e4b29ccebad87ceea2f657fb40e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e33669b4_26ad603e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-09-23T15:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d56fa755_fc728311",
       "range": {
         "startLine": 923,
         "startChar": 10,
