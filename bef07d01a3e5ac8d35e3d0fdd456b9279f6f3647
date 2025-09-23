@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "545871f6_2171d659",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001886
+      },
+      "writtenOn": "2025-09-23T12:13:31Z",
+      "side": 1,
+      "message": "The CI Build failed. Check https://jenkins.openbmc.org/job/ci-repository/117728/console.\nCommit messages should follow the 50/72 rule. Refer https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md.",
+      "revId": "bef07d01a3e5ac8d35e3d0fdd456b9279f6f3647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
