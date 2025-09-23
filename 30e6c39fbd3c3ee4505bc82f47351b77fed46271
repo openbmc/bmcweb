@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "735785b6_a70a43e5",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 17
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-23T16:22:46Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "1dbb8d80_f5f6294c",
+      "revId": "30e6c39fbd3c3ee4505bc82f47351b77fed46271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "746f5510_292c9214",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-09-21T15:45:26Z",
       "side": 0,
       "message": "Why drop this WatchdogSec?",
+      "revId": "30e6c39fbd3c3ee4505bc82f47351b77fed46271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45ea7ae7_03c0695d",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 17
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-23T16:22:46Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "746f5510_292c9214",
       "revId": "30e6c39fbd3c3ee4505bc82f47351b77fed46271",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
