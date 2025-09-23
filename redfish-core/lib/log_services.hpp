@@ -1366,7 +1366,7 @@ inline void dBusEventLogEntryDelete(
             return;
         }
 
-        asyncResp->res.result(boost::beast::http::status::ok);
+        messages::success(asyncResp->res);
     };
 
     // Make call to Logging service to request Delete Log
