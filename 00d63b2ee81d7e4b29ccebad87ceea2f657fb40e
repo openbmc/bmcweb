@@ -187,6 +187,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b7ca69f2_99201cc3",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-23T18:43:54Z",
+      "side": 1,
+      "message": "These are not decisions to be made by the webserver.  The point is that the identifier should not be hardcoded, and should be coming from the backend OR we should use a less specific message that doesn\u0027t require a human facing identifier.  The webserver should not be hardcoding arguments like \"memfd\".\n\nThe specific implementation of that belongs in a review for whatever backend you\u0027re using.\n\n\n\u003e And the optional version string could be shown to a human in case it\u0027s present.\n\nThis is kind of the point.  in the message you\u0027ve used, this version string IS NOT optional.",
+      "parentUuid": "cf0e4e85_05d0b7bc",
+      "range": {
+        "startLine": 880,
+        "startChar": 56,
+        "endLine": 880,
+        "endChar": 61
+      },
+      "revId": "00d63b2ee81d7e4b29ccebad87ceea2f657fb40e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d56fa755_fc728311",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 1
