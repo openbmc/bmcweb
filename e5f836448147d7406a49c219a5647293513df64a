@@ -88,6 +88,24 @@
       "parentUuid": "c56b49cc_95091486",
       "revId": "e5f836448147d7406a49c219a5647293513df64a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14212558_65b43681",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-23T18:31:54Z",
+      "side": 1,
+      "message": "And to be clear, yes I understand the complexity.  We cannot be checking in things that are incorrect.  There\u0027s also further complexity in that Reset is not per-sensor.\n\nIf we want to define a new property that DOESN\u0027T have that requirement, we could.",
+      "parentUuid": "9a59fc09_81f1ce46",
+      "revId": "e5f836448147d7406a49c219a5647293513df64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
