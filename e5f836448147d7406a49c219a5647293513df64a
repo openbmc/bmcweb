@@ -52,6 +52,24 @@
       "parentUuid": "dbe2840a_b4f7ab11",
       "revId": "e5f836448147d7406a49c219a5647293513df64a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c56b49cc_95091486",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-09-23T16:31:23Z",
+      "side": 1,
+      "message": "Implementing the Reset PATCH operation requires additional infrastructure in dbus-sensors app since it involves sending a MCTP VDM command to the device to perform the reset and hence this patch is only limited to GET operation support for PeakReading. Is it ok to implement Reset action support for PeakReading in a separate patch?",
+      "parentUuid": "28bca385_bb83c0e9",
+      "revId": "e5f836448147d7406a49c219a5647293513df64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
