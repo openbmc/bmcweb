@@ -959,50 +959,35 @@ inline void handleMemoryGet(App& app, const crow::Request& req,
     getDimmData(asyncResp, dimmId);
 }
 
-inline void requestRoutesMemoryCollection(App& app)
+inline void handleMemoryCollectionGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
 {
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/")
-        .privileges(redfish::privileges::getMemoryCollection)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& systemName) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-                if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-                {
-                    // Option currently returns no systems.  TBD
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
-                if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                               systemName);
-                    return;
-                }
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
 
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#MemoryCollection.MemoryCollection";
-                asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
-                asyncResp->res.jsonValue["@odata.id"] =
-                    boost::urls::format("/redfish/v1/Systems/{}/Memory",
-                                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#MemoryCollection.MemoryCollection";
+    asyncResp->res.jsonValue["Name"] = "Memory Module Collection";
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/Memory", systemName);
 
-                constexpr std::array<std::string_view, 1> interfaces{
-                    "xyz.openbmc_project.Inventory.Item.Dimm"};
-                collection_util::getCollectionMembers(
-                    asyncResp,
-                    boost::urls::format("/redfish/v1/Systems/{}/Memory",
-                                        BMCWEB_REDFISH_SYSTEM_URI_NAME),
-                    interfaces, "/xyz/openbmc_project/inventory");
-            });
+    std::string systemPath = "/xyz/openbmc_project/inventory/system";
+    std::array<std::string_view, 1> boardInterfaces{
+        "xyz.openbmc_project.Inventory.Item.Board",
+    };
+    std::array<std::string_view, 1> dimmInterfaces{
+        "xyz.openbmc_project.Inventory.Item.Dimm",
+    };
+
+    collection_util::getCollectionByAssociationById(
+        asyncResp,
+        boost::urls::format("/redfish/v1/Systems/{}/Memory", systemName),
+        systemName, systemPath, boardInterfaces, "containing", dimmInterfaces,
+        nlohmann::json::json_pointer("/Members"));
 }
 
 inline void requestRoutesMemory(App& app)
@@ -1010,6 +995,11 @@ inline void requestRoutesMemory(App& app)
     /**
      * Functions triggers appropriate requests on DBus
      */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/")
+        .privileges(redfish::privileges::getMemoryCollection)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleMemoryCollectionGet, std::ref(app)));
+
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/Memory/<str>/")
         .privileges(redfish::privileges::getMemory)
         .methods(boost::beast::http::verb::get)(
