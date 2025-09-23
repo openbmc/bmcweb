@@ -87,6 +87,24 @@
       "parentUuid": "45ea7ae7_03c0695d",
       "revId": "30e6c39fbd3c3ee4505bc82f47351b77fed46271",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b216b82_bb6c9abf",
+        "filename": "config/bmcweb.service.in",
+        "patchSetId": 17
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-23T19:56:16Z",
+      "side": 0,
+      "message": "I\u0027m pretty sure it\u0027s right now.",
+      "parentUuid": "b8cfb90b_8eb01fd8",
+      "revId": "30e6c39fbd3c3ee4505bc82f47351b77fed46271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
