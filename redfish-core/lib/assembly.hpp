@@ -10,6 +10,7 @@
 #include "generated/enums/resource.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "led.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
@@ -17,6 +18,7 @@
 #include "utils/asset_utils.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/json_utils.hpp"
 
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
@@ -27,7 +29,9 @@
 
 #include <cstddef>
 #include <functional>
+#include <iterator>
 #include <memory>
+#include <optional>
 #include <ranges>
 #include <string>
 #include <string_view>
@@ -193,7 +197,7 @@ inline void getAssemblyProperties(
     for (const std::string& assembly : assemblies)
     {
         nlohmann::json::object_t item;
-        item["@odata.type"] = "#Assembly.v1_5_1.AssemblyData";
+        item["@odata.type"] = "#Assembly.v1_6_0.AssemblyData";
         item["@odata.id"] = boost::urls::format(
             "/redfish/v1/Chassis/{}/Assembly#/Assemblies/{}", chassisId,
             std::to_string(assemblyIndex));
@@ -210,6 +214,13 @@ inline void getAssemblyProperties(
             std::bind_front(afterGetDbusObject, asyncResp, assembly,
                             assemblyJsonPtr));
 
+        getLocationIndicatorActive(
+            asyncResp, assembly, [asyncResp, assemblyJsonPtr](bool asserted) {
+                asyncResp->res
+                    .jsonValue[assemblyJsonPtr]["LocationIndicatorActive"] =
+                    asserted;
+            });
+
         nlohmann::json& assemblyArray = asyncResp->res.jsonValue["Assemblies"];
         asyncResp->res.jsonValue["Assemblies@odata.count"] =
             assemblyArray.size();
@@ -225,7 +236,7 @@ inline void afterHandleChassisAssemblyGet(
 {
     if (ec)
     {
-        BMCWEB_LOG_WARNING("Chassis {} not found", chassisID);
+        BMCWEB_LOG_WARNING("Chassis {} not found, ec={}", chassisID, ec);
         messages::resourceNotFound(asyncResp->res, "Chassis", chassisID);
         return;
     }
@@ -234,7 +245,7 @@ inline void afterHandleChassisAssemblyGet(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/Assembly/Assembly.json>; rel=describedby");
 
-    asyncResp->res.jsonValue["@odata.type"] = "#Assembly.v1_5_1.Assembly";
+    asyncResp->res.jsonValue["@odata.type"] = "#Assembly.v1_6_0.Assembly";
     asyncResp->res.jsonValue["@odata.id"] =
         boost::urls::format("/redfish/v1/Chassis/{}/Assembly", chassisID);
     asyncResp->res.jsonValue["Name"] = "Assembly Collection";
@@ -289,7 +300,8 @@ inline void handleChassisAssemblyHead(
                     const std::vector<std::string>& /*assemblyList*/) {
             if (ec)
             {
-                BMCWEB_LOG_WARNING("Chassis {} not found", chassisID);
+                BMCWEB_LOG_WARNING("Chassis {} not found, ec={}", chassisID,
+                                   ec);
                 messages::resourceNotFound(asyncResp->res, "Chassis",
                                            chassisID);
                 return;
@@ -298,6 +310,79 @@ inline void handleChassisAssemblyHead(
                 boost::beast::http::field::link,
                 "</redfish/v1/JsonSchemas/Assembly.json>; rel=describedby");
         });
+}
+
+inline void afterHandleChassisAssemblyPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisID,
+    std::vector<nlohmann::json::object_t>& assemblyData,
+    const boost::system::error_code& ec,
+    const std::vector<std::string>& assemblyList)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_WARNING("Chassis {} not found, ec={}", chassisID, ec);
+        messages::resourceNotFound(asyncResp->res, "Chassis", chassisID);
+        return;
+    }
+
+    if (assemblyData.size() > assemblyList.size())
+    {
+        BMCWEB_LOG_WARNING(
+            "The number of the input Assemblies is larger than the actual number of Assemblies");
+        messages::arraySizeTooLong(asyncResp->res, "Assemblies",
+                                   assemblyList.size());
+        return;
+    }
+    else if (assemblyData.size() < assemblyList.size())
+    {
+        BMCWEB_LOG_WARNING(
+            "The number of the input Assemblies is smaller than the actual number of Assemblies");
+        messages::arraySizeTooShort(asyncResp->res, "Assemblies",
+                                    assemblyList.size());
+        return;
+    }
+
+    std::size_t assemblyIndex = 0;
+    for (nlohmann::json::object_t& item : assemblyData)
+    {
+        std::optional<bool> locationIndicatorActive;
+        if (json_util::readJsonObject(item, asyncResp->res,
+                                      "LocationIndicatorActive",
+                                      locationIndicatorActive))
+        {
+            if (locationIndicatorActive.has_value())
+            {
+                const auto& assembly = assemblyList[assemblyIndex];
+                setLocationIndicatorActive(asyncResp, assembly,
+                                           *locationIndicatorActive);
+            }
+        }
+        assemblyIndex++;
+    }
+}
+
+inline void handleChassisAssemblyPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& chassisID)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    std::vector<nlohmann::json::object_t> assemblyData;
+    if (!redfish::json_util::readJsonPatch(req, asyncResp->res, "Assemblies",
+                                           assemblyData))
+    {
+        return;
+    }
+
+    assembly_utils::getChassisAssembly(
+        asyncResp, chassisID,
+        std::bind_front(afterHandleChassisAssemblyPatch, asyncResp, chassisID,
+                        assemblyData));
 }
 
 inline void requestRoutesAssembly(App& app)
@@ -311,6 +396,11 @@ inline void requestRoutesAssembly(App& app)
         .privileges(redfish::privileges::getAssembly)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleChassisAssemblyGet, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/Assembly/")
+        .privileges(redfish::privileges::patchAssembly)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleChassisAssemblyPatch, std::ref(app)));
 }
 
 } // namespace redfish
