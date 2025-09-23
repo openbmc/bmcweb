@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "89283190_b6940251",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-23T14:03:18Z",
+      "side": 1,
+      "message": "No need for bmcweb. Something like below is what I would have used. \n\n\"Change error on FW update invalid Content-Type\"",
+      "revId": "bef07d01a3e5ac8d35e3d0fdd456b9279f6f3647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "545871f6_2171d659",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -14,6 +31,23 @@
       "writtenOn": "2025-09-23T12:13:31Z",
       "side": 1,
       "message": "The CI Build failed. Check https://jenkins.openbmc.org/job/ci-repository/117728/console.\nCommit messages should follow the 50/72 rule. Refer https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md.",
+      "revId": "bef07d01a3e5ac8d35e3d0fdd456b9279f6f3647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3640861f_4d206422",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-23T14:03:18Z",
+      "side": 1,
+      "message": "This seems reasonable, please clean up the commit msg, clang-format for the code, etc.",
       "revId": "bef07d01a3e5ac8d35e3d0fdd456b9279f6f3647",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
