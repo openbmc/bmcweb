@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3e93dd63_7f3940c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2025-09-24T08:00:39Z",
+      "side": 1,
+      "message": "Hi @gunnar@gmills.xyz \nStatus Code 204 No Content causes user confusion when using things\nlike curl. And response body is provided for most of the delete actions.",
+      "parentUuid": "8560c29b_11170e77",
+      "revId": "de6c78787e73211a80a65a7c111df640ac1dd2d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea24e2c0_af6edec2",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-09-23T12:12:37Z",
       "side": 1,
       "message": "The CI Build failed. Check https://jenkins.openbmc.org/job/ci-repository/117718/console.\nCommit messages should follow the 50/72 rule. Refer https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md.",
+      "revId": "de6c78787e73211a80a65a7c111df640ac1dd2d2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6d6a2b3_ee1d59af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2025-09-24T08:00:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea24e2c0_af6edec2",
       "revId": "de6c78787e73211a80a65a7c111df640ac1dd2d2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
