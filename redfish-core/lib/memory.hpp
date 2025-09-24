@@ -728,7 +728,8 @@ inline void getDimmPartitionData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
 
 inline void afterGetDimmData(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& dimmId, const boost::system::error_code& ec,
+    const std::string& systemName, const std::string& dimmId,
+    const boost::system::error_code& ec,
     const dbus::utility::MapperGetSubTreeResponse& subtree)
 {
     if (ec)
@@ -805,25 +806,30 @@ inline void afterGetDimmData(
     }
     // Set @odata only if object is found
     asyncResp->res.jsonValue["@odata.type"] = "#Memory.v1_11_0.Memory";
-    asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/Memory/{}",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME, dimmId);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/Memory/{}", systemName, dimmId);
 }
 
 inline void getDimmData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const std::string& systemName,
                         const std::string& dimmId)
 {
-    BMCWEB_LOG_DEBUG("Get dimm path for {}", dimmId);
-    constexpr std::array<std::string_view, 2> interfaces = {
+    BMCWEB_LOG_DEBUG("Get dimm path for {}", systemName);
+    std::string systemPath = "/xyz/openbmc_project/inventory/system";
+    constexpr std::array<std::string_view, 1> sourceInterfaces = {
+        "xyz.openbmc_project.Inventory.Item.Board",
+    };
+    constexpr std::array<std::string_view, 2> targetInterfaces = {
         "xyz.openbmc_project.Inventory.Item.Dimm",
         "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"};
 
-    dbus::utility::getSubTree(
-        "/xyz/openbmc_project/inventory", 0, interfaces,
-        [asyncResp,
+    dbus::utility::getAssociatedSubTreeById(
+        systemName, systemPath, sourceInterfaces, "containing",
+        targetInterfaces,
+        [asyncResp, systemName,
          dimmId](const boost::system::error_code& ec,
                  const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            afterGetDimmData(asyncResp, dimmId, ec, subtree);
+            afterGetDimmData(asyncResp, systemName, dimmId, ec, subtree);
         });
 }
 
@@ -936,27 +942,20 @@ inline void handleMemoryGet(App& app, const crow::Request& req,
                             const std::string& systemName,
                             const std::string& dimmId)
 {
+    if (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM &&
+        systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
 
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-
-    getDimmData(asyncResp, dimmId);
+    getDimmData(asyncResp, systemName, dimmId);
 }
 
 inline void handleMemoryCollectionGet(
