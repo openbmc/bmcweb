@@ -35,6 +35,23 @@ inline std::string getCredentialRoleIdToUserRoleId(std::string_view role)
     return "";
 }
 
+inline std::string getCredentialRoleIdFromUserRoleId(std::string_view role)
+{
+    if (role == "Administrator")
+    {
+        return "xyz.openbmc_project.HostInterface.CredentialBootstrapping.Role.Administrator";
+    }
+    else if (role == "Operator")
+    {
+        return "xyz.openbmc_project.HostInterface.CredentialBootstrapping.Role.Operator";
+    }
+    else if (role == "ReadOnly")
+    {
+        return "xyz.openbmc_project.HostInterface.CredentialBootstrapping.Role.ReadOnly";
+    }
+    return "";
+}
+
 inline void handleHostInterfaceCollection(
     App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -166,6 +183,101 @@ inline void handleHostInterfaceGet(
         });
 }
 
+inline void handleHostInterfacePatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId, const std::string& hostInterfaceId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        BMCWEB_LOG_ERROR("Invalid manager Id {}.", managerId);
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+
+    if (hostInterfaceId != bmcRedfishHostIntfUriName)
+    {
+        BMCWEB_LOG_ERROR("Invalid Host Interface Id {}. Support {}.",
+                         hostInterfaceId, bmcRedfishHostIntfUriName);
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+
+    std::optional<bool> enabled;
+    std::optional<bool> enableAfterReset;
+    std::optional<std::string> roleId;
+
+    if (!json_util::readJsonPatch(
+            req, asyncResp->res, "CredentialBootstrapping/Enabled", enabled,
+            "CredentialBootstrapping/EnableAfterReset", enableAfterReset,
+            "CredentialBootstrapping/RoleId", roleId))
+    {
+        return;
+    }
+
+    if (enabled)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.HostInterface.CredentialBootstrapping",
+            "Enabled", dbus::utility::DbusVariantType(*enabled));
+    }
+
+    if (enableAfterReset)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.HostInterface.CredentialBootstrapping",
+            "EnableAfterReset",
+            dbus::utility::DbusVariantType(*enableAfterReset));
+    }
+
+    if (roleId)
+    {
+        std::string sRoleId = getCredentialRoleIdFromUserRoleId(*roleId);
+        if (sRoleId.empty())
+        {
+            return;
+        }
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.HostInterface.CredentialBootstrapping",
+            "RoleId", dbus::utility::DbusVariantType(sRoleId));
+    }
+}
+
 inline void requestRoutesHostInterface(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/HostInterfaces/<str>/")
@@ -177,6 +289,11 @@ inline void requestRoutesHostInterface(App& app)
         .privileges(redfish::privileges::getHostInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleHostInterfaceCollection, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/HostInterfaces/<str>/")
+        .privileges(redfish::privileges::patchHostInterface)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleHostInterfacePatch, std::ref(app)));
 }
 
 } // namespace redfish
