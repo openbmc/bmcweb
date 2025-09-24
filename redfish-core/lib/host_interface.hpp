@@ -6,6 +6,7 @@
 #include "generated/enums/host_interface.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
 #include <string>
@@ -39,6 +40,26 @@ inline std::string getCredentialRoleIdToUserRoleId(std::string_view role)
     }
 
     return "Administrator";
+}
+
+inline std::string getCredentialRoleIdFromUserRoleId(std::string_view role)
+{
+    if (role == "Administrator")
+    {
+        return "xyz.openbmc_project.HostInterface.CredentialBootstrapping.Role.Administrator";
+    }
+
+    if (role == "Operator")
+    {
+        return "xyz.openbmc_project.HostInterface.CredentialBootstrapping.Role.Operator";
+    }
+
+    if (role == "ReadOnly")
+    {
+        return "xyz.openbmc_project.HostInterface.CredentialBootstrapping.Role.ReadOnly";
+    }
+
+    return "xyz.openbmc_project.HostInterface.CredentialBootstrapping.Role.Administrator";
 }
 
 inline void handleHostInterfaceCollection(
@@ -171,6 +192,75 @@ inline void handleHostInterfaceGet(
         });
 }
 
+inline void handleHostInterfacePatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId, const std::string& hostInterfaceId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        BMCWEB_LOG_WARNING("Invalid manager Id {}.", managerId);
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+
+    if (hostInterfaceId != bmcRedfishHostIntfUriName)
+    {
+        BMCWEB_LOG_WARNING("Invalid Host Interface Id {}. Support {}.",
+                           hostInterfaceId, bmcRedfishHostIntfUriName);
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+
+    std::optional<bool> enabled;
+    std::optional<bool> enableAfterReset;
+    std::optional<std::string> roleId;
+
+    if (!json_util::readJsonPatch(
+            req, asyncResp->res, "CredentialBootstrapping/Enabled", enabled,
+            "CredentialBootstrapping/EnableAfterReset", enableAfterReset,
+            "CredentialBootstrapping/RoleId", roleId))
+    {
+        return;
+    }
+
+    if (enabled)
+    {
+        setDbusProperty(
+            asyncResp, "CredentialBootstrapping/Enabled",
+            "xyz.openbmc_project.User.Manager",
+            sdbusplus::message::object_path("/xyz/openbmc_project/user"),
+            "xyz.openbmc_project.HostInterface.CredentialBootstrapping",
+            "CredentialEnabled", *enabled);
+    }
+
+    if (enableAfterReset)
+    {
+        setDbusProperty(
+            asyncResp, "CredentialBootstrapping/EnableAfterReset",
+            "xyz.openbmc_project.User.Manager",
+            sdbusplus::message::object_path("/xyz/openbmc_project/user"),
+            "xyz.openbmc_project.HostInterface.CredentialBootstrapping",
+            "EnableAfterReset", *enableAfterReset);
+    }
+
+    if (roleId)
+    {
+        std::string sRoleId = getCredentialRoleIdFromUserRoleId(*roleId);
+        setDbusProperty(
+            asyncResp, "CredentialBootstrapping/RoleId",
+            "xyz.openbmc_project.User.Manager",
+            sdbusplus::message::object_path("/xyz/openbmc_project/user"),
+            "xyz.openbmc_project.HostInterface.CredentialBootstrapping",
+            "RoleId", sRoleId);
+    }
+}
+
 inline void requestRoutesHostInterface(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/HostInterfaces/<str>/")
@@ -182,6 +272,11 @@ inline void requestRoutesHostInterface(App& app)
         .privileges(redfish::privileges::getHostInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleHostInterfaceCollection, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/HostInterfaces/<str>/")
+        .privileges(redfish::privileges::patchHostInterface)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleHostInterfacePatch, std::ref(app)));
 }
 
 } // namespace redfish
