@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "305bfe83_f0c62d6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2025-09-24T09:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89283190_b6940251",
+      "revId": "bef07d01a3e5ac8d35e3d0fdd456b9279f6f3647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "545871f6_2171d659",
@@ -66,6 +84,24 @@
       "writtenOn": "2025-09-23T14:03:18Z",
       "side": 1,
       "message": "This seems reasonable, please clean up the commit msg, clang-format for the code, etc.",
+      "revId": "bef07d01a3e5ac8d35e3d0fdd456b9279f6f3647",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "678930eb_1ae09507",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2025-09-24T09:58:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "545871f6_2171d659",
       "revId": "bef07d01a3e5ac8d35e3d0fdd456b9279f6f3647",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
