@@ -655,6 +655,12 @@ then be translated to Redfish EventLog Entries.
 These two implementations do not work together, so choosing one will disable the
 other.
 
+By default, the EventLog Entries LogService resides under the System resource.
+However, it is possible to change the location to the Manager resource with the
+`-DBMCWEB_REDFISH_EVENTLOG_LOCATION=managers` option flag. Apart from the
+different redfish parent resource, EventLog Entries LogService under Manager
+functions the same like the default implementation under the System resource.
+
 #### LogServiceCollection
 
 - Description
