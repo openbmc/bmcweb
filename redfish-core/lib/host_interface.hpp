@@ -6,9 +6,12 @@
 #include "generated/enums/host_interface.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 
+#include <array>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 
 namespace redfish
@@ -190,6 +193,88 @@ inline void handleHostInterfaceGet(
         });
 }
 
+inline void afterGetCredentialBootstrappingObject(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::optional<bool> enabled, std::optional<bool> enableAfterReset,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetObject& object)
+{
+    if (ec || object.empty())
+    {
+        // CredentialBootstrapping is not supported on this system
+        messages::propertyUnknown(asyncResp->res, "CredentialBootstrapping");
+        return;
+    }
+    const std::string& service = object.begin()->first;
+    if (enabled)
+    {
+        setDbusProperty(
+            asyncResp, "CredentialBootstrapping/Enabled", service,
+            sdbusplus::object_path("/xyz/openbmc_project/user"),
+            "xyz.openbmc_project.HostInterface.CredentialBootstrapping",
+            "CredentialBootstrappingEnabled", *enabled);
+    }
+    if (enableAfterReset)
+    {
+        setDbusProperty(
+            asyncResp, "CredentialBootstrapping/EnableAfterReset", service,
+            sdbusplus::object_path("/xyz/openbmc_project/user"),
+            "xyz.openbmc_project.HostInterface.CredentialBootstrapping",
+            "EnableAfterReset", *enableAfterReset);
+    }
+}
+
+inline void handleHostInterfacePatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId, const std::string& hostInterfaceId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (!BMCWEB_REDFISH_HOST_INTERFACE)
+    {
+        BMCWEB_LOG_WARNING("Redfish host interface is not supported.");
+        messages::queryNotSupported(asyncResp->res);
+        return;
+    }
+
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        BMCWEB_LOG_WARNING("Invalid manager Id {}.", managerId);
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+
+    if (hostInterfaceId != bmcRedfishHostIntfUriName)
+    {
+        BMCWEB_LOG_WARNING("Invalid Host Interface Id {}. Support {}.",
+                           hostInterfaceId, bmcRedfishHostIntfUriName);
+        messages::resourceNotFound(asyncResp->res, "HostInterface",
+                                   hostInterfaceId);
+        return;
+    }
+
+    std::optional<bool> enabled;
+    std::optional<bool> enableAfterReset;
+
+    if (!json_util::readJsonPatch(
+            req, asyncResp->res, "CredentialBootstrapping/Enabled", enabled,
+            "CredentialBootstrapping/EnableAfterReset", enableAfterReset))
+    {
+        return;
+    }
+
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.HostInterface.CredentialBootstrapping"};
+    dbus::utility::getDbusObject(
+        "/xyz/openbmc_project/user", interfaces,
+        std::bind_front(afterGetCredentialBootstrappingObject, asyncResp,
+                        enabled, enableAfterReset));
+}
+
 inline void requestRoutesHostInterface(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/HostInterfaces/<str>/")
@@ -201,6 +286,11 @@ inline void requestRoutesHostInterface(App& app)
         .privileges(redfish::privileges::getHostInterfaceCollection)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(handleHostInterfaceCollection, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/HostInterfaces/<str>/")
+        .privileges(redfish::privileges::patchHostInterface)
+        .methods(boost::beast::http::verb::patch)(
+            std::bind_front(handleHostInterfacePatch, std::ref(app)));
 }
 
 } // namespace redfish
