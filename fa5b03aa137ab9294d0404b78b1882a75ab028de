@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60e5080b_7bbe8e50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-09-24T16:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ff8b0ef_712201f7",
+      "revId": "fa5b03aa137ab9294d0404b78b1882a75ab028de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11d73fe1_b144a72a",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-09-04T01:17:58Z",
       "side": 1,
       "message": "lets call this \"event log location\" and have enums of manager and systems",
+      "range": {
+        "startLine": 156,
+        "startChar": 13,
+        "endLine": 156,
+        "endChar": 25
+      },
+      "revId": "fa5b03aa137ab9294d0404b78b1882a75ab028de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c189174_4611b38e",
+        "filename": "meson.options",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-09-24T16:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11d73fe1_b144a72a",
       "range": {
         "startLine": 156,
         "startChar": 13,
@@ -64,6 +106,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "647accb0_3ce24c6d",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-09-24T16:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f6d2e47_6f99f57f",
+      "range": {
+        "startLine": 1050,
+        "startChar": 0,
+        "endLine": 1064,
+        "endChar": 13
+      },
+      "revId": "fa5b03aa137ab9294d0404b78b1882a75ab028de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7410f5bd_24ac8116",
@@ -81,6 +147,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a68222_d6bc3730",
+        "filename": "redfish-core/lib/manager_logservices_journal_eventlog.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-09-24T16:52:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7410f5bd_24ac8116",
+      "revId": "fa5b03aa137ab9294d0404b78b1882a75ab028de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fef845c_a454c81d",
@@ -94,6 +178,30 @@
       "writtenOn": "2025-09-04T01:21:19Z",
       "side": 1,
       "message": "Looks like this got missed in the rename?  This needs some indication that it\u0027s Systems.",
+      "range": {
+        "startLine": 182,
+        "startChar": 8,
+        "endLine": 182,
+        "endChar": 36
+      },
+      "revId": "fa5b03aa137ab9294d0404b78b1882a75ab028de",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42e8696c_fe2efebf",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-09-24T16:52:24Z",
+      "side": 1,
+      "message": "Fixed in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83349",
+      "parentUuid": "6fef845c_a454c81d",
       "range": {
         "startLine": 182,
         "startChar": 8,
