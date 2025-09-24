@@ -58,6 +58,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac86a43b_cbc2a83d",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-09-24T16:50:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61caf6b5_84f1bd3b",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "27dff991fadc7ae1a5a29c1e635b3fa6602d3ae1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9aeea188_0b5522ae",
@@ -71,6 +95,24 @@
       "writtenOn": "2025-09-03T18:34:08Z",
       "side": 1,
       "message": "Don\u0027t see xml used",
+      "revId": "27dff991fadc7ae1a5a29c1e635b3fa6602d3ae1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f712702_1174cb1d",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-09-24T16:50:42Z",
+      "side": 1,
+      "message": "I was hoping my language server would catch them, but after running the include cleaner that was far from being true.. I have added a commit at the end of the chain to fix all includes in all files I have added.",
+      "parentUuid": "9aeea188_0b5522ae",
       "revId": "27dff991fadc7ae1a5a29c1e635b3fa6602d3ae1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
