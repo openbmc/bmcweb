@@ -134,6 +134,24 @@
       "parentUuid": "4b728901_d8f2e401",
       "revId": "a25fa08597c49423c1c517074a36d7ee3040ce7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0b4783f_83f4000c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-24T16:48:52Z",
+      "side": 1,
+      "message": "For next time, please add a \"Tested:\" statement. \nE.g. \n\"Tested: See this error on xyz system using Postman.\"\n\nhttps://github.com/openbmc/docs/blob/b08bcdd03a8fc324e3494d59e6718dba79305fbb/CONTRIBUTING.md?plain\u003d1#L266",
+      "parentUuid": "0428892e_48650e9c",
+      "revId": "a25fa08597c49423c1c517074a36d7ee3040ce7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
