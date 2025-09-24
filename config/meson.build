@@ -51,6 +51,7 @@ string_options = [
     'mutual-tls-common-name-parsing-default',
     'redfish-manager-uri-name',
     'redfish-system-uri-name',
+    'redfish-eventlog-location',
 ]
 
 int_options = ['http-body-limit', 'watchdog-timeout-seconds']
