@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ca00932_3385fd7c",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-25T16:22:31Z",
+      "side": 1,
+      "message": "// SPDX-License-Identifier: Apache-2.0",
+      "revId": "9adf7c7ac6e6a37fb9c84db37139bb2d2fc57494",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
