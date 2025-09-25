@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76e0ebff_ccf87d31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 116
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-25T16:37:45Z",
+      "side": 1,
+      "message": "Overall I support this",
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "560cf4b8_a3d7bf39",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-25T16:37:45Z",
+      "side": 1,
+      "message": "health",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 21
+      },
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68511613_d3645230",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-25T16:37:45Z",
+      "side": 1,
+      "message": "Isn\u0027t this getting long? Want to break this out ?",
+      "range": {
+        "startLine": 166,
+        "startChar": 76,
+        "endLine": 179,
+        "endChar": 40
+      },
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43e19501_679f390c",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-25T16:37:45Z",
+      "side": 1,
+      "message": "Don\u0027t we normally call these State \ngetAssemblyState ?\nhttps://github.com/openbmc/bmcweb/blob/f7e62c142ced153e9400b519bdd66062dd6bbf0e/redfish-core/lib/fabric_ports.hpp#L74",
+      "range": {
+        "startLine": 196,
+        "startChar": 39,
+        "endLine": 196,
+        "endChar": 47
+      },
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b717d451_02cbde2d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-25T16:37:45Z",
+      "side": 1,
+      "message": "Why is everything called ChassisAssembly? Why the name Chassis? Just curious. getAssembly ?",
+      "range": {
+        "startLine": 282,
+        "startChar": 22,
+        "endLine": 282,
+        "endChar": 37
+      },
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ab854cc_ad28f6d2",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-25T16:37:45Z",
+      "side": 1,
+      "message": "more useful if you include the chassis not found, oh well. Same above.",
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d248904_bb054a79",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-25T16:37:45Z",
+      "side": 1,
+      "message": "Nitpick: Can you move this up? It is like kind of alphabetical but not really.. maybe line 73 after aggregation ?",
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
