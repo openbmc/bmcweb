@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "342674de_df8aaf12",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2025-09-25T13:10:21Z",
+      "side": 1,
+      "message": "std::optional is the idiomatic way to do a transformation like this that might fail.\n\nI also wonder if string_view should be returned here to avoid copying the role into the return value every time the function is called.  Granted they aren\u0027t big strings...",
+      "range": {
+        "startLine": 52,
+        "startChar": 3,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "f8e3e790a301fd0a4742300b787b1ce625f47aa9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
