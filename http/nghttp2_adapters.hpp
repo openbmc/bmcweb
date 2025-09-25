@@ -173,6 +173,12 @@ struct nghttp2_session
                                        headers.size(), dataPrd);
     }
 
+    int setLocalWindowSize(uint8_t flags, int32_t stream_id, int32_t windowSize)
+    {
+        return nghttp2_session_set_local_window_size(ptr, flags, stream_id,
+                                                     windowSize);
+    }
+
   private:
     nghttp2_session* ptr = nullptr;
 };
