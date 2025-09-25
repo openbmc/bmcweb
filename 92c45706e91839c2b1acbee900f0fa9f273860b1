@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d0ee02c_e16632c3",
+        "filename": "redfish-core/include/utils/log_services_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-25T16:47:21Z",
+      "side": 1,
+      "message": "Why this change?",
+      "revId": "92c45706e91839c2b1acbee900f0fa9f273860b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
