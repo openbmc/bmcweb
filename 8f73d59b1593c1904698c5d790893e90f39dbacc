@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fab302a0_161b6467",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-25T21:55:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "560cf4b8_a3d7bf39",
+      "range": {
+        "startLine": 102,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 21
+      },
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68511613_d3645230",
@@ -64,6 +88,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f2a7e27_bd63db21",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-25T21:55:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68511613_d3645230",
+      "range": {
+        "startLine": 166,
+        "startChar": 76,
+        "endLine": 179,
+        "endChar": 40
+      },
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43e19501_679f390c",
@@ -77,6 +125,30 @@
       "writtenOn": "2025-09-25T16:37:45Z",
       "side": 1,
       "message": "Don\u0027t we normally call these State \ngetAssemblyState ?\nhttps://github.com/openbmc/bmcweb/blob/f7e62c142ced153e9400b519bdd66062dd6bbf0e/redfish-core/lib/fabric_ports.hpp#L74",
+      "range": {
+        "startLine": 196,
+        "startChar": 39,
+        "endLine": 196,
+        "endChar": 47
+      },
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5c76bf8_9a0a4b3b",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-25T21:55:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43e19501_679f390c",
       "range": {
         "startLine": 196,
         "startChar": 39,
@@ -112,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "234e7be6_1344bb4d",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-25T21:55:03Z",
+      "side": 1,
+      "message": "Assembly schema has many URIs. One of them is for chassis.\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP0268_2024.3.html#assembly-151\n\nFor example,\n```\n/​redfish/​v1/​Chassis/​{ChassisId}/​Assembly\n/​redfish/​v1/​Chassis/​{ChassisId}/​Drives/​{DriveId}/​Assembly\n...\n/​redfish/​v1/​Systems/​{ComputerSystemId}/​Storage/​{StorageId}/​Drives/​{DriveId}/​Assembly\n/​redfish/​v1/​Systems/​{ComputerSystemId}/​Storage/​{StorageId}/​StorageControllers/​{StorageControllerId}/\n..\n```\n\nDepending on URIs, the assembly content may be different.\nSo, I think it is appropriate to use `getChassisAssembly()` for this Chassis Assembly URI.",
+      "parentUuid": "b717d451_02cbde2d",
+      "range": {
+        "startLine": 282,
+        "startChar": 22,
+        "endLine": 282,
+        "endChar": 37
+      },
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ab854cc_ad28f6d2",
         "filename": "redfish-core/lib/assembly.hpp",
         "patchSetId": 116
@@ -123,6 +219,24 @@
       "writtenOn": "2025-09-25T16:37:45Z",
       "side": 1,
       "message": "more useful if you include the chassis not found, oh well. Same above.",
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be3b13b0_19aac857",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-25T21:55:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ab854cc_ad28f6d2",
       "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -140,6 +254,24 @@
       "writtenOn": "2025-09-25T16:37:45Z",
       "side": 1,
       "message": "Nitpick: Can you move this up? It is like kind of alphabetical but not really.. maybe line 73 after aggregation ?",
+      "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dca3148_44ee2db3",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 116
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-25T21:55:03Z",
+      "side": 1,
+      "message": "Please take a look at my previous comment - https://gerrit.openbmc.org/c/openbmc/bmcweb/+/39574/comment/15e652e0_f8881ffc/\n\nAs of now, CI (valgrind test) failed if `requestRoutesAssembly()` is added before `requestRoutesProcessorCollection()`.\n\nI think there seems an issue in build route trie tree...but I haven\u0027t been able to pinpoint for it.\nBefore dealing with the issue, I think we can do\n- add `requestRoutesAssembly()` somewhere around right after `requestRoutesProcessorCollection()`\n- Or move `requestRoutesProcessor...()` to earlier and and add requestRoutesAssembly() somewhere around 73.\n\nFor now, I\u0027ll move requestRoutesAssembly earlier  -- around L169.",
+      "parentUuid": "5d248904_bb054a79",
       "revId": "8f73d59b1593c1904698c5d790893e90f39dbacc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
