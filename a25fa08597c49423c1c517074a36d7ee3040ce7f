@@ -152,6 +152,24 @@
       "parentUuid": "0428892e_48650e9c",
       "revId": "a25fa08597c49423c1c517074a36d7ee3040ce7f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc73e8d9_3d5e0616",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2025-09-25T05:26:55Z",
+      "side": 1,
+      "message": "Sure @gunnar@gmills.xyz will add from next time. Thanks",
+      "parentUuid": "a0b4783f_83f4000c",
+      "revId": "a25fa08597c49423c1c517074a36d7ee3040ce7f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
