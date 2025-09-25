@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "313c8fce_4abd4618",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-25T18:54:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79971bab_d0140e89",
+      "revId": "baf9fc1ea2911cd41175e6100370cd14350edf70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5540bd59_d15982a8",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-09-25T13:42:56Z",
       "side": 1,
       "message": "Should these be in a separate file ?\nassembly_utils?",
+      "revId": "baf9fc1ea2911cd41175e6100370cd14350edf70",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4492580a_ea8d4982",
+        "filename": "redfish-core/include/utils/chassis_utils.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-25T18:54:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5540bd59_d15982a8",
       "revId": "baf9fc1ea2911cd41175e6100370cd14350edf70",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
