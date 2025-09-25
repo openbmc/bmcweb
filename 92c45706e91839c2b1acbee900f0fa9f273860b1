@@ -16,6 +16,24 @@
       "message": "Why this change?",
       "revId": "92c45706e91839c2b1acbee900f0fa9f273860b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "509e5974_ab393878",
+        "filename": "redfish-core/include/utils/log_services_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-09-25T18:33:21Z",
+      "side": 1,
+      "message": "Even though code compiles with just passing `ec`, clangd marks this as an error. Mainly that static assertion failed and that std::formatter needs to be specialized for each type being formatted. It also complains about the statement not being a constant expression, considering std::basic_format_string is consteval. Funnily enough, just including \u0027app.hpp\u0027, satisfies clangd in terms of just passing `ec` rather than `ec.what()`. Considering that code compiles with just `ec`, should I revert this change?",
+      "parentUuid": "9d0ee02c_e16632c3",
+      "revId": "92c45706e91839c2b1acbee900f0fa9f273860b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
