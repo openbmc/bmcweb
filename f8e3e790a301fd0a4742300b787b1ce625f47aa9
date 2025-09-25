@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "937f0c33_c0b01eef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2025-09-25T14:13:40Z",
+      "side": 1,
+      "message": "Consider setting the topic to your bootstrap_account on this one too.  I found it helpful to have the patches all grouped with the topic.",
+      "revId": "f8e3e790a301fd0a4742300b787b1ce625f47aa9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "342674de_df8aaf12",
