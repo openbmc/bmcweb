@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38321667_f7f6172a",
+        "filename": "redfish-core/include/utils/assembly_utils.hpp",
+        "patchSetId": 26
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-25T19:30:34Z",
+      "side": 1,
+      "message": "Seems reasonable to me that this looks at the parent util to determine if it is a valid path/find the children.",
+      "revId": "0448f909f621c026cb9c3a18340f163ebd9f57ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
