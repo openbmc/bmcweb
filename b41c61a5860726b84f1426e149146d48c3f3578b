@@ -16,6 +16,57 @@
       "message": "signoff",
       "revId": "b41c61a5860726b84f1426e149146d48c3f3578b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54dc31d5_9d769085",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-09-26T20:36:11Z",
+      "side": 1,
+      "message": "lgtm",
+      "revId": "b41c61a5860726b84f1426e149146d48c3f3578b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a2c9882_6314d917",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-09-26T20:36:11Z",
+      "side": 1,
+      "message": "some bycatch from testing:\n\nwe are missing the `io.stop()` here in the error case, right?\n\nfound this by accident and had to ctrl-c the process.\n\n```\nroot@s8030-bmc-30303035c0c1:~# bmcweb loglevel debug\n\u003c3\u003e[webserver_cli.cpp:72] SetLogLevel returned error with No route to host [generic:113]\n^C\n```\n\nThe loglevel setting failure on my system is probably unrelated to this patch here\nso making this comment as resolved.",
+      "revId": "b41c61a5860726b84f1426e149146d48c3f3578b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f811a205_71ebb44b",
+        "filename": "src/webserver_cli.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-09-26T20:36:11Z",
+      "side": 1,
+      "message": "looks like this header has no `#pragma once`.\n\nUnrelated to the change though.",
+      "revId": "b41c61a5860726b84f1426e149146d48c3f3578b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
