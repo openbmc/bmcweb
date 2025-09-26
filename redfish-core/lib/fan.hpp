@@ -162,19 +162,6 @@ inline void handleFanCollectionGet(
         std::bind_front(doFanCollection, asyncResp, chassisId));
 }
 
-inline void requestRoutesFanCollection(App& app)
-{
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/Fans/")
-        .privileges(redfish::privileges::headFanCollection)
-        .methods(boost::beast::http::verb::head)(
-            std::bind_front(handleFanCollectionHead, std::ref(app)));
-
-    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/Fans/")
-        .privileges(redfish::privileges::getFanCollection)
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(handleFanCollectionGet, std::ref(app)));
-}
-
 inline bool checkFanId(const std::string& fanPath, const std::string& fanId)
 {
     std::string fanName = sdbusplus::message::object_path(fanPath).filename();
@@ -463,6 +450,16 @@ inline void handleFanPatch(App& app, const crow::Request& req,
 
 inline void requestRoutesFan(App& app)
 {
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/Fans/")
+        .privileges(redfish::privileges::headFanCollection)
+        .methods(boost::beast::http::verb::head)(
+            std::bind_front(handleFanCollectionHead, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/Fans/")
+        .privileges(redfish::privileges::getFanCollection)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleFanCollectionGet, std::ref(app)));
+
     BMCWEB_ROUTE(app, "/redfish/v1/Chassis/<str>/ThermalSubsystem/Fans/<str>/")
         .privileges(redfish::privileges::headFan)
         .methods(boost::beast::http::verb::head)(
