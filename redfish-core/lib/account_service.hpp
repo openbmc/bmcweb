@@ -1893,6 +1893,24 @@ inline void processAfterGetAllGroups(
             }
             continue;
         }
+
+        // ManagerConsole access is provided to the user who is a member of
+        // ssh group and has a administrator role. So, set
+        // ssh group only for the administrator.
+        if ((grp == "ssh") && (roleId != "priv-admin"))
+        {
+            if (!accountTypeUserGroups.empty())
+            {
+                BMCWEB_LOG_ERROR(
+                    "Only administrator can get ManagerConsole access");
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                asyncResp->res.jsonValue["Description"] =
+                    "Only administrator can get ManagerConsole access";
+                return;
+            }
+            continue;
+        }
+
         userGroups.emplace_back(grp);
     }
 
