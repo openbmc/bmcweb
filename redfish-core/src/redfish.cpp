@@ -95,7 +95,6 @@ RedfishService::RedfishService(App& app)
         requestRoutesThermalMetrics(app);
         requestRoutesThermalSubsystem(app);
         requestRoutesFan(app);
-        requestRoutesFanCollection(app);
     }
     requestRoutesManager(app);
     requestRoutesManagerResetAction(app);
