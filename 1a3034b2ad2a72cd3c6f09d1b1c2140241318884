@@ -131,6 +131,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83682f0d_a8adb01e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-27T12:17:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad475a2d_2ac1ba39",
+      "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb198b4a_5a6fc75a",
@@ -162,6 +180,24 @@
       "side": 1,
       "message": "With the current design of BMCWeb, you can\u0027t not configure port 443. because it is duplicated with main BMCWeb socket which are listening on all of BMC network interfaces.\nWe need drive the redfish host interface request to different BMCWeb socket which support BootStrap credentials.",
       "parentUuid": "cb198b4a_5a6fc75a",
+      "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "142e6828_e7602a1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-27T12:17:21Z",
+      "side": 1,
+      "message": "Supported use port 443.",
+      "parentUuid": "774619bf_5946d760",
       "revId": "1a3034b2ad2a72cd3c6f09d1b1c2140241318884",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
