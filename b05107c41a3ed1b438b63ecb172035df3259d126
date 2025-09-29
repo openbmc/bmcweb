@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd4947e_0dcd60f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-29T21:16:37Z",
+      "side": 1,
+      "message": "typo: Assembly",
+      "range": {
+        "startLine": 9,
+        "startChar": 38,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "b05107c41a3ed1b438b63ecb172035df3259d126",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1fc55f9_fb30f360",
+        "filename": "redfish-core/lib/assembly.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-09-29T21:16:37Z",
+      "side": 1,
+      "message": "The Redfish.md file needs to be updated with this new property.",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 217,
+        "endChar": 2
+      },
+      "revId": "b05107c41a3ed1b438b63ecb172035df3259d126",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
