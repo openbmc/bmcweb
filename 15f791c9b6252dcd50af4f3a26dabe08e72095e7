@@ -48,6 +48,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1120ecc_dae59920",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-29T15:16:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac5bad51_b72660f3",
+      "range": {
+        "startLine": 667,
+        "startChar": 24,
+        "endLine": 667,
+        "endChar": 29
+      },
+      "revId": "15f791c9b6252dcd50af4f3a26dabe08e72095e7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "818833d7_6726ef41",
