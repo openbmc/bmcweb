@@ -651,7 +651,7 @@ inline void addPCIeFunctionList(
             std::to_string(functionNum));
         pcieFunctionList.emplace_back(std::move(pcieFunction));
     }
-    res.jsonValue["PCIeFunctions@odata.count"] = pcieFunctionList.size();
+    res.jsonValue["Members@odata.count"] = pcieFunctionList.size();
 }
 
 inline void handlePCIeFunctionCollectionGet(
