@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "357b78e5_f96ccdc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-29T14:04:05Z",
+      "side": 1,
+      "message": "A bit more would be helpful. \nhttps://redfish.dmtf.org/schemas/v1/PCIeFunctionCollection.json \nappears to be the schema and\n\"PCIeFunctions@odata.count\" isn\u0027t in there, but \"Members@odata.count\" is. Members@odata.count is actually a required propety. \n\n\n                    \"required\": [\n                        \"Members\",\n                        \"Members@odata.count\",\n                        \"@odata.id\",\n                        \"@odata.type\",\n                        \"Name\"\n                    ],",
+      "revId": "9855c21d3c7aca3d69af48ff8114e6ede848a4ef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
