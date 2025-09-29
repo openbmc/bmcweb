@@ -39,6 +39,30 @@
       },
       "revId": "f8e3e790a301fd0a4742300b787b1ce625f47aa9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11da997b_759bc8e1",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-09-29T03:20:11Z",
+      "side": 1,
+      "message": "This code is removed in latest patch set and use\n```\nstd::map\u003cstd::string, std::string\u003e credentialRoleIdFromUserRoleId \u003d {\n    {\"Administrator\",\n   \"xyz.openbmc_project.HostInterface.CredentialBootstrapping.Role.Administrator\"},\n    {\"Operator\",\n     \"xyz.openbmc_project.HostInterface.CredentialBootstrapping.Role.Operator\"},\n    {\"ReadOnly\",\n     \"xyz.openbmc_project.HostInterface.CredentialBootstrapping.Role.ReadOnly\"}};\n```",
+      "parentUuid": "342674de_df8aaf12",
+      "range": {
+        "startLine": 52,
+        "startChar": 3,
+        "endLine": 52,
+        "endChar": 14
+      },
+      "revId": "f8e3e790a301fd0a4742300b787b1ce625f47aa9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
