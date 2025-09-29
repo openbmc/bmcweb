@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d28fad7_cb4ac61a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2025-09-29T17:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91a9e93c_b9579fa2",
+      "range": {
+        "startLine": 10,
+        "startChar": 16,
+        "endLine": 10,
+        "endChar": 17
+      },
+      "revId": "3cc4e16bf129f2ed2247f4954612e28f7e191977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5c6b495_c3950c06",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-09-29T14:30:52Z",
       "side": 1,
       "message": "Just end it here with a .",
+      "range": {
+        "startLine": 12,
+        "startChar": 31,
+        "endLine": 12,
+        "endChar": 37
+      },
+      "revId": "3cc4e16bf129f2ed2247f4954612e28f7e191977",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "debe302c_c4302506",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002624
+      },
+      "writtenOn": "2025-09-29T17:57:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5c6b495_c3950c06",
       "range": {
         "startLine": 12,
         "startChar": 31,
