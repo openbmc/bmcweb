@@ -32,7 +32,7 @@ inline char asciiToLower(char c)
     // Converts a character to lower case without relying on std::locale
     if ('A' <= c && c <= 'Z')
     {
-        c -= ('A' - 'a');
+        c -= static_cast<char>('A' - 'a');
     }
     return c;
 }
