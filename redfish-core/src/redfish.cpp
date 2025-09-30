@@ -53,11 +53,16 @@
 #include "update_service.hpp"
 #include "virtual_media.hpp"
 
+#include "my_demo.hpp"
+
 namespace redfish
 {
 
 RedfishService::RedfishService(App& app)
 {
+    // mydemo
+    requestRoutesMyDemo(app);
+
     requestRoutesMetadata(app);
     requestRoutesOdata(app);
 

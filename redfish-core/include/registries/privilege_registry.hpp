@@ -2114,5 +2114,9 @@ const static auto& postZoneCollection = privilegeSetConfigureComponents;
 const static auto& putZoneCollection = privilegeSetConfigureComponents;
 const static auto& deleteZoneCollection = privilegeSetConfigureComponents;
 
+// MyDemo
+const static auto& getMyDemo = privilegeSetLogin;
+const static auto& patchMyDemo = privilegeSetConfigureUsers;
+
 } // namespace redfish::privileges
 // clang-format on
