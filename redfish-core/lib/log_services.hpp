@@ -3671,6 +3671,32 @@ inline void requestRoutesCrashdumpService(App& app)
     });
 }
 
+uint8_t getUrlHostNumber(const crow::Request& req)
+{
+    uint8_t hostNumber = 0;
+    boost::urls::url_view urlView = req.url();
+
+    for (const auto& param : urlView.params())
+    {
+        if (param.key == "HostNumber" && !param.value.empty())
+        {
+            try
+            {
+                int temp = std::stoi(std::string(param.value));
+                hostNumber = static_cast<uint8_t>(temp);
+            }
+            catch (const std::exception& e)
+            {
+                BMCWEB_LOG_WARNING("Invalid HostNumber format: {}",
+                                   param.value);
+                hostNumber = 0;
+            }
+            break;
+        }
+    }
+    return hostNumber;
+}
+
 void inline requestRoutesCrashdumpClear(App& app)
 {
     BMCWEB_ROUTE(
@@ -3700,28 +3726,38 @@ void inline requestRoutesCrashdumpClear(App& app)
                                        systemName);
             return;
         }
+
+        uint8_t hostNumber = getUrlHostNumber(req);
+        if (hostNumber > 2)
+        {
+            messages::actionParameterNotSupported(
+                asyncResp->res, std::to_string(hostNumber), "HostNumber");
+        }
+        std::string service = "com.amd.RAS" + std::to_string(hostNumber);
+
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code& ec,
-                        const std::string&) {
+            [asyncResp, service](const boost::system::error_code& ec) {
             if (ec)
             {
                 messages::internalError(asyncResp->res);
                 return;
             }
             messages::success(asyncResp->res);
-        },
-            crashdumpObject, crashdumpPath, deleteAllInterface, "DeleteAll");
+        }, service, crashdumpPath, deleteAllInterface, "DeleteAll");
     });
 }
 
 static void
     logCrashdumpEntry(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                      const std::string& logID, nlohmann::json& logEntryJson)
+                      const std::string& logID, uint16_t hostNumber,
+                      nlohmann::json& logEntryJson)
 {
+    std::string serviceName = "com.amd.RAS" + std::to_string(hostNumber);
+
     auto getStoredLogCallback =
-        [asyncResp, logID,
-         &logEntryJson](const boost::system::error_code& ec,
-                        const dbus::utility::DBusPropertiesMap& params) {
+        [asyncResp, logID, &logEntryJson, hostNumber,
+         serviceName](const boost::system::error_code& ec,
+                      const dbus::utility::DBusPropertiesMap& params) {
         if (ec)
         {
             BMCWEB_LOG_DEBUG("failed to get log ec: {}", ec.message());
@@ -3748,10 +3784,25 @@ static void
             return;
         }
 
-        std::string crashdumpURI =
-            std::format("/redfish/v1/Systems/{}/LogServices/Crashdump/Entries/",
-                        BMCWEB_REDFISH_SYSTEM_URI_NAME) +
-            logID + "/" + filename;
+        std::string crashdumpURI;
+
+        if (hostNumber != 0)
+        {
+            crashdumpURI =
+                std::format(
+                    "/redfish/v1/Systems/{}/LogServices/Crashdump/Entries/",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME) +
+                logID + "/" + filename +
+                "?HostNumber=" + std::to_string(hostNumber);
+        }
+        else
+        {
+            crashdumpURI =
+                std::format(
+                    "/redfish/v1/Systems/{}/LogServices/Crashdump/Entries/",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME) +
+                logID + "/" + filename;
+        }
         nlohmann::json::object_t logEntry;
         logEntry["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
         logEntry["@odata.id"] = boost::urls::format(
@@ -3790,7 +3841,7 @@ static void
         }
     };
     sdbusplus::asio::getAllProperties(
-        *crow::connections::systemBus, crashdumpObject,
+        *crow::connections::systemBus, "com.amd.RAS0",
         crashdumpPath + std::string("/") + logID, crashdumpInterface,
         std::move(getStoredLogCallback));
 }
@@ -3829,12 +3880,21 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
             return;
         }
 
+        boost::urls::url_view urlView = req.url();
+        uint16_t hostNumber = getUrlHostNumber(req);
+
+        if (hostNumber > 2)
+        {
+            messages::actionParameterNotSupported(
+                asyncResp->res, std::to_string(hostNumber), "HostNumber");
+        }
+
         constexpr std::array<std::string_view, 1> interfaces = {
             crashdumpInterface};
         dbus::utility::getSubTreePaths(
             "/", 0, interfaces,
-            [asyncResp](const boost::system::error_code& ec,
-                        const std::vector<std::string>& resp) {
+            [asyncResp, hostNumber](const boost::system::error_code& ec,
+                                    const std::vector<std::string>& resp) {
             if (ec)
             {
                 if (ec.value() !=
@@ -3867,7 +3927,7 @@ inline void requestRoutesCrashdumpEntryCollection(App& app)
                     continue;
                 }
                 // Add the log entry to the array
-                logCrashdumpEntry(asyncResp, logID,
+                logCrashdumpEntry(asyncResp, logID, hostNumber,
                                   asyncResp->res.jsonValue["Members"]);
             }
         });
@@ -3905,8 +3965,19 @@ inline void requestRoutesCrashdumpEntry(App& app)
                                        systemName);
             return;
         }
+        boost::urls::url_view urlView = req.url();
+        uint16_t hostNumber = getUrlHostNumber(req);
+        ;
+
+        if (hostNumber > 2)
+        {
+            messages::actionParameterNotSupported(
+                asyncResp->res, std::to_string(hostNumber), "HostNumber");
+        }
+
         const std::string& logID = param;
-        logCrashdumpEntry(asyncResp, logID, asyncResp->res.jsonValue);
+        logCrashdumpEntry(asyncResp, logID, hostNumber,
+                          asyncResp->res.jsonValue);
     });
 }
 
@@ -3940,6 +4011,17 @@ inline void requestRoutesCrashdumpFile(App& app)
             return;
         }
 
+        boost::urls::url_view urlView = req.url();
+        uint16_t hostNumber = getUrlHostNumber(req);
+
+        if (hostNumber > 2)
+        {
+            messages::actionParameterNotSupported(
+                asyncResp->res, std::to_string(hostNumber), "HostNumber");
+        }
+
+        std::string serviceName = "com.amd.RAS" + std::to_string(hostNumber);
+
         auto getStoredLogCallback =
             [asyncResp, logID, fileName, url(boost::urls::url(req.url()))](
                 const boost::system::error_code& ec,
@@ -3948,7 +4030,7 @@ inline void requestRoutesCrashdumpFile(App& app)
                     resp) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG("failed to get log ec: {}", ec.message());
+                BMCWEB_LOG_CRITICAL("failed to get log ec: {}", ec.message());
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -3986,7 +4068,7 @@ inline void requestRoutesCrashdumpFile(App& app)
                 boost::beast::http::field::content_disposition, "attachment");
         };
         sdbusplus::asio::getAllProperties(
-            *crow::connections::systemBus, crashdumpObject,
+            *crow::connections::systemBus, serviceName,
             crashdumpPath + std::string("/") + logID, crashdumpInterface,
             std::move(getStoredLogCallback));
     });
@@ -4025,6 +4107,15 @@ inline void requestRoutesCrashdumpConfig(App& app)
             return;
         }
 
+        boost::urls::url_view urlView = req.url();
+        uint16_t hostNumber = getUrlHostNumber(req);
+
+        if (hostNumber > 2)
+        {
+            messages::actionParameterNotSupported(
+                asyncResp->res, std::to_string(hostNumber), "HostNumber");
+        }
+
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_2_0.LogService";
         asyncResp->res.jsonValue["@odata.id"] =
@@ -4032,8 +4123,10 @@ inline void requestRoutesCrashdumpConfig(App& app)
                         "Actions/Oem/Crashdump.Configuration",
                         BMCWEB_REDFISH_SYSTEM_URI_NAME);
 
+        std::string serviceName = "com.amd.RAS" + std::to_string(hostNumber);
+
         sdbusplus::asio::getProperty<ConfigTable>(
-            *crow::connections::systemBus, "com.amd.RAS", "/com/amd/RAS",
+            *crow::connections::systemBus, serviceName, "/com/amd/RAS",
             "com.amd.RAS.Configuration", "RasConfigTable",
             [asyncResp](const boost::system::error_code& ec,
                         const ConfigTable& rasConfigTable) {
@@ -4107,6 +4200,18 @@ inline void requestRoutesCrashdumpConfig(App& app)
                                        systemName);
             return;
         }
+
+        boost::urls::url_view urlView = req.url();
+        uint16_t hostNumber = getUrlHostNumber(req);
+
+        if (hostNumber > 2)
+        {
+            messages::actionParameterNotSupported(
+                asyncResp->res, std::to_string(hostNumber), "HostNumber");
+        }
+
+        std::string serviceName = "com.amd.RAS" + std::to_string(hostNumber);
+
         std::optional<std::map<std::string, std::string>> aifsSignatureIdList;
         std::optional<int64_t> apmlRetries;
         std::optional<std::string> SystemRecoveryMode;
@@ -4162,7 +4267,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "AifsSignatureIdList",
                 std::variant<std::map<std::string, std::string>>(
                     *aifsSignatureIdList));
@@ -4179,7 +4284,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "ApmlRetries",
                 std::variant<int64_t>(*apmlRetries));
         }
@@ -4194,7 +4299,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "SystemRecoveryMode",
                 std::variant<std::string>(*SystemRecoveryMode));
         }
@@ -4209,7 +4314,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "ResetSignalType",
                 std::variant<std::string>(*ResetSignalType));
         }
@@ -4224,7 +4329,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "HarvestMicrocode",
                 std::variant<bool>(*HarvestMicrocode));
         }
@@ -4239,7 +4344,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "HarvestPPIN",
                 std::variant<bool>(*HarvestPPIN));
         }
@@ -4254,7 +4359,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "SigIdOffset",
                 std::variant<std::vector<std::string>>(*SigIdOffset));
         }
@@ -4269,7 +4374,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "AifsArmed", std::variant<bool>(*aifsArmed));
         }
         if (DisableAifsResetOnSyncfloodCounter)
@@ -4283,7 +4388,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "DisableAifsResetOnSyncfloodCounter",
                 std::variant<bool>(*DisableAifsResetOnSyncfloodCounter));
         }
@@ -4298,7 +4403,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "DramCeccPollingEn",
                 std::variant<bool>(*DramCeccPollingEn));
         }
@@ -4313,7 +4418,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "McaPollingEn",
                 std::variant<bool>(*McaPollingEn));
         }
@@ -4328,7 +4433,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "PcieAerPollingEn",
                 std::variant<bool>(*PcieAerPollingEn));
         }
@@ -4343,7 +4448,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "DramCeccThresholdEn",
                 std::variant<bool>(*DramCeccThresholdEn));
         }
@@ -4358,7 +4463,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "McaThresholdEn",
                 std::variant<bool>(*McaThresholdEn));
         }
@@ -4373,7 +4478,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "PcieAerThresholdEn",
                 std::variant<bool>(*PcieAerThresholdEn));
         }
@@ -4388,7 +4493,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "McaPollingPeriod",
                 std::variant<int64_t>(*McaPollingPeriod));
         }
@@ -4403,7 +4508,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "DramCeccPollingPeriod",
                 std::variant<int64_t>(*DramCeccPollingPeriod));
         }
@@ -4418,7 +4523,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "PcieAerPollingPeriod",
                 std::variant<int64_t>(*PcieAerPollingPeriod));
         }
@@ -4433,7 +4538,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "DramCeccErrThresholdCnt",
                 std::variant<int64_t>(*DramCeccErrThresholdCnt));
         }
@@ -4448,7 +4553,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "McaErrThresholdCnt",
                 std::variant<int64_t>(*McaErrThresholdCnt));
         }
@@ -4463,7 +4568,7 @@ inline void requestRoutesCrashdumpConfig(App& app)
                 }
                 messages::success(asyncResp->res);
                 return;
-            }, "com.amd.RAS", "/com/amd/RAS", "com.amd.RAS.Configuration",
+            }, serviceName, "/com/amd/RAS", "com.amd.RAS.Configuration",
                 "SetAttribute", "PcieAerErrThresholdCnt",
                 std::variant<int64_t>(*PcieAerErrThresholdCnt));
         }
@@ -5094,32 +5199,6 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
             "/xyz/openbmc_project/logging",
             "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
     });
-}
-
-uint8_t getUrlHostNumber(const crow::Request& req)
-{
-    uint8_t hostNumber = 0;
-    boost::urls::url_view urlView = req.url();
-
-    for (const auto& param : urlView.params())
-    {
-        if (param.key == "HostNumber" && !param.value.empty())
-        {
-            try
-            {
-                int temp = std::stoi(std::string(param.value));
-                hostNumber = static_cast<uint8_t>(temp);
-            }
-            catch (const std::exception& e)
-            {
-                BMCWEB_LOG_WARNING("Invalid HostNumber format: {}",
-                                   param.value);
-                hostNumber = 0;
-            }
-            break;
-        }
-    }
-    return hostNumber;
 }
 
 /****************************************************
