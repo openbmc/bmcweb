@@ -106,6 +106,24 @@
       "parentUuid": "9a59fc09_81f1ce46",
       "revId": "e5f836448147d7406a49c219a5647293513df64a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "804f8c33_04230ffa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-09-30T12:04:29Z",
+      "side": 1,
+      "message": "Added the clarification on ResetMetrics action support in the commit message.",
+      "parentUuid": "14212558_65b43681",
+      "revId": "e5f836448147d7406a49c219a5647293513df64a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
