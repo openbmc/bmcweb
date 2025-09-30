@@ -54,9 +54,8 @@ class SseSocketRule : public BaseRule
     }
 
   private:
-    std::function<void(crow::sse_socket::Connection&, const crow::Request&)>
-        openHandler;
-    std::function<void(crow::sse_socket::Connection&)> closeHandler;
+    std::function<void(sse_socket::Connection&, const Request&)> openHandler;
+    std::function<void(sse_socket::Connection&)> closeHandler;
 };
 
 } // namespace crow

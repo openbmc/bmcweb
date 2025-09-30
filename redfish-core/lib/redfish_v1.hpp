@@ -7,17 +7,18 @@
 #include "error_messages.hpp"
 #include "http_request.hpp"
 #include "http_response.hpp"
+#include "human_sort.hpp"
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "str_utility.hpp"
-#include "utils/json_utils.hpp"
 
 #include <boost/beast/http/field.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/url/format.hpp>
 
+#include <algorithm>
 #include <array>
 #include <filesystem>
 #include <format>

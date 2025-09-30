@@ -21,7 +21,6 @@
 
 #include <algorithm>
 #include <chrono>
-#include <cstdio>
 #include <fstream>
 #include <functional>
 #include <memory>

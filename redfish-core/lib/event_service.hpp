@@ -22,7 +22,6 @@
 
 #include <asm-generic/errno.h>
 
-#include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>

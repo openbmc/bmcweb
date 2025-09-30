@@ -587,9 +587,9 @@ class RedfishAggregator
         Resource,
     };
 
-    static void startAggregation(
+    void startAggregation(
         AggregationType aggType, const crow::Request& thisReq,
-        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) const
     {
         if (thisReq.method() != boost::beast::http::verb::get)
         {
@@ -889,22 +889,29 @@ class RedfishAggregator
         return handler;
     }
 
+    // Aggregation sources from AggregationCollection
+    std::unordered_map<std::string, boost::urls::url> currentAggregationSources;
+
     // Polls D-Bus to get all available satellite config information
     // Expects a handler which interacts with the returned configs
-    static void getSatelliteConfigs(
+    void getSatelliteConfigs(
         std::function<
             void(const boost::system::error_code&,
                  const std::unordered_map<std::string, boost::urls::url>&)>
-            handler)
+            handler) const
     {
         BMCWEB_LOG_DEBUG("Gathering satellite configs");
+
+        std::unordered_map<std::string, boost::urls::url> satelliteInfo(
+            currentAggregationSources);
+
         sdbusplus::message::object_path path("/xyz/openbmc_project/inventory");
         dbus::utility::getManagedObjects(
             "xyz.openbmc_project.EntityManager", path,
-            [handler{std::move(handler)}](
+            [handler{std::move(handler)},
+             satelliteInfo = std::move(satelliteInfo)](
                 const boost::system::error_code& ec,
-                const dbus::utility::ManagedObjectType& objects) {
-                std::unordered_map<std::string, boost::urls::url> satelliteInfo;
+                const dbus::utility::ManagedObjectType& objects) mutable {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR("DBUS response error {}, {}", ec.value(),
@@ -1261,9 +1268,8 @@ class RedfishAggregator
     // Entry point to Redfish Aggregation
     // Returns Result stating whether or not we still need to locally handle the
     // request
-    static Result beginAggregation(
-        const crow::Request& thisReq,
-        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    Result beginAggregation(const crow::Request& thisReq,
+                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
     {
         using crow::utility::OrMorePaths;
         using crow::utility::readUrlSegments;
@@ -1307,11 +1313,7 @@ class RedfishAggregator
             {
                 // We've matched a resource collection so this current segment
                 // might contain an aggregation prefix
-                // TODO: This needs to be rethought when we can support multiple
-                // satellites due to
-                // /redfish/v1/AggregationService/AggregationSources/5B247A
-                // being a local resource describing the satellite
-                if (collectionItem.starts_with("5B247A_"))
+                if (segmentHasPrefix(collectionItem))
                 {
                     BMCWEB_LOG_DEBUG("Need to forward a request");
 
@@ -1361,6 +1363,32 @@ class RedfishAggregator
 
         BMCWEB_LOG_DEBUG("Aggregation not required for {}", url.buffer());
         return Result::LocalHandle;
+    }
+
+    // Check if the given URL segment matches with any satellite prefix
+    // Assumes the given segment starts with <prefix>_
+    bool segmentHasPrefix(const std::string& urlSegment) const
+    {
+        // TODO: handle this better
+        // For now 5B247A_ wont be in the currentAggregationSources map so
+        // check explicitly for now
+        if (urlSegment.starts_with("5B247A_"))
+        {
+            return true;
+        }
+
+        // Find the first underscore
+        std::size_t underscorePos = urlSegment.find('_');
+        if (underscorePos == std::string::npos)
+        {
+            return false; // No underscore, can't be a satellite prefix
+        }
+
+        // Extract the prefix
+        std::string prefix = urlSegment.substr(0, underscorePos);
+
+        // Check if this prefix exists
+        return currentAggregationSources.contains(prefix);
     }
 };
 

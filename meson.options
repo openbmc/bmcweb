@@ -301,14 +301,38 @@ option(
                     sensors in the SensorCollection.''',
 )
 
+# BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED
+option(
+    'redfish-allow-deprecated-indicatorled',
+    type: 'feature',
+    value: 'disabled',
+    description: '''Enable/disable the deprecated IndicatorLED property. The
+                    default condition is disabled. The code to enable this
+                    option will be removed by March 2026.''',
+)
+
+# BMCWEB_REDFISH_USE_HARDCODED_SYSTEM_LOCATION_INDICATOR
+option(
+    'redfish-use-hardcoded-system-location-indicator',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enable/disable the use of hard-coded LED group
+                    enclosure_identify_blink and enclosure_identify for getting
+                    and setting the LocationIndicatorActive for the Systems
+                    response. The default condition will be enabled until
+                    October 15, 2025.  The code to enable this option will be
+                    removed by June 2026.''',
+)
+
 # BMCWEB_REDFISH_ALLOW_DEPRECATED_POWER_THERMAL
 option(
     'redfish-allow-deprecated-power-thermal',
     type: 'feature',
-    value: 'enabled',
-    description: '''Enable/disable the old Power / Thermal. The default
-                    condition is allowing the old Power / Thermal. This
-                    will be disabled by default June 2024. ''',
+    value: 'disabled',
+    description: '''Enable/disable the old Power / Thermal. This has been
+                    replaced by the new PowerSubsystem, ThermalSubsystem, and
+                    the redfish-new-powersubsystem-thermalsubsystem option.
+                    This option will be removed June 2026.''',
 )
 
 # BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA

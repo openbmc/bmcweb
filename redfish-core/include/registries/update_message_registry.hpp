@@ -22,11 +22,11 @@ namespace redfish::registries
 struct Update
 {
 static constexpr Header header = {
-    "Copyright 2014-2023 DMTF. All rights reserved.",
+    "Copyright 2014-2025 DMTF. All rights reserved.",
     "#MessageRegistry.v1_6_2.MessageRegistry",
     1,
-    0,
     2,
+    0,
     "Update Message Registry",
     "en",
     "This registry defines the update status and error messages.",
@@ -35,7 +35,7 @@ static constexpr Header header = {
 };
 
 static constexpr const char* url =
-    "https://redfish.dmtf.org/registries/Update.1.0.2.json";
+    "https://redfish.dmtf.org/registries/Update.1.2.0.json";
 
 static constexpr std::array registry =
 {
@@ -128,6 +128,18 @@ static constexpr std::array registry =
             "None.",
         }},
     MessageEntry{
+        "NoTargetsDetermined",
+        {
+            "Indicates that no target resource or device for an image was determined for update.",
+            "No target device will be updated with image '%1'.",
+            "OK",
+            1,
+            {
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
         "OperationTransitionedToJob",
         {
             "Indicates that the update operation transitioned to a job for managing the progress of the operation.",
@@ -189,6 +201,45 @@ static constexpr std::array registry =
             "None.",
         }},
     MessageEntry{
+        "UpdateNotApplicable",
+        {
+            "Indicates that the update was not applicable to the resource or device.",
+            "Image '%1' was not applicable to device '%2'.",
+            "Warning",
+            2,
+            {
+                "string",
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "UpdateSkipped",
+        {
+            "Indicates that an image was applicable to a resource or device, but the update was skipped due to policies in the service.",
+            "Device '%1' skipped the update with image '%2'.",
+            "OK",
+            2,
+            {
+                "string",
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
+        "UpdateSkippedSameVersion",
+        {
+            "Indicates that a resource or device update was skipped because the same version is already installed.",
+            "Device '%1' skipped the update with image '%2' because the same version is already installed.",
+            "OK",
+            2,
+            {
+                "string",
+                "string",
+            },
+            "None.",
+        }},
+    MessageEntry{
         "UpdateSuccessful",
         {
             "Indicates that a resource or device was updated.",
@@ -204,7 +255,7 @@ static constexpr std::array registry =
     MessageEntry{
         "VerificationFailed",
         {
-            "Indicates that the component failed to verify an image.",
+            "Indicates that the service or component failed to verify an image.",
             "Verification of image '%1' at '%2' failed.",
             "Critical",
             2,
@@ -239,14 +290,18 @@ enum class Index
     awaitToActivate = 4,
     awaitToUpdate = 5,
     installingOnComponent = 6,
-    operationTransitionedToJob = 7,
-    targetDetermined = 8,
-    transferFailed = 9,
-    transferringToComponent = 10,
-    updateInProgress = 11,
-    updateSuccessful = 12,
-    verificationFailed = 13,
-    verifyingAtComponent = 14,
+    noTargetsDetermined = 7,
+    operationTransitionedToJob = 8,
+    targetDetermined = 9,
+    transferFailed = 10,
+    transferringToComponent = 11,
+    updateInProgress = 12,
+    updateNotApplicable = 13,
+    updateSkipped = 14,
+    updateSkippedSameVersion = 15,
+    updateSuccessful = 16,
+    verificationFailed = 17,
+    verifyingAtComponent = 18,
 };
 }; // struct update
 

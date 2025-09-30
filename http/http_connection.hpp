@@ -285,7 +285,8 @@ class Connection :
     void upgradeToHttp2()
     {
         auto http2 = std::make_shared<HTTP2Connection<Adaptor, Handler>>(
-            std::move(adaptor), handler, getCachedDateStr, httpType);
+            std::move(adaptor), handler, getCachedDateStr, httpType,
+            mtlsSession);
         if (http2settings.empty())
         {
             http2->start();
@@ -375,7 +376,7 @@ class Connection :
         {
             return;
         }
-        req = std::make_shared<crow::Request>(parser->release(), reqEc);
+        req = std::make_shared<Request>(parser->release(), reqEc);
         if (reqEc)
         {
             BMCWEB_LOG_DEBUG("Request failed to construct{}", reqEc.message());
@@ -415,8 +416,8 @@ class Connection :
 
         if (authenticationEnabled)
         {
-            if (!crow::authentication::isOnAllowlist(req->url().path(),
-                                                     req->method()) &&
+            if (!authentication::isOnAllowlist(req->url().path(),
+                                               req->method()) &&
                 req->session == nullptr)
             {
                 BMCWEB_LOG_WARNING("Authentication failed");
@@ -432,18 +433,18 @@ class Connection :
         auto asyncResp = std::make_shared<bmcweb::AsyncResp>();
         BMCWEB_LOG_DEBUG("Setting completion handler");
         asyncResp->res.setCompleteRequestHandler(
-            [self(shared_from_this())](crow::Response& thisRes) {
+            [self(shared_from_this())](Response& thisRes) {
                 self->completeRequest(thisRes);
             });
         if (doUpgrade(asyncResp))
         {
             return;
         }
-        std::string_view expected =
+        std::string_view expectedEtag =
             req->getHeaderValue(boost::beast::http::field::if_none_match);
-        if (!expected.empty())
+        if (!expectedEtag.empty())
         {
-            asyncResp->res.setExpectedHash(expected);
+            asyncResp->res.setExpectedEtag(expectedEtag);
         }
         handler->handle(req, asyncResp);
     }
@@ -488,7 +489,7 @@ class Connection :
         }
     }
 
-    void completeRequest(crow::Response& thisRes)
+    void completeRequest(Response& thisRes)
     {
         res = std::move(thisRes);
         res.keepAlive(keepAlive);
@@ -937,12 +938,12 @@ class Connection :
 
     boost::beast::flat_static_buffer<8192> buffer;
 
-    std::shared_ptr<crow::Request> req;
+    std::shared_ptr<Request> req;
     std::string accept;
     std::string http2settings;
     std::string acceptEncoding;
 
-    crow::Response res;
+    Response res;
 
     std::shared_ptr<persistent_data::UserSession> userSession;
     std::shared_ptr<persistent_data::UserSession> mtlsSession;

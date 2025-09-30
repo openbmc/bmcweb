@@ -13,6 +13,7 @@
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utility.hpp"
+#include "utils/etag_utils.hpp"
 #include "utils/journal_utils.hpp"
 #include "utils/query_param.hpp"
 #include "utils/time_utils.hpp"
@@ -68,6 +69,8 @@ inline void handleManagersLogServiceJournalGet(
     asyncResp->res.jsonValue["Entries"]["@odata.id"] = boost::urls::format(
         "/redfish/v1/Managers/{}/LogServices/Journal/Entries",
         BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+    etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 }
 
 struct JournalReadState

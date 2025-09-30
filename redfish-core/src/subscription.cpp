@@ -13,9 +13,9 @@
 #include "http_client.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
-#include "metric_report.hpp"
 #include "server_sent_event.hpp"
 #include "ssl_key_handler.hpp"
+#include "telemetry_readings.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/asio/error.hpp>
@@ -32,8 +32,6 @@
 #include <algorithm>
 #include <chrono>
 #include <cstdint>
-#include <cstdlib>
-#include <ctime>
 #include <format>
 #include <functional>
 #include <memory>

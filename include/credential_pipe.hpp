@@ -12,7 +12,6 @@
 #include <boost/asio/write.hpp>
 
 #include <array>
-#include <cstring>
 #include <string>
 #include <utility>
 

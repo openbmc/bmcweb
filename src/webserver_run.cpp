@@ -18,6 +18,7 @@
 #include "login_routes.hpp"
 #include "obmc_console.hpp"
 #include "openbmc_dbus_rest.hpp"
+#include "persistent_data.hpp"
 #include "redfish.hpp"
 #include "redfish_aggregator.hpp"
 #include "user_monitor.hpp"

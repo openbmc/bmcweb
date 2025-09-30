@@ -12,11 +12,11 @@
 #include "filesystem_log_watcher.hpp"
 #include "io_context_singleton.hpp"
 #include "logging.hpp"
-#include "metric_report.hpp"
 #include "ossl_random.hpp"
 #include "persistent_data.hpp"
 #include "server_sent_event.hpp"
 #include "subscription.hpp"
+#include "telemetry_readings.hpp"
 #include "utils/time_utils.hpp"
 
 #include <boost/circular_buffer.hpp>
@@ -30,15 +30,12 @@
 #include <cstdint>
 #include <cstdlib>
 #include <ctime>
-#include <filesystem>
 #include <format>
-#include <fstream>
 #include <memory>
 #include <optional>
 #include <random>
 #include <string>
 #include <string_view>
-#include <system_error>
 #include <utility>
 #include <vector>
 

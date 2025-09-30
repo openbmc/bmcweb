@@ -23,6 +23,7 @@ feature_options = [
     'mutual-tls-auth',
     'redfish',
     'redfish-aggregation',
+    'redfish-allow-deprecated-indicatorled',
     'redfish-allow-deprecated-power-thermal',
     'redfish-allow-simple-update',
     'redfish-bmc-journal',
@@ -35,6 +36,7 @@ feature_options = [
     'redfish-provisioning-feature',
     'redfish-updateservice-use-dbus',
     'redfish-use-3-digit-messageid',
+    'redfish-use-hardcoded-system-location-indicator',
     'rest',
     'session-auth',
     'static-hosting',
@@ -152,7 +154,7 @@ foreach index : range(ports.length())
         auth = auths[index]
     endif
 
-    filename = 'bmcweb_' + port_number
+    filename = 'bmcweb_' + port_number + '.socket'
     configure_file(
         input: 'bmcweb.socket.in',
         output: filename,
@@ -160,7 +162,7 @@ foreach index : range(ports.length())
         install: true,
         configuration: configuration_data(
             {
-                'BMCWEB_HTTPS_PORT': port_number,
+                'BMCWEB_PORT': port_number,
                 'HTTP_LEVEL_ALLOWED': 'https',
                 'HTTP_BIND': bind_to_device,
                 'HTTP_AUTH_LEVEL': auth,

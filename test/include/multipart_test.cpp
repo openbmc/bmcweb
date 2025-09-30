@@ -3,8 +3,6 @@
 #include "http_request.hpp"
 #include "multipart_parser.hpp"
 
-#include <boost/beast/http/fields.hpp>
-
 #include <iterator>
 #include <string_view>
 #include <system_error>

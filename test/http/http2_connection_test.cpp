@@ -19,6 +19,7 @@
 #include <boost/asio/write.hpp>
 #include <boost/beast/http/field.hpp>
 
+#include <array>
 #include <bit>
 #include <cstddef>
 #include <cstdint>
@@ -130,21 +131,22 @@ TEST(http_connection, RequestPropogates)
     boost::asio::ssl::context sslCtx(boost::asio::ssl::context::tls_server);
     auto conn = std::make_shared<HTTP2Connection<TestStream, FakeHandler>>(
         boost::asio::ssl::stream<TestStream>(std::move(stream), sslCtx),
-        &handler, date, HttpType::HTTP);
+        &handler, date, HttpType::HTTP, nullptr);
     conn->start();
 
-    std::string_view expectedPrefix =
+    std::array<std::string_view, 5> expectedPrefix = {
         // Settings frame size 13
-        "\x00\x00\x0c\x04\x00\x00\x00\x00\x00"
+        "\x00\x00\x0c\x04\x00\x00\x00\x00\x00"sv,
         // 4 max concurrent streams
-        "\x00\x03\x00\x00\x00\x04"
+        "\x00\x03\x00\x00\x00\x04"sv,
         // Enable push = false
-        "\x00\x02\x00\x00\x00\x00"
+        "\x00\x02\x00\x00\x00\x00"sv,
         // Settings ACK from server to client
-        "\x00\x00\x00\x04\x01\x00\x00\x00\x00"
+        "\x00\x00\x00\x04\x01\x00\x00\x00\x00"sv,
 
         // Start Headers frame stream 1, size 0x005f
-        "\x00\x00\x5f\x01\x04\x00\x00\x00\x01"sv;
+        "\x00\x00\x5f\x01\x04\x00\x00\x00\x01"sv,
+    };
 
     std::string_view expectedPostfix =
         // Data Frame, Length 12, Stream 1, End Stream flag set
@@ -155,9 +157,14 @@ TEST(http_connection, RequestPropogates)
     std::string_view outStr;
     constexpr size_t headerSize = 0x05f;
 
+    size_t expectedPrefixSize = 0;
+    for (const auto prefix : expectedPrefix)
+    {
+        expectedPrefixSize += prefix.size();
+    }
     // Run until we receive the expected amount of data
     while (outStr.size() <
-           expectedPrefix.size() + headerSize + expectedPostfix.size())
+           expectedPrefixSize + headerSize + expectedPostfix.size())
     {
         io.run_one();
         outStr = out.str();
@@ -165,8 +172,12 @@ TEST(http_connection, RequestPropogates)
     EXPECT_TRUE(handler.called);
 
     // check the stream output against expected
-    EXPECT_EQ(outStr.substr(0, expectedPrefix.size()), expectedPrefix);
-    outStr.remove_prefix(expectedPrefix.size());
+    for (const auto& prefix : expectedPrefix)
+    {
+        EXPECT_EQ(outStr.substr(0, prefix.size()), prefix);
+        outStr.remove_prefix(prefix.size());
+    }
+
     std::vector<std::pair<std::string, std::string>> headers;
     unpackHeaders(outStr.substr(0, headerSize), headers);
     outStr.remove_prefix(headerSize);

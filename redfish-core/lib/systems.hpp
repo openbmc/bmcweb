@@ -21,6 +21,7 @@
 #include "query.hpp"
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/asset_utils.hpp"
 #include "utils/dbus_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/pcie_util.hpp"
@@ -32,7 +33,6 @@
 
 #include <boost/asio/error.hpp>
 #include <boost/beast/http/field.hpp>
-#include <boost/beast/http/status.hpp>
 #include <boost/beast/http/verb.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/system/linux_error.hpp>
@@ -61,64 +61,6 @@ namespace redfish
 const static std::array<std::pair<std::string_view, std::string_view>, 2>
     protocolToDBusForSystems{
         {{"SSH", "obmc-console-ssh"}, {"IPMI", "phosphor-ipmi-net"}}};
-
-/**
- * @brief Updates the Functional State of DIMMs
- *
- * @param[in] asyncResp Shared pointer for completing asynchronous calls
- * @param[in] dimmState Dimm's Functional state, true/false
- *
- * @return None.
- */
-inline void updateDimmProperties(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool isDimmFunctional)
-{
-    BMCWEB_LOG_DEBUG("Dimm Functional: {}", isDimmFunctional);
-
-    // Set it as Enabled if at least one DIMM is functional
-    // Update STATE only if previous State was DISABLED and current Dimm is
-    // ENABLED.
-    const nlohmann::json& prevMemSummary =
-        asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"];
-    if (prevMemSummary == "Disabled")
-    {
-        if (isDimmFunctional)
-        {
-            asyncResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
-                "Enabled";
-        }
-    }
-}
-
-/*
- * @brief Update "ProcessorSummary" "Status" "State" based on
- *        CPU Functional State
- *
- * @param[in] asyncResp Shared pointer for completing asynchronous calls
- * @param[in] cpuFunctionalState is CPU functional true/false
- *
- * @return None.
- */
-inline void modifyCpuFunctionalState(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, bool isCpuFunctional)
-{
-    BMCWEB_LOG_DEBUG("Cpu Functional: {}", isCpuFunctional);
-
-    const nlohmann::json& prevProcState =
-        asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"];
-
-    // Set it as Enabled if at least one CPU is functional
-    // Update STATE only if previous State was Non_Functional and current CPU is
-    // Functional.
-    if (prevProcState == "Disabled")
-    {
-        if (isCpuFunctional)
-        {
-            asyncResp->res.jsonValue["ProcessorSummary"]["Status"]["State"] =
-                "Enabled";
-        }
-    }
-}
 
 /*
  * @brief Update "ProcessorSummary" "Count" based on Cpu PresenceState
@@ -356,41 +298,18 @@ inline void afterGetInventory(
     }
     BMCWEB_LOG_DEBUG("Got {} properties for system", propertiesList.size());
 
-    const std::string* partNumber = nullptr;
-    const std::string* serialNumber = nullptr;
-    const std::string* manufacturer = nullptr;
-    const std::string* model = nullptr;
+    asset_utils::extractAssetInfo(asyncResp, ""_json_pointer, propertiesList,
+                                  false);
+
     const std::string* subModel = nullptr;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
-        partNumber, "SerialNumber", serialNumber, "Manufacturer", manufacturer,
-        "Model", model, "SubModel", subModel);
+        dbus_utils::UnpackErrorPrinter(), propertiesList, "SubModel", subModel);
 
     if (!success)
     {
         messages::internalError(asyncResp->res);
         return;
-    }
-
-    if (partNumber != nullptr)
-    {
-        asyncResp->res.jsonValue["PartNumber"] = *partNumber;
-    }
-
-    if (serialNumber != nullptr)
-    {
-        asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
-    }
-
-    if (manufacturer != nullptr)
-    {
-        asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
-    }
-
-    if (model != nullptr)
-    {
-        asyncResp->res.jsonValue["Model"] = *model;
     }
 
     if (subModel != nullptr)
@@ -526,14 +445,18 @@ inline void getComputerSystem(
  * @brief Retrieves host state properties over dbus
  *
  * @param[in] asyncResp     Shared pointer for completing asynchronous calls.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
-inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Get host information.");
+    sdbusplus::message::object_path path =
+        getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Host", "CurrentHostState",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& hostState) {
@@ -827,15 +750,19 @@ inline int assignBootParameters(
  * @brief Retrieves boot progress of the system
  *
  * @param[in] asyncResp  Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
-inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                            const uint64_t computerSystemIndex)
 {
+    sdbusplus::message::object_path path =
+        getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
-        [asyncResp](const boost::system::error_code& ec,
+        [asyncResp](const boost::system::error_code ec,
                     const std::string& bootProgressStr) {
             if (ec)
             {
@@ -855,14 +782,18 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
  * @brief Retrieves boot progress Last Update of the system
  *
  * @param[in] asyncResp  Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
 inline void getBootProgressLastStateTime(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
+    sdbusplus::message::object_path path =
+        getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<uint64_t>(
-        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Boot.Progress", "BootProgressLastUpdate",
         [asyncResp](const boost::system::error_code& ec,
                     const uint64_t lastStateTime) {
@@ -888,16 +819,20 @@ inline void getBootProgressLastStateTime(
  * @brief Retrieves boot override type over DBUS and fills out the response
  *
  * @param[in] asyncResp         Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
-
 inline void getBootOverrideType(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
+
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
+        "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Control.Boot.Type", "BootType",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& bootType) {
@@ -929,16 +864,19 @@ inline void getBootOverrideType(
  * @brief Retrieves boot override mode over DBUS and fills out the response
  *
  * @param[in] asyncResp         Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
-
 inline void getBootOverrideMode(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
+        "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& bootModeStr) {
@@ -981,19 +919,23 @@ inline void getBootOverrideMode(
  * @brief Retrieves boot override source over DBUS
  *
  * @param[in] asyncResp         Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
-
 inline void getBootOverrideSource(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
+
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
+        "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Control.Boot.Source", "BootSource",
-        [asyncResp](const boost::system::error_code& ec,
-                    const std::string& bootSourceStr) {
+        [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
+                                         const std::string& bootSourceStr) {
             if (ec)
             {
                 // Service not available, no error, just don't return
@@ -1018,7 +960,7 @@ inline void getBootOverrideSource(
 
             // Get BootMode as BootSourceOverrideTarget is constructed
             // from both BootSource and BootMode
-            getBootOverrideMode(asyncResp);
+            getBootOverrideMode(asyncResp, computerSystemIndex);
         });
 }
 
@@ -1028,13 +970,15 @@ inline void getBootOverrideSource(
  * state
  *
  * @param[in] asyncResp     Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
+ * @param[in] bootOverrideEnableSetting
  *
  * @return None.
  */
 
 inline void processBootOverrideEnable(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const bool bootOverrideEnableSetting)
+    const uint64_t computerSystemIndex, const bool bootOverrideEnableSetting)
 {
     if (!bootOverrideEnableSetting)
     {
@@ -1043,11 +987,15 @@ inline void processBootOverrideEnable(
         return;
     }
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
+    path /= "one_time";
+
     // If boot source override is enabled, we need to check 'one_time'
     // property to set a correct value for the "BootSourceOverrideEnabled"
     dbus::utility::getProperty<bool>(
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot/one_time",
+        "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Object.Enable", "Enabled",
         [asyncResp](const boost::system::error_code& ec, bool oneTimeSetting) {
             if (ec)
@@ -1074,19 +1022,23 @@ inline void processBootOverrideEnable(
  * @brief Retrieves boot override enable over DBUS
  *
  * @param[in] asyncResp     Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
-
 inline void getBootOverrideEnable(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
+
     dbus::utility::getProperty<bool>(
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/boot",
+        "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Object.Enable", "Enabled",
-        [asyncResp](const boost::system::error_code& ec,
-                    const bool bootOverrideEnable) {
+        [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
+                                         const bool bootOverrideEnable) {
             if (ec)
             {
                 // Service not available, no error, just don't return
@@ -1100,7 +1052,8 @@ inline void getBootOverrideEnable(
                 return;
             }
 
-            processBootOverrideEnable(asyncResp, bootOverrideEnable);
+            processBootOverrideEnable(asyncResp, computerSystemIndex,
+                                      bootOverrideEnable);
         });
 }
 
@@ -1108,17 +1061,19 @@ inline void getBootOverrideEnable(
  * @brief Retrieves boot source override properties
  *
  * @param[in] asyncResp     Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
 inline void getBootProperties(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Get boot information.");
 
-    getBootOverrideSource(asyncResp);
-    getBootOverrideType(asyncResp);
-    getBootOverrideEnable(asyncResp);
+    getBootOverrideSource(asyncResp, computerSystemIndex);
+    getBootOverrideType(asyncResp, computerSystemIndex);
+    getBootOverrideEnable(asyncResp, computerSystemIndex);
 }
 
 /**
@@ -1134,13 +1089,14 @@ inline void getBootProperties(
  * @return None.
  */
 inline void getLastResetTime(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Getting System Last Reset Time");
-
+    sdbusplus::message::object_path path =
+        getChassisStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<uint64_t>(
-        "xyz.openbmc_project.State.Chassis",
-        "/xyz/openbmc_project/state/chassis0",
+        getChassisStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Chassis", "LastStateChangeTime",
         [asyncResp](const boost::system::error_code& ec,
                     uint64_t lastResetTime) {
@@ -1169,16 +1125,19 @@ inline void getLastResetTime(
  * dbus.
  *
  * @param[in] asyncResp     Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
 inline void getAutomaticRebootAttempts(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Get Automatic Retry policy");
-
+    sdbusplus::message::object_path path =
+        getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getAllProperties(
-        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.Control.Boot.RebootAttempts",
         [asyncResp{asyncResp}](
             const boost::system::error_code& ec,
@@ -1228,20 +1187,25 @@ inline void getAutomaticRebootAttempts(
  * @brief Retrieves Automatic Retry properties. Known on D-Bus as AutoReboot.
  *
  * @param[in] asyncResp     Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
 inline void getAutomaticRetryPolicy(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Get Automatic Retry policy");
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "auto_reboot";
+
     dbus::utility::getProperty<bool>(
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/auto_reboot",
+        "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Control.Boot.RebootPolicy", "AutoReboot",
-        [asyncResp](const boost::system::error_code& ec,
-                    bool autoRebootEnabled) {
+        [asyncResp, computerSystemIndex](const boost::system::error_code& ec,
+                                         bool autoRebootEnabled) {
             if (ec)
             {
                 // Service not available, no error, just don't return
@@ -1266,7 +1230,7 @@ inline void getAutomaticRetryPolicy(
                 asyncResp->res.jsonValue["Boot"]["AutomaticRetryConfig"] =
                     "Disabled";
             }
-            getAutomaticRebootAttempts(asyncResp);
+            getAutomaticRebootAttempts(asyncResp, computerSystemIndex);
 
             // "AutomaticRetryConfig" can be 3 values, Disabled, RetryAlways,
             // and RetryAttempts. OpenBMC only supports Disabled and
@@ -1285,6 +1249,7 @@ inline void getAutomaticRetryPolicy(
  * @brief Sets RetryAttempts
  *
  * @param[in] asyncResp   Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] retryAttempts  "AutomaticRetryAttempts" from request.
  *
  *@return None.
@@ -1292,15 +1257,15 @@ inline void getAutomaticRetryPolicy(
 
 inline void setAutomaticRetryAttempts(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const uint32_t retryAttempts)
+    const uint64_t computerSystemIndex, const uint32_t retryAttempts)
 {
     BMCWEB_LOG_DEBUG("Set Automatic Retry Attempts.");
-    setDbusProperty(
-        asyncResp, "Boot/AutomaticRetryAttempts",
-        "xyz.openbmc_project.State.Host",
-        sdbusplus::message::object_path("/xyz/openbmc_project/state/host0"),
-        "xyz.openbmc_project.Control.Boot.RebootAttempts", "RetryAttempts",
-        retryAttempts);
+
+    setDbusProperty(asyncResp, "Boot/AutomaticRetryAttempts",
+                    getHostStateServiceName(computerSystemIndex),
+                    getHostStateObjectPath(computerSystemIndex),
+                    "xyz.openbmc_project.Control.Boot.RebootAttempts",
+                    "RetryAttempts", retryAttempts);
 }
 
 inline computer_system::PowerRestorePolicyTypes
@@ -1335,13 +1300,17 @@ inline computer_system::PowerRestorePolicyTypes
  * @return None.
  */
 inline void getPowerRestorePolicy(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Get power restore policy");
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "power_restore_policy";
+
     dbus::utility::getProperty<std::string>(
-        "xyz.openbmc_project.Settings",
-        "/xyz/openbmc_project/control/host0/power_restore_policy",
+        "xyz.openbmc_project.Settings", path,
         "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& policy) {
@@ -1404,90 +1373,161 @@ inline void getStopBootOnFault(
         });
 }
 
+inline void getTrustedModuleRequiredToBootCallback(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex, const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG("DBUS response error on TPM.Policy GetSubTree{}", ec);
+        // This is an optional D-Bus object so just return if
+        // error occurs
+        return;
+    }
+    if (subtree.empty())
+    {
+        // As noted above, this is an optional interface so just return
+        // if there is no instance found
+        return;
+    }
+
+    std::string path;
+    std::string service;
+
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        if (!indexMatchingSubTreeMapObjectPath(asyncResp, computerSystemIndex,
+                                               subtree, path, service))
+        {
+            return;
+        }
+    }
+    else
+    {
+        // Make sure the Dbus response map has a service and objectPath
+        // field
+        if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+        {
+            BMCWEB_LOG_DEBUG("TPM.Policy mapper error!");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        path = subtree[0].first;
+        service = subtree[0].second.begin()->first;
+    }
+
+    BMCWEB_LOG_DEBUG("found tpm service {}", service);
+    BMCWEB_LOG_DEBUG("found tpm path {}", path);
+
+    // Valid TPM Enable object found, now reading the current value
+    dbus::utility::getProperty<bool>(
+        service, path, "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
+        [asyncResp](const boost::system::error_code& ec2, bool tpmRequired) {
+            if (ec2)
+            {
+                BMCWEB_LOG_ERROR("D-BUS response error on TPM.Policy Get{}",
+                                 ec2);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (tpmRequired)
+            {
+                asyncResp->res
+                    .jsonValue["Boot"]["TrustedModuleRequiredToBoot"] =
+                    "Required";
+            }
+            else
+            {
+                asyncResp->res
+                    .jsonValue["Boot"]["TrustedModuleRequiredToBoot"] =
+                    "Disabled";
+            }
+        });
+}
+
 /**
  * @brief Get TrustedModuleRequiredToBoot property. Determines whether or not
  * TPM is required for booting the host.
  *
  * @param[in] asyncResp     Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  *
  * @return None.
  */
 inline void getTrustedModuleRequiredToBoot(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
 {
     BMCWEB_LOG_DEBUG("Get TPM required to boot.");
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Control.TPM.Policy"};
     dbus::utility::getSubTree(
         "/", 0, interfaces,
-        [asyncResp](const boost::system::error_code& ec,
-                    const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG(
-                    "DBUS response error on TPM.Policy GetSubTree{}", ec);
-                // This is an optional D-Bus object so just return if
-                // error occurs
-                return;
-            }
-            if (subtree.empty())
-            {
-                // As noted above, this is an optional interface so just return
-                // if there is no instance found
-                return;
-            }
+        std::bind_front(getTrustedModuleRequiredToBootCallback, asyncResp,
+                        computerSystemIndex));
+}
 
-            /* When there is more than one TPMEnable object... */
-            if (subtree.size() > 1)
-            {
-                BMCWEB_LOG_DEBUG(
-                    "DBUS response has more than 1 TPM Enable object:{}",
-                    subtree.size());
-                // Throw an internal Error and return
-                messages::internalError(asyncResp->res);
-                return;
-            }
+inline void setTrustedModuleRequiredToBootCallback(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex, const bool tpmRequired,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_ERROR("DBUS response error on TPM.Policy GetSubTree{}", ec);
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (subtree.empty())
+    {
+        messages::propertyValueNotInList(asyncResp->res, "ComputerSystem",
+                                         "TrustedModuleRequiredToBoot");
+        return;
+    }
 
-            // Make sure the Dbus response map has a service and objectPath
-            // field
-            if (subtree[0].first.empty() || subtree[0].second.size() != 1)
-            {
-                BMCWEB_LOG_DEBUG("TPM.Policy mapper error!");
-                messages::internalError(asyncResp->res);
-                return;
-            }
+    std::string path;
+    std::string serv;
 
-            const std::string& path = subtree[0].first;
-            const std::string& serv = subtree[0].second.begin()->first;
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        if (!indexMatchingSubTreeMapObjectPath(asyncResp, computerSystemIndex,
+                                               subtree, path, serv))
+        {
+            BMCWEB_LOG_DEBUG("TPM.Policy mapper error!");
+            messages::internalError(asyncResp->res);
+            return;
+        }
+    }
+    else
+    {
+        // Make sure the Dbus response map has a service and objectPath
+        // field
+        if (subtree[0].first.empty() || subtree[0].second.size() != 1)
+        {
+            BMCWEB_LOG_DEBUG("TPM.Policy mapper error!");
+            messages::internalError(asyncResp->res);
+            return;
+        }
 
-            // Valid TPM Enable object found, now reading the current value
-            dbus::utility::getProperty<bool>(
-                serv, path, "xyz.openbmc_project.Control.TPM.Policy",
-                "TPMEnable",
-                [asyncResp](const boost::system::error_code& ec2,
-                            bool tpmRequired) {
-                    if (ec2)
-                    {
-                        BMCWEB_LOG_ERROR(
-                            "D-BUS response error on TPM.Policy Get{}", ec2);
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
+        path = subtree[0].first;
+        serv = subtree[0].second.begin()->first;
+    }
 
-                    if (tpmRequired)
-                    {
-                        asyncResp->res
-                            .jsonValue["Boot"]["TrustedModuleRequiredToBoot"] =
-                            "Required";
-                    }
-                    else
-                    {
-                        asyncResp->res
-                            .jsonValue["Boot"]["TrustedModuleRequiredToBoot"] =
-                            "Disabled";
-                    }
-                });
-        });
+    if (serv.empty())
+    {
+        BMCWEB_LOG_DEBUG("TPM.Policy service mapper error!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    // Valid TPM Enable object found, now setting the value
+    setDbusProperty(asyncResp, "Boot/TrustedModuleRequiredToBoot", serv, path,
+                    "xyz.openbmc_project.Control.TPM.Policy", "TPMEnable",
+                    tpmRequired);
 }
 
 /**
@@ -1495,81 +1535,34 @@ inline void getTrustedModuleRequiredToBoot(
  * TPM is required for booting the host.
  *
  * @param[in] asyncResp     Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] tpmRequired   Value to set TPM Required To Boot property to.
  *
  * @return None.
  */
 inline void setTrustedModuleRequiredToBoot(
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, const bool tpmRequired)
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex, const bool tpmRequired)
 {
     BMCWEB_LOG_DEBUG("Set TrustedModuleRequiredToBoot.");
     constexpr std::array<std::string_view, 1> interfaces = {
         "xyz.openbmc_project.Control.TPM.Policy"};
     dbus::utility::getSubTree(
         "/", 0, interfaces,
-        [asyncResp,
-         tpmRequired](const boost::system::error_code& ec,
-                      const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR(
-                    "DBUS response error on TPM.Policy GetSubTree{}", ec);
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            if (subtree.empty())
-            {
-                messages::propertyValueNotInList(asyncResp->res,
-                                                 "ComputerSystem",
-                                                 "TrustedModuleRequiredToBoot");
-                return;
-            }
-
-            /* When there is more than one TPMEnable object... */
-            if (subtree.size() > 1)
-            {
-                BMCWEB_LOG_DEBUG(
-                    "DBUS response has more than 1 TPM Enable object:{}",
-                    subtree.size());
-                // Throw an internal Error and return
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            // Make sure the Dbus response map has a service and objectPath
-            // field
-            if (subtree[0].first.empty() || subtree[0].second.size() != 1)
-            {
-                BMCWEB_LOG_DEBUG("TPM.Policy mapper error!");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            const std::string& path = subtree[0].first;
-            const std::string& serv = subtree[0].second.begin()->first;
-
-            if (serv.empty())
-            {
-                BMCWEB_LOG_DEBUG("TPM.Policy service mapper error!");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            // Valid TPM Enable object found, now setting the value
-            setDbusProperty(asyncResp, "Boot/TrustedModuleRequiredToBoot", serv,
-                            path, "xyz.openbmc_project.Control.TPM.Policy",
-                            "TPMEnable", tpmRequired);
-        });
+        std::bind_front(setTrustedModuleRequiredToBootCallback, asyncResp,
+                        computerSystemIndex, tpmRequired));
 }
 
 /**
  * @brief Sets boot properties into DBUS object(s).
  *
  * @param[in] asyncResp       Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] bootType        The boot type to set.
  * @return Integer error code.
  */
 inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                        const uint64_t computerSystemIndex,
                         const std::optional<std::string>& bootType)
 {
     std::string bootTypeStr;
@@ -1603,10 +1596,11 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG("DBUS boot type: {}", bootTypeStr);
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideMode",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Control.Boot.Type", "BootType",
                     bootTypeStr);
 }
@@ -1616,10 +1610,12 @@ inline void setBootType(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  *
  * @param[in] asyncResp           Shared pointer for generating response
  * message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] bootType        The boot type to set.
  * @return Integer error code.
  */
 inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                          const uint64_t computerSystemIndex,
                           const std::optional<std::string>& bootEnable)
 {
     if (!bootEnable)
@@ -1659,10 +1655,11 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     // Act on validated parameters
     BMCWEB_LOG_DEBUG("DBUS boot override enable: {}", bootOverrideEnable);
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideEnabled",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Object.Enable", "Enabled",
                     bootOverrideEnable);
 
@@ -1676,10 +1673,9 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     BMCWEB_LOG_DEBUG("DBUS boot override persistent: {}",
                      bootOverridePersistent);
 
+    path /= "one_time";
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideEnabled",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/boot/one_time"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Object.Enable", "Enabled",
                     !bootOverridePersistent);
 }
@@ -1688,12 +1684,14 @@ inline void setBootEnable(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
  * @brief Sets boot properties into DBUS object(s).
  *
  * @param[in] asyncResp       Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] bootSource      The boot source to set.
  *
  * @return Integer error code.
  */
 inline void setBootModeOrSource(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex,
     const std::optional<std::string>& bootSource)
 {
     std::string bootSourceStr;
@@ -1722,16 +1720,15 @@ inline void setBootModeOrSource(
     BMCWEB_LOG_DEBUG("DBUS boot source: {}", bootSourceStr);
     BMCWEB_LOG_DEBUG("DBUS boot mode: {}", bootModeStr);
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "boot";
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideTarget",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Control.Boot.Source", "BootSource",
                     bootSourceStr);
     setDbusProperty(asyncResp, "Boot/BootSourceOverrideTarget",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/boot"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
                     bootModeStr);
 }
@@ -1740,6 +1737,7 @@ inline void setBootModeOrSource(
  * @brief Sets Boot source override properties.
  *
  * @param[in] asyncResp  Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] bootSource The boot source from incoming RF request.
  * @param[in] bootType   The boot type from incoming RF request.
  * @param[in] bootEnable The boot override enable from incoming RF request.
@@ -1749,15 +1747,16 @@ inline void setBootModeOrSource(
 
 inline void setBootProperties(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex,
     const std::optional<std::string>& bootSource,
     const std::optional<std::string>& bootType,
     const std::optional<std::string>& bootEnable)
 {
     BMCWEB_LOG_DEBUG("Set boot information.");
 
-    setBootModeOrSource(asyncResp, bootSource);
-    setBootType(asyncResp, bootType);
-    setBootEnable(asyncResp, bootEnable);
+    setBootModeOrSource(asyncResp, computerSystemIndex, bootSource);
+    setBootType(asyncResp, computerSystemIndex, bootType);
+    setBootEnable(asyncResp, computerSystemIndex, bootEnable);
 }
 
 /**
@@ -1882,13 +1881,14 @@ inline void setStopBootOnFault(
  * @brief Sets automaticRetry (Auto Reboot)
  *
  * @param[in] asyncResp   Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] automaticRetryConfig  "AutomaticRetryConfig" from request.
  *
  * @return None.
  */
 inline void setAutomaticRetry(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& automaticRetryConfig)
+    const uint64_t computerSystemIndex, const std::string& automaticRetryConfig)
 {
     BMCWEB_LOG_DEBUG("Set Automatic Retry.");
 
@@ -1912,10 +1912,11 @@ inline void setAutomaticRetry(
         return;
     }
 
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "auto_reboot";
     setDbusProperty(asyncResp, "Boot/AutomaticRetryConfig",
-                    "xyz.openbmc_project.Settings",
-                    sdbusplus::message::object_path(
-                        "/xyz/openbmc_project/control/host0/auto_reboot"),
+                    "xyz.openbmc_project.Settings", path,
                     "xyz.openbmc_project.Control.Boot.RebootPolicy",
                     "AutoReboot", autoRebootEnabled);
 }
@@ -1941,13 +1942,14 @@ inline std::string dbusPowerRestorePolicyFromRedfish(std::string_view policy)
  * @brief Sets power restore policy properties.
  *
  * @param[in] asyncResp   Shared pointer for generating response message.
+ * @param[in] computerSystemIndex Index associated with the requested system
  * @param[in] policy  power restore policy properties from request.
  *
  * @return None.
  */
 inline void setPowerRestorePolicy(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    std::string_view policy)
+    const uint64_t computerSystemIndex, std::string_view policy)
 {
     BMCWEB_LOG_DEBUG("Set power restore policy.");
 
@@ -1960,12 +1962,13 @@ inline void setPowerRestorePolicy(
         return;
     }
 
-    setDbusProperty(
-        asyncResp, "PowerRestorePolicy", "xyz.openbmc_project.Settings",
-        sdbusplus::message::object_path(
-            "/xyz/openbmc_project/control/host0/power_restore_policy"),
-        "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
-        powerRestorePolicy);
+    sdbusplus::message::object_path path("/xyz/openbmc_project/control/host" +
+                                         std::to_string(computerSystemIndex));
+    path /= "power_restore_policy";
+    setDbusProperty(asyncResp, "PowerRestorePolicy",
+                    "xyz.openbmc_project.Settings", path,
+                    "xyz.openbmc_project.Control.Power.RestorePolicy",
+                    "PowerRestorePolicy", powerRestorePolicy);
 }
 
 /**
@@ -2585,7 +2588,7 @@ inline bool parseIpsProperties(
 }
 
 /**
- * @brief Retrieves host watchdog timer properties over DBUS
+ * @brief Retrieves idle power saver properties over DBUS
  *
  * @param[in] asyncResp     Shared pointer for completing asynchronous calls.
  *
@@ -2622,9 +2625,9 @@ inline void getIdlePowerSaver(
             {
                 // More then one PowerIdlePowerSaver object is not supported and
                 // is an error
-                BMCWEB_LOG_DEBUG("Found more than 1 system D-Bus "
-                                 "Power.IdlePowerSaver objects: {}",
-                                 subtree.size());
+                BMCWEB_LOG_DEBUG(
+                    "Found more than 1 system D-Bus Power.IdlePowerSaver objects: {}",
+                    subtree.size());
                 messages::internalError(asyncResp->res);
                 return;
             }
@@ -2849,44 +2852,20 @@ inline void doNMI(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
         serviceName, objectPath, interfaceName, method);
 }
 
-inline void handleComputerSystemResetActionPost(
-    crow::App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName)
+/**
+ * @brief process the POST request after getting the computerSystemIndex
+ *
+ * @param[in] asyncResp           Shared pointer for completing asynchronous
+ *                                calls
+ * @param[in] resetType           The requested reset action
+ * @param[in] computerSystemIndex Index associated with the requested system
+ *
+ * @return None
+ */
+inline void processComputerSystemResetActionPost(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string& resetType,
+    const uint64_t computerSystemIndex)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-
-    if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
-    {
-        if (systemName == "hypervisor")
-        {
-            handleHypervisorSystemResetPost(req, asyncResp);
-            return;
-        }
-    }
-
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    std::string resetType;
-    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
-    {
-        return;
-    }
-
     // Get the command and host vs. chassis
     std::string command;
     bool hostCommand = true;
@@ -2931,21 +2910,63 @@ inline void handleComputerSystemResetActionPost(
         messages::actionParameterUnknown(asyncResp->res, "Reset", resetType);
         return;
     }
-    sdbusplus::message::object_path statePath("/xyz/openbmc_project/state");
 
     if (hostCommand)
     {
-        setDbusProperty(asyncResp, "Reset", "xyz.openbmc_project.State.Host",
-                        statePath / "host0", "xyz.openbmc_project.State.Host",
+        setDbusProperty(asyncResp, "Reset",
+                        getHostStateServiceName(computerSystemIndex),
+                        getHostStateObjectPath(computerSystemIndex),
+                        "xyz.openbmc_project.State.Host",
                         "RequestedHostTransition", command);
     }
     else
     {
-        setDbusProperty(asyncResp, "Reset", "xyz.openbmc_project.State.Chassis",
-                        statePath / "chassis0",
+        setDbusProperty(asyncResp, "Reset",
+                        getChassisStateServiceName(computerSystemIndex),
+                        getChassisStateObjectPath(computerSystemIndex),
                         "xyz.openbmc_project.State.Chassis",
                         "RequestedPowerTransition", command);
     }
+}
+
+inline void handleComputerSystemResetActionPost(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
+    {
+        if (systemName == "hypervisor")
+        {
+            handleHypervisorSystemResetPost(req, asyncResp);
+            return;
+        }
+    }
+
+    if (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+    }
+
+    std::string resetType;
+    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
+    {
+        return;
+    }
+
+    getComputerSystemIndex(asyncResp, systemName,
+                           std::bind_front(processComputerSystemResetActionPost,
+                                           asyncResp, resetType));
 }
 
 inline void handleComputerSystemHead(
@@ -3002,78 +3023,63 @@ inline void afterPortRequest(
     }
 }
 
-inline void handleComputerSystemGet(
-    crow::App& app, const crow::Request& req,
+/**
+ * @brief process the GET request after getting the computerSystemIndex
+ *
+ * @param[in] asyncResp           Shared pointer for completing asynchronous
+ *                                calls
+ * @param[in] systemName          Name of the requested system
+ * @param[in] computerSystemIndex Index associated with the requested system
+ *
+ * @return None
+ */
+inline void processComputerSystemGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-    const std::string& systemName)
+    const std::string& systemName, const uint64_t computerSystemIndex)
 {
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-
-    if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
-    {
-        if (systemName == "hypervisor")
-        {
-            handleHypervisorSystemGet(asyncResp);
-            return;
-        }
-    }
-
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
     asyncResp->res.jsonValue["@odata.type"] =
         "#ComputerSystem.v1_22_0.ComputerSystem";
-    asyncResp->res.jsonValue["Name"] = BMCWEB_REDFISH_SYSTEM_URI_NAME;
-    asyncResp->res.jsonValue["Id"] = BMCWEB_REDFISH_SYSTEM_URI_NAME;
+    asyncResp->res.jsonValue["Name"] = systemName;
+    asyncResp->res.jsonValue["Id"] = systemName;
     asyncResp->res.jsonValue["SystemType"] =
         computer_system::SystemType::Physical;
     asyncResp->res.jsonValue["Description"] = "Computer System";
     asyncResp->res.jsonValue["ProcessorSummary"]["Count"] = 0;
     asyncResp->res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] =
         double(0);
-    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}", systemName);
 
-    asyncResp->res.jsonValue["Processors"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Processors", BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    asyncResp->res.jsonValue["Memory"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Memory", BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    asyncResp->res.jsonValue["Storage"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Storage", BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    asyncResp->res.jsonValue["FabricAdapters"]["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/FabricAdapters",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    // Currently not supported on multi-host. TBD
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        asyncResp->res.jsonValue["Bios"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/Bios", systemName);
+        asyncResp->res.jsonValue["Processors"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/Processors",
+                                systemName);
+        asyncResp->res.jsonValue["Memory"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/Memory", systemName);
+        asyncResp->res.jsonValue["Storage"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/Storage", systemName);
+        asyncResp->res.jsonValue["FabricAdapters"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Systems/{}/FabricAdapters",
+                                systemName);
+    }
 
     asyncResp->res.jsonValue["Actions"]["#ComputerSystem.Reset"]["target"] =
         boost::urls::format(
-            "/redfish/v1/Systems/{}/Actions/ComputerSystem.Reset",
-            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+            "/redfish/v1/Systems/{}/Actions/ComputerSystem.Reset", systemName);
     asyncResp->res
         .jsonValue["Actions"]["#ComputerSystem.Reset"]["@Redfish.ActionInfo"] =
         boost::urls::format("/redfish/v1/Systems/{}/ResetActionInfo",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+                            systemName);
 
-    asyncResp->res.jsonValue["LogServices"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/LogServices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
-    asyncResp->res.jsonValue["Bios"]["@odata.id"] = boost::urls::format(
-        "/redfish/v1/Systems/{}/Bios", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/LogServices", systemName);
 
     nlohmann::json::array_t managedBy;
     nlohmann::json& manager = managedBy.emplace_back();
@@ -3104,41 +3110,67 @@ inline void handleComputerSystemGet(
             nlohmann::json::array_t({"KVMIP"});
     }
 
-    getMainChassisId(
-        asyncResp, [](const std::string& chassisId,
-                      const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
-            nlohmann::json::array_t chassisArray;
-            nlohmann::json& chassis = chassisArray.emplace_back();
-            chassis["@odata.id"] =
-                boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
-            aRsp->res.jsonValue["Links"]["Chassis"] = std::move(chassisArray);
-        });
+    if constexpr (BMCWEB_REDFISH_USE_HARDCODED_SYSTEM_LOCATION_INDICATOR)
+    {
+        getSystemLocationIndicatorActive(asyncResp);
+    }
+    else
+    {
+        systems_utils::getValidSystemsPath(
+            asyncResp, systemName,
+            [asyncResp,
+             systemName](const std::optional<std::string>& validSystemsPath) {
+                if (validSystemsPath)
+                {
+                    getLocationIndicatorActive(asyncResp, *validSystemsPath);
+                }
+            });
+    }
 
-    getSystemLocationIndicatorActive(asyncResp);
-    // TODO (Gunnar): Remove IndicatorLED after enough time has passed
-    getIndicatorLedState(asyncResp);
-    getComputerSystem(asyncResp);
-    getHostState(asyncResp);
-    getBootProperties(asyncResp);
-    getBootProgress(asyncResp);
-    getBootProgressLastStateTime(asyncResp);
-    pcie_util::getPCIeDeviceList(asyncResp,
-                                 nlohmann::json::json_pointer("/PCIeDevices"));
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+    {
+        getIndicatorLedState(asyncResp);
+    }
+
+    // Currently not supported on multi-host.
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        getComputerSystem(asyncResp);
+        // Todo: chassis matching could be handled by patch
+        // https://gerrit.openbmc.org/c/openbmc/bmcweb/+/60793
+        getMainChassisId(
+            asyncResp, [](const std::string& chassisId,
+                          const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+                nlohmann::json::array_t chassisArray;
+                nlohmann::json& chassis = chassisArray.emplace_back();
+                chassis["@odata.id"] =
+                    boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
+                aRsp->res.jsonValue["Links"]["Chassis"] =
+                    std::move(chassisArray);
+            });
+
+        pcie_util::getPCIeDeviceList(
+            asyncResp, nlohmann::json::json_pointer("/PCIeDevices"));
+    }
+    getHostState(asyncResp, computerSystemIndex);
+    getBootProperties(asyncResp, computerSystemIndex);
+    getBootProgress(asyncResp, computerSystemIndex);
+    getBootProgressLastStateTime(asyncResp, computerSystemIndex);
     getHostWatchdogTimer(asyncResp);
-    getPowerRestorePolicy(asyncResp);
+    getPowerRestorePolicy(asyncResp, computerSystemIndex);
     getStopBootOnFault(asyncResp);
-    getAutomaticRetryPolicy(asyncResp);
-    getLastResetTime(asyncResp);
+    getAutomaticRetryPolicy(asyncResp, computerSystemIndex);
+    getLastResetTime(asyncResp, computerSystemIndex);
     if constexpr (BMCWEB_REDFISH_PROVISIONING_FEATURE)
     {
         getProvisioningStatus(asyncResp);
     }
-    getTrustedModuleRequiredToBoot(asyncResp);
+    getTrustedModuleRequiredToBoot(asyncResp, computerSystemIndex);
     getPowerMode(asyncResp);
     getIdlePowerSaver(asyncResp);
 }
 
-inline void handleComputerSystemPatch(
+inline void handleComputerSystemGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemName)
@@ -3147,24 +3179,34 @@ inline void handleComputerSystemPatch(
     {
         return;
     }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+
+    if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)
     {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
-    }
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-    {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        if (systemName == "hypervisor")
+        {
+            handleHypervisorSystemGet(asyncResp);
+            return;
+        }
     }
 
-    asyncResp->res.addHeader(
-        boost::beast::http::field::link,
-        "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
+    }
 
+    BMCWEB_LOG_DEBUG("requested system = {}", systemName);
+    getComputerSystemIndex(
+        asyncResp, systemName,
+        std::bind_front(processComputerSystemGet, asyncResp, systemName));
+}
+
+struct PatchParams
+{
     std::optional<bool> locationIndicatorActive;
     std::optional<std::string> indicatorLed;
     std::optional<std::string> assetTag;
@@ -3184,100 +3226,191 @@ inline void handleComputerSystemPatch(
     std::optional<uint64_t> ipsEnterTime;
     std::optional<uint8_t> ipsExitUtil;
     std::optional<uint64_t> ipsExitTime;
+};
 
-    if (!json_util::readJsonPatch(                                         //
-            req, asyncResp->res,                                           //
-            "AssetTag", assetTag,                                          //
-            "Boot/AutomaticRetryAttempts", bootAutomaticRetryAttempts,     //
-            "Boot/AutomaticRetryConfig", bootAutomaticRetry,               //
-            "Boot/BootSourceOverrideEnabled", bootEnable,                  //
-            "Boot/BootSourceOverrideMode", bootType,                       //
-            "Boot/BootSourceOverrideTarget", bootSource,                   //
-            "Boot/StopBootOnFault", stopBootOnFault,                       //
-            "Boot/TrustedModuleRequiredToBoot", bootTrustedModuleRequired, //
-            "HostWatchdogTimer/FunctionEnabled", wdtEnable,                //
-            "HostWatchdogTimer/TimeoutAction", wdtTimeOutAction,           //
-            "IdlePowerSaver/Enabled", ipsEnable,                           //
-            "IdlePowerSaver/EnterDwellTimeSeconds", ipsEnterTime,          //
-            "IdlePowerSaver/EnterUtilizationPercent", ipsEnterUtil,        //
-            "IdlePowerSaver/ExitDwellTimeSeconds", ipsExitTime,            //
-            "IdlePowerSaver/ExitUtilizationPercent", ipsExitUtil,          //
-            "IndicatorLED", indicatorLed,                                  //
-            "LocationIndicatorActive", locationIndicatorActive,            //
-            "PowerMode", powerMode,                                        //
-            "PowerRestorePolicy", powerRestorePolicy                       //
-            ))
+/**
+ * @brief process the POST request after getting the computerSystemIndex
+ *
+ * @param[in] asyncResp           Shared pointer for completing asynchronous
+ *                                calls
+ * @param[in] patchParams         Struct containing the property we want to
+ *                                patch
+ * @param[in] computerSystemIndex Index associated with the requested system
+ *
+ * @return None
+ */
+
+inline void processComputerSystemPatch(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::string& systemName, PatchParams& patchParams,
+    const uint64_t computerSystemIndex)
+{
+    if constexpr (!BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+    {
+        if (patchParams.indicatorLed)
+        {
+            messages::propertyUnknown(asyncResp->res, "IndicatorLED");
+            return;
+        }
+    }
+
+    if (patchParams.assetTag)
+    {
+        setAssetTag(asyncResp, *patchParams.assetTag);
+    }
+
+    if (patchParams.wdtEnable || patchParams.wdtTimeOutAction)
+    {
+        setWDTProperties(asyncResp, patchParams.wdtEnable,
+                         patchParams.wdtTimeOutAction);
+    }
+
+    if (patchParams.bootSource || patchParams.bootType ||
+        patchParams.bootEnable)
+    {
+        setBootProperties(asyncResp, computerSystemIndex,
+                          patchParams.bootSource, patchParams.bootType,
+                          patchParams.bootEnable);
+    }
+    if (patchParams.bootAutomaticRetry)
+    {
+        setAutomaticRetry(asyncResp, computerSystemIndex,
+                          *patchParams.bootAutomaticRetry);
+    }
+
+    if (patchParams.bootAutomaticRetryAttempts)
+    {
+        setAutomaticRetryAttempts(
+            asyncResp, computerSystemIndex,
+            patchParams.bootAutomaticRetryAttempts.value());
+    }
+
+    if (patchParams.bootTrustedModuleRequired)
+    {
+        setTrustedModuleRequiredToBoot(asyncResp, computerSystemIndex,
+                                       *patchParams.bootTrustedModuleRequired);
+    }
+
+    if (patchParams.stopBootOnFault)
+    {
+        setStopBootOnFault(asyncResp, *patchParams.stopBootOnFault);
+    }
+
+    if (patchParams.locationIndicatorActive)
+    {
+        if constexpr (BMCWEB_REDFISH_USE_HARDCODED_SYSTEM_LOCATION_INDICATOR)
+        {
+            setSystemLocationIndicatorActive(
+                asyncResp, *patchParams.locationIndicatorActive);
+        }
+        else
+        {
+            systems_utils::getValidSystemsPath(
+                asyncResp, systemName,
+                [asyncResp, systemName,
+                 locationIndicatorActive{*patchParams.locationIndicatorActive}](
+                    const std::optional<std::string>& validSystemsPath) {
+                    if (!validSystemsPath)
+                    {
+                        messages::resourceNotFound(asyncResp->res, "Systems",
+                                                   systemName);
+                        return;
+                    }
+                    setLocationIndicatorActive(asyncResp, *validSystemsPath,
+                                               locationIndicatorActive);
+                });
+        }
+    }
+
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+    {
+        if (patchParams.indicatorLed)
+        {
+            setIndicatorLedState(asyncResp, *patchParams.indicatorLed);
+            asyncResp->res.addHeader(boost::beast::http::field::warning,
+                                     "299 - \"IndicatorLED is deprecated. Use "
+                                     "LocationIndicatorActive instead.\"");
+        }
+    }
+
+    if (patchParams.powerRestorePolicy)
+    {
+        setPowerRestorePolicy(asyncResp, computerSystemIndex,
+                              *patchParams.powerRestorePolicy);
+    }
+
+    if (patchParams.powerMode)
+    {
+        setPowerMode(asyncResp, *patchParams.powerMode);
+    }
+
+    if (patchParams.ipsEnable || patchParams.ipsEnterUtil ||
+        patchParams.ipsEnterTime || patchParams.ipsExitUtil ||
+        patchParams.ipsExitTime)
+    {
+        setIdlePowerSaver(asyncResp, patchParams.ipsEnable,
+                          patchParams.ipsEnterUtil, patchParams.ipsEnterTime,
+                          patchParams.ipsExitUtil, patchParams.ipsExitTime);
+    }
+}
+
+inline void handleComputerSystemPatch(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    PatchParams patchParams;
+
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
         return;
     }
 
-    asyncResp->res.result(boost::beast::http::status::no_content);
-
-    if (assetTag)
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        setAssetTag(asyncResp, *assetTag);
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
     }
 
-    if (wdtEnable || wdtTimeOutAction)
+    asyncResp->res.addHeader(
+        boost::beast::http::field::link,
+        "</redfish/v1/JsonSchemas/ComputerSystem/ComputerSystem.json>; rel=describedby");
+
+    if (!json_util::readJsonPatch(
+            req, asyncResp->res,                                              //
+            "AssetTag", patchParams.assetTag,                                 //
+            "Boot/AutomaticRetryAttempts",
+            patchParams.bootAutomaticRetryAttempts,                           //
+            "Boot/AutomaticRetryConfig", patchParams.bootAutomaticRetry,      //
+            "Boot/BootSourceOverrideEnabled", patchParams.bootEnable,         //
+            "Boot/BootSourceOverrideMode", patchParams.bootType,              //
+            "Boot/BootSourceOverrideTarget", patchParams.bootSource,          //
+            "Boot/StopBootOnFault", patchParams.stopBootOnFault,              //
+            "Boot/TrustedModuleRequiredToBoot",
+            patchParams.bootTrustedModuleRequired,                            //
+            "HostWatchdogTimer/FunctionEnabled", patchParams.wdtEnable,       //
+            "HostWatchdogTimer/TimeoutAction", patchParams.wdtTimeOutAction,  //
+            "IdlePowerSaver/Enabled", patchParams.ipsEnable,                  //
+            "IdlePowerSaver/EnterDwellTimeSeconds", patchParams.ipsEnterTime, //
+            "IdlePowerSaver/EnterUtilizationPercent",
+            patchParams.ipsEnterUtil,                                         //
+            "IdlePowerSaver/ExitDwellTimeSeconds", patchParams.ipsExitTime,   //
+            "IdlePowerSaver/ExitUtilizationPercent", patchParams.ipsExitUtil, //
+            "IndicatorLED", patchParams.indicatorLed,                         //
+            "LocationIndicatorActive", patchParams.locationIndicatorActive,   //
+            "PowerMode", patchParams.powerMode,                               //
+            "PowerRestorePolicy", patchParams.powerRestorePolicy))
     {
-        setWDTProperties(asyncResp, wdtEnable, wdtTimeOutAction);
+        return;
     }
 
-    if (bootSource || bootType || bootEnable)
-    {
-        setBootProperties(asyncResp, bootSource, bootType, bootEnable);
-    }
-    if (bootAutomaticRetry)
-    {
-        setAutomaticRetry(asyncResp, *bootAutomaticRetry);
-    }
-
-    if (bootAutomaticRetryAttempts)
-    {
-        setAutomaticRetryAttempts(asyncResp,
-                                  bootAutomaticRetryAttempts.value());
-    }
-
-    if (bootTrustedModuleRequired)
-    {
-        setTrustedModuleRequiredToBoot(asyncResp, *bootTrustedModuleRequired);
-    }
-
-    if (stopBootOnFault)
-    {
-        setStopBootOnFault(asyncResp, *stopBootOnFault);
-    }
-
-    if (locationIndicatorActive)
-    {
-        setSystemLocationIndicatorActive(asyncResp, *locationIndicatorActive);
-    }
-
-    // TODO (Gunnar): Remove IndicatorLED after enough time has
-    // passed
-    if (indicatorLed)
-    {
-        setIndicatorLedState(asyncResp, *indicatorLed);
-        asyncResp->res.addHeader(boost::beast::http::field::warning,
-                                 "299 - \"IndicatorLED is deprecated. Use "
-                                 "LocationIndicatorActive instead.\"");
-    }
-
-    if (powerRestorePolicy)
-    {
-        setPowerRestorePolicy(asyncResp, *powerRestorePolicy);
-    }
-
-    if (powerMode)
-    {
-        setPowerMode(asyncResp, *powerMode);
-    }
-
-    if (ipsEnable || ipsEnterUtil || ipsEnterTime || ipsExitUtil || ipsExitTime)
-    {
-        setIdlePowerSaver(asyncResp, ipsEnable, ipsEnterUtil, ipsEnterTime,
-                          ipsExitUtil, ipsExitTime);
-    }
+    getComputerSystemIndex(asyncResp, systemName,
+                           std::bind_front(processComputerSystemPatch,
+                                           asyncResp, systemName, patchParams));
 }
 
 inline void handleSystemCollectionResetActionHead(
@@ -3386,6 +3519,18 @@ inline void afterGetAllowedHostTransitions(
     asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
 }
 
+inline void getAllowedHostTransitions(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex)
+{
+    sdbusplus::message::object_path path =
+        getHostStateObjectPath(computerSystemIndex);
+    dbus::utility::getProperty<std::vector<std::string>>(
+        getHostStateServiceName(computerSystemIndex), path,
+        "xyz.openbmc_project.State.Host", "AllowedHostTransitions",
+        std::bind_front(afterGetAllowedHostTransitions, asyncResp));
+}
+
 inline void handleSystemCollectionResetActionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -3393,13 +3538,6 @@ inline void handleSystemCollectionResetActionGet(
 {
     if (!redfish::setUpRedfishRoute(app, req, asyncResp))
     {
-        return;
-    }
-    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-    {
-        // Option currently returns no systems.  TBD
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
         return;
     }
 
@@ -3412,34 +3550,32 @@ inline void handleSystemCollectionResetActionGet(
         }
     }
 
-    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                   systemName);
-        return;
+        if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+        {
+            messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                       systemName);
+            return;
+        }
     }
 
     asyncResp->res.addHeader(
         boost::beast::http::field::link,
         "</redfish/v1/JsonSchemas/ActionInfo/ActionInfo.json>; rel=describedby");
 
-    asyncResp->res.jsonValue["@odata.id"] =
-        boost::urls::format("/redfish/v1/Systems/{}/ResetActionInfo",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Systems/{}/ResetActionInfo", systemName);
     asyncResp->res.jsonValue["@odata.type"] = "#ActionInfo.v1_1_2.ActionInfo";
     asyncResp->res.jsonValue["Name"] = "Reset Action Info";
     asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
 
     // Look to see if system defines AllowedHostTransitions
-    dbus::utility::getProperty<std::vector<std::string>>(
-        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
-        "xyz.openbmc_project.State.Host", "AllowedHostTransitions",
-        [asyncResp](const boost::system::error_code& ec,
-                    const std::vector<std::string>& allowedHostTransitions) {
-            afterGetAllowedHostTransitions(asyncResp, ec,
-                                           allowedHostTransitions);
-        });
+    getComputerSystemIndex(
+        asyncResp, systemName,
+        std::bind_front(getAllowedHostTransitions, asyncResp));
 }
+
 /**
  * SystemResetActionInfo derived class for delivering Computer Systems
  * ResetType AllowableValues using ResetInfo schema.

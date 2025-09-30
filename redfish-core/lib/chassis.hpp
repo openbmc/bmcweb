@@ -18,6 +18,7 @@
 #include "logging.hpp"
 #include "query.hpp"
 #include "registries/privilege_registry.hpp"
+#include "utils/asset_utils.hpp"
 #include "utils/chassis_utils.hpp"
 #include "utils/collection.hpp"
 #include "utils/dbus_utils.hpp"
@@ -418,49 +419,8 @@ inline void handleDecoratorAssetProperties(
     const std::string& chassisId, const std::string& path,
     const dbus::utility::DBusPropertiesMap& propertiesList)
 {
-    const std::string* partNumber = nullptr;
-    const std::string* serialNumber = nullptr;
-    const std::string* manufacturer = nullptr;
-    const std::string* model = nullptr;
-    const std::string* sparePartNumber = nullptr;
-
-    const bool success = sdbusplus::unpackPropertiesNoThrow(
-        dbus_utils::UnpackErrorPrinter(), propertiesList, "PartNumber",
-        partNumber, "SerialNumber", serialNumber, "Manufacturer", manufacturer,
-        "Model", model, "SparePartNumber", sparePartNumber);
-
-    if (!success)
-    {
-        messages::internalError(asyncResp->res);
-        return;
-    }
-
-    if (partNumber != nullptr)
-    {
-        asyncResp->res.jsonValue["PartNumber"] = *partNumber;
-    }
-
-    if (serialNumber != nullptr)
-    {
-        asyncResp->res.jsonValue["SerialNumber"] = *serialNumber;
-    }
-
-    if (manufacturer != nullptr)
-    {
-        asyncResp->res.jsonValue["Manufacturer"] = *manufacturer;
-    }
-
-    if (model != nullptr)
-    {
-        asyncResp->res.jsonValue["Model"] = *model;
-    }
-
-    // SparePartNumber is optional on D-Bus
-    // so skip if it is empty
-    if (sparePartNumber != nullptr && !sparePartNumber->empty())
-    {
-        asyncResp->res.jsonValue["SparePartNumber"] = *sparePartNumber;
-    }
+    asset_utils::extractAssetInfo(asyncResp, ""_json_pointer, propertiesList,
+                                  true);
 
     asyncResp->res.jsonValue["Name"] = chassisId;
     asyncResp->res.jsonValue["Id"] = chassisId;
@@ -671,7 +631,10 @@ inline void handleChassisGetSubTree(
         {
             if (std::ranges::find(interfaces2, interface) != interfaces2.end())
             {
-                getIndicatorLedState(asyncResp);
+                if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+                {
+                    getIndicatorLedState(asyncResp);
+                }
                 getLocationIndicatorActive(asyncResp, objPath);
                 break;
             }
@@ -764,16 +727,23 @@ inline void handleChassisPatch(
         return;
     }
 
-    // TODO (Gunnar): Remove IndicatorLED after enough time has passed
     if (!locationIndicatorActive && !indicatorLed)
     {
         return; // delete this when we support more patch properties
     }
     if (indicatorLed)
     {
-        asyncResp->res.addHeader(
-            boost::beast::http::field::warning,
-            "299 - \"IndicatorLED is deprecated. Use LocationIndicatorActive instead.\"");
+        if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+        {
+            asyncResp->res.addHeader(
+                boost::beast::http::field::warning,
+                "299 - \"IndicatorLED is deprecated. Use LocationIndicatorActive instead.\"");
+        }
+        else
+        {
+            messages::propertyUnknown(asyncResp->res, "IndicatorLED");
+            return;
+        }
     }
 
     const std::string& chassisId = param;
@@ -843,16 +813,19 @@ inline void handleChassisPatch(
                                                   "LocationIndicatorActive");
                     }
                 }
-                if (indicatorLed)
+                if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
                 {
-                    if (indicatorChassis)
+                    if (indicatorLed)
                     {
-                        setIndicatorLedState(asyncResp, *indicatorLed);
-                    }
-                    else
-                    {
-                        messages::propertyUnknown(asyncResp->res,
-                                                  "IndicatorLED");
+                        if (indicatorChassis)
+                        {
+                            setIndicatorLedState(asyncResp, *indicatorLed);
+                        }
+                        else
+                        {
+                            messages::propertyUnknown(asyncResp->res,
+                                                      "IndicatorLED");
+                        }
                     }
                 }
                 return;

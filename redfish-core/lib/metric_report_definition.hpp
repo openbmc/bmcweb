@@ -1392,28 +1392,6 @@ inline void handleReportPatch(
     }
 }
 
-inline void handleReportDelete(
-    App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, std::string_view id)
-{
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-
-    const std::string reportPath = getDbusReportPath(id);
-
-    dbus::utility::async_method_call(
-        asyncResp,
-        [asyncResp,
-         reportId = std::string(id)](const boost::system::error_code& ec) {
-            if (!formatMessageOnError(asyncResp->res, reportId, ec))
-            {
-                asyncResp->res.result(boost::beast::http::status::no_content);
-            }
-        },
-        service, reportPath, "xyz.openbmc_project.Object.Delete", "Delete");
-}
 } // namespace telemetry
 
 inline void afterRetrieveUriToDbusMap(

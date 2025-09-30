@@ -42,6 +42,7 @@ srcfiles_unittest = files(
     'redfish-core/include/utils/query_param_test.cpp',
     'redfish-core/include/utils/sensor_utils_test.cpp',
     'redfish-core/include/utils/stl_utils_test.cpp',
+    'redfish-core/include/utils/systems_utils_test.cpp',
     'redfish-core/include/utils/time_utils_test.cpp',
     'redfish-core/lib/chassis_test.cpp',
     'redfish-core/lib/ethernet_test.cpp',

@@ -7,7 +7,6 @@
 
 #include "app.hpp"
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "generated/enums/processor.hpp"
@@ -410,6 +409,11 @@ inline void getCpuAssetData(std::shared_ptr<bmcweb::AsyncResp> asyncResp,
                 {
                     asyncResp->res.jsonValue["ProcessorArchitecture"] = "Power";
                     asyncResp->res.jsonValue["InstructionSet"] = "PowerISA";
+                }
+                else if (manufacturer->find("Ampere") != std::string::npos)
+                {
+                    asyncResp->res.jsonValue["ProcessorArchitecture"] = "ARM";
+                    asyncResp->res.jsonValue["InstructionSet"] = "ARM-A64";
                 }
             }
 

@@ -13,7 +13,6 @@
 #include "ssl_key_handler.hpp"
 
 #include <openssl/err.h>
-#include <openssl/ssl.h>
 #include <openssl/tls1.h>
 
 #include <boost/asio/connect.hpp>

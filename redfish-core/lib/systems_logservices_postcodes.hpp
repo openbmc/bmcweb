@@ -17,6 +17,7 @@
 #include "registries/privilege_registry.hpp"
 #include "str_utility.hpp"
 #include "utility.hpp"
+#include "utils/etag_utils.hpp"
 #include "utils/hex_utils.hpp"
 #include "utils/query_param.hpp"
 #include "utils/time_utils.hpp"
@@ -95,6 +96,8 @@ inline void handleSystemsLogServicesPostCodesGet(
         .jsonValue["Actions"]["#LogService.ClearLog"]["target"] = std::format(
         "/redfish/v1/Systems/{}/LogServices/PostCodes/Actions/LogService.ClearLog",
         BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+    etag_utils::setEtagOmitDateTimeHandler(asyncResp);
 }
 
 inline void handleSystemsLogServicesPostCodesPost(

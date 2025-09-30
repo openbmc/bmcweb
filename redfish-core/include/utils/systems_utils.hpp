@@ -5,15 +5,12 @@
 #include "bmcweb_config.h"
 
 #include "async_resp.hpp"
-#include "dbus_singleton.hpp"
 #include "dbus_utility.hpp"
 #include "error_messages.hpp"
 #include "human_sort.hpp"
 #include "logging.hpp"
-#include "utility.hpp"
 
 #include <boost/url/format.hpp>
-#include <boost/url/url.hpp>
 #include <sdbusplus/message/native_types.hpp>
 
 #include <algorithm>
@@ -257,5 +254,116 @@ inline std::string getChassisStateServiceName(
     }
 
     return chassisStateService;
+}
+
+namespace systems_utils
+{
+
+inline void afterGetValidSystemsPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemId,
+    const std::function<void(const std::optional<std::string>&)>& callback,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreePathsResponse& systemsPaths)
+{
+    if (ec)
+    {
+        if (ec == boost::system::errc::io_error)
+        {
+            BMCWEB_LOG_DEBUG("No systems found");
+            callback(std::nullopt);
+            return;
+        }
+        BMCWEB_LOG_ERROR("DBUS response error: {}", ec.value());
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (const std::string& system : systemsPaths)
+    {
+        sdbusplus::message::object_path path(system);
+        if (path.filename() == systemId)
+        {
+            callback(path);
+            return;
+        }
+    }
+    BMCWEB_LOG_DEBUG("No system named {} found", systemId);
+    callback(std::nullopt);
+}
+
+inline void getValidSystemsPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemId,
+    std::function<void(const std::optional<std::string>&)>&& callback)
+{
+    BMCWEB_LOG_DEBUG("Get path for {}", systemId);
+
+    constexpr std::array<std::string_view, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Decorator.ManagedHost",
+        "xyz.openbmc_project.Inventory.Item.System"};
+    dbus::utility::getSubTreePaths(
+        "/xyz/openbmc_project/inventory", 0, interfaces,
+        [asyncResp, systemId, callback{std::move(callback)}](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& systemsPaths) {
+            afterGetValidSystemsPath(asyncResp, systemId, callback, ec,
+                                     systemsPaths);
+        });
+}
+
+} // namespace systems_utils
+
+/**
+ * @brief Match computerSystemIndex with index contained by an object path
+ *        i.e 1 in /xyz/openbmc/project/control/host1/policy/TPMEnable
+ *
+ * @param[i] asyncResp           Shared pointer for generating response
+ * @param[i] computerSystemIndex The index to match against
+ * @param[i] subtree             Mapper response object
+ * @param[o] objectPath          Buffer for matched object path
+ * @param[o] service             Buffer for service of matched object
+ *                               path
+ *
+ * @return true if match found, else false
+ */
+inline bool indexMatchingSubTreeMapObjectPath(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const uint64_t computerSystemIndex,
+    const dbus::utility::MapperGetSubTreeResponse& subtree,
+    std::string& objectPath, std::string& service)
+{
+    const std::string host = std::format("host{}", computerSystemIndex);
+
+    for (const auto& obj : subtree)
+    {
+        std::string tmp = host;
+        const sdbusplus::message::object_path path{obj.first};
+        const std::string serv = obj.second.begin()->first;
+
+        if (path.str.empty() || obj.second.size() != 1)
+        {
+            BMCWEB_LOG_DEBUG("Error finding index in object path");
+            messages::internalError(asyncResp->res);
+            return false;
+        }
+
+        objectPath = path;
+        service = serv;
+
+        if (path.filename() == host)
+        {
+            return true;
+        }
+
+        tmp.insert(0, 1, '/');
+        tmp.append("/");
+        if (path.str.find(host) != std::string::npos)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 } // namespace redfish

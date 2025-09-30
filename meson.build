@@ -66,8 +66,6 @@ incdir = [
     ),
 ]
 
-incdir_cli = include_directories('http', 'include')
-
 # Add compiler arguments
 boost_flags = ['-Wno-unused-parameter']
 nghttp2_flags = []
@@ -81,7 +79,6 @@ if (cxx.get_id() == 'clang')
         # https://github.com/llvm/llvm-project/issues/101614
         '-fno-builtin-std-forward_like',
         '-Wno-c++20-extensions',
-        '-Wno-c++23-extensions',
         '-Wno-c++26-extensions',
         '-Wno-c++98-compat',
         '-Wno-c++98-compat-pedantic',
@@ -175,10 +172,9 @@ security_flags = [
 ]
 
 ## Add security flags for builds of type 'release','debugoptimized' and 'minsize'
-
-if not (get_option('buildtype') == 'plain'
-or get_option('buildtype').startswith('debug')
-)
+plain = get_option('buildtype') == 'plain'
+debug = get_option('buildtype').startswith('debug')
+if not (plain or debug)
     add_project_arguments(
         cxx.get_supported_arguments([security_flags]),
         language: 'cpp',
@@ -212,7 +208,6 @@ add_project_arguments(
 # Find the dependency modules, if not found use meson wrap to get them
 # automatically during the configure step
 bmcweb_dependencies = []
-bmcweb_cli_dependencies = []
 
 pam = cxx.find_library('pam', required: true)
 atomic = cxx.find_library('atomic', required: true)
@@ -252,14 +247,8 @@ if not nghttp2.found()
 endif
 bmcweb_dependencies += nghttp2
 
-sdbusplus = dependency('sdbusplus', required: false, include_type: 'system')
-if not sdbusplus.found()
-    sdbusplus_proj = subproject('sdbusplus', required: true)
-    sdbusplus = sdbusplus_proj.get_variable('sdbusplus_dep')
-    sdbusplus = sdbusplus.as_system('system')
-endif
+sdbusplus = dependency('sdbusplus')
 bmcweb_dependencies += sdbusplus
-bmcweb_cli_dependencies += sdbusplus
 
 cli11 = dependency('CLI11', required: false, include_type: 'system')
 if not cli11.found()
@@ -267,8 +256,7 @@ if not cli11.found()
     cli11 = cli11_proj.get_variable('CLI11_dep')
     cli11 = cli11.as_system('system')
 endif
-bmcweb_cli_dependencies += cli11
-
+bmcweb_dependencies += cli11
 
 tinyxml = dependency(
     'tinyxml2',
@@ -323,7 +311,6 @@ endif
 
 if boost.found()
     bmcweb_dependencies += [boost]
-    bmcweb_cli_dependencies += [boost]
 else
     cmake = import('cmake')
     opt = cmake.subproject_options()
@@ -352,14 +339,12 @@ else
     foreach boost_lib : boost_libs
         boost_lib_instance = boost.dependency('boost_' + boost_lib).as_system()
         bmcweb_dependencies += [boost_lib_instance]
-        bmcweb_cli_dependencies += [boost_lib_instance]
     endforeach
 endif
 
 systemd_system_unit_dir = systemd.get_variable('systemd_system_unit_dir')
 
 bindir = get_option('prefix') + '/' + get_option('bindir')
-libexec = get_option('prefix') + '/' + get_option('libexecdir')
 
 summary(
     {
@@ -376,7 +361,6 @@ subdir('redfish-core')
 # Config subdirectory
 subdir('config')
 bmcweb_dependencies += conf_h_dep
-bmcweb_cli_dependencies += conf_h_dep
 
 test_sources = []
 subdir('features')
@@ -402,6 +386,7 @@ srcfiles_bmcweb = files(
     'redfish-core/src/resource_messages.cpp',
     'redfish-core/src/subscription.cpp',
     'redfish-core/src/task_messages.cpp',
+    'redfish-core/src/update_messages.cpp',
     'redfish-core/src/utils/dbus_utils.cpp',
     'redfish-core/src/utils/json_utils.cpp',
     'redfish-core/src/utils/time_utils.cpp',
@@ -413,6 +398,7 @@ srcfiles_bmcweb = files(
     'src/json_html_serializer.cpp',
     'src/ossl_random.cpp',
     'src/ssl_key_handler.cpp',
+    'src/webserver_cli.cpp',
     'src/webserver_run.cpp',
 )
 
@@ -423,24 +409,14 @@ bmcweblib = static_library(
     dependencies: bmcweb_dependencies,
 )
 
-# Generate the bmcwebd daemon
+# Generate the bmcweb daemon
 executable(
-    'bmcwebd',
+    'bmcweb',
     'src/webserver_main.cpp',
     include_directories: incdir,
     dependencies: bmcweb_dependencies,
     link_with: bmcweblib,
     link_args: '-Wl,--gc-sections',
-    install: true,
-    install_dir: libexec,
-)
-
-# Generate the bmcweb CLI application
-executable(
-    'bmcweb',
-    ['src/webserver_cli.cpp', 'src/boost_asio.cpp'],
-    include_directories: incdir_cli,
-    dependencies: bmcweb_cli_dependencies,
     install: true,
     install_dir: bindir,
 )

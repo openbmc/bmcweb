@@ -22,6 +22,7 @@
 #include "redfish_util.hpp"
 #include "registries/privilege_registry.hpp"
 #include "utils/dbus_utils.hpp"
+#include "utils/etag_utils.hpp"
 #include "utils/json_utils.hpp"
 #include "utils/manager_utils.hpp"
 #include "utils/sw_utils.hpp"
@@ -53,7 +54,6 @@
 #include <string>
 #include <string_view>
 #include <utility>
-#include <vector>
 
 namespace redfish
 {
@@ -193,195 +193,161 @@ inline void doBMCForceRestart(
 }
 
 /**
- * ManagerResetAction class supports the POST method for the Reset (reboot)
- * action.
+ * ManagerResetAction handles POST method request.
+ * Analyzes POST body before sending Reset (Reboot) request data to D-Bus.
+ * OpenBMC supports ResetType "GracefulRestart" and "ForceRestart".
  */
-inline void requestRoutesManagerResetAction(App& app)
+
+inline void handleManagerResetAction(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
 {
-    /**
-     * Function handles POST method request.
-     * Analyzes POST body before sending Reset (Reboot) request data to D-Bus.
-     * OpenBMC supports ResetType "GracefulRestart" and "ForceRestart".
-     */
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/Actions/Manager.Reset/")
-        .privileges(redfish::privileges::postManager)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-                if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Manager",
-                                               managerId);
-                    return;
-                }
+    BMCWEB_LOG_DEBUG("Post Manager Reset.");
 
-                BMCWEB_LOG_DEBUG("Post Manager Reset.");
+    std::string resetType;
 
-                std::string resetType;
+    if (!json_util::readJsonAction(req, asyncResp->res, "ResetType", resetType))
+    {
+        return;
+    }
 
-                if (!json_util::readJsonAction(req, asyncResp->res, "ResetType",
-                                               resetType))
-                {
-                    return;
-                }
-
-                if (resetType == "GracefulRestart")
-                {
-                    BMCWEB_LOG_DEBUG("Proceeding with {}", resetType);
-                    doBMCGracefulRestart(asyncResp);
-                    return;
-                }
-                if (resetType == "ForceRestart")
-                {
-                    BMCWEB_LOG_DEBUG("Proceeding with {}", resetType);
-                    doBMCForceRestart(asyncResp);
-                    return;
-                }
-                BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
-                                 resetType);
-                messages::actionParameterNotSupported(asyncResp->res, resetType,
-                                                      "ResetType");
-
-                return;
-            });
+    if (resetType == "GracefulRestart")
+    {
+        BMCWEB_LOG_DEBUG("Proceeding with {}", resetType);
+        doBMCGracefulRestart(asyncResp);
+        return;
+    }
+    if (resetType == "ForceRestart")
+    {
+        BMCWEB_LOG_DEBUG("Proceeding with {}", resetType);
+        doBMCForceRestart(asyncResp);
+        return;
+    }
+    BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}", resetType);
+    messages::actionParameterNotSupported(asyncResp->res, resetType,
+                                          "ResetType");
 }
 
 /**
- * ManagerResetToDefaultsAction class supports POST method for factory reset
- * action.
+ * Function handles ResetToDefaults POST method request.
+ *
+ * Analyzes POST body message and factory resets BMC by calling
+ * BMC code updater factory reset followed by a BMC reboot.
+ *
+ * BMC code updater factory reset wipes the whole BMC read-write
+ * filesystem which includes things like the network settings.
+ *
+ * OpenBMC only supports ResetType "ResetAll".
  */
-inline void requestRoutesManagerResetToDefaultsAction(App& app)
+
+inline void handleManagerResetToDefaultsAction(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
 {
-    /**
-     * Function handles ResetToDefaults POST method request.
-     *
-     * Analyzes POST body message and factory resets BMC by calling
-     * BMC code updater factory reset followed by a BMC reboot.
-     *
-     * BMC code updater factory reset wipes the whole BMC read-write
-     * filesystem which includes things like the network settings.
-     *
-     * OpenBMC only supports ResetType "ResetAll".
-     */
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
 
-    BMCWEB_ROUTE(app,
-                 "/redfish/v1/Managers/<str>/Actions/Manager.ResetToDefaults/")
-        .privileges(redfish::privileges::postManager)
-        .methods(boost::beast::http::verb::post)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
 
-                if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Manager",
-                                               managerId);
-                    return;
-                }
+    BMCWEB_LOG_DEBUG("Post ResetToDefaults.");
 
-                BMCWEB_LOG_DEBUG("Post ResetToDefaults.");
+    std::optional<std::string> resetType;
 
-                std::optional<std::string> resetType;
+    if (!json_util::readJsonAction( //
+            req, asyncResp->res,    //
+            "ResetType", resetType  //
+            ))
+    {
+        BMCWEB_LOG_DEBUG("Missing property ResetType.");
 
-                if (!json_util::readJsonAction( //
-                        req, asyncResp->res,    //
-                        "ResetType", resetType  //
-                        ))
-                {
-                    BMCWEB_LOG_DEBUG("Missing property ResetType.");
+        messages::actionParameterMissing(asyncResp->res, "ResetToDefaults",
+                                         "ResetType");
+        return;
+    }
 
-                    messages::actionParameterMissing(
-                        asyncResp->res, "ResetToDefaults", "ResetType");
-                    return;
-                }
+    if (resetType.value_or("") != "ResetAll")
+    {
+        BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
+                         resetType.value_or(""));
+        messages::actionParameterNotSupported(
+            asyncResp->res, resetType.value_or(""), "ResetType");
+        return;
+    }
 
-                if (resetType != "ResetAll")
-                {
-                    BMCWEB_LOG_DEBUG("Invalid property value for ResetType: {}",
-                                     *resetType);
-                    messages::actionParameterNotSupported(
-                        asyncResp->res, *resetType, "ResetType");
-                    return;
-                }
-
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code& ec) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_DEBUG("Failed to ResetToDefaults: {}",
-                                             ec);
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        // Factory Reset doesn't actually happen until a reboot
-                        // Can't erase what the BMC is running on
-                        doBMCGracefulRestart(asyncResp);
-                    },
-                    getBMCUpdateServiceName(), getBMCUpdateServicePath(),
-                    "xyz.openbmc_project.Common.FactoryReset", "Reset");
-            });
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code& ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG("Failed to ResetToDefaults: {}", ec);
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            // Factory Reset doesn't actually happen until a reboot
+            // Can't erase what the BMC is running on
+            doBMCGracefulRestart(asyncResp);
+        },
+        getBMCUpdateServiceName(), getBMCUpdateServicePath(),
+        "xyz.openbmc_project.Common.FactoryReset", "Reset");
 }
 
 /**
  * ManagerResetActionInfo derived class for delivering Manager
  * ResetType AllowableValues using ResetInfo schema.
  */
-inline void requestRoutesManagerResetActionInfo(App& app)
+inline void handleManagerResetActionInfo(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
 {
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
 
-    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/ResetActionInfo/")
-        .privileges(redfish::privileges::getActionInfo)
-        .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
 
-                if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Manager",
-                                               managerId);
-                    return;
-                }
+    asyncResp->res.jsonValue["@odata.type"] = "#ActionInfo.v1_1_2.ActionInfo";
+    asyncResp->res.jsonValue["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/ResetActionInfo",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+    asyncResp->res.jsonValue["Name"] = "Reset Action Info";
+    asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
+    nlohmann::json::object_t parameter;
+    parameter["Name"] = "ResetType";
+    parameter["Required"] = true;
+    parameter["DataType"] = action_info::ParameterTypes::String;
 
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#ActionInfo.v1_1_2.ActionInfo";
-                asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-                    "/redfish/v1/Managers/{}/ResetActionInfo",
-                    BMCWEB_REDFISH_MANAGER_URI_NAME);
-                asyncResp->res.jsonValue["Name"] = "Reset Action Info";
-                asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
-                nlohmann::json::object_t parameter;
-                parameter["Name"] = "ResetType";
-                parameter["Required"] = true;
-                parameter["DataType"] = action_info::ParameterTypes::String;
+    nlohmann::json::array_t allowableValues;
+    allowableValues.emplace_back("GracefulRestart");
+    allowableValues.emplace_back("ForceRestart");
+    parameter["AllowableValues"] = std::move(allowableValues);
 
-                nlohmann::json::array_t allowableValues;
-                allowableValues.emplace_back("GracefulRestart");
-                allowableValues.emplace_back("ForceRestart");
-                parameter["AllowableValues"] = std::move(allowableValues);
+    nlohmann::json::array_t parameters;
+    parameters.emplace_back(std::move(parameter));
 
-                nlohmann::json::array_t parameters;
-                parameters.emplace_back(std::move(parameter));
-
-                asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
-            });
+    asyncResp->res.jsonValue["Parameters"] = std::move(parameters);
 }
 
 /**
@@ -770,274 +736,290 @@ inline void getManagerObject(
         });
 }
 
-inline void requestRoutesManager(App& app)
+inline void handleManagerGet(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
 {
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+
     std::string uuid = persistent_data::getConfig().systemUuid;
 
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
+    asyncResp->res.jsonValue["@odata.type"] = "#Manager.v1_15_0.Manager";
+    asyncResp->res.jsonValue["Id"] = BMCWEB_REDFISH_MANAGER_URI_NAME;
+    asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
+    asyncResp->res.jsonValue["Description"] = "Baseboard Management Controller";
+    asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
+
+    asyncResp->res.jsonValue["ManagerType"] = manager::ManagerType::BMC;
+    asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
+    asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
+    asyncResp->res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
+
+    asyncResp->res.jsonValue["LogServices"]["@odata.id"] = boost::urls::format(
+        "/redfish/v1/Managers/{}/LogServices", BMCWEB_REDFISH_MANAGER_URI_NAME);
+    asyncResp->res.jsonValue["NetworkProtocol"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/NetworkProtocol",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+    asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/EthernetInterfaces",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+    manager_utils::getServiceIdentification(asyncResp, false);
+
+    if constexpr (BMCWEB_VM_NBDPROXY)
+    {
+        asyncResp->res.jsonValue["VirtualMedia"]["@odata.id"] =
+            boost::urls::format("/redfish/v1/Managers/{}/VirtualMedia",
+                                BMCWEB_REDFISH_MANAGER_URI_NAME);
+    }
+
+    // Manager.Reset (an action) can be many values, OpenBMC only
+    // supports BMC reboot.
+    nlohmann::json& managerReset =
+        asyncResp->res.jsonValue["Actions"]["#Manager.Reset"];
+    managerReset["target"] =
+        boost::urls::format("/redfish/v1/Managers/{}/Actions/Manager.Reset",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+    managerReset["@Redfish.ActionInfo"] =
+        boost::urls::format("/redfish/v1/Managers/{}/ResetActionInfo",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+    // ResetToDefaults (Factory Reset) has values like
+    // PreserveNetworkAndUsers and PreserveNetwork that aren't supported
+    // on OpenBMC
+    nlohmann::json& resetToDefaults =
+        asyncResp->res.jsonValue["Actions"]["#Manager.ResetToDefaults"];
+    resetToDefaults["target"] = boost::urls::format(
+        "/redfish/v1/Managers/{}/Actions/Manager.ResetToDefaults",
+        BMCWEB_REDFISH_MANAGER_URI_NAME);
+    resetToDefaults["ResetType@Redfish.AllowableValues"] =
+        nlohmann::json::array_t({"ResetAll"});
+
+    std::pair<std::string, std::string> redfishDateTimeOffset =
+        redfish::time_utils::getDateTimeOffsetNow();
+
+    asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
+    asyncResp->res.jsonValue["DateTimeLocalOffset"] =
+        redfishDateTimeOffset.second;
+
+    if constexpr (BMCWEB_KVM)
+    {
+        // Fill in GraphicalConsole info
+        asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
+        asyncResp->res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] =
+            4;
+        asyncResp->res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
+            nlohmann::json::array_t({"KVMIP"});
+    }
+    if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        asyncResp->res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
+
+        nlohmann::json::array_t managerForServers;
+        nlohmann::json::object_t manager;
+        manager["@odata.id"] = std::format("/redfish/v1/Systems/{}",
+                                           BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        managerForServers.emplace_back(std::move(manager));
+
+        asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
+            std::move(managerForServers);
+    }
+
+    sw_util::populateSoftwareInformation(asyncResp, sw_util::bmcPurpose,
+                                         "FirmwareVersion", true);
+
+    managerGetLastResetTime(asyncResp);
+
+    // ManagerDiagnosticData is added for all BMCs.
+    nlohmann::json& managerDiagnosticData =
+        asyncResp->res.jsonValue["ManagerDiagnosticData"];
+    managerDiagnosticData["@odata.id"] =
+        boost::urls::format("/redfish/v1/Managers/{}/ManagerDiagnosticData",
+                            BMCWEB_REDFISH_MANAGER_URI_NAME);
+
+    getMainChassisId(
+        asyncResp, [](const std::string& chassisId,
+                      const std::shared_ptr<bmcweb::AsyncResp>& aRsp) {
+            aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
+            nlohmann::json::array_t managerForChassis;
+            nlohmann::json::object_t managerObj;
+            boost::urls::url chassiUrl =
+                boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
+            managerObj["@odata.id"] = chassiUrl;
+            managerForChassis.emplace_back(std::move(managerObj));
+            aRsp->res.jsonValue["Links"]["ManagerForChassis"] =
+                std::move(managerForChassis);
+            aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
+                chassiUrl;
+        });
+
+    dbus::utility::getProperty<double>(
+        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+        "org.freedesktop.systemd1.Manager", "Progress",
+        [asyncResp](const boost::system::error_code& ec, double val) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("Error while getting progress");
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (val < 1.0)
+            {
+                asyncResp->res.jsonValue["Status"]["Health"] =
+                    resource::Health::OK;
+                asyncResp->res.jsonValue["Status"]["State"] =
+                    resource::State::Starting;
+                return;
+            }
+            checkForQuiesced(asyncResp);
+        });
+
+    getManagerObject(asyncResp, managerId,
+                     std::bind_front(getManagerData, asyncResp));
+    etag_utils::setEtagOmitDateTimeHandler(asyncResp);
+
+    RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
+}
+
+inline void handleManagerPatch(
+    App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& managerId)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+
+    if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "Manager", managerId);
+        return;
+    }
+
+    std::optional<std::string> activeSoftwareImageOdataId;
+    std::optional<std::string> datetime;
+    std::optional<bool> locationIndicatorActive;
+    std::optional<nlohmann::json::object_t> pidControllers;
+    std::optional<nlohmann::json::object_t> fanControllers;
+    std::optional<nlohmann::json::object_t> fanZones;
+    std::optional<nlohmann::json::object_t> stepwiseControllers;
+    std::optional<std::string> profile;
+    std::optional<std::string> serviceIdentification;
+
+    if (!json_util::readJsonPatch(                            //
+            req, asyncResp->res,                              //
+            "DateTime", datetime,                             //
+            "Links/ActiveSoftwareImage/@odata.id",
+            activeSoftwareImageOdataId,                       //
+            "LocationIndicatorActive",
+            locationIndicatorActive,                          //
+            "Oem/OpenBmc/Fan/FanControllers", fanControllers, //
+            "Oem/OpenBmc/Fan/FanZones", fanZones,             //
+            "Oem/OpenBmc/Fan/PidControllers", pidControllers, //
+            "Oem/OpenBmc/Fan/Profile", profile,               //
+            "Oem/OpenBmc/Fan/StepwiseControllers",
+            stepwiseControllers,                              //
+            "ServiceIdentification", serviceIdentification    //
+            ))
+    {
+        return;
+    }
+
+    if (activeSoftwareImageOdataId)
+    {
+        setActiveFirmwareImage(asyncResp, *activeSoftwareImageOdataId);
+    }
+
+    if (datetime)
+    {
+        setDateTime(asyncResp, *datetime);
+    }
+
+    if (locationIndicatorActive)
+    {
+        setLocationIndicatorActiveState(asyncResp, *locationIndicatorActive,
+                                        managerId);
+    }
+
+    if (serviceIdentification)
+    {
+        manager_utils::setServiceIdentification(asyncResp,
+                                                serviceIdentification.value());
+    }
+
+    RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
+}
+
+inline void handleManagerCollectionGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    // Collections don't include the static data added by SubRoute
+    // because it has a duplicate entry for members
+    asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#ManagerCollection.ManagerCollection";
+    asyncResp->res.jsonValue["Name"] = "Manager Collection";
+    asyncResp->res.jsonValue["Members@odata.count"] = 1;
+    nlohmann::json::array_t members;
+    nlohmann::json& bmc = members.emplace_back();
+    bmc["@odata.id"] = boost::urls::format("/redfish/v1/Managers/{}",
+                                           BMCWEB_REDFISH_MANAGER_URI_NAME);
+    asyncResp->res.jsonValue["Members"] = std::move(members);
+}
+
+inline void requestRoutesManager(App& app)
+{
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")
         .privileges(redfish::privileges::getManager)
-        .methods(
-            boost::beast::http::verb::
-                get)([&app,
-                      uuid](const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& managerId) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-            {
-                return;
-            }
-
-            if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
-            {
-                messages::resourceNotFound(asyncResp->res, "Manager",
-                                           managerId);
-                return;
-            }
-
-            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#Manager.v1_15_0.Manager";
-            asyncResp->res.jsonValue["Id"] = BMCWEB_REDFISH_MANAGER_URI_NAME;
-            asyncResp->res.jsonValue["Name"] = "OpenBmc Manager";
-            asyncResp->res.jsonValue["Description"] =
-                "Baseboard Management Controller";
-            asyncResp->res.jsonValue["PowerState"] = resource::PowerState::On;
-
-            asyncResp->res.jsonValue["ManagerType"] = manager::ManagerType::BMC;
-            asyncResp->res.jsonValue["UUID"] = systemd_utils::getUuid();
-            asyncResp->res.jsonValue["ServiceEntryPointUUID"] = uuid;
-            asyncResp->res.jsonValue["Model"] =
-                "OpenBmc"; // TODO(ed), get model
-
-            asyncResp->res.jsonValue["LogServices"]["@odata.id"] =
-                boost::urls::format("/redfish/v1/Managers/{}/LogServices",
-                                    BMCWEB_REDFISH_MANAGER_URI_NAME);
-            asyncResp->res.jsonValue["NetworkProtocol"]["@odata.id"] =
-                boost::urls::format("/redfish/v1/Managers/{}/NetworkProtocol",
-                                    BMCWEB_REDFISH_MANAGER_URI_NAME);
-            asyncResp->res.jsonValue["EthernetInterfaces"]["@odata.id"] =
-                boost::urls::format(
-                    "/redfish/v1/Managers/{}/EthernetInterfaces",
-                    BMCWEB_REDFISH_MANAGER_URI_NAME);
-
-            manager_utils::getServiceIdentification(asyncResp, false);
-
-            if constexpr (BMCWEB_VM_NBDPROXY)
-            {
-                asyncResp->res.jsonValue["VirtualMedia"]["@odata.id"] =
-                    boost::urls::format("/redfish/v1/Managers/{}/VirtualMedia",
-                                        BMCWEB_REDFISH_MANAGER_URI_NAME);
-            }
-
-            // Manager.Reset (an action) can be many values, OpenBMC only
-            // supports BMC reboot.
-            nlohmann::json& managerReset =
-                asyncResp->res.jsonValue["Actions"]["#Manager.Reset"];
-            managerReset["target"] = boost::urls::format(
-                "/redfish/v1/Managers/{}/Actions/Manager.Reset",
-                BMCWEB_REDFISH_MANAGER_URI_NAME);
-            managerReset["@Redfish.ActionInfo"] =
-                boost::urls::format("/redfish/v1/Managers/{}/ResetActionInfo",
-                                    BMCWEB_REDFISH_MANAGER_URI_NAME);
-
-            // ResetToDefaults (Factory Reset) has values like
-            // PreserveNetworkAndUsers and PreserveNetwork that aren't supported
-            // on OpenBMC
-            nlohmann::json& resetToDefaults =
-                asyncResp->res.jsonValue["Actions"]["#Manager.ResetToDefaults"];
-            resetToDefaults["target"] = boost::urls::format(
-                "/redfish/v1/Managers/{}/Actions/Manager.ResetToDefaults",
-                BMCWEB_REDFISH_MANAGER_URI_NAME);
-            resetToDefaults["ResetType@Redfish.AllowableValues"] =
-                nlohmann::json::array_t({"ResetAll"});
-
-            std::pair<std::string, std::string> redfishDateTimeOffset =
-                redfish::time_utils::getDateTimeOffsetNow();
-
-            asyncResp->res.jsonValue["DateTime"] = redfishDateTimeOffset.first;
-            asyncResp->res.jsonValue["DateTimeLocalOffset"] =
-                redfishDateTimeOffset.second;
-
-            if constexpr (BMCWEB_KVM)
-            {
-                // Fill in GraphicalConsole info
-                asyncResp->res.jsonValue["GraphicalConsole"]["ServiceEnabled"] =
-                    true;
-                asyncResp->res
-                    .jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 4;
-                asyncResp->res
-                    .jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
-                    nlohmann::json::array_t({"KVMIP"});
-            }
-            if constexpr (!BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-            {
-                asyncResp->res
-                    .jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
-
-                nlohmann::json::array_t managerForServers;
-                nlohmann::json::object_t manager;
-                manager["@odata.id"] = std::format(
-                    "/redfish/v1/Systems/{}", BMCWEB_REDFISH_SYSTEM_URI_NAME);
-                managerForServers.emplace_back(std::move(manager));
-
-                asyncResp->res.jsonValue["Links"]["ManagerForServers"] =
-                    std::move(managerForServers);
-            }
-
-            sw_util::populateSoftwareInformation(asyncResp, sw_util::bmcPurpose,
-                                                 "FirmwareVersion", true);
-
-            managerGetLastResetTime(asyncResp);
-
-            // ManagerDiagnosticData is added for all BMCs.
-            nlohmann::json& managerDiagnosticData =
-                asyncResp->res.jsonValue["ManagerDiagnosticData"];
-            managerDiagnosticData["@odata.id"] = boost::urls::format(
-                "/redfish/v1/Managers/{}/ManagerDiagnosticData",
-                BMCWEB_REDFISH_MANAGER_URI_NAME);
-
-            getMainChassisId(asyncResp, [](const std::string& chassisId,
-                                           const std::shared_ptr<
-                                               bmcweb::AsyncResp>& aRsp) {
-                aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] =
-                    1;
-                nlohmann::json::array_t managerForChassis;
-                nlohmann::json::object_t managerObj;
-                boost::urls::url chassiUrl =
-                    boost::urls::format("/redfish/v1/Chassis/{}", chassisId);
-                managerObj["@odata.id"] = chassiUrl;
-                managerForChassis.emplace_back(std::move(managerObj));
-                aRsp->res.jsonValue["Links"]["ManagerForChassis"] =
-                    std::move(managerForChassis);
-                aRsp->res.jsonValue["Links"]["ManagerInChassis"]["@odata.id"] =
-                    chassiUrl;
-            });
-
-            dbus::utility::getProperty<double>(
-                "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
-                "org.freedesktop.systemd1.Manager", "Progress",
-                [asyncResp](const boost::system::error_code& ec, double val) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR("Error while getting progress");
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    if (val < 1.0)
-                    {
-                        asyncResp->res.jsonValue["Status"]["Health"] =
-                            resource::Health::OK;
-                        asyncResp->res.jsonValue["Status"]["State"] =
-                            resource::State::Starting;
-                        return;
-                    }
-                    checkForQuiesced(asyncResp);
-                });
-
-            getManagerObject(asyncResp, managerId,
-                             std::bind_front(getManagerData, asyncResp));
-
-            RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
-        });
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleManagerGet, std::ref(app)));
 
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/")
         .privileges(redfish::privileges::patchManager)
         .methods(boost::beast::http::verb::patch)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                   const std::string& managerId) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
+            std::bind_front(handleManagerPatch, std::ref(app)));
 
-                if (managerId != BMCWEB_REDFISH_MANAGER_URI_NAME)
-                {
-                    messages::resourceNotFound(asyncResp->res, "Manager",
-                                               managerId);
-                    return;
-                }
-
-                std::optional<std::string> activeSoftwareImageOdataId;
-                std::optional<std::string> datetime;
-                std::optional<bool> locationIndicatorActive;
-                std::optional<nlohmann::json::object_t> pidControllers;
-                std::optional<nlohmann::json::object_t> fanControllers;
-                std::optional<nlohmann::json::object_t> fanZones;
-                std::optional<nlohmann::json::object_t> stepwiseControllers;
-                std::optional<std::string> profile;
-                std::optional<std::string> serviceIdentification;
-
-                if (!json_util::readJsonPatch(                            //
-                        req, asyncResp->res,                              //
-                        "DateTime", datetime,                             //
-                        "Links/ActiveSoftwareImage/@odata.id",
-                        activeSoftwareImageOdataId,                       //
-                        "LocationIndicatorActive",
-                        locationIndicatorActive,                          //
-                        "Oem/OpenBmc/Fan/FanControllers", fanControllers, //
-                        "Oem/OpenBmc/Fan/FanZones", fanZones,             //
-                        "Oem/OpenBmc/Fan/PidControllers", pidControllers, //
-                        "Oem/OpenBmc/Fan/Profile", profile,               //
-                        "Oem/OpenBmc/Fan/StepwiseControllers",
-                        stepwiseControllers,                              //
-                        "ServiceIdentification", serviceIdentification    //
-                        ))
-                {
-                    return;
-                }
-
-                if (activeSoftwareImageOdataId)
-                {
-                    setActiveFirmwareImage(asyncResp,
-                                           *activeSoftwareImageOdataId);
-                }
-
-                if (datetime)
-                {
-                    setDateTime(asyncResp, *datetime);
-                }
-
-                if (locationIndicatorActive)
-                {
-                    setLocationIndicatorActiveState(
-                        asyncResp, *locationIndicatorActive, managerId);
-                }
-
-                if (serviceIdentification)
-                {
-                    manager_utils::setServiceIdentification(
-                        asyncResp, serviceIdentification.value());
-                }
-
-                RedfishService::getInstance(app).handleSubRoute(req, asyncResp);
-            });
-}
-
-inline void requestRoutesManagerCollection(App& app)
-{
     BMCWEB_ROUTE(app, "/redfish/v1/Managers/")
         .privileges(redfish::privileges::getManagerCollection)
         .methods(boost::beast::http::verb::get)(
-            [&app](const crow::Request& req,
-                   const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
-                if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-                {
-                    return;
-                }
-                // Collections don't include the static data added by SubRoute
-                // because it has a duplicate entry for members
-                asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
-                asyncResp->res.jsonValue["@odata.type"] =
-                    "#ManagerCollection.ManagerCollection";
-                asyncResp->res.jsonValue["Name"] = "Manager Collection";
-                asyncResp->res.jsonValue["Members@odata.count"] = 1;
-                nlohmann::json::array_t members;
-                nlohmann::json& bmc = members.emplace_back();
-                bmc["@odata.id"] = boost::urls::format(
-                    "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
-                asyncResp->res.jsonValue["Members"] = std::move(members);
-            });
+            std::bind_front(handleManagerCollectionGet, std::ref(app)));
 }
+
+inline void requestRoutesManagerResetAction(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/Actions/Manager.Reset/")
+        .privileges(redfish::privileges::postManager)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleManagerResetAction, std::ref(app)));
+
+    BMCWEB_ROUTE(app,
+                 "/redfish/v1/Managers/<str>/Actions/Manager.ResetToDefaults/")
+        .privileges(redfish::privileges::postManager)
+        .methods(boost::beast::http::verb::post)(
+            std::bind_front(handleManagerResetToDefaultsAction, std::ref(app)));
+
+    BMCWEB_ROUTE(app, "/redfish/v1/Managers/<str>/ResetActionInfo/")
+        .privileges(redfish::privileges::getActionInfo)
+        .methods(boost::beast::http::verb::get)(
+            std::bind_front(handleManagerResetActionInfo, std::ref(app)));
+}
+
 } // namespace redfish

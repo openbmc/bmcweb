@@ -67,7 +67,7 @@ inline void completeResponseFields(
     BMCWEB_LOG_INFO("Response: {}", res.resultInt());
     addSecurityHeaders(res);
 
-    res.setHashAndHandleNotModified();
+    res.setResponseEtagAndHandleNotModified();
     if (res.jsonValue.is_structured())
     {
         using http_helpers::ContentType;

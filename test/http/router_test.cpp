@@ -21,7 +21,7 @@ namespace crow
 namespace
 {
 
-using ::crow::utility::getParameterTag;
+using utility::getParameterTag;
 
 TEST(Router, AllowHeader)
 {

@@ -15,6 +15,7 @@
 
 // NOLINTNEXTLINE(misc-include-cleaner)
 #include "nghttp2_adapters.hpp"
+#include "sessions.hpp"
 
 #include <nghttp2/nghttp2.h>
 #include <unistd.h>
@@ -65,13 +66,13 @@ class HTTP2Connection :
     using self_type = HTTP2Connection<Adaptor, Handler>;
 
   public:
-    HTTP2Connection(boost::asio::ssl::stream<Adaptor>&& adaptorIn,
-                    Handler* handlerIn,
-                    std::function<std::string()>& getCachedDateStrF,
-                    HttpType httpTypeIn) :
+    HTTP2Connection(
+        boost::asio::ssl::stream<Adaptor>&& adaptorIn, Handler* handlerIn,
+        std::function<std::string()>& getCachedDateStrF, HttpType httpTypeIn,
+        const std::shared_ptr<persistent_data::UserSession>& mtlsSessionIn) :
         httpType(httpTypeIn), adaptor(std::move(adaptorIn)),
         ngSession(initializeNghttp2Session()), handler(handlerIn),
-        getCachedDateStr(getCachedDateStrF)
+        getCachedDateStr(getCachedDateStrF), mtlsSession(mtlsSessionIn)
     {}
 
     void start()
@@ -283,7 +284,7 @@ class HTTP2Connection :
                 return NGHTTP2_ERR_TEMPORAL_CALLBACK_FAILURE;
             }
         }
-        crow::Request& thisReq = *it->second.req;
+        Request& thisReq = *it->second.req;
         using boost::beast::http::field;
         it->second.accept = thisReq.getHeaderValue(field::accept);
         it->second.acceptEnc = thisReq.getHeaderValue(field::accept_encoding);
@@ -291,7 +292,7 @@ class HTTP2Connection :
         BMCWEB_LOG_DEBUG("Handling {} \"{}\"", logPtr(&thisReq),
                          thisReq.url().encoded_path());
 
-        crow::Response& thisRes = it->second.res;
+        Response& thisRes = it->second.res;
 
         thisRes.setCompleteRequestHandler(
             [this, streamId](Response& completeRes) {
@@ -306,10 +307,10 @@ class HTTP2Connection :
             std::make_shared<bmcweb::AsyncResp>(std::move(it->second.res));
         if constexpr (!BMCWEB_INSECURE_DISABLE_AUTH)
         {
-            thisReq.session = crow::authentication::authenticate(
-                {}, asyncResp->res, thisReq.method(), thisReq.req, nullptr);
-            if (!crow::authentication::isOnAllowlist(thisReq.url().path(),
-                                                     thisReq.method()) &&
+            thisReq.session = authentication::authenticate(
+                {}, asyncResp->res, thisReq.method(), thisReq.req, mtlsSession);
+            if (!authentication::isOnAllowlist(thisReq.url().path(),
+                                               thisReq.method()) &&
                 thisReq.session == nullptr)
             {
                 BMCWEB_LOG_WARNING("Authentication failed");
@@ -320,12 +321,12 @@ class HTTP2Connection :
                 return 0;
             }
         }
-        std::string_view expected =
+        std::string_view expectedEtag =
             thisReq.getHeaderValue(boost::beast::http::field::if_none_match);
-        BMCWEB_LOG_DEBUG("Setting expected hash {}", expected);
-        if (!expected.empty())
+        BMCWEB_LOG_DEBUG("Setting expected etag {}", expectedEtag);
+        if (!expectedEtag.empty())
         {
-            asyncResp->res.setExpectedHash(expected);
+            asyncResp->res.setExpectedEtag(expectedEtag);
         }
         handler->handle(it->second.req, asyncResp);
         return 0;
@@ -465,7 +466,7 @@ class HTTP2Connection :
             return -1;
         }
 
-        crow::Request& thisReq = *thisStream->second.req;
+        Request& thisReq = *thisStream->second.req;
 
         if (nameSv == ":path")
         {
@@ -658,6 +659,8 @@ class HTTP2Connection :
 
     Handler* handler;
     std::function<std::string()>& getCachedDateStr;
+
+    std::shared_ptr<persistent_data::UserSession> mtlsSession;
 
     using std::enable_shared_from_this<
         HTTP2Connection<Adaptor, Handler>>::shared_from_this;

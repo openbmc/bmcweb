@@ -16,6 +16,7 @@
 #include "event_service.hpp"
 #include "eventservice_sse.hpp"
 #include "fabric_adapters.hpp"
+#include "fabric_ports.hpp"
 #include "fan.hpp"
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
@@ -43,6 +44,7 @@
 #include "storage.hpp"
 #include "systems.hpp"
 #include "systems_logservices_hostlogger.hpp"
+#include "systems_logservices_journal_eventlog.hpp"
 #include "systems_logservices_postcodes.hpp"
 #include "task.hpp"
 #include "telemetry_service.hpp"
@@ -95,11 +97,8 @@ RedfishService::RedfishService(App& app)
         requestRoutesFan(app);
         requestRoutesFanCollection(app);
     }
-    requestRoutesManagerCollection(app);
     requestRoutesManager(app);
     requestRoutesManagerResetAction(app);
-    requestRoutesManagerResetActionInfo(app);
-    requestRoutesManagerResetToDefaultsAction(app);
     requestRoutesManagerDiagnosticData(app);
     requestRoutesChassisCollection(app);
     requestRoutesChassis(app);
@@ -222,6 +221,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesEventDestination(app);
     requestRoutesFabricAdapters(app);
     requestRoutesFabricAdapterCollection(app);
+    requestRoutesFabricPort(app);
     requestRoutesSubmitTestEvent(app);
 
     if constexpr (BMCWEB_HYPERVISOR_COMPUTER_SYSTEM)

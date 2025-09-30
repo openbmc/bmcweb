@@ -261,7 +261,7 @@ inline void getNetworkData(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 
     getPortStatusAndPath(std::span(networkProtocolToDbus),
                          std::bind_front(afterNetworkPortRequest, asyncResp));
-} // namespace redfish
+}
 
 inline void afterSetNTP(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                         const boost::system::error_code& ec)
@@ -273,7 +273,6 @@ inline void afterSetNTP(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
         messages::internalError(asyncResp->res);
         return;
     }
-    asyncResp->res.result(boost::beast::http::status::no_content);
 }
 
 inline void handleNTPProtocolEnabled(
@@ -461,19 +460,6 @@ inline std::string encodeServiceObjectPath(std::string_view serviceName)
         "/xyz/openbmc_project/control/service");
     objPath /= serviceName;
     return objPath.str;
-}
-
-inline void handleBmcNetworkProtocolHead(
-    crow::App& app, const crow::Request& req,
-    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
-{
-    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-    {
-        return;
-    }
-    asyncResp->res.addHeader(
-        boost::beast::http::field::link,
-        "</redfish/v1/JsonSchemas/ManagerNetworkProtocol/ManagerNetworkProtocol.json>; rel=describedby");
 }
 
 inline void handleManagersNetworkProtocolPatch(

@@ -216,7 +216,7 @@ inline void addFile(App& app, const std::filesystem::directory_entry& dir)
 
     if (webpath == "/")
     {
-        forward_unauthorized::hasWebuiRoute = true;
+        forward_unauthorized::hasWebuiRoute() = true;
     }
 
     app.routeDynamic(webpath)(

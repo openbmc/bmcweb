@@ -8,6 +8,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include <cstddef>
 #include <memory>
 #include <string_view>
 

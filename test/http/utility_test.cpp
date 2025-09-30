@@ -22,8 +22,6 @@ namespace crow::utility
 namespace
 {
 
-using ::crow::utility::getParameterTag;
-
 TEST(Utility, Base64DecodeAuthString)
 {
     std::string authString("dXNlcm40bWU6cGFzc3cwcmQ=");

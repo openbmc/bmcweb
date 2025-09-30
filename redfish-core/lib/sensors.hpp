@@ -36,7 +36,6 @@
 
 #include <algorithm>
 #include <array>
-#include <cmath>
 #include <cstddef>
 #include <cstdint>
 #include <functional>
@@ -1832,7 +1831,10 @@ inline nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     powerSupply["Model"] = inventoryItem.model;
     powerSupply["PartNumber"] = inventoryItem.partNumber;
     powerSupply["SerialNumber"] = inventoryItem.serialNumber;
-    sensor_utils::setLedState(powerSupply, &inventoryItem);
+    if constexpr (BMCWEB_REDFISH_ALLOW_DEPRECATED_INDICATORLED)
+    {
+        sensor_utils::setLedState(powerSupply, &inventoryItem);
+    }
 
     if (inventoryItem.powerSupplyEfficiencyPercent >= 0)
     {

@@ -684,11 +684,14 @@ inline void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                     "RequestedApplyTime", applyTimeNewVal);
 }
 
-struct MultiPartUpdateParameters
+struct MultiPartUpdate
 {
-    std::optional<std::string> applyTime;
     std::string uploadData;
-    std::vector<std::string> targets;
+    struct UpdateParameters
+    {
+        std::optional<std::string> applyTime;
+        std::vector<std::string> targets;
+    } params;
 };
 
 inline std::optional<std::string> processUrl(
@@ -718,12 +721,82 @@ inline std::optional<std::string> processUrl(
     return std::make_optional(firmwareId);
 }
 
-inline std::optional<MultiPartUpdateParameters>
-    extractMultipartUpdateParameters(
-        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-        MultipartParser parser)
+inline std::optional<std::string> parseFormPartName(
+    const boost::beast::http::fields::const_iterator& contentDisposition)
 {
-    MultiPartUpdateParameters multiRet;
+    size_t semicolonPos = contentDisposition->value().find(';');
+    if (semicolonPos == std::string::npos)
+    {
+        return std::nullopt;
+    }
+
+    for (const auto& param : boost::beast::http::param_list{
+             contentDisposition->value().substr(semicolonPos)})
+    {
+        if (param.first == "name" && !param.second.empty())
+        {
+            return std::string(param.second);
+        }
+    }
+    return std::nullopt;
+}
+
+inline std::optional<MultiPartUpdate::UpdateParameters> processUpdateParameters(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    std::string_view content)
+{
+    MultiPartUpdate::UpdateParameters multiRet;
+    nlohmann::json jsonContent = nlohmann::json::parse(content, nullptr, false);
+    if (jsonContent.is_discarded())
+    {
+        return std::nullopt;
+    }
+    nlohmann::json::object_t* obj =
+        jsonContent.get_ptr<nlohmann::json::object_t*>();
+    if (obj == nullptr)
+    {
+        messages::propertyValueTypeError(asyncResp->res, content,
+                                         "UpdateParameters");
+        return std::nullopt;
+    }
+
+    std::vector<std::string> tempTargets;
+    if (!json_util::readJsonObject(                            //
+            *obj, asyncResp->res,                              //
+            "@Redfish.OperationApplyTime", multiRet.applyTime, //
+            "Targets", tempTargets                             //
+            ))
+    {
+        return std::nullopt;
+    }
+
+    for (size_t urlIndex = 0; urlIndex < tempTargets.size(); urlIndex++)
+    {
+        const std::string& target = tempTargets[urlIndex];
+        boost::system::result<boost::urls::url_view> url =
+            boost::urls::parse_origin_form(target);
+        auto res = processUrl(url);
+        if (!res.has_value())
+        {
+            messages::propertyValueFormatError(
+                asyncResp->res, target, std::format("Targets/{}", urlIndex));
+            return std::nullopt;
+        }
+        multiRet.targets.emplace_back(res.value());
+    }
+    if (multiRet.targets.size() != 1)
+    {
+        messages::propertyValueFormatError(asyncResp->res, multiRet.targets,
+                                           "Targets");
+        return std::nullopt;
+    }
+    return multiRet;
+}
+
+inline std::optional<MultiPartUpdate> extractMultipartUpdateParameters(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp, MultipartParser parser)
+{
+    MultiPartUpdate multiRet;
     for (FormPart& formpart : parser.mime_fields)
     {
         boost::beast::http::fields::const_iterator it =
@@ -735,75 +808,27 @@ inline std::optional<MultiPartUpdateParameters>
         }
         BMCWEB_LOG_INFO("Parsing value {}", it->value());
 
-        // The construction parameters of param_list must start with `;`
-        size_t index = it->value().find(';');
-        if (index == std::string::npos)
+        auto formFieldNameOpt = parseFormPartName(it);
+        if (!formFieldNameOpt.has_value())
         {
             continue;
         }
 
-        for (const auto& param :
-             boost::beast::http::param_list{it->value().substr(index)})
+        const std::string& formFieldName = formFieldNameOpt.value();
+
+        if (formFieldName == "UpdateParameters")
         {
-            if (param.first != "name" || param.second.empty())
+            std::optional<MultiPartUpdate::UpdateParameters> params =
+                processUpdateParameters(asyncResp, formpart.content);
+            if (!params)
             {
-                continue;
+                return std::nullopt;
             }
-
-            if (param.second == "UpdateParameters")
-            {
-                std::vector<std::string> tempTargets;
-                nlohmann::json content =
-                    nlohmann::json::parse(formpart.content, nullptr, false);
-                if (content.is_discarded())
-                {
-                    return std::nullopt;
-                }
-                nlohmann::json::object_t* obj =
-                    content.get_ptr<nlohmann::json::object_t*>();
-                if (obj == nullptr)
-                {
-                    messages::propertyValueTypeError(
-                        asyncResp->res, formpart.content, "UpdateParameters");
-                    return std::nullopt;
-                }
-
-                if (!json_util::readJsonObject(                            //
-                        *obj, asyncResp->res,                              //
-                        "@Redfish.OperationApplyTime", multiRet.applyTime, //
-                        "Targets", tempTargets                             //
-                        ))
-                {
-                    return std::nullopt;
-                }
-
-                for (size_t urlIndex = 0; urlIndex < tempTargets.size();
-                     urlIndex++)
-                {
-                    const std::string& target = tempTargets[urlIndex];
-                    boost::system::result<boost::urls::url_view> url =
-                        boost::urls::parse_origin_form(target);
-                    auto res = processUrl(url);
-                    if (!res.has_value())
-                    {
-                        messages::propertyValueFormatError(
-                            asyncResp->res, target,
-                            std::format("Targets/{}", urlIndex));
-                        return std::nullopt;
-                    }
-                    multiRet.targets.emplace_back(res.value());
-                }
-                if (multiRet.targets.size() != 1)
-                {
-                    messages::propertyValueFormatError(
-                        asyncResp->res, multiRet.targets, "Targets");
-                    return std::nullopt;
-                }
-            }
-            else if (param.second == "UpdateFile")
-            {
-                multiRet.uploadData = std::move(formpart.content);
-            }
+            multiRet.params = std::move(*params);
+        }
+        else if (formFieldName == "UpdateFile")
+        {
+            multiRet.uploadData = std::move(formpart.content);
         }
     }
 
@@ -813,7 +838,7 @@ inline std::optional<MultiPartUpdateParameters>
         messages::propertyMissing(asyncResp->res, "UpdateFile");
         return std::nullopt;
     }
-    if (multiRet.targets.empty())
+    if (multiRet.params.targets.empty())
     {
         messages::propertyMissing(asyncResp->res, "Targets");
         return std::nullopt;
@@ -979,21 +1004,21 @@ inline void updateMultipartContext(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const crow::Request& req, MultipartParser&& parser)
 {
-    std::optional<MultiPartUpdateParameters> multipart =
+    std::optional<MultiPartUpdate> multipart =
         extractMultipartUpdateParameters(asyncResp, std::move(parser));
     if (!multipart)
     {
         return;
     }
-    if (!multipart->applyTime)
+    if (!multipart->params.applyTime)
     {
-        multipart->applyTime = "OnReset";
+        multipart->params.applyTime = "OnReset";
     }
 
     if constexpr (BMCWEB_REDFISH_UPDATESERVICE_USE_DBUS)
     {
         std::string applyTimeNewVal;
-        if (!convertApplyTime(asyncResp->res, *multipart->applyTime,
+        if (!convertApplyTime(asyncResp->res, *multipart->params.applyTime,
                               applyTimeNewVal))
         {
             return;
@@ -1002,11 +1027,11 @@ inline void updateMultipartContext(
 
         processUpdateRequest(asyncResp, std::move(payload),
                              multipart->uploadData, applyTimeNewVal,
-                             multipart->targets);
+                             multipart->params.targets);
     }
     else
     {
-        setApplyTime(asyncResp, *multipart->applyTime);
+        setApplyTime(asyncResp, *multipart->params.applyTime);
 
         // Setup callback for when new software detected
         monitorForSoftwareAvailable(asyncResp, req,
@@ -1097,7 +1122,8 @@ inline void handleUpdateServiceMultipartUpdatePost(
     else
     {
         BMCWEB_LOG_DEBUG("Bad content type specified:{}", contentType);
-        asyncResp->res.result(boost::beast::http::status::bad_request);
+        asyncResp->res.result(
+            boost::beast::http::status::unsupported_media_type);
     }
 }
 
@@ -1170,34 +1196,92 @@ inline void handleUpdateServiceFirmwareInventoryCollectionGet(
         "/xyz/openbmc_project/software");
 }
 
+inline void addRelatedItem(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                           const boost::urls::url& url)
+{
+    nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
+    nlohmann::json::object_t item;
+    item["@odata.id"] = url;
+    relatedItem.emplace_back(std::move(item));
+    asyncResp->res.jsonValue["RelatedItem@odata.count"] = relatedItem.size();
+}
+
 /* Fill related item links (i.e. bmc, bios) in for inventory */
 inline void getRelatedItems(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const std::string& purpose)
 {
     if (purpose == sw_util::bmcPurpose)
     {
-        nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
-        nlohmann::json::object_t item;
-        item["@odata.id"] = boost::urls::format(
-            "/redfish/v1/Managers/{}", BMCWEB_REDFISH_MANAGER_URI_NAME);
-        relatedItem.emplace_back(std::move(item));
-        asyncResp->res.jsonValue["RelatedItem@odata.count"] =
-            relatedItem.size();
+        auto url = boost::urls::format("/redfish/v1/Managers/{}",
+                                       BMCWEB_REDFISH_MANAGER_URI_NAME);
+        addRelatedItem(asyncResp, url);
     }
     else if (purpose == sw_util::biosPurpose)
     {
-        nlohmann::json& relatedItem = asyncResp->res.jsonValue["RelatedItem"];
-        nlohmann::json::object_t item;
-        item["@odata.id"] = std::format("/redfish/v1/Systems/{}/Bios",
-                                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
-        relatedItem.emplace_back(std::move(item));
-        asyncResp->res.jsonValue["RelatedItem@odata.count"] =
-            relatedItem.size();
+        auto url = boost::urls::format("/redfish/v1/Systems/{}/Bios",
+                                       BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+        addRelatedItem(asyncResp, url);
     }
     else
     {
         BMCWEB_LOG_DEBUG("Unknown software purpose {}", purpose);
     }
+}
+
+inline void getSoftwareVersionCallback(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& swId, const boost::system::error_code& ec,
+    const dbus::utility::DBusPropertiesMap& propertiesList)
+{
+    if (ec)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    const std::string* swInvPurpose = nullptr;
+    const std::string* version = nullptr;
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesList, "Purpose",
+        swInvPurpose, "Version", version);
+    if (!success)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    if (swInvPurpose == nullptr)
+    {
+        BMCWEB_LOG_DEBUG("Can't find property \"Purpose\"!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    BMCWEB_LOG_DEBUG("swInvPurpose = {}", *swInvPurpose);
+    if (version == nullptr)
+    {
+        BMCWEB_LOG_DEBUG("Can't find property \"Version\"!");
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    asyncResp->res.jsonValue["Version"] = *version;
+    asyncResp->res.jsonValue["Id"] = swId;
+    // swInvPurpose is of format:
+    // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
+    // Translate this to "ABC image"
+    size_t endDesc = swInvPurpose->rfind('.');
+    if (endDesc == std::string::npos)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    endDesc++;
+    if (endDesc >= swInvPurpose->size())
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    std::string formatDesc = swInvPurpose->substr(endDesc);
+    asyncResp->res.jsonValue["Description"] = formatDesc + " image";
+    getRelatedItems(asyncResp, *swInvPurpose);
 }
 
 inline void getSoftwareVersion(
@@ -1207,68 +1291,65 @@ inline void getSoftwareVersion(
 {
     dbus::utility::getAllProperties(
         service, path, "xyz.openbmc_project.Software.Version",
-        [asyncResp,
-         swId](const boost::system::error_code& ec,
-               const dbus::utility::DBusPropertiesMap& propertiesList) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
+        std::bind_front(getSoftwareVersionCallback, asyncResp, swId));
+}
 
-            const std::string* swInvPurpose = nullptr;
-            const std::string* version = nullptr;
-
-            const bool success = sdbusplus::unpackPropertiesNoThrow(
-                dbus_utils::UnpackErrorPrinter(), propertiesList, "Purpose",
-                swInvPurpose, "Version", version);
-
-            if (!success)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            if (swInvPurpose == nullptr)
-            {
-                BMCWEB_LOG_DEBUG("Can't find property \"Purpose\"!");
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            BMCWEB_LOG_DEBUG("swInvPurpose = {}", *swInvPurpose);
-
-            if (version == nullptr)
-            {
-                BMCWEB_LOG_DEBUG("Can't find property \"Version\"!");
-
-                messages::internalError(asyncResp->res);
-
-                return;
-            }
-            asyncResp->res.jsonValue["Version"] = *version;
-            asyncResp->res.jsonValue["Id"] = swId;
-
-            // swInvPurpose is of format:
-            // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
-            // Translate this to "ABC image"
-            size_t endDesc = swInvPurpose->rfind('.');
-            if (endDesc == std::string::npos)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            endDesc++;
-            if (endDesc >= swInvPurpose->size())
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            std::string formatDesc = swInvPurpose->substr(endDesc);
-            asyncResp->res.jsonValue["Description"] = formatDesc + " image";
-            getRelatedItems(asyncResp, *swInvPurpose);
-        });
+inline void handleUpdateServiceFirmwareInventoryGetCallback(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::shared_ptr<std::string>& swId,
+    const boost::system::error_code& ec,
+    const dbus::utility::MapperGetSubTreeResponse& subtree)
+{
+    BMCWEB_LOG_DEBUG("doGet callback...");
+    if (ec)
+    {
+        messages::internalError(asyncResp->res);
+        return;
+    }
+    // Ensure we find our input swId, otherwise return an error
+    bool found = false;
+    for (const std::pair<
+             std::string,
+             std::vector<std::pair<std::string, std::vector<std::string>>>>&
+             obj : subtree)
+    {
+        sdbusplus::message::object_path path(obj.first);
+        std::string id = path.filename();
+        if (id.empty())
+        {
+            BMCWEB_LOG_DEBUG("Failed to find software id in {}", obj.first);
+            continue;
+        }
+        if (id != *swId)
+        {
+            continue;
+        }
+        if (obj.second.empty())
+        {
+            continue;
+        }
+        found = true;
+        sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
+        sw_util::getSwMinimumVersion(asyncResp, swId, obj.second[0].first);
+        getSoftwareVersion(asyncResp, obj.second[0].first, obj.first, *swId);
+    }
+    if (!found)
+    {
+        BMCWEB_LOG_WARNING("Input swID {} not found!", *swId);
+        messages::resourceMissingAtURI(
+            asyncResp->res,
+            boost::urls::format(
+                "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId));
+        return;
+    }
+    asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
+        "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId);
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#SoftwareInventory.v1_1_0.SoftwareInventory";
+    asyncResp->res.jsonValue["Name"] = "Software Inventory";
+    asyncResp->res.jsonValue["Status"]["HealthRollup"] = resource::Health::OK;
+    asyncResp->res.jsonValue["Updateable"] = false;
+    sw_util::getSwUpdatableStatus(asyncResp, swId);
 }
 
 inline void handleUpdateServiceFirmwareInventoryGet(
@@ -1286,69 +1367,8 @@ inline void handleUpdateServiceFirmwareInventoryGet(
         "xyz.openbmc_project.Software.Version"};
     dbus::utility::getSubTree(
         "/xyz/openbmc_project/software/", 0, interfaces,
-        [asyncResp,
-         swId](const boost::system::error_code& ec,
-               const dbus::utility::MapperGetSubTreeResponse& subtree) {
-            BMCWEB_LOG_DEBUG("doGet callback...");
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
-
-            // Ensure we find our input swId, otherwise return an error
-            bool found = false;
-            for (const std::pair<std::string,
-                                 std::vector<std::pair<
-                                     std::string, std::vector<std::string>>>>&
-                     obj : subtree)
-            {
-                sdbusplus::message::object_path path(obj.first);
-                std::string id = path.filename();
-                if (id.empty())
-                {
-                    BMCWEB_LOG_DEBUG("Failed to find software id in {}",
-                                     obj.first);
-                    continue;
-                }
-                if (id != *swId)
-                {
-                    continue;
-                }
-
-                if (obj.second.empty())
-                {
-                    continue;
-                }
-
-                found = true;
-                sw_util::getSwStatus(asyncResp, swId, obj.second[0].first);
-                sw_util::getSwMinimumVersion(asyncResp, swId,
-                                             obj.second[0].first);
-                getSoftwareVersion(asyncResp, obj.second[0].first, obj.first,
-                                   *swId);
-            }
-            if (!found)
-            {
-                BMCWEB_LOG_WARNING("Input swID {} not found!", *swId);
-                messages::resourceMissingAtURI(
-                    asyncResp->res,
-                    boost::urls::format(
-                        "/redfish/v1/UpdateService/FirmwareInventory/{}",
-                        *swId));
-                return;
-            }
-            asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
-                "/redfish/v1/UpdateService/FirmwareInventory/{}", *swId);
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#SoftwareInventory.v1_1_0.SoftwareInventory";
-            asyncResp->res.jsonValue["Name"] = "Software Inventory";
-            asyncResp->res.jsonValue["Status"]["HealthRollup"] =
-                resource::Health::OK;
-
-            asyncResp->res.jsonValue["Updateable"] = false;
-            sw_util::getSwUpdatableStatus(asyncResp, swId);
-        });
+        std::bind_front(handleUpdateServiceFirmwareInventoryGetCallback,
+                        asyncResp, swId));
 }
 
 inline void requestRoutesUpdateService(App& app)
