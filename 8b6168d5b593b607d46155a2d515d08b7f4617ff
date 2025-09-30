@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5b5f02a_ec6729b5",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 119
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-30T18:55:32Z",
+      "side": 1,
+      "message": "Move it up line 68 or at least line 165 ?",
+      "revId": "8b6168d5b593b607d46155a2d515d08b7f4617ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
