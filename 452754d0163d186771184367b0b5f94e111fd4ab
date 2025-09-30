@@ -16,6 +16,24 @@
       "message": "Why can\u0027t we use tolower? \nhttps://cplusplus.com/reference/cctype/tolower/\nOh well, you would probably still need the static_cast\u003cchar\u003e",
       "revId": "452754d0163d186771184367b0b5f94e111fd4ab",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd9089a9_d5fccebc",
+        "filename": "include/str_utility.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-09-30T23:53:12Z",
+      "side": 1,
+      "message": "the answer to your question is 4 lines up, because this one doesn’t use std::locale, which is a much more complex implementation.",
+      "parentUuid": "6b80e165_e055c36c",
+      "revId": "452754d0163d186771184367b0b5f94e111fd4ab",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
