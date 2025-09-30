@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22cef006_c3e10ea5",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1369,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-09-30T23:38:44Z",
+      "side": 1,
+      "message": "Bad rebase?",
+      "revId": "3c7e3f26ba8a6de6bce3f5c133c05172ae7993ba",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
