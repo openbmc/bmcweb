@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7312895_758226fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 119
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-01T03:10:35Z",
+      "side": 1,
+      "message": "just blast the \"on bmcweb\" part",
+      "range": {
+        "startLine": 7,
+        "startChar": 40,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "8b6168d5b593b607d46155a2d515d08b7f4617ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c89457b_d214530d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 119
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-01T03:10:35Z",
+      "side": 1,
+      "message": "for anyone to identify the inventory..",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 25
+      },
+      "revId": "8b6168d5b593b607d46155a2d515d08b7f4617ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b5b5f02a_ec6729b5",
         "filename": "redfish-core/src/redfish.cpp",
         "patchSetId": 119
