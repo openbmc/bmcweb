@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56ca3b0d_2e3514df",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-01T04:37:05Z",
+      "side": 1,
+      "message": "Should we just put these two things in one map instead of maintaining them separately?",
+      "range": {
+        "startLine": 914,
+        "startChar": 2,
+        "endLine": 916,
+        "endChar": 31
+      },
+      "revId": "b1e7acbc4e32504c1cfc8d018e64c03f3923e74f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91c2dd5f_5ce34901",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-01T04:37:05Z",
+      "side": 1,
+      "message": "contains isn\u0027t really an appropriate check.",
+      "range": {
+        "startLine": 929,
+        "startChar": 35,
+        "endLine": 929,
+        "endChar": 43
+      },
+      "revId": "b1e7acbc4e32504c1cfc8d018e64c03f3923e74f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "464cf55d_1c2b2360",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-01T04:37:05Z",
+      "side": 1,
+      "message": "please don\u0027t use at() It throws an uncaught exception if the types don\u0027t match up.  What you probably want here is aggregationCredentials.find()",
+      "range": {
+        "startLine": 199,
+        "startChar": 45,
+        "endLine": 199,
+        "endChar": 48
+      },
+      "revId": "b1e7acbc4e32504c1cfc8d018e64c03f3923e74f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4fb5fca_3fcde0ae",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-01T04:37:05Z",
+      "side": 1,
+      "message": "Patch could contain EITHER a password OR a username.  There\u0027s nothing that requires they both be set at the same time.",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 2
+      },
+      "revId": "b1e7acbc4e32504c1cfc8d018e64c03f3923e74f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
