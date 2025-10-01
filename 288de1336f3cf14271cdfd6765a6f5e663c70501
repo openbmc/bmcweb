@@ -33,6 +33,23 @@
       "message": "I probably would\u0027ve gone the other way and made the API not return 204, but this is fine too.",
       "revId": "288de1336f3cf14271cdfd6765a6f5e663c70501",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffd81126_c77d144e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001839
+      },
+      "writtenOn": "2025-10-01T02:37:43Z",
+      "side": 1,
+      "message": "Is there anything else I should do before getting this merged? I am fine with 204",
+      "revId": "288de1336f3cf14271cdfd6765a6f5e663c70501",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
