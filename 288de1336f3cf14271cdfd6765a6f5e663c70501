@@ -50,6 +50,24 @@
       "message": "Is there anything else I should do before getting this merged? I am fine with 204",
       "revId": "288de1336f3cf14271cdfd6765a6f5e663c70501",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "029f8dcc_7d45eb88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-01T03:07:11Z",
+      "side": 1,
+      "message": "We have heard complaints of 204 being confusing, see below. \nThis is fine, it is more correct. In the future, we might move away from 204. \nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/83952",
+      "parentUuid": "ffd81126_c77d144e",
+      "revId": "288de1336f3cf14271cdfd6765a6f5e663c70501",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
