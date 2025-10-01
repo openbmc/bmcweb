@@ -72,6 +72,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2396d213_2471e888",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-01T15:39:17Z",
+      "side": 1,
+      "message": "https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84161",
+      "parentUuid": "3d67b045_85a025f1",
+      "revId": "b41c61a5860726b84f1426e149146d48c3f3578b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f811a205_71ebb44b",
         "filename": "src/webserver_cli.hpp",
         "patchSetId": 2
