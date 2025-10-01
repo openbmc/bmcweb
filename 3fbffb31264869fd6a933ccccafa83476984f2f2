@@ -366,6 +366,30 @@
       },
       "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62a7d48e_63d09c33",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2025-10-01T12:19:07Z",
+      "side": 1,
+      "message": "@ed@tanous.net the get bootstrap credentials ipmi command has a modifier that leaves it enabled.  if the command is run multiple times, what should the behavior be?\n\nThe latest patches create a bootstrap0 user like you suggest here and then reverts back to making users with random names...",
+      "parentUuid": "f3ebbeb9_d23a5410",
+      "range": {
+        "startLine": 38,
+        "startChar": 51,
+        "endLine": 38,
+        "endChar": 70
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
