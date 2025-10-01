@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4c4099f_0d7cd198",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-01T16:07:41Z",
+      "side": 1,
+      "message": "This is safer because all http2 non-headers are scrubbed, rather than just the ones we know about.",
+      "parentUuid": "9a4035c0_e1a7458f",
+      "range": {
+        "startLine": 486,
+        "startChar": 40,
+        "endLine": 486,
+        "endChar": 41
+      },
+      "revId": "8979eb1f82423e0664c87f248056f41199082271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "270af7f3_aa98e1c7",
         "filename": "http/http2_connection.hpp",
         "patchSetId": 2
@@ -73,6 +97,24 @@
       "side": 1,
       "message": "from \n```suggestion\n            // Nothing to check on scheme\n            // :scheme and :authority are other valid http2 colon headers\n            \n            // Ignore all others.            \n    \n```\neither what I was thinking, to reduce the remove the repition and remove contradictory comment (scheme can\u0027t be mentioned and be other)\n```suggestion\n            // Nothing to check on scheme\n            // :authority is another valid http2 colon header\n            \n            // Ignore all others.            \n    \n```\nor, when drafting this copied text rearrange and integrate \n```suggestion\n            // :scheme and :authority are valid http2 colon headers\n            \n            // Nothing to check on scheme. Ignore all others.            \n    \n```\n\n\nnote this applies to block of lines not just one.  the suggested edit code block presents this as a diff with incorrect replacement since I didn\u0027t get all lines in the original context.   but it shows whitespace damage.",
       "parentUuid": "883b8ca8_4a3aa036",
+      "revId": "8979eb1f82423e0664c87f248056f41199082271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78b4568a_23f7e609",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-01T16:07:41Z",
+      "side": 1,
+      "message": "I\u0027m still very confused, and your suggested edit just duplicates the statements and adds whitespace violations.",
+      "parentUuid": "9807266e_b1d55a41",
       "revId": "8979eb1f82423e0664c87f248056f41199082271",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
