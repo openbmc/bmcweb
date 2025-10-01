@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "534a465a_c9eec7eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-01T15:56:22Z",
+      "side": 1,
+      "message": "Actually, nevermind.  I don\u0027t really care on this one.",
+      "parentUuid": "1c4cc0cb_40d668ad",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 44
+      },
+      "revId": "4e6ddcf7e7235de79cb7b6e1b8b795fa8a096bfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92a6fc7b_61da9bbf",
