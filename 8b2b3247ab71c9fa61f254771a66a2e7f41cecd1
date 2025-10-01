@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5c8c35b_ed19bf7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2025-10-01T12:38:25Z",
+      "side": 1,
+      "message": "One thing I noticed while testing this out was the collection is missing from the manager.  Don\u0027t forget to add that.",
+      "revId": "8b2b3247ab71c9fa61f254771a66a2e7f41cecd1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
