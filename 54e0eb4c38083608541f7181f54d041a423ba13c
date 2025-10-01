@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e381251_812bc5c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-01T15:54:54Z",
+      "side": 1,
+      "message": "Please just squash this in the commits where you\u0027ve added these files so they\u0027re correct from the start.",
+      "revId": "54e0eb4c38083608541f7181f54d041a423ba13c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
