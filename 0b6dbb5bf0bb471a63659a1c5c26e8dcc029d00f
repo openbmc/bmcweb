@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca16dde3_df335844",
+        "filename": "http/routing/trie.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T22:50:11Z",
+      "side": 1,
+      "message": "it doesn\u0027t make a lot of sense to have a separate variable if we always need to do the lookup.\n\nJust inline nodes[idx] in all the places we need it.",
+      "revId": "0b6dbb5bf0bb471a63659a1c5c26e8dcc029d00f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
