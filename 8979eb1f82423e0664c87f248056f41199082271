@@ -141,6 +141,24 @@
       "parentUuid": "9807266e_b1d55a41",
       "revId": "8979eb1f82423e0664c87f248056f41199082271",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b03a44b7_deccbebd",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000021
+      },
+      "writtenOn": "2025-10-02T03:54:18Z",
+      "side": 1,
+      "message": "Did you read the text below the suggested edits?   or just press the view edit button(s)?\n\n\nI explicitly acknowledged they were whitespace damaged.   And that the differences should also include removal the prior line (488).  \n\nHowever the Gerrit comment reply editor doesn\u0027t allow changing the scope of the text to be replaced.   It has to be selected in the original comment which is difficult to do when starting a thread.b I was already copying between GitHub view tab and the comment box.\n\nnote the diffs were entered as a *`suggestion` type triple backtik quoted block as suggested by the editor.   only after pressing save does it create the diff representation.\n\n\nAll this being said, you seem to have removed the most glaring duplication by PS 6. There is still a bit of repetition with `other valid http2 headers`.  they could just be `valid http2 headers`, but I am not going to insist it be changed.",
+      "parentUuid": "78b4568a_23f7e609",
+      "revId": "8979eb1f82423e0664c87f248056f41199082271",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
