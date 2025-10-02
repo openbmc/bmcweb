@@ -105,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "247ef331_aaed05d8",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T18:44:08Z",
+      "side": 1,
+      "message": "This whole function can probably go away in lieu of one of the newer helpers at some point.",
+      "parentUuid": "853c999d_233e4680",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ad568d10_42e66140",
@@ -118,6 +136,24 @@
       "writtenOn": "2025-09-22T20:17:36Z",
       "side": 1,
       "message": "WARNING here since a user error",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "628de881_02c736ae",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T18:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad568d10_42e66140",
       "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -139,6 +175,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "955089a3_00b6ef11",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 836,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T18:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaa5d420_add96b4f",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2de0eafd_9f9b148a",
@@ -152,6 +206,24 @@
       "writtenOn": "2025-09-22T20:17:36Z",
       "side": 1,
       "message": "WARNING",
+      "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81077c86_a32b9da7",
+        "filename": "redfish-core/lib/openbmc/openbmc_managers.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T18:44:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2de0eafd_9f9b148a",
       "revId": "255bef9d7fbe87a3679633aaf44de82cde1bda05",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
