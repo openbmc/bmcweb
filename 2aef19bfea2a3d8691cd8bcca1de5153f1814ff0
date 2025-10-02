@@ -16,6 +16,57 @@
       "message": "It seems reasonable to me. I don\u0027t know a ton here.",
       "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebee3336_31f4f9af",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-10-02T20:10:19Z",
+      "side": 1,
+      "message": "16k frames size improves the transfer speed but is headers also packed in this.\nThe older version was sending headers of 9 bytes separately",
+      "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5a63f41_49970fd7",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-10-02T20:10:19Z",
+      "side": 1,
+      "message": "Is there way I can switch back to HTTP 1 version",
+      "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "881a8caf_e04fd2c9",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-10-02T20:10:19Z",
+      "side": 1,
+      "message": "what is the improvement from earlier version you shared",
+      "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
