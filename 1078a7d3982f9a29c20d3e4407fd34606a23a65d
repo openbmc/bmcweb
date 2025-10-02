@@ -16,6 +16,24 @@
       "message": "Has the discussion on this concluded?  If I merge this, do un targetted updates work now?",
       "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8adfc5ff_ec66fe1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-02T13:36:30Z",
+      "side": 1,
+      "message": "+1. I would like @paligill@gmail.com to sign off on this.",
+      "parentUuid": "04fdae68_f84b198b",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
