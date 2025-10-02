@@ -390,6 +390,30 @@
       },
       "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dc19239_e1f21ef0",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T19:51:00Z",
+      "side": 1,
+      "message": "\u003e the get bootstrap credentials ipmi command has a modifier that leaves it enabled.\n\nI\u0027m not sure what this means exactly.  You\u0027d want to leave the user enabled, otherwise it wouldn\u0027t\u0027 work for login, right?\n\n\u003e if the command is run multiple times, what should the behavior be?\n\nI\u0027d assume the credentials match the last password requested?  Ideally there\u0027s something tied to boot state, but I\u0027m not an expert on whether IPMI knows the host boot status.\n\n\u003e The latest patches create a bootstrap0 user like you suggest here and then reverts back to making users with random names...\n\nRandomly named users seems unfriendly to humans that ever have to debug this.  \"bootstrap\" (or some other well chosen name) at least gives the user a hint why there\u0027s two users in their system now.",
+      "parentUuid": "62a7d48e_63d09c33",
+      "range": {
+        "startLine": 38,
+        "startChar": 51,
+        "endLine": 38,
+        "endChar": 70
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
