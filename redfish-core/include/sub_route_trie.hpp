@@ -157,17 +157,22 @@ class SubRouteTrie : public crow::Trie<ContainedType>
                         continue;
                     }
                     found = true;
-                    ContainedType& node = this->nodes[idx];
-                    size_t* param = &node.stringParamChild;
                     if (str1 == "<path>")
                     {
-                        param = &node.pathParamChild;
+                        if (this->nodes[idx].pathParamChild == 0U)
+                        {
+                            this->nodes[idx].pathParamChild = this->newNode();
+                        }
+                        idx = this->nodes[idx].pathParamChild;
                     }
-                    if (*param == 0U)
+                    else
                     {
-                        *param = this->newNode();
+                        if (this->nodes[idx].stringParamChild == 0U)
+                        {
+                            this->nodes[idx].stringParamChild = this->newNode();
+                        }
+                        idx = this->nodes[idx].stringParamChild;
                     }
-                    idx = *param;
 
                     url.remove_prefix(str1.size());
                     break;
