@@ -237,18 +237,29 @@ class Trie
                     {
                         continue;
                     }
+
                     found = true;
-                    ContainedType& node = nodes[idx];
-                    size_t* param = &node.stringParamChild;
+                    ContainedType* node = &nodes[idx];
                     if (str1 == "<path>")
                     {
-                        param = &node.pathParamChild;
+                        if (node->pathParamChild == 0U)
+                        {
+                            size_t newNodeIdx = newNode();
+                            node = &nodes[idx];
+                            node->pathParamChild = newNodeIdx;
+                        }
+                        idx = node->pathParamChild;
                     }
-                    if (*param == 0U)
+                    else
                     {
-                        *param = newNode();
+                        if (node->stringParamChild == 0U)
+                        {
+                            size_t newNodeIdx = newNode();
+                            node = &nodes[idx];
+                            node->stringParamChild = newNodeIdx;
+                        }
+                        idx = node->stringParamChild;
                     }
-                    idx = *param;
 
                     url.remove_prefix(str1.size());
                     break;
