@@ -34,6 +34,24 @@
       "parentUuid": "04fdae68_f84b198b",
       "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b343afa_01b9a26d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-10-02T14:00:29Z",
+      "side": 1,
+      "message": "Jagpal has +1d the PDI and design doc (see below). I\u0027m waiting for Patric to merge the PDI, post which we can merge the PLDM patch for this plus this bmcweb patch.\n\nhttps://gerrit.openbmc.org/c/openbmc/docs/+/76645\nhttps://gerrit.openbmc.org/c/openbmc/phosphor-dbus-interfaces/+/78905",
+      "parentUuid": "8adfc5ff_ec66fe1a",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
