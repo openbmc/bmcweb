@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c5c0aa8_2344b885",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-02T19:23:16Z",
+      "side": 1,
+      "message": "Done in patchset 5",
+      "parentUuid": "bdfa280c_43e7d590",
+      "revId": "e02463564b1da49889ffba88de4d675c477948bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7709158b_148f477d",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 4
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8da95829_21f90357",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-02T19:23:16Z",
+      "side": 1,
+      "message": "The copy is required due to the usage of consts",
+      "parentUuid": "7709158b_148f477d",
+      "revId": "e02463564b1da49889ffba88de4d675c477948bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1798e0db_8e549f4d",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 4
@@ -48,6 +84,30 @@
       "writtenOn": "2025-10-02T16:51:51Z",
       "side": 1,
       "message": "I\u0027m a little surprised we didn\u0027t set this already, but I guess that tracks.",
+      "range": {
+        "startLine": 926,
+        "startChar": 0,
+        "endLine": 926,
+        "endChar": 74
+      },
+      "revId": "e02463564b1da49889ffba88de4d675c477948bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47356778_3ac343dd",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-02T19:23:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1798e0db_8e549f4d",
       "range": {
         "startLine": 926,
         "startChar": 0,
@@ -81,6 +141,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d762dd94_1299cafc",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-02T19:23:16Z",
+      "side": 1,
+      "message": "Related change in patchset 5. Creds are stored if either the username or password are present but the basic auth header is only formed if both fields are present.",
+      "parentUuid": "767adafd_dbc6ca30",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 5
+      },
+      "revId": "e02463564b1da49889ffba88de4d675c477948bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6512e7b_647f2da4",
@@ -94,6 +178,24 @@
       "writtenOn": "2025-10-02T16:51:51Z",
       "side": 1,
       "message": "This probably needs to change to\n\nif (username || password){\n    AggregationCredentials\u0026 creds \u003d RedfishAggregator::getInstance().aggregationCredentials[prefix];\n    if (username){\n        creds.username \u003d *username;\n    \n    }\n    \n    if (password){\n       creds.password \u003d *password;\n    }\n}",
+      "revId": "e02463564b1da49889ffba88de4d675c477948bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00eed95_6a766a7f",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-02T19:23:16Z",
+      "side": 1,
+      "message": "Changed in patchset 5. Creds are stored if either the username or password are present but the basic auth header is only formed if both fields are present.",
+      "parentUuid": "e6512e7b_647f2da4",
       "revId": "e02463564b1da49889ffba88de4d675c477948bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
