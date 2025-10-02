@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ddc87e85_5fc66057",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-10-02T20:20:18Z",
+      "side": 1,
+      "message": "Sorry I am asking with this change whether headers are packed with payload in a frame",
+      "parentUuid": "71704b6c_bfbce93d",
+      "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5a63f41_49970fd7",
         "filename": "http/http2_connection.hpp",
         "patchSetId": 7
@@ -119,6 +137,42 @@
       "side": 1,
       "message": "I\u0027m not sure what you mean.  http version is requested by the client and both are supported.  on curl you put --http1.1 as an arg, and it will use only http1.1",
       "parentUuid": "e5a63f41_49970fd7",
+      "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bf68997_c1d6aba0",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-10-02T20:20:18Z",
+      "side": 1,
+      "message": "when I use the command like this for FW update\ncurl -k  https://root:0penBmc@${BMC_IP}/redfish/v1/UpdateService/update-multipart --form \"UpdateFile\u003d@./pldm_bundle.fwpkg;type\u003dapplication/octet-stream\" --form \u0027UpdateParameters\u003d{}\u0027 --form \u0027UpdateParameters\u003d{\"ForceUpdate\":true}\u0027 it starts using HTTP version 2 by default. is there a way I can switch to use HTTP version 1 by default like meson option",
+      "parentUuid": "c7e99d13_6406c972",
+      "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38a4d9d2_02fadf84",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001673
+      },
+      "writtenOn": "2025-10-02T20:20:18Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "202507de_2959367b",
       "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
