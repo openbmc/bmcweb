@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fcb0c7b_d38de6fd",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T19:38:41Z",
+      "side": 1,
+      "message": "These are coming from a user.  Some level of checking they\u0027re sane needs to happen.  They can\u0027t include \":\", because they\u0027re being base64 encoded, and we should enforce some length (40 characters?)",
+      "revId": "ba1c46d70d6e0dc80f1d6038756f7d9e49972eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

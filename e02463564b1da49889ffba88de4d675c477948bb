@@ -234,6 +234,24 @@
       "parentUuid": "e6512e7b_647f2da4",
       "revId": "e02463564b1da49889ffba88de4d675c477948bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a4907a_c5a0d73e",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T19:38:41Z",
+      "side": 1,
+      "message": "Current patchset still fails\n\nPATCH Username\nPATCH Password (On this one, the username set in the previous commit will be cleared)\nDo request\n\nPlease take a look at the code I posted.  I think it handles this correctly and should be pretty much drop in.",
+      "parentUuid": "c00eed95_6a766a7f",
+      "revId": "e02463564b1da49889ffba88de4d675c477948bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
