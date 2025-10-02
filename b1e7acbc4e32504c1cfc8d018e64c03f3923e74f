@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d7d261e_f55e51d7",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T16:51:51Z",
+      "side": 1,
+      "message": "\u003e I used a separate map to minimize the number of changes.\n\nAs a general rule, \"minimize the size of the changeset\" isn\u0027t really a goal.  The goal is clean and consistent code.\n\nI don\u0027t really care if it\u0027s one patchset or two, but I\u0027d like the version that we merge to have a single map.  It also simplifies some of the cleanup because we only have to lookup/delete one thing.",
+      "parentUuid": "dc3d8fca_1c547fb2",
+      "range": {
+        "startLine": 914,
+        "startChar": 2,
+        "endLine": 916,
+        "endChar": 31
+      },
+      "revId": "b1e7acbc4e32504c1cfc8d018e64c03f3923e74f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91c2dd5f_5ce34901",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 3
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "changed to find in patchset 4",
       "parentUuid": "91c2dd5f_5ce34901",
+      "range": {
+        "startLine": 929,
+        "startChar": 35,
+        "endLine": 929,
+        "endChar": 43
+      },
+      "revId": "b1e7acbc4e32504c1cfc8d018e64c03f3923e74f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d986f377_a24cc157",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T16:51:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7d34c96_b2f5883a",
       "range": {
         "startLine": 929,
         "startChar": 35,
@@ -144,6 +192,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5061d98f_db49b7b4",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T16:51:51Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like it?  Patchset 4 still has at()",
+      "parentUuid": "16f5168d_3d241d60",
+      "range": {
+        "startLine": 199,
+        "startChar": 45,
+        "endLine": 199,
+        "endChar": 48
+      },
+      "revId": "b1e7acbc4e32504c1cfc8d018e64c03f3923e74f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b4fb5fca_3fcde0ae",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 3
@@ -179,6 +251,30 @@
       "side": 1,
       "message": "I\u0027ve added two checks that if either username or password is provided then the other field must also exist.",
       "parentUuid": "b4fb5fca_3fcde0ae",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 276,
+        "endChar": 2
+      },
+      "revId": "b1e7acbc4e32504c1cfc8d018e64c03f3923e74f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6213e4d4_7ef643a4",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T16:51:51Z",
+      "side": 1,
+      "message": "\u003e then the other field must also exist.\n\nThat\u0027s not what the spec says.  I\u0027m allowed to patch username separate from password.",
+      "parentUuid": "f3e7ae5f_80e1a2ea",
       "range": {
         "startLine": 276,
         "startChar": 0,
