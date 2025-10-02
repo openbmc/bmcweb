@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7bb379d_bf7e9c1c",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T20:24:08Z",
+      "side": 1,
+      "message": "Almost everything in http2 is in a frame, so yes, this would effect headers frames (type\u003d0x1)",
+      "parentUuid": "ddc87e85_5fc66057",
+      "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e5a63f41_49970fd7",
         "filename": "http/http2_connection.hpp",
         "patchSetId": 7
@@ -173,6 +191,24 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "202507de_2959367b",
+      "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aa8b0ec_70a3de18",
+        "filename": "http/http2_connection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T20:24:08Z",
+      "side": 1,
+      "message": "The client selects the http type through negotiation.  The argument I gave above could be added to your command to switch back to http1.1",
+      "parentUuid": "9bf68997_c1d6aba0",
       "revId": "2aef19bfea2a3d8691cd8bcca1de5153f1814ff0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
