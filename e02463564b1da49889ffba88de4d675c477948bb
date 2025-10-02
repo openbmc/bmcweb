@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "927e4842_f49c3dc2",
+        "filename": "http/utility.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T19:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c5c0aa8_2344b885",
+      "revId": "e02463564b1da49889ffba88de4d675c477948bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7709158b_148f477d",
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "The copy is required due to the usage of consts",
       "parentUuid": "7709158b_148f477d",
+      "revId": "e02463564b1da49889ffba88de4d675c477948bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db6ae5ed_6dbfe41e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-02T19:36:09Z",
+      "side": 1,
+      "message": "ACK.  I see that\u0027s not great, but not really avoidable here.",
+      "parentUuid": "8da95829_21f90357",
       "revId": "e02463564b1da49889ffba88de4d675c477948bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
