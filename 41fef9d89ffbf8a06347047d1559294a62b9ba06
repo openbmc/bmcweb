@@ -22,6 +22,30 @@
       },
       "revId": "41fef9d89ffbf8a06347047d1559294a62b9ba06",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ed96446_5c470c30",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-03T01:50:02Z",
+      "side": 1,
+      "message": "Sure. Managers is better but this is all under /bmc and we have BMC roles, BMC journal, etc, so we could say we have this wrong in a lot of places. Lets change to Managers though. \n\nhttps://github.com/openbmc/bmcweb/blob/55385c705c0efc58b88ff885b78ee65acb455b85/redfish-core/lib/manager_logservices_journal.hpp#L342\nhttps://github.com/openbmc/bmcweb/blob/55385c705c0efc58b88ff885b78ee65acb455b85/redfish-core/lib/update_service.hpp#L925\nhttps://github.com/openbmc/bmcweb/blob/55385c705c0efc58b88ff885b78ee65acb455b85/redfish-core/lib/roles.hpp#L128",
+      "parentUuid": "df336956_34450695",
+      "range": {
+        "startLine": 110,
+        "startChar": 36,
+        "endLine": 110,
+        "endChar": 39
+      },
+      "revId": "41fef9d89ffbf8a06347047d1559294a62b9ba06",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
