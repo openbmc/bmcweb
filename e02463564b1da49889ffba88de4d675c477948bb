@@ -252,6 +252,24 @@
       "parentUuid": "c00eed95_6a766a7f",
       "revId": "e02463564b1da49889ffba88de4d675c477948bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43912f92_a9af9d89",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-03T20:14:26Z",
+      "side": 1,
+      "message": "This particular change is in the post handler where i use value_or to take the value of username and/or password and default to an empty string if any field is missing. I\u0027ve added a separate patch handler that allows patching username and password independently. These changes are also part of patchset 13 and we should have the behavior that you described above.",
+      "parentUuid": "39a4907a_c5a0d73e",
+      "revId": "e02463564b1da49889ffba88de4d675c477948bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "These are coming from a user.  Some level of checking they\u0027re sane needs to happen.  They can\u0027t include \":\", because they\u0027re being base64 encoded, and we should enforce some length (40 characters?)",
       "revId": "ba1c46d70d6e0dc80f1d6038756f7d9e49972eb9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "936d724f_05c1728b",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-03T20:14:26Z",
+      "side": 1,
+      "message": "added a validateCredentialField() fn in patchset 13 that checks for the presence of colon, empty string and 40 character limit. We can add more checks in this function if needed",
+      "parentUuid": "9fcb0c7b_d38de6fd",
+      "revId": "ba1c46d70d6e0dc80f1d6038756f7d9e49972eb9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

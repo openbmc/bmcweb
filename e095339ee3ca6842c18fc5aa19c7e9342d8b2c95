@@ -56,6 +56,30 @@
       },
       "revId": "e095339ee3ca6842c18fc5aa19c7e9342d8b2c95",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa22323e_ecebc542",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-03T20:14:26Z",
+      "side": 1,
+      "message": "patchset 13 added asyncResp-\u003eres.jsonValue[\"UserName\"] \u003d nullptr; so that the UserName field is always shown.\nThe nullptr value is overridden if a username is provided.",
+      "parentUuid": "949a8384_8c686e11",
+      "range": {
+        "startLine": 198,
+        "startChar": 9,
+        "endLine": 198,
+        "endChar": 36
+      },
+      "revId": "e095339ee3ca6842c18fc5aa19c7e9342d8b2c95",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
