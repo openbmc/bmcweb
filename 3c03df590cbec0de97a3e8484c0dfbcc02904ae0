@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "092bd40a_1d0c1b9f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T21:10:39Z",
+      "side": 1,
+      "message": "I just realized that url actually has structs for username and password:\n\nhttps://www.boost.org/doc/libs/1_89_0/doc/antora/url/reference/boost/urls/url/set_password.html\n\nWhat\u0027s here isn\u0027t necessarily wrong, but we could simplify a bit by just using the username/password from the URL. \n\nUP to you.",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e1fa323_25fcf1d7",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T21:10:39Z",
+      "side": 1,
+      "message": "Should currentAggregationSources also be changed to use AggregationSource?",
+      "range": {
+        "startLine": 956,
+        "startChar": 44,
+        "endLine": 956,
+        "endChar": 69
+      },
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39c4efe_f049545f",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T21:10:39Z",
+      "side": 1,
+      "message": "please just put this in an else block on line 202.  That way we\u0027re not populating a param then immediately replacing it.",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80545e08_d215e401",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T21:10:39Z",
+      "side": 1,
+      "message": "StringValueTooShort is what should be used here.",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f74e0e5_c3360378",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T21:10:39Z",
+      "side": 1,
+      "message": "StringValueTooLong is the error that should be used here.",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0645c41a_5956e88b",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T21:10:39Z",
+      "side": 1,
+      "message": "nit, this should probably be RedfishAggregator\u0026.\n\nFix if you want.  This is a subjective case, because it\u0027s technically now duplicating things.",
+      "range": {
+        "startLine": 306,
+        "startChar": 4,
+        "endLine": 306,
+        "endChar": 8
+      },
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2b630ab_b4170c53",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T21:10:39Z",
+      "side": 1,
+      "message": "if the aggregation source exists in the em lookup, this shouldn\u0027t be 404, it should be PropertyNotWritable.  Probably need one more branch for ehcking if this id exists in the EM sources.",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
