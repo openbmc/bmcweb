@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faa2c9f4_0501ce5d",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1174,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-03T02:55:37Z",
+      "side": 1,
+      "message": "This isn\u0027t super well thought out but couldn\u0027t you just do appliedConfigUri here? Like we do other places with readUrlSegments\n\n```\n        boost::system::result\u003cboost::urls::url\u003e appliedConfigUri \u003d\n            boost::urls::parse_relative_ref(appliedConfigStr);\n        if (!appliedConfigUri)\n        {\n            messages::propertyValueFormatError(\n\n            return;\n        }\n\n    // Check for 404 and find matching D-Bus object, then run\n    // property patch handlers if that all succeeds.\n    getProcessorObject(\n        asyncResp, processorId,\n        std::bind_front(doPatchProcessor, asyncResp, processorId,\n                        appliedConfigUri, locationIndicatorActive));\n\n.....\n\ninline void doPatchProcessor(\n    const std::shared_ptr\u003cbmcweb::AsyncResp\u003e\u0026 asyncResp,\n    const std::string\u0026 processorId,\n    const boost::urls::url_view_base\u0026 url appliedConfigUri,\n\n\n\n```\n\nhttps://github.com/openbmc/bmcweb/blob/55385c705c0efc58b88ff885b78ee65acb455b85/redfish-core/lib/trigger.hpp#L579",
+      "revId": "77a70b39d93226f4b11ad5f950cdb18a91a1ff7d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
