@@ -128,6 +128,24 @@
       "parentUuid": "b5b5f02a_ec6729b5",
       "revId": "8b6168d5b593b607d46155a2d515d08b7f4617ff",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80a26eb5_e75d4420",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 119
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-10-03T18:30:24Z",
+      "side": 1,
+      "message": "With the fix https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84200, it is now moved to L68.",
+      "parentUuid": "0957b26a_80acd73b",
+      "revId": "8b6168d5b593b607d46155a2d515d08b7f4617ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
