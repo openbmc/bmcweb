@@ -270,6 +270,24 @@
       "parentUuid": "39a4907a_c5a0d73e",
       "revId": "e02463564b1da49889ffba88de4d675c477948bb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83c026fe_32798aa2",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T20:53:01Z",
+      "side": 1,
+      "message": "yep, current code looks correct.  value_or isn\u0027t something we use often, so I didn\u0027t read it right.  Fine as is.",
+      "parentUuid": "43912f92_a9af9d89",
+      "revId": "e02463564b1da49889ffba88de4d675c477948bb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
