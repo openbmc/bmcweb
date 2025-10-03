@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fd27a5e4_ea3cc815",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:23:55Z",
+      "side": 1,
+      "message": "Just so we\u0027re clear, this is doing a blocking IO read of a SPI based interface in the middle of an io reactor.  This is really pointing to the central problem here that the filesystem is not an IPC, so we don\u0027t have the proper primitives for dealing with it in an async fashion.\n\nIf we wanted to, we have uring support now, and it would be easy to turn on, but lets just not use the filesystem as ipc.",
+      "range": {
+        "startLine": 56,
+        "startChar": 19,
+        "endLine": 56,
+        "endChar": 29
+      },
+      "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "77fbaea6_b1215fed",
         "filename": "include/authentication.hpp",
         "patchSetId": 8
