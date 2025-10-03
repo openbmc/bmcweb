@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77fbaea6_b1215fed",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:21:29Z",
+      "side": 1,
+      "message": "Please don\u0027t use default params here.  Just populate where we need them\n\nAlso pass basic values (bool, int, etc) by value.\n\nAlso, this probably deserves to be an enum class.",
+      "range": {
+        "startLine": 326,
+        "startChar": 36,
+        "endLine": 326,
+        "endChar": 44
+      },
+      "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa1e43c1_1885a370",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:21:29Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto like this.  It makes it very difficult to understand the type of state",
+      "range": {
+        "startLine": 371,
+        "startChar": 8,
+        "endLine": 371,
+        "endChar": 12
+      },
+      "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7800bd9b_805c899e",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:21:29Z",
+      "side": 1,
+      "message": "please use std::format for non trivial string construction.",
+      "range": {
+        "startLine": 377,
+        "startChar": 16,
+        "endLine": 377,
+        "endChar": 73
+      },
+      "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee43b38e_770682c2",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:21:29Z",
+      "side": 1,
+      "message": "This looks broken to me.  Yes, this will return unauthorized for bootstrap users attempting to access from non bootstrap interfaces.... AFTER THE SESSION IS CREATED! ! ! !",
+      "revId": "540ca48e9af34e020db292dae8c59e274fbc985f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
