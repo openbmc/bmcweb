@@ -415,3 +415,31 @@ enumerations which must be used for JSON response population.
 #include "generated/enums/sensor.hpp"
 sensorJson["ReadingType"] = sensor::ReadingType::Frequency;
 ```
+
+## 17. Duplicated map lookups
+
+```cpp
+std::unordered_map<std::string, std::string> mymap;
+
+if (mymap.contains("mykey")){
+    std::string& myvalue = mymap["mykey"];
+}
+```
+
+While functionally correct doing the above results in more code generated, and
+duplicates the key lookup in the map.  The above code also makes it more
+difficult to use const for "mymap", as operator[] is not const.  Sometimes at()
+is used in place of operator[] to get around this, but also duplicates the
+lookup.
+
+As a minor consequence, the lookup key "mykey" is now duplicated, or needs to
+be loaded into a scope variable.
+
+```cpp
+std::unordered_map<std::string, std::string> mymap;
+
+auto it = mymap.find("mykey");
+if (it != mymap.end()){
+    std::string& myvalue = it->second;
+}
+```
