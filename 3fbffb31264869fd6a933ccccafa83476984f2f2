@@ -414,6 +414,30 @@
       },
       "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eedd3a68_134366b8",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2025-10-03T14:27:41Z",
+      "side": 1,
+      "message": "\u003e You\u0027d want to leave the user enabled\n\nThe thing being left enabled by the modifier is credential bootstrapping, not the user.\n\n\u003e I\u0027d assume the credentials match the last password requested?\nNo, the spec says this:\n\nIf the get bootstrap account credentials command is sent subsequent times and responds with the completion code 00h, a new account shall be created based on the newly generated credentials. Any existing bootstrap accounts shall remain active.\n\n\u003e Randomly named users seems unfriendly to humans\n\nAgree but the original question remains...what to name the subsequently created bootstrap users?  bootstrap0..N ?",
+      "parentUuid": "9dc19239_e1f21ef0",
+      "range": {
+        "startLine": 38,
+        "startChar": 51,
+        "endLine": 38,
+        "endChar": 70
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
