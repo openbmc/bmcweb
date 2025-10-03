@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cb0b619e_a30e45a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-10-03T21:59:06Z",
+      "side": 1,
+      "message": "Have please verify the flow with Targets property not present too?\n\nAs per schema \nhttps://redfish.dmtf.org/schemas/v1/UpdateService.v1_16_0.json\n\n\"If this property is not present or contains no targets,\"",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e8abbee_3278c734",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-10-03T21:59:06Z",
+      "side": 1,
+      "message": "Can you please verify in your testing that single target URI works as expected as you are refactoring that code too. You can try with BMC as target probably.",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04fdae68_f84b198b",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 16
@@ -68,6 +102,75 @@
       "side": 1,
       "message": "Ack. \n\n\u003e  If I merge this, do un targetted updates work now?\n\nWhat is the answer here?",
       "parentUuid": "2b343afa_01b9a26d",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf5ca38_bf866da6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-10-03T21:59:06Z",
+      "side": 1,
+      "message": "Provided some comments on this patch.\n\nPlease make sure the dependent patches in description are merged first. Thanks",
+      "parentUuid": "c8127ecb_36fdfeb7",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8762e2cb_5e932d45",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-10-03T21:59:06Z",
+      "side": 1,
+      "message": "I think we need a better error reporting here as this is a situation where the Multipart interface cannot reside on more than one path.",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47a1dfbf_1fd6e491",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-10-03T21:59:06Z",
+      "side": 1,
+      "message": "This is the second usage of this interface name, lets define a common constexpr for xyz.openbmc_project.Software.Update and use it at other places too.",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3df5f87b_16442588",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1001758
+      },
+      "writtenOn": "2025-10-03T21:59:06Z",
+      "side": 1,
+      "message": "Lets also add a BMCWEB_LOG_DEBUG here stating the error that Multipart service doesn\u0027t implement the update interface.",
       "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
