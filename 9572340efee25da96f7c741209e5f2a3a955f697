@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d8a58d05_ef4fda40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:50:22Z",
+      "side": 1,
+      "message": "Sorry to be a pain, but can we link the SHA of the previous change?\n\n\nAlso, can we document, is this changing BACK to what the previous behavior was?  or is this changing behavior for the user in a way that could potentially break them?",
+      "range": {
+        "startLine": 14,
+        "startChar": 27,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "9572340efee25da96f7c741209e5f2a3a955f697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e26f8574_ba31731d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -49,6 +72,41 @@
       "writtenOn": "2025-10-03T13:07:19Z",
       "side": 1,
       "message": "ACK regarding commit messages (one more linter to add to the IDE, lol)\n\nanything needed on this PR to move forward?",
+      "revId": "9572340efee25da96f7c741209e5f2a3a955f697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10ba31ac_214d5284",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:50:22Z",
+      "side": 1,
+      "message": "We have a commit message linter, but finding people that set their word wrap boundaries to LESS than the required is difficult in automation without false positives, so it\u0027s still manual.\n\nFYI, for whatever editor you set up , there\u0027s generally a way to have it wrap automatically and it\u0027s something folks generally set up once globally and forget about.  (Not sure why it isn\u0027t the default these days).",
+      "parentUuid": "a4046200_ca1a133f",
+      "revId": "9572340efee25da96f7c741209e5f2a3a955f697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57f7440c_f33739a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:50:22Z",
+      "side": 1,
+      "message": "overall in support of this.",
       "revId": "9572340efee25da96f7c741209e5f2a3a955f697",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
