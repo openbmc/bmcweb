@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da933c16_d79eb74b",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:33:40Z",
+      "side": 1,
+      "message": "setup route should always be the first thing done in a redfish method.",
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d8f04d6_40e5357d",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:33:40Z",
+      "side": 1,
+      "message": "Do we really need to support RoleId?  Our roles other than Admin are somewhat broken right now, so I\u0027m a little surprised we\u0027d make this configurable at all.   Was there a use case you were trying to accomplish?",
+      "range": {
+        "startLine": 201,
+        "startChar": 37,
+        "endLine": 201,
+        "endChar": 43
+      },
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85db999e_e2af9afe",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:33:40Z",
+      "side": 1,
+      "message": "Please use the appropriate helper function for these\n\nhttps://github.com/openbmc/bmcweb/blob/a9da2b2b50758ec9657ab7034e57dadb3e62abd0/redfish-core/include/utils/dbus_utils.hpp#L54\n\nPlease fix all of them.",
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba747f1a_56e7ebb3",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:33:40Z",
+      "side": 1,
+      "message": "Please capture all ec values by const reference, to avoid a copy.",
+      "range": {
+        "startLine": 209,
+        "startChar": 45,
+        "endLine": 209,
+        "endChar": 55
+      },
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4c30c50_d5a8efdc",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:33:40Z",
+      "side": 1,
+      "message": "Please don\u0027t duplicate this lookup.  if this struct were surviving, you would use find.",
+      "range": {
+        "startLine": 244,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 9
+      },
+      "revId": "1690fe20ecaed1f6cb2e1d99f9b5223e696cbcf7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
