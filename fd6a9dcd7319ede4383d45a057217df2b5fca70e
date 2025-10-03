@@ -53,6 +53,23 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2eea993_82f34280",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-03T16:51:56Z",
+      "side": 1,
+      "message": "b",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "91f9f41f_076e0f97",
@@ -66,6 +83,30 @@
       "writtenOn": "2025-10-03T15:16:38Z",
       "side": 1,
       "message": "Maybe call this \"host\"? or host0?",
+      "range": {
+        "startLine": 16,
+        "startChar": 56,
+        "endLine": 16,
+        "endChar": 59
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52f65d0b_50bf96e1",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-03T16:51:56Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "91f9f41f_076e0f97",
       "range": {
         "startLine": 16,
         "startChar": 56,
