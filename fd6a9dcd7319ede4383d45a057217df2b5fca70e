@@ -72,6 +72,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f30ab27d_5c78bbac",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-03T16:57:03Z",
+      "side": 1,
+      "message": "Do you need the separate Ampere copyright?",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "91f9f41f_076e0f97",
         "filename": "redfish-core/lib/host_interface.hpp",
         "patchSetId": 13
@@ -113,6 +130,23 @@
         "endLine": 16,
         "endChar": 59
       },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ccdcbbd_fa3a3079",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-03T16:57:03Z",
+      "side": 1,
+      "message": "WARNING",
       "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -199,6 +233,80 @@
         "endLine": 103,
         "endChar": 51
       },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67a0ddbf_970e47ae",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-03T16:57:03Z",
+      "side": 1,
+      "message": "WARNING here https://github.com/openbmc/bmcweb/blob/a9da2b2b50758ec9657ab7034e57dadb3e62abd0/DEVELOPING.md?plain\u003d1#L228",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc46852c_42faf592",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-03T16:57:03Z",
+      "side": 1,
+      "message": "WARNING here",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "810d588a_23ca19bb",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-03T16:57:03Z",
+      "side": 1,
+      "message": "Can you use enums here like we do elsewhere?",
+      "range": {
+        "startLine": 148,
+        "startChar": 53,
+        "endLine": 148,
+        "endChar": 72
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a80de7a7_b424b6f3",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-03T16:57:03Z",
+      "side": 1,
+      "message": "See https://github.com/openbmc/bmcweb/blob/a9da2b2b50758ec9657ab7034e57dadb3e62abd0/redfish-core/lib/memory.hpp#L413 for how we should do this",
       "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
