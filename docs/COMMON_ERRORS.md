@@ -443,3 +443,34 @@ if (it != mymap.end()){
     std::string& myvalue = it->second;
 }
 ```
+
+## 18. Auto lvalue for nontrivial function returns
+
+```cpp
+auto x = my_function();
+```
+
+Given this line of code, what is the type of x? Does x need to be checked for
+null before using? Does x hold a value that is making a copy?
+
+Explicitly declare the type when the function is nontrivial.
+
+```cpp
+int x = my_function();
+```
+
+Note, that exceptions to this rule are present when using templated data
+structures holding a member (map/vector/set). Given that the type is known, and
+generic data structures are well understood by both reviewers and authors,
+explicitly naming the iterator impacts both readability and can impact
+correctness in some const cases. Given that, consider the following code.
+
+```cpp
+std::map<int, int> mymap;
+
+auto it = mymap.find(0);
+```
+
+Given that the returned type is still present in the code, and the majority of
+C++ data structures follow a pattern that can be traced from the snippet above,
+auto is an improvement in readability here.
