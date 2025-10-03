@@ -16,6 +16,132 @@
       "message": "Somethings I see missing from this:\n1. Redfish service validator testing\n2. Documentation updates\n3. Installation of the CSDL schema",
       "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58ad7e17_f33fba64",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:16:38Z",
+      "side": 1,
+      "message": "I\u0027m happy to have this patch, but is HostInterface GET useful on its own, or is PATCH support also coming?",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91f9f41f_076e0f97",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:16:38Z",
+      "side": 1,
+      "message": "Maybe call this \"host\"? or host0?",
+      "range": {
+        "startLine": 16,
+        "startChar": 56,
+        "endLine": 16,
+        "endChar": 59
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3ee4ebc_cff6ebac",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:16:38Z",
+      "side": 1,
+      "message": "Please follow what we do everywhere else with if/else if trees.\n\nAs written this will construct and malloc all these strings, as well as the map just to do a single string lookup.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 22
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68f0a350_3fcc6945",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:16:38Z",
+      "side": 1,
+      "message": "You do the lookup for \"CredentialBootstrapping\" 3 times in this method.  Please do it only once.\n\nnlohmann::jons\u0026 creds \u003d asyncResp-\u003eres.jsonValue[\"CredentialBootstrapping\"];\ncreds[\"Enabled\"]  \u003d ...",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 49
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0821115d_a7aee0e5",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:16:38Z",
+      "side": 1,
+      "message": "Why does the credential bootstrap have its own role?  SHouldn\u0027t this just be the role of the bootstrap user?",
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c54c09a4_a13e53a8",
+        "filename": "redfish-core/lib/host_interface.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-03T15:16:38Z",
+      "side": 1,
+      "message": "operator[] is incorrect here.  You probably meant find, but please follow the pattern used elsewhere.",
+      "range": {
+        "startLine": 103,
+        "startChar": 23,
+        "endLine": 103,
+        "endChar": 51
+      },
+      "revId": "fd6a9dcd7319ede4383d45a057217df2b5fca70e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
