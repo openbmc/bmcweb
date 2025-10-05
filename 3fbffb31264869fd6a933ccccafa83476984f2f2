@@ -462,6 +462,30 @@
       },
       "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baa27a31_efea0bd7",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-10-05T12:28:28Z",
+      "side": 1,
+      "message": "Actually, the current code support maximum 15 bootstrap account. With the name of first one is `bootStrap0`. The redfish host interface does not limit the number of the created bootStrap accounts.\nThe bootStrap account can be used in different applications or system services, limit one bootStrap account will require sharing the bootStrap account in EDK.\n\n```\nCan we just have a known bootstrap user? Initially let\u0027s just call it \"bootstrap\" then if we want to make it configurable we can.[\n```\nFinally, I can understand your idea in this comment. Not only the initial name or configured bootStrap account name. This comment also means we will limit the number of bootStrap account to 1.\nWith that approach, the BMCWeb will use that \"configureabled\" name to identify the bootStrap user.\nSo no need `/etc/bootStrap.conf` file which is listing the name of bootStrap Accounts.\n\nBut as my above opinion, we still need support multiple bootstrap accounts.",
+      "parentUuid": "1404b6bc_4936cc69",
+      "range": {
+        "startLine": 38,
+        "startChar": 51,
+        "endLine": 38,
+        "endChar": 70
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
