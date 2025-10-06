@@ -124,6 +124,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70066e7b_16612210",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-06T18:27:37Z",
+      "side": 1,
+      "message": "Thank you for the explanation. I\u0027ve removed the statement about this compile option staying around long-term.",
+      "parentUuid": "8dc36f12_45b7650d",
+      "revId": "f60943db982c1d79ba657224e87e0efac0547ac6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4775579c_a82fc233",
