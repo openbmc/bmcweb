@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "75304e4e_db057837",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-06T19:39:45Z",
+      "side": 1,
+      "message": "Left it as part of struct",
+      "parentUuid": "092bd40a_1d0c1b9f",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8e1fa323_25fcf1d7",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 13
@@ -31,6 +49,30 @@
       "writtenOn": "2025-10-03T21:10:39Z",
       "side": 1,
       "message": "Should currentAggregationSources also be changed to use AggregationSource?",
+      "range": {
+        "startLine": 956,
+        "startChar": 44,
+        "endLine": 956,
+        "endChar": 69
+      },
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea447a8e_dee565b2",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-06T19:39:45Z",
+      "side": 1,
+      "message": "renamed all instances of currentAggregationSources to aggregationSources",
+      "parentUuid": "8e1fa323_25fcf1d7",
       "range": {
         "startLine": 956,
         "startChar": 44,
@@ -60,6 +102,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33dd6895_ea2ac935",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-06T19:39:45Z",
+      "side": 1,
+      "message": "Added the else block",
+      "parentUuid": "d39c4efe_f049545f",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80545e08_d215e401",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 13
@@ -77,6 +137,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "064ece3f_af677726",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-06T19:39:45Z",
+      "side": 1,
+      "message": "done. I have set the error message to say that password needs to be at least 1 character long but let me know if we want to enforce a different minimum",
+      "parentUuid": "80545e08_d215e401",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f74e0e5_c3360378",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 13
@@ -88,6 +166,24 @@
       "writtenOn": "2025-10-03T21:10:39Z",
       "side": 1,
       "message": "StringValueTooLong is the error that should be used here.",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b01b1627_47af8559",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-06T19:39:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f74e0e5_c3360378",
       "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -117,6 +213,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b85e9eb_bd40fe9d",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-06T19:39:45Z",
+      "side": 1,
+      "message": "did not change this",
+      "parentUuid": "0645c41a_5956e88b",
+      "range": {
+        "startLine": 306,
+        "startChar": 4,
+        "endLine": 306,
+        "endChar": 8
+      },
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2b630ab_b4170c53",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 13
@@ -128,6 +248,24 @@
       "writtenOn": "2025-10-03T21:10:39Z",
       "side": 1,
       "message": "if the aggregation source exists in the em lookup, this shouldn\u0027t be 404, it should be PropertyNotWritable.  Probably need one more branch for ehcking if this id exists in the EM sources.",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb2bfaa6_f298d2ac",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-06T19:39:45Z",
+      "side": 1,
+      "message": "Added the existence check using getSatelliteConfigs and if it exists in there, throw a PropertyNotWritable error",
+      "parentUuid": "e2b630ab_b4170c53",
       "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
