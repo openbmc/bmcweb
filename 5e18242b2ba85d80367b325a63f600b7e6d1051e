@@ -16,6 +16,46 @@
       "message": "Can we move forward with this? @myungbae@us.ibm.com @gunnar@gmills.xyz",
       "revId": "5e18242b2ba85d80367b325a63f600b7e6d1051e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0570ad5_0637f815",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-06T16:19:52Z",
+      "side": 1,
+      "message": "Please audit these for use.  As-written it looks like they were copied and pasted.  I see at least a couple that aren\u0027t used in this file and would flag if we had include-cleaner running.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "5e18242b2ba85d80367b325a63f600b7e6d1051e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b088650_df4bc2e6",
+        "filename": "redfish-core/lib/processor_operating_config.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-06T16:19:52Z",
+      "side": 1,
+      "message": "This is a 94 line lambda.  It\u0027s coming from somewhere else and is just a move, so that\u0027s fine, but it\u0027s worth calling out that this needs fixed at some point.",
+      "revId": "5e18242b2ba85d80367b325a63f600b7e6d1051e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
