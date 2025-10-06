@@ -34,6 +34,24 @@
       "parentUuid": "9d0ee02c_e16632c3",
       "revId": "92c45706e91839c2b1acbee900f0fa9f273860b1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "455fdcff_676e8e55",
+        "filename": "redfish-core/include/utils/log_services_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-06T16:10:04Z",
+      "side": 1,
+      "message": "That generally means you forgot to #include \"boost_formatters.hpp\" which includes ADL definitions for printing an EC.",
+      "parentUuid": "509e5974_ab393878",
+      "revId": "92c45706e91839c2b1acbee900f0fa9f273860b1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
