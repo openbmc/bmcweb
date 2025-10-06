@@ -88,6 +88,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac127010_b6eec40a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-06T12:35:57Z",
+      "side": 1,
+      "message": "I\u0027m marking this comment resolved so the bot shows reviewer as next action. Please reopen the comment if you disagree with my response.",
+      "parentUuid": "141e3ab4_135e5ec1",
+      "revId": "f60943db982c1d79ba657224e87e0efac0547ac6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4775579c_a82fc233",
@@ -125,6 +143,30 @@
       "side": 1,
       "message": "(Same answer and question for this review comment as for the overall review comment.)\n\nOnce proven I was thinking distributions would need the option for enabling/disabling the option. (Similar to redfish-aggregation.)\n\nThe lack of D-Bus objects implementing the xyz.openbmc_project.State.BMC.Redundancy interface indicates there is no redundancy on the BMC. By disabling the option for a particular distribution it would save a single GetSubTree mapper call at runtime. (See getManagerRedundancy())\n\nIs the ability to disable the option long-term not desirable? If so I will update the description of the option.",
       "parentUuid": "4775579c_a82fc233",
+      "range": {
+        "startLine": 453,
+        "startChar": 69,
+        "endLine": 454,
+        "endChar": 54
+      },
+      "revId": "f60943db982c1d79ba657224e87e0efac0547ac6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5731b6d9_71515285",
+        "filename": "meson.options",
+        "patchSetId": 3
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-06T12:35:57Z",
+      "side": 1,
+      "message": "I\u0027m marking this comment resolved so the bot shows reviewer as next action. Please reopen the comment if you disagree with my response.",
+      "parentUuid": "e9dd7876_4c82abf9",
       "range": {
         "startLine": 453,
         "startChar": 69,
