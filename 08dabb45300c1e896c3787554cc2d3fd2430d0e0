@@ -186,6 +186,30 @@
       },
       "revId": "08dabb45300c1e896c3787554cc2d3fd2430d0e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7068a2b0_27875d03",
+        "filename": "docs/COMMON_ERRORS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-06T17:29:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a431c34_ce895073",
+      "range": {
+        "startLine": 475,
+        "startChar": 73,
+        "endLine": 475,
+        "endChar": 78
+      },
+      "revId": "08dabb45300c1e896c3787554cc2d3fd2430d0e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
