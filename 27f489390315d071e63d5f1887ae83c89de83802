@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d9632a3_c9d5e936",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-06T16:49:12Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/docs/REDFISH_CHECKLIST.md",
+      "revId": "27f489390315d071e63d5f1887ae83c89de83802",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa61537b_e9c4e064",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-06T16:49:12Z",
+      "side": 1,
+      "message": "Is there a reason we need to break out a single line function?\n\nThe args result in more code than just what exists if this were inlined.",
+      "revId": "27f489390315d071e63d5f1887ae83c89de83802",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0cb182f_bf8f41b4",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-06T16:49:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t end in a trailing slash?\n\nAlso for new code please use the object_path interface in sdbusplus",
+      "range": {
+        "startLine": 1090,
+        "startChar": 67,
+        "endLine": 1090,
+        "endChar": 68
+      },
+      "revId": "27f489390315d071e63d5f1887ae83c89de83802",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
