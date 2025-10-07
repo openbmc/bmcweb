@@ -187,6 +187,18 @@ option(
                     /redfish/v1/Systems/system''',
 )
 
+# BMCWEB_REDFISH_FABRIC_URI_NAME
+option(
+    'redfish-fabric-uri-name',
+    type: 'string',
+    value: 'fabric',
+    description: '''The static Redfish Fabric ID representing the host
+                    instance. This option will appear in the Redfish tree at
+                    /redfish/v1/Fabrics/<redfish-fabric-uri-name>.
+                    Defaults to \'fabric\' which resolves to
+                    /redfish/v1/Fabrics/fabric''',
+)
+
 # BMCWEB_LOGGING_LEVEL
 option(
     'bmcweb-logging',

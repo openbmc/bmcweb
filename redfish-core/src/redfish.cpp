@@ -16,6 +16,7 @@
 #include "ethernet.hpp"
 #include "event_service.hpp"
 #include "eventservice_sse.hpp"
+#include "fabric.hpp"
 #include "fabric_adapters.hpp"
 #include "fabric_ports.hpp"
 #include "fan.hpp"
@@ -48,6 +49,7 @@
 #include "storage.hpp"
 #include "storage_chassis.hpp"
 #include "storage_controller.hpp"
+#include "switch_port.hpp"
 #include "systems.hpp"
 #include "systems_logservices_dbus_eventlog.hpp"
 #include "systems_logservices_hostlogger.hpp"
@@ -113,6 +115,8 @@ RedfishService::RedfishService(App& app)
     requestRoutesChassisDrive(app);
     requestRoutesCable(app);
     requestRoutesCableCollection(app);
+    requestRoutesFabrics(app);
+    requestRoutesFabricSwitchPort(app);
 
     requestRoutesSystemsLogServiceCollection(app);
     requestRoutesManagersLogServiceCollection(app);
