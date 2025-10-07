@@ -108,7 +108,7 @@ void assertServiceRootGet(crow::Response& res)
         json["ProtocolFeaturesSupported"]["DeepOperations"]["DeepPATCH"]);
     EXPECT_EQ(json["ProtocolFeaturesSupported"]["DeepOperations"].size(), 2);
 
-    size_t expectedSize = 21;
+    size_t expectedSize = 22;
 
     if (BMCWEB_REDFISH_AGGREGATION)
     {
