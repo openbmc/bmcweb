@@ -16,6 +16,24 @@
       "message": "Code looks correct now, waiting on PDI.",
       "revId": "36d27069f955bb79da7fbe110822d2f9ebeedbf8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bed012d8_6ed37e6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-07T13:15:35Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "e443a913_011f68b7",
+      "revId": "36d27069f955bb79da7fbe110822d2f9ebeedbf8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
