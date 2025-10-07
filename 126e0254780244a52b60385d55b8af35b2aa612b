@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ad54749f_c6914379",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-07T02:48:31Z",
+      "side": 1,
+      "message": "The PDI is abandoned. Still trying to get this in with the new approach?",
+      "revId": "126e0254780244a52b60385d55b8af35b2aa612b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "3af78e8a_60cc2032",
