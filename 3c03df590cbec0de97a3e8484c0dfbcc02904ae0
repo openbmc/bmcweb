@@ -160,6 +160,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54e9415e_1b5a9a99",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-07T23:04:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33dd6895_ea2ac935",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80545e08_d215e401",
@@ -195,6 +213,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b7d20b6_0915acaf",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-07T23:04:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "064ece3f_af677726",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f74e0e5_c3360378",
@@ -226,6 +262,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "9f74e0e5_c3360378",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4174111e_18c07149",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-07T23:04:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b01b1627_47af8559",
       "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -332,6 +386,24 @@
       "side": 1,
       "message": "Added the existence check using getSatelliteConfigs and if it exists in there, throw a PropertyNotWritable error",
       "parentUuid": "e2b630ab_b4170c53",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53f55bd2_310f1334",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1002626
+      },
+      "writtenOn": "2025-10-07T23:04:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb2bfaa6_f298d2ac",
       "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
