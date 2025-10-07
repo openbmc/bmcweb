@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fed1b70_06d72b96",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-07T16:54:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75304e4e_db057837",
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e1fa323_25fcf1d7",
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "renamed all instances of currentAggregationSources to aggregationSources",
       "parentUuid": "8e1fa323_25fcf1d7",
+      "range": {
+        "startLine": 956,
+        "startChar": 44,
+        "endLine": 956,
+        "endChar": 69
+      },
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57b4028c_215cfa70",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-07T16:54:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea447a8e_dee565b2",
       "range": {
         "startLine": 956,
         "startChar": 44,
@@ -225,6 +267,30 @@
       "side": 1,
       "message": "did not change this",
       "parentUuid": "0645c41a_5956e88b",
+      "range": {
+        "startLine": 306,
+        "startChar": 4,
+        "endLine": 306,
+        "endChar": 8
+      },
+      "revId": "3c03df590cbec0de97a3e8484c0dfbcc02904ae0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b29b1cb_cebe66bc",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-07T16:54:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b85e9eb_bd40fe9d",
       "range": {
         "startLine": 306,
         "startChar": 4,
