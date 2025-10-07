@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba6e2749_5f4e9277",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-07T10:13:53Z",
+      "side": 1,
+      "message": "This may take a while to work through and understand.",
+      "parentUuid": "5d9632a3_c9d5e936",
+      "revId": "27f489390315d071e63d5f1887ae83c89de83802",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fa61537b_e9c4e064",
         "filename": "redfish-core/include/utils/collection.hpp",
         "patchSetId": 7
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d339f556_96450b90",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-07T10:13:53Z",
+      "side": 1,
+      "message": "```\ncollection_util::getCollectionByAssociationById(\n        asyncResp,\n        boost::urls::format(\"/redfish/v1/Systems/{}/Processors\", systemName),\n        systemName, systemPath, boardInterfaces, \"containing\",\n        processorInterfaces, nlohmann::json::json_pointer(\"/Members\"));\n```\n\ncompared to:\n````\ndbus::utility::getAssociatedSubTreePathsById(\n        id, inventoryPath, subtreeInterfaces, association, endpointInterfaces,\n        std::bind_front(collection_util::handleCollectionMembers, asyncResp, \n        collectionPath, jsonKeyName));\n```\n\nThere is not much difference, but I have a reusable function which has a name, tells me roughly what it does and what I get if calling into it. Also I avoid a `bind_front` in processor.hpp. This keeps the code handling the result contained in collection.hpp. \n\nDo you want me to inline it?",
+      "parentUuid": "fa61537b_e9c4e064",
+      "revId": "27f489390315d071e63d5f1887ae83c89de83802",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0cb182f_bf8f41b4",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 7
@@ -48,6 +84,30 @@
       "writtenOn": "2025-10-06T16:49:12Z",
       "side": 1,
       "message": "Shouldn\u0027t end in a trailing slash?\n\nAlso for new code please use the object_path interface in sdbusplus",
+      "range": {
+        "startLine": 1090,
+        "startChar": 67,
+        "endLine": 1090,
+        "endChar": 68
+      },
+      "revId": "27f489390315d071e63d5f1887ae83c89de83802",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ec9a9f4_7f6de9ce",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-07T10:13:53Z",
+      "side": 1,
+      "message": "I\u0027ll keep this open until I push the next patch set. Setting the change to WIP until then.",
+      "parentUuid": "c0cb182f_bf8f41b4",
       "range": {
         "startLine": 1090,
         "startChar": 67,

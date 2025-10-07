@@ -16,6 +16,24 @@
       "message": "What does a board have to do with Processors under a system ?",
       "revId": "9832efe759fbcf8736512ecbc1b304cbf9e6fcf9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76d33c91_b314414c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-07T10:13:53Z",
+      "side": 1,
+      "message": "In single host systems you only have one system called \u0027system\u0027, in multi-host systems each host is a system, so my thought was a system needs at least a board (my example is always Yosemite4), so I decided to rely the relation between board (in this example: sentinal dome t1, which gets CPU \u0027port\u0027 for the association) and the CPU on the same bus connects to this port to create the association between board and CPU. This with association, I can get a CPU with the \u0027systemName\u0027, which in fact is the board name.",
+      "parentUuid": "52ebdbdd_e71ee8ed",
+      "revId": "9832efe759fbcf8736512ecbc1b304cbf9e6fcf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
