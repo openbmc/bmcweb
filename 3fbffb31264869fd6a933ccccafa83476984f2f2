@@ -510,6 +510,30 @@
       },
       "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67b7867a_4a022aca",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000945
+      },
+      "writtenOn": "2025-10-07T06:59:04Z",
+      "side": 1,
+      "message": "\u003e \u003e The redfish host interface does not limit the number of the created bootStrap accounts.\n\u003e \n\u003e This seems like an implementation bug then?  So from the user collection we would see 15 users at all time?  That doesn\u0027t seem user friendly?\n\nThe bootStrap account just like other accounts, so It will be shown in the WebUI or redfish when we login use administrator account. The administrator can also remove the bootStrap account if they want.\n\n\u003e \n\u003e \u003e But as my above opinion, we still need support multiple bootstrap accounts.\n\u003e \n\u003e I\u0027m a little confused how this would happen.  Bootstrap accounts are only allowed to be created during pre-boot environments, right?  Does sbios need more than one account?  Yes, there might be system services, but they would be registered using the normal Redfish URIs, given that TCP will be up at that point, and the one bootstrap credential would be used to bootstrap the rest.\n\nThis is \"Introduction\" about Redfish host interface in DSP0270 V1.3.3.\n```\nIn many management schemes, it is necessary to provide\nstandardized Redfish-based communication between the host CPU and the Redfish service in the\nmanagement unit. This communication is in addition to the Redfish services available via the external\nnetwork. Implementation of the Redfish host interface is optional for the system designer. If provided,\nthis interface may be used in both the pre-boot (firmware) stage and by drivers and applications within\nthe host operating system and is designed to be available without use of external networking.\n```\nThe redfish host interface is not only be used in pre-boot environments.\nThat why we need support multiple bootStrap accounts.\n\n\u003e \n\u003e Regardless of how it\u0027s solved, bmcweb can\u0027t be using a blocking system call to the filesystem as an ipc mechanism.  That\u0027s the core of this problem.  I\u0027d also worry about showing 15 users in the list at all times.\n\nI plan to use the D-Bus APIs to identify if the account is bootStrap. But it still be blocked by D-Bus request. The BMCWeb need to know the type of account for restriction.\nI checked the current code of BMCWeb, the D-Bus call is async call. So I\u0027m still not sure how to support D-Bus sync call in this case.",
+      "parentUuid": "cd51c6c8_487ee294",
+      "range": {
+        "startLine": 38,
+        "startChar": 51,
+        "endLine": 38,
+        "endChar": 70
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
