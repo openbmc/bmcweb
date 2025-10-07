@@ -520,6 +520,10 @@ inline void addPCIeDeviceProperties(
         boost::urls::format(
             "/redfish/v1/Systems/{}/PCIeDevices/{}/PCIeFunctions",
             BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId);
+
+    asyncResp->res.jsonValue["Ports"]["@odata.id"] =
+        boost::urls::format("/redfish/v1/Systems/{}/PCIeDevices/{}/Ports",
+                            BMCWEB_REDFISH_SYSTEM_URI_NAME, pcieDeviceId);
 }
 
 inline void getPCIeDeviceProperties(
