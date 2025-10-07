@@ -48,6 +48,7 @@ Fields common to all schemas
 - TelemetryService
 - UUID
 - UpdateService
+- Fabrics
 
 ### /redfish/v1/AccountService/
 
@@ -1193,6 +1194,86 @@ functions the same like the default implementation under the System resource.
 - Status
 - Updateable
 - Version
+
+### /redfish/v1/Fabrics/
+
+#### FabricCollection
+
+- Description
+- Members
+- `Members@odata.count`
+- Name
+
+### /redfish/v1/Fabrics/{FabricId}/
+
+#### Fabric
+
+- @odata.id
+- @odata.type
+- Id
+- Name
+- Switches
+
+### /redfish/v1/Fabrics/{FabricId}/Switches/
+
+#### SwitchCollection
+
+- @odata.id
+- @odata.type
+- Members
+- `Members@odata.count`
+- Name
+
+### /redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/
+
+#### Switch
+
+- @odata.id
+- @odata.type
+- Id
+- Name
+- Ports
+- Status
+  - Health
+  - HealthRollup
+  - State
+
+### /redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/
+
+#### PortCollection
+
+- @odata.id
+- @odata.type
+- Members
+- `Members@odata.count`
+- Name
+
+### /redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/
+
+#### Port
+
+- @odata.id
+- @odata.type
+- ActiveWidth
+- CurrentSpeedGbps
+- Id
+- Metrics
+- Name
+- PortProtocol
+- PortType
+- Status
+  - Health
+  - HealthRollup
+  - State
+
+### /redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/Metrics
+
+#### PortMetrics
+
+- @odata.id
+- @odata.type
+- Id
+- Name
 
 [1]: https://www.dmtf.org/standards/redfish
 [2]: https://github.com/DMTF/Redfish-Service-Validator

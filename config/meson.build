@@ -50,6 +50,7 @@ string_options = [
     'mutual-tls-common-name-parsing-default',
     'redfish-manager-uri-name',
     'redfish-system-uri-name',
+    'redfish-fabric-uri-name',
     'redfish-eventlog-location',
 ]
 
