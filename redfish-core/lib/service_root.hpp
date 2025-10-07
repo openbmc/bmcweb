@@ -69,6 +69,7 @@ inline void handleServiceRootGetImpl(
     asyncResp->res.jsonValue["SessionService"]["@odata.id"] =
         "/redfish/v1/SessionService";
     asyncResp->res.jsonValue["Systems"]["@odata.id"] = "/redfish/v1/Systems";
+    asyncResp->res.jsonValue["Fabrics"]["@odata.id"] = "/redfish/v1/Fabrics";
     asyncResp->res.jsonValue["Registries"]["@odata.id"] =
         "/redfish/v1/Registries";
     asyncResp->res.jsonValue["UpdateService"]["@odata.id"] =
