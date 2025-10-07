@@ -33,6 +33,7 @@
 #include "odata.hpp"
 #include "openbmc/openbmc_managers.hpp"
 #include "pcie.hpp"
+#include "pcie_port.hpp"
 #include "power.hpp"
 #include "power_subsystem.hpp"
 #include "power_supply.hpp"
@@ -205,6 +206,8 @@ RedfishService::RedfishService(App& app)
     requestRoutesSystemPCIeFunction(app);
     requestRoutesSystemPCIeDeviceCollection(app);
     requestRoutesSystemPCIeDevice(app);
+    requestRoutesSystemPCIePortsCollection(app);
+    requestRoutesSystemPCIePortGet(app);
 
     requestRoutesSensorCollection(app);
     requestRoutesSensor(app);
