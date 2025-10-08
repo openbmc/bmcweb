@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "955e56c2_02149ee4",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-08T20:24:35Z",
+      "side": 1,
+      "message": "The name of this function implies it would find the single system instance as well but it is only looking for the multi-host ones. Seems like a different name would be better.\n\nI.e. getSystemCollectionMembers() fills in for the single instance. But this one isn\u0027t going to return any D-Bus paths for the single instance.",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 97,
+        "endChar": 36
+      },
+      "revId": "8e472ce2969ab5b84e02a3aebd91eb61cb08da93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0046d3b6_82c16f23",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-08T20:24:35Z",
+      "side": 1,
+      "message": "nit: Could use std::ranges::find() instead for cleaner looking code.",
+      "range": {
+        "startLine": 1233,
+        "startChar": 12,
+        "endLine": 1234,
+        "endChar": 31
+      },
+      "revId": "8e472ce2969ab5b84e02a3aebd91eb61cb08da93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5791fb1_a114cd12",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-08T20:24:35Z",
+      "side": 1,
+      "message": "Can the subtree search be limited by searching \"/xyz/openbmc_project/software\" instead?\nI see the interface defines that as the path: https://github.com/openbmc/phosphor-dbus-interfaces/blob/e4a64ba768a675937bcb41c5e74098c26de1d5e2/yaml/xyz/openbmc_project/Software/Version.interface.yaml#L68C18-L68C47",
+      "range": {
+        "startLine": 1279,
+        "startChar": 46,
+        "endLine": 1279,
+        "endChar": 47
+      },
+      "revId": "8e472ce2969ab5b84e02a3aebd91eb61cb08da93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f49e4777_1750c653",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-08T20:24:35Z",
+      "side": 1,
+      "message": "Can any interfaces be specified?\n\nShould it be \"xyz.openbmc_project.Inventory.Item\"? The design document specifies that is the connection. (https://github.com/openbmc/docs/blob/master/designs/code-update.md#association)",
+      "range": {
+        "startLine": 1281,
+        "startChar": 37,
+        "endLine": 1281,
+        "endChar": 39
+      },
+      "revId": "8e472ce2969ab5b84e02a3aebd91eb61cb08da93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
