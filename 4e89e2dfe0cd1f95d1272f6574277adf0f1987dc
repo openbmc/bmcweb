@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1c6e400_6c70a086",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-08T20:33:32Z",
+      "side": 1,
+      "message": "\u003e For that specific case, I haven\u0027t tested, but would it matter either way? \n\nI don\u0027t think it should matter.. Just wanted to make sure we didn\u0027t assume some behavior that is changing here. Overall I am good here.",
+      "parentUuid": "58837e43_6bba1dbc",
+      "revId": "4e89e2dfe0cd1f95d1272f6574277adf0f1987dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d3c216db_e44ccf56",
         "filename": "http/http_client.hpp",
         "patchSetId": 2
