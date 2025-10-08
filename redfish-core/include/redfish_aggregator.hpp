@@ -813,7 +813,7 @@ class RedfishAggregator
             prepareAggregationHeaders(thisReq.fields(), prefix);
 
         client.sendDataWithCallback(std::move(data), url,
-                                    ensuressl::VerifyCertificate::Verify,
+                                    ensuressl::VerifyCertificate::NoVerify,
                                     requestFields, thisReq.method(), cb);
     }
 
@@ -841,7 +841,7 @@ class RedfishAggregator
                 prepareAggregationHeaders(thisReq.fields(), sat.first);
 
             client.sendDataWithCallback(std::move(data), url,
-                                        ensuressl::VerifyCertificate::Verify,
+                                        ensuressl::VerifyCertificate::NoVerify,
                                         requestFields, thisReq.method(), cb);
         }
     }
@@ -872,7 +872,7 @@ class RedfishAggregator
                 prepareAggregationHeaders(thisReq.fields(), sat.first);
 
             client.sendDataWithCallback(std::move(data), url,
-                                        ensuressl::VerifyCertificate::Verify,
+                                        ensuressl::VerifyCertificate::NoVerify,
                                         requestFields, thisReq.method(), cb);
         }
     }
