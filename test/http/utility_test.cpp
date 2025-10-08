@@ -105,6 +105,18 @@ TEST(Utility, Base64EncodeDecodeString)
     EXPECT_EQ(data, decoded);
 }
 
+TEST(Utility, CreateBasicAuthHeader)
+{
+    std::string authHeader = createBasicAuthHeader("username", "password");
+    EXPECT_EQ(authHeader, "Basic dXNlcm5hbWU6cGFzc3dvcmQ=");
+
+    // Verify decoding
+    std::string decoded;
+    std::string encodedPart = authHeader.substr(6); // Remove "Basic "
+    EXPECT_TRUE(base64Decode(encodedPart, decoded));
+    EXPECT_EQ(decoded, "username:password");
+}
+
 TEST(Utility, readUrlSegments)
 {
     boost::system::result<boost::urls::url_view> parsed =
