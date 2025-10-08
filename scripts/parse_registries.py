@@ -312,12 +312,6 @@ def make_error_function(
             "QueryParameterValueFormatError": [1],
             "QueryParameterValueTypeError": [1],
         },
-        "uint64_t": {
-            "ArraySizeTooLong": [2],
-            "InvalidIndex": [1],
-            "StringValueTooLong": [2],
-            "TaskProgressChanged": [2],
-        },
     }
 
     out = ""
@@ -326,6 +320,8 @@ def make_error_function(
     for arg_index, arg in enumerate(entry.get("ParamTypes", [])):
         arg_index += 1
         typename = "std::string_view"
+        if arg == "number":
+            typename = "uint64_t"
         for typestring, entries in arg_nonstring_types.items():
             if arg_index in entries.get(entry_id, []):
                 typename = typestring
