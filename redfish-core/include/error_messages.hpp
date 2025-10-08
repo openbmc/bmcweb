@@ -219,9 +219,9 @@ void malformedJSON(crow::Response& res);
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
  * @returns Message InvalidJSON formatted to JSON */
-nlohmann::json::object_t invalidJSON(std::string_view arg1);
+nlohmann::json::object_t invalidJSON(uint64_t arg1);
 
-void invalidJSON(crow::Response& res, std::string_view arg1);
+void invalidJSON(crow::Response& res, uint64_t arg1);
 
 /**
  * @brief Formats EmptyJSON message into JSON
@@ -412,10 +412,10 @@ void arraySizeTooLong(crow::Response& res, std::string_view arg1,
  *
  * @returns Message ArraySizeTooShort formatted to JSON */
 nlohmann::json::object_t arraySizeTooShort(std::string_view arg1,
-                                           std::string_view arg2);
+                                           uint64_t arg2);
 
 void arraySizeTooShort(crow::Response& res, std::string_view arg1,
-                       std::string_view arg2);
+                       uint64_t arg2);
 
 /**
  * @brief Formats QueryParameterValueTypeError message into JSON
@@ -960,10 +960,10 @@ void stringValueTooLong(crow::Response& res, std::string_view arg1,
  *
  * @returns Message StringValueTooShort formatted to JSON */
 nlohmann::json::object_t stringValueTooShort(std::string_view arg1,
-                                             std::string_view arg2);
+                                             uint64_t arg2);
 
 void stringValueTooShort(crow::Response& res, std::string_view arg1,
-                         std::string_view arg2);
+                         uint64_t arg2);
 
 /**
  * @brief Formats SessionTerminated message into JSON
