@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e3377c2_e1bc8a3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-08T19:41:42Z",
+      "side": 1,
+      "message": "Does this change any behavior ?  Let\u0027s assume your client has both an IPV6 and IPV4 address. Right now, if you give it the IPV4 address, does it resolve to the IPV6?",
+      "revId": "4e89e2dfe0cd1f95d1272f6574277adf0f1987dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3c216db_e44ccf56",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-08T19:41:42Z",
+      "side": 1,
+      "message": "hostType ? \nI\u0027m not a big fan of 1 or 2 char variables.. Specially when they aren\u0027t well known. It makes searching code harder and makes understanding code harder.",
+      "range": {
+        "startLine": 175,
+        "startChar": 31,
+        "endLine": 175,
+        "endChar": 34
+      },
+      "revId": "4e89e2dfe0cd1f95d1272f6574277adf0f1987dc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
