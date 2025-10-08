@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "47844cf3_501903eb",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-08T17:48:25Z",
+      "side": 1,
+      "message": "We certainly could, but that doesn\u0027t have anything to do with reviewing this patch.  If we add new auth types, we will extend this struct as needed.",
+      "parentUuid": "af05fddf_7bdfbfb2",
+      "revId": "e085015f7e1931b5c54a67b3ddefa29bfef270ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "736c57cf_5fc44434",
         "filename": "redfish-core/lib/aggregation_service.hpp",
         "patchSetId": 16
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "Yeah, would be nice if they had a stringEmpty. I raised an issue with Redfish.",
       "parentUuid": "736c57cf_5fc44434",
+      "range": {
+        "startLine": 256,
+        "startChar": 54,
+        "endLine": 256,
+        "endChar": 57
+      },
+      "revId": "e085015f7e1931b5c54a67b3ddefa29bfef270ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cd947ed_242073cf",
+        "filename": "redfish-core/lib/aggregation_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-08T17:48:25Z",
+      "side": 1,
+      "message": "This comment is about how we have the API defined, and the second arg takes a string.  stringValueTooLong uses an int.",
+      "parentUuid": "380caea4_d2a1b64d",
       "range": {
         "startLine": 256,
         "startChar": 54,
