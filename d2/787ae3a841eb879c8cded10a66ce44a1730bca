@@ -1,0 +1,9 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Gunnar Mills <gunnar@gmills.xyz>
+Code-Review+1: Janet Adkins <janeta@us.ibm.com>
+Submitted-by: Gunnar Mills <gunnar@gmills.xyz>
+Submitted-at: Wed, 08 Oct 2025 16:01:14 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/bmcweb/+/84231
+Comments-Total: 2
+Project: openbmc/bmcweb
+Branch: refs/heads/master
