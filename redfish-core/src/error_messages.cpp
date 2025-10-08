@@ -356,13 +356,14 @@ void malformedJSON(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json::object_t invalidJSON(std::string_view arg1)
+nlohmann::json::object_t invalidJSON(uint64_t arg1)
 {
+    std::string arg1Str = std::to_string(arg1);
     return getLog(redfish::registries::Base::Index::invalidJSON,
-                  std::to_array({arg1}));
+                  std::to_array<std::string_view>({arg1Str}));
 }
 
-void invalidJSON(crow::Response& res, std::string_view arg1)
+void invalidJSON(crow::Response& res, uint64_t arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, invalidJSON(arg1));
@@ -639,15 +640,15 @@ void arraySizeTooLong(crow::Response& res, std::string_view arg1, uint64_t arg2)
  * See header file for more information
  * @endinternal
  */
-nlohmann::json::object_t arraySizeTooShort(std::string_view arg1,
-                                           std::string_view arg2)
+nlohmann::json::object_t arraySizeTooShort(std::string_view arg1, uint64_t arg2)
 {
+    std::string arg2Str = std::to_string(arg2);
     return getLog(redfish::registries::Base::Index::arraySizeTooShort,
-                  std::to_array({arg1, arg2}));
+                  std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
 void arraySizeTooShort(crow::Response& res, std::string_view arg1,
-                       std::string_view arg2)
+                       uint64_t arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, arraySizeTooShort(arg1, arg2));
@@ -1533,14 +1534,15 @@ void stringValueTooLong(crow::Response& res, std::string_view arg1,
  * @endinternal
  */
 nlohmann::json::object_t stringValueTooShort(std::string_view arg1,
-                                             std::string_view arg2)
+                                             uint64_t arg2)
 {
+    std::string arg2Str = std::to_string(arg2);
     return getLog(redfish::registries::Base::Index::stringValueTooShort,
-                  std::to_array({arg1, arg2}));
+                  std::to_array<std::string_view>({arg1, arg2Str}));
 }
 
 void stringValueTooShort(crow::Response& res, std::string_view arg1,
-                         std::string_view arg2)
+                         uint64_t arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(res.jsonValue, stringValueTooShort(arg1, arg2));
