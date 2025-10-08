@@ -253,7 +253,7 @@ inline bool validateCredentialField(const std::optional<std::string>& field,
 
     if (field->empty())
     {
-        messages::stringValueTooShort(res, fieldName, "1");
+        messages::stringValueTooShort(res, fieldName, 1);
         return false;
     }
 
