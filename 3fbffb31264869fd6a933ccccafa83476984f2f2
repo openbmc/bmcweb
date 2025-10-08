@@ -558,6 +558,30 @@
       },
       "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0a82061_51cd6ecc",
+        "filename": "include/authentication.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-08T01:02:32Z",
+      "side": 1,
+      "message": "\"In addition to standard credentials, implementations may optionally support auto-generation and delivery of\nHI-only credentials that may be used by the Firmware or OS to authenticate.\n◦ If supported, auto-generated credentials for the Host shall be delivered by using UEFI-based mechanism\ndescribed in a later section of this document.\"\n\nNote, that it says FIRMWARE OR OS for the bootstrap HI-only credentials.\n\n\n\"Services may support provisioning a temporary account for the host interface using IPMI commands.\"\n\nNote it specifies \"A\" temporary account, not multiple.\n\n\nNow, it does also say:\n\n\"If the Get Bootstrap Account Credentials command has been issued and responds with the completion code 00h, a\nbootstrap account shall be added to the manager\u0027s account collection and enabled. If the Get Bootstrap Account\nCredentials command is sent subsequent times and responds with the completion code 00h, a new account shall be\ncreated based on the newly generated credentials. Any existing bootstrap accounts shall remain active.\"\n\n\nSo maybe I\u0027m wrong?\n\n\"Services shall delete all bootstrap accounts:\n• On any reset of the service.\n• On any reset of the host. Implementers may need to provision for the necessary mechanisms in order to detect a\nhost reset, which could be hardware-based, UEFI-based, or a mixture of the two.\"\n\n\nThis makes the implementation more complex.  Maybe we need boostrap accounts to be bootstrap_\u003cuuid\u003e ?",
+      "parentUuid": "48dccbab_718dca8e",
+      "range": {
+        "startLine": 38,
+        "startChar": 51,
+        "endLine": 38,
+        "endChar": 70
+      },
+      "revId": "3fbffb31264869fd6a933ccccafa83476984f2f2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
