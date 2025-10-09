@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "042daf9e_3dcc40a3",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-09T00:24:54Z",
+      "side": 0,
+      "message": "There\u0027s still a log in the callback on line 954 that you commented on below.  There were realistically two prints.",
+      "parentUuid": "ead877c4_fe2f536e",
+      "revId": "5cfa71c37476994959a9a1efe5fa1acd0ba41027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6cc6b76_01799454",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1

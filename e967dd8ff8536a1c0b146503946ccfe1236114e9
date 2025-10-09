@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "73f7ddac_3da6864f",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-09T00:24:54Z",
+      "side": 1,
+      "message": "Yep",
+      "parentUuid": "7f75d5c9_01cffb6e",
+      "revId": "e967dd8ff8536a1c0b146503946ccfe1236114e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f759be7_ee388041",
         "filename": "redfish-core/include/redfish_aggregator.hpp",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2025-10-09T00:17:58Z",
       "side": 1,
       "message": "WARNING ? Or do you want Error here?",
+      "revId": "e967dd8ff8536a1c0b146503946ccfe1236114e9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8961bc8_07258ae4",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-09T00:24:54Z",
+      "side": 1,
+      "message": "probably could downgrade to warning.",
+      "parentUuid": "7f759be7_ee388041",
       "revId": "e967dd8ff8536a1c0b146503946ccfe1236114e9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
