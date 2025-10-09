@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "896129d7_0ead3f28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-10-09T11:58:09Z",
+      "side": 1,
+      "message": "yeah it\u0027s verified.\n\n```\nrajeeranjan@rajeeranjan-mlt Documents % curl -k -X POST https://{user}:{PASS}@{IP}/redfish/v1/UpdateService/update-multipart --form \"UpdateFile\u003d@g153_0210_895.fwpkg;type\u003dapplication/octet-stream\"                            \n{\n  \"@odata.id\": \"/redfish/v1/TaskService/Tasks/1\",\n  \"@odata.type\": \"#Task.v1_4_3.Task\",\n  \"HidePayload\": false,\n  \"Id\": \"1\",\n  \"Messages\": [\n    {\n      \"@odata.type\": \"#Message.v1_1_1.Message\",\n      \"Message\": \"The task with Id \u00271\u0027 has started.\",\n      \"MessageArgs\": [\n        \"1\"\n      ],\n      \"MessageId\": \"TaskEvent.1.0.TaskStarted\",\n      \"MessageSeverity\": \"OK\",\n      \"Resolution\": \"None.\"\n    }\n  ],\n  \"Name\": \"Task 1\",\n  \"Payload\": {\n    \"HttpHeaders\": [],\n    \"HttpOperation\": \"POST\",\n    \"TargetUri\": \"/redfish/v1/UpdateService/update-multipart\"\n  },\n  \"PercentComplete\": 0,\n  \"StartTime\": \"2025-10-07T12:18:53+00:00\",\n  \"TaskMonitor\": \"/redfish/v1/TaskService/TaskMonitors/1\",\n  \"TaskState\": \"Running\",\n  \"TaskStatus\": \"OK\"\n}%\n```",
+      "parentUuid": "cb0b619e_a30e45a1",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e8abbee_3278c734",
@@ -31,6 +49,24 @@
       "writtenOn": "2025-10-03T21:59:06Z",
       "side": 1,
       "message": "Can you please verify in your testing that single target URI works as expected as you are refactoring that code too. You can try with BMC as target probably.",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbf4823f_b30573f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-10-09T11:58:09Z",
+      "side": 1,
+      "message": "yeah it has been tested and Multipart Update works with single target (BMC)",
+      "parentUuid": "1e8abbee_3278c734",
       "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -141,6 +177,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5be4b5dd_d4150ca1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-10-09T11:58:09Z",
+      "side": 1,
+      "message": "Changed it to internalError() and added an error log. Kindly review.",
+      "parentUuid": "8762e2cb_5e932d45",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47a1dfbf_1fd6e491",
@@ -158,6 +212,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af49ecb3_b6389182",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-10-09T11:58:09Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "47a1dfbf_1fd6e491",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3df5f87b_16442588",
@@ -171,6 +243,24 @@
       "writtenOn": "2025-10-03T21:59:06Z",
       "side": 1,
       "message": "Lets also add a BMCWEB_LOG_DEBUG here stating the error that Multipart service doesn\u0027t implement the update interface.",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0f85a54_da081883",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-10-09T11:58:09Z",
+      "side": 1,
+      "message": "Added an error log instead of debug. Kindly review.",
+      "parentUuid": "3df5f87b_16442588",
       "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
