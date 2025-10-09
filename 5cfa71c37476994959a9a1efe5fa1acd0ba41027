@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ead877c4_fe2f536e",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-09T00:17:58Z",
+      "side": 0,
+      "message": "You could still log.. \n\n        if (ec)\n        {\n            // If an error occurred just go ahead with the local \n            BMCWEB_LOG_WARNING(\"Something went wrong while querying dbus!\");\n        }\n\n\nYou would have to put them a lot of places.. So i don\u0027t care that much.. I was just thinking of if you were trying to debug why your satellite isn\u0027t showing up..",
+      "revId": "5cfa71c37476994959a9a1efe5fa1acd0ba41027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6cc6b76_01799454",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-09T00:17:58Z",
+      "side": 0,
+      "message": "Again you could still log.. \n\n  \n    if (ec)\n    {\n        // Something went wrong while querying dbus, just ignore and go ahead with the local \n        BMCWEB_LOG_WARNING(\"Something went wrong while querying dbus!\");\n    }",
+      "revId": "5cfa71c37476994959a9a1efe5fa1acd0ba41027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
