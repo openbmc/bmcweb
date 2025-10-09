@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00bc8b8e_ce91ec79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-09T13:20:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba6e2749_5f4e9277",
+      "revId": "27f489390315d071e63d5f1887ae83c89de83802",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa61537b_e9c4e064",
@@ -108,6 +126,30 @@
       "side": 1,
       "message": "I\u0027ll keep this open until I push the next patch set. Setting the change to WIP until then.",
       "parentUuid": "c0cb182f_bf8f41b4",
+      "range": {
+        "startLine": 1090,
+        "startChar": 67,
+        "endLine": 1090,
+        "endChar": 68
+      },
+      "revId": "27f489390315d071e63d5f1887ae83c89de83802",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe3a7fde_c9384594",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-09T13:20:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ec9a9f4_7f6de9ce",
       "range": {
         "startLine": 1090,
         "startChar": 67,
