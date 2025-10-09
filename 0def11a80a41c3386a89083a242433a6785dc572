@@ -16,6 +16,24 @@
       "message": "There is an old abandoned commit for Assembly, should that one be used instead?\n\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/42441",
       "revId": "0def11a80a41c3386a89083a242433a6785dc572",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d461b38b_45860dbb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-09T21:08:34Z",
+      "side": 1,
+      "message": "This has changed so much from https://gerrit.openbmc.org/c/openbmc/bmcweb/+/42441 and 42441 was abandoned, I am good with this one going but yeah for the future, we should try to use old commits",
+      "parentUuid": "06df0553_b929a4b5",
+      "revId": "0def11a80a41c3386a89083a242433a6785dc572",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
