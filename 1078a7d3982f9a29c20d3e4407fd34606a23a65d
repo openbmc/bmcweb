@@ -160,6 +160,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a68eab9_f24cf6f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-10-09T12:57:02Z",
+      "side": 1,
+      "message": "Yes, the un-targeted updates will work with this patch. But there should be an entity which implements both\nMultipartUpdate interface and StartUpdate, so that bmcweb can invoke StartUpdate on it.\n\nAnd yes we will merge dependant PDI and PLDM patches before merging this one.",
+      "parentUuid": "5cf5ca38_bf866da6",
+      "revId": "1078a7d3982f9a29c20d3e4407fd34606a23a65d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8762e2cb_5e932d45",
