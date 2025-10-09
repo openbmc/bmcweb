@@ -16,6 +16,24 @@
       "message": "Isn\u0027t this commit just a refactor ? Can it just be a refactor?",
       "revId": "6e7582a5884966d5e9f2a7dd886b04c92589bbb4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2185125d_ca617e45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-10-09T13:11:23Z",
+      "side": 1,
+      "message": "\u003e Isn\u0027t this commit just a refactor ?\n\nno, the collection needs to be by association, currently it looks like it is just returning everything.\n\ncurrently:\n\n```\ncollection_util::getCollectionMembers(\n                    asyncResp,\n                    boost::urls::format(\"/redfish/v1/Systems/{}/Memory\",\n                                        BMCWEB_REDFISH_SYSTEM_URI_NAME),\n                    interfaces, \"/xyz/openbmc_project/inventory\");\n```\n\nthis patch:\n\n```\n collection_util::getCollectionByAssociationById(\n        asyncResp,\n        boost::urls::format(\"/redfish/v1/Systems/{}/Memory\", systemName),\n        systemName, systemPath, boardInterfaces, \"containing\", dimmInterfaces,\n        nlohmann::json::json_pointer(\"/Members\"));\n```\n\n\u003e Can it just be a refactor?\n\nyse, it can probably be split into 2 patches\n\n- extracting the inline `BMCWEB_ROUTE` handler to a separate function (refactor)\n- changing over to query by association, or branch between new way / old way depending on the meson option, for systems which do not have the association.",
+      "parentUuid": "4a9fe2ba_a64926ad",
+      "revId": "6e7582a5884966d5e9f2a7dd886b04c92589bbb4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
