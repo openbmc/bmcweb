@@ -16,6 +16,24 @@
       "message": "what association are we using here?",
       "revId": "ac643446c603d052240596c753d289a87ccc215a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c57d25_52c02f3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-09T10:59:53Z",
+      "side": 1,
+      "message": "We are using `containing`-`contained_by` association.\nhttps://gerrit.openbmc.org/c/openbmc/bmcweb/+/84284/2/redfish-core/lib/pcie_port.hpp#97",
+      "parentUuid": "2285731e_e354b171",
+      "revId": "ac643446c603d052240596c753d289a87ccc215a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
