@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0565e208_3c655757",
+        "filename": "redfish-core/include/utils/systems_utils.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-10-09T12:44:33Z",
+      "side": 1,
+      "message": "agree, it could be confusing. Renamed it to `getManagedHostPaths`",
+      "parentUuid": "955e56c2_02149ee4",
+      "range": {
+        "startLine": 97,
+        "startChar": 12,
+        "endLine": 97,
+        "endChar": 36
+      },
+      "revId": "8e472ce2969ab5b84e02a3aebd91eb61cb08da93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0046d3b6_82c16f23",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-10-08T20:24:35Z",
       "side": 1,
       "message": "nit: Could use std::ranges::find() instead for cleaner looking code.",
+      "range": {
+        "startLine": 1233,
+        "startChar": 12,
+        "endLine": 1234,
+        "endChar": 31
+      },
+      "revId": "8e472ce2969ab5b84e02a3aebd91eb61cb08da93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b83e178e_a1c11a58",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-10-09T12:44:33Z",
+      "side": 1,
+      "message": "Thanks! applied it.",
+      "parentUuid": "0046d3b6_82c16f23",
       "range": {
         "startLine": 1233,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ac561ad_fcc48093",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1279,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-10-09T12:44:33Z",
+      "side": 1,
+      "message": "That does not work, as we are not looking for software versions but e.g. computer systems. Changed it to look in the `/xyz/openbmc_project/inventory` namespace.",
+      "parentUuid": "b5791fb1_a114cd12",
+      "range": {
+        "startLine": 1279,
+        "startChar": 46,
+        "endLine": 1279,
+        "endChar": 47
+      },
+      "revId": "8e472ce2969ab5b84e02a3aebd91eb61cb08da93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f49e4777_1750c653",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-10-08T20:24:35Z",
       "side": 1,
       "message": "Can any interfaces be specified?\n\nShould it be \"xyz.openbmc_project.Inventory.Item\"? The design document specifies that is the connection. (https://github.com/openbmc/docs/blob/master/designs/code-update.md#association)",
+      "range": {
+        "startLine": 1281,
+        "startChar": 37,
+        "endLine": 1281,
+        "endChar": 39
+      },
+      "revId": "8e472ce2969ab5b84e02a3aebd91eb61cb08da93",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8adba041_e3781be2",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-10-09T12:44:33Z",
+      "side": 1,
+      "message": "I cannot use `xyz.openbmc_project.Inventory.Item` since EM has a bug in \n\nhttps://github.com/openbmc/entity-manager/blob/100db08b8201539ddee6ba6ac2c19177e7af6df1/src/entity_manager/entity_manager.cpp#L137\n\n```\n    std::shared_ptr\u003csdbusplus::asio::dbus_interface\u003e inventoryIface \u003d\n        dbus_interface.createInterface(\n            boardPath, \"xyz.openbmc_project.Inventory.Item\", boardName);\n```\n\nnotice that `inventoryIface` has no further references so the shared_ptr is decremented when it goes out of scope.\n\nThe interface is still stored in `objServer` somewhere but it is never initialized like the other interfaces.\n\nobserved this on yv4 qemu\n\n```\nroot@yosemite4:~# busctl introspect xyz.openbmc_project.EntityManager /xyz/openbmc_project/inventory/system/board/Yosemite_4_Sentinel_Dome_T1_Slot_3\nNAME                                                 TYPE      SIGNATURE RESULT/VALUE                             FLAGS\norg.freedesktop.DBus.Introspectable                  interface -         -          \norg.freedesktop.DBus.Peer                            interface -         -                                        \norg.freedesktop.DBus.Properties                      interface -         -                                        \nxyz.openbmc_project.Inventory.Decorator.Asset        interface -         -                                        \nxyz.openbmc_project.Inventory.Decorator.Revision     interface -         -                                        \nxyz.openbmc_project.Inventory.Decorator.Slot         interface -         -                                        \nxyz.openbmc_project.Inventory.Item.Board             interface -         -                                        \nxyz.openbmc_project.Inventory.Item.Board.Motherboard interface -         -                                        -\n```\n\nAnd we cannot just look for managed host interface either because the related item is not necessarily a computer system.\n\nIt\u0027s just the specific case i am implementing here.\n\nThe related item could be something else like Voltage regulator. Which represents a case someone could expand there in the future.\n\nI believe we are on the safe side here because in any case we construct a correct redfish URI for the system.\n\nLet me know if it\u0027s still an issue.",
+      "parentUuid": "f49e4777_1750c653",
       "range": {
         "startLine": 1281,
         "startChar": 37,
