@@ -22,6 +22,30 @@
       },
       "revId": "4a09969c96e5fe30b31d8689f562a275d2c820c6",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3031a298_4fb6e310",
+        "filename": "http/http_client.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-09T21:41:46Z",
+      "side": 1,
+      "message": "Done.  Some day i\u0027ll learn to not make a mess.",
+      "parentUuid": "d76beee5_c843b5a4",
+      "range": {
+        "startLine": 176,
+        "startChar": 12,
+        "endLine": 176,
+        "endChar": 15
+      },
+      "revId": "4a09969c96e5fe30b31d8689f562a275d2c820c6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
