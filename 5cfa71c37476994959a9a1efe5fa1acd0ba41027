@@ -51,6 +51,24 @@
       "message": "Again you could still log.. \n\n  \n    if (ec)\n    {\n        // Something went wrong while querying dbus, just ignore and go ahead with the local \n        BMCWEB_LOG_WARNING(\"Something went wrong while querying dbus!\");\n    }",
       "revId": "5cfa71c37476994959a9a1efe5fa1acd0ba41027",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73852367_43d8fdd0",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-10T20:35:00Z",
+      "side": 0,
+      "message": "Same response as above.  There\u0027s still a log.",
+      "parentUuid": "c6cc6b76_01799454",
+      "revId": "5cfa71c37476994959a9a1efe5fa1acd0ba41027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
