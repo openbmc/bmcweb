@@ -16,6 +16,24 @@
       "message": "\"do not verify\" the SSL certificate presented ? Because it most likely is self-signed?",
       "revId": "2a76d8c116a80e2cadbabf3c19162756751478a9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88ba1f01_37f48082",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-10T20:40:28Z",
+      "side": 1,
+      "message": "Yep.  Need to figure a way to pipe that setting to something in the aggregation setup routine.",
+      "parentUuid": "5d0ba199_3f10e184",
+      "revId": "2a76d8c116a80e2cadbabf3c19162756751478a9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
