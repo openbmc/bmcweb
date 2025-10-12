@@ -35,6 +35,40 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "93e7ff9f_bdeb95c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-12T16:50:46Z",
+      "side": 1,
+      "message": "Overall I support this.",
+      "revId": "010acee1340b420c1fee3fe0ac12103082ccd08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a16b760_ef0cb50b",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-12T16:50:46Z",
+      "side": 1,
+      "message": "I\u0027m you know but need to rebase this https://github.com/openbmc/bmcweb/commit/13880454f39e243c9efeb5d2b742f161ba7edee4",
+      "revId": "010acee1340b420c1fee3fe0ac12103082ccd08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3017f292_7f444861",
@@ -72,6 +106,30 @@
       "side": 1,
       "message": "The macro already includes the filename and line number.",
       "parentUuid": "3017f292_7f444861",
+      "range": {
+        "startLine": 72,
+        "startChar": 37,
+        "endLine": 72,
+        "endChar": 55
+      },
+      "revId": "010acee1340b420c1fee3fe0ac12103082ccd08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b59c5bf4_cbaeab24",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-12T16:50:46Z",
+      "side": 1,
+      "message": "I think Janet is talking about persistentFile/filename, which I think is a fair suggestion.\n\n\"Can\u0027t get filesize /home/root/bmcweb_persistent_data.json\" is more useful. (even if the developer could look at the code and understand that it is what the persistent date file)",
+      "parentUuid": "4c35ae18_0b8f0d43",
       "range": {
         "startLine": 72,
         "startChar": 37,
