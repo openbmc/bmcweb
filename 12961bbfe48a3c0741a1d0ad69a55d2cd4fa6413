@@ -191,6 +191,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea16fb31_21c95c61",
+        "filename": "include/duplicatable_file_handle.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1002325
+      },
+      "writtenOn": "2025-10-12T17:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8084f83_7327a1a4",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 5
+      },
+      "revId": "12961bbfe48a3c0741a1d0ad69a55d2cd4fa6413",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed564193_a2a3254f",
