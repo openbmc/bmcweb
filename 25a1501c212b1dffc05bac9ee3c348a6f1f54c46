@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c71f02fc_4a695129",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-13T20:59:00Z",
+      "side": 1,
+      "message": "I would prefer persistentFilename or filename..\nI am not a big of fan of 2 character variable names when it isn\u0027t that well known. \n\nThat said, oh well.",
+      "range": {
+        "startLine": 79,
+        "startChar": 27,
+        "endLine": 79,
+        "endChar": 30
+      },
+      "revId": "25a1501c212b1dffc05bac9ee3c348a6f1f54c46",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
