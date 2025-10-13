@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e27f027_6cf96d8e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-13T18:06:31Z",
+      "side": 1,
+      "message": "Can you mention the MemberId and how it used in patching ? \n\n                \"MemberId\": {\n                    \"description\": \"The unique identifier for the member within an array.\",\n                    \"longDescription\": \"This property shall contain the unique identifier for this member within an array.  For services supporting Redfish v1.6 or higher, this value shall contain the zero-based array index.\",",
+      "revId": "7ad2b831162c0c08cf087814cfd6fabd12d4b6ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c347884_3364f6bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-13T18:06:31Z",
+      "side": 1,
+      "message": "What happens if MemberId is ordered like below? It matches the 6th and 3th assembly in the array (Redfish states it is zero-based)\n\n```\ncurl -k -H \"X-Auth-Token: $token\" -H \"Content-Type: application/json\" \\\n     -X PATCH -d \u0027{\"Assemblies\":[{\"MemberId\" : \"5\", \"LocationIndicatorActive\":true},{\"MemberId\": \"2\", \"LocationIndicatorActive\":true}]}\u0027\n```",
+      "revId": "7ad2b831162c0c08cf087814cfd6fabd12d4b6ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
