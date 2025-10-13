@@ -898,119 +898,6 @@ inline void parseCrashdumpParameters(
     }
 }
 
-inline void requestRoutesSystemLogServiceCollection(App& app)
-{
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
-    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/")
-        .privileges(redfish::privileges::getLogServiceCollection)
-        .methods(
-            boost::beast::http::verb::
-                get)([&app](const crow::Request& req,
-                            const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
-                            const std::string& systemName) {
-            if (!redfish::setUpRedfishRoute(app, req, asyncResp))
-            {
-                return;
-            }
-            if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
-            {
-                // Option currently returns no systems.  TBD
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
-            }
-            if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
-            {
-                messages::resourceNotFound(asyncResp->res, "ComputerSystem",
-                                           systemName);
-                return;
-            }
-
-            // Collections don't include the static data added by SubRoute
-            // because it has a duplicate entry for members
-            asyncResp->res.jsonValue["@odata.type"] =
-                "#LogServiceCollection.LogServiceCollection";
-            asyncResp->res.jsonValue["@odata.id"] =
-                std::format("/redfish/v1/Systems/{}/LogServices",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
-            asyncResp->res.jsonValue["Name"] = "System Log Services Collection";
-            asyncResp->res.jsonValue["Description"] =
-                "Collection of LogServices for this Computer System";
-            nlohmann::json& logServiceArray =
-                asyncResp->res.jsonValue["Members"];
-            logServiceArray = nlohmann::json::array();
-            nlohmann::json::object_t eventLog;
-            eventLog["@odata.id"] =
-                std::format("/redfish/v1/Systems/{}/LogServices/EventLog",
-                            BMCWEB_REDFISH_SYSTEM_URI_NAME);
-            logServiceArray.emplace_back(std::move(eventLog));
-            if constexpr (BMCWEB_REDFISH_DUMP_LOG)
-            {
-                nlohmann::json::object_t dumpLog;
-                dumpLog["@odata.id"] =
-                    std::format("/redfish/v1/Systems/{}/LogServices/Dump",
-                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
-                logServiceArray.emplace_back(std::move(dumpLog));
-            }
-
-            if constexpr (BMCWEB_REDFISH_CPU_LOG)
-            {
-                nlohmann::json::object_t crashdump;
-                crashdump["@odata.id"] =
-                    std::format("/redfish/v1/Systems/{}/LogServices/Crashdump",
-                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
-                logServiceArray.emplace_back(std::move(crashdump));
-            }
-
-            if constexpr (BMCWEB_REDFISH_HOST_LOGGER)
-            {
-                nlohmann::json::object_t hostlogger;
-                hostlogger["@odata.id"] =
-                    std::format("/redfish/v1/Systems/{}/LogServices/HostLogger",
-                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
-                logServiceArray.emplace_back(std::move(hostlogger));
-            }
-            asyncResp->res.jsonValue["Members@odata.count"] =
-                logServiceArray.size();
-
-            constexpr std::array<std::string_view, 1> interfaces = {
-                "xyz.openbmc_project.State.Boot.PostCode"};
-            dbus::utility::getSubTreePaths(
-                "/", 0, interfaces,
-                [asyncResp](const boost::system::error_code& ec,
-                            const dbus::utility::MapperGetSubTreePathsResponse&
-                                subtreePath) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR("{}", ec);
-                        return;
-                    }
-
-                    for (const auto& pathStr : subtreePath)
-                    {
-                        if (pathStr.find("PostCode") != std::string::npos)
-                        {
-                            nlohmann::json& logServiceArrayLocal =
-                                asyncResp->res.jsonValue["Members"];
-                            nlohmann::json::object_t member;
-                            member["@odata.id"] = std::format(
-                                "/redfish/v1/Systems/{}/LogServices/PostCodes",
-                                BMCWEB_REDFISH_SYSTEM_URI_NAME);
-
-                            logServiceArrayLocal.emplace_back(
-                                std::move(member));
-
-                            asyncResp->res.jsonValue["Members@odata.count"] =
-                                logServiceArrayLocal.size();
-                            return;
-                        }
-                    }
-                });
-        });
-}
-
 inline void handleBMCLogServicesCollectionGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2141,6 +2028,107 @@ inline void requestRoutesCrashdumpCollect(App& app)
             });
 }
 
+inline void handleSystemLogServiceCollectionGet(
+    crow::App& app, const crow::Request& req,
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& systemName)
+{
+    if (!redfish::setUpRedfishRoute(app, req, asyncResp))
+    {
+        return;
+    }
+    if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
+    {
+        // Option currently returns no systems.  TBD
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+    if (systemName != BMCWEB_REDFISH_SYSTEM_URI_NAME)
+    {
+        messages::resourceNotFound(asyncResp->res, "ComputerSystem",
+                                   systemName);
+        return;
+    }
+
+    // Collections don't include the static data added by SubRoute
+    // because it has a duplicate entry for members
+    asyncResp->res.jsonValue["@odata.type"] =
+        "#LogServiceCollection.LogServiceCollection";
+    asyncResp->res.jsonValue["@odata.id"] = std::format(
+        "/redfish/v1/Systems/{}/LogServices", BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    asyncResp->res.jsonValue["Name"] = "System Log Services Collection";
+    asyncResp->res.jsonValue["Description"] =
+        "Collection of LogServices for this Computer System";
+    nlohmann::json& logServiceArray = asyncResp->res.jsonValue["Members"];
+    logServiceArray = nlohmann::json::array();
+    nlohmann::json::object_t eventLog;
+    eventLog["@odata.id"] =
+        std::format("/redfish/v1/Systems/{}/LogServices/EventLog",
+                    BMCWEB_REDFISH_SYSTEM_URI_NAME);
+    logServiceArray.emplace_back(std::move(eventLog));
+    if constexpr (BMCWEB_REDFISH_DUMP_LOG)
+    {
+        nlohmann::json::object_t dumpLog;
+        dumpLog["@odata.id"] =
+            std::format("/redfish/v1/Systems/{}/LogServices/Dump",
+                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        logServiceArray.emplace_back(std::move(dumpLog));
+    }
+
+    if constexpr (BMCWEB_REDFISH_CPU_LOG)
+    {
+        nlohmann::json::object_t crashdump;
+        crashdump["@odata.id"] =
+            std::format("/redfish/v1/Systems/{}/LogServices/Crashdump",
+                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        logServiceArray.emplace_back(std::move(crashdump));
+    }
+
+    if constexpr (BMCWEB_REDFISH_HOST_LOGGER)
+    {
+        nlohmann::json::object_t hostlogger;
+        hostlogger["@odata.id"] =
+            std::format("/redfish/v1/Systems/{}/LogServices/HostLogger",
+                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+        logServiceArray.emplace_back(std::move(hostlogger));
+    }
+    asyncResp->res.jsonValue["Members@odata.count"] = logServiceArray.size();
+
+    constexpr std::array<std::string_view, 1> interfaces = {
+        "xyz.openbmc_project.State.Boot.PostCode"};
+    dbus::utility::getSubTreePaths(
+        "/", 0, interfaces,
+        [asyncResp](
+            const boost::system::error_code& ec,
+            const dbus::utility::MapperGetSubTreePathsResponse& subtreePath) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR("{}", ec);
+                return;
+            }
+
+            for (const auto& pathStr : subtreePath)
+            {
+                if (pathStr.find("PostCode") != std::string::npos)
+                {
+                    nlohmann::json& logServiceArrayLocal =
+                        asyncResp->res.jsonValue["Members"];
+                    nlohmann::json::object_t member;
+                    member["@odata.id"] = std::format(
+                        "/redfish/v1/Systems/{}/LogServices/PostCodes",
+                        BMCWEB_REDFISH_SYSTEM_URI_NAME);
+
+                    logServiceArrayLocal.emplace_back(std::move(member));
+
+                    asyncResp->res.jsonValue["Members@odata.count"] =
+                        logServiceArrayLocal.size();
+                    return;
+                }
+            }
+        });
+}
+
 inline void handleSystemsEventLogServiceGet(
     crow::App& app, const crow::Request& req,
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
@@ -2164,6 +2152,17 @@ inline void handleSystemsEventLogServiceGet(
     }
     eventlog_utils::handleSystemsAndManagersEventLogServiceGet(
         asyncResp, eventlog_utils::LogServiceParent::Systems);
+}
+
+inline void requestRoutesSystemLogServiceCollection(App& app)
+{
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/")
+        .privileges(redfish::privileges::getLogServiceCollection)
+        .methods(boost::beast::http::verb::get)(std::bind_front(
+            handleSystemLogServiceCollectionGet, std::ref(app)));
 }
 
 inline void requestRoutesSystemsEventLogService(App& app)
