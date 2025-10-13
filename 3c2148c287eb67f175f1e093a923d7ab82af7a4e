@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ccaf430_b270c711",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-13T19:15:58Z",
+      "side": 1,
+      "message": "PDI was merged here. Any objection to this going?",
+      "revId": "3c2148c287eb67f175f1e093a923d7ab82af7a4e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
