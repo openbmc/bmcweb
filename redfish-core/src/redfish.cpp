@@ -114,7 +114,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesCable(app);
     requestRoutesCableCollection(app);
 
-    requestRoutesSystemLogServiceCollection(app);
+    requestRoutesSystemsLogServiceCollection(app);
     requestRoutesSystemsEventLogService(app);
 
     requestRoutesSystemsLogServicesPostCode(app);
@@ -140,7 +140,7 @@ RedfishService::RedfishService(App& app)
         requestRoutesFaultLogDumpClear(app);
     }
 
-    requestRoutesBMCLogServiceCollection(app);
+    requestRoutesManagersLogServiceCollection(app);
 
     if constexpr (BMCWEB_REDFISH_BMC_JOURNAL)
     {
