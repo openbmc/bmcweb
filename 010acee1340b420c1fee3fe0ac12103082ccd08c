@@ -142,6 +142,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffeb43a8_6709d0de",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-13T14:02:38Z",
+      "side": 1,
+      "message": "Yes, I was suggesting using the persistentFile filename. Not strictly necessary I just thought it would be helpful in the log.",
+      "parentUuid": "b59c5bf4_cbaeab24",
+      "range": {
+        "startLine": 72,
+        "startChar": 37,
+        "endLine": 72,
+        "endChar": 55
+      },
+      "revId": "010acee1340b420c1fee3fe0ac12103082ccd08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2e8e738_708a8f2e",
         "filename": "include/persistent_data.hpp",
         "patchSetId": 19
@@ -177,6 +201,30 @@
       "side": 1,
       "message": "same response as above.",
       "parentUuid": "f2e8e738_708a8f2e",
+      "range": {
+        "startLine": 80,
+        "startChar": 36,
+        "endLine": 80,
+        "endChar": 57
+      },
+      "revId": "010acee1340b420c1fee3fe0ac12103082ccd08c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce4924dd_4aa52906",
+        "filename": "include/persistent_data.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-13T14:02:38Z",
+      "side": 1,
+      "message": "I was suggesting using the persistentFile filename. Not strictly necessary I just thought it would be helpful in the log.",
+      "parentUuid": "8c08a2c7_3c4c28bb",
       "range": {
         "startLine": 80,
         "startChar": 36,
