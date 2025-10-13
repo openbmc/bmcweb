@@ -192,7 +192,7 @@ inline void handleSystemsDBusEventLogEntryDownloadGet(
     eventlog_utils::downloadEventLogEntry(asyncResp, entryId, "System");
 }
 
-inline void requestRoutesDBusEventLogEntryCollection(App& app)
+inline void requestRoutesSystemsDBusEventLogEntryCollection(App& app)
 {
     BMCWEB_ROUTE(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/")
         .privileges(redfish::privileges::getLogEntryCollection)
@@ -200,7 +200,7 @@ inline void requestRoutesDBusEventLogEntryCollection(App& app)
             handleSystemsDBusEventLogEntryCollection, std::ref(app)));
 }
 
-inline void requestRoutesDBusEventLogEntry(App& app)
+inline void requestRoutesSystemsDBusEventLogEntry(App& app)
 {
     BMCWEB_ROUTE(
         app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/")
@@ -226,7 +226,7 @@ inline void requestRoutesDBusEventLogEntry(App& app)
 /**
  * DBusLogServiceActionsClear class supports POST method for ClearLog action.
  */
-inline void requestRoutesDBusLogServiceActionsClear(App& app)
+inline void requestRoutesSystemsDBusLogServiceActionsClear(App& app)
 {
     /**
      * Function handles POST method request.
@@ -243,7 +243,7 @@ inline void requestRoutesDBusLogServiceActionsClear(App& app)
             handleSystemsDBusLogServiceActionsClear, std::ref(app)));
 }
 
-inline void requestRoutesDBusEventLogEntryDownload(App& app)
+inline void requestRoutesSystemsDBusEventLogEntryDownload(App& app)
 {
     BMCWEB_ROUTE(
         app,
