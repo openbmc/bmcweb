@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################               -->
-<!--# Redfish Schema:  DriveMetrics v1.2.1                                                         -->
+<!--# Redfish Schema:  DriveMetrics v1.3.0                                                         -->
 <!--#                                                                                              -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,              -->
 <!--# available at http://www.dmtf.org/standards/redfish                                           -->
@@ -201,6 +201,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="DriveMetrics" BaseType="DriveMetrics.v1_2_0.DriveMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="DriveMetrics.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="DriveMetrics" BaseType="DriveMetrics.v1_2_1.DriveMetrics">
+        <Property Name="LifetimeStartDateTime" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the drive started accumulating data for properties that contain lifetime data, such as `UncorrectableIOReadErrorCount`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the drive started accumulating data for properties that contain lifetime data, such as `UncorrectableIOReadErrorCount`.  This might contain the same value as the production date of the drive."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ThermalSubsystem v1.4.0                                             -->
+<!--# Redfish Schema:  ThermalSubsystem v1.5.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -67,7 +67,7 @@
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
-            <PropertyValue Property="Updatable" Bool="false"/>
+            <PropertyValue Property="Updatable" Bool="true"/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -248,6 +248,19 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `FilterCollection` that contains the filters for this equipment."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ThermalSubsystem.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="ThermalSubsystem" BaseType="ThermalSubsystem.v1_4_0.ThermalSubsystem">
+        <Property Name="FansFullSpeedOverrideEnable" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the fans in this equipment are overridden to operate at full speed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the fans in this equipment are overridden to operate at full speed."/>
+        </Property>
       </EntityType>
     </Schema>
 

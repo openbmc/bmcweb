@@ -166,6 +166,7 @@ enum class ConnectedDeviceType{
     Type2,
     Type3SLD,
     Type3MLD,
+    PBRComponent,
 };
 
 enum class HostDeviceType{
@@ -334,6 +335,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConnectedDeviceType, {
     {ConnectedDeviceType::Type2, "Type2"},
     {ConnectedDeviceType::Type3SLD, "Type3SLD"},
     {ConnectedDeviceType::Type3MLD, "Type3MLD"},
+    {ConnectedDeviceType::PBRComponent, "PBRComponent"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(HostDeviceType, {

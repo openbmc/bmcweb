@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.27.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.28.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -2689,6 +2689,76 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_28_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_27_0.Chassis">
+        <Property Name="ReadyToRemove" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the chassis is prepared by the system for removal."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the chassis is ready for removal.  Setting the value to `true` shall cause the service to perform appropriate actions to quiesce the device.  A task may spawn while the device is quiescing."/>
+        </Property>
+        <Property Name="RackMountCapacityUnits" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The usable capacity of rack units provided by this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the amount of space, in `RackUnits` and including fractional units, contained within this chassis that are usable to hold rack-mountable equipment.  This property shall not be present if `ChassisType` does not contain `Rack`."/>
+        </Property>
+        <Property Name="RackUnits" Type="Chassis.v1_28_0.RackUnits">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of rack-mount units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of units used to describe rack-mountable equipment."/>
+        </Property>
+        <Property Name="RackMountWidth" Type="Chassis.v1_28_0.RackMountWidth">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The width of the rack-mountable chassis or rack-mounting space."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of width that describes the rack-mountable equipment space."/>
+        </Property>
+        <Property Name="RackMountDepthMm" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The usable depth of the rack-mountable area of the chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the depth (length) of the chassis, in millimeter units, that is available to contain rack-mounted equipment."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Measures.Unit" String="mm"/>
+        </Property>
+        <Property Name="HeightRackUnits" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The height of the rack-mountable chassis in rack units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the height of the rack-mountable chassis, in rack units specified by the value of `RackUnits`."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="RackUnits">
+        <Member Name="OpenU">
+          <Annotation Term="OData.Description" String="An Open Rack rack unit (48 mm or 1.89 in)."/>
+          <Annotation Term="OData.LongDescription" String="Rack units shall be specified in terms of the Open Compute Open Rack Specification."/>
+        </Member>
+        <Member Name="EIA_310">
+          <Annotation Term="OData.Description" String="An EIA-310 rack unit (1.75 in or 44.45 mm)."/>
+          <Annotation Term="OData.LongDescription" String="Rack units shall conform to the EIA-310 standard."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="RackMountWidth">
+        <Member Name="OpenU">
+          <Annotation Term="OData.Description" String="Open Rack (21.0 in or 533.4 mm)."/>
+          <Annotation Term="OData.LongDescription" String="Rack mounting width and mounting hole spacing shall conform to the Open Rack standard for 21-inch racks."/>
+        </Member>
+        <Member Name="EIA_310">
+          <Annotation Term="OData.Description" String="EIA-310 19-inch."/>
+          <Annotation Term="OData.LongDescription" String="Rack mounting width and mounting hole spacing shall conform to the EIA-310 standard for 19-inch racks."/>
+        </Member>
+        <Member Name="EIA_310_Telco">
+          <Annotation Term="OData.Description" String="EIA-310 23-inch (Telco)."/>
+          <Annotation Term="OData.LongDescription" String="Rack mounting width and mounting hole spacing shall conform to the EIA-310 standard for 23-inch telecommunications equipment racks."/>
+        </Member>
+        <Member Name="HalfWidth">
+          <Annotation Term="OData.Description" String="Half-width (~9.5 in) Unit."/>
+          <Annotation Term="OData.LongDescription" String="Rack mounting width and mounting hole spacing shall be approximately 9.5 inches in width, following de facto industry practice for a rack half the width of a 19-inch EIA-310 equipment racks."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

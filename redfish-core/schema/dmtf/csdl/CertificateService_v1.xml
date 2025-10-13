@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CertificateService v1.1.0                                           -->
+<!--# Redfish Schema:  CertificateService v1.2.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -32,6 +32,12 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Certificate_v1.xml">
     <edmx:Include Namespace="Certificate"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateEnrollment_v1.xml">
+    <edmx:Include Namespace="CertificateEnrollment"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateEnrollmentCollection_v1.xml">
+    <edmx:Include Namespace="CertificateEnrollmentCollection"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -49,7 +55,8 @@
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
-            <PropertyValue Property="Updatable" Bool="false"/>
+            <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Some properties, such as `ServiceEnabled`, can be updated for the certificate service."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -102,7 +109,7 @@
         </Parameter>
         <Parameter Name="KeyPairAlgorithm" Type="Edm.String">
           <Annotation Term="OData.Description" String="The type of key-pair for use with signing algorithms."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of key-pair for use with signing algorithms.  The allowable values for this parameter shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of key-pair for use with signing algorithms.  The allowable values for this parameter shall be the strings in the 'Algorithm Name' field of the 'TCG_ALG_ID Constants' table, formerly the 'TPM_ALG_ID Constants' table, within the 'Trusted Computing Group Algorithm Registry'."/>
         </Parameter>
         <Parameter Name="KeyBitLength" Type="Edm.Int64">
           <Annotation Term="OData.Description" String="The length of the key, in bits, if needed based on the `KeyPairAlgorithm` parameter value."/>
@@ -110,7 +117,7 @@
         </Parameter>
         <Parameter Name="KeyCurveId" Type="Edm.String">
           <Annotation Term="OData.Description" String="The curve ID to use with the key, if needed based on the `KeyPairAlgorithm` parameter value."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the curve ID to use with the key, if needed based on the `KeyPairAlgorithm` parameter value.  The allowable values for this parameter shall be the strings in the 'Name' field of the 'TPM_ECC_CURVE Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the curve ID to use with the key, if needed based on the `KeyPairAlgorithm` parameter value.  The allowable values for this parameter shall be the strings in the 'Name' field of the 'TCG_ECC_CURVE Constants' table, formerly the 'TPM_ECC_CURVE Constants' table, within the 'Trusted Computing Group Algorithm Registry'."/>
         </Parameter>
         <Parameter Name="CertificateCollection" Type="CertificateCollection.CertificateCollection" Nullable="false">
           <Annotation Term="OData.Description" String="The link to the certificate collection where the certificate is installed after the certificate authority (CA) signs the certificate."/>
@@ -266,12 +273,69 @@
       <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_5.CertificateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters."/>
+      <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_6.CertificateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.1"/>
       <Annotation Term="OData.Description" String="This version was created to add `Password` to `ReplaceCertificate`."/>
 
       <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_6.CertificateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters."/>
+      <EntityType Name="CertificateService" BaseType="CertificateService.v1_1_0.CertificateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="CertificateService" BaseType="CertificateService.v1_1_0.CertificateService">
+        <Property Name="AutomaticCertificateEnrollment" Type="CertificateService.v1_2_0.AutomaticCertificateEnrollment">
+          <Annotation Term="OData.Description" String="The automatic certificate enrollment configuration."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configuration and status of automatic certificate enrollment."/>
+        </Property>
+        <NavigationProperty Name="CertificateEnrollments" Type="CertificateEnrollmentCollection.CertificateEnrollmentCollection" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of certificate enrollment configurations."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateEnrollmentCollection` that contains the certificate enrollment configurations for this service."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="EnrollmentCACertificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to a collection of server certificates for the automatic certificate enrollment servers."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` that contains the server certificates for the automatic certificate enrollment servers."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="AutomaticCertificateEnrollment">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The automatic certificate enrollment service configuration."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the configuration and status of automatic certificate enrollment."/>
+        <Property Name="ServiceEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether automatic enrollment is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether automatic certificate enrollment is enabled."/>
+        </Property>
+        <Property Name="EnrollmentTypes" Type="Collection(CertificateEnrollment.EnrollmentProtocolType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The automatic enrollment protocols supported by this service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of automatic enrollment protocols supported by this service."/>
+        </Property>
+        <Property Name="CertificatesSupported" Type="Collection(Certificate.CertificateUsageType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The certificate usage types that support automatic enrollments for this service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of certificate usage types that support automatic enrollments for this service."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

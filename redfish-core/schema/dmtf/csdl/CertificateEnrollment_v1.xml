@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  CertificateEnrollment v1.0.0                                        -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# # Copyright 2014-2025 DMTF.                                                          -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+    <edmx:Include Namespace="CertificateCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Certificate_v1.xml">
+    <edmx:Include Namespace="Certificate"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateEnrollment">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Language" String="en"/>
+
+      <EntityType Name="CertificateEnrollment" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="This resource shall represent an automatic certificate enrollment for a Redfish implementation."/>
+        <Annotation Term="OData.LongDescription" String="The `CertificateEnrollment` schema describes an automatic certificate enrollment for a specific protocol such as ACME (Automatic Certificate Management Environment) or SCEP (Simple Certificate Enrollment Protocol)."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Use the `DELETE` operation to remove automatic certificate enrollment."/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/CertificateService/CertificateEnrollments/{CertificateEnrollmentId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+      <EnumType Name="EnrollmentProtocolType">
+        <Member Name="ACME">
+          <Annotation Term="OData.Description" String="Automatic Certificate Management Environment (ACME) protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the enrollment uses the Automatic Certificate Management Environment (ACME) protocol as defined by RFC8555."/>
+        </Member>
+        <Member Name="SCEP">
+          <Annotation Term="OData.Description" String="Simple Certificate Enrollment Protocol (SCEP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the enrollment uses the Simple Certificate Enrollment Protocol (SCEP) protocol as defined by RFC8894."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="OEM enrollment protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the OEM enrollment protocol type."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateEnrollment.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="CertificateEnrollment" BaseType="CertificateEnrollment.CertificateEnrollment">
+        <Property Name="EnrollmentType" Type="CertificateEnrollment.EnrollmentProtocolType" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The configured automatic certificate enrollment protocol."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configured automatic certificate enrollment protocol."/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
+        </Property>
+        <Property Name="Enabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether this automatic certificate enrollment is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this automatic certificate enrollment is enabled.  If `true`, the implementation shall automatically enroll and renew certificates according to the configuration.  If `false`, the implementation shall not perform automatic certificate enrollment operations.  If this property is not specified by the client in the create request, it shall be assumed to be `false`."/>
+        </Property>
+        <Property Name="ServerURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The URI of the certificate enrollment server."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the certificate enrollment server that provides the automatic enrollment service."/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="VerifyCertificate" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service will verify the certificate of the server referenced by the `ServerURI` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service will verify the certificate of the server referenced by the `ServerURI` property with the certificates found in the collection referenced by the `Certificates` property.  If this property is not supported by the service or specified by the client in the create request, it shall be assumed to be `false`.  Regardless of the value of this property, services may perform additional verification based on other factors, such as the configuration of the `SecurityPolicy` resource."/>
+        </Property>
+        <Property Name="RenewBeforeExpiryDays" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of days before certificate expiry to begin automatic renewal of the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of days before certificate expiry to begin automatic renewal of the certificate."/>
+          <Annotation Term="Validation.Minimum" Int="1"/>
+        </Property>
+        <Property Name="ACME" Type="CertificateEnrollment.v1_0_0.ACMEConfiguration">
+          <Annotation Term="OData.Description" String="ACME (Automatic Certificate Management Environment) protocol specific configuration for automatic certificate enrollment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain configuration specific to the ACME protocol.  This property shall only be present when the `EnrollmentType` property contains `ACME`."/>
+        </Property>
+        <Property Name="SCEP" Type="CertificateEnrollment.v1_0_0.SCEPConfiguration">
+          <Annotation Term="OData.Description" String="SCEP (Simple Certificate Enrollment Protocol) protocol specific configuration for automatic certificate enrollment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain configuration specific to the SCEP protocol.  This property shall only be present when the `EnrollmentType` property contains `SCEP`."/>
+        </Property>
+        <Property Name="CSRParameters" Type="CertificateEnrollment.v1_0_0.CSRParameters">
+          <Annotation Term="OData.Description" String="The certificate signing request parameters."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the parameters used for generating the certificate signing request."/>
+        </Property>
+        <Property Name="Links" Type="CertificateEnrollment.v1_0_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        </Property>
+        <Property Name="EnrollmentState" Type="CertificateEnrollment.v1_0_0.EnrollmentState">
+          <Annotation Term="OData.Description" String="The status information for this enrollment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the status information for this enrollment including the last operation performed and its status."/>
+        </Property>
+        <Property Name="Actions" Type="CertificateEnrollment.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="LastOperationType">
+        <Member Name="Renew">
+          <Annotation Term="OData.Description" String="Certificate renewal operation."/>
+        </Member>
+        <Member Name="UpdateAcmeEmail">
+          <Annotation Term="OData.Description" String="Update ACME email operation.  Applicable only when the enrollment protocol is ACME."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="OperationStatus">
+        <Member Name="Success">
+          <Annotation Term="OData.Description" String="The operation completed successfully."/>
+        </Member>
+        <Member Name="Failed">
+          <Annotation Term="OData.Description" String="The operation failed."/>
+        </Member>
+        <Member Name="InProgress">
+          <Annotation Term="OData.Description" String="The operation is in progress."/>
+        </Member>
+        <Member Name="Unknown">
+          <Annotation Term="OData.Description" String="The operation status is unknown."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ACMEChallengeType">
+        <Member Name="Http01">
+          <Annotation Term="OData.Description" String="HTTP challenge type for domain validation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the RFC8555-defined http-01 challenge type for domain validation."/>
+        </Member>
+        <Member Name="Dns01">
+          <Annotation Term="OData.Description" String="DNS challenge type for domain validation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the RFC8555-defined dns-01 challenge type for domain validation."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="ACMEConfiguration">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="ACME protocol specific configuration."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain configuration specific to the ACME protocol."/>
+        <Property Name="Email" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The email address for ACME account registration."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the email address used for ACME account registration and notifications."/>
+        </Property>
+        <Property Name="EABKeyId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
+          <Annotation Term="OData.Description" String="The external account binding (EAB) key identifier."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the external account binding (EAB) key identifier used for ACME account registration with certificate authorities that require EAB.  This property shall be `null` in responses."/>
+        </Property>
+        <Property Name="EABKey" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
+          <Annotation Term="OData.Description" String="The external account binding (EAB) key value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded string, with padding characters, of the external account binding (EAB) key value used for ACME account registration with certificate authorities that require EAB.  This property shall be `null` in responses."/>
+        </Property>
+        <Property Name="ChallengeType" Type="CertificateEnrollment.v1_0_0.ACMEChallengeType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The ACME challenge type used for domain validation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the ACME challenge type used for domain validation during automatic certificate enrollment."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="SCEPConfiguration">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="SCEP protocol specific configuration."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain configuration specific to the SCEP protocol."/>
+        <Property Name="ChallengePassword" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Write"/>
+          <Annotation Term="OData.Description" String="The challenge password for SCEP enrollment."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the challenge password used for SCEP enrollment.  This property shall be `null` in responses."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="EnrollmentState">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The status information for an enrollment."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the status information for an enrollment including the last operation performed and its status."/>
+        <Property Name="LastOperation" Type="CertificateEnrollment.v1_0_0.LastOperationType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The last operation performed by the automatic enrollment service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the last operation performed by the automatic enrollment service."/>
+        </Property>
+        <Property Name="LastOperationTime" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the last operation was performed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the last operation was performed by the automatic enrollment service."/>
+        </Property>
+        <Property Name="LastOperationStatus" Type="CertificateEnrollment.v1_0_0.OperationStatus">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The status of the last operation performed by automatic enrollment service."/>
+          <Annotation Term="OData.LongDescription" String="This enumeration shall describe the status of the last operation performed by automatic enrollment service."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="CSRParameters">
+        <Annotation Term="OData.Description" String="Certificate signing request parameters."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the parameters for generating a certificate signing request."/>
+        <Property Name="CommonName" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The fully qualified domain name of the component to secure."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the fully qualified domain name of the component to secure, as defined by the RFC5280 'commonName' attribute."/>
+        </Property>
+        <Property Name="AlternativeNames" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The additional host names of the component to secure."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of additional host names of the component to secure, as defined by the RFC5280 'subjectAltName' attribute."/>
+        </Property>
+        <Property Name="Organization" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The name of the organization making the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization making the request, as defined by the RFC5280 'organizationName' attribute."/>
+        </Property>
+        <Property Name="OrganizationalUnit" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The name of the unit or division of the organization making the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the unit or division of the organization making the request, as defined by the RFC5280 'organizationalUnitName' attribute."/>
+        </Property>
+        <Property Name="City" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The city or locality of the organization making the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the city or locality of the organization making the request, as defined by the RFC5280 'localityName' attribute."/>
+        </Property>
+        <Property Name="State" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The state, province, or region of the organization making the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state, province, or region of the organization making the request, as defined by the RFC5280 'stateOrProvinceName' attribute."/>
+        </Property>
+        <Property Name="Country" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The two-letter country code of the organization making the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the two-letter ISO code for the country of the organization making the request, as defined by the RFC5280 'countryName' attribute."/>
+        </Property>
+        <Property Name="Email" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The email address of the contact within the organization making the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the email address of the contact within the organization making the request, as defined by the RFC2985 'emailAddress' attribute."/>
+        </Property>
+        <Property Name="KeyPairAlgorithm" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of key-pair for use with signing algorithms."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of key-pair for use with signing algorithms.  The allowable values for this property shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+        </Property>
+        <Property Name="KeyBitLength" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The length of the key, in bits, if needed based on the `KeyPairAlgorithm` property value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the length of the key, in bits, if needed based on the `KeyPairAlgorithm` property value."/>
+        </Property>
+        <Property Name="KeyCurveId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The curve ID to use with the key, if needed based on the `KeyPairAlgorithm` property value."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the curve ID to use with the key, if needed based on the `KeyPairAlgorithm` property value.  The allowable values for this property shall be the strings in the 'Name' field of the 'TPM_ECC_CURVE Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+        </Property>
+        <Property Name="KeyUsage" Type="Collection(Certificate.KeyUsage)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The usage of the key contained in the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the usage of the key contained in the certificate.  If the client does not provide this value, the service can determine the appropriate key usage settings in the certificate signing request."/>
+        </Property>
+        <Property Name="Surname" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The surname of the user making the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the surname of the user making the request, as defined by the RFC5280 'surname' attribute."/>
+        </Property>
+        <Property Name="GivenName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The given name of the user making the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the given name of the user making the request, as defined by the RFC5280 'givenName' attribute."/>
+        </Property>
+        <Property Name="Initials" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The initials of the user making the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the initials of the user making the request, as defined by the RFC5280 'initials' attribute."/>
+        </Property>
+        <Property Name="ChallengePassword" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The challenge password to apply to the certificate for revocation requests."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the challenge password to apply to the certificate for revocation requests as defined by the RFC2985 'challengePassword' attribute."/>
+        </Property>
+        <Property Name="UnstructuredName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The unstructured name of the subject."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the unstructured name of the subject, as defined by the RFC2985 'unstructuredName' attribute."/>
+        </Property>
+        <Property Name="ContactPerson" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The name of the user making the request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the user making the request, as defined by the RFC5280 'name' attribute."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="CertificateEnrollment.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
+        <NavigationProperty Name="EnrolledCertificateLocation" Type="CertificateCollection.CertificateCollection">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The link to the certificate collection where the enrolled certificate will be installed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `CertificateCollection` where the enrolled certificate will be installed."/>
+          <Annotation Term="Redfish.RequiredOnCreate"/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="EnrolledCertificate" Type="Certificate.Certificate">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the enrolled certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the enrolled certificate."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="CACertificates" Type="Collection(Certificate.Certificate)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The list of server certificates for the server referenced by the `ServerURI` property."/>
+          <Annotation Term="OData.LongDescription" String="The list of references to server certificates for the server referenced by the `ServerURI` property.  Members of this array shall reference members the `EnrollmentCACertificates` property in the `CertificateService` resource.  If `VerifyCertificate` contains `true` and this property is present, services shall compare the certificates in this list with the certificate obtained during handshaking with the enrollment server in order to verify the identity of the enrollment server.  If `VerifyCertificate` contains `true` and this property is absent, services shall compare the certificates in the `EnrollmentCACertificates` property in the `CertificateService` resource with the certificate obtained during handshaking with the enrollment server.  If the server cannot be verified, the service shall fail the automatic certificate enrollment.  If `VerifyCertificate` is `false`, the service shall not perform certificate verification.  Regardless of the contents of this list and the `EnrollmentCACertificates` property in the `CertificateService` resource, services may perform additional verification based on other factors, such as the configuration of the `SecurityPolicy` resource."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

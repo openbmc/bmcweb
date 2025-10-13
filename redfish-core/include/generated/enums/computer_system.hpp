@@ -215,6 +215,29 @@ enum class LastResetCauses{
     Unknown,
 };
 
+enum class ExportType{
+    Invalid,
+    NonDestructive,
+    CloneWithinFabric,
+    Replacement,
+};
+
+enum class Component{
+    Invalid,
+    All,
+    Manager,
+    BIOS,
+    Network,
+    Storage,
+};
+
+enum class ExportSecurity{
+    Invalid,
+    IncludeSensitiveData,
+    HashedDataOnly,
+    ExcludeSensitiveData,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(BootSource, {
     {BootSource::Invalid, "Invalid"},
     {BootSource::None, "None"},
@@ -421,6 +444,29 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LastResetCauses, {
     {LastResetCauses::ThermalEvent, "ThermalEvent"},
     {LastResetCauses::PowerEvent, "PowerEvent"},
     {LastResetCauses::Unknown, "Unknown"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ExportType, {
+    {ExportType::Invalid, "Invalid"},
+    {ExportType::NonDestructive, "NonDestructive"},
+    {ExportType::CloneWithinFabric, "CloneWithinFabric"},
+    {ExportType::Replacement, "Replacement"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(Component, {
+    {Component::Invalid, "Invalid"},
+    {Component::All, "All"},
+    {Component::Manager, "Manager"},
+    {Component::BIOS, "BIOS"},
+    {Component::Network, "Network"},
+    {Component::Storage, "Storage"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ExportSecurity, {
+    {ExportSecurity::Invalid, "Invalid"},
+    {ExportSecurity::IncludeSensitiveData, "IncludeSensitiveData"},
+    {ExportSecurity::HashedDataOnly, "HashedDataOnly"},
+    {ExportSecurity::ExcludeSensitiveData, "ExcludeSensitiveData"},
 });
 
 }

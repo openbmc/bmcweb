@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PrivilegeRegistry v1.1.5                                            -->
+<!--# Redfish Schema:  PrivilegeRegistry v1.2.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -248,6 +248,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_1_4.PrivilegeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PrivilegeRegistry.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_1_5.PrivilegeRegistry">
+        <Property Name="OEMPrivilegeDescriptions" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The descriptions of the OEM privileges used in this mapping."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the descriptions of the values of the `OEMPrivilegesUsed` property.  The order of this array shall match the order of the `OEMPrivilegesUsed` property."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

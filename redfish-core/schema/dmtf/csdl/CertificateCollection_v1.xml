@@ -134,6 +134,7 @@
             <String>/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/Certificates</String>
             <String>/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/ClientCertificates</String>
             <String>/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Certificates</String>
+            <String>/redfish/v1/CertificateService/EnrollmentCACertificates</String>
           </Collection>
         </Annotation>
         <Annotation Term="Redfish.DeprecatedUris">

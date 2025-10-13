@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CoolantConnector v1.2.0                                             -->
+<!--# Redfish Schema:  CoolantConnector v1.3.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -84,6 +84,28 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <Action Name="ValveControl" IsBound="true">
+        <Annotation Term="OData.Description" String="This action sets the state of the connector."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set the operating state of the coolant connector represented by the resource."/>
+        <Parameter Name="CoolantConnector" Type="CoolantConnector.v1_0_0.Actions"/>
+        <Parameter Name="ValveState" Type="CoolantConnector.v1_3_0.ValveState">
+          <Annotation Term="OData.Description" String="The desired state of the connector."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the desired valve state for the coolant connector.  If this parameter is not provided, the service shall not change the valve state for this connector.  Upon successful completion, the value of the `State` property within `Status` shall reflect this value."/>
+        </Parameter>
+        <Parameter Name="ValveStateReason" Type="CoolantConnector.v1_3_0.ValveStateReason">
+          <Annotation Term="OData.Description" String="The reason for the desired state of the connector."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the reason for desired state for the coolant connector.  Upon successful completion, the value of the `Health` property within `Status` shall reflect the result of the `ValveState` if the reason is applicable.  If this parameter is not provided, the value shall be `Normal`."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolantConnector.v1_0_0">
@@ -325,6 +347,69 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the desired valve position, in percent units, of this coolant connector.  The value of the `DataSourceUri` property, if present, shall reference a resource of type `Control` with the `ControlType` property containing the value `Valve`.  Services may automatically change other controls if a client attempts to enable this control to prevent conflicts."/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolantConnector.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ValveState` action."/>
+
+      <EntityType Name="CoolantConnector" BaseType="CoolantConnector.v1_2_0.CoolantConnector">
+        <Property Name="Manufacturer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturer of this component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization responsible for producing the component.  This organization may be the entity from whom the component is purchased, but this is not necessarily true.  This property is generally used only for replaceable or user-configurable components."/>
+        </Property>
+        <Property Name="Model" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The model number of the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name by which the manufacturer generally refers to the component.  This property is generally used only for replaceable or user-configurable components."/>
+        </Property>
+        <Property Name="SKU" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The SKU of the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the stock-keeping unit number for this component.  This property is generally used only for replaceable or user-configurable components."/>
+        </Property>
+        <Property Name="SerialNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number of the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a manufacturer-allocated number that identifies the component.  This property is generally used only for replaceable or user-configurable components."/>
+        </Property>
+        <Property Name="PartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The part number of the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the component.  This property is generally used only for replaceable or user-configurable components."/>
+        </Property>
+        <Property Name="SparePartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The spare part number of the component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the spare part number of the component.  This property is generally used only for replaceable or user-configurable components."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ValveState">
+        <Member Name="Open">
+          <Annotation Term="OData.Description" String="Open the valve for this connector to its normal operating position."/>
+        </Member>
+        <Member Name="Closed">
+          <Annotation Term="OData.Description" String="Close the valve for this connector."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ValveStateReason">
+        <Member Name="Normal">
+          <Annotation Term="OData.Description" String="Normal operation."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a normal operation of the valve, or a return to a normal operating state.  The `State` property within `Status` shall reflect the chosen value of `ValveState`, where a value of `Open` shall indicate an `Enabled` state, and a `Closed` value shall indicate a `Disabled` state."/>
+        </Member>
+        <Member Name="NotInUse">
+          <Annotation Term="OData.Description" String="The valve is not in use."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the valve is not in use or is not connected, and therefore should remain closed.  The `State` property within `Status` shall indicate `Absent`."/>
+        </Member>
+        <Member Name="LeakDetected">
+          <Annotation Term="OData.Description" String="A leak was detected."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a leak was detected by an external source.  The `Health` of the resource may be affected by this change in state.  The `Health`, `State`, and `Condition` properties within `Status` should reflect the reaction taken by the service in response to a detected leak."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

@@ -91,7 +91,8 @@
             "updatable": false,
             "uris": [
                 "/redfish/v1/UpdateService/SoftwareInventory",
-                "/redfish/v1/UpdateService/FirmwareInventory"
+                "/redfish/v1/UpdateService/FirmwareInventory",
+                "/redfish/v1/UpdateService/LocalImageStore"
             ]
         }
     },

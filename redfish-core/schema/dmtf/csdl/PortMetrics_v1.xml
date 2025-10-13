@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PortMetrics v1.7.0                                                  -->
+<!--# Redfish Schema:  PortMetrics v1.8.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -450,22 +450,22 @@
         <Annotation Term="OData.LongDescription" String="This type shall describe the transceiver-related metrics."/>
         <Property Name="RXInputPowerMilliWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The RX input power value of a small form-factor pluggable (SFP) transceiver."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the RX input power value of a small form-factor pluggable (SFP) transceiver."/>
+          <Annotation Term="OData.Description" String="The RX input power value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the RX input power value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
           <Annotation Term="Measures.Unit" String="mW"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="TXBiasCurrentMilliAmps" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The TX bias current value of a small form-factor pluggable (SFP) transceiver."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the TX bias current value of a small form-factor pluggable (SFP) transceiver."/>
+          <Annotation Term="OData.Description" String="The TX bias current value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TX bias current value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
           <Annotation Term="Measures.Unit" String="mA"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="TXOutputPowerMilliWatts" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The TX output power value of a small form-factor pluggable (SFP) transceiver."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the TX output power value of a small form-factor pluggable (SFP) transceiver."/>
+          <Annotation Term="OData.Description" String="The TX output power value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TX output power value of a small form-factor pluggable (SFP) transceiver, aggregated across all lanes of this port."/>
           <Annotation Term="Measures.Unit" String="mW"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
@@ -743,6 +743,58 @@
           <Annotation Term="OData.Description" String="The laser wavelength, in nanometers, for a small form-factor pluggable (SFP) transceiver."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the laser wavelength, in nanometers, for a small form-factor pluggable (SFP) transceiver.  This property shall not be present for non-optic SFP mediums."/>
           <Annotation Term="Measures.Unit" String="nm"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.v1_7_0.PortMetrics">
+        <Property Name="PCIeMetrics" Type="PCIeDevice.PCIeMetrics" Nullable="false">
+          <Annotation Term="OData.Description" String="The PCIe metrics associated with this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the PCIe metrics associated with this port."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Transceiver" BaseType="PortMetrics.v1_7_0.Transceiver">
+        <Property Name="ByLane" Type="Collection(PortMetrics.v1_8_0.TransceiverLaneMetrics)" Nullable= "false">
+          <Annotation Term="OData.Description" String="The metrics for the lanes in this port that are part of this transceiver.  Each member represents a single lane."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of lane-related metrics for a transceiver in this port.  Each member in the array shall represent a single lane."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="TransceiverLaneMetrics">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The per-lane transceiver metrics."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe transceiver-related metrics on a per-lane basis."/>
+        <Property Name="LaneId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The transceiver lane for which metrics are being supplied."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the transceiver lane for which metrics are being supplied."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="RXInputPowerMilliWatts" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The RX input power value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the RX input power value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
+          <Annotation Term="Measures.Unit" String="mW"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="TXBiasCurrentMilliAmps" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The TX bias current value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TX bias current value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
+          <Annotation Term="Measures.Unit" String="mA"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="TXOutputPowerMilliWatts" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The TX output power value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the TX output power value of a small form-factor pluggable (SFP) transceiver, specific to the lane identified as `LaneId`."/>
+          <Annotation Term="Measures.Unit" String="mW"/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
       </ComplexType>
     </Schema>

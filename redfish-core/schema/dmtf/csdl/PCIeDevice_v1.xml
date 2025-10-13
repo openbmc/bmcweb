@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice v1.19.0                                                  -->
+<!--# Redfish Schema:  PCIeDevice v1.20.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -101,6 +101,12 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The PCIe errors associated with this device."/>
         <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the PCIe errors associated with this device."/>
+      </ComplexType>
+
+      <ComplexType Name="PCIeMetrics" Abstract="true">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The PCIe metrics associated with this device."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the PCIe metrics associated with this device."/>
       </ComplexType>
 
       <EnumType Name="PCIeTypes">
@@ -1232,6 +1238,61 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Port` that represent the remote PCIe ports to which this device is connected."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_20_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_19_0.PCIeDevice"/>
+
+      <ComplexType Name="PCIeMetrics" BaseType="PCIeDevice.PCIeMetrics">
+        <Property Name="OutboundReadTLPCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of outbound read transaction layer packets (TLPs)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of outbound read transaction layer packets (TLPs)."/>
+        </Property>
+        <Property Name="OutboundReadTLPBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total data payload in bytes transferred through outbound read transaction layer packets (TLPs)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total data payload in bytes transferred through outbound read transaction layer packets (TLPs)."/>
+        </Property>
+        <Property Name="OutboundWriteTLPCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of outbound write transaction layer packets (TLPs)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of outbound write transaction layer packets (TLPs)."/>
+        </Property>
+        <Property Name="OutboundWriteTLPBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total data payload in bytes transferred through outbound write transaction layer packets (TLPs)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total data payload in bytes transferred through outbound write transaction layer packets (TLPs)."/>
+        </Property>
+        <Property Name="OutboundCompletionTLPCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of outbound completion transaction layer packets (TLPs)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of outbound completion transaction layer packets (TLPs)."/>
+        </Property>
+        <Property Name="OutboundCompletionTLPBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total data payload in bytes transferred through outbound completion transaction layer packets (TLPs)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total data payload in bytes transferred through outbound completion transaction layer packets (TLPs)."/>
+        </Property>
+        <Property Name="TagUnavailabilityDrops" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of read requests dropped due to tag unavailability."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of read requests dropped due to tag unavailability."/>
+        </Property>
+        <Property Name="CompletionCreditExhaustionDrops" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of read requests dropped due to completion credit exhaustion."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of read requests dropped due to completion credit exhaustion."/>
+        </Property>
+        <Property Name="NPCreditExhaustionDrops" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of of read requests dropped due to non-posted credit exhaustion."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of of read requests dropped due to non-posted credit exhaustion."/>
+        </Property>
       </ComplexType>
     </Schema>
 

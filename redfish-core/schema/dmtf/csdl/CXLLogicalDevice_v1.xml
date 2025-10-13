@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CXLLogicalDevice v1.2.1                                             -->
+<!--# Redfish Schema:  CXLLogicalDevice v1.3.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -78,6 +78,112 @@
           </Collection>
         </Annotation>
       </EntityType>
+
+      <Action Name="PassphraseSecureErase" IsBound="true">
+        <Annotation Term="OData.Description" String="This action securely erases the CXL logical device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall perform a CXL Specification-defined secure erase of the CXL logical device."/>
+        <Parameter Name="CXLLogicalDevice" Type="CXLLogicalDevice.v1_0_0.Actions"/>
+        <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The passphrase required to complete the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase required to complete this action."/>
+        </Parameter>
+        <Parameter Name="PassphraseType" Type="CXLLogicalDevice.v1_3_0.PassphraseType" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of passphrase supplied for the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of passphrase supplied for the operation."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="FreezeSecurityState" IsBound="true">
+        <Annotation Term="OData.Description" String="Freezes the security state of the CXL logical device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall freeze the security state of the CXL logical device."/>
+        <Parameter Name="CXLLogicalDevice" Type="CXLLogicalDevice.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="SetPassphrase" IsBound="true">
+        <Annotation Term="OData.Description" String="Sets the passphrase for the CXL logical device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall set the passphrase for the CXL logical device."/>
+        <Parameter Name="CXLLogicalDevice" Type="CXLLogicalDevice.v1_0_0.Actions"/>
+        <Parameter Name="PassphraseType" Type="CXLLogicalDevice.v1_3_0.PassphraseType" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of passphrase supplied for the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of passphrase supplied for the operation."/>
+        </Parameter>
+        <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The passphrase required to complete the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase required to complete this action."/>
+        </Parameter>
+        <Parameter Name="NewPassphrase" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The new passphrase to set for the CXL logical device."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the new passphrase to set for the CXL logical device."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="DisablePassphrase" IsBound="true">
+        <Annotation Term="OData.Description" String="Disables the passphrase for the CXL logical device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall disable the passphrase for the CXL logical device."/>
+        <Parameter Name="CXLLogicalDevice" Type="CXLLogicalDevice.v1_0_0.Actions"/>
+        <Parameter Name="PassphraseType" Type="CXLLogicalDevice.v1_3_0.PassphraseType" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of passphrase supplied for the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of passphrase supplied for the operation."/>
+        </Parameter>
+        <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The passphrase required to complete the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase required to complete this action."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="Unlock" IsBound="true">
+        <Annotation Term="OData.Description" String="Unlocks the CXL logical device."/>
+        <Annotation Term="OData.LongDescription" String="This action shall unlock the CXL logical device."/>
+        <Parameter Name="CXLLogicalDevice" Type="CXLLogicalDevice.v1_0_0.Actions"/>
+        <Parameter Name="PassphraseType" Type="CXLLogicalDevice.v1_3_0.PassphraseType" Nullable="false">
+          <Annotation Term="OData.Description" String="The type of passphrase supplied for the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of passphrase supplied for the operation."/>
+        </Parameter>
+        <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="The passphrase required to complete the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase required to complete this action."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_3_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_0_0">
@@ -304,6 +410,25 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description of `MemorySizeMiB`."/>
       <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_2_0.CXLLogicalDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CXLLogicalDevice.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `SetPassphrase`, `DisablePassphrase`, `PassphraseSecureErase`, `FreezeSecurityState`, and `Unlock` actions."/>
+
+      <EntityType Name="CXLLogicalDevice" BaseType="CXLLogicalDevice.v1_2_1.CXLLogicalDevice"/>
+
+      <EnumType Name="PassphraseType">
+        <Member Name="User">
+          <Annotation Term="OData.Description" String="User passphrase."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a user-defined passphrase."/>
+        </Member>
+        <Member Name="Master">
+          <Annotation Term="OData.Description" String="Master passphrase."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate an administrator-defined master passphrase."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

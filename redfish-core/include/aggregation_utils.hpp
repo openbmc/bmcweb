@@ -20,12 +20,14 @@ namespace redfish
 {
 // Note that each URI actually begins with "/redfish/v1"
 // They've been omitted to save space and reduce search time
-constexpr std::array<std::string_view, 55> topCollections{
+constexpr std::array<std::string_view, 58> topCollections{
     "/AggregationService/Aggregates",
     "/AggregationService/AggregationSources",
     "/AggregationService/ConnectionMethods",
     "/AutomationNodes",
     "/Cables",
+    "/CertificateService/CertificateEnrollments",
+    "/CertificateService/EnrollmentCACertificates",
     "/Chassis",
     "/ComponentIntegrity",
     "/CompositionService/ActivePool",
@@ -73,6 +75,7 @@ constexpr std::array<std::string_view, 55> topCollections{
     "/ThermalEquipment/RPUs",
     "/UpdateService/ClientCertificates",
     "/UpdateService/FirmwareInventory",
+    "/UpdateService/LocalImageStore",
     "/UpdateService/RemoteServerCertificates",
     "/UpdateService/RemoteServerSSHKeys",
     "/UpdateService/SoftwareInventory",

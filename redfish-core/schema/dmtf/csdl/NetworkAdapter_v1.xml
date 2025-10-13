@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkAdapter v1.12.0                                              -->
+<!--# Redfish Schema:  NetworkAdapter v1.13.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -915,6 +915,88 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to provide guidance for multi-ASIC adapters."/>
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_11_0.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_12_1.NetworkAdapter">
+        <Property Name="PortSplitting" Type="NetworkAdapter.v1_13_0.PortSplitting">
+          <Annotation Term="OData.Description" String="The port splitting capabilities for this controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain capability, status, and configuration values related to physically subdividing the lanes of ports on this controller."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="PortSplitting">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The port splitting capabilities for a controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain capability, status, and configuration values related to physically subdividing the lanes of ports on a controller."/>
+        <Property Name="MaximumSubports" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of subdivided ports that this controller supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of subdivided ports that this controller supports."/>
+        </Property>
+        <Property Name="MaximumSubportsPerPort" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of subdivided ports split from a single physical port that this controller supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of subdivided ports split from a single physical port that this controller supports."/>
+        </Property>
+        <Property Name="SupportedConfigurations" Type="Collection(NetworkAdapter.v1_13_0.PortSplittingSubconfigurationList)" Nullable="false">
+          <Annotation Term="OData.Description" String="The port splitting configurations this controller supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the port splitting configurations that this controller supports.  Properties contained in this property shall be read-only."/>
+        </Property>
+        <Property Name="CurrentConfiguration" Type="Collection(NetworkAdapter.v1_13_0.PortSplittingSubconfiguration)" Nullable="false">
+          <Annotation Term="OData.Description" String="The current port splitting configuration for this controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current port splitting configuration for this controller."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="PortSplittingSubconfigurationList">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A port splitting configuration for a controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain a port splitting configuration for a controller."/>
+        <Property Name="Subconfigurations" Type="Collection(NetworkAdapter.v1_13_0.PortSplittingSubconfiguration)" Nullable="false">
+          <Annotation Term="OData.Description" String="The set of subconfigurations that collectively define a port splitting configuration for this controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of subconfigurations that collectively define a port splitting configuration for this controller."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="PortSplittingSubconfiguration">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A port splitting subconfiguration for one or more physical ports on a controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain a port splitting subconfiguration for one or more physical ports on a controller."/>
+        <Property Name="StartingPhysicalPort" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The first physical port to which this subconfiguration applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the first physical port to which this subconfiguration applies."/>
+        </Property>
+        <Property Name="EndingPhysicalPort" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The last physical port to which this subconfiguration applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the last physical port to which this subconfiguration applies.  Specifically, the splitting for ports `StartPort` through `EndPort`, inclusive, is characterized by this subconfiguration.  Each set of subconfigurations shall cover all physical ports on the controller and shall describe splitting for each port exactly once."/>
+        </Property>
+        <Property Name="FirstSubportId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The first identifier to assign to subports in this subconfiguration.  Subport identifiers are assigned sequentially to the subports starting with those for `StartPort` and working through to those for `EndPort`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the first identifier to assign to subports in this subconfiguration.  Subport identifiers shall be assigned sequentially to the subports starting with those for `StartPort` and working through to those for `EndPort`."/>
+        </Property>
+        <Property Name="SubportsPerPort" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of subports created from each port in this subconfiguration."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of subports created from each port in this subconfiguration."/>
+        </Property>
+        <Property Name="Lanes" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of lanes for each subport."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of lanes for each subport.  The number of members in this array shall equal the value contained in `SubportsPerPort` in the enclosing subconfiguration."/>
+        </Property>
+        <Property Name="LinkSpeedGbps" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The configured link speed for each subport."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configured link speed for each subport.  The number of members in this array shall equal the value contained in `SubportsPerPort` in the enclosing subconfiguration."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

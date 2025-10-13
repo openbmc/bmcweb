@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate v1.10.0                                                 -->
+<!--# Redfish Schema:  Certificate v1.11.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -133,6 +133,7 @@
             <String>/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/ClientCertificates/{CertificateId}</String>
             <String>/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CertificateService/EnrollmentCACertificates/{CertificateId}</String>
           </Collection>
         </Annotation>
         <Annotation Term="Redfish.DeprecatedUris">
@@ -175,6 +176,90 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="CertificateUsageType">
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        <Member Name="User">
+          <Annotation Term="OData.Description" String="This certificate is a user certificate like those associated with a manager account."/>
+        </Member>
+        <Member Name="Web">
+          <Annotation Term="OData.Description" String="This certificate is a web or HTTPS certificate like those used for event destinations."/>
+        </Member>
+        <Member Name="SSH">
+          <Annotation Term="OData.Description" String="This certificate is used for SSH."/>
+        </Member>
+        <Member Name="Device">
+          <Annotation Term="OData.Description" String="This certificate is a device type certificate like those associated with SPDM and other standards."/>
+        </Member>
+        <Member Name="Platform">
+          <Annotation Term="OData.Description" String="This certificate is a platform type certificate like those associated with SPDM and other standards."/>
+        </Member>
+        <Member Name="BIOS">
+          <Annotation Term="OData.Description" String="This certificate is a BIOS certificate like those associated with UEFI."/>
+        </Member>
+        <Member Name="IDevID">
+          <Annotation Term="OData.Description" String="This certificate is an IDevID certificate like those associated with TCG TPMs."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="LDevID">
+          <Annotation Term="OData.Description" String="This certificate is an LDevID certificate like those associated with TCG TPMs."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="IAK">
+          <Annotation Term="OData.Description" String="This certificate is an IAK certificate like those associated with TCG TPMs."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="LAK">
+          <Annotation Term="OData.Description" String="This certificate is an LAK certificate like those associated with TCG TPMs."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_8_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="EK">
+          <Annotation Term="OData.Description" String="This certificate is an EK certificate like those associated with TCG TPMs."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -237,7 +322,7 @@
         <Parameter Name="Certificate" Type="Certificate.v1_0_0.Actions"/>
         <Parameter Name="KeyPairAlgorithm" Type="Edm.String">
           <Annotation Term="OData.Description" String="The type of key-pair for use with signing algorithms."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of key-pair for use with signing algorithms.  The allowable values for this parameter shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of key-pair for use with signing algorithms.  The allowable values for this parameter shall be the strings in the 'Algorithm Name' field of the 'TCG_ALG_ID Constants' table, formerly the 'TPM_ALG_ID Constants' table, within the 'Trusted Computing Group Algorithm Registry'."/>
         </Parameter>
         <Parameter Name="KeyBitLength" Type="Edm.Int64">
           <Annotation Term="OData.Description" String="The length of the key, in bits, if needed based on the `KeyPairAlgorithm` parameter value."/>
@@ -245,7 +330,7 @@
         </Parameter>
         <Parameter Name="KeyCurveId" Type="Edm.String">
           <Annotation Term="OData.Description" String="The curve ID to use with the key, if needed based on the `KeyPairAlgorithm` parameter value."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the curve ID to use with the key, if needed based on the `KeyPairAlgorithm` parameter value.  The allowable values for this parameter shall be the strings in the 'Name' field of the 'TPM_ECC_CURVE Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the curve ID to use with the key, if needed based on the `KeyPairAlgorithm` parameter value.  The allowable values for this parameter shall be the strings in the 'Name' field of the 'TCG_ECC_CURVE Constants' table, formerly the 'TPM_ECC_CURVE Constants' table, within the 'Trusted Computing Group Algorithm Registry'."/>
         </Parameter>
         <Parameter Name="ChallengePassword" Type="Edm.String">
           <Annotation Term="OData.Description" String="The challenge password to apply to the certificate for revocation requests."/>
@@ -276,6 +361,20 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_1_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="ForceAutomaticRenew" IsBound="true">
+        <Annotation Term="OData.Description" String="This action forces an automatic renewal of the certificate, if this certificate is configured for automatic certificate enrollment."/>
+        <Annotation Term="OData.LongDescription" String="This action shall force an automatic renewal of the certificate, if this certificate is configured for automatic certificate enrollment with a `CertificateEnrollment` resource.  If the certificate is not configured for automatic certificate enrollment, the service shall reject the request and return the HTTP `400 Bad Request` status code."/>
+        <Parameter Name="Certificate" Type="Certificate.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_11_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -521,6 +620,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_1_6.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_1_7.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -576,6 +681,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_2_6.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_2_7.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -596,7 +707,7 @@
         <Property Name="FingerprintHashAlgorithm" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The hash algorithm for the fingerprint of the certificate."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string containing the hash algorithm used for generating the `Fingerprint` property.  The value shall be one of the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string containing the hash algorithm used for generating the `Fingerprint` property.  The value shall be one of the strings in the 'Algorithm Name' field of the 'TCG_ALG_ID Constants' table, formerly the 'TPM_ALG_ID Constants' table, within the 'Trusted Computing Group Algorithm Registry'."/>
         </Property>
         <Property Name="SignatureAlgorithm" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -630,6 +741,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_3_3.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters.  It was also created to update TCG references for the `FingerprintHashAlgorithm` property."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_3_4.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.2"/>
@@ -639,7 +756,7 @@
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
-        <Property Name="CertificateUsageTypes" Type="Collection(Certificate.v1_4_0.CertificateUsageType)">
+        <Property Name="CertificateUsageTypes" Type="Collection(Certificate.CertificateUsageType)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The types or purposes for this certificate."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall contain an array describing the types or purposes for this certificate."/>
@@ -662,82 +779,6 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
-
-      <EnumType Name="CertificateUsageType">
-        <Member Name="User">
-          <Annotation Term="OData.Description" String="This certificate is a user certificate like those associated with a manager account."/>
-        </Member>
-        <Member Name="Web">
-          <Annotation Term="OData.Description" String="This certificate is a web or HTTPS certificate like those used for event destinations."/>
-        </Member>
-        <Member Name="SSH">
-          <Annotation Term="OData.Description" String="This certificate is used for SSH."/>
-        </Member>
-        <Member Name="Device">
-          <Annotation Term="OData.Description" String="This certificate is a device type certificate like those associated with SPDM and other standards."/>
-        </Member>
-        <Member Name="Platform">
-          <Annotation Term="OData.Description" String="This certificate is a platform type certificate like those associated with SPDM and other standards."/>
-        </Member>
-        <Member Name="BIOS">
-          <Annotation Term="OData.Description" String="This certificate is a BIOS certificate like those associated with UEFI."/>
-        </Member>
-        <Member Name="IDevID">
-          <Annotation Term="OData.Description" String="This certificate is an IDevID certificate like those associated with TCG TPMs."/>
-          <Annotation Term="Redfish.Revisions">
-            <Collection>
-              <Record>
-                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
-                <PropertyValue Property="Version" String="v1_8_0"/>
-              </Record>
-            </Collection>
-          </Annotation>
-        </Member>
-        <Member Name="LDevID">
-          <Annotation Term="OData.Description" String="This certificate is an LDevID certificate like those associated with TCG TPMs."/>
-          <Annotation Term="Redfish.Revisions">
-            <Collection>
-              <Record>
-                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
-                <PropertyValue Property="Version" String="v1_8_0"/>
-              </Record>
-            </Collection>
-          </Annotation>
-        </Member>
-        <Member Name="IAK">
-          <Annotation Term="OData.Description" String="This certificate is an IAK certificate like those associated with TCG TPMs."/>
-          <Annotation Term="Redfish.Revisions">
-            <Collection>
-              <Record>
-                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
-                <PropertyValue Property="Version" String="v1_8_0"/>
-              </Record>
-            </Collection>
-          </Annotation>
-        </Member>
-        <Member Name="LAK">
-          <Annotation Term="OData.Description" String="This certificate is an LAK certificate like those associated with TCG TPMs."/>
-          <Annotation Term="Redfish.Revisions">
-            <Collection>
-              <Record>
-                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
-                <PropertyValue Property="Version" String="v1_8_0"/>
-              </Record>
-            </Collection>
-          </Annotation>
-        </Member>
-        <Member Name="EK">
-          <Annotation Term="OData.Description" String="This certificate is an EK certificate like those associated with TCG TPMs."/>
-          <Annotation Term="Redfish.Revisions">
-            <Collection>
-              <Record>
-                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
-                <PropertyValue Property="Version" String="v1_9_0"/>
-              </Record>
-            </Collection>
-          </Annotation>
-        </Member>
-      </EnumType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_4_1">
@@ -768,6 +809,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that `PEMChain` certificates contain leaf certificate information in the properties for the resource."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_4_4.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters.  It was also created to update TCG references for the `FingerprintHashAlgorithm` property."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_4_5.Certificate"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_5_0">
@@ -821,6 +868,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that `PEMChain` certificates contain leaf certificate information in the properties for the resource."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_5_4.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters.  It was also created to update TCG references for the `FingerprintHashAlgorithm` property."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_5_5.Certificate"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_6_0">
@@ -877,6 +930,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_6_3.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters.  It was also created to update TCG references for the `FingerprintHashAlgorithm` property."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_6_4.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -916,6 +975,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_7_3.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_7_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters.  It was also created to update TCG references for the `FingerprintHashAlgorithm` property."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_7_4.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -948,6 +1013,12 @@
       <EntityType Name="Certificate" BaseType="Certificate.v1_8_3.Certificate"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_8_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters.  It was also created to update TCG references for the `FingerprintHashAlgorithm` property."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_8_4.Certificate"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
@@ -960,6 +1031,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that `PEMChain` certificates contain leaf certificate information in the properties for the resource."/>
       <EntityType Name="Certificate" BaseType="Certificate.v1_9_0.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_9_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters.  It was also created to update TCG references for the `FingerprintHashAlgorithm` property."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_9_1.Certificate"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_10_0">
@@ -978,6 +1055,20 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the password for the certificate contained in the `CertificateString` property.  This property shall be required in create requests if the `CertificateType` property contains `PKCS12` and the client-provided certificate is password protected.  This property shall not be present in responses."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update TCG references for the `KeyPairAlgorithm` and `KeyCurveId` parameters.  It was also created to update TCG references for the `FingerprintHashAlgorithm` property."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_10_0.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ForceAutomaticRenew` action."/>
+
+      <EntityType Name="Certificate" BaseType="Certificate.v1_10_1.Certificate"/>
     </Schema>
 
   </edmx:DataServices>

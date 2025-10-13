@@ -15,6 +15,21 @@ enum class CertificateType{
     PKCS12,
 };
 
+enum class CertificateUsageType{
+    Invalid,
+    User,
+    Web,
+    SSH,
+    Device,
+    Platform,
+    BIOS,
+    IDevID,
+    LDevID,
+    IAK,
+    LAK,
+    EK,
+};
+
 enum class KeyUsage{
     Invalid,
     DigitalSignature,
@@ -34,27 +49,27 @@ enum class KeyUsage{
     OCSPSigning,
 };
 
-enum class CertificateUsageType{
-    Invalid,
-    User,
-    Web,
-    SSH,
-    Device,
-    Platform,
-    BIOS,
-    IDevID,
-    LDevID,
-    IAK,
-    LAK,
-    EK,
-};
-
 NLOHMANN_JSON_SERIALIZE_ENUM(CertificateType, {
     {CertificateType::Invalid, "Invalid"},
     {CertificateType::PEM, "PEM"},
     {CertificateType::PEMchain, "PEMchain"},
     {CertificateType::PKCS7, "PKCS7"},
     {CertificateType::PKCS12, "PKCS12"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(CertificateUsageType, {
+    {CertificateUsageType::Invalid, "Invalid"},
+    {CertificateUsageType::User, "User"},
+    {CertificateUsageType::Web, "Web"},
+    {CertificateUsageType::SSH, "SSH"},
+    {CertificateUsageType::Device, "Device"},
+    {CertificateUsageType::Platform, "Platform"},
+    {CertificateUsageType::BIOS, "BIOS"},
+    {CertificateUsageType::IDevID, "IDevID"},
+    {CertificateUsageType::LDevID, "LDevID"},
+    {CertificateUsageType::IAK, "IAK"},
+    {CertificateUsageType::LAK, "LAK"},
+    {CertificateUsageType::EK, "EK"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(KeyUsage, {
@@ -74,21 +89,6 @@ NLOHMANN_JSON_SERIALIZE_ENUM(KeyUsage, {
     {KeyUsage::EmailProtection, "EmailProtection"},
     {KeyUsage::Timestamping, "Timestamping"},
     {KeyUsage::OCSPSigning, "OCSPSigning"},
-});
-
-NLOHMANN_JSON_SERIALIZE_ENUM(CertificateUsageType, {
-    {CertificateUsageType::Invalid, "Invalid"},
-    {CertificateUsageType::User, "User"},
-    {CertificateUsageType::Web, "Web"},
-    {CertificateUsageType::SSH, "SSH"},
-    {CertificateUsageType::Device, "Device"},
-    {CertificateUsageType::Platform, "Platform"},
-    {CertificateUsageType::BIOS, "BIOS"},
-    {CertificateUsageType::IDevID, "IDevID"},
-    {CertificateUsageType::LDevID, "LDevID"},
-    {CertificateUsageType::IAK, "IAK"},
-    {CertificateUsageType::LAK, "LAK"},
-    {CertificateUsageType::EK, "EK"},
 });
 
 }

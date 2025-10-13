@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################                   -->
-<!--# Redfish Schema:  Storage v1.19.0                                                                 -->
+<!--# Redfish Schema:  Storage v1.20.0                                                                 -->
 <!--#                                                                                                  -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
 <!--# available at http://www.dmtf.org/standards/redfish                                               -->
@@ -1884,6 +1884,60 @@
       <Annotation Term="OData.Description" String="This version was created to add the `ImportForeignDrive` action."/>
 
       <EntityType Name="Storage" BaseType="Storage.v1_18_0.Storage"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_20_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_19_0.Storage">
+        <Property Name="MPF" Type="Storage.v1_20_0.MPF">
+          <Annotation Term="OData.Description" String="The multiple physical function-related properties for storage controllers in this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain multiple physical function-related properties for storage controllers in this storage subsystem.  This property should only be present if the storage subsystem supports the use of multiple physical functions to parallelize data transfer."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="MPF">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Multiple physical function-related properties for storage controllers in a storage subsystem."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain multiple physical function-related properties for storage controllers in a storage subsystem."/>
+        <Property Name="MaximumSupportedPhysicalFunctions" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum number of physical functions supported by the storage controller in this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of physical functions supported by the storage controller in this storage subsystem."/>
+        </Property>
+        <Property Name="ConfiguredPhysicalFunctions" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The current number of physical functions configured for the storage controller in this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current number of physical functions configured for the storage controller in this storage subsystem."/>
+        </Property>
+        <Property Name="VolumeAssignmentPolicy" Type="Storage.v1_20_0.VolumeAssignmentPolicy">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The current volume assignment policy configured for the storage controller in this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current volume assignment policy configured for the storage controller in this storage subsystem."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="VolumeAssignmentPolicy">
+        <Member Name="Unassigned">
+          <Annotation Term="OData.Description" String="Newly created volumes are not assigned to physical functions, but are added to `UnassignedVolumes` in the `Links` property within this resource."/>
+        </Member>
+        <Member Name="Supervisor">
+          <Annotation Term="OData.Description" String="Newly created volumes are assigned to the supervisor function."/>
+        </Member>
+        <Member Name="WeightedRoundRobin">
+          <Annotation Term="OData.Description" String="Newly created volumes are assigned to the physical functions in a round-robin fashion."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Links" BaseType="Storage.v1_18_0.Links">
+        <NavigationProperty Name="UnassignedVolumes" Type="Collection(Volume.Volume)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of volumes in this storage subsystem that are not assigned to a physical function."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type `Volume` that represent the volumes in this storage subsystem that are not assigned to a physical function.  This property should only be present if the storage subsystem supports the use of multiple physical functions to parallelize data transfer."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

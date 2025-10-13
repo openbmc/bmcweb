@@ -676,5 +676,18 @@
       <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_7_2.MemoryMetrics"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryMetrics.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="MemoryMetrics" BaseType="MemoryMetrics.v1_7_3.MemoryMetrics">
+        <Property Name="LifetimeStartDateTime" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the memory started accumulating data for the `LifeTime` property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the memory started accumulating data for the `LifeTime` property.  This might contain the same value as the production date of the memory."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

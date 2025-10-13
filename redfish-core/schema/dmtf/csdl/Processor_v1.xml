@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.20.1                                                   -->
+<!--# Redfish Schema:  Processor v1.22.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -233,12 +233,12 @@
         <Property Name="TotalCores" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The total number of cores that this processor contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the total count of independent processor cores contained within this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the total count of independent processor cores, including disabled cores, contained within this processor."/>
         </Property>
         <Property Name="TotalThreads" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The total number of execution threads that this processor supports."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the total count of independent execution threads that this processor supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the total count of independent execution threads, including disabled threads, that this processor supports."/>
         </Property>
       </EntityType>
 
@@ -551,6 +551,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_0_15.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_17">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_0_16.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -666,6 +672,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_1_11.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_1_12.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -754,6 +766,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="Processor" BaseType="Processor.v1_2_11.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_2_12.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_0">
@@ -846,6 +864,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="Processor" BaseType="Processor.v1_3_12.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_3_13.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_0">
@@ -1023,6 +1047,17 @@
         </Member>
         <Member Name="GDDR6">
           <Annotation Term="OData.Description" String="Double data rate type six synchronous graphics random-access memory."/>
+        </Member>
+        <Member Name="GDDR7">
+          <Annotation Term="OData.Description" String="Double data rate type seven synchronous graphics random-access memory."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_21_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="DDR">
           <Annotation Term="OData.Description" String="Double data rate synchronous dynamic random-access memory."/>
@@ -1332,10 +1367,15 @@
       <EntityType Name="Processor" BaseType="Processor.v1_4_12.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_4_13.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
-      <Annotation Term="OData.Description" String="This version was created to add TotalEnabledCores property."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_4_1.Processor">
         <Property Name="TotalEnabledCores" Type="Edm.Int64">
@@ -1418,10 +1458,16 @@
       <EntityType Name="Processor" BaseType="Processor.v1_5_11.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_5_12.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add a reset action for a processor."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `Reset` action."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_5_2.Processor"/>
     </Schema>
@@ -1484,6 +1530,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="Processor" BaseType="Processor.v1_6_9.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_6_10.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_0">
@@ -1568,6 +1620,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_7_8.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_7_9.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.1"/>
@@ -1639,6 +1697,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="Processor" BaseType="Processor.v1_8_7.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_8_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_8_8.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_9_0">
@@ -1737,6 +1801,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_9_6.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_9_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_9_7.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.3"/>
@@ -1817,6 +1887,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="Processor" BaseType="Processor.v1_10_6.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_10_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_10_7.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_0">
@@ -1936,6 +2012,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_11_6.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_11_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_11_7.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -1992,6 +2074,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="Processor" BaseType="Processor.v1_12_5.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_12_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_12_6.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_0">
@@ -2073,6 +2161,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_13_6.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_13_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_13_7.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -2117,6 +2211,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_14_5.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_14_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_14_6.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_15_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.1"/>
@@ -2159,10 +2259,16 @@
       <EntityType Name="Processor" BaseType="Processor.v1_15_4.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_15_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_15_5.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add the ResetToDefaults action."/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ResetToDefaults` action."/>
 
       <EntityType Name="Processor" BaseType="Processor.v1_15_0.Processor">
         <Property Name="Replaceable" Type="Edm.Boolean">
@@ -2252,6 +2358,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_16_4.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_16_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_16_5.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_17_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.3"/>
@@ -2299,6 +2411,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_17_3.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_17_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_17_4.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_18_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.1"/>
@@ -2325,6 +2443,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_18_2.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_18_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_18_3.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_19_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.3"/>
@@ -2345,6 +2469,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_19_1.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_19_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_19_2.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_20_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.1"/>
@@ -2363,6 +2493,26 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add references in property long descriptions to the Redfish Data Model Specification where additional requirements or details are provided."/>
       <EntityType Name="Processor" BaseType="Processor.v1_20_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_20_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that `TotalCores` and `TotalThreads` include disabled cores and threads."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_20_1.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_21_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `GDDR7` to `ProcessorMemoryType`."/>
+
+      <EntityType Name="Processor" BaseType="Processor.v1_20_2.Processor">
+        <Property Name="TotalEnabledThreads" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of enabled execution threads contained in this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the total count of enabled independent execution threads contained within this processor."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

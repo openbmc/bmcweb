@@ -55,6 +55,7 @@
           <Collection>
             <String>/redfish/v1/UpdateService/SoftwareInventory</String>
             <String>/redfish/v1/UpdateService/FirmwareInventory</String>
+            <String>/redfish/v1/UpdateService/LocalImageStore</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(SoftwareInventory.SoftwareInventory)">

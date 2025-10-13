@@ -169,7 +169,8 @@
                 "/redfish/v1/Chassis/{ChassisId}/TrustedComponents/{TrustedComponentId}/Certificates",
                 "/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/Certificates",
                 "/redfish/v1/AccountService/OutboundConnections/{OutboundConnectionId}/ClientCertificates",
-                "/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Certificates"
+                "/redfish/v1/Chassis/{ChassisId}/PowerSubsystem/PowerSupplies/{PowerSupplyId}/Certificates",
+                "/redfish/v1/CertificateService/EnrollmentCACertificates"
             ],
             "urisDeprecated": [
                 "/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Certificates",

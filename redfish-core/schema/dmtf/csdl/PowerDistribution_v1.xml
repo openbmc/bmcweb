@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerDistribution v1.4.0                                            -->
+<!--# Redfish Schema:  PowerDistribution v1.5.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -102,7 +102,42 @@
         <Annotation Term="OData.Description" String="This action transfers control to the alternative input circuit."/>
         <Annotation Term="OData.LongDescription" String="This action shall transfer power input from the existing mains circuit to the alternative mains circuit."/>
       </Action>
+
+      <Action Name="ExportConfiguration" IsBound="true">
+        <Annotation Term="OData.Description" String="This action exports the configuration of the equipment in a vendor-specific format."/>
+        <Annotation Term="OData.LongDescription" String="This action shall export the specified configuration of the equipment in a vendor-specific format.  Upon successful completion of the action and any asynchronous processing, the `Location` header in the response shall contain a URI to a file that contains the configuration data."/>
+        <Parameter Name="PowerDistribution" Type="PowerDistribution.v1_0_0.Actions"/>
+        <Parameter Name="ExportType" Type="PowerDistribution.v1_5_0.ExportType" Nullable="false">
+          <Annotation Term="OData.Description" String="The types of export to perform."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of export to perform."/>
+        </Parameter>
+        <Parameter Name="Components" Type="Collection(PowerDistribution.v1_5_0.Component)" Nullable="false">
+          <Annotation Term="OData.Description" String="The components of the equipment for which to export configuration data."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of components of the equipment for which to export configuration data."/>
+        </Parameter>
+        <Parameter Name="OEMComponents" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Description" String="The OEM-specific components of the equipment for which to export configuration data."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of OEM-specific components of the equipment for which to export configuration data."/>
+        </Parameter>
+        <Parameter Name="Security" Type="PowerDistribution.v1_5_0.ExportSecurity">
+          <Annotation Term="OData.Description" String="The policy to apply when exporting secure information."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the policy to apply when exporting secure information."/>
+        </Parameter>
+        <Parameter Name="EncryptionPassphrase" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The encryption passphrase for the exported file."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the encryption passphrase for the exported file.  If this parameter is specified and has a non-zero length, the service shall encrypt the exported file with the passphrase.  Otherwise, the service shall not encrypt the exported file."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_5_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
+
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
@@ -671,6 +706,65 @@
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_4_0.PowerDistribution">
+        <Property Name="MultipartImportConfigurationPushURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI used to perform a Redfish Specification-defined multipart HTTP or HTTPS push import of a vendor-specific configuration file."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI used to perform a multipart HTTP or HTTPS `POST` of a vendor-specific configuration file for the purpose of importing the configuration contained within the file as defined by the 'Import configuration data' clause of the Redfish Specification.  The value of this property should not contain a URI of a Redfish resource.  See the 'Redfish-defined URIs and relative reference rules' clause in the Redfish Specification."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ExportType">
+        <Member Name="Clone">
+          <Annotation Term="OData.Description" String="Export configuration data for this equipment to duplicate the configuration on another instance of this equipment."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export configuration data for this equipment that allows for configuration to be duplicated on other equipment as defined by the vendor.  The service shall export only data which would not result in problems if applied to another instance of this equipment.  For example, identifiers such as MAC Addresses and UUIDs will be excluded under this option.  Consult the vendor documentation for this equipment for more information about which equipment is able to accept the resulting configuration data."/>
+        </Member>
+        <Member Name="Replacement">
+          <Annotation Term="OData.Description" String="Export all configuration data required to replace this equipment."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export all configuration data required to replace this equipment.  Consult the vendor documentation for this equipment for more information about the hardware and software requirements for the replacement equipment."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="Component">
+        <Member Name="All">
+          <Annotation Term="OData.Description" String="Export all configuration data for this equipment including OEM components."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export all available configuration data from the equipment including OEM components."/>
+        </Member>
+        <Member Name="Manager">
+          <Annotation Term="OData.Description" String="Export configuration data associated with the manager of the equipment."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export configuration data associated with any managers of this equipment."/>
+        </Member>
+        <Member Name="ManagerAccounts">
+          <Annotation Term="OData.Description" String="Export configuration data associated with the user accounts and external account services of the manager for this equipment."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export configuration data associated with any managers for the equipment."/>
+        </Member>
+        <Member Name="PowerDistribution">
+          <Annotation Term="OData.Description" String="Export configuration data associated with the power distribution unit functions and subsystems of this equipment."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export configuration data associated with the power distribution unit functions and subsystems of this equipment."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ExportSecurity">
+        <Member Name="IncludeSensitiveData">
+          <Annotation Term="OData.Description" String="Export all data regardless of the sensitivity."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export all requested data regardless of the sensitivity."/>
+        </Member>
+        <Member Name="HashedDataOnly">
+          <Annotation Term="OData.Description" String="Export hashed passwords, but exclude other sensitive data."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export requested data including hashed passwords, but shall exclude other sensitive data."/>
+        </Member>
+        <Member Name="ExcludeSensitiveData">
+          <Annotation Term="OData.Description" String="Export only non-sensitive data."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export only non-sensitive data."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

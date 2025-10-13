@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  BatteryMetrics v1.0.4                                               -->
+<!--# Redfish Schema:  BatteryMetrics v1.1.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -167,6 +167,26 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="BatteryMetrics" BaseType="BatteryMetrics.v1_0_3.BatteryMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="BatteryMetrics.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="BatteryMetrics" BaseType="BatteryMetrics.v1_0_4.BatteryMetrics">
+        <Property Name="CRate" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The rate at which the battery is charging or discharging, based on current in ampere units, relative to its rated maximum capacity in ampere-hour units.  For example, `0.5` indicates it takes two hours to charge or discharge the battery based upon the current charge rate and capacity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the rate at which the battery is charging or discharging, based on current in ampere units, relative to its rated maximum capacity in ampere-hour units.  If the battery is discharging, services shall calculate the value as `SUM(OutputCurrentAmps) / CapacityRatedAmpHours`.  Otherwise, services shall calculate the value as `InputCurrentAmps / CapacityRatedAmpHours`."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="ERate" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The rate at which the battery is charging or discharging, based on power in watt units, relative to its rated maximum capacity in watt-hour units.  For example, `0.5` indicates it takes two hours to charge or discharge the battery based upon the current charge rate and capacity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the rate at which the battery is charging or discharging, based on power in watt units, relative to its rated maximum capacity in watt-hour units.  If the battery is discharging, services shall calculate the value as `SUM(OutputCurrentAmps[x] * OutputVoltages[x]) / CapacityRatedWattHours`.  Otherwise, services shall calculate the value as `(InputCurrentAmps * InputVoltage) / CapacityRatedWattHours`."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>
