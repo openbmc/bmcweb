@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ab516816_cac0df9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-13T21:33:55Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/webui-vue/blob/e1420032fef78a490fb2be7b407c4a6bd82b1b02/src/store/api.js#L111\n\nYep, looks like this would break webui.",
+      "parentUuid": "0f88f9f4_e8c8b06d",
+      "range": {
+        "startLine": 14,
+        "startChar": 27,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "9572340efee25da96f7c741209e5f2a3a955f697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e26f8574_ba31731d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
