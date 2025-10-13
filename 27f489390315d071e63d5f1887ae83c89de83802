@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38104d1a_6db4fd1d",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-10-13T10:52:39Z",
+      "side": 1,
+      "message": "Let\u0027s inline this code to resolve the comment since there has not been any further response.\n\nIn case you have other callers of this function in follow-up patches then it can be re-introduced there.",
+      "parentUuid": "d339f556_96450b90",
+      "revId": "27f489390315d071e63d5f1887ae83c89de83802",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0cb182f_bf8f41b4",
         "filename": "redfish-core/lib/processor.hpp",
         "patchSetId": 7

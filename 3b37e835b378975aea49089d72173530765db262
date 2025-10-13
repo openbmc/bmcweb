@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d680a12d_817baf95",
+        "filename": "redfish-core/include/utils/collection.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-10-13T10:52:39Z",
+      "side": 0,
+      "message": "nit: do you need to remove the unused include here? Is it clang-tidy related?\n\nOtherwise the extra diff could make it harder to revert/cherry-pick/... the patch due to extra diff and extra context.\n\nWe can consider to just remove this diff here and perhaps put that into a follow-up patch.",
+      "revId": "3b37e835b378975aea49089d72173530765db262",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
