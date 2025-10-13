@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MessageRegistry v1.6.3                                              -->
+<!--# Redfish Schema:  MessageRegistry v1.7.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -570,6 +570,19 @@
       <Annotation Term="OData.Description" String="This version was created to improve clearing logic descriptions.  It was also created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_6_2.MessageRegistry"/>
     </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_6_3.MessageRegistry">
+        <Property Name="Release" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The release bundle that first included this version of the message registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of the release bundle that first included this revision of the message registry file.  Message registry files from the DMTF Redfish Forum shall use the release bundle version of DSP8011 that first included the minor revision level of this message registry file, ignoring errata releases, as the value of this property."/>
+        </Property>
+	  </EntityType>
+	</Schema>
 
   </edmx:DataServices>
 </edmx:Edmx>

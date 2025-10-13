@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Battery v1.4.0                                                      -->
+<!--# Redfish Schema:  Battery v1.5.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -453,6 +453,19 @@
           <Annotation Term="OData.LongDescription" String="The value shall indicate that the battery stores energy using electrostatic double-layer capacitors or electrodes with electrochemical pseudocapacitance."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Battery.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="Battery" BaseType="Battery.v1_4_0.Battery">
+        <Property Name="ServicedDate" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The date this battery was put into service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date the battery was put into active service."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

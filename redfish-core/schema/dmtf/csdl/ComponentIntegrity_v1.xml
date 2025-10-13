@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComponentIntegrity v1.3.1                                           -->
+<!--# Redfish Schema:  ComponentIntegrity v1.3.2                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -420,7 +420,7 @@
         <Property Name="MeasurementHashAlgorithm" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The hash algorithm used to compute the measurement."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the hash algorithm used to compute the measurement.  The allowable values for this property shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hash algorithm used to compute the measurement.  The allowable values for this property shall be the strings in the 'Algorithm Name' field of the 'TCG_ALG_ID Constants' table, formerly the 'TPM_ALG_ID Constants' table, within the 'Trusted Computing Group Algorithm Registry'."/>
         </Property>
         <Property Name="LastUpdated" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -558,7 +558,7 @@
         <Property Name="SigningAlgorithm" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The asymmetric signing algorithm used for generating the cryptographic signed statement."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the asymmetric signing algorithm negotiated between the SPDM Requester and the SPDM Responder.  The allowable values for this property shall be the asymmetric key signature algorithm names found in the 'BaseAsymAlgo' field of the 'NEGOTIATE_ALGORITHMS' request message in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the asymmetric signing algorithm negotiated between the SPDM Requester and the SPDM Responder.  The allowable values for this property shall be the asymmetric key signature algorithm names found in the 'SPDM Asymmetric Signature Reference Information' table in DSP0274.  If the algorithm is an extended algorithm, this property shall contain the value `OEM`."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
@@ -596,6 +596,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_0_4.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the reference to the asymmetric signing algorithm names in DSP0274 for the `SigningAlgorithm` property in responses to the `SPDMGetSignedMeasurements` action.  It was also created to update the TCG reference in the `MeasurementHashAlgorithm` description within TPM measurements."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_0_5.ComponentIntegrity"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_1_0">
@@ -642,6 +648,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_1_4.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the reference to the asymmetric signing algorithm names in DSP0274 for the `SigningAlgorithm` property in responses to the `SPDMGetSignedMeasurements` action.  It was also created to update the TCG reference in the `MeasurementHashAlgorithm` description within TPM measurements."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_1_5.ComponentIntegrity"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_2_0">
@@ -701,6 +713,12 @@
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_2_3.ComponentIntegrity"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the reference to the asymmetric signing algorithm names in DSP0274 for the `SigningAlgorithm` property in responses to the `SPDMGetSignedMeasurements` action.  It was also created to update the TCG reference in the `MeasurementHashAlgorithm` description within TPM measurements."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_2_4.ComponentIntegrity"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.3"/>
@@ -713,6 +731,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
       <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_3_0.ComponentIntegrity"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComponentIntegrity.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the reference to the asymmetric signing algorithm names in DSP0274 for the `SigningAlgorithm` property in responses to the `SPDMGetSignedMeasurements` action.  It was also created to update the TCG reference in the `MeasurementHashAlgorithm` description within TPM measurements."/>
+      <EntityType Name="ComponentIntegrity" BaseType="ComponentIntegrity.v1_3_1.ComponentIntegrity"/>
     </Schema>
 
   </edmx:DataServices>

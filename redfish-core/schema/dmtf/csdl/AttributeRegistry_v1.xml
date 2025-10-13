@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AttributeRegistry v1.3.9                                            -->
+<!--# Redfish Schema:  AttributeRegistry v1.4.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -885,6 +885,30 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_8.AttributeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_9.AttributeRegistry"/>
+
+      <ComplexType Name="Attributes" BaseType="AttributeRegistry.v1_3_0.Attributes">
+        <Property Name="RequiredPrivileges" Type="Collection(AttributeRegistry.v1_4_0.RequiredPrivileges)" Nullable="false">
+          <Annotation Term="OData.Description" String="The privileges required to complete an HTTP `PATCH` or `PUT` operation to modify this attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privileges required to complete an HTTP `PATCH` or `PUT` operation to modify this attribute.  The service shall interpret this definition as the maps for the `PATCH` and `PUT` operations within the `PropertyOverrides` definition for the `Bios` resource in the privilege registry."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="RequiredPrivileges">
+        <Annotation Term="OData.Description" String="The privileges to modify an attribute."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the privileges required to modify an attribute."/>
+        <Property Name="Privileges" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of privileges that are required to modify this attribute."/>
+          <Annotation Term="OData.LongDescription" String="This array shall contain an array of privileges that are required to modify this attribute.  This property shall contain strings from the `PrivilegesUsed` and `OEMPrivilegesUsed` properties in the privilege registry of this service."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

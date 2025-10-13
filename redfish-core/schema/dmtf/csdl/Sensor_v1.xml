@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.11.0                                                      -->
+<!--# Redfish Schema:  Sensor v1.11.1                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -572,7 +572,7 @@
         </Member>
         <Member Name="Rotational">
           <Annotation Term="OData.Description" String="Rotational (RPM)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of rotational frequency, in revolutions per minute units.  The `ReadingUnits` property shall contain either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate a measurement of rotational frequency, in revolutions per minute units.  The `ReadingUnits` property shall contain either `{rev}/min`, which is preferred, or `RPM`, which is a deprecated value.  Services should represent fan speed and pump speed sensors with the `ReadingType` value `Percent`."/>
         </Member>
         <Member Name="AirFlow">
           <Annotation Term="OData.Description" String="Air flow (cu ft/min)."/>
@@ -833,6 +833,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_0_12.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_0_14">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_0_13.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -943,6 +949,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_1_8.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_1_9.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2020.4"/>
@@ -1033,6 +1045,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_2_6.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_2_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_2_7.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.1"/>
@@ -1090,6 +1108,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to change the permissions for `RelatedItem`, `PhysicalContext`, and `PhysicalSubContext` to read-write."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_3_6.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_3_7.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_0">
@@ -1184,6 +1208,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_4_5.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_4_6.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2021.4"/>
@@ -1245,6 +1275,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_5_4.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_5_5.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2022.2"/>
@@ -1281,6 +1317,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to change the permissions for `RelatedItem`, `PhysicalContext`, and `PhysicalSubContext` to read-write."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_6_4.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_6_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_6_5.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_7_0">
@@ -1349,6 +1391,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_7_3.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_7_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_7_4.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2023.2"/>
@@ -1385,6 +1433,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to change the permissions for `RelatedItem`, `PhysicalContext`, and `PhysicalSubContext` to read-write."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_8_3.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_8_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_8_4.Sensor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_9_0">
@@ -1447,6 +1501,12 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_9_1.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_9_2.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2024.2"/>
@@ -1472,12 +1532,24 @@
       <EntityType Name="Sensor" BaseType="Sensor.v1_10_1.Sensor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_10_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_10_2.Sensor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_11_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2025.2"/>
       <Annotation Term="OData.Description" String="This version was created to add `LinearPosition`, `LinearVelocity`, `LinearAcceleration`, `RotationalPosition`, `RotationalVelocity`, `RotationalAcceleration`, and `Valve` to `ReadingType`."/>
 
       <EntityType Name="Sensor" BaseType="Sensor.v1_10_2.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify that fan speed and pump speed sensors should use `Percent` for `ReadingType` instead of `Rotational`."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_11_0.Sensor"/>
     </Schema>
 
   </edmx:DataServices>

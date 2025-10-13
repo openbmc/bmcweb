@@ -21,6 +21,27 @@ enum class CoolingUnitMode{
     Disabled,
 };
 
+enum class ExportType{
+    Invalid,
+    Clone,
+    Replacement,
+};
+
+enum class Component{
+    Invalid,
+    All,
+    Manager,
+    ManagerAccounts,
+    CoolingUnit,
+};
+
+enum class ExportSecurity{
+    Invalid,
+    IncludeSensitiveData,
+    HashedDataOnly,
+    ExcludeSensitiveData,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(CoolingEquipmentType, {
     {CoolingEquipmentType::Invalid, "Invalid"},
     {CoolingEquipmentType::CDU, "CDU"},
@@ -33,6 +54,27 @@ NLOHMANN_JSON_SERIALIZE_ENUM(CoolingUnitMode, {
     {CoolingUnitMode::Invalid, "Invalid"},
     {CoolingUnitMode::Enabled, "Enabled"},
     {CoolingUnitMode::Disabled, "Disabled"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ExportType, {
+    {ExportType::Invalid, "Invalid"},
+    {ExportType::Clone, "Clone"},
+    {ExportType::Replacement, "Replacement"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(Component, {
+    {Component::Invalid, "Invalid"},
+    {Component::All, "All"},
+    {Component::Manager, "Manager"},
+    {Component::ManagerAccounts, "ManagerAccounts"},
+    {Component::CoolingUnit, "CoolingUnit"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(ExportSecurity, {
+    {ExportSecurity::Invalid, "Invalid"},
+    {ExportSecurity::IncludeSensitiveData, "IncludeSensitiveData"},
+    {ExportSecurity::HashedDataOnly, "HashedDataOnly"},
+    {ExportSecurity::ExcludeSensitiveData, "ExcludeSensitiveData"},
 });
 
 }

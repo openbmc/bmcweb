@@ -80,6 +80,20 @@ enum class DoorState{
     Open,
 };
 
+enum class RackUnits{
+    Invalid,
+    OpenU,
+    EIA_310,
+};
+
+enum class RackMountWidth{
+    Invalid,
+    OpenU,
+    EIA_310,
+    EIA_310_Telco,
+    HalfWidth,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ChassisType, {
     {ChassisType::Invalid, "Invalid"},
     {ChassisType::Rack, "Rack"},
@@ -151,6 +165,20 @@ NLOHMANN_JSON_SERIALIZE_ENUM(DoorState, {
     {DoorState::Closed, "Closed"},
     {DoorState::LockedAndOpen, "LockedAndOpen"},
     {DoorState::Open, "Open"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(RackUnits, {
+    {RackUnits::Invalid, "Invalid"},
+    {RackUnits::OpenU, "OpenU"},
+    {RackUnits::EIA_310, "EIA_310"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(RackMountWidth, {
+    {RackMountWidth::Invalid, "Invalid"},
+    {RackMountWidth::OpenU, "OpenU"},
+    {RackMountWidth::EIA_310, "EIA_310"},
+    {RackMountWidth::EIA_310_Telco, "EIA_310_Telco"},
+    {RackMountWidth::HalfWidth, "HalfWidth"},
 });
 
 }

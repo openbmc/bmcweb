@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CoolingLoop v1.0.3                                                  -->
+<!--# Redfish Schema:  CoolingLoop v1.1.0                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -296,6 +296,31 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="CoolingLoop" BaseType="CoolingLoop.v1_0_2.CoolingLoop"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CoolingLoop.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="CoolingLoop" BaseType="CoolingLoop.v1_0_3.CoolingLoop">
+        <Property Name="CoolingLoopType" Type="CoolingLoop.v1_1_0.CoolingLoopType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of cooling loop."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of cooling loop represented by this resource."/>
+        </Property>
+	  </EntityType>
+
+      <EnumType Name="CoolingLoopType">
+        <Member Name="FWS">
+          <Annotation Term="OData.Description" String="Facility Water System (FWS)."/>
+        </Member>
+        <Member Name="TCS">
+          <Annotation Term="OData.Description" String="Technology Cooling System (TCS)."/>
+        </Member>
+        <Member Name="RowTCS">
+          <Annotation Term="OData.Description" String="A loop connecting to one or more racks or similar scope.  May connect to multiple TCS loops."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

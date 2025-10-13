@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################               -->
-<!--# Redfish Schema:  StorageControllerMetrics v1.0.3                                             -->
+<!--# Redfish Schema:  StorageControllerMetrics v1.1.0                                             -->
 <!--#                                                                                              -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,              -->
 <!--# available at http://www.dmtf.org/standards/redfish                                           -->
@@ -295,6 +295,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of OpenAPI schemas to properly express nullable properties with external references.  It was also created to correct various typographical errors."/>
       <EntityType Name="StorageControllerMetrics" BaseType="StorageControllerMetrics.v1_0_2.StorageControllerMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageControllerMetrics.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="StorageControllerMetrics" BaseType="StorageControllerMetrics.v1_0_3.StorageControllerMetrics">
+        <Property Name="LifetimeStartDateTime" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the storage controller started accumulating data for properties that contain lifetime data, such as `UncorrectableECCErrorCount`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the storage controller started accumulating data for properties that contain lifetime data, such as `UncorrectableECCErrorCount`.  For physical controllers, this might contain the same value as the production date of the storage controller.  For logical controllers, this might contain the creation date of the storage controller."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -58,6 +58,13 @@ enum class ConfigLockOptions{
     CommandUnsupported,
 };
 
+enum class VolumeAssignmentPolicy{
+    Invalid,
+    Unassigned,
+    Supervisor,
+    WeightedRoundRobin,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(ResetToDefaultsType, {
     {ResetToDefaultsType::Invalid, "Invalid"},
     {ResetToDefaultsType::ResetAll, "ResetAll"},
@@ -107,6 +114,13 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ConfigLockOptions, {
     {ConfigLockOptions::Locked, "Locked"},
     {ConfigLockOptions::LockdownUnsupported, "LockdownUnsupported"},
     {ConfigLockOptions::CommandUnsupported, "CommandUnsupported"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(VolumeAssignmentPolicy, {
+    {VolumeAssignmentPolicy::Invalid, "Invalid"},
+    {VolumeAssignmentPolicy::Unassigned, "Unassigned"},
+    {VolumeAssignmentPolicy::Supervisor, "Supervisor"},
+    {VolumeAssignmentPolicy::WeightedRoundRobin, "WeightedRoundRobin"},
 });
 
 }

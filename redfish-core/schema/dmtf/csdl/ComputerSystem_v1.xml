@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.25.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.26.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -255,6 +255,40 @@
             <Record>
               <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
               <PropertyValue Property="Version" String="v1_21_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="ExportConfiguration" IsBound="true">
+        <Annotation Term="OData.Description" String="This action exports the configuration of a system in a vendor-specific format."/>
+        <Annotation Term="OData.LongDescription" String="This action shall export the specified configuration of a system in a vendor-specific format.  Upon successful completion of the action and any asynchronous processing, the `Location` header in the response shall contain a URI to a file that contains the configuration data."/>
+        <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
+        <Parameter Name="ExportType" Type="ComputerSystem.v1_26_0.ExportType" Nullable="false">
+          <Annotation Term="OData.Description" String="The types of export to perform."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of export to perform."/>
+        </Parameter>
+        <Parameter Name="Components" Type="Collection(ComputerSystem.v1_26_0.Component)" Nullable="false">
+          <Annotation Term="OData.Description" String="The components of the system for which to export configuration data."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of components of the system for which to export configuration data."/>
+        </Parameter>
+        <Parameter Name="OEMComponents" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Description" String="The OEM-specific components of the system for which to export configuration data."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of OEM-specific components of the system for which to export configuration data."/>
+        </Parameter>
+        <Parameter Name="Security" Type="ComputerSystem.v1_26_0.ExportSecurity">
+          <Annotation Term="OData.Description" String="The policy to apply when exporting secure information."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the policy to apply when exporting secure information."/>
+        </Parameter>
+        <Parameter Name="EncryptionPassphrase" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The encryption passphrase for the exported file."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the encryption passphrase for the exported file.  If this parameter is specified and has a non-zero length, the service shall encrypt the exported file with the passphrase.  Otherwise, the service shall not encrypt the exported file."/>
+        </Parameter>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_26_0"/>
             </Record>
           </Collection>
         </Annotation>
@@ -3892,6 +3926,103 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the service is enabled for this system."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the protocol for the service is enabled."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_26_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ExportConfiguration` action."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_25_0.ComputerSystem">
+        <Property Name="MultipartImportConfigurationPushURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI used to perform a Redfish Specification-defined multipart HTTP or HTTPS push import of a vendor-specific configuration file."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI used to perform a multipart HTTP or HTTPS `POST` of a vendor-specific configuration file for the purpose of importing the configuration contained within the file as defined by the 'Import configuration data' clause of the Redfish Specification.  The value of this property should not contain a URI of a Redfish resource.  See the 'Redfish-defined URIs and relative reference rules' clause in the Redfish Specification."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="ExportType">
+        <Member Name="NonDestructive">
+          <Annotation Term="OData.Description" String="Export only configuration data that would not potentially result in data loss on import.  For example, storage configurations that delete or recreate volumes are excluded under this option."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export only configuration data that would not potentially result in data loss on import."/>
+        </Member>
+        <Member Name="CloneWithinFabric">
+          <Annotation Term="OData.Description" String="Export only configuration data that would not result in network collisions if applied to another system on a shared fabric.  For example, I/O identities, such as MAC addresses or a WWN, are excluded under this option."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export only configuration data that would not result in network collisions if applied to another system on a shared fabric."/>
+        </Member>
+        <Member Name="Replacement">
+          <Annotation Term="OData.Description" String="Export all configuration data required to replace this system."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export all configuration data required to replace this system."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="Component">
+        <Member Name="All">
+          <Annotation Term="OData.Description" String="Export configuration data for all devices attached to the system including OEM components."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export all available configuration data from the system including OEM components."/>
+        </Member>
+        <Member Name="Manager">
+          <Annotation Term="OData.Description" String="Export configuration data associated with the manager of the system."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export configuration data associated with any managers in the system."/>
+        </Member>
+        <Member Name="BIOS">
+          <Annotation Term="OData.Description" String="Export configuration data associated with the BIOS for the system."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export configuration data associated with the BIOS for the system."/>
+        </Member>
+        <Member Name="Network">
+          <Annotation Term="OData.Description" String="Export configuration data associated with the all network devices of the system."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export configuration data associated with the network devices for the system."/>
+        </Member>
+        <Member Name="Storage">
+          <Annotation Term="OData.Description" String="Export configuration data associated with the all storage devices of the system."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export configuration data associated with the storage devices for the system."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ExportSecurity">
+        <Member Name="IncludeSensitiveData">
+          <Annotation Term="OData.Description" String="Export all data regardless of the sensitivity."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export all requested data regardless of the sensitivity."/>
+        </Member>
+        <Member Name="HashedDataOnly">
+          <Annotation Term="OData.Description" String="Export hashed passwords, but exclude other sensitive data."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export requested data including hashed passwords, but shall exclude other sensitive data."/>
+        </Member>
+        <Member Name="ExcludeSensitiveData">
+          <Annotation Term="OData.Description" String="Export only non-sensitive data."/>
+          <Annotation Term="OData.LongDescription" String="The service shall export only non-sensitive data."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="HostSerialConsole" BaseType="ComputerSystem.v1_13_0.HostSerialConsole">
+        <Property Name="WebSocket" Type="ComputerSystem.v1_26_0.WebSocketConsole" Nullable="false">
+          <Annotation Term="OData.Description" String="The connection details for a WebSocket serial console service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain connection details for a serial console service that uses WebSockets as defined by the 'WebSocket inbound access' clause of the Redfish Specification.  Services shall send WebSocket packetized bytes in a manner that emulates a pty (pseudoterminal)."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="WebSocketConsole">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The information about a WebSocket serial console service that this system provides."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a WebSocket serial console service for a computer system."/>
+        <Property Name="ServiceEnabled" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service is enabled for this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the protocol for the service is enabled."/>
+        </Property>
+        <Property Name="ConsoleURI" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI at which to access the WebSocket serial console."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the WebSocket serial console, using the Redfish protocol and authentication methods.  See the 'WebSocket inbound access' clause in the Redfish Specification."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="Interactive" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the WebSocket serial console allows interactive input."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if the WebSocket serial console allows interactive input.  If `true`, the WebSocket is bidirectional.  If `false`, the WebSocket only allows console output from the service."/>
         </Property>
       </ComplexType>
     </Schema>

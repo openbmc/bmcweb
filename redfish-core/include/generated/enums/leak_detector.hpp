@@ -13,6 +13,15 @@ enum class LeakDetectorType{
     FloatSwitch,
 };
 
+enum class DetectorState{
+    Invalid,
+    OK,
+    Warning,
+    Critical,
+    Unavailable,
+    Absent,
+};
+
 enum class ReactionType{
     Invalid,
     None,
@@ -24,6 +33,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(LeakDetectorType, {
     {LeakDetectorType::Invalid, "Invalid"},
     {LeakDetectorType::Moisture, "Moisture"},
     {LeakDetectorType::FloatSwitch, "FloatSwitch"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(DetectorState, {
+    {DetectorState::Invalid, "Invalid"},
+    {DetectorState::OK, "OK"},
+    {DetectorState::Warning, "Warning"},
+    {DetectorState::Critical, "Critical"},
+    {DetectorState::Unavailable, "Unavailable"},
+    {DetectorState::Absent, "Absent"},
 });
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ReactionType, {

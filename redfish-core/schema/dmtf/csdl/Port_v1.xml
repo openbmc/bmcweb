@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Port v1.16.0                                                        -->
+<!--# Redfish Schema:  Port v1.17.0                                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -1740,7 +1740,7 @@
         </Member>
         <Member Name="FabricLink">
           <Annotation Term="OData.Description" String="Fabric link."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate the port is enabled as a fabric link to another switch."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the port is enabled as a fabric link to another switch.  This value is the same as 'Fabric Port' as described in the CXL Specification v3.1 and later.  Previous versions of the CXL Specification referred to this value as a 'Fabric Link'."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -1803,6 +1803,18 @@
         <Member Name="Type3MLD">
           <Annotation Term="OData.Description" String="CXL Type 3 multi-logical device (MLD)."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the connected device is a CXL Type 3 multi-logical device (MLD)."/>
+        </Member>
+        <Member Name="PBRComponent">
+          <Annotation Term="OData.Description" String="CXL PBR component."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the connected device is a port-based routing (PBR) component."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_17_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
     </Schema>
@@ -2008,6 +2020,30 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the link network technology for this link configuration."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Port.v1_17_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `PBRComponent` to `ConnectedDeviceType`."/>
+
+      <EntityType Name="Port" BaseType="Port.v1_16_0.Port">
+        <Property Name="IsSplit" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether this is a subport split from a physical port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this is a subport split from a physical port."/>
+        </Property>
+        <Property Name="FirstLane" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The first lane that this port is configured to use."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the first lane that this port is configured to use.  If `IsSplit` contains `false`, this property shall not be present."/>
+        </Property>
+        <Property Name="AssociatedPhysicalPort" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The index of the physical port from which this subport has been split."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the index of the physical port from which this subport has been split.  If `IsSplit` contains `false`, this property shall not be present."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

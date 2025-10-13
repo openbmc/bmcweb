@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SoftwareInventory v1.12.0                                           -->
+<!--# Redfish Schema:  SoftwareInventory v1.13.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -50,13 +50,14 @@
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
-            <PropertyValue Property="Deletable" Bool="false"/>
+            <PropertyValue Property="Deletable" Bool="true"/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/UpdateService/SoftwareInventory/{SoftwareInventoryId}</String>
             <String>/redfish/v1/UpdateService/FirmwareInventory/{SoftwareInventoryId}</String>
+            <String>/redfish/v1/UpdateService/LocalImageStore/{SoftwareInventoryId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -609,6 +610,25 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_13_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_12_0.SoftwareInventory">
+        <Property Name="ImageDataURI" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI at which to access the software inventory image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access the image data for this software inventory, using the Redfish protocol and authentication methods.  This image should be the original vendor-provided image suitable for update operations."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="SizeBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The size of the software image in bytes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size of the software image in bytes."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

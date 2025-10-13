@@ -14,11 +14,23 @@ enum class CXLSemantic{
     CXLmem,
 };
 
+enum class PassphraseType{
+    Invalid,
+    User,
+    Master,
+};
+
 NLOHMANN_JSON_SERIALIZE_ENUM(CXLSemantic, {
     {CXLSemantic::Invalid, "Invalid"},
     {CXLSemantic::CXLio, "CXLio"},
     {CXLSemantic::CXLcache, "CXLcache"},
     {CXLSemantic::CXLmem, "CXLmem"},
+});
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PassphraseType, {
+    {PassphraseType::Invalid, "Invalid"},
+    {PassphraseType::User, "User"},
+    {PassphraseType::Master, "Master"},
 });
 
 }

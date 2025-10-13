@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  StorageController v1.9.1                                            -->
+<!--# Redfish Schema:  StorageController v1.10.0                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -114,12 +114,12 @@
       </ComplexType>
 
       <Action Name="AttachNamespaces" IsBound="true">
-        <Annotation Term="OData.Description" String="This action attaches referenced namespaces to the storage controller.  Attached namespaces are added to the `AttachedVolumes` property in `Links`."/>
-        <Annotation Term="OData.LongDescription" String="This action shall attach referenced namespaces to the storage controller.  Services shall add the attached namespaces to the `AttachedVolumes` property in `Links`."/>
+        <Annotation Term="OData.Description" String="This action attaches referenced namespaces or volumes to the storage controller.  Attached namespaces and volumes are added to the `AttachedVolumes` property in `Links`.  For NVMe, namespaces are modeled as `Volume` resources."/>
+        <Annotation Term="OData.LongDescription" String="This action shall attach referenced namespaces or volumes to the storage controller.  For NVMe, namespaces are modeled as `Volume` resources.  Services shall add the attached namespaces and volumes to the `AttachedVolumes` property in `Links`."/>
         <Parameter Name="StorageController" Type="StorageController.v1_0_0.Actions"/>
         <Parameter Name="Namespaces" Type="Collection(Volume.Volume)" Nullable="false">
-          <Annotation Term="OData.Description" String="The namespaces to attach to the storage controller."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type `Volume` that represent the namespaces to attach to the storage controller."/>
+          <Annotation Term="OData.Description" String="The namespaces or volumes to attach to the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type `Volume` that represent the namespaces or volumes to attach to the storage controller."/>
         </Parameter>
         <ReturnType Type="StorageController.v1_7_0.AttachDetachNamespacesResponse" Nullable="false"/>
         <Annotation Term="Redfish.Revisions">
@@ -133,12 +133,12 @@
       </Action>
 
       <Action Name="DetachNamespaces" IsBound="true">
-        <Annotation Term="OData.Description" String="This action detaches referenced namespaces from the storage controller.  Detached namespaces are removed from the `AttachedVolumes` property in `Links`."/>
-        <Annotation Term="OData.LongDescription" String="This action shall detach referenced namespaces from the storage controller.  Services shall remove the detached namespaces from the `AttachedVolumes` property in `Links`."/>
+        <Annotation Term="OData.Description" String="This action detaches referenced namespaces or volumes from the storage controller.  Detached namespaces and volumes are removed from the `AttachedVolumes` property in `Links`.  For NVMe, namespaces are modeled as `Volume` resources."/>
+        <Annotation Term="OData.LongDescription" String="This action shall detach referenced namespaces or volumes from the storage controller.  Services shall remove the detached namespaces and volumes from the `AttachedVolumes` property in `Links`.  For NVMe, namespaces are modeled as `Volume` resources."/>
         <Parameter Name="StorageController" Type="StorageController.v1_0_0.Actions"/>
         <Parameter Name="Namespaces" Type="Collection(Volume.Volume)" Nullable="false">
-          <Annotation Term="OData.Description" String="The namespaces to detach from the storage controller."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type `Volume` that represent the namespaces to detach from the storage controller."/>
+          <Annotation Term="OData.Description" String="The namespaces or volumes to detach from the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of links to resources of type `Volume` that represent the namespaces or volumes to detach from the storage controller."/>
         </Parameter>
         <ReturnType Type="StorageController.v1_7_0.AttachDetachNamespacesResponse" Nullable="false"/>
         <Annotation Term="Redfish.Revisions">
@@ -943,6 +943,34 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that Base64-encoded string properties include padding characters."/>
       <EntityType Name="StorageController" BaseType="StorageController.v1_9_0.StorageController"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="StorageController.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="StorageController" BaseType="StorageController.v1_9_1.StorageController">
+        <Property Name="IsLogical" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether this is a logical storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this is a logical storage controller."/>
+        </Property>
+        <Property Name="MPFProperties" Type="StorageController.v1_10_0.MPFProperties">
+          <Annotation Term="OData.Description" String="The physical function-related properties for this storage controller within a multiple physical function storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the physical function-related properties for this storage controller within a multiple physical function storage controller.  This property should only be present if `IsLogical` contains `true`."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="MPFProperties">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The physical function-related properties for a storage controller within a multiple physical function storage controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the physical function-related properties for a storage controller within a multiple physical function storage controller."/>
+        <Property Name="IsSupervisor" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether this physical function is the supervisor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this physical function is the supervisor."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

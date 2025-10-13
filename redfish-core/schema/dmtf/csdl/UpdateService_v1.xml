@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService v1.16.0                                               -->
+<!--# Redfish Schema:  UpdateService v1.17.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -151,6 +151,31 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_16_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
+        <Parameter Name="LocalImage" Type="Edm.Boolean">
+          <Annotation Term="OData.Description" String="An indication of whether the service adds the image to the local image store."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall indicate whether the service adds the image to the resource collection referenced by the `LocalImageStore` property.  If the client does not provide this parameter, the service shall default this value to `false`."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_17_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
+        <Parameter Name="ExcludeTargets" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Description" String="An array of URIs that indicate where not to apply the update image."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain zero or more URIs that indicate where not to apply the update image.  This parameter shall be ignored if the `Targets` parameter is provided and contains at least one member.  These excluded targets should correspond to software inventory instances or their related items.  If this parameter is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.  If an excluded target specifies a device resource, the software image file shall not be applied to that specified device.  If an excluded target specifies a resource collection, the software image shall not be applied to each applicable member of the specified collection.  If an excluded target resource specifies an `Aggregate` resource, the software image file shall not be applied to each applicable element of the specified aggregate.  If an excluded target resource specifies a `ComputerSystem` resource, the software image file shall not be applied to the applicable components within the specified computer system."/>
+          <Annotation Term="OData.IsURL"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_17_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1515,6 +1540,45 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="An indication of whether the service stages the image on target devices for a client to activate at a later time."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service stages the image on target devices for a client to activate at a later time with the `Activate` action on the `SoftwareInventory` resource.  If the client does not provide this parameter, the service shall default this value to `false`."/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_17_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `ExcludeTargets` and `LocalImage` parameters to the `SimpleUpdate` action."/>
+
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_16_0.UpdateService">
+        <Property Name="LocalImageStoreAvailableCapacityBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of bytes currently available in the local image store."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of bytes currently available in the local image store."/>
+        </Property>
+        <Property Name="LocalImageStoreTotalCapacityBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of bytes available to the local image store."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of bytes available to the local image store."/>
+        </Property>
+        <NavigationProperty Name="LocalImageStore" Type="SoftwareInventoryCollection.SoftwareInventoryCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An inventory of locally stored images."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type `SoftwareInventoryCollection`.  The resource collection shall contain the set of images that are stored locally by the service.  This may include operating system images, drivers, or other software components.  These images may be referenced by other features of the service, such as virtual media."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="UpdateParameters" BaseType="UpdateService.v1_16_0.UpdateParameters">
+        <Property Name="LocalImage" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service adds the image to the local image store."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service adds the image to the resource collection referenced by the `LocalImageStore` property.  If the client does not provide this parameter, the service shall default this value to `false`."/>
+        </Property>
+        <Property Name="ExcludeTargets" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of URIs that indicate where not to apply the update image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain zero or more URIs that indicate where not to apply the update image.  This property shall be ignored if the `Targets` property is provided and contains at least one member.  These excluded targets should correspond to software inventory instances or their related items.  If this parameter is not present or contains no targets, the service shall apply the software image to all applicable targets, as determined by the service.  If an excluded target specifies a device resource, the software image file shall not be applied to that specified device.  If an excluded target specifies a resource collection, the software image shall not be applied to each applicable member of the specified collection.  If an excluded target resource specifies an `Aggregate` resource, the software image file shall not be applied to each applicable element of the specified aggregate.  If an excluded target resource specifies a `ComputerSystem` resource, the software image file shall not be applied to the applicable components within the specified computer system."/>
+          <Annotation Term="OData.IsURL"/>
         </Property>
       </ComplexType>
     </Schema>

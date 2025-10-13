@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Redundancy v1.5.0                                                   -->
+<!--# Redfish Schema:  Redundancy v1.6.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -456,6 +456,29 @@
           <Annotation Term="OData.Description"  String="The name of the redundant group."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the name of the redundant group used to identify the particular group of redundant resources.  The value shall conform with the 'Name' clause of the Redfish Specification."/>
         </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_5_0.Redundancy">
+        <NavigationProperty Name="ActiveRedundancySet" Type="Collection(Resource.Resource)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the active members included in this redundancy set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the links to the active resources that represent the active devices that are part of this redundancy set.  When `Mode` contains `Failover`, the failure of an active device shall cause a member of this redundancy set to take over its function.  When `Mode` contains `N+m` or `Sharing`, all devices in the redundancy set in a non-failed state should be considered active.  When `Mode` contains `Sparing`, the failure of an active device shall cause one or more spares that are available to take over the function."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="RedundantGroup" BaseType="Redundancy.v1_5_0.RedundantGroup">
+        <NavigationProperty Name="ActiveRedundancyGroup" Type="Collection(Resource.Resource)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The links to the active members included in this redundancy group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the links to the active resources that represent the active devices that are part of this redundancy group.  When `RedundancyType` contains `Failover`, the failure of an active device shall cause a member of this redundancy group to take over its function.  When `RedundancyType` contains `NPlusM` or `Sharing`, all devices in the redundancy set in a non-failed state should be considered active.  When `RedundancyType` contains `Sparing`, the failure of an active device shall cause one or more spares that are available to take over the function."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
       </ComplexType>
     </Schema>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LeakDetector v1.4.0                                                 -->
+<!--# Redfish Schema:  LeakDetector v1.5.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -103,10 +103,10 @@
           <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
-        <Property Name="DetectorState" Type="Resource.Health">
+        <Property Name="DetectorState" Type="LeakDetector.v1_0_0.DetectorState">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The state of the leak detector."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the leak detector.  The value of this property should equate the value of `Health` in `Status`, and was created primarily for use in excerpts of this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the state of the leak detector.  The value of this property should equate to the value of `Health` in `Status` when the detector is enabled and functional.  If a fault occurs with the detector itself, such as a short or a disconnected cable, the `Conditions` property in `Status` should indicate the type of fault detected."/>
           <Annotation Term="Redfish.Excerpt"/>
         </Property>
         <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext">
@@ -190,6 +190,45 @@
           <Annotation Term="OData.Description" String="A float switch."/>
         </Member>
       </EnumType>
+
+      <EnumType Name="DetectorState">
+        <Member Name="OK">
+          <Annotation Term="OData.Description" String="Normal."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that there is no leak detected and the detector is operating normally."/>
+        </Member>
+        <Member Name="Warning">
+          <Annotation Term="OData.Description" String="A warning-level leak is detected."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that a warning-level leak is detected."/>
+        </Member>
+        <Member Name="Critical">
+          <Annotation Term="OData.Description" String="A critical leak is detected."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that a critical-level leak is detected."/>
+        </Member>
+        <Member Name="Unavailable">
+          <Annotation Term="OData.Description" String="No data is available from the detector."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that no valid data can be acquired from the detector, due to a fault condition within the detector, a disconnected cable, or the detector is disabled."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Absent">
+          <Annotation Term="OData.Description" String="The detector is not present."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the implementation supports a leak detector, but no leak detector is installed or configured."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+      </EnumType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_0_1">
@@ -226,7 +265,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify that the value of `DetectorState` should reflect the `Health` of the detector."/>
-      <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_0_3.LeakDetector"/>
+      <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_1_0.LeakDetector"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_2_0">
@@ -252,7 +291,7 @@
         <Property Name="Enabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates whether the leak detector is enabled and provides a status."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the leak detector is enabled and provides a `DetectorState`.  The value `true` shall indicate the leak detector is enabled and returns the `DetectorState` property with a valid value.  The value `false` shall indicate the leak detector is disabled, shall not return the `DetectorState` property, and shall not trigger events, logging, or other functionality.  This property allows a user to disable a faulty leak detector or to otherwise remove it from use."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the leak detector is enabled.  The value `true` shall indicate the leak detector is enabled.  The value `false` shall indicate the leak detector is disabled.  When disabled, `DetectorState` shall contain `Unavailable` and the leak detector shall not trigger events, logging, or other functionality.  This property allows a user to disable a faulty leak detector or to otherwise remove it from use."/>
         </Property>
       </EntityType>
     </Schema>
@@ -294,6 +333,14 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate that the associated device, equipment, or system monitored by this leak detector is gracefully shut down when a leak is detected."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LeakDetector.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2025.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add `Unavailable` and `Absent` values to `DetectorState`.  It was also created to clarify the behavior of `DetectorState` when a fault condition occurs with a detector or when the `Enabled` property is set to `false`."/>
+
+      <EntityType Name="LeakDetector" BaseType="LeakDetector.v1_4_0.LeakDetector"/>
     </Schema>
 
   </edmx:DataServices>
