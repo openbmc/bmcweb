@@ -69,6 +69,30 @@
       },
       "revId": "4e6ddcf7e7235de79cb7b6e1b8b795fa8a096bfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0ba8a44_21660003",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:46:40Z",
+      "side": 1,
+      "message": "Reverted this to follow convention. Done",
+      "parentUuid": "92a6fc7b_61da9bbf",
+      "range": {
+        "startLine": 452,
+        "startChar": 12,
+        "endLine": 452,
+        "endChar": 67
+      },
+      "revId": "4e6ddcf7e7235de79cb7b6e1b8b795fa8a096bfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
