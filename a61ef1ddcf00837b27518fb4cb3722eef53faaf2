@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "529f2d70_5cdf3a43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-14T14:06:01Z",
+      "side": 1,
+      "message": "Updated the commit message for it.",
+      "parentUuid": "7a3da244_4cecc288",
+      "revId": "a61ef1ddcf00837b27518fb4cb3722eef53faaf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07aebe30_cb0ebe57",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ff92710_fae7818e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-14T14:06:01Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "07aebe30_cb0ebe57",
+      "revId": "a61ef1ddcf00837b27518fb4cb3722eef53faaf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcdf7cb2_2643a4cb",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-10-13T16:13:39Z",
       "side": 1,
       "message": "Is this a later commit ?",
+      "revId": "a61ef1ddcf00837b27518fb4cb3722eef53faaf2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d1565d8_9fd9d331",
+        "filename": "docs/Redfish.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-14T14:06:01Z",
+      "side": 1,
+      "message": "No. Route handler for this URI is in file `redfish-core/lib/switch_port.hpp`.",
+      "parentUuid": "bcdf7cb2_2643a4cb",
       "revId": "a61ef1ddcf00837b27518fb4cb3722eef53faaf2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
