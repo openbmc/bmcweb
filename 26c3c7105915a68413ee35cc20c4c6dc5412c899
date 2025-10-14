@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8580c6d1_628466f0",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-14T18:32:50Z",
+      "side": 1,
+      "message": "These get renamed at https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83347/11/redfish-core/include/utils/eventlog_utils.hpp so the temporary handleRequest seems fine to me",
+      "range": {
+        "startLine": 206,
+        "startChar": 12,
+        "endLine": 206,
+        "endChar": 68
+      },
+      "revId": "26c3c7105915a68413ee35cc20c4c6dc5412c899",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
