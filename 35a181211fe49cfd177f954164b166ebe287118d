@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "681c34e7_7bf35f7e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "563e2497_a5f7e940",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "35a181211fe49cfd177f954164b166ebe287118d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "002f5551_fcdf71af",
@@ -37,6 +61,30 @@
       "writtenOn": "2025-10-01T15:51:36Z",
       "side": 1,
       "message": "Reword to something that points out that breaking out logs per host node is hard, so we chose to not do that.  Arguably log per host node is more correct, but we\u0027re making tradeoffs here.",
+      "range": {
+        "startLine": 15,
+        "startChar": 19,
+        "endLine": 18,
+        "endChar": 18
+      },
+      "revId": "35a181211fe49cfd177f954164b166ebe287118d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd982e42_a0b5f9cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "002f5551_fcdf71af",
       "range": {
         "startLine": 15,
         "startChar": 19,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ad9e935_5eb6bde5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25edb477_401ec323",
+      "range": {
+        "startLine": 19,
+        "startChar": 37,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "35a181211fe49cfd177f954164b166ebe287118d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dfc519f_18ebf021",
@@ -83,6 +155,30 @@
       "writtenOn": "2025-10-01T15:51:36Z",
       "side": 1,
       "message": "Do we really need a separate option for this, or can we just implicitly enable this when we enable multi-host?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "35a181211fe49cfd177f954164b166ebe287118d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dc1fb35_fa119838",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 1,
+      "message": "This decision was made based on the discussion we had in https://gerrit.openbmc.org/c/openbmc/bmcweb/+/76319.\n\nHaving this as an options would solve the \u0027no host\u0027 case.\n\nAlso, the way I read the discussion, you lean towards EventLog under Managers. \n\nI am not sure, whether this is an opinion all share, or an opinion that is shared by a few, the way this is currently implemented lets everyone decide this for themselves, which I think is fair.",
+      "parentUuid": "2dfc519f_18ebf021",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06532ad9_d9744fd2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 1,
+      "message": "I am testing with qemu and binding port 4443 localhost to 443 qemu.",
+      "parentUuid": "269d28d9_fc17bebd",
+      "range": {
+        "startLine": 38,
+        "startChar": 73,
+        "endLine": 38,
+        "endChar": 77
+      },
+      "revId": "35a181211fe49cfd177f954164b166ebe287118d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ce269a1_d1958ae2",
@@ -129,6 +249,24 @@
       "writtenOn": "2025-10-01T15:51:36Z",
       "side": 1,
       "message": "I don\u0027t see redfish service validator being run?",
+      "revId": "35a181211fe49cfd177f954164b166ebe287118d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83bd2561_2764905b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 1,
+      "message": "First sentence after \u0027Tested:\u0027 states redfish validation. Updated the statement, to clarify that validation was done on Systems and Managers tree.",
+      "parentUuid": "1ce269a1_d1958ae2",
       "revId": "35a181211fe49cfd177f954164b166ebe287118d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -156,6 +294,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26341425_f2d2dd85",
+        "filename": "meson.options",
+        "patchSetId": 7
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 1,
+      "message": "From my understanding we currently distinguish between journal and dbus eventlog. What additional event logs would there be? \n\nThe option handles both, depending on whether `redfish-dbus-log` is enabled or not.",
+      "parentUuid": "06f248a0_38ea5117",
+      "range": {
+        "startLine": 154,
+        "startChar": 2,
+        "endLine": 154,
+        "endChar": 34
+      },
+      "revId": "35a181211fe49cfd177f954164b166ebe287118d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d64e1f7c_ccf8fd7a",
@@ -169,6 +331,30 @@
       "writtenOn": "2025-10-01T15:51:36Z",
       "side": 1,
       "message": "This is \"Managers\" not BMC",
+      "range": {
+        "startLine": 2210,
+        "startChar": 12,
+        "endLine": 2210,
+        "endChar": 43
+      },
+      "revId": "35a181211fe49cfd177f954164b166ebe287118d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78985156_ca0fc9a3",
+        "filename": "redfish-core/lib/log_services.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d64e1f7c_ccf8fd7a",
       "range": {
         "startLine": 2210,
         "startChar": 12,
@@ -204,6 +390,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "114cdfa0_f4101541",
+        "filename": "redfish-core/lib/manager_logservices_journal_eventlog.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 1,
+      "message": "Done. Is this something we want for Managers dbus eventlog and ComputerSystem journal/dbus eventlog too?\nAnd in general, is this a new style that we should follow?",
+      "parentUuid": "ed06358c_c515d6b4",
+      "range": {
+        "startLine": 100,
+        "startChar": 12,
+        "endLine": 100,
+        "endChar": 58
+      },
+      "revId": "35a181211fe49cfd177f954164b166ebe287118d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54a9e7d7_fd03f9e9",
         "filename": "redfish-core/lib/manager_logservices_journal_eventlog.hpp",
         "patchSetId": 7
@@ -215,6 +425,30 @@
       "writtenOn": "2025-10-01T15:51:36Z",
       "side": 1,
       "message": "Please follow the naming convention, which involves the word \"handle\" look at the other code for examples.",
+      "range": {
+        "startLine": 127,
+        "startChar": 12,
+        "endLine": 127,
+        "endChar": 47
+      },
+      "revId": "35a181211fe49cfd177f954164b166ebe287118d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2542ef8f_87c2022c",
+        "filename": "redfish-core/lib/manager_logservices_journal_eventlog.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54a9e7d7_fd03f9e9",
       "range": {
         "startLine": 127,
         "startChar": 12,

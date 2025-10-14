@@ -22,6 +22,30 @@
       },
       "revId": "5664ef8b1e1e1857184ce512daa69a7bc4b502d4",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b382cfec_b9d8574e",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-14T14:59:26Z",
+      "side": 0,
+      "message": "I had to move it, else the redfish test aswell as the redfish routes test would fail. Based on the stacktrace, adding a node to the trie seemed to have failed. Reordering this fixed the issue.\n\nrequestRoutesSystemsEventLogService had to be moved into scope of the if statement for Location \u003d\u003d \"systems\".",
+      "parentUuid": "610dd902_920dfb48",
+      "range": {
+        "startLine": 140,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 40
+      },
+      "revId": "5664ef8b1e1e1857184ce512daa69a7bc4b502d4",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
