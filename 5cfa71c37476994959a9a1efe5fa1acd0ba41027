@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f07be4b5_b7b77708",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-14T20:25:32Z",
+      "side": 0,
+      "message": "Acknowledged",
+      "parentUuid": "042daf9e_3dcc40a3",
+      "revId": "5cfa71c37476994959a9a1efe5fa1acd0ba41027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6cc6b76_01799454",
@@ -67,6 +85,24 @@
       "side": 0,
       "message": "Same response as above.  There\u0027s still a log.",
       "parentUuid": "c6cc6b76_01799454",
+      "revId": "5cfa71c37476994959a9a1efe5fa1acd0ba41027",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a303ae2_ac14165a",
+        "filename": "redfish-core/include/redfish_aggregator.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-14T20:25:32Z",
+      "side": 0,
+      "message": "Acknowledged",
+      "parentUuid": "73852367_43d8fdd0",
       "revId": "5cfa71c37476994959a9a1efe5fa1acd0ba41027",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
