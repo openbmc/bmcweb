@@ -52,6 +52,24 @@
       "parentUuid": "8885c52f_3fb9e338",
       "revId": "7b2a70cba317b02dd2ac117d1c9714f0cc9672d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24ffdecc_c5ff60ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-14T04:41:06Z",
+      "side": 1,
+      "message": "Based on my review of the PDIs, the possible values for `MetricId` are not documented. In this case, we set it to `PeakReading` because it represents a statistical report of the sensor value and matches the name of the Readfish property we are enabling.",
+      "parentUuid": "32ca8d61_39b77f3d",
+      "revId": "7b2a70cba317b02dd2ac117d1c9714f0cc9672d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
