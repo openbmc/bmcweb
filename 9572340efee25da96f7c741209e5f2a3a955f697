@@ -146,6 +146,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb9bd606_84a795cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-14T15:30:57Z",
+      "side": 1,
+      "message": "AHHH, that distinction should probably be made in the commit message, then I suspect this is ok.  Anyone broken would be broken in an error handling path that they likely wouldn\u0027t go down if they were checking the session creation correctly.\n\nWhere does passwordChangeRequired(...) differentiate between the session creation and the other endpoints?",
+      "parentUuid": "a810c050_8be0cf0c",
+      "range": {
+        "startLine": 14,
+        "startChar": 27,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "9572340efee25da96f7c741209e5f2a3a955f697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e26f8574_ba31731d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
