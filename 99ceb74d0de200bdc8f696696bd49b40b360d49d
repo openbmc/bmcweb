@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56c7d5b2_bb0e8ef3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-14T18:37:31Z",
+      "side": 1,
+      "message": "Please wrap at 72 chars, not some custom length \nhttps://cbea.ms/git-commit/",
+      "revId": "99ceb74d0de200bdc8f696696bd49b40b360d49d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
