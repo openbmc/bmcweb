@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "34cad99f_37216a3a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-15T20:30:23Z",
+      "side": 1,
+      "message": "https://redfishforum.com/thread/437/patch-individual-items-array-objects seems to differ from this",
+      "parentUuid": "f769e0d3_a90dcb46",
+      "revId": "7ad2b831162c0c08cf087814cfd6fabd12d4b6ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e27f027_6cf96d8e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 10
