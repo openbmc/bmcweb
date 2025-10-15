@@ -34,6 +34,9 @@ static constexpr const char* inventoryPath = "/xyz/openbmc_project/inventory";
 static constexpr std::array<std::string_view, 1> portInterface = {
     "xyz.openbmc_project.Inventory.Connector.Port"};
 
+static constexpr auto metricInterface = "xyz.openbmc_project.Metric.Value";
+static constexpr auto metricProperty = "Value";
+
 namespace redfish
 {
 inline port::PortType dBusSensorPortTypeToRedfish(const std::string& portType)
@@ -122,11 +125,45 @@ inline void afterGetFabricSwitchPortInfo(
     }
 }
 
+inline void populateMetricsProperty(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const nlohmann::json::json_pointer& jsonPtr,
+    const boost::system::error_code& ec, double value)
+{
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG(
+            "DBus response error on GetProperty {} for property {}", ec,
+            jsonPtr.to_string());
+        return;
+    }
+
+    if (!std::isfinite(value))
+    {
+        BMCWEB_LOG_DEBUG("Property {} is not finite", jsonPtr.to_string());
+        return;
+    }
+
+    asyncResp->res.jsonValue[jsonPtr] = static_cast<int64_t>(value);
+}
+
+inline void getMetricProperty(
+    const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+    const std::string& serviceName, const std::string& objectPath,
+    const std::string& metricObjectPath, const std::string& jsonPtr)
+{
+    dbus::utility::getProperty<double>(
+        serviceName, objectPath + "/Metrics" + metricObjectPath,
+        metricInterface, metricProperty,
+        std::bind_front(populateMetricsProperty, asyncResp,
+                        nlohmann::json::json_pointer(jsonPtr)));
+}
+
 inline void handleFabricSwitchPortPathPortMetricsGet(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& fabricId, const std::string& switchId,
-    const std::string& portId, [[maybe_unused]] const std::string& portPath,
-    [[maybe_unused]] const std::string& serviceName)
+    const std::string& portId, const std::string& portPath,
+    const std::string& serviceName)
 {
     asyncResp->res.jsonValue["@odata.type"] = "#PortMetrics.v1_3_0.PortMetrics";
     asyncResp->res.jsonValue["@odata.id"] = boost::urls::format(
@@ -135,6 +172,31 @@ inline void handleFabricSwitchPortPathPortMetricsGet(
     asyncResp->res.jsonValue["Id"] = "Metrics";
     asyncResp->res.jsonValue["Name"] =
         std::format("{} {} Port Metrics", switchId, portId);
+
+    getMetricProperty(asyncResp, serviceName, portPath,
+                      "/pcie/correctable_error_count",
+                      "/PCIeErrors/CorrectableErrorCount");
+    getMetricProperty(asyncResp, serviceName, portPath,
+                      "/pcie/non_fatal_error_count",
+                      "/PCIeErrors/NonFatalErrorCount");
+    getMetricProperty(asyncResp, serviceName, portPath,
+                      "/pcie/fatal_error_count", "/PCIeErrors/FatalErrorCount");
+    getMetricProperty(asyncResp, serviceName, portPath,
+                      "/pcie/l0_to_recovery_count",
+                      "/PCIeErrors/L0ToRecoveryCount");
+    getMetricProperty(asyncResp, serviceName, portPath, "/pcie/replay_count",
+                      "/PCIeErrors/ReplayCount");
+    getMetricProperty(asyncResp, serviceName, portPath,
+                      "/pcie/replay_rollover_count",
+                      "/PCIeErrors/ReplayRolloverCount");
+    getMetricProperty(asyncResp, serviceName, portPath, "/pcie/nak_sent_count",
+                      "/PCIeErrors/NAKSentCount");
+    getMetricProperty(asyncResp, serviceName, portPath,
+                      "/pcie/nak_received_count",
+                      "/PCIeErrors/NAKReceivedCount");
+    getMetricProperty(asyncResp, serviceName, portPath,
+                      "/pcie/unsupported_request_count",
+                      "/PCIeErrors/UnsupportedRequestCount");
 }
 
 inline void handleFabricSwitchPortPathPortGet(
