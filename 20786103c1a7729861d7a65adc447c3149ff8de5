@@ -16,6 +16,24 @@
       "message": "Do you have a need for modeling the switch or only the Ports? \n/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}\nmight be another choice..",
       "revId": "20786103c1a7729861d7a65adc447c3149ff8de5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad1476b5_a734fe96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-15T11:50:03Z",
+      "side": 1,
+      "message": "We might add properties for the Switch in the future.\n\nOne of the devices that gets enabled with this patch is an NIC that has an integrated PCIe Switch. It has PCIe ports as well as Network ports. See dbus-sensors patch - https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/83202 \n\n@ed@tanous.net suggested that such a device is not exactly a Fabric Adapter and the FabricAdapter URI cannot be used for such a device, and hence the Switch URI is used.",
+      "parentUuid": "4c58deb0_f809219c",
+      "revId": "20786103c1a7729861d7a65adc447c3149ff8de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
