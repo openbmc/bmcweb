@@ -4,15 +4,14 @@
 
 #pragma once
 
-#include "app.hpp"
 #include "async_resp.hpp"
+#include "boost_formatters.hpp"
 #include "error_messages.hpp"
 #include "http_body.hpp"
 #include "http_response.hpp"
 #include "logging.hpp"
 
 #include <asm-generic/errno.h>
-#include <systemd/sd-bus.h>
 #include <unistd.h>
 
 #include <boost/beast/http/field.hpp>
@@ -26,8 +25,6 @@
 #include <sdbusplus/unpack_properties.hpp>
 
 #include <cstdio>
-#include <format>
-#include <memory>
 #include <string>
 
 namespace redfish
