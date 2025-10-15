@@ -1,6 +1,74 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfbcfb89_0e7077cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-15T10:32:39Z",
+      "side": 1,
+      "message": "This only shows the association between board and chassis?",
+      "revId": "7e3ab3a5443de9ec19eaf57b8e2aa57d9c9d4e30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e19d754c_1d1d6e59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-15T10:32:39Z",
+      "side": 1,
+      "message": "I don\u0027t think this checklist is needed under Tested.",
+      "revId": "7e3ab3a5443de9ec19eaf57b8e2aa57d9c9d4e30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a557e8ae_73c13135",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-15T10:32:39Z",
+      "side": 1,
+      "message": "Please validate for single-host too.",
+      "revId": "7e3ab3a5443de9ec19eaf57b8e2aa57d9c9d4e30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "447a4618_d19f77fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-15T10:32:39Z",
+      "side": 1,
+      "message": "Omit the errors of URIs, that have nothing to do with this patch.",
+      "revId": "7e3ab3a5443de9ec19eaf57b8e2aa57d9c9d4e30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "7b9930c6_1c25d924",
@@ -14,6 +82,23 @@
       "writtenOn": "2025-10-13T12:24:19Z",
       "side": 1,
       "message": "looks good to me, considering it\u0027s under an experimental option",
+      "revId": "7e3ab3a5443de9ec19eaf57b8e2aa57d9c9d4e30",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "333df8a8_1ebb1e37",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 1075,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-15T10:32:39Z",
+      "side": 1,
+      "message": "Instead of having this as a separate function and copy the shared json from the handler, maybe just call the getAssociatedSubTreeById function directly inside the handler under the multi-host flag and adapt the shared json to use systemName variable instead of BMCWEB_REDFISH_SYSTEM_URI_NAME",
       "revId": "7e3ab3a5443de9ec19eaf57b8e2aa57d9c9d4e30",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
