@@ -1271,6 +1271,16 @@ functions the same like the default implementation under the System resource.
 - @odata.type
 - Id
 - Name
+- PCIeErrors
+  - CorrectableErrorCount
+  - NonFatalErrorCount
+  - FatalErrorCount
+  - L0ToRecoveryCount
+  - ReplayCount
+  - ReplayRolloverCount
+  - NAKSentCount
+  - NAKReceivedCount
+  - UnsupportedRequestCount
 
 [1]: https://www.dmtf.org/standards/redfish
 [2]: https://github.com/DMTF/Redfish-Service-Validator
