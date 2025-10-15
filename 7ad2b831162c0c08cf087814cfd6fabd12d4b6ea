@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f769e0d3_a90dcb46",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-10-15T19:29:28Z",
+      "side": 1,
+      "message": "I can\u0027t find the official DMTF doc which shows PATCH example with LocationIndicatorActive.\n\nHere is the assembly example - \nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP2046_2025.2.html\n- 6.10.5 Example response.\n\nHowever, DMTF Assembly schema contains LocationIndicatorActive which is ReadW-rite.\n- section 6.10.3 Properties\n\n```\n      LocationIndicatorActive (v1.3+)\tboolean\tread-write\n(null)\tAn indicator allowing an operator to physically locate this resource.\n\n```",
+      "parentUuid": "9b1e5ef5_9fa069b2",
+      "revId": "7ad2b831162c0c08cf087814cfd6fabd12d4b6ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e27f027_6cf96d8e",
@@ -48,6 +66,24 @@
       "writtenOn": "2025-10-13T18:06:31Z",
       "side": 1,
       "message": "What happens if MemberId is ordered like below? It matches the 6th and 3th assembly in the array (Redfish states it is zero-based)\n\n```\ncurl -k -H \"X-Auth-Token: $token\" -H \"Content-Type: application/json\" \\\n     -X PATCH -d \u0027{\"Assemblies\":[{\"MemberId\" : \"5\", \"LocationIndicatorActive\":true},{\"MemberId\": \"2\", \"LocationIndicatorActive\":true}]}\u0027\n```",
+      "revId": "7ad2b831162c0c08cf087814cfd6fabd12d4b6ea",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45d361da_a0c9549c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-10-15T19:29:28Z",
+      "side": 1,
+      "message": "MemberId is the key to find the matching entry in Assembly.\nOnly assembly items in Patch input are going to be patched. Other entries are not going to be touched.\nThe Patch input is not needed to be sorted.",
+      "parentUuid": "4c347884_3364f6bf",
       "revId": "7ad2b831162c0c08cf087814cfd6fabd12d4b6ea",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
