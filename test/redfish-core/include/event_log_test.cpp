@@ -147,7 +147,7 @@ TEST(RedfishEventLog, FormatEventLogEntrySuccess)
     ASSERT_EQ(logEntryJson["Message"], "Power supply PSU 1 fan FAN 2 failed.");
 
     ASSERT_TRUE(logEntryJson.contains("MessageId"));
-    ASSERT_EQ(logEntryJson["MessageId"], "OpenBMC.0.1.PowerSupplyFanFailed");
+    ASSERT_EQ(logEntryJson["MessageId"], "OpenBMC.0.5.PowerSupplyFanFailed");
 
     ASSERT_TRUE(logEntryJson.contains("MessageArgs"));
     ASSERT_EQ(logEntryJson["MessageArgs"].size(), 2);
