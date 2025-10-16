@@ -106,6 +106,24 @@
       "parentUuid": "e71275fc_52d762ea",
       "revId": "7b2a70cba317b02dd2ac117d1c9714f0cc9672d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "421e240a_2ed8964d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-10-16T07:06:03Z",
+      "side": 1,
+      "message": "I think Gunnar raises a good point. \"PeakReading\" is not a Metric ID so I don\u0027t think this is the right way to use the PDI. We probably need to look at OperationType from the PDI. Let me make any changes needed to the backend dbus-sensors to do the same and then this patch also needs to be reworked accordingly.",
+      "parentUuid": "0117949e_c7743358",
+      "revId": "7b2a70cba317b02dd2ac117d1c9714f0cc9672d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
