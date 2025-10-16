@@ -115,14 +115,31 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
                         std::string timestamp, const std::string& customText,
                         nlohmann::json::object_t& logEntryJson)
 {
-    // Get the Message from the MessageRegistry
-    const registries::Message* message = registries::getMessage(messageID);
+    std::optional<registries::MessageId> msgComponents =
+        registries::getMessageComponents(messageID);
+    if (msgComponents == std::nullopt)
+    {
+        BMCWEB_LOG_DEBUG("Could not get Message components");
+        return -1;
+    }
+
+    std::optional<registries::RegistryEntryRef> registry =
+        registries::getRegistryFromPrefix(msgComponents->registryName);
+    if (!registry)
+    {
+        BMCWEB_LOG_DEBUG("Could not get registry from prefix");
+        return -1;
+    }
+
+    // Get the Message from the MessageKey and RegistryEntries
+    const registries::Message* message = registries::getMessageFromRegistry(
+        msgComponents->messageKey, registry->get().entries);
 
     if (message == nullptr)
     {
         BMCWEB_LOG_DEBUG(
-            "{}: could not find messageID '{}' for log entry {} in registry",
-            __func__, messageID, logEntryID);
+            "Could not find MessageKey '{}' for log entry {} in registry",
+            msgComponents->messageKey, logEntryID);
         return -1;
     }
 
@@ -130,8 +147,7 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
         redfish::registries::fillMessageArgs(messageArgs, message->message);
     if (msg.empty())
     {
-        BMCWEB_LOG_DEBUG("{}: message is empty after filling fillMessageArgs",
-                         __func__);
+        BMCWEB_LOG_DEBUG("Message is empty after filling fillMessageArgs");
         return -1;
     }
 
@@ -145,12 +161,17 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
         timestamp.erase(dot, plus - dot);
     }
 
+    const unsigned int& versionMajor = registry->get().header.versionMajor;
+    const unsigned int& versionMinor = registry->get().header.versionMinor;
+
     // Fill in the log entry with the gathered data
     logEntryJson["EventId"] = std::to_string(eventId);
 
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Message"] = std::move(msg);
-    logEntryJson["MessageId"] = messageID;
+    logEntryJson["MessageId"] =
+        std::format("{}.{}.{}.{}", msgComponents->registryName, versionMajor,
+                    versionMinor, msgComponents->messageKey);
     logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;
