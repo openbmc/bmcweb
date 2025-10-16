@@ -33,6 +33,24 @@
       "message": "You\u0027ve changed this in a common method, requestUserInfo, which is reused in two places, one for checking privileges, and one for populating the user on redfish.  This is going to result in 404 being wrong for the user session case if a user is deleted, but their session still exists.\n\nI guess that\u0027s probably ok, previously we would\u0027ve gotten a 500, but please make sure you\u0027ve tested that path.",
       "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c85a529_5ae0a30d",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-10-16T12:29:57Z",
+      "side": 1,
+      "message": "Hi Ed! Sorry for this late response, was in PTO and forgot about this\n\ncool, I will try to test the path that you mentioned as well\n\nwill get back on this patch by this week",
+      "parentUuid": "f093338d_125c348a",
+      "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
