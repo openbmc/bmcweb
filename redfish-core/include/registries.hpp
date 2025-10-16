@@ -148,4 +148,6 @@ const Message* getMessage(std::string_view messageID);
 const Message* getMessageFromRegistry(const std::string& messageKey,
                                       std::span<const MessageEntry> registry);
 
+std::string correctVersionOfMessageId(std::string_view messageId);
+
 } // namespace redfish::registries
