@@ -88,4 +88,19 @@ const Message* getMessage(std::string_view messageID)
                                   getRegistryMessagesFromPrefix(registryName));
 }
 
+std::optional<MessageId> getMessageComponents(std::string_view message)
+{
+    // Redfish Message are in the form
+    // RegistryName.MajorVersion.MinorVersion.MessageKey
+    std::vector<std::string> fields;
+    fields.reserve(4);
+    bmcweb::split(fields, message, '.');
+    if (fields.size() != 4)
+    {
+        return std::nullopt;
+    }
+
+    return MessageId(fields[0], fields[1], fields[2], fields[3]);
+}
+
 } // namespace redfish::registries

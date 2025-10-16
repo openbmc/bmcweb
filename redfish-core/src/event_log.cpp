@@ -145,12 +145,31 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
         timestamp.erase(dot, plus - dot);
     }
 
+    auto msgComponents = registries::getMessageComponents(messageID);
+    if (msgComponents == std::nullopt)
+    {
+        BMCWEB_LOG_DEBUG("{}: Could not get Message components", __func__);
+        return -1;
+    }
+
+    auto registry =
+        registries::getRegistryFromPrefix(msgComponents->registryName);
+    if (!registry)
+    {
+        BMCWEB_LOG_DEBUG("{}: Could not get registry from prefix", __func__);
+        return -1;
+    }
+
+    auto header = registry->get().header;
+
     // Fill in the log entry with the gathered data
     logEntryJson["EventId"] = std::to_string(eventId);
 
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Message"] = std::move(msg);
-    logEntryJson["MessageId"] = messageID;
+    logEntryJson["MessageId"] = std::format(
+        "{}.{}.{}.{}", msgComponents->registryName, header.versionMajor,
+        header.versionMinor, msgComponents->messageKey);
     logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;

@@ -166,6 +166,21 @@ static LogParseError fillEventLogEntryJson(
         return LogParseError::messageIdNotInRegistry;
     }
 
+    auto msgComponents = registries::getMessageComponents(messageID);
+    if (msgComponents == std::nullopt)
+    {
+        return LogParseError::parseFailed;
+    }
+
+    auto registry =
+        registries::getRegistryFromPrefix(msgComponents->registryName);
+    if (!registry)
+    {
+        return LogParseError::messageIdNotInRegistry;
+    }
+
+    auto header = registry->get().header;
+
     std::vector<std::string_view> messageArgs(logEntryIter,
                                               logEntryFields.end());
     messageArgs.resize(message->numberOfArgs);
@@ -195,7 +210,9 @@ static LogParseError fillEventLogEntryJson(
     logEntryJson["Name"] = "System Event Log Entry";
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = std::move(msg);
-    logEntryJson["MessageId"] = std::move(messageID);
+    logEntryJson["MessageId"] = std::format(
+        "{}.{}.{}.{}", msgComponents->registryName, header.versionMajor,
+        header.versionMinor, msgComponents->messageKey);
     logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EntryType"] = "Event";
     logEntryJson["Severity"] = message->messageSeverity;
