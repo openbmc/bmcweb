@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdd50196_801e011b",
+        "filename": "meson.options",
+        "patchSetId": 11
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-16T20:06:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da50998f_928c0bce",
+      "range": {
+        "startLine": 165,
+        "startChar": 41,
+        "endLine": 165,
+        "endChar": 44
+      },
+      "revId": "599f33fa3ec579b7f64ff9bd1af2a82650e97bac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a75accc9_4967ca3a",
@@ -37,6 +61,24 @@
       "writtenOn": "2025-10-15T18:32:13Z",
       "side": 1,
       "message": "Why can\u0027t we kind of go with the same logic for managers? \n\n        if constexpr (BMCWEB_REDFISH_DBUS_LOG)\n        {\n            requestRoutesDBusLogServiceActionsClear(app);\n            requestRoutesDBusEventLogEntryCollection(app);\n            requestRoutesDBusEventLogEntry(app);\n            requestRoutesDBusEventLogEntryDownload(app);\n        }\n        else\n        {\n            requestRoutesJournalEventLogEntryCollection(app);\n            requestRoutesJournalEventLogEntry(app);\n            requestRoutesJournalEventLogClear(app);\n        }",
+      "revId": "599f33fa3ec579b7f64ff9bd1af2a82650e97bac",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fee38b77_295a7c19",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-16T20:06:31Z",
+      "side": 1,
+      "message": "At this point, the routes for managers dbus eventlog don\u0027t exist yet. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83355 does apply the same logic.",
+      "parentUuid": "a75accc9_4967ca3a",
       "revId": "599f33fa3ec579b7f64ff9bd1af2a82650e97bac",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
