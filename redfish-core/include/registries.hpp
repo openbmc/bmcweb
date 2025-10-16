@@ -45,6 +45,15 @@ struct Message
     std::array<const char*, 5> paramTypes;
     const char* resolution;
 };
+
+struct MessageId
+{
+    std::string registryName;
+    std::string majorVersion;
+    std::string minorVersion;
+    std::string messageKey;
+};
+
 using MessageEntry = std::pair<const char*, const Message>;
 using MessageEntries = std::span<const MessageEntry>;
 
@@ -137,5 +146,7 @@ const Message* getMessage(std::string_view messageID);
 
 const Message* getMessageFromRegistry(const std::string& messageKey,
                                       std::span<const MessageEntry> registry);
+
+std::optional<MessageId> getMessageComponents(std::string_view message);
 
 } // namespace redfish::registries
