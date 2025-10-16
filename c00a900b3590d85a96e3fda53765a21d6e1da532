@@ -16,6 +16,24 @@
       "message": "Wish you pulled the changes from https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83990/9/redfish-core/include/utils/eventlog_utils.hpp into here, but oh well.",
       "revId": "c00a900b3590d85a96e3fda53765a21d6e1da532",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3200ea2d_961ee341",
+        "filename": "redfish-core/include/utils/eventlog_utils.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-16T20:05:39Z",
+      "side": 1,
+      "message": "I squashed the majority of fixed includes from 83990 into their corresponding patch. Only the fixed includes in log_services_util remain in 83990, since the commit that introduced the file has been already merged.",
+      "parentUuid": "3b8a5d12_5186cafd",
+      "revId": "c00a900b3590d85a96e3fda53765a21d6e1da532",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
