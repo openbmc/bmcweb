@@ -16,6 +16,24 @@
       "message": "Please wrap at 72 chars, not some custom length \nhttps://cbea.ms/git-commit/",
       "revId": "99ceb74d0de200bdc8f696696bd49b40b360d49d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d93f934_e65ac545",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002065
+      },
+      "writtenOn": "2025-10-16T20:06:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56c7d5b2_bb0e8ef3",
+      "revId": "99ceb74d0de200bdc8f696696bd49b40b360d49d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
