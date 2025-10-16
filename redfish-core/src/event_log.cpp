@@ -145,12 +145,16 @@ int formatEventLogEntry(uint64_t eventId, const std::string& logEntryID,
         timestamp.erase(dot, plus - dot);
     }
 
+    std::string updatedMessageId =
+        redfish::registries::correctVersionOfMessageId(messageID);
+
     // Fill in the log entry with the gathered data
     logEntryJson["EventId"] = std::to_string(eventId);
 
     logEntryJson["Severity"] = message->messageSeverity;
     logEntryJson["Message"] = std::move(msg);
-    logEntryJson["MessageId"] = messageID;
+    logEntryJson["MessageId"] =
+        updatedMessageId.empty() ? messageID : updatedMessageId;
     logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EventTimestamp"] = std::move(timestamp);
     logEntryJson["Context"] = customText;
