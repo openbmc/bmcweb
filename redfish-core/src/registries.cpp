@@ -67,25 +67,34 @@ const Message* getMessageFromRegistry(const std::string& messageKey,
     return nullptr;
 }
 
-const Message* getMessage(std::string_view messageID)
+std::optional<MessageId> getMessageComponents(std::string_view message)
 {
-    // Redfish MessageIds are in the form
-    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
-    // the right Message
+    // Redfish Message are in the form
+    // RegistryName.MajorVersion.MinorVersion.MessageKey
     std::vector<std::string> fields;
     fields.reserve(4);
-    bmcweb::split(fields, messageID, '.');
+    bmcweb::split(fields, message, '.');
     if (fields.size() != 4)
+    {
+        return std::nullopt;
+    }
+
+    return MessageId(std::move(fields[0]), std::move(fields[1]),
+                     std::move(fields[2]), std::move(fields[3]));
+}
+
+const Message* getMessage(std::string_view messageID)
+{
+    std::optional<MessageId> msgComponents = getMessageComponents(messageID);
+    if (!msgComponents)
     {
         return nullptr;
     }
 
-    const std::string& registryName = fields[0];
-    const std::string& messageKey = fields[3];
-
     // Find the right registry and check it for the MessageKey
-    return getMessageFromRegistry(messageKey,
-                                  getRegistryMessagesFromPrefix(registryName));
+    return getMessageFromRegistry(
+        msgComponents->messageKey,
+        getRegistryMessagesFromPrefix(msgComponents->registryName));
 }
 
 } // namespace redfish::registries
