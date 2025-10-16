@@ -187,6 +187,9 @@ static LogParseError fillEventLogEntryJson(
         timestamp.erase(dot, plus - dot);
     }
 
+    std::string updatedMessageId =
+        redfish::registries::correctVersionOfMessageId(messageID);
+
     // Fill in the log entry with the gathered data
     logEntryJson["@odata.type"] = "#LogEntry.v1_9_0.LogEntry";
     logEntryJson["@odata.id"] = boost::urls::format(
@@ -195,7 +198,9 @@ static LogParseError fillEventLogEntryJson(
     logEntryJson["Name"] = "System Event Log Entry";
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = std::move(msg);
-    logEntryJson["MessageId"] = std::move(messageID);
+    logEntryJson["MessageId"] = updatedMessageId.empty()
+                                    ? std::move(messageID)
+                                    : std::move(updatedMessageId);
     logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EntryType"] = "Event";
     logEntryJson["Severity"] = message->messageSeverity;
