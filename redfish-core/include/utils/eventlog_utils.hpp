@@ -253,8 +253,24 @@ static LogParseError fillEventLogEntryJson(
         return LogParseError::parseFailed;
     }
     std::string& messageID = *logEntryIter;
-    // Get the Message from the MessageRegistry
-    const registries::Message* message = registries::getMessage(messageID);
+
+    std::optional<registries::MessageId> msgComponents =
+        registries::getMessageComponents(messageID);
+    if (!msgComponents)
+    {
+        return LogParseError::parseFailed;
+    }
+
+    std::optional<registries::RegistryEntryRef> registry =
+        registries::getRegistryFromPrefix(msgComponents->registryName);
+    if (!registry)
+    {
+        return LogParseError::messageIdNotInRegistry;
+    }
+
+    // Get the Message from the MessageKey and RegistryEntries
+    const registries::Message* message = registries::getMessageFromRegistry(
+        msgComponents->messageKey, registry->get().entries);
 
     logEntryIter++;
     if (message == nullptr)
@@ -262,6 +278,9 @@ static LogParseError fillEventLogEntryJson(
         BMCWEB_LOG_WARNING("Log entry not found in registry: {}", logEntry);
         return LogParseError::messageIdNotInRegistry;
     }
+
+    const unsigned int& versionMajor = registry->get().header.versionMajor;
+    const unsigned int& versionMinor = registry->get().header.versionMinor;
 
     std::vector<std::string_view> messageArgs(logEntryIter,
                                               logEntryFields.end());
@@ -293,7 +312,9 @@ static LogParseError fillEventLogEntryJson(
         std::format("{} Event Log Entry", logEntryDescriptor);
     logEntryJson["Id"] = logEntryID;
     logEntryJson["Message"] = std::move(msg);
-    logEntryJson["MessageId"] = std::move(messageID);
+    logEntryJson["MessageId"] =
+        std::format("{}.{}.{}.{}", msgComponents->registryName, versionMajor,
+                    versionMinor, msgComponents->messageKey);
     logEntryJson["MessageArgs"] = messageArgs;
     logEntryJson["EntryType"] = "Event";
     logEntryJson["Severity"] = message->messageSeverity;
