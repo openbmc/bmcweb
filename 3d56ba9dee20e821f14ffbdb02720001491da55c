@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48224de5_1cc9693b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-17T23:32:48Z",
+      "side": 1,
+      "message": "FWIW, this is how versions used to be done before the refactor.  I suspect we broke something along the way when we refactored to common code.",
+      "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e0f1ef9_8dcf394f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-17T23:32:48Z",
+      "side": 1,
+      "message": "Overall in support of this",
+      "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b2e82b4_ed1c72dc",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-17T23:32:48Z",
+      "side": 1,
+      "message": "This isn\u0027t correct.  If we get a log entry that doesn\u0027t exist, we should return an error.",
+      "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6706be7f_6f0443c0",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-17T23:32:48Z",
+      "side": 1,
+      "message": "Don\u0027t take the existing MessageId and \"correct\" it.  We have the raw registry structure, we can pull it in directly.  See next comment.",
+      "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be9fed03_7e75b8e4",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-17T23:32:48Z",
+      "side": 1,
+      "message": "This code was copy/pasted from getMessage() above.\n\nWhich is the same function that was called in redfish-core/src/event_log.cpp on line 112.\n\nYou need to refactor that code out into:\n\nstruct MessageId {\nstd::string RegistryName;\nstd::string MajorVersion;\nstd::string MinorVersion;\nstd::string MessageKey;\n};\n\nMessageId getMessageComponents(std::string_view messageId);\n\nThen from the calling code we would do\n\nMessageId msg \u003d getMessageComponents(messageId);\nRegistry* reg \u003d getRegistryMessagesFromPrefix(msg.RegistryName);\nMessage* msg \u003d getMessageFromRegistry(messageKey,reg);\n\n// Use the registry version to construct the components.\njson[\"MessageId\"] \u003d std::format(\"{}.{}.{}.{}\", reg.Prefix, reg.MajorVersion, reg.MinorVerion, msg.id);",
+      "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e70baee_f8fca60e",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-17T23:32:48Z",
+      "side": 1,
+      "message": "nit, this is 3 lines when it should\u0027ve been one:\n\nreturn std::format(...);",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 28
+      },
+      "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
