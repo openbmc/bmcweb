@@ -26,6 +26,9 @@
 namespace redfish
 {
 
+namespace systems_utils
+{
+
 inline void handleSystemCollectionMembers(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const boost::system::error_code& ec,
@@ -256,9 +259,6 @@ inline std::string getChassisStateServiceName(
     return chassisStateService;
 }
 
-namespace systems_utils
-{
-
 inline void afterGetValidSystemsPath(
     const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
     const std::string& systemId,
@@ -312,8 +312,6 @@ inline void getValidSystemsPath(
         });
 }
 
-} // namespace systems_utils
-
 /**
  * @brief Match computerSystemIndex with index contained by an object path
  *        i.e 1 in /xyz/openbmc/project/control/host1/policy/TPMEnable
@@ -366,4 +364,5 @@ inline bool indexMatchingSubTreeMapObjectPath(
 
     return false;
 }
+} // namespace systems_utils
 } // namespace redfish
