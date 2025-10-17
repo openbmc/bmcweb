@@ -454,9 +454,9 @@ inline void getHostState(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
 {
     BMCWEB_LOG_DEBUG("Get host information.");
     sdbusplus::message::object_path path =
-        getHostStateObjectPath(computerSystemIndex);
+        systems_utils::getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::string>(
-        getHostStateServiceName(computerSystemIndex), path,
+        systems_utils::getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Host", "CurrentHostState",
         [asyncResp](const boost::system::error_code& ec,
                     const std::string& hostState) {
@@ -758,9 +758,9 @@ inline void getBootProgress(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
                             const uint64_t computerSystemIndex)
 {
     sdbusplus::message::object_path path =
-        getHostStateObjectPath(computerSystemIndex);
+        systems_utils::getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::string>(
-        getHostStateServiceName(computerSystemIndex), path,
+        systems_utils::getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Boot.Progress", "BootProgress",
         [asyncResp](const boost::system::error_code ec,
                     const std::string& bootProgressStr) {
@@ -791,9 +791,9 @@ inline void getBootProgressLastStateTime(
     const uint64_t computerSystemIndex)
 {
     sdbusplus::message::object_path path =
-        getHostStateObjectPath(computerSystemIndex);
+        systems_utils::getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<uint64_t>(
-        getHostStateServiceName(computerSystemIndex), path,
+        systems_utils::getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Boot.Progress", "BootProgressLastUpdate",
         [asyncResp](const boost::system::error_code& ec,
                     const uint64_t lastStateTime) {
@@ -1094,9 +1094,9 @@ inline void getLastResetTime(
 {
     BMCWEB_LOG_DEBUG("Getting System Last Reset Time");
     sdbusplus::message::object_path path =
-        getChassisStateObjectPath(computerSystemIndex);
+        systems_utils::getChassisStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<uint64_t>(
-        getChassisStateServiceName(computerSystemIndex), path,
+        systems_utils::getChassisStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Chassis", "LastStateChangeTime",
         [asyncResp](const boost::system::error_code& ec,
                     uint64_t lastResetTime) {
@@ -1135,9 +1135,9 @@ inline void getAutomaticRebootAttempts(
 {
     BMCWEB_LOG_DEBUG("Get Automatic Retry policy");
     sdbusplus::message::object_path path =
-        getHostStateObjectPath(computerSystemIndex);
+        systems_utils::getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getAllProperties(
-        getHostStateServiceName(computerSystemIndex), path,
+        systems_utils::getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.Control.Boot.RebootAttempts",
         [asyncResp{asyncResp}](
             const boost::system::error_code& ec,
@@ -1262,8 +1262,8 @@ inline void setAutomaticRetryAttempts(
     BMCWEB_LOG_DEBUG("Set Automatic Retry Attempts.");
 
     setDbusProperty(asyncResp, "Boot/AutomaticRetryAttempts",
-                    getHostStateServiceName(computerSystemIndex),
-                    getHostStateObjectPath(computerSystemIndex),
+                    systems_utils::getHostStateServiceName(computerSystemIndex),
+                    systems_utils::getHostStateObjectPath(computerSystemIndex),
                     "xyz.openbmc_project.Control.Boot.RebootAttempts",
                     "RetryAttempts", retryAttempts);
 }
@@ -1397,8 +1397,8 @@ inline void getTrustedModuleRequiredToBootCallback(
 
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        if (!indexMatchingSubTreeMapObjectPath(asyncResp, computerSystemIndex,
-                                               subtree, path, service))
+        if (!systems_utils::indexMatchingSubTreeMapObjectPath(
+                asyncResp, computerSystemIndex, subtree, path, service))
         {
             return;
         }
@@ -1494,8 +1494,8 @@ inline void setTrustedModuleRequiredToBootCallback(
 
     if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
-        if (!indexMatchingSubTreeMapObjectPath(asyncResp, computerSystemIndex,
-                                               subtree, path, serv))
+        if (!systems_utils::indexMatchingSubTreeMapObjectPath(
+                asyncResp, computerSystemIndex, subtree, path, serv))
         {
             BMCWEB_LOG_DEBUG("TPM.Policy mapper error!");
             messages::internalError(asyncResp->res);
@@ -2824,7 +2824,7 @@ inline void handleComputerSystemCollectionGet(
     asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
     asyncResp->res.jsonValue["Name"] = "Computer System Collection";
 
-    getSystemCollectionMembers(asyncResp);
+    systems_utils::getSystemCollectionMembers(asyncResp);
 }
 
 /**
@@ -2913,19 +2913,21 @@ inline void processComputerSystemResetActionPost(
 
     if (hostCommand)
     {
-        setDbusProperty(asyncResp, "Reset",
-                        getHostStateServiceName(computerSystemIndex),
-                        getHostStateObjectPath(computerSystemIndex),
-                        "xyz.openbmc_project.State.Host",
-                        "RequestedHostTransition", command);
+        setDbusProperty(
+            asyncResp, "Reset",
+            systems_utils::getHostStateServiceName(computerSystemIndex),
+            systems_utils::getHostStateObjectPath(computerSystemIndex),
+            "xyz.openbmc_project.State.Host", "RequestedHostTransition",
+            command);
     }
     else
     {
-        setDbusProperty(asyncResp, "Reset",
-                        getChassisStateServiceName(computerSystemIndex),
-                        getChassisStateObjectPath(computerSystemIndex),
-                        "xyz.openbmc_project.State.Chassis",
-                        "RequestedPowerTransition", command);
+        setDbusProperty(
+            asyncResp, "Reset",
+            systems_utils::getChassisStateServiceName(computerSystemIndex),
+            systems_utils::getChassisStateObjectPath(computerSystemIndex),
+            "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
+            command);
     }
 }
 
@@ -2964,9 +2966,10 @@ inline void handleComputerSystemResetActionPost(
         return;
     }
 
-    getComputerSystemIndex(asyncResp, systemName,
-                           std::bind_front(processComputerSystemResetActionPost,
-                                           asyncResp, resetType));
+    systems_utils::getComputerSystemIndex(
+        asyncResp, systemName,
+        std::bind_front(processComputerSystemResetActionPost, asyncResp,
+                        resetType));
 }
 
 inline void handleComputerSystemHead(
@@ -3200,7 +3203,7 @@ inline void handleComputerSystemGet(
     }
 
     BMCWEB_LOG_DEBUG("requested system = {}", systemName);
-    getComputerSystemIndex(
+    systems_utils::getComputerSystemIndex(
         asyncResp, systemName,
         std::bind_front(processComputerSystemGet, asyncResp, systemName));
 }
@@ -3408,9 +3411,10 @@ inline void handleComputerSystemPatch(
         return;
     }
 
-    getComputerSystemIndex(asyncResp, systemName,
-                           std::bind_front(processComputerSystemPatch,
-                                           asyncResp, systemName, patchParams));
+    systems_utils::getComputerSystemIndex(
+        asyncResp, systemName,
+        std::bind_front(processComputerSystemPatch, asyncResp, systemName,
+                        patchParams));
 }
 
 inline void handleSystemCollectionResetActionHead(
@@ -3524,9 +3528,9 @@ inline void getAllowedHostTransitions(
     const uint64_t computerSystemIndex)
 {
     sdbusplus::message::object_path path =
-        getHostStateObjectPath(computerSystemIndex);
+        systems_utils::getHostStateObjectPath(computerSystemIndex);
     dbus::utility::getProperty<std::vector<std::string>>(
-        getHostStateServiceName(computerSystemIndex), path,
+        systems_utils::getHostStateServiceName(computerSystemIndex), path,
         "xyz.openbmc_project.State.Host", "AllowedHostTransitions",
         std::bind_front(afterGetAllowedHostTransitions, asyncResp));
 }
@@ -3571,7 +3575,7 @@ inline void handleSystemCollectionResetActionGet(
     asyncResp->res.jsonValue["Id"] = "ResetActionInfo";
 
     // Look to see if system defines AllowedHostTransitions
-    getComputerSystemIndex(
+    systems_utils::getComputerSystemIndex(
         asyncResp, systemName,
         std::bind_front(getAllowedHostTransitions, asyncResp));
 }

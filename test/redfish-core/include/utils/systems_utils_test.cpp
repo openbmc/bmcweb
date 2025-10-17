@@ -34,33 +34,33 @@ TEST(SystemsUtils, IndexMatchingObjectPath)
         {"/xyz/openbmc_project/control/host999/",
          {{"xyz.openbmc_project.Settings", {}}}}};
 
-    EXPECT_TRUE(indexMatchingSubTreeMapObjectPath(asyncResp, 1, subtree,
-                                                  objectPath, service));
-    EXPECT_TRUE(indexMatchingSubTreeMapObjectPath(asyncResp, 2, subtree,
-                                                  objectPath, service));
-    EXPECT_TRUE(indexMatchingSubTreeMapObjectPath(asyncResp, 10, subtree,
-                                                  objectPath, service));
-    EXPECT_TRUE(indexMatchingSubTreeMapObjectPath(asyncResp, 999, subtree,
-                                                  objectPath, service));
-    EXPECT_FALSE(indexMatchingSubTreeMapObjectPath(asyncResp, 100, subtree,
-                                                   objectPath, service));
-    EXPECT_FALSE(indexMatchingSubTreeMapObjectPath(asyncResp, 11, subtree,
-                                                   objectPath, service));
-    EXPECT_FALSE(indexMatchingSubTreeMapObjectPath(asyncResp, 0, subtree,
-                                                   objectPath, service));
+    EXPECT_TRUE(systems_utils::indexMatchingSubTreeMapObjectPath(
+        asyncResp, 1, subtree, objectPath, service));
+    EXPECT_TRUE(systems_utils::indexMatchingSubTreeMapObjectPath(
+        asyncResp, 2, subtree, objectPath, service));
+    EXPECT_TRUE(systems_utils::indexMatchingSubTreeMapObjectPath(
+        asyncResp, 10, subtree, objectPath, service));
+    EXPECT_TRUE(systems_utils::indexMatchingSubTreeMapObjectPath(
+        asyncResp, 999, subtree, objectPath, service));
+    EXPECT_FALSE(systems_utils::indexMatchingSubTreeMapObjectPath(
+        asyncResp, 100, subtree, objectPath, service));
+    EXPECT_FALSE(systems_utils::indexMatchingSubTreeMapObjectPath(
+        asyncResp, 11, subtree, objectPath, service));
+    EXPECT_FALSE(systems_utils::indexMatchingSubTreeMapObjectPath(
+        asyncResp, 0, subtree, objectPath, service));
 
-    indexMatchingSubTreeMapObjectPath(asyncResp, 1, subtree, objectPath,
-                                      service);
+    systems_utils::indexMatchingSubTreeMapObjectPath(asyncResp, 1, subtree,
+                                                     objectPath, service);
     EXPECT_EQ(objectPath, "/xyz/openbmc_project/control/host1");
     EXPECT_EQ(service, "xyz.openbmc_project.Settings");
 
-    indexMatchingSubTreeMapObjectPath(asyncResp, 10, subtree, objectPath,
-                                      service);
+    systems_utils::indexMatchingSubTreeMapObjectPath(asyncResp, 10, subtree,
+                                                     objectPath, service);
     EXPECT_EQ(objectPath,
               "/xyz/openbmc_project/control/host10/policy/TPMEnable");
 
-    indexMatchingSubTreeMapObjectPath(asyncResp, 999, subtree, objectPath,
-                                      service);
+    systems_utils::indexMatchingSubTreeMapObjectPath(asyncResp, 999, subtree,
+                                                     objectPath, service);
     EXPECT_EQ(objectPath, "/xyz/openbmc_project/control/host999/");
 }
 } // namespace
