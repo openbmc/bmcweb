@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02ffddf5_ecf1b0b0",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-17T13:08:52Z",
+      "side": 1,
+      "message": "InternalError ? Typically a LOG_ERROR comes with a 5xx return code",
+      "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6613780f_dea869c1",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-17T13:08:52Z",
+      "side": 1,
+      "message": "WARNING typically is a 4xx error but I don\u0027t care as much here. An InternalError and a 5xx don\u0027t make sense here?",
+      "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d052a1b_89530a02",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-17T13:08:52Z",
+      "side": 1,
+      "message": "getAll doesn\u0027t make more sense than ~10 getProperty calls? E.g. \nhttps://github.com/openbmc/bmcweb/blob/9c75bf7a265a36d23fd92f979a3de227a9e11ff9/redfish-core/lib/thermal_metrics.hpp#L103",
+      "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
