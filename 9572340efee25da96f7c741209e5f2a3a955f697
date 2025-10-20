@@ -192,6 +192,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c66e300_3ade4558",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-20T17:41:09Z",
+      "side": 1,
+      "message": "Yep, I\u0027m not that worried about it now that I understand.",
+      "parentUuid": "0e67e078_d2c414c0",
+      "range": {
+        "startLine": 14,
+        "startChar": 27,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "9572340efee25da96f7c741209e5f2a3a955f697",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e26f8574_ba31731d",
