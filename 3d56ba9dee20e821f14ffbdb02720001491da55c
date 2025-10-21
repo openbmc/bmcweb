@@ -52,6 +52,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a057367_408d8f1a",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2025-10-21T10:18:49Z",
+      "side": 1,
+      "message": "Update source code to use getMessageComponents function instead.",
+      "parentUuid": "6b2e82b4_ed1c72dc",
+      "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6706be7f_6f0443c0",
@@ -65,6 +83,24 @@
       "writtenOn": "2025-10-17T23:32:48Z",
       "side": 1,
       "message": "Don\u0027t take the existing MessageId and \"correct\" it.  We have the raw registry structure, we can pull it in directly.  See next comment.",
+      "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "753a781e_7ee76306",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2025-10-21T10:18:49Z",
+      "side": 1,
+      "message": "Replace correctVersionOfMessageId with getMessageComponents function.",
+      "parentUuid": "6706be7f_6f0443c0",
       "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -86,6 +122,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "954d7cf2_4aa6b3ba",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2025-10-21T10:18:49Z",
+      "side": 1,
+      "message": "Replace `correctVersionOfMessageId` with `getMessageComponents` function as your suggestion. Updated coresponding code in the `systems_logservices_journal_eventlog.hpp` and `event_log.cpp` files.",
+      "parentUuid": "be9fed03_7e75b8e4",
+      "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e70baee_f8fca60e",
@@ -99,6 +153,30 @@
       "writtenOn": "2025-10-17T23:32:48Z",
       "side": 1,
       "message": "nit, this is 3 lines when it should\u0027ve been one:\n\nreturn std::format(...);",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 28
+      },
+      "revId": "3d56ba9dee20e821f14ffbdb02720001491da55c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a1a29f8_54988255",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2025-10-21T10:18:49Z",
+      "side": 1,
+      "message": "Replace correctVersionOfMessageId with getMessageComponents function as your suggestion",
+      "parentUuid": "1e70baee_f8fca60e",
       "range": {
         "startLine": 114,
         "startChar": 0,
