@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d4568e8_5d05e093",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-21T16:24:15Z",
+      "side": 1,
+      "message": "Mostly just style things now.",
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86e1209a_b35b59e0",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-21T16:24:15Z",
+      "side": 1,
+      "message": "Please don\u0027t use auto for these types of single calls.  It obfuscates the type and makes it hard to review.",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 8
+      },
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aaf185e_470dfd46",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-21T16:24:15Z",
+      "side": 1,
+      "message": "No need to add __func__.  The equivalent is added for you already by the macro.  Please fix all instances of this.",
+      "range": {
+        "startLine": 121,
+        "startChar": 65,
+        "endLine": 121,
+        "endChar": 73
+      },
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1457352_be8b412a",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-21T16:24:15Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 8
+      },
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6210bec_e61ef3d9",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-21T16:24:15Z",
+      "side": 1,
+      "message": "This is making a copy of the whole registry.  Probably not what you intended.  Just declare the type and this should be good.",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 8
+      },
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1aa7b3d_6abe9b1e",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-21T16:24:15Z",
+      "side": 1,
+      "message": "nit, all of these should be std::move.",
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
