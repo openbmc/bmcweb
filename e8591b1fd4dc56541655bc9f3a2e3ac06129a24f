@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0196a2f_c22f6a80",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-21T22:21:58Z",
+      "side": 1,
+      "message": "Seems reasonable to me",
+      "revId": "e8591b1fd4dc56541655bc9f3a2e3ac06129a24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00a55d77_1c6f222c",
+        "filename": "test/include/dbus_privileges_test.cpp",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-21T22:21:58Z",
+      "side": 1,
+      "message": "I feel like you are missing \n```\n#include \u003cboost/system/error_code.hpp\u003e\n```\n\nand \n```\n#include \"dbus_utility.hpp\"\n```",
+      "revId": "e8591b1fd4dc56541655bc9f3a2e3ac06129a24f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
