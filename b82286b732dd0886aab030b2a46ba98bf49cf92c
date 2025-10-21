@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be5a94bf_a13aad72",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2025-10-21T17:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86e1209a_b35b59e0",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 8
+      },
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8aaf185e_470dfd46",
@@ -54,6 +78,30 @@
       "writtenOn": "2025-10-21T16:24:15Z",
       "side": 1,
       "message": "No need to add __func__.  The equivalent is added for you already by the macro.  Please fix all instances of this.",
+      "range": {
+        "startLine": 121,
+        "startChar": 65,
+        "endLine": 121,
+        "endChar": 73
+      },
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4fcda27_3792f233",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2025-10-21T17:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8aaf185e_470dfd46",
       "range": {
         "startLine": 121,
         "startChar": 65,
@@ -87,6 +135,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e6e14a9_bfdf8566",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2025-10-21T17:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1457352_be8b412a",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 8
+      },
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6210bec_e61ef3d9",
@@ -110,6 +182,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13bdd734_34348513",
+        "filename": "redfish-core/src/event_log.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2025-10-21T17:53:18Z",
+      "side": 1,
+      "message": "I defined 2 variables instead.",
+      "parentUuid": "b6210bec_e61ef3d9",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 164,
+        "endChar": 8
+      },
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1aa7b3d_6abe9b1e",
@@ -123,6 +219,24 @@
       "writtenOn": "2025-10-21T16:24:15Z",
       "side": 1,
       "message": "nit, all of these should be std::move.",
+      "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a196dfd0_4e6743b5",
+        "filename": "redfish-core/src/registries.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001198
+      },
+      "writtenOn": "2025-10-21T17:53:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1aa7b3d_6abe9b1e",
       "revId": "b82286b732dd0886aab030b2a46ba98bf49cf92c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
