@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb1a30ed_edec22d6",
+        "filename": "redfish-core/lib/systems_logservices_journal_eventlog.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-21T22:27:20Z",
+      "side": 0,
+      "message": "Not sure why you removed these going from patch set 8 to 9. The include cleaner got reenabled so please rebase these one more time. Other than that this looks fine to me. https://gerrit.openbmc.org/c/openbmc/bmcweb/+/83762",
+      "revId": "1188a58e8e3d4423f2932dfe3a51610670309281",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
