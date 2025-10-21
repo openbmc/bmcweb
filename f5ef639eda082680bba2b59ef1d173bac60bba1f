@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bde99e7d_5cc30377",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-10-21T16:01:43Z",
+      "side": 1,
+      "message": "My question here: If i have a multi-host system and my system name is `system` (same as the default value on the meson option) and i have managed host interface, i will not get any memory collection.\n\nIs this intended?\n\nI thought in multi-host case we simply ignore the meson option for the system name.",
+      "revId": "f5ef639eda082680bba2b59ef1d173bac60bba1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
