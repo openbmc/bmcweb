@@ -51,6 +51,24 @@
       "parentUuid": "f093338d_125c348a",
       "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "956e6193_07e94741",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-21T17:04:43Z",
+      "side": 1,
+      "message": "I\u0027ve made some minor changes to this (passing the callback through to keep the lambda simple.)\n\nPTAL.",
+      "parentUuid": "3c85a529_5ae0a30d",
+      "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
