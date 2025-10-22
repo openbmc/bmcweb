@@ -52,6 +52,41 @@
       "parentUuid": "7ed869f3_73c99c70",
       "revId": "f5ef639eda082680bba2b59ef1d173bac60bba1f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a132ccd0_6c5045d8",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 950,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-10-22T08:15:51Z",
+      "side": 1,
+      "message": "The code to GET systems collection does not have this condition.\n\nhttps://github.com/openbmc/bmcweb/blob/2ca561945f9c518e4916cd23c194f89816fdbeee/redfish-core/include/utils/systems_utils.hpp#L29\n\nI don\u0027t think we need this condition, if we can drop it the code will be simpler.\n\n@oliver.brewka@9elements.com is there any restriction on the system\u0027s name?\n\n\u003e And I got this review:\n\n\u003e For non-multi-host system this check is still needed.\n\nYes but since `if constexpr (BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)` we are in the multi-host code path.",
+      "parentUuid": "7ed869f3_73c99c70",
+      "revId": "f5ef639eda082680bba2b59ef1d173bac60bba1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ce1ab0d_da81812b",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 1001712
+      },
+      "writtenOn": "2025-10-22T08:15:51Z",
+      "side": 1,
+      "message": "nit: Can this just be an `else` branch?\n\nFrom my perspective it would make the code more readable.",
+      "revId": "f5ef639eda082680bba2b59ef1d173bac60bba1f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
