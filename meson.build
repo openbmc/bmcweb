@@ -67,7 +67,7 @@ incdir = [
 ]
 
 # Add compiler arguments
-boost_flags = ['-Wno-unused-parameter']
+boost_flags = ['-Wno-pedantic']
 nghttp2_flags = []
 if (cxx.get_id() == 'clang')
     if (cxx.version().version_compare('<17.0'))
@@ -291,24 +291,12 @@ bmcweb_dependencies += nlohmann_json_dep
 
 boost = dependency(
     'boost',
-    modules: ['url'],
-    version: '>=1.84.0',
-    required: false,
+    modules: ['url', 'process'],
+    version: '>=1.89.0',
     static: true,
+    required: false,
     include_type: 'system',
 )
-
-# Boost version is 1.86 or higher to include the 'process' module
-if boost.version().version_compare('>=1.86.0')
-    boost = dependency(
-        'boost',
-        modules: ['url', 'process'],
-        version: '>=1.86.0',
-        static: true,
-        required: false,
-        include_type: 'system',
-    )
-endif
 
 if boost.found()
     bmcweb_dependencies += [boost]
@@ -333,6 +321,7 @@ else
             'CMAKE_C_FLAGS': ' '.join(boost_flags),
             'BOOST_INCLUDE_LIBRARIES': ';'.join(boost_libs),
             'BUILD_SHARED_LIBS': 'OFF',
+            'BOOST_PROCESS_USE_STD_FS': 'ON',
         },
     )
 
