@@ -16,6 +16,24 @@
       "message": "You lost this  ( pPrivKey \u003d nullptr; ) but it should matter right? pPrivKey wasn\u0027t used later or anything..  So not sure why it was there..",
       "revId": "9c75bf7a265a36d23fd92f979a3de227a9e11ff9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af4e8125_09e8a7d1",
+        "filename": "src/ssl_key_handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-22T18:58:40Z",
+      "side": 0,
+      "message": "It was just a preventative against double free.  I think we\u0027re good without it in the new flow, because that element goes out of scope immediately, so it\u0027s obvious it can\u0027t be freed twice.\n\nThis code has also morphed so many times.",
+      "parentUuid": "1787b3e6_a264cc33",
+      "revId": "9c75bf7a265a36d23fd92f979a3de227a9e11ff9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
