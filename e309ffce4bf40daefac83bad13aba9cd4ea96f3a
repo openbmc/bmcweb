@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41d70ff9_c56b8d3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-22T15:32:49Z",
+      "side": 1,
+      "message": "Looks good to me other than the comment that didn\u0027t make it along with the refactor.",
+      "revId": "e309ffce4bf40daefac83bad13aba9cd4ea96f3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2198bdaa_a6d70624",
+        "filename": "redfish-core/lib/systems_logservices_dbus_eventlog.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-22T15:32:49Z",
+      "side": 1,
+      "message": "nit: Please refactor the comment here as well.",
+      "range": {
+        "startLine": 365,
+        "startChar": 0,
+        "endLine": 365,
+        "endChar": 2
+      },
+      "revId": "e309ffce4bf40daefac83bad13aba9cd4ea96f3a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
