@@ -16,6 +16,24 @@
       "message": "If you still want, this looks reasonable to me. Just a basic test, stop bmcweb, rm certificate, start bmcweb I believe would call this function ?",
       "revId": "df3b4cf97b4d0e09cea7d9288f451c8aab25f569",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af7b0c2b_bbc34288",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-22T18:06:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d69e131_0e38ef78",
+      "revId": "df3b4cf97b4d0e09cea7d9288f451c8aab25f569",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
