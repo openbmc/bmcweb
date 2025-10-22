@@ -519,13 +519,6 @@ static bool getSslContext(boost::asio::ssl::context& mSslContext,
         }
     }
 
-    // Set up EC curves to auto (boost asio doesn't have a method for this)
-    // There is a pull request to add this.  Once this is included in an asio
-    // drop, use the right way
-    // http://stackoverflow.com/questions/18929049/boost-asio-with-ecdsa-certificate-issue
-    if (SSL_CTX_set_ecdh_auto(mSslContext.native_handle(), 1) != 1)
-    {}
-
     if (SSL_CTX_set_cipher_list(mSslContext.native_handle(),
                                 mozillaIntermediate) != 1)
     {
