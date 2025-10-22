@@ -5,6 +5,7 @@
 #include <boost/system/error_code.hpp>
 #include <boost/url/grammar/string_view_base.hpp>
 #include <boost/url/url_view_base.hpp>
+#include <boost/version.hpp>
 
 #include <concepts>
 #include <format>
@@ -51,7 +52,7 @@ struct std::formatter<UrlBase>
         return std::format_to(ctx.out(), "{}", std::string_view(msg.buffer()));
     }
 };
-
+#if BOOST_VERSION < 108800
 template <std::derived_from<boost::core::string_view> StringView>
 struct std::formatter<StringView>
 {
@@ -64,4 +65,5 @@ struct std::formatter<StringView>
         return std::format_to(ctx.out(), "{}", std::string_view(msg));
     }
 };
+#endif
 // NOLINTEND(readability-convert-member-functions-to-static, cert-dcl58-cpp)
