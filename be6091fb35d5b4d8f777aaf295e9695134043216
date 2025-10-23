@@ -47,6 +47,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "650efda5_0c4318fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-23T09:55:14Z",
+      "side": 1,
+      "message": "Reworked the patch to not change the behavior of single host systems.",
+      "parentUuid": "8a0bb49b_5984d08b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 6
+      },
+      "revId": "be6091fb35d5b4d8f777aaf295e9695134043216",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c067eb4c_3f08b0be",
@@ -70,6 +94,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6594ef83_5b437cac",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-23T09:55:14Z",
+      "side": 1,
+      "message": "I was pretty sure I need the systemName somewhere down the line, but I didnt see it. Thanks for the hint.",
+      "parentUuid": "c067eb4c_3f08b0be",
+      "range": {
+        "startLine": 13,
+        "startChar": 35,
+        "endLine": 13,
+        "endChar": 37
+      },
+      "revId": "be6091fb35d5b4d8f777aaf295e9695134043216",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f64a98c_fba843ba",
@@ -83,6 +131,30 @@
       "writtenOn": "2025-09-24T19:41:37Z",
       "side": 1,
       "message": "?? Is this leftover debug code?",
+      "range": {
+        "startLine": 945,
+        "startChar": 0,
+        "endLine": 945,
+        "endChar": 2
+      },
+      "revId": "be6091fb35d5b4d8f777aaf295e9695134043216",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "381588f6_87f13296",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-23T09:55:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f64a98c_fba843ba",
       "range": {
         "startLine": 945,
         "startChar": 0,

@@ -22,6 +22,30 @@
       },
       "revId": "db64f2fdc5cd1382039ba57d8cc88d50c0e4d551",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f9e1f2c_3c16cf0f",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-23T09:55:14Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "3b5369fa_14e9f86b",
+      "range": {
+        "startLine": 952,
+        "startChar": 0,
+        "endLine": 952,
+        "endChar": 2
+      },
+      "revId": "db64f2fdc5cd1382039ba57d8cc88d50c0e4d551",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
