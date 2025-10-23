@@ -44,6 +44,8 @@
 #include "sensors.hpp"
 #include "service_root.hpp"
 #include "storage.hpp"
+#include "storage_controller.hpp"
+#include "storage_drive.hpp"
 #include "systems.hpp"
 #include "systems_logservices_dbus_eventlog.hpp"
 #include "systems_logservices_hostlogger.hpp"
@@ -104,13 +106,10 @@ RedfishService::RedfishService(App& app)
     requestRoutesChassisResetAction(app);
     requestRoutesChassisResetActionInfo(app);
     requestRoutesChassisDrive(app);
-    requestRoutesChassisDriveName(app);
     requestRoutesUpdateService(app);
     requestRoutesStorageCollection(app);
     requestRoutesStorage(app);
-    requestRoutesStorageControllerCollection(app);
     requestRoutesStorageController(app);
-    requestRoutesDrive(app);
     requestRoutesCable(app);
     requestRoutesCableCollection(app);
 
