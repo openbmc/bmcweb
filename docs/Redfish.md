@@ -482,6 +482,85 @@ Fields common to all schemas
 - SerialNumber
 - SparePartNumber
 
+### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/
+
+#### NetworkAdapterCollection
+
+- @odata.id
+- @odata.type
+- Members
+- `Members@odata.count`
+- Name
+
+### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/
+
+#### NetworkAdapter
+
+- @odata.id
+- @odata.type
+- Id
+- Name
+- Ports
+- Status
+  - Health
+  - HealthRollup
+  - State
+
+### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Ports/
+
+#### PortCollection
+
+- @odata.id
+- @odata.type
+- Members
+- `Members@odata.count`
+- Name
+
+### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Ports/{PortId}/
+
+#### Port
+
+- @odata.id
+- @odata.type
+- Id
+- Metrics
+- Name
+- Status
+  - Health
+  - HealthRollup
+  - State
+
+### /redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Ports/{PortId}/Metrics/
+
+#### PortMetrics
+
+- @odata.id
+- @odata.type
+- Id
+- Name
+- Networking
+  - RXBroadcastFrames
+  - RXFCSErrors
+  - RXFalseCarrierErrors
+  - RXFrameAlignmentErrors
+  - RXMulticastFrames
+  - RXOversizeFrames
+  - RXPauseXOFFFrames
+  - RXPauseXONFrames
+  - RXUndersizeFrames
+  - RXUnicastFrames
+  - TXBroadcastFrames
+  - TXExcessiveCollisions
+  - TXLateCollisions
+  - TXMulticastFrames
+  - TXMultipleCollisions
+  - TXPauseXOFFFrames
+  - TXPauseXONFrames
+  - TXSingleCollisions
+  - TXUnicastFrames
+- RXBytes
+- TXBytes
+
 ### /redfish/v1/EventService/
 
 #### EventService
