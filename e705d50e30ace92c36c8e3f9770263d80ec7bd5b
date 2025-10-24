@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "217263d5_6a24f910",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-24T11:50:51Z",
+      "side": 1,
+      "message": "Changed it to `BMCWEB_LOG_DEBUG`.",
+      "parentUuid": "02ffddf5_ecf1b0b0",
+      "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6613780f_dea869c1",
@@ -35,6 +53,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5a20c9_c129a5d0",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-24T11:50:51Z",
+      "side": 1,
+      "message": "Changed it to `BMCWEB_LOG_DEBUG`.",
+      "parentUuid": "6613780f_dea869c1",
+      "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d052a1b_89530a02",
@@ -48,6 +84,24 @@
       "writtenOn": "2025-10-17T13:08:52Z",
       "side": 1,
       "message": "getAll doesn\u0027t make more sense than ~10 getProperty calls? E.g. \nhttps://github.com/openbmc/bmcweb/blob/9c75bf7a265a36d23fd92f979a3de227a9e11ff9/redfish-core/lib/thermal_metrics.hpp#L103",
+      "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff250577_573d7be3",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-24T11:50:51Z",
+      "side": 1,
+      "message": "For each Metric Value, there is a separate DBus Object Path (Name of the Metric is part of the DBus Object Path) that hosts Interface `xyz.openbmc_project.Metric.Value`. Doing `GetAll` call is not possible in such case. Refer commit message of associated DBus sensor patch - https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/84132.",
+      "parentUuid": "0d052a1b_89530a02",
       "revId": "e705d50e30ace92c36c8e3f9770263d80ec7bd5b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
