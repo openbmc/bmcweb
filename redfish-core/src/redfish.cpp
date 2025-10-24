@@ -30,6 +30,7 @@
 #include "metadata.hpp"
 #include "metric_report.hpp"
 #include "metric_report_definition.hpp"
+#include "network_adapter.hpp"
 #include "network_protocol.hpp"
 #include "odata.hpp"
 #include "openbmc/openbmc_managers.hpp"
@@ -108,6 +109,7 @@ RedfishService::RedfishService(App& app)
     requestRoutesChassisResetActionInfo(app);
     requestRoutesChassisDrive(app);
     requestRoutesChassisDriveName(app);
+    requestRoutesChassisNetworkAdapter(app);
     requestRoutesUpdateService(app);
     requestRoutesStorageCollection(app);
     requestRoutesStorage(app);
