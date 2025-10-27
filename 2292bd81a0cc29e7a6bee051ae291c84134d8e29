@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "add4fdce_96112ba9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-27T13:53:22Z",
+      "side": 1,
+      "message": "Can you get on a CLA? \nIf you are working for a company working on OpenBMC, can they add you to a corporate CLA? \nIf you are an individual working on OpenBMC, can you sign an individual CLA?",
+      "revId": "2292bd81a0cc29e7a6bee051ae291c84134d8e29",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
