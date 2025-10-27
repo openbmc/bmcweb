@@ -124,6 +124,24 @@
       "parentUuid": "0117949e_c7743358",
       "revId": "7b2a70cba317b02dd2ac117d1c9714f0cc9672d3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28375d58_2346a797",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2025-10-27T07:49:21Z",
+      "side": 1,
+      "message": "@haghera@nvidia.com please see https://gerrit.openbmc.org/c/openbmc/dbus-sensors/+/84651.",
+      "parentUuid": "421e240a_2ed8964d",
+      "revId": "7b2a70cba317b02dd2ac117d1c9714f0cc9672d3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
