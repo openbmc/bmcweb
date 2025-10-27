@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2fb6964_9904000b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-27T14:42:59Z",
+      "side": 1,
+      "message": "Commit message still shows the double slash here. Does it just need to be updated with current output?",
+      "parentUuid": "6594ef83_5b437cac",
+      "range": {
+        "startLine": 13,
+        "startChar": 35,
+        "endLine": 13,
+        "endChar": 37
+      },
+      "revId": "be6091fb35d5b4d8f777aaf295e9695134043216",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f64a98c_fba843ba",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 3
