@@ -64,6 +64,8 @@ static int setLogLevel(std::string& loglevel)
     boost::asio::io_context io;
     auto conn = std::make_shared<sdbusplus::asio::connection>(io);
 
+    cliLogLevel("INFO");
+
     // Attempt to async_call to set logging level
     conn->async_method_call(
         [&io, loglevel](boost::system::error_code& ec) mutable {
@@ -87,8 +89,6 @@ static int setLogLevel(std::string& loglevel)
 int runCLI(int argc, char** argv) noexcept(false)
 {
     CLI::App app("BMCWeb CLI");
-
-    cliLogLevel("INFO");
 
     const CLI::Validator levelValidator =
         CLI::Validator(validateLogLevel, "valid level");
