@@ -87,6 +87,24 @@
       "parentUuid": "956e6193_07e94741",
       "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f4466bc_9ffd42e2",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2025-10-27T23:42:09Z",
+      "side": 1,
+      "message": "Have you tested both code paths that hit this?  That\u0027s the real question.  404 would somewhat imply that you hit the 404 handler, not the second path of the code.",
+      "parentUuid": "5a351526_ee4bc112",
+      "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
