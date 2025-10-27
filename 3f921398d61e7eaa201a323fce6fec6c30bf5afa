@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e88d7b1_cd902670",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-27T15:26:00Z",
+      "side": 1,
+      "message": "This test is to prove single host system isn\u0027t broken by this change, but here we are getting an error. This should be investigated.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 104
+      },
+      "revId": "3f921398d61e7eaa201a323fce6fec6c30bf5afa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b23b3af_8a9772a2",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-27T15:26:00Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t make sense to me here. Reword?",
+      "range": {
+        "startLine": 958,
+        "startChar": 0,
+        "endLine": 958,
+        "endChar": 2
+      },
+      "revId": "3f921398d61e7eaa201a323fce6fec6c30bf5afa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
