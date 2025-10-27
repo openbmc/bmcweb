@@ -69,6 +69,24 @@
       "parentUuid": "3c85a529_5ae0a30d",
       "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a351526_ee4bc112",
+        "filename": "include/dbus_privileges.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1002382
+      },
+      "writtenOn": "2025-10-27T22:15:45Z",
+      "side": 1,
+      "message": "Hi Ed, thanks for adding the changes, it looks cleaner now 😃\n\nI tried to do what you suggested (when a user is deleted but the session still exist). I am not totally sure whether I do it correctly or not, but what I get is that the http status code is 404 after I delete a user\n\nlet me know if you have any concerns! Also I fixed the CI today, it is green now",
+      "parentUuid": "956e6193_07e94741",
+      "revId": "82cba5d98150621e4afdea3aa4ffaeecd7f7cafb",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
