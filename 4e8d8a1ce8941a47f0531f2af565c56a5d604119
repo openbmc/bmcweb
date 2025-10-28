@@ -22,6 +22,30 @@
       },
       "revId": "4e8d8a1ce8941a47f0531f2af565c56a5d604119",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a332bd06_c63ae5ef",
+        "filename": "src/webserver_cli.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001853
+      },
+      "writtenOn": "2025-10-28T21:32:05Z",
+      "side": 0,
+      "message": "I reverted the behavior to the state before binaries were merged into a single one (see link in the description). \n\n\u003e we can just remove this line. No need to set log level in the CLI for now.\n\nTherefore, the following log:\n\n```\nBMCWEB_LOG_INFO(\"logging level changed to: {}\", loglevel);\n```\n\nwill never be printed unless the default log level in meson is set to \u003e\u003d INFO.\n\nIs this the intended behavior?",
+      "parentUuid": "de266f45_e88bb276",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 24
+      },
+      "revId": "4e8d8a1ce8941a47f0531f2af565c56a5d604119",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
