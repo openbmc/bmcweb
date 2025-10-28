@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c13052fb_f91bf848",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-28T10:48:18Z",
+      "side": 1,
+      "message": "Compiling openbmc image for single host and my test setup leads to this failing results. I need to investigate what my test setup is missing to run this properly, but I suspect the code will continue to run on single host systems.",
+      "parentUuid": "0e88d7b1_cd902670",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 104
+      },
+      "revId": "3f921398d61e7eaa201a323fce6fec6c30bf5afa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b23b3af_8a9772a2",
         "filename": "redfish-core/lib/memory.hpp",
         "patchSetId": 16
@@ -37,6 +61,30 @@
       "writtenOn": "2025-10-27T15:26:00Z",
       "side": 1,
       "message": "This comment doesn\u0027t make sense to me here. Reword?",
+      "range": {
+        "startLine": 958,
+        "startChar": 0,
+        "endLine": 958,
+        "endChar": 2
+      },
+      "revId": "3f921398d61e7eaa201a323fce6fec6c30bf5afa",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85993022_b0353f36",
+        "filename": "redfish-core/lib/memory.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-28T10:48:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b23b3af_8a9772a2",
       "range": {
         "startLine": 958,
         "startChar": 0,
