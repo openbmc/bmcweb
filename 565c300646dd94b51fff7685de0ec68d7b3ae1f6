@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b85cbaad_6e97542c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-28T09:34:41Z",
+      "side": 1,
+      "message": "Removed some of the logs",
+      "parentUuid": "c322e02d_cfd06f71",
+      "revId": "565c300646dd94b51fff7685de0ec68d7b3ae1f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38296e0b_b62b1e8b",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-10-27T17:39:45Z",
       "side": 1,
       "message": "So this is failing?  Needs fixed before this can merge.",
+      "range": {
+        "startLine": 250,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 39
+      },
+      "revId": "565c300646dd94b51fff7685de0ec68d7b3ae1f6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b0c1d77_b0d867ae",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-28T09:34:41Z",
+      "side": 1,
+      "message": "This was failing, because the validator ran with \u0027Tree\u0027, and the failing parts were related to the subtree of /Processors/\u003csubtree\u003e. The single processor get was part of the next change, but I merged both changes now to satisfy your requirement.",
+      "parentUuid": "38296e0b_b62b1e8b",
       "range": {
         "startLine": 250,
         "startChar": 0,
