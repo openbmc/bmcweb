@@ -34,6 +34,24 @@
       "parentUuid": "4c58deb0_f809219c",
       "revId": "20786103c1a7729861d7a65adc447c3149ff8de5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa1bf04d_af5281bc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-28T20:18:14Z",
+      "side": 1,
+      "message": "Fabric Adapter is pretty broad but I don\u0027t know anything about your device. \n```\nA fabric adapter represents the physical fabric adapter capable of connecting to an interconnect fabric. Examples include, but are not limited to, Ethernet, NVMe over Fabrics, Gen-Z, and SAS fabric adapters.\n```\n\nThis would be simplier if you didn\u0027t have to implement the Switch / Fabric",
+      "parentUuid": "ad1476b5_a734fe96",
+      "revId": "20786103c1a7729861d7a65adc447c3149ff8de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

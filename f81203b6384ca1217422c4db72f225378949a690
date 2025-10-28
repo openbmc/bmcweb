@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8037e243_912b3cfa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-28T20:18:14Z",
+      "side": 1,
+      "message": "Can you talk more about this device?",
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd7d405f_90b99762",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-28T20:18:14Z",
+      "side": 1,
+      "message": "Missing some includes. include array, string_view, string, memory, boost error_code, d-bus",
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1359c42f_852c6050",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-28T20:18:14Z",
+      "side": 1,
+      "message": "Can we remove HealthRollup ? I don\u0027t think we have a design for it",
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25ad9d48_567cb925",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-28T20:18:14Z",
+      "side": 1,
+      "message": "Is this association documented in PDI ?",
+      "range": {
+        "startLine": 92,
+        "startChar": 9,
+        "endLine": 92,
+        "endChar": 21
+      },
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "238df5be_b93b9899",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-28T20:18:14Z",
+      "side": 1,
+      "message": "These don\u0027t look correct",
+      "range": {
+        "startLine": 238,
+        "startChar": 41,
+        "endLine": 238,
+        "endChar": 68
+      },
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87f32c04_603649ca",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-28T20:18:14Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right",
+      "range": {
+        "startLine": 253,
+        "startChar": 41,
+        "endLine": 253,
+        "endChar": 58
+      },
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
