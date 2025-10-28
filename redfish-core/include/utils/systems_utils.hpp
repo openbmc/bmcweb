@@ -50,7 +50,7 @@ inline void handleSystemCollectionMembers(
 
     // consider an empty result as single-host, since single-host systems
     // do not populate the ManagedHost dbus interface
-    if (objects.empty())
+    if (objects.empty() || !BMCWEB_EXPERIMENTAL_REDFISH_MULTI_COMPUTER_SYSTEM)
     {
         asyncResp->res.jsonValue["Members@odata.count"] = 1;
         nlohmann::json::object_t system;
