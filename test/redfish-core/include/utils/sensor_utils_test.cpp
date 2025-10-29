@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
 #include "utils/sensor_utils.hpp"
 
+#include <cmath>
 #include <optional>
 #include <string>
 #include <tuple>
@@ -179,6 +180,76 @@ TEST(UpdateSensorStatistics, ParamsNullopt)
 
     EXPECT_FALSE(sensorJson.contains("PeakReading"));
     EXPECT_FALSE(sensorJson.contains("PeakReadingTime"));
+}
+
+TEST(GetFanPercent, Success)
+{
+    std::optional<double> percentValue;
+
+    std::optional<double> value;
+    std::optional<double> maxValue;
+    std::optional<double> minValue;
+
+    value = 4096;
+    maxValue = 4096;
+    minValue = 0;
+    getFanPercent("atMax", maxValue, minValue, value, percentValue);
+    EXPECT_EQ(percentValue.value_or(-1), 100);
+    percentValue.reset();
+
+    value = 1024;
+    maxValue = 4096;
+    minValue = 0;
+    getFanPercent("atQuarter", maxValue, minValue, value, percentValue);
+    EXPECT_EQ(percentValue.value_or(-1), 25);
+    percentValue.reset();
+
+    value = 80;
+    maxValue = 90;
+    minValue = 70;
+    getFanPercent("nonZeroMin", maxValue, minValue, value, percentValue);
+    EXPECT_EQ(percentValue.value_or(-1), 50);
+    percentValue.reset();
+}
+
+TEST(GetFanPercent, Fail)
+{
+    std::optional<double> percentValue;
+
+    std::optional<double> value;
+    std::optional<double> maxValue;
+    std::optional<double> minValue;
+    std::optional<double> noProperty;
+
+    value = 1024;
+    getFanPercent("valOnly", noProperty, noProperty, value, percentValue);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    maxValue = 4096;
+    getFanPercent("noMinValue", maxValue, noProperty, value, percentValue);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    value = 2048;
+    minValue = 1024;
+    getFanPercent("noMaxValue", noProperty, minValue, value, percentValue);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    value = 1024;
+    maxValue = 0;
+    minValue = 4096;
+    getFanPercent("badMaxValue", maxValue, minValue, value, percentValue);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    value = 1024;
+    maxValue = NAN;
+    minValue = -NAN;
+    getFanPercent("defaultMinMax", maxValue, minValue, value, percentValue);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
 }
 
 } // namespace

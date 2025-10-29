@@ -199,7 +199,14 @@ inline std::string_view toReadingUnits(std::string_view sensorType)
     }
     if (sensorType == "fan_tach")
     {
-        return "RPM";
+        if constexpr (BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+        {
+            return "RPM";
+        }
+        else
+        {
+            return "%";
+        }
     }
     if (sensorType == "temperature")
     {
@@ -249,7 +256,14 @@ inline sensor::ReadingType toReadingType(std::string_view sensorType)
     }
     if (sensorType == "fan_tach")
     {
-        return sensor::ReadingType::Rotational;
+        if constexpr (BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+        {
+            return sensor::ReadingType::Rotational;
+        }
+        else
+        {
+            return sensor::ReadingType::Percent;
+        }
     }
     if (sensorType == "temperature")
     {
@@ -479,6 +493,74 @@ inline sensor::ReadingBasisType dBusSensorReadingBasisToRedfish(
     return sensor::ReadingBasisType::Invalid;
 }
 
+/**
+ * @brief Computes percent value for Rotational Fan (fan_tach)
+ * @param[in] sensorName  The name of the fan_tach sensor
+ * @param[in] maxValue The MaxValue D-Bus value
+ * @param[in] minValue The MinValue D-Bus value
+ * @param[in] value The Value D-Bus value
+ * @param[out] percentValue Computed percent returned here if sanity checks pass
+ */
+inline void getFanPercent(
+    std::string_view sensorName, std::optional<double> maxValue,
+    std::optional<double> minValue, std::optional<double> value,
+    std::optional<double>& percentValue)
+{
+    /* Sanity check values to be used to compute the percent and guard against
+     * divide by zero.
+     */
+    if (!value.has_value() || !std::isfinite(*value))
+    {
+        BMCWEB_LOG_DEBUG("No Value for {}", sensorName);
+        return;
+    }
+
+    if (!maxValue.has_value() || !std::isfinite(*maxValue))
+    {
+        BMCWEB_LOG_DEBUG("maxValue not available for {}", sensorName);
+        return;
+    }
+
+    if (!minValue.has_value() || !std::isfinite(*minValue))
+    {
+        BMCWEB_LOG_DEBUG("minValue not available for {}", sensorName);
+        return;
+    }
+
+    double range = *maxValue - *minValue;
+    if (range <= 0)
+    {
+        BMCWEB_LOG_ERROR("Bad min/max for {}", sensorName);
+        return;
+    }
+
+    // Compute fan's RPM Percent value
+    percentValue = ((*value - *minValue) * 100) / range;
+}
+
+inline void convertToFanPercent(
+    nlohmann::json& sensorJson, std::string_view sensorName,
+    nlohmann::json::json_pointer& unit, std::optional<double> maxValue,
+    std::optional<double> minValue, std::optional<double> value, bool isExcerpt)
+{
+    // RPM value reported under SpeedRPM only
+    unit = "/SpeedRPM"_json_pointer;
+
+    if (!isExcerpt)
+    {
+        // Convert max/min to percent range to match Reading
+        sensorJson["ReadingRangeMax"] = 1E2;
+        sensorJson["ReadingRangeMin"] = 0E0;
+    }
+
+    std::optional<double> percentValue;
+    getFanPercent(sensorName, maxValue, minValue, value, percentValue);
+    if (percentValue.has_value())
+    {
+        sensorJson["Reading"] = percentValue;
+    }
+}
+
 inline sensor::ImplementationType dBusSensorImplementationToRedfish(
     const std::string& implementation)
 {
@@ -525,76 +607,112 @@ inline void fillSensorStatus(
         getHealth(sensorJson, propertiesDict, inventoryItem);
 }
 
-inline void fillSensorIdentity(
+inline bool fillSensorIdentity(
     std::string_view sensorName, std::string_view sensorType,
     const dbus::utility::DBusPropertiesMap& propertiesDict,
-    nlohmann::json& sensorJson)
+    nlohmann::json& sensorJson, bool isExcerpt,
+    nlohmann::json::json_pointer& unit)
 {
-    std::string subNodeEscaped = getSensorId(sensorName, sensorType);
-    // For sensors in SensorCollection we set Id instead of MemberId,
-    // including power sensors.
-    sensorJson["Id"] = std::move(subNodeEscaped);
-
-    std::string sensorNameEs(sensorName);
-    std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
-    sensorJson["Name"] = std::move(sensorNameEs);
-    sensorJson["@odata.type"] = "#Sensor.v1_11_0.Sensor";
-
-    sensor::ReadingType readingType = sensors::toReadingType(sensorType);
-    if (readingType == sensor::ReadingType::Invalid)
-    {
-        BMCWEB_LOG_ERROR("Redfish cannot map reading type for {}", sensorType);
-    }
-    else
-    {
-        sensorJson["ReadingType"] = readingType;
-    }
-
-    std::string_view readingUnits = sensors::toReadingUnits(sensorType);
-    if (readingUnits.empty())
-    {
-        BMCWEB_LOG_ERROR("Redfish cannot map reading unit for {}", sensorType);
-    }
-    else
-    {
-        sensorJson["ReadingUnits"] = readingUnits;
-    }
-
     std::optional<std::string> readingBasis;
     std::optional<std::string> implementation;
     std::optional<Statistics> statistics;
     std::optional<ReadingParameters> readingParameters;
+    std::optional<double> maxValue;
+    std::optional<double> minValue;
+    std::optional<double> value;
 
     const bool success = sdbusplus::unpackPropertiesNoThrow(
         dbus_utils::UnpackErrorPrinter(), propertiesDict, "ReadingBasis",
         readingBasis, "Implementation", implementation, "Readings", statistics,
-        "ReadingParameters", readingParameters);
+        "ReadingParameters", readingParameters, "MaxValue", maxValue,
+        "MinValue", minValue, "Value", value);
+
     if (!success)
     {
+        BMCWEB_LOG_ERROR("Failed to unpack properties");
         messages::internalError();
+        return false;
     }
 
-    if (readingBasis.has_value())
+    /* Sensor excerpts use different keys to reference the sensor. These are
+     * built by the caller.
+     * Additionally they don't include these additional properties.
+     */
+    if (!isExcerpt)
     {
-        sensor::ReadingBasisType readingBasisOpt =
-            dBusSensorReadingBasisToRedfish(*readingBasis);
-        if (readingBasisOpt != sensor::ReadingBasisType::Invalid)
+        std::string subNodeEscaped = getSensorId(sensorName, sensorType);
+        // For sensors in SensorCollection we set Id instead of MemberId,
+        // including power sensors.
+        sensorJson["Id"] = std::move(subNodeEscaped);
+
+        std::string sensorNameEs(sensorName);
+        std::replace(sensorNameEs.begin(), sensorNameEs.end(), '_', ' ');
+        sensorJson["Name"] = std::move(sensorNameEs);
+        sensorJson["@odata.type"] = "#Sensor.v1_11_1.Sensor";
+
+        sensor::ReadingType readingType = sensors::toReadingType(sensorType);
+        if (readingType == sensor::ReadingType::Invalid)
         {
-            sensorJson["ReadingBasis"] = readingBasisOpt;
+            BMCWEB_LOG_ERROR("Redfish cannot map reading type for {}",
+                             sensorType);
+        }
+        else
+        {
+            sensorJson["ReadingType"] = readingType;
+        }
+
+        std::string_view readingUnits = sensors::toReadingUnits(sensorType);
+        if (readingUnits.empty())
+        {
+            BMCWEB_LOG_ERROR("Redfish cannot map reading unit for {}",
+                             sensorType);
+        }
+        else
+        {
+            sensorJson["ReadingUnits"] = readingUnits;
+        }
+
+        if (readingBasis.has_value())
+        {
+            sensor::ReadingBasisType readingBasisOpt =
+                dBusSensorReadingBasisToRedfish(*readingBasis);
+            if (readingBasisOpt != sensor::ReadingBasisType::Invalid)
+            {
+                sensorJson["ReadingBasis"] = readingBasisOpt;
+            }
+        }
+
+        if (implementation.has_value())
+        {
+            sensor::ImplementationType implementationOpt =
+                dBusSensorImplementationToRedfish(*implementation);
+            if (implementationOpt != sensor::ImplementationType::Invalid)
+            {
+                sensorJson["Implementation"] = implementationOpt;
+            }
+        }
+
+        updateSensorStatistics(sensorJson, statistics, readingParameters);
+    }
+
+    if (sensorType == "fan_tach")
+    {
+        if constexpr (BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+        {
+            if (value.has_value() && std::isfinite(*value))
+            {
+                sensorJson["SpeedRPM"] = *value;
+            }
+        }
+        else
+        {
+            // Convert fan's RPM value to Percent value for Reading
+            convertToFanPercent(sensorJson, sensorName, unit, maxValue,
+                                minValue, value, isExcerpt);
         }
     }
 
-    if (implementation.has_value())
-    {
-        sensor::ImplementationType implementationOpt =
-            dBusSensorImplementationToRedfish(*implementation);
-        if (implementationOpt != sensor::ImplementationType::Invalid)
-        {
-            sensorJson["Implementation"] = implementationOpt;
-        }
-    }
-
-    updateSensorStatistics(sensorJson, statistics, readingParameters);
+    return true;
 }
 
 inline bool fillPowerThermalIdentity(
@@ -722,13 +840,6 @@ inline void mapPropertiesBySubnode(
         properties.emplace_back(
             "xyz.openbmc_project.Sensor.Threshold.HardShutdown",
             "HardShutdownLow", "/Thresholds/LowerFatal/Reading"_json_pointer);
-
-        /* Add additional properties specific to sensorType */
-        if (sensorType == "fan_tach")
-        {
-            properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value",
-                                    "/SpeedRPM"_json_pointer);
-        }
     }
     else if (sensorType != "power")
     {
@@ -750,10 +861,30 @@ inline void mapPropertiesBySubnode(
 
     if (chassisSubNode == ChassisSubNode::sensorsNode)
     {
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
-                                "/ReadingRangeMin"_json_pointer);
-        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
-                                "/ReadingRangeMax"_json_pointer);
+        if constexpr (BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+        {
+            properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                    "MinValue",
+                                    "/ReadingRangeMin"_json_pointer);
+            properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                    "MaxValue",
+                                    "/ReadingRangeMax"_json_pointer);
+        }
+        else
+        {
+            /* Range converted to percent for fan_tach sensors in
+             * fillSensorIdentity
+             */
+            if (sensorType != "fan_tach")
+            {
+                properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                        "MinValue",
+                                        "/ReadingRangeMin"_json_pointer);
+                properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                        "MaxValue",
+                                        "/ReadingRangeMax"_json_pointer);
+            }
+        }
         properties.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
                                 "Accuracy", "/Accuracy"_json_pointer);
     }
@@ -800,29 +931,26 @@ inline void objectPropertiesToJson(
 
     // This ChassisSubNode builds sensor excerpts
     bool isExcerpt = isExcerptNode(chassisSubNode);
+    bool filledOk = false;
 
-    /* Sensor excerpts use different keys to reference the sensor. These are
-     * built by the caller.
-     * Additionally they don't include these additional properties.
-     */
+    if (chassisSubNode == ChassisSubNode::sensorsNode || isExcerpt)
+    {
+        filledOk = fillSensorIdentity(sensorName, sensorType, propertiesDict,
+                                      sensorJson, isExcerpt, unit);
+    }
+    else
+    {
+        filledOk =
+            fillPowerThermalIdentity(sensorName, sensorType, sensorJson,
+                                     inventoryItem, unit, std::ref(forceToInt));
+    }
+    if (!filledOk)
+    {
+        return;
+    }
+
     if (!isExcerpt)
     {
-        if (chassisSubNode == ChassisSubNode::sensorsNode)
-        {
-            fillSensorIdentity(sensorName, sensorType, propertiesDict,
-                               sensorJson);
-        }
-        else
-        {
-            bool filledOk = fillPowerThermalIdentity(
-                sensorName, sensorType, sensorJson, inventoryItem, unit,
-                std::ref(forceToInt));
-            if (!filledOk)
-            {
-                return;
-            }
-        }
-
         fillSensorStatus(propertiesDict, sensorJson, inventoryItem);
     }
 
