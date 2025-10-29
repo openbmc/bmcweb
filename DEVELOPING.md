@@ -145,7 +145,7 @@ any openbmc development.
 ### Commit messages
 
 Project
-[commit message formatting](https://github.com/openbmc/docs/blob/master/docs/CONTRIBUTING.md#formatting-commit-messages)
+[commit message formatting](https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#formatting-commit-messages)
 should be obeyed.
 
 Commit messages should answer the following questions:
