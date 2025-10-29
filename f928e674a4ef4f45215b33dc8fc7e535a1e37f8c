@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af2a84ba_e50ec0bb",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-29T14:25:56Z",
+      "side": 1,
+      "message": "This miss shows what kind of testing is needed. Since the route was missing for these in the earlier patch set.",
+      "range": {
+        "startLine": 112,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 29
+      },
+      "revId": "f928e674a4ef4f45215b33dc8fc7e535a1e37f8c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

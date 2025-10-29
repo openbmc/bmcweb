@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c710349_9fc777d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-29T14:25:56Z",
+      "side": 1,
+      "message": "The CONTRIBUTING guidelines for the repo point to the general openbmc CONTRIBUTING guidelines. Under that it does specify specific testing requirements. The commit message is supposed to spell out exactly what was tested. If unit test was enough that is okay, it just needs to specify it.\n\nhttps://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#testing",
+      "parentUuid": "83522d19_187964ca",
+      "revId": "b1108dd0b46b154f8789ed9d858cef545cbefb31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb4b2131_b6aa6479",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 3
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "Hmmm, I dont think so, because it is not relevant for any of the functions over there.",
       "parentUuid": "eb4b2131_b6aa6479",
+      "range": {
+        "startLine": 134,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 21
+      },
+      "revId": "b1108dd0b46b154f8789ed9d858cef545cbefb31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d7fba1d_f902f1ea",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001621
+      },
+      "writtenOn": "2025-10-29T14:25:56Z",
+      "side": 1,
+      "message": "The line of what goes into storage_drive.hpp is not clear to me. The handleSystemsStorageDriveGet() function is quite similar to getDrives(). Why is one moved and the other one not moved?\n\nNote: I\u0027m not strongly tied to this comment. No change would be okay, I\u0027m just trying to understand the source file distinctions.",
+      "parentUuid": "3af04b06_29021ff4",
       "range": {
         "startLine": 134,
         "startChar": 12,
