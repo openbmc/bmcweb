@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83522d19_187964ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-29T11:34:08Z",
+      "side": 1,
+      "message": "Just moved code around. What test do you want to see?",
+      "parentUuid": "9d163b1e_a3e7fd39",
+      "revId": "b1108dd0b46b154f8789ed9d858cef545cbefb31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "eb4b2131_b6aa6479",
         "filename": "redfish-core/lib/storage.hpp",
         "patchSetId": 3
@@ -31,6 +49,30 @@
       "writtenOn": "2025-10-27T18:12:16Z",
       "side": 1,
       "message": "Should this and its dependent functions also move into storage_drive.hpp?",
+      "range": {
+        "startLine": 134,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 21
+      },
+      "revId": "b1108dd0b46b154f8789ed9d858cef545cbefb31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3af04b06_29021ff4",
+        "filename": "redfish-core/lib/storage.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-29T11:34:08Z",
+      "side": 1,
+      "message": "Hmmm, I dont think so, because it is not relevant for any of the functions over there.",
+      "parentUuid": "eb4b2131_b6aa6479",
       "range": {
         "startLine": 134,
         "startChar": 12,
