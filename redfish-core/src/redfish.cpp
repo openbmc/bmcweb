@@ -18,7 +18,7 @@
 #include "eventservice_sse.hpp"
 #include "fabric_adapters.hpp"
 #include "fabric_ports.hpp"
-#include "fan.hpp"
+#include "fan_from_sensor.hpp"
 #include "hypervisor_system.hpp"
 #include "log_services.hpp"
 #include "manager_diagnostic_data.hpp"
