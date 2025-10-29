@@ -338,6 +338,20 @@ option(
                     This option will be removed June 2026.''',
 )
 
+# BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS
+option(
+    'redfish-allow-rotational-fans',
+    type: 'feature',
+    value: 'enabled',
+    description: '''Enable/disable the reporting of fan_tach sensors as
+                    Rotational ReadingType. Redfish 2025.3 clarified the
+                    reporting of fan sensors should always be as a Percent
+                    ReadingType. When disabled fan_tach sensors will be
+                    converted to report in Percent. This option will
+                    default to disabled June 2026. The code to enable this
+                    option will be removed by June 2027.''',
+)
+
 # BMCWEB_REDFISH_OEM_MANAGER_FAN_DATA
 option(
     'redfish-oem-manager-fan-data',
