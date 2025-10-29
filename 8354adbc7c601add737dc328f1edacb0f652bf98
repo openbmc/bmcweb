@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54ca0868_1483476c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:20:10Z",
+      "side": 1,
+      "message": "Added the information about the device and justification behind use of this URI.",
+      "parentUuid": "1480234d_715c71a2",
+      "revId": "8354adbc7c601add737dc328f1edacb0f652bf98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4a74bdb_42e01814",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-10-28T20:25:30Z",
       "side": 1,
       "message": "Is this documented in PDI ?",
+      "range": {
+        "startLine": 19,
+        "startChar": 1,
+        "endLine": 19,
+        "endChar": 20
+      },
+      "revId": "8354adbc7c601add737dc328f1edacb0f652bf98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71593998_eb6086fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:20:10Z",
+      "side": 1,
+      "message": "No, this is yet to be done. @deepak.kodihalli.83@gmail.com fyi.",
+      "parentUuid": "f4a74bdb_42e01814",
       "range": {
         "startLine": 19,
         "startChar": 1,
@@ -58,6 +100,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8828470e_9d0b05d9",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:20:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e6df809_fd25f917",
+      "revId": "8354adbc7c601add737dc328f1edacb0f652bf98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3dbfb9fa_e17c6908",
@@ -71,6 +131,24 @@
       "writtenOn": "2025-10-28T20:25:30Z",
       "side": 1,
       "message": "Any chance we can just grab it from https://github.com/openbmc/bmcweb/blob/4e8d8a1ce8941a47f0531f2af565c56a5d604119/redfish-core/include/utils/chassis_utils.hpp#L22",
+      "revId": "8354adbc7c601add737dc328f1edacb0f652bf98",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c970b10_165eeff4",
+        "filename": "redfish-core/lib/network_adapter.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:20:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dbfb9fa_e17c6908",
       "revId": "8354adbc7c601add737dc328f1edacb0f652bf98",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
