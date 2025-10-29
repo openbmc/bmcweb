@@ -16,6 +16,24 @@
       "message": "Do we have it documented anywhere that processors need to do under /system/cpu ?\n\nThis breaks systems \n\nhttps://github.com/openbmc/openpower-vpd-parser/blob/0f740563f7681c215d09bc7ac53d1f51e38a32f5/configuration/ibm/50001002.json#L868\n\nAnd I see other references to CPUs under motherboards\nhttps://github.com/openbmc/skeleton/blob/738dbb9a3caa2f0ff76e92cdf42e0bebd2643bc1/configs/Romulus.py#L91\n\nhttps://github.com/openbmc/openbmc-test-automation/blob/3b2b9cd69d93816dc80bb0b2c78678cad72a91cb/data/Witherspoon.py#L98",
       "revId": "74f4f1c427f228ac82a3d0aa60f314c5fc645783",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cf2da9a_50c4a183",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-29T07:54:03Z",
+      "side": 1,
+      "message": "Forgot to take this back.....now I did. Thanks for pointing that out.",
+      "parentUuid": "16288d9e_7e2e48b8",
+      "revId": "74f4f1c427f228ac82a3d0aa60f314c5fc645783",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
