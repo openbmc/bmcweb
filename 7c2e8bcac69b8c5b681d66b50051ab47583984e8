@@ -1,0 +1,367 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4f7f95f_90002158",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "We already have https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fan.hpp  Why do we need this? Please answer this before, addressing any of the other comments.",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45d096c8_83a89302",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "Please wrap at 72 chars and not a custom length",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31fb857f_806819ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "Testing: Redfish validator before moving from WIP",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dd94c0f_f194434d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "A redfish.md update too please.",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aae9a7bd_7f3086b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "Why can\u0027t we build on https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fan.hpp ?",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdcd9f40_d9133d09",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "#include array, etc",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a83d9053_b88a9d0c",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "WARNING here",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43b88026_02c91797",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "This puts all Fan Sensors under all Chassis? That can\u0027t be correct..",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e77a55a_8dd2147c",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "ERROR here",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb1bd203_8f56fb17",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "include vector",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8d99813_1b2921bd",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/fan.hpp#L348 already has a function that does this",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec26d18c_b1c46834",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "Don\u0027t do this. use BMCWEB_LOG_ERROR",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "118428b9_5d25b6a7",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "ERROR",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce4f582f_b4b8ed9a",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "Let\u0027s use enum here https://github.com/openbmc/bmcweb/blob/21cbc0003a9af5d62195eee5429684d0a992c00e/redfish-core/lib/assembly.hpp#L108",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b36c8e_809560f0",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "ERROR",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf2629ac_1311a9e8",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "Enums here. \nI typically don\u0027t use the tinary operator",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "496fe691_f448df8a",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "WARNING https://github.com/openbmc/bmcweb/blob/21cbc0003a9af5d62195eee5429684d0a992c00e/DEVELOPING.md?plain\u003d1#L228",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "969d3f96_f012ef0f",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "Doesn\u0027t this make sure assumptions? Can you call that out in the commit msg",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c80ebd4c_6b2500ea",
+        "filename": "redfish-core/lib/fan_from_sensor.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "What if you have Availability and a Present interface ?\nhttps://github.com/openbmc/phosphor-dbus-interfaces/blob/e1fc1a1db5edd081e87874e606605991452ccccf/yaml/xyz/openbmc_project/Inventory/Item.interface.yaml#L14",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2a442f0_a97bcbdf",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "Can this be a separate commit ?",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efc0f296_0d896834",
+        "filename": "redfish-core/lib/thermal_subsystem.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:22:00Z",
+      "side": 1,
+      "message": "Enums here",
+      "revId": "7c2e8bcac69b8c5b681d66b50051ab47583984e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
