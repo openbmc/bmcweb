@@ -199,7 +199,14 @@ inline std::string_view toReadingUnits(std::string_view sensorType)
     }
     if (sensorType == "fan_tach")
     {
-        return "RPM";
+        if constexpr (BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+        {
+            return "RPM";
+        }
+        else
+        {
+            return "%";
+        }
     }
     if (sensorType == "temperature")
     {
@@ -249,7 +256,14 @@ inline sensor::ReadingType toReadingType(std::string_view sensorType)
     }
     if (sensorType == "fan_tach")
     {
-        return sensor::ReadingType::Rotational;
+        if constexpr (BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+        {
+            return sensor::ReadingType::Rotational;
+        }
+        else
+        {
+            return sensor::ReadingType::Percent;
+        }
     }
     if (sensorType == "temperature")
     {
@@ -461,6 +475,69 @@ inline sensor::ImplementationType dBusSensorImplementationToRedfish(
 }
 
 /**
+ * @brief Computes percent value for Rotational Fan (fan_tach)
+ * @param sensorName  The name of the fan_tach sensor
+ * @param propertiesDict A dictionary of the properties of the sensor
+ * @param percentValue Computed percent returned here if propertiesDict contain
+ * expected properties.
+ */
+inline void getFanPercent(
+    std::string_view sensorName,
+    const dbus::utility::DBusPropertiesMap& propertiesDict,
+    std::optional<double>& percentValue)
+{
+    std::optional<double> maxValue;
+    std::optional<double> minValue;
+    std::optional<double> value;
+
+    const bool success = sdbusplus::unpackPropertiesNoThrow(
+        dbus_utils::UnpackErrorPrinter(), propertiesDict, "MaxValue", maxValue,
+        "MinValue", minValue, "Value", value);
+    if (!success)
+    {
+        BMCWEB_LOG_DEBUG("Property unpack failed for {}", sensorName);
+        return;
+    }
+
+    /* Sanity check values to be used to compute the percent and guard against
+     * divide by zero.
+     */
+    if (!value.has_value())
+    {
+        BMCWEB_LOG_DEBUG("No Value for {}", sensorName);
+        return;
+    }
+
+    if ((!maxValue.has_value()) || (!minValue.has_value()))
+    {
+        BMCWEB_LOG_DEBUG("Cannot compute percentage for {}", sensorName);
+        return;
+    }
+
+    if (!std::isfinite(*maxValue))
+    {
+        BMCWEB_LOG_DEBUG("maxValue is not finite for {}", sensorName);
+        return;
+    }
+
+    if (!std::isfinite(*minValue))
+    {
+        BMCWEB_LOG_DEBUG("minValue is not finite for {}", sensorName);
+        // Have maxValue so assume 0 based minimum for computing percent.
+        *minValue = 0;
+    }
+
+    double range = *maxValue - *minValue;
+    if (range <= 0)
+    {
+        BMCWEB_LOG_ERROR("Bad min/max for {}", sensorName);
+        return;
+    }
+
+    percentValue = ((*value - *minValue) * 100) / range;
+}
+
+/**
  * @brief Builds a json sensor representation of a sensor.
  * @param sensorName  The name of the sensor to be built
  * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
@@ -539,7 +616,7 @@ inline void objectPropertiesToJson(
 
         if (chassisSubNode == ChassisSubNode::sensorsNode)
         {
-            sensorJson["@odata.type"] = "#Sensor.v1_11_0.Sensor";
+            sensorJson["@odata.type"] = "#Sensor.v1_11_1.Sensor";
 
             sensor::ReadingType readingType =
                 sensors::toReadingType(sensorType);
@@ -654,6 +731,31 @@ inline void objectPropertiesToJson(
         std::tuple<const char*, const char*, nlohmann::json::json_pointer>>
         properties;
 
+    if ((chassisSubNode == ChassisSubNode::sensorsNode) || isExcerpt)
+    {
+        if (sensorType == "fan_tach")
+        {
+            if constexpr (BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+            {
+                properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                        "Value", "/SpeedRPM"_json_pointer);
+            }
+            else
+            {
+                // RPM value reported under SpeedRPM only
+                unit = "/SpeedRPM"_json_pointer;
+
+                // Convert fan's RPM value to Percent value for Reading
+                std::optional<double> percentValue;
+                getFanPercent(sensorName, propertiesDict, percentValue);
+                if (percentValue.has_value())
+                {
+                    sensorJson["Reading"] = *percentValue;
+                }
+            }
+        }
+    }
+
     properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
 
     if (!isExcerpt)
@@ -680,13 +782,6 @@ inline void objectPropertiesToJson(
                 "xyz.openbmc_project.Sensor.Threshold.HardShutdown",
                 "HardShutdownLow",
                 "/Thresholds/LowerFatal/Reading"_json_pointer);
-
-            /* Add additional properties specific to sensorType */
-            if (sensorType == "fan_tach")
-            {
-                properties.emplace_back("xyz.openbmc_project.Sensor.Value",
-                                        "Value", "/SpeedRPM"_json_pointer);
-            }
         }
         else if (sensorType != "power")
         {
@@ -708,12 +803,33 @@ inline void objectPropertiesToJson(
 
         if (chassisSubNode == ChassisSubNode::sensorsNode)
         {
-            properties.emplace_back("xyz.openbmc_project.Sensor.Value",
-                                    "MinValue",
-                                    "/ReadingRangeMin"_json_pointer);
-            properties.emplace_back("xyz.openbmc_project.Sensor.Value",
-                                    "MaxValue",
-                                    "/ReadingRangeMax"_json_pointer);
+            if constexpr (BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+            {
+                properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                        "MinValue",
+                                        "/ReadingRangeMin"_json_pointer);
+                properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                        "MaxValue",
+                                        "/ReadingRangeMax"_json_pointer);
+            }
+            else
+            {
+                if (sensorType == "fan_tach")
+                {
+                    // Convert max/min to percent range to match Reading
+                    sensorJson["ReadingRangeMax"] = 100;
+                    sensorJson["ReadingRangeMin"] = 0;
+                }
+                else
+                {
+                    properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                            "MinValue",
+                                            "/ReadingRangeMin"_json_pointer);
+                    properties.emplace_back("xyz.openbmc_project.Sensor.Value",
+                                            "MaxValue",
+                                            "/ReadingRangeMax"_json_pointer);
+                }
+            }
             properties.emplace_back("xyz.openbmc_project.Sensor.Accuracy",
                                     "Accuracy", "/Accuracy"_json_pointer);
         }

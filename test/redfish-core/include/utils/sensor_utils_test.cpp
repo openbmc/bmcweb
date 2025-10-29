@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "dbus_utility.hpp"
 #include "utils/sensor_utils.hpp"
 
+#include <cmath>
+#include <optional>
 #include <string>
 
 #include <gtest/gtest.h>
@@ -110,6 +113,85 @@ TEST(IsExcerptNode, False)
     EXPECT_FALSE(isExcerptNode(ChassisSubNode::powerNode));
     EXPECT_FALSE(isExcerptNode(ChassisSubNode::thermalNode));
     EXPECT_FALSE(isExcerptNode(ChassisSubNode::unknownNode));
+}
+
+TEST(GetFanPercent, Success)
+{
+    std::optional<double> percentValue;
+
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Value", dbus::utility::DbusVariantType(static_cast<double>(4096))},
+        {"MaxValue", dbus::utility::DbusVariantType(static_cast<double>(4096))},
+        {"MinValue", dbus::utility::DbusVariantType(static_cast<double>(0))},
+    };
+    getFanPercent("valOnly", properties, percentValue);
+    EXPECT_EQ(percentValue.value_or(-1), 100);
+    percentValue.reset();
+
+    properties = {
+        {"Value", dbus::utility::DbusVariantType(static_cast<double>(1024))},
+        {"MaxValue", dbus::utility::DbusVariantType(static_cast<double>(4096))},
+        {"MinValue", dbus::utility::DbusVariantType(static_cast<double>(0))},
+    };
+    getFanPercent("valOnly", properties, percentValue);
+    EXPECT_EQ(percentValue.value_or(-1), 25);
+    percentValue.reset();
+
+    properties.clear();
+    properties = {
+        {"Value", dbus::utility::DbusVariantType(static_cast<double>(80))},
+        {"MaxValue", dbus::utility::DbusVariantType(static_cast<double>(90))},
+        {"MinValue", dbus::utility::DbusVariantType(static_cast<double>(70))},
+    };
+    getFanPercent("valOnly", properties, percentValue);
+    EXPECT_EQ(percentValue.value_or(-1), 50);
+    percentValue.reset();
+}
+
+TEST(GetFanPercent, Fail)
+{
+    std::optional<double> percentValue;
+
+    dbus::utility::DBusPropertiesMap properties = {
+        {"Value", dbus::utility::DbusVariantType(static_cast<double>(1024))},
+    };
+    getFanPercent("valOnly", properties, percentValue);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    properties.emplace_back(
+        std::string("MaxValue"),
+        dbus::utility::DbusVariantType(static_cast<double>(4096)));
+    getFanPercent("valOnly", properties, percentValue);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    properties.clear();
+    properties = {
+        {"Value", dbus::utility::DbusVariantType(static_cast<double>(2048))},
+        {"MinValue", dbus::utility::DbusVariantType(static_cast<double>(1024))},
+    };
+    getFanPercent("valOnly", properties, percentValue);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    properties = {
+        {"Value", dbus::utility::DbusVariantType(static_cast<double>(1024))},
+        {"MaxValue", dbus::utility::DbusVariantType(static_cast<double>(0))},
+        {"MinValue", dbus::utility::DbusVariantType(static_cast<double>(4096))},
+    };
+    getFanPercent("valOnly", properties, percentValue);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    properties = {
+        {"Value", dbus::utility::DbusVariantType(static_cast<double>(1024))},
+        {"MaxValue", dbus::utility::DbusVariantType(static_cast<double>(NAN))},
+        {"MinValue", dbus::utility::DbusVariantType(static_cast<double>(-NAN))},
+    };
+    getFanPercent("valOnly", properties, percentValue);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
 }
 
 } // namespace
