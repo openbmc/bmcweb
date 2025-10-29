@@ -52,6 +52,24 @@
       "parentUuid": "ad1476b5_a734fe96",
       "revId": "20786103c1a7729861d7a65adc447c3149ff8de5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24cc828f_d7ad6092",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:18:23Z",
+      "side": 1,
+      "message": "Added the information about the device in the commit message.",
+      "parentUuid": "aa1bf04d_af5281bc",
+      "revId": "20786103c1a7729861d7a65adc447c3149ff8de5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

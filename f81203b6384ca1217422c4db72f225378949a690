@@ -35,6 +35,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd1d1ac3_55295ed3",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd7d405f_90b99762",
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1359c42f_852c6050",
@@ -52,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ff1ef5a_db186dd8",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1359c42f_852c6050",
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25ad9d48_567cb925",
@@ -65,6 +101,30 @@
       "writtenOn": "2025-10-28T20:18:14Z",
       "side": 1,
       "message": "Is this association documented in PDI ?",
+      "range": {
+        "startLine": 92,
+        "startChar": 9,
+        "endLine": 92,
+        "endChar": 21
+      },
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "decbc7b4_bc387eab",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:18:23Z",
+      "side": 1,
+      "message": "No this is yet to be done.",
+      "parentUuid": "25ad9d48_567cb925",
       "range": {
         "startLine": 92,
         "startChar": 9,
@@ -98,6 +158,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50b202cc_5889d95d",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "238df5be_b93b9899",
+      "range": {
+        "startLine": 238,
+        "startChar": 41,
+        "endLine": 238,
+        "endChar": 68
+      },
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87f32c04_603649ca",
@@ -111,6 +195,30 @@
       "writtenOn": "2025-10-28T20:18:14Z",
       "side": 1,
       "message": "This doesn\u0027t look right",
+      "range": {
+        "startLine": 253,
+        "startChar": 41,
+        "endLine": 253,
+        "endChar": 58
+      },
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b01b5a1d_8e402652",
+        "filename": "redfish-core/lib/fabric.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87f32c04_603649ca",
       "range": {
         "startLine": 253,
         "startChar": 41,
@@ -138,6 +246,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2804293f_1747c43a",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a40bca3_5563d2a4",
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2155dbb_bdc3d56e",
@@ -161,6 +287,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e007b148_35806e23",
+        "filename": "redfish-core/lib/switch_port.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2155dbb_bdc3d56e",
+      "range": {
+        "startLine": 373,
+        "startChar": 41,
+        "endLine": 373,
+        "endChar": 54
+      },
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea9281d3_81dbffa7",
@@ -174,6 +324,24 @@
       "writtenOn": "2025-10-28T20:21:51Z",
       "side": 1,
       "message": "Why wouldn\u0027t these 2 be together? Oh well.",
+      "revId": "f81203b6384ca1217422c4db72f225378949a690",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d404e1a_f6bc4fce",
+        "filename": "redfish-core/src/redfish.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1002395
+      },
+      "writtenOn": "2025-10-29T13:18:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea9281d3_81dbffa7",
       "revId": "f81203b6384ca1217422c4db72f225378949a690",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
