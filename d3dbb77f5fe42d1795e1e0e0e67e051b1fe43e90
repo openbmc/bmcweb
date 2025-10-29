@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "885923aa_9edd7909",
+        "filename": "redfish-core/lib/processor.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:02:16Z",
+      "side": 1,
+      "message": "Why does this need to run before setUpRedfishRoutes? I suspect either is fine, but why move this to the top?",
+      "revId": "d3dbb77f5fe42d1795e1e0e0e67e051b1fe43e90",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}

@@ -70,6 +70,24 @@
       "parentUuid": "42571e27_e9328284",
       "revId": "9832efe759fbcf8736512ecbc1b304cbf9e6fcf9",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba9c386c_1707c190",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T19:02:16Z",
+      "side": 1,
+      "message": "Why can\u0027t we go from system to processor directly ? Why a board? \nWhat if you have multiple Redfish systems on one chassis?",
+      "parentUuid": "5379b0eb_e2e89a3f",
+      "revId": "9832efe759fbcf8736512ecbc1b304cbf9e6fcf9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
