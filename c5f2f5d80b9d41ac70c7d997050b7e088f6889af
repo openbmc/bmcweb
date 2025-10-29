@@ -34,6 +34,24 @@
       "parentUuid": "ed5533bb_669a7b3f",
       "revId": "c5f2f5d80b9d41ac70c7d997050b7e088f6889af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27756781_a9b67b27",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002222
+      },
+      "writtenOn": "2025-10-29T08:07:17Z",
+      "side": 1,
+      "message": "If that change is not desired, I can certainly remove it. No big deal. Mainly ended up here, because I needed a local fix to not add/remove the ManagedHost interface in the configs.",
+      "parentUuid": "d1708fe6_ca24f2b7",
+      "revId": "c5f2f5d80b9d41ac70c7d997050b7e088f6889af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
