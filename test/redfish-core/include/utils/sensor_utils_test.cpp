@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: Apache-2.0
 // SPDX-FileCopyrightText: Copyright OpenBMC Authors
+#include "bmcweb_config.h"
+
+#include "dbus_utility.hpp"
 #include "generated/enums/resource.hpp"
 #include "generated/enums/sensor.hpp"
 #include "generated/enums/thermal.hpp"
 #include "utils/sensor_utils.hpp"
 
+#include <cmath>
 #include <functional>
 #include <optional>
 #include <string>
@@ -289,21 +293,67 @@ TEST(FillSensorStatus, Success)
     EXPECT_EQ(sensorJson["Status"]["Health"], resource::Health::Warning);
 }
 
+using dbus::utility::DbusVariantType;
 using testing::StartsWith;
 
 TEST(FillSensorIdentity, Success)
 {
     nlohmann::json sensorJson;
     auto properties = dbus::utility::DBusPropertiesMap();
+    bool result = false;
+    bool isExcerpt = false;
+    nlohmann::json::json_pointer unit;
 
-    fillSensorIdentity("fan0_0", "fan_tach", properties, sensorJson);
+    unit = "/Reading"_json_pointer;
+    result = fillSensorIdentity("fan0_0", "fan_tach", properties, sensorJson,
+                                isExcerpt, unit);
+    EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
     EXPECT_EQ(sensorJson["Id"].get<std::string>(), "fantach_fan0_0");
     EXPECT_EQ(sensorJson["Name"].get<std::string>(), "fan0 0");
-    EXPECT_EQ(sensorJson["ReadingType"], sensor::ReadingType::Rotational);
-    EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "RPM");
+    if constexpr (BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+    {
+        EXPECT_EQ(sensorJson["ReadingType"], sensor::ReadingType::Rotational);
+        EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "RPM");
+        EXPECT_EQ(unit.to_string(), "/Reading");
+    }
+    else
+    {
+        EXPECT_EQ(sensorJson["ReadingType"], sensor::ReadingType::Percent);
+        EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "%");
+        EXPECT_EQ(unit.to_string(), "/SpeedRPM");
+    }
 
     // Add properties, all are correct
+    isExcerpt = true;
+    unit = "/Reading"_json_pointer;
+    properties = {
+        {"MaxValue", DbusVariantType(static_cast<double>(200))},
+        {"MinValue", DbusVariantType(static_cast<double>(0))},
+        {"Value", DbusVariantType(static_cast<double>(100))},
+    };
+    sensorJson.clear();
+    result = fillSensorIdentity("fan0_0", "fan_tach", properties, sensorJson,
+                                isExcerpt, unit);
+    EXPECT_TRUE(result);
+    EXPECT_FALSE(sensorJson.contains("@odata.type"));
+    EXPECT_FALSE(sensorJson.contains("Id"));
+    EXPECT_FALSE(sensorJson.contains("Name"));
+    EXPECT_FALSE(sensorJson.contains("ReadingType"));
+    EXPECT_FALSE(sensorJson.contains("ReadingUnits"));
+    if constexpr (BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+    {
+        EXPECT_EQ(unit.to_string(), "/Reading");
+        EXPECT_EQ(sensorJson["SpeedRPM"], 100);
+    }
+    else
+    {
+        EXPECT_EQ(unit.to_string(), "/SpeedRPM");
+        EXPECT_EQ(sensorJson["Reading"], 50);
+    }
+
+    isExcerpt = false;
+    unit = "/Reading"_json_pointer;
     properties = {
         {"Implementation",
          "xyz.openbmc_project.Sensor.Type.ImplementationType.Reported"},
@@ -311,7 +361,9 @@ TEST(FillSensorIdentity, Success)
          "xyz.openbmc_project.Sensor.Type.ReadingBasisType.Delta"},
     };
     sensorJson.clear();
-    fillSensorIdentity("power1_0", "power", properties, sensorJson);
+    result = fillSensorIdentity("power1_0", "power", properties, sensorJson,
+                                isExcerpt, unit);
+    EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
     EXPECT_EQ(sensorJson["Id"].get<std::string>(), "power_power1_0");
     EXPECT_EQ(sensorJson["Name"].get<std::string>(), "power1 0");
@@ -320,6 +372,7 @@ TEST(FillSensorIdentity, Success)
     EXPECT_EQ(sensorJson["Implementation"],
               sensor::ImplementationType::Reported);
     EXPECT_EQ(sensorJson["ReadingBasis"], sensor::ReadingBasisType::Delta);
+    EXPECT_EQ(unit.to_string(), "/Reading");
 
     // Add invalid properties
     properties = {
@@ -329,7 +382,9 @@ TEST(FillSensorIdentity, Success)
          "xyz.openbmc_project.Sensor.Type.ReadingBasisType.BADTYPE"},
     };
     sensorJson.clear();
-    fillSensorIdentity("temp2", "temperature", properties, sensorJson);
+    result = fillSensorIdentity("temp2", "temperature", properties, sensorJson,
+                                isExcerpt, unit);
+    EXPECT_TRUE(result);
     EXPECT_THAT(sensorJson["@odata.type"], StartsWith("#Sensor.v1_"));
     EXPECT_EQ(sensorJson["Id"].get<std::string>(), "temperature_temp2");
     EXPECT_EQ(sensorJson["Name"].get<std::string>(), "temp2");
@@ -337,6 +392,22 @@ TEST(FillSensorIdentity, Success)
     EXPECT_EQ(sensorJson["ReadingUnits"].get<std::string>(), "Cel");
     EXPECT_FALSE(sensorJson.contains("Implementation"));
     EXPECT_FALSE(sensorJson.contains("ReadingBasis"));
+    EXPECT_EQ(unit.to_string(), "/Reading");
+}
+
+TEST(FillSensorIdentity, Failure)
+{
+    nlohmann::json sensorJson;
+    dbus::utility::DBusPropertiesMap properties = {
+        {"MaxValue", "BadType"},
+    };
+    nlohmann::json::json_pointer unit;
+    bool result = false;
+    bool isExcerpt = false;
+
+    result = fillSensorIdentity("temp3", "temperature", properties, sensorJson,
+                                isExcerpt, unit);
+    EXPECT_FALSE(result);
 }
 
 TEST(FillPowerThermalIdentity, Success)
@@ -502,14 +573,33 @@ TEST(MapPropertiesBySubnode, Success)
                            unit, isExcerpt);
     EXPECT_THAT(properties, UnorderedElementsAreArray(expectedProps));
 
-    /* fan_tach has an additional property for sensorsNode: SpeedRPM
-     * Add the additional expected property and keep the rest for validation of
-     * the results.
-     */
+    if constexpr (!BMCWEB_REDFISH_ALLOW_ROTATIONAL_FANS)
+    {
+        /* fan_tach sets ReadingRangeMax and ReadingRangeMin elsewhere
+         * Remove these properties and keep the rest for validation of
+         * the results.
+         */
+        expectedProps = {
+            valueElement,
+            {"xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
+             "/Thresholds/UpperCaution/Reading"_json_pointer},
+            {"xyz.openbmc_project.Sensor.Threshold.Warning", "WarningLow",
+             "/Thresholds/LowerCaution/Reading"_json_pointer},
+            {"xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalHigh",
+             "/Thresholds/UpperCritical/Reading"_json_pointer},
+            {"xyz.openbmc_project.Sensor.Threshold.Critical", "CriticalLow",
+             "/Thresholds/LowerCritical/Reading"_json_pointer},
+            {"xyz.openbmc_project.Sensor.Threshold.HardShutdown",
+             "HardShutdownHigh", "/Thresholds/UpperFatal/Reading"_json_pointer},
+            {"xyz.openbmc_project.Sensor.Threshold.HardShutdown",
+             "HardShutdownLow", "/Thresholds/LowerFatal/Reading"_json_pointer},
+            {"xyz.openbmc_project.Sensor.Accuracy", "Accuracy",
+             "/Accuracy"_json_pointer},
+        };
+    }
+
     isExcerpt = false;
     properties.clear();
-    expectedProps.emplace_back("xyz.openbmc_project.Sensor.Value", "Value",
-                               "/SpeedRPM"_json_pointer);
     mapPropertiesBySubnode("fan_tach", ChassisSubNode::sensorsNode, properties,
                            unit, isExcerpt);
     EXPECT_THAT(properties, UnorderedElementsAreArray(expectedProps));
@@ -555,6 +645,84 @@ TEST(MapPropertiesBySubnode, Success)
     mapPropertiesBySubnode("voltage", ChassisSubNode::powerNode, properties,
                            unit, isExcerpt);
     EXPECT_THAT(properties, UnorderedElementsAreArray(expectedProps));
+}
+
+TEST(GetFanPercent, Success)
+{
+    std::optional<long> percentValue;
+
+    std::optional<double> value;
+    std::optional<double> maxValue;
+    std::optional<double> minValue;
+
+    value = 4096;
+    maxValue = 4096;
+    minValue = 0;
+    percentValue = getFanPercent("atMax", maxValue, minValue, value);
+    EXPECT_EQ(percentValue.value_or(-1), 100);
+    percentValue.reset();
+
+    value = 1024;
+    maxValue = 4096;
+    minValue = 0;
+    percentValue = getFanPercent("atQuarter", maxValue, minValue, value);
+    EXPECT_EQ(percentValue.value_or(-1), 25);
+    percentValue.reset();
+
+    value = 80;
+    maxValue = 90;
+    minValue = 70;
+    percentValue = getFanPercent("nonZeroMin", maxValue, minValue, value);
+    EXPECT_EQ(percentValue.value_or(-1), 50);
+    percentValue.reset();
+
+    // Check for expected rounding
+    value = 200;
+    maxValue = 300;
+    minValue = 0;
+    percentValue = getFanPercent("roundedPercent", maxValue, minValue, value);
+    EXPECT_EQ(percentValue.value_or(-1), 67);
+    percentValue.reset();
+}
+
+TEST(GetFanPercent, Fail)
+{
+    std::optional<long> percentValue;
+
+    std::optional<double> value;
+    std::optional<double> maxValue;
+    std::optional<double> minValue;
+    std::optional<double> noProperty;
+
+    value = 1024;
+    percentValue = getFanPercent("valOnly", noProperty, noProperty, value);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    maxValue = 4096;
+    percentValue = getFanPercent("noMinValue", maxValue, noProperty, value);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    value = 2048;
+    minValue = 1024;
+    percentValue = getFanPercent("noMaxValue", noProperty, minValue, value);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    value = 1024;
+    maxValue = 0;
+    minValue = 4096;
+    percentValue = getFanPercent("badMaxValue", maxValue, minValue, value);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
+
+    value = 1024;
+    maxValue = NAN;
+    minValue = -NAN;
+    percentValue = getFanPercent("defaultMinMax", maxValue, minValue, value);
+    EXPECT_FALSE(percentValue.has_value());
+    percentValue.reset();
 }
 
 } // namespace

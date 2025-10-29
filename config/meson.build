@@ -26,6 +26,7 @@ feature_options = [
     'redfish-aggregation',
     'redfish-allow-deprecated-indicatorled',
     'redfish-allow-deprecated-power-thermal',
+    'redfish-allow-rotational-fans',
     'redfish-allow-simple-update',
     'redfish-bmc-journal',
     'redfish-cpu-log',
