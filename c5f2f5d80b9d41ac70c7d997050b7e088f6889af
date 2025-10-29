@@ -52,6 +52,24 @@
       "parentUuid": "d1708fe6_ca24f2b7",
       "revId": "c5f2f5d80b9d41ac70c7d997050b7e088f6889af",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9648584_67e1f6ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T18:57:50Z",
+      "side": 1,
+      "message": "I think you would be better off not having this change, and trying to fix whatever backend is causing you to need this.. That said, if you need it temporarily, I am okay with that.",
+      "parentUuid": "27756781_a9b67b27",
+      "revId": "c5f2f5d80b9d41ac70c7d997050b7e088f6889af",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
