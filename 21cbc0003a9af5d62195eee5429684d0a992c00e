@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62d08005_cdf5bf10",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2025-10-29T15:52:44Z",
+      "side": 1,
+      "message": "Pretty clear the old link is bad and new one is correct. Thanks for fixing!",
+      "revId": "21cbc0003a9af5d62195eee5429684d0a992c00e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
